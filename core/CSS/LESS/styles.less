@@ -1,5 +1,5 @@
-
-/* The .nostyles class should be applied to elements for testing purposes. An element with a .nostyles class, it will show up if this LESS document is not compiling properly. If it is, the .nostyles class will not display the element. */
+// This is a LESS file. It contains variables, mixins, and much more!
+// The .nostyles class should be applied to elements for testing purposes. An element with a .nostyles class, it will show up if this LESS document is not compiling properly. If it is, the .nostyles class will not display the element.
 .noLESS {display: none !important;}
 
 /* @group font definitions */
@@ -15,13 +15,13 @@
 @aperture-black:      #050200;
 
 @atlas:               #0098ff;
-	@vilify:          #bfe5ff; // atlas-sat25
+	@vilify:          #bfe5ff; // atlas sat 25
 	@atlas-sat16:     #d6eeff;
 	@atlas-sat8:      #eaf6ff;
 @bridges-of-light:    #c0f6ff;
 
 @pbody:               #ff6600;
-	@facility-inv:    #803300; // pbody-bri50
+	@facility-inv:    #803300; // pbody bri 50
 	@pbody-sat25:     #ffd8bf;
 	@pbody-sat16:     #ffe6d6;
 	@pbody-sat8:      #fff2ea;
@@ -32,8 +32,13 @@
 
 @are-you-still-there: #ff001a;
 @her-eye:             #ffed40;
-@heart-companion:     #ffc0e6;
-	@heart-sat50:     #ff80cd;
+@heart-pure:          #ff009a; // sat 100 bri 100
+	@heart-sat50:     #ff7fcc;
+	@heart-sat25:     #ffbfe5;
+	@heart-sat16:     #ffd6ee;
+	@heart-sat8:      #ffeaf6;
+		@help-border: @heart-sat25;
+		@heart-companion: @heart-sat8;
 @neurotoxin:          #73c000;
 @neurotoxin-inv:      #4d00c0;
 /* @end */
@@ -60,7 +65,7 @@ body {
 	text-align: center;
 }
 .h {
-	margin: 0 0 0.25em;
+	margin: 0.5em 0 0.25em;
 	font-style: normal;
 	font-variant: normal;
 	font-weight: normal;
@@ -71,35 +76,34 @@ body {
 }
 h1, .h-alpha {
 	.h;
-	margin-top: 0.5em;
 	font-variant: small-caps;
 	font-weight: bold;
-	font-size: 2.000em; /* 24 */
+	font-size: 2.000em; // 24
 	text-align: center;
 	color: @lake-superior;
 }
 h2, .h-beta {
 	.h;
 	font-weight: bold;
-	font-size: 1.500em; /* 18 */
+	font-size: 1.500em; // 18
 	color: @facility-abyss;
 }
 h3, .h-gamma {
 	.h;
 	font-variant: small-caps;
 	font-weight: bold;
-	font-size: 1.167em; /* 14 */
+	font-size: 1.167em; // 14
 }
 h4, .h-delta {
 	.h;
 	font-style: italic;
 	font-weight: bold;
-	font-size: 1.000em; /* 12 */
+	font-size: 1.000em; // 12
 }
 h5, .h-epsilon {
 	.h;
 	font-style: italic;
-	font-size: 0.833em; /* 10 */
+	font-size: 0.833em; // 10
 	text-indent: 0.5in;
 	color: @facility-abyss;
 }
@@ -107,8 +111,16 @@ h6, .h-zeta {
 	.h;
 	font-style: italic;
 	font-variant: small-caps;
-	font-size: 0.833em; /* 10 */
+	font-size: 0.833em; // 10
 	text-indent: 0.5in;
+}
+h1 + h1,
+h1 + h2,
+h2 + h3,
+h3 + h4,
+h4 + h5,
+h5 + h6 {
+	margin-top: 0;
 }
 /* @end */
 
@@ -136,23 +148,39 @@ p, .p {
 	line-height: 1.5em;
 	color: #000000;
 }
-.caption {
-	
+.cited(@font-size; @text-align) {
+	.p;
+	padding: 5px 0;
+	border-color: @are-you-still-there;
+	.sideborder-left (@padding-width; @border-width; @margin-width; @border-style) {
+		padding-left: @padding-width;
+		border-left-width: @border-width;
+		border-left-style: @border-style;
+		margin-left: @margin-width;
+	}
+	.sideborder-right (@padding-width; @border-width; @margin-width; @border-style) {
+		padding-right: @padding-width;
+		border-right-width: @border-width;
+		border-right-style: @border-style;
+		margin-right: @margin-width;
+	}
+	text-align: @text-align;
 }
-.q-block {
-	padding-left: 8px;
-	border-left: 5px solid @are-you-still-there;
-	margin-left: 21px;
-	font-size: 13pt;
+blockquote, .q-block {
+	.cited(13pt, left);
+	.sideborder-left (8px; 5px; 21px; solid);
+	font-family: @font-heading;
+	.source {
+		font-family: @font-base;		
+	}
+}
+figcaption, caption, .caption {
+	.cited(10pt, right);
+	.sideborder-right (5px; 3px; 13px; double);
 }
 
 
-//.asdf() {
-//	padding-left: 20px;
-//	border-left: 3px double @aperture-black;
-//	margin-top: 1em;
-//	margin-bottom: 1em;
-//}
+
 //.caption {
 //	.asdf();
 //	font-size: smaller;
@@ -165,96 +193,6 @@ p, .p {
 	time[datetime] {.help;}
 }
 .nowrap {white-space: nowrap;}
-/* @end */
-
-/* @group inline text */
-strong, b {font-weight: bold;}
-em, i {font-weight: italic;}
-mark {background-color: yellow;}
-.tex {
-//	font-size: smaller;
-	font-family: @font-mono;
-	white-space: pre;
-	color: #000000;
-}
-.phone, .email {
-	font-family: @font-mono;
-}
-abbr, .help {
-	border-bottom: 2px solid @heart-companion;
-	cursor: help;
-}
-.scare {
-	font-weight: inherit;
-	font-style: inherit;
-	&:before {content: '\2018';} /*left single quote*/
-	&:after  {content: '\2019';} /*right single quote*/
-}
-i:lang(la),
-i:lang(it),
-i:lang(fr) { 
-	font-family: 'Times New Roman',serif;
-	font-style: italic;
-}
-.superscript {font-size: smaller; vertical-align: super;}
-.subscript   {font-size: smaller; vertical-align: sub;}
-.hindent-5  {text-indent: -0.5in;  padding-left: 0.5in;}
-.hindent-25 {text-indent: -0.25in; padding-left: 0.25in;}
-.hindent-em {text-indent: -1em;    padding-left: 1em;}
-
-
-/* @end */
-
-/* @group code */
-code, .code {
-	.box;
-	background-color: @heart-companion;
-	border-color: @heart-sat50;
-	font-size: smaller;
-	font-family: @font-code;
-	color: #000000;
-}
-pre, .code-block {
-	.code;
-	.box-block;
-}
-kbd kbd, .kbd {
-	.code;
-	padding: 2px;
-	font-size: larger;
-	font-family: @font-mono;
-	color: #000000;
-}
-/* @end */
-
-/* @group hyperlinks */
-.link() {
-	border-width: 0 0 1px;
-	border-style: dotted;
-}
-.up {
-	.link();
-	color: @atlas;
-}
-.dn {
-	.link();
-	color: @pbody;
-}
-.sp() {
-	.link();
-}
-.sp-up {
-	.sp();
-	color: @neurotoxin;
-}
-.sp-dn {
-	.sp();
-	color: @neurotoxin-inv;
-}
-.active {
-	.link();
-	color: @are-you-still-there;
-}
 /* @end */
 
 /* @group special boxes */
@@ -309,7 +247,6 @@ kbd kbd, .kbd {
 	position: absolute;
 	top: -1px;
 	left: -1px;
-//	border-radius: @box-block-radius 0 @box-block-radius 0;
 	border-bottom-left-radius: 0;
 	border-top-right-radius: 0;
 	margin: 0;
@@ -339,8 +276,102 @@ kbd kbd, .kbd {
 		content: 'demo';
 	}
 }
+code, .code { // inline code elements
+	.box;
+	border-color: @help-border;
+	background-color: @heart-companion;
+	font-size: smaller;
+	font-family: @font-code;
+	color: #000000;
+}
+pre, .code-block { // block code elements
+	.code;
+	.sample();
+	&:before {
+		.sample-label();
+		border-color: @help-border;
+		color: @heart-sat50;
+		background-color: @heart-sat16;
+		content: 'code';
+	}
+}
+kbd kbd, .kbd {
+	.code;
+	padding: 2px;
+	font-size: larger;
+	font-family: @font-mono;
+	color: #000000;
+}
+
 /* @end */
 
+/* @group inline text */
+strong, b {font-weight: bold;}
+em, i {font-weight: italic;}
+mark {background-color: yellow;}
+.tex {
+//	font-size: smaller;
+	font-family: @font-mono;
+	white-space: pre;
+	color: #000000;
+}
+.phone, .email {
+	font-family: @font-mono;
+}
+abbr, .help {
+	border-bottom: 2px solid @help-border;
+	cursor: help;
+}
+.scare {
+	font-weight: inherit;
+	font-style: inherit;
+	&:before {content: '\2018';} // left single quote
+	&:after  {content: '\2019';} // right single quote
+}
+i:lang(la),
+i:lang(it),
+i:lang(fr) { 
+	font-family: 'Times New Roman',serif;
+	font-style: italic;
+}
+.superscript {font-size: smaller; vertical-align: super;}
+.subscript   {font-size: smaller; vertical-align: sub;}
+.hindent-5  {text-indent: -0.5in;  padding-left: 0.5in;}
+.hindent-25 {text-indent: -0.25in; padding-left: 0.25in;}
+.hindent-em {text-indent: -1em;    padding-left: 1em;}
+
+	/* @group inline hyperlinks */
+	.link() {
+		border-width: 0 0 1px;
+		border-style: dotted;
+	}
+	.up {
+		.link();
+		color: @atlas;
+	}
+	.dn {
+		.link();
+		color: @pbody;
+	}
+	.sp() {
+		.link();
+	}
+	.sp-up {
+		.sp();
+		color: @neurotoxin;
+	}
+	.sp-dn {
+		.sp();
+		color: @neurotoxin-inv;
+	}
+	.active {
+		.link();
+		color: @are-you-still-there;
+	}
+	/* @end */
+	
+
+/* @end */
 
 /* @group lists */
 .list-basic {
@@ -360,7 +391,7 @@ kbd kbd, .kbd {
 	.list-basic;
 	color: @atlas;
 	list-style-position: inside;
-	li:before {content: '\2713\00A0'; /* check mark, space */}
+	li:before {content: '\2713\00A0';} // check mark, space
 	a {border-bottom: 0; text-decoration: underline;}
 }
 .list-text {
@@ -376,8 +407,7 @@ kbd kbd, .kbd {
 .list-epsilon {list-style-type: lower-roman;}
 .list-zeta    {list-style-type: lower-greek;}
 
-/* for prose lists (ol) */
-.prose {list-style-type: decimal;}
+.prose {list-style-type: decimal;} // for prose lists (ol)
 /* @end */
 
 
