@@ -10,21 +10,18 @@ $(document).ready(function() {
 $(document).ready(function() {
 	/*
 	Adds classes to necessary elements.
-	These methods are NOT meant for extending classes! For extending CSS classes, either use includes (redundant properties) or extends (multiple selectors).
+	These methods are NOT meant for extending classes! For extending CSS classes, either use includes (redundant properties) or extends (multiple selectors), or some other method of inheritance.
 	These methods are meant for using JS to 'grab' certain classes for behavioral reasons.
-	For example, the "a" class enables JS to toggle the subclasses "up" and "dn". In the HTML, you can just apply the subclass, eg.,
+	For example, the "js-link" class enables JS to toggle the subclasses "up" and "dn". In the HTML, you can just apply the class
 		<div class="up">
-		and thus JS will add the class "a" to the div. The compiled HTML will output <div class="up a"> and now JS can 'grab' the element with class "a" and toggle "up" and "down".
+		and thus JS will add the class "js-link" to the div. The compiled HTML will output <div class="up js-link"> and now jQuery can 'grab' the element with class "js-link" and toggle "up" and "down".
+		**The classes specific to JavaScript and not needed for CSS styling shall be prefixed with "js-" **
 	If trying to decide whether to include a JS method to add a class, think, "does JS need to use the class or is only used for CSS?" If JS doesn't need it, you can find a better way to get what you want using CSS.
+	The only exception to this rule is to use JS to automate repetitive actions. For instance in an unordered list, if every line item needs to have a certain class, you can save time by writing a jQuery command to add the class to every line item.
 	*/
+	
+	/** Automated actions --- add 'real' CSS classes to elements */
 	$('.list-action a').addClass('up');
-	$('.up, .dn').addClass('link');
-	$('.sp-up, .sp-dn').addClass('sp');
-	
-//	$('code').addClass('code');
-//	$('kbd kbd').addClass('kbd');
-	
-	$('.box-link-up, .box-link-dn').addClass('box-link');
 	
 	$('table thead, table tfoot, table th').addClass('header');
 	$('.table-list thead, .table-list tfoot, .table-list th').addClass('header');
@@ -32,15 +29,22 @@ $(document).ready(function() {
 	$('.table-bars th').addClass('header');
 	$('.table-grid tbody').addClass('body');
 	$('.table-grid th').addClass('header');
+	
+	
+	/** JavaScript 'grabber' classes --- only here for jQuery selectors */
+	$('.up, .dn').addClass('js-link');
+	$('.sp-up, .sp-dn').addClass('js-sp');
+		
+	$('.box-link-up, .box-link-dn').addClass('js-box-link');
 });
 
 $(document).ready(function() {
 	
 	// hyperlinks
-	$('.link').hover(function() {
+	$('a.js-link').hover(function() {
 		$(this).toggleClass('up dn');
 	});
-	$('.sp').hover(function() {
+	$('a.js-sp').hover(function() {
 		$(this).toggleClass('sp-up sp-dn');
 	});
 	
@@ -52,13 +56,13 @@ $(document).ready(function() {
 	});
 	
 	// box hyperlinks
-	$('a.box-link').hover(function() {
+	$('a.js-box-link').hover(function() {
 		$(this).toggleClass('box-block-up box-block-dn',t_ani);
 	});
-	$('a.box-link').mousedown(function() {
+	$('a.js-box-link').mousedown(function() {
 		$(this).addClass('box-block-active');
 	});
-	$('a.box-link').mouseup(function () {
+	$('a.js-box-link').mouseup(function () {
 		$(this).removeClass('box-block-active');
 	});
 	
@@ -68,8 +72,10 @@ $(document).ready(function() {
 	});
 	
 	
-	
-	// tables. remember, jQuery's :even and :odd selectors are 0-based (0 is first)
+	/**
+	color tables' rows and columns alternating colors 
+	remember, jQuery's :even and :odd selectors are 0-based (0 is first)
+	*/
 	for (var i=0; i<$('.table-list .body').size(); i++) {
 		var jQobj = $($('.table-list .body').toArray()[i]);
 		jQobj.children('tr:even').addClass('row-odd');
