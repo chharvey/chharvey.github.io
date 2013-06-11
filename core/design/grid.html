@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="UTF-8" />
+<title>Chris Harvey &ni; Site Design &ni; The Grid</title>
+<link rel="stylesheet" href="site-design.css" />
+<style>
+.box-container .unit,
+.demo .unit {
+	padding: 3px 0;
+	outline: 1px solid #999;
+}
+
+
+
+.demo .red    {background-color: red;}
+.demo .orange {background-color: orange;}
+.demo .yellow {background-color: yellow;}
+.demo .green  {background-color: green;}
+.demo .blue   {background-color: blue;}
+.demo .purple {background-color: purple;}
+	
+#des-philines .line {margin-top: 1em;}
+#des-philines .unit {padding: 0;}
+</style>
+<!--#include virtual="/core/JS/all-js.html" -->
+</head>
+<body>
+<div class="main P1-midright">
+<header>
+	<h1 class="h-alpha">Site Design &mdash; The Grid</h1>
+	<!--#include virtual="navigation.html" -->
+	<p class="timestamp">Updated <time datetime="2013-06-09T17:48">June 9, 2013</time>.</p>
+	<p class="prose">This page describes the grid system of the site. <a class="up" href="/core/CSS/grid.css">The grid</a> implements the structure and layout of any page. It consists of lines and units, treated as table rows and table cells respectively.</p>
+	<p class="prose">The classes used for the grid are purely presentational and non-semantic. These classes are reserved for containers only (e.g. <code>&lt;div&gt;</code>s), and not for semantic elements. Semantic elements should be styled with semantic classes and their location on the page should not be determined by those classes.</p>
+	<p class="prose">The grid should <strong>degrade gracefully</strong>. This means that if someone were to <span class="scare">turn off</span> the grid, you would still be able to read and interact with the website without any problems. It might not look pretty, but the content should be intact. The grid only provides structure for the page itself, not for any of the elements.</p>
+	<p class="prose">To set up a grid, create a container with units inside. The effect will be a table-like structure with columns.</p>
+	<div class="example">
+		<pre>
+&lt;div class=&quot;line&quot;&gt;
+	&lt;div class=&quot;unit&quot;&gt;column 1&lt;/div&gt;
+	&lt;div class=&quot;unit&quot;&gt;column 2&lt;/div&gt;
+	&lt;div class=&quot;unit&quot;&gt;column 3&lt;/div&gt;
+&lt;/div&gt;
+</pre>
+		<div class="demo">
+			<div class="line outline">
+				<div class="unit">column 1</div>
+				<div class="unit">column 2</div>
+				<div class="unit">column 3</div>
+			</div>
+		</div>
+	</div>
+</header>
+	<section>
+		<h1 class="h-beta">Default Units</h1>
+		<p class="prose">Each line is 100% the width of its container, unless otherwise specified. Each line can have a particular number of units. If you want the line to <strong>force</strong> the units to have equal widths, use the subclasses <code>.solo</code>, <code>.duet</code>, <code>.trio</code>, <code>.quartet</code>, <code>.quintet</code>, and <code>.sextet</code>. The system is automatically equipped to handle lines with up to six units, named after small musical groups (Latin prefixes).</p>
+		<pre>
+&lt;div class=&quot;trio&quot;&gt;
+	&lt;div class=&quot;unit&quot;&gt;column 1&lt;/div&gt;
+	&lt;div class=&quot;unit&quot;&gt;column 2&lt;/div&gt;
+	&lt;div class=&quot;unit&quot;&gt;column 3&lt;/div&gt;
+&lt;/div&gt;
+</pre>
+		<div class="demo">
+			<div class="trio">
+				<div class="unit">column 1</div>
+				<div class="unit">column 2</div>
+				<div class="unit">column 3</div>
+			</div>
+		</div>
+		<p class="prose">Below are all the subclasses of the <code>.line</code> class.</p>
+		<div class="box-container">
+			<p class="capt">Units in a <code>.solo</code> are full width:</p>
+			<div class="solo">
+				<div class="unit">the only <code>.unit</code></div>
+			</div>
+			<p class="capt">Units in a <code>.duet</code> are 1/2 width:</p>
+			<div class="duet">
+				<div class="unit">first <code>.unit</code></div>
+				<div class="unit">second <code>.unit</code></div>
+			</div>
+			<p class="capt">Units in a <code>.trio</code> are 1/3 width:</p>
+			<div class="trio">
+				<div class="unit">first <code>.unit</code></div>
+				<div class="unit">second <code>.unit</code></div>
+				<div class="unit">third <code>.unit</code></div>
+			</div>
+			<p class="capt">Units in a <code>.quartet</code> are 1/4 width:</p>
+			<div class="quartet">
+				<div class="unit">first <code>.unit</code></div>
+				<div class="unit">second <code>.unit</code></div>
+				<div class="unit">third <code>.unit</code></div>
+				<div class="unit">fourth <code>.unit</code></div>
+			</div>
+			<p class="capt">Units in a <code>.quintet</code> are 1/5 width:</p>
+			<div class="quintet">
+				<div class="unit">first <code>.unit</code></div>
+				<div class="unit">second <code>.unit</code></div>
+				<div class="unit">third <code>.unit</code></div>
+				<div class="unit">fourth <code>.unit</code></div>
+				<div class="unit">fifth <code>.unit</code></div>
+			</div>
+			<p class="capt">Units in a <code>.sextet</code> are 1/6 width:</p>
+			<div class="sextet">
+				<div class="unit">first <code>.unit</code></div>
+				<div class="unit">second <code>.unit</code></div>
+				<div class="unit">third <code>.unit</code></div>
+				<div class="unit">fourth <code>.unit</code></div>
+				<div class="unit">fifth <code>.unit</code></div>
+				<div class="unit">sixth <code>.unit</code></div>
+			</div>
+		</div>
+	</section>
+	<section>
+		<h1 class="h h-beta">Custom Units</h1>
+		<p class="prose">Sometimes you may want to change the widths of units in a line. For this, classes for fractions are given for custom widths.</p>
+		<div class="demo-up">
+			<h2 class="h-gamma">Solo Lines</h2>
+			<div class="solo">
+				<div class="unit">
+					<p>Default width and no margins.</p>
+					<p>It is modeled after the <b>harmonic</b> sequence</p>
+					<div class="tex">
+						\[ \left(\infty,\mathbf{1},\frac{1}{2},\frac{1}{3},\frac{1}{4},\dots,\frac{1}{n}\right) \]
+					</div>
+					<p>where <var>n</var> is the number of units (<var>n</var> starts at 0).</p>
+					<p>To force this behavior, add the class <code>.linebreadth-full</code> to the <code>.solo</code>.
+				</div>
+			</div>
+			<div class="line solo linebreadth-large">
+				<div class="unit">Width 3/4 and margins 1/8.<br />
+					It is modeled after the <b>geometric</b> sequence
+					<div class="tex">
+						\[ \left(\frac{9}{8},\mathbf{\frac{3}{4}},\frac{1}{2},\frac{1}{3},\frac{2}{9},\dots,\frac{9}{8}\left(\frac{2}{3}\right)^n\right) \]
+					</div>
+					where <var>n</var> is the number of units (<var>n</var> starts at 0).
+				</div>
+			</div>
+			<div class="line solo linebreadth-medium">
+				<div class="unit">Width 2/3 and margins 1/6.<br />
+					It is modeled after the <b>arithmetic</b> sequence
+					<div class="tex">
+						\[ \left(\frac{5}{6},\mathbf{\frac{2}{3}},\frac{1}{2},\frac{1}{3},\frac{1}{6},\dots,\frac{5-n}{6}\right) \]
+					</div>
+					where <var>n</var> is the number of units (<var>n</var> starts at 0).
+				</div>
+			</div>
+			<div class="line solo linebreadth-small">
+				<div class="unit">Width 5/8 and margins 3/16.<br />
+					It is the fifth approximation of <var>&Phi;</var>.
+				</div>
+			</div>
+			
+			<h2 class="h h-delta"><code class="box code">line duet</code>s</h2>
+			<div class="line duet">
+				<div class="unit size5to6">Width 5/6.</div>
+				<div class="unit size1to6">Width 1/6.</div>
+			</div>
+			<div class="line duet">
+				<div class="unit size4to5">Width 4/5.</div>
+				<div class="unit size1to5">Width 1/5.</div>
+			</div>
+			<div class="line duet">
+				<div class="unit size3to4">Width 3/4.</div>
+				<div class="unit size1to4">Width 1/4.</div>
+			</div>
+			<div class="line duet">
+				<div class="unit size2to3">Width 2/3.</div>
+				<div class="unit size1to3">Width 1/3.</div>
+			</div>
+			<div class="line duet">
+				<div class="unit size3to5">Width 3/5.</div>
+				<div class="unit size2to5">Width 2/5.</div>
+			</div>
+			<div class="line duet">
+				<div class="unit">Default width.</div>
+				<div class="unit">Default width.</div>
+			</div>
+			<div class="line duet">
+				<div class="unit size2to5">Width 2/5.</div>
+				<div class="unit size3to5">Width 3/5.</div>
+			</div>
+			<div class="line duet">
+				<div class="unit size1to3">Width 1/3.</div>
+				<div class="unit size2to3">Width 2/3.</div>
+			</div>
+			<div class="line duet">
+				<div class="unit size1to4">Width 1/4.</div>
+				<div class="unit size3to4">Width 3/4.</div>
+			</div>
+			<div class="line duet">
+				<div class="unit size1to5">Width 1/5.</div>
+				<div class="unit size4to5">Width 4/5.</div>
+			</div>
+			<div class="line duet">
+				<div class="unit size1to6">Width 1/6.</div>
+				<div class="unit size5to6">Width 5/6.</div>
+			</div>
+			
+			<h2 class="h h-delta"><code class="box code">line trio</code>s</h2>
+			<div class="line trio">
+				<div class="unit size2to3">Width 2/3.</div>
+				<div class="unit size1to6">Width 1/6.</div>
+				<div class="unit size1to6">Width 1/6.</div>
+			</div>
+			<div class="line trio">
+				<div class="unit size3to5">Width 3/5.</div>
+				<div class="unit size1to5">Width 1/5.</div>
+				<div class="unit size1to5">Width 1/5.</div>
+			</div>
+			
+			<div class="line trio">
+				<div class="unit size1to2">Width 1/2.</div>
+				<div class="unit">Default width.</div>
+				<div class="unit size1to6">Width 1/6.</div>
+			</div>
+			<div class="line trio">
+				<div class="unit size1to2">Width 1/2.</div>
+				<div class="unit size1to4">Width 1/4.</div>
+				<div class="unit size1to4">Width 1/4.</div>
+			</div>
+			<div class="line trio">
+				<div class="unit size1to2">Width 1/2.</div>
+				<div class="unit size1to6">Width 1/6.</div>
+				<div class="unit">Default width.</div>
+			</div>
+			<div class="line trio">
+				<div class="unit size2to5">Width 2/5.</div>
+				<div class="unit size2to5">Width 2/5.</div>
+				<div class="unit size1to5">Width 1/5.</div>
+			</div>
+			<div class="line trio">
+				<div class="unit size2to5">Width 2/5.</div>
+				<div class="unit size1to5">Width 1/5.</div>
+				<div class="unit size2to5">Width 2/5.</div>
+			</div>
+			<div class="line trio">
+				<div class="unit">Default width.</div>
+				<div class="unit size1to2">Width 1/2.</div>
+				<div class="unit size1to6">Width 1/6.</div>
+			</div>
+			<div class="line trio">
+				<div class="unit">Default width.</div>
+				<div class="unit">Default width.</div>
+				<div class="unit">Default width.</div>
+			</div>
+			<div class="line trio">
+				<div class="unit">Default width.</div>
+				<div class="unit size1to6">Width 1/6.</div>
+				<div class="unit size1to2">Width 1/2.</div>
+			</div>
+			<div class="line trio">
+				<div class="unit size1to4">Width 1/4.</div>
+				<div class="unit size1to2">Width 1/2.</div>
+				<div class="unit size1to4">Width 1/4.</div>
+			</div>
+			<div class="line trio">
+				<div class="unit size1to4">Width 1/4.</div>
+				<div class="unit size1to4">Width 1/4.</div>
+				<div class="unit size1to2">Width 1/2.</div>
+			</div>
+			<div class="line trio">
+				<div class="unit size1to5">Width 1/5.</div>
+				<div class="unit size3to5">Width 3/5.</div>
+				<div class="unit size1to5">Width 1/5.</div>
+			</div>
+			<div class="line trio">
+				<div class="unit size1to5">Width 1/5.</div>
+				<div class="unit size2to5">Width 2/5.</div>
+				<div class="unit size2to5">Width 2/5.</div>
+			</div>
+			<div class="line trio">
+				<div class="unit size1to5">Width 1/5.</div>
+				<div class="unit size1to5">Width 1/5.</div>
+				<div class="unit size3to5">Width 3/5.</div>
+			</div>
+			<div class="line trio">
+				<div class="unit size1to6">Width 1/6.</div>
+				<div class="unit size2to3">Width 2/3.</div>
+				<div class="unit size1to6">Width 1/6.</div>
+			</div>
+			<div class="line trio">
+				<div class="unit size1to6">Width 1/6.</div>
+				<div class="unit size1to2">Width 1/2.</div>
+				<div class="unit">Default width.</div>
+			</div>
+			<div class="line trio">
+				<div class="unit size1to6">Width 1/6.</div>
+				<div class="unit">Default width.</div>
+				<div class="unit size1to2">Width 1/2.</div>
+			</div>
+			<div class="line trio">
+				<div class="unit size1to6">Width 1/6.</div>
+				<div class="unit size1to6">Width 1/6.</div>
+				<div class="unit size2to3">Width 2/3.</div>
+			</div>
+			
+			<h2 class="h h-delta"><code class="box code">line quartet</code>s</h2>
+			<div class="line quartet">
+				<div class="unit size1to2">Width 1/2.</div>
+				<div class="unit size1to6">Width 1/6.</div>
+				<div class="unit size1to6">Width 1/6.</div>
+				<div class="unit size1to6">Width 1/6.</div>
+			</div>
+			<div class="line quartet">
+				<div class="unit size2to5">Width 2/5.</div>
+				<div class="unit size1to5">Width 1/5.</div>
+				<div class="unit size1to5">Width 1/5.</div>
+				<div class="unit size1to5">Width 1/5.</div>
+			</div>
+			<div class="line quartet">
+				<div class="unit size1to3">Width 1/3.</div>
+				<div class="unit size1to3">Width 1/3.</div>
+				<div class="unit size1to6">Width 1/6.</div>
+				<div class="unit size1to6">Width 1/6.</div>
+			</div>
+			<div class="line quartet">
+				<div class="unit size1to3">Width 1/3.</div>
+				<div class="unit">Default width.</div>
+				<div class="unit">Default width.</div>
+				<div class="unit size1to6">Width 1/6.</div>
+			</div>
+			<div class="line quartet">
+				<div class="unit size1to3">Width 1/3.</div>
+				<div class="unit">Default width.</div>
+				<div class="unit size1to6">Width 1/6.</div>
+				<div class="unit">Default width.</div>
+			</div>
+			<div class="line quartet">
+				<div class="unit size1to3">Width 1/3.</div>
+				<div class="unit size1to6">Width 1/6.</div>
+				<div class="unit size1to3">Width 1/3.</div>
+				<div class="unit size1to6">Width 1/6.</div>
+			</div>
+			<div class="line quartet">
+				<div class="unit size1to3">Width 1/3.</div>
+				<div class="unit size1to6">Width 1/6.</div>
+				<div class="unit">Default width.</div>
+				<div class="unit">Default width.</div>
+			</div>
+			<div class="line quartet">
+				<div class="unit size1to3">Width 1/3.</div>
+				<div class="unit size1to6">Width 1/6.</div>
+				<div class="unit size1to6">Width 1/6.</div>
+				<div class="unit size1to3">Width 1/3.</div>
+			</div>
+			<div class="line quartet">
+				<div class="unit">Default width.</div>
+				<div class="unit size1to3">Width 1/3.</div>
+				<div class="unit">Default width.</div>
+				<div class="unit size1to6">Width 1/6.</div>
+			</div>
+			<div class="line quartet">
+				<div class="unit">Default width.</div>
+				<div class="unit size1to3">Width 1/3.</div>
+				<div class="unit size1to6">Width 1/6.</div>
+				<div class="unit">Default width.</div>
+			</div>
+			<div class="line quartet">
+				<div class="unit">Default width.</div>
+				<div class="unit">Default width.</div>
+				<div class="unit size1to3">Width 1/3.</div>
+				<div class="unit size1to6">Width 1/6.</div>
+			</div>
+			<div class="line quartet">
+				<div class="unit">Default width.</div>
+				<div class="unit">Default width.</div>
+				<div class="unit">Default width.</div>
+				<div class="unit">Default width.</div>
+			</div>
+			<div class="line quartet">
+				<div class="unit">Default width.</div>
+				<div class="unit">Default width.</div>
+				<div class="unit size1to6">Width 1/6.</div>
+				<div class="unit size1to3">Width 1/3.</div>
+			</div>
+			<div class="line quartet">
+				<div class="unit">Default width.</div>
+				<div class="unit size1to6">Width 1/6.</div>
+				<div class="unit size1to3">Width 1/3.</div>
+				<div class="unit">Default width.</div>
+			</div>
+			<div class="line quartet">
+				<div class="unit">Default width.</div>
+				<div class="unit size1to6">Width 1/6.</div>
+				<div class="unit">Default width.</div>
+				<div class="unit size1to3">Width 1/3.</div>
+			</div>
+			<div class="line quartet">
+				<div class="unit size1to5">Width 1/5.</div>
+				<div class="unit size2to5">Width 2/5.</div>
+				<div class="unit size1to5">Width 1/5.</div>
+				<div class="unit size1to5">Width 1/5.</div>
+			</div>
+			<div class="line quartet">
+				<div class="unit size1to5">Width 1/5.</div>
+				<div class="unit size1to5">Width 1/5.</div>
+				<div class="unit size2to5">Width 2/5.</div>
+				<div class="unit size1to5">Width 1/5.</div>
+			</div>
+			<div class="line quartet">
+				<div class="unit size1to5">Width 1/5.</div>
+				<div class="unit size1to5">Width 1/5.</div>
+				<div class="unit size1to5">Width 1/5.</div>
+				<div class="unit size2to5">Width 2/5.</div>
+			</div>
+			<div class="line quartet">
+				<div class="unit size1to6">Width 1/6.</div>
+				<div class="unit size1to2">Width 1/2.</div>
+				<div class="unit size1to6">Width 1/6.</div>
+				<div class="unit size1to6">Width 1/6.</div>
+			</div>
+			<div class="line quartet">
+				<div class="unit size1to6">Width 1/6.</div>
+				<div class="unit size1to3">Width 1/3.</div>
+				<div class="unit size1to3">Width 1/3.</div>
+				<div class="unit size1to6">Width 1/6.</div>
+			</div>
+			<div class="line quartet">
+				<div class="unit size1to6">Width 1/6.</div>
+				<div class="unit size1to3">Width 1/3.</div>
+				<div class="unit">Default width.</div>
+				<div class="unit">Default width.</div>
+			</div>
+			<div class="line quartet">
+				<div class="unit size1to6">Width 1/6.</div>
+				<div class="unit size1to3">Width 1/3.</div>
+				<div class="unit size1to6">Width 1/6.</div>
+				<div class="unit size1to3">Width 1/3.</div>
+			</div>
+			<div class="line quartet">
+				<div class="unit size1to6">Width 1/6.</div>
+				<div class="unit">Default width.</div>
+				<div class="unit size1to3">Width 1/3.</div>
+				<div class="unit">Default width.</div>
+			</div>
+			<div class="line quartet">
+				<div class="unit size1to6">Width 1/6.</div>
+				<div class="unit">Default width.</div>
+				<div class="unit">Default width.</div>
+				<div class="unit size1to3">Width 1/3.</div>
+			</div>
+			<div class="line quartet">
+				<div class="unit size1to6">Width 1/6.</div>
+				<div class="unit size1to6">Width 1/6.</div>
+				<div class="unit size1to2">Width 1/2.</div>
+				<div class="unit size1to6">Width 1/6.</div>
+			</div>
+			<div class="line quartet">
+				<div class="unit size1to6">Width 1/6.</div>
+				<div class="unit size1to6">Width 1/6.</div>
+				<div class="unit size1to3">Width 1/3.</div>
+				<div class="unit size1to3">Width 1/3.</div>
+			</div>
+			<div class="line quartet">
+				<div class="unit size1to6">Width 1/6.</div>
+				<div class="unit size1to6">Width 1/6.</div>
+				<div class="unit size1to6">Width 1/6.</div>
+				<div class="unit size1to2">Width 1/2.</div>
+			</div>
+			
+			<h2 class="h h-delta"><code class="box code">line quintet</code>s</h2>
+			<div class="line quintet">
+				<div class="unit size1to3">Width 1/3.</div>
+				<div class="unit size1to6">Width 1/6.</div>
+				<div class="unit size1to6">Width 1/6.</div>
+				<div class="unit size1to6">Width 1/6.</div>
+				<div class="unit size1to6">Width 1/6.</div>
+			</div>
+			<div class="line quintet">
+				<div class="unit">Default width.</div>
+				<div class="unit">Default width.</div>
+				<div class="unit">Default width.</div>
+				<div class="unit">Default width.</div>
+				<div class="unit">Default width.</div>
+			</div>
+			<div class="line quintet">
+				<div class="unit size1to6">Width 1/6.</div>
+				<div class="unit size1to3">Width 1/3.</div>
+				<div class="unit size1to6">Width 1/6.</div>
+				<div class="unit size1to6">Width 1/6.</div>
+				<div class="unit size1to6">Width 1/6.</div>
+			</div>
+			<div class="line quintet">
+				<div class="unit size1to6">Width 1/6.</div>
+				<div class="unit size1to6">Width 1/6.</div>
+				<div class="unit size1to3">Width 1/3.</div>
+				<div class="unit size1to6">Width 1/6.</div>
+				<div class="unit size1to6">Width 1/6.</div>
+			</div>
+			<div class="line quintet">
+				<div class="unit size1to6">Width 1/6.</div>
+				<div class="unit size1to6">Width 1/6.</div>
+				<div class="unit size1to6">Width 1/6.</div>
+				<div class="unit size1to3">Width 1/3.</div>
+				<div class="unit size1to6">Width 1/6.</div>
+			</div>
+			<div class="line quintet">
+				<div class="unit size1to6">Width 1/6.</div>
+				<div class="unit size1to6">Width 1/6.</div>
+				<div class="unit size1to6">Width 1/6.</div>
+				<div class="unit size1to6">Width 1/6.</div>
+				<div class="unit size1to3">Width 1/3.</div>
+			</div>
+			
+			<h2 class="h h-delta"><code class="box code">line sextet</code>s</h2>
+			<div class="line sextet">
+				<div class="unit">Default width.</div>
+				<div class="unit">Default width.</div>
+				<div class="unit">Default width.</div>
+				<div class="unit">Default width.</div>
+				<div class="unit">Default width.</div>
+				<div class="unit">Default width.</div>
+			</div>
+		</div>
+		<table class="table table-list">
+			<colgroup span="2"></colgroup>
+			<thead><tr><th>Number of Units</th><th>Combinations</th></tr></thead>
+			<tbody>
+				<tr><td>1</td><td>1</td></tr>
+				<tr><td>2</td><td>11</td></tr>
+				<tr><td>3</td><td>19</td></tr>
+				<tr><td>4</td><td>27</td></tr>
+				<tr><td>5</td><td>6</td></tr>
+				<tr><td>6</td><td>1</td></tr>
+			</tbody>
+		</table>
+	</section>
+	<section>
+		<h1 class="h h-gamma">The Golden Ratio</h1>
+	</section>
+	
+	
+<div style="background-color: #ccc; color: #ccc;">
+	<div class="demo">
+			
+		<div class="line duet">
+			<div class="unit P1 P1-left">A P1-left</div>
+			<div class="unit P2 P2-right">A P2-right</div>
+		</div>
+		<div class="line duet">
+			<div class="unit P2 P2-left">This is P2-left</div>
+			<div class="unit P1 P1-right">A P1-right</div>
+		</div>
+		<div class="line trio">
+			<div class="unit P4 P4-left">A P4-left</div>
+			<div class="unit P1 P1-midleft">This is P1-midleft</div>
+			<div class="unit P3 P3-right">A P3-right</div>
+		</div>
+		<div class="line trio">
+			<div class="unit P3 P3-left">A P3-left</div>
+			<div class="unit P1 P1-midright">This is P1-midright</div>
+			<div class="unit P4 P4-right">A P4-right</div>
+		</div>
+		<div class="line duet">
+			<div class="unit P1 P1-left">A P1<p>P1 = P2 + P3</p></div>
+			<div class="unit P2 P2-left">this is a P2</div>
+		</div>
+		<div class="line trio">
+			<div class="unit P2 P2-left">this is a P2</div>
+			<div class="unit P3 P3-left">this is a P3</div>
+			<div class="unit P2 P2-left">this is a P2<p>P2 = P3 + P4</p></div>
+		</div>
+		<div class="line trio">
+			<div class="unit P1 P1-left">this is a P1</div>
+			<div class="unit P3 P3-left">this is a P3</div>
+			<div class="unit P4 P4-left">this is a P4</div>
+		</div>
+		
+		<div class="line" style="background-color: #00ffff;">
+			<div class="unit P3 P3-left">
+				P3 left
+				<div class="line">
+					<div class="unit P3 P3-left">P3 left</div>
+					<div class="unit P1 P1-midright">P1 midright</div>
+					<div class="unit P4 P4-right">P4 right</div>
+				</div>
+			</div>
+			<div class="unit P1 P1-midright">P1 midright</div>
+			<div class="unit P4 P4-right">P4 right</div>
+		</div>
+		
+		<div class="line" style="background-color: #00ffff;">
+			<div class="unit P3 P3-left">
+				<span>P3 left</span>
+				<div class="P1 P1-midright" style="outline: thin solid black;">P1 midright (block)</div>
+			</div>
+			<div class="unit P1 P1-midright">P1 midright</div>
+			<div class="unit P4 P4-right">P4 right</div>
+		</div>
+		
+		<div class="line" style="background-color: #00ffff;">
+			<div class="unit P3 P3-left" style="padding-left: 5.5%; padding-right: 3.4%; outline: thin solid black;">P3 left</div>
+			<div class="unit P1 P1-midright" style="width: 76.3932%; padding-right: 14.5898%;">P1 midright</div>
+<!--			<div class="unit P4 P4-right">P4 right</div>-->
+		</div>
+		
+		<div class="line undoP1 undoP1-midright" style="background-color: #00ffff;">
+			<div class="unit P3 P3-left" style="padding-left: 5.5%; padding-right: 3.4%; outline: thin solid black;">P3 left</div>
+			<div class="unit P1 P1-midright" style="width: 76.3932%; padding-right: 14.5898%;">P1 midright</div>
+<!--			<div class="unit P4 P4-right">P4 right</div>-->
+		</div>
+		
+		<div class="line" style="background-color: #33cccc;">
+			<div class="unit" style="width: 5.5728%;">P6</div>
+			<div class="unit" style="width: 14.5898%;">P4</div>
+			<div class="unit" style="width: 3.4441%;">P7</div>
+			<div class="unit" style="width: 61.8034%;">P1</div>
+			<div class="unit" style="width: 14.5898%;">P4</div>
+		</div>
+	</div>
+	<div class="undoP1 undoP1-midright">
+		<div id="des-philines" class="demo">
+			<div class="line trio">
+				<div class="unit blue P3 P3-left">
+					<div class="line trio">
+						<div class="unit P3 P3-left green">
+							<div class="line">
+								<div class="unit P3 P3-left purple"></div>
+								<div class="unit P1 P1-midright orange"></div>
+								<div class="unit P4 P4-right purple"></div>
+							</div>
+						</div>
+						<div class="unit P1 P1-midright yellow"></div>
+						<div class="unit P4 P4-right green">
+							<div class="line">
+								<div class="unit P3 P3-left purple"></div>
+								<div class="unit P1 P1-midright orange"></div>
+								<div class="unit P4 P4-right purple"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="unit P1 P1-midright red"></div>
+				<div class="unit P4 P4-right blue">
+					<div class="line trio">
+						<div class="unit P3 P3-left green"></div>
+						<div class="unit P1 P1-midright yellow">
+							<div class="line">
+								<div class="unit P3 P3-left purple"></div>
+								<div class="unit P1 P1-midright orange">
+									<div class="line">
+										<div class="unit P3 P3-left blue"></div>
+										<div class="unit P1 P1-midright red"></div>
+										<div class="unit P4 P4-right blue"></div>
+									</div>
+								</div>
+								<div class="unit P4 P4-right purple"></div>
+							</div>
+						</div>
+						<div class="unit P4 P4-right green"></div>
+					</div>
+				</div>
+			</div>
+			<div class="line solo hub-body"><div class="unit"></div></div>
+		</div>
+	</div>
+</div>
+
+</div>
+<!--#include virtual="/core/HTML/masthead.html" -->
+</body>
+</html>

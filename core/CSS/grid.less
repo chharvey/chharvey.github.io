@@ -1,0 +1,142 @@
+@width-geometric:  (100% * (3/4)); // 75%
+@width-arithmetic: (100% * (2/3)); // 66.66%
+
+@Phi1: 0.618033988749894848;
+@Phi2: (@Phi1 * @Phi1);
+@Phi3: (@Phi2 * @Phi1);
+@Phi4: (@Phi3 * @Phi1);
+@UPhi4: (1 - @Phi4);
+@UPhi3: (1 - @Phi3);
+@width-Golden1: (100% * @Phi1);    // 61.8033988749894848%
+@width-Golden2: (100% * @Phi2);    // 38.1966011250105152%
+@width-Golden3: (100% * @Phi3);    // 23.6067977499789696%
+@width-Golden4: (100% * @Phi4);    // 14.5898033750315455%
+@width-UGolden4: (100% * @UPhi4);  // 85.4101966249684545%
+@width-UGolden3: (100% * @UPhi3);  // 76.3932022500210304%
+
+/* @group a line of columns */
+.line {display: table; width: 100%;}
+.linebreadth(@breadth) {
+	width:  @breadth;
+	margin: auto ((100% - @breadth) / 2);
+}
+.linebreadth-full   {.linebreadth(100%);}
+.linebreadth-large  {.linebreadth(@width-geometric);}
+.linebreadth-medium {.linebreadth(@width-arithmetic);}
+.linebreadth-small  {.linebreadth(@width-Golden1);}
+
+.solo, .duet, .trio, .quartet, .quintet, .sextet {.line;}
+/* @end */
+
+/* @group columns in each line */
+.line > .unit,
+.solo > .unit,
+.duet > .unit,
+.trio > .unit,
+.quartet > .unit,
+.quintet > .unit,
+.sextet > .unit {
+	display: table-cell;
+	vertical-align: top;
+	overflow: visible;
+}
+
+	/* @group automated widths in a line */
+	// The number of units is indicated by the line subclass, e.g. "duet" indicates two units, "trio" for three, etc. The units are automatically sized evenly.
+	.solo    > .unit {width: (100% / 1);} // 100%
+	.duet    > .unit {width: (100% / 2);} //  50%
+	.trio    > .unit {width: (100% / 3);} //  33.3%
+	.quartet > .unit {width: (100% / 4);} //  25%
+	.quintet > .unit {width: (100% / 5);} //  20%
+	.sextet  > .unit {width: (100% / 6);} //  16.6%
+	/* @end */
+	
+	/* @group exceptions to automated widths */
+	.unit.size1to1 {width: (100% * (1/1));} // 100%
+	.unit.size1to2 {width: (100% * (1/2));} //  50%
+	.unit.size1to3 {width: (100% * (1/3));} //  33.3%
+	.unit.size2to3 {width: (100% * (2/3));} //  66.6%
+	.unit.size1to4 {width: (100% * (1/4));} //  25%
+	.unit.size3to4 {width: (100% * (3/4));} //  75%
+	.unit.size1to5 {width: (100% * (1/5));} //  20%
+	.unit.size2to5 {width: (100% * (2/5));} //  40%
+	.unit.size3to5 {width: (100% * (3/5));} //  60%
+	.unit.size4to5 {width: (100% * (4/5));} //  80%
+	.unit.size1to6 {width: (100% * (1/6));} //  16.6%
+	.unit.size5to6 {width: (100% * (5/6));} //  83.3%
+	/* @end */
+/* @end */
+
+/* @group Golden Ratios */
+	/* @group widths */
+	.P1() {width: @width-Golden1;}
+	.P2() {width: @width-Golden2;}
+	.P3() {width: @width-Golden3;}
+	.P4() {width: @width-Golden4;}
+	.U-P3() {width: @width-UGolden3;}
+	.U-P4() {width: @width-UGolden4;}
+	/* @end */
+	
+	/* @group margins */
+	.left(@margin-right) {
+		margin-left: 0;
+		margin-right: @margin-right;
+	}
+	.right(@margin-left) {
+		margin-left: @margin-left;
+		margin-right: 0;
+	}
+	.P1-midleft,  .unit.P1-midleft  {.P1(); margin-left: @width-Golden4; margin-right: @width-Golden3;}
+	.P1-midright, .unit.P1-midright {.P1(); margin-left: @width-Golden3; margin-right: @width-Golden4;}
+	.P1-left,  .unit.P1-left  {.P1(); .left (100% - @width-Golden1);}
+	.P1-right, .unit.P1-right {.P1(); .right(100% - @width-Golden1);}
+	.P2-left,  .unit.P2-left  {.P2(); .left (100% - @width-Golden2);}
+	.P2-right, .unit.P2-right {.P2(); .right(100% - @width-Golden2);}
+	.P3-left,  .unit.P3-left  {.P3(); .left (100% - @width-Golden3);}
+	.P3-right, .unit.P3-right {.P3(); .right(100% - @width-Golden3);}
+	.P4-left,  .unit.P4-left  {.P4(); .left (100% - @width-Golden4);}
+	.P4-right, .unit.P4-right {.P4(); .right(100% - @width-Golden4);}
+	.U-P3-left  {.U-P3(); .left (@width-Golden3);}
+	.U-P3-right {.U-P3(); .right(@width-Golden3);}
+	.U-P4-left  {.U-P4(); .left (@width-Golden4);}
+	.U-P4-right {.U-P4(); .right(@width-Golden4);}
+	/* @end */
+/* @end */
+
+@media screen {
+	@phi1: (1 / @Phi1);
+	@phi2: (1 / @Phi2);
+	@phi3: (1 / @Phi3);
+	@phi4: (1 / @Phi4);
+	@uphi4: (1 / @UPhi4);
+	@uphi3: (1 / @UPhi3);
+	@width-golden1: (100% * @phi1);   // 161.8033988749894848%
+	@width-golden2: (100% * @phi2);   // 261.8033988749894848%
+	@width-golden3: (100% * @phi3);   // 423.6067977499789696%
+	@width-golden4: (100% * @phi4);   // 685.4101966249684545%
+	@width-ugolden4: (100% * @uphi4); // 117.0820393249936909%
+	@width-ugolden3: (100% * @uphi3); // 130.9016994374947424%
+	
+	.undoP() {position: relative; left: 0;}
+	
+	.undoP1() {.undoP(); width: @width-golden1;}
+	.undoP2() {.undoP(); width: @width-golden2;}
+	.undoP3() {.undoP(); width: @width-golden3;}
+	.undoP4() {.undoP(); width: @width-golden4;}
+	.undoU-P3() {.undoP(); width: @width-ugolden3;}
+	.undoU-P4() {.undoP(); width: @width-ugolden4;}
+	
+	// no need for .undoP1-left because it's already left-aligned
+	.undoP1-midleft  {.undoP1(); left: -@width-Golden3;}
+	.undoP1-midright {.undoP1(); left: -@width-Golden2;}
+	.undoP1-left  {.undoP1();}
+	.undoP1-right {.undoP1(); left: -@width-Golden1;}
+	.undoP2-left  {.undoP2();}
+	.undoP2-right {.undoP2(); left: -100%;}
+	.undoP3-left  {.undoP3();}
+	.undoP3-right {.undoP3; left: -323.6067977499789696%;}  // -323.6067977499789696%
+	.undoP4-left  {.undoP4();}
+	.undoP4-right {.undoP4(); left: -585.4101966249684545%;}  // -585.4101966249684545%
+	.undoU-P3-right {.undoU-P3(); left: -30.9016994374947424%;} // -30.9016994374947424%
+	.undoU-P4-right {.undoU-P4(); left: -17.0820393249936909%;} // -17.0820393249936909%
+}

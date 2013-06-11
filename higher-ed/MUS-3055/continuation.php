@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Continuation Project</title>
+<link rel="stylesheet" href="images/ContStyles.css" />
+<style>
+.list-omega   {color: #999999}
+.list-alpha   {color: #000000}
+.list-beta    {color: #003300}
+.list-gamma   {color: #006600}
+.list-delta   {color: #009900}
+.list-epsilon {color: #00cc00}
+.list-zeta    {color: #00ff00}
+</style>
+</head>
+
+<body>
+<header>
+	<h1>Continuation Exam Outline</h1>
+	<?php include('images/contnavbar.php'); ?>
+</header>
+<ol class="list-omega">
+    <li>Acoustic Sound
+        <ol class="list-alpha">
+            <li>Sound Production
+                <ol class="list-beta">
+                    <li>Vibrating Body. Vibration Properties
+                        <ol class="list-gamma">
+                            <li>Equilibrium -  state of rest. no frequency, no amplitude</li>
+                            <li>Frequency - rate of vibration. number of cycles per unit time. unit Hertz (Hz) 
+                                <ol class="list-delta">
+                                    <li>Periodic Motion - repeating cycles of vibration 
+                                        <ol class="list-epsilon">
+                                            <li>Oscillations - compressions and rarefactions 
+                                                <ol class="list-zeta">
+                                                    <li>Compression - pushing together. greater density</li>
+                                                    <li>Rarefaction - pulling apart. lesser density</li>
+                                                </ol>
+                                            </li>
+                                            <li>Cycle - one complete oscillation</li>
+                                            <li>Period - time required for one cycle. unit second(s)</li>
+                                            <li>Wavelength - length of one cycle. unit feet (ft)</li>
+                                        </ol>
+                                    </li>
+                                </ol>
+                            </li>
+                            <li>Amplitude - amount of displacement. unit decibal (dB) varies</li>
+                        </ol>
+                    </li>
+                    <li>Vibration Modes 
+                        <ol class="list-gamma">
+                            <li>Fundamental Mode - vibration involving entire body</li>
+                            <li>Partials - vibrations involving subdivisions of the fundamental mode</li>
+                            <li>Harmonics - frequencies produced by the fundamental and partial modes 
+                                <ol class="list-delta">
+                                    <li>Overtones - set of harmonics excluding the frequency of the fundamental mode</li>
+                                </ol>
+                            </li>
+                        </ol>
+                    </li>
+                    <li>Sound Envelope - dynamic changes in amplitude over time 
+                        <ol class="list-gamma">
+                            <li>Attack - energy is introduced into the system. the vibrating body starts at rest and is agitated to oscillation</li>
+                            <li>Sustain - energy is still being put into the system, thus still producing sound</li>
+                            <li>Release - energy is removed from the system. the amplitude of sound decays to naught while the body returns to equilibrium</li>
+                        </ol>
+                    </li>
+                </ol>
+            </li>
+            <li>Acoustic Sound Transmission
+                <ol class="list-beta">
+                    <li>Sound Interaction
+                        <ol class="list-gamma">
+                            <li>Absorption - sound waves are soaked up into the material</li>
+                            <li>Reflection - sound waves bounce off the material</li>
+                            <li>Diffraction - sound waves bend around an object</li>
+                            <li>Diffusion - combination of reflections. a surface breaks up a sound wave into many, causing them to spread out over distance and time</li>
+                        </ol>
+                    </li>
+                    <li>Sound Life Cycle
+                        <ol class="list-gamma">
+                            <li>Direct Sound - listener receives sound waves directly from the object that produces it</li>
+                            <li>Early Reflections - sound waves reflect off of at least one surface before reaching the listener. (10-30 ms)</li>
+                            <li>Reverberation - random, multiple, densely-spaced reflections off of many surfaces before reaching the listener. (30-50 ms)</li>
+                            <li>Echo - reflections that travel a long path (a time of greater than 50 ms) before intercepting the listener. the listener perceives the echo as a distinctly separate sound than that of direct, early, and reverb sounds.</li>
+                        </ol>
+                    </li>
+                    <li>Resonance
+                        <ol class="list-gamma">
+                            <li>Sympathetic Vibration - a body vibrating at a particular frequency causes another body to vibrate at that frequency
+                                <ol class="list-delta">
+                                    <li>both bodies have the same natural frequency</li>
+                                    <li>results in an increase in amplitude (loudness) because both bodies are vibrating in phase with each other</li>
+                                </ol>
+                            </li>
+                            <li><a href="http://upload.wikimedia.org/wikipedia/commons/7/7d/Standing_wave_2.gif">Standing Waves</a> - sound waves that resonate between parallel surfaces</li>
+                            <li>Room Modes - standing waves that occur due to the dimensions of the room
+                                <ol class="list-delta">
+                                    <li>Axial - standing wave between two parallel surfaces</li>
+                                    <li>Tangential - standing waves between two pairs of axial modes (four surfaces)</li>
+                                    <li>Oblique - standing waves between three pairs of axial modes (six surfaces)</li>
+                                </ol>
+                            </li>
+                        </ol>
+                    </li>
+                    <li>Acoustic Noise - unwanted sound</li>
+                </ol>
+            </li>
+            <li>Psychoacoustic Sound Perception
+                <ol class="list-beta">
+                    <li>Pitch - relative 'highness' or 'lowness' of sound determined by frequency
+                        <ol class="list-gamma">
+                            <li>Human dynamic range of pitch is 20 Hz to 20,000 Hz</li>
+                            <li>Timbre - perception of tone color by interpreting combinations of harmonics and each of their sound envelopes</li>
+                        </ol>
+                    </li>
+                    <li>Loudness - relative volume of sound determined by amplitude
+                        <ol class="list-gamma">
+                            <li>Human dynamic range of loudness is 100 dB</li>
+                            <li>Equal Loudness Principle - auditory sensitivity varies with frequency: our hearing is less sensitive to lower and higher frequencies than mid-range frequencies, although as loudness increases overall, these sensitivity differences lessen</li>
+                            <li>Units of Loudness
+                                <ol class="list-delta">
+                                    <li>The Decibal
+                                        <ol class="list-epsilon">
+                                            <li>compares the ratio of two quantities (e.g. sound pressure, power, intensity, etc.)
+                                                <ol class="list-zeta">
+                                                    <li>dB-SPL - acoustic sound pressure level</li>
+                                                    <li> dBV - electrical voltage</li>
+                                                </ol>
+                                            </li>
+                                            <li>doubling sound pressure or halving distance will add 6 dB</li>
+                                            <li>doubling sound power will add 3 dB</li>
+                                        </ol>
+                                    </li>
+                                    <li>The Phon
+                                        <ol class="list-epsilon">
+                                            <li>expresses the perceived loudness level related to the ear's subjective impressions at various frequencies</li>
+                                            <li>phon level = sound pressure level at 1000 Hz</li>
+                                        </ol>
+                                    </li>
+                                    <li>The Sone
+                                        <ol class="list-epsilon">
+                                            <li>expresses comparative loudness of multiple sounds</li>
+                                            <li>arbitrary scale created to provide linear representation of perceived loudness</li>
+                                            <li>one sone = 40 phons</li>
+                                            <li>adding 10 phons will double the number of sones</li>
+                                        </ol>
+                                    </li>
+                                </ol>
+                            </li>
+                            <li>Masking - the obscuring of one sound by another
+                                <ol class="list-delta">
+                                    <li>Masking Rules
+                                        <ol class="list-epsilon">
+                                            <li>pure tones close in frequency mask each other more easily than widely-spaced tones</li>
+                                            <li>pure tones mask higher frequencies easier than low frequencies</li>
+                                            <li>louder tones can mask broader ranges of frequencies</li>
+                                            <li>narrow bands of noise mask like pure tones</li>
+                                        </ol>
+                                    </li>
+                                    <li>Masking Types
+                                        <ol class="list-epsilon">
+                                            <li>Forward Masking - an initial tone can mask a subsequent tone, even if it has stopped and the two do not overlap in time</li>
+                                            <li>Backward Masking - a tone that begins shortly after another can mask the first</li>
+                                            <li>Central Masking - tones heard by one ear can be masked by tones heard by the other ear</li>
+                                        </ol>
+                                    </li>
+                                </ol>
+                            </li>
+                        </ol>
+                    </li>
+                    <li><a target="_blank" href="http://www.music.vt.edu/students/chharvey/MUS_3055/ear.html">The Human Ear</a>
+                        <ol class="list-gamma">
+                            <li>Parts of the Human Hearing Mechanism
+                                <ol class="list-delta">
+                                    <li>Outer Ear
+                                        <ol class="list-epsilon">
+                                            <li>Pinna</li>
+                                            <li>Ear Canal</li>
+                                            <li>Timpanic Membrane (ear drum)</li>
+                                        </ol>
+                                    </li>
+                                    <li>Middle Ear
+                                        <ol class="list-epsilon">
+                                            <li>Ossicles
+                                                <ol class="list-zeta">
+                                                    <li>Malleus (hammer)</li>
+                                                    <li>Incus (anvil)</li>
+                                                    <li>Stapes (stirrup)</li>
+                                                </ol>
+                                            </li>
+                                            <li>Eustachian Tube</li>
+                                        </ol>
+                                    </li>
+                                    <li>Inner Ear
+                                        <ol class="list-epsilon">
+                                            <li>Oval Window</li>
+                                            <li>Cochlea
+                                                <ol class="list-zeta">
+                                                    <li>Perilymph (fluid)</li>
+                                                    <li>Basilar Membrane</li>
+                                                    <li>Organ of Corti - Cilia, Nerve Endings</li>
+                                                    <li>Auditory Nerve</li>
+                                                </ol>
+                                            </li>
+                                            <li>Semi-Circular Canals
+                                                <ol class="list-zeta">
+                                                    <li>Vestibular Nerve</li>
+                                                </ol>
+                                            </li>
+                                        </ol>
+                                    </li>
+                                </ol>
+                            </li>
+                            <li>Sound Localization - Binaural Hearing
+                                <ol class="list-delta">
+                                    <li>two ears hear a difference in loudness of the same sound
+                                        <ol class="list-epsilon">
+                                            <li>higher frequencies reflect off the head</li>
+                                            <li>lower frequencies diffract around the head</li>
+                                        </ol>
+                                    </li>
+                                    <li>two ears hear a difference in time of the same sound
+                                        <ol class="list-epsilon">
+                                            <li>Precedence Effect - direct sounds reach our ears first and indirect sounds interact with reflective objects before being heard</li>
+                                            <li>similar sounds reaching the ear within 20 ms are generally perceived as coming from the same direction</li>
+                                            <li> as the dime difference increases, localization becomes difficult</li>
+                                        </ol>
+                                    </li>
+                                </ol>
+                            </li>
+                            <li>Potential for Damage - Premature Hearing Loss
+                                <ol class="list-delta">
+                                    <li>hearing damage caused by exposure to loud sounds varies with loudness, frequency, duration, exposure time.</li>
+                                    <li>hearing loss is more pronounced in high frequency sensitivity</li>
+                                    <li>Temporary Threshold shift (TTS)
+                                        <ol class="list-epsilon">
+                                            <li>false perception of actual loudness</li>
+                                            <li>necessitates compensation</li>
+                                            <li>lasts minutes, hours, or days</li>
+                                        </ol>
+                                    </li>
+                                    <li>Tinnitus
+                                        <ol class="list-epsilon">
+                                            <li>ringing, whistling, or buzzing in the ears</li>
+                                            <li>could last minutes, hours, or days</li>
+                                            <li>indicates that damage is either imminent or has already occurred</li>
+                                        </ol>
+                                    </li>
+                                    <li>Permanent Threshold Shift (PTS)
+                                        <ol class="list-epsilon">
+                                            <li>decreased sensitivity to loudness</li>
+                                            <li>lasts forever</li>
+                                        </ol>
+                                    </li>
+                                </ol>
+                            </li>
+                        </ol>
+                    </li>
+                </ol>
+            </li>
+        </ol>
+    </li>
+    <li>Electrical Audio
+        <ol class="list-alpha">
+            <li>Sound Reception - Microphones
+                <ol class="list-beta">
+                    <li>Transducer Types
+                        <ol class="list-gamma">
+                            <li>Dynamic / Moving Coil
+                                <ol class="list-delta">
+                                    <li>Classification: electromagnetic</li>
+                                    <li>Method of Operation - Acoustical pressure moves the diaphragm, which is attached to the moving coil, which is suspended in a magnetic field. Mechanical energy is transformed into electrical energy through electromagnetic induction.</li>
+                                    <li>Sonic Characteristics
+                                        <ol class="list-epsilon">
+                                            <li>well-suited for high SPL applications</li>
+                                            <li>generate low self-noise</li>
+                                            <li>frequency response is flat</li>
+                                            <li>slower transient response</li>
+                                        </ol>
+                                    </li>
+                                </ol>
+                            </li>
+                            <li>Condenser / Capacitor
+                                <ol class="list-delta">
+                                    <li>Classification: electrostatic</li>
+                                    <li>Method of Operation - One plate of the capacitor serves as the diaphragm, which vibrates from pressure waves (sound). The distance between the capacitor plates changes, therefore changing the charge of the capacitor. The changes in charge are transformed to changes in voltage, a.k.a. an electrical signal.</li>
+                                    <li>Sonic Characteristics
+                                        <ol class="list-epsilon">
+                                            <li>clear, detailed sound. professional quality</li>
+                                            <li>linear frequency response</li>
+                                            <li>high sensitivity</li>
+                                            <li>quick transient response</li>
+                                        </ol>
+                                    </li>
+                                    <li>Phantom Power - All condenser mics require +48 V DC power in order to charge the capacitor. This does not affect the audio signal.</li>
+                                </ol>
+                            </li>
+                            <li>Ribbon
+                                <ol class="list-delta">
+                                    <li>Classification: electromagnetic</li>
+                                    <li>Method of Operation - An extremely small, thin, grooved, metal ribbon is suspended in a magnetic field. Operates similarly to the dynamic mic.</li>
+                                    <li>Sonic Characteristics
+                                        <ol class="list-epsilon">
+                                            <li>exceptional transient response</li>
+                                            <li>wide frequency range</li>
+                                            <li>good high-frequency response, fair low-frequency response</li>
+                                            <li>warm, mellow quality</li>
+                                        </ol>
+                                    </li>
+                                </ol>
+                            </li>
+                        </ol>
+                    </li>
+                    <li>Directional Characteristics
+                        <ol class="list-gamma">
+                            <li>Omnidirectional
+                                <ol class="list-delta">
+                                    <li>Shape: sphere</li>
+                                    <li>Advantages
+                                        <ol class="list-epsilon">
+                                            <li>moderate frequency response in every direction</li>
+                                        </ol>
+                                    </li>
+                                    <li>Disadvantages
+                                        <ol class="list-epsilon">
+                                            <li>short reach</li>
+                                        </ol>
+                                    </li>
+                                </ol>
+                            </li>
+                            <li>Unidirectional
+                                <ol class="list-delta">
+                                    <li>Shape: <a href="http://upload.wikimedia.org/wikipedia/commons/6/6d/Polar_pattern_cardioid.png">cardioid</a></li>
+                                    <li>Advantages
+                                        <ol class="list-epsilon">
+                                            <li>long reach</li>
+                                        </ol>
+                                    </li>
+                                    <li>Disadvantages
+                                        <ol class="list-epsilon">
+                                            <li>off-axis coloration: <q>red-shift</q></li>
+                                            <li>acoustical cancellation through ports</li>
+                                        </ol>
+                                    </li>
+                                </ol>
+                            </li>
+                            <li>Bidirectional
+                                <ol class="list-delta">
+                                    <li>Shape: figure-eight</li>
+                                    <li>Advantages
+                                        <ol class="list-epsilon">
+                                            <li>excellent high-frequency response on-axis</li>
+                                        </ol>
+                                    </li>
+                                    <li>Disadvantages
+                                        <ol class="list-epsilon">
+                                            <li>off-axis coloration: <q>red-shift</q></li>
+                                        </ol>
+                                    </li>
+                                </ol>
+                            </li>
+                        </ol>
+                    </li>
+                </ol>
+            </li>
+            <li>Electrical Audio Transmission and Storage
+                <ol class="list-beta">
+                    <li>Analog Audio
+                        <ol class="list-gamma">
+                            <li>electricity is most common medium of audio transmission</li>
+                            <li>analog electrical signals have properties of frequency and amplitude</li>
+                            <li>congruent to the nature of acoustic sound itself</li>
+                            <li>Interference
+                                <ol class="list-delta">
+                                    <li>electromagnetic disturbances can affect the analog signal</li>
+                                    <li>Electromagnetic Interference (EMI) - low frequencies</li>
+                                    <li>Radio Frequency Interference (RFI) - high frequencies. technically also electromagnetic</li>
+                                    <li>minimizing interference
+                                        <ol class="list-epsilon">
+                                            <li>increase distance</li>
+                                            <li>cross cables at right (90 degree) angles</li>
+                                            <li>shielding</li>
+                                            <li>twisted-pair</li>
+                                            <li>balancing methods</li>
+                                        </ol>
+                                    </li>
+                                </ol>
+                            </li>
+                        </ol>
+                    </li>
+                    <li>Digital Audio</li>
+                </ol>
+            </li>
+        </ol>
+    </li>
+</ol>
+
+</body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>The structure and style of nested headings in Google Chrome</title>
+<style>
+	.i0 {margin-left: 0.0in;}
+	.i1 {margin-left: 0.5in;}
+	.i2 {margin-left: 1.0in;}
+	.i3 {margin-left: 1.5in;}
+	.i4 {margin-left: 2.0in;}
+	.res-name {font-family: serif; font-style: italic;}
+</style>
+</head>
+<body>
+<header>
+	<div class="title">
+		<h1>What kind of heading is it?</h1>
+		<p>The structure and style of nested headings in Google Chrome</p>
+	</div>
+	<p>This page examines how an HTML outliner will parse multiple types of headings in multiple nested sections. For the sake of consistency, use the following numberings for headings, according to nest level.</p>
+	<pre>
+"BODY"
+upper-Roman (I, II, III, ...)
+upper-alpha (A, B, C, ...)
+decimal (1, 2, 3, ...)
+lower-alpha (a, b, c, ...)
+lower-Roman (i, ii, iii, ...)
+	</pre>
+	<dl>
+		<dt>child section</dt>
+		<dd>an explicit direct descendent of an element</dd>
+		<dt>subsection</dt>
+		<dd>implicit descendent created by the browser's parsing rules</dd>
+		<dt>sister section</dt>
+		<dd>explicit element that shares the same parent</dd>
+		<dt>"co-section"</dt>
+		<dd>implicit sister section</dd>
+		<dt>"behaves like"</dt>
+		<dd>how the browser parses the headings and organizes them into an accurate DOM</dd>
+	</dl>
+</header>
+	
+<h1 class="i0">BODY. <br />
+	This is a h1 in the `<span class="res-name">body</span>` section<br />
+	"behaves" like a h1<br />
+	styled like h1</h1>
+<p>Although the HTML5 spec does not state that the <code>body</code> element is a sectioning content element, it really is. The body element is the root of the DOM tree, therefore it is the root section. <small>I have learned from experience not to use the <code>article</code> section (because it <em>is</em> sectioning content) as the only direct descendent (<abbr title="also known as">a.k.a.</abbr> child) of the <code>body</code> element. It creates an unnecessary subsection. The <code>article</code> element is meant for use when multiple sub-sections (namely, articles) of the <code>body</code> are present.</small></p>
+<h2 class="i1">BODY.I. <br />
+	This is h2 in `body`, <br />
+	creating an implicit subsection of `body`, <br />
+	call it `<span class="res-name">alpha</span>`<br />
+	"behaves" like a h2<br />
+	styled like a h2</h2>
+<h3 class="i2">BODY.I.A. <br />
+	this is h3 in `body`, <br />
+	creating implicit subsection of `alpha`, <br />
+	call it `<span class="res-name">bravo</span>`<br />
+	"behaves" like a h3<br />
+	styled like a h3</h3>
+<section class="i1">
+	<h1 class="i0">BODY.II. <br />
+		This is a h1 in explicit child section of `body`, <br />
+		implicit co-section of `alpha`, <br />
+		call it `<span class="res-name">charlie</span>`<br />
+		"behaves" like a h2<br />
+		styled like a h2</h1>
+	<h2 class="i1">BODY.II.A. <br />
+		This is a h2 in `charlie`, <br />
+		creating implicit subsection of `charlie`, <br />
+		call it `<span class="res-name">delta</span>`<br />
+		"behaves" like a h3<br />
+		styled like a h2</h2>
+	<h3 class="i2">BODY.II.A.1. <br />
+		This is a h3 in `charlie`, <br />
+		creating implicit subsection of `delta`, <br />
+		call it `<span class="res-name">echo</span>`<br />
+			"behaves" like a h4<br />
+		styled like a h3</h3>
+	<section class="i1">
+		<h1 class="i0">BODY.II.B. <br />
+			This is a h1 in explicit child section of `charlie`, <br />
+			implicit co-section of `delta`, <br />
+			call it `<span class="res-name">foxtrot</span>`<br />
+			"behaves" like a h3<br />
+			styled like a h3</h1>
+		<h2 class="i1">BODY.II.B.1. <br />
+			This is a h2 in section `foxtrot`, <br />
+			creating implicit subsection of `foxtrot`, <br />
+			call it `<span class="res-name">golf</span>`<br />
+			"behaves" like a h4<br />
+			styled like a h2</h2>
+		<h3 class="i2">BODY.II.B.1.a. <br />
+			This is a h3 in section `foxtrot`, <br />
+			creating implicit subsection of `golf`, <br />
+			call it `<span class="res-name">hotel</span>`<br />
+			"behaves" like a h5<br />
+			styled like a h3</h3>
+	</section>
+	<section class="i1">
+		<h1 class="i0">BODY.II.C. <br />
+			This is a h1 in explicit child section of `charlie`, <br />
+			explicit sister section of `foxtrot`, <br />
+			implicit sister section of `delta`, <br />
+			call it `<span class="res-name">india</span>`<br />
+			"behaves" like a h3<br />
+			styled like a h3</h1>
+		<h2 class="i1">BODY.II.C.1. <br />
+			This is a h2 in section `india`, <br />
+			creating implicit subsection of `india`, <br />
+			call it `<span class="res-name">juliet</span>`<br />
+			"behaves" like a h4<br />
+			styled like a h2</h2>
+		<h3 class="i2">BODY.II.C.1.a <br />
+			This is a h3 in section `india`, <br />
+			creating implicit subsection of `juliet`, <br />
+			call it `<span class="res-name">kilo</span>`<br />
+			"behaves" like a h5<br />
+			styled like a h3</h3>
+	</section>
+</section>
+<section class="i1">
+	<h1 class="i0">BODY.III. <br />
+		This is a h1 in explicit child section of `body`, <br />
+		explicit sister section of `charlie`, <br />
+		implicit co-section of `alpha`, <br />
+		call it `<span class="res-name">lima</span>`<br />
+		"behaves" like a h2<br />
+		styled like a h2</h1>
+	<h2 class="i1">BODY.III.A. <br />
+		This is a h2 in section `lima`, <br />
+		creating implicit subsection of `lima`, <br />
+		call it `<span class="res-name">mike</span>`<br />
+		"behaves" like a h3<br />
+		styled like a h2</h2>
+	<h3 class="i2">BODY.III.A.1. <br />
+		This is a h3 in section `lima`, <br />
+		creating implicit subsection of `mike`, <br />
+		call it `<span class="res-name">november</span>`<br />
+		"behaves" like a h4<br />
+		styled like a h3</h3>
+</section>
+
+<footer>
+	<address>
+		<a href="https://plus.google.com/117415183661523927249/">Chris Harvey</a><br />
+		<a href="http://stackoverflow.com/users/877703/testsubject528491">TestSubject528491</a>
+	</address>
+</footer>
+</body>
+</html>

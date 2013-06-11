@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="UTF-8" />
+<meta name="description" content="A map of the first 65535 Unicode characters." />
+<title>Unicode Character Map</title>
+<style>
+body {
+	font-size: 10pt;
+	text-align: center;
+}
+td,th {white-space: nowrap; outline: 1px solid #000000;}
+
+.bigTable {color: #ffffff; background-color: #990000;}
+.bigCell:hover {color: #990000; background-color: #ffffff;}
+.smallTable {color: #000000; background-color: #ffffff;}
+.smallCell:hover,.smallTableKeystone:hover {color: #ffffff; background-color: #990000;}
+.bigCell,.smallCell {cursor: pointer;}
+</style>
+<script type="text/javascript">
+
+
+/**
+ * Takes a decimal number of any size and converts it to a 
+ * hexadecimal number of four digits, and then returns 
+ * a string representation.
+ */
+function decToHex(dec) {
+	var hex = dec.toString(16);
+	while (hex.length<4) {
+		hex = '0' + hex;
+	}
+	return hex;
+}
+/**
+ * Takes a four digit hexadecimal number and replaces 
+ * the last n digits with hyphens '-'.
+ */
+function nameSeries(hex,n) {
+	var series = hex.substring(0,(4-n));
+	for (var i=0; i<n; i++) {
+		series += '-';
+	}
+	return series;
+}
+function openSmallTable(tableId) {
+	var smallTable = document.getElementById(tableId);
+	smallTable.style.display = 'table';
+	smallTable.previousSibling.style.display = 'none';
+}
+function closeSmallTable(tableId) {
+	var smallTable = document.getElementById(tableId);
+	smallTable.previousSibling.style.display = 'inline';
+	smallTable.style.display = 'none';
+}
+function toggleChar(clickedNode) {
+	var targetNode = clickedNode.childNodes[0];
+	if (targetNode.className == 'symb') {showCode(targetNode.id);}
+	else if (targetNode.className == 'code') {showSymb(targetNode.id);}
+	else {alert('error');}
+}
+function showCode(char_count) {
+	var targetNode = document.getElementById(char_count);
+	targetNode.className = 'code';
+	targetNode.innerHTML = targetNode.parentNode.id.slice(1);
+}
+function showSymb(char_count) {
+	var targetNode = document.getElementById(char_count);
+	targetNode.className = 'symb';
+	targetNode.innerHTML = '&#' + targetNode.parentNode.id + ';';
+}
+function openAllTables() {
+	
+}
+function closeAllTables() {
+	
+}
+function showAllCodes() {
+	for (var t = 0; t < Math.pow(16,4); t++) {
+		showCode(t);
+	}
+}
+function showAllSymbs() {
+	for (var t = 0; t < Math.pow(16,4); t++) {
+		showSymb(t);
+	}
+}
+</script>
+</head>
+
+<body>
+	<a href="#" onclick="showAllSymbs()">Show all symbols.</a> <a href="#" onclick="showAllCodes()">Show all codes.</a>
+<script type="text/javascript">
+//for (var i=0; i<65536; i++) {
+//	document.write('<dl>');
+//		document.write('<dt>' + i + '</dt>');
+//		for (var j=0; j<=4; j++) {
+//			document.write('<dd>' + nameSeries(decToHex(i),j) + '</dd>');
+//		}
+//	document.write('</dl>');
+//}
+var char_count = 0; // the decimal id of a character, in the least required number of digits
+document.write('<table class="bigTable"><thead><tr>');
+	document.write('<th scope="col" class="bigTableKeystone">U+----</th>');
+	for (var x=0; x<16; x++) {document.write('<th scope="col">' + '-' + x.toString(16) + '--</th>')}
+document.write('</tr></thead><tbody>');
+for (var w=0; w<16; w++) {
+	document.write('<tr><th scope="row">' + w.toString(16) + '-' + '--</th>');
+	for (var x=0; x<16; x++) {
+		var partialHexCode = w.toString(16) + x.toString(16) + '--';
+		document.write('<td class="bigCell">');
+		document.write('<span onclick="openSmallTable(\'' + partialHexCode + '\');">' + w.toString(16) + x.toString(16) + '--</span>');
+		document.write('<table id="' + partialHexCode + '" class="smallTable" style="display: none;"><thead><tr>');
+			document.write('<th scope="col" class="smallTableKeystone" onclick="closeSmallTable(\'' + partialHexCode + '\');">' + 'U+' + w.toString(16) + x.toString(16) + '--</th>');
+			for (var z=0; z<16; z++) {document.write('<th scope="col">' + '-' + z.toString(16) + '</th>')}
+		document.write('</tr></thead><tbody>');
+		for (var y=0; y<16; y++) {
+			document.write('<tr><th scope="row">' + y.toString(16) + '-' + '</th>');
+			for (var z=0; z<16; z++) {
+				var hexCode = w.toString(16) + x.toString(16) + y.toString(16) + z.toString(16); // the hexadecimal id, in four digits
+				document.write('<td id="x' + hexCode + '" class="smallCell" title="U+' + hexCode + '" onClick="toggleChar(this);">');
+					document.write('<span id="' + char_count + '" class="symb">&#x' + hexCode + ';</span>');
+					char_count++;
+				document.write('</td>');
+			}
+			document.write('</tr>');
+		}
+		document.write('</tbody></table>');
+		document.write('</td>');
+	}
+	document.write('</tr>');
+}
+document.write('</tbody></table>');
+</script>
+</body>
+</html>
