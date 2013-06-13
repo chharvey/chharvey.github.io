@@ -75,8 +75,7 @@ body {
 	letter-spacing: 2px;
 	color: @aperture-black;
 }
-h1, .h-alpha {
-	.h;
+h1, .h-alpha:extend(.h) {
 	font-variant: small-caps;
 	font-weight: bold;
 	font-size: 2.000em; // 24
@@ -281,7 +280,7 @@ a {
 	position: relative;
 	padding: 2em 10px 10px;
 }
-.sample-label() {
+.sample-label(@string) {
 	.box-block;
 	position: absolute;
 	top: -1px;
@@ -289,6 +288,7 @@ a {
 	border-bottom-left-radius: 0;
 	border-top-right-radius: 0;
 	margin: 0;
+	content: @string;
 	font-size: smaller;
 }
 .example {
@@ -296,11 +296,10 @@ a {
 	border-color: @vilify;
 	background-color: @atlas-sat8;
 	&:before {
-		.sample-label();
+		.sample-label('example');
 		border-color: @vilify;
 		color: @atlas;
 		background-color: @atlas-sat16;
-		content:  'example';
 	}
 }
 .demo {
@@ -308,11 +307,10 @@ a {
 	border-color: @pbody-sat25;
 	background-color: @pbody-sat8;
 	&:before {
-		.sample-label();
+		.sample-label('demo');
 		border-color: @pbody-sat25;
 		color: @pbody;
 		background-color: @pbody-sat16;
-		content: 'demo';
 	}
 }
 code, .code { // inline code elements
@@ -323,15 +321,14 @@ code, .code { // inline code elements
 	font-family: @font-code;
 	color: #000000;
 }
-pre, .code-block { // block code elements
+pre code, .code-block { // block code elements
 	.code;
 	.sample();
 	&:before {
-		.sample-label();
+		.sample-label('code');
 		border-color: @help-border;
 		color: @heart-sat50;
 		background-color: @heart-sat16;
-		content: 'code';
 	}
 }
 kbd kbd, .kbd {

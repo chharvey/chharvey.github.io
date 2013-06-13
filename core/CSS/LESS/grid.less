@@ -15,7 +15,15 @@
 @width-UGolden3: (100% * @UPhi3);  // 76.3932022500210304%
 
 /* @group a line of columns */
-.line {display: table; width: 100%;}
+.line {
+	display: table;
+	width: 100%;
+	> .unit {
+		display: table-cell;
+		vertical-align: top;
+		overflow: visible;
+	}
+}
 .linebreadth(@breadth) {
 	width:  @breadth;
 	margin: auto ((100% - @breadth) / 2);
@@ -25,30 +33,23 @@
 .linebreadth-medium {.linebreadth(@width-arithmetic);}
 .linebreadth-small  {.linebreadth(@width-Golden1);}
 
-.solo, .duet, .trio, .quartet, .quintet, .sextet {.line;}
+.solo, .duet, .trio, .quartet, .quintet, .sextet {
+	.line;
+}
 /* @end */
 
 /* @group columns in each line */
-.line > .unit,
-.solo > .unit,
-.duet > .unit,
-.trio > .unit,
-.quartet > .unit,
-.quintet > .unit,
-.sextet > .unit {
-	display: table-cell;
-	vertical-align: top;
-	overflow: visible;
-}
-
 	/* @group automated widths in a line */
 	// The number of units is indicated by the line subclass, e.g. "duet" indicates two units, "trio" for three, etc. The units are automatically sized evenly.
-	.solo    > .unit {width: (100% / 1);} // 100%
-	.duet    > .unit {width: (100% / 2);} //  50%
-	.trio    > .unit {width: (100% / 3);} //  33.3%
-	.quartet > .unit {width: (100% / 4);} //  25%
-	.quintet > .unit {width: (100% / 5);} //  20%
-	.sextet  > .unit {width: (100% / 6);} //  16.6%
+	.evenwidths(@n) {
+		width: (100% / @n);
+	}
+	.solo    > .unit {.evenwidths(1);} // 100%
+	.duet    > .unit {.evenwidths(2);} //  50%
+	.trio    > .unit {.evenwidths(3);} //  33.3%
+	.quartet > .unit {.evenwidths(4);} //  25%
+	.quintet > .unit {.evenwidths(5);} //  20%
+	.sextet  > .unit {.evenwidths(6);} //  16.6%
 	/* @end */
 	
 	/* @group exceptions to automated widths */
@@ -78,28 +79,29 @@
 	/* @end */
 	
 	/* @group margins */
-	.left(@margin-right) {
+	.automargin(left; @othermargin) {
 		margin-left: 0;
-		margin-right: @margin-right;
+		margin-right: @othermargin;
 	}
-	.right(@margin-left) {
-		margin-left: @margin-left;
+	.automargin(right; @othermargin) {
+		margin-left: @othermargin;
 		margin-right: 0;
 	}
+	
 	.P1-midleft,  .unit.P1-midleft  {.P1(); margin-left: @width-Golden4; margin-right: @width-Golden3;}
 	.P1-midright, .unit.P1-midright {.P1(); margin-left: @width-Golden3; margin-right: @width-Golden4;}
-	.P1-left,  .unit.P1-left  {.P1(); .left (100% - @width-Golden1);}
-	.P1-right, .unit.P1-right {.P1(); .right(100% - @width-Golden1);}
-	.P2-left,  .unit.P2-left  {.P2(); .left (100% - @width-Golden2);}
-	.P2-right, .unit.P2-right {.P2(); .right(100% - @width-Golden2);}
-	.P3-left,  .unit.P3-left  {.P3(); .left (100% - @width-Golden3);}
-	.P3-right, .unit.P3-right {.P3(); .right(100% - @width-Golden3);}
-	.P4-left,  .unit.P4-left  {.P4(); .left (100% - @width-Golden4);}
-	.P4-right, .unit.P4-right {.P4(); .right(100% - @width-Golden4);}
-	.U-P3-left  {.U-P3(); .left (@width-Golden3);}
-	.U-P3-right {.U-P3(); .right(@width-Golden3);}
-	.U-P4-left  {.U-P4(); .left (@width-Golden4);}
-	.U-P4-right {.U-P4(); .right(@width-Golden4);}
+	.P1-left,  .unit.P1-left  {.P1(); .automargin(left;  100% - @width-Golden1);}
+	.P1-right, .unit.P1-right {.P1(); .automargin(right; 100% - @width-Golden1);}
+	.P2-left,  .unit.P2-left  {.P2(); .automargin(left;  100% - @width-Golden2);}
+	.P2-right, .unit.P2-right {.P2(); .automargin(right; 100% - @width-Golden2);}
+	.P3-left,  .unit.P3-left  {.P3(); .automargin(left;  100% - @width-Golden3);}
+	.P3-right, .unit.P3-right {.P3(); .automargin(right; 100% - @width-Golden3);}
+	.P4-left,  .unit.P4-left  {.P4(); .automargin(left;  100% - @width-Golden4);}
+	.P4-right, .unit.P4-right {.P4(); .automargin(right; 100% - @width-Golden4);}
+	.U-P3-left  {.U-P3(); .automargin(left;  @width-Golden3);}
+	.U-P3-right {.U-P3(); .automargin(right; @width-Golden3);}
+	.U-P4-left  {.U-P4(); .automargin(left;  @width-Golden4);}
+	.U-P4-right {.U-P4(); .automargin(right; @width-Golden4);}
 	/* @end */
 /* @end */
 
@@ -133,7 +135,7 @@
 	.undoP2-left  {.undoP2();}
 	.undoP2-right {.undoP2(); left: -100%;}
 	.undoP3-left  {.undoP3();}
-	.undoP3-right {.undoP3; left: -323.6067977499789696%;}  // -323.6067977499789696%
+	.undoP3-right {.undoP3(); left: -323.6067977499789696%;}  // -323.6067977499789696%
 	.undoP4-left  {.undoP4();}
 	.undoP4-right {.undoP4(); left: -585.4101966249684545%;}  // -585.4101966249684545%
 	.undoU-P3-right {.undoU-P3(); left: -30.9016994374947424%;} // -30.9016994374947424%
