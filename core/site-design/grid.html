@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="UTF-8" />
+<title>Chris Harvey &ni; Site Design &ni; The Grid</title>
+<link rel="stylesheet" href="site-design.css" />
+<style>
+
+
+
+.demo .red    {background-color: red;}
+.demo .orange {background-color: orange;}
+.demo .yellow {background-color: yellow;}
+.demo .green  {background-color: green;}
+.demo .blue   {background-color: blue;}
+.demo .purple {background-color: purple;}
+	
+#des-philines .line {margin-top: 1em;}
+#des-philines .unit {padding: 0;}
+</style>
+<!--#include virtual="/core/snippets/all-js.html" -->
+</head>
+<body>
+<div class="main P1-midright">
+<header>
+	<h1 class="h-alpha">Site Design &mdash; The Grid</h1>
+	<!--#include virtual="navigation.html" -->
+	<p class="timestamp">Updated <time datetime="2013-06-14T02:00">June 14, 2013</time>.</p>
+	<p class="prose">This page describes the grid system of the site. <a class="up" href="/core/stylesheets/grid.css">The grid</a> implements the structure and layout of any page. It consists of lines and units, treated as table rows and table cells respectively.</p>
+	<p class="prose">The classes used for the grid are purely presentational and non-semantic. These classes are reserved for containers only (e.g. <code class="lang-html">&lt;div&gt;</code>s), and not for semantic elements. Semantic elements should be styled with semantic classes and their location on the page should not be determined by those classes.</p>
+	<p class="prose">The grid should <strong>degrade gracefully</strong>. This means that if someone were to <span class="scare">turn off</span> the grid, you would still be able to read and interact with the website without any problems. It might not look pretty, but the content should be intact. The grid only provides structure for the page itself, not for any of the elements.</p>
+	<p class="prose">To set up a grid, create a line with units inside. The effect will be a table-like structure.</p>
+	<pre><code class="lang-html">&lt;div class=&quot;line&quot;&gt;
+	&lt;div class=&quot;unit&quot;&gt;unit 1&lt;/div&gt;
+	&lt;div class=&quot;unit&quot;&gt;unit 2&lt;/div&gt;
+	&lt;div class=&quot;unit&quot;&gt;unit 3&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+	<div class="demo">
+		<div class="line outline">
+			<div class="unit size1to3">unit 1</div>
+			<div class="unit size1to6">unit 2</div>
+			<div class="unit size1to2">unit 3</div>
+		</div>
+	</div>
+</header>
+<section id="default-units">
+	<h1 class="h-beta">Default Units</h1>
+	<p class="prose">Each line is 100% the width of its container, unless otherwise specified. Each line can have a particular number of units. If you want the line to <strong>force</strong> the units to have equal widths, use the <code class="lang-css">.solo</code>, <code class="lang-css">.duet</code>, <code class="lang-css">.trio</code>, <code class="lang-css">.quartet</code>, <code class="lang-css">.quintet</code>, and <code class="lang-css">.sextet</code> subclasses of <code class="lang-css">.line</code>, depending on the number of units in the line. Since these subclasses <strong>extend</strong> the <code class="lang-css">.line</code> class, there is no need to include the <code class="lang-css">.line</code> class in the HTML. Just include the subclass. <small>The system is automatically equipped to handle lines with up to six units, named after small musical groups (Latin prefixes).</small></p>
+	<pre><code class="lang-html">&lt;div class=&quot;trio&quot;&gt;
+	&lt;div class=&quot;unit&quot;&gt;unit 1&lt;/div&gt;
+	&lt;div class=&quot;unit&quot;&gt;unit 2&lt;/div&gt;
+	&lt;div class=&quot;unit&quot;&gt;unit 3&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+	<div class="demo">
+		<div class="trio">
+			<div class="unit">unit 1, width 33.33%</div>
+			<div class="unit">unit 2, width 33.33%</div>
+			<div class="unit">unit 3, width 33.33%</div>
+		</div>
+	</div>
+	<div class="example">
+		<p class="capt">The unit in a <code class="lang-css">.solo</code> is full width:</p>
+		<div class="solo">
+			<div class="unit">the only unit</div>
+		</div>
+		<p class="capt">Units in a <code class="lang-css">.duet</code> are 50% width each:</p>
+		<div class="duet">
+			<div class="unit">first unit</div>
+			<div class="unit">second unit</div>
+		</div>
+		<p class="capt">Units in a <code class="lang-css">.trio</code> are 33.33% width each:</p>
+		<div class="trio">
+			<div class="unit">first unit</div>
+			<div class="unit">second unit</div>
+			<div class="unit">third unit</div>
+		</div>
+		<p class="capt">Units in a <code class="lang-css">.quartet</code> are 25% width each:</p>
+		<div class="quartet">
+			<div class="unit">first unit</div>
+			<div class="unit">second unit</div>
+			<div class="unit">third unit</div>
+			<div class="unit">fourth unit</div>
+		</div>
+		<p class="capt">Units in a <code class="lang-css">.quintet</code> are 20% width each:</p>
+		<div class="quintet">
+			<div class="unit">first unit</div>
+			<div class="unit">second unit</div>
+			<div class="unit">third unit</div>
+			<div class="unit">fourth unit</div>
+			<div class="unit">fifth unit</div>
+		</div>
+		<p class="capt">Units in a <code class="lang-css">.sextet</code> are 16.66% width each:</p>
+		<div class="sextet">
+			<div class="unit">first unit</div>
+			<div class="unit">second unit</div>
+			<div class="unit">third unit</div>
+			<div class="unit">fourth unit</div>
+			<div class="unit">fifth unit</div>
+			<div class="unit">sixth unit</div>
+		</div>
+	</div>
+	<p class="caption">Above are all the subclasses of the <code class="lang-css">.line</code> class, with units in each line.</p>
+</section>
+<section id="custom-units">
+	<header>
+		<h1 class="h-beta">Custom Units</h1>
+		<p class="prose">Sometimes you may want to change the widths of units in a line. For this, use classes for custom widths.</p>
+	</header>
+	<section id="solo-lines">
+		<h1 class="h-gamma">Solo Lines</h1>
+		<p class="prose">The following classes change the appearance of solo lines. Solo lines have one unit, which always takes up the full width of the line and there's really nothing to change that. If you want to change the width of the line itself, however, &hellip;</p>
+		<p class="prose">A solo line defaults to 100% width and no margins. To force this setting, use the <code class="lang-css">.linebreadth-full</code> class to the <strong>line</strong> (not the unit). This class <em>does not</em> extend the <code class="lang-css">.solo</code> class, so you need to specify it additionally.</p>
+		<pre><code class="lang-html">&lt;div class&quot;solo linebreadth-full&quot;&gt;
+	&lt;div class=&quot;unit&quot;&gt;line width 100%&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+		<div class="demo">
+			<div class"solo linebreadth-full">
+				<div class="unit">line width 100%</div>
+			</div>
+		</div>
+		<div class="example">
+			<div class="solo linebreadth-full">
+				<div class="unit">
+					<p>The <code class="lang-css">.linebreadth-full</code> class sets the line width to 100% with no margins. It's modeled after the <b>harmonic sequence</b></p>
+					<div class="tex">\[ \left(\infty,\mathbf{1},\frac{1}{2},\frac{1}{3},\frac{1}{4},\dots,\frac{1}{n}\right) \]</div>
+					<p>where <var>n</var> is the number of units (<var>n</var> starts at 0).</p>
+				</div>
+			</div>
+		</div>
+		<p class="prose">Sometimes you may want to make the line a little narrower. There are three custom classes to do this.</p>
+		<section>
+			<h1 class="h-delta">.linebreadth-large</h1>
+			<div class="example">
+				<div class="solo linebreadth-large">
+					<div class="unit">
+						<p>The <code class="lang-css">.linebreadth-large</code> class sets the line width to 75% with equal margins (12.5%). It's modeled after the <b>geometric sequence</b></p>
+						<div class="tex">\[ \left(\frac{9}{8},\mathbf{\frac{3}{4}},\frac{1}{2},\frac{1}{3},\frac{2}{9},\dots,\frac{9}{8}\left(\frac{2}{3}\right)^n\right) \]</div>
+						<p>where <var>n</var> is the number of units (<var>n</var> starts at 0).</p>
+					</div>
+				</div>
+			</div>
+		</section>
+		<section>
+			<h1 class="h-delta">.linebreadth-medium</h1>
+			<div class="example">
+				<div class="solo linebreadth-medium">
+					<div class="unit">
+						<p>The <code class="lang-css">.linebreadth-medium</code> class sets the line width to 66.6% and equal margins (16.6%). It's modeled after the <b>arithmetic sequence</b></p>
+						<div class="tex">\[ \left(\frac{5}{6},\mathbf{\frac{2}{3}},\frac{1}{2},\frac{1}{3},\frac{1}{6},\dots,\frac{5-n}{6}\right) \]</div>
+						<p>where <var>n</var> is the number of units (<var>n</var> starts at 0).</p>
+					</div>
+				</div>
+			</div>
+		</section>
+		<section>
+			<h1 class="h-delta">.linebreadth-small</h1>
+			<div class="example">
+				<div class="solo linebreadth-small">
+					<div class="unit">
+						<p>The <code class="lang-css">.linebreadth-small</code> class sets the line width to about 61.8% and equal margins (19.1%). It's approximately <a class="up" href="phi.html">the ratio <var>&Phi;</var></a>.</p>
+						<p>This means that if you add the margins (38.2%) and take the ratio of that to the line width (61.8%), it's the same as the ratio of the line width to the container (100%). That is, 38.2% is to 61.8% as 61.8% is to 100%.</p>
+					</div>
+				</div>
+			</div>
+		</section>
+	</section>
+	<section id="other-lines">
+		<header>
+			<h1 class="h-gamma">Duets, Trios, Quartets, Quintets, and Sextets</h1>
+			<p class="prose">Unlike the solo lines above, we can change the width of each unit in general lines. Use the following unit subclasses to override the default widths. These classes <em>do not</em> override the <code class="lang-css">.unit</code> class, so you need to add the additional class.</p>
+			<p class="prose">Notice how the custom class names correspond to ratios. By default, a unit in a <code class="lang-css">.duet</code> would be 50% the width of its line, but we could force the left unit to be 33.33%, or 1/3, the width of its line by adding the <code class="lang-css">.size1to3</code> class to the unit. The right unit would have to be <code class="lang-css">.size2to3</code> of course. The sum of the fractions must add up to 100%.</p>
+		</header>
+		<section class="example">
+			<h1 class="h-delta">Duet Lines</h1>
+			<div class="duet br">
+				<div class="unit"><code class="lang-css">.unit</code> (default width, 1/2)</div>
+				<div class="unit"><code class="lang-css">.unit</code> (default width, 1/2)</div>
+			</div>
+			<div class="duet">
+				<div class="unit size1to3"><code class="lang-css">.unit.size1to3</code></div>
+				<div class="unit size2to3"><code class="lang-css">.unit.size2to3</code></div>
+			</div>
+			<div class="duet br">
+				<div class="unit size2to3"><code class="lang-css">.unit.size2to3</code></div>
+				<div class="unit size1to3"><code class="lang-css">.unit.size1to3</code></div>
+			</div>
+			<div class="duet">
+				<div class="unit size1to4"><code class="lang-css">.unit.size1to4</code></div>
+				<div class="unit size3to4"><code class="lang-css">.unit.size3to4</code></div>
+			</div>
+			<div class="duet br">
+				<div class="unit size3to4"><code class="lang-css">.unit.size3to4</code></div>
+				<div class="unit size1to4"><code class="lang-css">.unit.size1to4</code></div>
+			</div>
+			<div class="duet">
+				<div class="unit size1to5"><code class="lang-css">.unit.size1to5</code></div>
+				<div class="unit size4to5"><code class="lang-css">.unit.size4to5</code></div>
+			</div>
+			<div class="duet">
+				<div class="unit size2to5"><code class="lang-css">.unit.size2to5</code></div>
+				<div class="unit size3to5"><code class="lang-css">.unit.size3to5</code></div>
+			</div>
+			<div class="duet">
+				<div class="unit size3to5"><code class="lang-css">.unit.size3to5</code></div>
+				<div class="unit size2to5"><code class="lang-css">.unit.size2to5</code></div>
+			</div>
+			<div class="duet br">
+				<div class="unit size4to5"><code class="lang-css">.unit.size4to5</code></div>
+				<div class="unit size1to5"><code class="lang-css">.unit.size1to5</code></div>
+			</div>
+			<div class="duet">
+				<div class="unit size1to6"><code class="lang-css">.unit.size1to6</code></div>
+				<div class="unit size5to6"><code class="lang-css">.unit.size5to6</code></div>
+			</div>
+			<div class="duet">
+				<div class="unit size5to6"><code class="lang-css">.unit.size5to6</code></div>
+				<div class="unit size1to6"><code class="lang-css">.unit.size1to6</code></div>
+			</div>
+		</section>
+		<section class="example">
+			<h2 class="h-delta">Trio Lines</h2>
+			<div class="trio">
+				<div class="unit size1to2"><code class="lang-css">.unit.size1to2</code></div>
+				<div class="unit"><code class="lang-css">.unit</code> (default width, 1/3)</div>
+				<div class="unit size1to6"><code class="lang-css">.unit.size1to6</code></div>
+			</div>
+			<div class="trio">
+				<div class="unit size1to2"><code class="lang-css">.unit.size1to2</code></div>
+				<div class="unit size1to4"><code class="lang-css">.unit.size1to4</code></div>
+				<div class="unit size1to4"><code class="lang-css">.unit.size1to4</code></div>
+			</div>
+			<div class="trio br">
+				<div class="unit size1to2"><code class="lang-css">.unit.size1to2</code></div>
+				<div class="unit size1to6"><code class="lang-css">.unit.size1to6</code></div>
+				<div class="unit"><code class="lang-css">.unit</code> (default width, 1/3)</div>
+			</div>
+			
+			<div class="trio">
+				<div class="unit"><code class="lang-css">.unit</code> (default width, 1/3)</div>
+				<div class="unit size1to2"><code class="lang-css">.unit.size1to2</code></div>
+				<div class="unit size1to6"><code class="lang-css">.unit.size1to6</code></div>
+			</div>
+			<div class="trio">
+				<div class="unit"><code class="lang-css">.unit</code> (default width, 1/3)</div>
+				<div class="unit"><code class="lang-css">.unit</code> (default width, 1/3)</div>
+				<div class="unit"><code class="lang-css">.unit</code> (default width, 1/3)</div>
+			</div>
+			<div class="trio br">
+				<div class="unit"><code class="lang-css">.unit</code> (default width, 1/3)</div>
+				<div class="unit size1to6"><code class="lang-css">.unit.size1to6</code></div>
+				<div class="unit size1to2"><code class="lang-css">.unit.size1to2</code></div>
+			</div>
+			
+			<div class="trio br">
+				<div class="unit size2to3"><code class="lang-css">.unit.size2to3</code></div>
+				<div class="unit size1to6"><code class="lang-css">.unit.size1to6</code></div>
+				<div class="unit size1to6"><code class="lang-css">.unit.size1to6</code></div>
+			</div>
+			
+			<div class="trio">
+				<div class="unit size1to4"><code class="lang-css">.unit.size1to4</code></div>
+				<div class="unit size1to2"><code class="lang-css">.unit.size1to2</code></div>
+				<div class="unit size1to4"><code class="lang-css">.unit.size1to4</code></div>
+			</div>
+			<div class="trio br">
+				<div class="unit size1to4"><code class="lang-css">.unit.size1to4</code></div>
+				<div class="unit size1to4"><code class="lang-css">.unit.size1to4</code></div>
+				<div class="unit size1to2"><code class="lang-css">.unit.size1to2</code></div>
+			</div>
+			
+			<div class="trio">
+				<div class="unit size1to5"><code class="lang-css">.unit.size1to5</code></div>
+				<div class="unit size1to5"><code class="lang-css">.unit.size1to5</code></div>
+				<div class="unit size3to5"><code class="lang-css">.unit.size3to5</code></div>
+			</div>
+			<div class="trio">
+				<div class="unit size1to5"><code class="lang-css">.unit.size1to5</code></div>
+				<div class="unit size2to5"><code class="lang-css">.unit.size2to5</code></div>
+				<div class="unit size2to5"><code class="lang-css">.unit.size2to5</code></div>
+			</div>
+			<div class="trio br">
+				<div class="unit size1to5"><code class="lang-css">.unit.size1to5</code></div>
+				<div class="unit size3to5"><code class="lang-css">.unit.size3to5</code></div>
+				<div class="unit size1to5"><code class="lang-css">.unit.size1to5</code></div>
+			</div>
+
+			<div class="trio">
+				<div class="unit size2to5"><code class="lang-css">.unit.size2to5</code></div>
+				<div class="unit size1to5"><code class="lang-css">.unit.size1to5</code></div>
+				<div class="unit size2to5"><code class="lang-css">.unit.size2to5</code></div>
+			</div>			
+			<div class="trio br">
+				<div class="unit size2to5"><code class="lang-css">.unit.size2to5</code></div>
+				<div class="unit size2to5"><code class="lang-css">.unit.size2to5</code></div>
+				<div class="unit size1to5"><code class="lang-css">.unit.size1to5</code></div>
+			</div>
+			
+			<div class="trio br">
+				<div class="unit size3to5"><code class="lang-css">.unit.size3to5</code></div>
+				<div class="unit size1to5"><code class="lang-css">.unit.size1to5</code></div>
+				<div class="unit size1to5"><code class="lang-css">.unit.size1to5</code></div>
+			</div>
+			
+			<div class="trio">
+				<div class="unit size1to6"><code class="lang-css">.unit.size1to6</code></div>
+				<div class="unit size1to2"><code class="lang-css">.unit.size1to2</code></div>
+				<div class="unit"><code class="lang-css">.unit</code> (default width, 1/3)</div>
+			</div>
+			<div class="trio">
+				<div class="unit size1to6"><code class="lang-css">.unit.size1to6</code></div>
+				<div class="unit"><code class="lang-css">.unit</code> (default width, 1/3)</div>
+				<div class="unit size1to2"><code class="lang-css">.unit.size1to2</code></div>
+			</div>
+			<div class="trio">
+				<div class="unit size1to6"><code class="lang-css">.unit.size1to6</code></div>
+				<div class="unit size2to3"><code class="lang-css">.unit.size2to3</code></div>
+				<div class="unit size1to6"><code class="lang-css">.unit.size1to6</code></div>
+			</div>
+			<div class="trio">
+				<div class="unit size1to6"><code class="lang-css">.unit.size1to6</code></div>
+				<div class="unit size1to6"><code class="lang-css">.unit.size1to6</code></div>
+				<div class="unit size2to3"><code class="lang-css">.unit.size2to3</code></div>
+			</div>
+		</section>
+		<section>
+			<p class="prose">Hopefully you get the idea. I'll leave the quartets, quintets, and sextets up to your imagination and creativity. There is something else worth mentioning, though. It is possible to have more than 6 units in a line by <strong>nesting lines</strong>. This means putting lines within lines.</p>
+			<p class="prose">For example, lets say you want twelve equal-width units. Then you could create a <code class="lang-css">.duet</code> with two units, and in each unit of that duet, create a <code class="lang-css">.sextet</code> with 6 units each (or you could have three quartets in a trio, etc.). Now, you could just create a <code class="lang-html">&lt;div class=&quot;line&quot;&gt;</code> and put twelve <code class="lang-html">&lt;div class=&quot;unit&quot;&gt;</code>s inside, but based on their content there's no guarantee they'll stay at equal width. The musical group classes are just there to force equal widths.</p>
+			<p class="prose">Furthermore, these custom ratio classes are not restricted to line duets, trios, etc. You may use them in any line.</p>
+			<p>Here's another example:</p>
+			<pre><code class="lang-html">&lt;div class=&quot;duet&quot;&gt;
+	&lt;div class=&quot;unit size2to3&quot;&gt;
+		&lt;div class=&quot;quintet&quot;&gt;
+			&lt;div class=&quot;unit&quot;&gt;unit 1 (width 13.33%)&lt;/div&gt;
+			&lt;div class=&quot;unit&quot;&gt;unit 2 (width 13.33%)&lt;/div&gt;
+			&lt;div class=&quot;unit&quot;&gt;unit 3 (width 13.33%)&lt;/div&gt;
+			&lt;div class=&quot;unit&quot;&gt;unit 4 (width 13.33%)&lt;/div&gt;
+			&lt;div class=&quot;unit&quot;&gt;unit 5 (width 13.33%)&lt;/div&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+	&lt;div class=&quot;unit size1to3&quot;&gt;
+		&lt;div class=&quot;trio&quot;&gt;
+			&lt;div class=&quot;unit&quot;&gt;unit 6 (width 11.11%)&lt;/div&gt;
+			&lt;div class=&quot;unit&quot;&gt;unit 7 (width 11.11%)&lt;/div&gt;
+			&lt;div class=&quot;unit&quot;&gt;unit 8 (width 11.11%)&lt;/div&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+			<div class="demo">
+				<div class="duet">
+					<div class="unit size2to3">
+						<div class="quintet">
+							<div class="unit">unit 1 (width 13.33%)</div>
+							<div class="unit">unit 2 (width 13.33%)</div>
+							<div class="unit">unit 3 (width 13.33%)</div>
+							<div class="unit">unit 4 (width 13.33%)</div>
+							<div class="unit">unit 5 (width 13.33%)</div>
+						</div>
+					</div>
+					<div class="unit size1to3">
+						<div class="trio">
+							<div class="unit">unit 6 (width 11.11%)</div>
+							<div class="unit">unit 7 (width 11.11%)</div>
+							<div class="unit">unit 8 (width 11.11%)</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<p class="caption">Notice how in this example there was a <strong>line within a unit</strong>. If you are nesting lines, you must contain the second-level line within the first-level unit. The <code class="lang-css">.line</code> and <code class="lang-css">.unit</code> classes (and any subclasses thereof) were not meant to mix. There shouldn't be any elements with both classes in your HTML.</p>
+			<div class="example-bad">
+				<pre><code class="lang-html">&lt;!-- this is bad! --&gt;
+&lt;div class=&quot;duet&quot;&gt;
+	&lt;div class=&quot;unit size2to3 trio&quot;&gt;
+		&lt;div class=&quot;unit&quot;&gt;unit 1&lt;/div&gt;
+		&lt;div class=&quot;unit&quot;&gt;unit 2&lt;/div&gt;
+		&lt;div class=&quot;unit&quot;&gt;unit 3&lt;/div&gt;
+	&lt;/div&gt;
+	&lt;div class=&quot;unit size1to3 duet&quot;&gt;
+		&lt;div class=&quot;unit&quot;&gt;unit 4&lt;/div&gt;
+		&lt;div class=&quot;unit&quot;&gt;unit 5&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+				<div class="demo">
+					<div class="duet">
+						<div class="unit size2to3 trio">
+							<div class="unit">unit 1</div>
+							<div class="unit">unit 2</div>
+							<div class="unit">unit 3</div>
+						</div>
+						<div class="unit size1to3 duet">
+							<div class="unit">unit 4</div>
+							<div class="unit">unit 5</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</section>
+</section>
+<section>
+	<h1 class="h h-beta">The Golden Ratio</h1>
+</section>
+<hr />
+<hr />
+<hr />
+	
+	
+	
+	
+	
+	
+<div style="background-color: #ccc; color: #ccc;">
+	<div class="demo">
+			
+		<div class="line duet">
+			<div class="unit P1 P1-left">A P1-left</div>
+			<div class="unit P2 P2-right">A P2-right</div>
+		</div>
+		<div class="line duet">
+			<div class="unit P2 P2-left">This is P2-left</div>
+			<div class="unit P1 P1-right">A P1-right</div>
+		</div>
+		<div class="line trio">
+			<div class="unit P4 P4-left">A P4-left</div>
+			<div class="unit P1 P1-midleft">This is P1-midleft</div>
+			<div class="unit P3 P3-right">A P3-right</div>
+		</div>
+		<div class="line trio">
+			<div class="unit P3 P3-left">A P3-left</div>
+			<div class="unit P1 P1-midright">This is P1-midright</div>
+			<div class="unit P4 P4-right">A P4-right</div>
+		</div>
+		<div class="line duet">
+			<div class="unit P1 P1-left">A P1<p>P1 = P2 + P3</p></div>
+			<div class="unit P2 P2-left">this is a P2</div>
+		</div>
+		<div class="line trio">
+			<div class="unit P2 P2-left">this is a P2</div>
+			<div class="unit P3 P3-left">this is a P3</div>
+			<div class="unit P2 P2-left">this is a P2<p>P2 = P3 + P4</p></div>
+		</div>
+		<div class="line trio">
+			<div class="unit P1 P1-left">this is a P1</div>
+			<div class="unit P3 P3-left">this is a P3</div>
+			<div class="unit P4 P4-left">this is a P4</div>
+		</div>
+		
+		<div class="line" style="background-color: #00ffff;">
+			<div class="unit P3 P3-left">
+				P3 left
+				<div class="line">
+					<div class="unit P3 P3-left">P3 left</div>
+					<div class="unit P1 P1-midright">P1 midright</div>
+					<div class="unit P4 P4-right">P4 right</div>
+				</div>
+			</div>
+			<div class="unit P1 P1-midright">P1 midright</div>
+			<div class="unit P4 P4-right">P4 right</div>
+		</div>
+		
+		<div class="line" style="background-color: #00ffff;">
+			<div class="unit P3 P3-left">
+				<span>P3 left</span>
+				<div class="P1 P1-midright" style="outline: thin solid black;">P1 midright (block)</div>
+			</div>
+			<div class="unit P1 P1-midright">P1 midright</div>
+			<div class="unit P4 P4-right">P4 right</div>
+		</div>
+		
+		<div class="line" style="background-color: #00ffff;">
+			<div class="unit P3 P3-left" style="padding-left: 5.5%; padding-right: 3.4%; outline: thin solid black;">P3 left</div>
+			<div class="unit P1 P1-midright" style="width: 76.3932%; padding-right: 14.5898%;">P1 midright</div>
+<!--			<div class="unit P4 P4-right">P4 right</div>-->
+		</div>
+		
+		<div class="line undoP1 undoP1-midright" style="background-color: #00ffff;">
+			<div class="unit P3 P3-left" style="padding-left: 5.5%; padding-right: 3.4%; outline: thin solid black;">P3 left</div>
+			<div class="unit P1 P1-midright" style="width: 76.3932%; padding-right: 14.5898%;">P1 midright</div>
+<!--			<div class="unit P4 P4-right">P4 right</div>-->
+		</div>
+		
+		<div class="line" style="background-color: #33cccc;">
+			<div class="unit" style="width: 5.5728%;">P6</div>
+			<div class="unit" style="width: 14.5898%;">P4</div>
+			<div class="unit" style="width: 3.4441%;">P7</div>
+			<div class="unit" style="width: 61.8034%;">P1</div>
+			<div class="unit" style="width: 14.5898%;">P4</div>
+		</div>
+	</div>
+	<div class="undoP1 undoP1-midright">
+		<div id="des-philines" class="demo">
+			<div class="line trio">
+				<div class="unit blue P3 P3-left">
+					<div class="line trio">
+						<div class="unit P3 P3-left green">
+							<div class="line">
+								<div class="unit P3 P3-left purple"></div>
+								<div class="unit P1 P1-midright orange"></div>
+								<div class="unit P4 P4-right purple"></div>
+							</div>
+						</div>
+						<div class="unit P1 P1-midright yellow"></div>
+						<div class="unit P4 P4-right green">
+							<div class="line">
+								<div class="unit P3 P3-left purple"></div>
+								<div class="unit P1 P1-midright orange"></div>
+								<div class="unit P4 P4-right purple"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="unit P1 P1-midright red"></div>
+				<div class="unit P4 P4-right blue">
+					<div class="line trio">
+						<div class="unit P3 P3-left green"></div>
+						<div class="unit P1 P1-midright yellow">
+							<div class="line">
+								<div class="unit P3 P3-left purple"></div>
+								<div class="unit P1 P1-midright orange">
+									<div class="line">
+										<div class="unit P3 P3-left blue"></div>
+										<div class="unit P1 P1-midright red"></div>
+										<div class="unit P4 P4-right blue"></div>
+									</div>
+								</div>
+								<div class="unit P4 P4-right purple"></div>
+							</div>
+						</div>
+						<div class="unit P4 P4-right green"></div>
+					</div>
+				</div>
+			</div>
+			<div class="line solo hub-body"><div class="unit"></div></div>
+		</div>
+	</div>
+</div>
+
+</div>
+<!--#include virtual="/core/snippets/masthead.html" -->
+</body>
+</html>

@@ -35,7 +35,7 @@ $(document).ready(function() {
 	$('.up, .dn').addClass('js-link');
 	$('.sp-up, .sp-dn').addClass('js-sp');
 		
-	$('.box-link-up, .box-link-dn').addClass('js-box-link');
+	$('.box-up, .box-dn').addClass('js-box-link');
 });
 
 $(document).ready(function() {
@@ -57,19 +57,26 @@ $(document).ready(function() {
 	
 	// box hyperlinks
 	$('a.js-box-link').hover(function() {
-		$(this).toggleClass('box-block-up box-block-dn',t_ani);
+		$(this).toggleClass('box-up box-dn',t_ani);
 	});
 	$('a.js-box-link').mousedown(function() {
-		$(this).addClass('box-block-active');
+		$(this).addClass('box-active');
 	});
 	$('a.js-box-link').mouseup(function () {
-		$(this).removeClass('box-block-active');
+		$(this).removeClass('box-active');
 	});
 	
 	// hyperlinks in main navigation bars
 	$('.hub-nav a').hover(function() {
 		$(this).parent().toggleClass('P1-midright P1-right',t_ani);
 	});
+	
+	// code spans and code blocks
+	$('.lang-html').attr('title','HTML');
+	$('.lang-css').attr('title','CSS');
+	$('.lang-less').attr('title','less');
+	$('.lang-js').attr('title','JavaScript');
+	$('.lang-jq').attr('title','jQuery');
 	
 	
 	/**

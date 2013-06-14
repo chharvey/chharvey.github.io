@@ -66,7 +66,7 @@ body {
 	text-align: center;
 }
 .h {
-	margin: 0.5em 0 0.25em;
+	margin: 1em 0 0.25em;
 	font-style: normal;
 	font-variant: normal;
 	font-weight: normal;
@@ -75,7 +75,8 @@ body {
 	letter-spacing: 2px;
 	color: @aperture-black;
 }
-h1, .h-alpha:extend(.h) {
+h1, .h-alpha {
+	.h;
 	font-variant: small-caps;
 	font-weight: bold;
 	font-size: 2.000em; // 24
@@ -152,13 +153,13 @@ p, .p {
 	.p;
 	padding: 5px 0;
 	border-color: @are-you-still-there;
-	.sideborder-left (@padding-width; @border-width; @margin-width; @border-style) {
+	.sideborder-left(@padding-width; @border-width; @margin-width; @border-style) {
 		padding-left: @padding-width;
 		border-left-width: @border-width;
 		border-left-style: @border-style;
 		margin-left: @margin-width;
 	}
-	.sideborder-right (@padding-width; @border-width; @margin-width; @border-style) {
+	.sideborder-right(@padding-width; @border-width; @margin-width; @border-style) {
 		padding-right: @padding-width;
 		border-right-width: @border-width;
 		border-right-style: @border-style;
@@ -168,7 +169,7 @@ p, .p {
 }
 blockquote, .q-block {
 	.cited(13pt, left);
-	.sideborder-left (8px; 5px; 21px; solid);
+	.sideborder-left(8px; 5px; 21px; solid);
 	font-family: @font-heading;
 	.source {
 		font-family: @font-base;		
@@ -176,7 +177,7 @@ blockquote, .q-block {
 }
 figcaption, caption, .caption {
 	.cited(10pt, right);
-	.sideborder-right (5px; 3px; 13px; double);
+	.sideborder-right(5px; 3px; 13px; double);
 }
 
 
@@ -302,6 +303,17 @@ a {
 		background-color: @atlas-sat16;
 	}
 }
+.example-bad {
+	.example;
+	color: @are-you-still-there !important;
+	&:before {
+		.sample-label('bad example!');
+		border-color: @vilify;
+		color: @are-you-still-there;
+		background-color: @atlas-sat16;
+	}
+	* {color: @are-you-still-there !important;}
+}
 .demo {
 	.sample();
 	border-color: @pbody-sat25;
@@ -321,15 +333,23 @@ code, .code { // inline code elements
 	font-family: @font-code;
 	color: #000000;
 }
-pre code, .code-block { // block code elements
+.code-block(@lang) { // block code mixin
 	.code;
 	.sample();
 	&:before {
-		.sample-label('code');
+		.sample-label(@lang);
 		border-color: @help-border;
 		color: @heart-sat50;
 		background-color: @heart-sat16;
 	}
+}
+pre > code, .code-block {
+	.code-block('code');
+	&.lang-html {.code-block('HTML');}
+	&.lang-css {.code-block('CSS');}
+	&.lang-less {.code-block('less');}
+	&.lang-js {.code-block('JavaScript');}
+	&.lang-jq {.code-block('jQuery');}
 }
 kbd kbd, .kbd {
 	.code;
@@ -487,8 +507,8 @@ table, .table {
 		position: fixed;
 		bottom: 20px;
 	}
-	.box-block-up {
-		border-radius: 15px;
+	.box-up, .box-dn {
+		border-radius: @box-block-radius;
 		font-weight: bold;
 		text-align: right;
 		vertical-align: middle;
