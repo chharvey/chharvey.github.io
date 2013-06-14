@@ -35,7 +35,7 @@ $(document).ready(function() {
 	$('.up, .dn').addClass('js-link');
 	$('.sp-up, .sp-dn').addClass('js-sp');
 		
-	$('.box-up, .box-dn').addClass('js-box-link');
+	$('.block-up, .block-dn').addClass('js-block-link');
 });
 
 $(document).ready(function() {
@@ -56,14 +56,14 @@ $(document).ready(function() {
 	});
 	
 	// box hyperlinks
-	$('a.js-box-link').hover(function() {
-		$(this).toggleClass('box-up box-dn',t_ani);
+	$('a.js-block-link').hover(function() {
+		$(this).toggleClass('block-up block-dn',t_ani);
 	});
-	$('a.js-box-link').mousedown(function() {
-		$(this).addClass('box-active');
+	$('a.js-block-link').mousedown(function() {
+		$(this).addClass('block-active');
 	});
-	$('a.js-box-link').mouseup(function () {
-		$(this).removeClass('box-active');
+	$('a.js-block-link').mouseup(function () {
+		$(this).removeClass('block-active');
 	});
 	
 	// hyperlinks in main navigation bars
