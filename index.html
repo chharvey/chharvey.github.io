@@ -5,16 +5,15 @@
 <meta name="description" content="Home page of Christopher H. Harvey of Fairfax, VA." />
 <title>Chris Harvey</title>
 <link rel="icon" href="/core/img/favicon.ico" />
-<link rel="stylesheet" href="/core/stylesheets/Home.css" />
+<link rel="stylesheet" href="core/stylesheets/all.css" />
 <style>
-/*body {overflow: hidden;}*/
 .main {margin-bottom: 0;}
 .homebuttons {font-variant: small-caps; text-align: center;}
-.homebuttons .box-block {padding: 0; margin: 1px;}
-/*.homebuttons .box-block {padding: 0; margin: 0;}*/
-/*.homebuttons .unit {outline: thin solid black; padding: 1px;}*/
-.box-block       .buttontext {display: none;}
-.box-block:hover .buttontext {display: block;}
+/* .homebuttons .unit {outline: thin solid black; padding: 1px;} */
+.block-up,
+.block-dn {padding: 0; margin: 1px;}
+.block-up .buttontext {display: none;}
+.block-dn .buttontext {display: block;}
 .Phi {font-family: 'Times','Times New Roman',serif;}
 </style>
 <!--#include virtual="/core/snippets/all-js.html" -->
@@ -24,58 +23,58 @@
 	<h1 class="h-alpha noshow">Chris Harvey</h1>
 	<a class="noLESS" style="font-size: 2em;" href="/home/">Please click here to go to my home page.</a>
 	<div class="homebuttons">
-		<div class="line duet">
+		<div class="duet">
 			<div class="unit P2-left">
-				<a class="box-block-up" href="">
+				<a class="block-up" href="">
 					<div class="buttontext">Math</div>
 				</a>
-				<div class="line duet">
+				<div class="duet">
 					<div class="unit P1-left">
-						<a class="box-block-up" href="/resume/">
+						<a class="block-up" href="/resume/">
 							<div class="buttontext">R&eacute;sum&eacute;</div>
 						</a>
 					</div>
 					<div class="unit P2-right">
-						<div class="line duet">
+						<div class="duet">
 							<div class="unit P2-left">
-								<div class="box-block-up"></div>
-								<div class="line duet">
+								<a class="block-up"></a>
+								<div class="duet">
 									<div class="unit P1-left">
-										<div class="box-block-up"></div>
+										<a class="block-up"></a>
 									</div>
 									<div class="unit P2-right">
-										<div class="line duet">
+										<div class="duet">
 											<div class="unit P2-left">
-												<div class="box-block-up"></div>
-												<div class="line duet">
+												<a class="block-up"></a>
+												<div class="duet">
 													<div class="unit P1-left">
-														<div class="box-block-up"></div>
+														<a class="block-up"></a>
 													</div>
 													<div class="unit P2-right">
-														<div class="box-block-dn"></div>
+														<a class="block-dn"></a>
 													</div>
 												</div>
 											</div>
 											<div class="unit P1-right">
-												<div class="box-block-up"></div>
+												<a class="block-up"></a>
 											</div>
 										</div>
-										<div class="box-block-up"></div>
+										<a class="block-up"></a>
 									</div>
 								</div>
 							</div>
 							<div class="unit P1-right">
-								<div class="box-block-up"></div>
+								<a class="block-up"></a>
 							</div>
 						</div>
-						<a class="box-block-up" href="/core/site-design/phi.html">
+						<a class="block-up" href="/core/site-design/phi.html">
 							<div class="buttontext Phi">&Phi;</div>
 						</a>
 					</div>
 				</div>
 			</div>
 			<div class="unit P1-right">
-				<a class="box-block-up" href="/home/">
+				<a class="block-up" href="/home/">
 					<div class="buttontext">Home</div>
 				</a>
 			</div>
@@ -83,25 +82,33 @@
 	</div>
 </div>
 <script>
-square = function() {
-	$('.box-block').height(function() {
+function squareheight(rectangle) {
+	// sets the height of each box link to its width
+	$(rectangle).css('height', function() {
 		return $(this).width();
 	});
+}
+function makepretty() {
+	squareheight('.js-block-link');
+	// sets a proportional font size for each box link
 	$('.homebuttons .buttontext').css('font-size', function () {
 		return $(this).parent().height() / 4 + 'px';
 	});
+	// vertically aligns the font in each box link
 	$('.homebuttons .buttontext').css('margin',function () {
 		return ($(this).parent().height() - $(this).height()) / 2 + 'px 0';
 	});
+	// centers the group of box links on the page
 	$('.homebuttons').css('margin-top', function() {
 		return ($(window).height() - $(this).height()) * 0.382 + 'px';
 	});
 }
+
 $(document).ready(function() {
-	square();
+	makepretty();
 });
 $(window).resize(function() {
-	square();
+	makepretty();
 });
 </script>
 </body>
