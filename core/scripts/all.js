@@ -1,4 +1,4 @@
-/*** ======== SITE-WIDE BEHAVIORS (all.js) ======== ***/
+//** ======== SITE-WIDE BEHAVIORS (all.js) ========
 var t_ani = 200;
 
 $(document).ready(function() {
