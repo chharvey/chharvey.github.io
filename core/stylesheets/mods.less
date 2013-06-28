@@ -1,0 +1,212 @@
+@import url('vardefs.less');
+
+/* @group body */
+body {
+	font-size: 12pt;
+	font-family: @font-base;
+	color: @aperture-black;
+	background-color: @aperture-white;
+}
+.hub-body {
+	background-image: url('/core/images/phi-stripes-trans.png');
+	background-repeat: repeat-y;
+	background-size: contain;
+}
+.main {
+	margin-bottom: 162px;
+}
+/* @end */
+
+/* @group hyperlinks */
+.link() {
+	border-width: 0 0 1px;
+	border-style: dotted;
+	text-decoration: none;
+}
+a {
+	.link();
+	// only because LESS doesnt allow elements and parametric mixins in same selector
+}
+.up {
+	.link();
+	color: @atlas;
+}
+.dn {
+	.link();
+	color: @pbody;
+}
+.sp() {
+	.link();
+}
+.sp-up {
+	.sp();
+	color: @neurotoxin;
+}
+.sp-dn {
+	.sp();
+	color: @neurotoxin-inv;
+}
+.active {
+	.link();
+	color: @are-you-still-there;
+}
+/* @end */
+
+/* @group special boxes */
+@box-radius: 3px;
+@box-block-radius: 10px;
+@box-link-radius: 6px;
+.box {
+	padding: 1px;
+	border-width: 1px;
+	border-style: solid;
+	border-radius: @box-radius;
+}
+.box-block {
+	.box;
+	display: block;
+	padding: 5px;
+	border-radius: @box-block-radius;
+	margin: 5px;
+}
+
+.block-link() {
+	.box-block;
+	border-radius: @box-link-radius;
+	text-align: center;
+}
+.block-up {
+	.up;
+	.block-link();
+	background-color: @bridges-of-light;
+}
+.block-dn {
+	.dn;
+	.block-link();
+	background-color: @asbestos;
+	.h-beta, .h-epsilon {
+		color: @facility-inv; // changes the headings in "dn" blocks to reduce contrast
+	}
+}
+.block-active {
+	.active;
+	.block-link();
+	color: @her-eye;
+	background-color: @aperture-black;
+}
+
+.sample() {
+	.box-block;
+	position: relative;
+	padding: 2em 10px 10px;
+}
+.sample-label(@string) {
+	.box-block;
+	position: absolute;
+	top: -1px;
+	left: -1px;
+	border-bottom-left-radius: 0;
+	border-top-right-radius: 0;
+	margin: 0;
+	content: @string;
+	font-size: smaller;
+}
+.example {
+	.sample();
+	border-color: @vilify;
+	background-color: @atlas-sat8;
+	&:before {
+		.sample-label('example');
+		border-color: @vilify;
+		color: @atlas;
+		background-color: @atlas-sat16;
+	}
+}
+.example-bad {
+	.example;
+	color: @are-you-still-there !important;
+	&:before {
+		.sample-label('bad example!');
+		border-color: @vilify;
+		color: @are-you-still-there;
+		background-color: @atlas-sat16;
+	}
+	* {color: @are-you-still-there !important;}
+}
+.demo {
+	.sample();
+	border-color: @pbody-sat25;
+	background-color: @pbody-sat8;
+	&:before {
+		.sample-label('demo');
+		border-color: @pbody-sat25;
+		color: @pbody;
+		background-color: @pbody-sat16;
+	}
+}
+code, .code { // inline code elements
+	.box;
+	border-color: @help-border;
+	background-color: @heart-companion;
+	font-size: smaller;
+	font-family: @font-code;
+	color: #000000;
+}
+.code-block(@lang) { // block code mixin
+	.code;
+	.sample();
+	&:before {
+		.sample-label(@lang);
+		border-color: @help-border;
+		color: @heart-sat50;
+		background-color: @heart-sat16;
+	}
+}
+pre {margin: 0;}
+pre > code, .code-block {
+	.code-block('code');
+	&.lang-html {.code-block('HTML');}
+	&.lang-css {.code-block('CSS');}
+	&.lang-less {.code-block('less');}
+	&.lang-js {.code-block('JavaScript');}
+	&.lang-jq {.code-block('jQuery');}
+}
+kbd kbd, .kbd {
+	.code;
+	padding: 2px;
+	font-size: larger;
+	font-family: @font-mono;
+	color: #000000;
+}
+
+/* @end */
+
+/* @group hacks */
+
+// a hack for elements needed for SEO but not to display
+.noshow {display: none !important;}
+
+// elements in draft mode (not published yet) --- use boolean attribute "hidden"!
+.draft {display: none; color: #999999;}
+
+@media print {
+	body {color: #000000;}
+	body {background-image: none;}
+//	body,
+//	.block-up,
+//	.block-dn,
+//	.code {background-color: #ffffff;}
+	.nav-hub,
+	.courseinfo,
+	.masthead {display: none;}
+	.main {
+		width: auto;
+		margin: auto;
+	}
+	
+	
+	/* a hack for elements needed to display but not to print */
+	.noprint {display: none !important;}
+}
+
+/* @end */
