@@ -68,7 +68,7 @@ $(document).ready(function() {
 	
 	// hyperlinks in main navigation bars
 	$('.hub-nav a').hover(function() {
-		$(this).parent().toggleClass('P1-midright P1-right',t_ani);
+		$(this).parent().toggleClass('pos neg',t_ani);
 	});
 	
 	// code spans and code blocks

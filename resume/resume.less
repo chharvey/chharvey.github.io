@@ -1,31 +1,135 @@
 @import url('../core/stylesheets/grid.less');
 @import url('../core/stylesheets/typo.less');
 @import url('../core/stylesheets/mods.less');
+.res-main {}
+ul {
+	padding: 0;
+	margin: 0;
+}
+abbr {border: 0;}
 
+/* @group headers and footers */
 header {
+	.P1-midright;
 	padding-bottom: .5em;
-	border-bottom: 2px solid #ff001a;
+	border-bottom: 2px solid @areyoustillthere;
 	margin-bottom: .5em;
 }
 
-/* @group lines */
-.res-skillgroup,
-.res-item {margin-top: 1em;}
-.line .res-skill{
+footer {
+	.tablerow();
+	> .res-footer-name,
+	> .res-footer-pagecount {
+		.tablecell();
+		.fractionwidth((1/2));
+	}
+	> .res-footer-pagecount {text-align: right;}
+}
+
+@media screen {
+	footer {display: none;}
+}
+/* @end */
+
+/* @group block elements */
+address {
+	font-style: inherit;
 	text-align: right;
 }
-@media screen {
-	.line .res-skill{
-		padding-left: 5.5728%;
-		padding-right: 3.4441%;
-		position: relative;
-		right: 8px;
-	}
-	.line .res-detail {
-		width: 76.3932%;
-		padding-right: 14.5898%;
-	}
+.phone,
+.email {
+	font-family: inherit;
+	font-size: inherit;
 }
+.res-skillgroup { // each experience section of the resume
+	.tablerow();
+	margin-bottom: 1em;
+}
+.res-skilltitle { // title of skillgroup
+	.tablecell();
+	width: @width-Golden3;
+	padding-left:  (100% * @Phi3 * @Phi3); // P6
+	padding-right: (100% * @Phi3 * @Phi4); // P7
+	position: relative;
+	right: 10px;
+}
+.res-skilldetail { // details for skillgroup
+	.tablecell();
+	width:  @width-U-Golden3;
+	padding-left: 0;
+	padding-right: @width-Golden4;
+}
+.res-job { // job positions for each skill
+	margin-bottom: 1em;
+}
+.res-jobtitle { // company, position, dates, etc of each job
+	.tablerow();
+}
+.titles() {
+	.tablecell();
+	.U-P3-left;
+}
+.res-org { // organization title
+	.titles();
+}
+.res-occup { // occupation title
+	.titles();
+}
+.res-spacetime { // date & location of job
+	.tablecell();
+	.P3-right;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: normal;
+	font-size: 1em;
+	text-align: right;
+}
+.res-jobdetail { // bullet list of job descriptions and awards
+	list-style: square inside none;
+//	padding-left: 20px;
+//	margin: 0;
+}
+
+.res-tech-app {
+	width: 50%;
+	float: left;
+}
+.res-tech-lang {
+	width: 15%;
+	padding-right: 50px;
+}
+/* @end */
+
+/* @group headings */
+.res-h() {
+	letter-spacing: 1px;
+}
+.res-name {
+	.h-alpha;
+	.res-h();
+}
+.res-skilltitle {
+	.h-beta;
+	text-align: right;
+	.res-h();
+}
+.res-org {
+	.h-gamma;
+	.res-h();
+}
+.res-occup {
+	.h-delta;
+	.res-h();
+}
+.res-edu {
+	.res-org {.h-epsilon;}
+	.res-occup {.h-zeta;}
+	.res-org,
+	.res-occup {text-indent: 0;}
+}
+/* @end */
+
+
 /*.dots {
 	background-color: #fafdff;
 	background-image: url('Hyphen_L.gif');
@@ -33,153 +137,6 @@ header {
 	background-size: contain;
 }
 .dots * {background-color: inherit;}*/
-/* @end */
 
-/* @group headings and footers */
-.res-accomp,
-.res-occup {clear: both;}
-.res-h {
-	margin: 0;
-	text-indent: 0;
-}
-@media screen {
-	.res-footer {display: none;}
-}
-/* @end */
 
-/* @group address */
-address {font-style: inherit;}
-.res-address, .res-address .h {text-align: right;}
-.phone, .email {font-family: inherit; font-size: inherit;}
-/* @end */
 
-/* @group job descriptions and awards */
-.res-script {
-	list-style: square outside none;
-	padding-left: 20px;
-	margin: 0;
-	clear: both;
-}
-/* @end */
-
-/* @group locations and dates */
-.res-spacetime {
-	font-style: normal;
-	font-variant: normal;
-	font-weight: normal;
-	font-size: 1em;
-	text-align: right;
-	float: right;
-}
-/* @end */
-
-/* @group other */
-abbr {
-	border: 0;
-}
-/* @end */
-
-/* @group computer languages */
-.res-tech-app {
-	width: 50%;
-	float: left;
-}
-.res-tech-lang {
-	width: 15%;
-/*	float: left;*/
-	padding-right: 50px;
-} 
-/* @end*/
-
-@media print {
-	body {
-		width: 8.5in;
-		margin-left: auto;
-		margin-right: auto;
-		font-style: normal;
-		font-variant: normal;
-		font-weight: normal;
-		font-size: 10pt;
-		font-family: 'Arial','Helvetica',sans-serif;
-		vertical-align: text-top;	
-	}
-	body,
-	.res-h {
-		color: #000000;
-		background-color: #ffffff;
-	}
-	.res-main {
-		width: 8.0in;
-		margin: auto;
-		margin-bottom: 10px;
-	}
-	header {
-		padding-bottom: .25em;
-		border-bottom: 1px solid #808080;
-		width: 100% !important;
-		margin: auto !important;
-	}
-	/* @group cells */
-	.res-skillgroup,
-	.res-item {margin-top: 2em;}
-	.res-skillgroup-last {margin-bottom: .5em;}
-	.line .res-skill {width: 1.25in;}
-	.line .res-detail {width: auto;}
-		/* @group left and right cells */
-		.res-skill, .res-footer-name,
-		.res-detail, .res-address, .res-footer-pagecount {padding-left: .5em; padding-right: .5em;}
-		.res-skill, .res-footer-name {padding-left: 1em;}
-		.res-detail, .res-address, .res-footer-pagecount {padding-right: 1em;}
-		/* @end */
-	/* @end */
-	
-	/* @group headings and other important spans */
-	.res-h {
-		margin: 0;
-		font-weight: inherit;
-		font-variant: inherit;
-		font-style: inherit;
-		font-size: 10pt;
-		font-family: inherit;
-		letter-spacing: normal;
-	}
-	.res-name,
-	.res-skill {
-		font-variant: small-caps;
-		letter-spacing: 1px;
-	}
-	.res-skill,
-	.res-accomp {font-weight: bold;}
-	.res-accomp,
-	.res-institution,
-	.res-occup {clear: both;}
-	.res-name {
-		font-size: 14pt;
-		font-family: 'Times','Times New Roman',serif;
-		text-align: center;
-		margin: .25em 0;
-	}
-	.res-institution {font-style: italic;}
-	/* @end */
-	
-	/* @group hyperlinks */
-	a {
-		border: none !important;
-		text-decoration: none !important;
-		color: inherit !important;
-	}
-	/* @end */
-	
-	/* @group multiple pages */
-	.newpage {padding-top: 20px;}
-	.pagebreak {page-break-before: always;}
-	.res-footer {margin-top: 0.5in;}
-	.res-footer-name {text-align: left;}
-	.res-footer-pagecount {text-align: right;}
-	/* @end */
-	
-	/* @group miscellaneous */
-	.noprint {display: none !important;}
-	i:lang(la) {font-family: inherit;}
-	/* @end */
-}

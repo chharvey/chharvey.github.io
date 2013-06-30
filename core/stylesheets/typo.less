@@ -1,10 +1,11 @@
 @import url('vardefs.less');
 
+/* @group TYPO.LESS */
 /* @group headings */
 .title {
 	text-align: center;
 }
-.h {
+.heading() {
 	margin: 1em 0 0.25em;
 	font-style: normal;
 	font-variant: normal;
@@ -14,41 +15,43 @@
 	letter-spacing: 2px;
 	color: @aperture-black;
 }
+h1, .h-alpha,
+h2, .h-beta,
+h3, .h-gamma,
+h4, .h-delta,
+h5, .h-epsilon,
+h6, .h-zeta {
+	.heading();
+}
 h1, .h-alpha {
-	.h;
 	font-variant: small-caps;
 	font-weight: bold;
 	font-size: 2.000em; // 24
 	text-align: center;
-	color: @lake-superior;
+	color: @lakesuperior;
 }
 h2, .h-beta {
-	.h;
 	font-weight: bold;
 	font-size: 1.500em; // 18
-	color: @facility-abyss;
+	color: @facilityabyss;
 }
 h3, .h-gamma {
-	.h;
 	font-variant: small-caps;
 	font-weight: bold;
 	font-size: 1.167em; // 14
 }
 h4, .h-delta {
-	.h;
 	font-style: italic;
 	font-weight: bold;
 	font-size: 1.000em; // 12
 }
 h5, .h-epsilon {
-	.h;
 	font-style: italic;
 	font-size: 0.833em; // 10
 	text-indent: 0.5in;
-	color: @facility-abyss;
+	color: @facilityabyss;
 }
 h6, .h-zeta {
-	.h;
 	font-style: italic;
 	font-variant: small-caps;
 	font-size: 0.833em; // 10
@@ -65,12 +68,13 @@ h5 + h6 {
 /* @end */
 
 /* @group paragraphs and block text */
-p, .p {
+p, .p,
+.prose,
+.lede {
 	margin: 0 0 0.5em;
 	line-height: 1.4em;
 }
 .prose {
-	.p;
 	margin-bottom: 0.75em;
 	font-size: 11pt;
 	font-family: @font-prose;
@@ -78,7 +82,6 @@ p, .p {
 	line-height: 1.3em;
 }
 .lede {
-	.p;
 	padding-right: 1em;
 	margin-bottom: 1em;
 	font-weight: bold;
@@ -91,7 +94,7 @@ p, .p {
 .cited(@font-size; @text-align) {
 	.p;
 	padding: 5px 0;
-	border-color: @are-you-still-there;
+	border-color: @areyoustillthere;
 	.sideborder-left(@padding-width; @border-width; @margin-width; @border-style) {
 		padding-left: @padding-width;
 		border-left-width: @border-width;
@@ -111,7 +114,7 @@ blockquote, .q-block {
 	.sideborder-left(8px; 5px; 21px; solid);
 	font-family: @font-heading;
 	.source {
-		font-family: @font-base;		
+		font-family: @font-base;
 	}
 }
 figcaption, caption, .caption {
@@ -132,7 +135,9 @@ figcaption, caption, .caption {
 /* @end */
 
 /* @group lists */
-.list-basic {
+.list-basic,
+.list-basic-inline,
+.list-action {
 	padding: 0;
 	margin: 0;
 	list-style-type: none;
@@ -141,12 +146,10 @@ figcaption, caption, .caption {
 	}
 }
 .list-basic-inline {
-	.list-basic;
 	display: inline;
 	li {display: inline;}
 }
 .list-action {
-	.list-basic;
 	margin-bottom: 0.5em;
 	color: @atlas;
 	list-style-position: inside;
@@ -170,7 +173,10 @@ figcaption, caption, .caption {
 /* @end */
 
 /* @group tables */
-table, .table {
+table, .table,
+.table-list,
+.table-bars,
+.table-grid {
 	border-color: #808080;
 	border-collapse: collapse;
 	margin: auto;
@@ -188,9 +194,8 @@ table, .table {
 		padding: 5px;
 	}
 }
-.special-table-border() {border: 1px solid @are-you-still-there;}
+.special-table-border() {border: 1px solid @areyoustillthere;}
 .table-list {
-	.table;
 	> .header, > .body {
 		.special-table-border();
 		border-left: 0;
@@ -201,7 +206,6 @@ table, .table {
 	.row-even {background-color: @atlas-sat16;}
 }
 .table-bars {
-	.table;
 	.special-table-border();
 	.header, .body {
 		.special-table-border();
@@ -213,7 +217,6 @@ table, .table {
 	.column-even {background-color: @atlas-sat16;}
 }
 .table-grid {
-	.table;
 	.special-table-border();
 	td {.special-table-border();}
 	.header {background-color: #ffffff;}
@@ -265,3 +268,5 @@ i:lang(fr) {
 .hindent-25 {text-indent: -0.25in; padding-left: 0.25in;}
 .hindent-em {text-indent: -1em;    padding-left: 1em;}
 /* @end */
+/* @end */
+

@@ -1,115 +1,128 @@
-@width-geometric:  (100% * (3/4)); // 75%
-@width-arithmetic: (100% * (2/3)); // 66.66%
+@import url('vardefs.less');
 
-//@Phi1: ((-1 + sqrt(5)) / 2);
-@Phi1: 0.618033988749894848;
-@Phi2: (@Phi1 * @Phi1);
-@Phi3: (@Phi2 * @Phi1);
-@Phi4: (@Phi3 * @Phi1);
-@U-Phi3: (1 - @Phi3);
-@U-Phi4: (1 - @Phi4);
-@width-Golden1: (100% * @Phi1);    // 61.8033988749894848%
-@width-Golden2: (100% * @Phi2);    // 38.1966011250105152%
-@width-Golden3: (100% * @Phi3);    // 23.6067977499789696%
-@width-Golden4: (100% * @Phi4);    // 14.5898033750315455%
-@width-U-Golden3: (100% * @U-Phi3);  // 76.3932022500210304%
-@width-U-Golden4: (100% * @U-Phi4);  // 85.4101966249684545%
+/* @group GRID.LESS */
 
-/* @group a line of columns */
-.linetest {color: #f00;}
-.line {
+/* @group lines and units */
+.tablecell() {
+	display: table-cell;
+	vertical-align: top;
+	overflow: visible;
+}
+.fractionwidth(@q) {width: (100% * @q);}
+.unit,
+ .size1to1,
+ .size1to2,
+ .size1to3,
+ .size2to3,
+ .size1to4,
+ .size3to4,
+ .size1to5,
+ .size2to5,
+ .size3to5,
+ .size4to5,
+ .size1to6,
+ .size5to6 {
+	.line > &,
+	 .solo > &,
+	 .duet > &,
+	 .trio > &,
+	 .quartet > &,
+	 .quintet > &,
+	 .sextet > & {
+	 	.tablecell();
+	}
+	.solo    > & {.fractionwidth((1/1));} // 100%
+	.duet    > & {.fractionwidth((1/2));} //  50%
+	.trio    > & {.fractionwidth((1/3));} //  33.3%
+	.quartet > & {.fractionwidth((1/4));} //  25%
+	.quintet > & {.fractionwidth((1/5));} //  20%
+	.sextet  > & {.fractionwidth((1/6));} //  16.6%	
+}
+.tablerow() {
 	display: table;
 	width: 100%;
-	> .unit {
-		display: table-cell;
-		vertical-align: top;
-		overflow: visible;
-	}
 }
-
-.solo, .duet, .trio, .quartet, .quintet, .sextet {
-	.line;
+.line,
+ .solo,
+ .duet,
+ .trio,
+ .quartet,
+ .quintet,
+ .sextet {
+ 	.tablerow();
+	> .size1to1 {.fractionwidth((1/1));} // 100%
+	> .size1to2 {.fractionwidth((1/2));} //  50%
+	> .size1to3 {.fractionwidth((1/3));} //  33.3%
+	> .size2to3 {.fractionwidth((2/3));} //  66.6%
+	> .size1to4 {.fractionwidth((1/4));} //  25%
+	> .size3to4 {.fractionwidth((3/4));} //  75%
+	> .size1to5 {.fractionwidth((1/5));} //  20%
+	> .size2to5 {.fractionwidth((2/5));} //  40%
+	> .size3to5 {.fractionwidth((3/5));} //  60%
+	> .size4to5 {.fractionwidth((4/5));} //  80%
+	> .size1to6 {.fractionwidth((1/6));} //  16.6%
+	> .size5to6 {.fractionwidth((5/6));} //  83.3%	
 }
-
-	/* @group widths of any element */
-	.linebreadth(@breadth) {
-		width:  @breadth;
-		margin: auto ((100% - @breadth) / 2);
-	}
-	.linebreadth-full   {.linebreadth(100%);}
-	.linebreadth-large  {.linebreadth(@width-geometric);}
-	.linebreadth-medium {.linebreadth(@width-arithmetic);}
-	.linebreadth-small  {.linebreadth(@width-Golden1);}
-	/* @end */
-
 /* @end */
 
-/* @group columns in each line */
-	/* @group automated widths in a line */
-	// The number of units is indicated by the line subclass, e.g. "duet" indicates two units, "trio" for three, etc. The units are automatically sized evenly.
-	.evenwidths(@n) {
-		width: (100% / @n);
-	}
-	.solo    > .unit {.evenwidths(1);} // 100%
-	.duet    > .unit {.evenwidths(2);} //  50%
-	.trio    > .unit {.evenwidths(3);} //  33.3%
-	.quartet > .unit {.evenwidths(4);} //  25%
-	.quintet > .unit {.evenwidths(5);} //  20%
-	.sextet  > .unit {.evenwidths(6);} //  16.6%
-	/* @end */
-	
-	/* @group exceptions to automated widths */
-	.unit.size1to1 {width: (100% * (1/1));} // 100%
-	.unit.size1to2 {width: (100% * (1/2));} //  50%
-	.unit.size1to3 {width: (100% * (1/3));} //  33.3%
-	.unit.size2to3 {width: (100% * (2/3));} //  66.6%
-	.unit.size1to4 {width: (100% * (1/4));} //  25%
-	.unit.size3to4 {width: (100% * (3/4));} //  75%
-	.unit.size1to5 {width: (100% * (1/5));} //  20%
-	.unit.size2to5 {width: (100% * (2/5));} //  40%
-	.unit.size3to5 {width: (100% * (3/5));} //  60%
-	.unit.size4to5 {width: (100% * (4/5));} //  80%
-	.unit.size1to6 {width: (100% * (1/6));} //  16.6%
-	.unit.size5to6 {width: (100% * (5/6));} //  83.3%
-	/* @end */
+/* @group golden ratios */
+//.Phi(1),
+ .P1-midleft,
+ .P1-midright,
+ .P1-left,
+ .P1-right {width: @width-Golden1;}
+//.Phi(2),
+ .P2-left,
+ .P2-right {width: @width-Golden2;}
+//.Phi(3),
+ .P3-left,
+ .P3-right {width: @width-Golden3;}
+//.Phi(4),
+ .P4-left,
+ .P4-right {width: @width-Golden4;}
+//.U-P3(0),
+ .U-P3-left,
+ .U-P3-right {width: @width-U-Golden3;}
+//.U-P4(0),
+ .U-P4-left,
+ .U-P4-right {width: @width-U-Golden4;}
+
+.automargin(left; @othermargin) {
+	margin-left: 0;
+	margin-right: @othermargin;
+}
+.automargin(right; @othermargin) {
+	margin-left: @othermargin;
+	margin-right: 0;
+}
+.P1-midleft  {margin-left: @width-Golden4; margin-right: @width-Golden3;}
+.P1-midright {margin-left: @width-Golden3; margin-right: @width-Golden4;}
+.P1-left  {.automargin(left;  (100% - @width-Golden1));}
+.P1-right {.automargin(right; (100% - @width-Golden1));}
+.P2-left  {.automargin(left;  (100% - @width-Golden2));}
+.P2-right {.automargin(right; (100% - @width-Golden2));}
+.P3-left  {.automargin(left;  (100% - @width-Golden3));}
+.P3-right {.automargin(right; (100% - @width-Golden3));}
+.P4-left  {.automargin(left;  (100% - @width-Golden4));}
+.P4-right {.automargin(right; (100% - @width-Golden4));}
+.U-P3-left  {.automargin(left;  @width-Golden3);}
+.U-P3-right {.automargin(right; @width-Golden3);}
+.U-P4-left  {.automargin(left;  @width-Golden4);}
+.U-P4-right {.automargin(right; @width-Golden4);}
 /* @end */
 
-/* @group Golden Ratios */
-	/* @group widths */
-	.Phi(1) {width: @width-Golden1;}
-	.Phi(2) {width: @width-Golden2;}
-	.Phi(3) {width: @width-Golden3;}
-	.Phi(4) {width: @width-Golden4;}
-	.U-P3() {width: @width-U-Golden3;}
-	.U-P4() {width: @width-U-Golden4;}
-	/* @end */
-	
-	/* @group margins */
-	.automargin(left; @othermargin) {
-		margin-left: 0;
-		margin-right: @othermargin;
-	}
-	.automargin(right; @othermargin) {
-		margin-left: @othermargin;
-		margin-right: 0;
-	}
-	
-	.P1-midleft,  .unit.P1-midleft  {.Phi(1); margin-left: @width-Golden4; margin-right: @width-Golden3;}
-	.P1-midright, .unit.P1-midright {.Phi(1); margin-left: @width-Golden3; margin-right: @width-Golden4;}
-	.P1-left,  .unit.P1-left  {.Phi(1); .automargin(left;  100% - @width-Golden1);}
-	.P1-right, .unit.P1-right {.Phi(1); .automargin(right; 100% - @width-Golden1);}
-	.P2-left,  .unit.P2-left  {.Phi(2); .automargin(left;  100% - @width-Golden2);}
-	.P2-right, .unit.P2-right {.Phi(2); .automargin(right; 100% - @width-Golden2);}
-	.P3-left,  .unit.P3-left  {.Phi(3); .automargin(left;  100% - @width-Golden3);}
-	.P3-right, .unit.P3-right {.Phi(3); .automargin(right; 100% - @width-Golden3);}
-	.P4-left,  .unit.P4-left  {.Phi(4); .automargin(left;  100% - @width-Golden4);}
-	.P4-right, .unit.P4-right {.Phi(4); .automargin(right; 100% - @width-Golden4);}
-	.U-P3-left  {.U-P3(); .automargin(left;  @width-Golden3);}
-	.U-P3-right {.U-P3(); .automargin(right; @width-Golden3);}
-	.U-P4-left  {.U-P4(); .automargin(left;  @width-Golden4);}
-	.U-P4-right {.U-P4(); .automargin(right; @width-Golden4);}
-	/* @end */
+/* @group widths of any element */
+// this block must come after the line definitions to correct specificity
+.linebreadth(@breadth) {
+	width:  @breadth;
+	margin: auto ((100% - @breadth) / 2);
+}
+.linebreadth-full   {.linebreadth(100%);}
+.linebreadth-large  {.linebreadth(@width-geometric);}
+.linebreadth-medium {.linebreadth(@width-arithmetic);}
+.linebreadth-small  {.linebreadth(@width-Golden1);}
 /* @end */
+
 
 @media screen {
 	@phi1: (1 / @Phi1);
@@ -126,24 +139,61 @@
 	@width-u-golden4: (100% * @u-phi4); // 117.0820393249936909%
 	
 	.undoPhi() {position: relative; left: 0;}
+//	 .phi(1),
+	  .undoP1-midleft,
+	  .undoP1-midright,
+	  .undoP1-left,
+	  .undoP1-right,
+//	 .phi(2),
+	  .undoP2-left,
+	  .undoP2-right,
+//	 .phi(3),
+	  .undoP3-left,
+	  .undoP3-right,
+//	 .phi(4),
+	  .undoP4-left,
+	  .undoP4-right,
+//	 .undoU-P3(),
+	  .undoU-P3-left,
+	  .undoU-P3-right,
+//	 .undoU-P4(),
+	  .undoU-P4-left,
+	  .undoU-P4-right {.undoPhi();}
 	
-	.phi(1) {.undoPhi(); width: @width-golden1;}
-	.phi(2) {.undoPhi(); width: @width-golden2;}
-	.phi(3) {.undoPhi(); width: @width-golden3;}
-	.phi(4) {.undoPhi(); width: @width-golden4;}
-	.undoU-P3() {.undoPhi(); width: @width-u-golden3;}
-	.undoU-P4() {.undoPhi(); width: @width-u-golden4;}
+//	.phi(1),
+	 .undoP1-midleft,
+	 .undoP1-midright,
+	 .undoP1-left,
+	 .undoP1-right {width: @width-golden1;}
+//	.phi(2),
+	 .undoP2-left,
+	 .undoP2-right {width: @width-golden2;}
+//	.phi(3),
+	 .undoP3-left,
+	 .undoP3-right {width: @width-golden3;}
+//	.phi(4),
+	 .undoP4-left,
+	 .undoP4-right {width: @width-golden4;}
+	.undoU-P3() {width: @width-u-golden3;}
+	 .undoU-P3-left,
+	 .undoU-P3-right {.undoU-P3();}
+	.undoU-P4() {width: @width-u-golden4;}
+	 .undoU-P4-left,
+	 .undoU-P4-right {.undoU-P4();}
 	
-	.undoP1-midleft  {.phi(1); left: -@width-Golden3;}
-	.undoP1-midright {.phi(1); left: -@width-Golden2;}
-	.undoP1-left  {.phi(1);}
-	.undoP1-right {.phi(1); left: -@width-Golden1;}
-	.undoP2-left  {.phi(2);}
-	.undoP2-right {.phi(2); left: -100%;}
-	.undoP3-left  {.phi(3);}
-	.undoP3-right {.phi(3); left: -323.6067977499789696%;}  // -323.6067977499789696%
-	.undoP4-left  {.phi(4);}
-	.undoP4-right {.phi(4); left: -585.4101966249684545%;}  // -585.4101966249684545%
-	.undoU-P3-right {.undoU-P3(); left: -30.9016994374947424%;} // -30.9016994374947424%
-	.undoU-P4-right {.undoU-P4(); left: -17.0820393249936909%;} // -17.0820393249936909%
+	.undoP1-midleft  {left: -@width-Golden3;}
+	.undoP1-midright {left: -@width-Golden2;}
+	.undoP1-left {}
+	.undoP1-right {left: -@width-Golden1;}
+	.undoP2-left {}
+	.undoP2-right {left: -100%;}
+	.undoP3-left {}
+	.undoP3-right {left: -323.6067977499789696%;}  // -323.6067977499789696%
+	.undoP4-left {}
+	.undoP4-right {left: -585.4101966249684545%;}  // -585.4101966249684545%
+	.undoU-P3-left {}
+	.undoU-P3-right {left: -30.9016994374947424%;} // -30.9016994374947424%
+	.undoU-P3-right {}
+	.undoU-P4-right {left: -17.0820393249936909%;} // -17.0820393249936909%
 }
+/* @end */
