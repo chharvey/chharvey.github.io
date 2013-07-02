@@ -20,21 +20,20 @@ function squareheight(rectangle) {
 		return $(this).width();
 	});
 }
-function positionSquares() {
+function positionSquares(mw) {
 	//positions the squares in a Fibonacci spiral
-	var cw = $('main').width();
-	var P1  = P(1, cw);
-	var P2  = P(2, cw);
-	var P3  = P(3, cw);
-	var P4  = P(4, cw);
-	var P5  = P(5, cw);
-	var P6  = P(6, cw);
-	var P7  = P(7, cw);
-	var P8  = P(8, cw);
-	var P9  = P(9, cw);
-	var P10 = P(10, cw);
-	var P11 = P(11, cw);
-	var P12 = P(12, cw);
+	var P1  = P(1, mw);
+	var P2  = P(2, mw);
+	var P3  = P(3, mw);
+	var P4  = P(4, mw);
+	var P5  = P(5, mw);
+	var P6  = P(6, mw);
+	var P7  = P(7, mw);
+	var P8  = P(8, mw);
+	var P9  = P(9, mw);
+	var P10 = P(10, mw);
+	var P11 = P(11, mw);
+	var P12 = P(12, mw);
 	$('.buttons a').css('position','absolute');
 	$('.a1').css('left',P2);
 	$('.c1').css('top',P2);
@@ -58,17 +57,18 @@ function bigtext() {
 		return ($(this).parent().height() - $(this).height()) / 2 + 'px';
 	});
 }
-function positionSpiral() {
+function positionSpiral(mw) {
 	// centers the group of box links on the page
 	$('.buttons').css('top', function() {
-		return ($(window).height() - P(1, $('main').width())) * P(2, 1) + 'px';
+		return ($(window).height() - P(1, mw)) * P(2, 1) + 'px';
 	});
 }
 function makepretty() {
+	var mainwidth = $('.main').width();
 	squareheight('.buttons a');
-	positionSquares();
+	positionSquares(mainwidth);
 	bigtext();
-	positionSpiral();
+	positionSpiral(mainwidth);
 }
 
 $(document).ready(function() {
@@ -80,7 +80,7 @@ $(window).resize(function() {
 </script>
 </head>
 <body id="index" class="hub-body">
-<main>
+<div class="main">
 	<h1 class="h-alpha noshow"><a href="/home/">Chris Harvey</a></h1>
 	<div class="buttons">
 		<a class="block-up a1" href="/home/"><div class="buttontext">Home</div></a>
@@ -96,6 +96,6 @@ $(window).resize(function() {
 		<a class="block-up k1"></a>
 		<a class="block-dn l1"></a>
 	</div>
-</main>
+</div>
 </body>
 </html>
