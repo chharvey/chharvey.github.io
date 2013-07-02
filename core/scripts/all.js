@@ -2,9 +2,6 @@
 var t_ani = 200;
 
 $(document).ready(function() {
-	$('.tex').attr('title',function() {
-		return $(this).text();
-	});
 });
 
 $(document).ready(function() {
@@ -24,11 +21,15 @@ $(document).ready(function() {
 	$('.list-action a').addClass('up');
 	
 	$('table thead, table tfoot, table th').addClass('header');
+	
 	$('.table-list thead, .table-list tfoot, .table-list th').addClass('header');
 	$('.table-list tbody').addClass('body');
+	
 	$('.table-bars th').addClass('header');
-	$('.table-grid tbody').addClass('body');
+	//no body for table-bars
+	
 	$('.table-grid th').addClass('header');
+	$('.table-grid tbody').addClass('body');
 	
 	
 	/** JavaScript 'grabber' classes --- only here for jQuery selectors */
@@ -41,17 +42,19 @@ $(document).ready(function() {
 $(document).ready(function() {
 	
 	// hyperlinks
-	$('a.js-link').hover(function() {
+	$('a.js-link[href]').hover(function() {
 		$(this).toggleClass('up dn');
+		$(this).removeClass('active');
 	});
-	$('a.js-sp').hover(function() {
+	$('a.js-sp[href]').hover(function() {
 		$(this).toggleClass('sp-up sp-dn');
+		$(this).removeClass('active');
 	});
 	
-	$('a').mousedown(function() {
+	$('a[href]').mousedown(function() {
 		$(this).addClass('active');
 	});
-	$('a').mouseup(function () {
+	$('a[href]').mouseup(function () {
 		$(this).removeClass('active');
 	});
 	
@@ -80,7 +83,7 @@ $(document).ready(function() {
 	// code spans and code blocks
 	$('.lang-html').attr('title','HTML');
 	$('.lang-css').attr('title','CSS');
-	$('.lang-less').attr('title','less');
+	$('.lang-less').attr('title','LESS');
 	$('.lang-js').attr('title','JavaScript');
 	$('.lang-jq').attr('title','jQuery');
 	
@@ -115,6 +118,15 @@ $(document).ready(function() {
 	$('.icon-special').hover(function() {
 		$(this).toggleClass('icon-special-clear',t_ani);
 	});
+	
+	// inline elements
+	$('.tex').attr('title',function() {
+		return $(this).text();
+	});
+	$('[datetime]').attr('title',function() {
+		return $(this).attr('datetime');
+	});
+
 	
 	// footer-hub
 	/*$('.footer-hub').addClass('footer-hub-collapse');

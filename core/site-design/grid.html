@@ -5,41 +5,127 @@
 <meta charset="UTF-8" />
 <link rel="stylesheet" href="site-design.css" />
 <style>
-.demo .red    {background-color: red;}
+/*.demo .red    {background-color: red;}
 .demo .orange {background-color: orange;}
 .demo .yellow {background-color: yellow;}
 .demo .green  {background-color: green;}
 .demo .blue   {background-color: blue;}
-.demo .purple {background-color: purple;}	
+.demo .purple {background-color: purple;}	*/
 </style>
 <!--#include virtual="/core/snippets/all-js.html" -->
 </head>
-<body>
+<body id="griddothtml">
 <div class="main">
 <header>
 	<h1 class="h-alpha">Site Design &mdash; The Grid</h1>
 	<!--#include virtual="navigation.html" -->
-	<p class="timestamp">Updated <time datetime="2013-06-14T02:00">June 14, 2013</time>.</p>
-	<p class="prose">This page describes the grid system of the site. <a class="up" href="/core/stylesheets/grid.css">The grid</a> implements the structure and layout of any page. It consists of lines and units, treated as table rows and table cells respectively.</p>
-	<p class="prose">The classes used for the grid are purely presentational and non-semantic. These classes are reserved for containers only (e.g. <code class="lang-html">&lt;div&gt;</code>s), and not for semantic elements. Semantic elements should be styled with semantic classes and their location on the page should not be determined by those classes.</p>
-	<p class="prose">The grid should <strong>degrade gracefully</strong>. This means that if someone were to <span class="scare">turn off</span> the grid, you would still be able to read and interact with the website without any problems. It might not look pretty, but the content should be intact. The grid only provides structure for the page itself, not for any of the elements.</p>
-	<p class="prose">To set up a grid, create a line with units inside. The effect will be a table-like structure.</p>
-	<pre><code class="lang-html">&lt;div class=&quot;line&quot;&gt;
-	&lt;div class=&quot;unit&quot;&gt;unit 1&lt;/div&gt;
-	&lt;div class=&quot;unit&quot;&gt;unit 2&lt;/div&gt;
-	&lt;div class=&quot;unit&quot;&gt;unit 3&lt;/div&gt;
+	<p class="timestamp">Updated <time datetime="2013-07-02T13:00">July 2, 2013</time>.</p>
+	<p class="prose">This page describes the grid system of the site. <a class="up" href="/core/stylesheets/grid.less">The grid</a> implements the structure and layout of any page. It consists of lines and units, treated as table rows and table cells respectively.</p>
+	<p class="prose"><strong>Important:</strong> Since the classes used in the grid define where the elements are positioned, they are purely presentational and non-semantic. Therefore, the grid consists of <b>abstract classes</b> (referred to as <a class="sp-up" href="http://lesscss.org/#-mixins">mixins</a>, e.g. <code class="lang-less">.class()</code>), which you, the developer, must <b><del datetime="2013-06-05">include</del><ins datetime="2013-06-05">extend</ins></b> with concrete semantic classnames. We'll talk more about this in a bit. <small>For more information, please read my opinions on <a class="up">Object-Oriented CSS</a> and <a class="up">semantic class naming</a>.</small></p>
+	<p class="prose">Seeing as the grid is presentational, it should <b>degrade gracefully</b>. This means that if someone were to <span class="scare">turn off</span> the grid, you would still be able to read and interact with the website without any problems. It might not look pretty, but the content should be intact.</p>
+</header>
+<section id="setup">
+	<h1 class="h-beta">Setting It Up</h1>
+	<p class="prose">Now for the fun part. To set up a grid, you'll need to create a line with units inside. The effect will be a table-like structure, with the line acting as a row and the units acting as cells.</p>
+	<pre><code class="lang-html">&lt;div&gt; this is a line!
+	&lt;div&gt;this is unit 1!&lt;/div&gt;
+	&lt;div&gt;this is unit 2!&lt;/div&gt;
+	&lt;div&gt;this is unit 3!&lt;/div&gt;
 &lt;/div&gt;</code></pre>
+	<p class="prose">Now obviously the <code class="lang-html">&lt;div&gt;</code>s aren't styled yet, so it would just look like a bunch of block elements. We need to add classes to make them act like a table structure. Those classes would be <code class="lang-less">.line()</code> and <code class="lang-less">.unit()</code>. But since these classes are mixins, you can't just add them to the HTML. When the LESS compiles, there will be no such things as the <code class="lang-css">.line</code> and <code class="lang-css">.unit</code> classes, so nothing would happen.</p>
+	<p class="prose">What we need to do is <b>include</b> the mixin with new classes, which we'll name as something semantic and meaningful. For a practical example, let's say you have an article in which there are three main parts: the first contains links, the second contains the article text, and the third contains advertisements. If you want each part to act like a column, here's a suggestion for your LESS:</p>
+	<pre><code class="lang-less">.thewholearticle {
+	.line();  // include the properties of .line() defined in grid.less
+	
+	.links  {.unit();}  // include the properties of .unit() defined in grid.less
+	article {.unit();}  
+	.ads    {.unit();}  
+}</code></pre>
+	<p class="prose">This way, our classes are semantically named so that in the future if we want to change the way they look, we can just go into the CSS and change some styles rather than having to go into the HTML and change classnames (and in this case, an element name). Here's what your HTML would look like:</p>
+	<pre><code class="lang-html">&lt;div class=&quot;thewholearticle&quot;&gt;
+	&lt;div class=&quot;links&quot;&gt; link link link &lt;/div&gt;
+	&lt;article&gt; the article text &lt;/article&gt;
+	&lt;div class=&quot;ads&quot;&gt; ad ad ad &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+<p class="prose">Here's what your output would look like (outlines have been added to show structure):</p>
 	<div class="demo">
-		<div class="line">
-			<div class="size1to3">unit 1</div>
-			<div class="size1to6">unit 2</div>
-			<div class="size1to2">unit 3</div>
+		<div class="tablerow">
+			<div class="tablecell" style="width: 20%;"> link link link </div>
+			<div class="tablecell" style="width: 60%;"> the article text </div>
+			<div class="tablecell" style="width: 20%;"> ad ad ad </div>
 		</div>
 	</div>
-</header>
-<section id="default-units">
-	<h1 class="h-beta">Default Units</h1>
-	<p class="prose">Each line is 100% the width of its container, unless otherwise specified. Each line can have a particular number of units. If you want the line to <strong>force</strong> the units to have equal widths, use the <code class="lang-css">.solo</code>, <code class="lang-css">.duet</code>, <code class="lang-css">.trio</code>, <code class="lang-css">.quartet</code>, <code class="lang-css">.quintet</code>, and <code class="lang-css">.sextet</code> subclasses of <code class="lang-css">.line</code>, depending on the number of units in the line. Since these subclasses <strong>extend</strong> the <code class="lang-css">.line</code> class, there is no need to include the <code class="lang-css">.line</code> class in the HTML. Just include the subclass. <small>The system is automatically equipped to handle lines with up to six units, named after small musical groups (Latin prefixes).</small></p>
+</section>
+<section  id="custom-units">
+	<h1 class="h-beta">Custom Units</h1>
+	<p class="prose">Each line is 100% the width of its container, <a class="up" href="#custom-units">unless otherwise specified</a>. Each line can have any number of units. Notice that in the example above, that the units were not evenly distributed: the <code class="lang-html">&lt;article&gt;</code> will likely be significantly wider than the other two units, assuming there will be more text in that element. If you want the line to <em>force</em> the units to have equal widths, you must add classes to the units to specify their widths. Include the following classes:</p>
+	<table class="table-list customunitnames">
+		<caption>Note that these classes automatically extend the <code class="lang-less">.unit()</code> class. When you mixin one of these subclasses, you don't need to additionally mixin <code class="lang-less">.unit()</code>.</caption>
+		<thead><tr><th>classname</th><th>width</th></tr></thead>
+		<tbody>
+			<tr><td><code class="lang-less">.unit-1to1()</code></td><td>100%</td></tr>
+			<tr><td><code class="lang-less">.unit-1to2()</code></td><td> 50%</td></tr>
+			<tr><td><code class="lang-less">.unit-1to3()</code></td><td> 33.33%</td></tr>
+			<tr><td><code class="lang-less">.unit-2to3()</code></td><td> 66.66%</td></tr>
+			<tr><td><code class="lang-less">.unit-1to4()</code></td><td> 25%</td></tr>
+			<tr><td><code class="lang-less">.unit-3to4()</code></td><td> 75%</td></tr>
+			<tr><td><code class="lang-less">.unit-1to5()</code></td><td> 20%</td></tr>
+			<tr><td><code class="lang-less">.unit-2to5()</code></td><td> 40%</td></tr>
+			<tr><td><code class="lang-less">.unit-3to5()</code></td><td> 60%</td></tr>
+			<tr><td><code class="lang-less">.unit-4to5()</code></td><td> 80%</td></tr>
+			<tr><td><code class="lang-less">.unit-1to6()</code></td><td> 16.66%</td></tr>
+			<tr><td><code class="lang-css">.unit-5to6()</code></td><td> 83.33%</td></tr>
+		</tbody>
+	</table>
+	<p class="prose">Let's make sure our cells are equal width. Remember that all of the units must add up to 100%.</p>
+	<pre><code class="lang-less">.thewholearticle {
+	.line();  // include the properties of .unit() defined in grid.less
+	
+	.links  {.unit<span class="new">-1to3</span>();}  // include the properties of .unit-1to3() defined in grid.less.
+	article {.unit<span class="new">-1to3</span>();}  // note that .unit-1to3() automatically mixins .unit()
+	.ads    {.unit<span class="new">-1to3</span>();}  
+}</code></pre>
+	<div class="demo">
+		<div class="tablerow">
+			<div class="tablecell" style="width: 33.33%;"> link link link </div>
+			<div class="tablecell" style="width: 33.33%;"> the article text </div>
+			<div class="tablecell" style="width: 33.33%;"> ad ad ad </div>
+		</div>
+	</div>
+	<p class="prose">See how easy that was? All we had to do was go into the LESS and change the class definitions. This is much more maintainable than having to change the <code class="lang-html">class=&quot;&quot;</code> attribute values in the HTML, especially if you have a lot to change. By the way, if you wanted to add another unit, you could do so without changing the elements' class names, and then mixin the <code class="lang-less">.unit-1to4()</code> class.</p>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<p class="new">this is new text!</p>
+	<p class="old">This is old text!</p>
+	
+	
+	<p>use the <code class="lang-css">.solo</code>, <code class="lang-css">.duet</code>, <code class="lang-css">.trio</code>, <code class="lang-css">.quartet</code>, <code class="lang-css">.quintet</code>, and <code class="lang-css">.sextet</code> subclasses of <code class="lang-css">.line</code>, depending on the number of units in the line. Since these subclasses <strong>extend</strong> the <code class="lang-css">.line</code> class, there is no need to include the <code class="lang-css">.line</code> class in the HTML. Just include the subclass. <small>The system is automatically equipped to handle lines with up to six units, named after small musical groups (Latin prefixes).</small></p>
 	<pre><code class="lang-html">&lt;div class=&quot;trio&quot;&gt;
 	&lt;div class=&quot;unit&quot;&gt;unit 1&lt;/div&gt;
 	&lt;div class=&quot;unit&quot;&gt;unit 2&lt;/div&gt;
@@ -95,7 +181,7 @@
 	</div>
 	<p class="caption">Above are all the subclasses of the <code class="lang-css">.line</code> class, with units in each line.</p>
 </section>
-<section id="custom-units">
+<section>
 	<header>
 		<h1 class="h-beta">Custom Units</h1>
 		<p class="prose">Sometimes you may want to change the widths of units in a line. For this, use classes for custom widths.</p>
