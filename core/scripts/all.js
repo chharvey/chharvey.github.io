@@ -66,7 +66,13 @@ $(document).ready(function() {
 		$(this).removeClass('block-active');
 	});
 	
-	// hyperlinks in main navigation bars
+	//hyperlinks in chharvey > index.html
+	$('#index .buttontext').addClass('buttontext-hidden');
+	$('#index .js-block-link').hover(function() {
+		$(this).children('.buttontext').toggleClass('buttontext-hidden',t_ani);
+	});
+	
+	// hyperlinks in main navigation bars (banner.html)
 	$('.hub-nav a').hover(function() {
 		$(this).parent().toggleClass('pos neg',t_ani);
 	});

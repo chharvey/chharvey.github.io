@@ -2,127 +2,10 @@
 
 /* @group GRID.LESS */
 
-/* @group lines and units */
-.tablecell() {
-	display: table-cell;
-	vertical-align: top;
-	overflow: visible;
+/* @group Golden widths and margins */
+.Golden(@width) {
+	width: @width;
 }
-.fractionwidth(@q) {width: (100% * @q);}
-.unit,
- .size1to1,
- .size1to2,
- .size1to3,
- .size2to3,
- .size1to4,
- .size3to4,
- .size1to5,
- .size2to5,
- .size3to5,
- .size4to5,
- .size1to6,
- .size5to6 {
- 	.tablecell();
-	.solo    > & {.fractionwidth((1/1));} // 100%
-	.duet    > & {.fractionwidth((1/2));} //  50%
-	.trio    > & {.fractionwidth((1/3));} //  33.3%
-	.quartet > & {.fractionwidth((1/4));} //  25%
-	.quintet > & {.fractionwidth((1/5));} //  20%
-	.sextet  > & {.fractionwidth((1/6));} //  16.6%
-}
-.tablerow() {
-	display: table;
-	width: 100%;
-}
-.line,
- .solo,
- .duet,
- .trio,
- .quartet,
- .quintet,
- .sextet {
- 	.tablerow();
-	> .size1to1 {.fractionwidth((1/1));} // 100%
-	> .size1to2 {.fractionwidth((1/2));} //  50%
-	> .size1to3 {.fractionwidth((1/3));} //  33.3%
-	> .size2to3 {.fractionwidth((2/3));} //  66.6%
-	> .size1to4 {.fractionwidth((1/4));} //  25%
-	> .size3to4 {.fractionwidth((3/4));} //  75%
-	> .size1to5 {.fractionwidth((1/5));} //  20%
-	> .size2to5 {.fractionwidth((2/5));} //  40%
-	> .size3to5 {.fractionwidth((3/5));} //  60%
-	> .size4to5 {.fractionwidth((4/5));} //  80%
-	> .size1to6 {.fractionwidth((1/6));} //  16.6%
-	> .size5to6 {.fractionwidth((5/6));} //  83.3%
-	
-//	> .Phi(1),
-	 > .P1-midleft,
-	 > .P1-midright,
-	 > .P1-left,
-	 > .P1-right,
-//	> .Phi(2),
-	 > .P2-left,
-	 > .P2-right,
-//	> .Phi(3),
-	 > .P3-left,
-	 > .P3-right,
-//	> .Phi(4),
-	 > .P4-left,
-	 > .P4-right,
-//	> .U-P3(),
-	 > .U-P3-left,
-	 > .U-P3-right,
-//	> .U-P4(),
-	 > .U-P4-left,
-	 > .U-P4-right {
-	 	.tablecell();
-	 }
-	
-//	> .Phi(1),
-	 > .P1-midleft,
-	 > .P1-midright,
-	 > .P1-left,
-	 > .P1-right {width: @width-Golden1;}
-//	> .Phi(2),
-	 > .P2-left,
-	 > .P2-right {width: @width-Golden2;}
-//	> .Phi(3),
-	 > .P3-left,
-	 > .P3-right {width: @width-Golden3;}
-//	> .Phi(4),
-	 > .P4-left,
-	 > .P4-right {width: @width-Golden4;}
-//	> .U-P3(),
-	 > .U-P3-left,
-	 > .U-P3-right {width: @width-U-Golden3;}
-//	> .U-P4(),
-	 > .U-P4-left,
-	 > .U-P4-right {width: @width-U-Golden4;}
-}
-/* @end */
-
-/* @group golden ratios */
-//.Phi(1),
- .P1-midleft,
- .P1-midright,
- .P1-left,
- .P1-right {width: @width-Golden1;}
-//.Phi(2),
- .P2-left,
- .P2-right {width: @width-Golden2;}
-//.Phi(3),
- .P3-left,
- .P3-right {width: @width-Golden3;}
-//.Phi(4),
- .P4-left,
- .P4-right {width: @width-Golden4;}
-//.U-P3(),
- .U-P3-left,
- .U-P3-right {width: @width-U-Golden3;}
-//.U-P4(),
- .U-P4-left,
- .U-P4-right {width: @width-U-Golden4;}
-
 .automargin(left; @othermargin) {
 	margin-left: 0;
 	margin-right: @othermargin;
@@ -131,36 +14,81 @@
 	margin-left: @othermargin;
 	margin-right: 0;
 }
-.P1-midleft  {margin-left: @width-Golden4; margin-right: @width-Golden3;}
-.P1-midright {margin-left: @width-Golden3; margin-right: @width-Golden4;}
-.P1-left  {.automargin(left;  (100% - @width-Golden1));}
-.P1-right {.automargin(right; (100% - @width-Golden1));}
-.P2-left  {.automargin(left;  (100% - @width-Golden2));}
-.P2-right {.automargin(right; (100% - @width-Golden2));}
-.P3-left  {.automargin(left;  (100% - @width-Golden3));}
-.P3-right {.automargin(right; (100% - @width-Golden3));}
-.P4-left  {.automargin(left;  (100% - @width-Golden4));}
-.P4-right {.automargin(right; (100% - @width-Golden4));}
-.U-P3-left  {.automargin(left;  @width-Golden3);}
-.U-P3-right {.automargin(right; @width-Golden3);}
-.U-P4-left  {.automargin(left;  @width-Golden4);}
-.U-P4-right {.automargin(right; @width-Golden4);}
+.P1-midleft()  {.Golden(@width-Golden1); margin-left: @width-Golden4; margin-right: @width-Golden3;}
+.P1-midright() {.Golden(@width-Golden1); margin-left: @width-Golden3; margin-right: @width-Golden4;}
+.P1-left()  {.Golden(@width-Golden1); .automargin(left;  (100% - @width-Golden1));}
+.P1-right() {.Golden(@width-Golden1); .automargin(right; (100% - @width-Golden1));}
+.P2-left()  {.Golden(@width-Golden2); .automargin(left;  (100% - @width-Golden2));}
+.P2-right() {.Golden(@width-Golden2); .automargin(right; (100% - @width-Golden2));}
+.P3-left()  {.Golden(@width-Golden3); .automargin(left;  (100% - @width-Golden3));}
+.P3-right() {.Golden(@width-Golden3); .automargin(right; (100% - @width-Golden3));}
+.P4-left()  {.Golden(@width-Golden4); .automargin(left;  (100% - @width-Golden4));}
+.P4-right() {.Golden(@width-Golden4); .automargin(right; (100% - @width-Golden4));}
+.U-P3-left()  {.Golden(@width-U-Golden3); .automargin(left;  @width-Golden3);}
+.U-P3-right() {.Golden(@width-U-Golden3); .automargin(right; @width-Golden3);}
+.U-P4-left()  {.Golden(@width-U-Golden4); .automargin(left;  @width-Golden4);}
+.U-P4-right() {.Golden(@width-U-Golden4); .automargin(right; @width-Golden4);}
 /* @end */
 
-/* @group widths of any element */
-// this block must come after the line definitions to correct specificity
+/* @group lines and units */
+.line() {
+	display: table;
+	width: 100%;
+}
 .linebreadth(@breadth) {
 	width:  @breadth;
 	margin: auto ((100% - @breadth) / 2);
 }
-.linebreadth-full   {.linebreadth(100%);}
-.linebreadth-large  {.linebreadth(@width-geometric);}
-.linebreadth-medium {.linebreadth(@width-arithmetic);}
-.linebreadth-small  {.linebreadth(@width-Golden1);}
+.linebreadth-full()   {.linebreadth(100%);}
+.linebreadth-large()  {.linebreadth(@width-geometric);}
+.linebreadth-medium() {.linebreadth(@width-arithmetic);}
+.linebreadth-small()  {.linebreadth(@width-Golden1);}
+.unit() {
+	display: table-cell;
+	vertical-align: top;
+	overflow: visible;
+}
+	/* @group rational-sized units */
+//	.solo    > .unit {.unit-1to1;}
+//	.duet    > .unit {.unit-1to2;}
+//	.trio    > .unit {.unit-1to3;}
+//	.quartet > .unit {.unit-1to4;}
+//	.quintet > .unit {.unit-1to5;}
+//	.sextet  > .unit {.unit-1to6;}
+	.fractionwidth(@q) {
+		.unit;
+		width: (100% * @q);
+	}
+	.unit-1to1() {.fractionwidth((1/1));} // 100%
+	.unit-1to2() {.fractionwidth((1/2));} //  50%
+	.unit-1to3() {.fractionwidth((1/3));} //  33.3%
+	.unit-2to3() {.fractionwidth((2/3));} //  66.6%
+	.unit-1to4() {.fractionwidth((1/4));} //  25%
+	.unit-3to4() {.fractionwidth((3/4));} //  75%
+	.unit-1to5() {.fractionwidth((1/5));} //  20%
+	.unit-2to5() {.fractionwidth((2/5));} //  40%
+	.unit-3to5() {.fractionwidth((3/5));} //  60%
+	.unit-4to5() {.fractionwidth((4/5));} //  80%
+	.unit-1to6() {.fractionwidth((1/6));} //  16.6%
+	.unit-5to6() {.fractionwidth((5/6));} //  83.3%
+	/* @end */
+	
+	/* @group Golden-sized units */
+	.unit-Golden(@width) {
+		.Golden(@width);
+		.unit;
+	}
+	.unit-P1() {.unit-Golden(@width-Golden1);}
+	.unit-P2() {.unit-Golden(@width-Golden2);}
+	.unit-P3() {.unit-Golden(@width-Golden3);}
+	.unit-P4() {.unit-Golden(@width-Golden4);}
+	.unit-U-P3() {.unit-Golden(@width-U-Golden3);}
+	.unit-U-P4() {.unit-Golden(@width-U-Golden4);}
+	/* @end */
 /* @end */
 
 
-@media screen {
+/*@media screen {
 	@phi1: (1 / @Phi1);
 	@phi2: (1 / @Phi2);
 	@phi3: (1 / @Phi3);
@@ -174,63 +102,25 @@
 	@width-u-golden3: (100% * @u-phi3); // 130.9016994374947424%
 	@width-u-golden4: (100% * @u-phi4); // 117.0820393249936909%
 	
-	.undoPhi() {position: relative; left: 0;}
-//	 .phi(1),
-	  .undoP1-midleft,
-	  .undoP1-midright,
-	  .undoP1-left,
-	  .undoP1-right,
-//	 .phi(2),
-	  .undoP2-left,
-	  .undoP2-right,
-//	 .phi(3),
-	  .undoP3-left,
-	  .undoP3-right,
-//	 .phi(4),
-	  .undoP4-left,
-	  .undoP4-right,
-//	 .undoU-P3(),
-	  .undoU-P3-left,
-	  .undoU-P3-right,
-//	 .undoU-P4(),
-	  .undoU-P4-left,
-	  .undoU-P4-right {.undoPhi();}
-	
-//	.phi(1),
-	 .undoP1-midleft,
-	 .undoP1-midright,
-	 .undoP1-left,
-	 .undoP1-right {width: @width-golden1;}
-//	.phi(2),
-	 .undoP2-left,
-	 .undoP2-right {width: @width-golden2;}
-//	.phi(3),
-	 .undoP3-left,
-	 .undoP3-right {width: @width-golden3;}
-//	.phi(4),
-	 .undoP4-left,
-	 .undoP4-right {width: @width-golden4;}
-	.undoU-P3() {width: @width-u-golden3;}
-	 .undoU-P3-left,
-	 .undoU-P3-right {.undoU-P3();}
-	.undoU-P4() {width: @width-u-golden4;}
-	 .undoU-P4-left,
-	 .undoU-P4-right {.undoU-P4();}
-	
-	.undoP1-midleft  {left: -@width-Golden3;}
-	.undoP1-midright {left: -@width-Golden2;}
-	.undoP1-left {}
-	.undoP1-right {left: -@width-Golden1;}
-	.undoP2-left {}
-	.undoP2-right {left: -100%;}
-	.undoP3-left {}
-	.undoP3-right {left: -323.6067977499789696%;}  // -323.6067977499789696%
-	.undoP4-left {}
-	.undoP4-right {left: -585.4101966249684545%;}  // -585.4101966249684545%
-	.undoU-P3-left {}
-	.undoU-P3-right {left: -30.9016994374947424%;} // -30.9016994374947424%
-	.undoU-P3-right {}
-	.undoU-P4-right {left: -17.0820393249936909%;} // -17.0820393249936909%
-}
-/* @end */
+	.undoGolden(@width) {
+		position: relative;
+		left: 0;
+		width: @width;
+	}	
+	.undoP1-midleft  {.undoGolden(@width-golden1); left: -@width-Golden3;}
+	.undoP1-midright {.undoGolden(@width-golden1); left: -@width-Golden2;}
+	.undoP1-left  {.undoGolden(@width-golden1);}
+	.undoP1-right {.undoGolden(@width-golden1); left: -@width-Golden1;}
+	.undoP2-left  {.undoGolden(@width-golden2);}
+	.undoP2-right {.undoGolden(@width-golden2); left: -100%;}
+	.undoP3-left  {.undoGolden(@width-golden3);}
+	.undoP3-right {.undoGolden(@width-golden3); left: -323.6067977499789696%;}  // -323.6067977499789696%
+	.undoP4-left  {.undoGolden(@width-golden4);}
+	.undoP4-right {.undoGolden(@width-golden4); left: -585.4101966249684545%;}  // -585.4101966249684545%
+	.undoU-P3-left  {.undoGolden(@width-u-golden3);}
+	.undoU-P3-right {.undoGolden(@width-u-golden3); left: -30.9016994374947424%;} // -30.9016994374947424%
+	.undoU-P3-right {.undoGolden(@width-u-golden4);}
+	.undoU-P4-right {.undoGolden(@width-u-golden4); left: -17.0820393249936909%;} // -17.0820393249936909%
+}*/
+/* @end GRID */
 

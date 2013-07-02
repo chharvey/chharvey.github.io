@@ -8,100 +8,67 @@
 <link rel="icon" href="/core/img/favicon.ico" />
 <link rel="stylesheet" href="/home/home.css" />
 <style>
-.main {margin-bottom: 0;}
-.homebuttons {font-variant: small-caps; text-align: center;}
-/* .homebuttons .unit {outline: thin solid black; padding: 1px;} */
-.block-up,
-.block-dn {padding: 0; margin: 1px;}
-.block-up .buttontext {display: none;}
-.block-dn .buttontext {display: block;}
-.Phi {font-family: 'Times','Times New Roman',serif;}
 </style>
 <!--#include virtual="/core/snippets/all-js.html" -->
-</head>
-<body class="hub-body">
-<div class="main">
-	<h1 class="h-alpha noshow"><a class="up" href="/home/">Chris Harvey</a></h1>
-	<div class="homebuttons">
-		<div class="duet">
-			<div class="P2-left">
-				<a class="block-up" href="">
-					<div class="buttontext">Math</div>
-				</a>
-				<div class="duet">
-					<div class="P1-left">
-						<a class="block-up" href="/resume/">
-							<div class="buttontext">R&eacute;sum&eacute;</div>
-						</a>
-					</div>
-					<div class="P2-right">
-						<div class="duet">
-							<div class="P2-left">
-								<a class="block-up"></a>
-								<div class="duet">
-									<div class="P1-left">
-										<a class="block-up"></a>
-									</div>
-									<div class="P2-right">
-										<div class="duet">
-											<div class="P2-left">
-												<a class="block-up"></a>
-												<div class="duet">
-													<div class="P1-left">
-														<a class="block-up"></a>
-													</div>
-													<div class="P2-right">
-														<a class="block-dn"></a>
-													</div>
-												</div>
-											</div>
-											<div class="P1-right">
-												<a class="block-up"></a>
-											</div>
-										</div>
-										<a class="block-up"></a>
-									</div>
-								</div>
-							</div>
-							<div class="P1-right">
-								<a class="block-up"></a>
-							</div>
-						</div>
-						<a class="block-up" href="/core/site-design/phi.html">
-							<div class="buttontext Phi">&Phi;</div>
-						</a>
-					</div>
-				</div>
-			</div>
-			<div class="P1-right">
-				<a class="block-up" href="/home/">
-					<div class="buttontext">Home</div>
-				</a>
-			</div>
-		</div>
-	</div>
-</div>
 <script>
+function P(n, length) {
+	return (length * Math.pow(0.618033988749894848, n));
+}
 function squareheight(rectangle) {
 	// sets the height of each box link to its width
 	$(rectangle).css('height', function() {
 		return $(this).width();
 	});
 }
-function makepretty() {
-	squareheight('.js-block-link');
+function positionSquares() {
+	//positions the squares in a Fibonacci spiral
+	var cw = $('main').width();
+	var P1  = P(1, cw);
+	var P2  = P(2, cw);
+	var P3  = P(3, cw);
+	var P4  = P(4, cw);
+	var P5  = P(5, cw);
+	var P6  = P(6, cw);
+	var P7  = P(7, cw);
+	var P8  = P(8, cw);
+	var P9  = P(9, cw);
+	var P10 = P(10, cw);
+	var P11 = P(11, cw);
+	var P12 = P(12, cw);
+	$('.buttons a').css('position','absolute');
+	$('.a1').css('left',P2);
+	$('.c1').css('top',P2);
+	$('.d1').css('left',P3).css('top',P2+P5);
+	$('.e1').css('left',P3+P6).css('top',P2);
+	$('.f1').css('left',P3).css('top',P2);
+	$('.g1').css('left',P3).css('top',P2+P6);
+	$('.h1').css('left',P3+P7).css('top',P2+P6+P9);
+	$('.i1').css('left',P3+P7+P10).css('top',P2+P6);
+	$('.j1').css('left',P3+P7).css('top',P2+P6);
+	$('.k1').css('left',P3+P7).css('top',P2+P6+P10);
+	$('.l1').css('left',P3+P7+P11).css('top',P2+P6+P10);
+}
+function bigtext() {
 	// sets a proportional font size for each box link
-	$('.homebuttons .buttontext').css('font-size', function () {
+	$('.buttons .buttontext').css('font-size', function () {
 		return $(this).parent().height() / 4 + 'px';
 	});
 	// vertically aligns the font in each box link
-	$('.homebuttons .buttontext').css('margin',function () {
-		return ($(this).parent().height() - $(this).height()) / 2 + 'px 0';
+	$('.buttons .buttontext').css('top',function () {
+		return ($(this).parent().height() - $(this).height()) / 2 + 'px';
 	});
+}
+function positionSpiral() {
 	// centers the group of box links on the page
-	$('.homebuttons').css('margin-top', function() {
-		return ($(window).height() - $(this).height()) * 0.382 + 'px';
+	$('.buttons').css('top', function() {
+		return ($(window).height() - P(1, $('main').width())) * P(2, 1) + 'px';
 	});
+}
+function makepretty() {
+	squareheight('.buttons a');
+	positionSquares();
+	bigtext();
+	positionSpiral();
 }
 
 $(document).ready(function() {
@@ -111,5 +78,24 @@ $(window).resize(function() {
 	makepretty();
 });
 </script>
+</head>
+<body id="index" class="hub-body">
+<main>
+	<h1 class="h-alpha noshow"><a href="/home/">Chris Harvey</a></h1>
+	<div class="buttons">
+		<a class="block-up a1" href="/home/"><div class="buttontext">Home</div></a>
+		<a class="block-up b1"><div class="buttontext">Math</div></a>
+		<a class="block-up c1" href="/resume/"><div class="buttontext">R&eacute;sum&eacute;</div></a>
+		<a class="block-up d1" href="/core/site-design/phi.html"><div class="buttontext design">&Phi;</div></a>
+		<a class="block-up e1"></a>
+		<a class="block-up f1"></a>
+		<a class="block-up g1"></a>
+		<a class="block-up h1"></a>
+		<a class="block-up i1"></a>
+		<a class="block-up j1"></a>
+		<a class="block-up k1"></a>
+		<a class="block-dn l1"></a>
+	</div>
+</main>
 </body>
 </html>

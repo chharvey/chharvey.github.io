@@ -15,15 +15,8 @@
 	letter-spacing: 2px;
 	color: @aperture-black;
 }
-h1, .h-alpha,
-h2, .h-beta,
-h3, .h-gamma,
-h4, .h-delta,
-h5, .h-epsilon,
-h6, .h-zeta {
-	.heading();
-}
 h1, .h-alpha {
+	.heading();
 	font-variant: small-caps;
 	font-weight: bold;
 	font-size: 2.000em; // 24
@@ -31,27 +24,32 @@ h1, .h-alpha {
 	color: @lakesuperior;
 }
 h2, .h-beta {
+	.heading();
 	font-weight: bold;
 	font-size: 1.500em; // 18
 	color: @facilityabyss;
 }
 h3, .h-gamma {
+	.heading();
 	font-variant: small-caps;
 	font-weight: bold;
 	font-size: 1.167em; // 14
 }
 h4, .h-delta {
+	.heading();
 	font-style: italic;
 	font-weight: bold;
 	font-size: 1.000em; // 12
 }
 h5, .h-epsilon {
+	.heading();
 	font-style: italic;
 	font-size: 0.833em; // 10
 	text-indent: 0.5in;
 	color: @facilityabyss;
 }
 h6, .h-zeta {
+	.heading();
 	font-style: italic;
 	font-variant: small-caps;
 	font-size: 0.833em; // 10
@@ -68,13 +66,12 @@ h5 + h6 {
 /* @end */
 
 /* @group paragraphs and block text */
-p, .p,
-.prose,
-.lede {
+p, .p {
 	margin: 0 0 0.5em;
 	line-height: 1.4em;
 }
 .prose {
+	.p;
 	margin-bottom: 0.75em;
 	font-size: 11pt;
 	font-family: @font-prose;
@@ -82,6 +79,7 @@ p, .p,
 	line-height: 1.3em;
 }
 .lede {
+	.p;
 	padding-right: 1em;
 	margin-bottom: 1em;
 	font-weight: bold;
@@ -135,21 +133,28 @@ figcaption, caption, .caption {
 /* @end */
 
 /* @group lists */
-.list-basic,
-.list-basic-inline,
-.list-action {
+.list-basic {
+	// a basic list with no margins padding or numbering. list items are blocks
 	padding: 0;
 	margin: 0;
 	list-style-type: none;
-	dd {
-		margin: 0;
-	}
+	dd {margin: 0;}
 }
-.list-basic-inline {
-	display: inline;
+.list-inline {
+	// a basic list except the list items are inline
+	.list-basic;
+	display: block;
 	li {display: inline;}
 }
+.list-line {
+	// a basic list that acts as a table with the list items acting as table cells
+	.list-basic;
+	.line();
+	li {.unit();}
+}
 .list-action {
+	// a list typically containing textual (non-block) hyperlinks
+	.list-basic;
 	margin-bottom: 0.5em;
 	color: @atlas;
 	list-style-position: inside;
@@ -157,9 +162,8 @@ figcaption, caption, .caption {
 	a {border-bottom: 0; text-decoration: underline;}
 }
 .list-text {
-	li {
-		padding-bottom: 0.2em;
-	}
+	// what is this?
+	li {padding-bottom: 0.2em;}
 }
 .list-omega   {list-style-type: decimal-leading-zero;}
 .list-alpha   {list-style-type: upper-roman;}
@@ -173,10 +177,7 @@ figcaption, caption, .caption {
 /* @end */
 
 /* @group tables */
-table, .table,
-.table-list,
-.table-bars,
-.table-grid {
+table, .table {
 	border-color: #808080;
 	border-collapse: collapse;
 	margin: auto;
@@ -196,6 +197,7 @@ table, .table,
 }
 .special-table-border() {border: 1px solid @areyoustillthere;}
 .table-list {
+	.table;
 	> .header, > .body {
 		.special-table-border();
 		border-left: 0;
@@ -206,6 +208,7 @@ table, .table,
 	.row-even {background-color: @atlas-sat16;}
 }
 .table-bars {
+	.table;
 	.special-table-border();
 	.header, .body {
 		.special-table-border();
@@ -217,6 +220,7 @@ table, .table,
 	.column-even {background-color: @atlas-sat16;}
 }
 .table-grid {
+	.table;
 	.special-table-border();
 	td {.special-table-border();}
 	.header {background-color: #ffffff;}
@@ -268,5 +272,5 @@ i:lang(fr) {
 .hindent-25 {text-indent: -0.25in; padding-left: 0.25in;}
 .hindent-em {text-indent: -1em;    padding-left: 1em;}
 /* @end */
-/* @end */
+/* @end TYPO */
 

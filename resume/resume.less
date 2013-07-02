@@ -1,7 +1,7 @@
 @import url('../core/stylesheets/grid.less');
 @import url('../core/stylesheets/typo.less');
 @import url('../core/stylesheets/mods.less');
-.res-main {}
+main {width: 100%; position: relative; left: -@width-Golden3;}
 ul {
 	padding: 0;
 	margin: 0;
@@ -10,20 +10,19 @@ abbr {border: 0;}
 
 /* @group headers and footers */
 header {
-	.P1-midright;
+	.P1-midright();
 	padding-bottom: .5em;
 	border-bottom: 2px solid @areyoustillthere;
 	margin-bottom: .5em;
 }
 
 footer {
-	.tablerow();
-	> .res-footer-name,
+	.line;
+	> .res-footer-name {.unit-1to2();}
 	> .res-footer-pagecount {
-		.tablecell();
-		.fractionwidth((1/2));
+		.unit-1to2();
+		text-align: right;
 	}
-	> .res-footer-pagecount {text-align: right;}
 }
 
 @media screen {
@@ -42,42 +41,35 @@ address {
 	font-size: inherit;
 }
 .res-skillgroup { // each experience section of the resume
-	.tablerow();
+	.line();
 	margin-bottom: 1em;
-}
-.res-skilltitle { // title of skillgroup
-	.tablecell();
-	.P3-left;
-	padding-left:  (100% * @Phi3 * @Phi3); // P6
-	padding-right: (100% * @Phi3 * @Phi4); // P7
-	position: relative;
-	right: 10px;
-}
-.res-skilldetail { // details for skillgroup
-	.tablecell();
-	.U-P3-right;
-	padding-left: 0;
-	padding-right: @width-Golden4;
-}
-.res-job { // job positions for each skill
-	margin-bottom: 1em;
+	> .res-skilltitle { // title of skillgroup
+		.unit-P3();
+		padding-left:  (100% * @Phi3 * @Phi3); // P6
+		padding-right: (100% * @Phi3 * @Phi4); // P7
+		position: relative;
+		right: 10px;
+	}
+	> .res-skilldetail { // details for skillgroup
+		.unit-U-P3();
+		padding-left: 0;
+		padding-right: @width-Golden4;
+		> .res-job { // job positions for each skill
+			margin-bottom: 1em;
+		}
+	}
 }
 .res-jobtitle { // company, position, dates, etc of each job
-	.tablerow();
-}
-.titles() {
-	.tablecell();
-	.U-P3-left;
+	.line();
 }
 .res-org { // organization title
-	.titles();
+	.unit-U-P3();
 }
 .res-occup { // occupation title
-	.titles();
+	.unit-U-P3();
 }
 .res-spacetime { // date & location of job
-	.tablecell();
-	.P3-right;
+	.unit-P3();
 	font-style: normal;
 	font-variant: normal;
 	font-weight: normal;
@@ -90,13 +82,19 @@ address {
 //	margin: 0;
 }
 
-.res-tech-app {
-	width: 50%;
-	float: left;
+.res-tech-apps {
+	.list-basic;
+	li {
+		width: 50%;
+		float: left;
+	}
 }
-.res-tech-lang {
-	width: 15%;
-	padding-right: 50px;
+.res-tech-langs {
+	.list-line;
+	li {
+		width: 15%;
+		padding-right: 50px;
+	}
 }
 /* @end */
 
