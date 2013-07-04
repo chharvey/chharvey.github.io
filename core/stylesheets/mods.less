@@ -111,9 +111,7 @@ a {
 	color: @areyoustillthere !important;
 	&:before {
 		.sample-label('bad example!');
-		border-color: @vilify;
 		color: @areyoustillthere;
-		background-color: @atlas-sat16;
 	}
 	* {color: @areyoustillthere !important;}
 }
@@ -128,42 +126,64 @@ a {
 		background-color: @pbody-sat16;
 	}
 }
-.code,
-code { // inline code elements
-	.box;
-	border-color: @help-border;
-	background-color: @heart-companion;
-	font-size: smaller;
-	font-family: @font-code;
-	color: #000000;
-}
-.code-block(@lang) { // block code mixin
-	.code;
-	.sample();
-	&:before {
-		.sample-label(@lang);
+	/* @group coding shit */
+	.code,
+	code { // inline code elements
+		.box;
 		border-color: @help-border;
-		color: @heart-sat50;
-		background-color: @heart-sat16;
+		background-color: @heart-companion;
+		font-size: smaller;
+		font-family: @font-code;
+		color: #000000;
 	}
-}
-pre {margin: 0;}
-.code-block,
-pre > code {
-	.code-block('code');
-	&.lang-html {.code-block('HTML');}
-	&.lang-css {.code-block('CSS');}
-	&.lang-less {.code-block('LESS');}
-	&.lang-js {.code-block('JavaScript');}
-	&.lang-jq {.code-block('jQuery');}
-}
-.kbd,
-kbd kbd {
-	.code;
-	padding: 2px;
-	font-size: larger;
-	font-family: @font-mono;
-}
+	.code-block(@lang) { // block code mixin
+		.code;
+		.sample();
+		&:before {
+			.sample-label(@lang);
+			border-color: @help-border;
+			color: @heart-sat50;
+			background-color: @heart-sat16;
+		}
+	}
+	pre {margin: 0;}
+	.code-block,
+	pre > code {
+		.code-block('code');
+		&.lang-html {
+			.code-block('HTML');
+			.tag {
+				color: @areyoustillthere-bri50;
+				.attribute {
+					color: @neurotoxin-bri50;
+					.value {color: @lakesuperior-bri50;}
+				}
+			}
+			.comment {color: #999;}
+		}
+		.css() {
+			.selector {
+				color: @areyoustillthere-bri50;
+				.property {
+					color: @neurotoxin-bri50;
+					.value {color: @lakesuperior-bri50;}
+				}
+			}
+			.comment {color: #999;}
+		}
+		&.lang-css {.css(); .code-block('CSS');}
+		&.lang-less {.css(); .code-block('LESS');}
+		&.lang-js {.code-block('JavaScript');}
+		&.lang-jq {.code-block('jQuery');}
+	}
+	.kbd,
+	kbd kbd {
+		.code;
+		padding: 2px;
+		font-size: larger;
+		font-family: @font-mono;
+	}
+	/* @end */
 
 /* @end */
 

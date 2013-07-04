@@ -27,26 +27,26 @@
 <section id="setup">
 	<h1 class="h-beta">Setting It Up</h1>
 	<p class="prose">Now for the fun part. To set up a grid, you'll need to create a line with units inside. The effect will be a table-like structure, with the line acting as a row and the units acting as cells.</p>
-	<pre><code class="lang-html">&lt;div&gt; this is a line!
-	&lt;div&gt;this is unit 1!&lt;/div&gt;
-	&lt;div&gt;this is unit 2!&lt;/div&gt;
-	&lt;div&gt;this is unit 3!&lt;/div&gt;
-&lt;/div&gt;</code></pre>
+	<pre><code class="lang-html"><span class="tag">&lt;div&gt;</span> <span class="comment">&lt;!--this is a line!--&gt;</span>
+	<span class="tag">&lt;div&gt;</span>this is unit 1!<span class="tag">&lt;/div&gt;</span>
+	<span class="tag">&lt;div&gt;</span>this is unit 2!<span class="tag">&lt;/div&gt;</span>
+	<span class="tag">&lt;div&gt;</span>this is unit 3!<span class="tag">&lt;/div&gt;</span>
+<span class="tag">&lt;/div&gt;</span></code></pre>
 	<p class="prose">Now obviously the <code class="lang-html">&lt;div&gt;</code>s aren't styled yet, so it would just look like a bunch of block elements. We need to add classes to make them act like a table structure. Those classes would be <code class="lang-less">.line()</code> and <code class="lang-less">.unit()</code>. But since these classes are mixins, you can't just add them to the HTML. When the LESS compiles, there will be no such things as the <code class="lang-css">.line</code> and <code class="lang-css">.unit</code> classes, so nothing would happen.</p>
 	<p class="prose">What we need to do is <b>include</b> the mixin with new classes, which we'll name as something semantic and meaningful. For a practical example, let's say you have an article in which there are three main parts: the first contains links, the second contains the article text, and the third contains advertisements. If you want each part to act like a column, here's a suggestion for your LESS:</p>
-	<pre><code class="lang-less">.thewholearticle {
-	.line();  // include the properties of .line() defined in grid.less
+	<pre><code class="lang-less"><span class="selector">.thewholearticle {
+	<span class="property">.line();</span>  <span class="comment">// include the properties of .line() defined in grid.less</span>
 	
-	.links  {.unit();}  // include the properties of .unit() defined in grid.less
-	article {.unit();}  
-	.ads    {.unit();}  
-}</code></pre>
+	<span class="selector">.links  {<span class="property">.unit();</span>}</span>  <span class="comment">// include the properties of .unit() defined in grid.less</span>
+	<span class="selector">article {<span class="property">.unit();</span>}</span>  
+	<span class="selector">.ads    {<span class="property">.unit();</span>}</span>
+}</span></code></pre>
 	<p class="prose">This way, our classes are semantically named so that in the future if we want to change the way they look, we can just go into the CSS and change some styles rather than having to go into the HTML and change classnames (and in this case, an element name). Here's what your HTML would look like:</p>
-	<pre><code class="lang-html">&lt;div class=&quot;thewholearticle&quot;&gt;
-	&lt;div class=&quot;links&quot;&gt; link link link &lt;/div&gt;
-	&lt;article&gt; the article text &lt;/article&gt;
-	&lt;div class=&quot;ads&quot;&gt; ad ad ad &lt;/div&gt;
-&lt;/div&gt;</code></pre>
+	<pre><code class="lang-html"><span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">thewholearticle</span>&quot;</span>&gt;</span>
+	<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">links</span>&quot;</span>&gt;</span> link link link <span class="tag">&lt;/div&gt;</span>
+	<span class="tag">&lt;article&gt;</span> the article text <span class="tag">&lt;/article&gt;</span>
+	<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">ads</span>&quot;</span>&gt;</span> ad ad ad <span class="tag">&lt;/div&gt;</span>
+<span class="tag">&lt;/div&gt;</span></code></pre>
 <p class="prose">Here's what your output would look like (outlines have been added to show structure):</p>
 	<div class="demo">
 		<div class="tablerow">
@@ -78,13 +78,13 @@
 		</tbody>
 	</table>
 	<p class="prose">Let's make sure our cells are equal width. Remember that all of the units must add up to 100%.</p>
-	<pre><code class="lang-less">.thewholearticle {
-	.line();  // include the properties of .unit() defined in grid.less
+	<pre><code class="lang-less"><span class="selector">.thewholearticle {
+	<span class="property">.line();</span>  <span class="comment">// include the properties of .unit() defined in grid.less</span>
 	
-	.links  {.unit<span class="new">-1to3</span>();}  // include the properties of .unit-1to3() defined in grid.less.
-	article {.unit<span class="new">-1to3</span>();}  // note that .unit-1to3() automatically mixins .unit()
-	.ads    {.unit<span class="new">-1to3</span>();}  
-}</code></pre>
+	<span class="selector">.links  {<span class="property">.unit<span class="new">-1to3</span>();</span>}</span>  <span class="comment">// include the properties of .unit-1to3() defined in grid.less</span>
+	<span class="selector">article {<span class="property">.unit<span class="new">-1to3</span>();</span>}</span>  <span class="comment">// note that .unit-1to3() automatically mixins .unit()</span>
+	<span class="selector">.ads    {<span class="property">.unit<span class="new">-1to3</span>();</span>}</span>
+}</span></code></pre>
 	<div class="demo">
 		<div class="tablerow">
 			<div class="tablecell" style="width: 33.33%;"> link link link </div>
