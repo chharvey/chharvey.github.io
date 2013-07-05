@@ -33,20 +33,19 @@ $(document).ready(function() {
 	
 	
 	/** JavaScript 'grabber' classes --- only here for jQuery selectors */
-	$('.up, .dn').addClass('js-link');
-	$('.sp-up, .sp-dn').addClass('js-sp');
-		
-	$('.block-up, .block-dn').addClass('js-block-link');
+	$('a.up, a.dn').addClass('js-link');
+	$('a.sp-up, a.sp-dn').addClass('js-sp');	
+	$('a.block-up, a.block-dn').addClass('js-block-link');
 });
 
 $(document).ready(function() {
 	
 	// hyperlinks
-	$('a.js-link[href]').hover(function() {
+	$('.js-link[href]').hover(function() {
 		$(this).toggleClass('up dn');
 		$(this).removeClass('active');
 	});
-	$('a.js-sp[href]').hover(function() {
+	$('.js-sp[href]').hover(function() {
 		$(this).toggleClass('sp-up sp-dn');
 		$(this).removeClass('active');
 	});
@@ -59,13 +58,13 @@ $(document).ready(function() {
 	});
 	
 	// box hyperlinks
-	$('a.js-block-link').hover(function() {
+	$('.js-block-link').hover(function() {
 		$(this).toggleClass('block-up block-dn',t_ani);
 	});
-	$('a.js-block-link').mousedown(function() {
+	$('.js-block-link').mousedown(function() {
 		$(this).addClass('block-active');
 	});
-	$('a.js-block-link').mouseup(function () {
+	$('.js-block-link').mouseup(function () {
 		$(this).removeClass('block-active');
 	});
 	
