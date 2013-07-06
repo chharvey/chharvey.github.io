@@ -19,21 +19,21 @@
 <header>
 	<h1 class="h-alpha">Site Design &mdash; The Grid</h1>
 	<!--#include virtual="navigation.html" -->
-	<p class="timestamp">Updated <time datetime="2013-07-02T13:00">July 2, 2013</time>.</p>
+	<p class="timestamp">Updated <time datetime="2013-07-05T16:00">July 5, 2013</time>.</p>
 	<p class="prose">This page describes the grid system of the site. <a class="up" href="/core/stylesheets/grid.less">The grid</a> implements the structure and layout of any page. It consists of lines and units, treated as table rows and table cells respectively.</p>
-	<p class="prose"><strong>Important:</strong> Since the classes used in the grid define where the elements are positioned, they are purely presentational and non-semantic. Therefore, the grid consists of <b>abstract classes</b> (referred to as <a class="sp-up" href="http://lesscss.org/#-mixins">mixins</a>, e.g. <code class="lang-less">.class()</code>), which you, the developer, must <b><del datetime="2013-06-05">include</del><ins datetime="2013-06-05">extend</ins></b> with concrete semantic classnames. We'll talk more about this in a bit. <small>For more information, please read my opinions on <a class="up">Object-Oriented CSS</a> and <a class="up">semantic class naming</a>.</small></p>
+	<p class="prose"><strong>Important:</strong> Since the classes used in the grid define where the elements are positioned, they are purely presentational and non-semantic. Therefore, the grid stylesheet consists of <b>abstract classes</b> (referred to as <a class="sp-up" href="http://lesscss.org/#-mixins">mixins</a>, e.g. <code class="lang-less">.class()</code>), which you, the developer, must <b><del datetime="2013-06-05">include</del><ins datetime="2013-06-05">extend</ins></b> with concrete semantic classnames. We'll talk more about this in a bit. <small>For more information, please read my opinions on <a class="up">Object-Oriented CSS</a> and <a class="up">semantic class naming</a>.</small></p>
 	<p class="prose">Seeing as the grid is presentational, it should <b>degrade gracefully</b>. This means that if someone were to <span class="scare">turn off</span> the grid, you would still be able to read and interact with the website without any problems. It might not look pretty, but the content should be intact.</p>
 </header>
 <section id="setup">
 	<h1 class="h-beta">Setting It Up</h1>
-	<p class="prose">Now for the fun part. To set up a grid, you'll need to create a line with units inside. The effect will be a table-like structure, with the line acting as a row and the units acting as cells.</p>
+	<p class="prose">To set up a grid, you'll need to create a line with units inside. The effect will be a table-like structure, with the line acting as a row and the units acting as cells.</p>
 	<pre><code class="lang-html"><span class="tag">&lt;div&gt;</span> <span class="comment">&lt;!--this is a line!--&gt;</span>
 	<span class="tag">&lt;div&gt;</span>this is unit 1!<span class="tag">&lt;/div&gt;</span>
 	<span class="tag">&lt;div&gt;</span>this is unit 2!<span class="tag">&lt;/div&gt;</span>
 	<span class="tag">&lt;div&gt;</span>this is unit 3!<span class="tag">&lt;/div&gt;</span>
 <span class="tag">&lt;/div&gt;</span></code></pre>
 	<p class="prose">Now obviously the <code class="lang-html">&lt;div&gt;</code>s aren't styled yet, so it would just look like a bunch of block elements. We need to add classes to make them act like a table structure. Those classes would be <code class="lang-less">.line()</code> and <code class="lang-less">.unit()</code>. But since these classes are mixins, you can't just add them to the HTML. When the LESS compiles, there will be no such things as the <code class="lang-css">.line</code> and <code class="lang-css">.unit</code> classes, so nothing would happen.</p>
-	<p class="prose">What we need to do is <b>include</b> the mixin with new classes, which we'll name as something semantic and meaningful. For a practical example, let's say you have an article in which there are three main parts: the first contains links, the second contains the article text, and the third contains advertisements. If you want each part to act like a column, here's a suggestion for your LESS:</p>
+	<p class="prose">What we need to do is add classes to the <code class="lang-html">&lt;div&gt;</code>s, which we'll name as something semantic and meaningful, then <b>include</b> the mixin with new classes. For a practical example, let's say you have an article in which there are three main parts: the first part contains links, the second part contains the article text, and the third part contains advertisements. If you want each part to act like a column, here's a suggestion for your LESS:</p>
 	<pre><code class="lang-less"><span class="selector">.thewholearticle {
 	<span class="property">.line();</span>  <span class="comment">// include the properties of .line() defined in grid.less</span>
 	
@@ -41,13 +41,12 @@
 	<span class="selector">article {<span class="property">.unit();</span>}</span>  
 	<span class="selector">.ads    {<span class="property">.unit();</span>}</span>
 }</span></code></pre>
-	<p class="prose">This way, our classes are semantically named so that in the future if we want to change the way they look, we can just go into the CSS and change some styles rather than having to go into the HTML and change classnames (and in this case, an element name). Here's what your HTML would look like:</p>
+	<p class="prose">This way, our classes are semantically named. The HTML author doesn't have to worry about how the elements are styled, and in the future if the CSS designer wants to change the way the elements look, they can just go into the CSS and change some styles rather than having to  change the classnames in the HTML. Here's what your HTML and output would look like: (<strong>outlines have been added to show structure</strong>)</p>
 	<pre><code class="lang-html"><span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">thewholearticle</span>&quot;</span>&gt;</span>
 	<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">links</span>&quot;</span>&gt;</span> link link link <span class="tag">&lt;/div&gt;</span>
 	<span class="tag">&lt;article&gt;</span> the article text <span class="tag">&lt;/article&gt;</span>
 	<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">ads</span>&quot;</span>&gt;</span> ad ad ad <span class="tag">&lt;/div&gt;</span>
 <span class="tag">&lt;/div&gt;</span></code></pre>
-<p class="prose">Here's what your output would look like (outlines have been added to show structure):</p>
 	<div class="demo">
 		<div class="tablerow">
 			<div class="tablecell" style="width: 20%;"> link link link </div>
@@ -58,9 +57,9 @@
 </section>
 <section  id="custom-units">
 	<h1 class="h-beta">Custom Units</h1>
-	<p class="prose">Each line is 100% the width of its container, <a class="up" href="#custom-units">unless otherwise specified</a>. Each line can have any number of units. Notice that in the example above, that the units were not evenly distributed: the <code class="lang-html">&lt;article&gt;</code> will likely be significantly wider than the other two units, assuming there will be more text in that element. If you want the line to <em>force</em> the units to have equal widths, you must add classes to the units to specify their widths. Include the following classes:</p>
+	<p class="prose">Each line is 100% the width of its container, unless otherwise specified. Each line can have any number of units. Notice that in the example above, that the units were not evenly distributed: the <code class="lang-html">&lt;article&gt;</code> will likely be significantly wider than the other two units, assuming there will be more text in that element. If you want the line to <em>force</em> the units to have equal widths, you must add classes to the units to specify their widths. <b>Include</b> the following classes:</p>
 	<table class="table-list customunitnames">
-		<caption>Note that these classes automatically extend the <code class="lang-less">.unit()</code> class. When you mixin one of these subclasses, you don't need to additionally mixin <code class="lang-less">.unit()</code>.</caption>
+		<caption>Note that these classes automatically include the <code class="lang-less">.unit()</code> class. When you mixin one of these subclasses, you don't need to additionally mixin <code class="lang-less">.unit()</code>.</caption>
 		<thead><tr><th>classname</th><th>width</th></tr></thead>
 		<tbody>
 			<tr><td><code class="lang-less">.unit-1to1()</code></td><td>100%</td></tr>
@@ -75,6 +74,12 @@
 			<tr><td><code class="lang-less">.unit-4to5()</code></td><td> 80%</td></tr>
 			<tr><td><code class="lang-less">.unit-1to6()</code></td><td> 16.66%</td></tr>
 			<tr><td><code class="lang-css">.unit-5to6()</code></td><td> 83.33%</td></tr>
+		</tbody>
+		<tbody>
+			<tr><td><code class="lang-less">.unit-P1()</code></td><td>&asymp;61.80%</td></tr>
+			<tr><td><code class="lang-less">.unit-P2()</code></td><td>&asymp;38.20%</td></tr>
+			<tr><td><code class="lang-less">.unit-P3()</code></td><td>&asymp;23.61%</td></tr>
+			<tr><td><code class="lang-less">.unit-P4()</code></td><td>&asymp;14.59%</td></tr>
 		</tbody>
 	</table>
 	<p class="prose">Let's make sure our cells are equal width. Remember that all of the units must add up to 100%.</p>
@@ -92,468 +97,263 @@
 			<div class="tablecell" style="width: 33.33%;"> ad ad ad </div>
 		</div>
 	</div>
-	<p class="prose">See how easy that was? All we had to do was go into the LESS and change the class definitions. This is much more maintainable than having to change the <code class="lang-html">class=&quot;&quot;</code> attribute values in the HTML, especially if you have a lot to change. By the way, if you wanted to add another unit, you could do so without changing the elements' class names, and then mixin the <code class="lang-less">.unit-1to4()</code> class.</p>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<p class="new">this is new text!</p>
-	<p class="old">This is old text!</p>
-	
-	
-	<p>use the <code class="lang-css">.solo</code>, <code class="lang-css">.duet</code>, <code class="lang-css">.trio</code>, <code class="lang-css">.quartet</code>, <code class="lang-css">.quintet</code>, and <code class="lang-css">.sextet</code> subclasses of <code class="lang-css">.line</code>, depending on the number of units in the line. Since these subclasses <strong>extend</strong> the <code class="lang-css">.line</code> class, there is no need to include the <code class="lang-css">.line</code> class in the HTML. Just include the subclass. <small>The system is automatically equipped to handle lines with up to six units, named after small musical groups (Latin prefixes).</small></p>
-	<pre><code class="lang-html">&lt;div class=&quot;trio&quot;&gt;
-	&lt;div class=&quot;unit&quot;&gt;unit 1&lt;/div&gt;
-	&lt;div class=&quot;unit&quot;&gt;unit 2&lt;/div&gt;
-	&lt;div class=&quot;unit&quot;&gt;unit 3&lt;/div&gt;
-&lt;/div&gt;</code></pre>
-	<div class="demo">
-		<div class="trio">
-			<div class="unit">unit 1, width 33.33%</div>
-			<div class="unit">unit 2, width 33.33%</div>
-			<div class="unit">unit 3, width 33.33%</div>
-		</div>
-	</div>
-	<div class="example">
-		<p class="capt">The unit in a <code class="lang-css">.solo</code> is full width:</p>
-		<div class="solo">
-			<div class="unit">the only unit</div>
-		</div>
-		<p class="capt">Units in a <code class="lang-css">.duet</code> are 50% width each:</p>
-		<div class="duet">
-			<div class="unit">first unit</div>
-			<div class="unit">second unit</div>
-		</div>
-		<p class="capt">Units in a <code class="lang-css">.trio</code> are 33.33% width each:</p>
-		<div class="trio">
-			<div class="unit">first unit</div>
-			<div class="unit">second unit</div>
-			<div class="unit">third unit</div>
-		</div>
-		<p class="capt">Units in a <code class="lang-css">.quartet</code> are 25% width each:</p>
-		<div class="quartet">
-			<div class="unit">first unit</div>
-			<div class="unit">second unit</div>
-			<div class="unit">third unit</div>
-			<div class="unit">fourth unit</div>
-		</div>
-		<p class="capt">Units in a <code class="lang-css">.quintet</code> are 20% width each:</p>
-		<div class="quintet">
-			<div class="unit">first unit</div>
-			<div class="unit">second unit</div>
-			<div class="unit">third unit</div>
-			<div class="unit">fourth unit</div>
-			<div class="unit">fifth unit</div>
-		</div>
-		<p class="capt">Units in a <code class="lang-css">.sextet</code> are 16.66% width each:</p>
-		<div class="sextet">
-			<div class="unit">first unit</div>
-			<div class="unit">second unit</div>
-			<div class="unit">third unit</div>
-			<div class="unit">fourth unit</div>
-			<div class="unit">fifth unit</div>
-			<div class="unit">sixth unit</div>
-		</div>
-	</div>
-	<p class="caption">Above are all the subclasses of the <code class="lang-css">.line</code> class, with units in each line.</p>
-</section>
-<section>
-	<header>
-		<h1 class="h-beta">Custom Units</h1>
-		<p class="prose">Sometimes you may want to change the widths of units in a line. For this, use classes for custom widths.</p>
-	</header>
-	<section id="solo-lines">
-		<h1 class="h-gamma">Solo Lines</h1>
-		<p class="prose">The following classes change the appearance of solo lines. Solo lines have one unit, which always takes up the full width of the line and there's really nothing to change that. If you want to change the width of the line itself, however, &hellip;</p>
-		<p class="prose">A solo line defaults to 100% width and no margins. To force this setting, use the <code class="lang-css">.linebreadth-full</code> class to the <strong>line</strong> (not the unit). This class <em>does not</em> extend the <code class="lang-css">.solo</code> class, so you need to specify it additionally.</p>
-		<pre><code class="lang-html">&lt;div class&quot;solo linebreadth-full&quot;&gt;
-	&lt;div class=&quot;unit&quot;&gt;line width 100%&lt;/div&gt;
-&lt;/div&gt;</code></pre>
-		<div class="demo">
-			<div class="solo linebreadth-full">
-				<div class="unit">line width 100%</div>
+	<p class="prose">See how easy that was? All we had to do was change the class definitions in the LESS code. This is much more maintainable than having to change the <code class="lang-html">class=&quot;&quot;</code> attribute values in the HTML, especially if you have a lot to change. By the way, if you wanted to add another unit, you could do so without changing the elements' class names, and then mixin the <code class="lang-less">.unit-1to4()</code> class. Remember that there should be <em>four</em> elements that include <code class="lang-less">.unit-1to4()</code>s; that way the widths all add up to 100%.</p>
+	<section id="golden-unit-widths">
+		<header>
+			<h1 class="h-gamma">Golden Unit Widths</h1>
+			<p class="prose">Please read up on some <a class="up" href="phi.html">background information</a> for a more enriching understanding of this section.</p>
+			<p class="prose"><span class="lede"><abbr title="too long; didn't read">tl;dr</abbr></span> In a nutshell, one full container width (100%) must be broken up into a <span class="tex">\(\Phi^1\)</span> and <span class="tex">\(\Phi^1\)</span>, with <span class="tex">\(\Phi^1 = \Phi^2 + \Phi^3\)</span>, and <span class="tex">\(\Phi^2 = \Phi^3 + \Phi^4\)</span>, etc.</p>
+		</header>
+		<section class="demo">
+			<h1 class="h-delta">Lines with Two Units</h1>
+			<p class="caption">100% can be broken up into P1 + P2, or P2 + P1.</p>
+			<div class="tablerow">
+				<div class="unit-P1"><code class="lang-less">.unit-P1()</code></div>
+				<div class="unit-P2"><code class="lang-less">.unit-P2()</code></div>
 			</div>
-		</div>
-		<div class="example">
-			<div class="solo linebreadth-full">
-				<div class="unit">
-					<p>The <code class="lang-css">.linebreadth-full</code> class sets the line width to 100% with no margins. It's modeled after the <b>harmonic sequence</b></p>
+			<div class="tablerow">
+				<div class="unit-P2"><code class="lang-less">.unit-P2()</code></div>
+				<div class="unit-P1"><code class="lang-less">.unit-P1()</code></div>
+			</div>
+		</section>
+		<section class="demo">
+			<h1 class="h-delta">Lines with Three Units, part 1</h1>
+			<p class="caption">100% can be broken up into any combination of P2 + P2 + P3. This is because P1 = P2 + P3.</p>
+			<div class="tablerow">
+				<div class="unit-P2"><code class="lang-less">.unit-P2()</code></div>
+				<div class="unit-P2"><code class="lang-less">.unit-P2()</code></div>
+				<div class="unit-P3"><code class="lang-less">.unit-P3()</code></div>
+			</div>
+			<div class="tablerow">
+				<div class="unit-P2"><code class="lang-less">.unit-P2()</code></div>
+				<div class="unit-P3"><code class="lang-less">.unit-P3()</code></div>
+				<div class="unit-P2"><code class="lang-less">.unit-P2()</code></div>
+			</div>
+			<div class="tablerow">
+				<div class="unit-P3"><code class="lang-less">.unit-P3()</code></div>
+				<div class="unit-P2"><code class="lang-less">.unit-P2()</code></div>
+				<div class="unit-P2"><code class="lang-less">.unit-P2()</code></div>
+			</div>			
+		</section>
+		<section class="demo">
+			<h1 class="h-delta">Lines with Three Units, part 2</h1>
+			<p class="caption">100% can be broken up into any combination of P1 + P3 + P4. This is because P2 = P3 + P4.</p>
+			<div class="tablerow">
+				<div class="unit-P1"><code class="lang-less">.unit-P1()</code></div>
+				<div class="unit-P3"><code class="lang-less">.unit-P3()</code></div>
+				<div class="unit-P4"><code class="lang-less">.unit-P4()</code></div>
+			</div>
+			<div class="tablerow">
+				<div class="unit-P1"><code class="lang-less">.unit-P1()</code></div>
+				<div class="unit-P4"><code class="lang-less">.unit-P4()</code></div>
+				<div class="unit-P3"><code class="lang-less">.unit-P3()</code></div>
+			</div>
+			<div class="tablerow">
+				<div class="unit-P3"><code class="lang-less">.unit-P3()</code></div>
+				<div class="unit-P1"><code class="lang-less">.unit-P1()</code></div>
+				<div class="unit-P4"><code class="lang-less">.unit-P4()</code></div>
+			</div>			
+			<div class="tablerow">
+				<div class="unit-P3"><code class="lang-less">.unit-P3()</code></div>
+				<div class="unit-P4"><code class="lang-less">.unit-P4()</code></div>
+				<div class="unit-P1"><code class="lang-less">.unit-P1()</code></div>
+			</div>			
+			<div class="tablerow">
+				<div class="unit-P4"><code class="lang-less">.unit-P4()</code></div>
+				<div class="unit-P1"><code class="lang-less">.unit-P1()</code></div>
+				<div class="unit-P3"><code class="lang-less">.unit-P3()</code></div>
+			</div>			
+			<div class="tablerow">
+				<div class="unit-P4"><code class="lang-less">.unit-P4()</code></div>
+				<div class="unit-P3"><code class="lang-less">.unit-P3()</code></div>
+				<div class="unit-P1"><code class="lang-less">.unit-P1()</code></div>
+			</div>
+			<p>One of these patterns is the structure for my site. Can you see which one it is?</p>
+		</section>
+	</section>
+</section>
+<section id="custom-block-widths">
+	<header>
+		<h1 class="h-beta">Custom Block Widths</h1>
+		<p class="prose">Sometimes you may want to change the widths of a block or a <code clas="lang-less">.line()</code>. For this, use classes for custom widths.</p>
+		<p class="prose">The following classes change the appearance of general block elements. They can be any block element, or they can be <code class="lang-less">.line()</code>s containing <code clas="lang-less">.unit()</code>s.</p>
+	</header>
+	<section>
+		<header>
+			<h1 class="h-gamma">.linebreadth-full()</h1>
+			<p class="prose">A normal block element defaults to 100% width and no left/right margins. This is equivalent to the <code class="lang-less">.linebreadth-full()</code> class, which you can use to override another class if need be.</p>
+			<p class="prose"><small><strong>Note:</strong> For the sake of simplicity, I'll be using the LESS mixins for the HTML elements' class attributes. <strong>This is not valid HTML</strong>; I am merely saving time and space. As the developer, you would normally give the elements semantic classnames and then include the LESS mixins in your stylesheet, as shown in the article example above.</small></p>
+		</header>
+			<pre><code class="lang-html"><span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">linebreadth-full()</span>&quot;</span>&gt;</span>
+	<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit()</span>&quot;</span>&gt;</span> line width 100% <span class="tag">&lt;/div&gt;</span>
+<span class="tag">&lt;/div&gt;</span></code></pre>
+		<div class="demo">
+			<div class="tablerow linebreadth-full">
+				<div class="tablecell">
+					<p>The <code class="lang-less">.linebreadth-full()</code> class sets the line width to 100% with no margins. It's modeled after the <b>harmonic sequence</b></p>
 					<div class="tex">\[ \left(\infty,\mathbf{1},\frac{1}{2},\frac{1}{3},\frac{1}{4},\dots,\frac{1}{n}\right) \]</div>
 					<p>where <var>n</var> is the number of units (<var>n</var> starts at 0).</p>
 				</div>
 			</div>
 		</div>
-		<p class="prose">Sometimes you may want to make the line a little narrower. There are three custom classes to do this.</p>
-		<section>
-			<h1 class="h-delta">.linebreadth-large</h1>
-			<div class="example">
-				<div class="solo linebreadth-large">
-					<div class="unit">
-						<p>The <code class="lang-css">.linebreadth-large</code> class sets the line width to 75% with equal margins (12.5%). It's modeled after the <b>geometric sequence</b></p>
-						<div class="tex">\[ \left(\frac{9}{8},\mathbf{\frac{3}{4}},\frac{1}{2},\frac{1}{3},\frac{2}{9},\dots,\frac{9}{8}\left(\frac{2}{3}\right)^n\right) \]</div>
-						<p>where <var>n</var> is the number of units (<var>n</var> starts at 0).</p>
-					</div>
-				</div>
-			</div>
-		</section>
-		<section>
-			<h1 class="h-delta">.linebreadth-medium</h1>
-			<div class="example">
-				<div class="solo linebreadth-medium">
-					<div class="unit">
-						<p>The <code class="lang-css">.linebreadth-medium</code> class sets the line width to 66.6% and equal margins (16.6%). It's modeled after the <b>arithmetic sequence</b></p>
-						<div class="tex">\[ \left(\frac{5}{6},\mathbf{\frac{2}{3}},\frac{1}{2},\frac{1}{3},\frac{1}{6},\dots,\frac{5-n}{6}\right) \]</div>
-						<p>where <var>n</var> is the number of units (<var>n</var> starts at 0).</p>
-					</div>
-				</div>
-			</div>
-		</section>
-		<section>
-			<h1 class="h-delta">.linebreadth-small</h1>
-			<div class="example">
-				<div class="solo linebreadth-small">
-					<div class="unit">
-						<p>The <code class="lang-css">.linebreadth-small</code> class sets the line width to about 61.8% and equal margins (19.1%). It's approximately <a class="up" href="phi.html">the ratio <var>&Phi;</var></a>.</p>
-						<p>This means that if you add the margins (38.2%) and take the ratio of that to the line width (61.8%), it's the same as the ratio of the line width to the container (100%). That is, 38.2% is to 61.8% as 61.8% is to 100%.</p>
-					</div>
-				</div>
-			</div>
-		</section>
 	</section>
-	<section id="other-lines">
-		<header>
-			<h1 class="h-gamma">Duets, Trios, Quartets, Quintets, and Sextets</h1>
-			<p class="prose">Unlike the solo lines above, we can change the width of each unit in general lines. Use the following unit subclasses to override the default widths. These classes also override the <code class="lang-css">.unit</code> class, so you only need to include the subclass.</p>
-			<p class="prose">Notice how the custom class names correspond to ratios. By default, a unit in a <code class="lang-css">.duet</code> would be 50% the width of its line, but we could force the left unit to be 33.33%, or 1/3, the width of its line by adding the <code class="lang-css">.size1to3</code> class to the unit. The right unit would have to be <code class="lang-css">.size2to3</code> of course. The sum of the fractions must add up to 100%.</p>
-		</header>
-		<section class="example">
-			<h1 class="h-delta">Duet Lines</h1>
-			<div class="duet br">
-				<div class="unit"><code class="lang-css">.unit</code> (default width, 1/2)</div>
-				<div class="unit"><code class="lang-css">.unit</code> (default width, 1/2)</div>
+	<section class="demo">
+		<h1 class="h-gamma">.linebreadth-large()</h1>
+		<div class="tablerow linebreadth-large">
+			<div class="tablecell">
+				<p>The <code class="lang-less">.linebreadth-large()</code> class sets the line width to 75% with equal margins (12.5%). It's modeled after the <b>geometric sequence</b></p>
+				<div class="tex">\[ \left(\frac{9}{8},\mathbf{\frac{3}{4}},\frac{1}{2},\frac{1}{3},\frac{2}{9},\dots,\frac{9}{8}\left(\frac{2}{3}\right)^n\right) \]</div>
+				<p>where <var>n</var> is the number of units (<var>n</var> starts at 0).</p>
 			</div>
-			<div class="duet">
-				<div class="size1to3"><code class="lang-css">.size1to3</code></div>
-				<div class="size2to3"><code class="lang-css">.size2to3</code></div>
+		</div>
+	</section>
+	<section class="demo">
+		<h1 class="h-gamma">.linebreadth-medium()</h1>
+		<div class="tablerow linebreadth-medium">
+			<div class="tablecell">
+				<p>The <code class="lang-less">.linebreadth-medium()</code> class sets the line width to 66.6% and equal margins (16.6%). It's modeled after the <b>arithmetic sequence</b></p>
+				<div class="tex">\[ \left(\frac{5}{6},\mathbf{\frac{2}{3}},\frac{1}{2},\frac{1}{3},\frac{1}{6},\dots,\frac{5-n}{6}\right) \]</div>
+				<p>where <var>n</var> is the number of units (<var>n</var> starts at 0).</p>
 			</div>
-			<div class="duet br">
-				<div class="size2to3"><code class="lang-css">.size2to3</code></div>
-				<div class="size1to3"><code class="lang-css">.size1to3</code></div>
+		</div>
+	</section>
+	<section class="demo">
+		<h1 class="h-gamma">.linebreadth-small()</h1>
+		<div class="tablerow linebreadth-small">
+			<div class="tablecell">
+				<p>The <code class="lang-less">.linebreadth-small</code> class sets the line width to about 61.8% and equal margins (19.1%). It's approximately <a class="up" href="phi.html">the ratio <var>&Phi;</var></a>.</p>
+				<p>This means that if you add the margins (38.2%) and take the ratio of that to the line width (61.8%), it's the same as the ratio of the line width to the container (100%). That is, 38.2% is to 61.8% as 61.8% is to 100%.</p>
 			</div>
-			<div class="duet">
-				<div class="size1to4"><code class="lang-css">.size1to4</code></div>
-				<div class="size3to4"><code class="lang-css">.size3to4</code></div>
+		</div>
+	</section>
+	<section id="golden-block-widths">
+		<h1 class="h-gamma">Golden Block Widths</h1>
+		&hellip; TODO &hellip;
+		<hr />
+	</section>
+</section>
+<section id="nested-lines">
+	<h1 class="h-beta">Nested Lines</h1>
+	<p class="prose">There is something else worth mentioning. It is possible to have more than 6 units in a line by <strong>nesting lines</strong>. This means putting lines within lines. More accurately, lines within units within lines.</p>
+	<p class="prose">For example, lets say you want twelve equal-width units. Then you could create a line with two <code class="lang-less">.unit-1to2</code>s, and in each unit, build a line with 6 <code class="lang-less">.unit-1to6</code>s each. You could also have three groups of four, etc.</p>
+	<pre><code class="lang-html"><span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">line()</span>&quot;</span>&gt;</span> <span class="comment">&lt;!-- big line --&gt;</span>
+	<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to2()</span>&quot;</span>&gt;</span> <span class="comment">&lt;!-- unit 50% --&gt;</span>
+		<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">line()</span>&quot;</span>&gt;</span> <span class="comment">&lt;!-- small line --&gt;</span>
+			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to6()</span>&quot;</span>&gt;</span> unit 16.6% <span class="tag">&lt;/div&gt;</span>
+			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to6()</span>&quot;</span>&gt;</span> unit 16.6% <span class="tag">&lt;/div&gt;</span>
+			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to6()</span>&quot;</span>&gt;</span> unit 16.6% <span class="tag">&lt;/div&gt;</span>
+			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to6()</span>&quot;</span>&gt;</span> unit 16.6% <span class="tag">&lt;/div&gt;</span>
+			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to6()</span>&quot;</span>&gt;</span> unit 16.6% <span class="tag">&lt;/div&gt;</span>
+			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to6()</span>&quot;</span>&gt;</span> unit 16.6% <span class="tag">&lt;/div&gt;</span>
+		<span class="tag">&lt;/div&gt;</span>
+	<span class="tag">&lt;/div&gt;</span>
+	<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to2()</span>&quot;</span>&gt;</span> <span class="comment">&lt;!-- unit 50% --&gt;</span>
+		<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">line()</span>&quot;</span>&gt;</span> <span class="comment">&lt;!-- small line --&gt;</span>
+			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to6()</span>&quot;</span>&gt;</span> unit 16.6% <span class="tag">&lt;/div&gt;</span>
+			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to6()</span>&quot;</span>&gt;</span> unit 16.6% <span class="tag">&lt;/div&gt;</span>
+			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to6()</span>&quot;</span>&gt;</span> unit 16.6% <span class="tag">&lt;/div&gt;</span>
+			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to6()</span>&quot;</span>&gt;</span> unit 16.6% <span class="tag">&lt;/div&gt;</span>
+			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to6()</span>&quot;</span>&gt;</span> unit 16.6% <span class="tag">&lt;/div&gt;</span>
+			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to6()</span>&quot;</span>&gt;</span> unit 16.6% <span class="tag">&lt;/div&gt;</span>
+		<span class="tag">&lt;/div&gt;</span>
+	<span class="tag">&lt;/div&gt;</span>
+<span class="tag">&lt;/div&gt;</span></code></pre>
+	<pre><code class="lang-html"><span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">line()</span>&quot;</span>&gt;</span> <span class="comment">&lt;!-- big line --&gt;</span>
+	<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to3()</span>&quot;</span>&gt;</span> <span class="comment">&lt;!-- unit 33.3% --&gt;</span>
+		<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">line()</span>&quot;</span>&gt;</span> <span class="comment">&lt;!-- small line --&gt;</span>
+			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to4()</span>&quot;</span>&gt;</span> unit 25% <span class="tag">&lt;/div&gt;</span>
+			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to4()</span>&quot;</span>&gt;</span> unit 25% <span class="tag">&lt;/div&gt;</span>
+			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to4()</span>&quot;</span>&gt;</span> unit 25% <span class="tag">&lt;/div&gt;</span>
+			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to4()</span>&quot;</span>&gt;</span> unit 25% <span class="tag">&lt;/div&gt;</span>
+		<span class="tag">&lt;/div&gt;</span>
+	<span class="tag">&lt;/div&gt;</span>
+	<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to3()</span>&quot;</span>&gt;</span> <span class="comment">&lt;!-- unit 33.3% --&gt;</span>
+		<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">line()</span>&quot;</span>&gt;</span> <span class="comment">&lt;!-- small line --&gt;</span>
+			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to4()</span>&quot;</span>&gt;</span> unit 25% <span class="tag">&lt;/div&gt;</span>
+			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to4()</span>&quot;</span>&gt;</span> unit 25% <span class="tag">&lt;/div&gt;</span>
+			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to4()</span>&quot;</span>&gt;</span> unit 25% <span class="tag">&lt;/div&gt;</span>
+			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to4()</span>&quot;</span>&gt;</span> unit 25% <span class="tag">&lt;/div&gt;</span>
+		<span class="tag">&lt;/div&gt;</span>
+	<span class="tag">&lt;/div&gt;</span>
+	<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to3()</span>&quot;</span>&gt;</span> <span class="comment">&lt;!-- unit 33.3% --&gt;</span>
+		<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">line()</span>&quot;</span>&gt;</span> <span class="comment">&lt;!-- small line --&gt;</span>
+			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to4()</span>&quot;</span>&gt;</span> unit 25% <span class="tag">&lt;/div&gt;</span>
+			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to4()</span>&quot;</span>&gt;</span> unit 25% <span class="tag">&lt;/div&gt;</span>
+			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to4()</span>&quot;</span>&gt;</span> unit 25% <span class="tag">&lt;/div&gt;</span>
+			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to4()</span>&quot;</span>&gt;</span> unit 25% <span class="tag">&lt;/div&gt;</span>
+		<span class="tag">&lt;/div&gt;</span>
+	<span class="tag">&lt;/div&gt;</span>
+<span class="tag">&lt;/div&gt;</span></code></pre>
+	<figure class="example">
+		<figcaption>Here's another example:</figcaption>
+		<pre><code class="lang-html"><span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">line()</span>&quot;</span>&gt;</span>
+	<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-2to3()</span>&quot;</span>&gt;</span>
+		<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">line()</span>&quot;</span>&gt;</span>
+			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to5()</span>&quot;</span>&gt;</span> unit 1 (13.33%) <span class="tag">&lt;/div&gt;</span>
+			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to5()</span>&quot;</span>&gt;</span> unit 2 (13.33%) <span class="tag">&lt;/div&gt;</span>
+			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to5()</span>&quot;</span>&gt;</span> unit 3 (13.33%) <span class="tag">&lt;/div&gt;</span>
+			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to5()</span>&quot;</span>&gt;</span> unit 4 (13.33%) <span class="tag">&lt;/div&gt;</span>
+			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to5()</span>&quot;</span>&gt;</span> unit 5 (13.33%) <span class="tag">&lt;/div&gt;</span>
+		<span class="tag">&lt;/div&gt;</span>
+	<span class="tag">&lt;/div&gt;</span>
+	<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to3()</span>&quot;</span>&gt;</span>
+		<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">line()</span>&quot;</span>&gt;</span>
+			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to3()</span>&quot;</span>&gt;</span> unit 6 (11.11%) <span class="tag">&lt;/div&gt;</span>
+			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to3()</span>&quot;</span>&gt;</span> unit 7 (11.11%) <span class="tag">&lt;/div&gt;</span>
+			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to3()</span>&quot;</span>&gt;</span> unit 8 (11.11%) <span class="tag">&lt;/div&gt;</span>
+		<span class="tag">&lt;/div&gt;</span>
+	<span class="tag">&lt;/div&gt;</span>
+<span class="tag">&lt;/div&gt;</span></code></pre>
+		<div class="demo">
+			<div class="tablerow">
+				<div class="tablecell" style="width: 66.66%">
+					<div class="tablerow">
+						<div class="tablecell" style="width: 20%"> unit 1 (13.33%) </div>
+						<div class="tablecell" style="width: 20%"> unit 2 (13.33%) </div>
+						<div class="tablecell" style="width: 20%"> unit 3 (13.33%) </div>
+						<div class="tablecell" style="width: 20%"> unit 4 (13.33%) </div>
+						<div class="tablecell" style="width: 20%"> unit 5 (13.33%) </div>
+					</div>
+				</div>
+				<div class="tablecell" style="width: 33.33%">
+					<div class="tablerow">
+						<div class="tablecell" style="width: 33.33%"> unit 6 (11.11%) </div>
+						<div class="tablecell" style="width: 33.33%"> unit 7 (11.11%) </div>
+						<div class="tablecell" style="width: 33.33%"> unit 8 (11.11%) </div>
+					</div>
+				</div>
 			</div>
-			<div class="duet br">
-				<div class="size3to4"><code class="lang-css">.size3to4</code></div>
-				<div class="size1to4"><code class="lang-css">.size1to4</code></div>
-			</div>
-			<div class="duet">
-				<div class="size1to5"><code class="lang-css">.size1to5</code></div>
-				<div class="size4to5"><code class="lang-css">.size4to5</code></div>
-			</div>
-			<div class="duet">
-				<div class="size2to5"><code class="lang-css">.size2to5</code></div>
-				<div class="size3to5"><code class="lang-css">.size3to5</code></div>
-			</div>
-			<div class="duet">
-				<div class="size3to5"><code class="lang-css">.size3to5</code></div>
-				<div class="size2to5"><code class="lang-css">.size2to5</code></div>
-			</div>
-			<div class="duet br">
-				<div class="size4to5"><code class="lang-css">.size4to5</code></div>
-				<div class="size1to5"><code class="lang-css">.size1to5</code></div>
-			</div>
-			<div class="duet">
-				<div class="size1to6"><code class="lang-css">.size1to6</code></div>
-				<div class="size5to6"><code class="lang-css">.size5to6</code></div>
-			</div>
-			<div class="duet">
-				<div class="size5to6"><code class="lang-css">.size5to6</code></div>
-				<div class="size1to6"><code class="lang-css">.size1to6</code></div>
-			</div>
-		</section>
-		<section class="example">
-			<h1 class="h-delta">Trio Lines</h1>
-			<div class="trio">
-				<div class="size1to2"><code class="lang-css">.size1to2</code></div>
-				<div class="unit"><code class="lang-css">.unit</code> (default width, 1/3)</div>
-				<div class="size1to6"><code class="lang-css">.size1to6</code></div>
-			</div>
-			<div class="trio">
-				<div class="size1to2"><code class="lang-css">.size1to2</code></div>
-				<div class="size1to4"><code class="lang-css">.size1to4</code></div>
-				<div class="size1to4"><code class="lang-css">.size1to4</code></div>
-			</div>
-			<div class="trio br">
-				<div class="size1to2"><code class="lang-css">.size1to2</code></div>
-				<div class="size1to6"><code class="lang-css">.size1to6</code></div>
-				<div class="unit"><code class="lang-css">.unit</code> (default width, 1/3)</div>
-			</div>
-			
-			<div class="trio">
-				<div class="unit"><code class="lang-css">.unit</code> (default width, 1/3)</div>
-				<div class="size1to2"><code class="lang-css">.size1to2</code></div>
-				<div class="size1to6"><code class="lang-css">.size1to6</code></div>
-			</div>
-			<div class="trio">
-				<div class="unit"><code class="lang-css">.unit</code> (default width, 1/3)</div>
-				<div class="unit"><code class="lang-css">.unit</code> (default width, 1/3)</div>
-				<div class="unit"><code class="lang-css">.unit</code> (default width, 1/3)</div>
-			</div>
-			<div class="trio br">
-				<div class="unit"><code class="lang-css">.unit</code> (default width, 1/3)</div>
-				<div class="size1to6"><code class="lang-css">.size1to6</code></div>
-				<div class="size1to2"><code class="lang-css">.size1to2</code></div>
-			</div>
-			
-			<div class="trio br">
-				<div class="size2to3"><code class="lang-css">.size2to3</code></div>
-				<div class="size1to6"><code class="lang-css">.size1to6</code></div>
-				<div class="size1to6"><code class="lang-css">.size1to6</code></div>
-			</div>
-			
-			<div class="trio">
-				<div class="size1to4"><code class="lang-css">.size1to4</code></div>
-				<div class="size1to2"><code class="lang-css">.size1to2</code></div>
-				<div class="size1to4"><code class="lang-css">.size1to4</code></div>
-			</div>
-			<div class="trio br">
-				<div class="size1to4"><code class="lang-css">.size1to4</code></div>
-				<div class="size1to4"><code class="lang-css">.size1to4</code></div>
-				<div class="size1to2"><code class="lang-css">.size1to2</code></div>
-			</div>
-			
-			<div class="trio">
-				<div class="size1to5"><code class="lang-css">.size1to5</code></div>
-				<div class="size1to5"><code class="lang-css">.size1to5</code></div>
-				<div class="size3to5"><code class="lang-css">.size3to5</code></div>
-			</div>
-			<div class="trio">
-				<div class="size1to5"><code class="lang-css">.size1to5</code></div>
-				<div class="size2to5"><code class="lang-css">.size2to5</code></div>
-				<div class="size2to5"><code class="lang-css">.size2to5</code></div>
-			</div>
-			<div class="trio br">
-				<div class="size1to5"><code class="lang-css">.size1to5</code></div>
-				<div class="size3to5"><code class="lang-css">.size3to5</code></div>
-				<div class="size1to5"><code class="lang-css">.size1to5</code></div>
-			</div>
+		</div>
+	</figure>
+	<p class="prose">Notice how in these examples there were <strong>lines within units</strong>. If you are nesting lines, you must contain the second-level <em>line</em> within the first-level <em>unit</em>. The <code class="lang-less">.line()</code> and <code class="lang-less">.unit()</code> classes were not meant to mix in the same element. There shouldn't be any elements with both classes in your HTML.</p>
+	<div class="example-bad">
+		<pre><code class="lang-html">&lt;!-- this is bad! --&gt;
+&lt;div class=&quot;line()&quot;&gt;
+	&lt;div class=&quot;unit-2to3() line()&quot;&gt;
+		&lt;div class=&quot;unit-1to3()&quot;&gt;unit 1&lt;/div&gt;
+		&lt;div class=&quot;unit-1to3()&quot;&gt;unit 2&lt;/div&gt;
+		&lt;div class=&quot;unit-1to3()&quot;&gt;unit 3&lt;/div&gt;
+	&lt;/div&gt;
+	&lt;div class=&quot;unit-1to3() line()&quot;&gt;
+		&lt;div class=&quot;unit-1to2()&quot;&gt;unit 4&lt;/div&gt;
+		&lt;div class=&quot;unit-1to2()&quot;&gt;unit 5&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+	</div>
+	
+</section>
 
-			<div class="trio">
-				<div class="size2to5"><code class="lang-css">.size2to5</code></div>
-				<div class="size1to5"><code class="lang-css">.size1to5</code></div>
-				<div class="size2to5"><code class="lang-css">.size2to5</code></div>
-			</div>			
-			<div class="trio br">
-				<div class="size2to5"><code class="lang-css">.size2to5</code></div>
-				<div class="size2to5"><code class="lang-css">.size2to5</code></div>
-				<div class="size1to5"><code class="lang-css">.size1to5</code></div>
-			</div>
-			
-			<div class="trio br">
-				<div class="size3to5"><code class="lang-css">.size3to5</code></div>
-				<div class="size1to5"><code class="lang-css">.size1to5</code></div>
-				<div class="size1to5"><code class="lang-css">.size1to5</code></div>
-			</div>
-			
-			<div class="trio">
-				<div class="size1to6"><code class="lang-css">.size1to6</code></div>
-				<div class="size1to2"><code class="lang-css">.size1to2</code></div>
-				<div class="unit"><code class="lang-css">.unit</code> (default width, 1/3)</div>
-			</div>
-			<div class="trio">
-				<div class="size1to6"><code class="lang-css">.size1to6</code></div>
-				<div class="unit"><code class="lang-css">.unit</code> (default width, 1/3)</div>
-				<div class="size1to2"><code class="lang-css">.size1to2</code></div>
-			</div>
-			<div class="trio">
-				<div class="size1to6"><code class="lang-css">.size1to6</code></div>
-				<div class="size2to3"><code class="lang-css">.size2to3</code></div>
-				<div class="size1to6"><code class="lang-css">.size1to6</code></div>
-			</div>
-			<div class="trio">
-				<div class="size1to6"><code class="lang-css">.size1to6</code></div>
-				<div class="size1to6"><code class="lang-css">.size1to6</code></div>
-				<div class="size2to3"><code class="lang-css">.size2to3</code></div>
-			</div>
-		</section>
-		<section>
-			<p class="prose">Hopefully you get the idea. I'll leave the quartets, quintets, and sextets up to your imagination and creativity. There is something else worth mentioning, though. It is possible to have more than 6 units in a line by <strong>nesting lines</strong>. This means putting lines within lines.</p>
-			<p class="prose">For example, lets say you want twelve equal-width units. Then you could create a <code class="lang-css">.duet</code> with two units, and in each unit of that duet, create a <code class="lang-css">.sextet</code> with 6 units each (or you could have three quartets in a trio, etc.). Now, you could just create a <code class="lang-html">&lt;div class=&quot;line&quot;&gt;</code> and put twelve <code class="lang-html">&lt;div class=&quot;unit&quot;&gt;</code>s inside, but based on their content there's no guarantee they'll stay at equal width. The musical group classes are just there to force equal widths.</p>
-			<p class="prose">Furthermore, these custom ratio classes are not restricted to line duets, trios, etc. You may use them in any line.</p>
-			<p>Here's another example:</p>
-			<pre><code class="lang-html">&lt;div class=&quot;duet&quot;&gt;
-	&lt;div class=&quot;size2to3&quot;&gt;
-		&lt;div class=&quot;quintet&quot;&gt;
-			&lt;div class=&quot;unit&quot;&gt;unit 1 (width 13.33%)&lt;/div&gt;
-			&lt;div class=&quot;unit&quot;&gt;unit 2 (width 13.33%)&lt;/div&gt;
-			&lt;div class=&quot;unit&quot;&gt;unit 3 (width 13.33%)&lt;/div&gt;
-			&lt;div class=&quot;unit&quot;&gt;unit 4 (width 13.33%)&lt;/div&gt;
-			&lt;div class=&quot;unit&quot;&gt;unit 5 (width 13.33%)&lt;/div&gt;
-		&lt;/div&gt;
-	&lt;/div&gt;
-	&lt;div class=&quot;size1to3&quot;&gt;
-		&lt;div class=&quot;trio&quot;&gt;
-			&lt;div class=&quot;unit&quot;&gt;unit 6 (width 11.11%)&lt;/div&gt;
-			&lt;div class=&quot;unit&quot;&gt;unit 7 (width 11.11%)&lt;/div&gt;
-			&lt;div class=&quot;unit&quot;&gt;unit 8 (width 11.11%)&lt;/div&gt;
-		&lt;/div&gt;
-	&lt;/div&gt;
-&lt;/div&gt;</code></pre>
-			<div class="demo">
-				<div class="duet">
-					<div class="size2to3">
-						<div class="quintet">
-							<div class="unit">unit 1 (width 13.33%)</div>
-							<div class="unit">unit 2 (width 13.33%)</div>
-							<div class="unit">unit 3 (width 13.33%)</div>
-							<div class="unit">unit 4 (width 13.33%)</div>
-							<div class="unit">unit 5 (width 13.33%)</div>
-						</div>
-					</div>
-					<div class="size1to3">
-						<div class="trio">
-							<div class="unit">unit 6 (width 11.11%)</div>
-							<div class="unit">unit 7 (width 11.11%)</div>
-							<div class="unit">unit 8 (width 11.11%)</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<p class="caption">Notice how in this example there were <strong>lines within units</strong> (in this case there was a <code class="lang-css">.quintet</code> within a <code class="lang-css">.size2to3</code> and a <code class="lang-css">.size1to3 &gt; .trio</code>). If you are nesting lines, you must contain the second-level line within the first-level unit. The <code class="lang-css">.line</code> and <code class="lang-css">.unit</code> classes (and any subclasses thereof) were not meant to mix in the same element. There shouldn't be any elements with both classes in your HTML.</p>
-			<div class="example-bad">
-				<pre><code class="lang-html">&lt;!-- this is bad! --&gt;
-&lt;div class=&quot;duet&quot;&gt;
-	&lt;div class=&quot;size2to3 trio&quot;&gt;
-		&lt;div class=&quot;unit&quot;&gt;unit 1&lt;/div&gt;
-		&lt;div class=&quot;unit&quot;&gt;unit 2&lt;/div&gt;
-		&lt;div class=&quot;unit&quot;&gt;unit 3&lt;/div&gt;
-	&lt;/div&gt;
-	&lt;div class=&quot;size1to3 duet&quot;&gt;
-		&lt;div class=&quot;unit&quot;&gt;unit 4&lt;/div&gt;
-		&lt;div class=&quot;unit&quot;&gt;unit 5&lt;/div&gt;
-	&lt;/div&gt;
-&lt;/div&gt;</code></pre>
-				<div class="demo">
-					<div class="duet">
-						<div class="size2to3 trio">
-							<div class="unit">unit 1</div>
-							<div class="unit">unit 2</div>
-							<div class="unit">unit 3</div>
-						</div>
-						<div class="size1to3 duet">
-							<div class="unit">unit 4</div>
-							<div class="unit">unit 5</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
-	</section>
-</section>
-<section>
-	<header>
-		<h1 class="h-beta">The Golden Ratio</h1>
-		<p>Please read up on some <a class="up" href="phi.html">background information</a> for a more enriching understanding of this section.</p>
-		<p><span class="lede"><abbr title="too long; didn't read">tl;dr</abbr></span> In a nutshell, one full container width (100%) must be broken up into a <span class="tex">\(\Phi^1\)</span> and <span class="tex">\(\Phi^1\)</span>, with <span class="tex">\(\Phi^1 = \Phi^2 + \Phi^3\)</span>, and <span class="tex">\(\Phi^2 = \Phi^3 + \Phi^4\)</span>, etc.</p>
-	</header>
-	<div class="example">
-		<h1 class="h-gamma">Duet Lines</h1>
-		<div class="duet">
-			<div class="P1-left"><code class="lang-css">.P1-left</code></div>
-			<div class="P2-right"><code class="lang-css">.P2-right</code></div>
-		</div>
-		<div class="duet">
-			<div class="P2-left"><code class="lang-css">.P2-left</code></div>
-			<div class="P1-right"><code class="lang-css">.P1-right</code></div>
-		</div>
-	</div>
-	<p class="caption">Notice how <code class="lang-css">.P1-</code> and <code class="lang-css">.P2-</code> add up to 100%, creating the golden ratio.</p>
-	<p class="prose">If you want more columns, there are two ways to do this. The first method consists of containing a <code class="lang-css">.duet</code> within a unit above, and then in that line you contain two units, one of them being P1 and one of them being P2 (left or right for each). Structurally, this is a duet contained in one of the units of a duet (with the other unit not containing anything), not a trio. For a true trio line, see the second method below.</p>
-	<div class="example">
-		<h1 class="h-gamma">Pseudo-Trio Lines - first method</h1>
-		<div class="duet">
-			<div class="P1-left">
-				<div class="duet">
-					<div class="P1-left"><code class="lang-css">.P1-left</code> inside <code class="lang-css">.P1-left</code> results in a P2 width unit</div>
-					<div class="P2-right"><code class="lang-css">.P2-right</code> inside <code class="lang-css">.P1-left</code> results in a P3 width unit</div>
-				</div>
-			</div>
-			<div class="P2-right"><code class="lang-css">.P2-right</code></div>
-		</div>
-		<div class="duet">
-			<div class="P1-left"><code class="lang-css">.P1-left</code></div>
-			<div class="P2-right">
-				<div class="duet">
-					<div class="P1-left"><code class="lang-css">.P1-left</code> inside <code class="lang-css">.P2-right</code> results in a P3 width unit</div>
-					<div class="P2-right"><code class="lang-css">.P2-right</code> inside <code class="lang-css">.P2-right</code> results in a P4 width unit</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<p class="caption">You can see here how 100% can be broken up into (P2 + P3) + P2, or equivalently, P1 + (P3 + P4).</p>
-	<p class="prose">The second method is to create a <code class="lang-css">.line.trio</code> with three units, specifying the widths on each unit. This method is more flexible, because it also allows a <span class="scare">middle P1</span>, surrounded by a P2 and P3, which fill in the remainder. Here you must be careful when setting up the classes, because the widths must all add up to 100%. Just remember this property of the golden ratio: <span class="tex">\(\Phi^n = \Phi^{n+1}+\Phi^{n+2}\)</span>.</p>
-	<div class="example">
-		<h1 class="h-delta">Trio Lines - second method</h1>
-		<div class="trio">
-			<div class="P1-left"><code class="lang-css">.P1-left</code></div>
-			<div class="P3-left"><code class="lang-css">.P3-left</code></div>
-			<div class="P4-left"><code class="lang-css">.P4-left</code></div>
-		</div>
-		<div class="trio br">
-			<div class="P1-left"><code class="lang-css">.P1-left</code></div>
-			<div class="P4-left"><code class="lang-css">.P4-left</code></div>
-			<div class="P3-left"><code class="lang-css">.P3-left</code></div>
-		</div>
-		<div class="trio">
-			<div class="P2-left"><code class="lang-css">.P2-left</code></div>
-			<div class="P2-left"><code class="lang-css">.P2-left</code></div>
-			<div class="P3-left"><code class="lang-css">.P3-left</code></div>
-		</div>
-		<div class="trio br">
-			<div class="P2-left"><code class="lang-css">.P2-left</code></div>
-			<div class="P3-left"><code class="lang-css">.P3-left</code></div>
-			<div class="P2-left"><code class="lang-css">.P2-left</code></div>
-		</div>
-		<div class="trio">
-			<div class="P3-left"><code class="lang-css">.P3-left</code></div>
-			<div class="P1-midright"><code class="lang-css">.P1-midright</code></div>
-			<div class="P4-right"><code class="lang-css">.P4-right</code></div>
-		</div>
-		<div class="trio">
-			<div class="P4-left"><code class="lang-css">.P4-left</code></div>
-			<div class="P1-left"><code class="lang-css">.P1-midleft</code></div>
-			<div class="P3-right"><code class="lang-css">.P3-right</code></div>
-		</div>
-	</div>
-	<p class="caption">The <code class="lang-css">-left</code> and <code class="lang-css">-right</code> suffixes tell the unit which way to <i class="scare">float</i> (even though they are technically not floating). The <code class="lang-css">-midleft</code> and <code class="lang-css">-midright</code> suffixes are reserved specifically for the <code class="lang-css">P1-</code> widths only, and only for the setup shown above.</p>
-	<p class="prose">Feel free to get creative and make quartets, quintets, and sextets of golden ratios!</p>
-</section>
+
+
+
+
+
+
+
+
+
+
+
 <hr />
 <hr />
 <hr />
