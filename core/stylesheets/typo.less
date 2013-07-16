@@ -10,7 +10,7 @@
 	font-style: normal;
 	font-variant: normal;
 	font-weight: normal;
-	font-family: @font-heading;
+	font-family: @font-fam-heading;
 	text-align: left;
 	letter-spacing: 2px;
 	color: @aperture-black;
@@ -70,58 +70,76 @@ p, .p {
 	margin: 0 0 0.5em;
 	line-height: 1.4em;
 }
+
 .prose {
 	.p;
 	margin-bottom: 0.75em;
-	font-size: 11pt;
-	font-family: @font-prose;
+	font-size: @font-size-prose;
+	font-family: @font-fam-prose;
 	text-align: justify;
 	line-height: 1.3em;
+	
+	list-style-type: decimal;// for prose lists (ol)
 }
 .lede {
 	.p;
 	padding-right: 1em;
 	margin-bottom: 1em;
 	font-weight: bold;
-	font-size: 12pt;
-	font-family: @font-base;
+	font-size: @font-size-base;
+	font-family: @font-fam-base;
 	text-align: justify;
 	line-height: 1.5em;
 	color: #000000;
 }
-.cited(@font-size; @text-align) {
-	.p;
-	padding: 5px 0;
-	border-color: @areyoustillthere;
-	.sideborder-left(@padding-width; @border-width; @margin-width; @border-style) {
-		padding-left: @padding-width;
-		border-left-width: @border-width;
-		border-left-style: @border-style;
-		margin-left: @margin-width;
-	}
-	.sideborder-right(@padding-width; @border-width; @margin-width; @border-style) {
-		padding-right: @padding-width;
-		border-right-width: @border-width;
-		border-right-style: @border-style;
-		margin-right: @margin-width;
-	}
-	text-align: @text-align;
+
+.sideborder-left(@padding-width; @border-width; @margin-width; @border-style; @border-color) {
+	padding-left: @padding-width;
+	padding-top: @border-width;
+	padding-bottom: @border-width;
+	border-left-width: @border-width;
+	border-left-style: @border-style;
+	border-left-color: @border-color;
+	margin-left: @margin-width;
+}
+.sideborder-right(@padding-width; @border-width; @margin-width; @border-style; @border-color) {
+	padding-right: @padding-width;
+	padding-top: @border-width;
+	padding-bottom: @border-width;
+	border-right-width: @border-width;
+	border-right-style: @border-style;
+	border-right-color: @border-color;
+	margin-right: @margin-width;
 }
 .q-block,
 blockquote {
-	.cited(13pt, left);
-	.sideborder-left(8px; 5px; 21px; solid);
-	font-family: @font-heading;
+	.p;
+	.sideborder-left(8px; 5px; 21px; solid; @areyoustillthere);
+	font-size: 14pt;
+	font-family: @font-fam-heading;
+	text-align: left;
+	&.prose {
+		font-size: @font-size-prose;
+		font-family: @font-fam-prose;
+		.source {
+			padding-left: 0;
+			&:before {content: '(';}
+			&:after {content: ')';}
+		}
+	}
 	.source {
-		font-family: @font-base;
+		padding-left: 1em;
+		font-family: @font-fam-base;
+		&:before {content: '~';}
 	}
 }
 .caption,
 figure figcaption,
-table caption,  {
-	.cited(10pt, right);
-	.sideborder-right(5px; 3px; 13px; double);
-	font-size: smaller;
+table caption {
+	.p;
+	.sideborder-right(5px; 3px; 13px; double; @areyoustillthere);
+	font-size: 10pt;
+	text-align: right;
 }
 .timestamp {
 	//a paragraph element that indicates the most recent edit of a webpage or document. includes a <time datetime=""> element.
@@ -132,10 +150,14 @@ table caption,  {
 /* @end */
 
 /* @group lists */
+ul, ol, dl {
+	padding: 0 0 0 0.5in;
+	margin: 0 0 0.5em;
+	ul, ol, dl {margin-bottom: auto;}
+}
 .list-basic {
 	// a basic list with no margins padding or numbering. list items are blocks
 	padding: 0;
-	margin: 0;
 	list-style-type: none;
 	dd {margin: 0;}
 }
@@ -153,16 +175,12 @@ table caption,  {
 }
 .list-action {
 	// a list typically containing textual (non-block) hyperlinks
+	@thecolor: @atlas;
 	.list-basic;
-	margin-bottom: 0.5em;
-	color: @atlas;
-	list-style-position: inside;
+	color: @thecolor;
+	ul, ol, dl {list-style-type: none;}
 	li:before {content: '\2713\00A0';} // check mark, space
 	a {border-bottom: 0; text-decoration: underline;}
-}
-.list-text {
-	// what is this?
-	li {padding-bottom: 0.2em;}
 }
 .list-omega   {list-style-type: decimal-leading-zero;}
 .list-alpha   {list-style-type: upper-roman;}
@@ -172,7 +190,7 @@ table caption,  {
 .list-epsilon {list-style-type: lower-roman;}
 .list-zeta    {list-style-type: lower-greek;}
 
-.prose {list-style-type: decimal;} // for prose lists (ol)
+
 /* @end */
 
 /* @group tables */
@@ -258,12 +276,12 @@ em, i {font-weight: italic;}
 mark {background-color: yellow;}
 .tex {
 //	font-size: smaller;
-	font-family: @font-mono;
+	font-family: @font-fam-mono;
 	white-space: pre;
 	color: #000000;
 }
 .phone, .email {
-	font-family: @font-mono;
+	font-family: @font-fam-mono;
 }
 .help {
 	border-bottom: 2px solid @help-border;
