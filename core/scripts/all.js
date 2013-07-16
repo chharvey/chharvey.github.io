@@ -1,9 +1,5 @@
 //** ======== SITE-WIDE BEHAVIORS (all.js) ========
 var t_ani = 200;
-
-$(document).ready(function() {
-});
-
 $(document).ready(function() {
 	/*
 	Adds classes to necessary elements.
@@ -34,7 +30,7 @@ $(document).ready(function() {
 	
 	/** JavaScript 'grabber' classes --- only here for jQuery selectors */
 	$('a.up, a.dn').addClass('js-link');
-	$('a.sp-up, a.sp-dn').addClass('js-sp');	
+	$('a.sp-up, a.sp-dn').addClass('js-sp');
 	$('a.block-up, a.block-dn').addClass('js-block-link');
 });
 
@@ -67,13 +63,7 @@ $(document).ready(function() {
 	$('.js-block-link').mouseup(function () {
 		$(this).removeClass('block-active');
 	});
-	
-	//hyperlinks in chharvey > index.html
-	$('#index .buttontext').addClass('buttontext-hidden');
-	$('#index .js-block-link').hover(function() {
-		$(this).children('.buttontext').toggleClass('buttontext-hidden',t_ani);
-	});
-	
+		
 	// hyperlinks in main navigation bars (banner.html)
 	$('.hub-nav a').hover(function() {
 		$(this).parent().toggleClass('pos neg',t_ani);
@@ -91,23 +81,24 @@ $(document).ready(function() {
 	color tables' rows and columns alternating colors 
 	remember, jQuery's :even and :odd selectors are 0-based (0 is first)
 	*/
+	var jQobj;
 	for (var i=0; i<$('.table-list .body').size(); i++) {
-		var jQobj = $($('.table-list .body').toArray()[i]);
+		jQobj = $($('.table-list .body').toArray()[i]);
 		jQobj.children('tr:even').addClass('row-odd');
 		jQobj.children('tr:odd').addClass('row-even');
 	}
-	for (var i=0; i<$('.table-bars tr').size(); i++) {
-		var jQobj = $($('.table-bars tr').toArray()[i]);
+	for (i=0; i<$('.table-bars tr').size(); i++) {
+		jQobj = $($('.table-bars tr').toArray()[i]);
 		jQobj.children('td:even').addClass('column-odd');
 		jQobj.children('td:odd').addClass('column-even');
 	}
-	for (var i=0; i<$('.table-grid .body').size(); i++) {
-		var jQobj = $($('.table-grid .body').toArray()[i]);
+	for (i=0; i<$('.table-grid .body').size(); i++) {
+		jQobj = $($('.table-grid .body').toArray()[i]);
 		jQobj.children('tr:even').addClass('row-odd');
 		jQobj.children('tr:odd').addClass('row-even');
 	}
-	for (var i=0; i<$('.table-grid tr').size(); i++) {
-		var jQobj = $($('.table-grid tr').toArray()[i]);
+	for (i=0; i<$('.table-grid tr').size(); i++) {
+		jQobj = $($('.table-grid tr').toArray()[i]);
 		jQobj.children('td:even').addClass('column-odd');
 		jQobj.children('td:odd').addClass('column-even');
 	}
@@ -145,10 +136,12 @@ $(document).ready(function() {
 
 $(document).ready(function() {
 	//broken links - really only meant for inline links, buggy on block links
+	var oldHTML;
+	var oldHref;
 	$('.a-broken').hover(function() {
 		oldHTML = $(this).html();
 		oldHref = $(this).attr('href');
-		$(this).html('coming soon...')
+		$(this).html('coming soon...');
 		$(this).removeAttr('href');
 	}, function() {
 		$(this).html(oldHTML);
