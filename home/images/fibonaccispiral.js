@@ -11,18 +11,18 @@ function squareheight(rectangle) {
 }
 function positionSquares(mw) {
 	//positions the squares in a Fibonacci spiral
-//	var P1  = p(1,  mw);
+	var P1  = p(1,  mw);
 	var P2  = p(2,  mw);
 	var P3  = p(3,  mw);
-//	var P4  = p(4,  mw);
+	var P4  = p(4,  mw);
 	var P5  = p(5,  mw);
 	var P6  = p(6,  mw);
 	var P7  = p(7,  mw);
-//	var P8  = p(8,  mw);
+	var P8  = p(8,  mw);
 	var P9  = p(9,  mw);
 	var P10 = p(10, mw);
 	var P11 = p(11, mw);
-//	var P12 = p(12, mw);
+	var P12 = p(12, mw);
 	$('.buttons a').css('position','absolute'); // this is in JS and not in CSS: in case users have JS disabled but CSS not disabled, the position should be static
 	$('.a1').css('left',P2);
 	$('.c1').css('top',P2);
@@ -61,9 +61,8 @@ function makepretty() {
 }
 
 $(document).ready(function() {
-	//hyperlinks in chharvey > index.html
-	$('#index .buttontext').addClass('buttontext-hidden');
-	$('#index .js-block-link').hover(function() {
+	$('.buttontext').addClass('buttontext-hidden');
+	$('.js-block-link').hover(function() {
 		$(this).children('.buttontext').toggleClass('buttontext-hidden',200);
 	});
 	

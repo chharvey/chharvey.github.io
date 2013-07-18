@@ -1,6 +1,42 @@
 @import url('vardefs.less');
 
 /* @group MODS.LESS */
+/* @group main stuff */
+body {
+	font-size: 12pt;
+	font-family: @font-fam-base;
+	color: @color-body-txt;
+	background-color: @color-body-bg;
+}
+.hub-body {
+	background-image: url('/home/images/phi-stripes-trans.png');
+	background-repeat: repeat-y;
+	background-size: contain;
+}
+.main,
+main { // the main container in the body
+	.P1-midright();	
+	margin-bottom: 162px; // why did I choose this number?
+}
+.masthead {
+	.P4-right();	
+	position: fixed;
+	top: 0;
+	font-weight: bold;
+	font-size: 1in;
+	font-family: 'Times','Times New Roman',serif;
+	nav {
+		.P1-midleft();
+		.mylogo {
+			// do NOT extend `.up`! because `this` will override the `.dn` and `.active` classes
+			// include `.up` in the HTML
+			display: block;
+			border-bottom: 0;
+		}
+	}
+}
+/* @end */
+
 /* @group hyperlinks */
 .link() {
 	border-width: 0 0 1px;
@@ -13,26 +49,26 @@ a {
 }
 .up {
 	.link();
-	color: @atlas;
+	color: @color-link-up-txt;
 }
 .dn {
 	.link();
-	color: @pbody;
+	color: @color-link-dn-txt;
 }
 .sp() {
 	.link();
 }
 .sp-up {
 	.sp();
-	color: @neurotoxin;
+	color: @color-link-sp-up-txt;
 }
 .sp-dn {
 	.sp();
-	color: @neurotoxin-inv;
+	color: @color-link-sp-dn-txt;
 }
 .active {
 	.link();
-	color: @areyoustillthere;
+	color: @color-link-active-txt;
 }
 /* @end */
 
@@ -62,21 +98,21 @@ a {
 .block-up {
 	.up;
 	.block-link();
-	background-color: @bridgesoflight;
+	background-color: @color-link-up-bg;
 }
 .block-dn {
 	.dn;
 	.block-link();
-	background-color: @asbestos;
+	background-color: @color-link-dn-bg;
 	.h-beta, .h-epsilon {
-		color: @facility-inv; // changes the headings in "dn" blocks to reduce contrast
+		color: @color-link-dn-subheading; // changes the headings in "dn" blocks to reduce contrast
 	}
 }
 .block-active {
 	.active;
 	.block-link();
-	color: @hereye;
-	background-color: @aperture-black;
+	color: @color-link-active-block-txt;
+	background-color: @color-link-active-block-bg;
 }
 
 .sample() {
@@ -97,53 +133,53 @@ a {
 }
 .example {
 	.sample();
-	border-color: @vilify;
-	background-color: @atlas-sat8;
+	border-color: @color-example-brdr;
+	background-color: @color-example-bg;
 	&:before {
 		.sample-label('example');
-		border-color: @vilify;
-		color: @atlas;
-		background-color: @atlas-sat16;
+		border-color: @color-example-brdr;
+		color: @color-example-label-txt;
+		background-color: @color-example-label-bg;
 	}
 }
-.example-bad {
-	.example;
-	color: @areyoustillthere !important;
-	&:before {
-		.sample-label('bad example!');
-		color: @areyoustillthere;
-	}
-	* {color: @areyoustillthere !important;}
-}
+//.example-bad {
+//	.example;
+//	color: #f00 !important;
+//	&:before {
+//		.sample-label('bad example!');
+//		color: #f00;
+//	}
+//	* {color: #f00 !important;}
+//}
 .demo {
 	.sample();
-	border-color: @pbody-sat25;
-	background-color: @pbody-sat8;
+	border-color: @color-demo-brdr;
+	background-color: @color-demo-bg;
 	&:before {
 		.sample-label('demo');
-		border-color: @pbody-sat25;
-		color: @pbody;
-		background-color: @pbody-sat16;
+		border-color: @color-demo-brdr;
+		color: @color-demo-label-txt;
+		background-color: @color-demo-label-bg;
 	}
 }
 	/* @group coding shit */
 	.code,
 	code { // inline code elements
 		.box;
-		border-color: @help-border;
-		background-color: @heart-companion;
+		border-color: @color-code-brdr;
+		background-color: @color-code-bg;
 		font-size: smaller;
 		font-family: @font-fam-code;
-		color: #000000;
+		color: @color-code-txt;
 	}
 	.code-block(@lang) { // block code mixin
 		.code;
 		.sample();
 		&:before {
 			.sample-label(@lang);
-			border-color: @help-border;
-			color: @heart-sat50;
-			background-color: @heart-sat16;
+			border-color: @color-code-brdr;
+			color: @color-code-label-txt;
+			background-color: @color-code-label-bg;
 		}
 	}
 	pre {margin: 0;}
@@ -152,27 +188,20 @@ a {
 		.code-block('code');
 		&.lang-html {
 			.code-block('HTML');
-			.tag {
-				color: @areyoustillthere-bri50;
-				.attribute {
-					color: @lakesuperior-bri50;
-					.value {color: @neurotoxin-bri50;}
-				}
-			}
+			.tag {color: @color-code-html-tag;}
+			.attribute {color: @color-code-html-attr;}
+			.value {color: @color-code-html-val;}
 			.comment {color: #999;}
 		}
-		.css() {
-			.selector {
-				color: @areyoustillthere-bri50;
-				.property {
-					color: @lakesuperior-bri50;
-					.value {color: @neurotoxin-bri50;}
-				}
-			}
+		&.lang-css,
+		&.lang-less {
+			.selector {color: @color-code-css-sel;}
+			.property {color: @color-code-css-prop;}
+			.value {color: @color-code-css-val;}
 			.comment {color: #999;}
 		}
-		&.lang-css {.css(); .code-block('CSS');}
-		&.lang-less {.css(); .code-block('LESS');}
+		&.lang-css {.code-block('CSS');}
+		&.lang-less {.code-block('LESS');}
 		&.lang-js {.code-block('JavaScript');}
 		&.lang-jq {.code-block('jQuery');}
 	}
@@ -186,42 +215,6 @@ a {
 	}
 	/* @end */
 
-/* @end */
-
-/* @group main stuff */
-body {
-	font-size: 12pt;
-	font-family: @font-fam-base;
-	color: @aperture-black;
-	background-color: @aperture-white;
-}
-.hub-body {
-	background-image: url('/home/images/phi-stripes-trans.png');
-	background-repeat: repeat-y;
-	background-size: contain;
-}
-.main,
-main { // the main container in the body
-	.P1-midright();	
-	margin-bottom: 162px; // why did I choose this number?
-}
-.masthead {
-	.P4-right();	
-	position: fixed;
-	top: 0;
-	font-weight: bold;
-	font-size: 1in;
-	font-family: 'Times','Times New Roman',serif;
-	nav {
-		.P1-midleft();
-		.mylogo {
-			// do NOT extend `.up`! because it will override the `.dn` and `.active` classes
-			// include `.up` in the HTML
-			display: block;
-			border-bottom: 0;
-		}
-	}
-}
 /* @end */
 
 /* @group hacks */
