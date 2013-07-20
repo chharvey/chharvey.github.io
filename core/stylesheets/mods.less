@@ -2,13 +2,14 @@
 
 /* @group MODS.LESS */
 /* @group main stuff */
-body {
+.body, body {
 	font-size: 12pt;
 	font-family: @font-fam-base;
 	color: @color-body-txt;
 	background-color: @color-body-bg;
 }
 .hub-body {
+	.body;
 	background-image: url('/home/images/phi-stripes-trans.png');
 	background-repeat: repeat-y;
 	background-size: contain;
@@ -38,32 +39,26 @@ main { // the main container in the body
 /* @end */
 
 /* @group hyperlinks */
-.link() {
+.link, a {
 	border-width: 0 0 1px;
 	border-style: dotted;
 	text-decoration: none;
-}
-a {
-	.link();
-	// only because LESS doesnt allow elements and parametric mixins in same selector
+	color: inherit;
 }
 .up {
-	.link();
+	.link;
 	color: @color-link-up-txt;
 }
 .dn {
-	.link();
+	.link;
 	color: @color-link-dn-txt;
 }
-.sp() {
-	.link();
-}
 .sp-up {
-	.sp();
+	.link;
 	color: @color-link-sp-up-txt;
 }
 .sp-dn {
-	.sp();
+	.link;
 	color: @color-link-sp-dn-txt;
 }
 .active {
@@ -221,6 +216,7 @@ a {
 
 // a hack for elements needed for SEO but not to display
 .noshow {display: none !important;}
+.invisible {visibility: hidden;}
 
 // elements in draft mode (not published yet) --- use boolean attribute "hidden"!
 .draft {display: none; color: #999999;}
