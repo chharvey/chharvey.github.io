@@ -1,9 +1,9 @@
 //** ======== SITE-WIDE BEHAVIORS (all.js) ========
 var t_ani = 200;
+/** Creates a new HTML element and returns it as a jQuery object. */
 function newElem(str) {
-	return document.createElement(str);
+	return $(document.createElement(str));
 }
-
 $(document).ready(function() {
 	/*
 	Adds classes to necessary elements.
@@ -73,6 +73,9 @@ $(document).ready(function() {
 		$(this).parent().toggleClass('pos neg',t_ani);
 	});
 	
+	// mods
+	
+		
 	// code spans and code blocks
 	$('.lang-html').attr('title','HTML');
 	$('.lang-css').attr('title','CSS');

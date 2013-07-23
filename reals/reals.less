@@ -3,13 +3,14 @@
 @import url('../core/stylesheets/mods.less');
 
 .proposition() {// an Abstract Class representing a formal proposition of the axiomatic system
-	> .label   {// the span of text that enumerates the node, e.g. "Theorem 3.1."
+	> .label   {// the span of text that enumerates the proposition, e.g. "Theorem 3.1."
 		.lede;
 	}
-	> .summary {// a sentence in Dnglish that is used to identify the node, as such that would be presented in a tooltip or preview
+	> .summary {// a sentence in English that is used to identify the proposition, as such that would be presented in a tooltip or preview
 		.prose;
 	}
-	> .wff {// a mathematical statement that formalizes the proposition
+	> .wff {// a mathematical statement ("well-formed formula") that formalizes the proposition
+		// Do NOT extend/include the `.latex` class here! It must be included in the HTML so JS can grab it.
 	}
 }
 .definition {
@@ -25,6 +26,15 @@
 .theorem {
 	.proposition();
 	> .proof {
-		
+		> .label {
+			.lede;
+		}
+		> .qed {
+			color: red;
+			border-bottom: 0;
+			float: right;
+		}
 	}
 }
+
+.example {}

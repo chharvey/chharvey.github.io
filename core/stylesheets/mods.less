@@ -86,11 +86,11 @@ main { // the main container in the body
 	margin: 5px;
 }
 
-.block-link(@bordercolor; @backgroundcolor) {
+.block-link(@bordercolor; @bgcolor) {
 	.box-block;
 	border-radius: @box-link-radius;
 	border-color: @bordercolor;
-	background-color: @backgroundcolor;
+	background-color: @bgcolor;
 	text-align: center;
 }
 .block-up {
@@ -111,7 +111,7 @@ main { // the main container in the body
 	position: relative;
 	padding: 2em 10px 10px;
 }
-.sample-label(@string) {
+.sample-label() {
 	.box-block;
 	position: absolute;
 	top: -1px;
@@ -119,21 +119,20 @@ main { // the main container in the body
 	border-bottom-left-radius: 0;
 	border-top-right-radius: 0;
 	margin: 0;
-	content: @string;
 	font-size: smaller;
 }
 .example {
 	.sample();
 	border-color: @color-example-brdr;
 	background-color: @color-example-bg;
-	&:before {
-		.sample-label('example');
+	> .label {
+		.sample-label();
 		border-color: @color-example-brdr;
 		color: @color-example-label-txt;
 		background-color: @color-example-label-bg;
 	}
 }
-//.example-bad {
+//.nonexample {
 //	.example;
 //	color: #f00 !important;
 //	&:before {
@@ -146,63 +145,63 @@ main { // the main container in the body
 	.sample();
 	border-color: @color-demo-brdr;
 	background-color: @color-demo-bg;
-	&:before {
-		.sample-label('demo');
+	> .label {
+		.sample-label();
 		border-color: @color-demo-brdr;
 		color: @color-demo-label-txt;
 		background-color: @color-demo-label-bg;
 	}
 }
 	/* @group coding shit */
-	.code,
-	code {
-		.box;
-		border-color: @color-code-brdr;
-		background-color: @color-code-bg;
-		font-size: smaller;
-		font-family: @font-fam-code;
-		color: @color-code-txt;
-	}
-	.code-block(@lang) {
-		.code;
-		.sample();
-		&:before {
-			.sample-label(@lang);
-			border-color: @color-code-brdr;
-			color: @color-code-label-txt;
-			background-color: @color-code-label-bg;
-		}
-	}
-	pre {margin: 0;}
-	.code-block,
-	pre > code {
-		.code-block('code');
-		&.lang-html {
-			.code-block('HTML');
-			.tag {color: @color-code-html-tag;}
-			.attribute {color: @color-code-html-attr;}
-			.value {color: @color-code-html-val;}
-			.comment {color: #999;}
-		}
-		&.lang-css,
-		&.lang-less {
-			.selector {color: @color-code-css-sel;}
-			.property {color: @color-code-css-prop;}
-			.value {color: @color-code-css-val;}
-			.comment {color: #999;}
-		}
-		&.lang-css {.code-block('CSS');}
-		&.lang-less {.code-block('LESS');}
-		&.lang-js {.code-block('JavaScript');}
-		&.lang-jq {.code-block('jQuery');}
-	}
-	.kbd,
-	kbd kbd {
-		.code;
-		padding: 2px;
-		font-size: 13pt;
-		font-family: @font-fam-mono;
-	}
+//	.code,
+//	code {
+//		.box;
+//		border-color: @color-code-brdr;
+//		background-color: @color-code-bg;
+//		font-size: smaller;
+//		font-family: @font-fam-code;
+//		color: @color-code-txt;
+//	}
+//	.code-block(@lang) {
+//		.code;
+//		.sample();
+//		.code-block-label {
+//			.sample-label(@lang);
+//			border-color: @color-code-brdr;
+//			color: @color-code-label-txt;
+//			background-color: @color-code-label-bg;
+//		}
+//	}
+//	pre {margin: 0;}
+//	.code-block,
+//	pre > code {
+//		.code-block('code');
+//		&.lang-html {
+//			.code-block('HTML');
+//			.tag {color: @color-code-html-tag;}
+//			.attribute {color: @color-code-html-attr;}
+//			.value {color: @color-code-html-val;}
+//			.comment {color: #999;}
+//		}
+//		&.lang-css,
+//		&.lang-less {
+//			.selector {color: @color-code-css-sel;}
+//			.property {color: @color-code-css-prop;}
+//			.value {color: @color-code-css-val;}
+//			.comment {color: #999;}
+//		}
+//		&.lang-css {.code-block('CSS');}
+//		&.lang-less {.code-block('LESS');}
+//		&.lang-js {.code-block('JavaScript');}
+//		&.lang-jq {.code-block('jQuery');}
+//	}
+//	.kbd,
+//	kbd kbd {
+//		.code;
+//		padding: 2px;
+//		font-size: 13pt;
+//		font-family: @font-fam-mono;
+//	}
 	/* @end */
 	/* @group math shit */
 	.latex {

@@ -7,32 +7,31 @@ function makeTables(start, stop) {
 	];
 	var tableArray = new Array();
 	for (var i=start; i<stop; i++) {
-		tableArray[0] = $(newElem('div'));
-		tableArray[i - start] = $(newElem('table')).addClass('hue-' + hueArray[i]).append(new Array(
-			$(newElem('thead')).append(
-				$(newElem('tr')).append(new Array(
-					$(newElem('th')).html(hueArray[i] + '&deg; hue'),
-					$(newElem('th')).html('100% val'),
-					$(newElem('th')).html('75% val'),
-					$(newElem('th')).html('50% val'),
-					$(newElem('th')).html('25% val')
+		tableArray[i - start] = newElem('table').addClass('hue-' + hueArray[i]).append(new Array(
+			newElem('thead').append(
+				newElem('tr').append(new Array(
+					newElem('th').html(hueArray[i] + '&deg; hue'),
+					newElem('th').html('100% val'),
+					newElem('th').html('75% val'),
+					newElem('th').html('50% val'),
+					newElem('th').html('25% val')
 				))
 			),
-			$(newElem('tbody')).append(function() {
+			newElem('tbody').append(function() {
 				var trArray = new Array(
-					$(newElem('tr')).addClass('sat-alph').append($(newElem('th')).html('100% sat')),
-					$(newElem('tr')).addClass('sat-beta').append($(newElem('th')).html('83.33% sat')),
-					$(newElem('tr')).addClass('sat-gamm').append($(newElem('th')).html('66.66% sat')),
-					$(newElem('tr')).addClass('sat-delt').append($(newElem('th')).html('50% sat')),
-					$(newElem('tr')).addClass('sat-epsi').append($(newElem('th')).html('33.33% sat')),
-					$(newElem('tr')).addClass('sat-zeta').append($(newElem('th')).html('16.66% sat'))
+					newElem('tr').addClass('sat-alph').append(newElem('th').html('100% sat')),
+					newElem('tr').addClass('sat-beta').append(newElem('th').html('83.33% sat')),
+					newElem('tr').addClass('sat-gamm').append(newElem('th').html('66.66% sat')),
+					newElem('tr').addClass('sat-delt').append(newElem('th').html('50% sat')),
+					newElem('tr').addClass('sat-epsi').append(newElem('th').html('33.33% sat')),
+					newElem('tr').addClass('sat-zeta').append(newElem('th').html('16.66% sat'))
 				);
 				for (var j=0; j<trArray.length; j++) {
 					$(trArray[j]).append(new Array(
-						$(newElem('td')).addClass('val-full'),
-						$(newElem('td')).addClass('val-lite'),
-						$(newElem('td')).addClass('val-med'),
-						$(newElem('td')).addClass('val-dark')
+						newElem('td').addClass('val-full'),
+						newElem('td').addClass('val-lite'),
+						newElem('td').addClass('val-med'),
+						newElem('td').addClass('val-dark')
 					));
 				}
 				return trArray;
@@ -55,7 +54,7 @@ function insertColorname(hue, sat, val, id) {
 	if (val ==  25) val = 'td.val-dark';
 	
 	$('table.hue-'+hue + ' ' + sat + ' ' + val).append(
-		$(newElem('a')).addClass('colorname').attr('href', id).html(
+		newElem('a').addClass('colorname').attr('href', id).html(
 			$('li'+id + ' span.h-gamma').html()
 		)
 	);
@@ -65,7 +64,7 @@ $(document).ready(function() {
 	$('.palettes .group2').append(makeTables(12, 24));
 	
 	$('.palettes td, .chosencolors > li').append(
-		$(newElem('div')).addClass('colorcode invisible').html('What is this color?')
+		newElem('div').addClass('colorcode invisible').html('What is this color?')
 	).hover(function() {
 		$(this).children('.colorcode').toggleClass('invisible');
 	});

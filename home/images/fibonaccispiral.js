@@ -61,10 +61,7 @@ function makepretty() {
 }
 
 $(document).ready(function() {
-	$('.buttontext').addClass('buttontext-hidden');
-	$('.js-block-link').hover(function() {
-		$(this).children('.buttontext').toggleClass('buttontext-hidden',200);
-	});
+	showOnHover($('.buttons a'));
 	
 	makepretty();
 });

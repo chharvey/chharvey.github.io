@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="description" content="" />
 <title></title>
-<!--<link rel="stylesheet" href="reals.css" />-->
+<link rel="stylesheet" href="reals.css" />
 <style>
 </style>
 <!--#include virtual="/core/snippets/all-js.html" -->
@@ -25,6 +25,13 @@
 <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script src="../core/scripts/all.js"></script>
 <script type="text/javascript">
+function showOnHover(container) {
+	container.wrapInner(newElem('div').addClass('js-wrapper invisible'));
+	container.hover(function() {
+		$(this).find('.js-wrapper').toggleClass('invisible',t_ani);
+	});
+}
+
 $(document).ready(function() {
 	/** JavaScript 'grabber' classes --- only here for jQuery selectors */
 	$('.definition').addClass('js-prop');
@@ -32,7 +39,7 @@ $(document).ready(function() {
 	$('.theorem').addClass('js-prop');
 	
 	$('.js-prop').prepend(
-		$(newElem('div')).addClass('label')
+		newElem('div').addClass('label')
 	);
 	
 	var counter = 0;
@@ -51,12 +58,18 @@ $(document).ready(function() {
 	$('.proof').prepend(
 		$(newElem('span')).addClass('label').html('Proof. ')
 	).append(
-		$(newElem('abbr')).attr('title','quod erat demonstrandum').append(
-			$(newElem('i')).addClass('lede').attr('lang','la').html('q.e.d.')
+		$(newElem('abbr')).addClass('qed').attr('title','quod erat demonstrandum').append(
+			$(newElem('i')).attr('lang','la').html(' q.e.d.')
 		)
 	);
 	
 	$('a.internal').addClass('up');
+	
+	
+	showOnHover($('.example, .demo'));
+	$('.example').prepend(newElem('div').addClass('label').html('example'));
+	$('.demo').prepend(newElem('div').addClass('label').html('demo'));
+	
 	
 	/* changes the text contents of an internal link to the label of the node to which it links. */
 //	$('a.internal[href]').html(function() {
@@ -71,13 +84,13 @@ $(document).ready(function() {
 </head>
 <body>
 <div class="main">
-<h1 class="h h-alpha">An Axiomatic Approach to the Continuum</h1>
+<h1 class="h-alpha">An Axiomatic Approach to the Continuum</h1>
 
 
 <h2> one typical theorem </h2>
 <div class="theorem" id="T-archetype">
 	<p class="summary">Every non-empty subset of the Real Numbers that is bounded above has a least upper bound.</p>
-	<p class="wff latex">\[
+	<p class="latex wff">\[
 		\Biggl(\forall A\Biggr)\Biggl(
 			(\forall t)(t\in A \implies t \in \mathbb{R})
 			\implies
@@ -102,15 +115,24 @@ $(document).ready(function() {
 			\biggr]
 		\Biggr)
 	\]</p>
+	<p class="proof">This is the proof of the theorem.</p>
+</div>
+<div class="testclass">
+	<p>test class</p>
+	<p class="example">This is an example. Examples are informal illustrations of theorems, properties, etc. They may even illustrate counter-examples.</p>
+	<p class="example">This is another example.</p>
+	<p class="demo">This is a demo. Not sure what it can be used for in math, but it has plenty of applications in coding.</p>
+	<p class="demo">This is another demo.</p>
+	<p class="example">This is another example.</p>
+	<p class="demo">This is another demo.</p>
 </div>
 
-
-<div class="definition" id="D-proposition">
+<div id="D-proposition">
 	<p class="summary">A <dfn>proposition</dfn> <span class="tex">\(\mathsf{p}\)</span> is <span class="tex">\(\text{true}\)</span> or <span class="tex">\(\text{false}\)</span>, and may or may not be determined or dependent.</p>
 	<p>The proposition <span class="tex">\(\mathsf{p}\)</span> may also be referred to as a <dfn>logical expression</dfn>, or a <dfn>material statement</dfn>. To make the assertion that <span class="tex">\(\mathsf{p}\)</span> is <span class="tex">\(\text{true}\)</span>, we simply state <q class="tex">\(\mathsf{p}\)</q>.</p>
 </div>
 
-<div class="axiom" id="A-proposition">
+<div id="A-proposition">
 	<p class="summary">A proposition exists.</p>
 </div>
 
@@ -118,9 +140,6 @@ $(document).ready(function() {
 
 
 
-<section>
-	<section>
-		<section>
 
 			
 			
@@ -130,12 +149,12 @@ $(document).ready(function() {
 				<p><a class="internal" href="#A-proposition"></a> can be thought of as the <span class="scare">Bootstrap Axiom</span>, because it is a proposition that asserts the existence of itself. Indeed, there were no propositions formally stated prior to this one, so by merely existing it is fulfilling its prophecy. Simply put, it proves itself true. This proposition makes a great choice for the first axiom, because we can use it to construct other propositions. At this point we can conclude that there is at least one true proposition. However we cannot say the same about a false one, until <a class="internal" href="#D-not"></a>.</p>
 			</div>
 			
-			<div class="definition" id="D-not">	
+			<div id="D-not">	
 				<p class="summary">Given a proposition <span class="tex">\(\mathsf{p}\)</span>, the assertion that <span class="tex">\(\mathsf{p}\)</span> is <span class="tex">\(\text{false}\)</span> is itself a proposition, called the <dfn>negation</dfn> of <span class="tex">\(\mathsf{p}\)</span>, denoted <span class="tex">\(\lnot\mathsf{p}\)</span>.</p>
 				<p>To assert that <span class="tex">\(\mathsf{p}\)</span> is false is to assert that <span class="tex">\(\lnot\mathsf{p}\)</span> is true, and we state, <q class="tex">\(\lnot\mathsf{p}\)</q>.</p>
 			</div>
 			
-			<div class="definition" id="D-implication">
+			<div id="D-implication">
 				<p class="summary">Given a proposition <span class="tex">\(\mathsf{p}\)</span> and a proposition <span class="tex">\(\mathsf{q}\)</span>, the <dfn>(material) implication</dfn> <span class="tex">\(\mathsf{p}\implies\mathsf{q}\)</span> is a proposition that is true exactly when the assertion that <span class="tex">\(\mathsf{p}\)</span> is true requires that <span class="tex">\(\mathsf{q}\)</span> be true.</p>
 				<p>When <span class="tex">\(\mathsf{p}\implies\mathsf{q}\)</span> is true, we say, <q><span class="tex">\(\mathsf{p}\)</span> implies <span class="tex">\(\mathsf{q}\)</span></q>, or, <q><span class="tex">\(\mathsf{q}\)</span> is implied by <span class="tex">\(\mathsf{p}\)</span></q>.
 			</div>
@@ -168,7 +187,7 @@ $(document).ready(function() {
 				</tbody>
 			</table>
 			
-			<div class="definition" id="D-implication-alt">
+			<div id="D-implication-alt">
 				<p class="summary">Given an implication <span class="tex">\(\mathsf{r}\)</span> which is defined by <span class="tex">\(\mathsf{p}\implies\mathsf{q}\)</span>,</p>
 				<ul class="list-delta">
 					<li>the implication <span class="tex">\(\mathsf{q}\implies\mathsf{p}\)</span> is called the <dfn>converse</dfn> of <span class="tex">\(\mathsf{r}\)</span>.</li>
@@ -177,27 +196,27 @@ $(document).ready(function() {
 				</ul>
 			</div>
 			
-			<div class="definition" id="D-or">
+			<div id="D-or">
 				<p class="summmary">Given propositions <span class="tex">\(\mathsf{p}\)</span> and <span class="tex">\(\mathsf{q}\)</span>, the <dfn>disjunction</dfn> <span class="tex">\(\mathsf{p}\lor\mathsf{q}\)</span> is a proposition that is true exactly when the implication <span class="tex">\(\lnot\mathsf{p}\implies\mathsf{q}\)</span> is true.</p>
 				<p>That is, when the assertion that <span class="tex">\(\mathsf{p}\)</span> is false requires that <span class="tex">\(\mathsf{q}\)</span> be true, the disjunction <span class="tex">\(\mathsf{p}\lor\mathsf{q}\)</span> (read, <q><span class="tex">\(\mathsf{p}\)</span> or <span class="tex">\(\mathsf{q}\)</span></q>) is true.</p>
 				<p>Informally, <span class="tex">\(\mathsf{p}\lor\mathsf{q}\)</span> is true iff <span class="tex">\(\mathsf{p}\)</span> or <span class="tex">\(\mathsf{q}\)</span> (or possibly both) are true.</p>
 			</div>
 			
-			<div class="definition" id="D-and">
+			<div id="D-and">
 				<p class="summary">Given propositions <span class="tex">\(\mathsf{p}\)</span> and <span class="tex">\(\mathsf{q}\)</span>, the <dfn>conjunction</dfn> <span class="tex">\(\mathsf{p}\land\mathsf{q}\)</span> is a proposition that is true exactly when the implication <span class="tex">\(\mathsf{p}\implies\lnot\mathsf{q}\)</span> is <em>false</em>.</p>
 				<p>That is, the conjunction <span class="tex">\(\mathsf{p}\land\mathsf{q}\)</span> (read, <q><span class="tex">\(\mathsf{p}\)</span> and <span class="tex">\(\mathsf{q}\)</span></q>) is true exactly when <em>it is not the case that</em> the assertion that <span class="tex">\(\mathsf{p}\)</span> is true requires that <span class="tex">\(\mathsf{q}\)</span> be false.</p>
 				<p>Informally, <span class="tex">\(\mathsf{p}\land\mathsf{q}\)</span> is true iff <span class="tex">\(\mathsf{p}\)</span> and <span class="tex">\(\mathsf{q}\)</span> are both true.</p>
 			</div>
 			
-			<div class="definition" id="D-tautology">
+			<div id="D-tautology">
 				<p class="summary">Given a proposition <span class="tex">\(\mathsf{p}\)</span>, a <dfn>tautology</dfn> <span class="tex">\(\top\)</span> is the proposition <span class="tex">\(\mathsf{p}\lor\lnot\mathsf{p}\)</span>.</p>
 			</div>
 			
-			<div class="definition" id="D-contradiction">
+			<div id="D-contradiction">
 				<p class="summary">Given a proposition <span class="tex">\(\mathsf{p}\)</span>, a <dfn>contradiction</dfn> <span class="tex">\(\bot\)</span> is the proposition <span class="tex">\(\mathsf{p}\land\lnot\mathsf{p}\)</span>.</p>
 			</div>
 			
-			<div class="axiom" id="A-classic-laws">
+			<div id="A-classic-laws">
 				<p class="summary"><b style="lede">(The Classic Laws of Thought) </b>Given a proposition <span class="tex">\(\mathsf{p}\)</span>,</p>
 				<ul style="list-style-type: decimal;">
 					<li>
@@ -211,14 +230,14 @@ $(document).ready(function() {
 				</ul>
 			</div>
 			
-			<div class="theorem" id="T-classic-laws">
+			<div id="T-classic-laws">
 				<dl>
 					<dt class="statement">
 						<p class="summary">The tautology <span class="tex">\(\top\)</span> is always <span class="tex">\(\text{true}\)</span>, and the contradiction <span class="tex">\(\bot\)</span> is always <span class="tex">\(\text{false}\)</span>.</p>
 					</dt>
 					<dd class="proof">
 						<p>By <a class="internal" href="#A-classic-laws"></a>, <span class="tex">\(\mathsf{p} \lor \lnot\mathsf{p}\)</span> is always the case, but by <a class="internal" href="#D-tautology"></a>, this defines <span class="tex">\(\top\)</span>.</p>
-						<p>By <a class="internal" href="#A-classic-laws"></a>, <span class="tex">\(\lnot(\mathsf{p} \land \lnot\mathsf{p})\)</span> is always true, so by asserting this, we assert <span class="tex">\(\mathsf{p} \land \lnot\mathsf{p}\)</span> is always false (see <a class="internal" href="#D-not"></a>). By <a class="internal" href="#D-contradiction"></a>, this defines <span class="tex">\(\bot\)</span>.
+						<p>By <a class="internal" href="#A-classic-laws"></a>, <span class="tex">\(\lnot(\mathsf{p} \land \lnot\mathsf{p})\)</span> is always true, so by asserting this, we assert <span class="tex">\(\mathsf{p} \land \lnot\mathsf{p}\)</span> is always false (see <a class="internal" href="#D-not"></a>). By <a class="internal" href="#D-contradiction"></a>, this defines <span class="tex">\(\bot\)</span>.</p>
 					</dd>
 				</dl>
 			</div>
@@ -227,7 +246,7 @@ $(document).ready(function() {
 				<p>The logical values <span class="tex">\(\text{true}\)</span> and <span class="tex">\(\text{false}\)</span> are both <strong>collectively exhaustive</strong> and <strong>mutually exclusive</strong>. In other words, a proposition must be either true or false, and it can only be one of these.</p>
 			</div>
 			
-			<div class="definition" id="D-logicalimplication">
+			<div id="D-logicalimplication">
 				<p class="summary">Given a proposition <span class="tex">\(\mathsf{p}\)</span> and a proposition <span class="tex">\(\mathsf{q}\)</span>, let <span class="tex">\(\mathsf{r}\)</span> represent the material implication <span class="tex">\(\mathsf{p}\implies\mathsf{q}\)</span>.  is a proposition that is true exactly when the assertion that <span class="tex">\(\mathsf{p}\)</span> is true requires that <span class="tex">\(\mathsf{q}\)</span> be true.</p>
 				<p>When <span class="tex">\(\mathsf{p}\implies\mathsf{q}\)</span> is true, we say, <q><span class="tex">\(\mathsf{p}\)</span> implies <span class="tex">\(\mathsf{q}\)</span></q>, or, <q><span class="tex">\(\mathsf{q}\)</span> is implied by <span class="tex">\(\mathsf{p}\)</span></q>.
 			</div>
@@ -259,7 +278,7 @@ $(document).ready(function() {
 			<hr />
 			
 			
-			<div class="theorem" id="T-contrapositive">
+			<div id="T-contrapositive">
 				<dl>
 					<dt class="statement">
 						<p class="summary"><b class="lede">(The Rule of Transposition) </b>An implication is logically equivalent to its contrapositive.</p>
@@ -274,7 +293,7 @@ $(document).ready(function() {
 				<p>The theorem <a class="internal" href="#T-example"></a> is an example theorem.</p>
 			</div>
 			
-			<div class="theorem" id="T-example">
+			<div id="T-example">
 				<dl>
 					<dt class="statement">
 						<p class="summary">The empty set is a subset of every set.</p>
@@ -334,7 +353,7 @@ $(document).ready(function() {
 			</div>
 			
 			<p class="prose">If <span class="tex">\(\lnot\mathsf{p}\)</span> is the assertion that <span class="tex">\(\mathsf{p}\)</span> is false, then the assertion that <span class="tex">\(\lnot\mathsf{p}\)</span> is false, <span class="tex">\(\lnot\lnot\mathsf{p}\)</span>, namely, the assertion that <i>the assertion that <span class="tex">\(\mathsf{p}\)</span> is false</i> is false, is the assertion that <span class="tex">\(\mathsf{p}\)</span> is true. In other words,</p>
-			<div class="example" id="A-doubleneg">
+			<div id="A-doubleneg">
 				<p><b class="lede">Axiom 1.1.1-7 (The Axiom of Double Negation)</b> <span class="tex">\(\mathsf{p}\)</span> is true if and only if <span class="tex">\(\lnot\mathsf{p}\)</span> is false.</p>
 				<p class="tex">\[\mathsf{p} \equiv \lnot\lnot\mathsf{p}\]</p>
 			</div>
@@ -350,7 +369,7 @@ $(document).ready(function() {
 			</ul>
 			<p class="prose">We cannot, however, state this formally, because jumping from <i><span class="tex">\(\lnot\mathsf{p}\)</span> is false</i> to <i><span class="tex">\(\mathsf{p}\)</span> is true</i> in the list above requires a very important axiom, which cannot be presented until we introduce conditional statements.</p>
 
-			<div class="example" id="D-implies">
+			<div id="D-implies">
 				<p><b class="lede">Definition </b> Given propositions <span class="tex">\(\mathsf{p}\)</span> and <span class="tex">\(\mathsf{q}\)</span>, the <dfn>material implication</dfn> (simply, an <dfn>implication</dfn>) <span class="tex">\(\mathsf{p}\implies\mathsf{q}\)</span> is true iff the proposition <span class="tex">\(\lnot\mathsf{p}\lor\mathsf{q}\)</span> is true.</p>
 				<p>In the implication <span class="tex">\(\mathsf{p}\implies\mathsf{q}\)</span>, the proposition <span class="tex">\(\mathsf{p}\)</span> is called the <dfn>antecedent</dfn> or <dfn>hypothesis</dfn> and the proposition <span class="tex">\(\mathsf{q}\)</span> is called the <dfn>consequent</dfn> or <dfn>conclusion</dfn>.</p>
 			</div>
@@ -359,10 +378,10 @@ $(document).ready(function() {
 
 			
 
-			<div class="example" id="D-iff">
+			<div id="D-iff">
 				<p><b class="lede">Definition </b> Given propositions <span class="tex">\(\mathsf{p}\)</span> and <span class="tex">\(\mathsf{q}\)</span>, the <dfn>material equivalence</dfn> (also known as a <dfn>biconditional</dfn>) <span class="tex">\(\mathsf{p}\iff\mathsf{q}\)</span> is true iff the proposition <span class="tex">\((\mathsf{p}\implies\mathsf{q})\land(\mathsf{q}\implies\mathsf{p})\)</span> is true.</p>
 			</div>
-			<table class="table table-list">
+			<table class="table-list">
 				<colgroup></colgroup>
 				<thead><tr><th class="tex">\(\mathsf{p}\iff\mathsf{q}\)</th></tr></thead>
 				<tbody>
@@ -374,7 +393,7 @@ $(document).ready(function() {
 			</table>
 			
 			<p class="prose">In summary,</p>
-			<table class="table table-bars">
+			<table class="table-bars">
 				<thead>
 					<tr>
 						<th class="tex">\(\mathsf{p}\)</th>
@@ -437,55 +456,50 @@ $(document).ready(function() {
 			
 			
 			
-		</section>
-		<section>
-			<h1 class="h h-gamma" id="sect-metalogic">Section 1.B: Metalogic</h1>
 			
 			
 			
 			
 			
-			<div class="example" id="D-therefore">
+			
+			<div id="D-therefore">
 				<p><b class="lede">Definition </b>Given propositions <span class="tex">\(\mathsf{p}\)</span> and <span class="tex">\(\mathsf{p}\)</span>, the <dfn>logical implication</dfn> <span class="tex">\(\mathsf{p}\therefore\mathsf{q}\)</span> is true iff the proposition <span class="tex">\(\mathsf{p}\implies\mathsf{q}\)</span> is a tautology <span class="tex">\(\top\)</span>.</p>
 				<p>When <span class="tex">\(\mathsf{p}\therefore\mathsf{q}\)</span> we say <q><span class="tex">\(\mathsf{p}\)</span> logically implies <span class="tex">\(\mathsf{q}\)</span></q> or <q><span class="tex">\(\mathsf{p}\)</span>, therefore <span class="tex">\(\mathsf{q}\)</span></q> or <q><span class="tex">\(\mathsf{q}\)</span>, because <span class="tex">\(\mathsf{p}\)</span></q> (<span class="tex">\(\mathsf{q}\because\mathsf{p}\)</span>).</p>
 			</div>
 			
-			<div class="example" id="D-logical-equivalence">
+			<div id="D-logical-equivalence">
 				<p><b class="lede">Definition </b> Given propositions <span class="tex">\(\mathsf{p}\)</span> and <span class="tex">\(\mathsf{q}\)</span>, the <dfn>logical equivalence</dfn> <span class="tex">\(\mathsf{p}\equiv\mathsf{q}\)</span> is true iff the proposition <span class="tex">\((\mathsf{p}\therefore\mathsf{q})\land(\mathsf{q}\therefore\mathsf{p})\)</span> is true.</p>
 			</div>
-		</section>
-		<section>
-			<h1 class="h h-gamma" id="sect-sets">Section 1.C: Sets</h1>
 			
 			The principle of bivalence:
 			<div class="tex">\[ \forall X : (\forall x: (x\in X \not\iff x\notin X)) \]</div>
 		</section>
 
 		<hr /><hr /><hr />
-		<div class="example" id="D-exists">
+		<div id="D-exists">
 			<p><b class="lede">Definition </b> Given a proposition <span class="tex">\(\mathsf{p}\)</span>, the assertion that there exists an object <span class="tex">\(x\)</span> such that <span class="tex">\(\mathsf{p}\)</span> holds is itself proposition, denoted</p>
 			<p class="tex">\[\exists x : (\mathsf{p})\]</p>
 			<p>The symbol <i class="tex">\(\exists\)</i> is called the <dfn>existential quantifier</dfn>.</p>
 		</div>
 
-		<div class="example" id="D-forall">
+		<div id="D-forall">
 			<p><b class="lede">Definition </b></p>
 		</div>
 
 
 
-		<div class="example" id="A-extensionality">
+		<div id="A-extensionality">
 			<p class="lede">Axiom 2 (Axiom of Extensionality)</p>
 			<p class="tex">\[ \forall (X,Y)\in\mathcal{X}^2 : \bigl((X,Y)\in\mathscr{E}_\mathcal{X} \iff \forall t : (t\in X \iff t\in Y)\bigr) \]</p>
 		</div>
 
-		<div class="example" id="A-existence">
+		<div id="A-existence">
 			<p><b class="lede">Axiom (Axiom of Existence)</b> There exists a set that owns no elements.</p>
 			<p class="tex">\[ \exists X : \bigl(\forall x : \lnot(x\in X)\bigr) \]</p>
 		</div>
 
 
-		<div class="example">
+		<div>
 
 			<p>Let <span class="tex">\(\mathsf{p}\)</span> be a proposition, and let <span class="tex">\(P\)</span> and <span class="tex">\(p\)</span> be sets. Then</p>
 			<p class="tex">\[\mathsf{p}(x) \iff x\in X\]</p>
@@ -493,11 +507,11 @@ $(document).ready(function() {
 
 
 
-		<div class="example" id="D-set">
+		<div id="D-set">
 			<p><b class="lede">Definition </b> A <dfn>set</dfn> is a collection of objects. The objects in a set are called its <dfn>elements</dfn>. If <span class="tex">\(X\)</span> is a set and <span class="tex">\(x\)</span> is an object, then we state <span class="tex">\(x\in X\)</span> (or <span class="tex">\(X\ni x\)</span>) if and only if <span class="tex">\(x\)</span> is an element of <span class="tex">\(X\)</span>. Otherwise, we state <span class="tex">\(x\notin X\)</span> (or <span class="tex">\(X\not\ni x\)</span>).</p>
 		</div>
 		<p class="prose">There are multiple ways to represent the relationship of elements and sets.</p>
-		<table class="table table-bars">
+		<table class="table-bars">
 			<colgroup span="2"></colgroup>
 			<thead><tr><th class="tex">\(x\in X\)</th><th class="tex">\(X\ni x\)</th></tr></thead>
 			<tbody>
@@ -616,8 +630,6 @@ $(document).ready(function() {
 		</ol>
 		<p class="tex">\[ (a,b)\equiv(c,d) \iff [(a,b)]=[(c,d)] \]</p>
 		<p class="tex">\[\mathbb{Q} := \left\{[(a,b)] : (a,b)\in\mathbb{Z}^2\right\}\]</p>
-	</section>
-</section>
 </div>
 <!--!#include virtual="/core/HTML/" -->
 </body>
