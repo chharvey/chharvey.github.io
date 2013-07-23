@@ -1,5 +1,9 @@
 //** ======== SITE-WIDE BEHAVIORS (all.js) ========
 var t_ani = 200;
+function newElem(str) {
+	return document.createElement(str);
+}
+
 $(document).ready(function() {
 	/*
 	Adds classes to necessary elements.
@@ -110,7 +114,7 @@ $(document).ready(function() {
 	});
 	
 	// inline elements
-	$('.tex').attr('title',function() {
+	$('.latex').attr('title',function() {
 		return $(this).text();
 	});
 	$('[datetime]').attr('title',function() {

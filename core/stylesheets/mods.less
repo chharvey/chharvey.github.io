@@ -44,6 +44,7 @@ main { // the main container in the body
 	border-style: dotted;
 	text-decoration: none;
 	color: inherit;
+	.latex {color: inherit}
 }
 .up {
 	.link;
@@ -85,29 +86,24 @@ main { // the main container in the body
 	margin: 5px;
 }
 
-.block-link() {
+.block-link(@bordercolor; @backgroundcolor) {
 	.box-block;
 	border-radius: @box-link-radius;
+	border-color: @bordercolor;
+	background-color: @backgroundcolor;
 	text-align: center;
 }
 .block-up {
 	.up;
-	.block-link();
-	background-color: @color-link-up-bg;
+	.block-link(@color-link-up-block-brdr; @color-link-up-block-bg);
 }
 .block-dn {
 	.dn;
-	.block-link();
-	background-color: @color-link-dn-bg;
-	.h-beta, .h-epsilon {
-		color: @color-link-dn-subheading; // changes the headings in "dn" blocks to reduce contrast
-	}
+	.block-link(@color-link-dn-block-brdr; @color-link-dn-block-bg);
 }
 .block-active {
 	.active;
-	.block-link();
-	color: @color-link-active-block-txt;
-	background-color: @color-link-active-block-bg;
+	.block-link(@color-link-active-block-brdr; @color-link-active-block-bg);
 }
 
 .sample() {
@@ -159,7 +155,7 @@ main { // the main container in the body
 }
 	/* @group coding shit */
 	.code,
-	code { // inline code elements
+	code {
 		.box;
 		border-color: @color-code-brdr;
 		background-color: @color-code-bg;
@@ -167,7 +163,7 @@ main { // the main container in the body
 		font-family: @font-fam-code;
 		color: @color-code-txt;
 	}
-	.code-block(@lang) { // block code mixin
+	.code-block(@lang) {
 		.code;
 		.sample();
 		&:before {
@@ -202,12 +198,26 @@ main { // the main container in the body
 	}
 	.kbd,
 	kbd kbd {
-		//inline code elements
 		.code;
 		padding: 2px;
 		font-size: 13pt;
 		font-family: @font-fam-mono;
 	}
+	/* @end */
+	/* @group math shit */
+	.latex {
+		font-family: @font-fam-mono;
+		white-space: pre;
+		color: @color-latex-txt;
+		div&, p& {
+			@padding-lr: 2px;
+			padding-left: @padding-lr;
+			padding-right: @padding-lr;
+			background-color: @color-latex-bg;
+			overflow: auto;
+		}
+	}
+	.tex {color: #f00;} // a reminder to change all class="tex" to class="latex"
 	/* @end */
 
 /* @end */

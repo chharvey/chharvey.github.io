@@ -4,114 +4,127 @@
 <meta charset="UTF-8" />
 <meta name="description" content="" />
 <title></title>
-<link rel="stylesheet" href="reals.css" />
+<!--<link rel="stylesheet" href="reals.css" />-->
 <style>
-/**** ======== CSS for -REALS or whatever- ======== ****/
-.h .tex {color: inherit;}
-
-.node {
-	padding-left: 10px;
-	border-left: 3px double #050200;
-	margin: 2em auto;
-}
-
-.label {font-weight: bold;}
-
-.node > .label   {width: 20%;}
-.node > .content {width: 80%;}
-
-.proof > .label   {width: 10%;}
-.proof > .content {width: 90%;}
-
-/*
-.definition {background-color: #eef;}
-.axiom {background-color: #efe;}
-.theorem {background-color: #fee;}
-
-.example {background-color: #ffe;}
-.remark {background-color: #eff;}*/
-
-.definition dfn {
-	font-weight: bold;
-	font-style: inherit;
-}
-
-p,dl {margin-top: 0;}
-dd {margin-left: 0;}
-a {
-	text-decoration: underline;
-	color: red;
-}
 </style>
 <!--#include virtual="/core/snippets/all-js.html" -->
+<script src="http://code.jquery.com/jquery-2.0.2.min.js"></script>
+<script src="../core/scripts/jquery-ui-1.10.3.custom.min.js"></script>
+<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+		jax: ['input/TeX', 'output/HTML-CSS'],
+		menuSettings: {
+			zoom: 'Click',
+			zscale: '150%'
+		},
+		TeX: {
+			equationNumbers: {autoNumber:'AMS'}
+		}
+	});
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script src="../core/scripts/all.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
-	$('.definition').addClass('node');
-	$('.axiom').addClass('node');
-	$('.theorem').addClass('node');
+	/** JavaScript 'grabber' classes --- only here for jQuery selectors */
+	$('.definition').addClass('js-prop');
+	$('.axiom').addClass('js-prop');
+	$('.theorem').addClass('js-prop');
 	
-	$('.node').addClass('line duet');
-	$('.node').html(function() {
-		return '<div class="unit label"></div><div class="unit content">' + $(this).html() + '</div>';
-	});// is there a better way to do this? be careful here... risking an infinite loop
-	/*
-	idea for an algorithm:
-	1. create a div and add class 'unit label'
-	2. create another div and add class 'unit content'
-	3. take the 'unit content' div and add insert $(this).html()
-	4. put all this into $('.node').html()
-	*/
+	$('.js-prop').prepend(
+		$(newElem('div')).addClass('label')
+	);
 	
-	var counter = 1;
-	
-	$('.node > .label').each(function() {
+	var counter = 0;
+	$('.js-prop > .label').html(function() {
+		var nodetype = '';
 		if ($(this).parent().hasClass('definition')) {
-			$(this).html('Definition 1.' + counter);
+			nodetype = 'Definition ';
+		} else if ($(this).parent().hasClass('axiom')) {
+			nodetype = 'Axiom ';
+		} else if ($(this).parent().hasClass('theorem')) {
+			nodetype = 'Theorem ';
 		}
-		else if ($(this).parent().hasClass('axiom')) {
-			$(this).html('Axiom 1.' + counter);
-		}
-		else if ($(this).parent().hasClass('theorem')) {
-			$(this).html('Theorem 1.' + counter);
-		}
-		counter++;
+		return nodetype + ++counter + '.';
 	});
 	
-	$('.proof').addClass('line duet');
-	$('.proof').html(function() {
-		return '<div class="unit label">Proof.</div><div class="unit content">' + $(this).html() + '</div>';
-	});// is there a better way to do this? be careful here... risking an infinite loop
+	$('.proof').prepend(
+		$(newElem('span')).addClass('label').html('Proof. ')
+	).append(
+		$(newElem('abbr')).attr('title','quod erat demonstrandum').append(
+			$(newElem('i')).addClass('lede').attr('lang','la').html('q.e.d.')
+		)
+	);
 	
-	$('a.internal').addClass('a a-reg');
+	$('a.internal').addClass('up');
+	
 	/* changes the text contents of an internal link to the label of the node to which it links. */
-	$('a.internal[href]').append(function() {
-		return $($(this).attr('href') + ' > .label').html();
-	});
+//	$('a.internal[href]').html(function() {
+//		return $($(this).attr('href') + ' > .label').html();
+//	});	
 	/* changes the title of an internal link to the contents of the node to which it links. */
-	$('a.internal[href]').attr('title', function() {
-		return $($(this).attr('href') + ' .summary').text();
-	});
+//	$('a.internal[href]').attr('title', function() {
+//		return $($(this).attr('href') + ' .summary').text();
+//	});
 });
 </script>
 </head>
 <body>
-<div class="main P1 P1-midright">
-<div class=""><h1 class="h h-alpha">An Axiomatic Approach to the Continuum</h1></div>
-<section>
-	<h1 class="h h-beta" id="part-constructReal">Part I: A Rigorous Establishment of the Real Numbers</h1>
-	<section>
-		<h1 class="h h-gamma" id="chap-intro">Chapter 1: Introductory Logic and Set Theory</h1>
-		<section>
-			<h1 class="h h-delta" id="sect-logic">Section 1.A: Logic</h1>
+<div class="main">
+<h1 class="h h-alpha">An Axiomatic Approach to the Continuum</h1>
 
-			<div class="definition" id="D-proposition">
-				<p class="summary">A <dfn>proposition</dfn> <span class="tex">\(\mathsf{p}\)</span> is <span class="tex">\(\text{true}\)</span> or <span class="tex">\(\text{false}\)</span>, and may or may not be determined or dependent.</p>
-				<p>The proposition <span class="tex">\(\mathsf{p}\)</span> may also be referred to as a <dfn>logical expression</dfn>, or a <dfn>material statement</dfn>. To make the assertion that <span class="tex">\(\mathsf{p}\)</span> is <span class="tex">\(\text{true}\)</span>, we simply state <q class="tex">\(\mathsf{p}\)</q>.</p>
-			</div>
+
+<h2> one typical theorem </h2>
+<div class="theorem" id="T-archetype">
+	<p class="summary">Every non-empty subset of the Real Numbers that is bounded above has a least upper bound.</p>
+	<p class="wff latex">\[
+		\Biggl(\forall A\Biggr)\Biggl(
+			(\forall t)(t\in A \implies t \in \mathbb{R})
+			\implies
+			\biggl[
+			    \Bigl(
+			        (\exists x)(x\in A)
+			        \land
+			        \bigl[\exists b\bigr]\bigl[
+			            (\forall x)(x\in A \implies x\le b)
+			        \bigr]
+			    \Bigr)
+			    \implies \\
+			    \Bigl(\exists s\Bigr)\Bigl(
+			        (\forall x)(x\in A \implies x \le s)
+			        \land
+			        \bigl[\forall b\bigr]\bigl[
+			            (\forall x)(x\in A \implies x\le b)
+			            \implies
+			            s \le b
+			        \bigr]
+			    \Bigr)
+			\biggr]
+		\Biggr)
+	\]</p>
+</div>
+
+
+<div class="definition" id="D-proposition">
+	<p class="summary">A <dfn>proposition</dfn> <span class="tex">\(\mathsf{p}\)</span> is <span class="tex">\(\text{true}\)</span> or <span class="tex">\(\text{false}\)</span>, and may or may not be determined or dependent.</p>
+	<p>The proposition <span class="tex">\(\mathsf{p}\)</span> may also be referred to as a <dfn>logical expression</dfn>, or a <dfn>material statement</dfn>. To make the assertion that <span class="tex">\(\mathsf{p}\)</span> is <span class="tex">\(\text{true}\)</span>, we simply state <q class="tex">\(\mathsf{p}\)</q>.</p>
+</div>
+
+<div class="axiom" id="A-proposition">
+	<p class="summary">A proposition exists.</p>
+</div>
+
+
+
+
+
+<section>
+	<section>
+		<section>
+
 			
-			<div class="axiom" id="A-proposition">
-				<p class="summary">A proposition exists.</p>
-			</div>
+			
+			
 			
 			<div class="remark prose">
 				<p><a class="internal" href="#A-proposition"></a> can be thought of as the <span class="scare">Bootstrap Axiom</span>, because it is a proposition that asserts the existence of itself. Indeed, there were no propositions formally stated prior to this one, so by merely existing it is fulfilling its prophecy. Simply put, it proves itself true. This proposition makes a great choice for the first axiom, because we can use it to construct other propositions. At this point we can conclude that there is at least one true proposition. However we cannot say the same about a false one, until <a class="internal" href="#D-not"></a>.</p>

@@ -3,7 +3,7 @@
 <head>
 <title>Chris Harvey &ni; Site Design &ni; Colors</title>
 <meta charset="UTF-8" />
-<link rel="stylesheet" href="sitedesign.css" />
+<link rel="stylesheet" href="images/sitedesign.css" />
 <style>
 /*.des-spectrum {
 	border: 2px solid white;
@@ -19,108 +19,18 @@
 </style>
 <!--#include virtual="/core/snippets/all-js.html" -->
 <script src="http://code.jquery.com/jquery-2.0.2.min.js"></script>
-<script src="http://chharvey.net16.net/core/scripts/jquery-ui-1.10.3.custom.min.js"></script>
-<script src="http://chharvey.net16.net/core/scripts/all.js"></script>
-<script>
-function newElem(str) {
-	return document.createElement(str);
-}
-function makeTables(start, stop) {
-	var hueArray = [
-		217, 221, 226, 235, 249, 271,
-		307, 343,   5,  19,  28,  33,
-		 37,  41,  46,  55,  69,  91,
-		127, 163, 185, 199, 208, 213,
-	];
-	var newtables = new Array();
-	for (var i=start; i<stop; i++) {
-		newtables[i - start] = $(newElem('table')).addClass('hue-' + hueArray[i]).append(new Array(
-			$(newElem('thead')).append(
-				$(newElem('tr')).append(new Array(
-					$(newElem('th')).html(hueArray[i] + '&deg; hue'),
-					$(newElem('th')).html('100% val'),
-					$(newElem('th')).html('75% val'),
-					$(newElem('th')).html('50% val'),
-					$(newElem('th')).html('25% val')
-				))
-			),
-			$(newElem('tbody')).append(function() {
-				var trArray = new Array(
-					$(newElem('tr')).addClass('sat-alph').append($(newElem('th')).html('100% sat')),
-					$(newElem('tr')).addClass('sat-beta').append($(newElem('th')).html('83.33% sat')),
-					$(newElem('tr')).addClass('sat-gamm').append($(newElem('th')).html('66.66% sat')),
-					$(newElem('tr')).addClass('sat-delt').append($(newElem('th')).html('50% sat')),
-					$(newElem('tr')).addClass('sat-epsi').append($(newElem('th')).html('33.33% sat')),
-					$(newElem('tr')).addClass('sat-zeta').append($(newElem('th')).html('16.66% sat'))
-				);
-				for (var j=0; j<trArray.length; j++) {
-					$(trArray[j]).append(new Array(
-						$(newElem('td')).addClass('val-full'),
-						$(newElem('td')).addClass('val-lite'),
-						$(newElem('td')).addClass('val-med'),
-						$(newElem('td')).addClass('val-dark')
-					));
-				}
-				return trArray;
-			})
-		))
-	}
-	return newtables;
-}
-function insertColorname(hue, sat, val, id) {
-	if (sat ==   100) sat = 'tr.sat-alph';
-	if (sat == 83.33) sat = 'tr.sat-beta';
-	if (sat == 66.66) sat = 'tr.sat-gamm';
-	if (sat ==    50) sat = 'tr.sat-delt';
-	if (sat == 33.33) sat = 'tr.sat-epsi';
-	if (sat == 16.66) sat = 'tr.sat-zeta';
-	
-	if (val == 100) val = 'td.val-full';
-	if (val ==  75) val = 'td.val-lite';
-	if (val ==  50) val = 'td.val-med';
-	if (val ==  25) val = 'td.val-dark';
-	
-	$('table.hue-'+hue + ' ' + sat + ' ' + val).append(
-		$(newElem('a')).addClass('colorname').attr('href', id).html(
-			$('li'+id + ' span.h-gamma').html()
-		)
-	);
-}
-$(document).ready(function() {
-	$('.palettes .group1').append(makeTables( 0, 12));
-	$('.palettes .group2').append(makeTables(12, 24));
-	
-	$('.palettes td').append($(newElem('div')).addClass('colorcode invisible').html('What is this color?'));
-	$('.colorcode').html(function() {
-		return $(this).parent().css('background-color');
-	});
-	$('.palettes td').hover(function() {
-		$(this).children('.colorcode').toggleClass('invisible');
-	});
-	
-	insertColorname(217, 100, 100, '#atlas-blue');
-	insertColorname(217, 100, 100, '#pbody-orange');
-	insertColorname(217, 100, 100, '#bridges-of-light');
-	insertColorname(217, 100, 100, '#asbestos');
-	insertColorname(217, 100, 100, '#lake-superior');
-	insertColorname(217, 100, 100, '#facility-abyss');
-	insertColorname(217, 100, 100, '#caves-caves');
-	insertColorname(217, 100, 100, '#are-you-still-there');
-	insertColorname(217, 100, 100, '#her-eye');
-	insertColorname(217, 100, 100, '#neurotoxin');
-	insertColorname(217, 100, 100, '#vilify');
-	insertColorname(217, 100, 100, '#heart-of-a-companion');
-});
-</script>
+<script src="../core/scripts/jquery-ui-1.10.3.custom.min.js"></script>
+<script src="../core/scripts/all.js"></script>
+<script src="images/colors.js"></script>
 </head>
-<body id="colorsdothtml" class="">
-<!--#include virtual="navigation.html" -->
+<body id="colorsdothtml">
+<!--#include virtual="images/navigation.html" -->
 <div class="main">
 <header>
 	<h1 class="h-alpha">Site Design &mdash; Colors</h1>
 	<p class="timestamp">Updated <time datetime="2013-07-17T18:33">July 17, 2013</time>.</p>
 </header>
-<section hidden="hidden" id="color-wheel">
+<section id="colorwheel" hidden="hidden" id="color-wheel">
 	<header>
 		<h1 class="h-beta">Color Wheel</h1>
 		<p class="prose">Base colors.</p>
@@ -131,21 +41,6 @@ $(document).ready(function() {
 		<h1 class="h-beta">Color Palettes</h1>
 		<p class="prose">Tints and Shades of each base color.</p>
 	</header>
-	<div>
-		<p>links</p>
-		<a href="#atlas-blue">Atlas Blue</a>
-		<a href="#"></a>
-		<a href="#"></a>
-		<a href="#"></a>
-		<a href="#"></a>
-		<a href="#"></a>
-		<a href="#"></a>
-		<a href="#"></a>
-		<a href="#"></a>
-		<a href="#"></a>
-		<a href="#"></a>
-		<a href="#"></a>
-	</div>
 	<div class="palettes">
 		<div class="group1"></div>
 		<div class="group2"></div>
@@ -328,7 +223,7 @@ $(document).ready(function() {
 			<p><span class="h-gamma">Atlas Blue</span> Short and stout, Atlas is one of the two robots used for testing. Untouched hyperlinks are dedicated to his digital iris. This is also the color of Repulsion Gel and forward-moving Excursion Funnels.</p>
 			<ul class="elemprops">
 				<li><code class="lang-css">.up</code> text &amp; border</li>
-				<li><code class="lang-css">.block-up</code> text &amp; border</li>
+				<li><code class="lang-css">.block-up</code> text</li>
 			</ul>
 		</li>
 		<li id="pbody-orange">
@@ -342,6 +237,12 @@ $(document).ready(function() {
 			<p><span class="h-gamma">Bridges of Light</span> Hard Light Bridges are literally massless, yet they can sustain infinite weight, as Chell can attest to.</p>
 			<ul class="elemprops">
 				<li><code class="lang-css">.block-up</code> background</li>
+			</ul>
+		</li>
+		<li id="light-bridge-edge">
+			<p><span class="h-gamma">Light Bridge Edge</span> Hard Light Bridges are literally massless, yet they can sustain infinite weight, as Chell can attest to.</p>
+			<ul class="elemprops">
+				<li><code class="lang-css">.block-up</code> border</li>
 			</ul>
 		</li>
 		<li id="asbestos">
@@ -368,8 +269,8 @@ $(document).ready(function() {
 				<li>sub-heading text in <code class="lang-css">.block-dn</code></li>
 			</ul>
 		</li>
-		<li id="are-you-still-there">
-			<p><span class="h-gamma">Are You Still There?</span> Four words that you never want to hear without a portal gun. Just as the iris of a Sentry Turret, this color is briefly seen, providing a subtle accent on the site.</p>
+		<li id="deploying">
+			<p><span class="h-gamma">Deploying</span> The one word you never want to hear without a portal gun. Just as the iris of a Sentry Turret, this color is briefly seen, providing a subtle accent on the site.</p>
 			<ul class="elemprops">
 				<li><code class="lang-css">.up.active</code>, <code class="lang-css">.dn.active</code> text &amp; border</li>
 				<li>accent border</li>
