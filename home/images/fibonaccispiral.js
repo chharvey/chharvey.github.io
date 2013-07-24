@@ -62,7 +62,6 @@ function makepretty() {
 
 $(document).ready(function() {
 	showOnHover($('.buttons a'));
-	
 	makepretty();
 });
 $(window).resize(function() {

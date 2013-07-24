@@ -5,7 +5,7 @@ function makeTables(start, stop) {
 		307, 343,   5,  19,  28,  33,
 		 37,  41,  46,  55,  69,  91
 	];
-	var tableArray = new Array();
+	var tableArray = [];
 	for (var i=start; i<stop; i++) {
 		tableArray[i - start] = newElem('table').addClass('hue-' + hueArray[i]).append(new Array(
 			newElem('thead').append(
@@ -41,17 +41,17 @@ function makeTables(start, stop) {
 	return tableArray;
 }
 function insertColorname(hue, sat, val, id) {
-	if (sat ==   100) sat = 'tr.sat-alph';
-	if (sat == 83.33) sat = 'tr.sat-beta';
-	if (sat == 66.66) sat = 'tr.sat-gamm';
-	if (sat ==    50) sat = 'tr.sat-delt';
-	if (sat == 33.33) sat = 'tr.sat-epsi';
-	if (sat == 16.66) sat = 'tr.sat-zeta';
+	if (sat ==   100) {sat = 'tr.sat-alph';}
+	if (sat == 83.33) {sat = 'tr.sat-beta';}
+	if (sat == 66.66) {sat = 'tr.sat-gamm';}
+	if (sat ==    50) {sat = 'tr.sat-delt';}
+	if (sat == 33.33) {sat = 'tr.sat-epsi';}
+	if (sat == 16.66) {sat = 'tr.sat-zeta';}
 	
-	if (val == 100) val = 'td.val-full';
-	if (val ==  75) val = 'td.val-lite';
-	if (val ==  50) val = 'td.val-med';
-	if (val ==  25) val = 'td.val-dark';
+	if (val == 100) {val = 'td.val-full';}
+	if (val ==  75) {val = 'td.val-lite';}
+	if (val ==  50) {val = 'td.val-med';}
+	if (val ==  25) {val = 'td.val-dark';}
 	
 	$('table.hue-'+hue + ' ' + sat + ' ' + val).append(
 		newElem('a').addClass('colorname').attr('href', id).html(

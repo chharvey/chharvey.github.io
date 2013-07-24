@@ -1,9 +1,28 @@
 //** ======== SITE-WIDE BEHAVIORS (all.js) ========
 var t_ani = 200;
 /** Creates a new HTML element and returns it as a jQuery object. */
-function newElem(str) {
-	return $(document.createElement(str));
+function newElem(elemname) {
+	return $(document.createElement(elemname));
 }
+function newElemFilled(elemname, classname, html) {
+	return newElem(elemname).addClass(classname).html(html);
+}
+function addSomethingTo(jQobj, elemname, classname, html) {
+	jQobj.prepend(newElemFilled(elemname, classname, html));
+}
+function addLede(jQobj, html) {
+	addSomethingTo(jQobj, 'span', 'lede', html);
+}
+function addLabel(jQobj, html) {
+	addSomethingTo(jQobj, 'div', 'label', html);
+}
+function showOnHover(container) {
+	container.wrapInner(newElem('div').addClass('js-wrapper invisible'));
+	container.hover(function() {
+		$(this).find('.js-wrapper').toggleClass('invisible',t_ani);
+	});
+}
+
 $(document).ready(function() {
 	/*
 	Adds classes to necessary elements.
@@ -74,7 +93,9 @@ $(document).ready(function() {
 	});
 	
 	// mods
-	
+	showOnHover($('.example, .demo'));
+	addLabel($('.example'), 'example');
+	addLabel($('.demo'), 'demo');
 		
 	// code spans and code blocks
 	$('.lang-html').attr('title','HTML');
