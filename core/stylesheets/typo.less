@@ -78,7 +78,6 @@ h5 + h6 {
 	font-family: @font-fam-prose;
 	text-align: justify;
 	line-height: 1.3em;
-	
 	list-style-type: decimal;// for prose lists (ol)
 }
 .lede {
@@ -269,31 +268,56 @@ table,
 /* @end */
 
 /* @group inline text */
-strong, b {font-weight: bold;}
-em, i {font-weight: italic;}
-mark {background-color: yellow;}
+//strong, b {font-weight: bold;}
+//em, i {font-weight: italic;}
+//mark {background-color: yellow;}
 .phone, .email {
 	font-family: @font-fam-mono;
 }
-.help {
-	border-bottom: 2px solid @color-help;
+
+.message(@color) {
+	border-bottom: 2px solid @color;
 }
-.help,
+.warning { // dire consequences
+	.message(@color-help);
+}
+.caution { // be careful
+	.message(@color-help);
+}
+.success { // something was done right
+	.message(@color-help);
+}
+.info { // extra information
+	.message(@color-help);
+}
+.help { // tips
+	.message(@color-help);
+	cursor: help;
+}
+
 abbr[title],
 ins[datetime],
 del[datetime],
 time[datetime] {
 	.help;
-	cursor: help;
 }
 .new, ins {text-decoration: underline; color: @color-ins;;}
 .old, del {text-decoration: line-through; color: @color-del;}
-.scare {
+i.scare { // scare quotes contain abuse of vocabulary or language
 	font-weight: inherit;
 	font-style: inherit;
-//	&:before {content: '\2018';} // left single quote
 	&:before {content: open-quote;}
-//	&:after  {content: '\2019';} // right single quote
+	&:after  {content: close-quote;}
+}
+i.mention { // mentions refer to phrases without referring to their meaning
+	font-weight: inherit;
+	font-style: italic;
+	&:before {content: open-quote;}
+	&:after  {content: close-quote;}
+}
+b.proper { // proper nouns, titles, references to headings (e.g. see 'Section 3.A')
+	font-weight: bold;
+	&:before {content: open-quote;}
 	&:after  {content: close-quote;}
 }
 .superscript {font-size: smaller; vertical-align: super;}
@@ -307,6 +331,7 @@ i:lang(fr) {
 	font-family: 'Times New Roman',serif;
 	font-style: italic;
 }
+samp {font-family: inherit;}
 /* @end */
 /* @end TYPO */
 

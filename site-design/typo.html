@@ -6,8 +6,8 @@
 <link rel="stylesheet" href="images/sitedesign.css" />
 <style>
 .des-list li {
-	border: 1px solid #bfe5ff;
-	background: #eaf6ff;
+	border: 1px solid #ccc;
+	background: #eee;
 }
 </style>
 <!--#include virtual="/core/snippets/all-js.html" -->
@@ -69,9 +69,6 @@
 		</div>
 	</div>
 </section>
-<hr />
-<hr />
-<hr />
 <section id="scheme-list">
 	<h1 class="h-beta">List Scheme</h1>
 	<!--<a class="block-up" href="/docs/lists.html">Read my opinion on lists.</a>-->
@@ -139,7 +136,9 @@
 	</div>
 	<div class="box-block">
 		<ol class="prose">
-			<li><p><span class="lede">This is a prose list (<code class="lang-css">ol.prose</code>).</span> A prose list is an ordered list whose items consist of flow-content. Each list item contains one or more paragraphs. Since the <code class="lang-css">.prose</code> class is applied to the ordered list, it does not need to apply to the paragraphs within the list.</p></li>
+			<li>
+				<p><span class="lede">This is a prose list (<code class="lang-css">ol.prose</code>).</span> A prose list is an ordered list whose items consist of flow-content. Each list item contains one or more paragraphs. Since the <code class="lang-css">.prose</code> class is applied to the ordered list, it does not need to apply to the paragraphs within the list.</p>
+			</li>
 			<li>
 				<p><span class="lede">Typically, each list item in a prose list will have a lede.</span> The first sentence of each list item can be thought of as a lede or <i class="scare">heading</i> (use the  <code class="lang-css">.lede</code> class), although it does not take part in the DOM tree.</p>
 				<p>The <code class="css">list-style-type</code> of a prose list is not necessarily specified, although it is conventional to use <code class="css">decimal</code>.</p>
@@ -150,25 +149,167 @@
 			</li>
 		</ol>
 	</div>
-	
-	
 </section>
+<section id="scheme-quote">
+	<h1 class="h-beta">Quotation Marks Scheme</h1>
+	<table border="1">
+		<thead>
+			<tr>
+				<th>Method</th>
+				<th>Input</th>
+				<th>Example Input</th>
+				<th>Example Rendering</th>
+				<th>Uses</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<th>the apostrophe character</th>
+				<td><code><kbd>'</kbd></code><br />(<kbd><kbd>'</kbd></kbd>)</td>
+				<td>
+					<div class="example"><code class="lang-html">&lt;p&gt;She<mark>&apos;</mark>s ready and he<mark>&apos;</mark>s happy.&lt;/p&gt;</code></div>
+					<div class="example"><code class="lang-html">&lt;p style=&quot;<code class="lang-css">font-family: <mark>&apos;</mark>Times New Roman<mark>&apos;</mark>;</code>&quot;&gt;style&lt;/p&gt;</code></div>
+					<div class="example"><code class="lang-html">&lt;p onclick=&quot;<code class="lang-js">alert(<mark>&apos;</mark>Hello, world.<mark>&apos;</mark>);</code>&quot;&gt;script&lt;/p&gt;</code></div>
+				</td>
+				<td>
+					<samp class="demo"><p>She's ready and he's happy.</p></samp>
+					<samp class="demo"><p style="font-family: 'Times New Roman';">style</p></samp>
+					<samp class="demo"><p onclick="alert('Hello, world.');">script</p></samp>
+				</td>
+				<td>word contractions (in HTML text only), nested quotes, strings</td>
+			</tr>
+			<tr>
+				<th>the apostrophe entity</th>
+				<td><code><kbd>&amp;apos;</kbd></code></td>
+				<td>
+					<div class="example"><code class="lang-html">&lt;p&gt;To get a serif font, you should declare &lt;code&gt;font-family: <mark>&amp;apos;</mark>Times New Roman<mark>&amp;apos;</mark>;&lt;/code&gt; in your selector.&lt;/p&gt;</code></div>
+					<div class="example"><code class="lang-html">&lt;p&gt;To get a pop-up, call &lt;code&gt;alert(<mark>&amp;apos;</mark>Hello, world.<mark>&amp;apos;</mark>);&lt;/code&gt; in the event.&lt;/p&gt;</code></div>
+				</td>
+				<td>
+					<samp class="demo"><p>To get a serif font, you should declare <code>font-family: &apos;Times New Roman&apos;;</code> in your selector.</p></samp>
+					<samp class="demo"><p>To get a pop-up, call <code>alert(&apos;Hello, world.&apos;);</code> in the event.</p></samp>
+				</td>
+				<td>escaping the apostrophe character / demonstrating when to use it</td>
+			</tr>
+			<tr>
+				<th>the quotation mark character</th>
+				<td><code><kbd>"</kbd></code><br />(<kbd><kbd>shift</kbd> + <kbd>'</kbd></kbd>)</td>
+				<td>
+					<div class="example"><code class="lang-html">&lt;p style=<mark>&quot;</mark><code class="lang-css">font-family: &apos;Times New Roman&apos;;</code><mark>&quot;</mark>&gt;style&lt;/p&gt;</code></div>
+					<div class="example"><code class="lang-html">&lt;p onclick=<mark>&quot;</mark><code class="lang-js">alert(&apos;Hello, world.&apos;);</code><mark>&quot;</mark>&gt;script&lt;/p&gt;</code></div>
+				</td>
+				<td>
+					<samp class="demo"><p style="font-family: 'Times New Roman';">style</p></samp>
+					<samp class="demo"><p onclick="alert('Hello, world.');">script</p></samp>
+				</td>
+				<td>strings of code, attribute values</td>
+			</tr>
+			<tr>
+				<th>the quotation mark entity</th>
+				<td><code><kbd>&amp;quot;</kbd></code></td>
+				<td>
+					<div class="example"><code class="lang-html">&lt;p&gt;You can make the color red with the attribute &lt;code&gt;style=<mark>&amp;quot;</mark>color: red;<mark>&amp;quot;</mark>&lt;/code&gt; on any element.&lt;/p&gt;</code></div>
+				</td>
+				<td>
+					<samp class="demo"><p>You can make the color red with the attribute <code>style=&quot;color: red;&quot;</code> on any element.</p></samp>
+				</td>
+				<td>escaping the quotation mark character / demonstrating when to use it</td>
+			</tr>
+			<tr>
+				<th>the left and right single-quote characters</th>
+				<td><kbd><kbd>option</kbd> + <kbd>]</kbd></kbd> and <kbd><kbd>shift</kbd> + <kbd>option</kbd> + <kbd>]</kbd></kbd> on Mac (only for non-plaintext files)</td>
+				<td></td>
+				<td></td>
+				<td>fancy punctuation in word processing; not for coding</td>
+			</tr>
+			<tr>
+				<th>the left and right single-quote entities</th>
+				<td><code class="lang-html"><kbd>&amp;lsquo;</kbd>&hellip;<kbd>&amp;rsquo;</kbd></code></td>
+				<td></td>
+				<td></td>
+				<td>escaping the left/right single-quote characters, for whatever reason</td>
+			</tr>
+			<tr>
+				<th>the left and right double-quote characters</th>
+				<td><kbd><kbd>option</kbd> + <kbd>[</kbd></kbd> and <kbd><kbd>shift</kbd> + <kbd>option</kbd> + <kbd>[</kbd></kbd> on Mac (only for non-plaintext files)</td>
+				<td></td>
+				<td></td>
+				<td>fancy punctuation in word processing; not for coding</td>
+			</tr>
+			<tr>
+				<th>the left and right double-quote entities</th>
+				<td><code class="lang-html"><kbd>&amp;ldquo;</kbd>&hellip;<kbd>&amp;rdquo;</kbd></code></td>
+				<td></td>
+				<td></td>
+				<td>escaping the left/right double-quote characters, for whatever reason</td>
+			</tr>
+		</tbody>
+		<tbody>
+			<tr>
+				<th><code class="lang-css">i.scare</code></th>
+				<td><code class="lang-html"><kbd>&lt;i class=&quot;scare&quot;&gt;</kbd>&hellip;<kbd>&lt;/i&gt;</kbd></code></td>
+				<td>
+					<div class="example"><code class="lang-html">&lt;p&gt;My hair is not <mark>&lt;i class=&quot;scare&quot;&gt;black&lt;/i&gt;</mark>, just very dark brown.&lt;/p&gt;</code></div>
+					<div class="example"><code class="lang-html">&lt;p&gt;That shirt you are wearing is so <mark>&lt;i class=&quot;scare&quot;&gt;loud&lt;/i&gt;</mark> it hurts my eyes.&lt;/p&gt;</code></div>
+				</td>
+				<td>
+					<samp class="demo"><p>My hair is not <i class="scare">black</i>, just very dark brown.</p></samp>
+					<samp class="demo"><p>That shirt you are wearing is so <i class="scare">loud</i> it hurts my eyes.</p></samp>
+				</td>
+				<td><a class="sp-up" href="http://en.wikipedia.org/wiki/Scare_quotes">Scare quotes</a> contain abuse of vocabulary or language, double entendres, metaphors, analogies, etc. The reason to use the <code class="lang-html">i</code> element is that it is meant to convey an alternate voice or change in tone.</td>
+			</tr>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<tr>
+				<th><code class="lang-css">i.mention</code></th>
+				<td><code class="lang-html"><kbd>&lt;i class=&quot;mention&quot;&gt;</kbd>&hellip;<kbd>&lt;/i&gt;</kbd></code></td>
+				<td><p class="little example">The prefixes &ldquo;hypo-&rdquo; and &ldquo;hyper-&rdquo; are opposites.</p>The English word <i class="mention">polygraph</i> comes from the Greek prefix <i class="mention" lang="gr">poly-</i>, meaning <i class="mention">many</i> or <i class="mention">more than one</i>, as well as the suffix <i class="mention" lang="gr">-graph</i>, meaning <i class="mention">to write</i>.</td>
+				<td>Mentions refer to explicit words and phrases without conveying meaning to the sentence. Use this method for marking down any time your are talking about an actual word or phrase.</td>
+			</tr>
+			<tr>
+				<th><code class="lang-css">b.proper</code></th>
+				<td><code class="lang-html"><kbd>&lt;b class=&quot;proper&quot;&gt;</kbd>&hellip;<kbd>&lt;/b&gt;</kbd></code></td>
+				<td></td>
+				<td>
+					<p class="little example">He is known as the &ldquo;Father of Geometry&rdquo;.</p>
+					<p>Fill in your personal information in `b`boxes 1 through 6`/b`. (referencing a figure or element)</p>
+					<p>You will find construction paper in the `b`arts and crafts`/b` section rather than in the `b`supplies`/b` section</p>
+				</td>
+				<td>proper nouns, or referencing a previously stated figure. Since the text isn't talking about the word <i class="mention">supplies</i>, but rather the section labeled <b class="proper">supplies</b>, it is marked with the `b` element.</td>
+			</tr>
+			<tr>
+				<td>the quotation tag</td>
+				<td><code class="lang-html"><kbd>&lt;q&gt;</kbd>&hellip;<kbd>&lt;/q&gt;</kbd></code></td>
+				<td><p class="little example">&ldquo;Welcome,&rdquo; she said. &ldquo;Please remove your shoes.&rdquo;</p><p class="little example">Beethoven wrote, <q>what is difficult makes one sweat&hellip; what is difficult is also beautiful.</q></p></td>
+				<td>directly quoting small material, article titles, etc.</td>
+			</tr>
+			<tr>
+				<td>the block quote tag</td>
+				<td><code class="lang-html"><kbd>&lt;blockquote&gt;</kbd>&hellip;<kbd>&lt;/blockquote&gt;</kbd></code></td>
+				<td><div class="little example">
+					<p>The following paragraph was obtained from the scientist's journal:</p>
+					<blockquote>Seek the pure light, for within its flame the answers reside. I am &hellip;</blockquote>
+					<p>After reading it, I was moved.</p>
+				</div></td>
+				<td>directly quoting large material</td>
+			</tr>
+			<tr>
+				<td>the citation tag</td>
+				<td><code class="lang-html"><kbd>&lt;cite&gt;</kbd>&hellip;<kbd>&lt;/cite&gt;</kbd></code></td>
+				<td><span class="little example">I read <a href="http://www.nytimes.com/"><cite>The New York Times</cite></a> this morning.</span></td>
+				<td>citing copyrighted material, titles of published works, etc.</td>
+			</tr>
+		</tbody>
+	</table>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+</section>
 
 
 
@@ -287,6 +428,20 @@
 			</section>
 			<section id="scheme-code">
 				<h1 class="h-epsilon">Coding Schemes</h1>
+				<pre>
+there are many different "coding" (for lack of better term) elements.
+To start off with the easiest, the `code` element represents a span or string of text that a computer program would recognize. For example, it could be an element or class name, an object, function, or property name, a declaration, or even a whole block of code. Anything that is recognizable by a program.
+
+The `pre` element represents preformatted text. I put this element under the <b>coding</b> category because it's really only used for code, but was meant for marking up that the meaning of the contents is conveyed through its typographical presentation. For example, indents in an email may convey quote levels, the presentation and organization of the text in a poem might have been meant for preserving, and ASC-II art.
+
+Blocks of code are meant to preserve their formatting and that in some languages if the formatting changes, the program changes. A `code` element nested in a `pre` element represents a block of code.
+
+Then there is the `kbd` element. It *per se* represents user input. This could be in the form of typing, choosing a menu item, or even speaking. Any kind of information the user is expected to, or could possibly do, give to the interface should be marked down with `kbd`.
+
+Sometimes, user input calls for specific actions. For example, the interface might direct the user to calculate the sum of 5 and 6. If the interface told the user explicitly which buttons to press, these would each be marked down with a `kbd` element within a `kbd` element. The outer `kbd` element represents the user input, the action of adding 5 and 6. But then there would be three nested `kbd` elements, each corresponding to a key (one for the 5, one for the plus, and one for the 6).
+
+Lastly, the `samp` element represents sample output from a computer. These elements are mainly used for demonstrations, for example if a block of code is presented, then the sample rendering is presented alongside the code to show the reader the relationship.
+				</pre>
 				<p>Sometimes, the use of code needs to be highlighted. For inline code, use the class <code>code</code>.</p>
 				<p>For block code,</p>
 				<div class="code-block">Use the class <span class="code">box-code</span>. This class can be applied to a <span class="code"> </div>
@@ -298,79 +453,7 @@ the use of the ('pre') element is best
 				<p>Boxes that offer <span class="help" title="e.g., acronyms, abbreviations, or any supplemental text">help</span> should be highlighted in the same way. Include a <code>title</code> attribute to help the user.</p>
 			</section>
 			<section id="scheme-quote">
-				<h1 class="h h-epsilon">Quotation Scheme</h1>
-				<div class="q-block">
-					<p class="prose">This is a block quote. Block quotes are material taken from another source, whose length is typically longer than 40 words. Block quotes are styled similarly to examples, as to catch the reader's attention.</p>
-					<p class="prose">Block quotes can contain multiple paragraphs. They are best written in prose.</p>
-				</div>
-				<table border="1" style="width: 100%;">
-					<thead><tr><th>Method</th><th>Symbol</th><th>Example</th><th style="width: 35%;">Recommended Use</th></tr></thead>
-					<tbody>
-						<tr>
-							<td>the apostrophe key<br />(<kbd>'</kbd>)</td>
-							<td><code class="code">'</code></td>
-							<td><p class="example little">She's ready and he's happy.</p>
-							<p class="example little"><span class="code">&lt;body onload="document.write('Hello, world.');"&gt;</span></p>
-							<p class="example little"><span class="code">&lt;a style="font-family: 'Times New Roman';"&gt;link&lt;/a&gt;</span></p></td>
-							<td>word contractions, strings of code within quote marks</td>
-						</tr>
-						<tr>
-							<td>the quote key<br />(<kbd>shift '</kbd>)</td>
-							<td><code class="code">"</code></td>
-							<td><p class="little example"><span class="code">&lt;abbr title="in other words"&gt;IOW&lt;/abbr&gt;</span></p></td>
-							<td>strings of code</td>
-						</tr>
-						<tr>
-							<td>the apostrophe entity</td>
-							<td><code class="code">&amp;apos;</code></td>
-							<td><p class="little example">You must write <span class="example code">font-family: &apos;Times New Roman&apos;;</span> to achieve that serif font.</p></td>
-							<td>escaping the markup-specific apostrophe character (see row 1 above)</td>
-						</tr>
-						<tr>
-							<td>the quotation mark entity</td>
-							<td><code class="code">&amp;quot;</code></td>
-							<td><p class="little example">Type <span class="example code">style=&quot;color: lime;&quot;</span> in the tag.</p></td>
-							<td>escaping the markup-specific quote character (see row 2 above)</td>
-						</tr>
-						<tr>
-							<td>the left and right single-quote entities</td>
-							<td><code class="code">&amp;lsquo;</code> <code class="code">&amp;rsquo;</code></td>
-							<td><p class="little example">My hair is not &lsquo;black&rsquo;, just very dark brown.</p>
-							<p class="little example">Come April, everyone in our class will have contracted &lsquo;senioritis&rsquo;.</p></td>
-							<td>scare quotes, fake words, fancy punctuation</td>
-						</tr>
-						<tr>
-							<td>the left and right double-quote entities</td>
-							<td><code class="code">&amp;ldquo;</code> <code class="code">&amp;rdquo;</code></td>
-							<td><p class="little example">The prefixes &ldquo;hypo-&rdquo; and &ldquo;hyper-&rdquo; are opposites.</p>
-							<p class="little example">He is known as the &ldquo;Father of Geometry&rdquo;.</p>
-							<p class="little example">&ldquo;Welcome,&rdquo; she said. &ldquo;Please remove your shoes.&rdquo;</p></td>
-							<td>for displaying specific words, proper nouns, novel quotes, fancy punctuation</td>
-						</tr>
-						<tr>
-							<td>the quotation tag</td>
-							<td><code class="code">&lt;q&gt; &lt;/q&gt;</code></td>
-							<td><p class="little example">Beethoven wrote, <q>what is difficult makes one sweat&hellip; what is difficult is also beautiful.</q></p></td>
-							<td>directly quoting small material, article titles, etc.</td>
-						</tr>
-						<tr>
-							<td>the blockquote tag</td>
-							<td><code class="code">&lt;blockquote&gt; &lt;/blockquote&gt;</code></td>
-							<td><div class="little example">
-								<p>The following paragraph was obtained from the scientist's journal:</p>
-								<blockquote>Seek the pure light, for within its flame the answers reside. I am &hellip;</blockquote>
-								<p>After reading it, I was moved.</p>
-							</div></td>
-							<td>directly quoting large material</td>
-						</tr>
-						<tr>
-							<td>the citation tag</td>
-							<td><code class="code">&lt;cite&gt; &lt;/cite&gt;</code></td>
-							<td><span class="little example">I read <a href="http://www.nytimes.com/"><cite>The New York Times</cite></a> this morning.</span></td>
-							<td>citing copyrighted material, titles of published works, etc.</td>
-						</tr>
-					</tbody>
-				</table>
+				
 			</section>
 		</section>
 		
