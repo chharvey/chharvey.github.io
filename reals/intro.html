@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
+<title></title>
 <meta charset="UTF-8" />
 <meta name="description" content="" />
-<title></title>
 <link rel="stylesheet" href="reals.css" />
 <style>
 </style>
@@ -100,7 +100,7 @@ $(document).ready(function() {
 </header>
 <section>
 	<header>
-		<h1 class="h-beta">Sets, Propositions, and Logical Statements</h1>
+		<h1 class="h-beta">Propositional Logic</h1>
 	</header>
 	<section>
 		<header>
@@ -120,7 +120,7 @@ $(document).ready(function() {
 			<p>When we assert that <span class="latex">\(\mathsf{p}\)</span> is <span class="latex">\(\text{false}\)</span>, we state, <q>not <span class="latex">\(\mathsf{p}\)</span></q>.</p>
 		</div>
 		<div class="definition" id="D-implies">
-			<p class="summary">Given propositions <span class="latex">\(\mathsf{p}\)</span> and <span class="latex">\(\mathsf{q}\)</span>, the assertion that &ldquo;if <span class="latex">\(\mathsf{p}\)</span> is <span class="latex">\(\text{true}\)</span> then <span class="latex">\(\mathsf{q}\)</span> must be <span class="latex">\(\text{true}\)</span>&rdquo; is <span class="latex">\(\text{true}\)</span> is itself a proposition, called a <dfn>(material) implication</dfn> <span class="latex">\(\mathsf{p}\implies\mathsf{q}\)</span>.</p>
+			<p class="summary">Given propositions <span class="latex">\(\mathsf{p}\)</span> and <span class="latex">\(\mathsf{q}\)</span>, the assertion &ldquo;if <span class="latex">\(\mathsf{p}\)</span> is <span class="latex">\(\text{true}\)</span> then <span class="latex">\(\mathsf{q}\)</span> must be <span class="latex">\(\text{true}\)</span>&rdquo; is <span class="latex">\(\text{true}\)</span> is itself a proposition, called a <dfn>(material) implication</dfn> <span class="latex">\(\mathsf{p}\implies\mathsf{q}\)</span>.</p>
 		</div>
 		<aside>
 			<table class="table-list">
@@ -175,6 +175,12 @@ $(document).ready(function() {
 			<p>The conjunction <span class="latex">\(\mathsf{p}\land\mathsf{q}\)</span> is <span class="latex">\(\text{true}\)</span> exactly when the assertion that &ldquo;if <span class="latex">\(\mathsf{p}\)</span> is <span class="latex">\(\text{true}\)</span> then <span class="latex">\(\mathsf{q}\)</span> must be <span class="latex">\(\text{false}\)</span>&rdquo; is <span class="latex">\(\text{false}\)</span>.</p>
 			<p>Informally, <span class="latex">\(\mathsf{p}\land\mathsf{q}\)</span> is true iff <span class="latex">\(\mathsf{p}\)</span> and <span class="latex">\(\mathsf{q}\)</span> are both true.</p>
 		</aside>
+		<div class="definition" id="D-tautology">
+			<p class="summary">Given a proposition <span class="latex">\(\mathsf{p}\)</span>, a <dfn>tautology</dfn> <span class="latex">\(\top\)</span> is the proposition defined by <span class="latex">\(\mathsf{p}\lor\lnot\mathsf{p}\)</span>.</p>
+		</div>
+		<div class="definition" id="D-contradiction">
+			<p class="summary">Given a proposition <span class="latex">\(\mathsf{p}\)</span>, a <dfn>contradiction</dfn> <span class="latex">\(\bot\)</span> is the proposition defined by <span class="latex">\(\mathsf{p}\land\lnot\mathsf{p}\)</span>.</p>
+		</div>
 	</section>
 	<section>
 		<header>
@@ -183,6 +189,10 @@ $(document).ready(function() {
 		</header>
 		<div class="axiom" id="A-proposition"><p class="summary">A proposition exists.</p></div>
 		<aside><p><a class="internal" href="#A-proposition"></a> can be thought of as the <b>Bootstrap Axiom</b>, because it is a proposition that asserts the existence of itself. By merely existing it is fulfilling its prophecy. Simply put, it proves itself true. Think for a moment about what would happen if it were false. Then there would be no propositions, and it simply wouldn't exist. Thus at this point we can conclude that there is at least one true proposition.</p></aside>
+		
+		By <a class="internal" href="#A-bivalence"></a>, <span class="latex">\(\bot\)</span> is always <span class="latex">\(\text{false}\)</span>.
+		By <a class="internal" href="#A-bivalence"></a>, <span class="latex">\(\top\)</span> is always <span class="latex">\(\text{true}\)</span>.
+		
 	</section>
 	
 	
@@ -205,12 +215,7 @@ $(document).ready(function() {
 		</div>
 	
 	
-	<div class="definition" id="D-tautology">
-		<p class="summary">Given a proposition <span class="latex">\(\mathsf{p}\)</span>, a <dfn>tautology</dfn> <span class="latex">\(\top\)</span> is the proposition defined by <span class="latex">\(\mathsf{p}\lor\lnot\mathsf{p}\)</span>. By <a class="internal" href="#A-bivalence"></a>, <span class="tex">\(\top\)</span> is always <span class="tex">\(\text{true}\)</span>.</p>
-	</div>
-	<div class="definition" id="D-contradiction">
-		<p class="summary">Given a proposition <span class="latex">\(\mathsf{p}\)</span>, a <dfn>contradiction</dfn> <span class="latex">\(\bot\)</span> is the proposition defined by <span class="latex">\(\mathsf{p}\land\lnot\mathsf{p}\)</span>. By <a class="internal" href="#A-bivalence"></a>, <span class="tex">\(\bot\)</span> is always <span class="tex">\(\text{false}\)</span>.</p>
-	</div>
+	
 	<span class="lede">(The Classic Laws of Thought)</span>
 	
 	<div class="theorem" id="T-classiclaws">
@@ -399,7 +404,7 @@ $(document).ready(function() {
 						<p class="tex">\[\mathsf{p}\implies\mathsf{q} \equiv \lnot\mathsf{q}\implies\lnot\mathsf{p}\]</p>
 					</dt>
 					<dd class="proof">
-						<p>Not sure how to prove this... need: logical equivalence, logical implication (therefore), logical reverse implication (because)</p>
+						<p>Not sure how to prove this... need: logical equivalence</p>
 					</dd>
 				</dl>
 			</div>

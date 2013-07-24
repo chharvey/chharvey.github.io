@@ -36,168 +36,163 @@ main { // the main container in the body
 		}
 	}
 }
-/* @end */
+@media print {
+	body {color: #000000;}
+	body {background-image: none;}
+	body,
+	.block-up,
+	.block-dn,
+	.code {background-color: #ffffff;}
+	.nav-hub,
+	.courseinfo,
+	.masthead {display: none;}
+	.main,
+	main {
+		width: auto;
+		margin: auto;
+	}
+}
 
-/* @group hyperlinks */
-.link, a {
-	border-width: 0 0 1px;
-	border-style: dotted;
-	text-decoration: none;
-	color: inherit;
-	.latex {color: inherit}
-}
-.up {
-	.link;
-	color: @color-link-up-txt;
-}
-.dn {
-	.link;
-	color: @color-link-dn-txt;
-}
-.sp-up {
-	.link;
-	color: @color-link-sp-up-txt;
-}
-.sp-dn {
-	.link;
-	color: @color-link-sp-dn-txt;
-}
-.active {
-	.link();
-	color: @color-link-active-txt;
-}
 /* @end */
 
 /* @group special boxes */
-@box-radius: 3px;
-@box-block-radius: 10px;
-@box-link-radius: 6px;
-.box {
-	padding: 1px;
+@box-radius-small:  3px;
+@box-radius-medium: 6px;
+@box-radius-large: 10px;
+
+.box { // inline content, boxed
+	display: inline;
+	padding: 0 1px;
 	border-width: 1px;
 	border-style: solid;
-	border-radius: @box-radius;
+	border-radius: @box-radius-small;
 }
-.box-block {
+.box-inline-block { // inline content, with block structure, boxed
 	.box;
+	display: inline-block;
+}
+.box-block { // a block structure, boxed
+	.box-inline-block;
 	display: block;
-	padding: 5px;
-	border-radius: @box-block-radius;
-	margin: 5px;
+	padding: 2px 4px;
+	border-radius: @box-radius-large;
+	margin: 4px;
 }
-
-.block-link(@bordercolor; @bgcolor) {
-	.box-block;
-	border-radius: @box-link-radius;
-	border-color: @bordercolor;
-	background-color: @bgcolor;
-	text-align: center;
-}
-.block-up {
-	.up;
-	.block-link(@color-link-up-block-brdr; @color-link-up-block-bg);
-}
-.block-dn {
-	.dn;
-	.block-link(@color-link-dn-block-brdr; @color-link-dn-block-bg);
-}
-.block-active {
-	.active;
-	.block-link(@color-link-active-block-brdr; @color-link-active-block-bg);
-}
-
-.sample() {
-	.box-block;
-	position: relative;
-	padding: 2em 10px 10px;
-	.code, code {border: 0;}
-}
-.sample-label() {
-	.box-block;
-	position: absolute;
-	top: -1px;
-	left: -1px;
-	border-bottom-left-radius: 0;
-	border-top-right-radius: 0;
-	margin: 0;
-	font-size: smaller;
-}
-.example {
-	.sample();
-	border-color: @color-example-brdr;
-	background-color: @color-example-bg;
-	> .label {
-		.sample-label();
-		border-color: @color-example-brdr;
-		color: @color-example-label-txt;
-		background-color: @color-example-label-bg;
+	/* @group block links */
+	.block-link(@bordercolor; @bgcolor) {
+		.box-block;
+		border-radius: @box-radius-medium;
+		border-color: @bordercolor;
+		background-color: @bgcolor;
+		text-align: center;
 	}
-}
-//.nonexample {
-//	.example;
-//	color: #f00 !important;
-//	&:before {
-//		.sample-label('bad example!');
-//		color: #f00;
+	.block-up {
+		.up;
+		.block-link(@color-link-up-block-brdr; @color-link-up-block-bg);
+	}
+	.block-dn {
+		.dn;
+		.block-link(@color-link-dn-block-brdr; @color-link-dn-block-bg);
+	}
+	.block-active {
+		.active;
+		.block-link(@color-link-active-block-brdr; @color-link-active-block-bg);
+	}
+	/* @end */
+	/* @group modules containing sample things */
+//	.sample() {
+//		.box-block;
+//		position: relative;
+//		padding: 2em 10px 10px;
+//		.code, code {border: 0;}
 //	}
-//	* {color: #f00 !important;}
-//}
-.demo {
-	.sample();
-	border-color: @color-demo-brdr;
-	background-color: @color-demo-bg;
-	> .label {
-		.sample-label();
-		border-color: @color-demo-brdr;
-		color: @color-demo-label-txt;
-		background-color: @color-demo-label-bg;
-	}
-}
-	/* @group coding shit */
+//	.sample-label() {
+//		.box-block;
+//		position: absolute;
+//		top: -1px;
+//		left: -1px;
+//		border-bottom-left-radius: 0;
+//		border-top-right-radius: 0;
+//		margin: 0;
+//		font-size: smaller;
+//	}
+//	.example {
+//		.sample();
+//		border-color: @color-example-brdr;
+//		background-color: @color-example-bg;
+//		> .label {
+//			.sample-label();
+//			border-color: @color-example-brdr;
+//			color: @color-example-label-txt;
+//			background-color: @color-example-label-bg;
+//		}
+//	}
+//	.nonexample {
+//		.example;
+//		color: #f00 !important;
+//		&:before {
+//			.sample-label('bad example!');
+//			color: #f00;
+//		}
+//		* {color: #f00 !important;}
+//	}
+//	samp {font-family: inherit;}
+//	.demo {
+//		.sample();
+//		border-color: @color-demo-brdr;
+//		background-color: @color-demo-bg;
+//		> .label {
+//			.sample-label();
+//			border-color: @color-demo-brdr;
+//			color: @color-demo-label-txt;
+//			background-color: @color-demo-label-bg;
+//		}
+//	}
+	/* @end */
+	/* @group coding */
 	.code,
 	code { // fragment or string of code a computer would recognize
 		.box;
 		border-color: @color-code-brdr;
-		background-color: @color-code-bg;
 		font-size: 10pt;
 		font-family: @font-fam-code;
 		color: @color-code-txt;
+		background-color: @color-code-bg;
 		&.lang-html {
-			.tag {color: @color-code-html-tag;}
+			.tag       {color: @color-code-html-tag;}
 			.attribute {color: @color-code-html-attr;}
-			.value {color: @color-code-html-val;}
+			.value     {color: @color-code-html-val;}
 		}
 		&.lang-css, &.lang-less {
 			.selector {color: @color-code-css-sel;}
 			.property {color: @color-code-css-prop;}
-			.value {color: @color-code-css-val;}
+			.value    {color: @color-code-css-val;}
 		}
-		.comment {color: @color-code-comment;}
-		
+		.comment {color: @color-code-comment;}		
 	}
-	.userinput,
-	kbd { // user input, in the form of a string, menu item, etc.
-		white-space: nowrap;
-	}
-	.key,
-	kbd kbd { // an individual key on a keyboard, calculator, or other device
-		.code;
-		padding: 2px;
-		font-family: @font-fam-base;
-	}
-	.code-block() {
-		.code;
-		.sample();
-		.label {
-			.sample-label();
-			border-color: @color-code-brdr;
-			color: @color-code-label-txt;
-			background-color: @color-code-label-bg;
-		}
-		
-	}
+//	.userinput,
+//	kbd { // user input, in the form of a string, menu item, etc.
+//		white-space: nowrap;
+//	}
+//	.key,
+//	kbd kbd { // an individual key on a keyboard, calculator, or other device
+//		.code;
+//		padding: 2px;
+//		font-family: @font-fam-base;
+//	}
+//	.code-block() {
+//		.code;
+//		.sample();
+//		.label {
+//			.sample-label();
+//			border-color: @color-code-brdr;
+//			color: @color-code-label-txt;
+//			background-color: @color-code-label-bg;
+//		}
+//		
+//	}
 	/* @end */
-	/* @group math shit */
+	/* @group math */
 	.latex {
 		font-size: 13pt;
 		font-family: @font-fam-mono;
@@ -213,38 +208,39 @@ main { // the main container in the body
 	}
 	.tex {color: #f00;} // a reminder to change all class="tex" to class="latex"
 	/* @end */
-
-/* @end */
-
-/* @group hacks */
-
-// a hack for elements needed for SEO but not to display
-.noshow {display: none !important;}
-.invisible {visibility: hidden;}
-
-// elements in draft mode (not published yet) --- use boolean attribute "hidden"!
-.draft {display: none; color: #999999;}
-
-@media print {
-	body {color: #000000;}
-	body {background-image: none;}
-//	body,
-//	.block-up,
-//	.block-dn,
-//	.code {background-color: #ffffff;}
-	.nav-hub,
-	.courseinfo,
-	.masthead {display: none;}
-	.main,
-	main {
-		width: auto;
-		margin: auto;
+	
+	/* @group messages */
+	.message(@color, @content) {
+		.box-inline-block;
+		border: 0;
+		background-color: @color;
+		&:before {
+			.box;
+			margin-right: 1em;
+			border: 0;
+			content: @content;
+			font-size: 10pt;
+			color: darken(@color, 80%);
+			background-color: darken(@color, 10%);
+		}
 	}
-	
-	
-	/* a hack for elements needed to display but not to print */
-	.noprint {display: none !important;}
-}
+	.warning { // dire consequences
+		.message(@color-warning, 'warning!');
+	}
+	.caution { // be careful
+		.message(@color-caution, 'caution\2026'); // &hellip;
+	}
+	.success { // something was done right
+		.message(@color-success, 'success =)');
+	}
+	.info { // extra information
+		.message(@color-info, 'info?');
+	}
+	.help { // tips and hints
+		.message(@color-help, 'help \2665' ); // &hearts;
+		cursor: help;
+	}
+	/* @end */
 
 /* @end */
 /* @end MODS */

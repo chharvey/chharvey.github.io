@@ -66,9 +66,10 @@ h5 + h6 {
 }
 /* @end */
 
-/* @group paragraphs and block text */
+/* @group paragraphs */
+@defaultmargins: 0 0 0.5em;
 .p, p {
-	margin: 0 0 0.5em;
+	margin: @defaultmargins;
 	line-height: 1.4em;
 }
 .prose {
@@ -144,17 +145,17 @@ table caption {
 	font-size: smaller;
 	text-align: left;
 }
-//.nowrap {white-space: nowrap;}
 /* @end */
 
 /* @group lists */
 ul, ol, dl {
+	.p;
 	padding: 0 0 0 0.5in;
-	margin: 0 0 0.5em;
+	line-height: 1.3em;
 	ul, ol, dl {margin-bottom: auto;}
 }
 .list-basic {
-	// a basic list with no margins padding or numbering. list items are blocks
+	// a basic list with no margins, padding, or numbering. list items are blocks
 	padding: 0;
 	list-style-type: none;
 	dd {margin: 0;}
@@ -186,8 +187,6 @@ ul, ol, dl {
 .list-delta   {list-style-type: lower-alpha;}
 .list-epsilon {list-style-type: lower-roman;}
 .list-zeta    {list-style-type: lower-greek;}
-
-
 /* @end */
 
 /* @group tables */
@@ -268,70 +267,76 @@ table,
 /* @end */
 
 /* @group inline text */
-//strong, b {font-weight: bold;}
-//em, i {font-weight: italic;}
-//mark {background-color: yellow;}
+	/* @group highlighted text */
+	em {font-style: italic;}
+	strong {font-weight: bold;}
+	mark {background-color: #ff0;}
+	
+	i, b { // non-semantic elements reset
+		font-style: inherit;
+		font-weight: inherit;
+	}
+	i.scare { // scare quotes contain abuse of vocabulary or language
+		font-style: italic;
+		&:before {content: open-quote;}
+		&:after  {content: close-quote;}
+	}
+	i.mention { // mentions refer to phrases without referring to their meaning
+		font-style: italic;
+		&:before {content: open-quote;}
+		&:after  {content: close-quote;}
+	}
+	b.proper { // proper nouns, titles, references to headings (e.g. see 'Section 3.A')
+		font-weight: bold;
+		&:before {content: open-quote;}
+		&:after  {content: close-quote;}
+	}
+	/* @end */
 .phone, .email {
 	font-family: @font-fam-mono;
-}
-
-.message(@color) {
-	border-bottom: 2px solid @color;
-}
-.warning { // dire consequences
-	.message(@color-help);
-}
-.caution { // be careful
-	.message(@color-help);
-}
-.success { // something was done right
-	.message(@color-help);
-}
-.info { // extra information
-	.message(@color-help);
-}
-.help { // tips
-	.message(@color-help);
-	cursor: help;
 }
 
 abbr[title],
 ins[datetime],
 del[datetime],
 time[datetime] {
-	.help;
+	border-bottom: 2px solid @color-help;
+	cursor: help;
 }
 .new, ins {text-decoration: underline; color: @color-ins;;}
 .old, del {text-decoration: line-through; color: @color-del;}
-i.scare { // scare quotes contain abuse of vocabulary or language
-	font-weight: inherit;
-	font-style: inherit;
-	&:before {content: open-quote;}
-	&:after  {content: close-quote;}
-}
-i.mention { // mentions refer to phrases without referring to their meaning
-	font-weight: inherit;
-	font-style: italic;
-	&:before {content: open-quote;}
-	&:after  {content: close-quote;}
-}
-b.proper { // proper nouns, titles, references to headings (e.g. see 'Section 3.A')
-	font-weight: bold;
-	&:before {content: open-quote;}
-	&:after  {content: close-quote;}
-}
 .superscript {font-size: smaller; vertical-align: super;}
 .subscript   {font-size: smaller; vertical-align: sub;}
-.hindent-5  {text-indent: -0.5in;  padding-left: 0.5in;}
-.hindent-25 {text-indent: -0.25in; padding-left: 0.25in;}
-.hindent-em {text-indent: -1em;    padding-left: 1em;}
+//.hindent-5  {text-indent: -0.5in;  padding-left: 0.5in;}
+//.hindent-25 {text-indent: -0.25in; padding-left: 0.25in;}
+//.hindent-em {text-indent: -1em;    padding-left: 1em;}
 i:lang(la),
 i:lang(it),
 i:lang(fr) { 
 	font-family: 'Times New Roman',serif;
 	font-style: italic;
 }
-samp {font-family: inherit;}
+	/* @group hyperlinks */
+	.link(@color) {
+		border-width: 0 0 1px;
+		border-style: dotted;
+		text-decoration: none;
+		color: @color; // automatically sets border color
+		.latex {color: inherit}
+	}
+	a       {.link(inherit);}
+	.up     {.link(@color-link-up-txt);}
+	.dn     {.link(@color-link-dn-txt);}
+	.sp-up  {.link(@color-link-sp-up-txt);}
+	.sp-dn  {.link(@color-link-sp-dn-txt);}
+	.active {.link(@color-link-active-txt);}
+	/* @end */
+/* @end */
+/* @group hacks */
+.noshow {display: none !important;} // a hack for elements needed for SEO but not to display
+@media print { .noprint {display: none !important;}} // to display but not to print
+.invisible {visibility: hidden;}
+.draft, .draft * {color: #ccc !important;}
 /* @end */
 /* @end TYPO */
 
