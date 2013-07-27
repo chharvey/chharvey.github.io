@@ -276,173 +276,54 @@ dl dl {
 }
 /* @end */
 /* @group tables */
-table,
-.table {
-  border: 1px solid #000000;
+table {
   border-collapse: collapse;
   margin: 0 auto 2em;
   text-align: center;
 }
-table .header,
-.table .header,
-table thead,
-.table thead,
-table tfoot,
-.table tfoot,
-table th,
-.table th {
+table thead th,
+table tfoot th,
+table thead td,
+table tfoot td {
+  border: 1px solid #000000;
   font-weight: bold;
   text-align: center;
   vertical-align: middle;
+  background-color: #ffffff;
 }
-table .body .code,
-.table .body .code,
 table tbody .code,
-.table tbody .code,
-table .body code,
-.table .body code,
-table tbody code,
-.table tbody code {
+table tbody code {
   background-color: transparent;
 }
 table th,
-.table th,
-table td,
-.table td {
+table td {
   padding: 5px;
   border-color: #808080;
 }
-.table-list {
-  border: 1px solid #000000;
-  border-collapse: collapse;
-  margin: 0 auto 2em;
-  text-align: center;
+table.table-list thead th,
+table.table-list tfoot th,
+table.table-list thead td,
+table.table-list tfoot td {
   border-left: 0;
   border-right: 0;
 }
-.table-list .header,
-.table-list thead,
-.table-list tfoot,
-.table-list th {
-  font-weight: bold;
-  text-align: center;
-  vertical-align: middle;
-}
-.table-list .body .code,
-.table-list tbody .code,
-.table-list .body code,
-.table-list tbody code {
-  background-color: transparent;
-}
-.table-list th,
-.table-list td {
-  padding: 5px;
-  border-color: #808080;
-}
-.table-list .header,
-.table-list thead,
-.table-list tfoot,
-.table-list th .body,
-.table-list tbody {
-  border: 1px solid #000000;
-  border-left: 0;
-  border-right: 0;
-}
-.table-list .header,
-.table-list thead,
-.table-list tfoot,
-.table-list th {
+table.table-list tbody .row-odd {
   background-color: #ffffff;
 }
-.table-list .row-odd {
+table.table-list tbody .row-even {
   background-color: #ffffff;
 }
-.table-list .row-even {
-  background-color: #ffffff;
-}
-.table-bars {
-  border: 1px solid #000000;
-  border-collapse: collapse;
-  margin: 0 auto 2em;
-  text-align: center;
-}
-.table-bars .header,
-.table-bars thead,
-.table-bars tfoot,
-.table-bars th {
-  font-weight: bold;
-  text-align: center;
-  vertical-align: middle;
-}
-.table-bars .body .code,
-.table-bars tbody .code,
-.table-bars .body code,
-.table-bars tbody code {
-  background-color: transparent;
-}
-.table-bars th,
-.table-bars td {
-  padding: 5px;
-  border-color: #808080;
-}
-.table-bars .header,
-.table-bars th {
-  border: 1px solid #000000;
+table.table-bars thead th,
+table.table-bars tfoot th,
+table.table-bars thead td,
+table.table-bars tfoot td {
   border-top: 0;
   border-bottom: 0;
 }
-.table-bars .header,
-.table-bars th {
+table.table-bars tbody .column-odd {
   background-color: #ffffff;
 }
-.table-bars .column-odd {
-  background-color: #ffffff;
-}
-.table-bars .column-even {
-  background-color: #ffffff;
-}
-.table-grid {
-  border: 1px solid #000000;
-  border-collapse: collapse;
-  margin: 0 auto 2em;
-  text-align: center;
-}
-.table-grid .header,
-.table-grid thead,
-.table-grid tfoot,
-.table-grid th {
-  font-weight: bold;
-  text-align: center;
-  vertical-align: middle;
-}
-.table-grid .body .code,
-.table-grid tbody .code,
-.table-grid .body code,
-.table-grid tbody code {
-  background-color: transparent;
-}
-.table-grid th,
-.table-grid td {
-  padding: 5px;
-  border-color: #808080;
-}
-.table-grid td {
-  border: 1px solid #000000;
-}
-.table-grid .header,
-.table-grid th {
-  background-color: #ffffff;
-}
-.table-grid .row-odd .column-odd {
-  background-color: #ffffff;
-}
-.table-grid .row-odd .column-even {
-  background-color: #ffffff;
-}
-.table-grid .row-even .column-odd {
-  background-color: #ffffff;
-}
-.table-grid .row-even .column-even {
+table.table-bars tbody .column-even {
   background-color: #ffffff;
 }
 /* @end */
@@ -500,6 +381,34 @@ del[datetime],
 time[datetime] {
   border-bottom: 2px solid #ffeeff;
   cursor: help;
+}
+[datetime]:hover:after {
+  display: inline;
+  padding: 0 1px;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 3px;
+  display: inline-block;
+  border: 0;
+  background-color: #ffeeff;
+  cursor: help;
+  position: relative;
+  left: 5px;
+  top: 5px;
+  content: attr(datetime);
+}
+[datetime]:hover:after:before {
+  display: inline;
+  padding: 0 1px;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 3px;
+  margin-right: 1em;
+  border: 0;
+  content: '\2665';
+  font-size: 10pt;
+  color: #550055;
+  background-color: #ffbbff;
 }
 .new,
 ins {
@@ -820,20 +729,23 @@ code .comment {
 }
 /* @end */
 /* @group math */
-.latex {
-  font-size: 13pt;
-  font-family: 'Courier New', 'Courier', 'Lucida Sans Typewriter', 'Monaco', monospace;
-  white-space: pre;
+data.latex[value] {
+  white-space: pre-line;
   color: #000000;
 }
-div.latex,
-p.latex {
-  padding-left: 2px;
-  padding-right: 2px;
-  background-color: #ffffff;
-  overflow: auto;
+div > data.latex[value]:only-child,
+p > data.latex[value]:only-child {
+  font-size: 14pt;
 }
-.tex {
+data.latex[value]:after {
+  font-family: 'Courier New', 'Courier', 'Lucida Sans Typewriter', 'Monaco', monospace;
+}
+.tex,
+:not(data).latex {
+  color: #f00;
+}
+.tex *,
+:not(data).latex * {
   color: #f00;
 }
 /* @end */
@@ -856,7 +768,7 @@ p.latex {
   border-radius: 3px;
   margin-right: 1em;
   border: 0;
-  content: 'warning!';
+  content: '!';
   font-size: 10pt;
   color: #550000;
   background-color: #ffbbbb;
@@ -879,7 +791,7 @@ p.latex {
   border-radius: 3px;
   margin-right: 1em;
   border: 0;
-  content: 'caution\2026';
+  content: '\2026';
   font-size: 10pt;
   color: #555500;
   background-color: #ffffbb;
@@ -902,7 +814,7 @@ p.latex {
   border-radius: 3px;
   margin-right: 1em;
   border: 0;
-  content: 'success =)';
+  content: '=)';
   font-size: 10pt;
   color: #005500;
   background-color: #bbffbb;
@@ -925,7 +837,7 @@ p.latex {
   border-radius: 3px;
   margin-right: 1em;
   border: 0;
-  content: 'info?';
+  content: '?';
   font-size: 10pt;
   color: #000055;
   background-color: #bbbbff;
@@ -949,7 +861,7 @@ p.latex {
   border-radius: 3px;
   margin-right: 1em;
   border: 0;
-  content: 'help \2665';
+  content: '\2665';
   font-size: 10pt;
   color: #550055;
   background-color: #ffbbff;

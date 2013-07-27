@@ -191,79 +191,66 @@ ul, ol, dl {
 
 /* @group tables */
 .special-table-border() {border: 1px solid @accent;}
-table,
-.table {
-	.special-table-border();
+
+table {
 	border-collapse: collapse;
 	margin: 0 auto 2em;
 	text-align: center;
-	.header,
-	thead,
-	tfoot,
-	th {
-		font-weight: bold;
-		text-align: center;
-		vertical-align: middle;
+	thead, tfoot {
+		th, td {
+			.special-table-border();
+			font-weight: bold;
+			text-align: center;
+			vertical-align: middle;
+			background-color: @color-table-bg-head;
+		}
 	}
-	.body,
 	tbody {
-		.code,
-		code {background-color: transparent;}
+		.code, code {background-color: transparent;}
 	}
-	th,
-	td {
+	th, td {
 		padding: 5px;
 		border-color: #808080;
 	}
-}
-.table-list {
-	.table;
-	border-left: 0;
-	border-right: 0;
-	.header,
-	thead,
-	tfoot,
-	th
-	.body,
-	tbody {
-		.special-table-border();
-		border-left: 0;
-		border-right: 0;
+	&.table-list {
+		thead, tfoot {
+			th, td {
+				border-left: 0;
+				border-right: 0;
+			}
+		}
+		tbody {
+			.row-odd  {background-color: @color-table-bg-primary;}
+			.row-even {background-color: @color-table-bg-secondary;}
+		}
 	}
-	.header,
-	thead,
-	tfoot,
-	th {background-color: @color-table-bg-head;}
-	.row-odd  {background-color: @color-table-bg-primary;}
-	.row-even {background-color: @color-table-bg-secondary;}
-}
-.table-bars {
-	.table;
-	.header,
-	th {
-		.special-table-border();
-		border-top: 0;
-		border-bottom: 0;
-	}
-	.header,
-	th {background-color: @color-table-bg-head;}
-	.column-odd  {background-color: @color-table-bg-secondary;}
-	.column-even {background-color: @color-table-bg-primary;}
-}
-.table-grid {
-	.table;
-	td {.special-table-border();}
-	.header,
-	th {background-color: @color-table-bg-head;}
-	.row-odd {
-		.column-odd  {background-color: @color-table-bg-weak;}
-		.column-even {background-color: @color-table-bg-medium;}
-	}
-	.row-even {
-		.column-odd  {background-color: @color-table-bg-medium;}
-		.column-even {background-color: @color-table-bg-strong;}
+	&.table-bars {
+		thead, tfoot {
+			th, td {
+				border-top: 0;
+				border-bottom: 0;
+			}
+		}
+		tbody {
+			.column-odd  {background-color: @color-table-bg-secondary;}
+			.column-even {background-color: @color-table-bg-primary;}
+		}
 	}
 }
+//.table-grid {
+//	.table;
+//	td {.special-table-border();}
+//	.header,
+//	th {background-color: @color-table-bg-head;}
+//	.row-odd {
+//		.column-odd  {background-color: @color-table-bg-weak;}
+//		.column-even {background-color: @color-table-bg-medium;}
+//	}
+//	.row-even {
+//		.column-odd  {background-color: @color-table-bg-medium;}
+//		.column-even {background-color: @color-table-bg-strong;}
+//	}
+//}
 /* @end */
 
 /* @group inline text */
@@ -302,6 +289,15 @@ del[datetime],
 time[datetime] {
 	border-bottom: 2px solid @color-help;
 	cursor: help;
+}
+[datetime] {
+	&:hover:after {
+		.help;
+		position: relative;
+		left: 5px;
+		top: 5px;
+		content: attr(datetime);
+	}
 }
 .new, ins {text-decoration: underline; color: @color-ins;;}
 .old, del {text-decoration: line-through; color: @color-del;}

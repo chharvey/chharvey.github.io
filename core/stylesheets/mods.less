@@ -193,20 +193,22 @@ main { // the main container in the body
 //	}
 	/* @end */
 	/* @group math */
-	.latex {
-		font-size: 13pt;
-		font-family: @font-fam-mono;
-		white-space: pre;
+	data.latex[value] {
+		white-space: pre-line;
 		color: @color-latex-txt;
-		div&, p& {
-			@padding-lr: 2px;
-			padding-left: @padding-lr;
-			padding-right: @padding-lr;
-			background-color: @color-latex-bg;
-			overflow: auto;
+		div > &, p > & { // block-level containers containing latex
+			&:only-child {font-size: 14pt;}
+		}
+		&:after { // for when JS is disabled only
+//			content: attr(value);
+			font-family: @font-fam-mono;
 		}
 	}
-	.tex {color: #f00;} // a reminder to change all class="tex" to class="latex"
+	.tex,
+	:not(data).latex {
+		color: #f00;
+		* {color: #f00;}
+	} // a reminder to change all <... class="tex"> to <data class="latex">
 	/* @end */
 	
 	/* @group messages */
@@ -225,19 +227,19 @@ main { // the main container in the body
 		}
 	}
 	.warning { // dire consequences
-		.message(@color-warning, 'warning!');
+		.message(@color-warning, '!');
 	}
 	.caution { // be careful
-		.message(@color-caution, 'caution\2026'); // &hellip;
+		.message(@color-caution, '\2026'); // &hellip;
 	}
 	.success { // something was done right
-		.message(@color-success, 'success =)');
+		.message(@color-success, '=)');
 	}
 	.info { // extra information
-		.message(@color-info, 'info?');
+		.message(@color-info, '?');
 	}
 	.help { // tips and hints
-		.message(@color-help, 'help \2665' ); // &hearts;
+		.message(@color-help, '\2665' ); // &hearts;
 		cursor: help;
 	}
 	/* @end */
