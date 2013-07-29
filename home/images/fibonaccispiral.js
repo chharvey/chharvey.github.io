@@ -38,12 +38,12 @@ function positionSquares(mw) {
 }
 function bigtext() {
 	// sets a proportional font size for each box link
-	$('.buttons .buttontext').css('font-size', function () {
-		return $(this).parent().height() / 4 + 'px';
+	$('.buttontext').css('font-size', function () {
+		return $(this).parents('a').height() / 4 + 'px';
 	});
 	// vertically aligns the font in each box link
-	$('.buttons .buttontext').css('top',function () {
-		return ($(this).parent().height() - $(this).height()) / 2 + 'px';
+	$('.buttontext').css('top',function () {
+		return ($(this).parents('a').height() - $(this).height()) / 2 + 'px';
 	});
 }
 function positionSpiral(mw) {

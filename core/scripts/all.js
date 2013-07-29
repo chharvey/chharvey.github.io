@@ -35,6 +35,8 @@ $(document).ready(function() {
 	If trying to decide whether to include a JS method to add a class, think, "does JS need to use the class or is only used for CSS?" If JS doesn't need it, you can find a better way to get what you want using CSS.
 	The only exception to this rule is to use JS to automate repetitive commands. For instance in an unordered list, if every line item needs to have a certain class, you can save time by writing a jQuery command to add the class to every line item.
 	*/
+	$('.js-disabled-hide, .wff').css('display','block');
+	
 	/** JavaScript 'grabber' classes --- only here for jQuery selectors */
 	$('a.up, a.dn').addClass('js-link');
 	$('a.sp-up, a.sp-dn').addClass('js-sp');
@@ -109,10 +111,10 @@ $(document).ready(function() {
 //	$('.lang-jq').attr('title','jQuery');
 
 	/* math */
-	$('data.latex[value]').html(function() {
-		return $(this).attr('value'); // for Mathjax rendering
-	});
-	$('data.latex[value]:after').css('content',''); // DOESN'T WORK!
+//	$('data.latex[value]').html(function() {
+//		return $(this).attr('value'); // for Mathjax rendering
+//	});
+//	$('data.latex[value]:after').css('content',''); // DOESN'T WORK!
 //	$('data.latex[value]').attr('title',function() {
 //		return $(this).attr('value'); // for people who want to see the LaTeX source
 //	});

@@ -1,7 +1,7 @@
 MathJax.Hub.Config({
 	messageStyle: 'normal',
 	menuSettings: {
-		zoom: 'Click',
+		zoom: 'None',
 		zscale: '150%',
 	},
 	tex2jax: {
@@ -14,7 +14,10 @@ MathJax.Hub.Config({
 		extensions: ['action.js'],
 		equationNumbers: {autoNumber: 'AMS'},
 		Macros: {
-			RR: '{\\mathbb\{R\}}',
+//			bold: ['{\\bf #1}',1], // template
+			expand: ['{\\left\(\\toggle\{\\text\{#1\}\}\{#2\}\\endtoggle\\right\)}',2],
+			l: ['{\\mathsf #1}',1], // propositional variables, predicates
+			RR: '{\\mathbb\{R\}}', // real numbers
 		},
 	},
 	'HTML-CSS': {

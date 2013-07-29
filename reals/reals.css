@@ -488,7 +488,10 @@ a .latex {
 /* @end */
 /* @end */
 /* @group hacks */
-.noshow {
+/* the following class should be applied only to elements loaded in browsers with JS disabled. In all.js, see methods for removing this class. */.js-disabled-hide {
+  display: none;
+}
+.seo-only {
   display: none !important;
 }
 @media print {
@@ -498,10 +501,6 @@ a .latex {
 }
 .invisible {
   visibility: hidden;
-}
-.draft,
-.draft * {
-  color: #ccc !important;
 }
 /* @end */
 /* @end TYPO */
@@ -725,19 +724,20 @@ code .comment {
 }
 /* @end */
 /* @group math */
-data.latex[value] {
+.latex {
+  font-family: 'Courier New', 'Courier', 'Lucida Sans Typewriter', 'Monaco', monospace;
   white-space: pre-line;
   color: #000000;
 }
-data.latex[value]:after {
-  font-family: 'Courier New', 'Courier', 'Lucida Sans Typewriter', 'Monaco', monospace;
+div.latex,
+p.latex {
+  font-size: 13pt;
+  overflow: auto;
 }
-.tex,
-:not(data).latex {
+.tex {
   color: #f00;
 }
-.tex *,
-:not(data).latex * {
+.tex * {
   color: #f00;
 }
 /* @end */
@@ -876,7 +876,7 @@ data.latex[value]:after {
   line-height: 1.5em;
   color: #000000;
 }
-.definition p {
+.definition p:not(.latex) {
   margin: 0 0 0.5em;
   line-height: 1.4em;
   margin-bottom: 0.75em;
@@ -889,6 +889,18 @@ data.latex[value]:after {
 }
 .definition p.summary {
   font-style: italic;
+}
+.definition p.summary > span.lede {
+  font-style: normal;
+}
+.definition p.summary > span.lede:before {
+  content: '(';
+}
+.definition p.summary > span.lede:after {
+  content: ')';
+}
+.definition p.wff {
+  display: none;
 }
 .definition dfn {
   font-weight: bold;
@@ -909,7 +921,7 @@ data.latex[value]:after {
   line-height: 1.5em;
   color: #000000;
 }
-.axiom p {
+.axiom p:not(.latex) {
   margin: 0 0 0.5em;
   line-height: 1.4em;
   margin-bottom: 0.75em;
@@ -922,6 +934,18 @@ data.latex[value]:after {
 }
 .axiom p.summary {
   font-style: italic;
+}
+.axiom p.summary > span.lede {
+  font-style: normal;
+}
+.axiom p.summary > span.lede:before {
+  content: '(';
+}
+.axiom p.summary > span.lede:after {
+  content: ')';
+}
+.axiom p.wff {
+  display: none;
 }
 .theorem {
   display: table;
@@ -938,7 +962,7 @@ data.latex[value]:after {
   line-height: 1.5em;
   color: #000000;
 }
-.theorem p {
+.theorem p:not(.latex) {
   margin: 0 0 0.5em;
   line-height: 1.4em;
   margin-bottom: 0.75em;
@@ -951,6 +975,18 @@ data.latex[value]:after {
 }
 .theorem p.summary {
   font-style: italic;
+}
+.theorem p.summary > span.lede {
+  font-style: normal;
+}
+.theorem p.summary > span.lede:before {
+  content: '(';
+}
+.theorem p.summary > span.lede:after {
+  content: ')';
+}
+.theorem p.wff {
+  display: none;
 }
 .theorem > .proof > .qed {
   border-bottom: 0;

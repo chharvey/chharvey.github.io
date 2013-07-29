@@ -12,801 +12,350 @@
 <script src="../core/scripts/jquery-ui-1.10.3.custom.min.js"></script>
 <script src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML,http://chharvey.net16.net/core/scripts/mathjax-localconfig.js"></script>
 <script src="../core/scripts/all.js"></script>
-<script type="text/javascript">
-$(document).ready(function() {
-	/** JavaScript 'grabber' classes --- only here for jQuery selectors */
-	$('.definition').addClass('js-mathnode');
-	$('.axiom').addClass('js-mathnode');
-	$('.theorem').addClass('js-mathnode');
-	
-	var nodect = 0;
-	$('.js-mathnode').each(function() {
-		$(this).wrapInner(newElem('div').addClass('js-mathnode-content'));
-		$(this).prepend(newElem('div').addClass('js-mathnode-label'));
-		$(this).children('.js-mathnode-label').html(function() {
-			var theparent = $(this).parent();
-			var mathnodetype = '';
-			if (theparent.hasClass('definition')) {
-				mathnodetype = 'Definition';
-			} else if (theparent.hasClass('axiom')) {
-				mathnodetype = 'Axiom';
-			} else if (theparent.hasClass('theorem')) {
-				mathnodetype = 'Theorem';
-			}
-			return mathnodetype + ' ' + ++nodect;
-		});
-	});
-	addLede($('.proof'), 'Proof. ');
-//	addLede($('.informal'), 'Informal Remark. ');
-	$('a.internal').addClass('up');
-	
-	
-//	var sectct = 0;	
-//	$('section').each(function() {
-//		sectct++;
-//		var nodect = 0;
-//		$(this).children('.js-mathnode').prepend(function() {
-//			return newElem('div').addClass('').html(getMathnodeType($(this)) + sectct + '.' + ++nodect);
-//		});
-//	});
-	
-	
-//	$('.proof').append(
-//		newElem('abbr').addClass('qed').attr('title','quod erat demonstrandum').append(
-//			newElem('i').attr('lang','la').html(' q.e.d.').css('color','#0c0')
-//		)
-//	);
-//	
-	
-//	
-//	
-//	
-//	
-//	
-	
-	
-	
-	/* changes the text contents of an internal link to the label of the node to which it links. */
-//	$('a.internal[href]').html(function() {
-//		return $($(this).attr('href') + ' > .label').html();
-//	});	
-	/* changes the title of an internal link to the contents of the node to which it links. */
-//	$('a.internal[href]').attr('title', function() {
-//		return $($(this).attr('href') + ' .summary').text();
-//	});
-});
-</script>
+<script src="reals.js"></script>
 </head>
 <body>
-<div class="main">
+<div class="main draft">
 <header>
-	<h1 class="h-alpha">An Axiomatic Approach to the Continuum</h1>
+	<h1 class="h-alpha">
+		An Axiomatic Approach to the Continuum
+		<br />Part I: Propositional Logic
+	</h1>
 </header>
-<section class="informal">
-	<table class="table-bars" hidden="hidden">
-		<caption>binary counting order</caption>
-		<colgroup span="1"></colgroup>
-		<colgroup span="2" title="variables"></colgroup>
-		<colgroup span="16" title="operations"></colgroup>
-		<thead>
-			<tr style="text-transform: uppercase;">
-				<th scope="row" style="text-transform: none;">Names</th>
-				<th scope="col" class="latex">\[\mathsf{p}\]</th>
-				<th scope="col" class="latex">\[\mathsf{q}\]</th>
-				
-				<th scope="col" id="0000">bot</th>
-				<th scope="col" id="0001">and</th>
-				<th scope="col" id="0010">nneht</th>
-				<th scope="col" id="0011">id<sub class="latex">\(\mathsf{p}\)</sub></th>
-				<th scope="col" id="0100">nthen</th>
-				<th scope="col" id="0101">id<sub class="latex">\(\mathsf{q}\)</sub></th>
-				<th scope="col" id="0110">xor</th>
-				<th scope="col" id="0111">or</th>
-				
-				<th scope="col" id="1000">nor</th>
-				<th scope="col" id="1001">iff</th> 
-				<th scope="col" id="1010">not<sub class="latex">\(\mathsf{q}\)</sub></th>
-				<th scope="col" id="1011">nhet</th>
-				<th scope="col" id="1100">not<sub class="latex">\(\mathsf{p}\)</sub></th>
-				<th scope="col" id="1101">then</th>
-				<th scope="col" id="1110">nand</th>
-				<th scope="col" id="1111">top</th>
-			</tr>
-			<tr>
-				<th scope="row">Nonary Operations</th>
-				<td colspan="2"></td>
-				<th headers="0000" class="latex">\[\bot\]</th>
-				<td headers="0001"></td>
-				<td headers="0010"></td>
-				<td headers="0011"></td>
-				<td headers="0100"></td>
-				<td headers="0101"></td>
-				<td headers="0110"></td>
-				<td headers="0111"></td>
-				<td headers="1000"></td>
-				<td headers="1001"></td>
-				<td headers="1010"></td>
-				<td headers="1011"></td>
-				<td headers="1100"></td>
-				<td headers="1101"></td>
-				<td headers="1110"></td>
-				<th headers="1111" class="latex">\[\top\]</th>
-			</tr>
-			<tr>
-				<th scope="row">Unary Operations</th>
-				<td colspan="2"></td>
-				<td headers="0000"></td>
-				<td headers="0001"></td>
-				<td headers="0010"></td>
-				<th headers="0011" class="latex">\[\mathsf{p}\]</th>
-				<td headers="0100"></td>
-				<th headers="0101" class="latex">\[\mathsf{q}\]</th>
-				<td headers="0110"></td>
-				<td headers="0111"></td>
-				<td headers="1000"></td>
-				<td headers="1001"></td>
-				<th headers="1010" class="latex">\[\lnot\mathsf{q}\]</th>
-				<td headers="1011"></td>
-				<th headers="1100" class="latex">\[\lnot\mathsf{p}\]</th>
-				<td headers="1101"></td>
-				<td headers="1110"></td>
-				<td headers="1111"></td>
-			</tr>
-			<tr>
-				<th scope="row">Binary Operations (in terms of <i class="mention">OR</i>)</th>
-				<td colspan="2"></td>
-				<td headers="0000"></td>
-				<th headers="0001" class="latex">\[\lnot\mathsf{p}\not\lor\lnot\mathsf{q}\]</th>
-				<th headers="0010" class="latex">\[\lnot\mathsf{p}\not\lor\mathsf{q}\]</th>
-				<td headers="0011"></td>
-				<th headers="0100" class="latex">\[\mathsf{p}\not\lor\lnot\mathsf{q}\]</th>
-				<td headers="0011"></td>
-				<th headers="0110" class="latex">\[
-					(\mathsf{p}\not\lor\mathsf{q})\\
-					\not\lor\\
-					(\lnot\mathsf{p}\not\lor\lnot\mathsf{q})
-				\]</th>
-				<th headers="0111" class="latex">\[\mathsf{p}\lor\mathsf{q}\]</th>
-				<th headers="1000" class="latex">\[\mathsf{p}\not\lor\mathsf{q}\]</th>
-				<th headers="1001" class="latex">\[
-					(\mathsf{p}\not\lor\mathsf{q})\\
-					\lor\\
-					(\lnot\mathsf{p}\not\lor\lnot\mathsf{q})
-				\]</th>
-				<td headers="1010"></td>
-				<th headers="1011" class="latex">\[\mathsf{p}\lor\lnot\mathsf{q}\]</th>
-				<td headers="1100"></td>
-				<th headers="1101" class="latex">\[\lnot\mathsf{p}\lor\mathsf{q}\]</th>
-				<th headers="1110" class="latex">\[\lnot\mathsf{p}\lor\lnot\mathsf{q}\]</th>
-				<td headers="1111"></td>
-			</tr>
-			<tr>
-				<th scope="row">Binary Operations (in terms of <i class="mention">AND</i>)</th>
-				<td colspan="2"></td>
-				<td headers="0000"></td>
-				<th headers="0001" class="latex">\[\mathsf{p}\land\mathsf{q}\]</th>
-				<th headers="0010" class="latex">\[\mathsf{p}\land\lnot\mathsf{q}\]</th>
-				<td headers="0011"></td>
-				<th headers="0100" class="latex">\[\mathsf{p}\not\lor\lnot\mathsf{q}\]</th>
-				<td headers="0011"></td>
-				<th headers="0110" class="latex">\[
-					(\mathsf{p}\not\lor\mathsf{q})\\
-					\not\lor\\
-					(\lnot\mathsf{p}\not\lor\lnot\mathsf{q})
-				\]</th>
-				<th headers="0111" class="latex">\[\mathsf{p}\lor\mathsf{q}\]</th>
-				<th headers="1000" class="latex">\[\mathsf{p}\not\lor\mathsf{q}\]</th>
-				<th headers="1001" class="latex">\[
-					(\mathsf{p}\not\lor\mathsf{q})\\
-					\lor\\
-					(\lnot\mathsf{p}\not\lor\lnot\mathsf{q})
-				\]</th>
-				<td headers="1010"></td>
-				<th headers="1011" class="latex">\[\lnot\mathsf{p}\lor\mathsf{q}\]</th>
-				<td headers="1100"></td>
-				<th headers="1101" class="latex">\[\mathsf{p}\lor\lnot\mathsf{q}\]</th>
-				<th headers="1110" class="latex">\[\lnot\mathsf{p}\lor\lnot\mathsf{q}\]</th>
-				<td headers="1111"></td>
-			</tr>
-		</thead>
-	</table>
-</section>
-<section>
+<section id="logical-operators">
 	<header>
-		<h1 class="h-beta">Propositional Logic</h1>
+		<h1 class="h-gamma">Logical Operators</h1>
 	</header>
-	<section>
-		<div class="axiom" id="A-existence">
-			<p class="summary"><span class="lede">(The Axiom of Existence)</span> There exists a set with no elements, and that set is unique.</p>
-			<p class="wff"><data class="latex" value="
-				\[ \Bigl(\exists x\Bigr)\Bigl(
-					\bigl(\forall y\bigr)\bigl(
-						\mathtip{(\forall t)(t\not\in y)}{y \text{ is empty}}
-						\iff
-						\mathtip{(\forall t)(t\in x \iff t\in y)}{x=y}
-					\bigr)
-				\Bigr) \]
-			"></data></p>
-			<p>This set is denoted <data class="latex" value="\(\varnothing\)"></data> and is called <b>the empty set</b>.</p>
-		</div>
-		<header>
-			<h1 class="h-gamma">Preliminary Definitions</h1>
-		</header>
-		<div class="definition" id="D-set">
-			<p class="summary">A <dfn>set</dfn> is that which may contain elements. These elements, in turn, are also sets.</p>
-			<p>If a set <span class="latex">\(X\)</span> contains a set <span class="latex">\(x\)</span>, we state, <q class="latex">\(x\in X\)</q> (<q><span class="latex">\(x\)</span> is an element of <span class="latex">\(X\)</span></q>), or alternatively, <q class="latex">\(X\owns x\)</q> (<q><span class="latex">\(X\)</span> contains <span class="latex">\(x\)</span></q>). If a set <span class="latex">\(X\)</span> does not contain a set <span class="latex">\(x\)</span>, we state, <q class="latex">\(x\not\in X\)</q> or, <q class="latex">\(X\not\owns x\)</q>.</p>
-		</div>
-		<aside><p>It is interesting that the first node of this axiomatic system is a cyclic definition. All systems must start from one point, and the idea of a <b>set</b> is that starting point. If we take for granted the definition of a set, we can use it to construct more building blocks in the system.</p></aside>
-		<div class="definition" id="D-proposition">
-			<p class="summary">A <dfn>proposition</dfn> <span class="latex">\(\mathsf{p}\)</span> is a statement concerning sets. This statement may be <span class="latex">\(\text{true}\)</span> or <span class="latex">\(\text{false}\)</span>.</p>
-			<p>When we assert that <span class="latex">\(\mathsf{p}\)</span> is <span class="latex">\(\text{true}\)</span>, we state, <q><span class="latex">\(\mathsf{p}\)</span></q>.</p>
-		</div>
-		<div class="definition" id="D-lnot">
-			<p class="summary">Given a proposition <span class="latex">\(\mathsf{p}\)</span>, the assertion <i class="mention"><span class="latex">\(\mathsf{p}\)</span> is <span class="latex">\(\text{false}\)</span></i> is itself a proposition, called the <dfn>negation</dfn> <span class="latex">\(\lnot\mathsf{p}\)</span> of <span class="latex">\(\mathsf{p}\)</span>.</p>
-			<p>When we assert that <span class="latex">\(\mathsf{p}\)</span> is <span class="latex">\(\text{false}\)</span>, we state, <q>not <span class="latex">\(\mathsf{p}\)</span></q>.</p>
-		</div>
-		<div class="definition" id="D-implies">
-			<p class="summary">Given propositions <span class="latex">\(\mathsf{p}\)</span> and <span class="latex">\(\mathsf{q}\)</span>, the assertion <i class="mention">if <span class="latex">\(\mathsf{p}\)</span> is <span class="latex">\(\text{true}\)</span> then <span class="latex">\(\mathsf{q}\)</span> must be <span class="latex">\(\text{true}\)</span></i> is itself a proposition, called a <dfn>(material) implication</dfn> <span class="latex">\(\mathsf{p}\implies\mathsf{q}\)</span>.</p>
-		</div>
-		<aside>
-			<table class="table-list">
-				<caption>There are a number of other ways to express a material implication.</caption>
-				<colgroup span="2"></colgroup>
-				<thead><tr><th colspan="2">When <span class="latex">\(\mathsf{p}\implies\mathsf{q}\)</span> is <span class="latex">\(\text{true}\)</span>, we state,</th></tr></thead>
-				<tbody>
-					<tr>
-						<td><q><span class="latex">\(\mathsf{p}\)</span> is the antecedent</q></td>
-						<td><q><span class="latex">\(\mathsf{q}\)</span> is the consequent</q></td>
-					</tr>
-					<tr>
-						<td><q><span class="latex">\(\mathsf{p}\)</span> is the hypothesis</q></td>
-						<td><q><span class="latex">\(\mathsf{q}\)</span> is the conclusion</q></td>
-					</tr>
-					<tr>
-						<td><q><span class="latex">\(\mathsf{p}\)</span> only if <span class="latex">\(\mathsf{q}\)</span></q></td>
-						<td><q><span class="latex">\(\mathsf{q}\)</span> if <span class="latex">\(\mathsf{p}\)</span></q></td>
-					</tr>
-					<tr>
-						<td><q><span class="latex">\(\mathsf{p}\)</span> implies <span class="latex">\(\mathsf{q}\)</span></q></td>
-						<td><q><span class="latex">\(\mathsf{q}\)</span> is implied by <span class="latex">\(\mathsf{p}\)</span></q></td>
-					</tr>
-					<tr>
-						<td><q><span class="latex">\(\mathsf{p}\)</span> is sufficient for <span class="latex">\(\mathsf{q}\)</span></q></td>
-						<td><q><span class="latex">\(\mathsf{q}\)</span> is necessary for <span class="latex">\(\mathsf{p}\)</span></q></td>
-					</tr>
-					<tr>
-						<td><q><span class="latex">\(\mathsf{p}\)</span> is stronger than <span class="latex">\(\mathsf{q}\)</span></q></td>
-						<td><q><span class="latex">\(\mathsf{q}\)</span> is weaker than <span class="latex">\(\mathsf{p}\)</span></q></td>
-					</tr>
-					
-				</tbody>
-			</table>
-		</aside>
-		<div class="definition" id="D-implication-alt">
-			<p class="summary">Given an implication <span class="latex">\(\mathsf{r}\)</span> defined by <span class="latex">\(\mathsf{p}\implies\mathsf{q}\)</span>,</p>
-			<ul class="list-delta">
-				<li>the implication <span class="latex">\(\mathsf{q}\implies\mathsf{p}\)</span> is called the <dfn>converse</dfn> of <span class="latex">\(\mathsf{r}\)</span>.</li>
-				<li>the implication <span class="latex">\(\lnot\mathsf{p}\implies\lnot\mathsf{q}\)</span> is called the <dfn>inverse</dfn> of <span class="latex">\(\mathsf{r}\)</span>.</li>
-				<li>the implication <span class="latex">\(\lnot\mathsf{q}\implies\lnot\mathsf{p}\)</span> is called the <dfn>contrapositive</dfn> of <span class="latex">\(\mathsf{r}\)</span>.</li>
-			</ul>
-		</div>
-		<div class="definition" id="D-lor">
-			<p class="summary">Given propositions <span class="latex">\(\mathsf{p}\)</span> and <span class="latex">\(\mathsf{q}\)</span>, the <dfn>disjunction</dfn> <span class="latex">\(\mathsf{p}\lor\mathsf{q}\)</span> is a proposition defined by the implication <span class="latex">\(\lnot\mathsf{p}\implies\mathsf{q}\)</span>.</p>
-			<p>When <span class="latex">\(\mathsf{p}\lor\mathsf{q}\)</span> is <span class="latex">\(\text{true}\)</span>, we state, <q><span class="latex">\(\mathsf{p}\)</span> or <span class="latex">\(\mathsf{q}\)</span></q>.</p>
-		</div>
-		<div class="definition" id="D-land">
-			<p class="summary">Given propositions <span class="latex">\(\mathsf{p}\)</span> and <span class="latex">\(\mathsf{q}\)</span>, the <dfn>conjunction</dfn> <span class="latex">\(\mathsf{p}\land\mathsf{q}\)</span> is a proposition defined by the negation <span class="latex">\(\lnot(\mathsf{p}\implies\lnot\mathsf{q})\)</span>.</p>
-			<p>When <span class="latex">\(\mathsf{p}\land\mathsf{q}\)</span> is <span class="latex">\(\text{true}\)</span>, we state, <q><span class="latex">\(\mathsf{p}\)</span> and <span class="latex">\(\mathsf{q}\)</span></q>.</p>
-		</div>
-		<aside>
-			<h1 class="h-delta">A discussion on <q>or</q> and <q>and</q>.</h1>
-			<p>The disjunction <span class="latex">\(\mathsf{p}\lor\mathsf{q}\)</span> is <span class="latex">\(\text{true}\)</span> exactly when the assertion that &ldquo;if <span class="latex">\(\mathsf{p}\)</span> is <span class="latex">\(\text{false}\)</span> then <span class="latex">\(\mathsf{q}\)</span> must be <span class="latex">\(\text{true}\)</span>&rdquo; is <span class="latex">\(\text{true}\)</span>.</p>
-			<p>The conjunction <span class="latex">\(\mathsf{p}\land\mathsf{q}\)</span> is <span class="latex">\(\text{true}\)</span> exactly when the assertion that &ldquo;if <span class="latex">\(\mathsf{p}\)</span> is <span class="latex">\(\text{true}\)</span> then <span class="latex">\(\mathsf{q}\)</span> must be <span class="latex">\(\text{false}\)</span>&rdquo; is <span class="latex">\(\text{false}\)</span>.</p>
-		</aside>
-		<div class="definition" id="D-iff">
-			<p class="summary">Given propositions <span class="latex">\(\mathsf{p}\)</span> and <span class="latex">\(\mathsf{q}\)</span>, the <dfn>(material) equivalence</dfn> <span class="latex">\(\mathsf{p}\iff\mathsf{q}\)</span> is a proposition defined by the conjunction <span class="latex">\((\mathsf{p}\implies\mathsf{q})\land(\mathsf{q}\implies\mathsf{p})\)</span>.</p>
-			<p class="latex wff">\[(\mathsf{p}\iff\mathsf{q}) \equiv (\mathsf{p}\implies\mathsf{q})\land(\mathsf{q}\implies\mathsf{p})\]</p>
-		</div>
-		<table class="table-list">
-			<caption>There are a number of other ways to express a material equivalence.</caption>
-			<colgroup></colgroup>
-			<thead><tr><th>When <span class="latex">\(\mathsf{p}\iff\mathsf{q}\)</span> is <span class="latex">\(\text{true}\)</span>, we state,</th></tr></thead>
-			<tbody>
-				<tr><td><q><span class="latex">\(\mathsf{p}\)</span> if and only if (iff) <span class="latex">\(\mathsf{q}\)</span></q></td></tr>
-				<tr><td><q><span class="latex">\(\mathsf{p}\)</span> implies and is implied by <span class="latex">\(\mathsf{q}\)</span></q></td></tr>
-				<tr><td><q><span class="latex">\(\mathsf{p}\)</span> is necessary and sufficient for <span class="latex">\(\mathsf{q}\)</span></q></td></tr>
-				<tr><td><q><span class="latex">\(\mathsf{p}\)</span> is materially equivalent to <span class="latex">\(\mathsf{q}\)</span></q></td></tr>
-			</tbody>
-		</table>	
-		<div class="definition" id="D-tautology">
-			<p class="summary">Given a proposition <span class="latex">\(\mathsf{p}\)</span>, the <dfn>tautology</dfn> <span class="latex">\(\top\)</span> is a proposition defined by the implication <span class="latex">\(\mathsf{p}\implies\mathsf{p}\)</span>.</p>
-		</div>
-		<div class="definition" id="D-contradiction">
-			<p class="summary">Given a proposition <span class="latex">\(\mathsf{p}\)</span>, the <dfn>contradiction</dfn> <span class="latex">\(\bot\)</span> is a proposition defined by the negation <span class="latex">\(\lnot(\mathsf{p}\implies\mathsf{p})\)</span>.</p>
-		</div>
-		
-		<aside hidden="hidden">
-			<table class="table-bars">
-				<caption>In summary:</caption>
-				<thead>
-					<tr>
-						<th class="latex">\(\mathsf{p}\)</th>
-						<th class="latex">\(\mathsf{q}\)</th>
-						<th class="latex">\(\lnot\mathsf{p}\)</th>
-						<th class="latex">\(\lnot\mathsf{q}\)</th>
-						<th class="latex">\(\mathsf{p}\implies\mathsf{q}\)</th>
-						<th class="latex">\(\mathsf{p}\lor\mathsf{q}\)</th>
-						<th class="latex">\(\mathsf{p}\land\mathsf{q}\)</th>
-						<th class="latex">\(\mathsf{p}\iff\mathsf{q}\)</th>
-						<th class="latex">\(\top\)</th>
-						<th class="latex">\(\bot\)</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>false</td>
-						<td>false</td>
-						<td>true</td>
-						<td>true</td>
-						<td>true</td>
-						<td>false</td>
-						<td>false</td>
-						<td>true</td>
-					</tr>
-					<tr>
-						<td>false</td>
-						<td>true</td>
-						<td>true</td>
-						<td>false</td>
-						<td>true</td>
-						<td>true</td>
-						<td>false</td>
-						<td>false</td>
-					</tr>
-					<tr>
-						<td>true</td>
-						<td>false</td>
-						<td>false</td>
-						<td>true</td>
-						<td>false</td>
-						<td>true</td>
-						<td>false</td>
-						<td>false</td>
-					</tr>
-					<tr>
-						<td>true</td>
-						<td>true</td>
-						<td>false</td>
-						<td>false</td>
-						<td>true</td>
-						<td>true</td>
-						<td>true</td>
-						<td>true</td>
-					</tr>
-				</tbody>
-			</table>
-		</aside>
-	</section>
-
-	<section class="draft">
-		<pre>
-dfn of logical equivalence: p equiv q if and only if ...? p iff q is a T?
-
-##Law of Contraposition
-(p then q); equiv (-q then -p) ? is axiom?
-		
-##Law of Excluded Middle: p or -p equiv T
-proof:
-p or -p		given
--p then -p	dfn of 'or'
-p then p	law of contraposition
-T			dfn of T
-
-
-#Double negation elimination
-(--p) = p
-
-
-
-
-#proofs involving implications
-
-
-
-##Implication Identity
-(T then p); equiv p
-proof using 'deduction', conjunction, disjunction
-	T then p				given
-	C or p					dfn of 'or'
-	p						Disjunction Identity
-proof using 'deduction', implication
-	T then p				given
-	(p then p) then p		defn of 'T'
-	(-p or p) then p		defn of 'or'
-	-(-p or p) or p			defn of 'or'
-	(p and -p) or p 		demorgan's laws
-	(p or p) and (-p or p)	distributive1
-	p and T					law of excluded middle
-	p						Conjunction Identity
-proof using '(A equiv B) if and only if (A iff B equiv T)'
-	T then p iff p
-	(p then p) then p iff p			defn of 'T'
-	(-p or p) then p iff p			defn of 'or'
-	-(-p or p) or p iff p			defn of 'or'
-	(p and -p) or p iff p 			demorgan's laws
-	(p or p) and (-p or p) iff p	distributive1
-	p and T iff p					law of excluded middle
-	p iff p							Conjunction Identity
-	(p then p) & (p then p)			dfn of 'iff'
-	p then p						Conjunction Elimination
-	T								dfn of T
-
-##Proof by Contradiction
-(p then C); therefore -p
-proof1
-	p then C
-	-p or C		dfn of or
-	-p			Disjunction Identity
-
-
-#proofs involving disjunctions
-
 	
-
-		</pre>
-		
-		
+	
+	<div class="definition" id="D-set">
+		<p class="summary">A <dfn>set</dfn> is that which may contain elements. These elements, in turn, are also sets.</p>
+		<p>If a set <span class="latex">\(S\)</span> contains a set <span class="latex">\(t\)</span>, we state, <q class="latex">\(t\in S\)</q> (<q><span class="latex">\(t\)</span> is an element of <span class="latex">\(S\)</span></q>), or alternatively, <q class="latex">\(S\owns t\)</q> (<q><span class="latex">\(S\)</span> contains <span class="latex">\(t\)</span></q>). If a set <span class="latex">\(S\)</span> does not contain a set <span class="latex">\(t\)</span>, we state,<q class="latex">\lnot\(x\in X\)</q>, <q class="latex">\(x\not\in X\)</q> or, <q class="latex">\(X\not\owns x\)</q>.</p>
+	</div>
+	<div id="D-set">
+		<p><b class="lede">Definition </b> A <dfn>set</dfn> is a collection of objects. The objects in a set are called its <dfn>elements</dfn>. If <span class="tex">\(X\)</span> is a set and <span class="tex">\(x\)</span> is an object, then we state <span class="tex">\(x\in X\)</span> (or <span class="tex">\(X\ni x\)</span>) if and only if <span class="tex">\(x\)</span> is an element of <span class="tex">\(X\)</span>. Otherwise, we state <span class="tex">\(x\notin X\)</span> (or <span class="tex">\(X\not\ni x\)</span>).</p>
+	</div>
+	<table class="table-bars">
+		<thead><tr><th class="tex">\(x\in X\)</th><th class="tex">\(X\ni x\)</th></tr></thead>
+		<tbody>
+			<tr>
+				<td><span class="tex">\(x\)</span> is an element of <span class="tex">\(X\)</span></td>
+				<td><span class="tex">\(X\)</span> owns <span class="tex">\(x\)</span></td>
+			</tr>
+			<tr>
+				<td><span class="tex">\(x\)</span> is a member of <span class="tex">\(X\)</span></td>
+				<td><span class="tex">\(X\)</span> is a possessor of <span class="tex">\(x\)</span></td>
+			</tr>
+		</tbody>
+	</table>
+	<aside><p>It is interesting that the first node of this axiomatic system is a cyclic definition. All systems must start from one point, and the idea of a <b>set</b> is that starting point. If we take for granted the definition of a set, we can use it to construct more building blocks in the system.</p></aside>
+	
+	
+	<div class="definition" id="D-proposition">
+		<p class="summary">A <dfn>proposition</dfn> <span class="latex">\(\mathsf{p}\)</span> is a statement that uses sets. This statement may be <span class="latex">\(\text{true}\)</span> or <span class="latex">\(\text{false}\)</span>.</p>
+		<p>When we assert that <span class="latex">\(\mathsf{p}\)</span> is <span class="latex">\(\text{true}\)</span>, we state, <q><span class="latex">\(\mathsf{p}\)</span></q>.</p>
+	</div>
+	
+	
+	
+	<div class="definition" id="D-lnot">
+		<p class="summary">Given a proposition <span class="latex">\(\mathsf{p}\)</span>, the assertion <i class="mention"><span class="latex">\(\mathsf{p}\)</span> is <span class="latex">\(\text{false}\)</span></i> is itself a proposition, called the <dfn>negation</dfn> <span class="latex">\(\lnot\mathsf{p}\)</span> of <span class="latex">\(\mathsf{p}\)</span>.</p>
+		<p>When we assert that <span class="latex">\(\mathsf{p}\)</span> is <span class="latex">\(\text{false}\)</span>, we state, <q>not <span class="latex">\(\mathsf{p}\)</span></q>.</p>
+	</div>
+	<div class="definition" id="D-lor">
+		<p class="summary">Given propositions <span class="latex">\(\mathsf{p}\)</span> and <span class="latex">\(\mathsf{q}\)</span>, the <dfn>disjunction</dfn> <span class="latex">\(\mathsf{p}\lor\mathsf{q}\)</span> is a proposition defined by the implication <span class="latex">\(\lnot\mathsf{p}\implies\mathsf{q}\)</span>.</p>
+		<p>When <span class="latex">\(\mathsf{p}\lor\mathsf{q}\)</span> is <span class="latex">\(\text{true}\)</span>, we state, <q><span class="latex">\(\mathsf{p}\)</span> or <span class="latex">\(\mathsf{q}\)</span></q>.</p>
+	</div>
+	<div class="definition" id="D-land">
+		<p class="summary">Given propositions <span class="latex">\(\mathsf{p}\)</span> and <span class="latex">\(\mathsf{q}\)</span>, the <dfn>conjunction</dfn> <span class="latex">\(\mathsf{p}\land\mathsf{q}\)</span> is a proposition defined by the negation <span class="latex">\(\lnot(\mathsf{p}\implies\lnot\mathsf{q})\)</span>.</p>
+		<p>When <span class="latex">\(\mathsf{p}\land\mathsf{q}\)</span> is <span class="latex">\(\text{true}\)</span>, we state, <q><span class="latex">\(\mathsf{p}\)</span> and <span class="latex">\(\mathsf{q}\)</span></q>.</p>
+	</div>
+	<aside>
+		<h1 class="h-delta">A discussion on <q>or</q> and <q>and</q>.</h1>
+		<p>The disjunction <span class="latex">\(\mathsf{p}\lor\mathsf{q}\)</span> is <span class="latex">\(\text{true}\)</span> exactly when the assertion that &ldquo;if <span class="latex">\(\mathsf{p}\)</span> is <span class="latex">\(\text{false}\)</span> then <span class="latex">\(\mathsf{q}\)</span> must be <span class="latex">\(\text{true}\)</span>&rdquo; is <span class="latex">\(\text{true}\)</span>.</p>
+		<p>The conjunction <span class="latex">\(\mathsf{p}\land\mathsf{q}\)</span> is <span class="latex">\(\text{true}\)</span> exactly when the assertion that &ldquo;if <span class="latex">\(\mathsf{p}\)</span> is <span class="latex">\(\text{true}\)</span> then <span class="latex">\(\mathsf{q}\)</span> must be <span class="latex">\(\text{false}\)</span>&rdquo; is <span class="latex">\(\text{false}\)</span>.</p>
 		<p><span class="latex">\(\mathsf{p}\lor\mathsf{q}\)</span> is <span class="latex">\(\text{true}\)</span> iff <span class="latex">\(\mathsf{p}\)</span> or <span class="latex">\(\mathsf{q}\)</span> (or possibly both) are <span class="latex">\(\text{true}\)</span>.</p>
 		<p><span class="latex">\(\mathsf{p}\land\mathsf{q}\)</span> is true iff <span class="latex">\(\mathsf{p}\)</span> and <span class="latex">\(\mathsf{q}\)</span> are both true.</p>
-		
-		
-		<header>
-			<h1 class="h-gamma">The Axioms</h1>
-			<p>now we have everything we need to get started</p>
-		</header>
-		
-		
-		
-		
-		
-		
-		<div class="axiom" id="A-proposition"><p class="summary">A proposition exists.</p></div>
-		<aside><p><a class="internal" href="#A-proposition"></a> can be thought of as the <b>Bootstrap Axiom</b>, because it is a proposition that asserts the existence of itself. By merely existing it is fulfilling its prophecy. Simply put, it proves itself true. Think for a moment about what would happen if it were false. Then there would be no propositions, and it simply wouldn't exist. Thus at this point we can conclude that there is at least one true proposition.</p></aside>
-		
-		
-		
-		
-		
-		
-		
-		<div class="theorem" id="T-bivalence">
-				<p class="summary"><span class="lede">(The Principle of Bivalence)</span> It is always the case that a proposition is <span class="latex">\(\text{true}\)</span> or <span class="latex">\(\text{false}\)</span>, and it is never the case that a proposition is both <span class="latex">\(\text{true}\)</span> and <span class="latex">\(\text{false}\)</span>.</p>
-				<p class="latex wff">\[\mathsf{p} \lor \lnot\mathsf{p}\]</p>
-				<p class="latex wff">\[\lnot(\mathsf{p} \land \lnot\mathsf{p})\]</p>
-		<!--		<p class="summary"><span class="lede">(The Principle of Bivalence, Set Theory Version)</span> It is always the case that a set is an element of, or not an element of, another set, and it is never the case that a set is both an element of, and not an element of, another set.</p>
-				<p class="latex wff">\[x\in X \lor x\not\in X\]</p>
-				<p class="latex wff">\[\lnot(x\in X \land x\not\in X)\]</p>-->
-		</div>
-		<aside>
-			<p>The logical values <span class="tex">\(\text{true}\)</span> and <span class="tex">\(\text{false}\)</span> are both <strong>collectively exhaustive</strong> and <strong>mutually exclusive</strong>. In other words, a proposition must be either true or false, and it can only be one of these.</p>
-		</aside>
-		
-		By <a class="internal" href="#A-bivalence"></a>, <span class="latex">\(\bot\)</span> is always <span class="latex">\(\text{false}\)</span>.
-		By <a class="internal" href="#A-bivalence"></a>, <span class="latex">\(\top\)</span> is always <span class="latex">\(\text{true}\)</span>.
-		<aside><p>Given the existence of more than one proposition, we can combine them in order to construct new propositions.</p></aside>
-		<div class="axiom" id="A-lawofidentity">
-			<p class="summary"><span class="lede">(The Law of Identity)</span> If <span class="latex">\(\mathsf{p}\)</span> is <span class="latex">\(\text{true}\)</span> then <span class="latex">\(\mathsf{q}\)</span> must be <span class="latex">\(\text{true}\)</span>.</p>
-			<p class="latex wff">\[\mathsf{p}\implies\mathsf{p}\]</p>
-		</div>
-	
-	</section>
-	
-</section>	
-	
-	
-<section hidden="hidden">
-	
-	
-	
-		
-	
-	<span class="lede">(The Classic Laws of Thought)</span>
-	
-	<div class="theorem" id="T-classiclaws">
-		<p class="summary"> Given a proposition <span class="latex">\(\mathsf{p}\)</span>, it is always the case that <span class="tex">\(\mathsf{p}\)</span> is <span class="latex">\(\text{true}\)</span> or <span class="latex">\(\text{false}\)</span>.</p>
-		<ul style="list-style-type: decimal;" onclick="dothisthing();">
-			<li>
-				<p class="summary"><b class="lede">(The Law of Excluded Middle) </b></p>
-				<p class="tex"></p>
-			</li>
-			<li>
-				<p class="summary"><b class="lede">(The Law of Non-Contradiction) </b>It is never the case that <span class="tex">\(\mathsf{p}\)</span> is both true and false.</p>
-				<p class="tex"></p>
-			</li>
-		</ul>
+	</aside>
+	<div class="definition" id="D-implies">
+		<p class="summary">Given propositions <span class="latex">\(\mathsf{p}\)</span> and <span class="latex">\(\mathsf{q}\)</span>, the assertion <i class="mention">if <span class="latex">\(\mathsf{p}\)</span> is <span class="latex">\(\text{true}\)</span> then <span class="latex">\(\mathsf{q}\)</span> must be <span class="latex">\(\text{true}\)</span></i> is itself a proposition, called a <dfn>(material) implication</dfn> <span class="latex">\(\mathsf{p}\implies\mathsf{q}\)</span>.</p>
 	</div>
-
-
-
-	<div id="T-classic-laws">
-		<dl>
-			<dt class="statement">
-				<p class="summary">The tautology , and the contradiction <span class="tex">\(\bot\)</span> is always <span class="tex">\(\text{false}\)</span>.</p>
-			</dt>
-			<dd class="proof">
-				<p>By <a class="internal" href="#A-classic-laws"></a>, <span class="tex">\(\mathsf{p} \lor \lnot\mathsf{p}\)</span> is always the case, but by <a class="internal" href="#D-tautology"></a>, this defines <span class="tex">\(\top\)</span>.</p>
-				<p>By <a class="internal" href="#A-classic-laws"></a>, <span class="tex">\(\lnot(\mathsf{p} \land \lnot\mathsf{p})\)</span> is always true, so by asserting this, we assert <span class="tex">\(\mathsf{p} \land \lnot\mathsf{p}\)</span> is always false (see <a class="internal" href="#D-not"></a>). By <a class="internal" href="#D-contradiction"></a>, this defines <span class="tex">\(\bot\)</span>.</p>
-			</dd>
-		</dl>
-	</div>
-
-
-
-
-	<section class="box-block">
-		<h2> one typical theorem </h2>
-		<div class="theorem" id="T-archetype">
-			<p class="summary">Every non-empty subset of the Real Numbers that is bounded above has a least upper bound.</p>
-			<p class="latex wff">\[
-				\Biggl(\forall A\Biggr)\Biggl(
-					(\forall t)(t\in A \implies t \in \mathbb{R})
-					\implies
-					\biggl[
-					    \Bigl(
-					        (\exists x)(x\in A)
-					        \land
-					        \bigl[\exists b\bigr]\bigl[
-					            (\forall x)(x\in A \implies x\le b)
-					        \bigr]
-					    \Bigr)
-					    \implies \\
-					    \Bigl(\exists s\Bigr)\Bigl(
-					        (\forall x)(x\in A \implies x \le s)
-					        \land
-					        \bigl[\forall b\bigr]\bigl[
-					            (\forall x)(x\in A \implies x\le b)
-					            \implies
-					            s \le b
-					        \bigr]
-					    \Bigr)
-					\biggr]
-				\Biggr)
-			\]</p>
-			<p class="proof">This is the proof of the theorem.</p>
-		</div>
-
-		<div>
-			<p class="example">This is an example. Examples are informal illustrations of theorems, properties, etc. They may even illustrate counter-examples.</p>
-			<p class="example">This is another example.</p>
-			<p class="demo">This is a demo. Not sure what it can be used for in math, but it has plenty of applications in coding.</p>
-			<p class="demo">This is another demo.</p>
-			<p class="example">This is another example.</p>
-			<p class="demo">This is another demo.</p>
-		</div>
-	</section>
-
-			
-
-		<div id="T-contrapositive">
-			<dl>
-				<dt class="statement">
-					<p class="summary"><b class="lede">(The Rule of Transposition) </b>An implication is logically equivalent to its contrapositive.</p>
-					<p class="tex">\[\mathsf{p}\implies\mathsf{q} \equiv \lnot\mathsf{q}\implies\lnot\mathsf{p}\]</p>
-				</dt>
-				<dd class="proof">
-					<p>Not sure how to prove this... need: logical equivalence</p>
-				</dd>
-			</dl>
-		</div>
-			
-		<div class="theorem">
-			<p class="summary">The empty set is a subset of every set.</p>
-			<p class="latex wff">\[\forall X (\varnothing \subseteq X)\]</p>
-			<div class="proof">
-				<p>Since the empty set has no elements, <span class="tex">\(t\in\varnothing \implies t\in X\)</span> by <a>trivial implication</a>. By <a>definition of subset</a>, <span class="tex">\(\varnothing \subseteq X\)</span>.</p>
-			</div>
-	</div>
-		<div>demorgan's laws:
-		<p><span class="tex">\(\mathsf{p}\lor\mathsf{q}\)</span> is false iff <span class="tex">\(\mathsf{p}\)</span> is false and <span class="tex">\(\mathsf{q}\)</span> is false.</p>
-		<p><span class="tex">\(\mathsf{p}\land\mathsf{q}\)</span> is false iff <span class="tex">\(\mathsf{p}\)</span> is false, or <span class="tex">\(\mathsf{q}\)</span> is false, or both are false.</p>
-		</div>
-		
-		<p class="prose">If <span class="tex">\(\lnot\mathsf{p}\)</span> is the assertion that <span class="tex">\(\mathsf{p}\)</span> is false, then the assertion that <span class="tex">\(\lnot\mathsf{p}\)</span> is false, <span class="tex">\(\lnot\lnot\mathsf{p}\)</span>, namely, the assertion that <i>the assertion that <span class="tex">\(\mathsf{p}\)</span> is false</i> is false, is the assertion that <span class="tex">\(\mathsf{p}\)</span> is true. In other words,</p>
-		<div id="A-doubleneg">
-			<p><b class="lede">Axiom 1.1.1-7 (The Axiom of Double Negation)</b> <span class="tex">\(\mathsf{p}\)</span> is true if and only if <span class="tex">\(\lnot\mathsf{p}\)</span> is false.</p>
-			<p class="tex">\[\mathsf{p} \equiv \lnot\lnot\mathsf{p}\]</p>
-		</div>
-
-		
-		
-		
-
-		
-
-		
-		
-		
-
-
-
-		
-		
-			
-			
-			
-			
-			
-			
-			
-			
-			<div id="D-therefore">
-				<p><b class="lede">Definition </b>Given propositions <span class="tex">\(\mathsf{p}\)</span> and <span class="tex">\(\mathsf{p}\)</span>, the <dfn>logical implication</dfn> <span class="tex">\(\mathsf{p}\therefore\mathsf{q}\)</span> is true iff the proposition <span class="tex">\(\mathsf{p}\implies\mathsf{q}\)</span> is a tautology <span class="tex">\(\top\)</span>.</p>
-				<p>When <span class="tex">\(\mathsf{p}\therefore\mathsf{q}\)</span> we say <q><span class="tex">\(\mathsf{p}\)</span> logically implies <span class="tex">\(\mathsf{q}\)</span></q> or <q><span class="tex">\(\mathsf{p}\)</span>, therefore <span class="tex">\(\mathsf{q}\)</span></q> or <q><span class="tex">\(\mathsf{q}\)</span>, because <span class="tex">\(\mathsf{p}\)</span></q> (<span class="tex">\(\mathsf{q}\because\mathsf{p}\)</span>).</p>
-			</div>
-			
-			<div id="D-logical-equivalence">
-				<p><b class="lede">Definition </b> Given propositions <span class="tex">\(\mathsf{p}\)</span> and <span class="tex">\(\mathsf{q}\)</span>, the <dfn>logical equivalence</dfn> <span class="tex">\(\mathsf{p}\equiv\mathsf{q}\)</span> is true iff the proposition <span class="tex">\((\mathsf{p}\therefore\mathsf{q})\land(\mathsf{q}\therefore\mathsf{p})\)</span> is true.</p>
-			</div>
-			
-			The principle of bivalence:
-			<div class="tex">\[ \forall X : (\forall x: (x\in X \not\iff x\notin X)) \]</div>
-		</section>
-
-		<hr /><hr /><hr />
-		<div id="D-exists">
-			<p><b class="lede">Definition </b> Given a proposition <span class="tex">\(\mathsf{p}\)</span>, the assertion that there exists an object <span class="tex">\(x\)</span> such that <span class="tex">\(\mathsf{p}\)</span> holds is itself proposition, denoted</p>
-			<p class="tex">\[\exists x : (\mathsf{p})\]</p>
-			<p>The symbol <i class="tex">\(\exists\)</i> is called the <dfn>existential quantifier</dfn>.</p>
-		</div>
-
-		<div id="D-forall">
-			<p><b class="lede">Definition </b></p>
-		</div>
-
-
-
-		<div id="A-extensionality">
-			<p class="lede">Axiom 2 (Axiom of Extensionality)</p>
-			<p class="tex">\[ \forall (X,Y)\in\mathcal{X}^2 : \bigl((X,Y)\in\mathscr{E}_\mathcal{X} \iff \forall t : (t\in X \iff t\in Y)\bigr) \]</p>
-		</div>
-
-		<div id="A-existence">
-			<p><b class="lede">Axiom (Axiom of Existence)</b> There exists a set that owns no elements.</p>
-			<p class="tex">\[ \exists X : \bigl(\forall x : \lnot(x\in X)\bigr) \]</p>
-		</div>
-
-
-		<div>
-
-			<p>Let <span class="tex">\(\mathsf{p}\)</span> be a proposition, and let <span class="tex">\(P\)</span> and <span class="tex">\(p\)</span> be sets. Then</p>
-			<p class="tex">\[\mathsf{p}(x) \iff x\in X\]</p>
-		</div>
-
-
-
-		<div id="D-set">
-			<p><b class="lede">Definition </b> A <dfn>set</dfn> is a collection of objects. The objects in a set are called its <dfn>elements</dfn>. If <span class="tex">\(X\)</span> is a set and <span class="tex">\(x\)</span> is an object, then we state <span class="tex">\(x\in X\)</span> (or <span class="tex">\(X\ni x\)</span>) if and only if <span class="tex">\(x\)</span> is an element of <span class="tex">\(X\)</span>. Otherwise, we state <span class="tex">\(x\notin X\)</span> (or <span class="tex">\(X\not\ni x\)</span>).</p>
-		</div>
-		<p class="prose">There are multiple ways to represent the relationship of elements and sets.</p>
-		<table class="table-bars">
+	<aside>
+		<table class="table-list">
+			<caption>There are a number of other ways to express a material implication.</caption>
 			<colgroup span="2"></colgroup>
-			<thead><tr><th class="tex">\(x\in X\)</th><th class="tex">\(X\ni x\)</th></tr></thead>
+			<thead><tr><th colspan="2">When <span class="latex">\(\mathsf{p}\implies\mathsf{q}\)</span> is <span class="latex">\(\text{true}\)</span>, we state,</th></tr></thead>
 			<tbody>
 				<tr>
-					<td><span class="tex">\(x\)</span> is an element of <span class="tex">\(X\)</span></td>
-					<td><span class="tex">\(X\)</span> owns <span class="tex">\(x\)</span></td>
+					<td><q><span class="latex">\(\mathsf{p}\)</span> is the antecedent</q></td>
+					<td><q><span class="latex">\(\mathsf{q}\)</span> is the consequent</q></td>
 				</tr>
 				<tr>
-					<td><span class="tex">\(x\)</span> is a member of <span class="tex">\(X\)</span></td>
-					<td><span class="tex">\(X\)</span> is a possessor of <span class="tex">\(x\)</span></td>
+					<td><q><span class="latex">\(\mathsf{p}\)</span> is the hypothesis</q></td>
+					<td><q><span class="latex">\(\mathsf{q}\)</span> is the conclusion</q></td>
 				</tr>
+				<tr>
+					<td><q><span class="latex">\(\mathsf{p}\)</span> then <span class="latex">\(\mathsf{q}\)</span></q></td>
+					<td><q><span class="latex">\(\mathsf{q}\)</span> if <span class="latex">\(\mathsf{p}\)</span></q></td>
+				</tr>
+				<tr>
+					<td><q><span class="latex">\(\mathsf{p}\)</span> implies <span class="latex">\(\mathsf{q}\)</span></q></td>
+					<td><q><span class="latex">\(\mathsf{q}\)</span> is implied by <span class="latex">\(\mathsf{p}\)</span></q></td>
+				</tr>
+				<tr>
+					<td><q><span class="latex">\(\mathsf{p}\)</span> is sufficient for <span class="latex">\(\mathsf{q}\)</span></q></td>
+					<td><q><span class="latex">\(\mathsf{q}\)</span> is necessary for <span class="latex">\(\mathsf{p}\)</span></q></td>
+				</tr>
+				<tr>
+					<td><q><span class="latex">\(\mathsf{p}\)</span> is stronger than <span class="latex">\(\mathsf{q}\)</span></q></td>
+					<td><q><span class="latex">\(\mathsf{q}\)</span> is weaker than <span class="latex">\(\mathsf{p}\)</span></q></td>
+				</tr>
+				
 			</tbody>
 		</table>
+	</aside>
+	<div class="definition" id="D-implication-alt">
+		<p class="summary">Given an implication <span class="latex">\(\mathsf{r}\)</span> defined by <span class="latex">\(\mathsf{p}\implies\mathsf{q}\)</span>,</p>
+		<ul class="list-delta">
+			<li>the implication <span class="latex">\(\mathsf{q}\implies\mathsf{p}\)</span> is called the <dfn>converse</dfn> of <span class="latex">\(\mathsf{r}\)</span>.</li>
+			<li>the implication <span class="latex">\(\lnot\mathsf{p}\implies\lnot\mathsf{q}\)</span> is called the <dfn>inverse</dfn> of <span class="latex">\(\mathsf{r}\)</span>.</li>
+			<li>the implication <span class="latex">\(\lnot\mathsf{q}\implies\lnot\mathsf{p}\)</span> is called the <dfn>contrapositive</dfn> of <span class="latex">\(\mathsf{r}\)</span>.</li>
+		</ul>
+	</div>
+	<div class="definition" id="D-iff">
+		<p class="summary">Given propositions <span class="latex">\(\mathsf{p}\)</span> and <span class="latex">\(\mathsf{q}\)</span>, the <dfn>(material) equivalence</dfn> <span class="latex">\(\mathsf{p}\iff\mathsf{q}\)</span> is a proposition defined by the conjunction <span class="latex">\((\mathsf{p}\implies\mathsf{q})\land(\mathsf{q}\implies\mathsf{p})\)</span>.</p>
+		<p class="latex wff">\[(\mathsf{p}\iff\mathsf{q}) \equiv (\mathsf{p}\implies\mathsf{q})\land(\mathsf{q}\implies\mathsf{p})\]</p>
+	</div>
+	<table class="table-list">
+		<caption>There are a number of other ways to express a material equivalence.</caption>
+		<colgroup></colgroup>
+		<thead><tr><th>When <span class="latex">\(\mathsf{p}\iff\mathsf{q}\)</span> is <span class="latex">\(\text{true}\)</span>, we state,</th></tr></thead>
+		<tbody>
+			<tr><td><q><span class="latex">\(\mathsf{p}\)</span> if and only if (iff) <span class="latex">\(\mathsf{q}\)</span></q></td></tr>
+			<tr><td><q><span class="latex">\(\mathsf{p}\)</span> implies and is implied by <span class="latex">\(\mathsf{q}\)</span></q></td></tr>
+			<tr><td><q><span class="latex">\(\mathsf{p}\)</span> is necessary and sufficient for <span class="latex">\(\mathsf{q}\)</span></q></td></tr>
+			<tr><td><q><span class="latex">\(\mathsf{p}\)</span> is materially equivalent to <span class="latex">\(\mathsf{q}\)</span></q></td></tr>
+		</tbody>
+	</table>	
+	<div class="definition" id="D-tautology">
+		<p class="summary">Given a proposition <span class="latex">\(\mathsf{p}\)</span>, the <dfn>tautology</dfn> <span class="latex">\(\top\)</span> is a proposition defined by the implication <span class="latex">\(\mathsf{p}\implies\mathsf{p}\)</span>.</p>
+	</div>
+	<div class="definition" id="D-contradiction">
+		<p class="summary">Given a proposition <span class="latex">\(\mathsf{p}\)</span>, the <dfn>contradiction</dfn> <span class="latex">\(\bot\)</span> is a proposition defined by the negation <span class="latex">\(\lnot(\mathsf{p}\implies\mathsf{p})\)</span>.</p>
+	</div>
+	
+	<aside hidden="hidden">
+		<table class="table-bars">
+			<caption>binary counting order</caption>
+			<colgroup span="1"></colgroup>
+			<colgroup span="2" title="variables"></colgroup>
+			<colgroup span="16" title="operations"></colgroup>
+			<thead>
+				<tr style="text-transform: uppercase;">
+					<th scope="row" style="text-transform: none;">Names</th>
+					<th scope="col" class="latex">\[\mathsf{p}\]</th>
+					<th scope="col" class="latex">\[\mathsf{q}\]</th>
+					
+					<th scope="col" id="0000">bot</th>
+					<th scope="col" id="0001">and</th>
+					<th scope="col" id="0010">nneht</th>
+					<th scope="col" id="0011">id<sub class="latex">\(\mathsf{p}\)</sub></th>
+					<th scope="col" id="0100">nthen</th>
+					<th scope="col" id="0101">id<sub class="latex">\(\mathsf{q}\)</sub></th>
+					<th scope="col" id="0110">xor</th>
+					<th scope="col" id="0111">or</th>
+					
+					<th scope="col" id="1000">nor</th>
+					<th scope="col" id="1001">iff</th> 
+					<th scope="col" id="1010">not<sub class="latex">\(\mathsf{q}\)</sub></th>
+					<th scope="col" id="1011">nhet</th>
+					<th scope="col" id="1100">not<sub class="latex">\(\mathsf{p}\)</sub></th>
+					<th scope="col" id="1101">then</th>
+					<th scope="col" id="1110">nand</th>
+					<th scope="col" id="1111">top</th>
+				</tr>
+				<tr>
+					<th scope="row">Nonary Operations</th>
+					<td colspan="2"></td>
+					<th headers="0000" class="latex">\[\bot\]</th>
+					<td headers="0001"></td>
+					<td headers="0010"></td>
+					<td headers="0011"></td>
+					<td headers="0100"></td>
+					<td headers="0101"></td>
+					<td headers="0110"></td>
+					<td headers="0111"></td>
+					<td headers="1000"></td>
+					<td headers="1001"></td>
+					<td headers="1010"></td>
+					<td headers="1011"></td>
+					<td headers="1100"></td>
+					<td headers="1101"></td>
+					<td headers="1110"></td>
+					<th headers="1111" class="latex">\[\top\]</th>
+				</tr>
+				<tr>
+					<th scope="row">Unary Operations</th>
+					<td colspan="2"></td>
+					<td headers="0000"></td>
+					<td headers="0001"></td>
+					<td headers="0010"></td>
+					<th headers="0011" class="latex">\[\mathsf{p}\]</th>
+					<td headers="0100"></td>
+					<th headers="0101" class="latex">\[\mathsf{q}\]</th>
+					<td headers="0110"></td>
+					<td headers="0111"></td>
+					<td headers="1000"></td>
+					<td headers="1001"></td>
+					<th headers="1010" class="latex">\[\lnot\mathsf{q}\]</th>
+					<td headers="1011"></td>
+					<th headers="1100" class="latex">\[\lnot\mathsf{p}\]</th>
+					<td headers="1101"></td>
+					<td headers="1110"></td>
+					<td headers="1111"></td>
+				</tr>
+				<tr>
+					<th scope="row">Binary Operations (in terms of <i class="mention">OR</i>)</th>
+					<td colspan="2"></td>
+					<td headers="0000"></td>
+					<th headers="0001" class="latex">\[\lnot\mathsf{p}\not\lor\lnot\mathsf{q}\]</th>
+					<th headers="0010" class="latex">\[\lnot\mathsf{p}\not\lor\mathsf{q}\]</th>
+					<td headers="0011"></td>
+					<th headers="0100" class="latex">\[\mathsf{p}\not\lor\lnot\mathsf{q}\]</th>
+					<td headers="0011"></td>
+					<th headers="0110" class="latex">\[
+						(\mathsf{p}\not\lor\mathsf{q})\\
+						\not\lor\\
+						(\lnot\mathsf{p}\not\lor\lnot\mathsf{q})
+					\]</th>
+					<th headers="0111" class="latex">\[\mathsf{p}\lor\mathsf{q}\]</th>
+					<th headers="1000" class="latex">\[\mathsf{p}\not\lor\mathsf{q}\]</th>
+					<th headers="1001" class="latex">\[
+						(\mathsf{p}\not\lor\mathsf{q})\\
+						\lor\\
+						(\lnot\mathsf{p}\not\lor\lnot\mathsf{q})
+					\]</th>
+					<td headers="1010"></td>
+					<th headers="1011" class="latex">\[\mathsf{p}\lor\lnot\mathsf{q}\]</th>
+					<td headers="1100"></td>
+					<th headers="1101" class="latex">\[\lnot\mathsf{p}\lor\mathsf{q}\]</th>
+					<th headers="1110" class="latex">\[\lnot\mathsf{p}\lor\lnot\mathsf{q}\]</th>
+					<td headers="1111"></td>
+				</tr>
+				<tr>
+					<th scope="row">Binary Operations (in terms of <i class="mention">AND</i>)</th>
+					<td colspan="2"></td>
+					<td headers="0000"></td>
+					<th headers="0001" class="latex">\[\mathsf{p}\land\mathsf{q}\]</th>
+					<th headers="0010" class="latex">\[\mathsf{p}\land\lnot\mathsf{q}\]</th>
+					<td headers="0011"></td>
+					<th headers="0100" class="latex">\[\mathsf{p}\not\lor\lnot\mathsf{q}\]</th>
+					<td headers="0011"></td>
+					<th headers="0110" class="latex">\[
+						(\mathsf{p}\not\land\mathsf{q})\\
+						\and\\
+						(\not\mathsf{p}\not\land\not\mathsf{q})
+					\]</th>
+					<th headers="0111" class="latex">\[\mathsf{p}\lor\mathsf{q}\]</th>
+					<th headers="1000" class="latex">\[\mathsf{p}\not\lor\mathsf{q}\]</th>
+					<th headers="1001" class="latex">\[
+						(\mathsf{p}\not\land\mathsf{q})\\
+						\not\and\\
+						(\not\mathsf{p}\not\land\not\mathsf{q})
+					\]</th>
+					<td headers="1010"></td>
+					<th headers="1011" class="latex">\[\lnot\mathsf{p}\lor\mathsf{q}\]</th>
+					<td headers="1100"></td>
+					<th headers="1101" class="latex">\[\mathsf{p}\lor\lnot\mathsf{q}\]</th>
+					<th headers="1110" class="latex">\[\lnot\mathsf{p}\lor\lnot\mathsf{q}\]</th>
+					<td headers="1111"></td>
+				</tr>
+			</thead>
+		</table>
+	</aside>
+	
+</section>
+<section id="first-axioms">
+	<header>
+		<h1 class="h-gamma">The Axioms</h1>
+		<p>now we have everything we need to get started</p>
+	</header>
+	
+	<div class="axiom" id="A-proposition"><p class="summary">A proposition exists.</p></div>
+	<aside><p><a class="internal" href="#A-proposition"></a> can be thought of as the <b>Bootstrap Axiom</b>, because it is a proposition that asserts the existence of itself. By merely existing it is fulfilling its prophecy. Simply put, it proves itself true. Think for a moment about what would happen if it were false. Then there would be no propositions, and it simply wouldn't exist. Thus at this point we can conclude that there is at least one true proposition.</p></aside>
+	
+
+	<div>Axiom: Double Negation</div>
+	<div id="A-doubleneg">
+		<p><span class="lede">(The Axiom of Double Negation)</span> <span class="tex">\(\mathsf{p}\)</span> is true if and only if <span class="tex">\(\lnot\mathsf{p}\)</span> is false.</p>
+		<p class="wff">\[\mathsf{p} \equiv \lnot\lnot\mathsf{p}\]</p>
+	</div>
+	<aside>
+		<p class="prose">If <span class="tex">\(\lnot\mathsf{p}\)</span> is the assertion that <span class="tex">\(\mathsf{p}\)</span> is false, then the assertion that <span class="tex">\(\lnot\mathsf{p}\)</span> is false, <span class="tex">\(\lnot\lnot\mathsf{p}\)</span>, namely, the assertion that <i>the assertion that <span class="tex">\(\mathsf{p}\)</span> is false</i> is false, is the assertion that <span class="tex">\(\mathsf{p}\)</span> is true.</p>
+	</aside>
+The principle of bivalence:
+<div class="tex">\[ \forall X : (\forall x: (x\in X \not\iff x\notin X)) \]</div>	
+
+	<div class="theorem" id="T-bivalence">
+	a proposition has exactly one truth value; either true or false.
+	<p>(p xor -p)=Tautology</p>
+	</div>
+	
+	<div class="theorem" id="T-bivalence">
+			<p class="summary"><span class="lede">The Principle of Bivalence</span> It is always the case that a proposition is <span class="latex">\(\text{true}\)</span> or <span class="latex">\(\text{false}\)</span>, and it is never the case that a proposition is both <span class="latex">\(\text{true}\)</span> and <span class="latex">\(\text{false}\)</span>.</p>
+			<p class="latex wff">\[\mathsf{p} \lor \lnot\mathsf{p}\]</p>
+			<p class="latex wff">\[\lnot(\mathsf{p} \land \lnot\mathsf{p})\]</p>
+			<p>Bivalence is a direct result of Double-Negation</p>
+	<!--		<p class="summary"><span class="lede">The Principle of Bivalence, Set Theory Version</span> It is always the case that a set is an element of, or not an element of, another set, and it is never the case that a set is both an element of, and not an element of, another set.</p>
+			<p class="latex wff">\[x\in X \lor x\not\in X\]</p>
+			<p class="latex wff">\[\lnot(x\in X \land x\not\in X)\]</p>-->
+	</div>
+	
+	
+	
+	<div class="theorem">
+		<p>(The Classic Laws of Thought) (The Law of Excluded Middle) (The Law of Non-Contradiction)</p>
+		<p>By <a class="internal" href="#A-bivalence"></a>, <span class="latex">\(\bot\)</span> is always <span class="latex">\(\text{false}\)</span>.</p>
+		<p>By <a class="internal" href="#A-bivalence"></a>, <span class="latex">\(\top\)</span> is always <span class="latex">\(\text{true}\)</span>.</p>
+		<p>Each separately, the classic laws of thought are possible without double-negation, however their combination </p>
+	</div>
+	
+	
+	<aside>
+		<p>The logical values <span class="latex">\(\text{true}\)</span> and <span class="latex">\(\text{false}\)</span> are both <strong>collectively exhaustive</strong> and <strong>mutually exclusive</strong>. In other words, a proposition must be either true or false, and it can only be one of these.</p>
+	</aside>
+	
+	<div class="axiom" id="A-lawofidentity">
+		<p class="summary"><span class="lede">The Law of Identity</span> If <span class="latex">\(\mathsf{p}\)</span> is <span class="latex">\(\text{true}\)</span> then <span class="latex">\(\mathsf{p}\)</span> must be <span class="latex">\(\text{true}\)</span>.</p>
+		<p class="latex wff">\[\mathsf{p}\implies\mathsf{p}\]</p>
+	</div>
+	
+</section>
+<section id="rules-of-inference">
+<div id="D-therefore">
+	<p><b class="lede">Definition </b>Given propositions <span class="tex">\(\mathsf{p}\)</span> and <span class="tex">\(\mathsf{p}\)</span>, the <dfn>logical implication</dfn> <span class="tex">\(\mathsf{p}\therefore\mathsf{q}\)</span> is true iff the proposition <span class="tex">\(\mathsf{p}\implies\mathsf{q}\)</span> is a tautology <span class="tex">\(\top\)</span>.</p>
+	<p>When <span class="tex">\(\mathsf{p}\therefore\mathsf{q}\)</span> we say <q><span class="tex">\(\mathsf{p}\)</span> logically implies <span class="tex">\(\mathsf{q}\)</span></q> or <q><span class="tex">\(\mathsf{p}\)</span>, therefore <span class="tex">\(\mathsf{q}\)</span></q> or <q><span class="tex">\(\mathsf{q}\)</span>, because <span class="tex">\(\mathsf{p}\)</span></q> (<span class="tex">\(\mathsf{q}\because\mathsf{p}\)</span>).</p>
+</div>
+<div id="D-logical-equivalence">
+	<p><b class="lede">Definition </b> Given propositions <span class="tex">\(\mathsf{p}\)</span> and <span class="tex">\(\mathsf{q}\)</span>, the <dfn>logical equivalence</dfn> <span class="tex">\(\mathsf{p}\equiv\mathsf{q}\)</span> is true iff the proposition <span class="tex">\((\mathsf{p}\therefore\mathsf{q})\land(\mathsf{q}\therefore\mathsf{p})\)</span> is true.</p>
+</div>
 
 
-		<div id="A-sets">
-			<p class="lede">Axiom 1.1.1.</p>
-			<p class="tex">\[ x\in X \iff X\owns x \]</p>
-		</div>
+	<div>demorgan's laws:
+	<p><span class="tex">\(\mathsf{p}\lor\mathsf{q}\)</span> is false iff <span class="tex">\(\mathsf{p}\)</span> is false and <span class="tex">\(\mathsf{q}\)</span> is false.</p>
+	<p><span class="tex">\(\mathsf{p}\land\mathsf{q}\)</span> is false iff <span class="tex">\(\mathsf{p}\)</span> is false, or <span class="tex">\(\mathsf{q}\)</span> is false, or both are false.</p>
+	</div>
 
 
-
-
-		<h4>Theorem of Commutativity of Natural Addition</h4>
-		<p class="tex">\[ (n,m,l) \in \mathscr{A}_\mathbb{N} \iff (m,n,l) \in \mathscr{A}_\mathbb{N} \]</p>
-
-		<p class="tex">\[ \Biggl(\biggl(\Bigl(\bigl(()\bigr)\Bigr)\biggr)\Biggr) \]</p>
-		<p class="tex">\[ \mathbb{N} = \{0,1,2,3,\dots\} \]</p>
-		<p class="tex">\[ (n,m)\equiv(l,k) := (n+k=l+m) \]</p>
-		<h4>Axiom of Integer Equality</h4>
-		<p class="tex">\[ ((n,m),(l,k)) \in \mathscr{V}_{\mathbb{N}^2} \iff \exists j\in\mathbb{N} : ((n,k,j),(l,m,j))\in\mathscr{A}_\mathbb{N}^2 \]</p>
-		<ol>
-			<li class="tex">\[ (n,m)\equiv(m,n) \]</li>
-			<li class="tex">\[ (n,m)\equiv(l,k) \implies (l,k)\equiv(n,m) \]</li>
-			<li class="tex">\[ (n,m)\equiv(l,k) \land (l,k)\equiv(j,i) \implies (n,m)\equiv(j,i) \]</li>
-		</ol>
-		<p></p>
-		<ol>
-			<li class="tex">\[ ((n,m),(m,n))\in\mathscr{V}_{\mathbb{N}^2} \]</li>
-			<li class="tex">\[ ((n,m),(l,k))\in\mathscr{V}_{\mathbb{N}^2} \implies ((l,k),(n,m))\in\mathscr{V}_{\mathbb{N}^2} \]</li>
-			<li class="tex">\[ \Bigl(\bigl((n,m),(l,k)\bigr),\bigl((l,k),(j,i)\bigr)\Bigr)\in\mathscr{V}_{\mathbb{N}^2}^2 \implies ((n,m),(j,i))\in\mathscr{V}_{\mathbb{N}^2} \]</li>
-		</ol>
-		<p class="tex">\[ \Biggl(\biggl(\Bigl(\bigl(()\bigr)\Bigr)\biggr)\Biggr) \]</p>
-
-		<p class="tex">\[ [(n,m)] := \left\{(l,k)\in\mathbb{N}^2 : ((n,m),(l,k))\in \mathscr{V}_{\mathbb{N}^2}\right\} \]</p>
-		<p class="tex">\[\mathbb{Z} := \left\{[(m,n)] : (m,n)\in\mathbb{N}^2\right\}\]</p>
-
-
-
-
-		<h4>Theorem of Integer Equality</h4>
-		<p class="tex">\[ \forall (n,m,l,k)\in\mathbb{N}^4 : ((n,m),(l,k))\in\mathscr{V}_{\mathbb{N}^2} \iff ([(n,m)],[(l,k)])\in\mathscr{E}_\mathbb{Z} \]</p>
-
-
-		<p>Define (weak) total ordering on Z</p>
-		<p class="tex">\[ [(n,m)] \leq [(l,k)] := n+k \leq l+m \]</p>
-		<h4>Axiom of Integer Ordering</h4>
-		<p class="tex">\[ \forall (n,m,l,k)\in\mathbb{N}^4 : ([(n,m)],[(l,k)])\in \mathscr{L}_\mathbb{Z} \iff \exists (j,i)\in \mathscr{L}_\mathbb{N} : ((n,k,j),(l,m,i))\in \mathscr{A}_\mathbb{N}^2 \]</p>
-		<p>Show ordering is reflexive (hint: prove reflexivity from comparability), antisymmetric (<span class="tex">\((x\le y) \land (y\le x) \implies x=y\)</span>), transitive, and comparable (<span class="tex">\(x\le y \lor y\le x\)</span>).</p>
-
-		<p>Definition of Addition on Z</p>
-		<p class="tex">\[ [(n,m)]+[(l,k)] := [(n+l,m+k)] \]</p>
-
-		<h4>Axiom of Integer Addition</h4>
-		<p class="tex">\[ \forall (n,m,l,k,j,i)\in\mathbb{N}^6 : ([(n,m)],[(l,k)],[(j,i)]) \in \mathscr{A}_\mathbb{Z} \iff ((n,l,j),(m,k,i))\in \mathscr{A}_\mathbb{N}^2 \]</p>
-
-		<p>Prove Z is an abelian group with respect to addition (closure, associativity, commutativity, identity, inverses)</p>
-		<p>Define multiplication</p>
-		<p>Prove multiplication is closed, associative, commutative, distributive across addition</p>
-		<p>prove order properties involving addition and multiplication</p>
-		<p>show injection of N into Z, operational isomorphism and order isomorphism</p>
-		<div class="tex">
-			\[
-				\forall (n,m) \in \mathbb{N}^2:\\
-				\nu(n) := [(n,0)]\\
-				\nu(n)+\nu(m) = \nu(n+m)\\
-				\nu(n)\nu(m) = \nu(nm)\\
-				\nu(n)\le\nu(m) \iff n\le m\\
-			\]
-			\[
-				\forall (n,m) \in \mathbb{N}^2:\\
-				\nu\colon\mathbb{N}\mapsto\mathbb{Z}:\\
-				\nu(n) := [(n,0)]\\
-				(\nu(n),\nu(m),\nu(l))\in \mathscr{A}_\mathbb{Z} \iff (n,m,l)\in \mathscr{A}_\mathbb{N}\\
-				(\nu(n),\nu(m),\nu(l))\in \mathscr{M}_\mathbb{Z} \iff (n,m,l)\in \mathscr{M}_\mathbb{N}\\
-				(\nu(n),\nu(m))\in \mathscr{L}_\mathbb{Z} \iff (n,m)\in \mathscr{L}_\mathbb{N}
-			\]
-		</div>
-		<p>proof</p>
-		<div class="tex">
-			\[
-			\nu(n)+\nu(m) = [(n,0)]+[(m,0)] = [(n+m,0+0)] = \nu(n+m)\\
-			\;\\
-			(\nu(n),\nu(m),\nu(l))\in \mathscr{A}_\mathbb{Z}\iff\\
-			([(n,0)],[(m,0)],[(l,0)])\in \mathscr{A}_\mathbb{Z}\iff\\
-			((n,m,l),(0,0,0))\in \mathscr{A}_\mathbb{N}^2\iff\\
-			(n,m,l)\in \mathscr{A}_\mathbb{N}
-			\;\\
-			\;\\
-			(\nu(n),\nu(m))\in \mathscr{L}_\mathbb{Z} \iff\\
-			([(n,0)],[(m,0)])\in \mathscr{L}_\mathbb{Z}\iff\\
-			\exists (l,k)\in\mathscr{L}_\mathbb{N} : ((n,0,l),(m,0,k))\in\mathscr{A}_\mathbb{N}^2\iff\\
-			((n,l),(m,k))\in\mathscr{E}_\mathbb{N}^2\iff\\
-			((l,k),(n,m))\in\mathscr{E}_{\mathbb{N}^2}\iff\\
-			(n,m)\in \mathscr{L}_\mathbb{N}
-			\]
-		</div>
-
-
-		<p class="tex">\[ \mathbb{Z} = \{-3,-2,-1,0,1,2,3,\dots\} \]</p>
-		<p class="tex">\[ (a,b)\equiv(c,d) := (ad=cb) \]</p>
-		<ol>
-			<li class="tex">\[ (a,b)\equiv(a,b) \]</li>
-			<li class="tex">\[ (a,b)\equiv(c,d) \implies (c,d)\equiv(a,b) \]</li>
-			<li class="tex">\[ (a,b)\equiv(c,d) \land (c,d)\equiv(g,h) \implies (a,b)\equiv(g,h) \]</li>
-		</ol>
-		<p class="tex">\[ (a,b)\equiv(c,d) \iff [(a,b)]=[(c,d)] \]</p>
-		<p class="tex">\[\mathbb{Q} := \left\{[(a,b)] : (a,b)\in\mathbb{Z}^2\right\}\]</p>
+	<div id="T-contrapositive">
+		<p class="summary"><span class="lede">The Rule of Transposition</span>An implication is logically equivalent to its contrapositive.</p>
+		<p class="">\[\mathsf{p}\implies\mathsf{q} \equiv \lnot\mathsf{q}\implies\lnot\mathsf{p}\]</p>
+			<div class="proof">
+				<p>Not sure how to prove this... need: logical equivalence</p>
+			</div>
+		</dl>
+	</div>
+</section>
 </div>
 <!--!#include virtual="/core/HTML/" -->
 </body>
