@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns="http://chharvey.net16.net/ProofML"
+	targetNamespace="http://chharvey.net16.net/ProofML">
+    <xsd:annotation>
+		<xsd:documentation xml:lang="en">
+			THIS SCHEMA DEFINITION HAS BEEN VALIDATED!
+			
+			insert more info here...
+			
+			TODO:
+			- ProofType (line 150)
+		</xsd:documentation>
+	</xsd:annotation>
+	
+	<!-- ROOT ELEMENT -->
+	<xsd:element name="theorem" type="TheoremType" />
+	
+	<xsd:complexType name="TyeoremType">
+		<xsd:sequence> <!-- change this to 'all' after XML 1.1 -->
+			<xsd:element name="name" type="xsd:string" minOccurs="0"/>
+			<xsd:choice>
+				<!-- this changed in XML 1.1; now the same element name can have different specs based on what element it's in!  FIX IT!-->
+				<xsd:element name="logicalstatement" type="LogicalStatementType"/>
+				<xsd:element name="materialstatement" type="MaterialStatementType"/>
+			</xsd:choice>
+			<xsd:element name="proof" type="ProofType" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+		<xsd:attribute name="model" type="ModelType"/>
+		<xsd:attribute name="isAxiom" type="xsd:boolean" default="false"/>
+	</xsd:complexType>
+	
+	
+	<xsd:complexType name="LogicalStatementType">
+		<xsd:all>
+			<xsd:element name="comment" type="CommentType" minOccurs="0"/>
+			<xsd:element name="propdefs" type="LogicalVariableDefinitionsType"/>
+			<xsd:element name="premises" type="PremisesGroupType"/>
+			<xsd:element name="conclusion" type="ConclusionType"/>
+		</xsd:all>
+	</xsd:complexType>
+	
+	<xsd:complexType name="LogicalVariableDefinitionsType">
+		<!-- a group of variable definitions -->
+		<xsd:sequence>
+			<xsd:element name="propdef" type="VariableDefinitionType" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="PremisesGroupType">
+		<xsd:sequence>
+			<xsd:element name="given" type="FormType" minOccurs="1" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="ConclusionType">
+		<xsd:complexContent>
+			<xsd:restriction base="FormType">
+			</xsd:restriction>
+		</xsd:complexContent>
+	</xsd:complexType>
+	
+	
+	<xsd:complexType name="FormType">
+		<!-- either exactly 1 (logical) variable or exactly 1 logical connective -->
+		<xsd:choice>
+			<xsd:choice>
+				<xsd:element name="prop" type="VariableReferenceType"/> <!-- a logical proposition represented as a variable -->
+				<xsd:element name="rel" type="RelationType"/> <!-- a material relation represented as a statement about sets, e.g., t \in S -->
+			</xsd:choice>
+			<xsd:element name="negation" type="NegationType"/>
+			<xsd:element name="disjunction" type="DisjunctionType"/>
+			<xsd:element name="conjunction" type="ConjunctionType"/>
+			<xsd:element name="implication" type="ImplicationType"/>
+			<xsd:element name="biconditional" type="BiconditionalType"/>
+		</xsd:choice>
+	</xsd:complexType>
+	
+	<xsd:complexType name="RelationType">
+		<!-- a relation between two material variables (sets) : the assertion that one is an element of the other-->
+		<xsd:all>
+			<xsd:element name="childset" type="VariableReferenceType"/>
+			<xsd:element name="parentset" type="VariableReferenceType"/>
+		</xsd:all>
+	</xsd:complexType>
+	
+	<xsd:complexType name="NegationType">
+		<xsd:complexContent>
+			<xsd:restriction base="FormType">
+			</xsd:restriction>
+		</xsd:complexContent>
+	</xsd:complexType>
+	
+	<xsd:complexType name="DisjunctionType">
+		<xsd:all>
+			<xsd:element name="operand" type="FormType"/>
+			<xsd:element name="operand" type="FormType"/>
+		</xsd:all>
+	</xsd:complexType>
+	
+	<xsd:complexType name="ConjunctionType">
+		<xsd:all>
+			<xsd:element name="operand" type="FormType"/>
+			<xsd:element name="operand" type="FormType"/>
+		</xsd:all>
+	</xsd:complexType>
+	
+	<xsd:complexType name="ImplicationType">
+		<xsd:all>
+			<xsd:element name="antecedent" type="FormType"/>
+			<xsd:element name="consequent" type="FormType"/>
+		</xsd:all>
+	</xsd:complexType>
+	
+	<xsd:complexType name="BiconditionalType">
+		<xsd:complexContent>
+			<xsd:restriction base="ImplicationType">
+			</xsd:restriction>
+		</xsd:complexContent>
+	</xsd:complexType>
+	
+	
+		
+	
+	<xsd:complexType name="MaterialStatementType">
+		<xsd:all>
+			<xsd:element name="quantifier" type="QuantifierType"/>
+		</xsd:all>
+	</xsd:complexType>
+	
+	<xsd:complexType name="QuantifierType">
+		<xsd:all>
+			<xsd:element name="predicate" type="FormType"/>
+		</xsd:all>
+		<xsd:attribute name="type" type="QuantifierTypeType"/><!-- either existential or universal quantifier -->
+		<xsd:attribute name="reldef" type="VariableDefinitionType"/> <!-- variable is created in scope -->
+	</xsd:complexType>
+	
+	<xsd:simpleType name="QuantifierTypeType">
+		<!-- the name of the quantifier -->
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="existential"/>
+			<xsd:enumeration value="universal"/>
+		</xsd:restriction>
+	</xsd:simpleType>	
+	
+	
+	
+	
+	<xsd:complexType name="ProofType">
+		<!-- a proof of the theorem's statement -->
+		<xsd:complexContent>
+			<xsd:extension base="xsd:string">
+			<!--  TODO: ALL PROOF SHIT  -->
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	
+	<xsd:simpleType name="ModelType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="logical"/>
+			<xsd:enumeration value="material"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	
+	
+	<xsd:complexType name="VariableDefinitionType">
+		<!-- a single variable definition as an element : may be a logical or material variable -->
+		<xsd:simpleContent>
+			<xsd:extension base="VariableDataType">
+				<xsd:attribute name="name" type="VariableDataType"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	
+	<xsd:simpleType name="VariableDataType">
+		<!-- a datatype for variable names -->
+		<xsd:restriction base="xsd:string">
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:complexType name="VariableReferenceType">
+		<!-- a reference to a variable definition -->
+		<xsd:attribute name="ref" type="VariableType"/>
+	</xsd:complexType>
+	
+		
+	<xsd:complexType name="CommentType">
+		<xsd:simpleContent>
+			<xsd:extension base="xsd:string">
+				<!-- TODO add support for LaTeX input? -->
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+</xsd:schema>
