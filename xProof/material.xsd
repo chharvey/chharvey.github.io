@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	xmlns="http://chharvey.net16.net/ProofML/material/proofml-material.xsd"
-	targetNamespace="http://chharvey.net16.net/ProofML/material/proofml-material.xsd"
+	xmlns="http://chharvey.net16.net/ProofML/material.xsd"
+	targetNamespace="http://chharvey.net16.net/ProofML/material.xsd"
 	elementFormDefault="qualified"
 	attributeFormDefault="unqualified"
 >
@@ -14,30 +14,27 @@
 			
 			TODO:
 			- ProofType
-			- insert possible comments into every FormType
-			- LaTeX support for comments?
 		</xsd:documentation>
 	</xsd:annotation>
 	
 	<!-- ROOT ELEMENT -->
-	<xsd:element name="theorem-material" type="TheoremType" />
+	<xsd:element name="theorem" type="TheoremType" />
 	
 	<xsd:complexType name="TheoremType">
 		<xsd:sequence>
 			<!-- must be 'sequence' (not 'all') because 'proof' is unbounded -->
 			<xsd:element name="name" type="xsd:string" minOccurs="0"/>
-			<xsd:element name="comment" type="CommentType" minOccurs="0"/>
+			<xsd:element name="summary" type="SummaryType"/>
 			<xsd:element name="statement" type="StatementType"/>
 			<xsd:element name="proof" type="ProofType" minOccurs="0" maxOccurs="unbounded"/>
 		</xsd:sequence>
+		<xsd:attribute name="id" type="xsd:ID" use="required"/>
 	</xsd:complexType>
 	
-	<xsd:complexType name="CommentType">
-		<xsd:simpleContent>
-			<xsd:extension base="xsd:string">
-				<!-- TODO add support for LaTeX input? -->
-			</xsd:extension>
-		</xsd:simpleContent>
+	<xsd:complexType name="SummaryType" mixed="true">
+		<xsd:choice minOccurs="0" maxOccurs="unbounded">
+			<xsd:element name="math" type="xsd:string"/>
+		</xsd:choice>
 	</xsd:complexType>
 	
 	<xsd:complexType name="StatementType">
@@ -79,15 +76,18 @@
 	</xsd:complexType>
 	
 	<xsd:complexType name="FormType">
-		<xsd:choice>
-			<xsd:element name="relation" type="RelationType"/>
-			<xsd:element name="negation" type="NegationType"/>
-			<xsd:element name="disjunction" type="DisjunctionType"/>
-			<xsd:element name="conjunction" type="ConjunctionType"/>
-			<xsd:element name="implication" type="ImplicationType"/>
-			<xsd:element name="biconditional" type="BiconditionalType"/>
-			<xsd:element name="quantifier" type="QuantifierType"/>
-		</xsd:choice>
+		<xsd:sequence>
+			<xsd:element name="summary" type="SummaryType"/>
+			<xsd:choice>
+				<xsd:element name="relation" type="RelationType"/>
+				<xsd:element name="negation" type="NegationType"/>
+				<xsd:element name="disjunction" type="DisjunctionType"/>
+				<xsd:element name="conjunction" type="ConjunctionType"/>
+				<xsd:element name="implication" type="ImplicationType"/>
+				<xsd:element name="biconditional" type="BiconditionalType"/>
+				<xsd:element name="quantifier" type="QuantifierType"/>
+			</xsd:choice>
+		</xsd:sequence>
 	</xsd:complexType>
 	
 	<xsd:complexType name="RelationType">
