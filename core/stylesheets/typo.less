@@ -2,7 +2,13 @@
 
 /* @group TYPO.LESS */
 /* @group headings */
-.heading {
+.heading,
+h1, .h-alpha,
+h2, .h-beta,
+h3, .h-gamma,
+h4, .h-delta,
+h5, .h-epsilon,
+h6, .h-zeta {
 	margin: 1em 0 0.25em;
 	font-style: normal;
 	font-variant: normal;
@@ -13,8 +19,8 @@
 	color: @color-body-txt;
 	.latex {color: inherit;}
 }
+
 h1, .h-alpha {
-	.heading;
 	font-variant: small-caps;
 	font-weight: bold;
 	font-size: 2.000em; // 24
@@ -22,32 +28,27 @@ h1, .h-alpha {
 	color: @color-heading;
 }
 h2, .h-beta {
-	.heading;
 	font-weight: bold;
 	font-size: 1.500em; // 18
 	color: @color-subheading;
 }
 h3, .h-gamma {
-	.heading;
 	font-variant: small-caps;
 	font-weight: bold;
 	font-size: 1.167em; // 14
 }
 h4, .h-delta {
-	.heading;
 	font-style: italic;
 	font-weight: bold;
 	font-size: 1.000em; // 12
 }
 h5, .h-epsilon {
-	.heading;
 	font-style: italic;
 	font-size: 0.833em; // 10
 	text-indent: 0.5in;
 	color: @color-subheading;
 }
 h6, .h-zeta {
-	.heading;
 	font-style: italic;
 	font-variant: small-caps;
 	font-size: 0.833em; // 10
@@ -191,19 +192,19 @@ ul, ol, dl {
 
 /* @group tables */
 .special-table-border() {border: 1px solid @accent;}
-
+.tableheader() {
+	.special-table-border();
+	font-weight: bold;
+	text-align: center;
+	vertical-align: middle;
+	background-color: @color-table-bg-head;
+}
 table {
 	border-collapse: collapse;
 	margin: 0 auto 2em;
 	text-align: center;
-	thead, tfoot {
-		th, td {
-			.special-table-border();
-			font-weight: bold;
-			text-align: center;
-			vertical-align: middle;
-			background-color: @color-table-bg-head;
-		}
+	th, thead td, tfoot td {
+		.tableheader();
 	}
 	tbody {
 		.code, code {background-color: transparent;}
@@ -213,27 +214,25 @@ table {
 		border-color: #808080;
 	}
 	&.table-list {
-		thead, tfoot {
-			th, td {
-				border-left: 0;
-				border-right: 0;
-			}
+		th, thead td, tfoot td {
+			border-left: 0;
+			border-right: 0;
 		}
 		tbody {
-			.row-odd  {background-color: @color-table-bg-primary;}
-			.row-even {background-color: @color-table-bg-secondary;}
+			th {background-color: @color-table-bg-strong;}
+			.row-odd  {background-color: @color-table-bg-medium;}
+			.row-even {background-color: @color-table-bg-weak;}
 		}
 	}
 	&.table-bars {
-		thead, tfoot {
-			th, td {
-				border-top: 0;
-				border-bottom: 0;
-			}
+		th, thead td, tfoot td {
+			border-top: 0;
+			border-bottom: 0;
 		}
 		tbody {
-			.column-odd  {background-color: @color-table-bg-secondary;}
-			.column-even {background-color: @color-table-bg-primary;}
+			th {background-color: @color-table-bg-strong;}
+			.column-odd  {background-color: @color-table-bg-weak;}
+			.column-even {background-color: @color-table-bg-medium;}
 		}
 	}
 }
@@ -328,13 +327,4 @@ i:lang(fr) {
 	.active {.link(@color-link-active-txt);}
 	/* @end */
 /* @end */
-/* @group hacks */
-/* the following class should be applied only to elements loaded in browsers with JS disabled. In all.js, see methods for removing this class. */ 
-.js-disabled-hide {display: none;}
-
-.seo-only {display: none !important;} // for elements needed for SEO *only* (e.g. titles, etc).
-@media print { .noprint {display: none !important;}} // to display but not to print
-.invisible {visibility: hidden;}
-/* @end */
 /* @end TYPO */
-

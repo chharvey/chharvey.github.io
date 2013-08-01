@@ -29,13 +29,29 @@ main { // the main container in the body
 	nav {
 		.P1-midleft();
 		.mylogo {
-			// do NOT extend `.up`! because `this` will override the `.dn` and `.active` classes
+			// do NOT extend/include `.up`! because `this` will override the `.dn` and `.active` classes
 			// include `.up` in the HTML
 			display: block;
 			border-bottom: 0;
 		}
 	}
 }
+	/* @group hacks */
+	
+	/* This class exists to hide elements ONLY in browsers with JS ENabled (i.e. it represents a fall-back feature for non-JS users). In '/core/scripts/all.js', see method for adding style 'visibility: hidden;' to this class. */
+//	.js-enabled-remove {}
+	
+	/* This class exists to hide elements ONLY in browsers with JS DISabled (i.e. it represents a special feature for JS users). In '/core/scripts/all.js', see method for adding style 'display: inline-block;' to this class. */
+//	.js-disabled-remove {display: none;}
+	
+	/* Elements needed for SEO *only* (e.g. extraneous titles, etc). Try to only use this selector as a last resort. */
+	.seo-only {display: none !important;}
+	
+	/* Elements with the 'hidden' boolean attribute are not to be processed by browsers and are to be ignored by SEO patterns. Sometimes, the browser-default css-style is overridden, hence this selector exists. */
+	[hidden=hidden] {display:none !important;}
+	
+	/* @end */
+
 @media print {
 	body {color: #000000;}
 	body {background-image: none;}
@@ -51,6 +67,7 @@ main { // the main container in the body
 		width: auto;
 		margin: auto;
 	}
+	.noprint {display: none !important;} // to display on screen but not to print
 }
 
 /* @end */

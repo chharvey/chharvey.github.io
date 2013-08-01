@@ -35,7 +35,9 @@ $(document).ready(function() {
 	If trying to decide whether to include a JS method to add a class, think, "does JS need to use the class or is only used for CSS?" If JS doesn't need it, you can find a better way to get what you want using CSS.
 	The only exception to this rule is to use JS to automate repetitive commands. For instance in an unordered list, if every line item needs to have a certain class, you can save time by writing a jQuery command to add the class to every line item.
 	*/
-	$('.js-disabled-hide, .wff').css('display','block');
+	
+//	$('.js-enabled-remove').css('display','none');
+//	$('.js-disabled-remove, .wff').css('display','inline-block');
 	
 	/** JavaScript 'grabber' classes --- only here for jQuery selectors */
 	$('a.up, a.dn').addClass('js-link');
@@ -49,15 +51,15 @@ $(document).ready(function() {
 	/** Colors tables' rows and columns alternating colors. 
 	remember, jQuery's :even and :odd selectors are 0-based (0 is first),
 	so the first row (row 0) should be given class 'row-odd' */
-	$('.table-list .body').each(function () {
+	$('.table-list tbody').each(function () {
 		$(this).children('tr:even').addClass('row-odd');
 		$(this).children('tr:odd').addClass('row-even');
 	});
-	$('.table-bars .body tr').each(function() {
+	$('.table-bars tbody tr').each(function() {
 		$(this).children('td:even').addClass('column-odd');
 		$(this).children('td:odd').addClass('column-even');
 	});
-	$('.table-grid .body').each(function() {
+	$('.table-grid tbody').each(function() {
 		$(this).children('tr:even').addClass('row-odd');
 		$(this).children('tr:odd').addClass('row-even');
 		$(this).children('tr').each(function() {

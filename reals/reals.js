@@ -23,8 +23,8 @@ $(document).ready(function() {
 	});
 	addLede($('.proof'), 'Proof. ');
 //	addLede($('.informal'), 'Informal Remark. ');
+	
 	$('a.internal').addClass('up');
-	$('.wff').addClass('asdf');
 //	var sectct = 0;	
 //	$('section').each(function() {
 //		sectct++;
