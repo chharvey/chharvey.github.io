@@ -15,141 +15,128 @@
 <script src="reals.js"></script>
 </head>
 <body>
-<p class="">An Axiomatic Approach to the Continuum</p>
-<div class="main draft">
-<header>
-	
+<nav class="breadcrumbs">
+	<a>An Axiomatic Approach to the Continuum</a>
+</nav>
+<div class="main">
+<header>	
 	<h1 class="h-alpha">Chapter 1: Propositional Logic</h1>
 </header>
-<section id="logical-operators">
-	<header>
-		<h1 class="h-beta">Logical Operators</h1>
-	</header>
-	<div class="axiom" id="A-existence">
-		<p class="summary"><span class="lede">The Axiom of Existence</span> There exists an empty set, and that set is unique.</p>
-		<p class="latex wff" title="&exist; x : (&forall;)">
-		\[\expand{There exists an empty set, and that set is unique.}{
-			(\exists x)\expand{\(x\) is empty and unique}{
-				\expand{\(x\) is empty}{
-					(\forall t)(t\not\in x)
-				}
-				\land
-				\expand{\(x\) is unique}{
-					(\forall y)\expand{if \(y\) is empty then \(y=x\)}{
-						\expand{\(y\) is empty}{
-							(\forall t)(t\not\in y)
-						}
-						\implies
-						\expand{\(y=x\)}{
-							(\forall t)(t\in y \iff t\in x)
-						}
+<div class="axiom" id="A-existence" hidden="hidden">
+	<p class="summary"><span class="lede">The Axiom of Existence</span> There exists an empty set, and that set is unique.</p>
+	<p class="latex wff">
+	\[\expand{There exists an empty set, and that set is unique.}{
+		(\exists x)\expand{\(x\) is empty and unique}{
+			\expand{\(x\) is empty}{
+				(\forall t)(t\not\in x)
+			}
+			\land
+			\expand{\(x\) is unique}{
+				(\forall y)\expand{if \(y\) is empty then \(y=x\)}{
+					\expand{\(y\) is empty}{
+						(\forall t)(t\not\in y)
+					}
+					\implies
+					\expand{\(y=x\)}{
+						(\forall t)(t\in y \iff t\in x)
 					}
 				}
 			}
-		}\]</p>
-		<p>This set is denoted <span class="latex" title="&empty;">\(\varnothing\)</span>.</p>
-	</div>
-	
-		<aside><p>It is interesting that the first node of this axiomatic system is a cyclic definition. All systems must start from one point, and the idea of a <b>set</b> is that starting point. If we take for granted the definition of a set, we can use it to construct more building blocks in the system.</p></aside>
-	
+		}
+	}\]</p>
+	<p>This set is denoted <span class="latex">\(\varnothing\)</span>.</p>
+</div>
+<section id="logical-operators">
+	<header>
+		<h1 class="h-beta">Section A: Logical Operators</h1>
+	</header>
 	
 	<div class="definition" id="D-proposition">
-		<p class="summary">A <dfn>proposition</dfn> <span class="latex">\(\mathsf{p}\)</span> is a statement that uses sets. This statement may be <span class="latex">\(\text{true}\)</span> or <span class="latex">\(\text{false}\)</span>.</p>
-		<p>When we assert that <span class="latex">\(\mathsf{p}\)</span> is <span class="latex">\(\text{true}\)</span>, we state, <q><span class="latex">\(\mathsf{p}\)</span></q>.</p>
+		<p class="summary">A <dfn>proposition</dfn> <span class="latex">\(\l p\)</span> is a statement. This statement may be <var>true</var> or <var>false</var>.</p>
+		<p>When we assert that <span class="latex">\(\l p\)</span> is <var>true</var>, we state, <q><span class="latex">\(\l p\)</span></q>.</p>
 	</div>
-	
-	
 	
 	<div class="definition" id="D-lnot">
-		<p class="summary">Given a proposition <span class="latex">\(\mathsf{p}\)</span>, the assertion <i class="mention"><span class="latex">\(\mathsf{p}\)</span> is <span class="latex">\(\text{false}\)</span></i> is itself a proposition, called the <dfn>negation</dfn> <span class="latex">\(\lnot\mathsf{p}\)</span> of <span class="latex">\(\mathsf{p}\)</span>.</p>
-		<p>When we assert that <span class="latex">\(\mathsf{p}\)</span> is <span class="latex">\(\text{false}\)</span>, we state, <q>not <span class="latex">\(\mathsf{p}\)</span></q>.</p>
+		<p class="summary">Given a proposition <span class="latex">\(\l p\)</span>, the statement <i class="mention"><span class="latex">\(\l p\)</span> is <var>false</var></i> is itself a proposition, called the <dfn>negation</dfn> <span class="latex">\(\lnot\l p\)</span> of <span class="latex">\(\l p\)</span>.</p>
+		<p>When we assert that <span class="latex">\(\l p\)</span> is <var>false</var>, we state, <q>not <span class="latex">\(\l p\)</span></q>.</p>
 	</div>
 	<div class="definition" id="D-lor">
-		<p class="summary">Given propositions <span class="latex">\(\mathsf{p}\)</span> and <span class="latex">\(\mathsf{q}\)</span>, the <dfn>disjunction</dfn> <span class="latex">\(\mathsf{p}\lor\mathsf{q}\)</span> is a proposition defined by the implication <span class="latex">\(\lnot\mathsf{p}\implies\mathsf{q}\)</span>.</p>
-		<p>When <span class="latex">\(\mathsf{p}\lor\mathsf{q}\)</span> is <span class="latex">\(\text{true}\)</span>, we state, <q><span class="latex">\(\mathsf{p}\)</span> or <span class="latex">\(\mathsf{q}\)</span></q>.</p>
+		<p class="summary">Given propositions <span class="latex">\(\l p\)</span> and <span class="latex">\(\l q\)</span>, the <dfn>disjunction</dfn> <span class="latex">\(\l p\lor\l q\)</span> is a proposition defined by the statement <i class="mention"><span class="latex">\(\l p\)</span> or <span class="latex">\(\l q\)</span> (or both) is <var>true</var></i>.</p>
+		<p>When <span class="latex">\(\l p\lor\l q\)</span> is <var>true</var>, we state, <q><span class="latex">\(\l p\)</span> or <span class="latex">\(\l q\)</span></q>.</p>
 	</div>
 	<div class="definition" id="D-land">
-		<p class="summary">Given propositions <span class="latex">\(\mathsf{p}\)</span> and <span class="latex">\(\mathsf{q}\)</span>, the <dfn>conjunction</dfn> <span class="latex">\(\mathsf{p}\land\mathsf{q}\)</span> is a proposition defined by the negation <span class="latex">\(\lnot(\mathsf{p}\implies\lnot\mathsf{q})\)</span>.</p>
-		<p>When <span class="latex">\(\mathsf{p}\land\mathsf{q}\)</span> is <span class="latex">\(\text{true}\)</span>, we state, <q><span class="latex">\(\mathsf{p}\)</span> and <span class="latex">\(\mathsf{q}\)</span></q>.</p>
+		<p class="summary">Given propositions <span class="latex">\(\l p\)</span> and <span class="latex">\(\l q\)</span>, the <dfn>conjunction</dfn> <span class="latex">\(\l p\land\l q\)</span> is a proposition defined by the the statement <i class="mention"><span class="latex">\(\l p\)</span> and <span class="latex">\(\l q\)</span> are both <var>true</var></i>.</p>
+		<p>When <span class="latex">\(\l p\land\l q\)</span> is <var>true</var>, we state, <q><span class="latex">\(\l p\)</span> and <span class="latex">\(\l q\)</span></q>.</p>
 	</div>
-	<aside>
-		<h1 class="h-delta">A discussion on <q>or</q> and <q>and</q>.</h1>
-		<p>The disjunction <span class="latex">\(\mathsf{p}\lor\mathsf{q}\)</span> is <span class="latex">\(\text{true}\)</span> exactly when the assertion that &ldquo;if <span class="latex">\(\mathsf{p}\)</span> is <span class="latex">\(\text{false}\)</span> then <span class="latex">\(\mathsf{q}\)</span> must be <span class="latex">\(\text{true}\)</span>&rdquo; is <span class="latex">\(\text{true}\)</span>.</p>
-		<p>The conjunction <span class="latex">\(\mathsf{p}\land\mathsf{q}\)</span> is <span class="latex">\(\text{true}\)</span> exactly when the assertion that &ldquo;if <span class="latex">\(\mathsf{p}\)</span> is <span class="latex">\(\text{true}\)</span> then <span class="latex">\(\mathsf{q}\)</span> must be <span class="latex">\(\text{false}\)</span>&rdquo; is <span class="latex">\(\text{false}\)</span>.</p>
-		<p><span class="latex">\(\mathsf{p}\lor\mathsf{q}\)</span> is <span class="latex">\(\text{true}\)</span> iff <span class="latex">\(\mathsf{p}\)</span> or <span class="latex">\(\mathsf{q}\)</span> (or possibly both) are <span class="latex">\(\text{true}\)</span>.</p>
-		<p><span class="latex">\(\mathsf{p}\land\mathsf{q}\)</span> is true iff <span class="latex">\(\mathsf{p}\)</span> and <span class="latex">\(\mathsf{q}\)</span> are both true.</p>
-	</aside>
+	
 	<div class="definition" id="D-implies">
-		<p class="summary">Given propositions <span class="latex">\(\mathsf{p}\)</span> and <span class="latex">\(\mathsf{q}\)</span>, the assertion <i class="mention">if <span class="latex">\(\mathsf{p}\)</span> is <span class="latex">\(\text{true}\)</span> then <span class="latex">\(\mathsf{q}\)</span> must be <span class="latex">\(\text{true}\)</span></i> is itself a proposition, called a <dfn>(material) implication</dfn> <span class="latex">\(\mathsf{p}\implies\mathsf{q}\)</span>.</p>
+		<p class="summary">Given propositions <span class="latex">\(\l p\)</span> and <span class="latex">\(\l q\)</span>, the <dfn>(material) implication</dfn> <span class="latex">\(\l p\implies\l q\)</span> is a proposition defined by the disjunction <span class="latex">\(\lnot\l p\lor\l q\)</span>.</p>
 	</div>
+	
 	<aside>
 		<table class="table-list">
 			<caption>There are a number of other ways to express a material implication.</caption>
 			<colgroup span="2"></colgroup>
-			<thead><tr><th colspan="2">When <span class="latex">\(\mathsf{p}\implies\mathsf{q}\)</span> is <span class="latex">\(\text{true}\)</span>, we state,</th></tr></thead>
+			<thead><tr><th colspan="2">When <span class="latex">\(\l p\implies\l q\)</span> is <var>true</var>, we state,</th></tr></thead>
 			<tbody>
 				<tr>
-					<td><q><span class="latex">\(\mathsf{p}\)</span> is the antecedent</q></td>
-					<td><q><span class="latex">\(\mathsf{q}\)</span> is the consequent</q></td>
+					<td><q><span class="latex">\(\l p\)</span> is the antecedent</q></td>
+					<td><q><span class="latex">\(\l q\)</span> is the consequent</q></td>
 				</tr>
 				<tr>
-					<td><q><span class="latex">\(\mathsf{p}\)</span> is the hypothesis</q></td>
-					<td><q><span class="latex">\(\mathsf{q}\)</span> is the conclusion</q></td>
+					<td><q><span class="latex">\(\l p\)</span> is the hypothesis</q></td>
+					<td><q><span class="latex">\(\l q\)</span> is the conclusion</q></td>
 				</tr>
 				<tr>
-					<td><q><span class="latex">\(\mathsf{p}\)</span> then <span class="latex">\(\mathsf{q}\)</span></q></td>
-					<td><q><span class="latex">\(\mathsf{q}\)</span> if <span class="latex">\(\mathsf{p}\)</span></q></td>
+					<td><q><span class="latex">\(\l p\)</span> then <span class="latex">\(\l q\)</span></q></td>
+					<td><q><span class="latex">\(\l q\)</span> if <span class="latex">\(\l p\)</span></q></td>
 				</tr>
 				<tr>
-					<td><q><span class="latex">\(\mathsf{p}\)</span> implies <span class="latex">\(\mathsf{q}\)</span></q></td>
-					<td><q><span class="latex">\(\mathsf{q}\)</span> is implied by <span class="latex">\(\mathsf{p}\)</span></q></td>
+					<td><q><span class="latex">\(\l p\)</span> implies <span class="latex">\(\l q\)</span></q></td>
+					<td><q><span class="latex">\(\l q\)</span> is implied by <span class="latex">\(\l p\)</span></q></td>
 				</tr>
 				<tr>
-					<td><q><span class="latex">\(\mathsf{p}\)</span> is sufficient for <span class="latex">\(\mathsf{q}\)</span></q></td>
-					<td><q><span class="latex">\(\mathsf{q}\)</span> is necessary for <span class="latex">\(\mathsf{p}\)</span></q></td>
+					<td><q><span class="latex">\(\l p\)</span> is sufficient for <span class="latex">\(\l q\)</span></q></td>
+					<td><q><span class="latex">\(\l q\)</span> is necessary for <span class="latex">\(\l p\)</span></q></td>
 				</tr>
 				<tr>
-					<td><q><span class="latex">\(\mathsf{p}\)</span> is stronger than <span class="latex">\(\mathsf{q}\)</span></q></td>
-					<td><q><span class="latex">\(\mathsf{q}\)</span> is weaker than <span class="latex">\(\mathsf{p}\)</span></q></td>
+					<td><q><span class="latex">\(\l p\)</span> is stronger than <span class="latex">\(\l q\)</span></q></td>
+					<td><q><span class="latex">\(\l q\)</span> is weaker than <span class="latex">\(\l p\)</span></q></td>
 				</tr>
 				
 			</tbody>
 		</table>
 	</aside>
 	<div class="definition" id="D-implication-alt">
-		<p class="summary">Given an implication <span class="latex">\(\mathsf{r}\)</span> defined by <span class="latex">\(\mathsf{p}\implies\mathsf{q}\)</span>,</p>
+		<p class="summary">Given an implication <span class="latex">\(\mathsf{r}\)</span> defined by <span class="latex">\(\l p\implies\l q\)</span>,</p>
 		<ul class="list-delta">
-			<li>the implication <span class="latex">\(\mathsf{q}\implies\mathsf{p}\)</span> is called the <dfn>converse</dfn> of <span class="latex">\(\mathsf{r}\)</span>.</li>
-			<li>the implication <span class="latex">\(\lnot\mathsf{p}\implies\lnot\mathsf{q}\)</span> is called the <dfn>inverse</dfn> of <span class="latex">\(\mathsf{r}\)</span>.</li>
-			<li>the implication <span class="latex">\(\lnot\mathsf{q}\implies\lnot\mathsf{p}\)</span> is called the <dfn>contrapositive</dfn> of <span class="latex">\(\mathsf{r}\)</span>.</li>
+			<li>the implication <span class="latex">\(\l q\implies\l p\)</span> is called the <dfn>converse</dfn> of <span class="latex">\(\mathsf{r}\)</span>.</li>
+			<li>the implication <span class="latex">\(\lnot\l p\implies\lnot\l q\)</span> is called the <dfn>inverse</dfn> of <span class="latex">\(\mathsf{r}\)</span>.</li>
+			<li>the implication <span class="latex">\(\lnot\l q\implies\lnot\l p\)</span> is called the <dfn>contrapositive</dfn> of <span class="latex">\(\mathsf{r}\)</span>.</li>
 		</ul>
 	</div>
 	<div class="definition" id="D-iff">
-		<p class="summary">Given propositions <span class="latex">\(\mathsf{p}\)</span> and <span class="latex">\(\mathsf{q}\)</span>, the <dfn>(material) equivalence</dfn> <span class="latex">\(\mathsf{p}\iff\mathsf{q}\)</span> is a proposition defined by the conjunction <span class="latex">\((\mathsf{p}\implies\mathsf{q})\land(\mathsf{q}\implies\mathsf{p})\)</span>.</p>
-		<p class="latex wff">\[(\mathsf{p}\iff\mathsf{q}) \equiv (\mathsf{p}\implies\mathsf{q})\land(\mathsf{q}\implies\mathsf{p})\]</p>
+		<p class="summary">Given propositions <span class="latex">\(\l p\)</span> and <span class="latex">\(\l q\)</span>, the <dfn>(material) equivalence</dfn> <span class="latex">\(\l p\iff\l q\)</span> is a proposition defined by the conjunction <span class="latex">\((\l p\implies\l q)\land(\l q\implies\l p)\)</span>.</p>
 	</div>
 	<table class="table-list">
 		<caption>There are a number of other ways to express a material equivalence.</caption>
 		<colgroup></colgroup>
-		<thead><tr><th>When <span class="latex">\(\mathsf{p}\iff\mathsf{q}\)</span> is <span class="latex">\(\text{true}\)</span>, we state,</th></tr></thead>
+		<thead><tr><th>When <span class="latex">\(\l p\iff\l q\)</span> is <var>true</var>, we state,</th></tr></thead>
 		<tbody>
-			<tr><td><q><span class="latex">\(\mathsf{p}\)</span> if and only if (iff) <span class="latex">\(\mathsf{q}\)</span></q></td></tr>
-			<tr><td><q><span class="latex">\(\mathsf{p}\)</span> implies and is implied by <span class="latex">\(\mathsf{q}\)</span></q></td></tr>
-			<tr><td><q><span class="latex">\(\mathsf{p}\)</span> is necessary and sufficient for <span class="latex">\(\mathsf{q}\)</span></q></td></tr>
-			<tr><td><q><span class="latex">\(\mathsf{p}\)</span> is materially equivalent to <span class="latex">\(\mathsf{q}\)</span></q></td></tr>
+			<tr><td><q><span class="latex">\(\l p\)</span> if and only if (iff) <span class="latex">\(\l q\)</span></q></td></tr>
+			<tr><td><q><span class="latex">\(\l p\)</span> implies and is implied by <span class="latex">\(\l q\)</span></q></td></tr>
+			<tr><td><q><span class="latex">\(\l p\)</span> is necessary and sufficient for <span class="latex">\(\l q\)</span></q></td></tr>
+			<tr><td><q><span class="latex">\(\l p\)</span> is materially equivalent to <span class="latex">\(\l q\)</span></q></td></tr>
 		</tbody>
 	</table>	
 	<div class="definition" id="D-tautology">
-		<p class="summary">Given a proposition <span class="latex">\(\mathsf{p}\)</span>, the <dfn>tautology</dfn> <span class="latex">\(\top\)</span> is a proposition defined by the implication <span class="latex">\(\mathsf{p}\implies\mathsf{p}\)</span>.</p>
+		<p class="summary">Given a proposition <span class="latex">\(\l p\)</span>, the <dfn>tautology</dfn> <span class="latex">\(\top\)</span> is a proposition defined by the disjunction <span class="latex">\(\l p\lor\lnot\l p\)</span>.</p>
 	</div>
 	<div class="definition" id="D-contradiction">
-		<p class="summary">Given a proposition <span class="latex">\(\mathsf{p}\)</span>, the <dfn>contradiction</dfn> <span class="latex">\(\bot\)</span> is a proposition defined by the negation <span class="latex">\(\lnot(\mathsf{p}\implies\mathsf{p})\)</span>.</p>
+		<p class="summary">Given a proposition <span class="latex">\(\l p\)</span>, the <dfn>contradiction</dfn> <span class="latex">\(\bot\)</span> is a proposition defined by the conjunction <span class="latex">\(\l p\land\lnot\l p\)</span>.</p>
 	</div>
-	
-	
-	
 </section>
-<section id="first-axioms" hidden="hidden">
+<section id="first-axioms">
 	<header>
 		<h1 class="h-beta">The Axioms of Logic</h1>
 		<p>now we have everything we need to get started</p>
@@ -161,12 +148,14 @@
 
 	<div>Axiom: Double Negation</div>
 	<div id="A-doubleneg">
-		<p><span class="lede">(The Axiom of Double Negation)</span> <span class="tex">\(\mathsf{p}\)</span> is true if and only if <span class="tex">\(\lnot\mathsf{p}\)</span> is false.</p>
-		<p class="wff">\[\mathsf{p} \equiv \lnot\lnot\mathsf{p}\]</p>
+		<p><span class="lede">(The Axiom of Double Negation)</span> <span class="tex">\(\l p\)</span> is true if and only if <span class="tex">\(\lnot\l p\)</span> is false.</p>
+		<p class="wff">\[\l p \equiv \lnot\lnot\l p\]</p>
 	</div>
 	<aside>
-		<p class="prose">If <span class="tex">\(\lnot\mathsf{p}\)</span> is the assertion that <span class="tex">\(\mathsf{p}\)</span> is false, then the assertion that <span class="tex">\(\lnot\mathsf{p}\)</span> is false, <span class="tex">\(\lnot\lnot\mathsf{p}\)</span>, namely, the assertion that <i>the assertion that <span class="tex">\(\mathsf{p}\)</span> is false</i> is false, is the assertion that <span class="tex">\(\mathsf{p}\)</span> is true.</p>
+		<p class="prose">If <span class="tex">\(\lnot\l p\)</span> is the assertion that <span class="tex">\(\l p\)</span> is false, then the assertion that <span class="tex">\(\lnot\l p\)</span> is false, <span class="tex">\(\lnot\lnot\l p\)</span>, namely, the assertion that <i>the assertion that <span class="tex">\(\l p\)</span> is false</i> is false, is the assertion that <span class="tex">\(\l p\)</span> is true.</p>
 	</aside>
+	
+	
 The principle of bivalence:
 <div class="tex">\[ \forall X : (\forall x: (x\in X \not\iff x\notin X)) \]</div>	
 
@@ -176,9 +165,9 @@ The principle of bivalence:
 	</div>
 	
 	<div class="theorem" id="T-bivalence">
-			<p class="summary"><span class="lede">The Principle of Bivalence</span> It is always the case that a proposition is <span class="latex">\(\text{true}\)</span> or <span class="latex">\(\text{false}\)</span>, and it is never the case that a proposition is both <span class="latex">\(\text{true}\)</span> and <span class="latex">\(\text{false}\)</span>.</p>
-			<p class="latex wff">\[\mathsf{p} \lor \lnot\mathsf{p}\]</p>
-			<p class="latex wff">\[\lnot(\mathsf{p} \land \lnot\mathsf{p})\]</p>
+			<p class="summary"><span class="lede">The Principle of Bivalence</span> It is always the case that a proposition is <var>true</var> or <var>false</var>, and it is never the case that a proposition is both <var>true</var> and <var>false</var>.</p>
+			<p class="latex wff">\[\l p \lor \lnot\l p\]</p>
+			<p class="latex wff">\[\lnot(\l p \land \lnot\l p)\]</p>
 			<p>Bivalence is a direct result of Double-Negation</p>
 	<!--		<p class="summary"><span class="lede">The Principle of Bivalence, Set Theory Version</span> It is always the case that a set is an element of, or not an element of, another set, and it is never the case that a set is both an element of, and not an element of, another set.</p>
 			<p class="latex wff">\[x\in X \lor x\not\in X\]</p>
@@ -189,19 +178,19 @@ The principle of bivalence:
 	
 	<div class="theorem">
 		<p>(The Classic Laws of Thought) (The Law of Excluded Middle) (The Law of Non-Contradiction)</p>
-		<p>By <a class="internal" href="#A-bivalence"></a>, <span class="latex">\(\bot\)</span> is always <span class="latex">\(\text{false}\)</span>.</p>
-		<p>By <a class="internal" href="#A-bivalence"></a>, <span class="latex">\(\top\)</span> is always <span class="latex">\(\text{true}\)</span>.</p>
+		<p>By <a class="internal" href="#A-bivalence"></a>, <span class="latex">\(\bot\)</span> is always <var>false</var>.</p>
+		<p>By <a class="internal" href="#A-bivalence"></a>, <span class="latex">\(\top\)</span> is always <var>true</var>.</p>
 		<p>Each separately, the classic laws of thought are possible without double-negation, however their combination </p>
 	</div>
 	
 	
 	<aside>
-		<p>The logical values <span class="latex">\(\text{true}\)</span> and <span class="latex">\(\text{false}\)</span> are both <strong>collectively exhaustive</strong> and <strong>mutually exclusive</strong>. In other words, a proposition must be either true or false, and it can only be one of these.</p>
+		<p>The logical values <var>true</var> and <var>false</var> are both <strong>collectively exhaustive</strong> and <strong>mutually exclusive</strong>. In other words, a proposition must be either true or false, and it can only be one of these.</p>
 	</aside>
 	
 	<div class="axiom" id="A-lawofidentity">
-		<p class="summary"><span class="lede">The Law of Identity</span> If <span class="latex">\(\mathsf{p}\)</span> is <span class="latex">\(\text{true}\)</span> then <span class="latex">\(\mathsf{p}\)</span> must be <span class="latex">\(\text{true}\)</span>.</p>
-		<p class="latex wff">\[\mathsf{p}\implies\mathsf{p}\]</p>
+		<p class="summary"><span class="lede">The Law of Identity</span> If <span class="latex">\(\l p\)</span> is <var>true</var> then <span class="latex">\(\l p\)</span> must be <var>true</var>.</p>
+		<p class="latex wff">\[\l p\implies\l p\]</p>
 	</div>
 	
 </section>
@@ -210,23 +199,23 @@ The principle of bivalence:
 		<h1 class="h-beta">Rules of Inference</h1>
 	</header>
 <div id="D-therefore">
-	<p><b class="lede">Definition </b>Given propositions <span class="tex">\(\mathsf{p}\)</span> and <span class="tex">\(\mathsf{p}\)</span>, the <dfn>logical implication</dfn> <span class="tex">\(\mathsf{p}\therefore\mathsf{q}\)</span> is true iff the proposition <span class="tex">\(\mathsf{p}\implies\mathsf{q}\)</span> is a tautology <span class="tex">\(\top\)</span>.</p>
-	<p>When <span class="tex">\(\mathsf{p}\therefore\mathsf{q}\)</span> we say <q><span class="tex">\(\mathsf{p}\)</span> logically implies <span class="tex">\(\mathsf{q}\)</span></q> or <q><span class="tex">\(\mathsf{p}\)</span>, therefore <span class="tex">\(\mathsf{q}\)</span></q> or <q><span class="tex">\(\mathsf{q}\)</span>, because <span class="tex">\(\mathsf{p}\)</span></q> (<span class="tex">\(\mathsf{q}\because\mathsf{p}\)</span>).</p>
+	<p><b class="lede">Definition </b>Given propositions <span class="tex">\(\l p\)</span> and <span class="tex">\(\l p\)</span>, the <dfn>logical implication</dfn> <span class="tex">\(\l p\therefore\l q\)</span> is true iff the proposition <span class="tex">\(\l p\implies\l q\)</span> is a tautology <span class="tex">\(\top\)</span>.</p>
+	<p>When <span class="tex">\(\l p\therefore\l q\)</span> we say <q><span class="tex">\(\l p\)</span> logically implies <span class="tex">\(\l q\)</span></q> or <q><span class="tex">\(\l p\)</span>, therefore <span class="tex">\(\l q\)</span></q> or <q><span class="tex">\(\l q\)</span>, because <span class="tex">\(\l p\)</span></q> (<span class="tex">\(\l q\because\l p\)</span>).</p>
 </div>
 <div id="D-logical-equivalence">
-	<p><b class="lede">Definition </b> Given propositions <span class="tex">\(\mathsf{p}\)</span> and <span class="tex">\(\mathsf{q}\)</span>, the <dfn>logical equivalence</dfn> <span class="tex">\(\mathsf{p}\equiv\mathsf{q}\)</span> is true iff the proposition <span class="tex">\((\mathsf{p}\therefore\mathsf{q})\land(\mathsf{q}\therefore\mathsf{p})\)</span> is true.</p>
+	<p><b class="lede">Definition </b> Given propositions <span class="tex">\(\l p\)</span> and <span class="tex">\(\l q\)</span>, the <dfn>logical equivalence</dfn> <span class="tex">\(\l p\equiv\l q\)</span> is true iff the proposition <span class="tex">\((\l p\therefore\l q)\land(\l q\therefore\l p)\)</span> is true.</p>
 </div>
 
 
 	<div>demorgan's laws:
-	<p><span class="tex">\(\mathsf{p}\lor\mathsf{q}\)</span> is false iff <span class="tex">\(\mathsf{p}\)</span> is false and <span class="tex">\(\mathsf{q}\)</span> is false.</p>
-	<p><span class="tex">\(\mathsf{p}\land\mathsf{q}\)</span> is false iff <span class="tex">\(\mathsf{p}\)</span> is false, or <span class="tex">\(\mathsf{q}\)</span> is false, or both are false.</p>
+	<p><span class="tex">\(\l p\lor\l q\)</span> is false iff <span class="tex">\(\l p\)</span> is false and <span class="tex">\(\l q\)</span> is false.</p>
+	<p><span class="tex">\(\l p\land\l q\)</span> is false iff <span class="tex">\(\l p\)</span> is false, or <span class="tex">\(\l q\)</span> is false, or both are false.</p>
 	</div>
 
 
 	<div id="T-contrapositive">
 		<p class="summary"><span class="lede">The Rule of Transposition</span>An implication is logically equivalent to its contrapositive.</p>
-		<p class="">\[\mathsf{p}\implies\mathsf{q} \equiv \lnot\mathsf{q}\implies\lnot\mathsf{p}\]</p>
+		<p class="">\[\l p\implies\l q \equiv \lnot\l q\implies\lnot\l p\]</p>
 			<div class="proof">
 				<p>Not sure how to prove this... need: logical equivalence</p>
 			</div>

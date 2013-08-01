@@ -1,11 +1,6 @@
-$(document).ready(function() {
-	/** JavaScript 'grabber' classes --- only here for jQuery selectors */
-	$('.definition').addClass('js-mathnode');
-	$('.axiom').addClass('js-mathnode');
-	$('.theorem').addClass('js-mathnode');
-	
-	var nodect = 0;
-	$('.js-mathnode').each(function() {
+function numberNodes(jQobj, ssletter) {
+	var nodecount = 0;
+	jQobj.each(function() {
 		$(this).wrapInner(newElem('div').addClass('js-mathnode-content'));
 		$(this).prepend(newElem('div').addClass('js-mathnode-label'));
 		$(this).children('.js-mathnode-label').html(function() {
@@ -18,9 +13,38 @@ $(document).ready(function() {
 			} else if (theparent.hasClass('theorem')) {
 				mathnodetype = 'Theorem';
 			}
-			return mathnodetype + ' ' + (++nodect);
+			return mathnodetype + ' ' + ssletter + '.' + (++nodecount);
 		});
 	});
+}
+function addNodeLabel(jQobj, ssletter) {
+	var nodecount = 0;
+	jQobj.wrapInner(newElem('div').addClass('js-mathnode-content'));
+	jQobj.prepend(newElem('div').addClass('js-mathnode-label'));
+	jQobj.children('.js-mathnode-label').html(function() {
+		var theparent = $(this).parent();
+		var mathnodetype = '';
+		if (theparent.hasClass('definition')) {
+			mathnodetype = 'Definition';
+		} else if (theparent.hasClass('axiom')) {
+			mathnodetype = 'Axiom';
+		} else if (theparent.hasClass('theorem')) {
+			mathnodetype = 'Theorem';
+		}
+		return mathnodetype + ' ' + ssletter + '.' + (++nodecount);
+	});
+}
+
+$(document).ready(function() {
+	/** JavaScript 'grabber' classes --- only here for jQuery selectors */
+	$('.definition').addClass('js-mathnode');
+	$('.axiom').addClass('js-mathnode');
+	$('.theorem').addClass('js-mathnode');
+	
+	numberNodes($('#logical-operators .js-mathnode'), 'A');
+	numberNodes($('#first-axioms .js-mathnode'), 'B');
+	
+		
 	addLede($('.proof'), 'Proof. ');
 //	addLede($('.informal'), 'Informal Remark. ');
 	
