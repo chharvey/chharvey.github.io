@@ -59,19 +59,16 @@ $(document).ready(function() {
 		$(this).children('td:even').addClass('column-odd');
 		$(this).children('td:odd').addClass('column-even');
 	});
-	$('.table-grid tbody').each(function() {
-		$(this).children('tr:even').addClass('row-odd');
-		$(this).children('tr:odd').addClass('row-even');
-		$(this).children('tr').each(function() {
-			$(this).children('td:even').addClass('column-odd');
-			$(this).children('td:odd').addClass('column-even');
-		});
-	});
+//	$('.table-grid tbody').each(function() {
+//		$(this).children('tr:even').addClass('row-odd');
+//		$(this).children('tr:odd').addClass('row-even');
+//		$(this).children('tr').each(function() {
+//			$(this).children('td:even').addClass('column-odd');
+//			$(this).children('td:odd').addClass('column-even');
+//		});
+//	});
 	
 	/* INLINE ELEMENTS */
-//	$('[datetime]').attr('title',function() {
-//		return $(this).attr('datetime');
-//	});
 	/* hyperlinks */
 	$('.js-link[href]').hover(function() {
 		$(this).toggleClass('up dn');
