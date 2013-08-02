@@ -4,6 +4,8 @@
 
 .main, main {}
 
+h3, .h-gamma {text-align: center;}
+
 .node() {// an Abstract Class representing a formal proposition of the axiomatic system
 	.line();
 	> .js-mathnode-label   {// the span of text that numbers the proposition, e.g. "Theorem 3.1.". This class is automatically created by JS
@@ -21,21 +23,23 @@
 //		position: relative;
 //		left: -@width-Golden4;
 	}
+	/* a sentence in English that is used to identify the proposition, such as that would be presented in a tooltip or preview */
+	.summary {
+		font-style: italic;
+		> span.lede {
+			font-style: normal;
+			&:before {content: '(';}
+			&:after  {content: ')';}
+		}
+	}
+	/* a mathematical statement ("well-formed formula") that formalizes the proposition */
+	.wff {
+		// Do NOT extend/include the `.latex` class here! It must be included in the HTML so JS can grab it.
+	}
 	p {
 		&:not(.latex) {
 			.prose;
 			font-size: inherit;
-		}
-		&.summary {// a sentence in English that is used to identify the proposition, as such that would be presented in a tooltip or preview
-			font-style: italic;
-			> span.lede {
-				font-style: normal;
-				&:before {content: '(';}
-				&:after  {content: ')';}
-			}
-		}
-		&.wff {// a mathematical statement ("well-formed formula") that formalizes the proposition
-			
 		}
 	}
 }
@@ -51,23 +55,28 @@
 }
 .theorem {
 	.node();
-	> .proof {
-		> .qed {
-			border-bottom: 0;
+	.proof {
+		&:before {
+			.lede;
+			content: 'Proof.';
+		}
+		&:after {
+			.foreignlang();
 			float: right;
+			border-bottom: 0;
+			content: 'q.e.d.';
 		}
 	}
 }
-.informal {
+.informal,
+aside {
 	background-color: #eee;
 	& * {background-color: transparent;}
 }
-
-aside {.informal;}
-
 .example {}
 
-.internal {// internal hyperlinks to nodes
+/* internal hyperlinks to nodes ('internal' means within the same site, not page */
+.internal {
 	// Do NOT extend/include the `.up` class here! It must be included in the HTML so JS can grab it.
 }
 #truth-tabledothtml {

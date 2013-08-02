@@ -41,14 +41,10 @@ $(document).ready(function() {
 	$('.axiom').addClass('js-mathnode');
 	$('.theorem').addClass('js-mathnode');
 	
-	numberNodes($('#logical-operators .js-mathnode'), 'A');
-	numberNodes($('#first-axioms .js-mathnode'), 'B');
-	
+	numberNodes($('#logical-operators .js-mathnode'), 'I.A');
+	numberNodes($('#logical-axioms .js-mathnode'), 'I.B');
 		
-	addLede($('.proof'), 'Proof. ');
-//	addLede($('.informal'), 'Informal Remark. ');
 	
-	$('a.internal').addClass('up');
 //	var sectct = 0;	
 //	$('section').each(function() {
 //		sectct++;

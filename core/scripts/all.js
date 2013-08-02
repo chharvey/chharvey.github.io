@@ -7,16 +7,9 @@ function newElem(elemname) {
 function newElemFilled(elemname, classname, html) {
 	return newElem(elemname).addClass(classname).html(html);
 }
-function addSomethingTo(jQobj, elemname, classname, html) {
-	jQobj.prepend(newElemFilled(elemname, classname, html));
-}
-function addLede(jQobj, html) {
-	addSomethingTo(jQobj, 'span', 'lede', html);
-}
-function addLabel(jQobj, html) {
-//USE THE CSS ':before' element!!!
-//	addSomethingTo(jQobj, 'div', 'label', html);
-}
+//function addSomethingTo(jQobj, elemname, classname, html) {
+//	jQobj.prepend(newElemFilled(elemname, classname, html));
+//}
 function showOnHover(container) {
 	container.wrapInner(newElem('div').addClass('js-wrapper invisible'));
 	container.hover(function() {
