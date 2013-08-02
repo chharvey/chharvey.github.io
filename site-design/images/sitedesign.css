@@ -209,8 +209,10 @@ p {
   line-height: 1.5em;
   color: #000000;
 }
+/* blocks of short or long quoted material */
 .q-block,
-blockquote {
+blockquote,
+.example {
   margin: 0 0 0.5em;
   line-height: 1.4em;
   padding-left: 8px;
@@ -225,45 +227,68 @@ blockquote {
   text-align: left;
 }
 .q-block.prose,
-blockquote.prose {
+blockquote.prose,
+.example.prose {
   font-size: 11pt;
   font-family: 'Palatino', 'Book Antiqua', serif;
 }
 .q-block.prose .source,
-blockquote.prose .source {
+blockquote.prose .source,
+.example.prose .source {
   padding-left: 0;
 }
 .q-block.prose .source:before,
-blockquote.prose .source:before {
+blockquote.prose .source:before,
+.example.prose .source:before {
   content: '(';
 }
 .q-block.prose .source:after,
-blockquote.prose .source:after {
+blockquote.prose .source:after,
+.example.prose .source:after {
   content: ')';
 }
 .q-block .source,
-blockquote .source {
+blockquote .source,
+.example .source {
   padding-left: 1em;
   font-family: 'Optima', 'Century Gothic', sans-serif;
 }
 .q-block .source:before,
-blockquote .source:before {
+blockquote .source:before,
+.example .source:before {
   content: '~';
 }
+/* examples of phrases, etc. maybe use 'figure' element? */
+/* captions of figures, tables, or anything */
 .caption,
 figure figcaption,
 table caption {
   margin: 0 0 0.5em;
   line-height: 1.4em;
-  padding-right: 5px;
+  padding-left: 5px;
   padding-top: 3px;
   padding-bottom: 3px;
-  border-right-width: 3px;
-  border-right-style: double;
-  border-right-color: #000000;
-  margin-right: 13px;
+  border-left-width: 3px;
+  border-left-style: double;
+  border-left-color: #000000;
+  margin-left: 13px;
   font-size: 10pt;
-  text-align: right;
+  text-align: left;
+}
+/* a container containing paragraphs, etc. that are not officially part of an official document, but are still a major part of the normal flow of the document. The 'aside' and 'figure' elements are not suitable for this object. */
+.informal {
+  padding-left: 3px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  border-left-width: 2px;
+  border-left-style: solid;
+  border-left-color: #000000;
+  margin-left: 8px;
+  padding: 10px;
+  background-color: #eee;
+}
+.informal * {
+  background-color: transparent;
 }
 .timestamp {
   font-size: smaller;
@@ -703,6 +728,7 @@ main {
   border-radius: 10px;
   margin: 4px;
 }
+/* @end */
 /* @group block links */
 .block-up {
   border-width: 0 0 1px;
@@ -777,6 +803,7 @@ main {
 /* @group modules containing sample things */
 /* @end */
 /* @group coding */
+/* CODE represents EXAMPLE code, typically something a user would input. do NOT use the 'example' class, though it would be semantically correct, because this 'code' class this is more specific. */
 code {
   display: inline;
   padding: 0 1px;
@@ -819,6 +846,73 @@ code.lang-latex .comm {
 code.lang-latex .arg {
   color: #000080;
 }
+/* user input, in the form of a string, menu item, etc. */
+.userinput,
+kbd {
+  white-space: nowrap;
+}
+/* an individual key on a keyboard, calculator, or other device */
+.key,
+kbd kbd {
+  display: inline;
+  padding: 0 1px;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 3px;
+  border-color: #000000;
+  font-size: 10pt;
+  font-family: 'Lucida Sans Typewriter', 'Monaco', 'Courier New', 'Courier', monospace;
+  color: #000000;
+  background-color: #ffffff;
+  padding: 2px;
+  font-family: 'Optima', 'Century Gothic', sans-serif;
+}
+.key .comment,
+kbd kbd .comment {
+  color: #999999;
+}
+.key.lang-html .tag,
+kbd kbd.lang-html .tag {
+  color: #800000;
+}
+.key.lang-html .attribute,
+kbd kbd.lang-html .attribute {
+  color: #000080;
+}
+.key.lang-html .value,
+kbd kbd.lang-html .value {
+  color: #008000;
+}
+.key.lang-css .selector,
+kbd kbd.lang-css .selector,
+.key.lang-less .selector,
+kbd kbd.lang-less .selector {
+  color: #800000;
+}
+.key.lang-css .property,
+kbd kbd.lang-css .property,
+.key.lang-less .property,
+kbd kbd.lang-less .property {
+  color: #000080;
+}
+.key.lang-css .value,
+kbd kbd.lang-css .value,
+.key.lang-less .value,
+kbd kbd.lang-less .value {
+  color: #008000;
+}
+.key.lang-latex .comm,
+kbd kbd.lang-latex .comm {
+  color: #800000;
+}
+.key.lang-latex .arg,
+kbd kbd.lang-latex .arg {
+  color: #000080;
+}
+samp {
+  font-family: inherit;
+}
+/* demos are blocks or figures that demonstrate output of an example code block */
 /* @end */
 /* @group math */
 .latex {
@@ -839,6 +933,7 @@ p.latex {
 }
 /* @end */
 /* @group messages */
+/* Messages are little warnings/tips/etc. for the user. More elegant than tooltips. */
 .warning {
   display: inline;
   padding: 0 1px;
@@ -955,7 +1050,6 @@ p.latex {
   color: #550055;
   background-color: #ffbbff;
 }
-/* @end */
 /* @end */
 /* @end MODS */
 /* @group grid.html */
