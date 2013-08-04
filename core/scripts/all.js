@@ -10,12 +10,12 @@ function newElemFilled(elemname, classname, html) {
 //function addSomethingTo(jQobj, elemname, classname, html) {
 //	jQobj.prepend(newElemFilled(elemname, classname, html));
 //}
-function showOnHover(container) {
-	container.wrapInner(newElem('div').addClass('js-wrapper invisible'));
-	container.hover(function() {
-		$(this).find('.js-wrapper').toggleClass('invisible',t_ani);
-	});
-}
+//function showOnHover(container) {
+//	container.wrapInner(newElem('div').addClass('js-wrapper invisible'));
+//	container.hover(function() {
+//		$(this).find('.js-wrapper').toggleClass('invisible',t_ani);
+//	});
+//}
 $(document).ready(function() {
 	/*
 	Adds classes to necessary elements.
@@ -33,9 +33,6 @@ $(document).ready(function() {
 //	$('.js-disabled-remove, .wff').css('display','inline-block');
 	
 	/** JavaScript 'grabber' classes --- only here for jQuery selectors */
-	$('a.up, a.dn').addClass('js-link');
-	$('a.sp-up, a.sp-dn').addClass('js-sp');
-	$('a.block-up, a.block-dn').addClass('js-block-link');
 });
 
 $(document).ready(function() {
@@ -62,39 +59,8 @@ $(document).ready(function() {
 //	});
 	
 	/* INLINE ELEMENTS */
-	/* hyperlinks */
-	$('.js-link[href]').hover(function() {
-		$(this).toggleClass('up dn');
-		$(this).removeClass('active');
-	});
-	$('.js-sp[href]').hover(function() {
-		$(this).toggleClass('sp-up sp-dn');
-		$(this).removeClass('active');
-	});
-	
-	$('a[href]').mousedown(function() {
-		$(this).addClass('active');
-	});
-	$('a[href]').mouseup(function () {
-		$(this).removeClass('active');
-	});
 	
 	/* MODS */
-//	showOnHover($('.example, .demo'));
-	/* block hyperlinks */
-	$('.js-block-link').hover(function() {
-		$(this).toggleClass('block-up block-dn',t_ani);
-	});
-	$('.js-block-link').mousedown(function() {
-		$(this).addClass('block-active');
-	});
-	$('.js-block-link').mouseup(function () {
-		$(this).removeClass('block-active');
-	});
-	/* hyperlinks in main navigation bars */
-	$('.hub-nav a').hover(function() {
-		$(this).parent().toggleClass('pos neg',t_ani);
-	});
 	/* code */
 //	$('.lang-html').attr('title','HTML');
 //	$('.lang-css').attr('title','CSS');
@@ -103,20 +69,12 @@ $(document).ready(function() {
 //	$('.lang-jq').attr('title','jQuery');
 
 	/* math */
-//	$('data.latex[value]').html(function() {
-//		return $(this).attr('value'); // for Mathjax rendering
-//	});
-//	$('data.latex[value]:after').css('content',''); // DOESN'T WORK!
-//	$('data.latex[value]').attr('title',function() {
-//		return $(this).attr('value'); // for people who want to see the LaTeX source
-//	});
-
-	/* special icons */
-	$('.icon-special').addClass('icon-special-clear');
-	$('.icon-special').hover(function() {
-		$(this).toggleClass('icon-special-clear',t_ani);
+	/** puts the LaTeX source in the 'title' attribute */
+	$('.latex').attr('title',function() {
+		return $(this).html();
 	});
-	/** an attempt to fix the cursive headings of the hub pages 
+	
+	/** an attempt to fix the cursive headings of the folio pages 
 	EDIT: Temporary fix available at the bottom of each hub page. */
 //	while($('.folio .h-folio').width > $('.folio').width) {
 //		$('.folio .h-folio').css('font-size', (parseInt($('.folio .h-folio').css('font-size')) - 1) + "px" );
