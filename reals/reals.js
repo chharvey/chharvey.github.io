@@ -1,74 +1,42 @@
-function numberNodes(jQobj, ssletter) {
+function numberNodes(sectionid, sectionLetter) {
 	var nodecount = 0;
-	jQobj.each(function() {
-		$(this).wrapInner(newElem('div').addClass('js-mathnode-content'));
-		$(this).prepend(newElem('div').addClass('js-mathnode-label'));
-		$(this).children('.js-mathnode-label').html(function() {
-			var theparent = $(this).parent();
-			var mathnodetype = '';
-			if (theparent.hasClass('definition')) {
-				mathnodetype = 'Definition';
-			} else if (theparent.hasClass('axiom')) {
-				mathnodetype = 'Axiom';
-			} else if (theparent.hasClass('theorem')) {
-				mathnodetype = 'Theorem';
-			}
-			return mathnodetype + ' ' + ssletter + '.' + (++nodecount);
+	
+	$(sectionid + ' .definition .js-mathnode-label, ' + sectionid + ' .theorem .js-mathnode-label').append(function() {
+		return sectionLetter + (++nodecount);
+	});
+}
+function numberAxioms(pageid, axiomcount) {
+	$(pageid).each(function() {
+		$(this).find('.axiom .js-mathnode-label').append(function() {
+			return engNumArray[++axiomcount];
 		});
 	});
 }
-function addNodeLabel(jQobj, ssletter) {
-	var nodecount = 0;
-	jQobj.wrapInner(newElem('div').addClass('js-mathnode-content'));
-	jQobj.prepend(newElem('div').addClass('js-mathnode-label'));
-	jQobj.children('.js-mathnode-label').html(function() {
-		var theparent = $(this).parent();
-		var mathnodetype = '';
-		if (theparent.hasClass('definition')) {
-			mathnodetype = 'Definition';
-		} else if (theparent.hasClass('axiom')) {
-			mathnodetype = 'Axiom';
-		} else if (theparent.hasClass('theorem')) {
-			mathnodetype = 'Theorem';
-		}
-		return mathnodetype + ' ' + ssletter + '.' + (++nodecount);
-	});
-}
-
+var engNumArray = [
+	'zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine',
+	'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen',
+];
 $(document).ready(function() {
 	/** JavaScript 'grabber' classes --- only here for jQuery selectors */
 	$('.definition').addClass('js-mathnode');
 	$('.axiom').addClass('js-mathnode');
 	$('.theorem').addClass('js-mathnode');
-	
-	numberNodes($('#logical-operators .js-mathnode'), 'I.A');
-	numberNodes($('#logical-axioms .js-mathnode'), 'I.B');
 		
+	$('.js-mathnode').each(function() {
+		$(this).wrapInner(newElem('div').addClass('js-mathnode-content'));
+		$(this).prepend(newElem('div').addClass('js-mathnode-label'));
+	});
+	$('.definition .js-mathnode-label').append('Definition ');
+	$('.axiom .js-mathnode-label').append('Axiom ');
+	$('.theorem .js-mathnode-label').append('Theorem ');
 	
-//	var sectct = 0;	
-//	$('section').each(function() {
-//		sectct++;
-//		var nodect = 0;
-//		$(this).children('.js-mathnode').prepend(function() {
-//			return newElem('div').addClass('').html(getMathnodeType($(this)) + sectct + '.' + ++nodect);
-//		});
-//	});
+	numberAxioms('#propositional-logic', 0);
+	numberNodes('#logical-operators', 'I.A.');
+	numberNodes('#logical-axioms', 'I.B.');
 	
-	
-//	$('.proof').append(
-//		newElem('abbr').addClass('qed').attr('title','quod erat demonstrandum').append(
-//			newElem('i').attr('lang','la').html(' q.e.d.').css('color','#0c0')
-//		)
-//	);
-//	
-	
-//	
-//	
-//	
-//	
-//	
-	
-	
+	numberAxioms('#set-theory', 12);
+	numberNodes('#predicate-logic', 'II.A.');
+	numberNodes('#set-axioms', 'II.B.');
 	
 	/* changes the text contents of an internal link to the label of the node to which it links. */
 //	$('a.internal[href]').html(function() {
