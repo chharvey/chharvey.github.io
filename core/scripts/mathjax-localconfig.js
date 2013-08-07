@@ -17,7 +17,10 @@ MathJax.Hub.Config({
 //			bold: ['{\\bf #1}',1], // template
 			expand: ['{\\left\(\\toggle\{\\text\{#1\}\}\{#2\}\\endtoggle\\right\)}',2],
 			l: ['{\\mathsf #1}',1], // propositional variables, predicates
-			RR: '{\\mathbb\{R\}}', // real numbers
+			NN: '{\\mathbb N}', // natural numbers
+			ZZ: '{\\mathbb Z}', // integers
+			QQ: '{\\mathbb Q}', // rational numbers
+			RR: '{\\mathbb R}', // real numbers
 		},
 	},
 	'HTML-CSS': {

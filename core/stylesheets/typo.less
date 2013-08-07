@@ -71,57 +71,73 @@ h5 + h6 {
 @defaultmargins: 0 0 0.5em;
 .p, p {
 	margin: @defaultmargins;
-	line-height: 1.4em;
 }
+/* typography for prose elements */
 .prose {
-	.p;
-	margin-bottom: 0.75em;
 	font-size: @font-size-prose;
 	font-family: @font-fam-prose;
 	text-align: justify;
 	line-height: 1.3em;
-	list-style-type: decimal;// for prose lists (ol)
 }
+p.prose {
+	margin-bottom: 0.75em;
+}
+ol.prose {
+	list-style-type: decimal;
+}
+/* typography for lede elements */
 .lede {
-	.p;
-	padding-right: 1em;
-	margin-bottom: 1em;
 	font-weight: bold;
 	font-family: @font-fam-base;
 	text-align: justify;
 	line-height: 1.5em;
 	color: #000000;
 }
-.sideborder-left(@padding-width; @border-width; @margin-width; @border-style; @border-color) {
-	padding-left: @padding-width;
-	padding-top: @border-width;
-	padding-bottom: @border-width;
-	border-left-width: @border-width;
-	border-left-style: @border-style;
-	border-left-color: @border-color;
-	margin-left: @margin-width;
+p.lede {
+	margin-bottom: 1em;
 }
-.sideborder-right(@padding-width; @border-width; @margin-width; @border-style; @border-color) {
-	padding-right: @padding-width;
-	padding-top: @border-width;
-	padding-bottom: @border-width;
-	border-right-width: @border-width;
-	border-right-style: @border-style;
-	border-right-color: @border-color;
-	margin-right: @margin-width;
+span.lede {
+	padding-right: 1em;
+}
+
+.sideborder-left(@pad-width; @brdr-width; @marg-width; @brdr-style; @brdr-color) {
+	margin: @defaultmargins;
+	padding-left: @pad-width;
+	padding-top: @brdr-width;
+	padding-bottom: @brdr-width;
+	border-left-width: @brdr-width;
+	border-left-style: @brdr-style;
+	border-left-color: @brdr-color;
+	margin-left: @marg-width;
+}
+.sideborder-right(@pad-width; @brdr-width; @marg-width; @brdr-style; @brdr-color) {
+	margin: @defaultmargins;
+	padding-right: @pad-width;
+	padding-top: @brdr-width;
+	padding-bottom: @brdr-width;
+	border-right-width: @brdr-width;
+	border-right-style: @brdr-style;
+	border-right-color: @brdr-color;
+	margin-right: @marg-width;
+}
+/* a container containing paragraphs, etc. that are not officially part of an official document, but are still a major part of the normal flow of the document. The 'aside' and 'figure' elements are not suitable for this object. */
+.informal {
+	.sideborder-left(5px; 3px; 13px; solid; @accent);
+//	padding: 10px;
+	background-color: #f4f4f4;
+//	& * {background-color: transparent;}
+}
+/* example figures (text, images, etc.) */
+figure {
+	.sideborder-left(8px; 5px; 21px; solid; @accent);
+	font-style: italic;
 }
 /* blocks of short or long quoted material */
-.q-block,
-blockquote,
-.example {
-	.p;
-	.sideborder-left(8px; 5px; 21px; solid; @accent);
+blockquote {
+	.sideborder-left(13px; 8px; 34px; double; @accent);
 	font-size: 14pt;
 	font-family: @font-fam-heading;
-	text-align: left;
 	&.prose {
-		font-size: @font-size-prose;
-		font-family: @font-fam-prose;
 		.source {
 			padding-left: 0;
 			&:before {content: '(';}
@@ -134,36 +150,20 @@ blockquote,
 		&:before {content: '~';}
 	}
 }
-/* examples of phrases, etc. maybe use 'figure' element? */
-//.example {
-//	border-color: @color-example-brdr;
-//	background-color: @color-example-bg;
-//	> .label {
-//		.sample-label();
-//		border-color: @color-example-brdr;
-//		color: @color-example-label-txt;
-//		background-color: @color-example-label-bg;
-//	}
-//}
+
 /* captions of figures, tables, or anything */
 .caption,
-figure figcaption,
-table caption {
-	.p;
-	.sideborder-left(5px; 3px; 13px; double; @accent);
+figure > figcaption,
+table > caption {
+	margin: @defaultmargins;
+	margin-top: 0.5em;
+	font-style: normal;
 	font-size: 10pt;
-	text-align: left;
-}
-/* a container containing paragraphs, etc. that are not officially part of an official document, but are still a major part of the normal flow of the document. The 'aside' and 'figure' elements are not suitable for this object. */
-.informal {
-	.sideborder-left(3px; 2px; 8px; solid; @accent);
-	padding: 10px;
-	background-color: #f8f8f8;
-//	& * {background-color: transparent;}
+	text-align: right;
 }
 
+/* a paragraph element that indicates the most recent edit of a webpage or document. includes a <time datetime=""> element. */
 .timestamp {
-	//a paragraph element that indicates the most recent edit of a webpage or document. includes a <time datetime=""> element.
 	font-size: smaller;
 	text-align: left;
 }
@@ -171,7 +171,7 @@ table caption {
 
 /* @group lists */
 ul, ol, dl {
-	.p;
+	margin: @defaultmargins;
 	padding-left: 0.5in;
 	line-height: 1.3em;
 	ul, ol, dl {margin-bottom: auto;}
