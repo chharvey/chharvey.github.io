@@ -213,6 +213,7 @@ p.lede {
 span.lede {
   padding-right: 1em;
 }
+/* captions of figures, tables, or anything */
 /* a container containing paragraphs, etc. that are not officially part of an official document, but are still a major part of the normal flow of the document. The 'aside' and 'figure' elements are not suitable for this object. */
 .informal {
   margin: 0 0 0.5em;
@@ -235,6 +236,15 @@ figure {
   border-left-style: solid;
   border-left-color: #000000;
   margin-left: 21px;
+}
+figure > figcaption {
+  margin: 0 0 0.5em;
+  margin-top: 0.5em;
+  font-style: normal;
+  font-size: 10pt;
+  text-align: right;
+  border-top: 1px dashed;
+  border-bottom: 0;
 }
 /* blocks of short or long quoted material */
 blockquote {
@@ -267,15 +277,6 @@ blockquote .source {
 }
 blockquote .source:before {
   content: '~';
-}
-/* captions of figures, tables, or anything */
-figure > figcaption,
-table > caption {
-  margin: 0 0 0.5em;
-  margin-top: 0.5em;
-  font-style: normal;
-  font-size: 10pt;
-  text-align: right;
 }
 /* a paragraph element that indicates the most recent edit of a webpage or document. includes a <time datetime=""> element. */
 .timestamp {
@@ -389,6 +390,13 @@ table {
   margin: 0 auto 2em;
   text-align: center;
 }
+table > caption {
+  margin: 0 0 0.5em;
+  margin-top: 0.5em;
+  font-style: normal;
+  font-size: 10pt;
+  text-align: right;
+}
 table thead,
 table tfoot {
   border: 1px solid #000000;
@@ -473,13 +481,14 @@ i:lang(fr) {
   font-family: 'Times', 'Times New Roman', serif;
   font-style: italic;
 }
+/* phrases representing silent thoughts */
+i.thought:before {
+  content: '\00ab';
+}
+i.thought:after {
+  content: '\00bb';
+}
 /* proper nouns, titles, keywords, references to headings (e.g. see 'Section 3.A') */
-b.proper:before {
-  content: open-quote;
-}
-b.proper:after {
-  content: close-quote;
-}
 /* @end */
 .new,
 ins {
@@ -808,6 +817,10 @@ pre > code {
   padding: 2px 4px;
   border-radius: 10px;
   margin: 4px;
+  line-height: 1.4em;
+}
+figure pre > code {
+  border: 0;
 }
 samp {
   font-family: inherit;

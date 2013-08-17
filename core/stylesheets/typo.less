@@ -99,6 +99,15 @@ span.lede {
 	padding-right: 1em;
 }
 
+/* captions of figures, tables, or anything */
+.capt() {
+	margin: @defaultmargins;
+	margin-top: 0.5em;
+	font-style: normal;
+	font-size: 10pt;
+	text-align: right;
+}
+
 .sideborder-left(@pad-width; @brdr-width; @marg-width; @brdr-style; @brdr-color) {
 	margin: @defaultmargins;
 	padding-left: @pad-width;
@@ -129,6 +138,11 @@ span.lede {
 /* example figures (text, images, etc.) */
 figure {
 	.sideborder-left(8px; 5px; 21px; solid; @accent);
+	> figcaption {
+		.capt();
+		border-top: 1px dashed;
+		border-bottom: 0;
+	}
 }
 /* blocks of short or long quoted material */
 blockquote {
@@ -148,16 +162,6 @@ blockquote {
 		font-family: @font-fam-base;
 		&:before {content: '~';}
 	}
-}
-
-/* captions of figures, tables, or anything */
-figure > figcaption,
-table > caption {
-	margin: @defaultmargins;
-	margin-top: 0.5em;
-	font-style: normal;
-	font-size: 10pt;
-	text-align: right;
 }
 
 /* a paragraph element that indicates the most recent edit of a webpage or document. includes a <time datetime=""> element. */
@@ -230,6 +234,7 @@ table {
 	border-collapse: collapse;
 	margin: 0 auto 2em;
 	text-align: center;
+	> caption {.capt();}
 	thead, tfoot {
 		.tableheader();
 	}
@@ -309,11 +314,16 @@ table {
 	i:lang(fr) { 
 		.foreignlang();
 	}
-	/* proper nouns, titles, keywords, references to headings (e.g. see 'Section 3.A') */
-	b.proper {
-		&:before {content: open-quote;}
-		&:after  {content: close-quote;}
+	/* phrases representing silent thoughts */
+	i.thought {
+		&:before {content: '\00ab';} // &laquo;
+		&:after  {content: '\00bb';} // &raquo;
 	}
+	/* proper nouns, titles, keywords, references to headings (e.g. see 'Section 3.A') */
+//	b.proper {
+//		&:before {content: open-quote;}
+//		&:after  {content: close-quote;}
+//	}
 	/* @end */
 .new, ins {text-decoration: underline; color: @color-ins;;}
 .old, del {text-decoration: line-through; color: @color-del;}
