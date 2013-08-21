@@ -291,3 +291,8 @@ Attempt:
 Given a metric space M, given a point x in M and a real-valued distance delta, a set V is a “delta-neighborhood” around x iff V is the set of all t in M such that d(x,t) < delta.
 Given a metric space M, a point x in M, and a real distance delta, a delta-neighborhood around x exists. WFF: (forall R)({R is the set of real numbers})(forall M)({m is a metric space})(forall x in M)(forall delta in R) (exists V)(forall t)(t in V iff (t in M implies {d(x,t) < delta})) Proof: subset axiom schema replacing (s in M implies {d(x,s) < delta}) with P(s).
 A set U is “open” iff for every point y in U, U contains some delta-neighborhood of y.
+
+
+# xProof todo #
+- decide where  model and isAxiom attributes go
+- ProofTypes
