@@ -11,14 +11,15 @@ TO DO
 - - "superset": `&supe;` or `2287`
 - - "slash":/ or "bar": |
 - Add any boolean `hidden` attribute to all elements not ready for publishing
-- Change all possessive and contraction apostrophe characters `&apos;` to right single quotes `&rsquo;`
+- **only in formal documents**: Change all possessive and contraction apostrophe characters `'` to right single quotes `&rsquo;`. Leave the apostrophes alone in regular pages. The typographical precision is not worth the effort.
+- all self-closing tags should end in `/>`, not ` />`. (remove the space before the slash)
 
 ### styles ###
 - Change all 'includes' to 'extends' with the new less.js v1.4
 - FIND A FUCKING LESS COMPILER!
 
 ### scripts ###
-- get rid of all Server-Side Includes. There has *got* to be a way to repeat dynamic HTML snippets using JavaScript! Maybe **Liquid** or **Jekyll**?
+- work on **Liquid** / **Jekyll** includes
 
 
 ## specific projects ##
@@ -39,6 +40,14 @@ TO DO
 ### /resume/ ###
 - fix print.css!
 
+### /higher-ed/ ###
+#### MATH 4626 limits project ####
+- convert all php files to html files
+- conform to site-wide styles
+- convert all math into LaTeX
+#### MATH 4644 technology lessons ####
+- conform to site-wide styles
+- relocate all lessons to `/secondary-ed/`
 
 
 
