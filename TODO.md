@@ -3,23 +3,21 @@ TO DO
 
 ## Site-wide to-do list ##
 ### semantics ###
-- `img alt` attributes should be semantic
 - don't rely on `title` attributes for any element (mobile browsers)
 - `rel` attributes on `link` and `a` elements, see [http://dev.w3.org/html5/spec/links.html#linkTypes](http://dev.w3.org/html5/spec/links.html#linkTypes)
 - breadcrumbs! three choices:
 - - "owns": `&ni;` or `\220b`
-- - "superset": `&supe;` or `2287`
+- - "superset": `&supe;` or `\2287`
 - - "slash":/ or "bar": |
 - Add any boolean `hidden` attribute to all elements not ready for publishing
 - **only in formal documents**: Change all possessive and contraction apostrophe characters `'` to right single quotes `&rsquo;`. Leave the apostrophes alone in regular pages. The typographical precision is not worth the effort.
-- all self-closing tags should end in `/>`, not ` />`. (remove the space before the slash)
 
 ### styles ###
 - Change all 'includes' to 'extends' with the new less.js v1.4
 - FIND A FUCKING LESS COMPILER!
 
 ### scripts ###
-- work on **Liquid** / **Jekyll** includes
+
 
 
 ## specific projects ##
@@ -33,9 +31,8 @@ TO DO
 
 ### /home/folio/ pages ###
 - class drop-downs shouldn't be summary elements, just because the behavior is something ideal. Use divs and JavaScript to emulate the drop-down/expando behavior.
-- re-write all index pages for higher-ed courses. Get rid of PHP files:
-  - meta charset
-  - course titles, instructor homepage, semester time
+- re-write all index pages for higher-ed courses.
+
 
 ### /resume/ ###
 - fix print.css!
