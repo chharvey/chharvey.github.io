@@ -27,4 +27,4 @@ MathJax.Hub.Config({
 	},
 });
 
-MathJax.Ajax.loadComplete('http://chharvey.net16.net/core/scripts/mathjax-localconfig.js');
+MathJax.Ajax.loadComplete('http://chharvey.github.io/core/scripts/mathjax-localconfig.js');
