@@ -72,6 +72,7 @@ h5 + h6 {
 @defaultmargins: 0 0 0.5em;
 .p, p {
 	margin: @defaultmargins;
+	text-align: left;
 }
 /* typography for prose elements */
 .prose {
@@ -90,11 +91,11 @@ ol.prose {
 	font-weight: bold;
 	font-family: @font-fam-base;
 	text-align: justify;
-	line-height: 1.5em;
 	color: #000000;
 }
 p.lede {
 	margin-bottom: 1em;
+	line-height: 1.5em;
 }
 span.lede {
 	padding-right: 1em;
@@ -226,7 +227,7 @@ dl.list-inline {
 /* @group tables */
 .tableheader() {
 	border: 1px solid @accent;
-	font-weight: bold;
+	//font-weight: bold;
 	text-align: center;
 	vertical-align: middle;
 	background-color: @color-table-bg-head;
@@ -236,37 +237,46 @@ table {
 	margin: 0 auto 2em;
 	text-align: center;
 	> caption {.capt();}
-	thead, tfoot {
-		.tableheader();
-	}
+	thead, tfoot {font-weight: bold;}
 	tbody {
 		.code, code {background-color: transparent;}
 	}
 	th, td {
 		padding: 5px;
+		border-width: 1px;
+		border-style: solid;
 		border-color: #808080;
 	}
+	th {font-weight: bold;}
 	&.table-list {
 		thead, tfoot {
-			border-left: 0;
-			border-right: 0;
+			tr {
+				.tableheader();
+				border-left: 0;
+				border-right: 0;
+			}
 		}
 		tbody {
 			th {background-color: @color-table-bg-strong;}
 			.row-odd  {background-color: @color-table-bg-medium;}
 			.row-even {background-color: @color-table-bg-weak;}
 		}
+		th, td {border-width: 0;}
 	}
 	&.table-bars {
 		thead, tfoot {
-			border-top: 0;
-			border-bottom: 0;
+			tr {
+				.tableheader();
+				border-top: 0;
+				border-bottom: 0;
+			}
 		}
 		tbody {
 			th {background-color: @color-table-bg-strong;}
 			.column-odd  {background-color: @color-table-bg-weak;}
 			.column-even {background-color: @color-table-bg-medium;}
 		}
+		th, td {border-width: 0;}
 	}
 }
 //.table-grid {
