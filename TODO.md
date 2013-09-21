@@ -46,6 +46,19 @@ TO DO
 - conform to site-wide styles
 - relocate all lessons to `/secondary-ed/`
 
+### /secondary-ed/ ###
+- **find a way to write SVG images!**
+
+#### Math7/wholenumbers-integers/ ####
+- unit overview (`index.html`): add unit vocabulary and unit homework
+- upload HW 1.3 (`ints-add-hw.html`)
+- add number lines to HW 1.3
+- create HW 1.4 (`ints-sub-hw.html`)
+- create lesson 1.5 (`ints-multdiv-lesson.html`) due 2013-09-23
+- create HW 1.5 (`ints-multdiv-hw.html`) due 2013-09-23
+- create Quiz 1.5 (`ints-multdiv-quiz.html`) due 2013-09-27
+- create SBG 7.3, integer operations due 2013-10-02
+
 ### /reals/ ###
 #### TODO for logic theory ####
 **Implication Identity**
