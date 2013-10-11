@@ -56,8 +56,12 @@ TO DO
 - move subtraction notes from Lesson 1.3 to Lesson 1.4
 - create HW 1.4 (`ints-sub-hw.html`)
 - create HW 1.5 (`ints-multdiv-hw.html`) due 2013-09-23 (with chips, number lines, (and blocks))
-- create Quiz 1.5 (`ints-multdiv-quiz.html`) due 2013-09-27
-- create SBG 7.3, integer operations due 2013-10-02
+- convert Quiz 1.5 (from Word to `ints-multdiv-quiz.html`)
+- create SBG 7.3 versions (integer operations)
+- create Lesson 1.6 (`fieldprops-lesson.html`)
+- create SBG 7.16 versions (properties)
+- create Lesson 1.7 (`verbals-lesson.html`)
+- create SBG 7.3a versions (verbal math)
 
 ### /reals/ ###
 #### TODO for logic theory ####
