@@ -63,6 +63,12 @@ TO DO
 - create Lesson 1.7 (`verbals-lesson.html`)
 - create SBG 7.3a versions (verbal math)
 
+#### Math7/equations-inequalities/ ####
+- convert **Inequalities Part 3** from GDrive to `ineq-multdiv-lesson.html`
+- convert Pre-Quiz 1.1 (`eqns-onestep-prequiz.html`)
+- create Quiz 1.1  (`eqns-onestep-quiz.html`)
+- convert Pre-Quiz 1.2 from Word in GDrive (`eqns-twostep-prequiz.html`)
+
 ### /reals/ ###
 #### TODO for logic theory ####
 **Implication Identity**
