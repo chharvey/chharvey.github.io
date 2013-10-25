@@ -58,15 +58,16 @@ TO DO
 - create HW 1.5 (`ints-multdiv-hw.html`) due 2013-09-23 (with chips, number lines, (and blocks))
 - create SBG 7.3 versions (integer operations)
 - create Lesson 1.6 (`fieldprops-lesson.html`)
-- create SBG 7.16 versions (properties)
 - create Lesson 1.7 (`verbals-lesson.html`)
 - create SBG 7.3a versions (verbal math)
 
 #### Math7/equations-inequalities/ ####
-- convert **Inequalities Part 3** from GDrive to `ineq-multdiv-lesson.html`
 - convert Pre-Quiz 1.1 (`eqns-onestep-prequiz.html`)
 - create Quiz 1.1  (`eqns-onestep-quiz.html`)
 - convert Pre-Quiz 1.2 (`eqns-twostep-prequiz.html`)
+- create Quiz 1.2  (`eqns-twostep-quiz.html`)
+- convert **Inequalities Part 3** from Pages on GDrive to `ineq-multdiv-lesson.html`
+
 
 ### /reals/ ###
 #### TODO for logic theory ####
