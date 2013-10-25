@@ -60,12 +60,11 @@ TO DO
 - create Lesson 1.6 (`fieldprops-lesson.html`)
 - create Lesson 1.7 (`verbals-lesson.html`)
 - create SBG 7.3a versions (verbal math)
+- convert Unit 1 Test to `wholenumbersintegers-test.html`
 
 #### Math7/equations-inequalities/ ####
-- convert Pre-Quiz 1.1 (`eqns-onestep-prequiz.html`)
-- create Quiz 1.1  (`eqns-onestep-quiz.html`)
-- convert Pre-Quiz 1.2 (`eqns-twostep-prequiz.html`)
-- create Quiz 1.2  (`eqns-twostep-quiz.html`)
+- create Quiz 2.1  (`eqns-onestep-quiz.html`)
+- create Quiz 2.2  (`eqns-twostep-quiz.html`)
 - convert **Inequalities Part 3** from Pages on GDrive to `ineq-multdiv-lesson.html`
 
 
