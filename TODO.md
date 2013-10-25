@@ -56,7 +56,6 @@ TO DO
 - move subtraction notes from Lesson 1.3 to Lesson 1.4
 - create HW 1.4 (`ints-sub-hw.html`)
 - create HW 1.5 (`ints-multdiv-hw.html`) due 2013-09-23 (with chips, number lines, (and blocks))
-- convert Quiz 1.5 (from Word to `ints-multdiv-quiz.html`)
 - create SBG 7.3 versions (integer operations)
 - create Lesson 1.6 (`fieldprops-lesson.html`)
 - create SBG 7.16 versions (properties)
@@ -67,7 +66,7 @@ TO DO
 - convert **Inequalities Part 3** from GDrive to `ineq-multdiv-lesson.html`
 - convert Pre-Quiz 1.1 (`eqns-onestep-prequiz.html`)
 - create Quiz 1.1  (`eqns-onestep-quiz.html`)
-- convert Pre-Quiz 1.2 from Word in GDrive (`eqns-twostep-prequiz.html`)
+- convert Pre-Quiz 1.2 (`eqns-twostep-prequiz.html`)
 
 ### /reals/ ###
 #### TODO for logic theory ####
