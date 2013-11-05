@@ -53,9 +53,9 @@ TO DO
 - upload HW 1.3 (`ints-add-hw.html`)
 - add number lines to HW 1.3
 - create Lesson 1.4 (`ints-sub-lesson.html`)
-- move subtraction notes from Lesson 1.3 to Lesson 1.4
+- move subtraction notes from Lesson 1.3 (`ints-add-lesson.html`) to Lesson 1.4 (`ints-sub-lesson.html`)
 - create HW 1.4 (`ints-sub-hw.html`)
-- create HW 1.5 (`ints-multdiv-hw.html`) due 2013-09-23 (with chips, number lines, (and blocks))
+- create HW 1.5 (`ints-multdiv-hw.html`) (with chips, number lines, (and blocks))
 - create SBG 7.3 versions (integer operations)
 - create Lesson 1.6 (`fieldprops-lesson.html`)
 - create Lesson 1.7 (`verbals-lesson.html`)
@@ -63,8 +63,9 @@ TO DO
 - convert Unit 1 Test to `wholenumbersintegers-test.html`
 
 #### Math7/equations-inequalities/ ####
-- create Quiz 2.1  (`eqns-onestep-quiz.html`)
+- fix Lesson 2.2 (`eqns-twostep-lesson.html`)
 - create Quiz 2.2  (`eqns-twostep-quiz.html`)
+- create Lesson 2.3 (`ineq-addsub-lesson.html`)
 - convert **Inequalities Part 3** from Pages on GDrive to `ineq-multdiv-lesson.html`
 
 
