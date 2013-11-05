@@ -49,24 +49,29 @@ TO DO
 ### /secondary-ed/ ###
 - **find a way to write SVG images!**
 
+#### Math7/ ####
+- on all course overview, unit overviews, and lessons: include breadcrumbs!
+
 #### Math7/wholenumbers-integers/ ####
-- upload HW 1.3 (`ints-add-hw.html`)
+- upload `ints-add-hw.html`
 - add number lines to HW 1.3
-- create Lesson 1.4 (`ints-sub-lesson.html`)
-- move subtraction notes from Lesson 1.3 (`ints-add-lesson.html`) to Lesson 1.4 (`ints-sub-lesson.html`)
-- create HW 1.4 (`ints-sub-hw.html`)
-- create HW 1.5 (`ints-multdiv-hw.html`) (with chips, number lines, (and blocks))
+- create `ints-sub-lesson.html`
+- move subtraction notes from `ints-add-lesson.html` to `ints-sub-lesson.html`
+- create `ints-sub-hw.html`
+- create `ints-multdiv-hw.html` (with chips, number lines, (and blocks))
 - create SBG 7.3 versions (integer operations)
-- create Lesson 1.6 (`fieldprops-lesson.html`)
-- create Lesson 1.7 (`verbals-lesson.html`)
-- create SBG 7.3a versions (verbal math)
+- create `fieldprops-lesson.html`
 - convert Unit 1 Test to `wholenumbersintegers-test.html`
 
 #### Math7/equations-inequalities/ ####
-- fix Lesson 2.2 (`eqns-twostep-lesson.html`)
-- create Quiz 2.2  (`eqns-twostep-quiz.html`)
-- create Lesson 2.3 (`ineq-addsub-lesson.html`)
+- create `verbals-lesson.html`
+- create SBG 7.3a versions (verbal math)
+- fix `eqns-twostep-lesson.html`
+- create `eqns-twostep-quiz.html` (mini-quiz on only math part of solving equations)
+- create SBG 7.14 versions (equations)
+- create `ineq-addsub-lesson.html`
 - convert **Inequalities Part 3** from Pages on GDrive to `ineq-multdiv-lesson.html`
+- create SBG 7.15 versions (inequalities)
 
 
 ### /reals/ ###
