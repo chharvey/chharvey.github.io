@@ -67,7 +67,6 @@ TO DO
 - create `verbals-lesson.html`
 - create SBG 7.3a versions (verbal math)
 - fix `eqns-twostep-lesson.html`
-- create `eqns-twostep-quiz.html` (mini-quiz on only math part of solving equations)
 - create SBG 7.14 versions (equations)
 - create `ineq-addsub-lesson.html`
 - convert **Inequalities Part 3** from Pages on GDrive to `ineq-multdiv-lesson.html`
