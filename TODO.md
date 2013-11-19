@@ -65,9 +65,8 @@ TO DO
 
 #### Math7/equations-inequalities/ ####
 - create `verbals-lesson.html`
-- create SBG 7.3a versions (verbal math)
+- fix and convert SBG 7.13a versions (verbal math)
 - fix `eqns-twostep-lesson.html`
-- create SBG 7.14 versions (equations)
 - create `ineq-addsub-lesson.html`
 - convert **Inequalities Part 3** from Pages on GDrive to `ineq-multdiv-lesson.html`
 - create SBG 7.15 versions (inequalities)
