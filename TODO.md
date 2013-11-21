@@ -52,7 +52,7 @@ TO DO
 #### Math7/ ####
 - on all course overview, unit overviews, and lessons: include breadcrumbs!
 
-#### Math7/wholenumbers-integers/ ####
+#### Math7/integers/ ####
 - upload `ints-add-hw.html`
 - add number lines to HW 1.3
 - create `ints-sub-lesson.html`
