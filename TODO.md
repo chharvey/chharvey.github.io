@@ -73,6 +73,7 @@ TO DO
 - add **Inequalities Part 3** from Pages on GDrive to `ineq-solve-lesson.html`
 - create SBG 7.15 versions (inequalities)
 
+#### Math7/functions/ ####
 
 ### /reals/ ###
 #### TODO for logic theory ####
