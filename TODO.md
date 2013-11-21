@@ -67,9 +67,10 @@ TO DO
 - create `verbals-lesson.html`
 - fix and convert SBG 7.13a versions (verbal math)
 - fix `eqns-twostep-lesson.html`
+- fix `eqns-word-lesson.html`
 - update `ineq-writegraph-lesson.html`
-- create `ineq-solve-lesson.html`
-- convert **Inequalities Part 3** from Pages on GDrive to `ineq-solve-lesson.html`
+- update `ineq-solve-lesson.html`
+- add **Inequalities Part 3** from Pages on GDrive to `ineq-solve-lesson.html`
 - create SBG 7.15 versions (inequalities)
 
 
