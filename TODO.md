@@ -71,9 +71,10 @@ TO DO
 - update `ineq-writegraph-lesson.html`
 - update `ineq-solve-lesson.html`
 - add **Inequalities Part 3** from Pages on GDrive to `ineq-solve-lesson.html`
-- create SBG 7.15 versions (inequalities)
 
 #### Math7/functions/ ####
+- convert **Modeling Sequences** from Pages on GDrive
+
 
 ### /reals/ ###
 #### TODO for logic theory ####
