@@ -61,7 +61,7 @@ TO DO
 - create `ints-multdiv-hw.html` (with chips, number lines, (and blocks))
 - create SBG 7.3 versions (integer operations)
 - create `fieldprops-lesson.html`
-- convert Unit 1 Test to `wholenumbersintegers-test.html`
+- add images from Unit 1 Test (on Drive) to `test.html`
 
 #### Math7/equations-inequalities/ ####
 - create `verbals-lesson.html`
