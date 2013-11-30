@@ -70,9 +70,9 @@ $(document).ready(function() {
 
 	/* math */
 	/** puts the LaTeX source in the 'title' attribute */
-	$('.latex').attr('title',function() {
-		return $(this).html();
-	});
+//	$('.latex').attr('title',function() {
+//		return $(this).html();
+//	});
 	
 	/** an attempt to fix the cursive headings of the folio pages 
 	EDIT: Temporary fix available at the bottom of each hub page. */

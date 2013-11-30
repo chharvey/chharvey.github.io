@@ -9,6 +9,10 @@
 <style>
 </style>
 {% include all-js.html %}
+	<script src="http://code.jquery.com/jquery-2.0.2.min.js"></script>
+	<script src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML,http://chharvey.github.io/core/scripts/mathjax-localconfig.js"></script>
+	<script src="../core/scripts/all.js"></script>
+
 <script src="reals.js"></script>
 </head>
 <body id="set-theory">
@@ -30,80 +34,20 @@
 <section id="predicate-logic">
 	<header>
 		<h1 class="h-beta">Section II.A: Predicate Logic</h1>
-		<div class="definition" id="D-predicate">
-			<p class="summary">Given a set <span class="latex">\(x\)</span>, the <dfn>predicate</dfn> <span class="latex">\(\l P_x\)</span> is a proposition that makes an assertion involving <span class="latex">\(x\)</span>.</p>
-		</div>
-		<div class="example" hidden="">
-			<p>In the natural numbers, let <span class="latex">\(\l P_n\)</span> be the predicate, <q><span class="latex">\(n\)</span> is even</q>. Then <span class="latex">\(\l P_3\)</span> would be <var>false</var>, while <span class="latex">\(\l P_6\)</span> would be <var>true</var>.</p>
-		</div>
-		<div class="definition" id="D-set">
-			<p class="summary">A <dfn>set</dfn> is that which may own elements. These elements, in turn, are also sets.</p>
-			<p>Given sets <span class="latex">\(s\)</span> and <span class="latex">\(t\)</span>, we use the predicate <span class="latex">\(t\in s\)</span> to describe the assertion that <span class="latex">\(s\)</span> owns <span class="latex">\(t\)</span>. We may also say that <span class="latex">\(t\)</span> is an <dfn>element of</dfn> <span class="latex">\(s\)</span>.</p>
-			<p class="informal"><small>To avoid ambiguity, we will not use the word <i class="mention">contain</i> to represent ownership. For historical reasons, this expression can be interpreted as an indication of ownership or one of <a href="#D-subset">inclusion</a>.</small></p>
-		</div>
-		
-		<div class="draft">
-			<p>Definition: existential quantifier</p>
-			<p>Given a set S and elements a, b, c, d,..., and so on, of S, and given a predicate P_x, the <dfn>existential quantifier</dfn> <span>(\exists x)(P_x)</span> is defined by the predicate <span>\l P_a \lor \l P_b \lor \l P_c \lor ..., and so on</span></p>
-		</div>
-		<div class="definition" id="D-exists">
-			<p class="summary">Given a predicate <span class="latex">\(\l P_x\)</span>, the assertion that there exists a set <span class="latex">\(x\)</span> such that <span class="latex">\(\l P_x\)</span> is <var>true</var> is itself a predicate, called an <dfn>existential quantifier</dfn>, denoted</p>
-			<p class="latex">\[(\exists x)(\l P_x)\]</p>
-		</div>
-		<div class="definition" id="D-forall">
-			<p class="summary">Given a predicate <span class="latex">\(\l P_x\)</span>, tje assertion that there does not exist any set <span class="latex">\(x\)</span> such that <span class="latex">\(\l P_x\)</span> is <var>false</var> is itself a predicate, called a <dfn>universal quantifier</dfn>, defined by</p>
-			<p class="latex">\[\lnot\bigl((\exists x)(\lnot\l P_x)\bigr)\]</p>
-			<p class="latex">\[(\not\exists x)(\lnot\l P_x)\]</p>
-			<p class="latex">\[(\forall x)(\l P_x)\]</p>
-			<span>\lnot((\exists x)(\lnot\l P_x))</span> sometimes denoted 
-			<span></span>
-		</div>
-		<pre>
-		definitions: bound quantifiers
-		
-			(\exists x\in S)(P_x) is defined by (\exists x)(x\in S \land P_x)
-			
-			(\forall x\in S)(P_x) is defined by (\forall x)(x\in S \implies P_x)
-		
-		</pre>
-		<pre>
-			Definition: uniqueness quantifier
-			(\exists!x)(P_x) defined by
-			(\exists x)(P_x \land (\forall y)(P_y \iff x=y))
-		</pre>
-		
-		<pre>
-			combined quantifiers
-			
-			prove:
-			(\exists x)((\forall y)(P_x,y)) \therefore (\forall y)((\exists x)(P_x,y))
-		</pre>
-		
 	</header>
-</section>
-<section id="set-axioms">
-	<header>
-		<h1 class="h-beta">Section II.B: The Axioms of Set Theory</h1>
-	</header>
-	<div class="definition" id="D-equality">
-		<p class="summary">A set <span class="latex">\(a\)</span> is <dfn>equal to</dfn> a set <span class="latex">\(b\)</span> if and only if <span class="latex">\(a\)</span> and <span class="latex">\(b\)</span> own each other's elements.</p>
-		<p>We use the predicate <span class="latex">\(a=b\)</span> to describe the assertion that <span class="latex">\(a\)</span> is equal to <span class="latex">\(b\)</span>. We define this assertion as:</p>
-		<div class="latex">\[(\forall t)(t\in a \iff t\in b)\]</div>
-		<p>This definition is often called <b>The Axiom of Extensionality</b>.
+	<div class="definition" id="D-set">
+		<p class="summary">A <dfn>set</dfn> is that which may own elements. These elements, in turn, are also sets.</p>
+		<p>Given sets <span class="latex">\(s\)</span> and <span class="latex">\(t\)</span>, the assertion that <span class="latex">\(s\)</span> owns <span class="latex">\(t\)</span> is a proposition, denoted <span class="latex">\(t\in s\)</span>. We may also say that <span class="latex">\(t\)</span> is an <dfn>element of</dfn> <span class="latex">\(s\)</span>.</p>
+		<p>The assertion that <span class="latex">\(t\)</span> is <em>not</em> an element of <span class="latex">\(s\)</span> is the negation <span class="latex">\(\lnot\left(t\in s\right)\)</span>. We use the shorthand notation <span class="latex">\(t\not\in s\)</span> equivalently.</p>
+		<p class="informal"><small>To avoid ambiguity, we will not use the word <i class="mention">contain</i> to represent ownership. For historical reasons, this expression can be interpreted as an indication of ownership or one of <a href="#D-subset">inclusion</a>.</small></p>
 	</div>
-	<div class="definition" id="D-subset">
-		<p class="summary">A set <span class="latex">\(a\)</span> is a <dfn>subset of</dfn> a set <span class="latex">\(b\)</span> if and only if <span class="latex">\(b\)</span> owns all of the elements of <span class="latex">\(a\)</span>.</p>
-		<p>We use the predicate <span class="latex">\(a\subseteq b\)</span> to describe the assertion that <span class="latex">\(a\)</span> is a subset of <span class="latex">\(b\)</span>. We define this assertion as:</p>
-		<div class="latex">\[(\forall t)(t\in a \implies t\in b)\]</div>
-		<p class="draft">We also say a is included in b, or b includes a.</p>
-	</div>
-	<div class="axiom draft" id="A-bivalence-sets">
+	<div class="theorem" id="T-bivalence-sets">
 		<div class="lede">The Principle of Bivalence, Set Theory Version</div>
-		<p class="summary">Given sets <span class="latex">\(t\)</span> and <span class="latex">\(S\)</span>:</p>
+		<p class="summary">Given sets <span class="latex">\(t\)</span> and <span class="latex">\(s\)</span>:</p>
 		<ul class="">
 			<li id="LEM">
-				<p class="summary"><span class="lede">The Law of Excluded Middle</span> It is always the case that <span class="latex">\(t\)</span> is an element of or not an element of <span class="latex">\(S\)</span>.</p>
-				<p class="latex wff">\[(t\in S) \lor (t\not\in S)\]</p>
+				<p class="summary"><span class="lede">The Law of Excluded Middle</span> It is always the case that <span class="latex">\(t\)</span> is an element of or not an element of <span class="latex">\(s\)</span>.</p>
+				<p class="latex wff">\[(t\in s) \lor (t\not\in s)\]</p>
 			</li>
 			<li id="LNC">
 				<p class="summary"><span class="lede">The Law of Non-Contradiction</span> It is never the case that <span class="latex">\(t\)</span> is both an element of and not an element of <span class="latex">\(S\)</span>.</p>
@@ -111,31 +55,243 @@
 			</li>
 		</ul>
 	</div>
-	<!--div class="informal">
-		<p>Another way of stating this principle is:</p>
-		<div class="latex">\[ \forall X : (\forall x: \lnot(x\in X \iff x\not\in X)) \]</div>
-	</div-->
+	<div class="definition" id="D-predicate">
+		<p class="summary">Given a set <span class="latex">\(x\)</span>, the <dfn>predicate</dfn> <span class="latex">\(\l P_x\)</span> is a proposition that makes an assertion involving <span class="latex">\(x\)</span>.</p>
+	</div>
+	<div class="example" hidden="">
+		<p>In the natural numbers, let <span class="latex">\(\l P_n\)</span> be the predicate, <q><span class="latex">\(n\)</span> is even</q>. Then <span class="latex">\(\l P_3\)</span> would be <var>false</var>, while <span class="latex">\(\l P_6\)</span> would be <var>true</var>.</p>
+	</div>
+	<div class="definition" id="D-exists">
+		<p class="summary">Given a predicate <span class="latex">\(\l P_x\)</span>, the assertion that there exists a set <span class="latex">\(x\)</span> that makes <span class="latex">\(\l P_x\)</span> <var>true</var> is itself a predicate, called an <dfn>existential quantifier</dfn>.</p>
+		<p class="latex">\[(\exists x)(\l P_x)\]</p>
+	</div>
+	<div class="definition" id="D-forall">
+		<p class="summary">Given a predicate <span class="latex">\(\l P_x\)</span>, the assertion that there does not exist any set <span class="latex">\(x\)</span> that makes <span class="latex">\(\l P_x\)</span> <var>false</var> is itself a predicate, called a <dfn>universal quantifier</dfn>.</p>
+		<p>This proposition is defined by <span class="latex">\(\lnot\bigl((\exists x)(\lnot\l P_x)\bigr)\)</span>; or equivalently, <span class="latex">\((\not\exists x)(\lnot\l P_x)\)</span>.</p>
+		<p>The universal quantifier can be thought of as the assertion that <span class="latex">\(\l P_x\)</span> is <var>true</var> for any set <span class="latex">\(x\)</span>:</p>
+		<p class="latex">\[(\forall x)(\l P_x)\]</p>
+	</div>
+	<section class="draft">
+		<h1 class="h-gamma">Bound Quantifiers</h1>
+		<div class="latex">\[
+			(\exists x\in S)(P_x)\text{ is defined by }(\exists x)(x\in S \land P_x)
+		\]</div>
+		<h1 class="h-gamma">Uniqueness Quantifiers</h1>
+		<span>(requires definition of equality)</span>
+		<div class="latex">\[
+			(\exists!x)(\l P_x)\text{ is defined by }(\exists x)(\l P_x \land (\forall y)(\l P_y \iff x=y))
+		\]</div>
+		<div class="latex">\[
+			(\forall x\in S)(P_x)\text{ is defined by }(\forall x)(x\in S \implies P_x)
+		\]</div>
+		<h1 class="h-gamma">Combined Quantifiers</h1>
+		<div class="latex">\[
+			\left((\exists x)((\forall y)(P_{x,y}))\right)
+			\therefore
+			\left((\forall y)((\exists x)(P_{x,y}))\right)
+		\]</div>
+		<div class="latex">\[
+			\left((\forall x)(\l P_x) \land (\forall x)(\l Q_x)\right)
+			\equiv
+			\left((\forall x)(\l P_x \land \l Q_x)\right)
+		\]</div>
+		<div class="latex">\[
+			\left((\forall x)(\l P_x) \implies (\forall x)(\l Q_x)\right)
+			\equiv
+			\left((\forall x)(\l P_x \implies \l Q_x)\right)
+		\]</div>
+	</section>
+	<section>
+		<h1 class="h-gamma">Equality and Inclusion</h1>		
+		<div class="definition" id="D-equality">
+			<p class="summary">A set <span class="latex">\(x\)</span> is <dfn>equal to</dfn> a set <span class="latex">\(y\)</span> if and only if <span class="latex">\(x\)</span> and <span class="latex">\(y\)</span> own each other's elements.</p>
+			<p>We use the predicate <span class="latex">\(x=y\)</span> to describe the assertion that <span class="latex">\(x\)</span> is equal to <span class="latex">\(y\)</span>. We define this assertion as:</p>
+			<div class="latex">\[(\forall t)(t\in x \iff t\in y)\]</div>
+			<p>This definition is often called <b>The Axiom of Extensionality</b>.
+		</div>
+		<div class="theorem" id="T-equalityreflexive">
+			<p class="summary">Equality is reflexive.</p>
+			<p class="latex wff">\[\expand{Any set is equal to itself.}{
+				(\forall x)\expand{\(x=x\)}{
+					(\forall t)(t\in x \iff t\in x)
+				}
+			}\]</p>
+			<div class="proof draft">
+				<p>use <span class="latex">\(\l p \iff \l p \therefore \top\)</span></p>
+			</div>
+		</div>
+		<div class="theorem" id="T-equalitysymmetric">
+			<p class="summary">Equality is symmetric.</p>
+			<p class="latex wff">\[\expand{One set is equal to another set if and only if that other set is equal to the first set.}{
+				(\forall x)(\forall y)\left(
+				\expand{\(x=y\)}{
+					(\forall t)(t\in x \iff t\in y)
+				}
+				\implies
+				\expand{\(y=x\)}{
+					(\forall t)(t\in y \iff t\in x)
+				}
+				\right)
+			}\]</p>
+			<p>Ergo, when <span class="latex">\(x=y\)</span>, instead of saying, <q><span class="latex">\(x\)</span> is equal to <span class="latex">\(y\)</span>,</q> we may just as well say, <q><span class="latex">\(x\)</span> and <span class="latex">\(y\)</span> are equal.</q>
+			<div class="proof draft">
+				<p>use <span class="latex">\(\l p \iff \l q \therefore \l q \iff \l p\)</span></p>
+			</div>
+		</div>
+			<div class="theorem" id="T-equalitytransitive">
+			<p class="summary">Equality is transitive.</p>
+			<p class="latex wff">\[\expand{If one set is equal to a second set, and that second set is equal to a third set, then all three sets are equal.}{
+				(\forall x)(\forall y)(\forall z)\left(
+				\left(
+					\expand{\(x=y\)}{
+						(\forall t)(t\in x \iff t\in y)
+					}
+					\land
+					\expand{\(y=z\)}{
+						(\forall t)(t\in y \iff t\in z)
+					}
+				\right)
+				\implies
+				\expand{\(x=z\)}{
+					(\forall t)(t\in x \iff t\in z)
+				}
+				\right)
+			}\]</p>
+			<div class="proof draft">
+				<p>use <span class="latex">\(\l p \iff \l q \land \l q \iff \l r \therefore \l p \iff \l r\)</span></p>
+			</div>
+		</div>
+		<div class="definition" id="D-subset">
+			<p class="summary">A set <span class="latex">\(x\)</span> is a <dfn>subset of</dfn> a set <span class="latex">\(y\)</span> if and only if <span class="latex">\(y\)</span> owns all the elements of <span class="latex">\(x\)</span>.</p>
+			<p>We use the predicate <span class="latex">\(x\subseteq y\)</span> to describe the assertion that <span class="latex">\(x\)</span> is a subset of <span class="latex">\(y\)</span>. We define this assertion as:</p>
+			<div class="latex">\[(\forall t)(t\in x \implies t\in y)\]</div>
+			<p>We also say <span class="latex">\(x\)</span> is <dfn>included in</dfn> <span class="latex">\(y\)</span>, or <span class="latex">\(y\)</span> includes <span class="latex">\(x\)</span>.</p>
+		</div>
+		<div class="theorem" id="T-inclusionreflexive">
+			<p class="summary">Inclusion is reflexive.</p>
+		</div>
+		<div class="theorem" id="T-inclusionequality">
+			<p class="summary">Inclusion is <span class="draft">antisymmetric?</span>.</p>
+			<p class="latex wff">\[\expand{Two sets are equal if and only if those sets include each other.}{
+				(\forall x)(\forall y)\left(
+				\expand{\(x=y\)}{
+					(\forall t)(t\in x \iff t\in y)
+				}
+				\iff
+				\left(
+					\expand{\(x\subseteq y\)}{
+						(\forall t)(t\in x \implies t\in y)
+					}
+					\land
+					\expand{\(y\subseteq x\)}{
+						(\forall t)(t\in y \implies t\in x)
+					}
+				\right)
+				\right)
+			}\]</p>
+		</div>
+		<div class="theorem">
+			<p class="summary">Inclusion is transitive.</p>
+		</div>
+	</section>
+</section>
+<section id="set-axioms">
+	<header>
+		<h1 class="h-beta">Section II.B: The Axioms of Set Theory</h1>
+	</header>
 	<div class="axiom" id="A-existence">
 		<p class="summary"><span class="lede">The Axiom of Existence</span> There exists an empty set.</p>
 		<p class="latex wff">\[\expand{There exists an empty set.}{
 			(\exists x)\expand{\(x\) is empty}{
-				(\not\exists t)(t\in x)
+				(\forall t)(t\not\in x)
 			}
 		}\]</p>
+		<theorem xmlns="http://chharvey.net16.net/xProof/material.xsd">
+			<summary>There exists an empty set.</summary>
+			<quantifier type="existential">
+				<setdef id="x"/>
+				<predicate>
+					<summary><latex>x</latex> is empty</summary>
+					<negation>
+						<quantifier type="universal">
+							<setdef id="t"/>
+							<predicate>
+								<summary><latex>t</latex> is not in <latex>x</latex></summary>
+								<negation>
+									<relation>
+										<childset ref="t"/>
+										<parentset ref="x"/>
+									</relation>
+								</negation>
+							</predicate>
+						</quantifier>
+					</negation>
+				</predicate>
+			</quantifier>
+		</theorem>
 		<p>Such a set is denoted <span class="latex">\(\varnothing\)</span>.</p>
 	</div>
+	<div class="axiom" id="A-pair">
+		<p class="summary"><span class="lede">The Axiom of Pair</span> For every two sets, there exists a set that owns only them both.</p>
+		<p class="latex wff">\[\expand{For every two sets, there exists a set that owns only them both.}{
+			(\forall x)(\forall y)\expand{there exists a set that owns only \(x\) and \(y\)}{
+				(\exists z)\expand{\(z\) owns \(x\) and \(y\) and no other sets}{
+					\expand{\(z\) owns \(x\) and \(y\)}{
+						(x\in z) \land (y\in z)
+					} \land \expand{\(z\) owns no other sets}{
+						(\forall t)((t\in z) \implies \expand{\(t=x\)}{
+							(\forall w)(w\in t \iff w\in x)
+						} \lor \expand{\(t=y\)}{
+							(\forall w)(w\in t \iff w\in y)
+						})
+					}
+				}
+			}
+		}\]</p>
+		<p>Given sets <span class="latex">\(x\)</span> and <span class="latex">\(y\)</span>, the set that contains only them both is denoted <span class="latex">\(\left\{x,y\right\}\)</span>.</p>
+	</div>
+	<div class="axiom" id="A-specification">
+		<p class="summary"><span class="lede">The Axiom of Specification</span></p>
+	</div>
+	<div class="axiom" id="A-union">
+		<p class="summary"><span class="lede">The Axiom of Union</span></p>
+	</div>
+	<div class="axiom" id="A-power">
+		<p class="summary"><span class="lede">The Axiom of Power</span></p>
+	</div>
+	<div class="axiom" id="A-infinity">
+		<p class="summary"><span class="lede">The Axiom of Infinity</span></p>
+	</div>
+</section>
+
+
+
+
+	
+
+	
+
+
+	
+	
+	
+	
+	
+	
+	
+<section hidden="">
 	<div class="theorem" id="T-emptyunique">
 		<p class="summary">All empty sets are equal.</p>
 		<p class="latex wff">\[\expand{All empty sets are equal.}{
 			(\forall x)\expand{if \(x\) is empty then it is unique}{
 				\expand{\(x\) is empty}{
-					(\not\exists t)(t\in x)
+					(\forall t)(t\not\in x)
 				}
 				\implies
 				\expand{\(x\) is unique}{
 					(\forall y)\expand{if \(y\) is empty then \(x=y\)}{
 						\expand{\(y\) is empty}{
-							(\not\exists t)(t\in y)
+							(\forall t)(t\not\in y)
 						}
 						\implies
 						\expand{\(x=y\)}{
@@ -164,37 +320,14 @@ x=y							dfn of equality
 			</pre>
 		</div>
 	</div>
-	<div class="axiom" id="A-pair">
-		<p class="summary"><span class="lede">The Axiom of Pair</span> For every two sets, there exists a set that owns only them both.</p>
-		<p class="latex wff">\[\expand{For every two sets, there exists a set that owns only them both.}{
-			(\forall x)(\forall y)\expand{there exists a set that owns only \(x\) and \(y\)}{
-				(\exists z)\expand{\(z\) owns \(x\) and \(y\) and no other sets}{
-					\expand{\(z\) owns \(x\) and \(y\)}{
-						(x\in z) \land (y\in z)
-					} \land \expand{\(z\) owns no other sets}{
-						(\forall t)((t\in z) \implies \expand{\(t=x\)}{
-							(\forall w)(w\in t \iff w\in x)
-						} \lor \expand{\(t=y\)}{
-							(\forall w)(w\in t \iff w\in y)
-						})
-					}
-				}
-			}
-		}\]</p>
-		<p>Given sets <span class="latex">\(x\)</span> and <span class="latex">\(y\)</span>, the set that contains only them both is denoted <span class="latex">\(\left\{x,y\right\}\)</span>.</p>
+	<div class="theorem" id="T-orderedpairsequal">
+		<p class="summary">Two ordered pairs are equal if and only if their corresponding components are equal.</p>
+		<div class="proof">
+		</div>
 	</div>
 </section>
-
-
-
-
 	
-
-	
-
-
-	
-
+<section hidden="">
 	<div class="theorem" id="T-emptyset-subset">
 		<p class="summary">Every set includes an empty set.</p>
 		<p class="latex wff">\[\expand{Every set includes an empty set.}{
@@ -239,7 +372,7 @@ x=y							dfn of equality
 			(a,b,c,d) &:= \bigl((a,b,c),d\bigr) = \dots = \biggl\{\Bigl\{\bigl\{a,\{b\}\bigr\},\{c\}\Bigr\},\{d\}\biggr\}
 		\end{align}</div>
 	</div>
-
+</section>
 </div>
 </body>
 </html>
