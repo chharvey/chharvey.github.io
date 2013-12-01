@@ -74,15 +74,35 @@
 	<section class="draft">
 		<h1 class="h-gamma">Bound Quantifiers</h1>
 		<div class="latex">\[
-			(\exists x\in S)(P_x)\text{ is defined by }(\exists x)(x\in S \land P_x)
-		\]</div>
-		<h1 class="h-gamma">Uniqueness Quantifiers</h1>
-		<span>(requires definition of equality)</span>
-		<div class="latex">\[
-			(\exists!x)(\l P_x)\text{ is defined by }(\exists x)(\l P_x \land (\forall y)(\l P_y \iff x=y))
+			(\exists x\in S)(P_x)
+			\text{ is defined by }
+			(\exists x)(x\in S \land P_x)
 		\]</div>
 		<div class="latex">\[
-			(\forall x\in S)(P_x)\text{ is defined by }(\forall x)(x\in S \implies P_x)
+			(\forall x\in S)(P_x)
+			\text{ is defined by }
+			(\forall x)(x\in S \implies P_x)
+		\]</div>
+		<h1 class="h-gamma">Uniqueness Quantifiers (requires definition of equality)</h1>
+		<span>existence and uniqueness in one statement</span>
+		<div class="latex">\[
+			(\exists!x)(\l P_x)
+			\text{ is defined by }
+			(\exists x)(\l P_x \land (\forall y)(\l P_y \iff x=y))
+		\]</div>
+		<span>existence in the first statement; uniqueness in the second</span>
+		<div class="latex">\[
+			(\exists!x)(\l P_x)
+			\text{ is defined by }
+			(\exists x)(\l P_x)
+			\text{ AND }
+			(\forall x) (\l P_x \implies (\forall y)(\l P_y \iff x=y))\\
+		\]</div>
+		<span>proving existence/uniqueness:</span>
+		<div class="latex">\[
+			(\exists x)(\l P_x)
+			\text{ AND }
+			(\forall x)(\forall y) ((\l P_x \land \l P_y) \implies (x=y))
 		\]</div>
 		<h1 class="h-gamma">Combined Quantifiers</h1>
 		<div class="latex">\[
@@ -173,21 +193,21 @@
 		<div class="theorem" id="T-inclusionequality">
 			<p class="summary">Inclusion is <span class="draft">antisymmetric?</span>.</p>
 			<p class="latex wff">\[\expand{Two sets are equal if and only if those sets include each other.}{
-				(\forall x)(\forall y)\left(
-				\expand{\(x=y\)}{
-					(\forall t)(t\in x \iff t\in y)
+				(\forall x)(\forall y)\expand{\(x=y\) iff they include each other}{
+					\expand{\(x=y\)}{
+						(\forall t)(t\in x \iff t\in y)
+					}
+					\iff
+					\expand{\(x\) and \(y\) include each other}{
+						\expand{\(x\subseteq y\)}{
+							(\forall t)(t\in x \implies t\in y)
+						}
+						\land
+						\expand{\(y\subseteq x\)}{
+							(\forall t)(t\in y \implies t\in x)
+						}
+					}
 				}
-				\iff
-				\left(
-					\expand{\(x\subseteq y\)}{
-						(\forall t)(t\in x \implies t\in y)
-					}
-					\land
-					\expand{\(y\subseteq x\)}{
-						(\forall t)(t\in y \implies t\in x)
-					}
-				\right)
-				\right)
 			}\]</p>
 		</div>
 		<div class="theorem">
@@ -203,10 +223,10 @@
 		<p class="summary"><span class="lede">The Axiom of Existence</span> There exists an empty set.</p>
 		<p class="latex wff">\[\expand{There exists an empty set.}{
 			(\exists x)\expand{\(x\) is empty}{
-				(\forall t)(t\not\in x)
+				(\forall y)(y\not\in x)
 			}
 		}\]</p>
-		<theorem xmlns="http://chharvey.net16.net/xProof/material.xsd">
+		<!--heorem xmlns="http://chharvey.net16.net/xProof/material.xsd">
 			<summary>There exists an empty set.</summary>
 			<quantifier type="existential">
 				<setdef id="x"/>
@@ -214,12 +234,12 @@
 					<summary><latex>x</latex> is empty</summary>
 					<negation>
 						<quantifier type="universal">
-							<setdef id="t"/>
+							<setdef id="y"/>
 							<predicate>
 								<summary><latex>t</latex> is not in <latex>x</latex></summary>
 								<negation>
 									<relation>
-										<childset ref="t"/>
+										<childset ref="y"/>
 										<parentset ref="x"/>
 									</relation>
 								</negation>
@@ -228,27 +248,27 @@
 					</negation>
 				</predicate>
 			</quantifier>
-		</theorem>
-		<p>Such a set is denoted <span class="latex">\(\varnothing\)</span>.</p>
+		</theorem-->
 	</div>
-	<div class="axiom" id="A-pair">
-		<p class="summary"><span class="lede">The Axiom of Pair</span> For every two sets, there exists a set that owns only them both.</p>
-		<p class="latex wff">\[\expand{For every two sets, there exists a set that owns only them both.}{
-			(\forall x)(\forall y)\expand{there exists a set that owns only \(x\) and \(y\)}{
-				(\exists z)\expand{\(z\) owns \(x\) and \(y\) and no other sets}{
-					\expand{\(z\) owns \(x\) and \(y\)}{
-						(x\in z) \land (y\in z)
-					} \land \expand{\(z\) owns no other sets}{
-						(\forall t)((t\in z) \implies \expand{\(t=x\)}{
-							(\forall w)(w\in t \iff w\in x)
-						} \lor \expand{\(t=y\)}{
-							(\forall w)(w\in t \iff w\in y)
-						})
-					}
-				}
+	<div class="axiom" id="A-possession">
+		<p class="summary"><span class="lede">The Axiom of Possession</span> Every set is a member of another set.</p>
+		<p class="latex wff">\[\expand{Every set is a member of another set.}{
+			(\forall x)\expand{there exists a set that owns \(x\)}{
+				(\exists y)(x\in y)
 			}
 		}\]</p>
-		<p>Given sets <span class="latex">\(x\)</span> and <span class="latex">\(y\)</span>, the set that contains only them both is denoted <span class="latex">\(\left\{x,y\right\}\)</span>.</p>
+	</div>
+	<div class="definition" id="D-possessor">
+		<p class="summary">A <dfn>possessor of</dfn> an element is a set that owns that element.</p>
+		<p>Given a set <span class="latex">\(x\)</span>, <a>The Axiom of Possession</a> guarantees that there exists a possessor <span class="latex">\(y\)</span> that owns <span class="latex">\(x\)</span> (at the very least). If <span class="latex">\(y\)</span> owns nothing else, then we may represent <span class="latex">\(y\)</span> using set-builder notation:</p>
+		<p class="latex">\[y=\{x\}\]</p>
+	</div>
+	<div class="axiom" id="A-foundation">
+		<p class="summary"><span class="lede">The Axiom of Foundation</span> Membership is areflexive.</p>
+		<p class="latex wff">\[\expand{No set is a member of itself.}{
+			(\forall x)(x\not\in x)
+		}\]</p>
+		a={b}, and b={a}. Let c={a,b}. Then c={{a},{b}}
 	</div>
 	<div class="axiom" id="A-specification">
 		<p class="summary"><span class="lede">The Axiom of Specification</span></p>
@@ -279,9 +299,9 @@
 	
 	
 	
-<section hidden="">
-	<div class="theorem" id="T-emptyunique">
-		<p class="summary">All empty sets are equal.</p>
+<section>
+	<div class="theorem" id="T-emptysetunique">
+		<p class="summary">The empty set is unique.</p>
 		<p class="latex wff">\[\expand{All empty sets are equal.}{
 			(\forall x)\expand{if \(x\) is empty then it is unique}{
 				\expand{\(x\) is empty}{
@@ -289,11 +309,11 @@
 				}
 				\implies
 				\expand{\(x\) is unique}{
-					(\forall y)\expand{if \(y\) is empty then \(x=y\)}{
+					(\forall y)\expand{\(y\) is empty iff \(x=y\)}{
 						\expand{\(y\) is empty}{
 							(\forall t)(t\not\in y)
 						}
-						\implies
+						\iff
 						\expand{\(x=y\)}{
 							(\forall t)(t\in x \iff t\in y)
 						}
@@ -301,6 +321,7 @@
 				}
 			}
 		}\]</p>
+		<p>The empty set is denoted <span class="latex">\(\varnothing\)</span>.</p>
 		<div class="proof">
 			<pre>
 Let x be an empty set.		premise
@@ -320,10 +341,48 @@ x=y							dfn of equality
 			</pre>
 		</div>
 	</div>
+	<div class="theorem">
+	<div class="theorem" id="T-universal">
+		<p class="summary">There is no set of which every set is a member.</p>
+		<p class="latex wff">\[\expand{There is no universal set.}{
+			(\forall x)\expand{there is a set that is not a member of \(x\)}{
+				(\exists y)(y\not\in x)
+			}
+		}\]</p>
+		<div class="proof">
+		</div>
+	</div>
+	<div class="theorem" id="T-pair">
+		<p class="summary">For every two sets, there exists a unique set that owns only them both.</p>
+		<p class="latex wff">\[\expand{For every two sets, there exists a unique set that owns only them both.}{
+			(\forall x)(\forall y)\expand{there exists a unique set that owns only \(x\) and \(y\)}{
+				(\exists z)\expand{\(z\) owns \(x\) and \(y\) and no other sets}{
+					\expand{\(z\) owns \(x\) and \(y\)}{
+						(x\in z) \land (y\in z)
+					} \land \expand{\(z\) owns no other sets}{
+						(\forall t)((t\in z) \implies \expand{\(t=x\)}{
+							(\forall w)(w\in t \iff w\in x)
+						} \lor \expand{\(t=y\)}{
+							(\forall w)(w\in t \iff w\in y)
+						})
+					}
+				}
+ 			}
+ 		}\]</p>
+	</div>
+	<div class="theorem" id="T-pairunique">
+		<p class="summary">A pair constructed from two sets is unique.</p>
+		<p class="latex wff">A pair constructed from two sets is unique.</p>
+		<div class="proof">
+		</div>
+		<p>Given sets <span class="latex">\(x\)</span> and <span class="latex">\(y\)</span>, the set that contains only them both is denoted <span class="latex">\(\left\{x,y\right\}\)</span>.</p>
+	</div>
 	<div class="theorem" id="T-orderedpairsequal">
 		<p class="summary">Two ordered pairs are equal if and only if their corresponding components are equal.</p>
 		<div class="proof">
 		</div>
+	</div>
+	<div class="theorem" id="T-powersetunique">
 	</div>
 </section>
 	
@@ -372,6 +431,49 @@ x=y							dfn of equality
 			(a,b,c,d) &:= \bigl((a,b,c),d\bigr) = \dots = \biggl\{\Bigl\{\bigl\{a,\{b\}\bigr\},\{c\}\Bigr\},\{d\}\biggr\}
 		\end{align}</div>
 	</div>
+</section>
+<section>
+	<div>
+		reflexive:
+		<div class="latex">\[(\forall a\in s) (a\sim a)\]</div>
+	</div>
+	<div>
+		areflexive:
+		<div class="latex">\[(\exists a\in s) (a\not\sim a)\]</div>
+	</div>
+	<div>
+		antireflexive:
+		<div class="latex">\[(\forall a\in s) (a\not\sim a)\]</div>
+	</div>
+	<div>
+		symmetric:
+		<div class="latex">\[(\forall a,b\in s) (a\sim b \implies b\sim a)\]</div>
+	</div>
+	<div>
+		asymmetric:
+		<div class="latex">\[(\exists a,b\in s) (a\sim b \land b\not\sim a)\]</div>
+	</div>
+	<div>
+		antisymmetric:
+		<div class="latex">\[(\forall a,b\in s) (a\sim b \implies b\not\sim a)\]</div>
+	</div>
+	<div style="background-color: #eee;">
+		something else:
+		<div class="latex">\[(\forall a,b\in s)(a\sim b \land b\sim a \implies a=b)\]</div>
+	</div>
+	<div>
+		transitive:
+		<div class="latex">\[(\forall a,b,c\in s) (a\sim b \land b\sim c \implies a\sim c)\]</div>
+	</div>
+	<div>
+		atransitive:
+		<div class="latex">\[(\exists a,b,c\in s) (a\sim b \land b\sim c \land a\not\sim c)\]</div>
+	</div>
+	<div>
+		antitransitive:
+		<div class="latex">\[(\forall a,b,c\in s) (a\sim b \land b\sim c \implies a\not\sim c)\]</div>
+	</div>
+
 </section>
 </div>
 </body>
