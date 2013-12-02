@@ -61,7 +61,9 @@ TO DO
 - create `ints-multdiv-hw.html` (with chips, number lines, (and blocks))
 - create SBG 7.3 versions (integer operations)
 - create `fieldprops-lesson.html`
-- add images from Unit 1 Test (on Drive) to `test.html`
+- `test.html`
+	- add images from Unit 1 Test (on Drive)
+	- remove verbal mathematics and add to `../equations-inequalities/test.html`
 
 #### Math7/equations-inequalities/ ####
 - create `verbals-lesson.html`
@@ -71,6 +73,15 @@ TO DO
 - update `ineq-writegraph-lesson.html`
 - update `ineq-solve-lesson.html`
 - add **Inequalities Part 3** from Pages on GDrive to `ineq-solve-lesson.html`
+- SBG 7.15 v1
+	- fix list-style-type for #3-5
+	- #6-7 change directions to "Solve each inequality, then graph it on the number line provided."
+- `test.html`
+	- add verbal mathematics
+	- more on one-step equations
+	- less on two-step equations
+	- add inequalities
+	- (in 2013, gave test along with SBG 7.15)
 
 #### Math7/functions/ ####
 - convert **Modeling Sequences** from Pages on GDrive
