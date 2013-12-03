@@ -57,9 +57,11 @@ TO DO
 - add number lines to HW 1.3
 - create `ints-sub-lesson.html`
 - move subtraction notes from `ints-add-lesson.html` to `ints-sub-lesson.html`
+- move link to `ints-sub-quiz.html` from `ints-add-lesson.html` to `ints-sub-lesson.html`
 - create `ints-sub-hw.html`
 - create `ints-multdiv-hw.html` (with chips, number lines, (and blocks))
 - create SBG 7.3 versions (integer operations)
+- move formative feedback questions at the end of `ooo-lesson.html` to `ooo-prequiz.html`
 - create `fieldprops-lesson.html`
 - `test.html`
 	- add images from Unit 1 Test (on Drive)
@@ -68,6 +70,8 @@ TO DO
 #### Math7/equations-inequalities/ ####
 - create `verbals-lesson.html`
 - fix and convert SBG 7.13a versions (verbal math)
+- create `eqns-onestep-lesson.html`
+- move links to `eqns-onestep-prequiz.html` and `eqns-onestep-quiz.html` from `eqns-twostep-lesson.html` to `eqns-onestep-lesson.html`
 - fix `eqns-twostep-lesson.html`
 - fix `eqns-word-lesson.html`
 - update `ineq-writegraph-lesson.html`
@@ -85,6 +89,15 @@ TO DO
 
 #### Math7/functions/ ####
 - convert **Modeling Sequences** from Pages on GDrive
+
+#### Math7/proportions/ ####
+- fix `test.html`
+
+#### Math7/geometry/ ####
+- fix `test.html`
+
+#### Math7/prob-stats/ ####
+- fix `test.html`
 
 
 ### /reals/ ###
