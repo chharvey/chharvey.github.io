@@ -250,25 +250,30 @@
 			</quantifier>
 		</theorem-->
 	</div>
-	<div class="axiom" id="A-possession">
-		<p class="summary"><span class="lede">The Axiom of Possession</span> Every set is a member of another set.</p>
-		<p class="latex wff">\[\expand{Every set is a member of another set.}{
-			(\forall x)\expand{there exists a set that owns \(x\)}{
-				(\exists y)(x\in y)
-			}
-		}\]</p>
+	<div class="axiom" id="A-pair">
+		<p class="summary">For every two sets, there exists a unique set that owns only them both.</p>
+		<p class="latex wff">\[\expand{For every two sets, there exists a unique set that owns only them both.}{
+			(\forall x)(\forall y)\expand{there exists a unique set that owns only \(x\) and \(y\)}{
+				(\exists z)\expand{\(z\) owns \(x\) and \(y\) and no other sets}{
+					\expand{\(z\) owns \(x\) and \(y\)}{
+						(x\in z) \land (y\in z)
+					} \land \expand{\(z\) owns no other sets}{
+						(\forall t)((t\in z) \implies \expand{\(t=x\)}{
+							(\forall w)(w\in t \iff w\in x)
+						} \lor \expand{\(t=y\)}{
+							(\forall w)(w\in t \iff w\in y)
+						})
+					}
+				}
+ 			}
+ 		}\]</p>
 	</div>
-	<div class="definition" id="D-possessor">
-		<p class="summary">A <dfn>possessor of</dfn> an element is a set that owns that element.</p>
-		<p>Given a set <span class="latex">\(x\)</span>, <a>The Axiom of Possession</a> guarantees that there exists a possessor <span class="latex">\(y\)</span> that owns <span class="latex">\(x\)</span> (at the very least). If <span class="latex">\(y\)</span> owns nothing else, then we may represent <span class="latex">\(y\)</span> using set-builder notation:</p>
-		<p class="latex">\[y=\{x\}\]</p>
-	</div>
-	<div class="axiom" id="A-foundation">
-		<p class="summary"><span class="lede">The Axiom of Foundation</span> Membership is areflexive.</p>
+	
+	<div class="axiom draft" id="A-foundation">
+		<p class="summary"><span class="lede">The Axiom of Foundation</span> Membership is antireflexive.</p>
 		<p class="latex wff">\[\expand{No set is a member of itself.}{
 			(\forall x)(x\not\in x)
 		}\]</p>
-		a={b}, and b={a}. Let c={a,b}. Then c={{a},{b}}
 	</div>
 	<div class="axiom" id="A-specification">
 		<p class="summary"><span class="lede">The Axiom of Specification</span></p>
@@ -341,6 +346,19 @@ x=y							dfn of equality
 			</pre>
 		</div>
 	</div>
+	<div class="axiom draft" id="A-possession">
+		<p class="summary"><span class="lede">The Axiom of Possession</span> Every set is a member of another set.</p>
+		<p class="latex wff">\[\expand{Every set is a member of another set.}{
+			(\forall x)\expand{there exists a set that owns \(x\)}{
+				(\exists y)(x\in y)
+			}
+		}\]</p>
+	</div>
+	<div class="definition" id="D-possessor">
+		<p class="summary">A <dfn>possessor of</dfn> an element is a set that owns that element.</p>
+		<p>Given a set <span class="latex">\(x\)</span>, <a>The Axiom of Pair</a> guarantees that there exists a possessor <span class="latex">\(z\)</span> that owns <span class="latex">\(x\)</span> (at least). If <span class="latex">\(z\)</span> owns another set <span class="latex">\(y\)</span>, then we may represent <span class="latex">\(z\)</span> using set-builder notation:</p>
+		<p class="latex">\[z=\{x,y\}\]</p>
+	</div>
 	<div class="theorem">
 	<div class="theorem" id="T-universal">
 		<p class="summary">There is no set of which every set is a member.</p>
@@ -351,24 +369,6 @@ x=y							dfn of equality
 		}\]</p>
 		<div class="proof">
 		</div>
-	</div>
-	<div class="theorem" id="T-pair">
-		<p class="summary">For every two sets, there exists a unique set that owns only them both.</p>
-		<p class="latex wff">\[\expand{For every two sets, there exists a unique set that owns only them both.}{
-			(\forall x)(\forall y)\expand{there exists a unique set that owns only \(x\) and \(y\)}{
-				(\exists z)\expand{\(z\) owns \(x\) and \(y\) and no other sets}{
-					\expand{\(z\) owns \(x\) and \(y\)}{
-						(x\in z) \land (y\in z)
-					} \land \expand{\(z\) owns no other sets}{
-						(\forall t)((t\in z) \implies \expand{\(t=x\)}{
-							(\forall w)(w\in t \iff w\in x)
-						} \lor \expand{\(t=y\)}{
-							(\forall w)(w\in t \iff w\in y)
-						})
-					}
-				}
- 			}
- 		}\]</p>
 	</div>
 	<div class="theorem" id="T-pairunique">
 		<p class="summary">A pair constructed from two sets is unique.</p>
