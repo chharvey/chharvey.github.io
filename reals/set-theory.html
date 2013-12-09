@@ -130,6 +130,10 @@
 			<div class="latex">\[(\forall t)(t\in x \iff t\in y)\]</div>
 			<p>This definition is often called <b>The Axiom of Extensionality</b>.
 		</div>
+		<div class="theorem" id="T-equalityequivalancerelation">
+			<p class="summary">Equality is an equivalence relation on any set.</p>
+			<p><span class="latex">\(\left(x,y\right)\in\mathscr{E}\)</span>, where <span class="latex">\(\mathscr{E}\)</span> represents the subset of <span class="latex">\(A\times A\)</span> specified by <span class="latex">\(\left(x,y\right)\in\mathscr{E} \iff \left(x,y\right)\in A^2 \land \left(\forall t\right)\left(t\in x\iff t\in y\right)\)</span> for any set <span class="latex">\(A\)</span>.</p>
+		</div>
 		<div class="theorem" id="T-equalityreflexive">
 			<p class="summary">Equality is reflexive.</p>
 			<p class="latex wff">\[\expand{Any set is equal to itself.}{
@@ -220,74 +224,89 @@
 	<header>
 		<h1 class="h-beta">The Axioms of Set Theory</h1>
 	</header>
-	<div class="axiom" id="A-existence">
-		<p class="summary"><span class="lede">The Axiom of Existence</span> There exists an empty set.</p>
-		<p class="latex wff">\[\expand{There exists an empty set.}{
-			(\exists x)\expand{\(x\) is empty}{
-				(\forall y)(y\not\in x)
-			}
-		}\]</p>
-		<!--theorem xmlns="http://chharvey.net16.net/xProof/material.xsd">
-			<summary>There exists an empty set.</summary>
-			<quantifier type="existential">
-				<setdef id="x"/>
-				<predicate>
-					<summary><latex>x</latex> is empty</summary>
-					<negation>
-						<quantifier type="universal">
-							<setdef id="y"/>
-							<predicate>
-								<summary><latex>t</latex> is not in <latex>x</latex></summary>
-								<negation>
-									<relation>
-										<childset ref="y"/>
-										<parentset ref="x"/>
-									</relation>
-								</negation>
-							</predicate>
-						</quantifier>
-					</negation>
-				</predicate>
-			</quantifier>
-		</theorem-->
-	</div>
-	<div class="axiom" id="A-pair">
-		<p class="summary">For every two sets, there exists a unique set that owns only them both.</p>
-		<p class="latex wff">\[\expand{For every two sets, there exists a unique set that owns only them both.}{
-			(\forall x)(\forall y)\expand{there exists a unique set that owns only \(x\) and \(y\)}{
-				(\exists z)\expand{\(z\) owns \(x\) and \(y\) and no other sets}{
-					\expand{\(z\) owns \(x\) and \(y\)}{
-						(x\in z) \land (y\in z)
-					} \land \expand{\(z\) owns no other sets}{
-						(\forall t)((t\in z) \implies \expand{\(t=x\)}{
-							(\forall w)(w\in t \iff w\in x)
-						} \lor \expand{\(t=y\)}{
-							(\forall w)(w\in t \iff w\in y)
-						})
+	<section>
+		<header>
+			<h1 class="h-gamma">The Axioms of Creation</h1>
+			<p class="prose draft">The six axioms below tell us what sets may be brought into existence. There are other axioms, but they merely make statements about sets that already exist.</p>
+		</header>
+		<div class="axiom" id="A-existence">
+			<p class="summary"><span class="lede">The Axiom of Existence</span> There exists an empty set.</p>
+			<p class="latex wff">\[\expand{There exists an empty set.}{
+				(\exists x)\expand{\(x\) is empty}{
+					(\forall y)(y\not\in x)
+				}
+			}\]</p>
+			<!--theorem xmlns="http://chharvey.net16.net/xProof/material.xsd">
+				<summary>There exists an empty set.</summary>
+				<quantifier type="existential">
+					<setdef id="x"/>
+					<predicate>
+						<summary><latex>x</latex> is empty</summary>
+						<negation>
+							<quantifier type="universal">
+								<setdef id="y"/>
+								<predicate>
+									<summary><latex>t</latex> is not in <latex>x</latex></summary>
+									<negation>
+										<relation>
+											<childset ref="y"/>
+											<parentset ref="x"/>
+										</relation>
+									</negation>
+								</predicate>
+							</quantifier>
+						</negation>
+					</predicate>
+				</quantifier>
+			</theorem-->
+		</div>
+		<div class="axiom" id="A-pair">
+			<p class="summary"><span class="lede">The Axiom of Pair</span> For every two sets, there exists a set that owns exactly them both.</p>
+			<p class="latex wff">\[\expand{For every two sets, there exists a unique set that owns exactly them both.}{
+				(\forall x)(\forall y)\expand{there exists a set that owns exactly \(x\) and \(y\)}{
+					(\exists z)\expand{\(z\) owns \(x\) and \(y\) and no other sets}{
+						\expand{\(z\) owns \(x\) and \(y\)}{
+							(x\in z) \land (y\in z)
+						}
+						\land
+						\expand{all elements of \(z\) are either \(x\) or \(y\)}{
+							(\forall w)\expand{if \(w\in z\) then \(w\) is \(x\) or \(y\)}{
+								(w\in z) \implies
+								\expand{\(w=x\)}{
+									(\forall t)(t\in w \iff t\in x)
+								}
+								\lor
+								\expand{\(w=y\)}{
+									(\forall t)(t\in w \iff t\in y)
+								}
+							}
+						}
 					}
 				}
- 			}
- 		}\]</p>
-	</div>
-	
-	<div class="axiom draft" id="A-foundation">
-		<p class="summary"><span class="lede">The Axiom of Foundation</span> Membership is antireflexive.</p>
-		<p class="latex wff">\[\expand{No set is a member of itself.}{
-			(\forall x)(x\not\in x)
-		}\]</p>
-	</div>
-	<div class="axiom" id="A-specification">
-		<p class="summary"><span class="lede">The Axiom of Specification</span></p>
-	</div>
-	<div class="axiom" id="A-union">
-		<p class="summary"><span class="lede">The Axiom of Union</span></p>
-	</div>
-	<div class="axiom" id="A-power">
-		<p class="summary"><span class="lede">The Axiom of Power</span></p>
-	</div>
-	<div class="axiom" id="A-infinity">
-		<p class="summary"><span class="lede">The Axiom of Infinity</span></p>
-	</div>
+			}\]</p>
+		</div>
+		<div class="axiom" id="A-specification">
+			<p class="summary"><span class="lede">The Axiom of Specification</span> Given a set, there exists a subset of elements that adhere to any given predicate.</p>
+		</div>
+		<div class="axiom" id="A-union">
+			<p class="summary"><span class="lede">The Axiom of Union</span> For every set, there exists a set which owns exactly any element belonging to any element of that set.</p>
+		</div>
+		<div class="axiom" id="A-power">
+			<p class="summary"><span class="lede">The Axiom of Power</span> There exists a set that has, as elements, exactly all subsets of any given set.</p>
+		</div>
+		<div class="axiom" id="A-infinity">
+			<p class="summary"><span class="lede">The Axiom of Infinity</span> There exists a set that owns an empty set and <span class="draft">is closed under succession</span>.</p>
+		</div>
+	</section>
+	<section>
+		<h1 class="h-gamma">Other Axioms</h1>
+		<div class="axiom draft" id="A-foundation">
+			<p class="summary"><span class="lede">The Axiom of Foundation</span> Membership is antireflexive.</p>
+			<p class="latex wff">\[\expand{No set is a member of itself.}{
+				(\forall x)(x\not\in x)
+			}\]</p>
+		</div>
+	</section>
 <!--/section>
 <section-->
 	<div class="theorem" id="T-emptysetunique">
@@ -342,15 +361,63 @@ x=y							dfn of equality
 			</pre>
 		</div>
 	</div>
-	<div class="axiom draft" id="A-possession">
-		<p class="summary"><span class="lede">The Axiom of Possession</span> Every set is a member of another set.</p>
-		<p class="latex wff">\[\expand{Every set is a member of another set.}{
-			(\forall x)\expand{there exists a set that owns \(x\)}{
-				(\exists y)(x\in y)
+	<div class="theorem" id="T-pairunique">
+		<p class="summary">A pair constructed from two sets is unique.</p>
+		<p class="latex wff">\[\expand{A pair constructed from two sets is unique.}{
+			(\forall x)(\forall y)\expand{all pairs that own only \(x\) and \(y\) are equal}{
+				(\forall z)(\forall w)\expand{if \(z\) and \(w\) are pairs of \(x\) and \(y\) then they are equal}{
+					\expand{\(z\) and \(w\) own only \(x\) and \(y\)}{
+						\expand{\(z\) owns only \(x\) and \(y\)}{
+							\expand{\(z\) owns \(x\) and \(y\)}{
+								(x\in z) \land (y\in z)
+							}
+							\land
+							\expand{all elements of \(z\) are \(x\) or \(y\)}{
+								(\forall s)\expand{if \(s\in z\) then \(s\) is \(x\) or \(y\)}{
+									(s\in z) \implies
+									\expand{\(s=x\)}{
+										(\forall t)(t\in s \iff t\in x)
+									}
+									\lor
+									\expand{\(s=y\)}{
+										(\forall t)(t\in s \iff t\in y)
+									}
+								}
+							}
+						}
+						\land
+						\expand{\(w\) owns only \(x\) and \(y\)}{
+							\expand{\(w\) owns \(x\) and \(y\)}{
+								(x\in w) \land (y\in w)
+							}
+							\land
+							\expand{all elements of \(w\) are \(x\) or \(y\)}{
+								(\forall s)\expand{if \(s\in w\) then \(s\) is \(x\) or \(y\)}{
+									(s\in w) \implies
+									\expand{\(s=x\)}{
+										(\forall t)(t\in s \iff t\in x)
+									}
+									\lor
+									\expand{\(s=y\)}{
+										(\forall t)(t\in s \iff t\in y)
+									}
+								}
+							}
+						}
+					}
+					\implies
+					\expand{\(z=w\)}{
+						(\forall t)(t\in z \iff t\in w)
+					}
+				}
 			}
 		}\]</p>
+		<p class="latex wff"></p>
+		<p>Given sets <span class="latex">\(x\)</span> and <span class="latex">\(y\)</span>, the set that contains only them both is denoted <span class="latex">\(\left\{x,y\right\}\)</span>.</p>
+		<div class="proof">
+		</div>
 	</div>
-	<div class="definition" id="D-possessor">
+	<div class="definition" id="D-possessor" hidden="">
 		<p class="summary">A <dfn>possessor of</dfn> an element is a set that owns that element.</p>
 		<p>Given a set <span class="latex">\(x\)</span>, <a>The Axiom of Pair</a> guarantees that there exists a possessor <span class="latex">\(z\)</span> that owns <span class="latex">\(x\)</span> (at least). If <span class="latex">\(z\)</span> owns another set <span class="latex">\(y\)</span>, then we may represent <span class="latex">\(z\)</span> using set-builder notation:</p>
 		<p class="latex">\[z=\{x,y\}\]</p>
@@ -365,13 +432,7 @@ x=y							dfn of equality
 		<div class="proof">
 		</div>
 	</div>
-	<div class="theorem" id="T-pairunique">
-		<p class="summary">A pair constructed from two sets is unique.</p>
-		<p class="latex wff">A pair constructed from two sets is unique.</p>
-		<div class="proof">
-		</div>
-		<p>Given sets <span class="latex">\(x\)</span> and <span class="latex">\(y\)</span>, the set that contains only them both is denoted <span class="latex">\(\left\{x,y\right\}\)</span>.</p>
-	</div>
+	
 	<div class="theorem" id="T-orderedpairsequal">
 		<p class="summary">Two ordered pairs are equal if and only if their corresponding components are equal.</p>
 		<div class="proof">
@@ -382,15 +443,28 @@ x=y							dfn of equality
 </section>
 	
 <section>
-	<div class="theorem" id="T-emptyset-subset">
+	<div class="theorem" id="T-emptysetsubset">
 		<p class="summary">Every set includes an empty set.</p>
 		<p class="latex wff">\[\expand{Every set includes an empty set.}{
 			(\forall x)\expand{\(x\) includes an empty set}{
 				(\exists y)\expand{\(y\) is empty and \(x\) includes \(y\)}{
 					\expand{\(y\) is empty}{
-						(\not\exists t)(t\in y)
+						(\forall t)(t\not\in y)
 					}
 					\land
+					\expand{\(y\subseteq x\)}{
+						(\forall t)(t\in y\implies t\in x)
+					}
+				}
+			}
+		}\]</p>
+		<p class="latex wff">\[\expand{Every set includes an empty set.}{
+			(\forall x)\expand{\(x\) includes all empty sets}{
+				(\forall y)\expand{if \(y\) is empty then \(x\) includes \(y\)}{
+					\expand{\(y\) is empty}{
+						(\forall t)(t\not\in y)
+					}
+					\implies
 					\expand{\(y\subseteq x\)}{
 						(\forall t)(t\in y\implies t\in x)
 					}
