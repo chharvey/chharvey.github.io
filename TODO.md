@@ -129,6 +129,7 @@ proof using '(A equiv B) if and only if (A iff B equiv T)'
 	(p then p) & (p then p)			dfn of 'iff'
 	p then p						Conjunction Elimination
 	T								dfn of T
+$P \lxor \lnot P \equiv \top$
 
 #### TODO for set theory ####
 

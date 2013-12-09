@@ -300,10 +300,28 @@
 </section>
 
 
+	<div>
+Commutative Laws
 
+Associative Laws
+
+Distributivity Laws
+
+	</div>
 	<div>demorgan's laws:
-	<p><span class="tex">\(\l p\lor\l q\)</span> is false iff <span class="tex">\(\l p\)</span> is false and <span class="tex">\(\l q\)</span> is false.</p>
-	<p><span class="tex">\(\l p\land\l q\)</span> is false iff <span class="tex">\(\l p\)</span> is false, or <span class="tex">\(\l q\)</span> is false, or both are false.</p>
+		<p><span class="tex">\(\l p\lor\l q\)</span> is false iff <span class="tex">\(\l p\)</span> is false and <span class="tex">\(\l q\)</span> is false.</p>
+		<p><span class="tex">\(\l p\land\l q\)</span> is false iff <span class="tex">\(\l p\)</span> is false, or <span class="tex">\(\l q\)</span> is false, or both are false.</p>
+		<!--
+			
+\definition\Dlabel{D:jointDenial}
+A conjunction~$\lnot\pred{P}{x} \land \lnot\pred{Q}{x}$ is a \defn{joint denial} because it is logically equivalent to the negation of the disjunction~$\pred{P}{x} \lor \pred{Q}{x}$.
+$$\lnot\pred{P}{x} \land \lnot\pred{Q}{x} \equiv \lnot\bigl(\pred{P}{x} \lor \pred{Q}{x}\bigr)$$
+
+\definition\Dlabel{D:alternativeDenial}
+A disjunction~$\lnot\pred{P}{x} \lor \lnot\pred{Q}{x}$ is an \defn{alternative denial} because it is logically equivalent to the negation of the conjunction~$\pred{P}{x} \land \pred{Q}{x}$.
+$$\lnot\pred{P}{x} \lor \lnot\pred{Q}{x} \equiv \lnot\bigl(\pred{P}{x} \land \pred{Q}{x}\bigr)$$
+
+		-->
 	</div>
 
 
@@ -315,6 +333,76 @@
 			</div>
 		</dl>
 	</div>
+	
+	<!--
+	\section*{Formal Proof Schemata}
+%============================================================================
+\definition\Dlabel{D:counterexample}
+Sometimes we may use a \defn{counterexample} to disprove a false conjecture. If we are trying to prove the negation of that conjecture to be true, we use an \defn{example}. This schema is the simplest to use. Given a theorem $\forall x : \lnot\pred{P}{x}$, we show
+$$\exists a : \pred{P}{a} \therefore \lnot\pred{P}{x}$$
+
+\theorem
+	There exists an even prime number.
+	\proof
+		To prove this theorem, we use an example: the number $2$.\qed
+	\proof
+		We can also disprove the theorem's negation: the conjecture that ``All prime numbers are odd.'' The counterexample is the number $2$, which is even.\qed
+
+\definition\Dlabel{D:modusPonens}
+Given an implication, the schema of \lang{\defn{modus ponens}} involves showing that if the antecedent is true, and that it leads to the consequent, then the consequent itself must be true. This deductive process proves the implication true. The following formula is an outline of the \lang{modus ponens} schema. Given a theorem $\pred{P}{x}\implies\pred{Q}{x}$, we show
+$$\bigl(\pred{P}{x} \implies \pred{R}{x} \implies \pred{Q}{x}\bigr) \therefore \bigl(\pred{P}{x} \implies \pred{Q}{x}\bigr)$$
+
+\theorem
+EXAMPLE OF \lang{MODUS PONENS}
+
+\definition\Dlabel{D:modusTollens}
+It is sometimes easier to prove a theorem's contrapositive (if it has one), since the contrapositive is logically equivalent to the implication. The schema of \lang{\defn{modus tollens}} involves denying the theorem's consequent and uncovering the negation of its antecedent. Since we have used \lang{modus ponens} to prove the contrapositive, the implication must be true also. Given a theorem $\pred{P}{x}\implies\pred{Q}{x}$, we show
+$$\bigl(\lnot\pred{Q}{x} \implies \lnot\pred{P}{x}\bigr) \therefore \bigl(\pred{P}{x} \implies \pred{Q}{x}\bigr)$$
+
+\theorem
+If the square of an integer is even, then that integer is even also.
+\proof
+We use \lang{modus tollens}. Given an integer~$n\in\Z$, deny the consequent and suppose $n$ is odd. We can say $\exists k\in\Z : n=2k+1$. Then $n^{2}=(2k+1)^{2}=4k^{2}+4k+1=2(2k^{2}+2k)+1=2m+1$ for some integer~$m\in\Z : m=2k^{2}+2k$. (Note that $m$ is also even, but this fact is unnecessary for the proof.) Then $n^{2}=2m+1$ is odd. Hence if $n$ is odd then $n^{2}$ is odd. (In other words, it is impossible to have an even $n^{2}$ when $n$ is odd.) Therefore by contraposition, if $n^{2}$ is even then $n$ is even.\qed
+
+\definition\Dlabel{D:reductioAdAbsurdum}
+Sometimes proving a that a theorem is true is easier if we prove that it cannot possibly be false. This schema is also useful if the theorem does not have a contrapositive (if it is not in conditional form). In this case, we use the schema \lang{\defn{reductio ad absurdum}} to suppose the contrary of the theorem. Our deductive reasoning will then lead us to the logical contradiction. We thus have the following implication: ``our assumption is sufficient for the contradiction.''
+	
+At that point, if we accept that our implication is valid---which we should---then the antecedent of this implication, namely, our assumption, cannot possibly be true. (Suppose the antecedent \emph{were} true: then our implication would be invalid, because a true antecedent is never sufficient for a false consequent. And the contradiction is always false. (This just now was a mini-proof by contradiction\dots about proofs by contradiction!)).
+	
+Anyway, we conclude that our assumption cannot be true, so then the negation of that assumption, which is the theorem we have been trying to prove, cannot be false. The following formula is an outline of the \lang{reductio ad absurdum} schema. Given a theorem $\pred{P}{x}$, we show
+$$\bigl(\lnot\pred{P}{x} \implies \lfalse\bigr) \therefore \pred{P}{x}$$
+
+\subparagraph{Remark}Be mindful of the fact that we are searching for \emph{the unique} logical contradiction~$\lfalse$. The term ``contradiction'' is different in English than in Logic: a `contradiction,' in the informal sense, is any fact that conflicts with a previously known or accepted truth, whereas the logical constant~$\lfalse$ is a form that always holds false (see \Dref{D:lfalse}). It is a logical constant. In searching for $\lfalse$, we want to reach a conclusion that defies some law of logic; not necessarily an inconsistency with any of our initial assumptions or axioms.
+
+For example, given a theorem and then assuming its negation, we may arrive at some consequent that conflicts with a previous theorem (or maybe even our assumption itself), but is not the contradiction \lang{per se}. We cannot stop here. Our goal is to arrive at some universal falsehood, such as $\pred{R}{x} \land \lnot\pred{R}{x}$, \etc. (Nevertheless, if we have gotten this far then the end of the proof follows shortly afterward, with a quick reference to said theorem.)
+
+\theorem
+There is no rational number whose square is 2.
+\proof
+We use \lang{reductio ad absurdum}. We are given $x^{2}=2$. Suppose $x\in\Q$. Then let $x=\frac{a}{b}$ such that $a,b\in\Z$ and $a$ and $b$ are relatively prime (they have no common factors except $1$). Then
+	$$2=x^{2}=\left(\frac{a}{b}\right)^{2}=\frac{a^{2}}{b^{2}}$$
+	$$a^{2}=2b^{2}$$
+So $a^{2}$ is even, which makes $a$ even. Let $\exists k\in\Z : a=2k$. Then
+	$$a^{2}=(2k)^{2}=4k^{2}=2b^{2}$$
+	$$b^{2}=2k^{2}$$
+So $b^{2}$ is even, which makes $b$ even. Then $a$ and $b$ are both even, so they have a common factor of $2$, and thus are not relatively prime. $a$ and $b$ are both relatively prime and not relatively prime. This is the contradiction, which is a conclusion of $x\in\Q$. Therefore if $x^{2}=2$ it is impossible to have $x\in\Q$.\qed
+
+\definition\Dlabel{D:inductionPrinciple}
+In proving that a given specification~$\pred{P}{n}$ is true for all natural numbers~$n\in\N$, we use the \defn{principle of mathematical induction}, or simply, a proof by induction. Let us construct the set~$P$ of all $n\in\N$ for which $\pred{P}{n}$ is true. That is,
+	$$P = \bigl\{n\in\N : \pred{P}{n}\bigr\}$$
+By \Dref{D:subset}, $\forall x : (x\in P\implies x\in\N) \therefore P \subseteq \N$. By \Aref{A:specification}, $P$ exists.
+If we can show that $P$ is inductive, then by \Rref{R:inductionPrinciple}, $P=\N$, that is, $\pred{P}{n}$ is true for all $n\in\N$.
+
+To show $P$ is inductive, by \Dref{D:inductiveSet}, we must show $P$ contains the Null Set, and for every element~$k$ in $P$, its successor~$\inc{k}$ is also in $P$.
+First, this means that $\pred{P}{\emptyset}$ must be proven. That is the \defn{base case}. Second, we must prove that $\pred{P}{k}$ is sufficient for $\pred{P}{\inc{k}}$. That is the \defn{inductive step} (assuming $\pred{P}{k}$ is true is sometimes called the \emph{inductive hypothesis} or the \emph{inductive assumption}, whereas the actual deduction that $\pred{P}{\inc{k}}$ is true is called the \emph{inductive step}). Proving these two steps shows that $P$ is inductive.
+
+\theorem
+Every natural number except $0$ is the successor of some natural number.
+\proof
+See \Tref{T:firstInductionProof} on page \pageref{T:firstInductionProof} for this proof.\qed
+
+	-->
+	
 </section>
 </div>
 </body>
