@@ -185,31 +185,32 @@ dd {
 	padding-left: 0.5in;
 	& + dt {margin-top: 0.5em;}
 }
+/* a basic list with no margins, padding, or numbering. list items are blocks */
 .list-basic {
-	// a basic list with no margins, padding, or numbering. list items are blocks
 	padding: 0;
 	list-style-type: none;
-	dd {padding: 0;}
+	li, dt, dd {margin: 0; padding: 0;}
 }
+/* a basic list except the list items are inline. dt elements are still blocks */
 .list-inline {
-	// a basic list except the list items are inline
 	.list-basic;
 	display: block;
 	li, dd {display: inline;}
 }
 dl.list-inline {
-	padding-left: 0.5in;
-	dt {text-indent: -0.5in;}
-	dd {padding-left: 0;}
+	dt {
+		text-indent: 0;
+		 + dd {padding-left: 0.5in;}
+	}
 }
+/* a basic list that acts as a table with the list items acting as table cells */
 .list-line {
-	// a basic list that acts as a table with the list items acting as table cells
 	.list-basic;
 	.line();
 	li {.unit();}
 }
+/* a list typically containing textual (non-block) hyperlinks */
 .list-action {
-	// a list typically containing textual (non-block) hyperlinks
 	.list-basic;
 	color: @color-link-up-txt;
 	ul, ol, dl {list-style-type: none;}
@@ -332,6 +333,11 @@ table {
 	i:lang(fr) { 
 		.foreignlang();
 	}
+	i[lang=la],
+	i[lang=it],
+	i[lang=fr] {
+		.foreignlang();
+	}
 	.solfege {.foreignlang();}
 	
 	/* phrases representing silent thoughts */
@@ -339,7 +345,7 @@ table {
 		&:before {content: '\00ab';} // &laquo;
 		&:after  {content: '\00bb';} // &raquo;
 	}
-	/* reference to a section heading, figure, or table */
+	/* reference to a section heading, figure, or table; something could be considered a hyperlink */
 	b.ref {
 		font-weight: bold;
 	}
