@@ -16,9 +16,20 @@ ol.chaptercontents {
 	text-transform: capitalize;
 }
 
-.node() {// an Abstract Class representing a formal proposition of the axiomatic system
+/* an Abstract Class representing a formal proposition of the axiomatic system */
+.node() {
 	.line();
-	> .js-mathnode-label   {// the span of text that numbers the proposition, e.g. "Theorem 3.1.". This class is automatically created by JS
+	/* numbers the proposition, e.g. "Theorem 3.1.". This class is automatically created by JS */
+	&:before {
+		.label();
+//		.unit-P4();
+		display: block;
+//		padding-left: 0;
+//		position: relative;
+//		right: @width-Golden4;
+//		text-align: right;
+	}
+	> .js-mathnode-label {
 		.label();
 //		.unit-P4();
 //		padding-left: 0;
@@ -26,6 +37,7 @@ ol.chaptercontents {
 //		right: @width-Golden4;
 //		text-align: right;
 	}
+	/* the proposition's contents */
 	> .js-mathnode-content {
 //		.unit-U-P4();
 //		padding-left: 0;
@@ -111,6 +123,38 @@ ol.chaptercontents {
 			td {
 				border: 1px inset #666;
 			}
+		}
+	}
+}
+/* numbering */
+#propositional-logicdothtml {
+	counter-reset: chaptercount+1 axiomcount sectioncount;
+}
+#set-theorydothtml {
+	counter-reset: chaptercount+2 axiomcount+13 sectioncount;
+}
+#propositional-logicdothtml,
+#set-theorydothtml {
+	.main > header > h1:before {
+		content: 'Chapter ' counter(chaptercount, upper-roman) ': ';
+	}
+	.axiom:before {
+		counter-increment: axiomcount;
+		content: 'Axiom ' counter(axiomcount);
+	}
+	.main > section {
+		counter-increment: sectioncount;
+		counter-reset: nodecount;
+		> header > h1:before {
+			content: 'Section ' counter(chaptercount, upper-roman) '.' counter(sectioncount, upper-alpha) ': ';
+		}
+		.definition:before {
+			counter-increment: nodecount;
+			content: 'Definition ' counter(chaptercount, upper-roman) '.' counter(sectioncount, upper-alpha) '.' counter(nodecount);
+		}
+		.theorem:before {
+			counter-increment: nodecount;
+			content: 'Theorem ' counter(chaptercount, upper-roman) '.' counter(sectioncount, upper-alpha) '.' counter(nodecount);
 		}
 	}
 }
