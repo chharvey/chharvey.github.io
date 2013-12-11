@@ -59,6 +59,11 @@ TO DO
 
 #### Math7/ ####
 - on all course overview, unit overviews, and lessons: include breadcrumbs!
+- create `pacingguide.html`
+
+#### syllabus.html ####
+- display `dl`s like two-column tables
+- last page: use `form`s for student and parent input
 
 #### Math7/integers/ ####
 - upload `ints-add-hw.html`
