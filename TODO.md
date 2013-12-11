@@ -45,6 +45,9 @@ TO DO
 - re-write all index pages for higher-ed courses.
 
 ### /higher-ed/ ###
+#### EDCI 5724/ ####
+- add cohort project lesson plan (`SIOPLessonPlan.docx`), presentation, and other items to folder
+
 #### MATH 4626 limits project ####
 - convert all php files to html files
 - conform to site-wide styles
@@ -53,6 +56,7 @@ TO DO
 #### MATH 4644 technology lessons ####
 - conform to site-wide styles
 - relocate all lessons to `/secondary-ed/`
+
 
 ### /secondary-ed/ ###
 - **find a way to write SVG images!**
@@ -90,6 +94,7 @@ TO DO
 - update `ineq-writegraph-lesson.html`
 - update `ineq-solve-lesson.html`
 - add **Inequalities Part 3** from Pages on GDrive to `ineq-solve-lesson.html`
+- add material from `ModifiedLessonWriteup.pdf` on GDrive to `ineq-writegraph-lesson.html` and `ineq-solve-lesson.html`
 - SBG 7.15 v1
 	- fix list-style-type for #3-5
 	- #6-7 change directions to "Solve each inequality, then graph it on the number line provided."
@@ -101,9 +106,11 @@ TO DO
 	- (in 2013, gave test along with SBG 7.15)
 
 #### Math7/functions/ ####
+- convert **Modified Lesson #2: Relations** from GDrive
 - convert **Modeling Sequences** from Pages on GDrive
 
 #### Math7/proportions/ ####
+- convert `SIOPLessonPlan.docx` from GDrive
 - fix `test.html`
 
 #### Math7/geometry/ ####
