@@ -14,9 +14,13 @@ TO DO
 
 ### styles ###
 - Change all 'includes' to 'extends' with the new less.js v1.4
-- add `@import (reference) 'all.less';` to each stylesheet to import less references without importing selectors
-- add `@import 'all.css';` to each stylesheet to import the `ALL` stylesheet selectors (more D.R.Y.)
-- get rid of imports of `grid.less`, `typo.less`, and `mods.less`
+- to each 'subsite' `.less` stylesheet:
+	- get rid of regular imports of `grid.less`, `typo.less`, and `mods.less`
+	- add the following to import less references without importing selectors:
+		- `@import (reference) 'grid.less';`
+		- `@import (reference) 'typo.less';`
+		- `@import (reference) 'mods.less';`
+	- add `@import 'all.css';` to import the `all.css` stylesheet selectors (more D.R.Y.)
 - FIND A FUCKING LESS COMPILER!
 - upgrade to **v1.5.0**!!!!!
 
