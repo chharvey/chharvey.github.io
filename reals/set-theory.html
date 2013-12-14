@@ -27,6 +27,7 @@
 		<h1 class="h-beta">Chapter Contents</h1>
 		<ol class="chaptercontents list-beta">
 			<li><a href="#predicate-logic">Predicate Logic</a></li>
+			<li><a href="#equality">Equality and Inclusion</a></li>
 			<li><a href="#set-axioms">The Axioms of Set Theory</a></li>
 			<li>ghi</li>
 		</ol>
@@ -37,113 +38,167 @@
 		<h1 class="h-beta">Predicate Logic</h1>
 	</header>
 	<div class="definition" id="D-set">
-		<p class="summary">A <dfn>set</dfn> is that which may own elements. These elements, in turn, are also sets.</p>
-		<p>Given sets <span class="latex">\(s\)</span> and <span class="latex">\(t\)</span>, the assertion that <span class="latex">\(s\)</span> owns <span class="latex">\(t\)</span> is a proposition, denoted <span class="latex">\(t\in s\)</span>. We may also say that <span class="latex">\(t\)</span> is an <dfn>element of</dfn> <span class="latex">\(s\)</span>.</p>
-		<p>The assertion that <span class="latex">\(t\)</span> is <em>not</em> an element of <span class="latex">\(s\)</span> is the negation <span class="latex">\(\lnot\left(t\in s\right)\)</span>. We use the shorthand notation <span class="latex">\(t\not\in s\)</span> equivalently.</p>
+		<p class="summary">A <dfn>set</dfn> is that which may own sets.</p>
+		<p>Given sets <span class="latex">\(s\)</span> and <span class="latex">\(t\)</span>, the assertion that <span class="latex">\(s\)</span> owns <span class="latex">\(t\)</span> is a proposition, denoted <span class="latex">\(t\in s\)</span>. We may also say that <span class="latex">\(t\)</span> is an <dfn>element of</dfn>, or a <dfn>member of</dfn>, <span class="latex">\(s\)</span>.</p>
+		<p>We use the predicate <span class="latex">\(t\not\in s\)</span> to refer to the negation <span class="latex">\(\lnot(t\in s)\)</span>.</p>
 		<p class="informal"><small>To avoid ambiguity, we will not use the word <i class="mention">contain</i> to represent ownership. For historical reasons, this expression can be interpreted as an indication of ownership or one of <a href="#D-subset">inclusion</a>.</small></p>
 	</div>
-	<!--div>
-		<p>Here, the terms \emph{collection} and \emph{object} are intuitively understood and cannot be formally defined. The beauty of an \indexthis{Axiom} is that we can replace the undefined terms with nonsense terms and still completely understand what the Axiom means. Think back to \indexthis{Euclid}'s First Postulate and replace the undefined terms \emph{point} and \emph{line} with nonsense: ``A straight baz can be drawn between any two foos.'' We still get the picture.</p>
-		<p>Note that \Aref{A:set} puts no restriction on the number of objects allowed in a collection or what those objects can be. It also does not restrict the \indexthis{arrangement} of those objects, but this small fact will be reinforced by \Aref{A:extensionality}. \Aref{A:set} does, however, say that all objects are \emph{definite} and \emph{distinguishable}. This means that given a set, one should be able to decide whether any particular element would belong to that set; and that any two elements of the same set are different. The term ``different'' is not yet explicitly defined, but \Aref{A:extensionality} will again provide the answer.</p>
-		<p>Naturally, we are interested in the gathering of all those things that are not themselves sets but that we want to have as elements of sets. Call such things \emph{\indexthis{atom}s}. For example, the set of all fruit owns every strawberry and every apple, but it owns no cats or dogs. The set of all types of metal will own mercury and lead, but no strawberries. Since apples and lead do not own any further elements, they are atoms.</p>
-		<p>We as mathematicians, however, could not care less about sets of mathematically useless atoms. Ergo we banish the concept. This means that we lose our ability to form sets of strawberries or cats, but this is no cause for concern. \emph{We choose to consider every element of a set as a set}. At this point we might feel unsettled by the fact that what we define to be a ``set'' is a nested collection of only more sets. This seems circular, but the assuaging resolution lies in \Rref{R:existence}. For the remainder of this chapter, we must keep in mind that all elements are really just sets in disguise. We mustn't be confused by the notation $a \in b$.</p>
-		<p>\Aref{A:set} seems to indicate some sort of hierarchy among sets. The sets~$s$ whose elements with which we are not concerned differ from the sets~$S$ whose elements with which we \emph{are} concerned but are considered as sets whose members are unimportant; which, furthermore, differ from the sets~$\mathcal{S}$ whose elements we wish to consider as sets with important members. In this hierarchy, we have sets~$\mathcal{S}$ of sets~$S$ of sets~$s$. However, all these distinctions are trivial. Sets~$s$,~$S$, and~$\mathcal{S}$ are all to be thought of in the same way. We just use this notation to avoid confusion. (We also sometimes use the terms ``collection'' and ``cluster'' to name sets, for terminological variety.) </p>
-	</div-->
 	<div class="theorem" id="T-bivalence-sets">
-		<div class="lede">The Principle of Bivalence, Set Theory Version</div>
-		<p class="summary">Given sets <span class="latex">\(t\)</span> and <span class="latex">\(s\)</span>:</p>
+		<p class="summary"><span class="lede">The Principle of Bivalence, Predicate Version</span> Given sets <span class="latex">\(t\)</span> and <span class="latex">\(s\)</span>:</p>
 		<ul>
 			<li id="LEM">
-				<p class="summary"><span class="lede">The Law of Excluded Middle</span> It is always the case that <span class="latex">\(t\)</span> is an element of or not an element of <span class="latex">\(s\)</span>.</p>
+				<p class="summary"><span class="lede">The Law of Excluded Middle</span> It is always the case that <span class="latex">\(t\)</span> is an element of <span class="latex">\(s\)</span> or not an element of <span class="latex">\(s\)</span>.</p>
 				<p class="latex wff">\[(t\in s) \lor (t\not\in s)\]</p>
 			</li>
 			<li id="LNC">
-				<p class="summary"><span class="lede">The Law of Non-Contradiction</span> It is never the case that <span class="latex">\(t\)</span> is both an element of and not an element of <span class="latex">\(S\)</span>.</p>
-				<p class="latex wff">\[\lnot((t\in S) \land (t\not\in S))\]</p>
+				<p class="summary"><span class="lede">The Law of Non-Contradiction</span> It is never the case that <span class="latex">\(t\)</span> is both an element of <span class="latex">\(s\)</span> and not an element of <span class="latex">\(s\)</span>.</p>
+				<p class="latex wff">\[\lnot\bigl((t\in s) \land (t\not\in s)\bigr)\]</p>
 			</li>
 		</ul>
+		<div class="proof">use Principle of Bivalence, Proposition Version</div>
 	</div>
-	<!--div>
-		<p>One very important interpretation of \Aref{A:extensionality} is that \emph{sets are determined completely and only by the elements they own}. If sets with exactly the same elements have different definitions, names, or re\indexthis{arrangement}s (orders\citeneed), those sets are all one in the same.</p>
-	</div-->
-	<div class="definition" id="D-predicate">
-		<p class="summary">Given a set <span class="latex">\(x\)</span>, the <dfn>predicate</dfn> <span class="latex">\(\l P_x\)</span> is a proposition that makes an assertion involving <span class="latex">\(x\)</span>.</p>
-	</div>
-	<!--div class="example">
-		<p>In the natural numbers, let <span class="latex">\(\l P_n\)</span> be the predicate, <q><span class="latex">\(n\)</span> is even</q>. Then <span class="latex">\(\l P_3\)</span> would be <var>false</var>, while <span class="latex">\(\l P_6\)</span> would be <var>true</var>.</p>
-	</div-->
-	<div class="definition" id="D-exists">
-		<p class="summary">Given a predicate <span class="latex">\(\l P_x\)</span>, the assertion that there exists a set <span class="latex">\(x\)</span> that makes <span class="latex">\(\l P_x\)</span> <var>true</var> is itself a predicate, called an <dfn>existential quantifier</dfn>.</p>
-		<p class="latex">\[(\exists x)(\l P_x)\]</p>
-		<!--p>An existence theorem is a statement (usually provable) that asserts the existence of a certain object, such as a solution to a problem.</p-->
-	</div>
-	<div class="definition" id="D-forall">
-		<p class="summary">Given a predicate <span class="latex">\(\l P_x\)</span>, the assertion that there does not exist any set <span class="latex">\(x\)</span> that makes <span class="latex">\(\l P_x\)</span> <var>false</var> is itself a predicate, called a <dfn>universal quantifier</dfn>.</p>
-		<p>This proposition is defined by <span class="latex">\(\lnot\bigl((\exists x)(\lnot\l P_x)\bigr)\)</span>; or equivalently, <span class="latex">\((\not\exists x)(\lnot\l P_x)\)</span>.</p>
-		<p>The universal quantifier can be thought of as the assertion that <span class="latex">\(\l P_x\)</span> is <var>true</var> for any set <span class="latex">\(x\)</span>:</p>
-		<p class="latex">\[(\forall x)(\l P_x)\]</p>
-	</div>
-	<section class="draft">
-		<h1 class="h-gamma">Bound Quantifiers</h1>
-		<div class="latex">\[
-			(\exists x\in S)(P_x)
-			\text{ is defined by }
-			(\exists x)(x\in S \land P_x)
-		\]</div>
-		<div class="latex">\[
-			(\forall x\in S)(P_x)
-			\text{ is defined by }
-			(\forall x)(x\in S \implies P_x)
-		\]</div>
-		<h1 class="h-gamma">Uniqueness Quantifiers (requires definition of equality)</h1>
-		<!--p>A \defn{uniqueness theorem} is a statement that asserts that that particular object is the \emph{only} one that exists. For example, there is one and only one solution to a given problem.</p-->
-		<span>existence and uniqueness in one statement</span>
-		<div class="latex">\[
-			(\exists!x)(\l P_x)
-			\text{ is defined by }
-			(\exists x)(\l P_x \land (\forall y)(\l P_y \iff x=y))
-		\]</div>
-		<span>existence in the first statement; uniqueness in the second</span>
-		<div class="latex">\[
-			(\exists!x)(\l P_x)
-			\text{ is defined by }
-			(\exists x)(\l P_x)
-			\land
-			(\forall x) (\l P_x \implies (\forall y)(\l P_y \iff x=y))\\
-		\]</div>
-		<div class="latex">\[
-			(\exists!x)(\l P_x)
-			\text{ proven by }
-			(\exists x)(\l P_x)
-			\land
-			(\forall x)(\forall y) ((\l P_x \land \l P_y) \implies (x=y))
-		\]</div>
-		<h1 class="h-gamma">Combined Quantifiers</h1>
-		<div class="latex">\[
-			\left((\exists x)((\forall y)(P_{x,y}))\right)
-			\therefore
-			\left((\forall y)((\exists x)(P_{x,y}))\right)
-		\]</div>
-		<div class="latex">\[
-			\left((\forall x)(\l P_x) \land (\forall x)(\l Q_x)\right)
-			\equiv
-			\left((\forall x)(\l P_x \land \l Q_x)\right)
-		\]</div>
-		<div class="latex">\[
-			\left((\forall x)(\l P_x) \implies (\forall x)(\l Q_x)\right)
-			\equiv
-			\left((\forall x)(\l P_x \implies \l Q_x)\right)
-		\]</div>
-	</section>
 	<section>
-		<h1 class="h-gamma">Equality and Inclusion</h1>		
-		<div class="definition" id="D-equality">
-			<p class="summary">A set <span class="latex">\(x\)</span> is <dfn>equal to</dfn> a set <span class="latex">\(y\)</span> (<span class="latex">\(x\)</span> <dfn>equals</dfn> <span class="latex">\(y\)</span>) if and only if <span class="latex">\(x\)</span> and <span class="latex">\(y\)</span> own each other's elements.</p>
-			<p>We use the predicate <span class="latex">\(x=y\)</span> to describe the assertion that <span class="latex">\(x\)</span> is equal to <span class="latex">\(y\)</span>. We define this assertion as:</p>
-			<div class="latex">\[(\forall t)(t\in x \iff t\in y)\]</div>
-			<p>This definition is often called <b>The Axiom of Extensionality</b>.</p>
-			<p>We use the predicate <span class="latex">\(x\not= y\)</span> to refer to the negation <span class="latex">\(\lnot(x=y)\)</span>.</p>
+		<h1 class="h-gamma">Predicates and Quantifiers</h1>
+		<div class="definition" id="D-predicate">
+			<p class="summary">Given a set <span class="latex">\(x\)</span>, the <dfn>predicate</dfn> <span class="latex">\(\l P_x\)</span> is a proposition that makes an assertion involving <span class="latex">\(x\)</span>.</p>
 		</div>
+		<div class="example">
+			<p>In the natural numbers, let <span class="latex">\(\l P_n\)</span> be the predicate <q><span class="latex">\(n\)</span> is even</q>. Then <span class="latex">\(\l P_3\)</span> would be <var>false</var>, while <span class="latex">\(\l P_6\)</span> would be <var>true</var>.</p>
+		</div>
+		<div class="definition" id="D-exists">
+			<p class="summary">Given a predicate <span class="latex">\(\l P_x\)</span>, the assertion that there exists a set <span class="latex">\(x\)</span> that makes <span class="latex">\(\l P_x\)</span> <var>true</var> is itself a predicate, called an <dfn>existential quantifier</dfn>.</p>
+			<p class="latex">\[(\exists x)(\l P_x)\]</p>
+			<p>We use the predicate <span class="latex">\((\not\exists x)(\l P_x)\)</span> to refer to the negation <span class="latex">\(\lnot\bigl((\exists x)(\l P_x)\bigr)\)</span>.</p>
+		</div>
+		<div class="definition" id="D-existsbound">
+			<p class="summary">Given a predicate <span class="latex">\(\l P_x\)</span> and a set <span class="latex">\(y\)</span>, the assertion that there exists an element <span class="latex">\(x\)</span> of <span class="latex">\(y\)</span> that makes <span class="latex">\(\l P_x\)</span> <var>true</var> is a predicate called a <dfn>bound existential quantifier</dfn>.</p>
+			<p class="latex">\[
+				(\exists x\in y)(\l P_x)
+				\equiv
+				(\exists x)(x\in y \land \l P_x)
+			\]</p>
+		</div>
+		<div class="example">
+			<p>Let <span class="latex">\(\l P_x\)</span> be the predicate <q><span class="latex">\(x\in x\)</span></q>. Then if there exists some set <span class="latex">\(x\)</span> that is a member of itself, <span class="latex">\((\exists x)(x\in x)\)</span> would be <var>true</var>. (However, we will see later that there does not exist such a set.)</p>
+		</div>
+		<div class="definition" id="D-forall">
+			<p class="summary">Given a predicate <span class="latex">\(\l P_x\)</span>, the assertion that there does <em>not</em> exist any set <span class="latex">\(x\)</span> that makes <span class="latex">\(\l P_x\)</span> <var>false</var> is itself a predicate, <span class="latex">\((\not\exists x)(\lnot\l P_x)\)</span>, called a <dfn>universal quantifier</dfn>. This is the assertion that <span class="latex">\(\l P_x\)</span> is <var>true</var> for any set <span class="latex">\(x\)</span>.</p>
+			<p class="latex">\[(\forall x)(\l P_x)\]</p>
+		</div>
+		<div class="definition" id="D-forallbound">
+			<p class="summary">Given a predicate <span class="latex">\(\l P_x\)</span> and a set <span class="latex">\(y\)</span>, the assertion that <span class="latex">\(\l P_x\)</span> is <var>true</var> for all elements <span class="latex">\(x\)</span> of <span class="latex">\(y\)</span> is a predicate called a <dfn>bound universal quantifier</dfn>.</p>
+			<p class="latex">\[
+				(\forall x\in y)(\l P_x)
+				\equiv
+				(\forall x)(x\in y \implies \l P_x)
+			\]</p>
+		</div>
+		<section class="draft">
+			<h1 class="h-delta">Combined Quantifiers</h1>
+			<div class="definition" id="D-2exists">
+				<p class="summary">Given an existential quantifier <span class="latex">\((\exists y)(\l P_{x,y})\)</span>, the existential quantifier <span class="latex">\(\bigl(\exists x\bigr)\bigl((\exists y)(\l P_{x,y})\bigr)\)</span> is described by the predicate:</p>
+				<p class="latex">\[(\exists x)(\exists y)(\l P_{x,y})\]</p>
+			</div>
+			<div class="definition" id="D-2forall">
+				<p class="summary">Given a universal quantifier <span class="latex">\((\forall y)(\l P_{x,y})\)</span>, the universal quantifier <span class="latex">\(\bigl(\forall x\bigr)\bigl((\forall y)(\l P_{x,y})\bigr)\)</span> is described by the predicate:</p>
+				<p class="latex">\[(\forall x)(\forall y)(\l P_{x,y})\]</p>
+			</div>
+			
+			
+			
+			
+			
+			
+			conjunction of existential quantifiers
+			<div class="latex">\[
+				\bigl((\exists a)(\l P_a) \land (\exists b)(\l Q_b)\bigr)
+				\equiv
+				\bigl((\forall x)(\l P_x \land \l Q_x)\bigr)
+			\]</div>
+			conjunction of universal quantifiers
+			<div class="latex">\[
+				\bigl((\forall a)(\l P_a) \land (\forall b)(\l Q_b)\bigr)
+				\equiv
+				\bigl((\forall x)(\l P_x \land \l Q_x)\bigr)
+			\]</div>
+			implication of universal quantifiers
+			<div class="latex">\[
+				\bigl((\forall a)(\l P_a) \implies (\forall b)(\l Q_b)\bigr)
+				\equiv
+				\bigl((\forall x)(\l P_x \implies \l Q_x)\bigr)
+			\]</div>
+			non-implication of existential quantifiers
+			<div class="latex">\[
+				\bigl((\exists a)(\l P_a) \implies (\exists b)(\l Q_b)\bigr)
+				\not\equiv
+				\bigl((\exists x)(\l P_x \implies \l Q_x)\bigr)
+			\]</div>
+
+			specification?
+			<div class="latex">\[
+				\Bigl(\bigl(\exists x\bigr)\bigl((\forall y)(\l P_{x,y})\bigr)\Bigr)
+				\therefore
+				\Bigl(\bigl(\forall y\bigr)\bigl((\exists x)(\l P_{x,y})\bigr)\Bigr)
+			\]</div>
+			<section class="draft">		
+				<h1 class="h-epsilon">Uniqueness Quantifiers</h1>
+				(requires definition of equality)
+				<p class="informal">A <dfn>uniqueness statement</dfn> is a statement that asserts that that particular set is the only one that exists. For example, there is one and only one solution to a given problem.</p>
+				<span>existence and uniqueness in one statement</span>
+				<div class="latex">\[
+					(\exists!x)(\l P_x)
+					\text{ is defined by }
+					(\exists x)(\l P_x \land (\forall y)(\l P_y \iff x=y))
+				\]</div>
+				<span>existence in the first statement; uniqueness in the second</span>
+				<div class="latex">\[
+					(\exists!x)(\l P_x)
+					\text{ is defined by }
+					(\exists x)(\l P_x)
+					\land
+					(\forall x) (\l P_x \implies (\forall y)(\l P_y \iff x=y))\\
+				\]</div>
+				<div class="latex">\[
+					(\exists!x)(\l P_x)
+					\text{ proven by }
+					(\exists x)(\l P_x)
+					\land
+					(\forall x)(\forall y) ((\l P_x \land \l P_y) \implies (x=y))
+				\]</div>
+			</section>
+		</section>
+	</section>
+</section>
+<section id="equality">
+	<header>
+		<h1 class="h-beta">Equality and Inclusion</h1>
+	</header>
+	<div class="definition" id="D-equality">
+		<p class="summary">A set is <dfn>equal to</dfn> another set if and only if those sets own each other's elements.</p>
+		<p>We use the predicate <span class="latex">\(x=y\)</span> to describe the assertion that a set <span class="latex">\(x\)</span> is equal to a set <span class="latex">\(y\)</span>. We define this predicate as:</p>
+		<div class="latex">\[
+			(x=y)
+			\equiv
+			(\forall t)(t\in x \iff t\in y)
+		\]</div>
+		<p>This definition is often called <b class="keyword">The Axiom of Extensionality</b>.</p>
+		<p>We use the predicate <span class="latex">\(x\not= y\)</span> to refer to the negation <span class="latex">\(\lnot(x=y)\)</span>.</p>
+	</div>
+	<p class="informal">One very important interpretation of <a href="#D-equality">The Axiom of Extensionality</a> is that <strong>sets are determined completely and only by their elements</strong>. If sets with exactly the same elements have different definitions, names, or rearrangements (orders), those sets are all one in the same.</p>
+	<section>
+		<h1 class="h-gamma">Axioms of Equality</h1>
+		<div class="axiom" id="A-equality1">
+			<p class="summary">Equal elements must be members of the same sets.</p>
+			<p class="latex wff">\[
+				(\forall x)(\forall y)
+				\expand{if \(x=y\) then \(x\) and \(y\) are in the same sets}{
+					(x=y)
+					\implies
+					\left((\forall z)(x\in z \iff y\in z)\right)
+				}
+			\]</p>
+		</div>
+		<p class="informal">All sets are definite and distinguishable. This means that given a set, one should be able to decide whether any particular element would belong to that set; and that any two elements of the same set are different. The term <i class="mention">different</i> is not yet explicitly defined.</p>
 		<div class="theorem" id="T-equalityequivalancerelation">
 			<p class="summary">Equality is an equivalence relation on any set.</p>
 			<p><span class="latex">\(\left(x,y\right)\in\mathscr{E}\)</span>, where <span class="latex">\(\mathscr{E}\)</span> represents the subset of <span class="latex">\(A\times A\)</span> specified by <span class="latex">\(\left(x,y\right)\in\mathscr{E} \iff \left(x,y\right)\in A^2 \land \left(\forall t\right)\left(t\in x\iff t\in y\right)\)</span> for any set <span class="latex">\(A\)</span>.</p>
@@ -155,6 +210,11 @@
 					(\forall t)(t\in x \iff t\in x)
 				}
 			}\]</p>
+			<p class="latex wff">\[
+				(\forall x)\expand{\(x=x\)}{
+					(\forall t)(t\in x \iff t\in x)
+				}
+			\]</p>
 			<div class="proof draft">
 				<p>use <span class="latex">\(\l p \iff \l p \therefore \top\)</span></p>
 			</div>
@@ -338,7 +398,34 @@
 			-->
 		</div>
 		<div class="axiom" id="A-infinity">
-			<p class="summary"><span class="lede">The Axiom of Infinity</span> There exists a set that owns an empty set and <span class="draft">is closed under succession</span>.</p>
+			<p class="summary"><span class="lede">The Axiom of Infinity</span> There exists a nonempty set such that each element of this set is a member of another element of this set.</p>
+			<p class="latex wff">\[\expand{There exists a nonempty set such that each element of this set is a member of another element of this set.}{
+				(\exists x)\expand{\(x\) is nonempty and each element of \(x\) is a member of another element of \(x\)}{
+					\expand{\(x\) is nonempty}{
+						(\exists t)(t\in x)
+					}
+					\land
+					\expand{each element of \(x\) is a member of another element of \(x\)}{
+						(\forall y)\expand{if \(y\) is an element of \(x\) then \(y\) is a member of another element of \(x\)}{
+							(y\in x)
+							\implies
+							\expand{there is another element of \(x\) that owns \(y\)}{
+								(\exists z)\expand{\(z\) is an element of \(x\) that owns \(y\)}{
+									(z\in x)
+									\land
+									(y\in z)
+								}
+							}
+						}
+					}
+				}
+			}\]</p>
+			<pre>
+	the intent of this axiom is that there exists an 'infinite' set; that is, a set with an 'unlimited number' of elements.
+	without the <b>Axiom of Regularity</b>, the Axiom of Infinity allows for such a set that meets the conditions stated above and that has only 2 elements: for example, the set c = {a,b}, with a &in; b and b &in; a. (indeed, c is nonempty, and each element of c is owned by at least one other element of c.)
+	Thus, we need the <b>Axiom of Regularity</b> to prevent such a set from existing:
+	With the <b>Axiom of Regularity</b>, c cannot be a set because for all elements x &in; c, we have c&cap;x is nonempty.
+			</pre>
 		</div>
 	</section>
 	<section>
