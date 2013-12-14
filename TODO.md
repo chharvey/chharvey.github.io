@@ -2,30 +2,32 @@ TO DO
 ========
 
 ## Site-wide to-do list ##
+- 2013-12-14 add dates to new TODO items; completely delete when completed
+
 ### semantics ###
 - don't rely on `title` attributes for any element (mobile browsers)
 - `rel` attributes on `link` and `a` elements, see [http://dev.w3.org/html5/spec/links.html#linkTypes](http://dev.w3.org/html5/spec/links.html#linkTypes)
 - breadcrumbs! three choices:
-- - "owns": `&ni;` or `\220b`
-- - "superset": `&supe;` or `\2287`
-- - "slash":/ or "bar": |
+	- "owns": `&ni;` or `\220b`
+	- "superset": `&supe;` or `\2287`
+	- "slash":/ or "bar": |
 - Add any boolean `hidden` attribute to all elements not ready for publishing
 - **only in formal documents**: Change all possessive and contraction apostrophe characters `'` to right single quotes `&rsquo;`. Leave the apostrophes alone in regular pages. The typographical precision is not worth the effort.
+- 2013-12-14 see which `b.ref`s you can change to `cite`s (titles of works)
 
 ### styles ###
 - Change all 'includes' to 'extends' with the new less.js v1.4
 - to each 'subsite' `.less` stylesheet:
-	- get rid of regular imports of `grid.less`, `typo.less`, and `mods.less`
+	- 2013-12-14 get rid of regular import of `all.less`
 	- add the following to import less references without importing selectors:
 		- `@import (reference) 'grid.less';`
 		- `@import (reference) 'typo.less';`
 		- `@import (reference) 'mods.less';`
-	- add `@import 'all.css';` to import the `all.css` stylesheet selectors (more D.R.Y.)
 - FIND A FUCKING LESS COMPILER!
 - upgrade to **v1.5.0**!!!!!
 
 ### scripts ###
-
+- 2013-12-14 investigate the use of templates (`<template>`)
 
 
 ## specific projects ##
