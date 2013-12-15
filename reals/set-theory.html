@@ -481,25 +481,6 @@
 			</div>
 			<div class="theorem" id="T-emptysetunique">
 				<p class="summary">The empty set is unique.</p>
-				<!--p class="latex wff">\[
-					(\forall x)\left(
-						\expand{\(x\doteq\varnothing\)}{
-							(\forall t)\expand{\(t\not\in x\)}{\lnot(t\in y)}
-						}
-						\implies
-						\expand{\(x\) is unique}{
-							(\forall y)\expand{\(y\) is empty iff \(x=y\)}{
-								\expand{\(y\) is empty}{
-									(\forall t)\expand{\(t\not\in y\)}{\lnot(t\in y)}
-								}
-								\iff
-								\expand{\(x=y\)}{
-									(\forall t)(t\in x \iff t\in y)
-								}
-							}
-						}
-					\right)
-				\]</p-->
 				<p class="latex wff">\[
 					(\forall x)(\forall y)\left(
 						\left(
@@ -855,19 +836,6 @@ x=y							dfn of equality
 		<section id="conseq-emptiness">
 			<div class="theorem" id="T-emptysetsubset">
 				<p class="summary">Every set includes the empty set.</p>
-				<!--p class="latex wff">\[
-					(\forall x)\expand{\(x\) includes an empty set}{
-						(\exists y)\expand{\(y\) is empty and \(x\) includes \(y\)}{
-							\expand{\(y\) is empty}{
-								(\forall t)\expand{\(t\not\in y\)}{\lnot(t\in y)}
-							}
-							\land
-							\expand{\(y\subseteq x\)}{
-								(\forall t)(t\in y\implies t\in x)
-							}
-						}
-					}
-				\]</p-->
 				<p class="latex wff">\[
 					(\forall x)\expand{\(\varnothing\subseteq x\)}{
 						(\forall y)\left(
@@ -882,37 +850,53 @@ x=y							dfn of equality
 					}
 				\]</p>
 				<div class="proof">
-				<!--p>The antecedent $\forall x : x\in\emptyset$ is false, so the implication $\forall S : \forall x : (x \in \emptyset \implies x \in S)$ (from \Dref{D:subset}) is \emph{\indexthis{vacuous}ly} true. Thus $\emptyset \subseteq S$. It is because of this proof that the Empty Set is sometimes called the vacuous\indexterm{vacuous!set|seeonly{Empty Set}} set.</p-->
+					\forall x : \forall y : \forall t :
+					\lnot(t\in y) \implies (t\in y \implies t\in x)
+					(t\in y) \lor (t\in y \implies t\in x)
+					(t\in y) \lor (\lnot(t\in y) \lor t\in x)
+					(t\in y \lor \lnot(t\in y)) \lor (t\in x)
+					\top \lor (t\in x)
+					\top
 				</div>
 			</div>
 		</section>
 		<section id="conseq-pair">
 			<div class="definition" id="D-singleton">
-				<p class="summary">A <dfn>singleton</dfn> is a set that owns exactly one element.</p>
+				<p class="summary">Given a set <span class="latex">\(x\)</span>, a set is called a <dfn>singleton of</dfn> <span class="latex">\(x\)</span>, denoted <span class="latex">\(\left\{x\right\}\)</span>, if it owns exactly <span class="latex">\(x\)</span>.</p>
+			</div>
+			<div class="theorem" id="T-singletonexists">
+				<p class="summary">Every set has a singleton.</p>
+				<p class="latex wff">\[
+					(\forall x)\expand{\(\exists\left\{x\right\}\)}{
+						(\exists y)\expand{\(y\doteq\left\{x\right\}\)}{
+							(\forall z)\left(
+								(z\in y)
+								\iff
+								\expand{\(z=x\)}{
+									(\forall t)(t\in z \iff t\in x)
+								}
+							\right)
+						}
+					}
+				\]</p>
+				<div class="proof">
+				</div>
 			</div>
 			<div class="theorem" id=T-singletonunique">
 				<p class="summary">A singleton constructed from one set is unique.</p>
-				<!-- For any given set~$s$, \Aref{A:pair} guarantees the existence of a set~$S$ that owns $s$ and $s$.
-				$$S=\{s,s\}=\{s\}$$
-				(because by \Aref{A:set}, sets cannot own more than one of the same element).
-		
-				Now, we will show that $\{s\}$ not only exists but is unique. That is, if $s$ is a set and both $S$ and $\bar{S}$ are singletons of $s$, then $S=\bar{S}$. In other words, we will prove
+				<!--  we will show that $\{s\}$ not only exists but is unique. That is, if $s$ is a set and both $S$ and $\bar{S}$ are singletons of $s$, then $S=\bar{S}$. In other words, we will prove
 				$$s=\bar{s} \implies \{s\}=\{\bar{s}\}$$
 				Assume $s=\bar{s}$. Then by change of variables, $\{s\}=\{\bar{s}\}$, as desired. -->
-				<p class="draft">This theorem shows the well-definedness of the singleton function: if two singletons are unequal, their elements <em>must</em> be unequal.</p>
+				<p class="draft">This theorem shows the singleton function is well-defined: if two sets are equal, their singletons <em>must</em> be equal.</p>
 			</div>
 			<div class="theorem" id="T-singletoninjection">
 				<p class="summary">The element of a singleton is unique.</p>
 				<p class="draft">This theorem shows the singleton function is injective: if two singletons are equal, their elements <em>must</em> be equal.</p>
 			</div>
-			<!--div class="definition" id="D-possessor">
-				<p class="summary">A <dfn>possessor of</dfn> an element is a set that owns that element.</p>
-				<p>Given a set <span class="latex">\(x\)</span>, <a>The Axiom of Pair</a> guarantees that there exists a possessor <span class="latex">\(z\)</span> that owns <span class="latex">\(x\)</span> (at least). If <span class="latex">\(z\)</span> owns another set <span class="latex">\(y\)</span>, then we may represent <span class="latex">\(z\)</span> using set-builder notation:</p>
-				<p class="latex">\[z=\{x,y\}\]</p>
-				<p>A major interpretation of \Pref{P:singleton} is that for any set~$s$ we are also guaranteed some \indexthis{possessor}~$S$ that owns it. However, we are not guaranteed the existence of an element in every set, as seen by The Axiom of Existence.</p>
-			</div-->
 		</section>
-		<section id="conseq-power"></section>
+		<section id="conseq-power">
+		the power function is defined, well-defined and injective
+		</section>
 		<section id="conseq-union">
 			<p class="latex">\(\text{prove: }t\in (a\cup b) \iff (t\in a \lor t\in b)\)</p>
 		</section>
