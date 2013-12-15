@@ -56,6 +56,25 @@
 		</ul>
 		<div class="proof">use Principle of Bivalence, Proposition Version</div>
 	</div>
+<pre>
+					Properties of Membership:
+Antireflexive: 		\forall x: x\not\in x
+					Axiom of Regularity
+Antisymmetric:		\forall a,b : a\in b \implies b\not\in a
+					Axiom of Regularity
+something else:		\forall a,b : a\in b \land b\in a \implies a=b
+					is vacuously true (Axiom of Regularity)
+intransitive:		\exists a,b,c : a\in b \land b\in c \land a\not\in c
+					let a={}, b={a}, c={b}
+not antitransitive: \exists a,b,c : a\in b \land b\in c \implies a\in c
+					let a={}, b={a}, c={a,b}
+uncomparable:		\exists a,b : a\not\in b \land b\not\in a
+					let a={}, b={{a}}
+defined:			\forall a : \exists b : a\in b
+					Axiom of Pair
+not well-defined:	\exists a,b,c : a\in b \land a\in c \land b\not=c
+					let a={}, b={a}, c={a,b}
+</pre>
 	<div class="definition" id="D-predicate">
 		<p class="summary">Given a set <span class="latex">\(x\)</span>, the <dfn>predicate</dfn> <span class="latex">\(\l P_x\)</span> is a proposition that makes an assertion involving <span class="latex">\(x\)</span>.</p>
 	</div>
@@ -915,6 +934,28 @@ x=y							dfn of equality
 		<section id="conseq-power"></section>
 		<section id="conseq-union">
 			<p class="latex">\(\text{prove: }t\in (a\cup b) \iff (t\in a \lor t\in b)\)</p>
+			<pre class="draft">
+As well, the union operation is associative and commutative.
+<div>
+	The union of two sets is a superset of each of those sets.
+	For any sets~$A$ and $B$, let $a \in A$ and let $b \in B$. Then $a \in (A \cup B)$, and $b \in (A \cup B)$ by \Dref{D:union}. We have shown that $a \in A \implies a \in (A \cup B)$, and also that $b \in B \implies b \in (A \cup B)$. Thus $A \subseteq (A \cup B) \land B \subseteq (A \cup B)$ by \Dref{D:subset}.
+</div>
+<div>
+	The union of two subsets of a set is also a subset of that set.
+	(A\subseteq S) \land (B\subseteq S) \implies (A\cup B)\subseteq S
+	Assume $A\subseteq S$ and $B\subseteq S$. That is, by \Dref{D:subset}, $\forall x,y$,
+		\begin{gather*}
+			(x\in A \implies x\in S) \land (x\in B\implies x\in S) \\
+			(x\not\in A \lor x\in S) \land (x\not\in B \lor x\in S) \\
+			(x\not\in A \land x\not\in B) \lor (x\not\in A \land x\in S) \lor (x\in S \land x\not\in B) \lor (x\in S \land x\in S) \\
+			(x\not\in A \land x\not\in B) \lor (\ltrue \land x\in S) \lor (x\in S \land \ltrue) \lor (x\in S) \\
+			(x\not\in A \land x\not\in B) \lor x\in S \\
+			(x\in A \lor x\in B) \implies x\in S \\
+			x\in(A\cup B) \implies x\in S
+		\end{gather*}
+		The last step uses \Dref{D:union}.
+</div>
+			</pre>
 		</section>
 		<section id="conseq-intersection">
 			<p class="latex">\(\text{prove: }t\in (a\cap b) \iff (t\in a \land t\in b)\)</p>
@@ -922,7 +963,34 @@ x=y							dfn of equality
 				<p class="summary"><span class="lede">Specification</span> Given a set, there exists a subset of elements that adhere to any given predicate.</p>
 				<p>For any set and a given predicate, there exists a set owning elements of that set, under that predicate.</p>
 				<div>(\forall B)(\exists A)(\forall x)\bigl(x\in A \iff x\in B \land \l P_x\bigr)</div>
+				<div class="proof draft">
+					<pre>
+We are given that the collection~$\mathcal{S}$ is nonempty. Let the set~$A$ be some fixed member of $\mathcal{S}$. \Aref{A:specification} guarantees there exists some set $T$ such that $$\forall x : \Bigl(x \in T \iff x \in A \land \bigl(\forall B \in \mathcal{S} : B\not=A : (x \in B)\bigr)\Bigr)$$ In other words, $x$ is an element of $T$ iff $x$ is an element of $A$ and every other set in $\mathcal{S}$. It follows that $x$ belongs to every element of $\mathcal{S}$. Then we define $T$ to be the intersection of the collection~$\mathcal{S}$.% \Aref{A:extensionality} guarantees $T$ is unique.
+					</pre>
+				</div>
 			</div>
+			<pre class="draft">
+As well, the intersection operation is associative and commutative.
+<div>
+	The intersection of two sets is a subset of each of those sets.
+	For any sets~$A$ and $B$, let $x \in (A \cap B)$. Then $x \in A \land x \in B$ by \Dref{D:intersection}. We have shown that $x \in (A \cap B) \implies x \in A$, and also that $x \in (A \cap B) \implies x \in B$. Thus $(A \cap B) \subseteq A \land (A \cap B) \subseteq B$ by \Dref{D:subset}.
+</div>
+<div>
+	\begin{definition}\Dlabel{D:complement}
+		The \defn{relative complement}~$S_{\complement}$ of a set~$S$ with respect to a set~$X \supseteq S$ is defined by the set of all elements that are in $X$ but \emph{not} in $S$.
+		\begin{equation*}\label{eq:complement}
+			S_{\complement} = \{ x \in X \land x \not\in S \}
+		\end{equation*}
+	\end{definition}
+
+	\begin{theorem}\Tlabel{T:complementOperation}
+		The complement of a set is a unary operation among sets.
+		\begin{proof}
+		\end{proof}
+	\end{theorem}
+
+</div>
+			</pre>
 		</section>
 		<section id="conseq-infinity">
 			<p>prove: the union of an inductive set is itself</p>
@@ -933,8 +1001,20 @@ x=y							dfn of equality
 				<p class="latex wff">\[
 					(\forall x)\expand{\(x\not\in x\)}{\lnot(x\in x)}
 				\]</p>
-				<div class="proof"></div>
+				<div class="proof">
+<!--
+Suppose to the contrary that there exists an abnormal set. $\exists A : A\in A$. Then by \Pref{P:singleton}, there exists a possessor~$\mathcal{B}=\{A\}$. Clearly, since $\mathcal{B}$ is a singleton, it is nonempty. Consider $\mathcal{B}\cap A=\{A\}\cap \{\dots,A,\dots\}=A$. So the intersection of $\mathcal{B}$ and the only element (all elements) of itself is nonempty.
+$$\forall b \in \mathcal{B} : \mathcal{B}\cap b \not= \emptyset$$
+Now \Aref{A:regularity} guarantees $\exists b\in\mathcal{B} : \mathcal{B}\cap b = \emptyset$, unless $\mathcal{B}=\emptyset$. So $\mathcal{B}=\emptyset$, so $A\in\emptyset$ (by \Rref{R:identityRelation}, \eqref{eq:setEquality}, \Dref{D:subset}). But \Rref{R:existence} says $A\in\emptyset\implies\lfalse$, so $A\in\emptyset$ must be false. Then $A\in\emptyset\land\lnot(A\in\emptyset)$, the \indexthis{contradiction}.
+-->
+				</div>
 			</div>
+			<!--pre>
+No set is a member of its element.
+Consider the possibility of having two sets~$A \owns B \land B \owns A$. Now we know from \Tref{T:abnormal}.\ref{eq:abnormalSet} that both $A$ and $B$ are normal; so $A$ owns at least $B$ but does not own $A$, and likewise, $B$ owns at least $A$ but does not own $B$.
+By \Aref{A:pair}, $\exists\mathcal{C}=\{A,B\}$. Then
+In either case, there exists no element of $\mathcal{C}$ whose intersection with $\mathcal{C}$ is empty. Then by \Aref{A:regularity}, $\mathcal{C}$ must be empty. We obtain the \indexthis{contradiction} in a manner similar to that in the proof of \Tref{T:abnormal}.\ref{eq:abnormalSet}.
+			</pre-->
 			<div class="theorem draft" id="T-universal">
 				<p class="summary">There is no set of which every set is a member.</p>
 				<p class="latex wff">\[
@@ -945,359 +1025,89 @@ x=y							dfn of equality
 				<div class="proof draft">use proof by contradiction and membership is antireflexive</div>
 			</div>
 		</section>
+		<!--div>
+\begin{definition}\Dlabel{D:collectiveExhaustion}
+	A cluster~$\mathcal{A}$ of sets is defined to be \defn{collectively exhaustive} relative to a given set~$U$ iff its union is equal to $U$.
+	\begin{equation*}\label{eq:collectiveExhaustion}
+		\bigcup \mathcal{A} = U
+	\end{equation*}
+\end{definition}
+\begin{definition}\Dlabel{D:mutualExclusion}
+	A cluster~$\mathcal{B}$ of sets is defined to be \defn{mutually exclusive} iff its intersection is equal to the Empty Set.
+	\begin{equation*}\label{eq:mutualExclusion}
+	\bigcap \mathcal{B} = \emptyset
+	\end{equation*}
+\end{definition}
+\begin{definition}\Dlabel{D:polychotomy}
+	A cluster~$\mathcal{C}$ is \defn{polychotomous} (there exists a \defnstyle{polychotomy}) relative to a set~$U$ iff it is both collectively exhaustive relative to $U$ and mutually exclusive.
+\end{definition}
+%\begin{theorem}[Domination Laws]\Tlabel{T:dominationLawsSets} \hfill
+%	\begin{enumerate}
+%		\item Given any set~$A$, $A$ and $U$ are collectively exhaustive.
+%		\item Given any set~$B$, $B$ and $\emptyset$ are mutually exclusive.
+%	\end{enumerate}
+%	\begin{proof} \hfill
+%		\begin{enumerate}
+%			\item Any set is a subset of $U$, which holds true for $A \cup U$. Also, $A \cup U$ is defined to own all elements~$x \in U$, which makes $U$ a subset of $A \cup U$. Thus we have $A \cup U \subseteq U \land U \subseteq A \cup U \therefore A \cup U = U$.
+%			\item The empty set is a subset of any set, which holds true for $B \cap \emptyset$. Also, $B \cup \emptyset$ is defined to own only those elements~$x$ of both $\emptyset$ and $B$. But since there are no elements in $\emptyset$, there are no elements in $B \cup \emptyset$, which makes $B \cup \emptyset$ a subset of $\emptyset$. Thus $\emptyset \subseteq B \cup \emptyset \land B \cup \emptyset \subseteq \emptyset \therefore B \cup \emptyset = \emptyset$.
+%		\end{enumerate}
+%	\end{proof}
+%\end{theorem}
+%
+%\begin{theorem}[Identity Laws]\Tlabel{T:identityLawsSets} \hfill
+%	\begin{enumerate}
+%		\item Given any set~$A$, the union of $A$ with $\emptyset$ is equal to $A$.
+%		\item Given any set~$B$, the intersection of $B$ with $U$ is equal to $B$.
+%	\end{enumerate}
+%	\begin{proof} \hfill
+%		\begin{enumerate}
+%			\item 
+%			\item 
+%		\end{enumerate}
+%	\end{proof}
+%\end{theorem}
+%
+%\begin{theorem}[Distributive Laws]\Tlabel{T:distributiveLawsSets} \hfill
+%	\begin{enumerate}
+%		\item The union operation distributes across the intersection operation.
+%		\item The intersection operation distributes across the union operation.
+%	\end{enumerate}
+%\begin{proof} \hfill
+%		\begin{enumerate}
+%			\item 
+%			\item 
+%		\end{enumerate}
+%	\end{proof}
+%\end{theorem}
+%
+%\begin{theorem}[Complement Laws]\Tlabel{T:complementLawsSets} \hfill
+%	\begin{enumerate}
+%		\item The set that owns a set~$A$ and its complement~$A_{\complement}$ is polychotomous. $A \cup A_{\complement} = U \land A \cap A_{\complement} = \emptyset$
+%		\item The complement operation is the inverse of itself. $\forall B: (B_{\complement})_{\complement}$ = $B$.
+%	\end{enumerate}
+%	\begin{proof} \hfill
+%		\begin{enumerate}
+%			\item 
+%			\item 
+%		\end{enumerate}
+%	\end{proof}
+%\end{theorem}
+%
+%\begin{theorem}[DeMorgan's Laws]\Tlabel{T:deMorganLawsSets} \hfill
+%	\begin{enumerate}
+%		\item 
+%		\item 
+%	\end{enumerate}
+%\begin{proof} \hfill
+%		\begin{enumerate}
+%			\item 
+%			\item 
+%		\end{enumerate}
+%	\end{proof}
+%\end{theorem}
+
+		</div-->
 	</section>
-</section>
-	
-<section hidden="" id="ordered-tuples">
-	<div class="theorem" id="T-orderedpairsequal">
-		<p class="summary">Two ordered pairs are equal if and only if their corresponding components are equal.</p>
-		<div class="proof">
-		</div>
-	</div>
-
-	<div class="informal">
-		<p>Tuples. Informal and not part of the system.</p>
-		<div class="latex">\begin{align}
-			\varnothing &:= \{\}\\
-			\langle\rangle &:= \{\varnothing,\varnothing\}  &&= \{\varnothing\}\\
-			\langle a\rangle &:= \bigl\{\langle\rangle,a\bigr\} &&= \bigl\{\{\varnothing\}, a\bigr\}\\
-			\langle a,b\rangle &:= \bigl\{\langle a\rangle,b\bigr\} &&= \Bigl\{\bigl\{\{\varnothing\}, a\bigr\}, b\Bigr\}\\
-			\langle a,b,c\rangle &:= \bigl\{\langle a,b\rangle,c\bigr\} &&= \biggl\{\Bigl\{\bigl\{\{\varnothing\}, a\bigr\}, b\Bigr\}, c\biggr\}\\
-			\langle a,b,c,d\rangle &:= \bigl\{\langle a,b,c\rangle,d\bigr\} &&= \Biggl\{\biggl\{\Bigl\{\bigl\{\{\varnothing\}, a\bigr\}, b\Bigr\}, c\biggr\}, d\Biggr\}
-		\end{align}</div>
-	</div>
-	<div class="definition draft" id="tuple">
-		<p>Ordered Pairs. Formal and necessary.</p>
-		<div class="latex">\begin{align}
-			(a,b)   &:= \{\{a\},b\}\\
-			(a,b,c) &:= \bigl((a,b),c\bigr) = \Bigl\{\bigl\{(a,b)\bigr\},c\Bigr\} = \Bigl\{\bigl\{\bigl\{\{a\},b\bigr\}\bigr\},c\Bigr\}\\
-			(a,b,c,d) &:= \bigl((a,b,c),d\bigr) = \dots = \biggl\{\Bigl\{\Bigl\{\bigl\{\bigl\{\{a\},b\bigr\}\bigr\},c\Bigr\}\Bigr\},d\biggr\}
-		\end{align}</div>
-		<div class="latex">\begin{align}
-			(a,b)   &:= \{a,\{b\}\}\\
-			(a,b,c) &:= \bigl((a,b),c\bigr) = \bigl\{(a,b), \{c\}\bigr\} = \Bigl\{\bigl\{a,\{b\}\bigr\},\{c\}\Bigr\}\\
-			(a,b,c,d) &:= \bigl((a,b,c),d\bigr) = \dots = \biggl\{\Bigl\{\bigl\{a,\{b\}\bigr\},\{c\}\Bigr\},\{d\}\biggr\}
-		\end{align}</div>
-	</div>
-</section>
-<section hidden="" id="relations-functions-operations">
-	<!-- 	A relation on two sets is a subset of the Cartesian product of those sets.
-	\begin{proof}
-		By \Nref{N:relation}, any relation~$\sim$ is described as ${\sim}=\bigl\{\langle x,y \rangle \in X \times Y : \pred{R}{x,y}\bigr\}$. Equivalently,
-		$$\forall \langle x,y\rangle : \bigl(\langle x,y \rangle \in {\sim} \iff \langle x,y \rangle \in X \times Y \land \pred{R}{x,y}\bigr)$$
-		This is precisely the requirement for \Aref{A:specification}. Thus, $\langle x,y\rangle \in {\sim} \implies \langle x,y\rangle \in X\times Y$ and we have ${\sim}\subseteq X\times Y$.
-	\end{proof}
--->
-	<div>
-		reflexive:
-		<div class="latex">\[(\forall a\in s) (a\sim a)\]</div>
-	</div>
-	<div>
-		areflexive:
-		<div class="latex">\[(\exists a\in s) (a\not\sim a)\]</div>
-	</div>
-	<div>
-		antireflexive:
-		<div class="latex">\[(\forall a\in s) (a\not\sim a)\]</div>
-	</div>
-	<div>
-		symmetric:
-		<div class="latex">\[(\forall a,b\in s) (a\sim b \implies b\sim a)\]</div>
-	</div>
-	<div>
-		asymmetric:
-		<div class="latex">\[(\exists a,b\in s) (a\sim b \land b\not\sim a)\]</div>
-	</div>
-	<div>
-		antisymmetric:
-		<div class="latex">\[(\forall a,b\in s) (a\sim b \implies b\not\sim a)\]</div>
-	</div>
-	<div style="background-color: #eee;">
-		something else:
-		<div class="latex">\[(\forall a,b\in s)(a\sim b \land b\sim a \implies a=b)\]</div>
-	</div>
-	<div>
-		transitive:
-		<div class="latex">\[(\forall a,b,c\in s) (a\sim b \land b\sim c \implies a\sim c)\]</div>
-	</div>
-	<div>
-		atransitive:
-		<div class="latex">\[(\exists a,b,c\in s) (a\sim b \land b\sim c \land a\not\sim c)\]</div>
-	</div>
-	<div>
-		antitransitive:
-		<div class="latex">\[(\forall a,b,c\in s) (a\sim b \land b\sim c \implies a\not\sim c)\]</div>
-	</div>
-	<!--div>
-			<div class="theorem" id="T-equalityequivalancerelation">
-			<p class="summary">Equality is an equivalence relation on any set.</p>
-			<p><span class="latex">\(\left(x,y\right)\in\mathscr{E}\)</span>, where <span class="latex">\(\mathscr{E}\)</span> represents the subset of <span class="latex">\(A\times A\)</span> specified by <span class="latex">\(\left(x,y\right)\in\mathscr{E} \iff \left(x,y\right)\in A^2 \land \left(\forall t\right)\left(t\in x\iff t\in y\right)\)</span> for any set <span class="latex">\(A\)</span>.</p>
-		</div>
-
-		\begin{definition}\Dlabel{D:lowerBound}
-	Then an element~$d\in A$ is a \defn{lower bound} of $B$ iff for all $x\in B$, $d\leq x$. When $d$ is a lower bound of $B$, we say $B$ is \defn{bounded below} by $d$.
-	 
-	Then an element~$u\in A$ is an \defn{upper bound} of $B$ iff for all $x\in B$, $x\leq u$. When $u$ is an upper bound of $B$, we say $B$ is \defn{bounded above} by $u$.
-\end{definition}
-
-\begin{definition}\Dlabel{D:infimum}
-	Then a lower bound~$i\in A$ of $B$ is an \defn{infimum} of $B$ iff, for every lower bound~$d\in A$ of $B$, $d\leq i$. When $i$ is an infimum of $B$, we write $i=\inf{B}$.
-	
-	Then an upper bound~$s\in A$ of $B$ is a \defn{supremum} of $B$ iff, for every upper bound~$u\in A$ of $B$, $s\leq u$. When $s$ is a supremum of $B$, we write $s=\sup{B}$.
-\end{definition}
-
-\begin{definition}\Dlabel{D:minimum}
-	Then an infimum~$a$ of $B$ is a \defn{minimum} of $B$ iff $a\in B$. When $a$ is a minimum of $B$, we write $a=\min{B}$.
-	
-	Then a supremum~$b$ of $B$ is a \defn{maximum} of $B$ iff $b\in B$. When $b$ is a maximum of $B$, we write $b=\max{B}$.
-\end{definition}
-
-\begin{proposition}\Plabel{P:infimumSupremumUnique}
-	If a set has an infimum, that infimum is unique. If a set has a supremum, that supremum is unique. (Every set has at most one infimum and at most one supremum.)
-	\begin{proof}
-		Suppose a set $B$ has two infima~$i$ and $j$. \Dref{D:infimum} says $i$ and $j$ are both lower bounds. But if $i$ is an infimum then $j\leq i$, and if $j$ is an infimum then $i\leq j$. Thus $j\leq i \land i\leq j$. By the antisymmetry of the total order~$\leq$ (\Dref{D:totalOrder}), $i=j$. Then $B$ has only one infimum. A parallel proof can be provided for suprema.
-	\end{proof}
-\end{proposition}
-
-\begin{definition}\Dlabel{D:strictTotalOrder}
-	Define $<$ on a chain~$\langle O,\leq\rangle$ such that:
-	\begin{equation*}\label{eq:strictlyLessThan}
-		\forall x,y\in O : x<y \iff x\leq y \land x\not=y
-	\end{equation*}
-	For any $x,y\in O$, we say $x$ is \defnidx{strictly less than}{less than!strictly} $y$ when $x<y$. Conversely, we say $x$ is \defnidx{strictly greater than}{greater than!strictly} $y$ when $y<x$, or written, $x>y$.
-\end{definition}
-
-\begin{theorem}\Tlabel{T:strictTotalOrder}
-	``Strictly less than'' is a binary relation that is irreflexive, asymmetric, antisymmetric, transitive, and comparable.
-	\begin{proof}
-		We are given a chain~$\langle O,\leq\rangle$. Recall \Dref{D:totalOrder}, that the relation~$\leq$ is reflexive, antisymmetric, transitive, and comparable (see \Dref{D:relationProperties}). For all $x,y,z\in O$,
-		\begin{enumerate}
-			\item[\case{Binary Relation}] ??? prove $<$ is a binary relation by \Dref{D:relation}???
-			\item[\case{Asymmetry}] Let $x<y$. Then $x\leq y$ but $x\not=y$. Suppose to the contrary that $y<x$ also. Then $y\leq x \land y\not=x$. By the antisymmetry of $\leq$, we have $x\leq y \land y\leq x$, thus $x=y$. But $x\not=y$ by assumption. We have the \indexthis{contradiction}~$x=y\land\lnot(x=y)$. Therefore, whenever $x<y$ it is the case that $y\not<x$, which proves asymmetry.
-			\item[\case{Irreflexivity}] Assume $<$ is not irreflexive. Then $\exists x\in O : x<x$. By asymmetry, we have $x<x \implies x\not<x$, which is logically equivalent to $x\not<x$. We have the \indexthis{contradiction}~$x<x \land \lnot(x<x)$. Therefore $<$ is irreflexive.
-			\item[\case{Antisymmetry}] As a consequence of asymmetry, we have the \indexthis{vacuous} implication~$x<y \land y<x \implies x=y$ (the antecedent is false). Therefore antisymmetry holds true.
-			\item[\case{Transitivity}] Let $x<y$ and $y<z$. Then $x\leq y$ with $x\not=y$ and $y\leq z$ with $y\not=z$. By the transitivity of $\leq$, $x\leq z$. Now if $x=z$ then we have $y<x$, but we know $x<y$ and $<$ is asymmetric, so $y\not<x$, a \indexthis{contradiction}. Thus $x\not=z$ and $x\leq z$, so $x<z$. Therefore $<$ is transitive.
-			\item[\case{Comparability}] Assume $x\not=y$. By comparability of $\leq$, at least one of $x\leq y$ or $y\leq x$ holds true. Expanding, $x<y \land x\not=y$ or $y<x \land y\not=x$ holds true. But by our assumption, this simplifies to $x<y \lor y<x$. Therefore comparability holds.
-		\end{enumerate}
-		Since $<$ is an irreflexive, asymmetric, antisymmetric, transitive, and comparable binary relation, we call $<$ a \defn{strict total order} on $O$.
-	\end{proof}
-\end{theorem}
-\begin{definition}\Dlabel{D:closedInterval}
-	Given a chain~$\langle O,\leq\rangle$, a subset~$[a,b]$ of $O$ is a \defnidx{closed interval}{interval!closed} of $O$ iff
-	\begin{gather*}\label{eq:closedInterval}
-		\forall x : \bigl(x\in [a,b] \iff x\in O \land (a\leq x \land x \leq b)\bigr) \\
-		[a,b]=\{x \in O : a \leq x \leq b\}
-	\end{gather*}
-	We say $a$ is the \defnidx{left endpoint}{endpoint!left} of $[a,b]$ and $b$ is the \defnidx{right endpoint}{endpoint!right} of $[a,b]$.
-\end{definition}
-
-\begin{definition}\Dlabel{D:openInterval}
-	Given a chain~$\langle O,\leq\rangle$, a subset~$(a,b)$ of a closed interval~$[a,b]$ of $O$ is an \defnidx{open interval}{interval!open} of $O$ iff
-	\begin{gather*}\label{eq:openInterval}
-		\forall x : \bigl(x\in (a,b) \iff x\in [a,b] \land (a\not=x \land x\not=b)\bigr)\\
-		(a,b)=\{x \in O : a < x < b\}
-	\end{gather*}
-	By \Tref{T:inclusionRelation}, $(a,b)\subseteq O$.
-	We say $a$ is the \defnstyle{left endpoint} of $(a,b)$ and $b$ is the \defnstyle{right endpoint} of $(a,b)$.
-\end{definition}
-
-\begin{proposition}\Plabel{P:intervalsExist}
-	Given a chain~$\langle O,\leq\rangle$ and two elements~$a,b\in O$, there exists exactly one closed interval~$[a,b]$ of $O$, and exactly one open interval~$(a,b)$ of $O$.
-	\begin{proof}
-		
-	\end{proof}
-\end{proposition}
-\begin{definition}\Dlabel{D:equivalenceRelation}
-	A preorder~$\equiv$ on a set~$S$ is defined as an \defnidx{equivalence relation}{relation!equivalence}\indexterm{equivalence!relation|seeonly{relation, equivalence}} iff it is symmetric. (An equivalence relation is reflexive, symmetric, and transitive.)
-	If there exists an equivalence relation on a set~$S$ between two elements~$x,y \in S$, then we say $x$ is \defn{equivalent} to $y$ and write $x \equiv y$. If the name and symbol of the equivalence relation is known, we use those instead.
-	The symbol for general equivalence relations, $\equiv$, is also used to denote logical equivalence between Boolean statements. We leave it to the reader to be able to distinguish the context.
-\end{definition}
-\begin{definition}\Dlabel{D:equivalenceClass}
-	If $\equiv$ is an equivalence relation on a set $S$ and if $s \in S$, then the set~$[s]$ is an \defnidx{equivalence class}{equivalence!class} of $s$ relative to $\equiv$ on $S$ iff it owns all and only all elements of $S$ that are equivalent to $s$ with respect to $\equiv$. Given a set~$S$ and an equivalence relation~$\equiv$,
-	\begin{equation*}\label{eq:equivalenceClass}
-		\forall s \in S : [s]=\{x\in S : x \equiv s\}
-	\end{equation*}
-\end{definition}
-
-\begin{proposition}\Plabel{P:equivalenceClassSubset}
-	If there exists an equivalence relation~$\equiv$ on a nonempty set~$S$, then for every element~$s$ in $S$, an equivalence class~$[s]$ of $s$ relative to $\equiv$ on $S$ exists. And $[s]$ is a subset of $S$.
-%	$$\forall S : \forall{\equiv} : \forall s \in S : \exists [s] : \forall x : \bigl(x \in [s] \iff x \in S \land x \equiv s\bigr)$$
-	\begin{proof}
-		\Dref{D:equivalenceClass} meets the criteria of \Dref{D:subset}. \Aref{A:specification} guarantees that equivalence classes exist.
-	\end{proof}
-\end{proposition}
-
-\begin{definition}\Dlabel{D:equivalenceClassRepresentation}
-	Let $\equiv$ be an equivalence relation on a set~$S$. A set~$R$ is an \defnidx{equivalence class representation}{equivalence!class!representation} of $S$, rather, a \emph{complete set of equivalence class representatives} on $S$, iff $R$ is a subset of $S$ and $R$ contains exactly one element~$s$, called an \defnidx{equivalence class representative}{equivalence!class!representative}, from each equivalence class~$[s]$ relative to $\equiv$ on $S$.
-\end{definition}
-
-\begin{proposition}\Plabel{P:equivalenceRepresentation}
-	For any set~$S$ with an equivalence relation~$\equiv$, there exists an equivalence class representation of $S$.
-	\begin{equation*}\label{eq:equivalenceRepresentation}
-		\forall S : \forall{\equiv} : \exists R : \forall x : \bigl(x \in R \iff x \in S \land \dots\bigr)
-	\end{equation*}
-	\begin{proof}
-		???????????? .......... %%%%%%%%%%%%%%%%%%%
-	\end{proof}
-\end{proposition}
-
-\begin{theorem}\Tlabel{T:equivalenceClassSet}
-	Given a set and an equivalence relation, there exists a collection which owns each equivalence class on that set.
-	\begin{proof}
-		Let $\equiv$ be an equivalence relation on a set~$S$. For each equivalence class~$[s]$ relative to $\equiv$ on $S$, \Pref{P:singleton} guarantees the existence of the singleton~$\{[s]\}$....
-		?????? ?????? ????? %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-		\textsf{this theorem might need to use unions (\Dref{D:union} and \Aref{A:union})}
-		We are trying to find $\mathcal{E}$
-	\end{proof}
-\end{theorem}
-
-	</div-->
-	<!--div>
-	\begin{definition}\Dlabel{D:function}
-	A binary relation~$f$ is called a \defn{function} (also known as a \defn{mapping}), iff $f$ is \defn{defined} and \defn{well-defined}. See \Dref{D:relationProperties}.\ref{eq:defined} and \Dref{D:relationProperties}.\ref{eq:wellDefined}.
-	\begin{equation*}\label{eq:function}
-		f=\bigl\{\langle x,y\rangle \in X \times Y : \pred{F}{x,y}\bigr\}
-	\end{equation*}
-	Given the predicate $\pred{F}{x,y}$, $\langle x,y\rangle \in f$. Since $f$ is a relation, we could write $xfy$, but instead we write $f(x)=y$ and we say $y$ is the \defn{value} of the function~$f$ at the \defn{argument}~$x$. We say \emph{the} value, instead of \emph{a} value, because there exists not more than one, since $f$ is well-defined. An alternative nomenclature is: $f(x)$ is the \defn{image} of the \defn{preimage}~$x$.
-\end{definition}
-
-We specify the relational properties of \Dref{D:relationDomain} and \Dref{D:relationRange} in terms of functions below.
-
-\begin{definition}\Dlabel{D:functionDomain}
-	The set~$D$, called the \defn{domain} of a function~$f$, is the set of all arguments of $f$ in the superdomain~$X$.
-	\begin{equation*}\label{eq:functionDomain}
-		D=\dom{f} = \Bigl\{x \in X : \bigl(\exists y \in Y : f(x)=y\bigr)\Bigr\}
-	\end{equation*}
-	We are guaranteed $D\subseteq X$ by \Aref{A:specification}.
-\end{definition}
-
-\begin{definition}\Dlabel{D:functionRange}
-	The set~$f(D)$, called the \defn{range} of a function~$f$ (whose domain is $D$), is the set of all values of $f$ in the superrange~$Y$.
-	\begin{equation*}\label{eq:functionRange}
-		f(D)=\ran{f} = \Bigl\{y \in Y : \bigl(\exists x \in X : f(x)=y\bigr)\Bigr\}=\bigl\{f(x) \in Y : x \in D\bigr\}
-	\end{equation*}
-	We are guaranteed $f(D)\subseteq Y$ by \Aref{A:specification}.
-\end{definition}
-
-\begin{definition}\Dlabel{D:functionCodomain}
-	The set~$C$, called the \defn{codomain} of a function~$f$, is another name for the the superrange~$Y$.
-	$$C=Y$$
-\end{definition}
-\begin{lemma}\Llabel{L:cartesianSubset}
-	$A\subseteq X$ and $B\subseteq Y$ if and only if $(A\times B)\subseteq(X\times Y)$.
-	\begin{proof}
-		????? \textsf{\Nref{N:function} is dependent on this lemma}
-	\end{proof}
-\end{lemma}
-
-\begin{notation}\Nlabel{N:function}
-	When the function~$f$ is a relation on two sets~$X$ and $Y$, we can write $f$ as the equation in \Dref{D:function}. But the domain~$D \subseteq X$ (\Dref{D:functionDomain}) and the codomain~$C \subseteq Y$ (\Dref{D:functionCodomain} and \eqref{eq:setEquality}). Then $(D\times C)\subseteq(X\times Y)$ (by \Lref{L:cartesianSubset}). Thus we use the notation
-	\begin{equation*}\label{eq:functionDomCodom}
-		(f\colon D \mapsto C)=\bigl\{\langle x,y\rangle \in D \times C : \pred{F}{x,y}\bigr\}
-	\end{equation*}
-	We say $f$ is a function (a mapping) from $D$ into $C$; and that $f$ \defnidx{maps}{map} elements of $D$ to elements of $C$, or $f$ \defnidx{assigns}{assign} elements of $C$ to elements of $D$.
-\end{notation}
-
-\begin{example}\Elabel{E:function}
-	When the argument of a function~$f$ is an ordered pair~$\langle x,y\rangle$, ordered triple~$\langle x,y,z\rangle$, \etc, it is common notation to write the value as $f(x,y)$ or $f(x,y,z)$ rather than the technically correct notation $f\bigl(\langle x,y\rangle\bigr)$ or $f\bigl(\langle x,y,z\rangle\bigr)$.
-\end{example}
-
-\begin{definition}\Dlabel{D:definedFunction}
-	Using new notation, we restate \Dref{D:relationProperties}.\ref{eq:defined}:
-	\begin{equation*}\label{eq:definedRelation}
-		\forall x \in D : \exists y \in C : xfy
-	\end{equation*}
-	We exactly restate the functional requirement. A relation~$f\colon D \mapsto C$ is a function only if it is \defn{defined}: ``Each element of $D$ is mapped to some element of $C$.''
-	\begin{equation*}\label{eq:definedFunction}
-		\forall x \in D : \exists y \in C : f(x)=y
-	\end{equation*}
-\end{definition}
-
-\begin{definition}\Dlabel{D:wellDefinedFunction}
-	Using new notation, we restate \Dref{D:relationProperties}.\ref{eq:wellDefined}:
-	\begin{equation}\label{eq:wellDefinedRelation}
-		\forall x \in D : \forall y,z \in C : \bigl(f(x)=y \land f(x)=z \implies y=z\bigr)
-	\end{equation}
-	We state an analogous functional requirement, which is proved in \Tref{T:wellDefinedFunction}. A relation~$f\colon D \mapsto C$ is a function only if it is \defn{well-defined}: ``An element of $D$ \emph{that is mapped} is mapped to a uniquely determined element of $C$.''
-	\begin{equation}\label{eq:wellDefinedFunction}
-		\forall a,b \in D : a=b \implies f(a)=f(b)
-	\end{equation}
-	Equivalently, $\forall a,b \in D : f(a)\not=f(b) \implies a\not=b$ (``Different elements of $C$ \emph{that are assigned} are assigned to different elements of $D$'').
-\end{definition}
-
-Since any function~$f$ must be defined and well-defined, we say $f$ maps each element of $D$ to a uniquely determined element of $C$; or $f$ assigns a uniquely determined element of $C$ to each element of $D$.
-
-\begin{theorem}\Tlabel{T:wellDefinedFunction}
-	The formulae~\eqref{eq:wellDefinedRelation} and \eqref{eq:wellDefinedFunction} from \Dref{D:wellDefinedFunction} are equivalent.
-	\begin{proof}
-		Logical statements that are materially equivalent take a biconditional form. Thus we must prove both directions.
-		\begin{enumerate}
-			\item[\case{$\implies$}] Given a function~$f\colon D\mapsto C$, assume \eqref{eq:wellDefinedRelation}: that for any argument~$x$ in the domain, if there are two values of $f$ at $x$, then those values are equal.
-				Let $\exists a,b\in D$ such that $a=b$ and let $f(a)=y$ and $f(b)=z$. Then by our assumption, $y=z$, and then by transitivity and symmetry of equality (\Rref{R:identityRelation}), $f(a)=f(b)$. Thus we conclude \eqref{eq:wellDefinedFunction}.
-			\item[\case{$\impliedby$}] Now assume \eqref{eq:wellDefinedFunction}: that if two arguments are equal, then the values of $f$ at those arguments are also equal.
-				Let $\exists x\in D$ with $f(x)=y$ and $f(x)=z$. By reflexivity in \Rref{R:identityRelation}, $x=x$, and by our assumption, $f(x)=f(x)$, and thus $y=z$. Then we have \eqref{eq:wellDefinedRelation}.
-		\end{enumerate}
-	\end{proof}
-\end{theorem}
-
-\begin{definition}\Dlabel{D:surjection}
-	A function~$f\colon D \surjects C$ is a \defn{surjection} iff it is \defn{onto} (surjective): ``Every element of $C$ is assigned to some element of $D$.''
-	\begin{equation*}\label{eq:surjection}
-		\forall y \in C : \exists x \in D : f(x)=y
-	\end{equation*}
-\end{definition}
-
-\begin{definition}\Dlabel{D:injection}
-	A function~$f\colon D \injects C$ is an \defn{injection} iff it is \defn{one-to-one} (injective): ``Each element of $C$ \emph{that is assigned} is assigned to a uniquely determined element of $D$.''
-	\begin{equation*}\label{eq:injection}
-		\forall a,b \in D : f(a)=f(b) \implies a=b
-	\end{equation*}
-	Equivalently, $\forall a,b \in D : a\not=b \implies f(a)\not=f(b)$ (``Different elements of $D$ are mapped to different elements of $C$'').
-\end{definition}
-
-\begin{definition}\Dlabel{D:bijection}
-	A function~$f \colon D \bijects C$ is a \defn{bijection} iff it is both onto and one-to-one ($f$ is said to be bijective). Essentially this means that a bijection maps every element of the domain to exactly one unique element of the codomain, and assigns every element of the codomain to exactly one unique element of the domain.
-\end{definition}
-
-\begin{theorem}\Tlabel{T:surjection}
-	A function is a surjection if and only if its codomain is equal to its range.
-	\begin{proof} \hfill
-		\begin{enumerate}
-			\item[\case{$\implies$}] Let $f\colon D \surjects C$ be a surjection, as in \Dref{D:surjection}. That is, $\forall y \in C : \exists x \in D : f(x)=y$. Expressed differently,
-			\begin{equation}\label{eq:surjectionThm}
-				y \in C \implies y \in \Bigl\{y \in Y : \bigl(\exists x \in D : f(x)=y\bigr)\Bigr\}
-			\end{equation}
-			\Dref{D:subset} indicates $C$ is a subset of the set in \eqref{eq:surjectionThm}. But since $D\subseteq X$ by \Dref{D:functionDomain}, the predicate~$\bigl(\exists x \in D : f(x)=y\bigr)$ implies the predicate~$\bigl(\exists x \in X : f(x)=y\bigr)$, which is required by \Dref{D:functionRange}. So the set in \eqref{eq:surjectionThm} is a subset of $f(D)$. Then by \Tref{T:inclusionRelation}, we have $C\subseteq f(D)$. Also, by \Dref{D:functionRange} and \Dref{D:functionCodomain}, $f(D)\subseteq Y=C$. Therefore \eqref{eq:setEquality} concludes $C=f(D)$.
-			\item[\case{$\impliedby$}] Now assume $C=f(D)$. Then certainly $C\subseteq f(D)$, so 
-			$$C \subseteq \Bigl\{y \in Y : \bigl(\exists x \in X : f(x)=y\bigr)\Bigr\}$$
-			So now we have $y \in C \implies \exists x \in X : f(x)=y$. We must show now that $x$ is in $D$. But if $f(x)=y$ exists, then \Dref{D:functionDomain} requires $x\in D$. Therefore $\forall y\in C : \exists x \in D : f(x)=y$ and we have a surjection.
-		\end{enumerate}
-	\end{proof}
-\end{theorem}
-
-
-\begin{theorem}\Tlabel{T:functionEquality}
-	One function is equal to another function if and only if their domains are equal, and, at each argument in the common domain, the values of both functions are equal.
-	\begin{gather*}\label{eq:functionEquality}
-		\forall (f \colon A \mapsto B),(g \colon C \mapsto D) : \\
-		f=g \iff A=C \land (\forall a \in A : f(a)=g(a))
-	\end{gather*}
-	\begin{proof}\hfill
-		\begin{enumerate}
-			\item[\case{$\implies$}] Given functions~$f,g$, let $f \colon A \mapsto B$ be equal to $g \colon C \mapsto D$.
-				\begin{align*}
-					f&=\bigl\{\langle a,b\rangle \in A \times B : b=f(a)\bigr\}\\
-					 &=\bigl\{\langle c,d\rangle \in C \times D : d=g(c)\bigr\}=g
-				\end{align*}
-				Suppose $\langle a,b\rangle\in f$. Then by \Dref{D:cartesianProduct}, $a\in A$, and because $f$ is defined (\Dref{D:definedFunction}), $b=f(a)$. But because $f=g$ by assumption, \Aref{A:extensionality} guarantees $\langle a,f(a)\rangle\in f \implies \langle a,f(a)\rangle\in g$. Then $a\in C$. So we have $a\in A \implies a\in C \therefore A \subseteq C$ (\Dref{D:subset}). Similarly, we can show $C \subseteq A$. Thus $A=C$ by \eqref{eq:setEquality}. Now since $a\in C$ and $g$ is defined, there must be some $g(a)\in D$ such that $\langle a,g(a)\rangle\in g$. So we have two ordered pairs~$\langle a,f(a)\rangle$ and $\langle a,g(a)\rangle$ elements of $g$. But since $g$ is well-defined (\Dref{D:wellDefinedFunction}), $f(a)=g(a)$.
-			\item[\case{$\impliedby$}] Assume we have two functions~$(f \colon A \mapsto B), (g \colon C \mapsto D)$ with equal domains, $A=C$, and equal values at each preimage, $\forall a \in A : f(a) = g(a)$.
-			Now suppose $\langle a,b\rangle\in f$. Then $a\in A$ and $b=f(a)\in B$. Notice $a \in A \implies a \in C$. Then there must be some $d\in D$ such that $\langle a,d\rangle\in g$ with $d=g(a)$ because $g$ is defined.
-			So far we have $b=f(a)$ and $d=g(a)$. But since all values of $f$ and $g$ at $a$ are equal by assumption, we have $b=f(a)=g(a)=d \therefore b=d$ (by \Rref{R:identityRelation}). Thus $\langle a,b\rangle \in f \implies \langle a,d\rangle=\langle a,b\rangle \in g$, and $f \subseteq g$. In a parallel manner, we can show $g \subseteq f$. Therefore $f=g$.
-		\end{enumerate}
-	\end{proof}
-\end{theorem}
-
-	</div-->
 </section>
 </div>
 </body>
