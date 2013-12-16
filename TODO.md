@@ -66,6 +66,7 @@ TO DO
 #### Math7/ ####
 - on all course overview, unit overviews, and lessons: include breadcrumbs!
 - create `pacingguide.html`
+- upload Daily Warm-Ups from GDrive to `daily-warmups.html`
 
 #### syllabus.html ####
 - display `dl`s like two-column tables
@@ -84,7 +85,7 @@ TO DO
 - create `fieldprops-lesson.html`
 - `test.html`
 	- add images from Unit 1 Test (on Drive)
-	- remove verbal mathematics and add to `../equations-inequalities/test.html`
+	- remove verbal mathematics and add to **Test 2**
 
 #### Math7/equations-inequalities/ ####
 - create `verbals-lesson.html`
@@ -94,13 +95,15 @@ TO DO
 - fix `eqns-twostep-lesson.html`
 - fix `eqns-word-lesson.html`
 - update `ineq-writegraph-lesson.html`
+- convert Quiz 2.5 from handwritten to `ineq-writegraph-quiz.html`
 - update `ineq-solve-lesson.html`
 - add **Inequalities Part 3** from Pages on GDrive to `ineq-solve-lesson.html`
 - add material from `ModifiedLessonWriteup.pdf` on GDrive to `ineq-writegraph-lesson.html` and `ineq-solve-lesson.html`
+- convert Quiz 2.6 from handwritten to `ineq-solve-quiz.html`
 - SBG 7.15 v1
 	- fix list-style-type for #3-5
 	- #6-7 change directions to "Solve each inequality, then graph it on the number line provided."
-- `test.html`
+- Test 2
 	- add verbal mathematics
 	- more on one-step equations
 	- less on two-step equations
@@ -109,7 +112,8 @@ TO DO
 
 #### Math7/functions/ ####
 - convert **Modified Lesson #2: Relations** from GDrive
-- convert **Modeling Sequences** from Pages on GDrive
+- convert Quiz 3.5 from GDrive to `distinguishing-quiz.html`
+- incorporate `seq-modeling.html` into a lesson
 
 #### Math7/proportions/ ####
 - convert `SIOPLessonPlan.docx` from GDrive
