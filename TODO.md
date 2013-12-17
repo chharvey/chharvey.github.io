@@ -95,14 +95,13 @@ TO DO
 - fix `eqns-twostep-lesson.html`
 - fix `eqns-word-lesson.html`
 - update `ineq-writegraph-lesson.html`
-- convert Quiz 2.5 from handwritten to `ineq-writegraph-quiz.html`
+- convert Quiz 2.5 from handwritten to SBG 7.15 v2
 - update `ineq-solve-lesson.html`
 - add **Inequalities Part 3** from Pages on GDrive to `ineq-solve-lesson.html`
 - add material from `ModifiedLessonWriteup.pdf` on GDrive to `ineq-writegraph-lesson.html` and `ineq-solve-lesson.html`
-- convert Quiz 2.6 from handwritten to `ineq-solve-quiz.html`
-- SBG 7.15 v1
-	- fix list-style-type for #3-5
-	- #6-7 change directions to "Solve each inequality, then graph it on the number line provided."
+- convert Quiz 2.6 from handwritten to SBG 7.15 v2
+- SBG 7.15 v2
+	- use Quizzes 2.5, 2.6
 - Test 2
 	- add verbal mathematics
 	- more on one-step equations
