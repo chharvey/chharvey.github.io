@@ -495,44 +495,6 @@
 					</quantifier>
 				</theorem-->
 			</div>
-			<div class="theorem" id="T-emptysetunique">
-				<p class="summary">The empty set is unique.</p>
-				<p class="latex wff">\[
-					(\forall a)(\forall b)\left(
-						\left(
-							\expand{\(a\doteqdot\varnothing\)}{
-								(\forall t)\expand{\(t\not\in a\)}{\lnot(t\in a)}
-							}
-							\land
-							\expand{\(b\doteqdot\varnothing\)}{
-								(\forall t)\expand{\(t\not\in b\)}{\lnot(t\in b)}
-							}
-						\right)
-						\implies
-						\expand{\(a=b\)}{
-							(\forall t)(t\in a \iff t\in b)
-						}
-					\right)
-				\]</p>
-				<div class="proof">
-					<!--pre>
-Let x be an empty set.		premise
-Let y be an empty set.		assumption
-x and y are empty sets		conjunction introduction
-\not\exists t : t\in x \land \not\exists t : t\in y		dfn of empty
-\forall t : t\not\in x \land t\not\in y					dfn of universal quantifier
-assume t\in x				assumption
-t\not\in x \land t\in x		conjunction introduction
-contradiction				law of non-contradiction
-t\in y						law of explosion
-now, assume t\in y			assumption
-... t\in x					WLOG
-x=y							dfn of equality
-
-		(recap: if \forall t : t\not\in x \land t\not\in y, then assuming t\in x, we can conclude t\in y, and assuming t\in y, we can conclude t\in x. thus x=y. In conclusion, if x is empty and there is another set y that is also empty, then x=y. The empty set must be unique.)
-					</pre-->
-				</div>
-			</div>
 			<div class="informal">
 				<p>To describe any set <span class="latex">\(x\)</span> as empty, we assert that <span class="latex">\((\forall t)(t\not\in x)\)</span> and use the notation <span class="latex">\(x\doteqdot\varnothing\)</span> as shorthand. But we now see that the notation has a quite literal meaning. That is, any set <span class="latex">\(x\)</span> that is empty is literally equal to the empty set <span class="latex">\(\varnothing\)</span>. We can verify this with <a href="#D-equality">The Intensionality Definition</a>. This goes to show that all empty sets are equal, as proven <a href="T-emptysetunique">above</a>.</p>
 				<p>In our informal discussions, we can reconcile this idea by replacing the shorthand notation with equality.</p>
@@ -579,54 +541,6 @@ x=y							dfn of equality
 					}
 				\]</p>
 			</div>
-			<div class="theorem" id="T-pairunique">
-				<p class="summary">A pair constructed from two given sets is unique.</p>
-				<p class="latex wff">\[
-					(\forall x)(\forall y)\expand{\(\left\{x,y\right\}\) is unique}{
-						(\forall a)(\forall b)\left(
-							\left(
-								\expand{\(a\doteqdot\left\{x,y\right\}\)}{
-									(\forall z)\left(
-										(z\in a)
-										\iff
-										\left(
-											\expand{\(z=x\)}{
-												(\forall t)(t\in z \iff t\in x)
-											}
-											\lor
-											\expand{\(z=y\)}{
-												(\forall t)(t\in z \iff t\in y)
-											}
-										\right)
-									\right)
-								}
-								\land
-								\expand{\(b\doteqdot\left\{x,y\right\}\)}{
-									(\forall z)\left(
-										(z\in b)
-										\iff
-										\left(
-											\expand{\(z=x\)}{
-												(\forall t)(t\in z \iff t\in x)
-											}
-											\lor
-											\expand{\(z=y\)}{
-												(\forall t)(t\in z \iff t\in y)
-											}
-										\right)
-									\right)
-								}
-
-							\right)
-							\implies
-							\expand{\(a=b\)}{
-								(\forall t)(t\in a \iff t\in b)
-							}
-						\right)
-					}
-				\]</p>
-				<div class="proof"></div>
-			</div>
 		</section>
 		<section id="axiom-power">
 			<header>
@@ -656,41 +570,6 @@ x=y							dfn of equality
 						}
 					}
 				\]</p>
-			</div>
-			<div class="theorem" id="T-powersetunique">
-				<p class="summary">The power set constructed from a given set is unique.</p>
-				<p class="latex wff">\[
-					(\forall x)\expand{\(\wp x\) is unique}{
-						(\forall a)(\forall b)\left(
-							\left(
-								\expand{\(a\doteqdot\wp x\)}{
-									(\forall y)\left(
-										(y\in a)
-										\iff
-										\expand{\(y\subseteq x\)}{
-											(\forall t)(t\in y \implies t\in x)
-										}
-									\right)
-								}
-								\land
-								\expand{\(b\doteqdot\wp x\)}{
-									(\forall y)\left(
-										(y\in b)
-										\iff
-										\expand{\(y\subseteq x\)}{
-											(\forall t)(t\in y \implies t\in x)
-										}
-									\right)
-								}
-							\right)
-							\implies
-							\expand{\(a=b\)}{
-								(\forall t)(t\in a \iff t\in b)
-							}
-						\right)
-					}
-				\]</p>
-				<div class="proof"></div>
 			</div>
 		</section>
 		<section id="axiom-union">
@@ -735,51 +614,6 @@ x=y							dfn of equality
 					\right)
 				\]</p>
 			</div>
-			<div class="theorem" id="T-unionunique">
-				<p class="summary">The union constructed from a set is unique.</p>
-				<p class="latex wff">\[
-					(\forall x)\expand{\(\bigcup x\) is unique}{
-						(\forall a)(\forall b)\left(
-							\left(
-								\expand{\(a\doteqdot\bigcup x\)}{
-									(\forall y)\left(
-										(y\in a)
-										\iff
-										\expand{(\exists z\in x)(y\in z)}{
-											(\exists z)\left(
-												(z\in x)
-												\land
-												(y\in z)
-											\right)
-										}
-									\right)
-								}
-								\land
-								\expand{\(b\doteqdot\bigcup x\)}{
-									(\forall y)\left(
-										(y\in b)
-										\iff
-										\expand{(\exists z\in x)(y\in z)}{
-											(\exists z)\left(
-												(z\in x)
-												\land
-												(y\in z)
-											\right)
-										}
-									\right)
-								}
-							\right)
-							\implies
-							\expand{\(a=b\)}{
-								(\forall t)(t\in a \iff t\in b)
-							}
-						\right)
-					}
-				\]</p>
-					(\forall u)(\forall v)(\forall x)(\forall z)(z\in x \iff (z=u)\lor(z=v))(\forall a)(\forall b)((((\forall y)(y\in a \iff (\exists z)(z\in x\land y\in z)))\land((\forall y)(y\in b \iff (\exists z)(z\in x\land y\in z))))\implies a=b)
-
-				<div class="proof"></div>
-			</div>
 		</section>
 		<section id="axiom-intersection">
 			<header>
@@ -822,49 +656,6 @@ x=y							dfn of equality
 						}
 					\right)
 				\]</p>
-			</div>
-			<div class="theorem" id="T-intersectionunique">
-				<p class="summary">The intersection constructed from a set is unique.</p>
-				<p class="latex wff">\[
-					(\forall x)\expand{\(\bigcap x\) is unique}{
-						(\forall a)(\forall b)\left(
-							\left(
-								\expand{\(a\doteqdot\bigcap x\)}{
-									(\forall y)\left(
-										(y\in a)
-										\iff
-										\expand{(\forall z\in x)(y\in z)}{
-											(\forall z)\left(
-												(z\in x)
-												\implies
-												(y\in z)
-											\right)
-										}
-									\right)
-								}
-								\land
-								\expand{\(b\doteqdot\bigcap x\)}{
-									(\forall y)\left(
-										(y\in b)
-										\iff
-										\expand{(\forall z\in x)(y\in z)}{
-											(\forall z)\left(
-												(z\in x)
-												\implies
-												(y\in z)
-											\right)
-										}
-									\right)
-								}
-							\right)
-							\implies
-							\expand{\(a=b\)}{
-								(\forall t)(t\in a \iff t\in b)
-							}
-						\right)
-					}
-				\]</p>
-				<div class="proof"></div>
 			</div>
 		</section>
 		<section id="axiom-infinity">
@@ -942,37 +733,258 @@ x=y							dfn of equality
 		</section>
 	</section>
 	<section>
-		<h1 class="h-gamma">Consequences of the Axioms</h1>		
-		<section id="conseq-empty">
-			<h1 class="h-delta">Consequences of Emptiness</h1>
-			<div class="theorem" id="T-emptysetsubset">
-				<p class="summary">Every set includes the empty set.</p>
+		<h1 class="h-gamma">Consequences of the Axioms</h1>	
+		<div class="theorem" id="T-emptysetsubset">
+			<p class="summary">Every set includes the empty set.</p>
+			<p class="latex wff">\[
+				(\forall x)\expand{\(\varnothing\subseteq x\)}{
+					(\forall y)\left(
+						\expand{\(y=\varnothing\)}{
+							(\forall t)\expand{\(t\not\in y\)}{\lnot(t\in y)}
+						}
+						\implies
+						\expand{\(y\subseteq x\)}{
+							(\forall t)(t\in y\implies t\in x)
+						}
+					\right)
+				}
+			\]</p>
+			<div class="proof draft">
+				\forall x : \forall y : \forall t :
+				\lnot(t\in y) \implies (t\in y \implies t\in x)
+				(t\in y) \lor (t\in y \implies t\in x)
+				(t\in y) \lor (\lnot(t\in y) \lor t\in x)
+				(t\in y \lor \lnot(t\in y)) \lor (t\in x)
+				\top \lor (t\in x)
+				\top
+			</div>
+		</div>
+		<section id="uniqueness">
+			<header>
+				<h1 class="h-delta">Uniqueness</h1>
+				<p class="prose draft">The Axioms above merely state the <em>existence</em> of certain sets. Some of those sets have <em>uniqueness</em>, meaning that any two sets that are constructed the same way are equal. This section proves or disproves uniqueness for each axiom.</p>
+			</header>
+			<div class="theorem" id="T-emptysetunique">
+				<p class="summary">The empty set is unique.</p>
 				<p class="latex wff">\[
-					(\forall x)\expand{\(\varnothing\subseteq x\)}{
-						(\forall y)\left(
-							\expand{\(y=\varnothing\)}{
-								(\forall t)\expand{\(t\not\in y\)}{\lnot(t\in y)}
+					(\forall a)(\forall b)\left(
+						\left(
+							\expand{\(a\doteqdot\varnothing\)}{
+								(\forall t)\expand{\(t\not\in a\)}{\lnot(t\in a)}
 							}
+							\land
+							\expand{\(b\doteqdot\varnothing\)}{
+								(\forall t)\expand{\(t\not\in b\)}{\lnot(t\in b)}
+							}
+						\right)
+						\implies
+						\expand{\(a=b\)}{
+							(\forall t)(t\in a \iff t\in b)
+						}
+					\right)
+				\]</p>
+				<div class="proof">
+					<!--pre>
+Let x be an empty set.		premise
+Let y be an empty set.		assumption
+x and y are empty sets		conjunction introduction
+\not\exists t : t\in x \land \not\exists t : t\in y		dfn of empty
+\forall t : t\not\in x \land t\not\in y					dfn of universal quantifier
+assume t\in x				assumption
+t\not\in x \land t\in x		conjunction introduction
+contradiction				law of non-contradiction
+t\in y						law of explosion
+now, assume t\in y			assumption
+... t\in x					WLOG
+x=y							dfn of equality
+
+		(recap: if \forall t : t\not\in x \land t\not\in y, then assuming t\in x, we can conclude t\in y, and assuming t\in y, we can conclude t\in x. thus x=y. In conclusion, if x is empty and there is another set y that is also empty, then x=y. The empty set must be unique.)
+					</pre-->
+				</div>
+			</div>
+			<div class="theorem" id="T-pairunique">
+				<p class="summary">A pair constructed from two given sets is unique.</p>
+				<p class="latex wff">\[
+					(\forall x)(\forall y)\expand{\(\left\{x,y\right\}\) is unique}{
+						(\forall a)(\forall b)\left(
+							\left(
+								\expand{\(a\doteqdot\left\{x,y\right\}\)}{
+									(\forall z)\left(
+										(z\in a)
+										\iff
+										\left(
+											\expand{\(z=x\)}{
+												(\forall t)(t\in z \iff t\in x)
+											}
+											\lor
+											\expand{\(z=y\)}{
+												(\forall t)(t\in z \iff t\in y)
+											}
+										\right)
+									\right)
+								}
+								\land
+								\expand{\(b\doteqdot\left\{x,y\right\}\)}{
+									(\forall z)\left(
+										(z\in b)
+										\iff
+										\left(
+											\expand{\(z=x\)}{
+												(\forall t)(t\in z \iff t\in x)
+											}
+											\lor
+											\expand{\(z=y\)}{
+												(\forall t)(t\in z \iff t\in y)
+											}
+										\right)
+									\right)
+								}
+
+							\right)
 							\implies
-							\expand{\(y\subseteq x\)}{
-								(\forall t)(t\in y\implies t\in x)
+							\expand{\(a=b\)}{
+								(\forall t)(t\in a \iff t\in b)
 							}
 						\right)
 					}
 				\]</p>
-				<div class="proof">
-					\forall x : \forall y : \forall t :
-					\lnot(t\in y) \implies (t\in y \implies t\in x)
-					(t\in y) \lor (t\in y \implies t\in x)
-					(t\in y) \lor (\lnot(t\in y) \lor t\in x)
-					(t\in y \lor \lnot(t\in y)) \lor (t\in x)
-					\top \lor (t\in x)
-					\top
-				</div>
+				<div class="proof"></div>
+			</div>
+			<div class="theorem" id="T-powersetunique">
+				<p class="summary">The power set constructed from a given set is unique.</p>
+				<p class="latex wff">\[
+					(\forall x)\expand{\(\wp x\) is unique}{
+						(\forall a)(\forall b)\left(
+							\left(
+								\expand{\(a\doteqdot\wp x\)}{
+									(\forall y)\left(
+										(y\in a)
+										\iff
+										\expand{\(y\subseteq x\)}{
+											(\forall t)(t\in y \implies t\in x)
+										}
+									\right)
+								}
+								\land
+								\expand{\(b\doteqdot\wp x\)}{
+									(\forall y)\left(
+										(y\in b)
+										\iff
+										\expand{\(y\subseteq x\)}{
+											(\forall t)(t\in y \implies t\in x)
+										}
+									\right)
+								}
+							\right)
+							\implies
+							\expand{\(a=b\)}{
+								(\forall t)(t\in a \iff t\in b)
+							}
+						\right)
+					}
+				\]</p>
+				<div class="proof"></div>
+			</div>
+			<div class="theorem" id="T-unionunique">
+				<p class="summary">The union constructed from a set is unique.</p>
+				<p class="latex wff">\[
+					(\forall x)\expand{\(\bigcup x\) is unique}{
+						(\forall a)(\forall b)\left(
+							\left(
+								\expand{\(a\doteqdot\bigcup x\)}{
+									(\forall y)\left(
+										(y\in a)
+										\iff
+										\expand{(\exists z\in x)(y\in z)}{
+											(\exists z)\left(
+												(z\in x)
+												\land
+												(y\in z)
+											\right)
+										}
+									\right)
+								}
+								\land
+								\expand{\(b\doteqdot\bigcup x\)}{
+									(\forall y)\left(
+										(y\in b)
+										\iff
+										\expand{(\exists z\in x)(y\in z)}{
+											(\exists z)\left(
+												(z\in x)
+												\land
+												(y\in z)
+											\right)
+										}
+									\right)
+								}
+							\right)
+							\implies
+							\expand{\(a=b\)}{
+								(\forall t)(t\in a \iff t\in b)
+							}
+						\right)
+					}
+				\]</p>
+					(\forall u)(\forall v)(\forall x)(\forall z)(z\in x \iff (z=u)\lor(z=v))(\forall a)(\forall b)((((\forall y)(y\in a \iff (\exists z)(z\in x\land y\in z)))\land((\forall y)(y\in b \iff (\exists z)(z\in x\land y\in z))))\implies a=b)
+
+				<div class="proof"></div>
+			</div>
+			<div class="theorem" id="T-intersectionunique">
+				<p class="summary">The intersection constructed from a set is unique.</p>
+				<p class="latex wff">\[
+					(\forall x)\expand{\(\bigcap x\) is unique}{
+						(\forall a)(\forall b)\left(
+							\left(
+								\expand{\(a\doteqdot\bigcap x\)}{
+									(\forall y)\left(
+										(y\in a)
+										\iff
+										\expand{(\forall z\in x)(y\in z)}{
+											(\forall z)\left(
+												(z\in x)
+												\implies
+												(y\in z)
+											\right)
+										}
+									\right)
+								}
+								\land
+								\expand{\(b\doteqdot\bigcap x\)}{
+									(\forall y)\left(
+										(y\in b)
+										\iff
+										\expand{(\forall z\in x)(y\in z)}{
+											(\forall z)\left(
+												(z\in x)
+												\implies
+												(y\in z)
+											\right)
+										}
+									\right)
+								}
+							\right)
+							\implies
+							\expand{\(a=b\)}{
+								(\forall t)(t\in a \iff t\in b)
+							}
+						\right)
+					}
+				\]</p>
+				<div class="proof"></div>
 			</div>
 		</section>
-		<section id="conseq-pair">
-			<h1 class="h-delta">Consequences of Pair</h1>
+		<section id="injectiveness">
+			<header>
+				<h1 class="h-delta">Injectiveness</h1>
+				<p class="prose draft">Injectiveness is the opposite of uniqueness. While <em>uniqueness</em> states that any two sets that are constructed the same way are equal, <em>injectiveness</em> states that if two equal sets are constructed from given sets, those given sets are equal. This section proves or disproves injectiveness for each axiom.</p>
+			</header>
+			<div class="theorem" id="T-powersetinjection">
+				<p class="summary">If two power sets are equal, their base sets are equal.</p>
+			</div>
+		</section>
+		<section id="singleton">
+			<h1 class="h-delta">Singletons</h1>
 			<div class="definition" id="D-singleton">
 				<p class="summary">Given a set <span class="latex">\(x\)</span>, a set is called a <dfn>singleton of</dfn> <span class="latex">\(x\)</span>, denoted <span class="latex">\(\left\{x\right\}\)</span>, iff it owns exactly <span class="latex">\(x\)</span>.</p>
 				<p class="latex">\[
@@ -1043,10 +1055,6 @@ x=y							dfn of equality
 				<p class="draft">This theorem shows the singleton function is injective: if two singletons are equal, their elements <em>must</em> be equal.</p>
 			</div>
 		</section>
-		<section id="conseq-power">
-			<h1 class="h-delta">Consequences of Power</h1>
-			the power function is defined, well-defined and injective
-		</section>
 		<section id="conseq-unionintersection">
 			<h1 class="h-delta">Consequences of Union and Intersection</h1>
 			prove:
@@ -1063,9 +1071,7 @@ x=y							dfn of equality
 				(\forall z\in \{u,v\})(y\in z) \iff (y\in u \land y\in v)
 			\]</div>
 			(use thm of bound existential quantifier)
-
 			<pre class="draft">
-
 <div class="latex">\[
 	\text{commutative:}\\
 	u\cup v = v\cup u\\
@@ -1116,7 +1122,7 @@ x=y							dfn of equality
 				\]</p>
 				<div class="proof draft">
 					<pre>Given AofCap, prove Spec
-(informal) Given a predicate P_z, <span class="draft">let P be the set of all elements z for which P_z is true</span>. That is: (\forall z)((z\in P) \iff P_z).<strong><small>are we guaranteed this set exists???</small></strong> Now consider a set x. We will construct a subset s of x that contains only elements of x that make P_z true. The Axiom of Intersection states the intersection s=\bigcap\{x,P\} exists and is unique, which contains sets that are in both x and P. Then \forall y: y\in s \iff y\in x \land y\in P, and by dfn of P, \forall y: y\in s \iff y\in x \land P_y.
+(informal) Given a predicate P_z, <span class="draft">let P be the set of all elements z for which P_z is true</span>. That is: (\forall z)((z\in P) \iff P_z).<small><strong>are we guaranteed this set exists???</strong></small> Now consider a set x. We will construct a subset s of x that contains only elements of x that make P_z true. The Axiom of Intersection states the intersection s=\bigcap\{x,P\} exists and is unique, which contains sets that are in both x and P. Then \forall y: y\in s \iff y\in x \land y\in P, and by dfn of P, \forall y: y\in s \iff y\in x \land P_y.
 					</pre>
 					<!--pre>THM: given Spec, prove intersection.
 We are given that the collection x is nonempty. Let the set y be some fixed member of x. \Aref{A:specification} guarantees there exists some set s such that <span class="latex">(&forall; y)(y&in; s if and only if y&in;x and (&forall;z&in;x)(y&ne;z implies y &in; z.</span> In other words, y is an element of s iff y is an element of z and every other set in x. It follows that y belongs to every element of x. Then we define y to be the intersection of the collection x.
@@ -1134,27 +1140,7 @@ We are given that the collection x is nonempty. Let the set y be some fixed memb
 						(z\not\in x)
 					\right)
 				\]</p>
-
 			</div>
-			<pre class="draft">
-<div>
-	\begin{definition}\Dlabel{D:complement}
-		\begin{equation*}\label{eq:complement}
-			S_{\complement} = \{ x \in X \land x \not\in S \}
-		\end{equation*}
-	\end{definition}
-
-	\begin{theorem}\Tlabel{T:complementOperation}
-		The complement of a set is a unary operation among sets.
-		\begin{proof}
-		\end{proof}
-	\end{theorem}
-
-</div>
-			</pre>
-		</section>
-		<section id="conseq-infinity">
-			<h1 class="h-delta">Consequences of Infinity</h1>
 		</section>
 		<section id="conseq-regularity">
 			<h1 class="h-delta">Consequences of Regularity</h1>
@@ -1168,38 +1154,57 @@ We are given that the collection x is nonempty. Let the set y be some fixed memb
 					<p>Alternate proof: Proof by contradiction: Suppose to the contrary that <span class="latex">\((\exists x)(x\in x)\)</span>. By T-singletonexists, there exists a set <span class="latex">\(\{x\}\)</span>. Since <span class="latex">\(\{x\}\)</span> is a singleton, its only element is <span class="latex">\(x\)</span>, and by our assumption, <span class="latex">\(x\in x\)</span>. Therefore all elements of <span class="latex">\(\{x\}\)</span> own an element of <span class="latex">\(\{x\}\)</span>. This contradicts A-regularity.</p>
 				</div>
 			</div>
-			<pre>
+			<div class="theorem" id=T-membershipantisymmetric">
+				<p class="summary">Membership is antisymmetric.</p>
+				<p class="latex wff">\[
+					(\forall x,y)\left(
+						(x\in y)
+						\implies
+						\expand{\(y\not\in x\)}{\lnot(y\in x)}
+					\right)
+				\]</p>
+				<div class="proof draft">
+					<p>Proof by contradiction: Given sets x and y, assume x&in;y and y&in; x. Now consider the pair {x,y} (which <a>exists</a> and is <a>unique</a>). A-regularity says if {x,y} is nonempty, then &exist; z &in; {x,y} such that &forall; w &in; z, w&notin; {x,y}. If z&in;{x,y}, there are two cases:</p>
+					<p>Case 1: z=x. y&in;z and y&in;{x,y}</p>
+					<p>Case 2: z=y. x&in;z and x&in;{x,y}</p>
+					<p>Either way, if z&in;{x,y}, then &exist;w&in;z such that w&in;{x,y}. Therefore our assumption (x&in;y and y&in;x) is faulty; the negation must be true; namely (x&in;y implies y&notin;x).</p>
+				</div>
+			</div>
+			<pre><!--
 					Properties of Membership:
+
 Antireflexive: 		\forall x: x\not\in x
 					Axiom of Regularity
+
 Antisymmetric:		\forall a,b : a\in b \implies b\not\in a
 					Axiom of Regularity
+
 something else:		\forall a,b : a\in b \land b\in a \implies a=b
 					is vacuously true (Axiom of Regularity)
+
 intransitive:		\exists a,b,c : a\in b \land b\in c \land a\not\in c
 					let a={}, b={a}, c={b}
+
 not antitransitive: \exists a,b,c : a\in b \land b\in c \implies a\in c
 					let a={}, b={a}, c={a,b}
+
 uncomparable:		\exists a,b : a\not\in b \land b\not\in a
 					let a={}, b={{a}}
+
 defined:			\forall a : \exists b : a\in b
 					Axiom of Pair
+
 not well-defined:	\exists a,b,c : a\in b \land a\in c \land b\not=c
 					let a={}, b={a}, c={a,b}
-</pre>
-
-			<!--pre>
-No set is a member of its element.
-Consider the possibility of having two sets~$A \owns B \land B \owns A$. Now we know from \Tref{T:abnormal}.\ref{eq:abnormalSet} that both $A$ and $B$ are normal; so $A$ owns at least $B$ but does not own $A$, and likewise, $B$ owns at least $A$ but does not own $B$.
-By \Aref{A:pair}, $\exists\mathcal{C}=\{A,B\}$. Then
-In either case, there exists no element of $\mathcal{C}$ whose intersection with $\mathcal{C}$ is empty. Then by \Aref{A:regularity}, $\mathcal{C}$ must be empty. We obtain the \indexthis{contradiction} in a manner similar to that in the proof of \Tref{T:abnormal}.\ref{eq:abnormalSet}.
-			</pre-->
+			--></pre>
 			<div class="theorem draft" id="T-universal">
 				<p class="summary">There is no set of which every set is a member.</p>
 				<p class="latex wff">\[
 					(\forall x)(\exists y)\expand{\(y\not\in x\)}{\lnot(y\in x)}
 				\]</p>
-				<div class="proof draft">use proof by contradiction and membership is antireflexive</div>
+				<div class="proof draft">
+					<p>Assume to the contrary that <span class="latex">\((\exists x)(\forall y)(y\in x)\)</span>. Then it must be the case that <span class="latex">\(x\in x\)</span>. By <a href="#T-membershipantireflexive">T-membershipantireflexive</a>, we have a contradiction.</p>
+				</div>
 			</div>
 		</section>
 		<!--div>
