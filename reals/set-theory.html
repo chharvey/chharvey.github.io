@@ -56,25 +56,6 @@
 		</ul>
 		<div class="proof">use Principle of Bivalence, Proposition Version</div>
 	</div>
-<pre>
-					Properties of Membership:
-Antireflexive: 		\forall x: x\not\in x
-					Axiom of Regularity
-Antisymmetric:		\forall a,b : a\in b \implies b\not\in a
-					Axiom of Regularity
-something else:		\forall a,b : a\in b \land b\in a \implies a=b
-					is vacuously true (Axiom of Regularity)
-intransitive:		\exists a,b,c : a\in b \land b\in c \land a\not\in c
-					let a={}, b={a}, c={b}
-not antitransitive: \exists a,b,c : a\in b \land b\in c \implies a\in c
-					let a={}, b={a}, c={a,b}
-uncomparable:		\exists a,b : a\not\in b \land b\not\in a
-					let a={}, b={{a}}
-defined:			\forall a : \exists b : a\in b
-					Axiom of Pair
-not well-defined:	\exists a,b,c : a\in b \land a\in c \land b\not=c
-					let a={}, b={a}, c={a,b}
-</pre>
 	<div class="definition" id="D-predicate">
 		<p class="summary">Given a set <span class="latex">\(x\)</span>, the <dfn>predicate</dfn> <span class="latex">\(\l P_x\)</span> is a proposition that makes an assertion involving <span class="latex">\(x\)</span>.</p>
 	</div>
@@ -84,29 +65,41 @@ not well-defined:	\exists a,b,c : a\in b \land a\in c \land b\not=c
 	<div class="definition" id="D-exists">
 		<p class="summary">Given a predicate <span class="latex">\(\l P_x\)</span>, the assertion that there exists a set <span class="latex">\(x\)</span> that makes <span class="latex">\(\l P_x\)</span> <var>true</var> is itself a predicate, called an <dfn>existential quantifier</dfn>.</p>
 		<p class="latex">\[(\exists x)(\l P_x)\]</p>
-		<p>We use the predicate <span class="latex">\((\not\exists x)(\l P_x)\)</span> to refer to the negation <span class="latex">\(\lnot\bigl((\exists x)(\l P_x)\bigr)\)</span>.</p>
 	</div>
-	<div class="definition" id="D-existsbound">
-		<p class="summary">Given a predicate <span class="latex">\(\l P_x\)</span> and a set <span class="latex">\(y\)</span>, the assertion that there exists an element <span class="latex">\(x\)</span> of <span class="latex">\(y\)</span> that makes <span class="latex">\(\l P_x\)</span> <var>true</var> is a predicate called a <dfn>bound existential quantifier</dfn>.</p>
-		<p class="latex">\[
-			(\exists x\in y)(\l P_x)
-			\equiv
-			(\exists x)(x\in y \land \l P_x)
-		\]</p>
-	</div>
-	<div class="example">
-		<p>Let <span class="latex">\(\l P_x\)</span> be the predicate <q><span class="latex">\(x\in x\)</span></q>. Then if there exists some set <span class="latex">\(x\)</span> that is a member of itself, <span class="latex">\((\exists x)(x\in x)\)</span> would be <var>true</var>. (However, we will see later that there does not exist such a set.)</p>
+	<div class="informal">
+		<p>We will sometimes use the predicate <span class="latex">\((\not\exists x)(\l P_x)\)</span> to refer to the negation <span class="latex">\(\lnot\bigl((\exists x)(\l P_x)\bigr)\)</span>, however we will see in <a href="#D-forall">D-forall</a> that this notation&mdash;and even the predicate itself&mdash;is not necessary; the concept of negating an existential quantifier is encapsulated in another kind of predicate, called a universal quantifier.</p>
+		<p>The motivation for such an object arises from this: if there is an assertion that there exists a set that forces some predicate to be true, then the negation of that assertion is equivalent to the assertion that that predicate is automatically false for every set.</p>
+		<p>The same is true for the value of the predicate: If we negate the assertion that there exists a set that forces the predicate to be false, then we are asserting that the predicate must be true for every set.</p>
 	</div>
 	<div class="definition" id="D-forall">
 		<p class="summary">Given a predicate <span class="latex">\(\l P_x\)</span>, the assertion that there does <em>not</em> exist any set <span class="latex">\(x\)</span> that makes <span class="latex">\(\l P_x\)</span> <var>false</var> is itself a predicate, <span class="latex">\((\not\exists x)(\lnot\l P_x)\)</span>, called a <dfn>universal quantifier</dfn>. This is the assertion that <span class="latex">\(\l P_x\)</span> is <var>true</var> for any set <span class="latex">\(x\)</span>.</p>
 		<p class="latex">\[(\forall x)(\l P_x)\]</p>
 	</div>
+	<div class="definition" id="D-existsbound">
+		<p class="summary">Given a predicate <span class="latex">\(\l P_x\)</span> and a set <span class="latex">\(y\)</span>, the assertion that there exists an element <span class="latex">\(x\)</span> of <span class="latex">\(y\)</span> that makes <span class="latex">\(\l P_x\)</span> <var>true</var> is a predicate called a <dfn>bound existential quantifier</dfn>.</p>
+		<p class="latex">\[
+			\left((\exists x\in y)(\l P_x)\right)
+			\equiv
+			\left((\exists x)((x\in y) \land \l P_x)\right)
+		\]</p>
+	</div>
+	<div class="theorem" id="T-existsbounditerate">
+		let y be a set with members a, b, c, ... z. Then
+		<div class="latex">\[
+			\left((\exists x\in y)(\l P_x)\right)
+			\iff
+			\left( \l P_a \lor \l P_b \lor \l P_c \lor \dots \lor \l P_z \right)
+		\]</div>
+	</div>
+	<!--div class="example">
+		<p>Let <span class="latex">\(\l P_x\)</span> be the predicate <q><span class="latex">\(x\in x\)</span></q>. Then if there exists some set <span class="latex">\(x\)</span> that is a member of itself, <span class="latex">\((\exists x)(x\in x)\)</span> would be <var>true</var>. <small>However, we will see later that there does not exist such a set.</small></p>
+	</div-->
 	<div class="definition" id="D-forallbound">
 		<p class="summary">Given a predicate <span class="latex">\(\l P_x\)</span> and a set <span class="latex">\(y\)</span>, the assertion that <span class="latex">\(\l P_x\)</span> is <var>true</var> for all elements <span class="latex">\(x\)</span> of <span class="latex">\(y\)</span> is a predicate called a <dfn>bound universal quantifier</dfn>.</p>
 		<p class="latex">\[
 			(\forall x\in y)(\l P_x)
 			\equiv
-			(\forall x)(x\in y \implies \l P_x)
+			(\forall x)((x\in y) \implies \l P_x)
 		\]</p>
 	</div>
 	<div class="theorem" id="T-forallbound">
@@ -125,6 +118,14 @@ not well-defined:	\exists a,b,c : a\in b \land a\in c \land b\not=c
 				(\not\exists x\in y)(\lnot\l P_x)\\
 			\]</p>
 		</div>
+	</div>
+	<div class="theorem" id="T-forallbounditerate">
+		let y be a set with members a, b, c, ... z. Then
+		<div class="latex">\[
+			\left((\forall x\in y)(\l P_x)\right)
+			\iff
+			\left( \l P_a \land \l P_b \land \l P_c \land \dots \land \l P_z \right)
+		\]</div>
 	</div>
 	<section class="draft">
 		<h1 class="h-gamma">Combined Quantifiers</h1>
@@ -219,9 +220,9 @@ not well-defined:	\exists a,b,c : a\in b \land a\in c \land b\not=c
 		<p class="summary"><span class="lede">The Intensionality Definition</span> A set is <dfn>equal to</dfn> another set iff those sets own each other's elements.</p>
 		<p>We use the predicate <span class="latex">\(x=y\)</span> to describe the assertion that a set <span class="latex">\(x\)</span> is equal to a set <span class="latex">\(y\)</span>. We define this predicate as:</p>
 		<p class="latex">\[
-			\bigl(x=y\bigr)
+			\left(x=y\right)
 			\equiv
-			\bigl((\forall t)(t\in x \iff t\in y)\bigr)
+			\left((\forall t)(t\in x \iff t\in y)\right)
 		\]</p>
 		<p>We use the predicate <span class="latex">\(x\not= y\)</span> to refer to the negation <span class="latex">\(\lnot(x=y)\)</span>.</p>
 	</div>
@@ -238,26 +239,26 @@ not well-defined:	\exists a,b,c : a\in b \land a\in c \land b\not=c
 		<p class="summary"><span class="lede">The Axiom of Extensionality</span> Equal elements are members of the same sets.</p>
 		<p class="latex wff">\[
 			(\forall x)(\forall y)
-			\expand{if \(x=y\) then \(x\) and \(y\) are in the same sets}{
+			\left(
 				\expand{\(x=y\)}{
 					(\forall t)(t\in x\iff t\in y)
 				}
-				\implies
+				\iff
 				\left((\forall z)(x\in z \iff y\in z)\right)
-			}
+			\right)
 		\]</p>
 	</div>
 	<div class="informal">
-		<p><a href="#D-equality">Intensionality</a> states that sets that are equal have exactly the same members. In other words, equal sets are <i class="scare">identical</i>. One very important interpretation of this is that <strong>a set is determined uniquely its elements</strong>, so if sets with exactly the same elements have different definitions, names, or rearrangements, those sets are all one in the same. This may seem obvious, but a more fascinating fact about equal sets follows below.</p>
-		<p>By <a href="A-extensionality">Extensionality</a>, all sets are <strong>definite and distinguishable</strong>. This means that given a set, one should be able to decide whether any particular element would belong to that set; and that any two elements of the same set are unequal.</p>
+		<p><a href="#D-equality">Intensionality</a> states that sets that are equal have exactly the same members. We take this to be the <em>definition</em> of equality: equal sets are <i class="scare">identical</i>. One very important interpretation of this is that <strong>a set is determined uniquely its elements</strong>, so if sets with exactly the same elements have different definitions, names, or rearrangements, those sets are all one in the same. This may seem obvious, but a more fascinating fact about equal sets follows.</p>
+		<p>By <a href="A-extensionality">The Axiom of Extensionality</a>, all sets are <strong>definite and distinguishable</strong>. This means that given a set, one should be able to decide whether or not any particular element would belong to that set; and that any two distinct elements of the same set are unequal. This will come in handy <a href="#T-singletonexists">later on</a>, when we start repeating elements within a set. By this axiom, a set cannot own the same element more than once.</p>
 	</div>
 	<div class="definition" id="D-subset">
 		<p class="summary">A set <span class="latex">\(x\)</span> is a <dfn>subset of</dfn> a set <span class="latex">\(y\)</span> iff <span class="latex">\(y\)</span> owns all the elements of <span class="latex">\(x\)</span>.</p>
 		<p>We use the predicate <span class="latex">\(x\subseteq y\)</span> to describe the assertion that <span class="latex">\(x\)</span> is a subset of <span class="latex">\(y\)</span>. We define this predicate as:</p>
 		<p class="latex">\[
-			\bigl(x\subseteq y\bigr)
+			\left(x\subseteq y\right)
 			\equiv
-			\bigl((\forall t)(t\in x \implies t\in y)\bigr)
+			\left((\forall t)(t\in x \implies t\in y)\right)
 		\]</p>
 		<p>We also say <span class="latex">\(x\)</span> is <dfn>included in</dfn> <span class="latex">\(y\)</span>, or <span class="latex">\(y\)</span> includes <span class="latex">\(x\)</span>.</p>
 	</div>
@@ -267,11 +268,11 @@ not well-defined:	\exists a,b,c : a\in b \land a\in c \land b\not=c
 		<p class="latex">\[
 			\bigl(x\subset y\bigr)
 			\equiv
-			\bigl(\expand{\(x\subseteq y\)}{
-				(\forall t)(t\in x \implies t\in y)
-			}\land\expand{\(x\not=y\)}{
-				(\exists t)(t\in x \xor t\in y)
-			}\bigr)
+			\bigl(
+				(x\subseteq y)
+				\land
+				(x\not=y)
+			\bigr)
 		\]</p>
 		<p>We also say <span class="latex">\(x\)</span> is <dfn>strictly included in</dfn> <span class="latex">\(y\)</span>, or <span class="latex">\(y\)</span> strictly includes <span class="latex">\(x\)</span>.</p>
 	</div>
@@ -284,14 +285,14 @@ not well-defined:	\exists a,b,c : a\in b \land a\in c \land b\not=c
 	<section>
 		<h1 class="h-gamma">Properties of Equality and Inclusion</h1>
 		<div class="theorem" id="T-equalityinclusion">
-			<p class="summary">Inclusion is <span class="draft">antisymmetric?</span>.</p>
+			<p class="summary">Two sets are equal if and only if they are subsets of each other.</p>
 			<p class="latex wff">\[
 				(\forall x)(\forall y)\expand{\(x=y\) iff they include each other}{
 					\expand{\(x=y\)}{
 						(\forall t)(t\in x \iff t\in y)
 					}
 					\iff
-					\expand{\(x\) and \(y\) include each other}{
+					\left(
 						\expand{\(x\subseteq y\)}{
 							(\forall t)(t\in x \implies t\in y)
 						}
@@ -299,10 +300,10 @@ not well-defined:	\exists a,b,c : a\in b \land a\in c \land b\not=c
 						\expand{\(y\subseteq x\)}{
 							(\forall t)(t\in y \implies t\in x)
 						}
-					}
+					\right)
 				}
 			\]</p>
-			<div class="proof draft"></div>
+			<div class="proof draft">use dfn of biconditional and p iff p is T</div>
 		</div>
 		<div class="theorem" id="T-equalityreflexive">
 			<p class="summary">Equality is reflexive.</p>
@@ -706,14 +707,10 @@ x=y							dfn of equality
 					\left(y\in\bigcup x\right)
 					\equiv
 					\left(
-						(\exists z)\left(
-							(z\in x)
-							\land
-							(y\in z)
-						\right)
+						(\exists z\in x)(y\in z)
 					\right)
 				\]</p>
-				<p>Given the pair <span class="latex">\(\left\{u,v\right\}\)</span>, the union <span class="latex">\(\bigcup\left\{u,v\right\}\)</span> is called, for simplicity, <q>the union of <span class="latex">\(u\)</span> and <span class="latex">\(v\)</span></q>. We use the shorthand notation <span class="latex">\(u\cup v\)</span> instead.</p>
+				<p>Given the pair <span class="latex">\(\left\{u,v\right\}\)</span>, the union <span class="latex">\(\bigcup\left\{u,v\right\}\)</span> is called, for simplicity, <q>the union of <span class="latex">\(u\)</span> and <span class="latex">\(v\)</span></q> and is denoted <span class="latex">\(u\cup v\)</span>. It owns exactly any members belonging to <span class="latex">\(u\)</span> or <span class="latex">\(v\)</span>.</p>
 			</div>
 			<div class="axiom" id="A-union">
 				<p class="summary"><span class="lede">The Axiom of Union</span> There exists a set that owns exactly any element belonging to any element of a given nonempty set.</p>
@@ -756,14 +753,10 @@ x=y							dfn of equality
 					\left(y\in\bigcap x\right)
 					\equiv
 					\left(
-						(\forall z)\left(
-							(z\in x)
-							\implies(
-							y\in z)
-						\right)
+						(\forall z\in x)(y\in z)
 					\right)
 				\]</p>
-				<p>Given the pair <span class="latex">\(\left\{u,v\right\}\)</span>, the intersection <span class="latex">\(\bigcap\left\{u,v\right\}\)</span> is called, for simplicity, <q>the intersection of <span class="latex">\(u\)</span> and <span class="latex">\(v\)</span></q>. We use the shorthand notation <span class="latex">\(u\cap v\)</span> instead.</p>
+				<p>Given the pair <span class="latex">\(\left\{u,v\right\}\)</span>, the intersection <span class="latex">\(\bigcap\left\{u,v\right\}\)</span> is called, for simplicity, <q>the intersection of <span class="latex">\(u\)</span> and <span class="latex">\(v\)</span></q> and is denoted <span class="latex">\(u\cap v\)</span>. It owns exactly all members belonging to <span class="latex">\(u\)</span> and <span class="latex">\(v\)</span>.</p>
 			</div>
 			<div class="axiom" id="A-intersection">
 				<p class="summary"><span class="lede">The Axiom of Intersection</span> There exists a set that owns exactly all elements belonging to all elements of a given nonempty set.</p>
@@ -829,9 +822,9 @@ x=y							dfn of equality
 			</div>
 			<div class="informal">
 				<p>At this point, we do not have a formal definition for a set that is <a>infinite</a>, but informally we can think of infinite sets as having <i class="scare">never-ending</i> elements: there are more elements than we can count. One way to achieve this is to assert the existence of an inductive set. Indeed, it is true that <a>all inductive sets are infinite</a>. The converse is left as a cliffhanger.</p>
-				<p>The intent of <a href="#A-infinity">The Axiom of Infinity</a> is that there exists an <i class="scare">infinite</i> set; that is, a set with an <i class="scare">unlimited number</i> of elements. However, <a href="#D-inductive">dfn-inductive</a> only requires that an inductive set be nonempty, and own <em>at least one</em> element for every element it owns.</p>
-				<p class="example">For example, it is not unreasonable to consider the sets <span class="latex">\(a\)</span> and <span class="latex">\(b\)</span> such that <span class="latex">\(a\in b\)</span> and <span class="latex">\(b\in a\)</span>. <small>Formally, we are not guaranteed the existence of such sets, but let's hypothesize that they do exist.</small> Certainly, <a href="#A-pair">the pair <span class="latex">\(\{a,b\}\)</span> exists</a>, and indeed it does meet the requirements of <a href="#D-inductive">dfn-inductive</a>: <span class="latex">\(\{a,b\}\)</span> is nonempty, and for every <span class="latex">\(x\in \{a,b\}\)</span>, there exists a <span class="latex">\(y\in \{a,b\}\)</span> such that <span class="latex">\(x\in y\)</span>.</p>
-				<p>It is to our disappointment that a set such as the one above is inductive but is not <i class="scare">infinite</i> (satisfying our intuitive understanding of infinite sets). Thus we must create a new rule that does not allow sets to own themselves, or to own elements that own themselves, or so on. Essentially, we cannot allow the chain of ownership to be cyclical. This will <em>ensure</em> that for any element in an inductive set, we must have a <i class="scare">new</i> element&mdash;one that hasn't been mentioned before&mdash;in the set. This will satisfy our intuitive notion of a set with more elements than we can count.</p>
+				<p>The intent of <a href="#A-infinity">The Axiom of Infinity</a> is that there exists an <i class="scare">infinite</i> set; that is, a set with an <i class="scare">unlimited number</i> of elements. However, <a href="#D-inductive">D-inductive</a> only requires that an inductive set be nonempty, and own <em>at least one</em> element for every element it owns.</p>
+				<p class="example">For example, it is not unreasonable to consider the sets <span class="latex">\(a\)</span> and <span class="latex">\(b\)</span> such that <span class="latex">\(a\in b\)</span> and <span class="latex">\(b\in a\)</span>. <small>Formally, we are not guaranteed the existence of such sets, but let's hypothesize that they do exist.</small> Certainly, <a href="#A-pair">the pair <span class="latex">\(\{a,b\}\)</span> exists</a>, and indeed it does meet the requirements of <a href="#D-inductive">D-inductive</a>: <span class="latex">\(\{a,b\}\)</span> is nonempty, and for every <span class="latex">\(x\in \{a,b\}\)</span>, there exists a <span class="latex">\(y\in \{a,b\}\)</span> such that <span class="latex">\(x\in y\)</span>.</p>
+				<p>It is to our disappointment that a set such as the one above is inductive but is not <i class="scare">infinite</i> (satisfying our intuitive understanding of infinite sets). Thus we must create a new rule that does not allow sets to own themselves, or to own elements that own themselves, or so on. Essentially, we cannot allow the chain of membership to be cyclical. This will <em>ensure</em> that for any element in an inductive set, we must have a <i class="scare">new</i> element&mdash;one that hasn't been mentioned before&mdash;in the set. This will satisfy our intuitive notion of a set with more elements than we can count.</p>
 			</div>
 		</section>
 		<section id="axiom-regularity">
@@ -872,7 +865,8 @@ x=y							dfn of equality
 	</section>
 	<section>
 		<h1 class="h-gamma">Consequences of the Axioms</h1>		
-		<section id="conseq-emptiness">
+		<section id="conseq-empty">
+			<h1 class="h-delta">Consequences of Emptiness</h1>
 			<div class="theorem" id="T-emptysetsubset">
 				<p class="summary">Every set includes the empty set.</p>
 				<p class="latex wff">\[
@@ -900,8 +894,9 @@ x=y							dfn of equality
 			</div>
 		</section>
 		<section id="conseq-pair">
+			<h1 class="h-delta">Consequences of Pair</h1>
 			<div class="definition" id="D-singleton">
-				<p class="summary">Given a set <span class="latex">\(x\)</span>, a set is called a <dfn>singleton of</dfn> <span class="latex">\(x\)</span>, denoted <span class="latex">\(\left\{x\right\}\)</span>, if it owns exactly <span class="latex">\(x\)</span>.</p>
+				<p class="summary">Given a set <span class="latex">\(x\)</span>, a set is called a <dfn>singleton of</dfn> <span class="latex">\(x\)</span>, denoted <span class="latex">\(\left\{x\right\}\)</span>, iff it owns exactly <span class="latex">\(x\)</span>.</p>
 			</div>
 			<div class="theorem" id="T-singletonexists">
 				<p class="summary">Every set has a singleton.</p>
@@ -934,10 +929,14 @@ x=y							dfn of equality
 			</div>
 		</section>
 		<section id="conseq-power">
-		the power function is defined, well-defined and injective
+			<h1 class="h-delta">Consequences of Power</h1>
+			the power function is defined, well-defined and injective
 		</section>
-		<section id="conseq-union">
-			<p class="latex">\(\text{prove: }t\in (a\cup b) \iff (t\in a \lor t\in b)\)</p>
+		<section id="conseq-unionintersection">
+			<h1 class="h-delta">Consequences of Union and Intersection</h1>
+			<p class="latex">\(\text{prove: }y\in (u\cup v) \iff (y\in u \lor y\in v)\)</p>
+			(use thm of bound existential quantifier)
+
 			<pre class="draft">
 As well, the union operation is associative and commutative.
 <div>
@@ -960,9 +959,9 @@ As well, the union operation is associative and commutative.
 		The last step uses \Dref{D:union}.
 </div>
 			</pre>
-		</section>
-		<section id="conseq-intersection">
-			<p class="latex">\(\text{prove: }t\in (a\cap b) \iff (t\in a \land t\in b)\)</p>
+
+			<p class="latex">\(\text{prove: }y\in (u\cap v) \iff (y\in u \land y\in v)\)</p>
+			(use thm of bound universal quantifier)
 			<div class="theorem draft" id="T-specification">
 				<p class="summary"><span class="lede">Specification</span> Given a set, there exists a subset of elements that adhere to any given predicate.</p>
 				<p>For any set and a given predicate, there exists a set owning elements of that set, under that predicate.</p>
@@ -997,21 +996,40 @@ As well, the intersection operation is associative and commutative.
 			</pre>
 		</section>
 		<section id="conseq-infinity">
+			<h1 class="h-delta">Consequences of Infinity</h1>
 		</section>
 		<section id="conseq-regularity">
+			<h1 class="h-delta">Consequences of Regularity</h1>
 			<div class="theorem" id="T-membershipantireflexive">
 				<p class="summary">Membership is antireflexive.</p>
 				<p class="latex wff">\[
 					(\forall x)\expand{\(x\not\in x\)}{\lnot(x\in x)}
 				\]</p>
-				<div class="proof">
-<!--
-Suppose to the contrary that there exists an abnormal set. $\exists A : A\in A$. Then by \Pref{P:singleton}, there exists a possessor~$\mathcal{B}=\{A\}$. Clearly, since $\mathcal{B}$ is a singleton, it is nonempty. Consider $\mathcal{B}\cap A=\{A\}\cap \{\dots,A,\dots\}=A$. So the intersection of $\mathcal{B}$ and the only element (all elements) of itself is nonempty.
-$$\forall b \in \mathcal{B} : \mathcal{B}\cap b \not= \emptyset$$
-Now \Aref{A:regularity} guarantees $\exists b\in\mathcal{B} : \mathcal{B}\cap b = \emptyset$, unless $\mathcal{B}=\emptyset$. So $\mathcal{B}=\emptyset$, so $A\in\emptyset$ (by \Rref{R:identityRelation}, \eqref{eq:setEquality}, \Dref{D:subset}). But \Rref{R:existence} says $A\in\emptyset\implies\lfalse$, so $A\in\emptyset$ must be false. Then $A\in\emptyset\land\lnot(A\in\emptyset)$, the \indexthis{contradiction}.
--->
+				<div class="proof draft">
+					<p>Direct proof: Let <span class="latex">\(x\)</span> be any set. Then by T-singletonexists, <span class="latex">\(\exists\{x\}\)</span>. We will apply A-regularity to <span class="latex">\(\{x\}\)</span>: since <span class="latex">\(\{x\}\not=\varnothing\)</span>, there must be an element of <span class="latex">\(\{x\}\)</span> that does not own any elements of <span class="latex">\(\{x\}\)</span>. Since the only element of <span class="latex">\(\{x\}\)</span> is <span class="latex">\(x\)</span>, then <span class="latex">\(x\)</span> itself must not own any elements of <span class="latex">\(\{x\}\)</span>, which, namely, is <span class="latex">\(x\)</span>. Therefore, <span class="latex">\(x\not\in x\)</span>.</p>
+					<p>Alternate proof: Proof by contradiction: Suppose to the contrary that <span class="latex">\((\exists x)(x\in x)\)</span>. By T-singletonexists, there exists a set <span class="latex">\(\{x\}\)</span>. Since <span class="latex">\(\{x\}\)</span> is a singleton, its only element is <span class="latex">\(x\)</span>, and by our assumption, <span class="latex">\(x\in x\)</span>. Therefore all elements of <span class="latex">\(\{x\}\)</span> own an element of <span class="latex">\(\{x\}\)</span>. This contradicts A-regularity.</p>
 				</div>
 			</div>
+			<pre>
+					Properties of Membership:
+Antireflexive: 		\forall x: x\not\in x
+					Axiom of Regularity
+Antisymmetric:		\forall a,b : a\in b \implies b\not\in a
+					Axiom of Regularity
+something else:		\forall a,b : a\in b \land b\in a \implies a=b
+					is vacuously true (Axiom of Regularity)
+intransitive:		\exists a,b,c : a\in b \land b\in c \land a\not\in c
+					let a={}, b={a}, c={b}
+not antitransitive: \exists a,b,c : a\in b \land b\in c \implies a\in c
+					let a={}, b={a}, c={a,b}
+uncomparable:		\exists a,b : a\not\in b \land b\not\in a
+					let a={}, b={{a}}
+defined:			\forall a : \exists b : a\in b
+					Axiom of Pair
+not well-defined:	\exists a,b,c : a\in b \land a\in c \land b\not=c
+					let a={}, b={a}, c={a,b}
+</pre>
+
 			<!--pre>
 No set is a member of its element.
 Consider the possibility of having two sets~$A \owns B \land B \owns A$. Now we know from \Tref{T:abnormal}.\ref{eq:abnormalSet} that both $A$ and $B$ are normal; so $A$ owns at least $B$ but does not own $A$, and likewise, $B$ owns at least $A$ but does not own $B$.
