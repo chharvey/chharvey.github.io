@@ -9,6 +9,10 @@
 <style>
 </style>
 {% include all-js.html %}
+<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML,http://chharvey.github.io/core/scripts/mathjax-localconfig.js"></script>
+<script src="../core/scripts/all.js"></script>
+
 <script src="reals.js"></script>
 </head>
 <body id="set-theorydothtml">
@@ -254,7 +258,7 @@
 		<p class="latex">\[
 			\left(x\subseteq y\right)
 			\equiv
-			\left((\forall t)(t\in x \implies t\in y)\right)
+			\expand{\((\forall t\in x)(t\in y)\)}{(\forall t)(t\in x \implies t\in y)}
 		\]</p>
 		<p>We also say <span class="latex">\(x\)</span> is <dfn>included in</dfn> <span class="latex">\(y\)</span>, or <span class="latex">\(y\)</span> includes <span class="latex">\(x\)</span>.</p>
 	</div>
@@ -283,7 +287,7 @@
 		<div class="theorem" id="T-equalityinclusion">
 			<p class="summary">Two sets are equal if and only if they are subsets of each other.</p>
 			<p class="latex wff">\[
-				(\forall x)(\forall y)\expand{\(x=y\) iff they include each other}{
+				(\forall x)(\forall y)\left(
 					\expand{\(x=y\)}{
 						(\forall t)(t\in x \iff t\in y)
 					}
@@ -297,7 +301,7 @@
 							(\forall t)(t\in y \implies t\in x)
 						}
 					\right)
-				}
+				\right)
 			\]</p>
 			<div class="proof draft">use dfn of biconditional and p iff p is T</div>
 		</div>
@@ -454,13 +458,18 @@
 				<h1 class="h-delta">Existence</h1>
 			</header>
 			<div class="definition" id="D-emptyset">
-				<p class="summary">A set is called <dfn>empty</dfn>, denoted <span class="latex">\(\varnothing\)</span>, iff it has no members.</p>
+				<p class="summary">A set is called <dfn>empty</dfn> iff it has no members.</p>
+				<p>We use the predicate <span class="latex">\(s\doteqdot\varnothing\)</span> to refer to the assertion that the set <span class="latex">\(s\)</span> is empty, and <span class="latex">\(s\not\doteqdot\varnothing\)</span> for the negation.</p>
+				<p class="latex">\[
+					\left(s\doteqdot\varnothing\right)
+					\equiv
+					\left((\forall t)(t\not\in s)\right)
+				\]</p>
 				<p class="latex">\[
 					\left(t\in\varnothing\right)
 					\equiv
 					\bot
 				\]</p>
-				<p>We use the predicate <span class="latex">\(s\doteqdot\varnothing\)</span> to refer to the assertion that a set <span class="latex">\(s\)</span> is empty, and <span class="latex">\(s\not\doteqdot\varnothing\)</span> for the negation.</p>
 			</div>
 			<div class="axiom" id="A-existence">
 				<p class="summary"><span class="lede">The Axiom of Existence</span> There exists an empty set.</p>
@@ -495,7 +504,7 @@
 					</quantifier>
 				</theorem-->
 			</div>
-			<div class="informal">
+			<div class="informal draft">
 				<p>To describe any set <span class="latex">\(x\)</span> as empty, we assert that <span class="latex">\((\forall t)(t\not\in x)\)</span> and use the notation <span class="latex">\(x\doteqdot\varnothing\)</span> as shorthand. But we now see that the notation has a quite literal meaning. That is, any set <span class="latex">\(x\)</span> that is empty is literally equal to the empty set <span class="latex">\(\varnothing\)</span>. We can verify this with <a href="#D-equality">The Intensionality Definition</a>. This goes to show that all empty sets are equal, as proven <a href="T-emptysetunique">above</a>.</p>
 				<p>In our informal discussions, we can reconcile this idea by replacing the shorthand notation with equality.</p>
 				<p class="latex">\[x\doteqdot\varnothing \equiv x=\varnothing\]</p>
@@ -507,7 +516,8 @@
 				<h1 class="h-delta">Pair</h1>
 			</header>
 			<div class="definition" id="D-pair">
-				<p class="summary">Given sets <span class="latex">\(x\)</span> and <span class="latex">\(y\)</span>, a set is called a <dfn>pair of</dfn> <span class="latex">\(x\)</span> and <span class="latex">\(y\)</span>, denoted <span class="latex">\(\left\{x,y\right\}\)</span>, iff it owns exactly <span class="latex">\(x\)</span> and <span class="latex">\(y\)</span>.</p>
+				<p class="summary">A set is called a <dfn>pair of</dfn> two given sets iff it owns exactly those given sets.</p>
+				<p>We use the predicate <span class="latex">\(s\doteqdot\{x,y\}\)</span> to refer to the assertion that the set <span class="latex">\(s\)</span> is a pair of the sets <span class="latex">\(x\)</span> and <span class="latex">\(y\)</span>, and <span class="latex">\(s\not\doteqdot\{x,y\}\)</span> for the negation.</p>
 				<p class="latex">\[
 					\left(z\in \{x,y\}\right)
 					\equiv
@@ -517,7 +527,6 @@
 						(z=y)
 					\right)
 				\]</p>
-				<p>We use the predicate <span class="latex">\(s\doteqdot\{x,y\}\)</span> to refer to the assertion that a set <span class="latex">\(s\)</span> is a pair of <span class="latex">\(x\)</span> and <span class="latex">\(y\)</span>.</p>
 			</div>
 			<div class="axiom" id="A-pair">
 				<p class="summary"><span class="lede">The Axiom of Pair</span> For every two sets, there exists a set that owns exactly them both.</p>
@@ -547,13 +556,13 @@
 				<h1 class="h-delta">Power</h1>
 			</header>
 			<div class="definition" id="D-powerset">
-				<p class="summary">Given a set <span class="latex">\(x\)</span>, a set is called a <dfn>power set of</dfn> <span class="latex">\(x\)</span>, denoted <span class="latex">\(\wp x\)</span>, iff it owns exactly all subsets of <span class="latex">\(x\)</span>.</p>
+				<p class="summary">A set is called a <dfn>power set of</dfn> a given set iff it owns exactly all subsets of the given set.</p>
+				<p>We use the predicate <span class="latex">\(s\doteqdot\wp x\)</span> to refer to the assertion that the set <span class="latex">\(s\)</span> is a power set of the set <span class="latex">\(x\)</span>, and <span class="latex">\(s\not\doteqdot\wp x\)</span> for the negation.</p>
 				<p class="latex">\[
 					\left(y\in \wp x\right)
 					\equiv
 					\left(y\subseteq x\right)
 				\]</p>
-				<p>We use the predicate <span class="latex">\(s\doteqdot\wp x\)</span> to refer to the assertion that a set <span class="latex">\(s\)</span> is a power set of <span class="latex">\(x\)</span>.</p>
 			</div>
 			<div class="axiom" id="A-power">
 				<p class="summary"><span class="lede">The Axiom of Power</span> There exists a set that owns exactly all subsets of any given set.</p>
@@ -577,7 +586,8 @@
 				<h1 class="h-delta">Union</h1>
 			</header>
 			<div class="definition" id="D-union">
-				<p class="summary">Given a set <span class="latex">\(x\)</span>, a set is called a <dfn>union of</dfn> <span class="latex">\(x\)</span>, denoted <span class="latex">\(\bigcup x\)</span>, iff it owns exactly any members belonging to any elements of <span class="latex">\(x\)</span>.</p>
+				<p class="summary">A set is called a <dfn>union of</dfn> a given set iff it owns exactly any members belonging to any elements of the given set.</p>
+				<p>We use the predicate <span class="latex">\(s\doteqdot\bigcup x\)</span> to refer to the assertion that the set <span class="latex">\(s\)</span> is a union of the set <span class="latex">\(x\)</span>, and <span class="latex">\(s\not\doteqdot\bigcup x\)</span> for the negation.</p>
 				<p class="latex">\[
 					\left(y\in\bigcup x\right)
 					\equiv
@@ -585,14 +595,13 @@
 						(\exists z\in x)(y\in z)
 					\right)
 				\]</p>
-				<p>We use the predicate <span class="latex">\(s\doteqdot\bigcup x\)</span> to refer to the assertion that a set <span class="latex">\(s\)</span> is a union of <span class="latex">\(x\)</span>.</p>
 				<p>Given the pair <span class="latex">\(\left\{u,v\right\}\)</span>, the union <span class="latex">\(\bigcup\left\{u,v\right\}\)</span> is called, for simplicity, <q>the union of <span class="latex">\(u\)</span> and <span class="latex">\(v\)</span></q> and is denoted <span class="latex">\(u\cup v\)</span>. It owns exactly any members belonging to <span class="latex">\(u\)</span> or <span class="latex">\(v\)</span>.</p>
 			</div>
 			<div class="axiom" id="A-union">
 				<p class="summary"><span class="lede">The Axiom of Union</span> There exists a set that owns exactly any element belonging to any element of a given nonempty set.</p>
 				<p class="latex wff">\[
 					(\forall x)\left(
-						\expand{\(x\not=\varnothing\)}{
+						\expand{\(x\not\doteqdot\varnothing\)}{
 							(\exists t)(t\in x)
 						}
 						\implies
@@ -601,7 +610,7 @@
 								(\forall y)\left(
 									(y\in s)
 									\iff
-									\expand{(\exists z\in x)(y\in z)}{
+									\expand{\((\exists z\in x)(y\in z)\)}{
 										(\exists z)\left(
 											(z\in x)
 											\land
@@ -620,7 +629,8 @@
 				<h1 class="h-delta">Intersection</h1>
 			</header>
 			<div class="definition" id="D-intersection">
-				<p class="summary">Given a set <span class="latex">\(x\)</span>, a set is called an <dfn>intersection of</dfn> <span class="latex">\(x\)</span>, denoted <span class="latex">\(\bigcap x\)</span>, iff it owns exactly all members belonging to all elements of <span class="latex">\(x\)</span>.</p>
+				<p class="summary">A set is called a <dfn>union of</dfn> a given set iff it owns exactly all members belonging to all elements of the given set.</p>
+				<p>We use the predicate <span class="latex">\(s\doteqdot\bigcap x\)</span> to refer to the assertion that the set <span class="latex">\(s\)</span> is an intersection of the set <span class="latex">\(x\)</span>, and <span class="latex">\(s\not\doteqdot\bigcap x\)</span> for the negation.</p>
 				<p class="latex">\[
 					\left(y\in\bigcap x\right)
 					\equiv
@@ -628,14 +638,13 @@
 						(\forall z\in x)(y\in z)
 					\right)
 				\]</p>
-				<p>We use the predicate <span class="latex">\(s\doteqdot\bigcap x\)</span> to refer to the assertion that a set <span class="latex">\(s\)</span> is an intersection of <span class="latex">\(x\)</span>.</p>
 				<p>Given the pair <span class="latex">\(\left\{u,v\right\}\)</span>, the intersection <span class="latex">\(\bigcap\left\{u,v\right\}\)</span> is called, for simplicity, <q>the intersection of <span class="latex">\(u\)</span> and <span class="latex">\(v\)</span></q> and is denoted <span class="latex">\(u\cap v\)</span>. It owns exactly all members belonging to <span class="latex">\(u\)</span> and <span class="latex">\(v\)</span>.</p>
 			</div>
 			<div class="axiom" id="A-intersection">
 				<p class="summary"><span class="lede">The Axiom of Intersection</span> There exists a set that owns exactly all elements belonging to all elements of a given nonempty set.</p>
 				<p class="latex wff">\[
 					(\forall x)\left(
-						\expand{\(x\not=\varnothing\)}{
+						\expand{\(x\not\doteqdot\varnothing\)}{
 							(\exists t)(t\in x)
 						}
 						\implies
@@ -644,7 +653,7 @@
 								(\forall y)\left(
 									(y\in s)
 									\iff
-									\expand{(\forall z\in x)(y\in z)}{
+									\expand{\((\forall z\in x)(y\in z)\)}{
 										(\forall z)\left(
 											(z\in x)
 											\implies(
@@ -669,7 +678,7 @@
 				<p class="summary"><span class="lede">The Axiom of Infinity</span> There exists a nonempty set of which each element is owned by another element of this set.</p>
 				<p class="latex wff">\[
 					(\exists s)\expand{\(s\) is inductive}{
-						\expand{\(s\not=\varnothing\)}{
+						\expand{\(s\not\doteqdot\varnothing\)}{
 							(\exists t)(t\in s)
 						}
 						\land
@@ -734,31 +743,6 @@
 	</section>
 	<section>
 		<h1 class="h-gamma">Consequences of the Axioms</h1>	
-		<div class="theorem" id="T-emptysetsubset">
-			<p class="summary">Every set includes the empty set.</p>
-			<p class="latex wff">\[
-				(\forall x)\expand{\(\varnothing\subseteq x\)}{
-					(\forall y)\left(
-						\expand{\(y=\varnothing\)}{
-							(\forall t)\expand{\(t\not\in y\)}{\lnot(t\in y)}
-						}
-						\implies
-						\expand{\(y\subseteq x\)}{
-							(\forall t)(t\in y\implies t\in x)
-						}
-					\right)
-				}
-			\]</p>
-			<div class="proof draft">
-				\forall x : \forall y : \forall t :
-				\lnot(t\in y) \implies (t\in y \implies t\in x)
-				(t\in y) \lor (t\in y \implies t\in x)
-				(t\in y) \lor (\lnot(t\in y) \lor t\in x)
-				(t\in y \lor \lnot(t\in y)) \lor (t\in x)
-				\top \lor (t\in x)
-				\top
-			</div>
-		</div>
 		<section id="uniqueness">
 			<header>
 				<h1 class="h-delta">Uniqueness</h1>
@@ -983,6 +967,32 @@ x=y							dfn of equality
 				<p class="summary">If two power sets are equal, their base sets are equal.</p>
 			</div>
 		</section>
+		<div class="theorem" id="T-emptysetsubset">
+			<p class="summary">Every set includes the empty set.</p>
+			<p class="latex wff">\[
+				(\forall x)\expand{\(\varnothing\subseteq x\)}{
+					(\forall y)\left(
+						\expand{\(y\doteqdot\varnothing\)}{
+							(\forall t)\expand{\(t\not\in y\)}{\lnot(t\in y)}
+						}
+						\implies
+						\expand{\(y\subseteq x\)}{
+							(\forall t)(t\in y\implies t\in x)
+						}
+					\right)
+				}
+			\]</p>
+			<div class="proof draft">
+				\forall x : \forall y : \forall t :
+				\lnot(t\in y) \implies (t\in y \implies t\in x)
+				(t\in y) \lor (t\in y \implies t\in x)
+				(t\in y) \lor (\lnot(t\in y) \lor t\in x)
+				(t\in y \lor \lnot(t\in y)) \lor (t\in x)
+				\top \lor (t\in x)
+				\top
+			</div>
+		</div>
+
 		<section id="singleton">
 			<h1 class="h-delta">Singletons</h1>
 			<div class="definition" id="D-singleton">
