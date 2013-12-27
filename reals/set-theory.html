@@ -504,12 +504,6 @@
 					</quantifier>
 				</theorem-->
 			</div>
-			<div class="informal draft">
-				<p>To describe any set <span class="latex">\(x\)</span> as empty, we assert that <span class="latex">\((\forall t)(t\not\in x)\)</span> and use the notation <span class="latex">\(x\doteqdot\varnothing\)</span> as shorthand. But we now see that the notation has a quite literal meaning. That is, any set <span class="latex">\(x\)</span> that is empty is literally equal to the empty set <span class="latex">\(\varnothing\)</span>. We can verify this with <a href="#D-equality">The Intensionality Definition</a>. This goes to show that all empty sets are equal, as proven <a href="T-emptysetunique">above</a>.</p>
-				<p>In our informal discussions, we can reconcile this idea by replacing the shorthand notation with equality.</p>
-				<p class="latex">\[x\doteqdot\varnothing \equiv x=\varnothing\]</p>
-				<p>However in rigorous well-formed formulae we cannot use <span class="latex">\(x=\varnothing\)</span> because <span class="latex">\(\varnothing\)</span> is not technically a symbol in predicate logic.</p>
-			</div>
 		</section>
 		<section id="axiom-pair">
 			<header>
@@ -697,6 +691,27 @@
 						}
 					}
 				\]</p>
+				<p class="latex wff">\[
+					(\exists s)\expand{\(s\) is inductive}{
+						\expand{\(s\not\doteqdot\varnothing\)}{
+							(\exists t)(t\in s)
+						}
+						\land
+						\expand{\((\forall x\in s)(x\text{ is a member of another element of }s)\)}{
+							(\forall x)\left(
+								(x\in s)
+								\implies
+								\expand{\((\exists y\in s)(x\in y)\)}{
+									(\exists y)\left(
+										(y\in s)
+										\land
+										(x\in y)
+									\right)
+								}
+							\right)
+						}
+					}
+				\]</p>
 			</div>
 			<div class="informal">
 				<p>At this point, we do not have a formal definition for a set that is <a>infinite</a>, but informally we can think of infinite sets as having <i class="scare">never-ending</i> elements: there are more elements than we can count. One way to achieve this is to assert the existence of an inductive set. Indeed, it is true that <a>all inductive sets are infinite</a>. The converse is left as a cliffhanger.</p>
@@ -719,7 +734,7 @@
 				<p class="summary"><span class="lede">The Axiom of Regularity</span> Every nonempty set has an element that does not own another element of the set.</p>
 				<p class="latex wff">\[
 					(\forall s)\expand{\(s\) is regular}{
-						\expand{\(s=\varnothing\)}{
+						\expand{\(s\doteqdot\varnothing\)}{
 							(\forall t)\expand{\(t\not\in s\)}{\lnot(t\in s)}
 						}
 						\lor
@@ -728,6 +743,27 @@
 								(x\in s)
 								\land
 								\expand{no members of \(x\) are elements of \(s\)}{
+									(\forall y)\left(
+										(y\in s)
+										\implies
+										\expand{\(y\not\in x\)}{\lnot(y\in x)}
+									\right)
+								}
+							\right)
+						}
+					}
+				\]</p>
+				<p class="latex wff">\[
+					(\forall s)\expand{\(s\) is regular}{
+						\expand{\(s\doteqdot\varnothing\)}{
+							(\forall t)\expand{\(t\not\in s\)}{\lnot(t\in s)}
+						}
+						\lor
+						\expand{\((\exists x\in s)(x\text{ does not own another element of } s)\)}{
+							(\exists x)\left(
+								(x\in s)
+								\land
+								\expand{\((\forall y\in s)(y\not\in x)\)}{
 									(\forall y)\left(
 										(y\in s)
 										\implies
@@ -967,32 +1003,39 @@ x=y							dfn of equality
 				<p class="summary">If two power sets are equal, their base sets are equal.</p>
 			</div>
 		</section>
-		<div class="theorem" id="T-emptysetsubset">
-			<p class="summary">Every set includes the empty set.</p>
-			<p class="latex wff">\[
-				(\forall x)\expand{\(\varnothing\subseteq x\)}{
-					(\forall y)\left(
-						\expand{\(y\doteqdot\varnothing\)}{
-							(\forall t)\expand{\(t\not\in y\)}{\lnot(t\in y)}
-						}
-						\implies
-						\expand{\(y\subseteq x\)}{
-							(\forall t)(t\in y\implies t\in x)
-						}
-					\right)
-				}
-			\]</p>
-			<div class="proof draft">
-				\forall x : \forall y : \forall t :
-				\lnot(t\in y) \implies (t\in y \implies t\in x)
-				(t\in y) \lor (t\in y \implies t\in x)
-				(t\in y) \lor (\lnot(t\in y) \lor t\in x)
-				(t\in y \lor \lnot(t\in y)) \lor (t\in x)
-				\top \lor (t\in x)
-				\top
+		<section id="conseq-empty">
+			<div class="informal draft">
+				<p>To describe any set <span class="latex">\(x\)</span> as empty, we assert that <span class="latex">\((\forall t)(t\not\in x)\)</span> and use the notation <span class="latex">\(x\doteqdot\varnothing\)</span> as shorthand. But we now see that the notation has a quite literal meaning. That is, any set <span class="latex">\(x\)</span> that is empty is literally equal to the empty set <span class="latex">\(\varnothing\)</span>. We can verify this with <a href="#D-equality">The Intensionality Definition</a>. This goes to show that all empty sets are equal, as proven <a href="T-emptysetunique">above</a>.</p>
+				<p>In our informal discussions, we can reconcile this idea by replacing the shorthand notation with equality.</p>
+				<p class="latex">\[x\doteqdot\varnothing \equiv x=\varnothing\]</p>
+				<p>However in rigorous well-formed formulae we cannot use <span class="latex">\(x=\varnothing\)</span> because <span class="latex">\(\varnothing\)</span> is not technically a symbol in predicate logic.</p>
 			</div>
-		</div>
-
+			<div class="theorem" id="T-emptysetsubset">
+				<p class="summary">Every set includes the empty set.</p>
+				<p class="latex wff">\[
+					(\forall x)\expand{\(\varnothing\subseteq x\)}{
+						(\forall y)\left(
+							\expand{\(y\doteqdot\varnothing\)}{
+								(\forall t)\expand{\(t\not\in y\)}{\lnot(t\in y)}
+							}
+							\implies
+							\expand{\(y\subseteq x\)}{
+								(\forall t)(t\in y\implies t\in x)
+							}
+						\right)
+					}
+				\]</p>
+				<div class="proof draft">
+					\forall x : \forall y : \forall t :
+					\lnot(t\in y) \implies (t\in y \implies t\in x)
+					(t\in y) \lor (t\in y \implies t\in x)
+					(t\in y) \lor (\lnot(t\in y) \lor t\in x)
+					(t\in y \lor \lnot(t\in y)) \lor (t\in x)
+					\top \lor (t\in x)
+					\top
+				</div>
+			</div>
+		</section>
 		<section id="singleton">
 			<h1 class="h-delta">Singletons</h1>
 			<div class="definition" id="D-singleton">
