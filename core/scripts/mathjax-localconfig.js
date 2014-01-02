@@ -15,7 +15,7 @@ MathJax.Hub.Config({
 		equationNumbers: {autoNumber: 'AMS'},
 		Macros: {
 //			bold: ['{\\bf #1}',1], // template
-			expand: ['{\\left\(\\toggle\{\\text\{#1\}\}\{#2\}\\endtoggle\\right\)}',2],
+			expand: ['{\\left\(\\toggle\{#1\}\{#2\}\\endtoggle\\right\)}',2],
 			l: ['{\\mathsf #1}',1], // propositional variables, predicates
 			xor: '\\nLeftrightarrow', // exclusive disjunction
 			NN: '{\\mathbb N}', // natural numbers
