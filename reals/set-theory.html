@@ -37,7 +37,7 @@
 		<p class="draft">The seven axioms below serve as the foundation of all mathematics. The first six tell us what sets may be brought into existence, and the seventh specifies a important characteristic of sets that do exist.</p>
 	</header>
 	<section id="axiom-exitence">
-		<h1 class="h-delta">Existence</h1>
+		<h1 class="h-gamma">Existence</h1>
 		<div class="definition" id="D-emptyset">
 			<p class="summary">A set is called <dfn>empty</dfn> iff it has no members.</p>
 			<p>We use the predicate <span class="latex">\(s\doteqdot\varnothing\)</span> to refer to the assertion that the set <span class="latex">\(s\)</span> is empty, and <span class="latex">\(s\not\doteqdot\varnothing\)</span> for the negation.</p>
@@ -86,19 +86,43 @@
 			</theorem-->
 		</div>
 	</section>
+	<section id="axiom-power">
+		<h1 class="h-gamma">Power</h1>
+		<div class="definition" id="D-powerset">
+			<p class="summary">A set is called a <dfn>power set of</dfn> a given set iff it owns exactly all subsets of the given set.</p>
+			<p>We use the predicate <span class="latex">\(s\doteqdot\wp x\)</span> to refer to the assertion that the set <span class="latex">\(s\)</span> is a power set of the set <span class="latex">\(x\)</span>, and <span class="latex">\(s\not\doteqdot\wp x\)</span> for the negation.</p>
+			<p class="latex">\[
+				\left(y\in \wp x\right)
+				\equiv
+				\left(y\subseteq x\right)
+			\]</p>
+		</div>
+		<div class="axiom" id="A-power">
+			<p class="summary"><span class="lede">The Axiom of Power</span> There exists a set that owns exactly all subsets of any given set.</p>
+			<p class="latex wff">\[
+				(\forall x)\expand{\exists\wp x}{
+					(\exists s)\expand{s\doteqdot\wp x}{
+						(\forall y)\left(
+							y\in s
+							\iff
+							\expand{y\subseteq x}{
+								(\forall t)(t\in y \implies t\in x)
+							}
+						\right)
+					}
+				}
+			\]</p>
+		</div>
+	</section>
 	<section id="axiom-pair">
-		<h1 class="h-delta">Pair</h1>
+		<h1 class="h-gamma">Pair</h1>
 		<div class="definition" id="D-pair">
 			<p class="summary">A set is called a <dfn>pair of</dfn> two given sets iff it owns exactly those given sets.</p>
 			<p>We use the predicate <span class="latex">\(s\doteqdot\{x,y\}\)</span> to refer to the assertion that the set <span class="latex">\(s\)</span> is a pair of the sets <span class="latex">\(x\)</span> and <span class="latex">\(y\)</span>, and <span class="latex">\(s\not\doteqdot\{x,y\}\)</span> for the negation.</p>
 			<p class="latex">\[
 				\left(z\in \{x,y\}\right)
 				\equiv
-				\left(
-					(z=x)
-					\lor
-					(z=y)
-				\right)
+				\left(z=x \lor z=y\right)
 			\]</p>
 		</div>
 		<div class="axiom" id="A-pair">
@@ -107,7 +131,7 @@
 				(\forall x)(\forall y)\expand{\exists\left\{x,y\right\}}{
 					(\exists s)\expand{s\doteqdot\left\{x,y\right\}}{
 						(\forall z)\left(
-							(z\in s)
+							z\in s
 							\iff
 							\left(
 								\expand{z=x}{
@@ -124,36 +148,8 @@
 			\]</p>
 		</div>
 	</section>
-	<section id="axiom-power">
-		<h1 class="h-delta">Power</h1>
-		<div class="definition" id="D-powerset">
-			<p class="summary">A set is called a <dfn>power set of</dfn> a given set iff it owns exactly all subsets of the given set.</p>
-			<p>We use the predicate <span class="latex">\(s\doteqdot\wp x\)</span> to refer to the assertion that the set <span class="latex">\(s\)</span> is a power set of the set <span class="latex">\(x\)</span>, and <span class="latex">\(s\not\doteqdot\wp x\)</span> for the negation.</p>
-			<p class="latex">\[
-				\left(y\in \wp x\right)
-				\equiv
-				\left(y\subseteq x\right)
-			\]</p>
-		</div>
-		<div class="axiom" id="A-power">
-			<p class="summary"><span class="lede">The Axiom of Power</span> There exists a set that owns exactly all subsets of any given set.</p>
-			<p class="latex wff">\[
-				(\forall x)\expand{\exists\wp x}{
-					(\exists s)\expand{\(s\doteqdot\wp x\)}{
-						(\forall y)\left(
-							(y\in s)
-							\iff
-							\expand{y\subseteq x}{
-								(\forall t)(t\in y \implies t\in x)
-							}
-						\right)
-					}
-				}
-			\]</p>
-		</div>
-	</section>
 	<section id="axiom-union">
-		<h1 class="h-delta">Union</h1>
+		<h1 class="h-gamma">Union</h1>
 		<div class="definition" id="D-union">
 			<p class="summary">A set is called a <dfn>union of</dfn> a given set iff it owns exactly any members belonging to any elements of the given set.</p>
 			<p>We use the predicate <span class="latex">\(s\doteqdot\bigcup x\)</span> to refer to the assertion that the set <span class="latex">\(s\)</span> is a union of the set <span class="latex">\(x\)</span>, and <span class="latex">\(s\not\doteqdot\bigcup x\)</span> for the negation.</p>
@@ -177,7 +173,7 @@
 					\expand{\exists\bigcup x}{
 						(\exists s)\expand{s\doteqdot\bigcup x}{
 							(\forall y)\left(
-								(y\in s)
+								y\in s
 								\iff
 								\expand{(\exists z\in x)(y\in z)}{
 									(\exists z)(z\in x \land y\in z)
@@ -190,7 +186,7 @@
 		</div>
 	</section>
 	<section id="axiom-intersection">
-		<h1 class="h-delta">Intersection</h1>
+		<h1 class="h-gamma">Intersection</h1>
 		<div class="definition" id="D-intersection">
 			<p class="summary">A set is called a <dfn>union of</dfn> a given set iff it owns exactly all members belonging to all elements of the given set.</p>
 			<p>We use the predicate <span class="latex">\(s\doteqdot\bigcap x\)</span> to refer to the assertion that the set <span class="latex">\(s\)</span> is an intersection of the set <span class="latex">\(x\)</span>, and <span class="latex">\(s\not\doteqdot\bigcap x\)</span> for the negation.</p>
@@ -214,7 +210,7 @@
 					\expand{\exists\bigcap x}{
 						(\exists s)\expand{s\doteqdot\bigcap x}{
 							(\forall y)\left(
-								(y\in s)
+								y\in s
 								\iff
 								\expand{(\forall z\in x)(y\in z)}{
 									(\forall z)(z\in x \implies y\in z)
@@ -227,7 +223,7 @@
 		</div>
 	</section>
 	<section id="axiom-infinity">
-		<h1 class="h-delta">Infinity</h1>
+		<h1 class="h-gamma">Infinity</h1>
 		<div class="definition" id="D-inductive">
 			<p class="summary">A set is called <dfn>inductive</dfn> iff it is nonempty and each of its elements is owned by another element of the set.</p>
 		</div>
@@ -241,7 +237,7 @@
 					\land
 					\expand{(\forall x\in s)(\exists y\in s)(x\in y)}{
 						(\forall x)\left(
-							(x\in s)
+							x\in s
 							\implies
 							\expand{(\exists y\in s)(x\in y)}{
 								(\exists y)(y\in s \land x\in y)
@@ -254,13 +250,15 @@
 		<footer class="informal">
 			<p>At this point, we do not have a formal definition for a set that is <a>infinite</a>, but informally we can think of infinite sets as having <i class="scare">never-ending</i> elements: there are more elements than we can count. One way to achieve this is to assert the existence of an inductive set. Indeed, it is true that <a>all inductive sets are infinite</a>. The converse is left as a cliffhanger.</p>
 			<p>The intent of <a href="#A-infinity">The Axiom of Infinity</a> is that there exists an <i class="scare">infinite</i> set; that is, a set with an <i class="scare">unlimited number</i> of elements. However, <a href="#D-inductive">D-inductive</a> only requires that an inductive set be nonempty, and own <em>at least one</em> element for every element it owns.</p>
-			<p class="example">For example, it is not unreasonable to consider the sets <span class="latex">\(a\)</span> and <span class="latex">\(b\)</span> such that <span class="latex">\(a\in b\)</span> and <span class="latex">\(b\in a\)</span>. <small>Formally, we are not guaranteed the existence of such sets, but let's hypothesize that they do exist.</small> Certainly, <a href="#A-pair">the pair <span class="latex">\(\{a,b\}\)</span> exists</a>, and indeed it does meet the requirements of <a href="#D-inductive">D-inductive</a>: <span class="latex">\(\{a,b\}\)</span> is nonempty, and for every <span class="latex">\(x\in \{a,b\}\)</span>, there exists a <span class="latex">\(y\in \{a,b\}\)</span> such that <span class="latex">\(x\in y\)</span>.</p>
-			<p>It is to our disappointment that a collection such as the pair discussed above (if it exists) is inductive but is not <i class="scare">infinite</i> (satisfying our intuitive understanding of infinite sets). Thus we must create a new rule that does not allow sets to own themselves, or to own elements that own themselves, or so on. Essentially, we cannot allow the chain of membership to be cyclical. This will <em>ensure</em> that for any element in an inductive set, we must have a <i class="scare">new</i> element&mdash;one that hasn't been mentioned before&mdash;in the set. This will satisfy our intuitive notion of a set with more elements than we can count.</p>
+			<figure>
+				<p>For example, it is not unreasonable to consider the sets <span class="latex">\(a\)</span> and <span class="latex">\(b\)</span> such that <span class="latex">\(a\in b\)</span> and <span class="latex">\(b\in a\)</span>. <small>Formally, we are not guaranteed the existence of such sets, but let's hypothesize that they do exist.</small> Certainly, <a href="#A-pair">the pair <span class="latex">\(\{a,b\}\)</span> exists</a>, and indeed it does meet the requirements of <a href="#D-inductive">D-inductive</a>: <span class="latex">\(\{a,b\}\)</span> is nonempty, and for every <span class="latex">\(x\in \{a,b\}\)</span>, there exists a <span class="latex">\(y\in \{a,b\}\)</span> such that <span class="latex">\(x\in y\)</span>.</p>
+			</figure>
+			<p>It is to our disappointment that a set such as the pair discussed above (if it exists) is inductive but is not <i class="scare">infinite</i> (satisfying our intuitive understanding of infinite sets). Thus we must create a new rule that does not allow sets to own themselves, or to own elements that own themselves, or so on. Essentially, we cannot allow the chain of membership to be cyclical, and we have <a href="A-regularity">The Axiom of Regularity</a> to thank for that. This will <em>ensure</em> that for any element in an inductive set, we must have a <i class="scare">new</i> element&mdash;one that hasn't been mentioned before&mdash;in the set. This will satisfy our intuitive notion of a set with more elements than we can count.</p>
 		</footer>
 	</section>
 	<section id="axiom-regularity">
 		<header>
-			<h1 class="h-delta">Regularity</h1>
+			<h1 class="h-gamma">Regularity</h1>
 			<div class="informal">					
 				<p>Below is the seventh axiom of the foundation of mathematics. Rather than declaring the existence of certain sets, as the first six do, this axiom merely states a fact about sets that already exist.</p>
 			</div>
@@ -278,11 +276,11 @@
 					\implies
 					\expand{(\exists x\in s)(\forall y\in s)(y\not\in x)}{
 						(\exists x)\left(
-							(x\in s)
+							x\in s
 							\land
 							\expand{(\forall y\in s)(y\not\in x)}{
 								(\forall y)\left(
-									(y\in s)
+									y\in s
 									\implies
 									\expand{y\not\in x}{\lnot(y\in x)}
 								\right)
@@ -294,7 +292,7 @@
 		</div>
 	</section>
 </section>
-<section class="draft" id="consequences">
+<section id="consequences">
 	<h1 class="h-beta">Consequences of the Axioms</h1>	
 	<section id="singleton">
 		<h1 class="h-gamma">Singletons</h1>
@@ -313,7 +311,7 @@
 				(\forall x)\expand{\exists\left\{x\right\}}{
 					(\exists s)\expand{s\doteqdot\left\{x\right\}}{
 						(\forall y)\left(
-							(y\in s)
+							y\in s
 							\iff
 							\expand{y=x}{
 								(\forall t)(t\in y \iff t\in x)
@@ -370,6 +368,41 @@ x=y							dfn of equality
 				</pre-->
 			</div>
 		</div>
+		<div class="theorem" id="T-powersetunique">
+			<p class="summary">The power set constructed from a given set is unique.</p>
+			<p class="latex wff">\[
+				(\forall x)\expand{\wp x\text{ is unique}}{
+					(\forall a)(\forall b)\left(
+						\left(
+							\expand{a\doteqdot\wp x}{
+								(\forall y)\left(
+									y\in a
+									\iff
+									\expand{y\subseteq x}{
+										(\forall t)(t\in y \implies t\in x)
+									}
+								\right)
+							}
+							\land
+							\expand{b\doteqdot\wp x}{
+								(\forall y)\left(
+									y\in b
+									\iff
+									\expand{y\subseteq x}{
+										(\forall t)(t\in y \implies t\in x)
+									}
+								\right)
+							}
+						\right)
+						\implies
+						\expand{a=b}{
+							(\forall t)(t\in a \iff t\in b)
+						}
+					\right)
+				}
+			\]</p>
+			<div class="proof"></div>
+		</div>
 		<div class="theorem" id="T-pairunique">
 			<p class="summary">A pair constructed from two given sets is unique.</p>
 			<p class="latex wff">\[
@@ -378,7 +411,7 @@ x=y							dfn of equality
 						\left(
 							\expand{a\doteqdot\left\{x,y\right\}}{
 								(\forall z)\left(
-									(z\in a)
+									z\in a
 									\iff
 									\left(
 										\expand{z=x}{
@@ -394,7 +427,7 @@ x=y							dfn of equality
 							\land
 							\expand{b\doteqdot\left\{x,y\right\}}{
 								(\forall z)\left(
-									(z\in b)
+									z\in b
 									\iff
 									\left(
 										\expand{z=x}{
@@ -421,12 +454,12 @@ x=y							dfn of equality
 		<div class="theorem" id=T-singletonunique">
 			<p class="summary">A singleton constructed from one set is unique.</p>
 			<p class="latex wff">\[
-				(\forall x)\expand{\{x\}\text{ is unique}}{
+				(\forall x)\expand{\left\{x\right\}\text{ is unique}}{
 					(\forall a)(\forall b)\left(
 						\left(
 							\expand{a\doteqdot\{x\}}{
 								(\forall y)\left(
-									(y\in a)
+									y\in a
 									\iff
 									\expand{y=x}{
 										(\forall t)(t\in y \iff t\in x)
@@ -436,7 +469,7 @@ x=y							dfn of equality
 							\land
 							\expand{b\doteqdot\{x\}}{
 								(\forall y)\left(
-									(y\in b)
+									y\in b
 									\iff
 									\expand{y=x}{
 										(\forall t)(t\in y \iff t\in x)
@@ -456,41 +489,6 @@ x=y							dfn of equality
 			Assume $s=\bar{s}$. Then by change of variables, $\{s\}=\{\bar{s}\}$, as desired. -->
 			<p class="draft">This theorem shows the singleton function is well-defined: if two sets are equal, their singletons <em>must</em> be equal.</p>
 		</div>
-		<div class="theorem" id="T-powersetunique">
-			<p class="summary">The power set constructed from a given set is unique.</p>
-			<p class="latex wff">\[
-				(\forall x)\expand{\wp x\text{ is unique}}{
-					(\forall a)(\forall b)\left(
-						\left(
-							\expand{a\doteqdot\wp x}{
-								(\forall y)\left(
-									(y\in a)
-									\iff
-									\expand{y\subseteq x}{
-										(\forall t)(t\in y \implies t\in x)
-									}
-								\right)
-							}
-							\land
-							\expand{b\doteqdot\wp x}{
-								(\forall y)\left(
-									(y\in b)
-									\iff
-									\expand{y\subseteq x}{
-										(\forall t)(t\in y \implies t\in x)
-									}
-								\right)
-							}
-						\right)
-						\implies
-						\expand{a=b}{
-							(\forall t)(t\in a \iff t\in b)
-						}
-					\right)
-				}
-			\]</p>
-			<div class="proof"></div>
-		</div>
 		<div class="theorem" id="T-unionunique">
 			<p class="summary">The union constructed from a set is unique.</p>
 			<p class="latex wff">\[
@@ -499,7 +497,7 @@ x=y							dfn of equality
 						\left(
 							\expand{a\doteqdot\bigcup x}{
 								(\forall y)\left(
-									(y\in a)
+									y\in a
 									\iff
 									\expand{(\exists z\in x)(y\in z)}{
 										(\exists z)(z\in x \land y\in z)
@@ -509,7 +507,7 @@ x=y							dfn of equality
 							\land
 							\expand{b\doteqdot\bigcup x}{
 								(\forall y)\left(
-									(y\in b)
+									y\in b
 									\iff
 									\expand{(\exists z\in x)(y\in z)}{
 										(\exists z)(z\in x \land y\in z)
@@ -536,7 +534,7 @@ x=y							dfn of equality
 						\left(
 							\expand{a\doteqdot\bigcap x}{
 								(\forall y)\left(
-									(y\in a)
+									y\in a
 									\iff
 									\expand{(\forall z\in x)(y\in z)}{
 										(\forall z)(z\in x \implies y\in z)
@@ -546,7 +544,7 @@ x=y							dfn of equality
 							\land
 							\expand{b\doteqdot\bigcap x}{
 								(\forall y)\left(
-									(y\in b)
+									y\in b
 									\iff
 									\expand{(\forall z\in x)(y\in z)}{
 										(\forall z)(z\in x \implies y\in z)
@@ -574,7 +572,7 @@ x=y							dfn of equality
 						\land
 						\expand{(\forall x\in a)(\exists y\in a)(x\in y)}{
 							(\forall x)\left(
-								(x\in a)
+								x\in a
 								\implies
 								\expand{(\exists y\in a)(x\in y)}{
 									(\exists y)(y\in a \land x\in y)
@@ -590,7 +588,7 @@ x=y							dfn of equality
 						\land
 						\expand{(\forall x\in b)(\exists y\in b)(x\in y)}{
 							(\forall x)\left(
-								(x\in b)
+								x\in b
 								\implies
 								\expand{(\exists y\in b)(x\in y)}{
 									(\exists y)(y\in b \land x\in y)
@@ -607,10 +605,10 @@ x=y							dfn of equality
 			<div class="proof"></div>
 		</div>
 		<footer class="informal draft">
-			<p>To describe any set <span class="latex">\(x\)</span> as empty, we assert that <span class="latex">\((\forall t)(t\not\in x)\)</span> and use the notation <span class="latex">\(x\doteqdot\varnothing\)</span> as shorthand. But we now see that the notation has a quite literal meaning. That is, any set <span class="latex">\(x\)</span> that is empty is literally equal to the empty set <span class="latex">\(\varnothing\)</span>. We can verify this with <a href="#D-equality">The Intensionality Definition</a>. This goes to show that all empty sets are equal, as proven <a href="T-emptysetunique">above</a>.</p>
+			<p>To describe any set <span class="latex">\(x\)</span> as empty, we assert that <span class="latex">\((\forall t)(t\not\in x)\)</span> and use the notation <span class="latex">\(x\doteqdot\varnothing\)</span> as shorthand. But we now see that the notation has a quite literal meaning. That is, any set <span class="latex">\(x\)</span> that is empty is literally equal to the empty set <span class="latex">\(\varnothing\)</span> (because <span class="latex">\(x\)</span> and <span class="latex">\(\varnothing\)</span> have the same elements). We can verify this with <a href="#D-equality">The Intensionality Definition</a>. This goes to show that all empty sets are equal, as <a href="T-emptysetunique">proven above</a>.</p>
 			<p>In our informal discussions, we can reconcile this idea by replacing the shorthand notation with equality.</p>
-			<p class="latex">\[x\doteqdot\varnothing \equiv x=\varnothing\]</p>
-			<p>However in rigorous well-formed formulae we cannot use <span class="latex">\(x=\varnothing\)</span> because <span class="latex">\(\varnothing\)</span> is not technically a symbol in predicate logic.</p>
+			<p class="latex">\[\left(x\doteqdot\varnothing\right) \equiv \left(x=\varnothing\right)\]</p>
+			<p>We can use similar notation for singletons, pairs, power sets, unions, and intersections. When referring to a set that is empty, we may simply say, <q><em>the</em> empty set</q>; when referring to a power set of a set, we may say, <q><em>the</em> power set</q>; etc.</p>
 		</footer>
 	</section>
 	<section class="draft" id="injectiveness">
@@ -660,29 +658,33 @@ x=y							dfn of equality
 					\expand{\varnothing\in x}{
 						(\forall y)\left(
 							\expand{y=\varnothing}{
-								(\forall t)(t\not\in y)
+								(\forall t)\expand{t\not\in y}{\lnot(t\in y)}
 							}
 							\implies
-							(y\in x)
+							y\in x
 						\right)
 					}
 					\implies
 					\expand{\bigcap x = \varnothing}{
 						(\forall t)\expand{t\not\in\bigcap x}{
-							(forall y)\left(
-								\expand{y=\bigcap x}{asdf}
+							(\forall w)\left(
+								\expand{s=\bigcap x}{
+									(\forall y)\left(
+										y\in w
+										\iff
+										\expand{(\forall z\in x)(y\in z)}{
+											(\forall z)(z\in x \implies y\in z)
+										}
+									\right)
+								}
 								\implies
-								(t\not\in y)
+								\expand{t\not\in w}{\lnot(t\in s)}
 							\right)
 						}
 					}
 				\right)
 			\]</p>
 		</div>
-		Given any set~$A$, the intersection of $A$ with $\emptyset$ is equal to $\emptyset$.
-		
-		Given any set~$A$, the union of $A$ with $\emptyset$ is equal to $A$.
-		
 	</section>
 	<section id="conseq-unionintersection">
 		<h1 class="h-gamma">Consequences of Union and Intersection</h1>
@@ -823,7 +825,7 @@ We are given that the collection x is nonempty. Let the set y be some fixed memb
 			<p class="summary">Membership is antisymmetric.</p>
 			<p class="latex wff">\[
 				(\forall x,y)\left(
-					(x\in y)
+					x\in y
 					\implies
 					\expand{y\not\in x}{\lnot(y\in x)}
 				\right)
@@ -862,13 +864,21 @@ defined:			\forall a : \exists b : a\in b
 not well-defined:	\exists a,b,c : a\in b \land a\in c \land b\not=c
 				let a={}, b={a}, c={a,b}
 		--></pre>
-		<div class="theorem draft" id="T-universal">
+		<div class="theorem" id="T-universal">
 			<p class="summary">There is no set of which every set is a member.</p>
 			<p class="latex wff">\[
 				(\forall x)(\exists y)\expand{y\not\in x}{\lnot(y\in x)}
 			\]</p>
 			<div class="proof draft">
 				<p>Assume to the contrary that <span class="latex">\((\exists x)(\forall y)(y\in x)\)</span>. Then it must be the case that <span class="latex">\(x\in x\)</span>. By <a href="#T-membershipantireflexive">T-membershipantireflexive</a>, we have a contradiction.</p>
+				<div class="latex">\begin{align}
+					& (\exists x)(\forall y)(y\in x) && \text{assumption}\\
+					& x\in x && \text{by ...}\\
+					& (\forall x)(x\not\in x) && \text{by T-membershipantireflexive}\\
+					& x\in x\land x\not\in x && \text{by lines 2, 3}\\
+					& \bot  && \text{by }\l p \land \lnot \l p \equiv \bot\\
+					& (\forall x)(\exists y)(y\not\in x) && \text{negate the assumption}
+				\end{align}</div>
 			</div>
 		</div>
 	</section>
