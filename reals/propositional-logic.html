@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>Propositional Logic</title>
+<title>Propositional and Predicate Logic</title>
 <meta charset="UTF-8"/>
 <link rel="stylesheet" href="reals.css"/>
 <style>
@@ -11,7 +11,7 @@
 {% include all-js.html %}
 	<script src="http://code.jquery.com/jquery-2.0.2.min.js"></script>
 	<script src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML,http://chharvey.github.io/core/scripts/mathjax-localconfig.js"></script>
-	<script src="../core/scripts/all.js"></script>
+	<script src="http://chharvey.github.io/core/scripts/all.js"></script>
 	
 <script src="reals.js"></script>
 </head>
@@ -22,13 +22,15 @@
 </nav>
 <div class="main">
 <header>	
-	<h1 class="h-alpha">Propositional Logic</h1>
+	<h1 class="h-alpha">Propositional and Predicate Logic</h1>
 	<nav>
 		<h1 class="h-beta">Chapter Contents</h1>
 		<ol class="chaptercontents list-beta">
 			<li><a href="#logical-operators">Logical Variables and Expressions</a></li>
-			<li><a href="#logical-axioms">The Axioms of Logic</a></li>
+			<li><a href="#logical-axioms">The Axioms of Propositional Logic</a></li>
 			<li><a href="#rules-of-inference">Rules of Inference</a></li>
+			<li><a href="#predicate-logic">Predicate Logic</a></li>
+			<li><a href="#equality">Equality and Inclusion</a></li>
 		</ol>
 	</nav>
 </header>
@@ -36,6 +38,17 @@
 	<header>
 		<h1 class="h-beta">Logical Variables and Expressions</h1>
 	</header>
+	<div class="definition" id="D-set">
+		<p class="summary">A <dfn>set</dfn> is that which may own sets.</p>
+		<p>Given sets <span class="latex">\(s\)</span> and <span class="latex">\(t\)</span>, the assertion that <span class="latex">\(s\)</span> owns <span class="latex">\(t\)</span> is denoted <span class="latex">\(t\in s\)</span>. We may also say that <span class="latex">\(t\)</span> is an <dfn>element of</dfn>, or a <dfn>member of</dfn>, <span class="latex">\(s\)</span>.</p>
+		<p class="informal"><small>To avoid ambiguity, we will not use the word <i class="mention">contain</i> to represent ownership. For historical reasons, this expression can be interpreted as an indication of ownership or one of <a href="#D-subset">inclusion</a>.</small></p>
+	</div>
+	<div class="definition" id="D-proposition">
+		<p class="summary">A <dfn>proposition</dfn> is a statement about sets. <small>A proposition may or may not make an assertion about ownership.</small></p>
+		<p>A proposition may be <dfn><var>true</var></dfn> or <dfn><var>false</var></dfn>.</p>
+		<p>When making the assertion that a proposition <span class="latex">\(\l p\)</span> is <var>true</var>, we state <q><span class="latex">\(\l p\)</span></q>.</p>
+	</div>
+	<!--
 	<div class="definition" id="D-proposition">
 		<p class="summary">A <dfn>proposition</dfn> is defined recursively as follows:</p>
 		<ol class="summary">
@@ -44,27 +57,39 @@
 			<li><p>If <span class="latex">\(\l p\)</span> and <span class="latex">\(\l q\)</span> are propositions, then <span class="latex">\(\l p \land \l q\)</span> is a proposition.</p></li>
 		</ol>
 	</div>
-	
-	<div class="definition" id="D-proposition">
-		<p class="summary">A <dfn>proposition</dfn> <span class="latex">\(\l p\)</span> is a statement. This statement may be <var>true</var> or <var>false</var>.</p>
-		<p>When we assert that <span class="latex">\(\l p\)</span> is <var>true</var>, we state, <q><span class="latex">\(\l p\)</span></q>.</p>
-	</div>
+	-->
+	<p class="example">Given sets <span class="latex">\(s\)</span> and <span class="latex">\(t\)</span>, the statement <i class="mention"><span class="latex">\(t\in s\)</span></i> is a proposition.</p>
 	<div class="definition" id="D-lnot">
-		<p class="summary">Given a proposition <span class="latex">\(\l p\)</span>, the statement <i class="mention"><span class="latex">\(\l p\)</span> is <var>false</var></i> is itself a proposition, called the <dfn>negation</dfn> <span class="latex">\(\lnot\l p\)</span> of <span class="latex">\(\l p\)</span>.</p>
-		<p>When we assert that <span class="latex">\(\l p\)</span> is <var>false</var>, we state, <q>not <span class="latex">\(\l p\)</span></q>.</p>
+		<p class="summary">Given a proposition <span class="latex">\(\l p\)</span>, the <dfn>negation</dfn> <span class="latex">\(\lnot\l p\)</span> is a proposition defined by the statement <i class="mention"><span class="latex">\(\l p\)</span> is <var>false</var></i>.</p>
+		<p>When making the assertion that a proposition <span class="latex">\(\l p\)</span> is <var>false</var>, we state <q><span class="latex">\(\lnot\l p\)</span></q>.</p>
+		<p>We use the proposition <span class="latex">\(t\not\in s\)</span> to refer to the negation <span class="latex">\(\lnot(t\in s)\)</span>.</p>
 	</div>
+
 	<div class="definition" id="D-lor">
 		<p class="summary">Given propositions <span class="latex">\(\l p\)</span> and <span class="latex">\(\l q\)</span>, the <dfn>disjunction</dfn> <span class="latex">\(\l p\lor\l q\)</span> is a proposition defined by the statement <i class="mention"><span class="latex">\(\l p\)</span> or <span class="latex">\(\l q\)</span> (or both) is <var>true</var></i>.</p>
-		<p>When <span class="latex">\(\l p\lor\l q\)</span> is <var>true</var>, we state, <q><span class="latex">\(\l p\)</span> or <span class="latex">\(\l q\)</span></q>.</p>
+		
 	</div>
 	<div class="definition" id="D-land">
 		<p class="summary">Given propositions <span class="latex">\(\l p\)</span> and <span class="latex">\(\l q\)</span>, the <dfn>conjunction</dfn> <span class="latex">\(\l p\land\l q\)</span> is a proposition defined by the the statement <i class="mention"><span class="latex">\(\l p\)</span> and <span class="latex">\(\l q\)</span> are both <var>true</var></i>.</p>
-		<p>When <span class="latex">\(\l p\land\l q\)</span> is <var>true</var>, we state, <q><span class="latex">\(\l p\)</span> and <span class="latex">\(\l q\)</span></q>.</p>
+		
 	</div>
 	<div class="definition" id="D-implies">
 		<p class="summary">Given propositions <span class="latex">\(\l p\)</span> and <span class="latex">\(\l q\)</span>, the <dfn>(material) implication</dfn> <span class="latex">\(\l p\implies\l q\)</span> is a proposition defined by the disjunction <span class="latex">\(\lnot\l p\lor\l q\)</span>.</p>
 	</div>
+	<div class="definition" id="D-implication-alt">
+		<p class="summary">Given an implication <span class="latex">\(\mathsf{r}\)</span> defined by <span class="latex">\(\l p\implies\l q\)</span>,</p>
+		<ul class="list-delta">
+			<li>the implication <span class="latex">\(\l q\implies\l p\)</span> is called the <dfn>converse</dfn> of <span class="latex">\(\mathsf{r}\)</span>.</li>
+			<li>the implication <span class="latex">\(\lnot\l p\implies\lnot\l q\)</span> is called the <dfn>inverse</dfn> of <span class="latex">\(\mathsf{r}\)</span>.</li>
+			<li>the implication <span class="latex">\(\lnot\l q\implies\lnot\l p\)</span> is called the <dfn>contrapositive</dfn> of <span class="latex">\(\mathsf{r}\)</span>.</li>
+		</ul>
+	</div>
+	<div class="definition" id="D-iff">
+		<p class="summary">Given propositions <span class="latex">\(\l p\)</span> and <span class="latex">\(\l q\)</span>, the <dfn>(material) equivalence</dfn> <span class="latex">\(\l p\iff\l q\)</span> is a proposition defined by the conjunction <span class="latex">\((\l p\implies\l q)\land(\l q\implies\l p)\)</span>.</p>
+	</div>
 	<div class="informal">
+		<p>When <span class="latex">\(\l p\lor\l q\)</span> is <var>true</var>, we state, <q><span class="latex">\(\l p\)</span> or <span class="latex">\(\l q\)</span></q>.</p>
+		<p>When <span class="latex">\(\l p\land\l q\)</span> is <var>true</var>, we state, <q><span class="latex">\(\l p\)</span> and <span class="latex">\(\l q\)</span></q>.</p>
 		<table class="table-list">
 			<caption>There are a number of other ways to express a material implication.</caption>
 			<thead><tr><th colspan="2">When <span class="latex">\(\l p\implies\l q\)</span> is <var>true</var>, we state,</th></tr></thead>
@@ -75,7 +100,7 @@
 				</tr>
 				<tr>
 					<td><q><span class="latex">\(\l p\)</span> then <span class="latex">\(\l q\)</span></q></td>
-					<td><q><span class="latex">\(\l q\)</span> if <span class="latex">\(\l p\)</span></q></td>
+					<td><q><span class="latex">\(\l q\)</span> if (when) <span class="latex">\(\l p\)</span></q></td>
 				</tr>
 				<tr>
 					<td><q><span class="latex">\(\l p\)</span> implies <span class="latex">\(\l q\)</span></q></td>
@@ -91,19 +116,6 @@
 				</tr>
 			</tbody>
 		</table>
-	</div>
-	<div class="definition" id="D-implication-alt">
-		<p class="summary">Given an implication <span class="latex">\(\mathsf{r}\)</span> defined by <span class="latex">\(\l p\implies\l q\)</span>,</p>
-		<ul class="list-delta">
-			<li>the implication <span class="latex">\(\l q\implies\l p\)</span> is called the <dfn>converse</dfn> of <span class="latex">\(\mathsf{r}\)</span>.</li>
-			<li>the implication <span class="latex">\(\lnot\l p\implies\lnot\l q\)</span> is called the <dfn>inverse</dfn> of <span class="latex">\(\mathsf{r}\)</span>.</li>
-			<li>the implication <span class="latex">\(\lnot\l q\implies\lnot\l p\)</span> is called the <dfn>contrapositive</dfn> of <span class="latex">\(\mathsf{r}\)</span>.</li>
-		</ul>
-	</div>
-	<div class="definition" id="D-iff">
-		<p class="summary">Given propositions <span class="latex">\(\l p\)</span> and <span class="latex">\(\l q\)</span>, the <dfn>(material) equivalence</dfn> <span class="latex">\(\l p\iff\l q\)</span> is a proposition defined by the conjunction <span class="latex">\((\l p\implies\l q)\land(\l q\implies\l p)\)</span>.</p>
-	</div>
-	<div class="informal">
 		<table class="table-list">
 			<caption>There are a number of other ways to express a material equivalence.</caption>
 			<thead><tr><th>When <span class="latex">\(\l p\iff\l q\)</span> is <var>true</var>, we state,</th></tr></thead>
@@ -112,6 +124,7 @@
 				<tr><td><q><span class="latex">\(\l p\)</span> implies and is implied by <span class="latex">\(\l q\)</span></q></td></tr>
 				<tr><td><q><span class="latex">\(\l p\)</span> is necessary and sufficient for <span class="latex">\(\l q\)</span></q></td></tr>
 				<tr><td><q><span class="latex">\(\l p\)</span> is materially equivalent to <span class="latex">\(\l q\)</span></q></td></tr>
+				<tr><td><q><span class="latex">\(\l p\)</span> and <span class="latex">\(\l q\)</span> are materially equivalent</q></td></tr>
 			</tbody>
 		</table>	
 	</div>
@@ -407,12 +420,6 @@ See \Tref{T:firstInductionProof} on page \pageref{T:firstInductionProof} for thi
 	<header>
 		<h1 class="h-beta">Predicate Logic</h1>
 	</header>
-	<div class="definition" id="D-set">
-		<p class="summary">A <dfn>set</dfn> is that which may own sets.</p>
-		<p>Given sets <span class="latex">\(s\)</span> and <span class="latex">\(t\)</span>, the assertion that <span class="latex">\(s\)</span> owns <span class="latex">\(t\)</span> is a proposition, denoted <span class="latex">\(t\in s\)</span>. We may also say that <span class="latex">\(t\)</span> is an <dfn>element of</dfn>, or a <dfn>member of</dfn>, <span class="latex">\(s\)</span>.</p>
-		<p>We use the predicate <span class="latex">\(t\not\in s\)</span> to refer to the negation <span class="latex">\(\lnot(t\in s)\)</span>.</p>
-		<p class="informal"><small>To avoid ambiguity, we will not use the word <i class="mention">contain</i> to represent ownership. For historical reasons, this expression can be interpreted as an indication of ownership or one of <a href="#D-subset">inclusion</a>.</small></p>
-	</div>
 	<div class="theorem" id="T-bivalence-sets">
 		<p class="summary"><span class="lede">The Principle of Bivalence, Predicate Version</span> Given sets <span class="latex">\(t\)</span> and <span class="latex">\(s\)</span>:</p>
 		<ul>
@@ -499,61 +506,6 @@ See \Tref{T:firstInductionProof} on page \pageref{T:firstInductionProof} for thi
 		\]</div>
 	</div>
 	<section class="draft">
-		<h1 class="h-gamma">Uniqueness Quantifiers</h1>
-		<div class="informal">
-			<p>A <dfn>uniqueness quantifier</dfn> is an assertion that there exists a particular set, and that is the only one that exists. Essentially we are asserting that there exists a set that exhibits a certain characteristic, and all sets that exhibit that characteristic are <i class="scare"><a href="D-equality">the same</a></i>.</p>
-		</div>
-		<div class="definition">
-			<span>define: existence in the first statement; uniqueness in the second (uniqueness doesn't depend on existence)</span>
-			<p>There exists an x such that P_x is true, and for all x, if P_x is true, then for all y, P_y is true if and only if x=y.</p>
-			<p class="latex">\[
-				\biggl((\exists!x)(\l P_x)\biggr)
-				\equiv
-				\biggl(
-					\Bigl((\exists x)(\l P_x)\Bigr)
-					\land
-					\Bigl(
-						\bigl(\forall x\bigr)
-						\bigl(\l P_x \implies (\forall y)(\l P_y \iff x=y)\bigr)
-					\Bigr)
-				\Biggr)
-			\]</p>
-
-		</div>
-		<div class="theorem">
-			<span>prove: existence in the first statement; uniqueness in the second (uniqueness doesn't depend on existence)</span>
-			<p>There exists an x such that P_x is true, and for any two x and y, if P_x and P_y are true, then x=y.</p>
-			<p class="latex">\[
-				\biggl((\exists!x)(\l P_x)\biggr)
-				\equiv
-				\biggl(
-					\Bigl((\exists x)(\l P_x)\Bigr)
-					\land
-					\Bigl(
-						\bigl(\forall x\bigr)\bigl(\forall y\bigr)
-						\bigl(
-							(\l P_x \land \l P_y)
-							\implies
-							(x=y)
-						\bigr)
-					\Bigr)
-				\biggr)
-			\]</p>
-		</div>
-		<div class="theorem draft">
-			<span>prove: existence and uniqueness in one statement</span>
-			<p>There exists an x such that (P_x is true and for all y, P_y is true if and only if x=y).</p>
-			<p class="latex">\[
-				\bigl((\exists!x)(\l P_x)\bigr)
-				\equiv
-				\Bigl(
-					\bigl(\exists x\bigr)
-					\bigl(\l P_x \land (\forall y)(\l P_y \iff x=y)\bigr)
-				\Bigr)
-			\]</p>
-		</div>
-	</section>
-	<section class="draft">
 		<h1 class="h-gamma">Combined Quantifiers</h1>
 		<div class="definition" id="D-2exists">
 			<p class="summary">Given an existential quantifier <span class="latex">\((\exists y)(\l P_{x,y})\)</span>, the existential quantifier <span class="latex">\(\bigl(\exists x\bigr)\bigl((\exists y)(\l P_{x,y})\bigr)\)</span> is described by the predicate:</p>
@@ -634,8 +586,54 @@ See \Tref{T:firstInductionProof} on page \pageref{T:firstInductionProof} for thi
 			\therefore
 			\Bigl(\bigl(\forall y\bigr)\bigl((\exists x)(\l P_{x,y})\bigr)\Bigr)
 		\]</p>
-		
+	</section>
+	<section class="draft">
+		<h1 class="h-gamma">Uniqueness Quantifiers</h1>
+		<div class="informal">
+			<p>A <dfn>uniqueness quantifier</dfn> is an assertion that there exists a particular set, and that is the only one that exists. Essentially we are asserting that there exists a set that exhibits a certain characteristic, and all sets that exhibit that characteristic are <i class="scare"><a href="#D-equality">the same</a></i>.</p>
+		</div>
+		<div class="definition">
+			<span>define: existence in the first statement; uniqueness in the second (uniqueness doesn't depend on existence)</span>
+			<p>There exists an x such that P_x is true, and for all x, if P_x is true, then for all y, P_y is true if and only if x=y.</p>
+			<p class="latex">\[
+				\biggl((\exists!x)(\l P_x)\biggr)
+				\equiv
+				\biggl(
+					\Bigl((\exists x)(\l P_x)\Bigr)
+					\land
+					\Bigl(
+						\bigl(\forall x\bigr)
+						\bigl(\l P_x \implies (\forall y)(\l P_y \iff x=y)\bigr)
+					\Bigr)
+				\Biggr)
+			\]</p>
 
+		</div>
+		<div class="theorem">
+			<span>prove: existence in the first statement; uniqueness in the second (uniqueness doesn't depend on existence)</span>
+			<p>There exists an x such that P_x is true, and for any two x and y, if P_x and P_y are true, then x=y.</p>
+			<p class="latex">\[
+				\bigl((\exists!x)(\l P_x)\bigr)
+				\equiv
+				\bigl(
+					(\exists x)(\l P_x)
+					\land
+					(\forall x)(\forall y)\left(\l P_x \land \l P_y \implies x=y\right)
+				\bigr)
+			\]</p>
+		</div>
+		<div class="theorem draft">
+			<span>prove: existence and uniqueness in one statement</span>
+			<p>There exists an x such that (P_x is true and for all y, P_y is true if and only if x=y).</p>
+			<p class="latex">\[
+				\bigl((\exists!x)(\l P_x)\bigr)
+				\equiv
+				\Bigl(
+					\bigl(\exists x\bigr)
+					\bigl(\l P_x \land (\forall y)(\l P_y \iff x=y)\bigr)
+				\Bigr)
+			\]</p>
+		</div>
 	</section>
 </section>
 <section id="equality">
@@ -676,7 +674,7 @@ See \Tref{T:firstInductionProof} on page \pageref{T:firstInductionProof} for thi
 	</div>
 	<div class="informal">
 		<p><a href="#D-equality">Intensionality</a> states that sets that are equal have exactly the same members. We take this to be the <em>definition</em> of equality: equal sets are <i class="scare">identical</i>. One very important interpretation of this is that <strong>a set is determined uniquely its elements</strong>, so if sets with exactly the same elements have different definitions, names, or rearrangements, those sets are all one in the same. This may seem obvious, but a more fascinating fact about equal sets follows.</p>
-		<p>By <a href="A-extensionality">The Axiom of Extensionality</a>, all sets are <strong>definite and distinguishable</strong>. This means that given an element, one should be able to decide whether or not that element would belong to any particular set; and that any two distinct elements of the same set are unequal. This will come in handy <a href="#T-singletonexists">later on</a>, when we start repeating elements within a set. By this axiom, a set cannot own the same element more than once.</p>
+		<p>By <a href="A-extensionality">The Axiom of Extensionality</a>, equal sets are members of the same containers. This means that all sets are <strong>definite and distinguishable</strong>: given an element, one should be able to decide whether or not that element would belong to any particular set; and that any two distinct elements of the same set are unequal. This will come in handy <a href="#T-singletonexists">later on</a>, when we start repeating elements within a set. By this axiom, a set cannot own the same element more than once.</p>
 	</div>
 	<div class="definition" id="D-subset">
 		<p class="summary">A set <span class="latex">\(x\)</span> is a <dfn>subset of</dfn> a set <span class="latex">\(y\)</span> iff <span class="latex">\(y\)</span> owns all the elements of <span class="latex">\(x\)</span>.</p>
