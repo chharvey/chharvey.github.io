@@ -122,36 +122,6 @@ TO DO
 
 
 ### /reals/ ###
-#### TODO for logic theory ####
-**Implication Identity**
-(T then p); equiv p
-proof using 'deduction', conjunction, disjunction
-	T then p				given
-	C or p					dfn of 'or'
-	p						Disjunction Identity
-proof using 'deduction', implication
-	T then p				given
-	(p then p) then p		defn of 'T'
-	(-p or p) then p		defn of 'or'
-	-(-p or p) or p			defn of 'or'
-	(p and -p) or p 		demorgan's laws
-	(p or p) and (-p or p)	distributive1
-	p and T					law of excluded middle
-	p						Conjunction Identity
-proof using '(A equiv B) if and only if (A iff B equiv T)'
-	T then p iff p
-	(p then p) then p iff p			defn of 'T'
-	(-p or p) then p iff p			defn of 'or'
-	-(-p or p) or p iff p			defn of 'or'
-	(p and -p) or p iff p 			demorgan's laws
-	(p or p) and (-p or p) iff p	distributive1
-	p and T iff p					law of excluded middle
-	p iff p							Conjunction Identity
-	(p then p) & (p then p)			dfn of 'iff'
-	p then p						Conjunction Elimination
-	T								dfn of T
-$P \lxor \lnot P \equiv \top$
-
 #### TODO for set theory ####
 
 ##### topic: set theory #####
