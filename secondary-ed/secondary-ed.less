@@ -5,7 +5,6 @@
 	.lede;
 	padding-right: 1em;
 }
-/* @group course syllabus */
 #syllabusdothtml {
 	@media print {
 		.timestamp {display: none;}
@@ -14,7 +13,41 @@
 	#teacherinfo,
 	#classtimes {.unit-1to2();}
 }
-/* @end group */
+#pacingguidedothtml {
+	table {
+		width: 100%;
+		counter-reset: unitcount;
+		* {text-align: left;}
+	}
+	tr.quarter {
+		.h-beta;
+	}
+	tbody {
+		counter-reset: topiccount;
+	}
+	tr.unit {
+		.h-gamma;
+		td:nth-child(1):before {
+			counter-increment: unitcount;
+			content: counter(unitcount, upper-roman) '. ';
+		}
+	}
+	tr.topic td:nth-child(1) {
+		padding-left: 1em;
+		&:before {
+			counter-increment: topiccount;
+			content: counter(topiccount, lower-alpha) '. ';
+		}
+	}
+}
+#warmupsdothtml {
+	.star {background-color: #ff6;}
+	td .standard-id:before {content: '(';}
+	td .standard-id:after {content: ')';}
+	ol.answerchoices {list-style-type: upper-alpha;}
+	.answer {font-style: italic; font-weight: bold; font-size: smaller;}
+	.answer:before {content: 'answer: ';}
+}
 
 /* @group unit overviews */
 #unitobjectives {
@@ -62,12 +95,14 @@
 }
 
 /* for strictly quoted material to present to students */
-blockquote {
-	font-size: inherit;
-	font-family: inherit;
-}
-ol.practiceproblems {
-	line-height: 3em;
+body.lesson {
+	blockquote {
+		font-size: inherit;
+		font-family: inherit;
+	}
+	ol.practiceproblems {
+		line-height: 3em;
+	}
 }
 @media print {
 	body,

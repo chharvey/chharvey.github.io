@@ -356,8 +356,8 @@ table {
 		font-weight: bold;
 	}
 	/* @end */
-.new, ins {text-decoration: underline; color: @color-ins;;}
-.old, del {text-decoration: line-through; color: @color-del;}
+.new, ins {text-decoration: underline; color: @color-ins-txt;}
+.old, del {text-decoration: line-through; color: @color-del-txt;}
 cite {font-style: normal;}
 
 .superscript {font-size: smaller; vertical-align: super;}
@@ -382,15 +382,37 @@ time[datetime] {
 		border-bottom: 0;
 	}
 }
-[datetime] {
-	&:hover:after {
-		.help;
-		position: relative;
-		left: 5px;
-		top: 5px;
-		content: attr(datetime);
+[datetime]:hover:after {
+	.help;
+	position: relative;
+	left: 5px;
+	top: 5px;
+	content: attr(datetime);
+}
+.new, ins {
+	padding-left: 0.5em;
+	text-decoration: none;
+//	text-decoration: underline;
+//	color: @color-ins-txt;
+	background-color: @color-ins-bg;
+	&[datetime]:hover:after {
+		content: 'inserted on ' attr(datetime);
 	}
 }
+.old, del {
+	padding-right: 0.5em;
+	text-decoration: none;
+//	text-decoration: line-through;
+//	color: @color-del-txt;
+	background-color: @color-del-bg;
+	&[datetime]:hover:after {
+		content: 'deleted on ' attr(datetime);
+	}
+}
+cite {font-style: normal;}
+.superscript {font-size: smaller; vertical-align: super;}
+.subscript   {font-size: smaller; vertical-align: sub;}
+var {font-style: italic;}
 
 .phone, .email {
 	font-family: @font-fam-code;

@@ -629,6 +629,40 @@ time[datetime] {
   color: #550055;
   background-color: #ffbbff;
 }
+.new,
+ins {
+  padding-left: 0.5em;
+  text-decoration: none;
+  background-color: #baffba;
+}
+.new[datetime]:hover:after,
+ins[datetime]:hover:after {
+  content: 'inserted on ' attr(datetime);
+}
+.old,
+del {
+  padding-right: 0.5em;
+  text-decoration: none;
+  background-color: #ffbaba;
+}
+.old[datetime]:hover:after,
+del[datetime]:hover:after {
+  content: 'deleted on ' attr(datetime);
+}
+cite {
+  font-style: normal;
+}
+.superscript {
+  font-size: smaller;
+  vertical-align: super;
+}
+.subscript {
+  font-size: smaller;
+  vertical-align: sub;
+}
+var {
+  font-style: italic;
+}
 .phone,
 .email {
   font-family: 'Menlo', 'Lucida Sans Typewriter', 'Monaco', monospace;
@@ -1125,7 +1159,6 @@ fieldset {
   color: #000000;
   padding-right: 1em;
 }
-/* @group course syllabus */
 @media print {
   #syllabusdothtml .timestamp {
     display: none;
@@ -1144,7 +1177,78 @@ fieldset {
   padding-right: 2px;
   width: 50%;
 }
-/* @end group */
+#pacingguidedothtml table {
+  width: 100%;
+  counter-reset: unitcount;
+}
+#pacingguidedothtml table * {
+  text-align: left;
+}
+#pacingguidedothtml tr.quarter {
+  margin: 1em 0 0.25em;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  font-family: 'Avenir', 'Calibri', 'Century Gothic', sans-serif;
+  text-align: left;
+  letter-spacing: 1px;
+  font-weight: bold;
+  font-size: 1.500em;
+  color: #000000;
+}
+#pacingguidedothtml tr.quarter .latex {
+  color: inherit;
+}
+#pacingguidedothtml tbody {
+  counter-reset: topiccount;
+}
+#pacingguidedothtml tr.unit {
+  margin: 1em 0 0.25em;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  font-family: 'Avenir', 'Calibri', 'Century Gothic', sans-serif;
+  text-align: left;
+  letter-spacing: 1px;
+  color: #000000;
+  font-variant: small-caps;
+  font-weight: bold;
+  font-size: 1.167em;
+}
+#pacingguidedothtml tr.unit .latex {
+  color: inherit;
+}
+#pacingguidedothtml tr.unit td:nth-child(1):before {
+  counter-increment: unitcount;
+  content: counter(unitcount, upper-roman) '. ';
+}
+#pacingguidedothtml tr.topic td:nth-child(1) {
+  padding-left: 1em;
+}
+#pacingguidedothtml tr.topic td:nth-child(1):before {
+  counter-increment: topiccount;
+  content: counter(topiccount, lower-alpha) '. ';
+}
+#warmupsdothtml .star {
+  background-color: #ff6;
+}
+#warmupsdothtml td .standard-id:before {
+  content: '(';
+}
+#warmupsdothtml td .standard-id:after {
+  content: ')';
+}
+#warmupsdothtml ol.answerchoices {
+  list-style-type: upper-alpha;
+}
+#warmupsdothtml .answer {
+  font-style: italic;
+  font-weight: bold;
+  font-size: smaller;
+}
+#warmupsdothtml .answer:before {
+  content: 'answer: ';
+}
 /* @group unit overviews */
 #unitobjectives .optional,
 #unitobjectives .optional *,
@@ -1193,11 +1297,11 @@ fieldset {
   background-color: #dbf;
 }
 /* for strictly quoted material to present to students */
-blockquote {
+body.lesson blockquote {
   font-size: inherit;
   font-family: inherit;
 }
-ol.practiceproblems {
+body.lesson ol.practiceproblems {
   line-height: 3em;
 }
 @media print {
