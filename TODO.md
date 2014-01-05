@@ -23,6 +23,7 @@ TO DO
 		- `@import (reference) 'grid.less';`
 		- `@import (reference) 'typo.less';`
 		- `@import (reference) 'mods.less';`
+	- 2014-01-05 keep regular imports of `all.css`
 - FIND A FUCKING LESS COMPILER!
 - upgrade to **v1.5.0**!!!!!
 
