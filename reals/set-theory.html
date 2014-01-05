@@ -9,9 +9,9 @@
 <style>
 </style>
 {% include all-js.html %}
-	<script src="http://code.jquery.com/jquery-2.0.2.min.js"></script>
-	<script src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML,http://chharvey.github.io/core/scripts/mathjax-localconfig.js"></script>
-	<script src="../core/scripts/all.js"></script>
+<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML,http://chharvey.github.io/core/scripts/mathjax-localconfig.js"></script>
+<script src="../core/scripts/all.js"></script>
 
 <script src="reals.js"></script>
 </head>
@@ -21,246 +21,46 @@
 	<a>An Axiomatic Approach to the Continuum</a>
 </nav>
 <div class="main">
-<header>	
+<header>
 	<h1 class="h-alpha">Set-Theoretic Foundations</h1>
 	<nav>
 		<h1 class="h-beta">Chapter Contents</h1>
 		<ol class="chaptercontents list-beta">
-			<li><a href="#predicate-logic">Predicate Logic</a></li>
 			<li><a href="#set-axioms">The Axioms of Set Theory</a></li>
-			<li>ghi</li>
+			<li><a href="#consequences">Consequences of the Axioms</a></li>
 		</ol>
 	</nav>
 </header>
-<section id="predicate-logic">
-	<header>
-		<h1 class="h-beta">Predicate Logic</h1>
-	</header>
-	<div class="definition" id="D-set">
-		<p class="summary">A <dfn>set</dfn> is that which may own elements. These elements, in turn, are also sets.</p>
-		<p>Given sets <span class="latex">\(s\)</span> and <span class="latex">\(t\)</span>, the assertion that <span class="latex">\(s\)</span> owns <span class="latex">\(t\)</span> is a proposition, denoted <span class="latex">\(t\in s\)</span>. We may also say that <span class="latex">\(t\)</span> is an <dfn>element of</dfn> <span class="latex">\(s\)</span>.</p>
-		<p>The assertion that <span class="latex">\(t\)</span> is <em>not</em> an element of <span class="latex">\(s\)</span> is the negation <span class="latex">\(\lnot\left(t\in s\right)\)</span>. We use the shorthand notation <span class="latex">\(t\not\in s\)</span> equivalently.</p>
-		<p class="informal"><small>To avoid ambiguity, we will not use the word <i class="mention">contain</i> to represent ownership. For historical reasons, this expression can be interpreted as an indication of ownership or one of <a href="#D-subset">inclusion</a>.</small></p>
-	</div>
-	<!--div>
-		<p>Here, the terms \emph{collection} and \emph{object} are intuitively understood and cannot be formally defined. The beauty of an \indexthis{Axiom} is that we can replace the undefined terms with nonsense terms and still completely understand what the Axiom means. Think back to \indexthis{Euclid}'s First Postulate and replace the undefined terms \emph{point} and \emph{line} with nonsense: ``A straight baz can be drawn between any two foos.'' We still get the picture.</p>
-		<p>Note that \Aref{A:set} puts no restriction on the number of objects allowed in a collection or what those objects can be. It also does not restrict the \indexthis{arrangement} of those objects, but this small fact will be reinforced by \Aref{A:extensionality}. \Aref{A:set} does, however, say that all objects are \emph{definite} and \emph{distinguishable}. This means that given a set, one should be able to decide whether any particular element would belong to that set; and that any two elements of the same set are different. The term ``different'' is not yet explicitly defined, but \Aref{A:extensionality} will again provide the answer.</p>
-		<p>Naturally, we are interested in the gathering of all those things that are not themselves sets but that we want to have as elements of sets. Call such things \emph{\indexthis{atom}s}. For example, the set of all fruit owns every strawberry and every apple, but it owns no cats or dogs. The set of all types of metal will own mercury and lead, but no strawberries. Since apples and lead do not own any further elements, they are atoms.</p>
-		<p>We as mathematicians, however, could not care less about sets of mathematically useless atoms. Ergo we banish the concept. This means that we lose our ability to form sets of strawberries or cats, but this is no cause for concern. \emph{We choose to consider every element of a set as a set}. At this point we might feel unsettled by the fact that what we define to be a ``set'' is a nested collection of only more sets. This seems circular, but the assuaging resolution lies in \Rref{R:existence}. For the remainder of this chapter, we must keep in mind that all elements are really just sets in disguise. We mustn't be confused by the notation $a \in b$.</p>
-		<p>\Aref{A:set} seems to indicate some sort of hierarchy among sets. The sets~$s$ whose elements with which we are not concerned differ from the sets~$S$ whose elements with which we \emph{are} concerned but are considered as sets whose members are unimportant; which, furthermore, differ from the sets~$\mathcal{S}$ whose elements we wish to consider as sets with important members. In this hierarchy, we have sets~$\mathcal{S}$ of sets~$S$ of sets~$s$. However, all these distinctions are trivial. Sets~$s$,~$S$, and~$\mathcal{S}$ are all to be thought of in the same way. We just use this notation to avoid confusion. (We also sometimes use the terms ``collection'' and ``cluster'' to name sets, for terminological variety.) </p>
-	</div-->
-	<div class="theorem" id="T-bivalence-sets">
-		<div class="lede">The Principle of Bivalence, Set Theory Version</div>
-		<p class="summary">Given sets <span class="latex">\(t\)</span> and <span class="latex">\(s\)</span>:</p>
-		<ul>
-			<li id="LEM">
-				<p class="summary"><span class="lede">The Law of Excluded Middle</span> It is always the case that <span class="latex">\(t\)</span> is an element of or not an element of <span class="latex">\(s\)</span>.</p>
-				<p class="latex wff">\[(t\in s) \lor (t\not\in s)\]</p>
-			</li>
-			<li id="LNC">
-				<p class="summary"><span class="lede">The Law of Non-Contradiction</span> It is never the case that <span class="latex">\(t\)</span> is both an element of and not an element of <span class="latex">\(S\)</span>.</p>
-				<p class="latex wff">\[\lnot((t\in S) \land (t\not\in S))\]</p>
-			</li>
-		</ul>
-	</div>
-	<!--div>
-		<p>One very important interpretation of \Aref{A:extensionality} is that \emph{sets are determined completely and only by the elements they own}. If sets with exactly the same elements have different definitions, names, or re\indexthis{arrangement}s (orders\citeneed), those sets are all one in the same.</p>
-	</div-->
-	<div class="definition" id="D-predicate">
-		<p class="summary">Given a set <span class="latex">\(x\)</span>, the <dfn>predicate</dfn> <span class="latex">\(\l P_x\)</span> is a proposition that makes an assertion involving <span class="latex">\(x\)</span>.</p>
-	</div>
-	<!--div class="example">
-		<p>In the natural numbers, let <span class="latex">\(\l P_n\)</span> be the predicate, <q><span class="latex">\(n\)</span> is even</q>. Then <span class="latex">\(\l P_3\)</span> would be <var>false</var>, while <span class="latex">\(\l P_6\)</span> would be <var>true</var>.</p>
-	</div-->
-	<div class="definition" id="D-exists">
-		<p class="summary">Given a predicate <span class="latex">\(\l P_x\)</span>, the assertion that there exists a set <span class="latex">\(x\)</span> that makes <span class="latex">\(\l P_x\)</span> <var>true</var> is itself a predicate, called an <dfn>existential quantifier</dfn>.</p>
-		<p class="latex">\[(\exists x)(\l P_x)\]</p>
-		<!--p>An existence theorem is a statement (usually provable) that asserts the existence of a certain object, such as a solution to a problem.</p-->
-	</div>
-	<div class="definition" id="D-forall">
-		<p class="summary">Given a predicate <span class="latex">\(\l P_x\)</span>, the assertion that there does not exist any set <span class="latex">\(x\)</span> that makes <span class="latex">\(\l P_x\)</span> <var>false</var> is itself a predicate, called a <dfn>universal quantifier</dfn>.</p>
-		<p>This proposition is defined by <span class="latex">\(\lnot\bigl((\exists x)(\lnot\l P_x)\bigr)\)</span>; or equivalently, <span class="latex">\((\not\exists x)(\lnot\l P_x)\)</span>.</p>
-		<p>The universal quantifier can be thought of as the assertion that <span class="latex">\(\l P_x\)</span> is <var>true</var> for any set <span class="latex">\(x\)</span>:</p>
-		<p class="latex">\[(\forall x)(\l P_x)\]</p>
-	</div>
-	<section class="draft">
-		<h1 class="h-gamma">Bound Quantifiers</h1>
-		<div class="latex">\[
-			(\exists x\in S)(P_x)
-			\text{ is defined by }
-			(\exists x)(x\in S \land P_x)
-		\]</div>
-		<div class="latex">\[
-			(\forall x\in S)(P_x)
-			\text{ is defined by }
-			(\forall x)(x\in S \implies P_x)
-		\]</div>
-		<h1 class="h-gamma">Uniqueness Quantifiers (requires definition of equality)</h1>
-		<!--p>A \defn{uniqueness theorem} is a statement that asserts that that particular object is the \emph{only} one that exists. For example, there is one and only one solution to a given problem.</p-->
-		<span>existence and uniqueness in one statement</span>
-		<div class="latex">\[
-			(\exists!x)(\l P_x)
-			\text{ is defined by }
-			(\exists x)(\l P_x \land (\forall y)(\l P_y \iff x=y))
-		\]</div>
-		<span>existence in the first statement; uniqueness in the second</span>
-		<div class="latex">\[
-			(\exists!x)(\l P_x)
-			\text{ is defined by }
-			(\exists x)(\l P_x)
-			\land
-			(\forall x) (\l P_x \implies (\forall y)(\l P_y \iff x=y))\\
-		\]</div>
-		<div class="latex">\[
-			(\exists!x)(\l P_x)
-			\text{ proven by }
-			(\exists x)(\l P_x)
-			\land
-			(\forall x)(\forall y) ((\l P_x \land \l P_y) \implies (x=y))
-		\]</div>
-		<h1 class="h-gamma">Combined Quantifiers</h1>
-		<div class="latex">\[
-			\left((\exists x)((\forall y)(P_{x,y}))\right)
-			\therefore
-			\left((\forall y)((\exists x)(P_{x,y}))\right)
-		\]</div>
-		<div class="latex">\[
-			\left((\forall x)(\l P_x) \land (\forall x)(\l Q_x)\right)
-			\equiv
-			\left((\forall x)(\l P_x \land \l Q_x)\right)
-		\]</div>
-		<div class="latex">\[
-			\left((\forall x)(\l P_x) \implies (\forall x)(\l Q_x)\right)
-			\equiv
-			\left((\forall x)(\l P_x \implies \l Q_x)\right)
-		\]</div>
-	</section>
-	<section>
-		<h1 class="h-gamma">Equality and Inclusion</h1>		
-		<div class="definition" id="D-equality">
-			<p class="summary">A set <span class="latex">\(x\)</span> is <dfn>equal to</dfn> a set <span class="latex">\(y\)</span> (<span class="latex">\(x\)</span> <dfn>equals</dfn> <span class="latex">\(y\)</span>) if and only if <span class="latex">\(x\)</span> and <span class="latex">\(y\)</span> own each other's elements.</p>
-			<p>We use the predicate <span class="latex">\(x=y\)</span> to describe the assertion that <span class="latex">\(x\)</span> is equal to <span class="latex">\(y\)</span>. We define this assertion as:</p>
-			<div class="latex">\[(\forall t)(t\in x \iff t\in y)\]</div>
-			<p>This definition is often called <b>The Axiom of Extensionality</b>.</p>
-			<p>We use the predicate <span class="latex">\(x\not= y\)</span> to refer to the negation <span class="latex">\(\lnot(x=y)\)</span>.</p>
-		</div>
-		<div class="theorem" id="T-equalityequivalancerelation">
-			<p class="summary">Equality is an equivalence relation on any set.</p>
-			<p><span class="latex">\(\left(x,y\right)\in\mathscr{E}\)</span>, where <span class="latex">\(\mathscr{E}\)</span> represents the subset of <span class="latex">\(A\times A\)</span> specified by <span class="latex">\(\left(x,y\right)\in\mathscr{E} \iff \left(x,y\right)\in A^2 \land \left(\forall t\right)\left(t\in x\iff t\in y\right)\)</span> for any set <span class="latex">\(A\)</span>.</p>
-		</div>
-		<div class="theorem" id="T-equalityreflexive">
-			<p class="summary">Equality is reflexive.</p>
-			<p class="latex wff">\[\expand{Any set is equal to itself.}{
-				(\forall x)\expand{\(x=x\)}{
-					(\forall t)(t\in x \iff t\in x)
-				}
-			}\]</p>
-			<div class="proof draft">
-				<p>use <span class="latex">\(\l p \iff \l p \therefore \top\)</span></p>
-			</div>
-		</div>
-		<div class="theorem" id="T-equalitysymmetric">
-			<p class="summary">Equality is symmetric.</p>
-			<p class="latex wff">\[\expand{One set is equal to another set if and only if that other set is equal to the first set.}{
-				(\forall x)(\forall y)\left(
-				\expand{\(x=y\)}{
-					(\forall t)(t\in x \iff t\in y)
-				}
-				\implies
-				\expand{\(y=x\)}{
-					(\forall t)(t\in y \iff t\in x)
-				}
-				\right)
-			}\]</p>
-			<p>Ergo, when <span class="latex">\(x=y\)</span>, instead of saying, <q><span class="latex">\(x\)</span> is equal to <span class="latex">\(y\)</span>,</q> we may just as well say, <q><span class="latex">\(x\)</span> and <span class="latex">\(y\)</span> are equal.</q>
-			<div class="proof draft">
-				<p>use <span class="latex">\(\l p \iff \l q \therefore \l q \iff \l p\)</span></p>
-			</div>
-		</div>
-			<div class="theorem" id="T-equalitytransitive">
-			<p class="summary">Equality is transitive.</p>
-			<p class="latex wff">\[\expand{If one set is equal to a second set, and that second set is equal to a third set, then all three sets are equal.}{
-				(\forall x)(\forall y)(\forall z)\left(
-				\left(
-					\expand{\(x=y\)}{
-						(\forall t)(t\in x \iff t\in y)
-					}
-					\land
-					\expand{\(y=z\)}{
-						(\forall t)(t\in y \iff t\in z)
-					}
-				\right)
-				\implies
-				\expand{\(x=z\)}{
-					(\forall t)(t\in x \iff t\in z)
-				}
-				\right)
-			}\]</p>
-			<div class="proof draft">
-				<p>use <span class="latex">\(\l p \iff \l q \land \l q \iff \l r \therefore \l p \iff \l r\)</span></p>
-			</div>
-		</div>
-		<div class="definition" id="D-subset">
-			<p class="summary">A set <span class="latex">\(x\)</span> is a <dfn>subset of</dfn> a set <span class="latex">\(y\)</span> if and only if <span class="latex">\(y\)</span> owns all the elements of <span class="latex">\(x\)</span>.</p>
-			<p>We use the predicate <span class="latex">\(x\subseteq y\)</span> to describe the assertion that <span class="latex">\(x\)</span> is a subset of <span class="latex">\(y\)</span>. We define this assertion as:</p>
-			<div class="latex">\[(\forall t)(t\in x \implies t\in y)\]</div>
-			<p>We also say <span class="latex">\(x\)</span> is <dfn>included in</dfn> <span class="latex">\(y\)</span>, or <span class="latex">\(y\)</span> includes <span class="latex">\(x\)</span>.</p>
-			<!--p>\forall A,B : A \subset B \iff A\subseteq B \land B\not\subseteq A
-			We say $A$ is a proper subset of $B$, or $A$ is \defnidx{strictly included}{inclusion!strict} in $B$, and write $A \subset B$. We could also say $B$ is a \defn{proper superset} of $A$, or $B$ strictly includes $A$, and write $B \supset A$.</p-->
-		</div>
-		<div class="theorem" id="T-inclusionreflexive">
-			<p class="summary">Inclusion is reflexive.</p>
-		</div>
-		<div class="theorem" id="T-inclusionequality">
-			<p class="summary">Inclusion is <span class="draft">antisymmetric?</span>.</p>
-			<p class="latex wff">\[\expand{Two sets are equal if and only if those sets include each other.}{
-				(\forall x)(\forall y)\expand{\(x=y\) iff they include each other}{
-					\expand{\(x=y\)}{
-						(\forall t)(t\in x \iff t\in y)
-					}
-					\iff
-					\expand{\(x\) and \(y\) include each other}{
-						\expand{\(x\subseteq y\)}{
-							(\forall t)(t\in x \implies t\in y)
-						}
-						\land
-						\expand{\(y\subseteq x\)}{
-							(\forall t)(t\in y \implies t\in x)
-						}
-					}
-				}
-			}\]</p>
-			<!--
-				Remember the distinction between ``$B$ \emph{owns} $A$'' and ``$B$ \emph{includes} $A$.''
-	
-	In the former expression, we are trying to determine if $A$ is an \emph{element} of (a member of, owned by, belongs to) $B$. To do so, we look at the set~$A$ as a single object, and then check to see if this object is among the members of the set~$B$. If so, $A \in B$.
-	
-	In the latter expression, we are trying to determine if $A$ is a \emph{subset} of (included in) $B$. To do this, we must open up the set~$A$, examine its various elements, and then check to see if the set~$B$ owns every one of those elements. (Refer to the former expression.) If so, $A \subseteq B$.
-	
-	In each case, we will avoid the term ``contain'' because of its ambiguous meaning in different sources. (A set could ``contain'' its elements or it could ``contain'' its subsets.)
-			-->
-		</div>
-		<div class="theorem">
-			<p class="summary">Inclusion is transitive.</p>
-		</div>
-	</section>
-</section>
 <section id="set-axioms">
 	<header>
 		<h1 class="h-beta">The Axioms of Set Theory</h1>
+		<p class="draft">The seven axioms below serve as the foundation of all mathematics. The first six tell us what sets may be brought into existence, and the seventh specifies a important characteristic of sets that do exist.</p>
 	</header>
-	<section>
-		<header>
-			<h1 class="h-gamma">The Axioms of Creation</h1>
-			<p class="prose draft">The six axioms below tell us what sets may be brought into existence. There are other axioms, but they merely make statements about sets that already exist.</p>
-		</header>
+	<section id="axiom-exitence">
+		<h1 class="h-delta">Existence</h1>
+		<div class="definition" id="D-emptyset">
+			<p class="summary">A set is called <dfn>empty</dfn> iff it has no members.</p>
+			<p>We use the predicate <span class="latex">\(s\doteqdot\varnothing\)</span> to refer to the assertion that the set <span class="latex">\(s\)</span> is empty, and <span class="latex">\(s\not\doteqdot\varnothing\)</span> for the negation.</p>
+			<p class="latex">\[
+				\left(s\doteqdot\varnothing\right)
+				\equiv
+				\left((\forall t)(t\not\in s)\right)
+			\]</p>
+			<p class="latex">\[
+				\left(t\in\varnothing\right)
+				\equiv
+				\bot
+			\]</p>
+		</div>
 		<div class="axiom" id="A-existence">
 			<p class="summary"><span class="lede">The Axiom of Existence</span> There exists an empty set.</p>
-			<p class="latex wff">\[\expand{There exists an empty set.}{
-				(\exists x)\expand{\(x\) is empty}{
-					(\forall y)(y\not\in x)
+			<p class="latex wff">\[
+				\expand{\exists\varnothing}{
+					(\exists s)\expand{s\doteqdot\varnothing}{
+						(\forall t)\expand{t\not\in s}{\lnot(t\in s)}
+					}
 				}
-			}\]</p>
+			\]</p>
 			<!--theorem xmlns="http://chharvey.net16.net/xProof/material.xsd">
 				<summary>There exists an empty set.</summary>
 				<quantifier type="existential">
@@ -285,108 +85,274 @@
 				</quantifier>
 			</theorem-->
 		</div>
+	</section>
+	<section id="axiom-pair">
+		<h1 class="h-delta">Pair</h1>
+		<div class="definition" id="D-pair">
+			<p class="summary">A set is called a <dfn>pair of</dfn> two given sets iff it owns exactly those given sets.</p>
+			<p>We use the predicate <span class="latex">\(s\doteqdot\{x,y\}\)</span> to refer to the assertion that the set <span class="latex">\(s\)</span> is a pair of the sets <span class="latex">\(x\)</span> and <span class="latex">\(y\)</span>, and <span class="latex">\(s\not\doteqdot\{x,y\}\)</span> for the negation.</p>
+			<p class="latex">\[
+				\left(z\in \{x,y\}\right)
+				\equiv
+				\left(
+					(z=x)
+					\lor
+					(z=y)
+				\right)
+			\]</p>
+		</div>
 		<div class="axiom" id="A-pair">
 			<p class="summary"><span class="lede">The Axiom of Pair</span> For every two sets, there exists a set that owns exactly them both.</p>
-			<p class="latex wff">\[\expand{For every two sets, there exists a set that owns exactly them both.}{
-				(\forall x)(\forall y)\expand{there exists a set that owns exactly \(x\) and \(y\)}{
-					(\exists z)\expand{\(z\) owns \(x\) and \(y\) and no other sets}{
-						(\forall w)\expand {\(z\) owns \(w\) if and only if \(w\) is \(x\) or \(y\)}{
-							(w\in z)
+			<p class="latex wff">\[
+				(\forall x)(\forall y)\expand{\exists\left\{x,y\right\}}{
+					(\exists s)\expand{s\doteqdot\left\{x,y\right\}}{
+						(\forall z)\left(
+							(z\in s)
 							\iff
-							\expand{\(w=x\)}{
-								(\forall t)(t\in w \iff t\in x)
-							}
-							\lor
-							\expand{\(w=y\)}{
-								(\forall t)(t\in w \iff t\in y)
-							}
-						}
+							\left(
+								\expand{z=x}{
+									(\forall t)(t\in z \iff t\in x)
+								}
+								\lor
+								\expand{z=y}{
+									(\forall t)(t\in z \iff t\in y)
+								}
+							\right)
+						\right)
 					}
 				}
-			}\]</p>
+			\]</p>
 		</div>
-		<div class="axiom" id="A-specification">
-			<p class="summary"><span class="lede">The Axiom of Specification</span> Given a set, there exists a subset of elements that adhere to any given predicate.</p>
-			<p>For any set and a given predicate, there exists a set owning elements of that set, under that predicate.</p>
-			<div>(\forall B)(\exists A)(\forall x)\bigl(x\in A \iff x\in B \land \l P_x\bigr)</div>
-		</div>
-		<div class="axiom" id="A-union">
-			<p class="summary"><span class="lede">The Axiom of Union</span> For every set, there exists a set which owns exactly any element belonging to any element of that set.</p>
+	</section>
+	<section id="axiom-power">
+		<h1 class="h-delta">Power</h1>
+		<div class="definition" id="D-powerset">
+			<p class="summary">A set is called a <dfn>power set of</dfn> a given set iff it owns exactly all subsets of the given set.</p>
+			<p>We use the predicate <span class="latex">\(s\doteqdot\wp x\)</span> to refer to the assertion that the set <span class="latex">\(s\)</span> is a power set of the set <span class="latex">\(x\)</span>, and <span class="latex">\(s\not\doteqdot\wp x\)</span> for the negation.</p>
+			<p class="latex">\[
+				\left(y\in \wp x\right)
+				\equiv
+				\left(y\subseteq x\right)
+			\]</p>
 		</div>
 		<div class="axiom" id="A-power">
-			<p class="summary"><span class="lede">The Axiom of Power</span> There exists a set that has, as elements, exactly all subsets of any given set.</p>
-			<!--
-				%\begin{definition}\Dlabel{D:powerset}
-%	A set~$\powerset{S}$ is defined as a \defn{powerset} of a set~$S$ iff it owns all subsets of $S$.
-%	\begin{equation*}\label{eq:powerset}
-%		\powerset{S} = \{s : s \subseteq S\}
-%	\end{equation*}
-%\end{definition}
-%\begin{boxedaxiom}[Axiom of Power\indexterm{Axiom!of Power}]\Alabel{A:powerset}
-%	For any set there exists a set that owns exactly all subsets of that set.
-%	\begin{equation*}\label{eq:powersetAxiom}
-%		\forall S : \exists \powerset{S} : \forall x : (x \in \powerset{S} \iff x \subseteq S)
-%	\end{equation*}
-%\end{boxedaxiom}
-%\begin{proposition}\Plabel{P:powerset}
-%	There exists exactly one powerset for every set.
-%	\begin{proof}
-%		\Aref{A:powerset} guarantees the existence of at least one collection of subsets of $S$. \Aref{A:extensionality} guarantees that all of these powersets are equal. For any given $S$, $\powerset{S}$ is well defined.
-%	\end{proof}
-%\end{proposition}
-
-			-->
-		</div>
-		<div class="axiom" id="A-infinity">
-			<p class="summary"><span class="lede">The Axiom of Infinity</span> There exists a set that owns an empty set and <span class="draft">is closed under succession</span>.</p>
-		</div>
-	</section>
-	<section>
-		<h1 class="h-gamma">Other Axioms</h1>
-		<div class="axiom draft" id="A-foundation">
-			<p class="summary"><span class="lede">The Axiom of Foundation</span> Membership is antireflexive.</p>
-			<p class="latex wff">\[\expand{No set is a member of itself.}{
-				(\forall x)(x\not\in x)
-			}\]</p>
-		</div>
-	</section>
-<!--/section>
-<section-->
-	<div class="theorem" id="T-emptysetunique">
-		<p class="summary">The empty set is unique.</p>
-		<p class="latex wff">\[\expand{The empty set is unique.}{
-			(\forall x)\expand{if \(x\) is empty then it is unique}{
-				\expand{\(x\) is empty}{
-					(\forall t)(t\not\in x)
-				}
-				\implies
-				\expand{\(x\) is unique}{
-					(\forall y)\expand{\(y\) is empty iff \(x=y\)}{
-						\expand{\(y\) is empty}{
-							(\forall t)(t\not\in y)
-						}
-						\iff
-						\expand{\(x=y\)}{
-							(\forall t)(t\in x \iff t\in y)
-						}
+			<p class="summary"><span class="lede">The Axiom of Power</span> There exists a set that owns exactly all subsets of any given set.</p>
+			<p class="latex wff">\[
+				(\forall x)\expand{\exists\wp x}{
+					(\exists s)\expand{\(s\doteqdot\wp x\)}{
+						(\forall y)\left(
+							(y\in s)
+							\iff
+							\expand{y\subseteq x}{
+								(\forall t)(t\in y \implies t\in x)
+							}
+						\right)
 					}
 				}
-			}
-		}\]</p>
-		<p class="latex wff">\[\expand{All empty sets are equal.}{
-			(\forall x)(\forall y)\expand{if \(x\) and \(y\) are empty then they are equal}{
-				\expand{\(x\) and \(y\) are empty}{
-					(\forall t)(t\not\in x \land t\not\in y)
+			\]</p>
+		</div>
+	</section>
+	<section id="axiom-union">
+		<h1 class="h-delta">Union</h1>
+		<div class="definition" id="D-union">
+			<p class="summary">A set is called a <dfn>union of</dfn> a given set iff it owns exactly any members belonging to any elements of the given set.</p>
+			<p>We use the predicate <span class="latex">\(s\doteqdot\bigcup x\)</span> to refer to the assertion that the set <span class="latex">\(s\)</span> is a union of the set <span class="latex">\(x\)</span>, and <span class="latex">\(s\not\doteqdot\bigcup x\)</span> for the negation.</p>
+			<p class="latex">\[
+				\left(y\in\bigcup x\right)
+				\equiv
+				\left(
+					(\exists z\in x)(y\in z)
+				\right)
+			\]</p>
+			<p>Given the pair <span class="latex">\(\left\{u,v\right\}\)</span>, the union <span class="latex">\(\bigcup\left\{u,v\right\}\)</span> is called, for simplicity, <q>the union of <span class="latex">\(u\)</span> and <span class="latex">\(v\)</span></q> and is denoted <span class="latex">\(u\cup v\)</span>. It owns exactly any members belonging to <span class="latex">\(u\)</span> or <span class="latex">\(v\)</span>.</p>
+		</div>
+		<div class="axiom" id="A-union">
+			<p class="summary"><span class="lede">The Axiom of Union</span> There exists a set that owns exactly any element belonging to any element of a given nonempty set.</p>
+			<p class="latex wff">\[
+				(\forall x)\left(
+					\expand{x\not\doteqdot\varnothing}{
+						(\exists t)(t\in x)
+					}
+					\implies
+					\expand{\exists\bigcup x}{
+						(\exists s)\expand{s\doteqdot\bigcup x}{
+							(\forall y)\left(
+								(y\in s)
+								\iff
+								\expand{(\exists z\in x)(y\in z)}{
+									(\exists z)(z\in x \land y\in z)
+								}
+							\right)
+						}
+					}
+				\right)
+			\]</p>
+		</div>
+	</section>
+	<section id="axiom-intersection">
+		<h1 class="h-delta">Intersection</h1>
+		<div class="definition" id="D-intersection">
+			<p class="summary">A set is called a <dfn>union of</dfn> a given set iff it owns exactly all members belonging to all elements of the given set.</p>
+			<p>We use the predicate <span class="latex">\(s\doteqdot\bigcap x\)</span> to refer to the assertion that the set <span class="latex">\(s\)</span> is an intersection of the set <span class="latex">\(x\)</span>, and <span class="latex">\(s\not\doteqdot\bigcap x\)</span> for the negation.</p>
+			<p class="latex">\[
+				\left(y\in\bigcap x\right)
+				\equiv
+				\left(
+					(\forall z\in x)(y\in z)
+				\right)
+			\]</p>
+			<p>Given the pair <span class="latex">\(\left\{u,v\right\}\)</span>, the intersection <span class="latex">\(\bigcap\left\{u,v\right\}\)</span> is called, for simplicity, <q>the intersection of <span class="latex">\(u\)</span> and <span class="latex">\(v\)</span></q> and is denoted <span class="latex">\(u\cap v\)</span>. It owns exactly all members belonging to <span class="latex">\(u\)</span> and <span class="latex">\(v\)</span>.</p>
+		</div>
+		<div class="axiom" id="A-intersection">
+			<p class="summary"><span class="lede">The Axiom of Intersection</span> There exists a set that owns exactly all elements belonging to all elements of a given nonempty set.</p>
+			<p class="latex wff">\[
+				(\forall x)\left(
+					\expand{x\not\doteqdot\varnothing}{
+						(\exists t)(t\in x)
+					}
+					\implies
+					\expand{\exists\bigcap x}{
+						(\exists s)\expand{s\doteqdot\bigcap x}{
+							(\forall y)\left(
+								(y\in s)
+								\iff
+								\expand{(\forall z\in x)(y\in z)}{
+									(\forall z)(z\in x \implies y\in z)
+								}
+							\right)
+						}
+					}
+				\right)
+			\]</p>
+		</div>
+	</section>
+	<section id="axiom-infinity">
+		<h1 class="h-delta">Infinity</h1>
+		<div class="definition" id="D-inductive">
+			<p class="summary">A set is called <dfn>inductive</dfn> iff it is nonempty and each of its elements is owned by another element of the set.</p>
+		</div>
+		<div class="axiom" id="A-infinity">
+			<p class="summary"><span class="lede">The Axiom of Infinity</span> There exists a nonempty set of which each element is owned by another element of this set.</p>
+			<p class="latex wff">\[
+				(\exists s)\left(
+					\expand{s\not\doteqdot\varnothing}{
+						(\exists t)(t\in s)
+					}
+					\land
+					\expand{(\forall x\in s)(\exists y\in s)(x\in y)}{
+						(\forall x)\left(
+							(x\in s)
+							\implies
+							\expand{(\exists y\in s)(x\in y)}{
+								(\exists y)(y\in s \land x\in y)
+							}
+						\right)
+					}
+				\right)
+			\]</p>
+		</div>
+		<footer class="informal">
+			<p>At this point, we do not have a formal definition for a set that is <a>infinite</a>, but informally we can think of infinite sets as having <i class="scare">never-ending</i> elements: there are more elements than we can count. One way to achieve this is to assert the existence of an inductive set. Indeed, it is true that <a>all inductive sets are infinite</a>. The converse is left as a cliffhanger.</p>
+			<p>The intent of <a href="#A-infinity">The Axiom of Infinity</a> is that there exists an <i class="scare">infinite</i> set; that is, a set with an <i class="scare">unlimited number</i> of elements. However, <a href="#D-inductive">D-inductive</a> only requires that an inductive set be nonempty, and own <em>at least one</em> element for every element it owns.</p>
+			<p class="example">For example, it is not unreasonable to consider the sets <span class="latex">\(a\)</span> and <span class="latex">\(b\)</span> such that <span class="latex">\(a\in b\)</span> and <span class="latex">\(b\in a\)</span>. <small>Formally, we are not guaranteed the existence of such sets, but let's hypothesize that they do exist.</small> Certainly, <a href="#A-pair">the pair <span class="latex">\(\{a,b\}\)</span> exists</a>, and indeed it does meet the requirements of <a href="#D-inductive">D-inductive</a>: <span class="latex">\(\{a,b\}\)</span> is nonempty, and for every <span class="latex">\(x\in \{a,b\}\)</span>, there exists a <span class="latex">\(y\in \{a,b\}\)</span> such that <span class="latex">\(x\in y\)</span>.</p>
+			<p>It is to our disappointment that a collection such as the pair discussed above (if it exists) is inductive but is not <i class="scare">infinite</i> (satisfying our intuitive understanding of infinite sets). Thus we must create a new rule that does not allow sets to own themselves, or to own elements that own themselves, or so on. Essentially, we cannot allow the chain of membership to be cyclical. This will <em>ensure</em> that for any element in an inductive set, we must have a <i class="scare">new</i> element&mdash;one that hasn't been mentioned before&mdash;in the set. This will satisfy our intuitive notion of a set with more elements than we can count.</p>
+		</footer>
+	</section>
+	<section id="axiom-regularity">
+		<header>
+			<h1 class="h-delta">Regularity</h1>
+			<div class="informal">					
+				<p>Below is the seventh axiom of the foundation of mathematics. Rather than declaring the existence of certain sets, as the first six do, this axiom merely states a fact about sets that already exist.</p>
+			</div>
+		</header>
+		<div class="definition" id="D-regular">
+			<p class="summary">A set is called <dfn>regular</dfn> iff it is empty or it has an element that does not own another element of the set.</p>
+		</div>
+		<div class="axiom" id="A-regularity">
+			<p class="summary"><span class="lede">The Axiom of Regularity</span> Every nonempty set has an element that does not own another element of the set.</p>
+			<p class="latex wff">\[
+				(\forall s)\left(
+					\expand{s\not\doteqdot\varnothing}{
+						(\exists t)(t\in s)
+					}
+					\implies
+					\expand{(\exists x\in s)(\forall y\in s)(y\not\in x)}{
+						(\exists x)\left(
+							(x\in s)
+							\land
+							\expand{(\forall y\in s)(y\not\in x)}{
+								(\forall y)\left(
+									(y\in s)
+									\implies
+									\expand{y\not\in x}{\lnot(y\in x)}
+								\right)
+							}
+						\right)
+					}
+				\right)
+			\]</p>
+		</div>
+	</section>
+</section>
+<section class="draft" id="consequences">
+	<h1 class="h-beta">Consequences of the Axioms</h1>	
+	<section id="singleton">
+		<h1 class="h-gamma">Singletons</h1>
+		<div class="definition" id="D-singleton">
+			<p class="summary">A set is called a <dfn>singleton of</dfn> a given set iff it owns exactly that given set.</p>
+			<p>We use the predicate <span class="latex">\(s\doteqdot\left\{x\right\}\)</span> to refer to the assertion that the set <span class="latex">\(s\)</span> is a singleton of <span class="latex">\(x\)</span>.</p>
+			<p class="latex">\[
+				\left(y\in \{x\}\right)
+				\equiv
+				\left(y=x\right)
+			\]</p>				
+		</div>
+		<div class="theorem" id="T-singletonexists">
+			<p class="summary">Every set has a singleton.</p>
+			<p class="latex wff">\[
+				(\forall x)\expand{\exists\left\{x\right\}}{
+					(\exists s)\expand{s\doteqdot\left\{x\right\}}{
+						(\forall y)\left(
+							(y\in s)
+							\iff
+							\expand{y=x}{
+								(\forall t)(t\in y \iff t\in x)
+							}
+						\right)
+					}
 				}
-				\implies
-				\expand{\(x=y\)}{
-					(\forall t)(t\in x \iff t\in y)
+			\]</p>
+			<div class="proof draft"></div>
+		</div>
+	</section>
+	<section id="uniqueness">
+		<header>
+			<h1 class="h-gamma">Uniqueness</h1>
+			<p class="prose draft">The Axioms above merely state the <em>existence</em> of certain sets. Some of those sets have <em>uniqueness</em>, meaning that any two sets that are constructed the same way are equal. This section proves or disproves uniqueness for each axiom.</p>
+		</header>
+		<div class="theorem" id="T-emptysetunique">
+			<p class="summary">The empty set is unique.</p>
+			<p class="latex wff">\[
+				\expand{\varnothing\text{ is unique}}{
+					(\forall a)(\forall b)\left(
+						\left(
+							\expand{a\doteqdot\varnothing}{
+								(\forall t)\expand{t\not\in a}{\lnot(t\in a)}
+							}
+							\land
+							\expand{b\doteqdot\varnothing}{
+								(\forall t)\expand{t\not\in b}{\lnot(t\in b)}
+							}
+						\right)
+						\implies
+						\expand{a=b}{
+							(\forall t)(t\in a \iff t\in b)
+						}
+					\right)
 				}
-			}
-		}\]</p>
-		<p>The empty set is denoted <span class="latex">\(\varnothing\)</span>.</p>
-		<div class="proof">
-			<pre>
+			\]</p>
+			<div class="proof">
+				<!--pre>
 Let x be an empty set.		premise
 Let y be an empty set.		assumption
 x and y are empty sets		conjunction introduction
@@ -400,472 +366,513 @@ now, assume t\in y			assumption
 ... t\in x					WLOG
 x=y							dfn of equality
 
-(recap: if \forall t : t\not\in x \land t\not\in y, then assuming t\in x, we can conclude t\in y, and assuming t\in y, we can conclude t\in x. thus x=y. In conclusion, if x is empty and there is another set y that is also empty, then x=y. The empty set must be unique.)
-			</pre>
+	(recap: if \forall t : t\not\in x \land t\not\in y, then assuming t\in x, we can conclude t\in y, and assuming t\in y, we can conclude t\in x. thus x=y. In conclusion, if x is empty and there is another set y that is also empty, then x=y. The empty set must be unique.)
+				</pre-->
+			</div>
 		</div>
-	</div>
-	<div class="theorem" id="T-pairunique">
-		<p class="summary">A pair constructed from two sets is unique.</p>
-		<p class="latex wff">\[\expand{A pair constructed from two sets is unique.}{
-			(\forall x)(\forall y)\expand{all pairs that own only \(x\) and \(y\) are equal}{
-				(\forall a)(\forall b)\expand{if \(a\) and \(b\) are pairs of \(x\) and \(y\) then \(a\) and \(b\) are equal}{
-					\expand{\(a\) and \(b\) own \(x\) and \(y\) and no other sets}{
-						\expand{\(a\) owns only \(x\) and \(y\)}{
-							(\forall z)\expand {\(a\) owns \(z\) if and only if \(z\) is \(x\) or \(y\)}{
-								(z\in a)
-								\iff
-								\expand{\(z=x\)}{
-									(\forall t)(t\in z \iff t\in x)
-								}
-								\lor
-								\expand{\(z=y\)}{
-									(\forall t)(t\in z \iff t\in y)
-								}
+		<div class="theorem" id="T-pairunique">
+			<p class="summary">A pair constructed from two given sets is unique.</p>
+			<p class="latex wff">\[
+				(\forall x)(\forall y)\expand{\left\{x,y\right\}\text{ is unique}}{
+					(\forall a)(\forall b)\left(
+						\left(
+							\expand{a\doteqdot\left\{x,y\right\}}{
+								(\forall z)\left(
+									(z\in a)
+									\iff
+									\left(
+										\expand{z=x}{
+											(\forall t)(t\in z \iff t\in x)
+										}
+										\lor
+										\expand{z=y}{
+											(\forall t)(t\in z \iff t\in y)
+										}
+									\right)
+								\right)
 							}
+							\land
+							\expand{b\doteqdot\left\{x,y\right\}}{
+								(\forall z)\left(
+									(z\in b)
+									\iff
+									\left(
+										\expand{z=x}{
+											(\forall t)(t\in z \iff t\in x)
+										}
+										\lor
+										\expand{z=y}{
+											(\forall t)(t\in z \iff t\in y)
+										}
+									\right)
+								\right)
+							}
+
+						\right)
+						\implies
+						\expand{a=b}{
+							(\forall t)(t\in a \iff t\in b)
+						}
+					\right)
+				}
+			\]</p>
+			<div class="proof"></div>
+		</div>
+		<div class="theorem" id=T-singletonunique">
+			<p class="summary">A singleton constructed from one set is unique.</p>
+			<p class="latex wff">\[
+				(\forall x)\expand{\{x\}\text{ is unique}}{
+					(\forall a)(\forall b)\left(
+						\left(
+							\expand{a\doteqdot\{x\}}{
+								(\forall y)\left(
+									(y\in a)
+									\iff
+									\expand{y=x}{
+										(\forall t)(t\in y \iff t\in x)
+									}
+								\right)
+							}
+							\land
+							\expand{b\doteqdot\{x\}}{
+								(\forall y)\left(
+									(y\in b)
+									\iff
+									\expand{y=x}{
+										(\forall t)(t\in y \iff t\in x)
+									}
+								\right)
+							}
+						\right)
+						\implies
+						\expand{a=b}{
+							(\forall t)(t\in a \iff t\in b)
+						}
+					\right)
+				}
+			\]</p>
+			<!--  we will show that $\{s\}$ not only exists but is unique. That is, if $s$ is a set and both $S$ and $\bar{S}$ are singletons of $s$, then $S=\bar{S}$. In other words, we will prove
+			$$s=\bar{s} \implies \{s\}=\{\bar{s}\}$$
+			Assume $s=\bar{s}$. Then by change of variables, $\{s\}=\{\bar{s}\}$, as desired. -->
+			<p class="draft">This theorem shows the singleton function is well-defined: if two sets are equal, their singletons <em>must</em> be equal.</p>
+		</div>
+		<div class="theorem" id="T-powersetunique">
+			<p class="summary">The power set constructed from a given set is unique.</p>
+			<p class="latex wff">\[
+				(\forall x)\expand{\wp x\text{ is unique}}{
+					(\forall a)(\forall b)\left(
+						\left(
+							\expand{a\doteqdot\wp x}{
+								(\forall y)\left(
+									(y\in a)
+									\iff
+									\expand{y\subseteq x}{
+										(\forall t)(t\in y \implies t\in x)
+									}
+								\right)
+							}
+							\land
+							\expand{b\doteqdot\wp x}{
+								(\forall y)\left(
+									(y\in b)
+									\iff
+									\expand{y\subseteq x}{
+										(\forall t)(t\in y \implies t\in x)
+									}
+								\right)
+							}
+						\right)
+						\implies
+						\expand{a=b}{
+							(\forall t)(t\in a \iff t\in b)
+						}
+					\right)
+				}
+			\]</p>
+			<div class="proof"></div>
+		</div>
+		<div class="theorem" id="T-unionunique">
+			<p class="summary">The union constructed from a set is unique.</p>
+			<p class="latex wff">\[
+				(\forall x)\expand{\bigcup x\text{ is unique}}{
+					(\forall a)(\forall b)\left(
+						\left(
+							\expand{a\doteqdot\bigcup x}{
+								(\forall y)\left(
+									(y\in a)
+									\iff
+									\expand{(\exists z\in x)(y\in z)}{
+										(\exists z)(z\in x \land y\in z)
+									}
+								\right)
+							}
+							\land
+							\expand{b\doteqdot\bigcup x}{
+								(\forall y)\left(
+									(y\in b)
+									\iff
+									\expand{(\exists z\in x)(y\in z)}{
+										(\exists z)(z\in x \land y\in z)
+									}
+								\right)
+							}
+						\right)
+						\implies
+						\expand{a=b}{
+							(\forall t)(t\in a \iff t\in b)
+						}
+					\right)
+				}
+			\]</p>
+				(\forall u)(\forall v)(\forall x)(\forall z)(z\in x \iff (z=u)\lor(z=v))(\forall a)(\forall b)((((\forall y)(y\in a \iff (\exists z)(z\in x\land y\in z)))\land((\forall y)(y\in b \iff (\exists z)(z\in x\land y\in z))))\implies a=b)
+
+			<div class="proof draft"></div>
+		</div>
+		<div class="theorem" id="T-intersectionunique">
+			<p class="summary">The intersection constructed from a set is unique.</p>
+			<p class="latex wff">\[
+				(\forall x)\expand{\bigcap x\text{ is unique}}{
+					(\forall a)(\forall b)\left(
+						\left(
+							\expand{a\doteqdot\bigcap x}{
+								(\forall y)\left(
+									(y\in a)
+									\iff
+									\expand{(\forall z\in x)(y\in z)}{
+										(\forall z)(z\in x \implies y\in z)
+									}
+								\right)
+							}
+							\land
+							\expand{b\doteqdot\bigcap x}{
+								(\forall y)\left(
+									(y\in b)
+									\iff
+									\expand{(\forall z\in x)(y\in z)}{
+										(\forall z)(z\in x \implies y\in z)
+									}
+								\right)
+							}
+						\right)
+						\implies
+						\expand{a=b}{
+							(\forall t)(t\in a \iff t\in b)
+						}
+					\right)
+				}
+			\]</p>
+			<div class="proof draft"></div>
+		</div>
+		<div class="theorem" id="T-inductivenotunique">
+			<p class="summary">Inductive sets are not necessarily equal.</p>
+			<p class="latex wff">\[
+				(\exists a)(\exists b)\left(
+					\expand{a\text{ is inductive}}{
+						\expand{a\not\doteqdot\varnothing}{
+							(\exists t)(t\in a)
 						}
 						\land
-						\expand{\(b\) owns only \(x\) and \(y\)}{
-							(\forall z)\expand{\(b\) owns \(z\) if and only if \(z\) is \(x\) or \(y\)}{
-								(z\in b)
-								\iff
-								\expand{\(z=x\)}{
-									(\forall t)(t\in z \iff t\in x)
+						\expand{(\forall x\in a)(\exists y\in a)(x\in y)}{
+							(\forall x)\left(
+								(x\in a)
+								\implies
+								\expand{(\exists y\in a)(x\in y)}{
+									(\exists y)(y\in a \land x\in y)
 								}
-								\lor
-								\expand{\(z=y\)}{
-									(\forall t)(t\in z \iff t\in y)
-								}
-							}
+							\right)
 						}
 					}
-					\implies
-					\expand{\(a=b\)}{
-						(\forall t)(t\in a \iff t\in b)
-					}
-				}
-			}
-		}\]</p>
-		<p>Given sets <span class="latex">\(x\)</span> and <span class="latex">\(y\)</span>, the set that contains only them both is denoted <span class="latex">\(\left\{x,y\right\}\)</span>.</p>
-		<div class="proof">
-		</div>
-	</div>
-	<div class="definition" id="D-singleton">
-		<p class="summary">A <dfn>singleton</dfn> is a set that owns exactly one element.</p>
-	</div>
-	<div class="theorem" id=T-singletonunique">
-		<p class="summary">A singleton constructed from one set is unique.</p>
-		<!-- For any given set~$s$, \Aref{A:pair} guarantees the existence of a set~$S$ that owns $s$ and $s$.
-		$$S=\{s,s\}=\{s\}$$
-		(because by \Aref{A:set}, sets cannot own more than one of the same element).
-		
-		Now, we will show that $\{s\}$ not only exists but is unique. That is, if $s$ is a set and both $S$ and $\bar{S}$ are singletons of $s$, then $S=\bar{S}$. In other words, we will prove
-		$$s=\bar{s} \implies \{s\}=\{\bar{s}\}$$
-		Assume $s=\bar{s}$. Then by change of variables, $\{s\}=\{\bar{s}\}$, as desired. -->
-		<p class="draft">This theorem shows the well-definedness of the singleton function: if two singletons are unequal, their elements <em>must</em> be unequal.</p>
-	</div>
-	<div class="theorem" id="T-singletoninjection">
-		<p class="summary">The element of a singleton is unique.</p>
-		<p class="draft">This theorem shows the singleton function is injective: if two singletons are equal, their elements <em>must</em> be equal.</p>
-	</div>
-	<!--div class="definition" id="D-possessor">
-		<p class="summary">A <dfn>possessor of</dfn> an element is a set that owns that element.</p>
-		<p>Given a set <span class="latex">\(x\)</span>, <a>The Axiom of Pair</a> guarantees that there exists a possessor <span class="latex">\(z\)</span> that owns <span class="latex">\(x\)</span> (at least). If <span class="latex">\(z\)</span> owns another set <span class="latex">\(y\)</span>, then we may represent <span class="latex">\(z\)</span> using set-builder notation:</p>
-		<p class="latex">\[z=\{x,y\}\]</p>
-		<p>A major interpretation of \Pref{P:singleton} is that for any set~$s$ we are also guaranteed some \indexthis{possessor}~$S$ that owns it. However, we are not guaranteed the existence of an element in every set, as seen by The Axiom of Existence.</p>
-	</div-->
-	<div class="theorem" id="T-universal">
-		<p class="summary">There is no set of which every set is a member.</p>
-		<p class="latex wff">\[\expand{There is no universal set.}{
-			(\forall x)\expand{there is a set that is not a member of \(x\)}{
-				(\exists y)(y\not\in x)
-			}
-		}\]</p>
-		<div class="proof">
-		</div>
-	</div>
-	
-	<div class="theorem" id="T-orderedpairsequal">
-		<p class="summary">Two ordered pairs are equal if and only if their corresponding components are equal.</p>
-		<div class="proof">
-		</div>
-	</div>
-	<div class="theorem" id="T-powersetunique">
-	</div>
-</section>
-	
-<section>
-	<div class="theorem" id="T-emptysetsubset">
-		<p class="summary">Every set includes an empty set.</p>
-		<p class="latex wff">\[\expand{Every set includes an empty set.}{
-			(\forall x)\expand{\(x\) includes an empty set}{
-				(\exists y)\expand{\(y\) is empty and \(x\) includes \(y\)}{
-					\expand{\(y\) is empty}{
-						(\forall t)(t\not\in y)
+					\land
+					\expand{b\text{ is inductive}}{
+						\expand{b\not\doteqdot\varnothing}{
+							(\exists t)(t\in b)
+						}
+						\land
+						\expand{(\forall x\in b)(\exists y\in b)(x\in y)}{
+							(\forall x)\left(
+								(x\in b)
+								\implies
+								\expand{(\exists y\in b)(x\in y)}{
+									(\exists y)(y\in b \land x\in y)
+								}
+							\right)
+						}
 					}
 					\land
-					\expand{\(y\subseteq x\)}{
-						(\forall t)(t\in y\implies t\in x)
+					\expand{a\not=b}{
+						(\exists t)(t\in a \xor t\in b)
 					}
+				\right)
+			\]</p>
+			<div class="proof"></div>
+		</div>
+		<footer class="informal draft">
+			<p>To describe any set <span class="latex">\(x\)</span> as empty, we assert that <span class="latex">\((\forall t)(t\not\in x)\)</span> and use the notation <span class="latex">\(x\doteqdot\varnothing\)</span> as shorthand. But we now see that the notation has a quite literal meaning. That is, any set <span class="latex">\(x\)</span> that is empty is literally equal to the empty set <span class="latex">\(\varnothing\)</span>. We can verify this with <a href="#D-equality">The Intensionality Definition</a>. This goes to show that all empty sets are equal, as proven <a href="T-emptysetunique">above</a>.</p>
+			<p>In our informal discussions, we can reconcile this idea by replacing the shorthand notation with equality.</p>
+			<p class="latex">\[x\doteqdot\varnothing \equiv x=\varnothing\]</p>
+			<p>However in rigorous well-formed formulae we cannot use <span class="latex">\(x=\varnothing\)</span> because <span class="latex">\(\varnothing\)</span> is not technically a symbol in predicate logic.</p>
+		</footer>
+	</section>
+	<section class="draft" id="injectiveness">
+		<header>
+			<h1 class="h-gamma">Injectiveness</h1>
+			<p class="prose draft">Injectiveness is the opposite of uniqueness. While <em>uniqueness</em> states that any two sets that are constructed the same way are equal, <em>injectiveness</em> states that if two equal sets are constructed from given sets, those given sets are equal. This section proves or disproves injectiveness for each axiom.</p>
+		</header>
+		<div class="theorem" id="T-singletoninjection">
+			<p class="summary">The element of a singleton is unique.</p>
+			<p class="draft">This theorem shows the singleton function is injective: if two singletons are equal, their elements <em>must</em> be equal.</p>
+		</div>
+		<div class="theorem" id="T-powersetinjection">
+			<p class="summary">If two power sets are equal, their base sets are equal.</p>
+		</div>
+	</section>
+	<section id="conseq-empty">
+		<h1 class="h-gamma">Consequences of Emptiness</h1>
+		<div class="theorem" id="T-emptysetsubset">
+			<p class="summary">Every set includes the empty set.</p>
+			<p class="latex wff">\[
+				(\forall x)\expand{\varnothing\subseteq x}{
+					(\forall y)\left(
+						\expand{y=\varnothing}{
+							(\forall t)\expand{t\not\in y}{\lnot(t\in y)}
+						}
+						\implies
+						\expand{y\subseteq x}{
+							(\forall t)(t\in y\implies t\in x)
+						}
+					\right)
 				}
-			}
-		}\]</p>
-		<p class="latex wff">\[\expand{Every set includes an empty set.}{
-			(\forall x)\expand{\(x\) includes all empty sets}{
-				(\forall y)\expand{if \(y\) is empty then \(x\) includes \(y\)}{
-					\expand{\(y\) is empty}{
-						(\forall t)(t\not\in y)
+			\]</p>
+			<div class="proof draft">
+				\forall x : \forall y : \forall t :
+				\lnot(t\in y) \implies (t\in y \implies t\in x)
+				t\in y \lor (t\in y \implies t\in x)
+				t\in y \lor (\lnot(t\in y) \lor t\in x)
+				(t\in y \lor \lnot(t\in y)) \lor t\in x
+				\top \lor t\in x
+				\top
+			</div>
+		</div>
+		<div class="theorem" id="T-emptysetelementofintersection">
+			<p class="summary">The intersection of a set that owns an empty set is empty.</p>
+			<p class="latex wff">\[
+				(\forall x)\left(
+					\expand{\varnothing\in x}{
+						(\forall y)\left(
+							\expand{y=\varnothing}{
+								(\forall t)(t\not\in y)
+							}
+							\implies
+							(y\in x)
+						\right)
 					}
 					\implies
-					\expand{\(y\subseteq x\)}{
-						(\forall t)(t\in y\implies t\in x)
+					\expand{\bigcap x = \varnothing}{
+						(\forall t)\expand{t\not\in\bigcap x}{
+							(forall y)\left(
+								\expand{y=\bigcap x}{asdf}
+								\implies
+								(t\not\in y)
+							\right)
+						}
 					}
-				}
-			}
-		}\]</p>
-		<div class="proof">
-			<p></p>
-			<p>The antecedent $\forall x : x\in\emptyset$ is false, so the implication $\forall S : \forall x : (x \in \emptyset \implies x \in S)$ (from \Dref{D:subset}) is \emph{\indexthis{vacuous}ly} true. Thus $\emptyset \subseteq S$. It is because of this proof that the Empty Set is sometimes called the vacuous\indexterm{vacuous!set|seeonly{Empty Set}} set.</p>
+				\right)
+			\]</p>
 		</div>
-	</div>
-	<hr/>
-	<div class="informal">
-		<p>Tuples. Informal and not part of the system.</p>
-		<div class="latex">\begin{align}
-			\varnothing &:= \{\}\\
-			\langle\rangle &:= \{\varnothing,\varnothing\}  &&= \{\varnothing\}\\
-			\langle a\rangle &:= \bigl\{\langle\rangle,a\bigr\} &&= \bigl\{\{\varnothing\}, a\bigr\}\\
-			\langle a,b\rangle &:= \bigl\{\langle a\rangle,b\bigr\} &&= \Bigl\{\bigl\{\{\varnothing\}, a\bigr\}, b\Bigr\}\\
-			\langle a,b,c\rangle &:= \bigl\{\langle a,b\rangle,c\bigr\} &&= \biggl\{\Bigl\{\bigl\{\{\varnothing\}, a\bigr\}, b\Bigr\}, c\biggr\}\\
-			\langle a,b,c,d\rangle &:= \bigl\{\langle a,b,c\rangle,d\bigr\} &&= \Biggl\{\biggl\{\Bigl\{\bigl\{\{\varnothing\}, a\bigr\}, b\Bigr\}, c\biggr\}, d\Biggr\}
-		\end{align}</div>
-	</div>
-	<div class="definition draft" id="tuple">
-		<p>Ordered Pairs. Formal and necessary.</p>
-		<div class="latex">\begin{align}
-			(a,b)   &:= \{\{a\},b\}\\
-			(a,b,c) &:= \bigl((a,b),c\bigr) = \Bigl\{\bigl\{(a,b)\bigr\},c\Bigr\} = \Bigl\{\bigl\{\bigl\{\{a\},b\bigr\}\bigr\},c\Bigr\}\\
-			(a,b,c,d) &:= \bigl((a,b,c),d\bigr) = \dots = \biggl\{\Bigl\{\Bigl\{\bigl\{\bigl\{\{a\},b\bigr\}\bigr\},c\Bigr\}\Bigr\},d\biggr\}
-		\end{align}</div>
-		<div class="latex">\begin{align}
-			(a,b)   &:= \{a,\{b\}\}\\
-			(a,b,c) &:= \bigl((a,b),c\bigr) = \bigl\{(a,b), \{c\}\bigr\} = \Bigl\{\bigl\{a,\{b\}\bigr\},\{c\}\Bigr\}\\
-			(a,b,c,d) &:= \bigl((a,b,c),d\bigr) = \dots = \biggl\{\Bigl\{\bigl\{a,\{b\}\bigr\},\{c\}\Bigr\},\{d\}\biggr\}
-		\end{align}</div>
-	</div>
-</section>
-<section>
-	<!-- 	A relation on two sets is a subset of the Cartesian product of those sets.
-	\begin{proof}
-		By \Nref{N:relation}, any relation~$\sim$ is described as ${\sim}=\bigl\{\langle x,y \rangle \in X \times Y : \pred{R}{x,y}\bigr\}$. Equivalently,
-		$$\forall \langle x,y\rangle : \bigl(\langle x,y \rangle \in {\sim} \iff \langle x,y \rangle \in X \times Y \land \pred{R}{x,y}\bigr)$$
-		This is precisely the requirement for \Aref{A:specification}. Thus, $\langle x,y\rangle \in {\sim} \implies \langle x,y\rangle \in X\times Y$ and we have ${\sim}\subseteq X\times Y$.
-	\end{proof}
--->
-	<div>
-		reflexive:
-		<div class="latex">\[(\forall a\in s) (a\sim a)\]</div>
-	</div>
-	<div>
-		areflexive:
-		<div class="latex">\[(\exists a\in s) (a\not\sim a)\]</div>
-	</div>
-	<div>
-		antireflexive:
-		<div class="latex">\[(\forall a\in s) (a\not\sim a)\]</div>
-	</div>
-	<div>
-		symmetric:
-		<div class="latex">\[(\forall a,b\in s) (a\sim b \implies b\sim a)\]</div>
-	</div>
-	<div>
-		asymmetric:
-		<div class="latex">\[(\exists a,b\in s) (a\sim b \land b\not\sim a)\]</div>
-	</div>
-	<div>
-		antisymmetric:
-		<div class="latex">\[(\forall a,b\in s) (a\sim b \implies b\not\sim a)\]</div>
-	</div>
-	<div style="background-color: #eee;">
-		something else:
-		<div class="latex">\[(\forall a,b\in s)(a\sim b \land b\sim a \implies a=b)\]</div>
-	</div>
-	<div>
-		transitive:
-		<div class="latex">\[(\forall a,b,c\in s) (a\sim b \land b\sim c \implies a\sim c)\]</div>
-	</div>
-	<div>
-		atransitive:
-		<div class="latex">\[(\exists a,b,c\in s) (a\sim b \land b\sim c \land a\not\sim c)\]</div>
-	</div>
-	<div>
-		antitransitive:
-		<div class="latex">\[(\forall a,b,c\in s) (a\sim b \land b\sim c \implies a\not\sim c)\]</div>
-	</div>
-	<!--div>
-		\begin{definition}\Dlabel{D:lowerBound}
-	Then an element~$d\in A$ is a \defn{lower bound} of $B$ iff for all $x\in B$, $d\leq x$. When $d$ is a lower bound of $B$, we say $B$ is \defn{bounded below} by $d$.
-	 
-	Then an element~$u\in A$ is an \defn{upper bound} of $B$ iff for all $x\in B$, $x\leq u$. When $u$ is an upper bound of $B$, we say $B$ is \defn{bounded above} by $u$.
-\end{definition}
-
-\begin{definition}\Dlabel{D:infimum}
-	Then a lower bound~$i\in A$ of $B$ is an \defn{infimum} of $B$ iff, for every lower bound~$d\in A$ of $B$, $d\leq i$. When $i$ is an infimum of $B$, we write $i=\inf{B}$.
-	
-	Then an upper bound~$s\in A$ of $B$ is a \defn{supremum} of $B$ iff, for every upper bound~$u\in A$ of $B$, $s\leq u$. When $s$ is a supremum of $B$, we write $s=\sup{B}$.
-\end{definition}
-
-\begin{definition}\Dlabel{D:minimum}
-	Then an infimum~$a$ of $B$ is a \defn{minimum} of $B$ iff $a\in B$. When $a$ is a minimum of $B$, we write $a=\min{B}$.
-	
-	Then a supremum~$b$ of $B$ is a \defn{maximum} of $B$ iff $b\in B$. When $b$ is a maximum of $B$, we write $b=\max{B}$.
-\end{definition}
-
-\begin{proposition}\Plabel{P:infimumSupremumUnique}
-	If a set has an infimum, that infimum is unique. If a set has a supremum, that supremum is unique. (Every set has at most one infimum and at most one supremum.)
-	\begin{proof}
-		Suppose a set $B$ has two infima~$i$ and $j$. \Dref{D:infimum} says $i$ and $j$ are both lower bounds. But if $i$ is an infimum then $j\leq i$, and if $j$ is an infimum then $i\leq j$. Thus $j\leq i \land i\leq j$. By the antisymmetry of the total order~$\leq$ (\Dref{D:totalOrder}), $i=j$. Then $B$ has only one infimum. A parallel proof can be provided for suprema.
-	\end{proof}
-\end{proposition}
-
-\begin{definition}\Dlabel{D:strictTotalOrder}
-	Define $<$ on a chain~$\langle O,\leq\rangle$ such that:
-	\begin{equation*}\label{eq:strictlyLessThan}
-		\forall x,y\in O : x<y \iff x\leq y \land x\not=y
-	\end{equation*}
-	For any $x,y\in O$, we say $x$ is \defnidx{strictly less than}{less than!strictly} $y$ when $x<y$. Conversely, we say $x$ is \defnidx{strictly greater than}{greater than!strictly} $y$ when $y<x$, or written, $x>y$.
-\end{definition}
-
-\begin{theorem}\Tlabel{T:strictTotalOrder}
-	``Strictly less than'' is a binary relation that is irreflexive, asymmetric, antisymmetric, transitive, and comparable.
-	\begin{proof}
-		We are given a chain~$\langle O,\leq\rangle$. Recall \Dref{D:totalOrder}, that the relation~$\leq$ is reflexive, antisymmetric, transitive, and comparable (see \Dref{D:relationProperties}). For all $x,y,z\in O$,
-		\begin{enumerate}
-			\item[\case{Binary Relation}] ??? prove $<$ is a binary relation by \Dref{D:relation}???
-			\item[\case{Asymmetry}] Let $x<y$. Then $x\leq y$ but $x\not=y$. Suppose to the contrary that $y<x$ also. Then $y\leq x \land y\not=x$. By the antisymmetry of $\leq$, we have $x\leq y \land y\leq x$, thus $x=y$. But $x\not=y$ by assumption. We have the \indexthis{contradiction}~$x=y\land\lnot(x=y)$. Therefore, whenever $x<y$ it is the case that $y\not<x$, which proves asymmetry.
-			\item[\case{Irreflexivity}] Assume $<$ is not irreflexive. Then $\exists x\in O : x<x$. By asymmetry, we have $x<x \implies x\not<x$, which is logically equivalent to $x\not<x$. We have the \indexthis{contradiction}~$x<x \land \lnot(x<x)$. Therefore $<$ is irreflexive.
-			\item[\case{Antisymmetry}] As a consequence of asymmetry, we have the \indexthis{vacuous} implication~$x<y \land y<x \implies x=y$ (the antecedent is false). Therefore antisymmetry holds true.
-			\item[\case{Transitivity}] Let $x<y$ and $y<z$. Then $x\leq y$ with $x\not=y$ and $y\leq z$ with $y\not=z$. By the transitivity of $\leq$, $x\leq z$. Now if $x=z$ then we have $y<x$, but we know $x<y$ and $<$ is asymmetric, so $y\not<x$, a \indexthis{contradiction}. Thus $x\not=z$ and $x\leq z$, so $x<z$. Therefore $<$ is transitive.
-			\item[\case{Comparability}] Assume $x\not=y$. By comparability of $\leq$, at least one of $x\leq y$ or $y\leq x$ holds true. Expanding, $x<y \land x\not=y$ or $y<x \land y\not=x$ holds true. But by our assumption, this simplifies to $x<y \lor y<x$. Therefore comparability holds.
-		\end{enumerate}
-		Since $<$ is an irreflexive, asymmetric, antisymmetric, transitive, and comparable binary relation, we call $<$ a \defn{strict total order} on $O$.
-	\end{proof}
-\end{theorem}
-\begin{definition}\Dlabel{D:closedInterval}
-	Given a chain~$\langle O,\leq\rangle$, a subset~$[a,b]$ of $O$ is a \defnidx{closed interval}{interval!closed} of $O$ iff
-	\begin{gather*}\label{eq:closedInterval}
-		\forall x : \bigl(x\in [a,b] \iff x\in O \land (a\leq x \land x \leq b)\bigr) \\
-		[a,b]=\{x \in O : a \leq x \leq b\}
-	\end{gather*}
-	We say $a$ is the \defnidx{left endpoint}{endpoint!left} of $[a,b]$ and $b$ is the \defnidx{right endpoint}{endpoint!right} of $[a,b]$.
-\end{definition}
-
-\begin{definition}\Dlabel{D:openInterval}
-	Given a chain~$\langle O,\leq\rangle$, a subset~$(a,b)$ of a closed interval~$[a,b]$ of $O$ is an \defnidx{open interval}{interval!open} of $O$ iff
-	\begin{gather*}\label{eq:openInterval}
-		\forall x : \bigl(x\in (a,b) \iff x\in [a,b] \land (a\not=x \land x\not=b)\bigr)\\
-		(a,b)=\{x \in O : a < x < b\}
-	\end{gather*}
-	By \Tref{T:inclusionRelation}, $(a,b)\subseteq O$.
-	We say $a$ is the \defnstyle{left endpoint} of $(a,b)$ and $b$ is the \defnstyle{right endpoint} of $(a,b)$.
-\end{definition}
-
-\begin{proposition}\Plabel{P:intervalsExist}
-	Given a chain~$\langle O,\leq\rangle$ and two elements~$a,b\in O$, there exists exactly one closed interval~$[a,b]$ of $O$, and exactly one open interval~$(a,b)$ of $O$.
-	\begin{proof}
+		Given any set~$A$, the intersection of $A$ with $\emptyset$ is equal to $\emptyset$.
 		
-	\end{proof}
-\end{proposition}
-\begin{definition}\Dlabel{D:equivalenceRelation}
-	A preorder~$\equiv$ on a set~$S$ is defined as an \defnidx{equivalence relation}{relation!equivalence}\indexterm{equivalence!relation|seeonly{relation, equivalence}} iff it is symmetric. (An equivalence relation is reflexive, symmetric, and transitive.)
-	If there exists an equivalence relation on a set~$S$ between two elements~$x,y \in S$, then we say $x$ is \defn{equivalent} to $y$ and write $x \equiv y$. If the name and symbol of the equivalence relation is known, we use those instead.
-	The symbol for general equivalence relations, $\equiv$, is also used to denote logical equivalence between Boolean statements. We leave it to the reader to be able to distinguish the context.
+		Given any set~$A$, the union of $A$ with $\emptyset$ is equal to $A$.
+		
+	</section>
+	<section id="conseq-unionintersection">
+		<h1 class="h-gamma">Consequences of Union and Intersection</h1>
+		prove:
+		<div class="latex">\[
+			y\in (u\cup v) \iff (y\in u \lor y\in v)\\
+			y\in \bigcup\{u,v\} \iff (y\in u \lor y\in v)\\
+			(\exists z\in \{u,v\})(y\in z) \iff (y\in u \lor y\in v)
+		\]</div>
+		(use thm of bound existential quantifier)
+
+		prove:
+		<div class="latex">\[
+			y\in (u\cap v) \iff (y\in u \land y\in v)\\
+			y\in \bigcap\{u,v\} \iff (y\in u \land y\in v)\\
+			(\forall z\in \{u,v\})(y\in z) \iff (y\in u \land y\in v)
+		\]</div>
+		(use thm of bound existential quantifier)
+
+		<div class="definition" id="D-complement">
+			<p class="summary">Given sets <span class="latex">\(x\)</span> and <span class="latex">\(y\)</span>, a set is called a <dfn>complement of <span class="latex">\(x\)</span> relative to <span class="latex">\(y\)</span></dfn>, denoted <span class="latex">\(y\backslash x\)</span>, iff it owns exactly all elements of <span class="latex">\(y\)</span> that <em>are not</em> elements of <span class="latex">\(x\)</span>.</p>
+			<p class="latex">\[
+				\left(z\in(y\backslash x)\right)
+				\equiv
+				\left(
+					(z\in y)
+					\land
+					(z\not\in x)
+				\right)
+			\]</p>
+		</div>
+		The set that owns a set~$A$ and its complement~$A_{\complement}$ is polychotomous. $A \cup A_{\complement} = U \land A \cap A_{\complement} = \emptyset$
+		
+		The complement operation is the inverse of itself. $\forall B: (B_{\complement})_{\complement}$ = $B$. (parallel to double negation)
+		
+
+<!--
+\begin{definition}\Dlabel{D:collectiveExhaustion}
+	A cluster~$\mathcal{A}$ of sets is defined to be \defn{collectively exhaustive} relative to a given set~$U$ iff its union is equal to $U$.
 \end{definition}
-\begin{definition}\Dlabel{D:equivalenceClass}
-	If $\equiv$ is an equivalence relation on a set $S$ and if $s \in S$, then the set~$[s]$ is an \defnidx{equivalence class}{equivalence!class} of $s$ relative to $\equiv$ on $S$ iff it owns all and only all elements of $S$ that are equivalent to $s$ with respect to $\equiv$. Given a set~$S$ and an equivalence relation~$\equiv$,
-	\begin{equation*}\label{eq:equivalenceClass}
-		\forall s \in S : [s]=\{x\in S : x \equiv s\}
-	\end{equation*}
+\begin{definition}\Dlabel{D:mutualExclusion}
+	A cluster~$\mathcal{B}$ of sets is defined to be \defn{mutually exclusive} iff its intersection is equal to the Empty Set.
 \end{definition}
-
-\begin{proposition}\Plabel{P:equivalenceClassSubset}
-	If there exists an equivalence relation~$\equiv$ on a nonempty set~$S$, then for every element~$s$ in $S$, an equivalence class~$[s]$ of $s$ relative to $\equiv$ on $S$ exists. And $[s]$ is a subset of $S$.
-%	$$\forall S : \forall{\equiv} : \forall s \in S : \exists [s] : \forall x : \bigl(x \in [s] \iff x \in S \land x \equiv s\bigr)$$
-	\begin{proof}
-		\Dref{D:equivalenceClass} meets the criteria of \Dref{D:subset}. \Aref{A:specification} guarantees that equivalence classes exist.
-	\end{proof}
-\end{proposition}
-
-\begin{definition}\Dlabel{D:equivalenceClassRepresentation}
-	Let $\equiv$ be an equivalence relation on a set~$S$. A set~$R$ is an \defnidx{equivalence class representation}{equivalence!class!representation} of $S$, rather, a \emph{complete set of equivalence class representatives} on $S$, iff $R$ is a subset of $S$ and $R$ contains exactly one element~$s$, called an \defnidx{equivalence class representative}{equivalence!class!representative}, from each equivalence class~$[s]$ relative to $\equiv$ on $S$.
+\begin{definition}\Dlabel{D:polychotomy}
+	A cluster~$\mathcal{C}$ is \defn{polychotomous} (there exists a \defnstyle{polychotomy}) relative to a set~$U$ iff it is both collectively exhaustive relative to $U$ and mutually exclusive.
 \end{definition}
+-->
+		<pre class="draft">
+Identity Laws:
+x \cap U = x (parallel to logical p \land \top = p)
+x \cup \varnothing = x (parallel to logical p \lor \bot = p)
 
-\begin{proposition}\Plabel{P:equivalenceRepresentation}
-	For any set~$S$ with an equivalence relation~$\equiv$, there exists an equivalence class representation of $S$.
-	\begin{equation*}\label{eq:equivalenceRepresentation}
-		\forall S : \forall{\equiv} : \exists R : \forall x : \bigl(x \in R \iff x \in S \land \dots\bigr)
-	\end{equation*}
-	\begin{proof}
-		???????????? .......... %%%%%%%%%%%%%%%%%%%
-	\end{proof}
-\end{proposition}
+Domination Laws:
+x \cup U = U (parallel to logical p \lor \top = \top)
+x \cap \varnothing = \varnothing (parallel to logical p \land \bot = \bot)
 
-\begin{theorem}\Tlabel{T:equivalenceClassSet}
-	Given a set and an equivalence relation, there exists a collection which owns each equivalence class on that set.
-	\begin{proof}
-		Let $\equiv$ be an equivalence relation on a set~$S$. For each equivalence class~$[s]$ relative to $\equiv$ on $S$, \Pref{P:singleton} guarantees the existence of the singleton~$\{[s]\}$....
-		?????? ?????? ????? %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-		\textsf{this theorem might need to use unions (\Dref{D:union} and \Aref{A:union})}
-		We are trying to find $\mathcal{E}$
-	\end{proof}
-\end{theorem}
+\text{commutative:}\\
+u\cup v = v\cup u\\
+\bigcup\left\{u,v\right\} = \bigcup\left\{v,u\right\}\\
+u\cap v = v\cap u\\
+\bigcap\left\{u,v\right\} = \bigcap\left\{v,u\right\}\\
 
-	</div-->
-	<!--div>
-	\begin{definition}\Dlabel{D:function}
-	A binary relation~$f$ is called a \defn{function} (also known as a \defn{mapping}), iff $f$ is \defn{defined} and \defn{well-defined}. See \Dref{D:relationProperties}.\ref{eq:defined} and \Dref{D:relationProperties}.\ref{eq:wellDefined}.
-	\begin{equation*}\label{eq:function}
-		f=\bigl\{\langle x,y\rangle \in X \times Y : \pred{F}{x,y}\bigr\}
-	\end{equation*}
-	Given the predicate $\pred{F}{x,y}$, $\langle x,y\rangle \in f$. Since $f$ is a relation, we could write $xfy$, but instead we write $f(x)=y$ and we say $y$ is the \defn{value} of the function~$f$ at the \defn{argument}~$x$. We say \emph{the} value, instead of \emph{a} value, because there exists not more than one, since $f$ is well-defined. An alternative nomenclature is: $f(x)$ is the \defn{image} of the \defn{preimage}~$x$.
-\end{definition}
-
-We specify the relational properties of \Dref{D:relationDomain} and \Dref{D:relationRange} in terms of functions below.
-
-\begin{definition}\Dlabel{D:functionDomain}
-	The set~$D$, called the \defn{domain} of a function~$f$, is the set of all arguments of $f$ in the superdomain~$X$.
-	\begin{equation*}\label{eq:functionDomain}
-		D=\dom{f} = \Bigl\{x \in X : \bigl(\exists y \in Y : f(x)=y\bigr)\Bigr\}
-	\end{equation*}
-	We are guaranteed $D\subseteq X$ by \Aref{A:specification}.
-\end{definition}
-
-\begin{definition}\Dlabel{D:functionRange}
-	The set~$f(D)$, called the \defn{range} of a function~$f$ (whose domain is $D$), is the set of all values of $f$ in the superrange~$Y$.
-	\begin{equation*}\label{eq:functionRange}
-		f(D)=\ran{f} = \Bigl\{y \in Y : \bigl(\exists x \in X : f(x)=y\bigr)\Bigr\}=\bigl\{f(x) \in Y : x \in D\bigr\}
-	\end{equation*}
-	We are guaranteed $f(D)\subseteq Y$ by \Aref{A:specification}.
-\end{definition}
-
-\begin{definition}\Dlabel{D:functionCodomain}
-	The set~$C$, called the \defn{codomain} of a function~$f$, is another name for the the superrange~$Y$.
-	$$C=Y$$
-\end{definition}
-\begin{lemma}\Llabel{L:cartesianSubset}
-	$A\subseteq X$ and $B\subseteq Y$ if and only if $(A\times B)\subseteq(X\times Y)$.
-	\begin{proof}
-		????? \textsf{\Nref{N:function} is dependent on this lemma}
-	\end{proof}
-\end{lemma}
-
-\begin{notation}\Nlabel{N:function}
-	When the function~$f$ is a relation on two sets~$X$ and $Y$, we can write $f$ as the equation in \Dref{D:function}. But the domain~$D \subseteq X$ (\Dref{D:functionDomain}) and the codomain~$C \subseteq Y$ (\Dref{D:functionCodomain} and \eqref{eq:setEquality}). Then $(D\times C)\subseteq(X\times Y)$ (by \Lref{L:cartesianSubset}). Thus we use the notation
-	\begin{equation*}\label{eq:functionDomCodom}
-		(f\colon D \mapsto C)=\bigl\{\langle x,y\rangle \in D \times C : \pred{F}{x,y}\bigr\}
-	\end{equation*}
-	We say $f$ is a function (a mapping) from $D$ into $C$; and that $f$ \defnidx{maps}{map} elements of $D$ to elements of $C$, or $f$ \defnidx{assigns}{assign} elements of $C$ to elements of $D$.
-\end{notation}
-
-\begin{example}\Elabel{E:function}
-	When the argument of a function~$f$ is an ordered pair~$\langle x,y\rangle$, ordered triple~$\langle x,y,z\rangle$, \etc, it is common notation to write the value as $f(x,y)$ or $f(x,y,z)$ rather than the technically correct notation $f\bigl(\langle x,y\rangle\bigr)$ or $f\bigl(\langle x,y,z\rangle\bigr)$.
-\end{example}
-
-\begin{definition}\Dlabel{D:definedFunction}
-	Using new notation, we restate \Dref{D:relationProperties}.\ref{eq:defined}:
-	\begin{equation*}\label{eq:definedRelation}
-		\forall x \in D : \exists y \in C : xfy
-	\end{equation*}
-	We exactly restate the functional requirement. A relation~$f\colon D \mapsto C$ is a function only if it is \defn{defined}: ``Each element of $D$ is mapped to some element of $C$.''
-	\begin{equation*}\label{eq:definedFunction}
-		\forall x \in D : \exists y \in C : f(x)=y
-	\end{equation*}
-\end{definition}
-
-\begin{definition}\Dlabel{D:wellDefinedFunction}
-	Using new notation, we restate \Dref{D:relationProperties}.\ref{eq:wellDefined}:
-	\begin{equation}\label{eq:wellDefinedRelation}
-		\forall x \in D : \forall y,z \in C : \bigl(f(x)=y \land f(x)=z \implies y=z\bigr)
-	\end{equation}
-	We state an analogous functional requirement, which is proved in \Tref{T:wellDefinedFunction}. A relation~$f\colon D \mapsto C$ is a function only if it is \defn{well-defined}: ``An element of $D$ \emph{that is mapped} is mapped to a uniquely determined element of $C$.''
-	\begin{equation}\label{eq:wellDefinedFunction}
-		\forall a,b \in D : a=b \implies f(a)=f(b)
-	\end{equation}
-	Equivalently, $\forall a,b \in D : f(a)\not=f(b) \implies a\not=b$ (``Different elements of $C$ \emph{that are assigned} are assigned to different elements of $D$'').
-\end{definition}
-
-Since any function~$f$ must be defined and well-defined, we say $f$ maps each element of $D$ to a uniquely determined element of $C$; or $f$ assigns a uniquely determined element of $C$ to each element of $D$.
-
-\begin{theorem}\Tlabel{T:wellDefinedFunction}
-	The formulae~\eqref{eq:wellDefinedRelation} and \eqref{eq:wellDefinedFunction} from \Dref{D:wellDefinedFunction} are equivalent.
-	\begin{proof}
-		Logical statements that are materially equivalent take a biconditional form. Thus we must prove both directions.
-		\begin{enumerate}
-			\item[\case{$\implies$}] Given a function~$f\colon D\mapsto C$, assume \eqref{eq:wellDefinedRelation}: that for any argument~$x$ in the domain, if there are two values of $f$ at $x$, then those values are equal.
-				Let $\exists a,b\in D$ such that $a=b$ and let $f(a)=y$ and $f(b)=z$. Then by our assumption, $y=z$, and then by transitivity and symmetry of equality (\Rref{R:identityRelation}), $f(a)=f(b)$. Thus we conclude \eqref{eq:wellDefinedFunction}.
-			\item[\case{$\impliedby$}] Now assume \eqref{eq:wellDefinedFunction}: that if two arguments are equal, then the values of $f$ at those arguments are also equal.
-				Let $\exists x\in D$ with $f(x)=y$ and $f(x)=z$. By reflexivity in \Rref{R:identityRelation}, $x=x$, and by our assumption, $f(x)=f(x)$, and thus $y=z$. Then we have \eqref{eq:wellDefinedRelation}.
-		\end{enumerate}
-	\end{proof}
-\end{theorem}
-
-\begin{definition}\Dlabel{D:surjection}
-	A function~$f\colon D \surjects C$ is a \defn{surjection} iff it is \defn{onto} (surjective): ``Every element of $C$ is assigned to some element of $D$.''
-	\begin{equation*}\label{eq:surjection}
-		\forall y \in C : \exists x \in D : f(x)=y
-	\end{equation*}
-\end{definition}
-
-\begin{definition}\Dlabel{D:injection}
-	A function~$f\colon D \injects C$ is an \defn{injection} iff it is \defn{one-to-one} (injective): ``Each element of $C$ \emph{that is assigned} is assigned to a uniquely determined element of $D$.''
-	\begin{equation*}\label{eq:injection}
-		\forall a,b \in D : f(a)=f(b) \implies a=b
-	\end{equation*}
-	Equivalently, $\forall a,b \in D : a\not=b \implies f(a)\not=f(b)$ (``Different elements of $D$ are mapped to different elements of $C$'').
-\end{definition}
-
-\begin{definition}\Dlabel{D:bijection}
-	A function~$f \colon D \bijects C$ is a \defn{bijection} iff it is both onto and one-to-one ($f$ is said to be bijective). Essentially this means that a bijection maps every element of the domain to exactly one unique element of the codomain, and assigns every element of the codomain to exactly one unique element of the domain.
-\end{definition}
-
-\begin{theorem}\Tlabel{T:surjection}
-	A function is a surjection if and only if its codomain is equal to its range.
-	\begin{proof} \hfill
-		\begin{enumerate}
-			\item[\case{$\implies$}] Let $f\colon D \surjects C$ be a surjection, as in \Dref{D:surjection}. That is, $\forall y \in C : \exists x \in D : f(x)=y$. Expressed differently,
-			\begin{equation}\label{eq:surjectionThm}
-				y \in C \implies y \in \Bigl\{y \in Y : \bigl(\exists x \in D : f(x)=y\bigr)\Bigr\}
-			\end{equation}
-			\Dref{D:subset} indicates $C$ is a subset of the set in \eqref{eq:surjectionThm}. But since $D\subseteq X$ by \Dref{D:functionDomain}, the predicate~$\bigl(\exists x \in D : f(x)=y\bigr)$ implies the predicate~$\bigl(\exists x \in X : f(x)=y\bigr)$, which is required by \Dref{D:functionRange}. So the set in \eqref{eq:surjectionThm} is a subset of $f(D)$. Then by \Tref{T:inclusionRelation}, we have $C\subseteq f(D)$. Also, by \Dref{D:functionRange} and \Dref{D:functionCodomain}, $f(D)\subseteq Y=C$. Therefore \eqref{eq:setEquality} concludes $C=f(D)$.
-			\item[\case{$\impliedby$}] Now assume $C=f(D)$. Then certainly $C\subseteq f(D)$, so 
-			$$C \subseteq \Bigl\{y \in Y : \bigl(\exists x \in X : f(x)=y\bigr)\Bigr\}$$
-			So now we have $y \in C \implies \exists x \in X : f(x)=y$. We must show now that $x$ is in $D$. But if $f(x)=y$ exists, then \Dref{D:functionDomain} requires $x\in D$. Therefore $\forall y\in C : \exists x \in D : f(x)=y$ and we have a surjection.
-		\end{enumerate}
-	\end{proof}
-\end{theorem}
+\text{associative:}\\
+u\cup \left(v\cup w\right) = \left(u\cup v\right) \cup w\\
+\bigcup\left\{u,v\cup w\right\} = \bigcup\left\{u\cup v, w\right\}\\
+\bigcup\left\{u,\bigcup\left\{v,w\right\}\right\} = \bigcup\left\{\bigcup\left\{u,v\right\}, w\right\}\\
+u\cap (v\cap w) = (u\cap v) \cap w\\
+\bigcap\left\{u,v\cap w\right\} = \bigcap\left\{u\cap v, w\right\}\\
+\bigcap\left\{u,\bigcap\left\{v,w\right\}\right\} = \bigcap\left\{\bigcap\left\{u,v\right\}, w\right\}\\
 
 
-\begin{theorem}\Tlabel{T:functionEquality}
-	One function is equal to another function if and only if their domains are equal, and, at each argument in the common domain, the values of both functions are equal.
-	\begin{gather*}\label{eq:functionEquality}
-		\forall (f \colon A \mapsto B),(g \colon C \mapsto D) : \\
-		f=g \iff A=C \land (\forall a \in A : f(a)=g(a))
+\text{distributive:}
+The union operation distributes across the intersection operation.
+The intersection operation distributes across the union operation.
+
+
+DeMorgan's Laws:
+-(A cup B) = -A cap -B
+-(A cap B) = -A cup -B
+
+
+\text{inclusion (of pairs):}\\
+\left(\forall z \in \left\{u,v\right\}\right)\left(z\subseteq\bigcup\left\{u,v\right\}\right)\\
+\left(\forall z \in \left\{u,v\right\}\right)\left(\bigcap\left\{u,v\right\}\subseteq z\right)\\
+\bigcap\left\{u,v\right\} \subseteq \bigcup\left\{u,v\right\}\\
+
+\text{inclusion (in general):}\\
+\left(\forall z \in x\right)\left(z\subseteq\bigcup x\right)\\
+\left(\forall z \in x\right)\left(\bigcap x\subseteq z\right)\\
+\bigcap x \subseteq \bigcup x\\
+
+(\forall x)(\forall y)(y\subseteq \wp x \implies \bigcup y \subseteq x)\\
+
+<!--
+	\begin{gather*}
+		(x\in A \implies x\in S) \land (x\in B\implies x\in S) \\
+		(x\not\in A \lor x\in S) \land (x\not\in B \lor x\in S) \\
+		(x\not\in A \land x\not\in B) \lor (x\not\in A \land x\in S) \lor (x\in S \land x\not\in B) \lor (x\in S \land x\in S) \\
+		(x\not\in A \land x\not\in B) \lor (\top \land x\in S) \lor (x\in S \land \top) \lor (x\in S) \\
+		(x\not\in A \land x\not\in B) \lor x\in S \\
+		(x\in A \lor x\in B) \implies x\in S \\
+		x\in(A\cup B) \implies x\in S \\
+		A\cup B \subseteq S
 	\end{gather*}
-	\begin{proof}\hfill
-		\begin{enumerate}
-			\item[\case{$\implies$}] Given functions~$f,g$, let $f \colon A \mapsto B$ be equal to $g \colon C \mapsto D$.
-				\begin{align*}
-					f&=\bigl\{\langle a,b\rangle \in A \times B : b=f(a)\bigr\}\\
-					 &=\bigl\{\langle c,d\rangle \in C \times D : d=g(c)\bigr\}=g
-				\end{align*}
-				Suppose $\langle a,b\rangle\in f$. Then by \Dref{D:cartesianProduct}, $a\in A$, and because $f$ is defined (\Dref{D:definedFunction}), $b=f(a)$. But because $f=g$ by assumption, \Aref{A:extensionality} guarantees $\langle a,f(a)\rangle\in f \implies \langle a,f(a)\rangle\in g$. Then $a\in C$. So we have $a\in A \implies a\in C \therefore A \subseteq C$ (\Dref{D:subset}). Similarly, we can show $C \subseteq A$. Thus $A=C$ by \eqref{eq:setEquality}. Now since $a\in C$ and $g$ is defined, there must be some $g(a)\in D$ such that $\langle a,g(a)\rangle\in g$. So we have two ordered pairs~$\langle a,f(a)\rangle$ and $\langle a,g(a)\rangle$ elements of $g$. But since $g$ is well-defined (\Dref{D:wellDefinedFunction}), $f(a)=g(a)$.
-			\item[\case{$\impliedby$}] Assume we have two functions~$(f \colon A \mapsto B), (g \colon C \mapsto D)$ with equal domains, $A=C$, and equal values at each preimage, $\forall a \in A : f(a) = g(a)$.
-			Now suppose $\langle a,b\rangle\in f$. Then $a\in A$ and $b=f(a)\in B$. Notice $a \in A \implies a \in C$. Then there must be some $d\in D$ such that $\langle a,d\rangle\in g$ with $d=g(a)$ because $g$ is defined.
-			So far we have $b=f(a)$ and $d=g(a)$. But since all values of $f$ and $g$ at $a$ are equal by assumption, we have $b=f(a)=g(a)=d \therefore b=d$ (by \Rref{R:identityRelation}). Thus $\langle a,b\rangle \in f \implies \langle a,d\rangle=\langle a,b\rangle \in g$, and $f \subseteq g$. In a parallel manner, we can show $g \subseteq f$. Therefore $f=g$.
-		\end{enumerate}
-	\end{proof}
-\end{theorem}
 
-	</div-->
+-->
+		</pre>
+			
+		<div class="theorem draft" id="T-specification">
+			<p class="summary"><span class="lede">Specification</span> Given a set, there exists a subset of elements that adheres to any given predicate.</p>
+			<p class="summary"><span class="lede">Specification</span>For any set and a given predicate, there exists a set owning elements of that set, under that predicate.</p>
+			<p class="latex wff">\[
+				(\forall x)(\forall \l P)(\exists s)(\forall y)((y\in s) \iff (y\in x \land \l P_y))
+			\]</p>
+			<div class="proof draft">
+				<pre>Given AofCap, prove Spec
+(informal) Given a predicate P_z, <span class="draft">let P be the set of all elements z for which P_z is true</span>. That is: (\forall z)((z\in P) \iff P_z).<small><strong>are we guaranteed this set exists???</strong></small> Now consider a set x. We will construct a subset s of x that contains only elements of x that make P_z true. The Axiom of Intersection states the intersection s=\bigcap\{x,P\} exists and is unique, which contains sets that are in both x and P. Then \forall y: y\in s \iff y\in x \land y\in P, and by dfn of P, \forall y: y\in s \iff y\in x \land P_y.
+				</pre>
+				<!--pre>THM: given Spec, prove intersection.
+We are given that the collection x is nonempty. Let the set y be some fixed member of x. \Aref{A:specification} guarantees there exists some set s such that <span class="latex">(&forall; y)(y&in; s if and only if y&in;x and (&forall;z&in;x)(y&ne;z implies y &in; z.</span> In other words, y is an element of s iff y is an element of z and every other set in x. It follows that y belongs to every element of x. Then we define y to be the intersection of the collection x.
+				</pre-->
+			</div>
+		</div>
+	</section>
+	<section id="conseq-regularity">
+		<h1 class="h-delta">Consequences of Regularity</h1>
+		<div class="theorem" id="T-membershipantireflexive">
+			<p class="summary">Membership is antireflexive.</p>
+			<p class="latex wff">\[
+				(\forall x)\expand{x\not\in x}{\lnot(x\in x)}
+			\]</p>
+			<div class="proof draft">
+				<p>Direct proof: Let <span class="latex">\(x\)</span> be any set. Then by T-singletonexists, <span class="latex">\(\exists\{x\}\)</span>. We will apply A-regularity to <span class="latex">\(\{x\}\)</span>: since <span class="latex">\(\{x\}\not=\varnothing\)</span>, there must be an element of <span class="latex">\(\{x\}\)</span> that does not own any elements of <span class="latex">\(\{x\}\)</span>. Since the only element of <span class="latex">\(\{x\}\)</span> is <span class="latex">\(x\)</span>, then <span class="latex">\(x\)</span> itself must not own any elements of <span class="latex">\(\{x\}\)</span>, which, namely, is <span class="latex">\(x\)</span>. Therefore, <span class="latex">\(x\not\in x\)</span>.</p>
+				<p>Alternate proof: Proof by contradiction: Suppose to the contrary that <span class="latex">\((\exists x)(x\in x)\)</span>. By T-singletonexists, there exists a set <span class="latex">\(\{x\}\)</span>. Since <span class="latex">\(\{x\}\)</span> is a singleton, its only element is <span class="latex">\(x\)</span>, and by our assumption, <span class="latex">\(x\in x\)</span>. Therefore all elements of <span class="latex">\(\{x\}\)</span> own an element of <span class="latex">\(\{x\}\)</span>. This contradicts A-regularity.</p>
+			</div>
+		</div>
+		<div class="theorem" id=T-membershipantisymmetric">
+			<p class="summary">Membership is antisymmetric.</p>
+			<p class="latex wff">\[
+				(\forall x,y)\left(
+					(x\in y)
+					\implies
+					\expand{y\not\in x}{\lnot(y\in x)}
+				\right)
+			\]</p>
+			<div class="proof draft">
+				<p>Proof by contradiction: Given sets x and y, assume x&in;y and y&in; x. Now consider the pair {x,y} (which <a>exists</a> and is <a>unique</a>). A-regularity says if {x,y} is nonempty, then &exist; z &in; {x,y} such that &forall; w &in; z, w&notin; {x,y}. If z&in;{x,y}, there are two cases:</p>
+				<p>Case 1: z=x. y&in;z and y&in;{x,y}</p>
+				<p>Case 2: z=y. x&in;z and x&in;{x,y}</p>
+				<p>Either way, if z&in;{x,y}, then &exist;w&in;z such that w&in;{x,y}. Therefore our assumption (x&in;y and y&in;x) is faulty; the negation must be true; namely (x&in;y implies y&notin;x).</p>
+			</div>
+		</div>
+		<pre><!--
+				Properties of Membership:
+
+Antireflexive: 		\forall x: x\not\in x
+				Axiom of Regularity
+
+Antisymmetric:		\forall a,b : a\in b \implies b\not\in a
+				Axiom of Regularity
+
+something else:		\forall a,b : a\in b \land b\in a \implies a=b
+				is vacuously true (Axiom of Regularity)
+
+intransitive:		\exists a,b,c : a\in b \land b\in c \land a\not\in c
+				let a={}, b={a}, c={b}
+
+not antitransitive: \exists a,b,c : a\in b \land b\in c \implies a\in c
+				let a={}, b={a}, c={a,b}
+
+uncomparable:		\exists a,b : a\not\in b \land b\not\in a
+				let a={}, b={{a}}
+
+defined:			\forall a : \exists b : a\in b
+				Axiom of Pair
+
+not well-defined:	\exists a,b,c : a\in b \land a\in c \land b\not=c
+				let a={}, b={a}, c={a,b}
+		--></pre>
+		<div class="theorem draft" id="T-universal">
+			<p class="summary">There is no set of which every set is a member.</p>
+			<p class="latex wff">\[
+				(\forall x)(\exists y)\expand{y\not\in x}{\lnot(y\in x)}
+			\]</p>
+			<div class="proof draft">
+				<p>Assume to the contrary that <span class="latex">\((\exists x)(\forall y)(y\in x)\)</span>. Then it must be the case that <span class="latex">\(x\in x\)</span>. By <a href="#T-membershipantireflexive">T-membershipantireflexive</a>, we have a contradiction.</p>
+			</div>
+		</div>
+	</section>
+	
 </section>
 </div>
 </body>

@@ -41,14 +41,14 @@ $(document).ready(function() {
 	/** Colors tables' rows and columns alternating colors. 
 	remember, jQuery's :even and :odd selectors are 0-based (0 is first),
 	so the first row (row 0) should be given class 'row-odd' */
-	$('.table-list tbody').each(function () {
-		$(this).children('tr:even').addClass('row-odd');
-		$(this).children('tr:odd').addClass('row-even');
-	});
-	$('.table-bars tbody tr').each(function() {
-		$(this).children('td:even').addClass('column-odd');
-		$(this).children('td:odd').addClass('column-even');
-	});
+// 	$('.table-list tbody').each(function () {
+// 		$(this).children('tr:even').addClass('row-odd');
+// 		$(this).children('tr:odd').addClass('row-even');
+// 	});
+// 	$('.table-bars tbody tr').each(function() {
+// 		$(this).children('td:even').addClass('column-odd');
+// 		$(this).children('td:odd').addClass('column-even');
+// 	});
 //	$('.table-grid tbody').each(function() {
 //		$(this).children('tr:even').addClass('row-odd');
 //		$(this).children('tr:odd').addClass('row-even');
@@ -70,9 +70,9 @@ $(document).ready(function() {
 
 	/* math */
 	/** puts the LaTeX source in the 'title' attribute */
-//	$('.latex').attr('title',function() {
-//		return $(this).html();
-//	});
+// 	$('.latex').attr('title',function() {
+// 		return $(this).text();
+// 	});
 	
 	/** an attempt to fix the cursive headings of the folio pages 
 	EDIT: Temporary fix available at the bottom of each hub page. */
