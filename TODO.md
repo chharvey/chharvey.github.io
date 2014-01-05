@@ -65,8 +65,6 @@ TO DO
 
 #### Math7/ ####
 - on all course overview, unit overviews, and lessons: include breadcrumbs!
-- create `pacingguide.html`
-- upload Daily Warm-Ups from GDrive to `daily-warmups.html`
 
 #### syllabus.html ####
 - display `dl`s like two-column tables
