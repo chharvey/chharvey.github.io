@@ -107,7 +107,6 @@ TO DO
 #### Math7/functions/ ####
 - convert **Modified Lesson #2: Relations** from GDrive
 - convert Quiz 3.5 from GDrive to `distinguishing-quiz.html`
-- incorporate `seq-modeling.html` into a lesson
 
 #### Math7/proportions/ ####
 - convert `SIOPLessonPlan.docx` from GDrive
