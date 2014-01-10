@@ -66,12 +66,8 @@ TO DO
 
 #### Math7/ ####
 - on all course overview, unit overviews, and lessons: include breadcrumbs!
-- 2014-01-09 Unit overviews: 
-	- get rid of references to Standard numbers
-	- add links to both versions of unit tests
 
 #### Math7/index.html ####
-- add links to syllabus, pacing guide, and warmups
 
 #### Math7/syllabus.html ####
 - display `dl`s like two-column tables
