@@ -67,7 +67,9 @@ TO DO
 #### Math7/ ####
 - on all course overview, unit overviews, and lessons: include breadcrumbs!
 
-#### syllabus.html ####
+#### Math7/index.html ####
+
+#### Math7/syllabus.html ####
 - display `dl`s like two-column tables
 - last page: use `form`s for student and parent input
 
@@ -82,7 +84,7 @@ TO DO
 - create SBG 7.3 versions (integer operations)
 - move formative feedback questions at the end of `ooo-lesson.html` to `ooo-prequiz.html`
 - create `fieldprops-lesson.html`
-- `test.html`
+- Test 1
 	- add images from Unit 1 Test (on Drive)
 	- remove verbal mathematics and add to **Test 2**
 
@@ -107,17 +109,13 @@ TO DO
 #### Math7/functions/ ####
 - convert **Modified Lesson #2: Relations** from GDrive
 - convert Quiz 3.5 from GDrive to `distinguishing-quiz.html`
-- incorporate `seq-modeling.html` into a lesson
 
 #### Math7/proportions/ ####
 - convert `SIOPLessonPlan.docx` from GDrive
-- fix `test.html`
 
 #### Math7/geometry/ ####
-- fix `test.html`
 
 #### Math7/prob-stats/ ####
-- fix `test.html`
 
 
 ### /reals/ ###
