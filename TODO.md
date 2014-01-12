@@ -63,6 +63,7 @@ TO DO
 
 ### /secondary-ed/ ###
 - **find a way to write SVG images!**
+- 2014-01-12 clean up `@group assessments` in `secondary-ed.less`
 
 #### Math7/ ####
 - on all course overview, unit overviews, and lessons: include breadcrumbs!
@@ -73,6 +74,11 @@ TO DO
 - display `dl`s like two-column tables
 - last page: use `form`s for student and parent input
 
+#### Math7/standards-based-grading/ ####
+- create SBG 7.3 versions (integer operations)
+- fix and convert SBG 7.13a versions (verbal math)
+
+
 #### Math7/integers/ ####
 - upload `ints-add-hw.html`
 - add number lines to HW 1.3
@@ -81,7 +87,6 @@ TO DO
 - move link to `ints-sub-quiz.html` from `ints-add-lesson.html` to `ints-sub-lesson.html`
 - create `ints-sub-hw.html`
 - create `ints-multdiv-hw.html` (with chips, number lines, (and blocks))
-- create SBG 7.3 versions (integer operations)
 - move formative feedback questions at the end of `ooo-lesson.html` to `ooo-prequiz.html`
 - create `fieldprops-lesson.html`
 - Test 1
@@ -90,7 +95,6 @@ TO DO
 
 #### Math7/equations-inequalities/ ####
 - create `verbals-lesson.html`
-- fix and convert SBG 7.13a versions (verbal math)
 - create `eqns-onestep-lesson.html`
 - move links to `eqns-onestep-prequiz.html` and `eqns-onestep-quiz.html` from `eqns-twostep-lesson.html` to `eqns-onestep-lesson.html`
 - fix `eqns-twostep-lesson.html`
