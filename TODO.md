@@ -77,6 +77,7 @@ TO DO
 #### Math7/standards-based-grading/ ####
 - create SBG 7.3 versions (integer operations)
 - fix and convert SBG 7.13a versions (verbal math)
+- add problems requiring identifying properties to solve equations on SBG 7.16 (to both versions)
 
 
 #### Math7/integers/ ####

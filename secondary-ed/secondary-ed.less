@@ -24,22 +24,24 @@
 	tr.quarter {
 		.h-beta;
 	}
-	tbody {
-		counter-reset: topiccount;
-	}
 	tr.unit {
 		.h-gamma;
-		td:nth-child(1):before {
+		counter-reset: topiccount;
+		td:nth-child(1) {
 			padding-left: 2em;
-			counter-increment: unitcount;
-			content: counter(unitcount, upper-roman) '. ';
+			&:before {
+				counter-increment: unitcount;
+				content: counter(unitcount, upper-roman) '. ';
+			}
 		}
 	}
-	tr.topic td:nth-child(1) {
-		padding-left: 4em;
-		&:before {
-			counter-increment: topiccount;
-			content: counter(topiccount, lower-alpha) '. ';
+	tr.topic {
+		td:nth-child(1) {
+			padding-left: 4em;
+			&:before {
+				counter-increment: topiccount;
+				content: counter(topiccount, lower-alpha) '. ';
+			}
 		}
 	}
 }
