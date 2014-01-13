@@ -11,6 +11,7 @@ TO DO
 	- "owns": `&ni;` or `\220b`
 	- "superset": `&supe;` or `\2287`
 	- "slash":/ or "bar": |
+- 2012-01-12 fix breadcrumbs concept!
 - Add any boolean `hidden` attribute to all elements not ready for publishing
 - **only in formal documents**: Change all possessive and contraction apostrophe characters `'` to right single quotes `&rsquo;`. Leave the apostrophes alone in regular pages. The typographical precision is not worth the effort.
 - 2013-12-14 see which `b.ref`s you can change to `cite`s (titles of works)
@@ -39,8 +40,6 @@ TO DO
 - inline elements: highlighting
 - quotation-scheme examples
 - code scheme
-- 2014-01-12 add breadcrumb lists to list scheme
-- 2014-01-12 add data lists to list scheme
 
 ### /resume/ ###
 - fix print.css!
