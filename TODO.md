@@ -39,6 +39,8 @@ TO DO
 - inline elements: highlighting
 - quotation-scheme examples
 - code scheme
+- 2014-01-12 add breadcrumb lists to list scheme
+- 2014-01-12 add data lists to list scheme
 
 ### /resume/ ###
 - fix print.css!
