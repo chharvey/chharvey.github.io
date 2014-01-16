@@ -72,7 +72,7 @@ TO DO
 #### Math7/index.html ####
 
 #### Math7/syllabus.html ####
-- display `dl`s like two-column tables
+- 2014-01-15 fix `dl`s to look like: 'dt — dd — dd'
 - last page: use `form`s for student and parent input
 
 #### Math7/standards-based-grading/ ####
