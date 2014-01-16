@@ -14,6 +14,13 @@
 	.geninfo {.line();}
 	#teacherinfo,
 	#classtimes {.unit-1to2();}
+	#overview table {
+		counter-reset: unitcount;
+		td:nth-child(1):before {
+			counter-increment: unitcount;
+			content: counter(unitcount, upper-roman) '. ';
+		}
+	}
 }
 #pacingguidedothtml {
 	table {
@@ -21,28 +28,11 @@
 		counter-reset: unitcount;
 		* {text-align: left;}
 	}
-	tr.quarter {
+	tbody tr:nth-child(1) {
 		.h-beta;
 	}
-	tr.unit {
-		.h-gamma;
-		counter-reset: topiccount;
-		td:nth-child(1) {
-			padding-left: 2em;
-			&:before {
-				counter-increment: unitcount;
-				content: counter(unitcount, upper-roman) '. ';
-			}
-		}
-	}
-	tr.topic {
-		td:nth-child(1) {
-			padding-left: 4em;
-			&:before {
-				counter-increment: topiccount;
-				content: counter(topiccount, lower-alpha) '. ';
-			}
-		}
+	tr:nth-child(n+2) td:nth-child(1) {
+		padding-left: 2em;
 	}
 }
 #warmupsdothtml {
