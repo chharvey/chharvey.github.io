@@ -18,13 +18,6 @@ TO DO
 
 ### styles ###
 - Change all 'includes' to 'extends' with the new less.js v1.4
-- to each 'subsite' `.less` stylesheet:
-	- 2013-12-14 get rid of regular import of `all.less`
-	- add the following to import less references without importing selectors:
-		- `@import (reference) 'grid.less';`
-		- `@import (reference) 'typo.less';`
-		- `@import (reference) 'mods.less';`
-	- 2014-01-05 keep regular imports of `all.css`
 - FIND A FUCKING LESS COMPILER!
 - upgrade to **v1.5.0**!!!!!
 
