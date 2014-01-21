@@ -1,21 +1,20 @@
-// function numberNodes(sectionid, sectionLetter) {
-// 	var nodecount = 0;
-// 	
-// 	$(sectionid + ' .definition .js-mathnode-label, ' + sectionid + ' .theorem .js-mathnode-label').append(function() {
-// 		return sectionLetter + (++nodecount);
-// 	});
-// }
-// function numberAxioms(pageid, axiomcount) {
-// 	$(pageid).each(function() {
-// 		$(this).find('.axiom .js-mathnode-label').append(function() {
-// 			return engNumArray[++axiomcount];
-// 		});
-// 	});
-// }
-var engNumArray = [
-	'zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine',
-	'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen',
-];
+//function numberNodes(sectionid, sectionLetter) {
+//	var nodecount = 0;
+//	$(sectionid + ' .definition .js-mathnode-label, ' + sectionid + ' .theorem .js-mathnode-label').append(function() {
+//		return sectionLetter + (++nodecount);
+//	});
+//}
+//function numberAxioms(pageid, axiomcount) {
+//	$(pageid).each(function() {
+//		$(this).find('.axiom .js-mathnode-label').append(function() {
+//			return engNumArray[++axiomcount];
+//		});
+//	});
+//}
+//var engNumArray = [
+//	'zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine',
+//	'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen',
+//];
 $(document).ready(function() {
 	/** JavaScript 'grabber' classes --- only here for jQuery selectors */
 // 	$('.definition').addClass('js-mathnode');
