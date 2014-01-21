@@ -18,8 +18,6 @@ TO DO
 
 ### styles ###
 - Change all 'includes' to 'extends' with the new less.js v1.4
-- FIND A FUCKING LESS COMPILER!
-- upgrade to **v1.5.0**!!!!!
 
 ### scripts ###
 - 2013-12-14 investigate the use of templates (`<template>`)
