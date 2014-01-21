@@ -1,0 +1,743 @@
+
+/* @group main stuff */
+.body, body {
+	font-size: 12pt;
+	font-family: @font-fam-base;
+	text-align: left;
+	line-height: 1.4em;
+	color: @color-body-txt;
+	background-color: @color-body-bg;
+	> nav.breadcrumbs {.P1-midright();}
+}
+.hub-body {
+	.body;
+	background-image: url('/home/images/phi-stripes-trans.png');
+	background-repeat: repeat-y;
+	background-size: contain;
+}
+/* the main container in the body */
+.main,
+main {
+	.P1-midright();	
+	margin-bottom: 162px; // why did I choose this number?
+}
+.masthead {
+	@iconsize: 72pt;
+	.P4-right();	
+	position: fixed;
+	top: (@iconsize / 2);
+	nav {
+		.P1-midleft();
+		.mylogo {
+			display: block;
+			border-bottom: 0;
+			font-weight: bold;
+			font-size: @iconsize;
+			font-family: 'Times','Times New Roman',serif;
+		}
+	}
+}
+nav.breadcrumbs {
+	ol {
+		.list-action;
+		.list-inline;
+		li {padding-right: 1em;}
+	}
+}
+@media print {
+	body {
+		color: #000;
+		background-color: #fff;
+		background-image: none;
+	}
+	.hub-nav,
+	.courseinfo,
+	.masthead {display: none;}
+	.main,
+	main {
+		width: auto;
+		margin: auto;
+	}
+}
+
+/* @end */
+
+/* @group headings */
+.heading {
+	margin: 1em 0 0.25em;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: normal;
+	font-family: @font-fam-heading;
+	text-align: left;
+	letter-spacing: 1px;
+	color: @color-body-txt;
+	.latex {color: inherit;}
+	small.h-sub {
+		padding-left: 1em;
+		font-size: 80%;
+		color: @color-subsubheading;
+	}
+}
+
+h1, .h-alpha {
+	&:extend(.heading all);
+	font-variant: small-caps;
+	font-weight: bold;
+	font-size: 2.000em; // 24pt
+	text-align: center;
+	color: @color-heading;
+}
+h2, .h-beta {
+	&:extend(.heading all);
+	font-weight: bold;
+	font-size: 1.500em; // 18pt
+	color: @color-subheading;
+}
+h3, .h-gamma {
+	&:extend(.heading all);
+	font-variant: small-caps;
+	font-weight: bold;
+	font-size: 1.167em; // 14pt
+}
+h4, .h-delta {
+	&:extend(.heading all);
+	font-style: italic;
+	font-weight: bold;
+	font-size: 1.000em; // 12pt
+}
+h5, .h-epsilon {
+	&:extend(.heading all);
+	font-style: italic;
+	font-size: 0.833em; // 10pt
+	text-indent: 0.5in;
+	color: @color-subheading;
+}
+h6, .h-zeta {
+	&:extend(.heading all);
+	font-style: italic;
+	font-variant: small-caps;
+	font-size: 0.833em; // 10pt
+	text-indent: 0.5in;
+}
+h1 + h1,
+h1 + h2,
+h2 + h3,
+h3 + h4,
+h4 + h5,
+h5 + h6 {
+	margin-top: 0;
+}
+.title,
+.title p {
+	text-align: center;
+}
+/* @end */
+
+/* @group paragraphs */
+@defaultmargins: 0 0 0.5em;
+.p, p {
+	margin: @defaultmargins;
+	text-align: left;
+}
+.prose {
+	font-family: @font-fam-prose;
+	text-align: justify;
+	line-height: 1.3em;
+}
+p.prose {
+	margin-bottom: 0.75em;
+}
+.lede {
+	font-weight: bold;
+	font-family: @font-fam-base;
+	text-align: justify;
+	color: #000000;
+}
+p.lede {
+	margin-bottom: 1em;
+	line-height: 1.5em;
+}
+span.lede {
+	padding-right: 1em;
+}
+
+/* captions of figures, tables, or anything */
+.caption {
+	margin: @defaultmargins;
+	margin-top: 0.5em;
+	font-style: normal;
+	font-size: 10pt;
+	text-align: right;
+}
+.sideborder-left(@pad-width; @brdr-width; @marg-width; @brdr-style; @brdr-color) {
+	margin: @defaultmargins;
+	padding-left: @pad-width;
+	padding-top: @brdr-width;
+	padding-bottom: @brdr-width;
+	border-left-width: @brdr-width;
+	border-left-style: @brdr-style;
+	border-left-color: @brdr-color;
+	margin-left: @marg-width;
+}
+.sideborder-right(@pad-width; @brdr-width; @marg-width; @brdr-style; @brdr-color) {
+	margin: @defaultmargins;
+	padding-right: @pad-width;
+	padding-top: @brdr-width;
+	padding-bottom: @brdr-width;
+	border-right-width: @brdr-width;
+	border-right-style: @brdr-style;
+	border-right-color: @brdr-color;
+	margin-right: @marg-width;
+}
+/* a container containing paragraphs, etc. that are not officially part of an official document, but are still a major part of the normal flow of the document. Used when 'aside' and 'figure' elements are not suitable. */
+.informal {
+	.sideborder-left(5px; 3px; 13px; solid; @accent);
+//	padding: 10px;
+	background-color: #f4f4f4;
+//	& * {background-color: transparent;}
+}
+/* example figures (text, images, etc.) */
+figure {
+	.sideborder-left(8px; 5px; 21px; solid; @accent);
+	> figcaption {
+		&:extend(.caption);
+		border-top: 1px dashed;
+		border-bottom: 0;
+	}
+}
+/* blocks of short or long quoted material */
+blockquote {
+	.sideborder-left(13px; 8px; 34px; double; @accent);
+	font-size: 14pt;
+	font-family: @font-fam-accent;
+	&.prose {
+		font-size: 13pt;
+		cite.source {
+			padding-left: 0;
+			&:before {content: '(';}
+			&:after {content: ')';}
+		}
+	}
+	cite.source {
+		padding-left: 1em;
+		font-family: @font-fam-base;
+		&:before {content: '~';}
+	}
+}
+/* a paragraph element that indicates the most recent edit of a webpage or document. includes a <time datetime=""> element. */
+p.timestamp {
+	font-size: smaller;
+	text-align: left;
+}
+/* @end */
+
+/* @group lists */
+ul, ol, dl {
+	margin: @defaultmargins;
+	padding-left: 0.5in;
+	line-height: 1.3em;
+	ul, ol, dl {margin-bottom: auto;}
+}
+dd {
+	margin: 0;
+	padding-left: 0.5in;
+	& + dt {margin-top: 0.5em;}
+}
+/* a basic list with no margins, padding, or numbering. list items are blocks */
+.list-basic {
+	padding: 0;
+	list-style-type: none;
+	li, dt, dd {margin: 0; padding: 0;}
+}
+/* a basic list except the list items are inline. dt elements are still blocks */
+.list-inline {
+	&:extend(.list-basic);
+	display: block;
+	li, dd {display: inline;}
+	dt {
+		text-indent: 0;
+		 + dd {padding-left: 0.5in;} // first dd following a dt
+	}	
+}
+/* a basic list that acts as a table with the list items acting as table cells */
+.list-line {
+	.list-basic;
+	.line();
+	li {.unit();}
+}
+/* a list typically containing textual (non-block) hyperlinks */
+.list-action {
+	&:extend(.list-basic);
+	color: @color-link-up-txt;
+	ul, ol, dl {list-style-type: none;}
+	li:before {content: '\2713\0020';} // check mark, space
+	a {
+		border-bottom: 0;
+		&[href] {
+			text-decoration: underline;
+		}
+	}
+}
+ol.prose {
+	list-style-type: decimal;
+	p.lede {margin-bottom: 0.5em;}
+}
+
+.list-omega   {list-style-type: decimal-leading-zero;}
+.list-alpha   {list-style-type: upper-roman;}
+.list-beta    {list-style-type: upper-alpha;}
+.list-gamma   {list-style-type: decimal;}
+.list-delta   {list-style-type: lower-alpha;}
+.list-epsilon {list-style-type: lower-roman;}
+.list-zeta    {list-style-type: lower-greek;}
+/* @end */
+
+/* @group tables */
+.tablesection() {
+	border: 1px solid @accent;
+}
+.tablesection-horiz() {
+	.tablesection();
+	border-left: 0;
+	border-right: 0;
+}
+.tablesection-vert() {
+	.tablesection();
+	border-top: 0;
+	border-bottom: 0;
+}
+.tableheader() {
+	//font-weight: bold;
+	text-align: center;
+	vertical-align: middle;
+	background-color: @color-table-bg-head;
+}
+table {
+	border-collapse: collapse;
+	margin: 0 auto 2em;
+	text-align: center;
+	> caption {
+		&:extend(.caption);
+	}
+	thead, tfoot {font-weight: bold;}
+	tbody {
+		//.code, code {background-color: transparent;} // fix later when fixing code, boxes, etc.
+	}
+	th, td {
+		padding: 5px;
+		border-width: 1px;
+		border-style: solid;
+		border-color: #808080;
+	}
+	th {font-weight: bold;}
+	&.table-list {
+		thead, tfoot {
+			tr {
+				.tablesection-horiz();
+				.tableheader();
+			}
+		}
+		tbody {
+			.tablesection-horiz();
+			th {background-color: @color-table-bg-strong;}
+			tr:nth-child(odd)  {background-color: @color-table-bg-medium;}
+			tr:nth-child(even) {background-color: @color-table-bg-weak;}
+		}
+		th, td {border-width: 0;}
+	}
+	&.table-bars {
+		thead, tfoot {
+			tr {
+				.tablesection-vert();
+				.tableheader();
+			}
+		}
+		tbody {
+			th {background-color: @color-table-bg-strong;}
+			tr td:nth-child(odd)  {background-color: @color-table-bg-weak;}
+			tr td:nth-child(even) {background-color: @color-table-bg-medium;}
+		}
+		th, td {border-width: 0;}
+	}
+}
+//.table-grid {
+//	.table;
+//	td {.special-table-border();}
+//	.header,
+//	th {background-color: @color-table-bg-head;}
+//	.row-odd {
+//		.column-odd  {background-color: @color-table-bg-weak;}
+//		.column-even {background-color: @color-table-bg-medium;}
+//	}
+//	.row-even {
+//		.column-odd  {background-color: @color-table-bg-medium;}
+//		.column-even {background-color: @color-table-bg-strong;}
+//	}
+//}
+/* @end */
+
+/* @group inline text */
+	/* @group highlighted text */
+	em {font-style: italic;}
+	em > em {font-weight: bold;}
+	strong {font-weight: bold;}
+	mark {background-color: transparent;}
+	/* non-semantic elements reset */
+	i, b {font-style: inherit; font-weight: inherit;}
+	/* scare quotes contain abuse of vocabulary or language */
+	i.scare {
+		&:before {content: open-quote;}
+		&:after  {content: close-quote;}
+	}
+	/* mentions refer to phrases without referring to their meaning */
+	i.mention {
+		&:before {content: open-quote;}
+		&:after  {content: close-quote;}
+	}
+	/* phrases representing silent thoughts */
+	i.thought {
+		&:before {content: '\00ab';} // &laquo;
+		&:after  {content: '\00bb';} // &raquo;
+	}
+	/* phrases in foreign languages */
+	.foreignlang() {
+		font-style: italic;
+		font-family: 'Times','Times New Roman',serif;
+	}
+	i:lang(la),
+	i:lang(it),
+	i:lang(fr) { 
+		.foreignlang();
+	}
+	i[lang=la],
+	i[lang=it],
+	i[lang=fr] {
+		.foreignlang();
+	}
+	.solfege {.foreignlang();}
+	/* reference to a title, section heading, figure, table. use only when the `a` element or the `cite` element would not be appropriate */
+	b.ref {
+		font-weight: bold;
+	}
+	/* keywords or technical terms */
+	b.keyword {
+		font-weight: bold;
+	}
+	/* @end */
+
+	/* @group citations */
+	cite {font-style: normal;}
+	.new[datetime],
+	ins[datetime],
+	.old[datetime],
+	del[datetime],
+	.abbr[title] {
+		cursor: help;
+		&:hover:after {
+			position: relative;
+			left: 5px;
+			top: 5px;
+		}
+	}
+	.new, ins {
+		padding-left: 0.5em;
+	//	text-decoration: underline;
+	//	color: @color-ins-txt;
+		text-decoration: none;
+		background-color: @color-ins-bg;
+		&[datetime]:hover:after {content: 'inserted on ' attr(datetime);}
+	}
+	.old, del {
+		padding-right: 0.5em;
+	//	text-decoration: line-through;
+	//	color: @color-del-txt;
+		text-decoration: none;
+		background-color: @color-del-bg;
+		&[datetime]:hover:after {content: 'deleted on ' attr(datetime);}
+	}
+	abbr[title] {
+		border-bottom: 2px solid @color-info;
+		&:hover:after {content: attr(title);}
+	}
+	@media print {
+		abbr[title] {
+			border-bottom: 0;
+		}
+	}
+	/* @end */
+
+/* mixin used for lots of things */
+.parens() {
+	&:before {content: '(';}
+	&:after  {content: ')';}	
+}
+.superscript {font-size: smaller; vertical-align: super;}
+.subscript   {font-size: smaller; vertical-align: sub;}
+small {
+	.parens();
+	font-size: 10pt;
+}
+.phone, .email {
+	font-family: @font-fam-code;
+}
+/* @end */
+
+/* @group special boxes */
+@box-radius-small:  3px;
+@box-radius-medium: 6px;
+@box-radius-large: 10px;
+/* inline content, boxed */
+.box {
+	display: inline;
+	padding: 0 1px;
+	border-width: 1px;
+	border-style: solid;
+	border-radius: @box-radius-small;
+}
+/* inline content, with block structure, boxed */
+.box-inline-block {
+	&:extend(.box);
+	display: inline-block;
+}
+/* a block structure, boxed */
+.box-block {
+	&:extend(.box-inline-block);
+	display: block;
+	padding: 2px 4px;
+	border-radius: @box-radius-large;
+	margin: 4px;
+}
+	/* @group messages */
+	/* Messages are little warnings/tips/etc. for the user. More elegant than tooltips. */
+	.message(@color, @content) {
+		&:extend(.box-inline-block);
+		border: 0;
+		background-color: @color;
+		cursor: help;
+		&:after {
+			&:extend(.box);
+			margin-left: 1em;
+			border: 0;
+			content: @content;
+			font-size: 10pt;
+			color: darken(@color, 80%);
+			background-color: darken(@color, 10%);
+		}
+	}
+	/* "dire consequences" */
+	.warning {
+		.message(@color-warning, '!');
+	}
+	/* "be careful" */
+	.caution {
+		.message(@color-caution, '\2026'); // &hellip;
+	}
+	/* "something was done right" */
+	.success {
+		.message(@color-success, '=)');
+	}
+	/* "extra information" */
+	.info {
+		.message(@color-info, '?');
+	}
+	/* "tips and hints" */
+	.help {
+		.message(@color-help, '\2665' ); // &hearts;
+	}
+	@media print {
+		.warning,
+		.caution,
+		.success,
+		.info,
+		.help {
+			&:after {display: none;}
+		}
+	}
+	/* @end */
+	/* @group forms */
+	fieldset {
+		padding: 0;
+		border: 0;
+		margin: 0;
+	}
+	/* @end */
+/* @end */
+
+/* @group hyperlinks */
+	/* @group inline links */
+	a {
+		text-decoration: none;
+		color: inherit;
+		border-width: 0 0 1px;
+		border-style: dotted;
+		&[href] {
+			color: @color-link-up-txt; // also sets border color
+			&:hover {color: @color-link-dn-txt;}
+			&.sp {
+				color: @color-link-sp-up-txt;
+				&:hover {color: @color-link-sp-dn-txt;}
+			}
+			&:active {color: @color-link-active-txt;}
+		}
+		.latex {color: inherit}
+	}
+	/* @end */
+	
+	/* @group block links */
+	a.a-block {
+		&:extend(.box-block);
+		border-color: inherit;
+		border-radius: @box-radius-medium;
+		text-align: center;
+		background-color: inherit;
+		&[href],
+		#index & {
+			border-color: @color-link-up-block-brdr;
+			background-color: @color-link-up-block-bg;
+			&:hover {
+				border-color: @color-link-dn-block-brdr;
+				background-color: @color-link-dn-block-bg;
+			}
+			&:active {
+				border-color: @color-link-active-block-brdr;
+				background-color: @color-link-active-block-bg;
+			}
+		}
+	}
+	/* @end */
+/* @end */
+
+/* @group coding */
+/* CODE represents EXAMPLE code, typically something a user would input. do NOT use the 'example' class, though it would be semantically correct, because this 'code' class this is more specific. */
+/* fragment or string of code a computer would recognize */
+.code, code {
+	&:extend(.box);
+	border-color: @color-code-brdr;
+	font-size: 10pt;
+	font-family: @font-fam-code;
+	color: @color-code-txt;
+	background-color: @color-code-bg;
+	&.lang-html {
+		.tag       {color: @color-code-html-tag;}
+		.attribute {color: @color-code-html-attr;}
+		.value     {color: @color-code-html-val;}
+	}
+	&.lang-css, &.lang-less {
+		.selector {color: @color-code-css-sel;}
+		.property {color: @color-code-css-prop;}
+		.value    {color: @color-code-css-val;}
+	}
+	&.lang-latex {
+		.cmd {color: @color-code-latex-comm;}
+		.arg {color: @color-code-latex-arg;}
+	}
+	.comment {color: @color-code-comment;}
+}
+@media print {
+	.code {
+		color: #000000;
+		background-color: #fff;
+	}
+}
+/* user input, in the form of a string, menu item, etc. */
+.userinput,
+kbd { 
+	white-space: nowrap;
+	&.write {
+		font-family: inherit;
+		&:before {content: open-quote;}
+		&:after  {content: close-quote;}
+	}
+}
+/* an individual key on a keyboard, calculator, or other device */
+.key,
+kbd kbd {
+	&:extend(.code);
+	padding: 2px;
+	font-family: @font-fam-base;
+}
+//.sample() {
+//	.box-block;
+//	position: relative;
+//	padding: 2em 10px 10px;
+//	.code, code {border: 0;}
+//}
+//.sample-label() {
+//	.box-block;
+//	position: absolute;
+//	top: -1px;
+//	left: -1px;
+//	border-bottom-left-radius: 0;
+//	border-top-right-radius: 0;
+//	margin: 0;
+//	font-size: smaller;
+//}
+//.code-block() {
+//	.sample();
+//	.label {
+//		.sample-label();
+//		border-color: @color-code-brdr;
+//		color: @color-code-label-txt;
+//		background-color: @color-code-label-bg;
+//	}
+//}
+pre {
+	margin: 0;
+	white-space: pre-wrap;
+}
+pre > code {
+	&:extend(.box-block);
+	line-height: 1.4em;
+}
+figure pre > code {border: 0;}
+samp {font-family: inherit;}
+/* demos are blocks or figures that demonstrate output of an example code block */
+//.demo {
+//	.sample();
+//	border-color: @color-demo-brdr;
+//	background-color: @color-demo-bg;
+//	> .label {
+//		.sample-label();
+//		border-color: @color-demo-brdr;
+//		color: @color-demo-label-txt;
+//		background-color: @color-demo-label-bg;
+//	}
+//}
+/* @end */
+
+/* @group math */
+.latex {
+	font-size: 10pt;
+	font-family: @font-fam-code;
+	white-space: pre-line;
+	color: @color-latex-txt;
+	div&, p& { // block-level containers
+		overflow: auto;
+	}
+}
+var {font-style: italic;}
+.tex { // a reminder to change all <... class="tex"> to <... class="latex">
+	color: #f00;
+	* {color: #f00;}
+}
+/* @end */
+
+
+
+/* @group miscellaneous */
+/* Selects elements not yet ready for publishing. Elements with the 'hidden' boolean attribute (hidden="") are not to be processed by browsers and are to be ignored by SEO patterns. Sometimes, the browser-default css-style is overridden, hence this selector exists. */
+[hidden] {display:none !important;}
+
+/* Selects elements needed for SEO *only* (e.g. extraneous titles, etc). Try to only use this selector as a last resort. */
+.seo-only {display: none !important;}
+
+/* Selects elements still in testing mode but still not yet ready for implementation. */
+.draft, .draft * {color: #999;}
+
+/* To display on screen but not to print. */
+@media print {.noprint{display: none !important;}}
+
+/* Starts a new page. */
+.pagebreak {page-break-before: always; padding-top: 0.5in;}
+/* @end */

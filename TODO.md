@@ -17,7 +17,7 @@ TO DO
 - 2013-12-14 see which `b.ref`s you can change to `cite`s (titles of works)
 
 ### styles ###
-- Change all 'includes' to 'extends' with the new less.js v1.4
+- 2013-01-20 Change 'includes' to 'extends' in sub-site stylesheets
 
 ### scripts ###
 - 2013-12-14 investigate the use of templates (`<template>`)
