@@ -27,6 +27,12 @@ TO DO
 ### /index.html ###
 - make popping text on index page fade in and out easier
 
+### /site-design/phi.html ###
+- FIX IT. the whole thing.
+
+### /site-design/grid.html ###
+- 2014-01-21 finish last section (Phi demonstration)
+
 ### /site-design/typo.html ###
 - inline elements: highlighting
 - quotation-scheme examples
