@@ -9,18 +9,18 @@ ol.chaptercontents {
 	a {border-bottom: 0; text-decoration: underline;}
 }
 
-.label() {
-	.lede;
+.nodelabel {
+	&:extend(.lede);
 	font-variant: small-caps;
 	text-transform: capitalize;
 }
 
-/* an Abstract Class representing a formal proposition of the axiomatic system */
-.node() {
-	.line();
+/* a formal proposition of the axiomatic system */
+.node {
+	&:extend(.line);
 	/* numbers the node, e.g. "Theorem 3.1.". */
 	&:before {
-		.label();
+		&:extend(.nodelabel);
 //		.unit-P4();
 		display: block;
 //		padding-left: 0;
@@ -28,22 +28,6 @@ ol.chaptercontents {
 //		right: @width-Golden4;
 //		text-align: right;
 	}
-//	> .js-mathnode-label {
-//		.label();
-//		.unit-P4();
-//		padding-left: 0;
-//		position: relative;
-//		right: @width-Golden4;
-//		text-align: right;
-//	}
-	/* the proposition's contents */
-//	> .js-mathnode-content {
-//		.unit-U-P4();
-//		padding-left: 0;
-//		padding-right: 0;
-//		position: relative;
-//		left: -@width-Golden4;
-//	}
 	/* a sentence in English that is used to identify the proposition, such as that would be presented in a tooltip or preview */
 	.summary {
 		font-style: italic;
@@ -94,26 +78,26 @@ ol.chaptercontents {
 		}
 	}
 	p:not(.latex) {
-		.prose;
+		&:extend(.prose);
 	}
 }
 .definition {
-	.node();
+	&:extend(.node all);
 	dfn {
 		font-weight: bold;
 		font-style: inherit;
 	}
 }
 .axiom {
-	.node();
+	&:extend(.node all);
 	.summary {text-align: center;}
 }
 .theorem {
-	.node();
+	&:extend(.node all);
 	.proof {
 		margin-left: 0.5in;
 		&:before {
-			.label();
+			&:extend(.nodelabel);
 			padding-right: 1em;
 			content: 'Proof.';
 		}
@@ -176,10 +160,10 @@ ol.chaptercontents {
 
 #truth-tabledothtml {
 	.main {
-		.linebreadth-full();
+		&:extend(.linebreadth-full);
 	}
 	table {
-		.linebreadth-full();
+		&:extend(.linebreadth-full);
 		.master-header-row {
 			text-transform: uppercase;
 			th {width: 5.86%;}

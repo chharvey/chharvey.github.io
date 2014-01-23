@@ -2,7 +2,6 @@ TO DO
 ========
 
 ## Site-wide to-do list ##
-- 2013-12-14 add dates to new TODO items; completely delete when completed
 
 ### semantics ###
 - don't rely on `title` attributes for any element (mobile browsers)
@@ -15,9 +14,10 @@ TO DO
 - Add any boolean `hidden` attribute to all elements not ready for publishing
 - **only in formal documents**: Change all possessive and contraction apostrophe characters `'` to right single quotes `&rsquo;`. Leave the apostrophes alone in regular pages. The typographical precision is not worth the effort.
 - 2013-12-14 see which `b.ref`s you can change to `cite`s (titles of works)
+	- and `a`s (links to documents, sections, etc.)
 
 ### styles ###
-- 2013-01-20 Change 'includes' to 'extends' in sub-site stylesheets
+- 2014-01-20 Change 'includes' to 'extends' in `resume.less`
 
 ### scripts ###
 - 2013-12-14 investigate the use of templates (`<template>`)
@@ -40,6 +40,7 @@ TO DO
 
 ### /resume/ ###
 - fix print.css!
+- 2014-01-23 Change 'includes' to 'extends' in `resume.less`
 
 ### /home/folio/ pages ###
 - class drop-downs shouldn't be summary elements, just because the behavior is something ideal. Use divs and JavaScript to emulate the drop-down/expando behavior.

@@ -2,7 +2,7 @@
 @import (reference) url('../core/stylesheets/all.less');
 
 .standard-id {
-	.lede;
+	&:extend(.lede);
 	padding-right: 1em;
 }
 
@@ -11,9 +11,9 @@
 	@media print {
 		.timestamp {display: none;}
 	}
-	.geninfo {.line();}
+	.geninfo {&:extend(.line);}
 	#teacherinfo,
-	#classtimes {.unit-1to2();}
+	#classtimes {&:extend(.unit-1to2);}
 	#overview table {
 		counter-reset: unitcount;
 		td:nth-child(1):before {
@@ -22,17 +22,17 @@
 		}
 	}
 	#grading dl {
-		.list-basic;
+		&:extend(.list-basic);
 		dt, dd {width: 33%; float: left;}
 		dd.abbr {
-			font-size: 10pt;
-			.parens();
+			font-size: @font-size-smaller;
+			&:extend(.parens);
 		}
 		dd.weight {}
 	}
 	#classtimes dl,
 	#categories dl {
-		.list-basic;
+		&:extend(.list-basic);
 		dt, dd {width: 50%; float: left;}
 	}
 }
@@ -43,13 +43,13 @@
 		* {text-align: left;}
 	}
 	tbody tr:nth-child(1) {
-		.h-beta;
+		&:extend(.h-beta all);
 	}
 	tr:nth-child(n+2) td:nth-child(1) {
 		padding-left: 2em;
 	}
 	ol.list-alpha {
-		li ol {.list-gamma;}
+		li ol {&:extend(.list-gamma);}
 	}
 }
 #warmupsdothtml {
@@ -65,7 +65,7 @@
 /* @group unit overviews */
 #unitobjectives {
 	.teachernote {
-		font-size: 10pt;
+		font-size: @font-size-smaller;
 	}
 	@media print {
 		.teachernote {display: none;}
@@ -77,13 +77,10 @@
 		font-family: @font-fam-prose;
 	}
 	.optional {
+		&:extend(.parens);
 		@acolor: #004d80; // change this color
 		color: @acolor;
-		&:before {content: '(';}
-		&:after  {content: ')';}
-		* {
-			color: @acolor;
-		}
+		* {color: @acolor;}
 	}
 	.honors, .honors * {
 		color: #803300; // change this color
@@ -131,7 +128,7 @@ body.lesson {
 	.h-epsion,
 	.h-zeta,
 	table {
-		font-size: 10pt;
+		font-size: @font-size-smaller;
 	}
 	ol.practiceproblems {
 		line-height: inherit;
@@ -146,9 +143,9 @@ body.assessment {
 		margin-top: 0.25in;
 	}
 	.main > header {
-		.line();
+		&:extend(.line);
 		.quizheading {
-			.unit-1to2();
+			&:extend(.unit-1to2);
 			.h-alpha {
 				margin: @defaultmargins;
 				font-style: italic;
@@ -162,7 +159,7 @@ body.assessment {
 			}
 		}
 		.studentheading {
-			.unit-1to2();
+			&:extend(.unit-1to2);
 			text-align: right;
 			label {display: block;}
 		}
@@ -247,8 +244,7 @@ body.assessment {
 /* @end */
 
 /* @group misc */
-.line {.line();}
-.unit-1to2, .column-left, .column-right {.unit-1to2();}
+.column-left, .column-right {&:extend(.unit-1to2);}
 .column-left {}
 .column-right {
 	border-left: 1px solid #000;
