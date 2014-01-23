@@ -1,6 +1,7 @@
 
 /* @group main stuff */
-.body, body {
+.body, body,
+.hub-body {
 	font-size: 12pt;
 	font-family: @font-fam-base;
 	text-align: left;
@@ -10,7 +11,6 @@
 	> nav.breadcrumbs {.P1-midright();}
 }
 .hub-body {
-	.body;
 	background-image: url('/home/images/phi-stripes-trans.png');
 	background-repeat: repeat-y;
 	background-size: contain;
@@ -59,7 +59,6 @@ nav.breadcrumbs {
 		margin: auto;
 	}
 }
-
 /* @end */
 
 /* @group headings */
@@ -77,6 +76,7 @@ h6, .h-zeta {
 	font-family: @font-fam-heading;
 	text-align: left;
 	letter-spacing: 1px;
+	line-height: normal;
 	color: @color-body-txt;
 	.latex {color: inherit;}
 	small.h-sub {
@@ -261,9 +261,9 @@ dd {
 }
 /* a basic list that acts as a table with the list items acting as table cells */
 .list-line {
-	.list-basic;
-	.line();
-	li {.unit();}
+	&:extend(.list-basic);
+	.line;
+	li {.unit;}
 }
 /* a list typically containing textual (non-block) hyperlinks */
 .list-action {
@@ -282,7 +282,7 @@ ol.prose {
 	list-style-type: decimal;
 	p.lede {margin-bottom: 0.5em;}
 }
-
+/* outlined lists */
 .list-omega   {list-style-type: decimal-leading-zero;}
 .list-alpha   {list-style-type: upper-roman;}
 .list-beta    {list-style-type: upper-alpha;}
@@ -377,9 +377,16 @@ table {
 /* @end */
 
 /* @group inline text */
+/* mixin used for lots of things */
+.parens() {
+	&:before {content: '(';}
+	&:after  {content: ')';}	
+}
 	/* @group highlighted text */
-	em {font-style: italic;}
-	em > em {font-weight: bold;}
+	em {
+		font-style: italic;
+		> em {font-weight: bold;}
+	}
 	strong {font-weight: bold;}
 	mark {background-color: transparent;}
 	/* non-semantic elements reset */
@@ -424,9 +431,20 @@ table {
 		font-weight: bold;
 	}
 	/* @end */
-
+	/* @group addresses */
+	.phone,
+	.tel,
+	.email {
+		font-family: @font-fam-code;
+	}
+	/* @end */
 	/* @group citations */
+	q {}
 	cite {font-style: normal;}
+	small {
+		.parens();
+		font-size: 10pt;
+	}
 	.new[datetime],
 	ins[datetime],
 	.old[datetime],
@@ -464,22 +482,9 @@ table {
 			border-bottom: 0;
 		}
 	}
+	.superscript, sup {font-size: smaller; vertical-align: super;}
+	.subscript,   sub {font-size: smaller; vertical-align: sub;}
 	/* @end */
-
-/* mixin used for lots of things */
-.parens() {
-	&:before {content: '(';}
-	&:after  {content: ')';}	
-}
-.superscript {font-size: smaller; vertical-align: super;}
-.subscript   {font-size: smaller; vertical-align: sub;}
-small {
-	.parens();
-	font-size: 10pt;
-}
-.phone, .email {
-	font-family: @font-fam-code;
-}
 /* @end */
 
 /* @group special boxes */
@@ -582,7 +587,6 @@ small {
 		.latex {color: inherit}
 	}
 	/* @end */
-	
 	/* @group block links */
 	a.a-block {
 		&:extend(.box-block);
