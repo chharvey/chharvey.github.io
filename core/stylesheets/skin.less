@@ -2,10 +2,10 @@
 /* @group main stuff */
 .body, body,
 .hub-body {
-	font-size: 12pt;
+	font-size: @font-size-base;
 	font-family: @font-fam-base;
 	text-align: left;
-	line-height: 1.4em;
+	line-height: 1.4;
 	color: @color-body-txt;
 	background-color: @color-body-bg;
 	> nav.breadcrumbs {.P1-midright();}
@@ -22,7 +22,7 @@ main {
 	margin-bottom: 162px; // why did I choose this number?
 }
 .masthead {
-	@iconsize: 72pt;
+	@iconsize: 96px; // 1in
 	.P4-right();	
 	position: fixed;
 	top: (@iconsize / 2);
@@ -76,7 +76,6 @@ h6, .h-zeta {
 	font-family: @font-fam-heading;
 	text-align: left;
 	letter-spacing: 1px;
-	line-height: normal;
 	color: @color-body-txt;
 	.latex {color: inherit;}
 	small.h-sub {
@@ -88,35 +87,35 @@ h6, .h-zeta {
 h1, .h-alpha {
 	font-variant: small-caps;
 	font-weight: bold;
-	font-size: 2.000em; // 24pt
+	font-size: @font-size-h1;
 	text-align: center;
 	color: @color-heading;
 }
 h2, .h-beta {
 	font-weight: bold;
-	font-size: 1.500em; // 18pt
+	font-size: @font-size-h2;
 	color: @color-subheading;
 }
 h3, .h-gamma {
 	font-variant: small-caps;
 	font-weight: bold;
-	font-size: 1.167em; // 14pt
+	font-size: @font-size-h3;
 }
 h4, .h-delta {
 	font-style: italic;
 	font-weight: bold;
-	font-size: 1.000em; // 12pt
+	font-size: @font-size-h4;
 }
 h5, .h-epsilon {
 	font-style: italic;
-	font-size: 0.833em; // 10pt
+	font-size: @font-size-h5;
 	text-indent: 0.5in;
 	color: @color-subheading;
 }
 h6, .h-zeta {
 	font-style: italic;
 	font-variant: small-caps;
-	font-size: 0.833em; // 10pt
+	font-size: @font-size-h6;
 	text-indent: 0.5in;
 }
 h1 + h1,
@@ -142,7 +141,7 @@ h5 + h6 {
 .prose {
 	font-family: @font-fam-prose;
 	text-align: justify;
-	line-height: 1.3em;
+	line-height: 1.3;
 }
 p.prose {
 	margin-bottom: 0.75em;
@@ -155,7 +154,7 @@ p.prose {
 }
 p.lede {
 	margin-bottom: 1em;
-	line-height: 1.5em;
+	line-height: 1.5;
 }
 span.lede {
 	padding-right: 1em;
@@ -166,7 +165,7 @@ span.lede {
 	margin: @defaultmargins;
 	margin-top: 0.5em;
 	font-style: normal;
-	font-size: 10pt;
+	font-size: @font-size-smaller;
 	text-align: right;
 }
 .sideborder-left(@pad-width; @brdr-width; @marg-width; @brdr-style; @brdr-color) {
@@ -208,10 +207,10 @@ figure {
 /* blocks of short or long quoted material */
 blockquote {
 	.sideborder-left(13px; 8px; 34px; double; @accent);
-	font-size: 14pt;
+	font-size: @font-size-larger;
 	font-family: @font-fam-accent;
 	&.prose {
-		font-size: 13pt;
+		font-size: @font-size-larger;
 		cite.source {
 			padding-left: 0;
 			&:before {content: '(';}
@@ -235,7 +234,7 @@ p.timestamp {
 ul, ol, dl {
 	margin: @defaultmargins;
 	padding-left: 0.5in;
-	line-height: 1.3em;
+	line-height: 1.3;
 	ul, ol, dl {margin-bottom: auto;}
 }
 dd {
@@ -443,7 +442,7 @@ table {
 	cite {font-style: normal;}
 	small {
 		.parens();
-		font-size: 10pt;
+		font-size: @font-size-smaller;
 	}
 	.new[datetime],
 	ins[datetime],
@@ -524,7 +523,7 @@ table {
 			margin-left: 1em;
 			border: 0;
 			content: @content;
-			font-size: 10pt;
+			font-size: @font-size-smaller;
 			color: darken(@color, 80%);
 			background-color: darken(@color, 10%);
 		}
@@ -617,7 +616,7 @@ table {
 .code, code {
 	&:extend(.box);
 	border-color: @color-code-brdr;
-	font-size: 10pt;
+	font-size: @font-size-smaller;
 	font-family: @font-fam-code;
 	color: @color-code-txt;
 	background-color: @color-code-bg;
@@ -695,7 +694,7 @@ pre {
 }
 pre > code {
 	&:extend(.box-block);
-	line-height: 1.4em;
+	line-height: 1.4;
 }
 //figure pre > code {border: 0;}
 samp {font-family: inherit;}
@@ -715,7 +714,7 @@ samp {font-family: inherit;}
 
 /* @group math */
 .latex {
-	font-size: 10pt;
+	font-size: @font-size-smaller;
 	font-family: @font-fam-code;
 	white-space: pre-line;
 	color: @color-latex-txt;
