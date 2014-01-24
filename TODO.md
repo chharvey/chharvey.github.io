@@ -15,9 +15,11 @@ TO DO
 - **only in formal documents**: Change all possessive and contraction apostrophe characters `'` to right single quotes `&rsquo;`. Leave the apostrophes alone in regular pages. The typographical precision is not worth the effort.
 - 2013-12-14 see which `b.ref`s you can change to `cite`s (titles of works)
 	- and `a`s (links to documents, sections, etc.)
+- 2014-01-24 fix timestamp issues. maybe use `dl`?
 
 ### styles ###
 - 2014-01-20 Change 'includes' to 'extends' in `resume.less`
+- 2014-01-24 fix timestamp issues in `skin.less`
 
 ### scripts ###
 - 2013-12-14 investigate the use of templates (`<template>`)
