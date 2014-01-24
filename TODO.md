@@ -34,6 +34,7 @@ TO DO
 - 2014-01-21 finish last section (Phi demonstration)
 
 ### /site-design/typo.html ###
+- data lists
 - inline elements: highlighting
 - quotation-scheme examples
 - code scheme
