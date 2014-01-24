@@ -38,8 +38,8 @@ body,
 }
 nav.breadcrumbs {
 	ol {
-		&:extend(.list-action);
-		&:extend(.list-inline);
+		&:extend(.list-action all);
+		&:extend(.list-inline all);
 		li {padding-right: 1em;}
 	}
 }
@@ -203,6 +203,10 @@ figure {
 		border-top: 1px dashed;
 		border-bottom: 0;
 	}
+	&.bad, &.bad * {
+		color: @color-body-bg;
+		background-color: @color-body-txt;
+	}
 }
 /* blocks of short or long quoted material */
 blockquote {
@@ -250,7 +254,7 @@ dd {
 }
 /* a basic list except the list items are inline. dt elements are still blocks */
 .list-inline {
-	&:extend(.list-basic);
+	&:extend(.list-basic all);
 	display: block;
 	li, dd {display: inline;}
 	dt {
@@ -260,13 +264,13 @@ dd {
 }
 /* a basic list that acts as a table with the list items acting as table cells */
 .list-line {
-	&:extend(.list-basic);
+	&:extend(.list-basic all);
 	.line;
 	li {.unit;}
 }
 /* a list typically containing textual (non-block) hyperlinks */
 .list-action {
-	&:extend(.list-basic);
+	&:extend(.list-basic all);
 	color: @color-link-up-txt;
 	ul, ol, dl {list-style-type: none;}
 	li:before {content: '\2713\0020';} // check mark, space
@@ -518,19 +522,29 @@ abbr[title] {
 }
 	/* @group messages */
 	/* Messages are little warnings/tips/etc. for the user. More elegant than tooltips. */
-	.message(@color, @content) {
+	.warning,
+	.caution,
+	.success,
+	.info,
+	.help {
 		&:extend(.box-inline-block);
-		border: 0;
-		background-color: @color;
+		font-size: @font-size-small;
 		cursor: help;
 		&:after {
 			&:extend(.box);
 			margin-left: 1em;
-			border: 0;
-			content: @content;
 			font-size: @font-size-small;
+		}
+	}
+	.message(@color, @content) {
+		color: darken(@color, 80%);
+		background-color: @color;
+		border-color: @color;
+		&:after {
+			content: @content;
 			color: darken(@color, 80%);
 			background-color: darken(@color, 10%);
+			border-color: darken(@color, 10%);
 		}
 	}
 	/* "dire consequences" */
@@ -647,11 +661,11 @@ code {
 		.cmd {color: @color-code-latex-comm;}
 		.arg {color: @color-code-latex-arg;}
 	}
-	.comment {color: @color-code-comment;}
 	&.dir { /* directory system (folders and files) */
 		font-style: italic;
 		font-family: @font-fam-base;
 	}
+	.comment {color: @color-code-comment;}
 }
 @media print {
 	.code {

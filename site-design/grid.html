@@ -24,35 +24,35 @@
 <div class="main">
 <header>
 	<h1 class="h-alpha">Site Design &mdash; The Grid</h1>
-	<p class="timestamp">Updated <time datetime="2014-01-21T17:00">Jan 21, 2014</time>.</p>
+	<p class="timestamp">Updated <time datetime="2014-01-23T21:42">Jan 23, 2014</time>.</p>
 	<p class="prose">This page describes the grid system of the site. <a class="sp" href="../core/stylesheets/grid.less">The grid</a> implements the structure and layout of any page. It consists of lines and units, treated as table rows and table cells respectively.</p>
 	<p class="prose"><strong>Important:</strong> Since the classes used in the grid system define where the elements are positioned, the classnames are purely presentational and non-semantic. Therefore, the developer is encouraged to use concrete semantic classnames where relevant, and <b class="keyword">extend</b> the classes in <code class="dir">grid.less</code>.</p>
-	<figure>
-		<p>For example, say you want a certain <code class="lang-css">div.essay</code> to look like a <code class="lang-css">.P1-left</code>. Rather than putting <code class="lang-html">&lt;div class=&quot;essay P1-left&quot;&gt;</code> in the HTML, you should put <code class="lang-less">.essay {&:extend(.P1-left);}</code> in the Less stylesheet. That way, the <code class="lang-html">&lt;div class=&quot;essay&quot;&gt;</code> will appear like a <code class="lang-css">.P1-left</code> while still being semantically named. <small>For more information, see <a class="sp" href="http://less.github.io/features.html#extend-feature">the Less documentation</a>, and read my opinions on <a>Object-Oriented CSS</a> and <a>semantic class naming</a>.</small></p>
-	</figure>
+<!--
+	<p>For example, say you want a certain <code class="lang-css">div.essay</code> to look like a <code class="lang-css">.P1-left</code>. Rather than putting <code class="lang-html">&lt;div class=&quot;essay P1-left&quot;&gt;</code> in the HTML, you should put <code class="lang-less">.essay {&:extend(.P1-left);}</code> in the Less stylesheet. That way, the <code class="lang-html">&lt;div class=&quot;essay&quot;&gt;</code> will appear like a <code class="lang-css">.P1-left</code> while still being semantically named. <small>For more information, see <a class="sp" href="http://less.github.io/features.html#extend-feature">the Less documentation</a>, and read up on <a>Object-Oriented CSS</a> and <a>semantic class naming</a>.</small></p>
+-->
 	<p class="prose">Seeing as the grid is presentational, it should <b>degrade gracefully</b>. This means that if someone were to <i class="scare">turn off</i> the grid, you would still be able to read and interact with the website without any problems. It might not look pretty, but the content should be intact.</p>
 </header>
 <section id="setup">
 	<h1 class="h-beta">Setting It Up</h1>
-	<p>To set up a grid, you'll need to create a line with units inside. The effect will be a table-like structure, with the line acting as a row and the units acting as cells.</p>
-	<pre><code class="lang-html"><span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">line</span>&quot;</span>&gt;</span> <span class="comment">&lt;!--this is a line!--&gt;</span>
+	<p class="prose">To set up a grid, you'll need to create a line with units inside. The effect will be a table-like structure, with the line acting as a row and the units acting as cells.</p>
+	<figure>
+		<pre><code class="lang-html"><span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">line</span>&quot;</span>&gt;</span> <span class="comment">&lt;!--this is a line!--&gt;</span>
 	<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit</span>&quot;</span>&gt;</span>this is unit 1!<span class="tag">&lt;/div&gt;</span>
 	<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit</span>&quot;</span>&gt;</span>this is unit 2!<span class="tag">&lt;/div&gt;</span>
 	<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit</span>&quot;</span>&gt;</span>this is unit 3!<span class="tag">&lt;/div&gt;</span>
 <span class="tag">&lt;/div&gt;</span></code></pre>
-	<p>Of course, a good developer wouldn't use the <code class="lang-css">.line</code> and <code class="lang-css">.unit</code> classes themselves, but would extend them to more meaningful classes. This way, the HTML author wouldn't have to worry about how the elements are styled, and in the future if the CSS designer wants to change the way the elements look, they can just go into the CSS and change some styles rather than having to  change the classnames in the HTML.</p>
-	<figure>
-		<figcaption>Here's what your output would look like:<br /><small>Outlines are added to show structure, and widths are random to show they are not fixed.</small></figcaption>
 		<div class="line">
 			<div class="unit" style="width: 20%;">this is unit 1!</div>
 			<div class="unit" style="width: 60%;">this is unit 2!</div>
 			<div class="unit" style="width: 20%;">this is unit 3!</div>
 		</div>
+		<p><small>Outlines are added to show structure, and widths are not equal to show they are not fixed.</small></p>
 	</figure>
+	<p class="prose">Of course, a good developer wouldn't use the <code class="lang-css">.line</code> and <code class="lang-css">.unit</code> classes themselves, but would <b class="keyword">extend</b> them to more meaningful classes. This way, the HTML author wouldn't have to worry about how the elements are styled, and in the future if the CSS designer wants to change the way the elements look, they can just go into the CSS and change some styles rather than having to  change the classnames in the HTML.</p>
 </section>
 <section  id="custom-units">
 	<h1 class="h-beta">Custom Units</h1>
-	<p>Each line is 100% the width of its container, unless otherwise specified. Each line can have any number of units. Notice that in the example above, that the units were not evenly distributed: the middle unit will likely be significantly wider than the other two units, assuming there will be more text in that element. If you want the line to <em>force</em> the units to have equal widths, you must add classes to the units to specify their widths. See the following classes:</p>
+	<p class="prose">Each line is 100% the width of its container, unless otherwise specified. Each line can have any number of units. Notice that in the example above, that the units were not evenly distributed: the middle unit will likely be significantly wider than the other two units, assuming there will be more text in that element. If you want the line to <em>force</em> the units to have equal widths, you must add classes to the units to specify their widths. See the following classes:</p>
 	<table class="table-list linebreadth-small">
 		<caption>Note that these classes automatically extend the <code class="lang-less">.unit</code> class in <code class="dir">grid.less</code>.</caption>
 		<thead>
@@ -138,13 +138,13 @@
 			</tr>
 		</tbody>
 	</table>
-	<p>Let's make sure our cells are equal width. Remember that all of the units must add up to 100%.</p>
-	<pre><code class="lang-html"><span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">line</span>&quot;</span>&gt;</span>
+	<p class="prose">Let's make sure our cells are equal width. Remember that all of the units must add up to 100%.</p>
+	<figure>
+		<pre><code class="lang-html"><span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">line</span>&quot;</span>&gt;</span>
 	<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit<span class="new">-1to3</span></span>&quot;</span>&gt;</span>this is unit 1!<span class="tag">&lt;/div&gt;</span>
 	<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit<span class="new">-1to3</span></span>&quot;</span>&gt;</span>this is unit 2!<span class="tag">&lt;/div&gt;</span>
 	<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit<span class="new">-1to3</span></span>&quot;</span>&gt;</span>this is unit 3!<span class="tag">&lt;/div&gt;</span>
 <span class="tag">&lt;/div&gt;</span></code></pre>
-	<figure>
 		<div class="line">
 			<div class="unit-1to3 outline">this is unit 1!</div>
 			<div class="unit-1to3 outline">this is unit 2!</div>
@@ -155,7 +155,7 @@
 		<header>
 			<h1 class="h-gamma">Golden Unit Widths</h1>
 			<p class="prose">Please read up on some <a href="phi.html">background information</a> for a more enriching understanding of this section.</p>
-			<p class="prose"><span class="lede"><abbr title="too long; don't read">tl;dr</abbr></span> In a nutshell, one full container width (100%) must be broken up into a <span class="latex">\(\Phi^1\)</span> and <span class="latex">\(\Phi^2\)</span>, with <span class="latex">\(\Phi^1 = \Phi^2 + \Phi^3\)</span>, and <span class="latex">\(\Phi^2 = \Phi^3 + \Phi^4\)</span>, etc.</p>
+			<p class="prose"><span class="lede"><abbr title="too long; didn't read">tl;dr</abbr></span> In a nutshell, one full container width (100%) must be broken up into a <span class="latex">\(\Phi^1\)</span> and <span class="latex">\(\Phi^2\)</span>, with <span class="latex">\(\Phi^1 = \Phi^2 + \Phi^3\)</span>, and <span class="latex">\(\Phi^2 = \Phi^3 + \Phi^4\)</span>, etc.</p>
 		</header>
 		<section>
 			<h1 class="h-delta">Lines with Two Units</h1>
@@ -225,9 +225,10 @@
 					<div class="unit-P4"><code class="lang-less">.unit-P4</code></div>
 					<div class="unit-P3"><code class="lang-less">.unit-P3</code></div>
 				</div>
-				<div class="line" style="background-color: #fef;"><!-- "background-color: @color-help;" -->
+				<div class="line">
 					<div class="unit-P3"><code class="lang-less">.unit-P3</code></div>
-					<div class="unit-P1"><code class="lang-less">.unit-P1</code></div>
+					<div class="unit-P1"><code class="lang-less">.unit-P1</code>
+						<span class="help">This is it!</span></div>
 					<div class="unit-P4"><code class="lang-less">.unit-P4</code></div>
 				</div>			
 				<div class="line">
@@ -258,7 +259,7 @@
 	</header>
 	<section>
 		<h1 class="h-gamma">.linebreadth-full</h1>
-		<p>A normal block element defaults to 100% width and no left/right margins. This is equivalent to the <code class="lang-less">.linebreadth-full</code> class, which you can use to override another class if need be.</p>
+		<p class="prose">A normal block element defaults to 100% width and no left/right margins. This is equivalent to the <code class="lang-less">.linebreadth-full</code> class, which you can use to override another class if need be.</p>
 		<figure>
 			<div class="linebreadth-full outline">
 				<p>The <code class="lang-less">.linebreadth-full</code> class sets the line width to 100% with no margins. It's modeled after the <b>harmonic sequence</b></p>
@@ -299,7 +300,7 @@
 	<section id="golden-block-widths">
 		<h1 class="h-gamma">Golden Block Widths</h1>
 		<figure>
-			<pre><code class="lang-less"><div class="P1-left"><span class="selector">.P1-left {
+			<pre><code class="lang-css"><div class="P1-left"><span class="selector">.P1-left {
 	<span class="property">width: <span class="value">61.80%</span>;</span>
 	<span class="property">margin-left: <span class="value">0</span>;</span>
 	<span class="property">margin-right: <span class="value">38.20%</span>;</span> <span class="comment">// P2</span>
@@ -377,8 +378,9 @@
 		<h1 class="h-beta">Nested Lines</h1>
 		<p class="prose">There is something else worth mentioning. It is possible to have more than 6 units in a line by <strong>nesting lines</strong>. This means putting lines within lines. More accurately, lines within units within lines.</p>
 	</header>
-	<p>For example, lets say you want twelve equal-width units. Then you could create a line with two <code class="lang-less">.unit-1to2</code>s, and in each unit, build a line with 6 <code class="lang-less">.unit-1to6</code>s each. You could also have three groups of four, etc.</p>
-	<pre><code class="lang-html"><span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">line</span>&quot;</span>&gt;</span> <span class="comment">&lt;!-- big line --&gt;</span>
+	<p class="prose">For example, lets say you want twelve equal-width units. Then you could create a line with two <code class="lang-less">.unit-1to2</code>s, and in each unit, build a line with 6 <code class="lang-less">.unit-1to6</code>s each. You could also have three groups of four, etc.</p>
+	<figure>
+		<pre><code class="lang-html"><span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">line</span>&quot;</span>&gt;</span> <span class="comment">&lt;!-- big line --&gt;</span>
 	<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to2</span>&quot;</span>&gt;</span> <span class="comment">&lt;!-- unit 50% --&gt;</span>
 		<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">line</span>&quot;</span>&gt;</span> <span class="comment">&lt;!-- small line --&gt;</span>
 			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to6</span>&quot;</span>&gt;</span> unit 16.6% <span class="tag">&lt;/div&gt;</span>
@@ -426,8 +428,10 @@
 		<span class="tag">&lt;/div&gt;</span>
 	<span class="tag">&lt;/div&gt;</span>
 <span class="tag">&lt;/div&gt;</span></code></pre>
-	<p>Here's another example:</p>
-	<pre><code class="lang-html"><span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">line</span>&quot;</span>&gt;</span>
+	</figure>
+	<p class="prose">Here's another example:</p>
+	<figure>
+		<pre><code class="lang-html"><span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">line</span>&quot;</span>&gt;</span>
 	<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-2to3</span>&quot;</span>&gt;</span>
 		<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">line</span>&quot;</span>&gt;</span>
 			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to5</span>&quot;</span>&gt;</span> unit 1 (13.33%) <span class="tag">&lt;/div&gt;</span>
@@ -445,7 +449,6 @@
 		<span class="tag">&lt;/div&gt;</span>
 	<span class="tag">&lt;/div&gt;</span>
 <span class="tag">&lt;/div&gt;</span></code></pre>
-	<figure>
 		<div class="line">
 			<div class="unit" style="width: 66.66%">
 				<div class="line">
@@ -465,7 +468,7 @@
 			</div>
 		</div>
 	</figure>
-	<p>Notice how in these examples there were <strong>lines within units</strong>. If you are nesting lines, you must contain the second-level <em>line</em> within the first-level <em>unit</em>. The <code class="lang-less">.line</code> and <code class="lang-less">.unit</code> classes were not meant to mix in the same element. There shouldn't be any elements with both classes in your HTML.</p>
+	<p class="prose">Notice how in these examples there were <strong>lines within units</strong>. If you are nesting lines, you must contain the second-level <em>line</em> within the first-level <em>unit</em>. The <code class="lang-less">.line</code> and <code class="lang-less">.unit</code> classes were not meant to mix in the same element. There shouldn't be any elements with both classes in your HTML.</p>
 	<figure class="bad">
 		<pre><code class="lang-html">&lt;!-- this is bad and it will break! --&gt;
 &lt;div class=&quot;line&quot;&gt;
@@ -482,7 +485,7 @@
 	</figure>	
 </section>
 <section class="draft">
-	<p>Hover over each cell below.</p>
+	<p class="prose">Hover over each cell below.</p>
 	<div class="undoP1-midright">
 		<div class="phidemo">
 			<div class="line">

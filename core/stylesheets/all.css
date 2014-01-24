@@ -488,6 +488,11 @@ figure > figcaption {
   border-top: 1px dashed;
   border-bottom: 0;
 }
+figure.bad,
+figure.bad * {
+  color: #ffffff;
+  background-color: #000000;
+}
 /* blocks of short or long quoted material */
 blockquote {
   margin: 0 0 0.5em;
@@ -561,7 +566,22 @@ nav.breadcrumbs ol {
 }
 .list-basic li,
 .list-basic dt,
-.list-basic dd {
+.list-basic dd,
+.list-inline li,
+.list-inline dt,
+.list-inline dd,
+.list-line li,
+.list-line dt,
+.list-line dd,
+.list-action li,
+.list-action dt,
+.list-action dd,
+nav.breadcrumbs ol li,
+nav.breadcrumbs ol dt,
+nav.breadcrumbs ol dd,
+nav.breadcrumbs ol li,
+nav.breadcrumbs ol dt,
+nav.breadcrumbs ol dd {
   margin: 0;
   padding: 0;
 }
@@ -571,13 +591,17 @@ nav.breadcrumbs ol {
   display: block;
 }
 .list-inline li,
-.list-inline dd {
+.list-inline dd,
+nav.breadcrumbs ol li,
+nav.breadcrumbs ol dd {
   display: inline;
 }
-.list-inline dt {
+.list-inline dt,
+nav.breadcrumbs ol dt {
   text-indent: 0;
 }
-.list-inline dt + dd {
+.list-inline dt + dd,
+nav.breadcrumbs ol dt + dd {
   padding-left: 0.5in;
 }
 /* a basic list that acts as a table with the list items acting as table cells */
@@ -599,16 +623,22 @@ nav.breadcrumbs ol {
 }
 .list-action ul,
 .list-action ol,
-.list-action dl {
+.list-action dl,
+nav.breadcrumbs ol ul,
+nav.breadcrumbs ol ol,
+nav.breadcrumbs ol dl {
   list-style-type: none;
 }
-.list-action li:before {
+.list-action li:before,
+nav.breadcrumbs ol li:before {
   content: '\2713\0020';
 }
-.list-action a {
+.list-action a,
+nav.breadcrumbs ol a {
   border-bottom: 0;
 }
-.list-action a[href] {
+.list-action a[href],
+nav.breadcrumbs ol a[href] {
   text-decoration: underline;
 }
 ol.prose {
@@ -897,75 +927,81 @@ pre > code {
 }
 /* @group messages */
 /* Messages are little warnings/tips/etc. for the user. More elegant than tooltips. */
-/* "dire consequences" */
-.warning {
-  border: 0;
-  background-color: #ffeeee;
+.warning,
+.caution,
+.success,
+.info,
+.help {
+  font-size: 12px;
   cursor: help;
 }
-.warning:after {
+.warning:after,
+.caution:after,
+.success:after,
+.info:after,
+.help:after {
   margin-left: 1em;
-  border: 0;
-  content: '!';
   font-size: 12px;
+}
+/* "dire consequences" */
+.warning {
+  color: #550000;
+  background-color: #ffeeee;
+  border-color: #ffeeee;
+}
+.warning:after {
+  content: '!';
   color: #550000;
   background-color: #ffbbbb;
+  border-color: #ffbbbb;
 }
 /* "be careful" */
 .caution {
-  border: 0;
+  color: #555500;
   background-color: #ffffee;
-  cursor: help;
+  border-color: #ffffee;
 }
 .caution:after {
-  margin-left: 1em;
-  border: 0;
   content: '\2026';
-  font-size: 12px;
   color: #555500;
   background-color: #ffffbb;
+  border-color: #ffffbb;
 }
 /* "something was done right" */
 .success {
-  border: 0;
+  color: #005500;
   background-color: #eeffee;
-  cursor: help;
+  border-color: #eeffee;
 }
 .success:after {
-  margin-left: 1em;
-  border: 0;
   content: '=)';
-  font-size: 12px;
   color: #005500;
   background-color: #bbffbb;
+  border-color: #bbffbb;
 }
 /* "extra information" */
 .info {
-  border: 0;
+  color: #000055;
   background-color: #eeeeff;
-  cursor: help;
+  border-color: #eeeeff;
 }
 .info:after {
-  margin-left: 1em;
-  border: 0;
   content: '?';
-  font-size: 12px;
   color: #000055;
   background-color: #bbbbff;
+  border-color: #bbbbff;
 }
 /* "tips and hints" */
 .help {
-  border: 0;
+  color: #550055;
   background-color: #ffeeff;
-  cursor: help;
+  border-color: #ffeeff;
 }
 .help:after {
-  margin-left: 1em;
-  border: 0;
   content: '\2665';
-  font-size: 12px;
   color: #550055;
   background-color: #ffbbff;
+  border-color: #ffbbff;
 }
 @media print {
   .warning:after,
@@ -1071,13 +1107,13 @@ code.lang-latex .cmd {
 code.lang-latex .arg {
   color: #000080;
 }
-code .comment {
-  color: #999999;
-}
 code.dir {
   /* directory system (folders and files) */
   font-style: italic;
   font-family: 'Optima', 'Candara', 'Lucida Sans', sans-serif;
+}
+code .comment {
+  color: #999999;
 }
 @media print {
   .code,
