@@ -4,25 +4,25 @@
 /* @group site navigation */
 .hub-nav {
 	font-size: 13pt;
-	.navlist() {
+	.primary,
+	.secondary {
 		&:extend(.P3-left);
 		&:extend(.list-basic);
 		position: fixed;
 	}
 	@move: 20px;
 	.primary {
-		.navlist();
 		top: @move;
 	}
 	.secondary {
-		.navlist();
 		bottom: @move;
 	}
 	li {
 		&:extend(.P1-midright);
 		&:hover {&:extend(.P1-right);}
 	}
-	.a-block {
+	a {
+		&:extend(a.a-block all);
 		@space: 10px;
 		padding-left: @space;
 		padding-right: @space;
@@ -54,12 +54,13 @@
 		position: relative;
 		font-variant: small-caps;
 		a {
+			&:extend(a.a-block[href] all);
 			height: 3em;
 			padding: 0;
 			border-width: 0;
 			border-radius: 0;
 			margin: 0;
-			position: static /* will be changed to 'absolute' in javascript */;
+			position: static; // will be changed to `absolute` in javascript
 			font-size: 2em;
 			&.a1 {width: @width-Golden1;}
 			&.b1 {width: @width-Golden2;}
@@ -73,15 +74,13 @@
 			&.j1 {width: @width-Golden10;}
 			&.k1 {width: @width-Golden11;}
 			&.l1 {width: @width-Golden12;}
-			&:hover {
-				.buttontext {visibility: visible;}
-			}
-			.buttontext {
-				position: relative;
-				top: 1em;
-				visibility: hidden;
-			}
 		}
+		a .buttontext {
+			position: relative;
+			top: 1em;
+			visibility: hidden;
+		}
+		a:hover .buttontext {visibility: visible;}
 	}
 }
 /* @end */

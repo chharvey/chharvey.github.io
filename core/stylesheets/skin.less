@@ -44,6 +44,11 @@ nav.breadcrumbs {
 	}
 }
 @media print {
+	body,
+	h1, h2, h3, h4, h5, h6,
+	table {
+		font-size: 12pt;
+	}
 	body {
 		color: #000;
 		background-color: #fff;
@@ -58,7 +63,6 @@ nav.breadcrumbs {
 /* @end */
 
 /* @group headings */
-.heading,
 h1, .h-alpha,
 h2, .h-beta,
 h3, .h-gamma,
@@ -114,23 +118,23 @@ h6, .h-zeta {
 	font-size: @font-size-h6;
 	text-indent: 0.5in;
 }
-h1 + h1,
-h1 + h2,
-h2 + h3,
-h3 + h4,
-h4 + h5,
-h5 + h6 {
-	margin-top: 0;
-}
+//h1 + h1,
+//h1 + h2,
+//h2 + h3,
+//h3 + h4,
+//h4 + h5,
+//h5 + h6 {
+//	margin-top: 0;
+//}
 .title,
-.title p {
+.title * {
 	text-align: center;
 }
 /* @end */
 
 /* @group paragraphs */
 @defaultmargins: 0 0 0.5em;
-.p, p {
+p {
 	margin: @defaultmargins;
 	text-align: left;
 }
@@ -161,7 +165,7 @@ span.lede {
 	margin: @defaultmargins;
 	margin-top: 0.5em;
 	font-style: normal;
-	font-size: @font-size-smaller;
+	font-size: @font-size-small;
 	text-align: right;
 }
 .sideborder-left(@pad-width; @brdr-width; @marg-width; @brdr-style; @brdr-color) {
@@ -187,7 +191,7 @@ span.lede {
 /* a container containing paragraphs, etc. that are not officially part of an official document, but are still a major part of the normal flow of the document. Used when 'aside' and 'figure' elements are not suitable. */
 .informal {
 	.sideborder-left(5px; 3px; 13px; solid; @accent);
-//	padding: 10px;
+	font-family: @font-fam-base;
 	background-color: #f4f4f4;
 //	& * {background-color: transparent;}
 }
@@ -203,10 +207,10 @@ figure {
 /* blocks of short or long quoted material */
 blockquote {
 	.sideborder-left(13px; 8px; 34px; double; @accent);
-	font-size: @font-size-larger;
+	font-size: @font-size-big;
 	font-family: @font-fam-accent;
 	&.prose {
-		font-size: @font-size-larger;
+		//font-size: @font-size-big;
 		cite.source {
 			padding-left: 0;
 			&:before {content: '(';}
@@ -371,115 +375,120 @@ table {
 //}
 /* @end */
 
-/* @group inline text */
 /* mixin used for lots of things */
 .parens {
 	&:before {content: '(';}
 	&:after  {content: ')';}	
 }
-	/* @group highlighted text */
-	em {
-		font-style: italic;
-		> em {font-weight: bold;}
+/* non-semantic elements reset */
+i,
+b {
+	font-style: inherit;
+	font-weight: inherit;
+}
+
+/* @group highlighted text */
+em {
+	font-style: italic;
+	> em {font-weight: bold;}
+}
+strong {font-weight: bold;}
+mark {background-color: transparent;}
+/* scare quotes contain abuse of vocabulary or language */
+i.scare {
+	&:before {content: open-quote;}
+	&:after  {content: close-quote;}
+}
+/* mentions refer to phrases without referring to their meaning */
+i.mention {
+	&:before {content: open-quote;}
+	&:after  {content: close-quote;}
+}
+/* phrases representing silent thoughts */
+i.thought {
+	&:before {content: '\00ab';} // &laquo;
+	&:after  {content: '\00bb';} // &raquo;
+}
+/* phrases in foreign languages */
+.foreignlang() {
+	font-style: italic;
+	font-family: 'Times','Times New Roman',serif;
+}
+i:lang(la),
+i:lang(it),
+i:lang(fr) { 
+	.foreignlang();
+}
+i[lang=la],
+i[lang=it],
+i[lang=fr] {
+	.foreignlang();
+}
+.solfege {.foreignlang();}
+/* reference to a title, section heading, figure, table. use only when the `a` element or the `cite` element would not be appropriate */
+b.ref {
+	font-weight: bold;
+}
+/* keywords or technical terms */
+b.keyword {
+	font-weight: bold;
+}
+/* @end */
+
+/* @group addresses */
+.phone,
+.tel,
+.email {
+	font-family: @font-fam-code;
+}
+/* @end */
+
+/* @group citations */
+q {}
+cite {font-style: normal;}
+small {
+	&:extend(.parens all);
+	font-size: @font-size-small;
+}
+.new[datetime],
+ins[datetime],
+.old[datetime],
+del[datetime],
+abbr[title] {
+	cursor: help;
+	&:hover:after {
+		position: relative;
+		left: 5px;
+		top: 5px;
 	}
-	strong {font-weight: bold;}
-	mark {background-color: transparent;}
-	/* non-semantic elements reset */
-	i, b {font-style: inherit; font-weight: inherit;}
-	/* scare quotes contain abuse of vocabulary or language */
-	i.scare {
-		&:before {content: open-quote;}
-		&:after  {content: close-quote;}
-	}
-	/* mentions refer to phrases without referring to their meaning */
-	i.mention {
-		&:before {content: open-quote;}
-		&:after  {content: close-quote;}
-	}
-	/* phrases representing silent thoughts */
-	i.thought {
-		&:before {content: '\00ab';} // &laquo;
-		&:after  {content: '\00bb';} // &raquo;
-	}
-	/* phrases in foreign languages */
-	.foreignlang() {
-		font-style: italic;
-		font-family: 'Times','Times New Roman',serif;
-	}
-	i:lang(la),
-	i:lang(it),
-	i:lang(fr) { 
-		.foreignlang();
-	}
-	i[lang=la],
-	i[lang=it],
-	i[lang=fr] {
-		.foreignlang();
-	}
-	.solfege {.foreignlang();}
-	/* reference to a title, section heading, figure, table. use only when the `a` element or the `cite` element would not be appropriate */
-	b.ref {
-		font-weight: bold;
-	}
-	/* keywords or technical terms */
-	b.keyword {
-		font-weight: bold;
-	}
-	/* @end */
-	/* @group addresses */
-	.phone,
-	.tel,
-	.email {
-		font-family: @font-fam-code;
-	}
-	/* @end */
-	/* @group citations */
-	q {}
-	cite {font-style: normal;}
-	small {
-		&:extend(.parens);
-		font-size: @font-size-smaller;
-	}
-	.new[datetime],
-	ins[datetime],
-	.old[datetime],
-	del[datetime],
-	abbr[title] {
-		cursor: help;
-		&:hover:after {
-			position: relative;
-			left: 5px;
-			top: 5px;
-		}
-	}
-	.new, ins {
-		padding-left: 0.5em;
+}
+.new, ins {
+	padding-left: 0.5em;
 //		text-decoration: underline;
 //		color: @color-ins-txt;
-		text-decoration: none;
-		background-color: @color-ins-bg;
-		&[datetime]:hover:after {content: 'inserted on ' attr(datetime);}
-	}
-	.old, del {
-		padding-right: 0.5em;
+	text-decoration: none;
+	background-color: @color-ins-bg;
+	&[datetime]:hover:after {content: 'inserted on ' attr(datetime);}
+}
+.old, del {
+	padding-right: 0.5em;
 //		text-decoration: line-through;
 //		color: @color-del-txt;
-		text-decoration: none;
-		background-color: @color-del-bg;
+	text-decoration: none;
+	background-color: @color-del-bg;
 //		&[datetime]:hover:after {content: 'deleted on ' attr(datetime);}
-	}
-	abbr[title] {
-		border-bottom: 2px solid @color-info;
+}
+abbr[title] {
+	border-bottom: 2px solid @color-info;
 //		&:hover:after {content: attr(title);}
+}
+@media print {
+	abbr[title] {
+		border-bottom: 0;
 	}
-	@media print {
-		abbr[title] {
-			border-bottom: 0;
-		}
-	}
-	.superscript, sup {font-size: smaller; vertical-align: super;}
-	.subscript,   sub {font-size: smaller; vertical-align: sub;}
-	/* @end */
+}
+.superscript, sup {font-size: smaller; vertical-align: super;}
+.subscript,   sub {font-size: smaller; vertical-align: sub;}
 /* @end */
 
 /* @group special boxes */
@@ -519,7 +528,7 @@ table {
 			margin-left: 1em;
 			border: 0;
 			content: @content;
-			font-size: @font-size-smaller;
+			font-size: @font-size-small;
 			color: darken(@color, 80%);
 			background-color: darken(@color, 10%);
 		}
@@ -554,65 +563,73 @@ table {
 		}
 	}
 	/* @end */
-	/* @group forms */
-	fieldset {
-		padding: 0;
-		border: 0;
-		margin: 0;
-	}
-	/* @end */
 /* @end */
 
-/* @group hyperlinks */
-	/* @group inline links */
-	a {
-		text-decoration: none;
-		color: inherit;
-		border-width: 0 0 1px;
-		border-style: dotted;
-		&[href] {
-			color: @color-link-up-txt; // also sets border color
-			&:hover {color: @color-link-dn-txt;}
-			&.sp {
-				color: @color-link-sp-up-txt;
-				&:hover {color: @color-link-sp-dn-txt;}
-			}
-			&:active {color: @color-link-active-txt;}
+/* @group forms */
+fieldset {
+	padding: 0;
+	border: 0;
+	margin: 0;
+}
+/* @end */
+
+/* @group inline links */
+a {
+	text-decoration: none;
+	color: inherit;
+	border-width: 0 0 1px;
+	border-style: dotted;
+	&[href] {
+		color: @color-link-up-txt; // also sets border color
+		&:hover {color: @color-link-dn-txt;}
+		&.sp {
+			color: @color-link-sp-up-txt;
+			&:hover {color: @color-link-sp-dn-txt;}
 		}
-		.latex {color: inherit}
+		&:active {color: @color-link-active-txt;}
 	}
-	/* @end */
-	/* @group block links */
-	a.a-block {
-		&:extend(.box-block);
-		border-color: inherit;
-		border-radius: @box-radius-medium;
-		text-align: center;
-		background-color: inherit;
-		&[href],
-		#index & {
-			border-color: @color-link-up-block-brdr;
-			background-color: @color-link-up-block-bg;
-			&:hover {
-				border-color: @color-link-dn-block-brdr;
-				background-color: @color-link-dn-block-bg;
-			}
-			&:active {
-				border-color: @color-link-active-block-brdr;
-				background-color: @color-link-active-block-bg;
-			}
+	.latex {color: inherit}
+}
+/* @end */
+
+/* @group block links */
+a.a-block {
+	&:extend(.box-block);
+	border-color: inherit;
+	border-radius: @box-radius-medium;
+	text-align: center;
+	background-color: inherit;
+	&[href] {
+		border-color: @color-link-up-block-brdr;
+		background-color: @color-link-up-block-bg;
+		&:hover {
+			border-color: @color-link-dn-block-brdr;
+			background-color: @color-link-dn-block-bg;
+		}
+		&:active {
+			border-color: @color-link-active-block-brdr;
+			background-color: @color-link-active-block-bg;
 		}
 	}
-	/* @end */
+}
 /* @end */
 
 /* @group coding */
-/* CODE represents EXAMPLE code, typically something a user would input. do NOT use the 'example' class, though it would be semantically correct, because this 'code' class this is more specific. */
-/* fragment or string of code a computer would recognize */
-.code, code {
+pre {
+	margin: 0;
+	white-space: pre-wrap;
+	> code {
+		&:extend(.box-block);
+		//line-height: 1.4;
+	}
+}
+//figure pre > code {border: 0;}
+samp {font-family: inherit;}
+/* example of a fragment or string of code a computer would recognize */
+code {
 	&:extend(.box);
 	border-color: @color-code-brdr;
-	font-size: @font-size-smaller;
+	font-size: @font-size-small;
 	font-family: @font-fam-code;
 	color: @color-code-txt;
 	background-color: @color-code-bg;
@@ -621,7 +638,7 @@ table {
 		.attribute {color: @color-code-html-attr;}
 		.value     {color: @color-code-html-val;}
 	}
-	&.lang-css, &.lang-less {
+	&.lang-css {
 		.selector {color: @color-code-css-sel;}
 		.property {color: @color-code-css-prop;}
 		.value    {color: @color-code-css-val;}
@@ -631,7 +648,7 @@ table {
 		.arg {color: @color-code-latex-arg;}
 	}
 	.comment {color: @color-code-comment;}
-	&.dir {
+	&.dir { /* directory system (folders and files) */
 		font-style: italic;
 		font-family: @font-fam-base;
 	}
@@ -643,74 +660,25 @@ table {
 	}
 }
 /* user input, in the form of a string, menu item, etc. */
-.userinput,
 kbd { 
 	white-space: nowrap;
-	&.write {
+	&.write { // what is this?
 		font-family: inherit;
 		&:before {content: open-quote;}
 		&:after  {content: close-quote;}
 	}
+	/* an individual key on a keyboard, calculator, or other device */
+	> kbd {
+		&:extend(.code);
+		padding: 2px;
+		font-family: @font-fam-base;
+	}
 }
-/* an individual key on a keyboard, calculator, or other device */
-.key,
-kbd kbd {
-	&:extend(.code);
-	padding: 2px;
-	font-family: @font-fam-base;
-}
-//.sample() {
-//	.box-block;
-//	position: relative;
-//	padding: 2em 10px 10px;
-//	.code, code {border: 0;}
-//}
-//.sample-label() {
-//	.box-block;
-//	position: absolute;
-//	top: -1px;
-//	left: -1px;
-//	border-bottom-left-radius: 0;
-//	border-top-right-radius: 0;
-//	margin: 0;
-//	font-size: smaller;
-//}
-//.code-block() {
-//	.sample();
-//	.label {
-//		.sample-label();
-//		border-color: @color-code-brdr;
-//		color: @color-code-label-txt;
-//		background-color: @color-code-label-bg;
-//	}
-//}
-pre {
-	margin: 0;
-	white-space: pre-wrap;
-}
-pre > code {
-	&:extend(.box-block);
-	line-height: 1.4;
-}
-//figure pre > code {border: 0;}
-samp {font-family: inherit;}
-/* demos are blocks or figures that demonstrate output of an example code block */
-//.demo {
-//	.sample();
-//	border-color: @color-demo-brdr;
-//	background-color: @color-demo-bg;
-//	> .label {
-//		.sample-label();
-//		border-color: @color-demo-brdr;
-//		color: @color-demo-label-txt;
-//		background-color: @color-demo-label-bg;
-//	}
-//}
 /* @end */
 
 /* @group math */
 .latex {
-	font-size: @font-size-smaller;
+	font-size: @font-size-small;
 	font-family: @font-fam-code;
 	white-space: pre-line;
 	color: @color-latex-txt;
@@ -725,16 +693,14 @@ var {font-style: italic;}
 }
 /* @end */
 
-
-
 /* @group miscellaneous */
-/* Selects elements not yet ready for publishing. Elements with the 'hidden' boolean attribute (hidden="") are not to be processed by browsers and are to be ignored by SEO patterns. Sometimes, the browser-default css-style is overridden, hence this selector exists. */
+/* Elements not yet ready for publishing. Elements with the 'hidden' boolean attribute (hidden="") are not to be processed by browsers and are to be ignored by SEO patterns. Sometimes, the browser-default css-style is overridden, hence this selector exists. */
 [hidden] {display:none !important;}
 
-/* Selects elements needed for SEO *only* (e.g. extraneous titles, etc). Try to only use this selector as a last resort. */
+/* Elements needed for SEO *only* (e.g. extraneous titles, etc). Try to only use this selector as a last resort. */
 .seo-only {display: none !important;}
 
-/* Selects elements still in testing mode but still not yet ready for implementation. */
+/* Elements still in testing mode but still not yet ready for implementation. */
 .draft, .draft * {color: #999;}
 
 /* To display on screen but not to print. */

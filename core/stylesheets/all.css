@@ -302,6 +302,16 @@ nav.breadcrumbs ol li {
   padding-right: 1em;
 }
 @media print {
+  body,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  table {
+    font-size: 12pt;
+  }
   body {
     color: #000;
     background-color: #fff;
@@ -318,7 +328,6 @@ nav.breadcrumbs ol li {
 }
 /* @end */
 /* @group headings */
-.heading,
 h1,
 .h-alpha,
 h2,
@@ -340,7 +349,6 @@ h6,
   letter-spacing: 1px;
   color: #000000;
 }
-.heading .latex,
 h1 .latex,
 .h-alpha .latex,
 h2 .latex,
@@ -355,7 +363,6 @@ h6 .latex,
 .h-zeta .latex {
   color: inherit;
 }
-.heading small.h-sub,
 h1 small.h-sub,
 .h-alpha small.h-sub,
 h2 small.h-sub,
@@ -412,21 +419,12 @@ h6,
   font-size: 13.333333333333334px;
   text-indent: 0.5in;
 }
-h1 + h1,
-h1 + h2,
-h2 + h3,
-h3 + h4,
-h4 + h5,
-h5 + h6 {
-  margin-top: 0;
-}
 .title,
-.title p {
+.title * {
   text-align: center;
 }
 /* @end */
 /* @group paragraphs */
-.p,
 p {
   margin: 0 0 0.5em;
   text-align: left;
@@ -459,7 +457,7 @@ table > caption {
   margin: 0 0 0.5em;
   margin-top: 0.5em;
   font-style: normal;
-  font-size: 14px;
+  font-size: 12px;
   text-align: right;
 }
 /* a container containing paragraphs, etc. that are not officially part of an official document, but are still a major part of the normal flow of the document. Used when 'aside' and 'figure' elements are not suitable. */
@@ -472,6 +470,7 @@ table > caption {
   border-left-style: solid;
   border-left-color: #ff0000;
   margin-left: 13px;
+  font-family: 'Optima', 'Candara', 'Lucida Sans', sans-serif;
   background-color: #f4f4f4;
 }
 /* example figures (text, images, etc.) */
@@ -499,11 +498,8 @@ blockquote {
   border-left-style: double;
   border-left-color: #ff0000;
   margin-left: 34px;
-  font-size: 18px;
+  font-size: 20px;
   font-family: 'Gill Sans', 'Century Gothic', sans-serif;
-}
-blockquote.prose {
-  font-size: 18px;
 }
 blockquote.prose cite.source {
   padding-left: 0;
@@ -714,13 +710,20 @@ table.table-bars td {
   border-width: 0;
 }
 /* @end */
-/* @group inline text */
 /* mixin used for lots of things */
-.parens:before {
+.parens:before,
+small:before {
   content: '(';
 }
-.parens:after {
+.parens:after,
+small:after {
   content: ')';
+}
+/* non-semantic elements reset */
+i,
+b {
+  font-style: inherit;
+  font-weight: inherit;
 }
 /* @group highlighted text */
 em {
@@ -734,12 +737,6 @@ strong {
 }
 mark {
   background-color: transparent;
-}
-/* non-semantic elements reset */
-i,
-b {
-  font-style: inherit;
-  font-weight: inherit;
 }
 /* scare quotes contain abuse of vocabulary or language */
 i.scare:before {
@@ -800,7 +797,7 @@ cite {
   font-style: normal;
 }
 small {
-  font-size: 14px;
+  font-size: 12px;
 }
 .new[datetime],
 ins[datetime],
@@ -853,7 +850,6 @@ sub {
   vertical-align: sub;
 }
 /* @end */
-/* @end */
 /* @group special boxes */
 /* inline content, boxed */
 .box,
@@ -863,7 +859,6 @@ sub {
 .success:after,
 .info:after,
 .help:after,
-.code,
 code,
 .box-block,
 .warning,
@@ -871,8 +866,6 @@ code,
 .success,
 .info,
 .help,
-.key,
-kbd kbd,
 a.a-block,
 pre > code {
   display: inline;
@@ -914,7 +907,7 @@ pre > code {
   margin-left: 1em;
   border: 0;
   content: '!';
-  font-size: 14px;
+  font-size: 12px;
   color: #550000;
   background-color: #ffbbbb;
 }
@@ -928,7 +921,7 @@ pre > code {
   margin-left: 1em;
   border: 0;
   content: '\2026';
-  font-size: 14px;
+  font-size: 12px;
   color: #555500;
   background-color: #ffffbb;
 }
@@ -942,7 +935,7 @@ pre > code {
   margin-left: 1em;
   border: 0;
   content: '=)';
-  font-size: 14px;
+  font-size: 12px;
   color: #005500;
   background-color: #bbffbb;
 }
@@ -956,7 +949,7 @@ pre > code {
   margin-left: 1em;
   border: 0;
   content: '?';
-  font-size: 14px;
+  font-size: 12px;
   color: #000055;
   background-color: #bbbbff;
 }
@@ -970,7 +963,7 @@ pre > code {
   margin-left: 1em;
   border: 0;
   content: '\2665';
-  font-size: 14px;
+  font-size: 12px;
   color: #550055;
   background-color: #ffbbff;
 }
@@ -984,6 +977,7 @@ pre > code {
   }
 }
 /* @end */
+/* @end */
 /* @group forms */
 fieldset {
   padding: 0;
@@ -991,8 +985,6 @@ fieldset {
   margin: 0;
 }
 /* @end */
-/* @end */
-/* @group hyperlinks */
 /* @group inline links */
 a {
   text-decoration: none;
@@ -1026,129 +1018,96 @@ a.a-block {
   text-align: center;
   background-color: inherit;
 }
-a.a-block[href],
-#index a.a-block {
+a.a-block[href] {
   border-color: #000066;
   background-color: #eeeeff;
 }
-a.a-block[href]:hover,
-#index a.a-block:hover {
+a.a-block[href]:hover {
   border-color: #663300;
   background-color: #ffffee;
 }
-a.a-block[href]:active,
-#index a.a-block:active {
+a.a-block[href]:active {
   border-color: #ffff00;
   background-color: #000000;
 }
 /* @end */
-/* @end */
 /* @group coding */
-/* CODE represents EXAMPLE code, typically something a user would input. do NOT use the 'example' class, though it would be semantically correct, because this 'code' class this is more specific. */
-/* fragment or string of code a computer would recognize */
-.code,
-code,
-.key,
-kbd kbd {
+pre {
+  margin: 0;
+  white-space: pre-wrap;
+}
+samp {
+  font-family: inherit;
+}
+/* example of a fragment or string of code a computer would recognize */
+code {
   border-color: #000000;
-  font-size: 14px;
+  font-size: 12px;
   font-family: 'Menlo', 'Lucida Sans Typewriter', 'Monaco', monospace;
   color: #000000;
   background-color: #ffffff;
 }
-.code.lang-html .tag,
 code.lang-html .tag {
   color: #800000;
 }
-.code.lang-html .attribute,
 code.lang-html .attribute {
   color: #000080;
 }
-.code.lang-html .value,
 code.lang-html .value {
   color: #008000;
 }
-.code.lang-css .selector,
-code.lang-css .selector,
-.code.lang-less .selector,
-code.lang-less .selector {
+code.lang-css .selector {
   color: #800000;
 }
-.code.lang-css .property,
-code.lang-css .property,
-.code.lang-less .property,
-code.lang-less .property {
+code.lang-css .property {
   color: #000080;
 }
-.code.lang-css .value,
-code.lang-css .value,
-.code.lang-less .value,
-code.lang-less .value {
+code.lang-css .value {
   color: #008000;
 }
-.code.lang-latex .cmd,
 code.lang-latex .cmd {
   color: #800000;
 }
-.code.lang-latex .arg,
 code.lang-latex .arg {
   color: #000080;
 }
-.code .comment,
 code .comment {
   color: #999999;
 }
-.code.dir,
 code.dir {
+  /* directory system (folders and files) */
   font-style: italic;
   font-family: 'Optima', 'Candara', 'Lucida Sans', sans-serif;
 }
 @media print {
   .code,
-  .key,
-  kbd kbd {
+  kbd > kbd {
     color: #000000;
     background-color: #fff;
   }
 }
 /* user input, in the form of a string, menu item, etc. */
-.userinput,
 kbd {
   white-space: nowrap;
+  /* an individual key on a keyboard, calculator, or other device */
 }
-.userinput.write,
 kbd.write {
   font-family: inherit;
 }
-.userinput.write:before,
 kbd.write:before {
   content: open-quote;
 }
-.userinput.write:after,
 kbd.write:after {
   content: close-quote;
 }
-/* an individual key on a keyboard, calculator, or other device */
-.key,
-kbd kbd {
+kbd > kbd {
   padding: 2px;
   font-family: 'Optima', 'Candara', 'Lucida Sans', sans-serif;
 }
-pre {
-  margin: 0;
-  white-space: pre-wrap;
-}
-pre > code {
-  line-height: 1.4;
-}
-samp {
-  font-family: inherit;
-}
-/* demos are blocks or figures that demonstrate output of an example code block */
 /* @end */
 /* @group math */
 .latex {
-  font-size: 14px;
+  font-size: 12px;
   font-family: 'Menlo', 'Lucida Sans Typewriter', 'Monaco', monospace;
   white-space: pre-line;
   color: #000000;
@@ -1168,15 +1127,15 @@ var {
 }
 /* @end */
 /* @group miscellaneous */
-/* Selects elements not yet ready for publishing. Elements with the 'hidden' boolean attribute (hidden="") are not to be processed by browsers and are to be ignored by SEO patterns. Sometimes, the browser-default css-style is overridden, hence this selector exists. */
+/* Elements not yet ready for publishing. Elements with the 'hidden' boolean attribute (hidden="") are not to be processed by browsers and are to be ignored by SEO patterns. Sometimes, the browser-default css-style is overridden, hence this selector exists. */
 [hidden] {
   display: none !important;
 }
-/* Selects elements needed for SEO *only* (e.g. extraneous titles, etc). Try to only use this selector as a last resort. */
+/* Elements needed for SEO *only* (e.g. extraneous titles, etc). Try to only use this selector as a last resort. */
 .seo-only {
   display: none !important;
 }
-/* Selects elements still in testing mode but still not yet ready for implementation. */
+/* Elements still in testing mode but still not yet ready for implementation. */
 .draft,
 .draft * {
   color: #999;
