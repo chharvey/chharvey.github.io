@@ -223,7 +223,7 @@ blockquote {
 	cite.source {
 		padding-left: 1em;
 		font-family: @font-fam-base;
-		&:before {content: '~';}
+		&::before {content: '~';}
 	}
 }
 /* a paragraph element that indicates the most recent edit of a webpage or document. includes a <time datetime=""> element. */
@@ -272,7 +272,7 @@ dd {
 	&:extend(.list-basic all);
 	color: @color-link-up-txt;
 	ul, ol, dl {list-style-type: none;}
-	li:before {content: '\2713\0020';} // check mark, space
+	li::before {content: '\2713\0020';} // check mark, space
 	a {
 		border-bottom: 0;
 		&[href] {
@@ -380,8 +380,8 @@ table {
 
 /* mixin used for lots of things */
 .parens {
-	&:before {content: '(';}
-	&:after  {content: ')';}	
+	&::before {content: '(';}
+	&::after  {content: ')';}	
 }
 /* non-semantic elements reset */
 i,
@@ -399,18 +399,18 @@ strong {font-weight: bold;}
 mark {background-color: transparent;}
 /* scare quotes contain abuse of vocabulary or language */
 i.scare {
-	&:before {content: open-quote;}
-	&:after  {content: close-quote;}
+	&::before {content: open-quote;}
+	&::after  {content: close-quote;}
 }
 /* mentions refer to phrases without referring to their meaning */
 i.mention {
-	&:before {content: open-quote;}
-	&:after  {content: close-quote;}
+	&::before {content: open-quote;}
+	&::after  {content: close-quote;}
 }
 /* phrases representing silent thoughts */
 i.thought {
-	&:before {content: '\00ab';} // &laquo;
-	&:after  {content: '\00bb';} // &raquo;
+	&::before {content: '\00ab';} // &laquo;
+	&::after  {content: '\00bb';} // &raquo;
 }
 /* phrases in foreign languages */
 .foreignlang() {
@@ -460,7 +460,7 @@ ins[datetime],
 del[datetime],
 abbr[title] {
 	cursor: help;
-	&:hover:after {
+	&:hover::after {
 		position: relative;
 		left: 5px;
 		top: 5px;
@@ -472,7 +472,7 @@ abbr[title] {
 //		color: @color-ins-txt;
 	text-decoration: none;
 	background-color: @color-ins-bg;
-	&[datetime]:hover:after {content: 'inserted on ' attr(datetime);}
+	&[datetime]:hover::after {content: 'inserted on ' attr(datetime);}
 }
 .old, del {
 	padding-right: 0.5em;
@@ -480,11 +480,11 @@ abbr[title] {
 //		color: @color-del-txt;
 	text-decoration: none;
 	background-color: @color-del-bg;
-//		&[datetime]:hover:after {content: 'deleted on ' attr(datetime);}
+//		&[datetime]:hover::after {content: 'deleted on ' attr(datetime);}
 }
 abbr[title] {
 	border-bottom: 2px solid @color-info;
-//		&:hover:after {content: attr(title);}
+//		&:hover::after {content: attr(title);}
 }
 @media print {
 	abbr[title] {
@@ -534,7 +534,7 @@ abbr[title] {
 		&:extend(.box-inline-block);
 		font-size: @font-size-small;
 		cursor: help;
-		&:after {
+		&::after {
 			&:extend(.box);
 			margin-left: 1em;
 			font-size: @font-size-small;
@@ -544,7 +544,7 @@ abbr[title] {
 		color: darken(@color, 80%);
 		background-color: @color;
 		border-color: @color;
-		&:after {
+		&::after {
 			content: @content;
 			color: darken(@color, 80%);
 			background-color: darken(@color, 10%);
@@ -577,7 +577,7 @@ abbr[title] {
 		.success,
 		.info,
 		.help {
-			&:after {display: none;}
+			&::after {display: none;}
 		}
 	}
 	/* @end */
@@ -680,11 +680,11 @@ code {
 /* user input, in the form of a string, menu item, etc. */
 kbd { 
 	white-space: nowrap;
-	&.write { // what is this?
-		font-family: inherit;
-		&:before {content: open-quote;}
-		&:after  {content: close-quote;}
-	}
+//	&.write { // what is this?
+//		font-family: inherit;
+//		&::before {content: open-quote;}
+//		&::after  {content: close-quote;}
+//	}
 	/* an individual key on a keyboard, calculator, or other device */
 	> kbd {
 		&:extend(.code);
