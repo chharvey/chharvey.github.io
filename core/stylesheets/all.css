@@ -569,7 +569,7 @@ ol.breadcrumbs {
 .list-action li,
 .list-action dt,
 .list-action dd,
-nav.breadcrumbs ol dt,
+ol.breadcrumbs li,
 ol.breadcrumbs dt,
 ol.breadcrumbs dd,
 ol.breadcrumbs li,
@@ -688,8 +688,8 @@ table td {
 table th {
   font-weight: bold;
 }
-table.table-list thead tr,
-table.table-list tfoot tr {
+.table-list thead tr,
+.table-list tfoot tr {
   border: 1px solid #ff0000;
   border-left: 0;
   border-right: 0;
@@ -697,26 +697,26 @@ table.table-list tfoot tr {
   vertical-align: middle;
   background-color: #ffffff;
 }
-table.table-list tbody {
+.table-list tbody {
   border: 1px solid #ff0000;
   border-left: 0;
   border-right: 0;
 }
-table.table-list tbody th {
+.table-list tbody th {
   background-color: #eeeeee;
 }
-table.table-list tbody tr:nth-child(odd) {
+.table-list tbody tr:nth-child(odd) {
   background-color: #dddddd;
 }
-table.table-list tbody tr:nth-child(even) {
+.table-list tbody tr:nth-child(even) {
   background-color: #cccccc;
 }
-table.table-list th,
-table.table-list td {
+.table-list th,
+.table-list td {
   border-width: 0;
 }
-table.table-bars thead tr,
-table.table-bars tfoot tr {
+.table-bars thead tr,
+.table-bars tfoot tr {
   border: 1px solid #ff0000;
   border-top: 0;
   border-bottom: 0;
@@ -724,17 +724,17 @@ table.table-bars tfoot tr {
   vertical-align: middle;
   background-color: #ffffff;
 }
-table.table-bars tbody th {
+.table-bars tbody th {
   background-color: #eeeeee;
 }
-table.table-bars tbody tr td:nth-child(odd) {
+.table-bars tbody tr td:nth-child(odd) {
   background-color: #cccccc;
 }
-table.table-bars tbody tr td:nth-child(even) {
+.table-bars tbody tr td:nth-child(even) {
   background-color: #dddddd;
 }
-table.table-bars th,
-table.table-bars td {
+.table-bars th,
+.table-bars td {
   border-width: 0;
 }
 /* @end */
@@ -831,33 +831,54 @@ del[datetime],
 abbr[title] {
   cursor: help;
 }
+.new[datetime]::after,
+ins[datetime]::after,
+.old[datetime]::after,
+del[datetime]::after,
+abbr[title]::after {
+  display: none;
+  position: relative;
+  left: 5px;
+  top: 5px;
+  color: #000033;
+  background-color: #eeeeff;
+  text-decoration: none;
+}
 .new[datetime]:hover::after,
 ins[datetime]:hover::after,
 .old[datetime]:hover::after,
 del[datetime]:hover::after,
 abbr[title]:hover::after {
-  position: relative;
-  left: 5px;
-  top: 5px;
+  display: inline;
 }
 .new,
 ins {
   padding-left: 0.5em;
-  text-decoration: none;
-  background-color: #baffba;
+  text-decoration: underline;
+  color: #008000;
+  background-color: #eeffee;
 }
-.new[datetime]:hover::after,
-ins[datetime]:hover::after {
+.new[datetime]::after,
+ins[datetime]::after {
   content: 'inserted on ' attr(datetime);
 }
 .old,
 del {
   padding-right: 0.5em;
-  text-decoration: none;
-  background-color: #ffbaba;
+  text-decoration: line-through;
+  color: #800080;
+  background-color: #ffeeee;
+}
+.old[datetime]::after,
+del[datetime]::after {
+  content: 'deleted on ' attr(datetime);
 }
 abbr[title] {
-  border-bottom: 2px solid #eeeeff;
+  color: #000;
+  background-color: #eeeeff;
+}
+abbr[title]::after {
+  content: attr(title);
 }
 @media print {
   abbr[title] {
@@ -883,18 +904,22 @@ sub {
 /* inline content, boxed */
 .box,
 .box-inline-block,
-.warning::after,
-.caution::after,
-.success::after,
-.info::after,
-.help::after,
+.label::before,
 code,
 .box-block,
+.label,
+.warning::before,
+.caution::before,
+.success::before,
+.info::before,
+.help::before,
+.cyan::before,
 .warning,
 .caution,
 .success,
 .info,
 .help,
+.cyan,
 a.a-block,
 pre > code {
   display: inline;
@@ -906,11 +931,13 @@ pre > code {
 /* inline content, with block structure, boxed */
 .box-inline-block,
 .box-block,
+.label,
 .warning,
 .caution,
 .success,
 .info,
 .help,
+.cyan,
 a.a-block,
 pre > code {
   display: inline-block;
@@ -924,83 +951,93 @@ pre > code {
   border-radius: 10px;
   margin: 4px;
 }
-/* @group messages */
-/* Messages are little warnings/tips/etc. for the user. More elegant than tooltips. */
+/* @group labels */
+/* Tags are little warnings/tips/etc. for the user. More elegant than tooltips. */
+.label,
 .warning,
 .caution,
 .success,
 .info,
-.help {
+.help,
+.cyan {
+  padding: 1px;
+  border: 0;
   font-size: 12px;
+  font-family: 'Gill Sans', 'Century Gothic', sans-serif;
   cursor: help;
 }
-.warning::after,
-.caution::after,
-.success::after,
-.info::after,
-.help::after {
-  margin-left: 1em;
-  font-size: 12px;
+.label::before,
+.warning::before,
+.caution::before,
+.success::before,
+.info::before,
+.help::before,
+.cyan::before {
+  padding: 1px;
+  border: 0;
+  margin-right: 1em;
+  font-size: 16px;
+  font-family: 'Menlo', 'Lucida Sans Typewriter', 'Monaco', monospace;
 }
 /* "dire consequences" */
 .warning {
-  color: #550000;
+  color: #330000;
   background-color: #ffeeee;
-  border-color: #ffeeee;
 }
-.warning::after {
+.warning::before {
   content: '!';
-  color: #550000;
-  background-color: #ffbbbb;
-  border-color: #ffbbbb;
+  color: #330000;
+  background-color: #ffcccc;
 }
 /* "be careful" */
 .caution {
-  color: #555500;
+  color: #333300;
   background-color: #ffffee;
-  border-color: #ffffee;
 }
-.caution::after {
+.caution::before {
   content: '\2026';
-  color: #555500;
-  background-color: #ffffbb;
-  border-color: #ffffbb;
+  color: #333300;
+  background-color: #ffffcc;
 }
 /* "something was done right" */
 .success {
-  color: #005500;
+  color: #003300;
   background-color: #eeffee;
-  border-color: #eeffee;
 }
-.success::after {
+.success::before {
   content: '\263A';
-  color: #005500;
-  background-color: #bbffbb;
-  border-color: #bbffbb;
+  color: #003300;
+  background-color: #ccffcc;
 }
 /* "extra information" */
 .info {
-  color: #000055;
+  color: #000033;
   background-color: #eeeeff;
-  border-color: #eeeeff;
 }
-.info::after {
+.info::before {
   content: '?';
-  color: #000055;
-  background-color: #bbbbff;
-  border-color: #bbbbff;
+  color: #000033;
+  background-color: #ccccff;
 }
 /* "tips and hints" */
 .help {
-  color: #550055;
+  color: #330033;
   background-color: #ffeeff;
-  border-color: #ffeeff;
 }
-.help::after {
+.help::before {
   content: '\2665';
-  color: #550055;
-  background-color: #ffbbff;
-  border-color: #ffbbff;
+  color: #330033;
+  background-color: #ffccff;
+}
+/* "cyan" */
+.cyan {
+  color: #003333;
+  background-color: #eeffff;
+}
+.cyan::before {
+  content: 'c';
+  color: #003333;
+  background-color: #ccffff;
 }
 @media print {
   .warning::after,
@@ -1083,28 +1120,28 @@ code {
   background-color: #ffffff;
 }
 code.lang-html .tag {
-  color: #800000;
+  color: #660000;
 }
 code.lang-html .attribute {
-  color: #000080;
+  color: #000066;
 }
 code.lang-html .value {
-  color: #008000;
+  color: #006600;
 }
 code.lang-css .selector {
-  color: #800000;
+  color: #660000;
 }
 code.lang-css .property {
-  color: #000080;
+  color: #000066;
 }
 code.lang-css .value {
-  color: #008000;
+  color: #006600;
 }
 code.lang-latex .cmd {
-  color: #800000;
+  color: #660000;
 }
 code.lang-latex .arg {
-  color: #000080;
+  color: #000066;
 }
 code.dir {
   /* directory system (folders and files) */

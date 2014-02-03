@@ -183,14 +183,14 @@ span.lede {
 }
 /* a container containing paragraphs, etc. that are not officially part of an official document, but are still a major part of the normal flow of the document. Used when 'aside' and 'figure' elements are not suitable. */
 .informal {
-	.sideborder-left(5px; 3px; 13px; solid; @accent);
+	.sideborder-left(5px; 3px; 13px; solid; @color-accent);
 	font-family: @font-fam-base;
 	background-color: #f4f4f4;
 //	& * {background-color: transparent;}
 }
 /* example figures (text, images, etc.) */
 figure {
-	.sideborder-left(8px; 5px; 21px; solid; @accent);
+	.sideborder-left(8px; 5px; 21px; solid; @color-accent);
 	> figcaption {
 		&:extend(.caption);
 		border-top: 1px dashed;
@@ -203,11 +203,12 @@ figure {
 }
 /* blocks of short or long quoted material */
 blockquote {
-	.sideborder-left(13px; 8px; 34px; double; @accent);
+	.sideborder-left(13px; 8px; 34px; double; @color-accent);
 	font-size: @font-size-big;
 	font-family: @font-fam-accent;
+	line-height: 1.5;
 	&.prose {
-		//font-size: @font-size-big;
+		font-size: @font-size-base;
 		cite.source {
 			&:extend(.parens all);
 			padding-left: 0;
@@ -269,12 +270,7 @@ dd {
 	color: @color-link-up-txt;
 	ul, ol, dl {list-style-type: none;}
 	li::before {content: '\2713\0020';} // check mark, space
-	a {
-		border-bottom: 0;
-		&[href] {
-			//
-		}
-	}
+	a {border-bottom: 0;}
 }
 ol.breadcrumbs {
 	&:extend(.list-inline all);
@@ -301,7 +297,7 @@ ol.prose {
 
 /* @group tables */
 .tablesection() {
-	border: 1px solid @accent;
+	border: 1px solid @color-table-brdr;
 }
 .tablesection-horiz() {
 	.tablesection();
@@ -337,35 +333,35 @@ table {
 		border-color: #808080;
 	}
 	th {font-weight: bold;}
-	&.table-list {
-		thead, tfoot {
-			tr {
-				.tablesection-horiz();
-				.tableheader();
-			}
-		}
-		tbody {
+}
+.table-list {
+	thead, tfoot {
+		tr {
 			.tablesection-horiz();
-			th {background-color: @color-table-bg-strong;}
-			tr:nth-child(odd)  {background-color: @color-table-bg-medium;}
-			tr:nth-child(even) {background-color: @color-table-bg-weak;}
+			.tableheader();
 		}
-		th, td {border-width: 0;}
 	}
-	&.table-bars {
-		thead, tfoot {
-			tr {
-				.tablesection-vert();
-				.tableheader();
-			}
-		}
-		tbody {
-			th {background-color: @color-table-bg-strong;}
-			tr td:nth-child(odd)  {background-color: @color-table-bg-weak;}
-			tr td:nth-child(even) {background-color: @color-table-bg-medium;}
-		}
-		th, td {border-width: 0;}
+	tbody {
+		.tablesection-horiz();
+		th {background-color: @color-table-bg-strong;}
+		tr:nth-child(odd)  {background-color: @color-table-bg-medium;}
+		tr:nth-child(even) {background-color: @color-table-bg-weak;}
 	}
+	th, td {border-width: 0;}
+}
+.table-bars {
+	thead, tfoot {
+		tr {
+			.tablesection-vert();
+			.tableheader();
+		}
+	}
+	tbody {
+		th {background-color: @color-table-bg-strong;}
+		tr td:nth-child(odd)  {background-color: @color-table-bg-weak;}
+		tr td:nth-child(even) {background-color: @color-table-bg-medium;}
+	}
+	th, td {border-width: 0;}
 }
 //.table-grid {
 //	.table;
@@ -465,31 +461,35 @@ ins[datetime],
 del[datetime],
 abbr[title] {
 	cursor: help;
-	&:hover::after {
+	&::after {
+		display: none;
 		position: relative;
 		left: 5px;
 		top: 5px;
+		color: @color-info-txt;
+		background-color: @color-info-bg;
+		text-decoration: none;
 	}
+	&:hover::after {display: inline;}
 }
 .new, ins {
 	padding-left: 0.5em;
-//		text-decoration: underline;
-//		color: @color-ins-txt;
-	text-decoration: none;
+	text-decoration: underline;
+	color: @color-ins-txt;
 	background-color: @color-ins-bg;
-	&[datetime]:hover::after {content: 'inserted on ' attr(datetime);}
+	&[datetime]::after {content: 'inserted on ' attr(datetime);}
 }
 .old, del {
 	padding-right: 0.5em;
-//		text-decoration: line-through;
-//		color: @color-del-txt;
-	text-decoration: none;
+	text-decoration: line-through;
+	color: @color-del-txt;
 	background-color: @color-del-bg;
-//		&[datetime]:hover::after {content: 'deleted on ' attr(datetime);}
+	&[datetime]::after {content: 'deleted on ' attr(datetime);}
 }
 abbr[title] {
-	border-bottom: 2px solid @color-info;
-//		&:hover::after {content: attr(title);}
+	color: #000;
+	background-color: @color-info-bg;
+	&::after {content: attr(title);}
 }
 @media print {
 	abbr[title] {
@@ -529,52 +529,64 @@ abbr[title] {
 	border-radius: @box-radius-large;
 	margin: 4px;
 }
-	/* @group messages */
-	/* Messages are little warnings/tips/etc. for the user. More elegant than tooltips. */
-	.warning,
-	.caution,
-	.success,
-	.info,
-	.help {
+	/* @group labels */
+	/* Tags are little warnings/tips/etc. for the user. More elegant than tooltips. */
+	.label {
 		&:extend(.box-inline-block);
+		padding: 1px;
+		border: 0;
 		font-size: @font-size-small;
+		font-family: @font-fam-accent;
 		cursor: help;
-		&::after {
+		&::before {
 			&:extend(.box);
-			margin-left: 1em;
-			font-size: @font-size-small;
+			padding: 1px;
+			border: 0;
+			margin-right: 1em;
+			font-size: @font-size-base;
+			font-family: @font-fam-code;
 		}
 	}
-	.message(@color, @content) {
-		color: darken(@color, 80%);
-		background-color: @color;
-		border-color: @color;
-		&::after {
+	.label(@color-txt, @color-bg, @color-icon-bg, @content) {
+		color: @color-txt;
+		background-color: @color-bg;
+		//border-color: @color-bg;
+		&::before {
 			content: @content;
-			color: darken(@color, 80%);
-			background-color: darken(@color, 10%);
-			border-color: darken(@color, 10%);
+			color: @color-txt;
+			background-color: @color-icon-bg;
+			//border-color: @color-icon-bg;
 		}
 	}
 	/* "dire consequences" */
 	.warning {
-		.message(@color-warning, '!');
+		&:extend(.label all);
+		.label(@color-warning-txt, @color-warning-bg, @color-warning-icon-bg, '!');
 	}
 	/* "be careful" */
 	.caution {
-		.message(@color-caution, '\2026'); // &hellip;
+		&:extend(.label all);
+		.label(@color-caution-txt, @color-caution-bg, @color-caution-icon-bg, '\2026'); // &hellip;
 	}
 	/* "something was done right" */
 	.success {
-		.message(@color-success, '\263A'); // smiley
+		&:extend(.label all);
+		.label(@color-success-txt, @color-success-bg, @color-success-icon-bg, '\263A'); // smiley
 	}
 	/* "extra information" */
 	.info {
-		.message(@color-info, '?');
+		&:extend(.label all);
+		.label(@color-info-txt, @color-info-bg, @color-info-icon-bg, '?');
 	}
 	/* "tips and hints" */
 	.help {
-		.message(@color-help, '\2665' ); // &hearts;
+		&:extend(.label all);
+		.label(@color-help-txt, @color-help-bg, @color-help-icon-bg, '\2665'); // &hearts;
+	}
+	/* "cyan" */
+	.cyan {
+		&:extend(.label all);
+		.label(@color-cyan-txt, @color-cyan-bg, @color-cyan-icon-bg, 'c');
 	}
 	@media print {
 		.warning,
