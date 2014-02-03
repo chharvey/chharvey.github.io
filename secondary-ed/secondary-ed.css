@@ -63,8 +63,8 @@ table > caption {
 #syllabusdothtml #grading dl,
 #syllabusdothtml #classtimes dl,
 #syllabusdothtml #categories dl,
-nav.breadcrumbs ol,
-nav.breadcrumbs ol {
+ol.breadcrumbs,
+ol.breadcrumbs {
   padding: 0;
   list-style-type: none;
 }
@@ -77,44 +77,41 @@ nav.breadcrumbs ol {
 .list-action li,
 .list-action dt,
 .list-action dd,
-nav.breadcrumbs ol li,
-nav.breadcrumbs ol dt,
-nav.breadcrumbs ol dd,
-nav.breadcrumbs ol li,
-nav.breadcrumbs ol dt,
-nav.breadcrumbs ol dd {
+ol.breadcrumbs li,
+ol.breadcrumbs dt,
+ol.breadcrumbs dd,
+ol.breadcrumbs li,
+ol.breadcrumbs dt,
+ol.breadcrumbs dd {
   margin: 0;
   padding: 0;
 }
-nav.breadcrumbs ol {
+ol.breadcrumbs {
   display: block;
 }
-nav.breadcrumbs ol li,
-nav.breadcrumbs ol dd {
+ol.breadcrumbs li,
+ol.breadcrumbs dd {
   display: inline;
 }
-nav.breadcrumbs ol dt {
+ol.breadcrumbs dt {
   text-indent: 0;
 }
-nav.breadcrumbs ol dt + dd {
+ol.breadcrumbs dt + dd {
   padding-left: 0.5in;
 }
-nav.breadcrumbs ol {
+ol.breadcrumbs {
   color: #0000ff;
 }
-nav.breadcrumbs ol ul,
-nav.breadcrumbs ol ol,
-nav.breadcrumbs ol dl {
+ol.breadcrumbs ul,
+ol.breadcrumbs ol,
+ol.breadcrumbs dl {
   list-style-type: none;
 }
-nav.breadcrumbs ol li::before {
+ol.breadcrumbs li::before {
   content: '\2713\0020';
 }
-nav.breadcrumbs ol a {
+ol.breadcrumbs a {
   border-bottom: 0;
-}
-nav.breadcrumbs ol a[href] {
-  text-decoration: underline;
 }
 #pacingdothtml ol.list-alpha li ol {
   list-style-type: decimal;
@@ -130,18 +127,22 @@ small::after,
   content: ')';
 }
 .box-inline-block,
-.warning::after,
-.caution::after,
-.success::after,
-.info::after,
-.help::after,
+.label::before,
 code,
 .box-block,
+.label,
+.warning::before,
+.caution::before,
+.success::before,
+.info::before,
+.help::before,
+.cyan::before,
 .warning,
 .caution,
 .success,
 .info,
 .help,
+.cyan,
 a.a-block,
 pre > code {
   display: inline;
@@ -151,11 +152,13 @@ pre > code {
   border-radius: 3px;
 }
 .box-block,
+.label,
 .warning,
 .caution,
 .success,
 .info,
 .help,
+.cyan,
 a.a-block,
 pre > code {
   display: inline-block;
@@ -167,12 +170,37 @@ pre > code {
   border-radius: 10px;
   margin: 4px;
 }
+.warning,
+.caution,
+.success,
+.info,
+.help,
+.cyan {
+  padding: 1px;
+  border: 0;
+  font-size: 12px;
+  font-family: 'Gill Sans', 'Century Gothic', sans-serif;
+  cursor: help;
+}
+.warning::before,
+.caution::before,
+.success::before,
+.info::before,
+.help::before,
+.cyan::before {
+  padding: 1px;
+  border: 0;
+  margin-right: 1em;
+  font-size: 16px;
+  font-family: 'Menlo', 'Lucida Sans Typewriter', 'Monaco', monospace;
+}
 @media print {
   kbd > kbd {
     color: #000000;
     background-color: #fff;
   }
 }
+/** --SECONDARY-ED.LESS-- **/
 .standard-id {
   padding-right: 1em;
 }
@@ -189,19 +217,19 @@ pre > code {
   background-color: #ffb6e9;
 }
 .cat-exam {
-  background-color: #ffc;
+  background-color: #ffffee;
 }
 .cat-test {
-  background-color: #fcc;
+  background-color: #ffeeee;
 }
 .cat-std {
-  background-color: #cfc;
+  background-color: #eeffee;
 }
 .cat-quiz {
-  background-color: #bdf;
+  background-color: #eeeeff;
 }
 .cat-hwcw {
-  background-color: #dbf;
+  background-color: #ffeeff;
 }
 /* @group top folder stuff */
 #pacingdothtml table {
@@ -210,6 +238,9 @@ pre > code {
 }
 #pacingdothtml table * {
   text-align: left;
+}
+#pacingdothtml table a {
+  border-bottom: 0;
 }
 #pacingdothtml tr:nth-child(n+2) td:nth-child(1) {
   padding-left: 2em;
@@ -236,29 +267,31 @@ pre > code {
 }
 /* @end */
 /* @group unit overviews */
+#unitobjectives {
+  /* content that is not technically in the standards but is necessary for full mastery */
+  /* content that is in the standards but is permitted to be left out of the curriculum because it is low-priority (if time is an issue) */
+  /* content that is not in the standards but serves as unnecessary additional study */
+}
+#unitobjectives .additional {
+  background-color: #eeffee;
+}
+#unitobjectives .deletional {
+  background-color: #ffeeee;
+}
+#unitobjectives .optional {
+  color: #808080;
+}
+#unitobjectives .optional .latex {
+  color: #808080;
+}
 #unitobjectives .teachernote {
+  background-color: #eeeeff;
   font-size: 12px;
 }
 @media print {
   #unitobjectives .teachernote {
     display: none;
   }
-}
-#unitobjectives .optional,
-#unitobjectives .optional *,
-#unitobjectives .honors,
-#unitobjectives .honors * {
-  font-family: 'Baskerville', 'Palatino', 'Book Antiqua', serif;
-}
-#unitobjectives .optional {
-  color: #004d80;
-}
-#unitobjectives .optional * {
-  color: #004d80;
-}
-#unitobjectives .honors,
-#unitobjectives .honors * {
-  color: #803300;
 }
 /* @end */
 /* @group lesson plans */

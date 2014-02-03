@@ -1,6 +1,7 @@
 @import url('../core/stylesheets/all.css');
 @import (reference) url('../core/stylesheets/all.less');
 
+/** --SECONDARY-ED.LESS-- **/
 .standard-id {
 	&:extend(.lede);
 	padding-right: 1em;
@@ -12,19 +13,19 @@
 .vocab, .vocablist dt {background-color: #ffb6e9;}
 
 .cat-exam {
-	background-color: #ffc;
+	background-color: @color-caution-bg;
 }
 .cat-test {
-	background-color: #fcc;
+	background-color: @color-warning-bg;
 }
 .cat-std {
-	background-color: #cfc;
+	background-color: @color-success-bg;
 }
 .cat-quiz {
-	background-color: #bdf;
+	background-color: @color-info-bg;
 }
 .cat-hwcw {
-	background-color: #dbf;
+	background-color: @color-help-bg;
 }
 
 /* @group top folder stuff */
@@ -56,6 +57,7 @@
 		width: 100%;
 		counter-reset: unitcount;
 		* {text-align: left;}
+		a {border-bottom: 0;}
 	}
 	tbody tr:nth-child(1) {
 		&:extend(.h-beta all);
@@ -79,26 +81,27 @@
 
 /* @group unit overviews */
 #unitobjectives {
+	/* content that is not technically in the standards but is necessary for full mastery */
+	.additional {
+		background-color: @color-ins-bg;
+	}
+	/* content that is in the standards but is permitted to be left out of the curriculum because it is low-priority (if time is an issue) */
+	.deletional {
+		background-color: @color-del-bg;
+	}
+	/* content that is not in the standards but serves as unnecessary additional study */
+	.optional {
+		&:extend(.parens all);
+		@acolor: lighten(@color-body-txt, 50%);
+		color: @acolor;
+		.latex {color: @acolor;}
+	}
 	.teachernote {
+		background-color: @color-info-bg;
 		font-size: @font-size-small;
 	}
 	@media print {
 		.teachernote {display: none;}
-	}
-	.optional,
-	.optional *,
-	.honors,
-	.honors * {
-		font-family: @font-fam-prose;
-	}
-	.optional {
-		&:extend(.parens all);
-		@acolor: #004d80; // change this color
-		color: @acolor;
-		* {color: @acolor;}
-	}
-	.honors, .honors * {
-		color: #803300; // change this color
 	}
 }
 /* @end */
