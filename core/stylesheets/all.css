@@ -325,6 +325,11 @@ main {
 /* @end */
 /* @group headings */
 h1,
+h2,
+h3,
+h4,
+h5,
+h6,
 .h-alpha,
 .h-beta,
 .h-gamma,
@@ -339,6 +344,11 @@ h1,
   letter-spacing: 1px;
 }
 h1 .latex,
+h2 .latex,
+h3 .latex,
+h4 .latex,
+h5 .latex,
+h6 .latex,
 .h-alpha .latex,
 .h-beta .latex,
 .h-gamma .latex,
@@ -348,6 +358,11 @@ h1 .latex,
   color: inherit;
 }
 h1 small.h-sub,
+h2 small.h-sub,
+h3 small.h-sub,
+h4 small.h-sub,
+h5 small.h-sub,
+h6 small.h-sub,
 .h-alpha small.h-sub,
 .h-beta small.h-sub,
 .h-gamma small.h-sub,
@@ -425,8 +440,8 @@ span.lede {
 }
 /* captions of figures, tables, or anything */
 .caption,
-figure > figcaption,
-table > caption {
+figcaption,
+caption {
   margin: 0 0 0.5em;
   margin-top: 0.5em;
   font-style: normal;
@@ -457,14 +472,14 @@ figure {
   border-left-color: #ff0000;
   margin-left: 21px;
 }
-figure > figcaption {
-  border-top: 1px dashed;
-  border-bottom: 0;
-}
 figure.bad,
 figure.bad * {
   color: #ffffff;
   background-color: #000000;
+}
+figcaption {
+  border-top: 1px dashed;
+  border-bottom: 0;
 }
 /* blocks of short or long quoted material */
 blockquote {
@@ -496,7 +511,6 @@ blockquote cite.source::before {
 address {
   margin: 0 0 0.5em;
 }
-/* a paragraph element that indicates the most recent edit of a webpage or document. includes a <time datetime=""> element. */
 /* @end */
 /* @group lists */
 ul,
@@ -656,39 +670,49 @@ table {
   margin: 0 auto 1em;
   text-align: center;
 }
-table thead,
-table tfoot {
+thead,
+tfoot {
   font-weight: bold;
 }
-table th,
-table td {
+th,
+td {
   padding: 5px;
   border-width: 1px;
   border-style: solid;
   border-color: #808080;
 }
-table th {
+th {
   font-weight: bold;
+  background-color: #eeeeee;
 }
-table td > p:last-child {
+td > p:last-child {
   margin-bottom: 0;
+}
+.table-list thead tr,
+.table-bars thead tr,
+.table-list tfood tr,
+.table-bars tfood tr {
+  border: 1px solid #ff0000;
+  text-align: center;
+  vertical-align: middle;
+  background-color: #ffffff;
+}
+.table-list th,
+.table-bars th,
+.table-list td,
+.table-bars td {
+  border-width: 0;
 }
 .table-list thead tr,
 .table-list tfoot tr {
   border: 1px solid #ff0000;
   border-left: 0;
   border-right: 0;
-  text-align: center;
-  vertical-align: middle;
-  background-color: #ffffff;
 }
 .table-list tbody {
   border: 1px solid #ff0000;
   border-left: 0;
   border-right: 0;
-}
-.table-list tbody th {
-  background-color: #eeeeee;
 }
 .table-list tbody tr:nth-child(odd) {
   background-color: #dddddd;
@@ -696,31 +720,22 @@ table td > p:last-child {
 .table-list tbody tr:nth-child(even) {
   background-color: #cccccc;
 }
-.table-list th,
-.table-list td {
-  border-width: 0;
-}
 .table-bars thead tr,
 .table-bars tfoot tr {
   border: 1px solid #ff0000;
   border-top: 0;
   border-bottom: 0;
-  text-align: center;
-  vertical-align: middle;
-  background-color: #ffffff;
 }
-.table-bars tbody th {
-  background-color: #eeeeee;
+.table-bars tbody {
+  border: 1px solid #ff0000;
+  border-top: 0;
+  border-bottom: 0;
 }
 .table-bars tbody tr td:nth-child(odd) {
   background-color: #cccccc;
 }
 .table-bars tbody tr td:nth-child(even) {
   background-color: #dddddd;
-}
-.table-bars th,
-.table-bars td {
-  border-width: 0;
 }
 /* @end */
 /* mixin used for lots of things */
@@ -791,34 +806,34 @@ i[lang=fr] {
   font-style: italic;
   font-family: 'Times', 'Times New Roman', serif;
 }
-/* reference to a title, section heading, figure, table. use only when the `a` element or the `cite` element would not be appropriate */
-b.ref {
-  font-weight: bold;
-}
 /* keywords or technical terms */
 b.keyword {
   font-weight: bold;
 }
+/* proper noun traditionally italicized */
+b.proper {
+  font-style: italic;
+  text-transform: capitalize;
+}
+/* reference to a title, section heading, figure, table. use only when the `a` element or the `cite` element would not be appropriate */
+b.ref {
+  font-weight: bold;
+}
 /* @end */
-/* @group addresses */
-/* @end */
-/* @group citations */
+/* @group documentation */
+/* a paragraph element that indicates the most recent edit of a webpage or document. includes a <time datetime=""> element. */
 cite {
   font-style: normal;
 }
 small {
   font-size: 12px;
 }
-.new[datetime],
 ins[datetime],
-.old[datetime],
 del[datetime],
 abbr[title] {
   cursor: help;
 }
-.new[datetime]::after,
 ins[datetime]::after,
-.old[datetime]::after,
 del[datetime]::after,
 abbr[title]::after {
   display: none;
@@ -829,32 +844,26 @@ abbr[title]::after {
   background-color: #eeeeff;
   text-decoration: none;
 }
-.new[datetime]:hover::after,
 ins[datetime]:hover::after,
-.old[datetime]:hover::after,
 del[datetime]:hover::after,
 abbr[title]:hover::after {
   display: inline;
 }
-.new,
 ins {
   padding-left: 0.5em;
   text-decoration: underline;
   color: #008000;
   background-color: #eeffee;
 }
-.new[datetime]::after,
 ins[datetime]::after {
   content: 'inserted on ' attr(datetime);
 }
-.old,
 del {
   padding-right: 0.5em;
   text-decoration: line-through;
   color: #800080;
   background-color: #ffeeee;
 }
-.old[datetime]::after,
 del[datetime]::after {
   content: 'deleted on ' attr(datetime);
 }
@@ -866,8 +875,10 @@ abbr[title]::after {
   content: attr(title);
 }
 @media print {
-  abbr[title] {
-    border-bottom: 0;
+  ins,
+  del,
+  abbr {
+    background-color: transparent;
   }
 }
 .superscript,
@@ -885,164 +896,7 @@ sub {
   vertical-align: sub;
 }
 /* @end */
-/* @group special boxes */
-/* inline content, boxed */
-.box,
-.box-inline-block,
-.label::before,
-code,
-.box-block,
-.label,
-span.warning::before,
-span.caution::before,
-span.success::before,
-span.info::before,
-span.help::before,
-span.cyan::before,
-span.warning,
-span.caution,
-span.success,
-span.info,
-span.help,
-span.cyan,
-a.a-block,
-pre > code {
-  display: inline;
-  padding: 0 1px;
-  border-width: 1px;
-  border-style: solid;
-  border-radius: 3px;
-}
-/* inline content, with block structure, boxed */
-.box-inline-block,
-.box-block,
-.label,
-span.warning,
-span.caution,
-span.success,
-span.info,
-span.help,
-span.cyan,
-a.a-block,
-pre > code {
-  display: inline-block;
-}
-/* a block structure, boxed */
-.box-block,
-a.a-block,
-pre > code {
-  display: block;
-  padding: 2px 4px;
-  border-radius: 10px;
-  margin: 4px;
-}
-/* @group labels */
-/* Tags are little warnings/tips/etc. for the user. More elegant than tooltips. */
-.label,
-span.warning,
-span.caution,
-span.success,
-span.info,
-span.help,
-span.cyan {
-  padding: 1px;
-  border: 0;
-  font-size: 12px;
-  font-family: 'Avenir', 'Calibri', 'Century Gothic', sans-serif;
-  cursor: help;
-}
-.label::before,
-span.warning::before,
-span.caution::before,
-span.success::before,
-span.info::before,
-span.help::before,
-span.cyan::before {
-  padding: 1px;
-  border: 0;
-  margin-right: 1em;
-  font-size: 16px;
-  font-family: 'Menlo', 'Lucida Sans Typewriter', 'Monaco', monospace;
-}
-/* "dire consequences" */
-span.warning {
-  color: #330000;
-  background-color: #ffeeee;
-}
-span.warning::before {
-  content: '!';
-  color: #330000;
-  background-color: #ffcccc;
-}
-/* "be careful" */
-span.caution {
-  color: #333300;
-  background-color: #ffffee;
-}
-span.caution::before {
-  content: '\2026';
-  color: #333300;
-  background-color: #ffffcc;
-}
-/* "something was done right" */
-span.success {
-  color: #003300;
-  background-color: #eeffee;
-}
-span.success::before {
-  content: '\263A';
-  color: #003300;
-  background-color: #ccffcc;
-}
-/* "extra information" */
-span.info {
-  color: #000033;
-  background-color: #eeeeff;
-}
-span.info::before {
-  content: '?';
-  color: #000033;
-  background-color: #ccccff;
-}
-/* "tips and hints" */
-span.help {
-  color: #330033;
-  background-color: #ffeeff;
-}
-span.help::before {
-  content: '\2665';
-  color: #330033;
-  background-color: #ffccff;
-}
-/* "cyan" */
-span.cyan {
-  color: #003333;
-  background-color: #eeffff;
-}
-span.cyan::before {
-  content: 'c';
-  color: #003333;
-  background-color: #ccffff;
-}
-@media print {
-  .warning::before,
-  .caution::before,
-  .success::before,
-  .info::before,
-  .help::before {
-    display: none;
-  }
-}
-/* @end */
-/* @end */
-/* @group forms */
-fieldset {
-  padding: 0;
-  border: 0;
-  margin: 0;
-}
-/* @end */
-/* @group inline links */
+/* @group hyperlinks */
 a {
   text-decoration: none;
   color: inherit;
@@ -1067,8 +921,6 @@ a[href]:active {
 a .latex {
   color: inherit;
 }
-/* @end */
-/* @group block links */
 a.a-block {
   border-color: inherit;
   border-radius: 6px;
@@ -1172,6 +1024,163 @@ var {
 }
 .tex * {
   color: #f00;
+}
+/* @end */
+/* @group labels */
+/* Labels are little warnings/tips/etc. for the user. More elegant than tooltips. */
+.label,
+span.warning,
+span.caution,
+span.success,
+span.info,
+span.help,
+span.cyan {
+  padding: 1px;
+  border: 0;
+  font-size: 12px;
+  font-family: 'Avenir', 'Calibri', 'Century Gothic', sans-serif;
+  cursor: help;
+}
+.label::before,
+span.warning::before,
+span.caution::before,
+span.success::before,
+span.info::before,
+span.help::before,
+span.cyan::before {
+  padding: 1px;
+  border: 0;
+  margin-right: 1em;
+  font-size: 16px;
+  font-family: 'Menlo', 'Lucida Sans Typewriter', 'Monaco', monospace;
+}
+/* "dire consequences" */
+span.warning {
+  color: #330000;
+  background-color: #ffeeee;
+}
+span.warning::before {
+  content: '!';
+  color: #330000;
+  background-color: #ffcccc;
+}
+/* "be careful" */
+span.caution {
+  color: #333300;
+  background-color: #ffffee;
+}
+span.caution::before {
+  content: '\2026';
+  color: #333300;
+  background-color: #ffffcc;
+}
+/* "something was done right" */
+span.success {
+  color: #003300;
+  background-color: #eeffee;
+}
+span.success::before {
+  content: '\263A';
+  color: #003300;
+  background-color: #ccffcc;
+}
+/* "extra information" */
+span.info {
+  color: #000033;
+  background-color: #eeeeff;
+}
+span.info::before {
+  content: '?';
+  color: #000033;
+  background-color: #ccccff;
+}
+/* "tips and hints" */
+span.help {
+  color: #330033;
+  background-color: #ffeeff;
+}
+span.help::before {
+  content: '\2665';
+  color: #330033;
+  background-color: #ffccff;
+}
+/* "cyan" */
+span.cyan {
+  color: #003333;
+  background-color: #eeffff;
+}
+span.cyan::before {
+  content: 'c';
+  color: #003333;
+  background-color: #ccffff;
+}
+@media print {
+  .warning::before,
+  .caution::before,
+  .success::before,
+  .info::before,
+  .help::before {
+    display: none;
+  }
+}
+/* @end */
+/* @group forms */
+fieldset {
+  padding: 0;
+  border: 0;
+  margin: 0;
+}
+/* @end */
+/* @group absract boxes */
+/* inline content, boxed */
+.box,
+code,
+.label::before,
+.box-inline-block,
+.label,
+span.warning::before,
+span.caution::before,
+span.success::before,
+span.info::before,
+span.help::before,
+span.cyan::before,
+.box-block,
+a.a-block,
+pre > code,
+span.warning,
+span.caution,
+span.success,
+span.info,
+span.help,
+span.cyan {
+  display: inline;
+  padding: 0 1px;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 3px;
+}
+/* inline content, with block structure, boxed */
+.box-inline-block,
+.label,
+.box-block,
+a.a-block,
+pre > code,
+span.warning,
+span.caution,
+span.success,
+span.info,
+span.help,
+span.cyan {
+  display: inline-block;
+}
+/* a block structure, boxed */
+.box-block,
+a.a-block,
+pre > code {
+  display: block;
+  padding: 2px 4px;
+  border-radius: 10px;
+  margin: 4px;
 }
 /* @end */
 /* @group miscellaneous */
