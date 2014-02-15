@@ -8,7 +8,7 @@ body,
 	line-height: 1.4;
 	color: @color-base-txt;
 	background-color: @color-base-bg;
-	> nav .breadcrumbs {.P1-midright;}
+	> nav .breadcrumbs {&:extend(.P1-midright);}
 }
 .hub-body {
 	background-image: url('/home/images/phi-stripes-trans.png');
@@ -17,7 +17,7 @@ body,
 }
 /* the main container in the body */
 .main, main {
-	.P1-midright;	
+	&:extend(.P1-midright);
 	margin-bottom: 162px; // why did I choose this number?
 }
 .masthead {
@@ -26,7 +26,7 @@ body,
 	position: fixed;
 	top: (@iconsize / 2);
 	nav {
-		.P1-midleft;
+		&:extend(.P1-midleft);
 		.mylogo {
 			display: block;
 			border-bottom: 0;
@@ -72,6 +72,7 @@ h1, h2, h3, h4, h5, h6,
 	.latex {color: inherit;}
 	small.h-sub {
 		padding-left: 1em;
+		font-weight: normal;
 		font-size: 80%;
 		color: @color-subsubheading;
 	}
@@ -220,6 +221,7 @@ blockquote {
 }
 address {
 	margin: @defaultmargins;
+	font-style: inherit;
 }
 /* @end */
 
@@ -457,7 +459,6 @@ dfn {}
 q {}
 cite {font-style: normal;}
 small {
-	&:extend(.parens all);
 	font-size: @font-size-small;
 }
 ins[datetime],
@@ -746,6 +747,6 @@ fieldset {
 /* To display on screen but not to print. */
 @media print {.noprint {display: none !important;}}
 
-/* Starts a new page. */
-.pagebreak {page-break-before: always; padding-top: 0.5in;}
+/* Starts a new page in the `print` media type. */
+@media print {.pagebreak {page-break-before: always; padding-top: 0.5in;}}
 /* @end */

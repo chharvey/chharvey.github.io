@@ -1,103 +1,136 @@
 @import url('../core/stylesheets/all.css');
 @import (reference) url('../core/stylesheets/all.less');
 
-.main, main {
-	.linebreadth-full();
-}
-ul {
-	padding: 0;
-	margin: 0;
-}
+/** --RESUME.LESS-- **/
 
-/* @group block elements */
-
-.res-h() {
-	margin: 0;
-	text-align: left;
-	letter-spacing: 1px;
-}
+.main, main {&:extend(.linebreadth-full);}
 header {
-	.P1-midright();
+	&:extend(.P1-midright);
 	padding-bottom: .5em;
-	border-bottom: 2px solid @accent;
+	border-bottom: 2px solid @color-accent;
 	margin-bottom: 1em;
-	.res-name {.h-alpha;}
-	address {
-		font-style: inherit;
-		text-align: right;
-		.phone,
-		.email {
-			font-family: inherit;
-			font-size: inherit;
-		}
-	}
+	address {text-align: right;}
 }
-.res-skillgroup { // each experience section of the resume
-	.line();
+
+.res-h-name,
+.res-h-skilltitle,
+.res-h-org,
+.res-h-occup {
+	margin: 0;
+}
+.res-h-name:extend(.h-alpha all) {}
+.res-h-skilltitle:extend(.h-beta all) {}
+.res-h-org:extend(.h-gamma all) {}
+.res-h-occup:extend(.h-delta all) {}
+
+/* @group skillgroups (top sections) */
+.res-skillgroup {
+	&:extend(.line);
 	margin-bottom: 1em;
 }
-.res-skilltitle { // title of skillgroup
-	.unit-P3();
-	.h-beta;
-	.res-h();
-	padding-left:  (100% * @Phi3 * @Phi3); // P6
-	padding-right: (100% * @Phi3 * @Phi4); // P7
+.res-h-skilltitle {
+	&:extend(.unit-P3);
+	padding-left:  (100% * @Phi3 * @Phi3); // P6 or (P3 to P3)
+	padding-right: (100% * @Phi3 * @Phi4); // P7 or (P4 to P3)
 	text-align: right;
 	position: relative;
 	right: 10px;
 }
-.res-skilldetail { // details for skillgroup
-	.unit-U-P3();
+.res-skilldetail {
+	&:extend(.unit-U-P3);
 	padding-left: 0;
 	padding-right: @width-Golden4;
 }
-	.res-job { // job positions for each skill
-		margin-bottom: 1em;
-	}
-		.res-jobtitle { // company, position, dates, etc of each job
-			.line();
-		}
-			.res-org, .res-occup {.unit-U-P3();}
-			.res-org { // organization title
-				.h-gamma;
-				.res-h();
-			}
-			.res-occup {// occupation title
-				.h-delta;
-				.res-h();
-			}
-		.res-jobdetail { // bullet list of job descriptions and awards
-			list-style: square inside none;
-		//	padding-left: 20px;
-		//	margin: 0;
-		}
-.res-spacetime { // date & location of job
-	.unit-P3();
-	text-align: right;
+/* @end */
+
+/* @group jobs (level 2 sections) */
+.res-job {
+	margin-bottom: 1em;
 }
+.res-h-org,
+.res-h-occup {
+	&:extend(.line);
+	font-size: @font-size-base;
+	/* date & location of job */
+	small.res-spacetime {
+		&:extend(.unit-P3);
+		padding-left: 0;
+		font-weight: normal;
+		font-variant: normal;
+		font-style: normal;
+		font-size: inherit;
+		font-family: @font-fam-base;
+		color: @color-base-txt;
+		text-align: right;
+		letter-spacing: normal;
+	}
+}
+/* bullet list of job descriptions and awards */
+ul.res-jobdetail {
+	padding: 0;
+	margin: 0;
+	list-style: square inside none;
+}
+/* @end */
+
+.res-edu {
+	.res-h-org,
+	.res-h-occup {text-indent: 0;}
+	.res-h-org:extend(.h-epsilon all) {}
+	.res-h-occup:extend(.h-zeta all) {}
+}
+
+
+
+
+
+
+
 .res-tech-apps {
-	.list-basic;
+	&:extend(.list-basic);
 	li {
 		width: 50%;
 		float: left;
 	}
 }
 .res-tech-langs {
-	.list-line;
+	&:extend(.list-line);
 	li {
 		width: 15%;
 		padding-right: 50px;
 	}
 }
-/* @end */
+
 
 @media screen {
 	footer {display: none;}
-	.res-skillgroup.res-edu {
-		.res-org {.h-epsilon; text-indent: 0;}
-		.res-occup {.h-zeta; text-indent: 0;}
-	}
+//	.res-skillgroup.res-edu {
+//		.res-org {.h-epsilon; }
+//		.res-occup {.h-zeta; text-indent: 0;}
+//	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @media print {
 	.leftcell() {
 		padding-left: 1em;
@@ -147,13 +180,15 @@ header {
 	footer {
 		.line;
 		margin: 0.5in 0 1em;
+		> .res-footer-name,
+		> .res-footer-pagecount {
+			.unit-1to2;
+		}
 		> .res-footer-name {
-			.unit-1to2();
 			.leftcell();
 			text-align: left;
 		}
 		> .res-footer-pagecount {
-			.unit-1to2();
 			.rightcell();
 			text-align: right;
 		}
