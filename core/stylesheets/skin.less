@@ -201,7 +201,7 @@ p.prose {}
 }
 p.lede {
 	text-align: justify;
-	margin-bottom: 2 * @line-height-base * @font-size-base;
+	+ p {.margin-vert(2,0);}
 }
 span.lede {
 	padding-right: 1em;
@@ -315,7 +315,6 @@ dd {
 }
 .dltable(@dtwidth) {
 	//* a dl list that acts like a table, with each row containing a single name-value group
-	//* (a name-value group consists of 0 or more names and 0 or more values)
 	&:extend(.list-line all);
 	dt, dd {
 		float: left;
@@ -339,7 +338,7 @@ dd {
 	a:not([href]) {color: @color-base-txt;}
 }
 body > nav .breadcrumbs {&:extend(.P1-midright);}
-ol.breadcrumbs {
+.breadcrumbs {
 	&:extend(.list-inline all);
 	&:extend(.list-action all);
 	font-family: @font-fam-heading;
@@ -350,8 +349,7 @@ ol.breadcrumbs {
 }
 ol.prose {
 	list-style-type: decimal;
-	p.lede {
-	}
+	p.lede + p {.margin-vert(0,0);}
 }
 //* outlined lists
 .list-omega   {list-style-type: decimal-leading-zero;}
@@ -516,9 +514,11 @@ dfn {}
 //}
 q {}
 cite {font-style: normal;}
-small {
+small, sup, sub {
 	font-size: @font-size-small;
 }
+sup {vertical-align: super;}
+sub {vertical-align: sub;}
 ins[datetime],
 del[datetime],
 abbr[title] {
@@ -558,11 +558,6 @@ abbr[title] {
 //.email {
 //	font-family: @font-fam-code;
 //}
-sup, sub {
-	font-size: @font-size-small;
-}
-sup {vertical-align: super;}
-sub {vertical-align: sub;}
 /* @end */
 
 /* @group hyperlinks */
@@ -693,7 +688,6 @@ var {font-style: italic;}
 		padding: 1px;
 		border: 0;
 		margin-right: 1em;
-		font-size: @font-size-small;
 		font-family: @font-fam-code;
 	}
 }

@@ -5,7 +5,7 @@ TO DO
 
 ### semantics ###
 - don't rely on `title` attributes for any element (mobile browsers)
-- `rel` attributes on `link` and `a` elements, see [http://dev.w3.org/html5/spec/links.html#linkTypes](http://dev.w3.org/html5/spec/links.html#linkTypes)
+- `rel` attributes on `link` and `a` elements, see [http://dev.w3.org/html5/spec/links.html#linkTypes]()
 - breadcrumbs! three choices:
 	- "owns": `&ni;` or `\220b`
 	- "superset": `&supe;` or `\2287`
@@ -19,9 +19,7 @@ TO DO
 
 ### styles ###
 - 2014-01-24 fix timestamp issues in `skin.less`
-- 2014-02-15 styles for `address` elements
-- 2014-02-15 vertical rhythm for tables
-- 2014-02-15 comments in LESS files should be inline, not /* block */
+- 2014-02-16 when calling LESS `.margin-vert(@a,@b)`, if one of the parameters is `0`, output should be `0` not `0px`. Somehow use Mixin Guards?
 
 ### scripts ###
 - 2013-12-14 investigate the use of templates (`<template>`)
@@ -38,8 +36,10 @@ TO DO
 - 2014-01-21 finish last section (Phi demonstration)
 
 ### /site-design/typo.html ###
-- data lists
+- 2014-02-15 styles for `address` elements
+- 2014-02-15 vertical rhythm for tables
 - inline elements: highlighting
+- 2014-02-16 do labels/tooltips/whatever hint: [http://kushagragour.in/lab/hint/]()
 - quotation-scheme examples
 - code scheme
 
