@@ -7,11 +7,10 @@
 .P1-left,
 .P1-right,
 .unit-P1,
-body > nav .breadcrumbs,
-.hub-body > nav .breadcrumbs,
 .main,
 main,
-.masthead nav {
+.masthead nav,
+body > nav .breadcrumbs {
   width: 61.80339887498949%;
 }
 .P2-left,
@@ -45,10 +44,9 @@ main,
   margin-right: 23.606797749978973%;
 }
 .P1-midright,
-body > nav .breadcrumbs,
-.hub-body > nav .breadcrumbs,
 .main,
-main {
+main,
+body > nav .breadcrumbs {
   margin-left: 23.606797749978973%;
   margin-right: 14.58980337503155%;
 }
@@ -258,14 +256,67 @@ main {
   left: -17.08203932499369%;
 }
 /* @end */
+/* @group absract mixins */
+.box-inline,
+.box-inline-block,
+code,
+.label::before,
+.box-block,
+.label,
+span.warning::before,
+span.caution::before,
+span.success::before,
+span.info::before,
+span.help::before,
+span.cyan::before,
+a.a-block,
+pre > code,
+span.warning,
+span.caution,
+span.success,
+span.info,
+span.help,
+span.cyan {
+  /* inline content, boxed */
+  display: inline;
+  padding: 0 1px;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 3px;
+}
+.box-inline-block,
+.box-block,
+.label,
+a.a-block,
+pre > code,
+span.warning,
+span.caution,
+span.success,
+span.info,
+span.help,
+span.cyan {
+  /* inline content, with block structure, boxed */
+  display: inline-block;
+}
+.box-block,
+a.a-block,
+pre > code {
+  /* a block structure, boxed */
+  display: block;
+  padding: 2px 4px;
+  border-radius: 10px;
+  margin: 0 4px;
+}
+/* @end */
 /* @group main stuff */
 body,
 .hub-body {
   font-size: 16px;
   font-family: 'Optima', 'Candara', 'Lucida Sans', sans-serif;
   text-align: left;
-  line-height: 1.4;
-  color: #000000;
+  line-height: 1.5;
+  vertical-align: baseline;
+  color: #333366;
   background-color: #ffffff;
 }
 .hub-body {
@@ -273,9 +324,9 @@ body,
   background-repeat: repeat-y;
   background-size: contain;
 }
-/* the main container in the body */
 .main,
 main {
+  /* the main container in the body */
   margin-bottom: 162px;
 }
 .masthead {
@@ -292,32 +343,6 @@ main {
   font-size: 96px;
   font-family: 'Times', 'Times New Roman', serif;
 }
-@media print {
-  body,
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6,
-  blockquote,
-  table {
-    font-size: 12pt !important;
-  }
-  body {
-    color: #000;
-    background-color: #fff;
-    background-image: none;
-  }
-  .main,
-  main {
-    width: auto;
-    margin: auto;
-  }
-  .masthead {
-    display: none;
-  }
-}
 /* @end */
 /* @group headings */
 h1,
@@ -332,7 +357,7 @@ h6,
 .h-delta,
 .h-epsilon,
 .h-zeta {
-  margin: 1em 0 0.25em;
+  margin: 0;
   font-style: normal;
   font-variant: normal;
   font-weight: normal;
@@ -367,42 +392,132 @@ h6 small.h-sub,
 .h-zeta small.h-sub {
   padding-left: 1em;
   font-weight: normal;
-  font-size: 80%;
-  color: #808080;
+}
+h1 + p,
+h2 + p,
+h3 + p,
+h4 + p,
+h5 + p,
+h6 + p,
+.h-alpha + p,
+.h-beta + p,
+.h-gamma + p,
+.h-delta + p,
+.h-epsilon + p,
+.h-zeta + p,
+h1 + ul,
+h2 + ul,
+h3 + ul,
+h4 + ul,
+h5 + ul,
+h6 + ul,
+.h-alpha + ul,
+.h-beta + ul,
+.h-gamma + ul,
+.h-delta + ul,
+.h-epsilon + ul,
+.h-zeta + ul,
+h1 + ol,
+h2 + ol,
+h3 + ol,
+h4 + ol,
+h5 + ol,
+h6 + ol,
+.h-alpha + ol,
+.h-beta + ol,
+.h-gamma + ol,
+.h-delta + ol,
+.h-epsilon + ol,
+.h-zeta + ol,
+h1 + dl,
+h2 + dl,
+h3 + dl,
+h4 + dl,
+h5 + dl,
+h6 + dl,
+.h-alpha + dl,
+.h-beta + dl,
+.h-gamma + dl,
+.h-delta + dl,
+.h-epsilon + dl,
+.h-zeta + dl {
+  margin-top: 0;
 }
 .h-alpha {
+  margin-top: 48px;
+  margin-bottom: 24px;
   font-variant: small-caps;
   font-weight: bold;
   font-size: 32px;
   text-align: center;
-  color: #000000;
+  line-height: 0.75;
+  color: #ff8800;
+}
+.h-alpha small.h-sub {
+  font-size: 25.6px;
+  color: #ffb866;
 }
 .h-beta {
+  margin-top: 36px;
+  margin-bottom: 12px;
   font-weight: bold;
   font-size: 24px;
-  color: #000000;
+  line-height: 1;
+  color: #884400;
+}
+.h-beta small.h-sub {
+  font-size: 19.200000000000003px;
+  color: #ee7700;
 }
 .h-gamma {
+  margin-top: 18px;
+  margin-bottom: 6px;
   font-variant: small-caps;
   font-weight: bold;
-  font-size: 18.666666666666668px;
+  font-size: 20px;
+  line-height: 1.2;
+}
+.h-gamma small.h-sub {
+  font-size: 16px;
+  color: #5555aa;
 }
 .h-delta {
+  margin-top: 24px;
+  margin-bottom: 0px;
   font-style: italic;
   font-weight: bold;
   font-size: 16px;
+  line-height: 1.5;
+}
+.h-delta small.h-sub {
+  font-size: 12.8px;
+  color: #5555aa;
 }
 .h-epsilon {
+  margin-top: 0px;
+  margin-bottom: 0px;
   font-style: italic;
-  font-size: 13.333333333333334px;
+  font-size: 14px;
   text-indent: 0.5in;
-  color: #000000;
+  line-height: 1.7142857142857142;
+  color: #884400;
+}
+.h-epsilon small.h-sub {
+  font-size: 11.200000000000001px;
+  color: #ee7700;
 }
 .h-zeta {
+  margin-top: 0px;
+  margin-bottom: 0px;
   font-style: italic;
   font-variant: small-caps;
-  font-size: 13.333333333333334px;
+  font-size: 12px;
   text-indent: 0.5in;
+  line-height: 2;
+}
+.h-zeta small.h-sub {
+  font-size: 9.600000000000001px;
+  color: #5555aa;
 }
 .title,
 .title * {
@@ -411,59 +526,61 @@ h6 small.h-sub,
 /* @end */
 /* @group paragraphs */
 p {
-  margin: 0 0 0.5em;
+  margin-top: 24px;
+  margin-bottom: 0px;
   text-align: left;
+}
+.sideborder > p:first-child,
+li > p:first-child,
+.informal > p:first-child,
+figure > p:first-child,
+blockquote > p:first-child {
+  margin-top: 0;
 }
 .prose {
   font-family: 'Baskerville', 'Palatino', 'Book Antiqua', serif;
   text-align: justify;
-  line-height: 1.3;
-}
-p.prose {
-  margin-bottom: 0.75em;
 }
 .lede {
   font-weight: bold;
   font-family: 'Optima', 'Candara', 'Lucida Sans', sans-serif;
-  color: #000000;
+  color: #000;
 }
 p.lede {
-  margin-bottom: 1em;
   text-align: justify;
-  line-height: 1.5;
+  margin-bottom: 48px;
 }
 span.lede {
   padding-right: 1em;
 }
-/* captions of figures, tables, or anything */
 .caption,
 figcaption,
 caption {
-  margin: 0 0 0.5em;
-  margin-top: 0.5em;
   font-style: normal;
   font-size: 12px;
   text-align: right;
+  line-height: 2;
 }
-/* a container containing paragraphs, etc. that are not officially part of an official document, but are still a major part of the normal flow of the document. Used when 'aside' and 'figure' elements are not suitable. */
+.sideborder,
+.informal,
+figure,
+blockquote {
+  margin-top: 14.832815729997478px !important;
+  margin-bottom: 0px !important;
+  padding-top: 9.167184270002526px !important;
+  padding-bottom: 0px !important;
+}
 .informal {
-  margin: 0 0 0.5em;
   padding-left: 5px;
-  padding-top: 3px;
-  padding-bottom: 3px;
   border-left-width: 3px;
   border-left-style: solid;
   border-left-color: #ff0000;
   margin-left: 13px;
   font-family: 'Optima', 'Candara', 'Lucida Sans', sans-serif;
-  background-color: #f4f4f4;
+  background-color: #eeeeff;
 }
-/* example figures (text, images, etc.) */
 figure {
-  margin: 0 0 0.5em;
   padding-left: 8px;
-  padding-top: 5px;
-  padding-bottom: 5px;
   border-left-width: 5px;
   border-left-style: solid;
   border-left-color: #ff0000;
@@ -472,28 +589,24 @@ figure {
 figure.bad,
 figure.bad * {
   color: #ffffff;
-  background-color: #000000;
+  background-color: #333366;
 }
 figcaption {
   border-top: 1px dashed;
-  border-bottom: 0;
 }
-/* blocks of short or long quoted material */
 blockquote {
-  margin: 0 0 0.5em;
   padding-left: 13px;
-  padding-top: 8px;
-  padding-bottom: 8px;
   border-left-width: 8px;
   border-left-style: double;
   border-left-color: #ff0000;
   margin-left: 34px;
   font-size: 20px;
   font-family: 'Avenir', 'Calibri', 'Century Gothic', sans-serif;
-  line-height: 1.5;
+  line-height: 1.2;
 }
 blockquote.prose {
   font-size: 16px;
+  line-height: 1.5;
 }
 blockquote.prose cite.source {
   padding-left: 0;
@@ -506,7 +619,6 @@ blockquote cite.source::before {
   content: '~';
 }
 address {
-  margin: 0 0 0.5em;
   font-style: inherit;
 }
 /* @end */
@@ -514,9 +626,9 @@ address {
 ul,
 ol,
 dl {
-  margin: 0 0 0.5em;
   padding-left: 0.5in;
-  line-height: 1.3;
+  margin-top: 24px;
+  margin-bottom: 0px;
 }
 ul ul,
 ol ul,
@@ -527,22 +639,18 @@ dl ol,
 ul dl,
 ol dl,
 dl dl {
-  margin-bottom: auto;
+  margin-top: 0;
 }
 dd {
-  margin: 0;
   padding-left: 0.5in;
 }
-dd + dt {
-  margin-top: 0.5em;
-}
-/* a basic list with no margins, padding, or numbering. list items are blocks */
 .list-basic,
 .list-inline,
 .list-line,
 .list-action,
 ol.breadcrumbs,
 ol.breadcrumbs {
+  /* a basic list with no margins, padding, or numbering. list items are blocks */
   padding: 0;
   list-style-type: none;
 }
@@ -567,9 +675,9 @@ ol.breadcrumbs dd {
   margin: 0;
   padding: 0;
 }
-/* a basic list except the list items are inline. dt elements are still blocks */
 .list-inline,
 ol.breadcrumbs {
+  /* a basic list except the list items are inline. dt elements are still blocks */
   display: block;
 }
 .list-inline li,
@@ -586,8 +694,8 @@ ol.breadcrumbs dt {
 ol.breadcrumbs dt + dd {
   padding-left: 0.5in;
 }
-/* a basic list that acts as a table with the list items acting as table cells */
 .list-line {
+  /* a basic list that acts as a table with the list items acting as table cells */
   display: table;
   width: 100%;
 }
@@ -598,10 +706,9 @@ ol.breadcrumbs dt + dd {
   padding-left: 2px;
   padding-right: 2px;
 }
-/* a dl list that acts like a table, with each row containing basic list that acts as a table with the list items acting as table cells */
-/* a list typically containing textual (non-block) hyperlinks */
 .list-action,
 ol.breadcrumbs {
+  /* a list typically containing textual (non-block) hyperlinks */
   color: #0000ff;
 }
 .list-action ul,
@@ -622,7 +729,7 @@ ol.breadcrumbs a {
 }
 .list-action a:not([href]),
 ol.breadcrumbs a:not([href]) {
-  color: #000000;
+  color: #333366;
 }
 ol.breadcrumbs {
   font-family: 'Avenir', 'Calibri', 'Century Gothic', sans-serif;
@@ -635,9 +742,6 @@ ol.breadcrumbs li::before {
 }
 ol.prose {
   list-style-type: decimal;
-}
-ol.prose p.lede {
-  margin: 0 0 0.5em;
 }
 /* outlined lists */
 .list-omega {
@@ -736,7 +840,10 @@ td > p:last-child {
   background-color: #dddddd;
 }
 /* @end */
-/* mixin used for lots of things */
+.parens,
+blockquote.prose cite.source {
+  /* mixin used for lots of things */
+}
 .parens::before,
 blockquote.prose cite.source::before {
   content: '(';
@@ -745,9 +852,9 @@ blockquote.prose cite.source::before {
 blockquote.prose cite.source::after {
   content: ')';
 }
-/* non-semantic elements reset */
 i,
 b {
+  /* non-semantic elements reset */
   font-style: inherit;
   font-weight: inherit;
 }
@@ -764,60 +871,67 @@ strong {
 mark {
   background-color: transparent;
 }
-/* scare quotes contain abuse of vocabulary or language */
+i.scare {
+  /* scare quotes contain abuse of vocabulary or language */
+}
 i.scare::before {
   content: open-quote;
 }
 i.scare::after {
   content: close-quote;
 }
-/* mentions refer to phrases without referring to their meaning */
+i.mention {
+  /* mentions refer to phrases without referring to their meaning */
+}
 i.mention::before {
   content: open-quote;
 }
 i.mention::after {
   content: close-quote;
 }
-/* phrases representing silent thoughts */
+i.thought {
+  /* phrases representing silent thoughts */
+}
 i.thought::before {
   content: '\00ab';
 }
 i.thought::after {
   content: '\00bb';
 }
-/* phrases in foreign languages */
 i:lang(la),
 i:lang(it),
 i:lang(fr) {
+  /* phrases in foreign languages */
   font-style: italic;
   font-family: 'Times', 'Times New Roman', serif;
 }
 i[lang=la],
 i[lang=it],
 i[lang=fr] {
+  /* phrases in foreign languages */
   font-style: italic;
   font-family: 'Times', 'Times New Roman', serif;
 }
 .solfege {
+  /* phrases in foreign languages */
   font-style: italic;
   font-family: 'Times', 'Times New Roman', serif;
 }
-/* keywords or technical terms */
 b.keyword {
+  /* keywords or technical terms */
   font-weight: bold;
 }
-/* proper noun traditionally italicized */
 b.proper {
+  /* proper noun traditionally italicized */
   font-style: italic;
   text-transform: capitalize;
 }
-/* reference to a title, section heading, figure, table. use only when the `a` element or the `cite` element would not be appropriate */
 b.ref {
+  /* reference to a title, section heading, figure, table. use only when the `a` element or the `cite` element would not be appropriate */
   font-weight: bold;
 }
 /* @end */
 /* @group documentation */
-/* a paragraph element that indicates the most recent edit of a webpage or document. includes a <time datetime=""> element. */
 cite {
   font-style: normal;
 }
@@ -870,18 +984,12 @@ abbr[title] {
 abbr[title]::after {
   content: attr(title);
 }
-@media print {
-  ins,
-  del,
-  abbr {
-    background-color: transparent;
-  }
-}
 .superscript,
 sup,
 .subscript,
 sub {
   font-size: 12px;
+  line-height: 2;
 }
 .superscript,
 sup {
@@ -921,7 +1029,7 @@ a.a-block {
   border-color: inherit;
   border-radius: 6px;
   text-align: center;
-  background-color: inherit;
+  background-color: transparent;
 }
 a.a-block[href] {
   border-color: #000066;
@@ -941,11 +1049,14 @@ pre {
   margin: 0;
   white-space: pre-wrap;
 }
+pre > code {
+  line-height: 2;
+}
 samp {
   font-family: inherit;
 }
-/* example of a fragment or string of code a computer would recognize */
 code {
+  /* example of a fragment or string of code a computer would recognize */
   border-color: #000000;
   font-size: 12px;
   font-family: 'Menlo', 'Lucida Sans Typewriter', 'Monaco', monospace;
@@ -984,19 +1095,12 @@ code.dir {
 code .comment {
   color: #999999;
 }
-@media print {
-  .code,
-  kbd > kbd {
-    color: #000000;
-    background-color: #fff;
-  }
-}
-/* user input, in the form of a string, menu item, etc. */
 kbd {
+  /* user input, in the form of a string, menu item, etc. */
   white-space: nowrap;
-  /* an individual key on a keyboard, calculator, or other device */
 }
 kbd > kbd {
+  /* an individual key on a keyboard, calculator, or other device */
   padding: 2px;
   font-family: 'Optima', 'Candara', 'Lucida Sans', sans-serif;
 }
@@ -1023,7 +1127,6 @@ var {
 }
 /* @end */
 /* @group labels */
-/* Labels are little warnings/tips/etc. for the user. More elegant than tooltips. */
 .label,
 span.warning,
 span.caution,
@@ -1031,6 +1134,7 @@ span.success,
 span.info,
 span.help,
 span.cyan {
+  /* Labels are little warnings/tips/etc. for the user. More elegant than tooltips. */
   padding: 1px;
   border: 0;
   font-size: 12px;
@@ -1047,11 +1151,11 @@ span.cyan::before {
   padding: 1px;
   border: 0;
   margin-right: 1em;
-  font-size: 16px;
+  font-size: 12px;
   font-family: 'Menlo', 'Lucida Sans Typewriter', 'Monaco', monospace;
 }
-/* "dire consequences" */
 span.warning {
+  /* "dire consequences" */
   color: #330000;
   background-color: #ffeeee;
 }
@@ -1060,8 +1164,8 @@ span.warning::before {
   color: #330000;
   background-color: #ffcccc;
 }
-/* "be careful" */
 span.caution {
+  /* "be careful" */
   color: #333300;
   background-color: #ffffee;
 }
@@ -1070,8 +1174,8 @@ span.caution::before {
   color: #333300;
   background-color: #ffffcc;
 }
-/* "something was done right" */
 span.success {
+  /* "something was done right" */
   color: #003300;
   background-color: #eeffee;
 }
@@ -1080,8 +1184,8 @@ span.success::before {
   color: #003300;
   background-color: #ccffcc;
 }
-/* "extra information" */
 span.info {
+  /* "extra or informal information" */
   color: #000033;
   background-color: #eeeeff;
 }
@@ -1090,8 +1194,8 @@ span.info::before {
   color: #000033;
   background-color: #ccccff;
 }
-/* "tips and hints" */
 span.help {
+  /* "tips and hints" */
   color: #330033;
   background-color: #ffeeff;
 }
@@ -1100,8 +1204,8 @@ span.help::before {
   color: #330033;
   background-color: #ffccff;
 }
-/* "cyan" */
 span.cyan {
+  /* "cyan" */
   color: #003333;
   background-color: #eeffff;
 }
@@ -1109,15 +1213,6 @@ span.cyan::before {
   content: 'c';
   color: #003333;
   background-color: #ccffff;
-}
-@media print {
-  .warning::before,
-  .caution::before,
-  .success::before,
-  .info::before,
-  .help::before {
-    display: none;
-  }
 }
 /* @end */
 /* @group forms */
@@ -1127,82 +1222,70 @@ fieldset {
   margin: 0;
 }
 /* @end */
-/* @group absract boxes */
-/* inline content, boxed */
-.box,
-code,
-.label::before,
-.box-inline-block,
-.label,
-span.warning::before,
-span.caution::before,
-span.success::before,
-span.info::before,
-span.help::before,
-span.cyan::before,
-.box-block,
-a.a-block,
-pre > code,
-span.warning,
-span.caution,
-span.success,
-span.info,
-span.help,
-span.cyan {
-  display: inline;
-  padding: 0 1px;
-  border-width: 1px;
-  border-style: solid;
-  border-radius: 3px;
-}
-/* inline content, with block structure, boxed */
-.box-inline-block,
-.label,
-.box-block,
-a.a-block,
-pre > code,
-span.warning,
-span.caution,
-span.success,
-span.info,
-span.help,
-span.cyan {
-  display: inline-block;
-}
-/* a block structure, boxed */
-.box-block,
-a.a-block,
-pre > code {
-  display: block;
-  padding: 2px 4px;
-  border-radius: 10px;
-  margin: 4px;
-}
-/* @end */
 /* @group miscellaneous */
-/* Elements not yet ready for publishing. Elements with the 'hidden' boolean attribute (hidden="") are not to be processed by browsers and are to be ignored by SEO patterns. Sometimes, the browser-default css-style is overridden, hence this selector exists. */
 [hidden] {
+  /* Elements not yet ready for publishing. Elements with the 'hidden' boolean attribute (hidden="") are not to be processed by browsers and are to be ignored by SEO patterns. Sometimes, the browser-default css-style is overridden, hence this selector exists. */
   display: none !important;
 }
-/* Elements needed for SEO *only* (e.g. extraneous titles, etc). Try to only use this selector as a last resort. */
 .seo-only {
+  /* Elements needed for SEO *only* (e.g. extraneous titles, etc). Try to only use this selector as a last resort. */
   display: none !important;
 }
-/* Elements still in testing mode but still not yet ready for implementation. */
 .draft,
 .draft * {
+  /* Elements still in testing mode but still not yet ready for implementation. */
   color: #999;
   background-color: #fe8;
 }
-/* To display on screen but not to print. */
 @media print {
+  body,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  blockquote,
+  table {
+    font-size: 12pt !important;
+  }
+  body {
+    color: #000;
+    background-color: #fff;
+    background-image: none;
+  }
+  .main,
+  main {
+    width: auto;
+    margin: auto;
+  }
+  .masthead {
+    display: none;
+  }
+  ins,
+  del,
+  abbr {
+    background-color: transparent;
+  }
+  .code,
+  kbd > kbd {
+    color: #000000;
+    background-color: #fff;
+  }
+  .warning::before,
+  .caution::before,
+  .success::before,
+  .info::before,
+  .help::before,
+  .cyan::before {
+    display: none;
+  }
   .noprint {
+    /* To display on screen but not to print. */
     display: none !important;
   }
-}
-/* Starts a new page in the `print` media type. */
-@media print {
   .pagebreak {
+    /* Starts a new page in the `print` media type. */
     page-break-before: always;
     padding-top: 0.5in;
   }

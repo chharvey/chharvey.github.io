@@ -1,3 +1,40 @@
+/* @group absract mixins */
+@box-radius-small:  3px;
+@box-radius-medium: 6px;
+@box-radius-large: 10px;
+.box-inline {
+	/* inline content, boxed */
+	display: inline;
+	padding: 0 1px;
+	border-width: 1px;
+	border-style: solid;
+	border-radius: @box-radius-small;
+}
+
+.box-inline-block {
+	/* inline content, with block structure, boxed */
+	&:extend(.box-inline);
+	display: inline-block;
+}
+.box-block {
+	/* a block structure, boxed */
+	&:extend(.box-inline-block);
+	display: block;
+	padding: 2px 4px;
+	border-radius: @box-radius-large;
+	margin: 0 4px;
+}
+.margin-vert(@lh-top, @lh-bot) {
+	margin-top:    @lh-top * @line-height-base * @font-size-base;
+	margin-bottom: @lh-bot * @line-height-base * @font-size-base;
+}
+.padding-vert(@lh-top, @lh-bot) {
+	padding-top:    @lh-top * @line-height-base * @font-size-base;
+	padding-bottom: @lh-bot * @line-height-base * @font-size-base;
+}
+
+/* @end */
+
 
 /* @group main stuff */
 body,
@@ -5,18 +42,18 @@ body,
 	font-size: @font-size-base;
 	font-family: @font-fam-base;
 	text-align: left;
-	line-height: 1.4;
+	line-height: @line-height-base;
+	vertical-align: baseline;
 	color: @color-base-txt;
 	background-color: @color-base-bg;
-	> nav .breadcrumbs {&:extend(.P1-midright);}
 }
 .hub-body {
 	background-image: url('/home/images/phi-stripes-trans.png');
 	background-repeat: repeat-y;
 	background-size: contain;
 }
-/* the main container in the body */
 .main, main {
+	/* the main container in the body */
 	&:extend(.P1-midright);
 	margin-bottom: 162px; // why did I choose this number?
 }
@@ -36,23 +73,6 @@ body,
 		}
 	}
 }
-@media print {
-	body,
-	h1, h2, h3, h4, h5, h6,
-	blockquote, table {
-		font-size: 12pt !important;
-	}
-	body {
-		color: #000;
-		background-color: #fff;
-		background-image: none;
-	}
-	.main, main {
-		width: auto;
-		margin: auto;
-	}
-	.masthead {display: none;}
-}
 /* @end */
 
 /* @group headings */
@@ -63,7 +83,7 @@ h1, h2, h3, h4, h5, h6,
 .h-delta,
 .h-epsilon,
 .h-zeta {
-	margin: 1em 0 0.25em;
+	margin: 0;
 	font-style: normal;
 	font-variant: normal;
 	font-weight: normal;
@@ -73,122 +93,162 @@ h1, h2, h3, h4, h5, h6,
 	small.h-sub {
 		padding-left: 1em;
 		font-weight: normal;
-		font-size: 80%;
-		color: @color-subsubheading;
 	}
+	+ p,
+	+ ul,
+	+ ol,
+	+ dl {margin-top: 0;}
 }
+@hsub-lighten: 20%;
 .h-alpha {
+	.margin-vert(2,1);
 	font-variant: small-caps;
 	font-weight: bold;
 	font-size: @font-size-h1;
 	text-align: center;
+	line-height: @line-height-h1;
 	color: @color-heading;
+	small.h-sub {
+		font-size: @font-size-h1-sub;
+//		line-height: (@line-height-h1 / @font-size-h1-sub);
+		color: lighten(@color-heading, @hsub-lighten);
+	}
 }
 .h-beta {
+	.margin-vert(1.5,0.5);
 	font-weight: bold;
 	font-size: @font-size-h2;
+	line-height: @line-height-h2;
 	color: @color-subheading;
+	small.h-sub {
+		font-size: @font-size-h2-sub;
+//		line-height: (@line-height-h2 / @font-size-h2-sub);
+		color: lighten(@color-subheading, @hsub-lighten);
+	}
 }
 .h-gamma {
+	.margin-vert(0.75,0.25);
 	font-variant: small-caps;
 	font-weight: bold;
 	font-size: @font-size-h3;
+	line-height: @line-height-h3;
+	small.h-sub {
+		font-size: @font-size-h3-sub;
+//		line-height: (@line-height-h3 / @font-size-h3-sub);
+		color: lighten(@color-base-txt, @hsub-lighten);
+	}
 }
 .h-delta {
+	.margin-vert(1,0);
 	font-style: italic;
 	font-weight: bold;
 	font-size: @font-size-h4;
+	line-height: @line-height-h4;
+	small.h-sub {
+		font-size: @font-size-h4-sub;
+//		line-height: (@line-height-h4 / @font-size-h4-sub);
+		color: lighten(@color-base-txt, @hsub-lighten);
+	}
 }
 .h-epsilon {
+	.margin-vert(0,0);
 	font-style: italic;
 	font-size: @font-size-h5;
 	text-indent: 0.5in;
+	line-height: @line-height-h5;
 	color: @color-subheading;
+	small.h-sub {
+		font-size: @font-size-h5-sub;
+//		line-height: (@line-height-h5 / @font-size-h5-sub);
+		color: lighten(@color-subheading, @hsub-lighten);
+	}
 }
 .h-zeta {
+	.margin-vert(0,0);
 	font-style: italic;
 	font-variant: small-caps;
 	font-size: @font-size-h6;
 	text-indent: 0.5in;
+	line-height: @line-height-h6;
+	small.h-sub {
+		font-size: @font-size-h6-sub;
+//		line-height: (@line-height-h6 / @font-size-h6-sub);
+		color: lighten(@color-base-txt, @hsub-lighten);
+	}
 }
-//h1 + h1,
-//h1 + h2,
-//h2 + h3,
-//h3 + h4,
-//h4 + h5,
-//h5 + h6 {
-//	margin-top: 0;
-//}
 .title, .title * {
 	text-align: center;
 }
 /* @end */
 
 /* @group paragraphs */
-@defaultmargins: 0 0 0.5em;
 p {
-	margin: @defaultmargins;
+	.margin-vert(1,0);
 	text-align: left;
+}
+.sideborder,
+li {
+	> p:first-child {margin-top: 0;}
 }
 .prose {
 	font-family: @font-fam-prose;
 	text-align: justify;
-	line-height: 1.3;
 }
 p.prose {
-	margin-bottom: 0.75em;
 }
 .lede {
 	font-weight: bold;
 	font-family: @font-fam-base;
-	color: #000000;
+	color: #000;
 }
 p.lede {
-	margin-bottom: 1em;
 	text-align: justify;
-	line-height: 1.5;
+	margin-bottom: 2 * @line-height-base * @font-size-base;
 }
 span.lede {
 	padding-right: 1em;
 }
 
-/* captions of figures, tables, or anything */
 .caption {
-	margin: @defaultmargins;
-	margin-top: 0.5em;
+	// captions of figures, tables, or anything
 	font-style: normal;
 	font-size: @font-size-small;
 	text-align: right;
+	line-height: @line-height-small;
+}
+.sideborder {
+	.margin-vert(@Phi1,0) !important;
+	.padding-vert(@Phi2,0) !important;
 }
 .sideborder-left(@pad-width; @brdr-width; @marg-width; @brdr-style; @brdr-color) {
-	margin: @defaultmargins;
+	&:extend(.sideborder all);
 	padding-left: @pad-width;
-	padding-top: @brdr-width;
-	padding-bottom: @brdr-width;
+//	padding-top: @brdr-width;
+//	padding-bottom: @brdr-width;
 	border-left-width: @brdr-width;
 	border-left-style: @brdr-style;
 	border-left-color: @brdr-color;
 	margin-left: @marg-width;
 }
 .sideborder-right(@pad-width; @brdr-width; @marg-width; @brdr-style; @brdr-color) {
-	margin: @defaultmargins;
+	&:extend(.sideborder all);
 	padding-right: @pad-width;
-	padding-top: @brdr-width;
-	padding-bottom: @brdr-width;
+//	padding-top: @brdr-width;
+//	padding-bottom: @brdr-width;
 	border-right-width: @brdr-width;
 	border-right-style: @brdr-style;
 	border-right-color: @brdr-color;
 	margin-right: @marg-width;
 }
-/* a container containing paragraphs, etc. that are not officially part of an official document, but are still a major part of the normal flow of the document. Used when 'aside' and 'figure' elements are not suitable. */
 .informal {
+	// a container containing paragraphs, etc. that are not officially part of an official document, but are still a major part of the normal flow of the document. Used when 'aside' and 'figure' elements are not suitable.
 	.sideborder-left(5px; 3px; 13px; solid; @color-accent);
 	font-family: @font-fam-base;
-	background-color: #f4f4f4; // why this color?
+	background-color: @color-info-bg;
 //	& * {background-color: transparent;}
 }
-/* example figures (text, images, etc.) */
 figure {
+	// example figures (text, images, etc.)
 	.sideborder-left(8px; 5px; 21px; solid; @color-accent);
 	&.bad, &.bad * {
 		color: @color-base-bg;
@@ -198,16 +258,16 @@ figure {
 figcaption {
 	&:extend(.caption);
 	border-top: 1px dashed;
-	border-bottom: 0;
 }
-/* blocks of short or long quoted material */
 blockquote {
+	// blocks of short or long quoted material
 	.sideborder-left(13px; 8px; 34px; double; @color-accent);
 	font-size: @font-size-big;
 	font-family: @font-fam-accent;
-	line-height: 1.5;
+	line-height: @line-height-big;
 	&.prose {
 		font-size: @font-size-base;
+		line-height: @line-height-base;
 		cite.source {
 			&:extend(.parens all);
 			padding-left: 0;
@@ -220,31 +280,28 @@ blockquote {
 	}
 }
 address {
-	margin: @defaultmargins;
 	font-style: inherit;
 }
 /* @end */
 
 /* @group lists */
 ul, ol, dl {
-	margin: @defaultmargins;
 	padding-left: 0.5in;
-	line-height: 1.3;
-	ul, ol, dl {margin-bottom: auto;}
+	.margin-vert(1,0);
+	ul, ol, dl {margin-top: 0;}
 }
 dd {
-	margin: 0;
 	padding-left: 0.5in;
-	& + dt {margin-top: 0.5em;}
+	//& + dt {margin-top: 0.5em;}
 }
-/* a basic list with no margins, padding, or numbering. list items are blocks */
 .list-basic {
+	/* a basic list with no margins, padding, or numbering. list items are blocks */
 	padding: 0;
 	list-style-type: none;
 	li, dt, dd {margin: 0; padding: 0;}
 }
-/* a basic list except the list items are inline. dt elements are still blocks */
 .list-inline {
+	/* a basic list except the list items are inline. dt elements are still blocks */
 	&:extend(.list-basic all);
 	display: block;
 	li, dd {display: inline;}
@@ -253,14 +310,14 @@ dd {
 		 + dd {padding-left: 0.5in;} // first dd following a dt
 	}	
 }
-/* a basic list that acts as a table with the list items acting as table cells */
 .list-line {
+	/* a basic list that acts as a table with the list items acting as table cells */
 	&:extend(.list-basic all);
 	.line;
 	li {.unit;}
 }
-/* a dl list that acts like a table, with each row containing basic list that acts as a table with the list items acting as table cells */
 .dltable(@dtwidth) {
+	/* a dl list that acts like a table, with each row containing basic list that acts as a table with the list items acting as table cells */
 	&:extend(.list-line all);
 	dt, dd {
 		float: left;
@@ -274,8 +331,8 @@ dd {
 	}
 	& + * {clear: both;}
 }
-/* a list typically containing textual (non-block) hyperlinks */
 .list-action {
+	/* a list typically containing textual (non-block) hyperlinks */
 	&:extend(.list-basic all);
 	color: @color-link-up-txt;
 	ul, ol, dl {list-style-type: none;}
@@ -283,6 +340,7 @@ dd {
 	a {border-bottom: 0;}
 	a:not([href]) {color: @color-base-txt;}
 }
+body > nav .breadcrumbs {&:extend(.P1-midright);}
 ol.breadcrumbs {
 	&:extend(.list-inline all);
 	&:extend(.list-action all);
@@ -294,7 +352,8 @@ ol.breadcrumbs {
 }
 ol.prose {
 	list-style-type: decimal;
-	p.lede {margin: @defaultmargins;}
+	p.lede {
+	}
 }
 /* outlined lists */
 .list-omega   {list-style-type: decimal-leading-zero;}
@@ -384,14 +443,14 @@ td > p:last-child {margin-bottom: 0;}
 //}
 /* @end */
 
-/* mixin used for lots of things */
 .parens {
+	/* mixin used for lots of things */
 	&::before {content: '(';}
 	&::after  {content: ')';}	
 }
-/* non-semantic elements reset */
 i,
 b {
+	/* non-semantic elements reset */
 	font-style: inherit;
 	font-weight: inherit;
 }
@@ -403,23 +462,23 @@ em {
 }
 strong {font-weight: bold;}
 mark {background-color: transparent;}
-/* scare quotes contain abuse of vocabulary or language */
 i.scare {
+	/* scare quotes contain abuse of vocabulary or language */
 	&::before {content: open-quote;}
 	&::after  {content: close-quote;}
 }
-/* mentions refer to phrases without referring to their meaning */
 i.mention {
+	/* mentions refer to phrases without referring to their meaning */
 	&::before {content: open-quote;}
 	&::after  {content: close-quote;}
 }
-/* phrases representing silent thoughts */
 i.thought {
+	/* phrases representing silent thoughts */
 	&::before {content: '\00ab';} // &laquo;
 	&::after  {content: '\00bb';} // &raquo;
 }
-/* phrases in foreign languages */
 .foreignlang() {
+	/* phrases in foreign languages */
 	font-style: italic;
 	font-family: @font-fam-math;
 }
@@ -433,26 +492,28 @@ i[lang=it],
 i[lang=fr] {
 	.foreignlang();
 }
-.solfege {.foreignlang();}
-/* keywords or technical terms */
+.solfege {
+	.foreignlang();
+}
 b.keyword {
+	/* keywords or technical terms */
 	font-weight: bold;
 }
-/* proper noun traditionally italicized */
 b.proper {
+	/* proper noun traditionally italicized */
 	font-style: italic;
 	text-transform: capitalize;
 }
-/* reference to a title, section heading, figure, table. use only when the `a` element or the `cite` element would not be appropriate */
 b.ref {
+	/* reference to a title, section heading, figure, table. use only when the `a` element or the `cite` element would not be appropriate */
 	font-weight: bold;
 }
 dfn {}
 /* @end */
 
 /* @group documentation */
-/* a paragraph element that indicates the most recent edit of a webpage or document. includes a <time datetime=""> element. */
 //p.timestamp {
+//	/* a paragraph element that indicates the most recent edit of a webpage or document. includes a <time datetime=""> element. */
 //	font-size: smaller;
 //	text-align: left;
 //}
@@ -495,12 +556,10 @@ abbr[title] {
 	background-color: @color-info-bg;
 	&::after {content: attr(title);}
 }
-@media print {
-	ins, del, abbr {background-color: transparent;}
-}
 .superscript, sup,
 .subscript, sub {
 	font-size: @font-size-small;
+	line-height: @line-height-small;
 }
 .superscript, sup {vertical-align: super;}
 .subscript,   sub {vertical-align: sub;}
@@ -533,7 +592,7 @@ a.a-block {
 	border-color: inherit;
 	border-radius: @box-radius-medium;
 	text-align: center;
-	background-color: inherit;
+	background-color: transparent;
 	&[href] {
 		border-color: @color-link-up-block-brdr;
 		background-color: @color-link-up-block-bg;
@@ -555,14 +614,14 @@ pre {
 	white-space: pre-wrap;
 	> code {
 		&:extend(.box-block);
-		//line-height: 1.4;
+		line-height: @line-height-small;
 	}
 }
 //figure pre > code {border: 0;}
 samp {font-family: inherit;}
-/* example of a fragment or string of code a computer would recognize */
 code {
-	&:extend(.box);
+	/* example of a fragment or string of code a computer would recognize */
+	&:extend(.box-inline);
 	border-color: @color-code-brdr;
 	font-size: @font-size-small;
 	font-family: @font-fam-code;
@@ -588,22 +647,16 @@ code {
 	}
 	.comment {color: @color-code-comment;}
 }
-@media print {
-	.code {
-		color: #000000;
-		background-color: #fff;
-	}
-}
-/* user input, in the form of a string, menu item, etc. */
 kbd { 
+	/* user input, in the form of a string, menu item, etc. */
 	white-space: nowrap;
 //	&.write { // what is this?
 //		font-family: inherit;
 //		&::before {content: open-quote;}
 //		&::after  {content: close-quote;}
 //	}
-	/* an individual key on a keyboard, calculator, or other device */
 	> kbd {
+		/* an individual key on a keyboard, calculator, or other device */
 		&:extend(.code);
 		padding: 2px;
 		font-family: @font-fam-base;
@@ -614,6 +667,7 @@ kbd {
 /* @group math */
 .latex {
 	//font-size: @font-size-small;
+	//line-height: @line-height-small;
 	font-family: @font-fam-math;
 	white-space: pre-line;
 	color: @color-latex-txt;
@@ -630,8 +684,8 @@ var {font-style: italic;}
 /* @end */
 
 /* @group labels */
-/* Labels are little warnings/tips/etc. for the user. More elegant than tooltips. */
 .label {
+	/* Labels are little warnings/tips/etc. for the user. More elegant than tooltips. */
 	&:extend(.box-inline-block);
 	padding: 1px;
 	border: 0;
@@ -639,11 +693,11 @@ var {font-style: italic;}
 	font-family: @font-fam-accent;
 	cursor: help;
 	&::before {
-		&:extend(.box);
+		&:extend(.box-inline);
 		padding: 1px;
 		border: 0;
 		margin-right: 1em;
-		font-size: @font-size-base;
+		font-size: @font-size-small;
 		font-family: @font-fam-code;
 	}
 }
@@ -656,44 +710,35 @@ var {font-style: italic;}
 		background-color: @color-icon-bg;
 	}
 }
-/* "dire consequences" */
 span.warning {
+	/* "dire consequences" */
 	&:extend(.label all);
 	.label(@color-warning-txt, @color-warning-bg, @color-warning-icon-bg, '!');
 }
-/* "be careful" */
 span.caution {
+	/* "be careful" */
 	&:extend(.label all);
 	.label(@color-caution-txt, @color-caution-bg, @color-caution-icon-bg, '\2026'); // &hellip;
 }
-/* "something was done right" */
 span.success {
+	/* "something was done right" */
 	&:extend(.label all);
 	.label(@color-success-txt, @color-success-bg, @color-success-icon-bg, '\263A'); // smiley
 }
-/* "extra information" */
 span.info {
+	/* "extra or informal information" */
 	&:extend(.label all);
 	.label(@color-info-txt, @color-info-bg, @color-info-icon-bg, '?');
 }
-/* "tips and hints" */
 span.help {
+	/* "tips and hints" */
 	&:extend(.label all);
 	.label(@color-help-txt, @color-help-bg, @color-help-icon-bg, '\2665'); // &hearts;
 }
-/* "cyan" */
 span.cyan {
+	/* "cyan" */
 	&:extend(.label all);
 	.label(@color-cyan-txt, @color-cyan-bg, @color-cyan-icon-bg, 'c');
-}
-@media print {
-	.warning,
-	.caution,
-	.success,
-	.info,
-	.help {
-		&::before {display: none;}
-	}
 }
 /* @end */
 
@@ -706,47 +751,55 @@ fieldset {
 /* @end */
 
 
-/* @group absract boxes */
-@box-radius-small:  3px;
-@box-radius-medium: 6px;
-@box-radius-large: 10px;
-/* inline content, boxed */
-.box {
-	display: inline;
-	padding: 0 1px;
-	border-width: 1px;
-	border-style: solid;
-	border-radius: @box-radius-small;
-}
-/* inline content, with block structure, boxed */
-.box-inline-block {
-	&:extend(.box);
-	display: inline-block;
-}
-/* a block structure, boxed */
-.box-block {
-	&:extend(.box-inline-block);
-	display: block;
-	padding: 2px 4px;
-	border-radius: @box-radius-large;
-	margin: 4px;
-}
-/* @end */
-
-
 /* @group miscellaneous */
-/* Elements not yet ready for publishing. Elements with the 'hidden' boolean attribute (hidden="") are not to be processed by browsers and are to be ignored by SEO patterns. Sometimes, the browser-default css-style is overridden, hence this selector exists. */
-[hidden] {display: none !important;}
-
-/* Elements needed for SEO *only* (e.g. extraneous titles, etc). Try to only use this selector as a last resort. */
-.seo-only {display: none !important;}
-
-/* Elements still in testing mode but still not yet ready for implementation. */
-.draft, .draft * {color: #999; background-color: #fe8;}
-
-/* To display on screen but not to print. */
-@media print {.noprint {display: none !important;}}
-
-/* Starts a new page in the `print` media type. */
-@media print {.pagebreak {page-break-before: always; padding-top: 0.5in;}}
+[hidden] {
+	/* Elements not yet ready for publishing. Elements with the 'hidden' boolean attribute (hidden="") are not to be processed by browsers and are to be ignored by SEO patterns. Sometimes, the browser-default css-style is overridden, hence this selector exists. */
+	display: none !important;
+}
+.seo-only {
+	/* Elements needed for SEO *only* (e.g. extraneous titles, etc). Try to only use this selector as a last resort. */
+	display: none !important;
+}
+.draft, .draft * {
+	/* Elements still in testing mode but still not yet ready for implementation. */
+	color: #999; background-color: #fe8;
+}
+@media print {
+	body,
+	h1, h2, h3, h4, h5, h6,
+	blockquote, table {
+		font-size: 12pt !important;
+	}
+	body {
+		color: #000;
+		background-color: #fff;
+		background-image: none;
+	}
+	.main, main {
+		width: auto;
+		margin: auto;
+	}
+	.masthead {display: none;}
+	ins, del, abbr {background-color: transparent;}
+	.code {
+		color: #000000;
+		background-color: #fff;
+	}
+	.warning,
+	.caution,
+	.success,
+	.info,
+	.help,
+	.cyan {
+		&::before {display: none;}
+	}
+	.noprint {
+		/* To display on screen but not to print. */
+		display: none !important;
+	}
+	.pagebreak {
+		/* Starts a new page in the `print` media type. */
+		page-break-before: always; padding-top: 0.5in;
+	}
+}
 /* @end */

@@ -18,8 +18,10 @@ TO DO
 - 2014-01-24 fix timestamp issues. maybe use `dl`?
 
 ### styles ###
-- 2014-01-20 Change 'includes' to 'extends' in `resume.less`
 - 2014-01-24 fix timestamp issues in `skin.less`
+- 2014-02-15 styles for `address` elements
+- 2014-02-15 vertical rhythm for tables
+- 2014-02-15 comments in LESS files should be inline, not /* block */
 
 ### scripts ###
 - 2013-12-14 investigate the use of templates (`<template>`)
@@ -43,7 +45,6 @@ TO DO
 
 ### /resume/ ###
 - fix print.css!
-- 2014-01-23 Change 'includes' to 'extends' in `resume.less`
 
 ### /home/folio/ pages ###
 - class drop-downs shouldn't be summary elements, just because the behavior is something ideal. Use divs and JavaScript to emulate the drop-down/expando behavior.
