@@ -3,21 +3,20 @@
 @box-radius-medium: 6px;
 @box-radius-large: 10px;
 .box-inline {
-	/* inline content, boxed */
+	//* inline content, boxed
 	display: inline;
 	padding: 0 1px;
 	border-width: 1px;
 	border-style: solid;
 	border-radius: @box-radius-small;
 }
-
 .box-inline-block {
-	/* inline content, with block structure, boxed */
+	//* inline content, with block structure, boxed
 	&:extend(.box-inline);
 	display: inline-block;
 }
 .box-block {
-	/* a block structure, boxed */
+	//* a block structure, boxed
 	&:extend(.box-inline-block);
 	display: block;
 	padding: 2px 4px;
@@ -32,7 +31,6 @@
 	padding-top:    @lh-top * @line-height-base * @font-size-base;
 	padding-bottom: @lh-bot * @line-height-base * @font-size-base;
 }
-
 /* @end */
 
 
@@ -53,9 +51,9 @@ body,
 	background-size: contain;
 }
 .main, main {
-	/* the main container in the body */
+	//* the main container in the body
 	&:extend(.P1-midright);
-	margin-bottom: 162px; // why did I choose this number?
+	margin-bottom: 192px; // 2in
 }
 .masthead {
 	@iconsize: 96px; // 1in
@@ -187,15 +185,15 @@ p {
 	text-align: left;
 }
 .sideborder,
-li {
+li,
+td {
 	> p:first-child {margin-top: 0;}
 }
 .prose {
 	font-family: @font-fam-prose;
 	text-align: justify;
 }
-p.prose {
-}
+p.prose {}
 .lede {
 	font-weight: bold;
 	font-family: @font-fam-base;
@@ -210,7 +208,7 @@ span.lede {
 }
 
 .caption {
-	// captions of figures, tables, or anything
+	//* captions of figures, tables, or anything
 	font-style: normal;
 	font-size: @font-size-small;
 	text-align: right;
@@ -241,14 +239,14 @@ span.lede {
 	margin-right: @marg-width;
 }
 .informal {
-	// a container containing paragraphs, etc. that are not officially part of an official document, but are still a major part of the normal flow of the document. Used when 'aside' and 'figure' elements are not suitable.
+	//* a container containing paragraphs, etc. that are not officially part of an official document, but are still a major part of the normal flow of the document. Used when 'aside' and 'figure' elements are not suitable.
 	.sideborder-left(5px; 3px; 13px; solid; @color-accent);
 	font-family: @font-fam-base;
 	background-color: @color-info-bg;
 //	& * {background-color: transparent;}
 }
 figure {
-	// example figures (text, images, etc.)
+	//* example figures (text, images, etc.)
 	.sideborder-left(8px; 5px; 21px; solid; @color-accent);
 	&.bad, &.bad * {
 		color: @color-base-bg;
@@ -260,7 +258,6 @@ figcaption {
 	border-top: 1px dashed;
 }
 blockquote {
-	// blocks of short or long quoted material
 	.sideborder-left(13px; 8px; 34px; double; @color-accent);
 	font-size: @font-size-big;
 	font-family: @font-fam-accent;
@@ -292,32 +289,33 @@ ul, ol, dl {
 }
 dd {
 	padding-left: 0.5in;
-	//& + dt {margin-top: 0.5em;}
+//	& + dt {margin-top: 0.5em;}
 }
 .list-basic {
-	/* a basic list with no margins, padding, or numbering. list items are blocks */
+	//* a basic list with no margins, padding, or numbering. list items are blocks
 	padding: 0;
 	list-style-type: none;
 	li, dt, dd {margin: 0; padding: 0;}
 }
 .list-inline {
-	/* a basic list except the list items are inline. dt elements are still blocks */
+	//* a basic list except the list items are inline. dt elements are still blocks
 	&:extend(.list-basic all);
 	display: block;
 	li, dd {display: inline;}
 	dt {
 		text-indent: 0;
-		 + dd {padding-left: 0.5in;} // first dd following a dt
+		 + dd {padding-left: 0.5in;}
 	}	
 }
 .list-line {
-	/* a basic list that acts as a table with the list items acting as table cells */
+	//* a basic list that acts as a table with the list items acting as table cells
 	&:extend(.list-basic all);
 	.line;
 	li {.unit;}
 }
 .dltable(@dtwidth) {
-	/* a dl list that acts like a table, with each row containing basic list that acts as a table with the list items acting as table cells */
+	//* a dl list that acts like a table, with each row containing a single name-value group
+	//* (a name-value group consists of 0 or more names and 0 or more values)
 	&:extend(.list-line all);
 	dt, dd {
 		float: left;
@@ -332,7 +330,7 @@ dd {
 	& + * {clear: both;}
 }
 .list-action {
-	/* a list typically containing textual (non-block) hyperlinks */
+	//* a list typically containing textual (non-block) hyperlinks
 	&:extend(.list-basic all);
 	color: @color-link-up-txt;
 	ul, ol, dl {list-style-type: none;}
@@ -355,7 +353,7 @@ ol.prose {
 	p.lede {
 	}
 }
-/* outlined lists */
+//* outlined lists
 .list-omega   {list-style-type: decimal-leading-zero;}
 .list-alpha   {list-style-type: upper-roman;}
 .list-beta    {list-style-type: upper-alpha;}
@@ -371,7 +369,7 @@ ol.prose {
 }
 .tableheader() {
 	.tablesection();
-	//font-weight: bold;
+//	font-weight: bold;
 	text-align: center;
 	vertical-align: middle;
 	background-color: @color-table-bg-head;
@@ -394,7 +392,7 @@ table {
 caption {&:extend(.caption);}
 thead, tfoot {font-weight: bold;}
 tbody {
-	//.code, code {background-color: transparent;} // fix later when fixing code, boxes, etc.
+//	.code, code {background-color: transparent;} // fix later when fixing code, boxes, etc.
 }
 th, td {
 	padding: 5px;
@@ -406,7 +404,6 @@ th {
 	font-weight: bold;
 	background-color: @color-table-bg-strong;
 }
-td > p:last-child {margin-bottom: 0;}
 .table-list, .table-bars {
 	thead tr, tfood tr {.tableheader();}
 	th, td {border-width: 0;}
@@ -444,13 +441,13 @@ td > p:last-child {margin-bottom: 0;}
 /* @end */
 
 .parens {
-	/* mixin used for lots of things */
+	//* mixin used for lots of things
 	&::before {content: '(';}
 	&::after  {content: ')';}	
 }
 i,
 b {
-	/* non-semantic elements reset */
+	//* non-semantic elements reset
 	font-style: inherit;
 	font-weight: inherit;
 }
@@ -463,22 +460,22 @@ em {
 strong {font-weight: bold;}
 mark {background-color: transparent;}
 i.scare {
-	/* scare quotes contain abuse of vocabulary or language */
+	//* scare quotes contain abuse of vocabulary or language
 	&::before {content: open-quote;}
 	&::after  {content: close-quote;}
 }
 i.mention {
-	/* mentions refer to phrases without referring to their meaning */
+	//* mentions refer to phrases without referring to their meaning
 	&::before {content: open-quote;}
 	&::after  {content: close-quote;}
 }
 i.thought {
-	/* phrases representing silent thoughts */
+	//* phrases representing silent thoughts
 	&::before {content: '\00ab';} // &laquo;
 	&::after  {content: '\00bb';} // &raquo;
 }
 .foreignlang() {
-	/* phrases in foreign languages */
+	//* phrases in foreign languages
 	font-style: italic;
 	font-family: @font-fam-math;
 }
@@ -496,16 +493,16 @@ i[lang=fr] {
 	.foreignlang();
 }
 b.keyword {
-	/* keywords or technical terms */
+	//* keywords or technical terms
 	font-weight: bold;
 }
 b.proper {
-	/* proper noun traditionally italicized */
+	//* proper noun traditionally italicized
 	font-style: italic;
 	text-transform: capitalize;
 }
 b.ref {
-	/* reference to a title, section heading, figure, table. use only when the `a` element or the `cite` element would not be appropriate */
+	//* reference to a title, section heading, figure, table. use only when the `a` element or the `cite` element would not be appropriate
 	font-weight: bold;
 }
 dfn {}
@@ -513,7 +510,7 @@ dfn {}
 
 /* @group documentation */
 //p.timestamp {
-//	/* a paragraph element that indicates the most recent edit of a webpage or document. includes a <time datetime=""> element. */
+//	//* a paragraph element that indicates the most recent edit of a webpage or document. includes a <time datetime=""> element
 //	font-size: smaller;
 //	text-align: left;
 //}
@@ -556,18 +553,16 @@ abbr[title] {
 	background-color: @color-info-bg;
 	&::after {content: attr(title);}
 }
-.superscript, sup,
-.subscript, sub {
-	font-size: @font-size-small;
-	line-height: @line-height-small;
-}
-.superscript, sup {vertical-align: super;}
-.subscript,   sub {vertical-align: sub;}
 //.phone, // use microformats
 //.tel,
 //.email {
 //	font-family: @font-fam-code;
 //}
+sup, sub {
+	font-size: @font-size-small;
+}
+sup {vertical-align: super;}
+sub {vertical-align: sub;}
 /* @end */
 
 /* @group hyperlinks */
@@ -620,7 +615,7 @@ pre {
 //figure pre > code {border: 0;}
 samp {font-family: inherit;}
 code {
-	/* example of a fragment or string of code a computer would recognize */
+	//* example of a fragment or string of code a computer would recognize
 	&:extend(.box-inline);
 	border-color: @color-code-brdr;
 	font-size: @font-size-small;
@@ -641,14 +636,15 @@ code {
 		.cmd {color: @color-code-latex-comm;}
 		.arg {color: @color-code-latex-arg;}
 	}
-	&.dir { /* directory system (folders and files) */
+	&.dir {
+		//* directory system (folders and files)
 		font-style: italic;
 		font-family: @font-fam-base;
 	}
 	.comment {color: @color-code-comment;}
 }
 kbd { 
-	/* user input, in the form of a string, menu item, etc. */
+	//* user input, in the form of a string, menu item, etc.
 	white-space: nowrap;
 //	&.write { // what is this?
 //		font-family: inherit;
@@ -656,7 +652,7 @@ kbd {
 //		&::after  {content: close-quote;}
 //	}
 	> kbd {
-		/* an individual key on a keyboard, calculator, or other device */
+		//* an individual key on a keyboard, calculator, or other device
 		&:extend(.code);
 		padding: 2px;
 		font-family: @font-fam-base;
@@ -666,13 +662,13 @@ kbd {
 
 /* @group math */
 .latex {
-	//font-size: @font-size-small;
-	//line-height: @line-height-small;
+//	font-size: @font-size-small;
+//	line-height: @line-height-small;
 	font-family: @font-fam-math;
 	white-space: pre-line;
 	color: @color-latex-txt;
-	/* block-level containers */
 	div&, p& {
+		//* block-level containers
 		overflow: auto;
 	}
 }
@@ -685,7 +681,7 @@ var {font-style: italic;}
 
 /* @group labels */
 .label {
-	/* Labels are little warnings/tips/etc. for the user. More elegant than tooltips. */
+	//* labels are little warnings/tips/etc. for the user. More elegant than tooltips
 	&:extend(.box-inline-block);
 	padding: 1px;
 	border: 0;
@@ -711,32 +707,32 @@ var {font-style: italic;}
 	}
 }
 span.warning {
-	/* "dire consequences" */
+	//* "dire consequences"
 	&:extend(.label all);
 	.label(@color-warning-txt, @color-warning-bg, @color-warning-icon-bg, '!');
 }
 span.caution {
-	/* "be careful" */
+	//* "be careful"
 	&:extend(.label all);
 	.label(@color-caution-txt, @color-caution-bg, @color-caution-icon-bg, '\2026'); // &hellip;
 }
 span.success {
-	/* "something was done right" */
+	//* "something was done right"
 	&:extend(.label all);
 	.label(@color-success-txt, @color-success-bg, @color-success-icon-bg, '\263A'); // smiley
 }
 span.info {
-	/* "extra or informal information" */
+	//* "extra or informal information"
 	&:extend(.label all);
 	.label(@color-info-txt, @color-info-bg, @color-info-icon-bg, '?');
 }
 span.help {
-	/* "tips and hints" */
+	//* "tips and hints"
 	&:extend(.label all);
 	.label(@color-help-txt, @color-help-bg, @color-help-icon-bg, '\2665'); // &hearts;
 }
 span.cyan {
-	/* "cyan" */
+	//* "cyan"
 	&:extend(.label all);
 	.label(@color-cyan-txt, @color-cyan-bg, @color-cyan-icon-bg, 'c');
 }
@@ -753,15 +749,15 @@ fieldset {
 
 /* @group miscellaneous */
 [hidden] {
-	/* Elements not yet ready for publishing. Elements with the 'hidden' boolean attribute (hidden="") are not to be processed by browsers and are to be ignored by SEO patterns. Sometimes, the browser-default css-style is overridden, hence this selector exists. */
+	//* Elements not yet ready for publishing. Elements with the 'hidden' boolean attribute (hidden="") are not to be processed by browsers and are to be ignored by SEO patterns. Sometimes, the browser-default css-style is overridden, hence this selector exists.
 	display: none !important;
 }
 .seo-only {
-	/* Elements needed for SEO *only* (e.g. extraneous titles, etc). Try to only use this selector as a last resort. */
+	//* Elements needed for SEO *only* (e.g. extraneous titles, etc). Try to only use this selector as a last resort.
 	display: none !important;
 }
 .draft, .draft * {
-	/* Elements still in testing mode but still not yet ready for implementation. */
+	//* Elements still in testing mode but still not yet ready for implementation.
 	color: #999; background-color: #fe8;
 }
 @media print {
@@ -794,11 +790,11 @@ fieldset {
 		&::before {display: none;}
 	}
 	.noprint {
-		/* To display on screen but not to print. */
+		//* To display on screen but not to print.
 		display: none !important;
 	}
 	.pagebreak {
-		/* Starts a new page in the `print` media type. */
+		//* Starts a new page in the `print` media type.
 		page-break-before: always; padding-top: 0.5in;
 	}
 }
