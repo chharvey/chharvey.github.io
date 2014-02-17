@@ -36,7 +36,6 @@ TO DO
 - 2014-01-21 finish last section (Phi demonstration)
 
 ### /site-design/typo.html ###
-- 2014-02-15 styles for `address` elements
 - 2014-02-15 vertical rhythm for tables
 - inline elements: highlighting
 - 2014-02-16 do labels/tooltips/whatever hint: [http://kushagragour.in/lab/hint/]()
