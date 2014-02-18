@@ -24,13 +24,33 @@
 	border-radius: @box-radius-large;
 	margin: 0 4px;
 }
-.margin-vert(@lh-top; @lh-bot) {
-	margin-top:    @lh-top * @line-height-base * @font-size-base;
-	margin-bottom: @lh-bot * @line-height-base * @font-size-base;
-}
 .padding-vert(@lh-top; @lh-bot) {
 	padding-top:    @lh-top * @line-height-base * @font-size-base;
 	padding-bottom: @lh-bot * @line-height-base * @font-size-base;
+}
+.border-vert-both(@borderwidth) {
+	border-top-width: @borderwidth;
+	border-bottom-width: @borderwidth;
+	margin-bottom: (-2 * @borderwidth);
+	position: relative;
+	top: (-2 * @borderwidth);
+}
+.border-vert-one(@borderwidth) {
+	margin-bottom: (-1 * @borderwidth);
+	position: relative;
+	top: (-1 * @borderwidth);	
+}
+.border-vert-top(@borderwidth) {
+	.border-vert-one(@borderwidth);
+	border-top-width: @borderwidth;
+}
+.border-vert-bottom(@borderwidth) {
+	.border-vert-one(@borderwidth);
+	border-bottom-width: @borderwidth;
+}
+.margin-vert(@lh-top; @lh-bot) {
+	margin-top:    @lh-top * @line-height-base * @font-size-base;
+	margin-bottom: @lh-bot * @line-height-base * @font-size-base;
 }
 /* @end */
 
@@ -100,7 +120,8 @@ h1, h2, h3, h4, h5, h6,
 }
 @hsub-lighten: 20%;
 .h-alpha {
-	.margin-vert(2; 1);
+	.margin-vert(2; 0);
+	.padding-vert(0; 1);
 	font-variant: small-caps;
 	font-weight: bold;
 	font-size: @font-size-h1;
@@ -109,48 +130,48 @@ h1, h2, h3, h4, h5, h6,
 	color: @color-heading;
 	small.h-sub {
 		font-size: @font-size-h1-sub;
-//		line-height: (@line-height-h1 / @font-size-h1-sub);
 		color: lighten(@color-heading, @hsub-lighten);
 	}
 }
 .h-beta {
-	.margin-vert(1.5; 0.5);
+	.margin-vert(1.5; 0);
+	.padding-vert(0; 0.5);
 	font-weight: bold;
 	font-size: @font-size-h2;
 	line-height: @line-height-h2;
 	color: @color-subheading;
 	small.h-sub {
 		font-size: @font-size-h2-sub;
-//		line-height: (@line-height-h2 / @font-size-h2-sub);
 		color: lighten(@color-subheading, @hsub-lighten);
 	}
 }
 .h-gamma {
-	.margin-vert(0.75; 0.25);
+	.margin-vert(0.75; 0);
+	.padding-vert(0; 0.25);
 	font-variant: small-caps;
 	font-weight: bold;
 	font-size: @font-size-h3;
 	line-height: @line-height-h3;
 	small.h-sub {
 		font-size: @font-size-h3-sub;
-//		line-height: (@line-height-h3 / @font-size-h3-sub);
 		color: lighten(@color-base-txt, @hsub-lighten);
 	}
 }
 .h-delta {
 	.margin-vert(1; 0);
+	.padding-vert(0; 0);
 	font-style: italic;
 	font-weight: bold;
 	font-size: @font-size-h4;
 	line-height: @line-height-h4;
 	small.h-sub {
 		font-size: @font-size-h4-sub;
-//		line-height: (@line-height-h4 / @font-size-h4-sub);
 		color: lighten(@color-base-txt, @hsub-lighten);
 	}
 }
 .h-epsilon {
 	.margin-vert(0; 0);
+	.padding-vert(0; 0);
 	font-style: italic;
 	font-size: @font-size-h5;
 	text-indent: 0.5in;
@@ -158,12 +179,12 @@ h1, h2, h3, h4, h5, h6,
 	color: @color-subheading;
 	small.h-sub {
 		font-size: @font-size-h5-sub;
-//		line-height: (@line-height-h5 / @font-size-h5-sub);
 		color: lighten(@color-subheading, @hsub-lighten);
 	}
 }
 .h-zeta {
 	.margin-vert(0; 0);
+	.padding-vert(0; 0);
 	font-style: italic;
 	font-variant: small-caps;
 	font-size: @font-size-h6;
@@ -171,7 +192,6 @@ h1, h2, h3, h4, h5, h6,
 	line-height: @line-height-h6;
 	small.h-sub {
 		font-size: @font-size-h6-sub;
-//		line-height: (@line-height-h6 / @font-size-h6-sub);
 		color: lighten(@color-base-txt, @hsub-lighten);
 	}
 }
@@ -251,7 +271,8 @@ figure {
 }
 figcaption {
 	&:extend(.caption);
-	border-top: 1px dashed;
+	.border-vert-top(1px);
+	border-top-style: dashed;
 }
 blockquote {
 	.sideborder-left(13px; 8px; 34px; double; @color-accent);
@@ -408,12 +429,15 @@ th {
 	font-weight: bold;
 	background-color: @color-table-bg-strong;
 }
-.table-list, .table-bars {
-	thead tr, tfood tr {.tableheader();}
+.table-list,
+.table-bars {
+	thead tr,
+	tfood tr {.tableheader();}
 	th, td {border-width: 0;}
 }
 .table-list {
-	thead tr, tfoot tr {.tablesection-horiz();}
+	thead tr,
+	tfoot tr {.tablesection-horiz();}
 	tbody {
 		.tablesection-horiz();
 		tr:nth-child(odd)  {background-color: @color-table-bg-medium;}
@@ -421,7 +445,8 @@ th {
 	}
 }
 .table-bars {
-	thead tr, tfoot tr {.tablesection-vert();}
+	thead tr,
+	tfoot tr {.tablesection-vert();}
 	tbody {
 		.tablesection-vert();
 		tr td:nth-child(odd)  {background-color: @color-table-bg-weak;}
