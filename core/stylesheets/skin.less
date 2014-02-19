@@ -24,33 +24,69 @@
 	border-radius: @box-radius-large;
 	margin: 0 4px;
 }
-.padding-vert(@lh-top; @lh-bot) {
-	padding-top:    @lh-top * @line-height-base * @font-size-base;
+.padding-top-lh(@lh-top) {
+	padding-top: @lh-top * @line-height-base * @font-size-base;
+}
+.padding-bot-lh(@lh-bot) {
 	padding-bottom: @lh-bot * @line-height-base * @font-size-base;
 }
-.border-vert-both(@borderwidth) {
-	border-top-width: @borderwidth;
-	border-bottom-width: @borderwidth;
-	margin-bottom: (-2 * @borderwidth);
-	position: relative;
-	top: (-2 * @borderwidth);
+.margin-top-lh(@lh-top) {
+	margin-top: @lh-top * @line-height-base * @font-size-base;
 }
-.border-vert-one(@borderwidth) {
-	margin-bottom: (-1 * @borderwidth);
-	position: relative;
-	top: (-1 * @borderwidth);	
-}
-.border-vert-top(@borderwidth) {
-	.border-vert-one(@borderwidth);
-	border-top-width: @borderwidth;
-}
-.border-vert-bottom(@borderwidth) {
-	.border-vert-one(@borderwidth);
-	border-bottom-width: @borderwidth;
-}
-.margin-vert(@lh-top; @lh-bot) {
-	margin-top:    @lh-top * @line-height-base * @font-size-base;
+.margin-bot-lh(@lh-bot) {
 	margin-bottom: @lh-bot * @line-height-base * @font-size-base;
+}
+.border-vert-single(@width) {
+	margin-bottom: (-1 * @width);
+	position: relative;
+	top: (-1 * @width);
+}
+.border-vert-both(@width) {
+	.border-vert-single(@width);
+	margin-bottom: (-2 * @width);
+}
+.border-top(@width; @style; @color) {
+	.border-vert-single(@width);
+	border-top: @width @style @color;
+}
+.border-top(@width; @style) {
+	.border-vert-single(@width);
+	border-top-width: @width;
+	border-top-style: @style;
+}
+.border-bot(@width; @style; @color) {
+	.border-vert-single(@width);
+	border-bottom: @width @style @color;
+}
+.border-bot(@width; @style) {
+	.border-vert-single(@width);
+	border-bottom-width: @width;
+	border-bottom-style: @style;
+}
+.border-topbot(@width; @style; @color) {
+	.border-vert-both(@width);
+	border-top: @width @style @color;
+	border-bottom: @width @style @color;
+	border-left: 0;
+	border-right: 0;
+}
+.border-topbot(@width; @style) {
+	.border-vert-both(@width);
+	border-top-width: @width;
+	border-top-style: @style;
+	border-bottom-width: @width;
+	border-bottom-style: @style;
+	border-left: 0;
+	border-right: 0;
+}
+.border-all(@width; @style; @color) {
+	.border-vert-both(@width);
+	border: @width @style @color;
+}
+.border-all(@width; @style) {
+	.border-vert-both(@width);
+	border-width: @width;
+	border-style: @style;
 }
 /* @end */
 
@@ -102,6 +138,7 @@ h1, h2, h3, h4, h5, h6,
 .h-delta,
 .h-epsilon,
 .h-zeta {
+	padding: 0;
 	margin: 0;
 	font-style: normal;
 	font-variant: normal;
@@ -120,8 +157,8 @@ h1, h2, h3, h4, h5, h6,
 }
 @hsub-lighten: 20%;
 .h-alpha {
-	.margin-vert(2; 0);
-	.padding-vert(0; 1);
+	.padding-bot-lh(1);
+	.margin-top-lh(2);
 	font-variant: small-caps;
 	font-weight: bold;
 	font-size: @font-size-h1;
@@ -134,8 +171,8 @@ h1, h2, h3, h4, h5, h6,
 	}
 }
 .h-beta {
-	.margin-vert(1.5; 0);
-	.padding-vert(0; 0.5);
+	.padding-bot-lh(0.5);
+	.margin-top-lh(1.5);
 	font-weight: bold;
 	font-size: @font-size-h2;
 	line-height: @line-height-h2;
@@ -146,8 +183,8 @@ h1, h2, h3, h4, h5, h6,
 	}
 }
 .h-gamma {
-	.margin-vert(0.75; 0);
-	.padding-vert(0; 0.25);
+	.padding-bot-lh(0.25);
+	.margin-top-lh(0.75);
 	font-variant: small-caps;
 	font-weight: bold;
 	font-size: @font-size-h3;
@@ -158,8 +195,7 @@ h1, h2, h3, h4, h5, h6,
 	}
 }
 .h-delta {
-	.margin-vert(1; 0);
-	.padding-vert(0; 0);
+	.margin-top-lh(1);
 	font-style: italic;
 	font-weight: bold;
 	font-size: @font-size-h4;
@@ -170,8 +206,6 @@ h1, h2, h3, h4, h5, h6,
 	}
 }
 .h-epsilon {
-	.margin-vert(0; 0);
-	.padding-vert(0; 0);
 	font-style: italic;
 	font-size: @font-size-h5;
 	text-indent: 0.5in;
@@ -183,8 +217,6 @@ h1, h2, h3, h4, h5, h6,
 	}
 }
 .h-zeta {
-	.margin-vert(0; 0);
-	.padding-vert(0; 0);
 	font-style: italic;
 	font-variant: small-caps;
 	font-size: @font-size-h6;
@@ -200,10 +232,16 @@ h1, h2, h3, h4, h5, h6,
 }
 /* @end */
 
-/* @group paragraphs */
-p {
-	.margin-vert(1; 0);
+p, figure, blockquote,
+ul, ol, dl,
+table {
+	//* margin reset
+	margin: 0;
+	.margin-top-lh(1);
 }
+
+/* @group paragraphs */
+p {}
 .sideborder,
 li,
 td {
@@ -221,7 +259,7 @@ p.prose {}
 }
 p.lede {
 	text-align: justify;
-	+ p {.margin-vert(2; 0);}
+	+ p {.margin-top-lh(2);}
 }
 span.lede {
 	padding-right: 1em;
@@ -235,24 +273,22 @@ span.lede {
 	line-height: @line-height-small;
 }
 .sideborder {
-	.margin-vert(@Phi1; 0) !important;
-	.padding-vert(@Phi2; 0) !important;
+	.margin-top-lh(@Phi1) !important;
+	.padding-top-lh(@Phi2) !important;
 }
 .sideborder-left(@pad-width; @brdr-width; @marg-width; @brdr-style; @brdr-color) {
 	&:extend(.sideborder all);
 	padding-left: @pad-width;
-	border-left-width: @brdr-width;
-	border-left-style: @brdr-style;
-	border-left-color: @brdr-color;
+	border-left: @brdr-width @brdr-style @brdr-color;
 	margin-left: @marg-width;
+	margin-right: 0;
 }
 .sideborder-right(@pad-width; @brdr-width; @marg-width; @brdr-style; @brdr-color) {
 	&:extend(.sideborder all);
 	padding-right: @pad-width;
-	border-right-width: @brdr-width;
-	border-right-style: @brdr-style;
-	border-right-color: @brdr-color;
+	border-right: @brdr-width @brdr-style @brdr-color;
 	margin-right: @marg-width;
+	margin-left: 0;
 }
 .informal {
 	//* a container containing paragraphs, etc. that are not officially part of an official document, but are still a major part of the normal flow of the document. Used when 'aside' and 'figure' elements are not suitable.
@@ -271,8 +307,7 @@ figure {
 }
 figcaption {
 	&:extend(.caption);
-	.border-vert-top(1px);
-	border-top-style: dashed;
+	.border-top(1px; dashed);
 }
 blockquote {
 	.sideborder-left(13px; 8px; 34px; double; @color-accent);
@@ -309,17 +344,15 @@ address {
 /* @end */
 
 /* @group lists */
-ul, ol, dl {
+ul, ol {
 	padding-left: 0.5in;
-	.margin-vert(1;0);
 	ul, ol, dl {margin-top: 0;}
 }
 dd {
-	padding-left: 0.5in;
+	margin-left: 0.5in;
 //	& + dt {margin-top: 0.5em;}
 }
 .list-basic {
-	//* a basic list with no margins, padding, or numbering. list items are blocks
 	padding: 0;
 	list-style-type: none;
 	li, dt, dd {margin: 0; padding: 0;}
@@ -338,7 +371,7 @@ dd {
 	//* a basic list that acts as a table with the list items acting as table cells
 	&:extend(.list-basic all);
 	.line;
-	li {.unit;}
+	> li {.unit;}
 }
 .dltable(@dtwidth) {
 	//* a dl list that acts like a table, with each row containing a single name-value group
@@ -534,7 +567,11 @@ b.ref {
 	//* reference to a title, section heading, figure, table. use only when the `a` element or the `cite` element would not be appropriate
 	font-weight: bold;
 }
-dfn {}
+dfn {
+	//* defining instance of a term
+	font-weight: bold;
+	font-style: inherit;
+}
 /* @end */
 
 /* @group documentation */
@@ -605,6 +642,9 @@ a {
 			&:hover {color: @color-link-sp-dn-txt;}
 		}
 		&:active {color: @color-link-active-txt;}
+	}
+	&[title] {
+		//* `title` attribute should be the Title of the linked document
 	}
 	.latex {color: inherit}
 }

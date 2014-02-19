@@ -60,7 +60,7 @@
 	</section>
 	<section id="scheme-paragraph">
 		<h1 class="h-gamma">Paragraph Scheme</h1>
-		<p>Paragraphs are the backbone of a document; they are made to organize and group textual ideas together. In the written media, paragraphs can span anywhere from 3 to 8 sentences. However on the Web, they can be much, much shorter. This paragraph does not have any classes added. We will call these <i class="mention">regular paragraphs</i>.</p>
+		<p>Paragraphs (<code class="lang-css">p</code>) are the backbone of a document; they are made to organize and group textual ideas together. In the written media, paragraphs can span anywhere from 3 to 8 sentences. However on the Web, they can be much, much shorter. This paragraph does not have any classes added. We will call these <i class="mention">regular paragraphs</i>.</p>
 		<p style="font-style: italic;">Some regular paragraphs may be presented in italics. This paragraph merely serves as a visual example. The quick brown fox jumps over the lazy dog.</p>
 		<p style="font-weight: bold;">Some regular paragraphs may be presented in bold. This paragraph merely serves as a visual example. The quick brown fox jumps over the lazy dog.</p>
 		<p style="font-style: italic; font-weight: bold">This is a regular paragraph in italics and bold. The quick brown fox jumps over the lazy dog.</p>
@@ -75,16 +75,18 @@
 			<div class="informal">
 				<p>Sometimes, informal text may span across multiple <code class="lang-css">p</code> elements or other elements such as <code class="lang-css">img</code>s.</p>
 				<p>In this case, you should <em>not</em> apply the <code class="lang-css">.informal</code> class to each element inside. Rather, if multiple informal elements are grouped together, apply the <code class="lang-css">.informal</code> class to the entire <code class="lang-css">div</code> or other containing element.</p>
+				<p>Since the <code class="lang-css">.prose</code> class is reserved for more important, formal text, do <em>not</em> apply this class to an <code class="lang-css">.informal</code> paragraph or container.</p>
 			</div>
 		</section>
 		<section id="scheme-figure">
 			<h1 class="h-delta">Figures and Examples</h1>
 			<figure><code class="lang-css">figure</code> elements contain excerpts of text, examples, or images that illustrate an abstract concept. Usually, figures that contain only text (rather than text wrapped in a <code class="lang-css">p</code> element) will suffice for textual examples.
-				<figcaption><span class="lede">Figure 12.</span> The <code class="lang-css">figcaption</code> element describes the content of the figure. Optionally include a <code class="lang-css">span.lede</code> containing the figure's title. The figure caption should be shorter and more concise than the figure text. Captions should not contain any paragraphs, and they should not be styled in prose.</figcaption>
+				<figcaption><span class="lede">Figure 12.</span> The <code class="lang-css">figcaption</code> element describes the content of the figure. Optionally include a <code class="lang-css">span.lede</code> containing the figure's title. The figure caption should be shorter and more concise than the figure text. Captions should not contain any paragraph elements, and they should not be styled in prose.</figcaption>
 			</figure>
 			<figure>
 				<p>Though rare, figures may contain paragraph elements if necessary.</p>
-				<p>Multiple paragraphs are usually not the case because figures are typically too short for this. Figure captions are not always necessary, either.</p>
+				<p>Multiple paragraphs are usually not the case because figures are typically too short for this. Figure elements should <em>not</em> be written in prose, either.</p>
+				<p>Figure captions are not always necessary.</p>
 			</figure>
 		</section>
 		<section id="scheme-blockquote">
@@ -92,8 +94,8 @@
 			<blockquote><code class="lang-css">blockquote</code> elements contain material taken directly from another source. They are usually very short and styled larger than the default font. <cite class="source">Source</cite></blockquote>
 			<blockquote>It's courteous&mdash;and probably required&mdash;to reference the source of the quoted text. Add a <code class="lang-css">cite.source</code> at the end of the block quote. (Yes, you should use the <code class="lang-css">cite</code> element.) <cite class="source">Source</cite></blockquote>
 			<blockquote class="prose">
-				<p>Block quotes that are longer than about 40 words should contain at least one <code class="lang-css">p</code>. This is because longer passages of text are more easily read in a serif font. Apply the <code class="lang-css">.prose</code> class to the <em>entire block quote</em> instead of to each element inside.</p>
-				<p>In a long block quote, the citation should be in a <code class="lang-css">p &gt; cite.source</code>, with the year included as well. <small>If you're really picky, you can wrap the year in a <code class="lang-html">&lt;time&gt;</code> tag.</small></p>
+				<p>Block quotes that are longer than about 40 words should contain at least one <code class="lang-css">p</code>. Conversely, short block quotes should <em>not</em> contain paragraphs; the textual content should be contained directly inside, as shown above. Since longer passages of text are more easily read in a serif font, apply the <code class="lang-css">.prose</code> class to the <em>entire block quote</em> instead of to each element inside.</p>
+				<p>In a long block quote, the citation should be in a <code class="lang-css">p &gt; cite.source</code>, with the year included as well. <small>If you're really picky, you can wrap the year with a <code class="lang-html">&lt;time&gt;</code> tag.</small></p>
 				<p><cite class="source">Source, <time>2000</time></cite></p>
 			</blockquote>
 		</section>
@@ -114,23 +116,33 @@
 	</section>
 	<section id="scheme-list">
 		<h1 class="h-gamma">List Scheme</h1>
-		<ul class="des-list">
-			<li>This is an unordered list, without any classes added.</li>
-			<li>Use unordered lists to list items for which the order is not important, that is, changing the order of the items does not change the outcome or semantics of the list.</li>
-			<li><small>border and bgcolor added to show structure</small></li>
-		</ul>
 		<ol class="des-list">
-			<li>This is an ordered list, without any classes added.</li>
-			<li>Use ordered lists to list items for which the order is important, that is, changing the order of the items would change the outcome or semantics of the list.</li>
-			<li><small>border and bgcolor added to show structure</small></li>
+			<li>This is an ordered list (<code class="lang-css">ol</code>), without any classes added. Ordered lists contain 0 or more list items (<code class="lang-css">li</code>).</li>
+			<li>Use ordered lists to list items of which the order is <dfn>relevant</dfn>, that is, changing the order of the items would change the outcome or semantics of the list.</li>
+			<li><small>outline and bgcolor added to show structure</small></li>
 		</ol>
+		<ul class="des-list">
+			<li>This is an unordered list (<code class="lang-css">ul</code>), without any classes added. Unordered lists contain 0 or more list items (<code class="lang-css">li</code>).</li>
+			<li>Use unordered lists to list items of which the order is <dfn>irrelevant</dfn>, that is, changing the order of the items does not change the outcome or semantics of the list.</li>
+			<li><small>outline and bgcolor added to show structure</small></li>
+		</ul>
+		<dl class="des-list">
+			<dt>This is a description list (<code class="lang-css">dl</code>), without any classes added.</dt>
+			<dt>A description list contains 0 or more term-description groups. The order of the term-description groups is <b class="keyword">irrelevant</b>.</dt>
+			<dd>A single term-description group consists of exactly 1 term (<code class="lang-css">dt</code>) and 0 or more descriptions (<code class="lang-css">dd</code>). If there are multiple descriptions in a particular term-description group, the order of descriptions is also <b class="keyword">irrelevant</b>.</dd>
+			<dt>If your description list contains more than one description per term, you may wish to display those descriptions inline, but not the names.</dt>
+			<dd>The <code class="lang-css">dl.list-inline</code> class takes care of this for you.</dd>
+			<dt>On the other hand, if you want to display each term-description group in one line,</dt>
+			<dd>include the <code class="lang-css">.dltable(@dtwidth)</code> mixin in your LESS, where <code class="lang-css">@dtwidth</code> is the width you specify for each term.</dd>
+			<dt><small>outline and bgcolor added to show structure</small></dt>
+		</dl>
 		<ol class="list-basic des-list">
 			<li>This is a basic list (<code class="lang-css">.list-basic</code>).</li>
-			<li>The <code class="lang-css">.list-basic</code> class can be applied to any <code class="lang-css">ul</code>, <code class="lang-css">ol</code>, or <code class="lang-css">dl</code>.</li>
-			<li>Basic lists are usually unordered, however they can be ordered (though the ordering of items is not indicated).</li>
+			<li>The <code class="lang-css">.list-basic</code> class can be applied to any <code class="lang-css">ul</code>, <code class="lang-css">ol</code>, or <code class="lang-css">dl</code>, and all three elements look the same.</li>
+			<li>Basic lists are usually unordered, however they can be ordered (though the ordering of items is not indicated). They can also be description lists.</li>
 			<li>Basic lists remove the padding, margin, and list-style-type (bullets/numbering) from the list,</li>
 			<li>while maintaining the list-item display of each list item.</li>
-			<li><small>border and bgcolor added to show structure</small></li>
+			<li><small>outline and bgcolor added to show structure</small></li>
 		</ol>
 		<ol class="list-inline des-list">
 			<li>For a basic list in which</li>
@@ -138,18 +150,17 @@
 			<li>are displayed inline,</li>
 			<li>use an inline list! (<code class="lang-css">.list-inline</code>)</li>
 			<li>The list itself is still displayed as a block.</li>
-			<li><small>border and bgcolor added to show structure</small></li>
+			<li><small>outline and bgcolor added to show structure</small></li>
 		</ol>
-		<p class="prose">A data list (<code class="lang-css">dl</code>) contains 0 or more name-value groups. A single name-value group consists of exactly 1 name (<code class="lang-css">dt</code>) and 0 or more values (<code class="lang-css">dd</code>). If your data list contains more than one value per name, you may wish to display those values inline, but not the names. The <code class="lang-css">dl.list-inline</code> class takes care of this for you. On the other hand, if you want to display each name-value group in one line, include the <code class="lang-css">.dltable(@dtwidth)</code> mixin in your LESS, where <code class="lang-css">@dtwidth</code> is the width you specify for each <code class="lang-css">dt</code> element.</p>
 		<dl class="list-inline des-list">
 			<dt>A <code class="lang-css">dl.list-inline</code> is an inline list</dt>
 			<dd>that will display</dd>
 			<dd><code class="lang-css">dt</code>s as blocks and</dd>
 			<dd><code class="lang-css">dd</code>s inline.</dd>
 			<dt>This separates</dt>
-			<dd>name-value groups, while</dd>
-			<dd>keeping multiple values together.</dd>
-			<dt><small>border and bgcolor added to show structure</small></dt>
+			<dd>term-description groups, while</dd>
+			<dd>keeping multiple descriptions together.</dd>
+			<dt><small>outline and bgcolor added to show structure</small></dt>
 		</dl>
 		<dl class="dltable des-list">
 			<dt>This is a <code class="lang-css">dl</code> that acts like a table,</dt>
@@ -177,14 +188,14 @@
 			<li>This is normal text.</li>
 			<li><a>This is an <code class="lang-css">a</code>.</a></li>
 			<li><a href="">This is an <code class="lang-css">a[href]</code>.</a></li>
-			<li><small>border and bgcolor added to show structure</small></li>
+			<li><small>outline and bgcolor added to show structure</small></li>
 		</ol>
 		<ol class="breadcrumbs des-list">
 			<li>To make breadcrumbs,</li>
 			<li>use an <code class="lang-css">ol.breadcrumbs</code> (best included in a <code class="lang-css">nav</code> element).</li>
 			<li>This list's style combines the styles of <code class="lang-css">.list-action</code> with <code class="lang-css">.list-inline</code>.</li>
 			<li>Of course, each list item should contain a link.</li>
-			<li><small>border and bgcolor added to show structure</small></li>
+			<li><small>outline and bgcolor added to show structure</small></li>
 		</ol>
 		<ol class="prose des-list">
 			<li>
@@ -198,9 +209,9 @@
 				<p class="lede">Sometimes, a prose list item may have a lede that acts like a heading&hellip;</p>
 				<p>In this case, make it a separate paragraph (<code class="lang-css">p.lede</code>). Again, this lede does not affect the DOM tree. Though actual heading elements (<code class="lang-css">h1</code>, etc.) are permissible in list items, <a class="sp" href="http://www.w3.org/html/wg/drafts/html/master/grouping-content.html#the-li-element">they usually make the DOM tree look icky</a>.</p>
 			</li>
-			<li><p><small>border and bgcolor added to show structure</small></p></li>
+			<li><p><small>outline and bgcolor added to show structure</small></p></li>
 		</ol>
-		<p class="prose">Ordered lists can be nested to represent an outline, such as a table of contents. If you want to do this, use the following classes. <small>border and bgcolor added to show structure</small></p>
+		<p class="prose">Ordered lists can be nested to represent an outline, such as a table of contents. If you want to do this, use the following classes. <small>outline and bgcolor added to show structure</small></p>
 		<ol class="list-alpha des-list">
 			<li>This is an <code class="lang-css">ol.list-alpha</code> (upper-roman)
 				<ol class="list-beta">
@@ -224,7 +235,6 @@
 				</ol>
 			</li>
 		</ol>
-		<div class="draft">example shown here...</div>
 	</section>
 	<section id="scheme-table">
 		<header>

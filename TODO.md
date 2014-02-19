@@ -5,6 +5,7 @@ TO DO
 
 ### semantics ###
 - don't rely on `title` attributes for any element (mobile browsers)
+- 2014-02-18 use `title` attribute on all `a` elements to describe the **Title of the linked document**
 - `rel` attributes on `link` and `a` elements, see [http://dev.w3.org/html5/spec/links.html#linkTypes]()
 - breadcrumbs! three choices:
 	- "owns": `&ni;` or `\220b`
@@ -19,7 +20,6 @@ TO DO
 
 ### styles ###
 - 2014-01-24 fix timestamp issues in `skin.less`
-- 2014-02-16 when calling LESS `.margin-vert(@a,@b)`, if one of the parameters is `0`, output should be `0` not `0px`. Somehow use Mixin Guards?
 
 ### scripts ###
 - 2013-12-14 investigate the use of templates (`<template>`)
