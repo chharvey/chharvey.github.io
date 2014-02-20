@@ -20,8 +20,8 @@ body.assessment .main > header {
   display: table;
   width: 100%;
 }
-body.assessment .main > header .quizheading,
-body.assessment .main > header .studentheading,
+body.assessment .quizheading,
+body.assessment .studentheading,
 .column-left,
 .column-right {
   display: table-cell;
@@ -30,8 +30,8 @@ body.assessment .main > header .studentheading,
   padding-left: 2px;
   padding-right: 2px;
 }
-body.assessment .main > header .quizheading,
-body.assessment .main > header .studentheading,
+body.assessment .quizheading,
+body.assessment .studentheading,
 .column-left,
 .column-right {
   width: 50%;
@@ -110,6 +110,7 @@ blockquote,
 .list-action,
 .breadcrumbs,
 .breadcrumbs,
+#indexdothtml .testlist,
 #syllabusdothtml #grading dl {
   padding: 0;
   list-style-type: none;
@@ -129,6 +130,9 @@ blockquote,
 .breadcrumbs li,
 .breadcrumbs dt,
 .breadcrumbs dd,
+#indexdothtml .testlist li,
+#indexdothtml .testlist dt,
+#indexdothtml .testlist dd,
 #syllabusdothtml #grading dl li,
 #syllabusdothtml #grading dl dt,
 #syllabusdothtml #grading dl dd {
@@ -159,25 +163,59 @@ blockquote,
   padding-left: 2px;
   padding-right: 2px;
 }
-.breadcrumbs {
+.breadcrumbs,
+#indexdothtml .testlist {
   color: #0000ff;
 }
 .breadcrumbs ul,
 .breadcrumbs ol,
-.breadcrumbs dl {
+.breadcrumbs dl,
+#indexdothtml .testlist ul,
+#indexdothtml .testlist ol,
+#indexdothtml .testlist dl {
   list-style-type: none;
 }
-.breadcrumbs li::before {
+.breadcrumbs li::before,
+#indexdothtml .testlist li::before {
   content: '\2713\0020';
 }
-.breadcrumbs a {
+.breadcrumbs a,
+#indexdothtml .testlist a {
   border-bottom: 0;
 }
-.breadcrumbs a:not([href]) {
+.breadcrumbs a:not([href]),
+#indexdothtml .testlist a:not([href]) {
   color: #333366;
 }
 #pacingdothtml ol.list-alpha li ol {
   list-style-type: decimal;
+}
+.table-list-left thead tr,
+.table-list-left tfood tr {
+  border: 1px solid #ff0000;
+  vertical-align: middle;
+  background-color: #ffffff;
+}
+.table-list-left th,
+.table-list-left td {
+  border-width: 0;
+}
+.table-list-left thead tr,
+.table-list-left tfoot tr {
+  border: 1px solid #ff0000;
+  border-left: 0;
+  border-right: 0;
+}
+.table-list-left tbody {
+  border: 1px solid #ff0000;
+  border-left: 0;
+  border-right: 0;
+}
+.table-list-left tbody tr:nth-child(odd) {
+  background-color: #dddddd;
+}
+.table-list-left tbody tr:nth-child(even) {
+  background-color: #cccccc;
 }
 blockquote.prose cite.source::before,
 #warmupsdothtml .h-sub.standard-id::before,
@@ -235,7 +273,8 @@ span.cyan::before {
 .cat-proj {
   background-color: #ffeeee;
 }
-.cat-test {
+.cat-test,
+#indexdothtml .testlist {
   background-color: #eeffee;
 }
 .cat-quiz {
@@ -245,19 +284,19 @@ span.cyan::before {
   background-color: #ffeeff;
 }
 /* @group top folder stuff */
-#indexdothtml #standards blockquote {
+#indexdothtml blockquote {
   margin-left: 0;
   font-size: inherit;
   line-height: inherit;
 }
-#indexdothtml #standards blockquote ol {
+#indexdothtml blockquote ol {
   margin-top: 0;
   list-style-type: lower-alpha;
 }
-#indexdothtml #standards blockquote + ul {
+#indexdothtml .testlist {
   margin-top: 0;
 }
-#indexdothtml #standards .pa-2012 {
+#indexdothtml .pa-2012 {
   color: #6c12f6;
 }
 #syllabusdothtml #grading dl {
@@ -283,14 +322,16 @@ span.cyan::before {
 #syllabusdothtml #grading dl + * {
   clear: both;
 }
-#syllabusdothtml #grading dl dt {
+#syllabusdothtml #grading dt {
   font-weight: bold;
   font-family: 'Times', 'Times New Roman', serif;
   text-align: center;
 }
-#syllabusdothtml #makeup table,
-#syllabusdothtml #makeup th {
-  text-align: left;
+#syllabusdothtml #signature {
+  margin-bottom: -1px;
+  position: relative;
+  top: -1px;
+  border-top: 1px dashed #000000;
 }
 #pacingdothtml table {
   width: 100%;
@@ -362,7 +403,7 @@ body.lesson ol.practiceproblems {
 body.assessment .main {
   margin-top: 0.25in;
 }
-body.assessment .main > header .quizheading .h-alpha {
+body.assessment .quizheading .h-alpha {
   font-style: italic;
   font-weight: inherit;
   font-variant: inherit;
@@ -372,10 +413,10 @@ body.assessment .main > header .quizheading .h-alpha {
   letter-spacing: inherit;
   color: inherit;
 }
-body.assessment .main > header .studentheading {
+body.assessment .studentheading {
   text-align: right;
 }
-body.assessment .main > header .studentheading label {
+body.assessment .studentheading label {
   display: block;
 }
 body.assessment .directions {
@@ -384,64 +425,64 @@ body.assessment .directions {
 body.assessment .verb {
   text-decoration: underline;
 }
-body.assessment form ol.problemset {
+body.assessment ol.problemset {
   list-style-type: decimal;
 }
-body.assessment form ol.problemset li.multiple-choice {
+body.assessment ol.problemset li.multiple-choice {
   margin-bottom: 5em;
   clear: both;
   margin-bottom: 2em;
 }
-body.assessment form ol.problemset li.multiple-choice p span.latex {
+body.assessment ol.problemset li.multiple-choice p span.latex {
   padding-left: 1em;
   padding-right: 1em;
 }
-body.assessment form ol.problemset li.multiple-choice ol.answerchoices {
+body.assessment ol.problemset li.multiple-choice ol.answerchoices {
   line-height: 2em;
 }
-body.assessment form ol.problemset li.multiple-choice ol.answerchoices {
+body.assessment ol.problemset li.multiple-choice ol.answerchoices {
   list-style-type: upper-alpha;
 }
-body.assessment form ol.problemset li.select-multiple {
+body.assessment ol.problemset li.select-multiple {
   margin-bottom: 5em;
   clear: both;
   margin-bottom: 2em;
 }
-body.assessment form ol.problemset li.select-multiple p span.latex {
+body.assessment ol.problemset li.select-multiple p span.latex {
   padding-left: 1em;
   padding-right: 1em;
 }
-body.assessment form ol.problemset li.select-multiple ol.answerchoices {
+body.assessment ol.problemset li.select-multiple ol.answerchoices {
   line-height: 2em;
 }
-body.assessment form ol.problemset li.select-multiple ol.answerchoices {
+body.assessment ol.problemset li.select-multiple ol.answerchoices {
   list-style-type: none;
 }
-body.assessment form ol.problemset li.select-multiple ol.answerchoices.short li {
+body.assessment ol.problemset li.select-multiple ol.answerchoices.short li {
   width: 16%;
   float: left;
 }
-body.assessment form ol.problemset li.free-response-number {
+body.assessment ol.problemset li.free-response-number {
   margin-bottom: 5em;
   clear: both;
 }
-body.assessment form ol.problemset li.free-response-number p span.latex {
+body.assessment ol.problemset li.free-response-number p span.latex {
   padding-left: 1em;
   padding-right: 1em;
 }
-body.assessment form ol.problemset li.free-response-text {
+body.assessment ol.problemset li.free-response-text {
   margin-bottom: 5em;
   clear: both;
 }
-body.assessment form ol.problemset li.free-response-text p span.latex {
+body.assessment ol.problemset li.free-response-text p span.latex {
   padding-left: 1em;
   padding-right: 1em;
 }
-body.assessment form ol.problemset li.free-response-image {
+body.assessment ol.problemset li.free-response-image {
   margin-bottom: 5em;
   clear: both;
 }
-body.assessment form ol.problemset li.free-response-image p span.latex {
+body.assessment ol.problemset li.free-response-image p span.latex {
   padding-left: 1em;
   padding-right: 1em;
 }
@@ -469,7 +510,8 @@ body.assessment form ol.problemset li.free-response-image p span.latex {
   .cat-proj,
   .cat-test,
   .cat-quiz,
-  .cat-hw {
+  .cat-hw,
+  #indexdothtml .testlist {
     background-color: transparent;
   }
   ol.practiceproblems {
