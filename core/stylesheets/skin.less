@@ -30,8 +30,7 @@
 	//* inline content, boxed
 	display: inline;
 	padding: 0 1px;
-	border-width: 1px;
-	border-style: solid;
+	.border-all(1px; solid);
 	border-radius: @box-radius-small;
 }
 .box-inline-block {
@@ -68,48 +67,43 @@
 	.border-vert-single(@width);
 	margin-bottom: (-2 * @width);
 }
-.border-top(@width; @style; @color) {
-	.border-vert-single(@width);
-	border-top: @width @style @color;
-}
 .border-top(@width; @style) {
 	.border-vert-single(@width);
 	border-top-width: @width;
 	border-top-style: @style;
 }
-.border-bot(@width; @style; @color) {
-	.border-vert-single(@width);
-	border-bottom: @width @style @color;
+.border-top(@width; @style; @color) {
+	.border-top(@width; @style);
+	border-color: @color;
 }
 .border-bot(@width; @style) {
 	.border-vert-single(@width);
 	border-bottom-width: @width;
 	border-bottom-style: @style;
 }
-.border-topbot(@width; @style; @color) {
-	.border-vert-both(@width);
-	border-top: @width @style @color;
-	border-bottom: @width @style @color;
-	border-left: 0;
-	border-right: 0;
+.border-bot(@width; @style; @color) {
+	.border-bot(@width; @style);
+	border-color: @color;
 }
 .border-topbot(@width; @style) {
 	.border-vert-both(@width);
-	border-top-width: @width;
-	border-top-style: @style;
-	border-bottom-width: @width;
-	border-bottom-style: @style;
+	border-width: @width;
+	border-style: @style;
 	border-left: 0;
 	border-right: 0;
 }
-.border-all(@width; @style; @color) {
-	.border-vert-both(@width);
-	border: @width @style @color;
+.border-topbot(@width; @style; @color) {
+	.border-topbot(@width; @style);
+	border-color: @color;
 }
 .border-all(@width; @style) {
 	.border-vert-both(@width);
 	border-width: @width;
 	border-style: @style;
+}
+.border-all(@width; @style; @color) {
+	.border-all(@width; @style);
+	border-color: @color;
 }
 /* @end */
 
@@ -143,7 +137,7 @@ body,
 		&:extend(.P1-midleft);
 		.mylogo {
 			display: block;
-			border-bottom: 0;
+			.border-bot(0; solid);
 			font-weight: bold;
 			font-size: @iconsize;
 			font-family: 'Times','Times New Roman',serif;
@@ -385,7 +379,7 @@ address {
 	font-family: @font-fam-accent;
 	text-align: right;
 	line-height: @line-height-big;
-	a {border: 0;}
+	a {.border-all(0; solid);}
 }
 /* @end */
 
@@ -440,7 +434,7 @@ dd {
 	color: @color-link-up-txt;
 	ul, ol, dl {list-style-type: none;}
 	li::before {content: '\2713\0020';} // check mark, space
-	a {border-bottom: 0;}
+	a {.border-all(0, solid);}
 	a:not([href]) {color: @color-base-txt;}
 }
 body > nav .breadcrumbs {&:extend(.P1-midright);}
@@ -477,7 +471,7 @@ ol.prose {
 @color-table-bg-weak:   #ccc;
 
 .tablesection() {
-	border: 1px solid @color-table-brdr;
+	.border-all(1px; solid; @color-table-brdr);
 }
 .tableheader() {
 	.tablesection();
@@ -491,8 +485,7 @@ ol.prose {
 }
 .tablesection-vert() {
 	.tablesection();
-	border-top: 0;
-	border-bottom: 0;
+	.border-topbot(0; solid);
 }
 table {
 	border-collapse: collapse;
@@ -506,9 +499,7 @@ tbody {
 }
 th, td {
 	padding: 5px;
-	border-width: 1px;
-	border-style: solid;
-	border-color: #808080;
+	.border-all(1px; solid; #808080);
 }
 th {
 	font-weight: bold;
@@ -518,7 +509,7 @@ th {
 .table-bars {
 	thead tr,
 	tfood tr {.tableheader();}
-	th, td {border-width: 0;}
+	th, td {.border-all(0; solid);}
 }
 .table-list {
 	thead tr,
@@ -725,8 +716,7 @@ abbr {
 a {
 	text-decoration: none;
 	color: inherit;
-	border-width: 0 0 1px;
-	border-style: dotted;
+	.border-bot(1px; dotted);
 	&[href] {
 		color: @color-link-up-txt; // also sets border color
 		&:hover {color: @color-link-dn-txt;}
@@ -743,7 +733,7 @@ a {
 }
 a.a-block {
 	&:extend(.box-block);
-	border-color: inherit;
+//	border-color: inherit;
 	border-radius: @box-radius-medium;
 	text-align: center;
 	background-color: transparent;
@@ -788,7 +778,7 @@ pre {
 		line-height: @line-height-small;
 	}
 }
-//figure pre > code {border: 0;}
+//figure pre > code {.border-all(0; solid);}
 samp {font-family: inherit;}
 code {
 	//* example of a fragment or string of code a computer would recognize
@@ -878,14 +868,14 @@ var {font-style: italic;}
 	//* labels are little warnings/tips/etc. for the user. More elegant than tooltips
 	&:extend(.box-inline-block);
 	padding: 1px;
-	border: 0;
+	.border-all(0; solid);
 	font-size: @font-size-small;
 	font-family: @font-fam-accent;
 	cursor: help;
 	&::before {
 		&:extend(.box-inline);
 		padding: 1px;
-		border: 0;
+		.border-all(0; solid);
 		margin-right: 1em;
 		font-family: @font-fam-code;
 	}
@@ -928,7 +918,7 @@ span.cyan {
 /* @group forms */
 fieldset {
 	padding: 0;
-	border: 0;
+	.border-all(0; solid);
 	margin: 0;
 }
 /* @end */
@@ -967,7 +957,7 @@ fieldset {
 	}
 	.masthead {display: none;}
 	.postal {
-		border: 0;
+		.border-all(0; solid);
 		text-align: left;
 	}
 	ins, del, abbr {background-color: transparent;}
