@@ -1,4 +1,27 @@
 // main: all.less
+/* @group variables */
+@font-fam-base:    'Optima','Candara','Lucida Sans',sans-serif;
+@font-fam-heading: 'Avenir','Calibri','Century Gothic',sans-serif;
+@font-fam-prose:   'Baskerville','Palatino','Book Antiqua',serif;
+@font-fam-code:    'Menlo','Lucida Sans Typewriter','Monaco',monospace;
+@font-fam-math:    'Times','Times New Roman',serif;
+//@font-fam-accent:  'Gill Sans','Century Gothic',sans-serif;
+@font-fam-accent: @font-fam-heading;
+
+@font-size-base:  16px;
+@font-size-big:   20px;
+@font-size-small: 12px;
+
+@line-height-base:  1.5;
+@line-height-big:   1.2; // ((@font-size-base * @line-height-base)/(@font-size-big));
+@line-height-small: 2.0; // ((@font-size-base * @line-height-base)/(@font-size-small));
+
+@color-base-txt: #336;
+@color-base-bg:  #fff;
+@color-accent: #f00;
+
+/* @end */
+
 /* @group absract mixins */
 @box-radius-small:  3px;
 @box-radius-medium: 6px;
@@ -90,7 +113,6 @@
 }
 /* @end */
 
-
 /* @group main stuff */
 body,
 .hub-body {
@@ -131,6 +153,31 @@ body,
 /* @end */
 
 /* @group headings */
+@h1-ratio: (2/1); // (16/8) or 2.000
+@h2-ratio: (3/2); // (12/8) or 1.500
+@h3-ratio: (5/4); // (10/8) or 1.250
+@h4-ratio: (1/1); // (08/8) or 1.000
+@h5-ratio: (7/8); // (07/8) or 0.875
+@h6-ratio: (3/4); // (06/8) or 0.750
+@font-size-h1: (@font-size-base * @h1-ratio); // 32px or 24pt
+@font-size-h2: (@font-size-base * @h2-ratio); // 24px or 18pt
+@font-size-h3: (@font-size-base * @h3-ratio); // 20px or 15pt
+@font-size-h4: (@font-size-base * @h4-ratio); // 16px or 12pt
+@font-size-h5: (@font-size-base * @h5-ratio); // 14px or 10.5pt
+@font-size-h6: (@font-size-base * @h6-ratio); // 12px or 9pt
+@font-size-h-sub: 0.8;
+
+@line-height-h1: (@line-height-base/@h1-ratio); // 0.75
+@line-height-h2: (@line-height-base/@h2-ratio); // 1.0
+@line-height-h3: (@line-height-base/@h3-ratio); // 1.2
+@line-height-h4: (@line-height-base/@h4-ratio); // 1.5
+@line-height-h5: (@line-height-base/@h5-ratio); // 1.714285
+@line-height-h6: (@line-height-base/@h6-ratio); // 2.0
+
+@color-heading: #f80;
+@color-subheading: #840;
+@hsub-lighten: 20%;
+
 h1, h2, h3, h4, h5, h6,
 .h-alpha,
 .h-beta,
@@ -155,7 +202,6 @@ h1, h2, h3, h4, h5, h6,
 	+ ol,
 	+ dl {margin-top: 0;}
 }
-@hsub-lighten: 20%;
 .h-alpha {
 	.padding-bot-lh(1);
 	.margin-top-lh(2);
@@ -166,7 +212,7 @@ h1, h2, h3, h4, h5, h6,
 	line-height: @line-height-h1;
 	color: @color-heading;
 	small.h-sub {
-		font-size: @font-size-h1-sub;
+		font-size: @font-size-h1 * @font-size-h-sub;
 		color: lighten(@color-heading, @hsub-lighten);
 	}
 }
@@ -178,7 +224,7 @@ h1, h2, h3, h4, h5, h6,
 	line-height: @line-height-h2;
 	color: @color-subheading;
 	small.h-sub {
-		font-size: @font-size-h2-sub;
+		font-size: @font-size-h2 * @font-size-h-sub;
 		color: lighten(@color-subheading, @hsub-lighten);
 	}
 }
@@ -190,7 +236,7 @@ h1, h2, h3, h4, h5, h6,
 	font-size: @font-size-h3;
 	line-height: @line-height-h3;
 	small.h-sub {
-		font-size: @font-size-h3-sub;
+		font-size: @font-size-h3 * @font-size-h-sub;
 		color: lighten(@color-base-txt, @hsub-lighten);
 	}
 }
@@ -201,7 +247,7 @@ h1, h2, h3, h4, h5, h6,
 	font-size: @font-size-h4;
 	line-height: @line-height-h4;
 	small.h-sub {
-		font-size: @font-size-h4-sub;
+		font-size: @font-size-h4 * @font-size-h-sub;
 		color: lighten(@color-base-txt, @hsub-lighten);
 	}
 }
@@ -212,7 +258,7 @@ h1, h2, h3, h4, h5, h6,
 	line-height: @line-height-h5;
 	color: @color-subheading;
 	small.h-sub {
-		font-size: @font-size-h5-sub;
+		font-size: @font-size-h5 * @font-size-h-sub;
 		color: lighten(@color-subheading, @hsub-lighten);
 	}
 }
@@ -223,7 +269,7 @@ h1, h2, h3, h4, h5, h6,
 	text-indent: 0.5in;
 	line-height: @line-height-h6;
 	small.h-sub {
-		font-size: @font-size-h6-sub;
+		font-size: @font-size-h6 * @font-size-h-sub;
 		color: lighten(@color-base-txt, @hsub-lighten);
 	}
 }
@@ -422,6 +468,14 @@ ol.prose {
 /* @end */
 
 /* @group tables */
+@color-table-brdr: @color-accent;
+@color-table-bg-head:      #fff;
+@color-table-bg-primary:   #fff;
+@color-table-bg-secondary: #fff;
+@color-table-bg-strong: #eee;
+@color-table-bg-medium: #ddd;
+@color-table-bg-weak:   #ccc;
+
 .tablesection() {
 	border: 1px solid @color-table-brdr;
 }
@@ -577,6 +631,11 @@ dfn {
 /* @end */
 
 /* @group documentation */
+@color-ins-txt: @color-link-sp-up-txt;
+@color-del-txt: @color-link-sp-dn-txt;
+@color-ins-bg: @color-success-bg;
+@color-del-bg: @color-warning-bg;
+
 //p.timestamp {
 //	//* a paragraph element that indicates the most recent edit of a webpage or document. includes a <time datetime=""> element
 //	font-size: smaller;
@@ -633,6 +692,36 @@ abbr {
 /* @end */
 
 /* @group hyperlinks */
+//@color-link-up-txt:  #000;
+//@color-link-up-block-brdr: #000;
+//@color-link-up-block-bg:   #fff;
+//
+//@color-link-dn-txt:  #000;
+//@color-link-dn-block-brdr: #000;
+//@color-link-dn-block-bg:   #fff;
+//
+//@color-link-active-txt:  #000;
+//@color-link-active-block-brdr: #fff;
+//@color-link-active-block-bg:   @color-body-txt;
+//
+//@color-link-sp-up-txt: #000;
+//@color-link-sp-dn-txt: #000;
+	// temporary colors for debugging... remove these when color scheme is final
+	@color-link-up-txt:  #00f;
+	@color-link-up-block-brdr: #006;
+	@color-link-up-block-bg:   #eef;
+	
+	@color-link-dn-txt:  #f90;
+	@color-link-dn-block-brdr: #630;
+	@color-link-dn-block-bg:   #ffe;
+	
+	@color-link-active-txt:  #f00;
+	@color-link-active-block-brdr: #ff0;
+	@color-link-active-block-bg:   #000;
+	
+	@color-link-sp-up-txt: green;
+	@color-link-sp-dn-txt: purple;
+
 a {
 	text-decoration: none;
 	color: inherit;
@@ -673,7 +762,24 @@ a.a-block {
 }
 /* @end */
 
-/* @group coding */
+/* @group coding and math */
+@color-code-txt:  #000;
+@color-code-brdr: #000;
+@color-code-bg:   #fff;
+@color-code-label-txt: #000;
+@color-code-label-bg:  #fff;
+	@color-code-comment:   #999;
+	@color-code-html-tag:  #900;
+	@color-code-html-attr: #009;
+	@color-code-html-val:  #090;
+	@color-code-css-sel:   @color-code-html-tag;
+	@color-code-css-prop:  @color-code-html-attr;
+	@color-code-css-val:   @color-code-html-val;
+	@color-code-latex-comm: @color-code-html-tag;
+	@color-code-latex-arg:  @color-code-html-attr;
+@color-latex-txt: #000;
+@color-latex-bg:  #fff;
+
 pre {
 	margin: 0;
 	white-space: pre-wrap;
@@ -728,9 +834,6 @@ kbd {
 		font-family: @font-fam-base;
 	}
 }
-/* @end */
-
-/* @group math */
 .latex {
 //	font-size: @font-size-small;
 //	line-height: @line-height-small;
@@ -750,6 +853,27 @@ var {font-style: italic;}
 /* @end */
 
 /* @group labels */
+@color-warning-txt: #300;
+@color-caution-txt: #330;
+@color-success-txt: #030;
+@color-info-txt:    #003;
+@color-help-txt:    #303;
+@color-cyan-txt:    #033;
+
+@color-warning-bg: #fee;
+@color-caution-bg: #ffe;
+@color-success-bg: #efe;
+@color-info-bg:    #eef;
+@color-help-bg:    #fef;
+@color-cyan-bg:    #eff;
+
+@color-warning-icon-bg: #fcc;
+@color-caution-icon-bg: #ffc;
+@color-success-icon-bg: #cfc;
+@color-info-icon-bg:    #ccf;
+@color-help-icon-bg:    #fcf;
+@color-cyan-icon-bg:    #cff;
+
 .label {
 	//* labels are little warnings/tips/etc. for the user. More elegant than tooltips
 	&:extend(.box-inline-block);
@@ -776,32 +900,26 @@ var {font-style: italic;}
 	}
 }
 span.warning {
-	//* "dire consequences"
 	&:extend(.label all);
 	.label(@color-warning-txt; @color-warning-bg; @color-warning-icon-bg; '!');
 }
 span.caution {
-	//* "be careful"
 	&:extend(.label all);
 	.label(@color-caution-txt; @color-caution-bg; @color-caution-icon-bg; '\2026'); // &hellip;
 }
 span.success {
-	//* "something was done right"
 	&:extend(.label all);
 	.label(@color-success-txt; @color-success-bg; @color-success-icon-bg; '\263A'); // smiley
 }
 span.info {
-	//* "extra or informal information"
 	&:extend(.label all);
 	.label(@color-info-txt; @color-info-bg; @color-info-icon-bg; '?');
 }
 span.help {
-	//* "tips and hints"
 	&:extend(.label all);
 	.label(@color-help-txt; @color-help-bg; @color-help-icon-bg; '\2665'); // &hearts;
 }
 span.cyan {
-	//* "cyan"
 	&:extend(.label all);
 	.label(@color-cyan-txt; @color-cyan-bg; @color-cyan-icon-bg; 'c');
 }
