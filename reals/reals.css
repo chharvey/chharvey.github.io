@@ -16,12 +16,18 @@ body > nav .breadcrumbs {
   margin-left: 23.606797749978973%;
   margin-right: 14.58980337503155%;
 }
+.list-line,
 .node,
 .definition,
 .axiom,
 .theorem {
   display: table;
   width: 100%;
+}
+.list-line > li {
+  display: table-cell;
+  vertical-align: top;
+  overflow: visible;
 }
 #truth-tabledothtml .main,
 #truth-tabledothtml table {
@@ -50,6 +56,10 @@ span.help,
 span.cyan {
   display: inline;
   padding: 0 1px;
+  margin-bottom: -1px;
+  position: relative;
+  top: -1px;
+  margin-bottom: -2px;
   border-width: 1px;
   border-style: solid;
   border-radius: 3px;
@@ -75,7 +85,8 @@ pre > code {
 }
 .informal > p:first-child,
 figure > p:first-child,
-blockquote > p:first-child {
+blockquote > p:first-child,
+.postal > p:first-child {
   margin-top: 0;
 }
 .node p:not(.latex),
@@ -104,17 +115,16 @@ caption {
 }
 .informal,
 figure,
-blockquote {
+blockquote,
+.postal {
   margin-top: 14.832815729997478px !important;
-  margin-bottom: 0px !important;
   padding-top: 9.167184270002526px !important;
-  padding-bottom: 0px !important;
 }
 .list-inline,
 .list-line,
 .list-action,
-ol.breadcrumbs,
-ol.breadcrumbs {
+.breadcrumbs,
+.breadcrumbs {
   padding: 0;
   list-style-type: none;
 }
@@ -127,44 +137,90 @@ ol.breadcrumbs {
 .list-action li,
 .list-action dt,
 .list-action dd,
-ol.breadcrumbs li,
-ol.breadcrumbs dt,
-ol.breadcrumbs dd,
-ol.breadcrumbs li,
-ol.breadcrumbs dt,
-ol.breadcrumbs dd {
+.breadcrumbs li,
+.breadcrumbs dt,
+.breadcrumbs dd,
+.breadcrumbs li,
+.breadcrumbs dt,
+.breadcrumbs dd {
   margin: 0;
   padding: 0;
 }
-ol.breadcrumbs {
+.breadcrumbs {
   display: block;
 }
-ol.breadcrumbs li,
-ol.breadcrumbs dd {
+.breadcrumbs li {
   display: inline;
 }
-ol.breadcrumbs dt {
-  text-indent: 0;
-}
-ol.breadcrumbs dt + dd {
-  padding-left: 0.5in;
-}
-ol.breadcrumbs {
+.breadcrumbs {
   color: #0000ff;
 }
-ol.breadcrumbs ul,
-ol.breadcrumbs ol,
-ol.breadcrumbs dl {
+.breadcrumbs ul,
+.breadcrumbs ol,
+.breadcrumbs dl {
   list-style-type: none;
 }
-ol.breadcrumbs li::before {
+.breadcrumbs li::before {
   content: '\2713\0020';
 }
-ol.breadcrumbs a {
-  border-bottom: 0;
+.breadcrumbs a {
+  position: relative;
+  top: 0;
+  margin-bottom: 0;
+  border-width: 0;
+  border-style: solid;
 }
-ol.breadcrumbs a:not([href]) {
+.breadcrumbs a:not([href]) {
   color: #333366;
+}
+.table-list-left thead tr,
+.table-list-left tfood tr {
+  margin-bottom: -1px;
+  position: relative;
+  top: -1px;
+  margin-bottom: -2px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #ff0000;
+  vertical-align: middle;
+  background-color: #ffffff;
+}
+.table-list-left th,
+.table-list-left td {
+  position: relative;
+  top: 0;
+  margin-bottom: 0;
+  border-width: 0;
+  border-style: solid;
+}
+.table-list-left thead tr,
+.table-list-left tfoot tr {
+  margin-bottom: -1px;
+  position: relative;
+  top: -1px;
+  margin-bottom: -2px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #ff0000;
+  border-left: 0;
+  border-right: 0;
+}
+.table-list-left tbody {
+  margin-bottom: -1px;
+  position: relative;
+  top: -1px;
+  margin-bottom: -2px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #ff0000;
+  border-left: 0;
+  border-right: 0;
+}
+.table-list-left tbody tr:nth-child(odd) {
+  background-color: #dddddd;
+}
+.table-list-left tbody tr:nth-child(even) {
+  background-color: #cccccc;
 }
 blockquote.prose cite.source::before {
   content: '(';
@@ -179,7 +235,11 @@ span.info,
 span.help,
 span.cyan {
   padding: 1px;
-  border: 0;
+  position: relative;
+  top: 0;
+  margin-bottom: 0;
+  border-width: 0;
+  border-style: solid;
   font-size: 12px;
   font-family: 'Avenir', 'Calibri', 'Century Gothic', sans-serif;
   cursor: help;
@@ -191,9 +251,12 @@ span.info::before,
 span.help::before,
 span.cyan::before {
   padding: 1px;
-  border: 0;
+  position: relative;
+  top: 0;
+  margin-bottom: 0;
+  border-width: 0;
+  border-style: solid;
   margin-right: 1em;
-  font-size: 12px;
   font-family: 'Menlo', 'Lucida Sans Typewriter', 'Monaco', monospace;
 }
 @media print {
@@ -434,7 +497,7 @@ ol.chaptercontents a {
 }
 /* @end */
 #frontpage .list-inline dd:before,
-#frontpage ol.breadcrumbs dd:before {
+#frontpage .breadcrumbs dd:before {
   content: '\2013\0020';
 }
 #truth-tabledothtml table .master-header-row {

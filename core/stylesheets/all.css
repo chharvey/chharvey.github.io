@@ -100,7 +100,8 @@ body > nav .breadcrumbs {
 }
 /* @end */
 /* @group lines and units */
-.line {
+.line,
+.list-line {
   display: table;
   width: 100%;
 }
@@ -122,7 +123,8 @@ body > nav .breadcrumbs {
 .unit-P3,
 .unit-P4,
 .unit-U-P3,
-.unit-U-P4 {
+.unit-U-P4,
+.list-line > li {
   display: table-cell;
   vertical-align: top;
   overflow: visible;
@@ -410,18 +412,6 @@ h6 + p,
 .h-delta + p,
 .h-epsilon + p,
 .h-zeta + p,
-h1 + ul,
-h2 + ul,
-h3 + ul,
-h4 + ul,
-h5 + ul,
-h6 + ul,
-.h-alpha + ul,
-.h-beta + ul,
-.h-gamma + ul,
-.h-delta + ul,
-.h-epsilon + ul,
-.h-zeta + ul,
 h1 + ol,
 h2 + ol,
 h3 + ol,
@@ -434,6 +424,18 @@ h6 + ol,
 .h-delta + ol,
 .h-epsilon + ol,
 .h-zeta + ol,
+h1 + ul,
+h2 + ul,
+h3 + ul,
+h4 + ul,
+h5 + ul,
+h6 + ul,
+.h-alpha + ul,
+.h-beta + ul,
+.h-gamma + ul,
+.h-delta + ul,
+.h-epsilon + ul,
+.h-zeta + ul,
 h1 + dl,
 h2 + dl,
 h3 + dl,
@@ -527,8 +529,6 @@ h6 + dl,
 p,
 figure,
 blockquote,
-ul,
-ol,
 dl,
 table {
   margin: 0;
@@ -655,16 +655,35 @@ address {
 /* @group lists */
 ul,
 ol {
+  margin: 0;
   padding-left: 0.5in;
 }
-ul ul,
-ol ul,
-ul ol,
-ol ol {
-  margin-top: 0;
+ul + ul,
+ol + ul,
+ul + ol,
+ol + ol {
+  margin-top: 24px;
 }
-dd {
-  margin-left: 0.5in;
+.list-omega {
+  list-style-type: decimal-leading-zero;
+}
+.list-alpha {
+  list-style-type: upper-roman;
+}
+.list-beta {
+  list-style-type: upper-alpha;
+}
+.list-gamma {
+  list-style-type: decimal;
+}
+.list-delta {
+  list-style-type: lower-alpha;
+}
+.list-epsilon {
+  list-style-type: lower-roman;
+}
+.list-zeta {
+  list-style-type: lower-greek;
 }
 .list-basic,
 .list-inline,
@@ -703,15 +722,6 @@ dd {
 .list-inline li,
 .breadcrumbs li {
   display: inline;
-}
-.list-line {
-  display: table;
-  width: 100%;
-}
-.list-line > li {
-  display: table-cell;
-  vertical-align: top;
-  overflow: visible;
 }
 .list-action,
 .breadcrumbs {
@@ -753,64 +763,29 @@ dd {
 ol.prose {
   list-style-type: decimal;
 }
+ol.prose li + li {
+  margin-top: 24px;
+}
 ol.prose p.lede + p {
   margin-top: 0;
 }
-.list-omega {
-  list-style-type: decimal-leading-zero;
-}
-.list-alpha {
-  list-style-type: upper-roman;
-}
-.list-beta {
-  list-style-type: upper-alpha;
-}
-.list-gamma {
-  list-style-type: decimal;
-}
-.list-delta {
-  list-style-type: lower-alpha;
-}
-.list-epsilon {
-  list-style-type: lower-roman;
-}
-.list-zeta {
-  list-style-type: lower-greek;
-}
 /* @end */
 /* @group description lists (`dl`s) a.k.a. mappings */
-dl.list-inline dd,
-dl.breadcrumbs dd {
-  display: inline;
+dd {
+  margin-left: 0.5in;
 }
-dl.list-inline dt + dd,
-dl.breadcrumbs dt + dd {
-  padding-left: 0.5in;
+dl.list-line dt,
+dl.list-line dd {
+  float: left;
+  padding-right: 1em;
 }
-/*
-dl.table-display {
-	float: left;
-	width: 520px;
-	margin: 1em 0;
-	padding: 0;
-	border-bottom: 1px solid #999;
+dl.list-line dt + dd,
+dl.list-line dd + dt {
+  clear: both;
 }
-.table-display dt {
-	clear: left;
-	float: left;
-	width: 200px;
-	margin: 0;
-	padding: 5px;
-	border-top: 1px solid #999;
-	font-weight: bold;
+dl.list-line dt + dd {
+  margin-left: 0.5in;
 }
-.table-display dd {
-	float: left;
-	width: 300px;
-	margin: 0;
-	padding: 5px;
-	border-top: 1px solid #999;
-}*/
 /* @end */
 /* @group tables */
 table {
@@ -1008,10 +983,6 @@ b.proper {
 b.ref {
   font-weight: bold;
 }
-dfn {
-  font-weight: bold;
-  font-style: inherit;
-}
 /* @end */
 /* @group documentation */
 cite {
@@ -1073,6 +1044,11 @@ abbr {
 }
 abbr[title]::after {
   content: attr(title);
+}
+dfn {
+  font-weight: bold;
+  font-style: inherit;
+  font-family: 'Baskerville', 'Palatino', 'Book Antiqua', serif;
 }
 /* @end */
 /* @group hyperlinks */
@@ -1297,6 +1273,7 @@ fieldset {
 }
 /* @end */
 /* @group miscellaneous */
+hr,
 [hidden] {
   display: none !important;
 }
