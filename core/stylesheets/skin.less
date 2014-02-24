@@ -44,7 +44,8 @@
 	display: block;
 	padding: 2px 4px;
 	border-radius: @box-radius-large;
-	margin: 0 4px;
+	margin-left: 4px;
+	margin-right: 4px;
 }
 .padding-lh(top; @lh-top) {
 	padding-top: @lh-top * @line-height-base * @font-size-base;
@@ -182,6 +183,7 @@ h1, h2, h3, h4, h5, h6,
 	letter-spacing: 1px;
 	.latex {color: inherit;}
 	.hsub {
+		font-size: (@hsub-ratio * 100%);
 		padding-left: 1em;
 		font-weight: normal;
 	}
@@ -199,7 +201,7 @@ h1, h2, h3, h4, h5, h6,
 	line-height: (@line-height-base/@h1-ratio);
 	color: @color-hn-primary;
 	.hsub {
-		font-size: @font-size-h1 * @hsub-ratio;
+//		font-size: @font-size-h1 * @hsub-ratio;
 		color: lighten(@color-hn-primary, @hsub-lighten);
 	}
 }
@@ -211,7 +213,7 @@ h1, h2, h3, h4, h5, h6,
 	line-height: (@line-height-base/@h2-ratio);
 	color: @color-hn-secondary;
 	.hsub {
-		font-size: @font-size-h2 * @hsub-ratio;
+//		font-size: @font-size-h2 * @hsub-ratio;
 		color: lighten(@color-hn-secondary, @hsub-lighten);
 	}
 }
@@ -223,7 +225,7 @@ h1, h2, h3, h4, h5, h6,
 	font-size: @font-size-h3;
 	line-height: (@line-height-base/@h3-ratio);
 	.hsub {
-		font-size: @font-size-h3 * @hsub-ratio;
+//		font-size: @font-size-h3 * @hsub-ratio;
 		color: lighten(@color-base-txt, @hsub-lighten);
 	}
 }
@@ -234,7 +236,7 @@ h1, h2, h3, h4, h5, h6,
 	font-size: @font-size-h4;
 	line-height: (@line-height-base/@h4-ratio);
 	.hsub {
-		font-size: @font-size-h4 * @hsub-ratio;
+//		font-size: @font-size-h4 * @hsub-ratio;
 		color: lighten(@color-base-txt, @hsub-lighten);
 	}
 }
@@ -245,7 +247,7 @@ h1, h2, h3, h4, h5, h6,
 	line-height: (@line-height-base/@h5-ratio);
 	color: @color-hn-secondary;
 	.hsub {
-		font-size: @font-size-h5 * @hsub-ratio;
+//		font-size: @font-size-h5 * @hsub-ratio;
 		color: lighten(@color-hn-secondary, @hsub-lighten);
 	}
 }
@@ -256,7 +258,7 @@ h1, h2, h3, h4, h5, h6,
 	text-indent: 0.5in;
 	line-height: (@line-height-base/@h6-ratio);
 	.hsub {
-		font-size: @font-size-h6 * @hsub-ratio;
+//		font-size: @font-size-h6 * @hsub-ratio;
 		color: lighten(@color-base-txt, @hsub-lighten);
 	}
 }
@@ -371,7 +373,7 @@ address {
 	font-family: @font-fam-accent;
 	text-align: right;
 	line-height: @line-height-big;
-	a {.border(all; 0; solid);}
+	a {border: 0;}
 }
 /* @end */
 
@@ -413,7 +415,7 @@ ul, ol {
 	color: @color-link-up-txt;
 	ul, ol, dl {list-style-type: none;}
 	li::before {content: '\2713\0020';} // check mark, space
-	a {.border(all; 0; solid);}
+	a {border: 0;}
 	a:not([href]) {color: @color-base-txt;}
 }
 body > nav .breadcrumbs {&:extend(.P1-midright);}
@@ -622,11 +624,6 @@ b.ref {
 /* @end */
 
 /* @group documentation */
-@color-ins-txt: @color-link-sp-up-txt;
-@color-del-txt: @color-link-sp-dn-txt;
-@color-ins-bg: @color-success-bg;
-@color-del-bg: @color-warning-bg;
-
 //p.timestamp {
 //	//* a paragraph element that indicates the most recent edit of a webpage or document. includes a <time datetime=""> element
 //	font-size: smaller;
@@ -641,8 +638,8 @@ small, sup, sub {
 }
 sup {vertical-align: super;}
 sub {vertical-align: sub;}
-ins[datetime],
 del[datetime],
+ins[datetime],
 abbr[title] {
 	cursor: help;
 	&::after {
@@ -656,23 +653,29 @@ abbr[title] {
 	}
 	&:hover::after {display: inline;}
 }
-ins {
-	padding-left: 0.5em;
-	text-decoration: underline;
-	color: @color-ins-txt;
-	background-color: @color-ins-bg;
-	&[datetime]::after {content: 'inserted on ' attr(datetime);}
-}
-del {
+.del, del {
+	//* `del`: text that has been actually deleted from a document
+	//* `.del`: text that needs to look like it's been deleted
 	padding-right: 0.5em;
 	text-decoration: line-through;
-	color: @color-del-txt;
-	background-color: @color-del-bg;
+//	color: @color-sp-dn-txt;
+	color: @color-warning-txt;
+	background-color: @color-warning-icon-bg;
 	&[datetime]::after {content: 'deleted on ' attr(datetime);}
 }
+.ins, ins {
+	//* `ins`: text that has been actually inserted into a document
+	//* `.ins`: text that needs to look like it's been inserted
+	padding-left: 0.5em;
+	text-decoration: underline;
+//	color: @color-sp-up-txt;
+	color: @color-success-txt;
+	background-color: @color-success-icon-bg;
+	&[datetime]::after {content: 'inserted on ' attr(datetime);}
+}
 abbr {
-	color: #000;
-	background-color: @color-info-bg;
+	color: @color-info-txt;
+	background-color: @color-info-icon-bg;
 	&[title]::after {content: attr(title);}
 }
 dfn {
@@ -680,6 +683,8 @@ dfn {
 	font-weight: bold;
 	font-style: inherit;
 	font-family: @font-fam-prose;
+	color: @color-info-txt;
+	background-color: @color-info-icon-bg;
 }
 //.phone, // use microformats
 //.tel,
@@ -716,19 +721,20 @@ dfn {
 	@color-link-active-block-brdr: #ff0;
 	@color-link-active-block-bg:   #000;
 	
-	@color-link-sp-up-txt: green;
-	@color-link-sp-dn-txt: purple;
+	@color-sp-up-txt: green;
+	@color-sp-dn-txt: purple;
 
 a {
 	text-decoration: none;
 	color: inherit;
-	.border(bottom; 1px; dotted);
+	border-bottom: 1px dotted;
+//	.border(bottom; 1px; dotted);
 	&[href] {
 		color: @color-link-up-txt; // also sets border color
 		&:hover {color: @color-link-dn-txt;}
 		&.sp {
-			color: @color-link-sp-up-txt;
-			&:hover {color: @color-link-sp-dn-txt;}
+			color: @color-sp-up-txt;
+			&:hover {color: @color-sp-dn-txt;}
 		}
 		&:active {color: @color-link-active-txt;}
 	}
@@ -951,8 +957,8 @@ hr,
 	.h-alpha, .h-beta, .h-gamma, .h-delta, .h-epsilon, .h-zeta,
 	blockquote, .postal,
 	table {
-		font-size: 16px !important;
-		line-height: 24px !important;
+		font-size: @font-size-base !important;
+		line-height: @line-height-base !important;
 	}
 	body {
 		color: #000;

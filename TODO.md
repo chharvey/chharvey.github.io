@@ -20,6 +20,11 @@ TO DO
 
 ### styles ###
 - 2014-01-24 fix timestamp issues in `skin.less`
+#### typography ####
+- 2014-02-24 line break violations:
+	- right after a preposition (to, for, with, over, by, etc.)
+	- after a small word (2- or 3-letter words)
+	- in the middle of a highlighted phrase 3 words or fewer (em, strong, i, b, etc.)
 
 ### scripts ###
 - 2013-12-14 investigate the use of templates (`<template>`)
