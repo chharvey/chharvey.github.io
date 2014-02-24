@@ -30,7 +30,7 @@
 	//* inline content, boxed
 	display: inline;
 	padding: 0 1px;
-	.border-all(1px; solid);
+	.border(all; 1px; solid);
 	border-radius: @box-radius-small;
 }
 .box-inline-block {
@@ -46,18 +46,19 @@
 	border-radius: @box-radius-large;
 	margin: 0 4px;
 }
-.padding-top-lh(@lh-top) {
+.padding-lh(top; @lh-top) {
 	padding-top: @lh-top * @line-height-base * @font-size-base;
 }
-.padding-bot-lh(@lh-bot) {
+.padding-lh(bottom; @lh-bot) {
 	padding-bottom: @lh-bot * @line-height-base * @font-size-base;
 }
-.margin-top-lh(@lh-top) {
+.margin-lh(top; @lh-top) {
 	margin-top: @lh-top * @line-height-base * @font-size-base;
 }
-.margin-bot-lh(@lh-bot) {
+.margin-lh(bottom; @lh-bot) {
 	margin-bottom: @lh-bot * @line-height-base * @font-size-base;
 }
+
 .border-vert-single(@width) {
 	margin-bottom: (-1 * @width);
 	position: relative;
@@ -67,42 +68,42 @@
 	.border-vert-single(@width);
 	margin-bottom: (-2 * @width);
 }
-.border-top(@width; @style) {
+.border(top; @width; @style) {
 	.border-vert-single(@width);
 	border-top-width: @width;
 	border-top-style: @style;
 }
-.border-top(@width; @style; @color) {
-	.border-top(@width; @style);
+.border(top; @width; @style; @color) {
+	.border(top; @width; @style);
 	border-color: @color;
 }
-.border-bot(@width; @style) {
+.border(bottom; @width; @style) {
 	.border-vert-single(@width);
 	border-bottom-width: @width;
 	border-bottom-style: @style;
 }
-.border-bot(@width; @style; @color) {
-	.border-bot(@width; @style);
+.border(bottom; @width; @style; @color) {
+	.border(bottom; @width; @style);
 	border-color: @color;
 }
-.border-topbot(@width; @style) {
+.border(topbot; @width; @style) {
 	.border-vert-both(@width);
 	border-width: @width;
 	border-style: @style;
 	border-left: 0;
 	border-right: 0;
 }
-.border-topbot(@width; @style; @color) {
-	.border-topbot(@width; @style);
+.border(topbot; @width; @style; @color) {
+	.border(topbot; @width; @style);
 	border-color: @color;
 }
-.border-all(@width; @style) {
+.border(all; @width; @style) {
 	.border-vert-both(@width);
 	border-width: @width;
 	border-style: @style;
 }
-.border-all(@width; @style; @color) {
-	.border-all(@width; @style);
+.border(all; @width; @style; @color) {
+	.border(all; @width; @style);
 	border-color: @color;
 }
 /* @end */
@@ -137,7 +138,7 @@ body,
 		&:extend(.P1-midleft);
 		.mylogo {
 			display: block;
-			.border-bot(0; solid);
+			.border(bottom; 0; solid);
 			font-weight: bold;
 			font-size: @iconsize;
 			font-family: 'Times','Times New Roman',serif;
@@ -189,8 +190,8 @@ h1, h2, h3, h4, h5, h6,
 	+ dl {margin-top: 0;}
 }
 .h-alpha {
-	.padding-bot-lh(1);
-	.margin-top-lh(2);
+	.padding-lh(bottom; 1);
+	.margin-lh(top; 2);
 	font-variant: small-caps;
 	font-weight: bold;
 	font-size: @font-size-h1;
@@ -203,8 +204,8 @@ h1, h2, h3, h4, h5, h6,
 	}
 }
 .h-beta {
-	.padding-bot-lh(0.5);
-	.margin-top-lh(1.5);
+	.padding-lh(bottom; 0.5);
+	.margin-lh(top; 1.5);
 	font-weight: bold;
 	font-size: @font-size-h2;
 	line-height: (@line-height-base/@h2-ratio);
@@ -215,8 +216,8 @@ h1, h2, h3, h4, h5, h6,
 	}
 }
 .h-gamma {
-	.padding-bot-lh(0.25);
-	.margin-top-lh(0.75);
+	.padding-lh(bottom; 0.25);
+	.margin-lh(top; 0.75);
 	font-variant: small-caps;
 	font-weight: bold;
 	font-size: @font-size-h3;
@@ -227,7 +228,7 @@ h1, h2, h3, h4, h5, h6,
 	}
 }
 .h-delta {
-	.margin-top-lh(1);
+	.margin-lh(top; 1);
 	font-style: italic;
 	font-weight: bold;
 	font-size: @font-size-h4;
@@ -269,7 +270,7 @@ dl,
 table {
 	//* margin reset
 	margin: 0;
-	.margin-top-lh(1);
+	.margin-lh(top; 1);
 }
 
 /* @group paragraphs */
@@ -290,7 +291,7 @@ td {
 }
 p.lede {
 	text-align: justify;
-	+ p {.margin-top-lh(2);}
+	+ p {.margin-lh(top; 2);}
 }
 span.lede {
 	padding-right: 1em;
@@ -304,8 +305,8 @@ span.lede {
 	line-height: @line-height-small;
 }
 .sideborder {
-	.margin-top-lh(@Phi1) !important;
-	.padding-top-lh(@Phi2) !important;
+	.margin-lh(top; @Phi1) !important;
+	.padding-lh(top; @Phi2) !important;
 }
 .sideborder-left(@pad-width; @brdr-width; @marg-width; @brdr-style; @brdr-color) {
 	&:extend(.sideborder all);
@@ -338,7 +339,7 @@ figure {
 }
 figcaption {
 	&:extend(.caption);
-	.border-top(1px; dashed);
+	.border(top; 1px; dashed);
 }
 blockquote {
 	.sideborder-left(13px; 8px; 34px; double; @color-accent);
@@ -370,7 +371,7 @@ address {
 	font-family: @font-fam-accent;
 	text-align: right;
 	line-height: @line-height-big;
-	a {.border-all(0; solid);}
+	a {.border(all; 0; solid);}
 }
 /* @end */
 
@@ -378,7 +379,7 @@ address {
 ul, ol {
 	margin: 0;
 	padding-left: 0.5in;
-	+ ul, + ol {.margin-top-lh(1);}
+	+ ul, + ol {.margin-lh(top; 1);}
 }
 //* outlined lists
 .list-omega   {list-style-type: decimal-leading-zero;}
@@ -412,7 +413,7 @@ ul, ol {
 	color: @color-link-up-txt;
 	ul, ol, dl {list-style-type: none;}
 	li::before {content: '\2713\0020';} // check mark, space
-	a {.border-all(0, solid);}
+	a {.border(all; 0; solid);}
 	a:not([href]) {color: @color-base-txt;}
 }
 body > nav .breadcrumbs {&:extend(.P1-midright);}
@@ -427,7 +428,7 @@ body > nav .breadcrumbs {&:extend(.P1-midright);}
 }
 ol.prose {
 	list-style-type: decimal;
-	li + li {.margin-top-lh(1);}
+	li + li {.margin-lh(top; 1);}
 	p.lede + p {margin-top: 0;}
 }
 /* @end */
@@ -475,7 +476,7 @@ dl.list-line {
 @color-table-bg-weak:   #ccc;
 
 .tablesection() {
-	.border-all(1px; solid; @color-table-brdr);
+	.border(all; 1px; solid; @color-table-brdr);
 }
 .tableheader() {
 	.tablesection();
@@ -489,7 +490,7 @@ dl.list-line {
 }
 .tablesection-vert() {
 	.tablesection();
-	.border-topbot(0; solid);
+	.border(topbot; 0; solid);
 }
 table {
 	border-collapse: collapse;
@@ -503,7 +504,7 @@ tbody {
 }
 th, td {
 	padding: 5px;
-	.border-all(1px; solid; #808080);
+	.border(all; 1px; solid; #808080);
 }
 th {
 	font-weight: bold;
@@ -513,7 +514,7 @@ th {
 .table-bars {
 	thead tr,
 	tfood tr {.tableheader();}
-	th, td {.border-all(0; solid);}
+	th, td {.border(all; 0; solid);}
 }
 .table-list {
 	thead tr,
@@ -721,7 +722,7 @@ dfn {
 a {
 	text-decoration: none;
 	color: inherit;
-	.border-bot(1px; dotted);
+	.border(bottom; 1px; dotted);
 	&[href] {
 		color: @color-link-up-txt; // also sets border color
 		&:hover {color: @color-link-dn-txt;}
@@ -873,14 +874,14 @@ var {font-style: italic;}
 	//* labels are little warnings/tips/etc. for the user. More elegant than tooltips
 	&:extend(.box-inline-block);
 	padding: 1px;
-	.border-all(0; solid);
+	.border(all; 0; solid);
 	font-size: @font-size-small;
 	font-family: @font-fam-accent;
 	cursor: help;
 	&::before {
 		&:extend(.box-inline);
 		padding: 1px;
-		.border-all(0; solid);
+		.border(all; 0; solid);
 		margin-right: 1em;
 		font-family: @font-fam-code;
 	}
@@ -923,7 +924,7 @@ span.cyan {
 /* @group forms */
 fieldset {
 	padding: 0;
-	.border-all(0; solid);
+	.border(all; 0; solid);
 	margin: 0;
 }
 /* @end */
@@ -964,7 +965,7 @@ hr,
 	}
 	.masthead {display: none;}
 	.postal {
-		.border-all(0; solid);
+		.border(all; 0; solid);
 		text-align: left;
 	}
 	ins, del, abbr {background-color: transparent;}
