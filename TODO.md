@@ -20,6 +20,7 @@ TO DO
 
 ### styles ###
 - 2014-01-24 fix timestamp issues in `skin.less`
+- 2014-02-24 remove all "scoped" Less and make use of "namespaces"
 #### typography ####
 - 2014-02-24 line break violations:
 	- right after a preposition (to, for, with, over, by, etc.)

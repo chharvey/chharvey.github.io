@@ -2,142 +2,131 @@
 @import (reference) url('../core/stylesheets/all.less');
 
 /** --SECONDARY-ED.LESS-- **/
-.standard-id {
-	&:extend(.lede);
-	padding-right: 1em;
-}
+
 
 .main-idea {background-color: #fdf7ae;}
 .vocab, .vocablist dt {background-color: #ffb6e9;}
 
 .cat-exam {
-	background-color: @color-caution-bg;
+	background-color: @color-caution-icon-bg;
 }
 .cat-proj {
-	background-color: @color-warning-bg;
+	background-color: @color-warning-icon-bg;
 }
 .cat-test {
-	background-color: @color-success-bg;
+	background-color: @color-success-icon-bg;
 }
 .cat-quiz {
-	background-color: @color-info-bg;
+	background-color: @color-info-icon-bg;
 }
 .cat-hw {
-	background-color: @color-help-bg;
+	background-color: @color-help-icon-bg;
 }
 
-/* @group top folder stuff */
-#indexdothtml {
-	blockquote {
-		margin-left: 0;
-		font-size: inherit;
-		line-height: inherit;
-		ol {
-			margin-top: 0;
-			list-style-type: lower-alpha;
-		}
-	}
-	.testlist {
-		&:extend(.list-action all);
-		&:extend(.cat-test);
+/* @group State Standards */
+.standard-id {
+	&:extend(.lede);
+	padding-right: 1em;
+}
+blockquote.standard-txt {
+	margin-left: 0;
+	font-size: inherit;
+	line-height: inherit;
+	ol {
 		margin-top: 0;
-	}
-	.pa() {
-		//* performance analysis items
-	}
-	.pa-2012 {
-		.pa();
-		color: #6c12f6;
+		list-style-type: lower-alpha;
 	}
 }
-#syllabusdothtml {
-//	#geninfo {
-//		&:extend(.line);
-//		#teacherinfo,
-//		#overview {&:extend(.unit-1to2);}
-//	}
-//	#pacing table { // automatic numbering only needed if table is being changed frequently
-//		counter-reset: unitcount;
-//		td:nth-child(1):before {
-//			counter-increment: unitcount;
-//			content: counter(unitcount, upper-roman) '. ';
-//		}
-//	}
-	#grading {
-		dl {
-			.linebreadth-small;
-			.dltable(3em);
-		}
-		dt {
-			font-weight: bold;
-			font-family: @font-fam-math;
-			text-align: center;
-		}
-	}
-	#signature {
-		.border(top; 1px; dashed; #000);
+.standard-pa2012 {color: #6c12f6;}
+/* @end */
+
+/* @group indexdothtml */
+.course-testlist {
+	&:extend(.list-action all);
+	&:extend(.cat-test);
+	margin-top: 0;
+}
+/* @end */
+
+/* @group syllabusdothtml */
+dl.syll-categories,
+dl.syll-testgrades {
+	&:extend(.linebreadth-small);
+	.dltable(20%);
+	dt {
+		font-weight: bold;
+		font-family: @font-fam-math;
+		text-align: center;
 	}
 }
-#pacingdothtml {
-	table {
-		width: 100%;
-		counter-reset: unitcount;
-		* {text-align: left;}
-		a {border-bottom: 0;}
-		.h-beta {padding: 5px;}
-	}
+#signature {
+	.border(top; 1px; dashed; #000);
+}
+/* @end */
+
+/* @group pacingdothtml */
+table.pacing-guide {
+	&:extend(.table-list all);
+	width: 100%;
+	* {text-align: left;}
+	a {border-bottom: 0;}
+	.h-beta {padding: 5px;}
 	tr:nth-child(n+2) td:nth-child(1) {
 		padding-left: 2em;
 	}
-	
-	ol.list-alpha {
-		li ol {&:extend(.list-gamma);}
-	}
-}
-#warmupsdothtml {
-	.star {background-color: #ff9;}
-	.hsub.standard-id {
-		&:extend(.parens all);
-	}
-	ol.answerchoices {list-style-type: upper-alpha;}
-	.answer {
-		font-style: italic;
-		font-weight: bold;
-		font-size: @font-size-small;
-		&::before {
-			content: 'answer: ';
-		}
-	}
-	div.answer,
-	p.answer {line-height: @line-height-small;}
 }
 /* @end */
 
+/* @group warmupsdothtml */
+.wu-star {background-color: #ff9;}
+.hsub.wu-hsub {
+	&:extend(.standard-id all);
+	&:extend(.parens all);
+}
+.wu-answerchoices {list-style-type: upper-alpha;}
+.wu-answer {
+	font-style: italic;
+	font-weight: bold;
+	font-size: @font-size-small;
+	&::before {
+		content: 'answer: ';
+	}
+	div&,
+	p& {line-height: @line-height-small;}
+}
+
+/* @end */
+
 /* @group unit overviews */
-#unitobjectives {
-	.insertional {
-		//* content that is not technically in the standards but is necessary for full mastery
-		&:extend(.ins);
-	}
-	.deletional {
-		//* content that is in the standards but is permitted to be left out of the curriculum because it is low-priority (if time is an issue)
-		&:extend(.del);
-	}
-	.optional {
-		//* content that is not in the standards but serves as unnecessary additional study
-		&:extend(.parens all);
-		@acolor: lighten(@color-base-txt, 40%);
-		color: @acolor;
-		.latex {color: @acolor;}
-	}
-	.teachernote {
-		background-color: @color-info-bg;
-		font-size: @font-size-small;
-	}
-	div.teachernote,
-	p.teachernote {line-height: @line-height-small;}
+.ov-insertional {
+	&:extend(.ins);
+}
+.ov-deletional {
+	&:extend(.del);
+}
+.ov-optional {
+	&:extend(.parens all);
+	@acolor: lighten(@color-base-txt, 40%);
+	color: @acolor;
+	.latex {color: @acolor;}
+}
+.ov-teachernote {
+	background-color: @color-info-bg;
+	font-size: @font-size-small;
+	div&,
+	p& {line-height: @line-height-small;}
 }
 /* @end */
+
+
+
+
+
+
+
+
+
+
 
 /* @group lesson plans */
 body.lesson {
