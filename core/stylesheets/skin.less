@@ -23,30 +23,6 @@
 /* @end */
 
 /* @group absract mixins */
-@box-radius-small:  3px;
-@box-radius-medium: 6px;
-@box-radius-large: 10px;
-.box-inline {
-	//* inline content, boxed
-	display: inline;
-	padding: 0 1px;
-	.border(all; 1px; solid);
-	border-radius: @box-radius-small;
-}
-.box-inline-block {
-	//* inline content, with block structure, boxed
-	&:extend(.box-inline);
-	display: inline-block;
-}
-.box-block {
-	//* a block structure, boxed
-	&:extend(.box-inline-block);
-	display: block;
-	padding: 2px 4px;
-	border-radius: @box-radius-large;
-	margin-left: 4px;
-	margin-right: 4px;
-}
 .padding-lh(top; @lh-top) {
 	padding-top: @lh-top * @line-height-base * @font-size-base;
 }
@@ -59,7 +35,7 @@
 .margin-lh(bottom; @lh-bot) {
 	margin-bottom: @lh-bot * @line-height-base * @font-size-base;
 }
-
+//* Use the folowing mixins to adjust borders for BLOCK elements only! It will adjust borders while keeping the vertical rhytym. DO NOT use these mixins on INLINE elements.
 .border-vert-single(@width) {
 	margin-bottom: (-1 * @width);
 	position: relative;
@@ -106,6 +82,32 @@
 .border(all; @width; @style; @color) {
 	.border(all; @width; @style);
 	border-color: @color;
+}
+
+@box-radius-small:  3px;
+@box-radius-medium: 6px;
+@box-radius-large: 10px;
+.box-inline {
+	//* inline content, boxed
+	display: inline;
+	padding: 0 1px;
+	border: 1px solid;
+	border-radius: @box-radius-small;
+}
+.box-inline-block {
+	//* inline content, with block structure, boxed
+	&:extend(.box-inline);
+	display: inline-block;
+}
+.box-block {
+	//* a block structure, boxed
+	&:extend(.box-inline-block);
+	display: block;
+	padding: 2px 4px;
+	.border(all; 1px; solid);
+	border-radius: @box-radius-large;
+	margin-left: 4px;
+	margin-right: 4px;
 }
 .parens {
 	//* mixin used for lots of things
@@ -494,20 +496,15 @@ dl.list-line {
 
 /* @group tables */
 @color-table-brdr: @color-accent;
-@color-table-bg-head:      #fff;
-@color-table-bg-primary:   #fff;
-@color-table-bg-secondary: #fff;
+//@color-table-bg-head:      #fff;
+//@color-table-bg-primary:   #fff;
+//@color-table-bg-secondary: #fff;
 @color-table-bg-strong: #eee;
 @color-table-bg-medium: #ddd;
 @color-table-bg-weak:   #ccc;
 
 .tablesection() {
 	.border(all; 1px; solid; @color-table-brdr);
-}
-.tableheader() {
-	.tablesection();
-	vertical-align: middle;
-	background-color: @color-table-bg-head;
 }
 .tablesection-horiz() {
 	.tablesection();
@@ -520,46 +517,51 @@ dl.list-line {
 }
 table {
 	border-collapse: collapse;
-	margin: 0 auto 1em;
+	margin-left: auto;
+	margin-right: auto;
 	text-align: center;
+	a {border: 0;}
 }
 caption {&:extend(.caption);}
 thead, tfoot {font-weight: bold;}
 tbody {
 //	.code, code {background-color: transparent;} // fix later when fixing code, boxes, etc.
 }
+tr {}
 th, td {
-	padding: 5px;
 	.border(all; 1px; solid; #808080);
+	padding: 0 4px;
+	.padding-lh(top; 0.5);
+	.padding-lh(bottom; 0.5);
+	vertical-align: top;
 }
 th {
 	font-weight: bold;
-	background-color: @color-table-bg-strong;
+	vertical-align: bottom;
 }
 .table-list,
 .table-bars {
-	thead tr,
-	tfood tr {.tableheader();}
 	th, td {.border(all; 0; solid);}
+	thead,
+	tfoot {.tablesection-horiz();}
+	th {background-color: @color-table-bg-strong;}
 }
 .table-list {
-	thead tr,
-	tfoot tr {.tablesection-horiz();}
 	tbody {
 		.tablesection-horiz();
 		tr:nth-child(odd)  {background-color: @color-table-bg-medium;}
 		tr:nth-child(even) {background-color: @color-table-bg-weak;}
 	}
-}
-.table-list-left {
-	&:extend(.table-list all);
-	text-align: left;
+	&.left {text-align: left;}
 }
 .table-bars {
-	thead tr,
-	tfoot tr {.tablesection-vert();}
+	thead {
+		@headlt: 10%;
+		th:nth-child(odd)  {background-color: lighten(@color-table-bg-weak,   @headlt);}
+		th:nth-child(even) {background-color: lighten(@color-table-bg-medium, @headlt);}
+		th:first-child     {background-color: lighten(@color-table-bg-strong, @headlt);}
+	}
 	tbody {
-		.tablesection-vert();
 		tr td:nth-child(odd)  {background-color: @color-table-bg-weak;}
 		tr td:nth-child(even) {background-color: @color-table-bg-medium;}
 	}
