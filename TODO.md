@@ -18,6 +18,7 @@ TO DO
 	- and `a`s (links to documents, sections, etc.)
 - 2014-01-24 fix timestamp issues. maybe use `dl`?
 - 2014-02-26 don't overuse `<small>`! It is supposed to represent small print such as disclaimers/legal information, not parenthetical remarks.
+- 2014-02-26 get rid of all "introductory prose" from `<header>` elements. `header`s should only contain metadata about the document.
 
 ### styles ###
 - 2014-01-24 fix timestamp issues in `skin.less`
