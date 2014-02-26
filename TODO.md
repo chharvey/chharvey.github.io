@@ -17,6 +17,7 @@ TO DO
 - 2013-12-14 see which `b.ref`s you can change to `cite`s (titles of works)
 	- and `a`s (links to documents, sections, etc.)
 - 2014-01-24 fix timestamp issues. maybe use `dl`?
+- 2014-02-26 don't overuse `<small>`! It is supposed to represent small print such as disclaimers/legal information, not parenthetical remarks.
 
 ### styles ###
 - 2014-01-24 fix timestamp issues in `skin.less`
