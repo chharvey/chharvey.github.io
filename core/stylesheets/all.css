@@ -281,12 +281,7 @@ span.help,
 span.cyan {
   display: inline;
   padding: 0 1px;
-  margin-bottom: -1px;
-  position: relative;
-  top: -1px;
-  margin-bottom: -2px;
-  border-width: 1px;
-  border-style: solid;
+  border: 1px solid;
   border-radius: 3px;
 }
 .box-inline-block,
@@ -307,12 +302,42 @@ a.a-block,
 pre > code {
   display: block;
   padding: 2px 4px;
+  margin-bottom: -1px;
+  position: relative;
+  top: -1px;
+  margin-bottom: -2px;
+  border-width: 1px;
+  border-style: solid;
   border-radius: 10px;
   margin-left: 4px;
   margin-right: 4px;
 }
+.parens::before,
+blockquote.prose cite.source::before {
+  content: '(';
+}
+.parens::after,
+blockquote.prose cite.source::after {
+  content: ')';
+}
 /* @end */
-/* @group main stuff */
+/* @group element-reset */
+p,
+footer,
+figure,
+blockquote,
+dl,
+table {
+  margin: 0;
+  margin-top: 24px;
+}
+i,
+b {
+  font-style: inherit;
+  font-weight: inherit;
+}
+/* @end */
+/* @group sections */
 body,
 .hub-body {
   margin: 0 4px;
@@ -523,14 +548,6 @@ h6 + dl,
   text-align: center;
 }
 /* @end */
-p,
-figure,
-blockquote,
-dl,
-table {
-  margin: 0;
-  margin-top: 24px;
-}
 /* @group paragraphs */
 .sideborder > p:first-child,
 li > p:first-child,
@@ -759,7 +776,7 @@ ol.prose p.lede + p {
   margin-top: 0;
 }
 /* @end */
-/* @group description lists (`dl`s) a.k.a. mappings */
+/* @group association lists (`dl`s) a.k.a. mappings */
 dd {
   margin-left: 0.5in;
 }
@@ -779,142 +796,80 @@ dl.list-line dt + dd {
 /* @group tables */
 table {
   border-collapse: collapse;
-  margin: 0 auto 1em;
+  margin-left: auto;
+  margin-right: auto;
   text-align: center;
+}
+table a {
+  border: 0;
+}
+.rowgroup,
+.table-list thead,
+.table-bars thead,
+.table-list tfoot,
+.table-bars tfoot,
+.table-list tbody {
+  border: 1px solid #ff0000;
+  border-left: 0;
+  border-right: 0;
 }
 thead,
 tfoot {
   font-weight: bold;
 }
+tbody {
+  vertical-align: top;
+}
 th,
 td {
-  padding: 5px;
-  margin-bottom: -1px;
-  position: relative;
-  top: -1px;
-  margin-bottom: -2px;
-  border-width: 1px;
-  border-style: solid;
-  border-color: #808080;
+  padding: 0 4px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  border: 1px solid #888;
 }
 th {
   font-weight: bold;
-  background-color: #eeeeee;
-}
-.table-list thead tr,
-.table-bars thead tr,
-.table-list tfood tr,
-.table-bars tfood tr,
-.table-list-left thead tr,
-.table-list-left tfood tr {
-  margin-bottom: -1px;
-  position: relative;
-  top: -1px;
-  margin-bottom: -2px;
-  border-width: 1px;
-  border-style: solid;
-  border-color: #ff0000;
-  vertical-align: middle;
-  background-color: #ffffff;
+  vertical-align: bottom;
 }
 .table-list th,
 .table-bars th,
 .table-list td,
-.table-bars td,
-.table-list-left th,
-.table-list-left td {
-  position: relative;
-  top: 0;
-  margin-bottom: 0;
-  border-width: 0;
-  border-style: solid;
+.table-bars td {
+  border: 1px solid;
 }
-.table-list thead tr,
-.table-list tfoot tr,
-.table-list-left thead tr,
-.table-list-left tfoot tr {
-  margin-bottom: -1px;
-  position: relative;
-  top: -1px;
-  margin-bottom: -2px;
-  border-width: 1px;
-  border-style: solid;
-  border-color: #ff0000;
-  border-left: 0;
-  border-right: 0;
+.table-list th,
+.table-bars th {
+  background-color: #eeeeee;
 }
-.table-list tbody,
-.table-list-left tbody {
-  margin-bottom: -1px;
-  position: relative;
-  top: -1px;
-  margin-bottom: -2px;
-  border-width: 1px;
-  border-style: solid;
-  border-color: #ff0000;
-  border-left: 0;
-  border-right: 0;
-}
+.table-list thead tr:nth-child(odd),
 .table-list tbody tr:nth-child(odd),
-.table-list-left tbody tr:nth-child(odd) {
+.table-list tfoot tr:nth-child(odd) {
   background-color: #dddddd;
 }
+.table-list thead tr:nth-child(even),
 .table-list tbody tr:nth-child(even),
-.table-list-left tbody tr:nth-child(even) {
+.table-list tfoot tr:nth-child(even) {
   background-color: #cccccc;
 }
-.table-list-left {
+.table-list.left {
   text-align: left;
 }
-.table-bars thead tr,
-.table-bars tfoot tr {
-  margin-bottom: -1px;
-  top: -1px;
-  margin-bottom: -2px;
-  border-width: 1px;
-  border-color: #ff0000;
-  position: relative;
-  top: 0;
-  margin-bottom: 0;
-  border-width: 0;
-  border-style: solid;
-  border-left: 0;
-  border-right: 0;
+.table-bars thead th:nth-child(odd) {
+  background-color: #e6e6e6;
 }
-.table-bars tbody {
-  margin-bottom: -1px;
-  top: -1px;
-  margin-bottom: -2px;
-  border-width: 1px;
-  border-color: #ff0000;
-  position: relative;
-  top: 0;
-  margin-bottom: 0;
-  border-width: 0;
-  border-style: solid;
-  border-left: 0;
-  border-right: 0;
+.table-bars thead th:nth-child(even) {
+  background-color: #f7f7f7;
 }
-.table-bars tbody tr td:nth-child(odd) {
+.table-bars thead th:first-child {
+  background-color: #ffffff;
+}
+.table-bars tbody td:nth-child(odd) {
   background-color: #cccccc;
 }
-.table-bars tbody tr td:nth-child(even) {
+.table-bars tbody td:nth-child(even) {
   background-color: #dddddd;
 }
 /* @end */
-.parens::before,
-blockquote.prose cite.source::before {
-  content: '(';
-}
-.parens::after,
-blockquote.prose cite.source::after {
-  content: ')';
-}
-i,
-b {
-  font-style: inherit;
-  font-weight: inherit;
-}
 /* @group highlighted text */
 em {
   font-style: italic;
@@ -1131,6 +1086,7 @@ code.lang-latex .arg {
   color: #000099;
 }
 code.dir {
+  border: 0;
   font-style: italic;
   font-family: 'Optima', 'Candara', 'Lucida Sans', sans-serif;
 }
@@ -1172,11 +1128,7 @@ span.info,
 span.help,
 span.cyan {
   padding: 1px;
-  position: relative;
-  top: 0;
-  margin-bottom: 0;
-  border-width: 0;
-  border-style: solid;
+  border: 0;
   font-size: 12px;
   font-family: 'Avenir', 'Calibri', 'Century Gothic', sans-serif;
   cursor: help;
@@ -1189,11 +1141,7 @@ span.info::before,
 span.help::before,
 span.cyan::before {
   padding: 1px;
-  position: relative;
-  top: 0;
-  margin-bottom: 0;
-  border-width: 0;
-  border-style: solid;
+  border: 0;
   margin-right: 1em;
   font-family: 'Menlo', 'Lucida Sans Typewriter', 'Monaco', monospace;
 }

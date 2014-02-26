@@ -17,6 +17,38 @@ function newElemFilled(elemname, classname, html) {
 //	});
 //}
 $(document).ready(function() {
+	/**
+	Subtracts margin-bottom, or adds padding-bottom to tables to compensate for horizontal borders.
+	ONLY USE THIS FUNCTION ON TABLES WITH HORIZONTAL BORDERS.
+	If number of h-borders (n_rows + 1) is 0–11, 24–35, etc., then subtract at most 11px from margin-bottom, thereby pulling subsequent elements upward.
+	If number of h-borders is 12-23, 36-47, etc., then add at most 12px to padding-bottom, thereby pushing subsequent elements downward.
+	**/
+	/*
+	Algorithm:
+	for each table:
+	take the number of rows (x)
+	add 12
+	mod 24
+	subtract 12
+	negate.
+	function notation: g(x) = -(f(x+12)-12) where f(x) = MOD(x,24)
+	function transformation: MOD(x,24) translated left 12 and down 12, then flipped vertically.
+	if g(x) <= 0, then margin-bottom that number
+	else, padding-bottom that number.
+	*/
+	$('table').each(function() {
+		var n_rows = 0;
+		$(this).find('tr').each(function() {
+			n_rows++;
+		});
+		n_rows++; // once more for the last border
+		var btm = -(((n_rows + 12) % 24) - 12);
+		if (btm <= 0) {$(this).css('margin-bottom',btm);}
+		else          {$(this).css('padding-bottom',btm);}
+	});
+	
+	
+	
 	/*
 	Adds classes to necessary elements.
 	These methods are NOT meant for extending classes! For extending CSS classes, either use includes (redundant properties) or extends (multiple selectors), or some other method of inheritance in the stylesheet.

@@ -503,18 +503,6 @@ dl.list-line {
 @color-table-bg-medium: #ddd;
 @color-table-bg-weak:   #ccc;
 
-.tablesection() {
-	.border(all; 1px; solid; @color-table-brdr);
-}
-.tablesection-horiz() {
-	.tablesection();
-	border-left: 0;
-	border-right: 0;
-}
-.tablesection-vert() {
-	.tablesection();
-	.border(topbot; 0; solid);
-}
 table {
 	border-collapse: collapse;
 	margin-left: auto;
@@ -522,18 +510,25 @@ table {
 	text-align: center;
 	a {border: 0;}
 }
-caption {&:extend(.caption);}
+caption {
+	&:extend(.caption);
+//	.border(bottom; 1px; dashed); // use this only if there are no borders on table or cells
+}
+.rowgroup {
+	border: 1px solid @color-table-brdr;
+	border-left: 0;
+	border-right: 0;
+}
 thead, tfoot {font-weight: bold;}
 tbody {
+	vertical-align: top;
 //	.code, code {background-color: transparent;} // fix later when fixing code, boxes, etc.
 }
-tr {}
 th, td {
-	.border(all; 1px; solid; #808080);
 	padding: 0 4px;
 	.padding-lh(top; 0.5);
 	.padding-lh(bottom; 0.5);
-	vertical-align: top;
+	border: 1px solid #888;
 }
 th {
 	font-weight: bold;
@@ -541,17 +536,19 @@ th {
 }
 .table-list,
 .table-bars {
-	th, td {.border(all; 0; solid);}
 	thead,
-	tfoot {.tablesection-horiz();}
+	tfoot {&:extend(.rowgroup);}
+	th, td {border: 1px solid;}
 	th {background-color: @color-table-bg-strong;}
 }
 .table-list {
-	tbody {
-		.tablesection-horiz();
+	thead,
+	tbody,
+	tfoot {
 		tr:nth-child(odd)  {background-color: @color-table-bg-medium;}
 		tr:nth-child(even) {background-color: @color-table-bg-weak;}
 	}
+	tbody {&:extend(.rowgroup);}
 	&.left {text-align: left;}
 }
 .table-bars {
@@ -562,8 +559,8 @@ th {
 		th:first-child     {background-color: lighten(@color-table-bg-strong, @headlt);}
 	}
 	tbody {
-		tr td:nth-child(odd)  {background-color: @color-table-bg-weak;}
-		tr td:nth-child(even) {background-color: @color-table-bg-medium;}
+		td:nth-child(odd)  {background-color: @color-table-bg-weak;}
+		td:nth-child(even) {background-color: @color-table-bg-medium;}
 	}
 }
 //.table-grid {
