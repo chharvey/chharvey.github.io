@@ -126,7 +126,11 @@ dl.dltable60 {
 .unit-P4,
 .unit-U-P3,
 .unit-U-P4,
-.list-line > li {
+.list-line > li,
+dl.dltable40 dt,
+dl.dltable40 dd,
+dl.dltable60 dt,
+dl.dltable60 dd {
   display: table-cell;
   vertical-align: top;
   overflow: visible;
@@ -285,6 +289,7 @@ span.cyan {
   padding: 0 1px;
   border: 1px solid;
   border-radius: 3px;
+  white-space: nowrap;
 }
 .box-inline-block,
 .box-block,
@@ -333,6 +338,17 @@ table {
   margin: 0;
   margin-top: 24px;
 }
+.sideborder > :first-child,
+li > :first-child,
+dt > :first-child,
+dd > :first-child,
+td > :first-child,
+.informative > :first-child,
+figure > :first-child,
+blockquote > :first-child,
+.postal > :first-child {
+  margin-top: 0;
+}
 i,
 b {
   font-style: inherit;
@@ -348,7 +364,7 @@ body,
   text-align: left;
   line-height: 1.5;
   vertical-align: baseline;
-  color: #333366;
+  color: #111111;
   background-color: #ffffff;
 }
 .hub-body {
@@ -513,7 +529,7 @@ h6 + dl,
   line-height: 1.2;
 }
 .h-gamma .hsub {
-  color: #5555aa;
+  color: #444444;
 }
 .h-delta {
   margin-top: 24px;
@@ -523,7 +539,7 @@ h6 + dl,
   line-height: 1.5;
 }
 .h-delta .hsub {
-  color: #5555aa;
+  color: #444444;
 }
 .h-epsilon {
   font-style: italic;
@@ -543,7 +559,7 @@ h6 + dl,
   line-height: 2;
 }
 .h-zeta .hsub {
-  color: #5555aa;
+  color: #444444;
 }
 .title,
 .title * {
@@ -551,17 +567,6 @@ h6 + dl,
 }
 /* @end */
 /* @group paragraphs */
-.sideborder > p:first-child,
-li > p:first-child,
-dt > p:first-child,
-dd > p:first-child,
-td > p:first-child,
-.informal > p:first-child,
-figure > p:first-child,
-blockquote > p:first-child,
-.postal > p:first-child {
-  margin-top: 0;
-}
 .prose {
   font-family: 'Baskerville', 'Palatino', 'Book Antiqua', serif;
   text-align: justify;
@@ -589,20 +594,21 @@ caption {
   line-height: 2;
 }
 .sideborder,
-.informal,
+.informative,
 figure,
 blockquote,
 .postal {
+  display: block;
   margin-top: 14.832815729997478px !important;
   padding-top: 9.167184270002526px !important;
 }
-.informal {
+.informative {
   padding-left: 5px;
   border-left: 3px solid #ff0000;
   margin-left: 13px;
   margin-right: 0;
-  font-family: 'Optima', 'Candara', 'Lucida Sans', sans-serif;
-  background-color: #eeeeff;
+  font-style: italic;
+  color: #000066;
 }
 figure {
   padding-left: 8px;
@@ -613,7 +619,7 @@ figure {
 figure.bad,
 figure.bad * {
   color: #ffffff;
-  background-color: #333366;
+  background-color: #111111;
 }
 figcaption {
   margin-bottom: -1px;
@@ -765,7 +771,7 @@ dl.dltable60 dd,
 }
 .list-action a:not([href]),
 .breadcrumbs a:not([href]) {
-  color: #333366;
+  color: #111111;
 }
 .breadcrumbs {
   font-family: 'Avenir', 'Calibri', 'Century Gothic', sans-serif;
@@ -1001,7 +1007,7 @@ abbr[title]::after {
   position: relative;
   left: 5px;
   top: 5px;
-  color: #000033;
+  color: #000066;
   background-color: #eeeeff;
   text-decoration: none;
 }
@@ -1010,30 +1016,26 @@ ins[datetime]:hover::after,
 abbr[title]:hover::after {
   display: inline;
 }
-.del,
 del {
   padding-right: 0.5em;
   text-decoration: line-through;
-  color: #330000;
+  color: #660000;
   background-color: #ffcccc;
 }
-.del[datetime]::after,
 del[datetime]::after {
   content: 'deleted on ' attr(datetime);
 }
-.ins,
 ins {
   padding-left: 0.5em;
   text-decoration: underline;
-  color: #003300;
+  color: #006600;
   background-color: #ccffcc;
 }
-.ins[datetime]::after,
 ins[datetime]::after {
   content: 'inserted on ' attr(datetime);
 }
 abbr {
-  color: #000033;
+  color: #000066;
   background-color: #ccccff;
 }
 abbr[title]::after {
@@ -1043,7 +1045,7 @@ dfn {
   font-weight: bold;
   font-style: inherit;
   font-family: 'Baskerville', 'Palatino', 'Book Antiqua', serif;
-  color: #000033;
+  color: #000066;
   background-color: #ccccff;
 }
 /* @end */
@@ -1102,6 +1104,8 @@ samp {
 }
 code {
   border-color: #000000;
+  font-style: normal;
+  font-weight: normal;
   font-size: 12px;
   font-family: 'Menlo', 'Lucida Sans Typewriter', 'Monaco', monospace;
   color: #000000;
@@ -1145,6 +1149,8 @@ kbd {
 kbd > kbd {
   padding: 2px;
   font-family: 'Optima', 'Candara', 'Lucida Sans', sans-serif;
+  color: #ffffff;
+  background-color: #111111;
 }
 .latex {
   font-family: 'Times', 'Times New Roman', serif;
@@ -1175,9 +1181,10 @@ span.help,
 span.cyan {
   padding: 1px;
   border: 0;
+  font-style: normal;
+  font-weight: normal;
   font-size: 12px;
   font-family: 'Avenir', 'Calibri', 'Century Gothic', sans-serif;
-  cursor: help;
 }
 .label::before,
 span.warning::before,
@@ -1192,57 +1199,57 @@ span.cyan::before {
   font-family: 'Menlo', 'Lucida Sans Typewriter', 'Monaco', monospace;
 }
 span.warning {
-  color: #330000;
+  color: #660000;
   background-color: #ffeeee;
 }
 span.warning::before {
   content: '!';
-  color: #330000;
+  color: #660000;
   background-color: #ffcccc;
 }
 span.caution {
-  color: #333300;
+  color: #666600;
   background-color: #ffffee;
 }
 span.caution::before {
   content: '\2026';
-  color: #333300;
+  color: #666600;
   background-color: #ffffcc;
 }
 span.success {
-  color: #003300;
+  color: #006600;
   background-color: #eeffee;
 }
 span.success::before {
   content: '\263A';
-  color: #003300;
+  color: #006600;
   background-color: #ccffcc;
 }
 span.info {
-  color: #000033;
+  color: #000066;
   background-color: #eeeeff;
 }
 span.info::before {
   content: '?';
-  color: #000033;
+  color: #000066;
   background-color: #ccccff;
 }
 span.help {
-  color: #330033;
+  color: #660066;
   background-color: #ffeeff;
 }
 span.help::before {
   content: '\2665';
-  color: #330033;
+  color: #660066;
   background-color: #ffccff;
 }
 span.cyan {
-  color: #003333;
+  color: #006666;
   background-color: #eeffff;
 }
 span.cyan::before {
   content: 'c';
-  color: #003333;
+  color: #006666;
   background-color: #ccffff;
 }
 /* @end */

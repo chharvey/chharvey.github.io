@@ -26,6 +26,14 @@ body.assessment .main > header {
   width: 100%;
 }
 .list-line > li,
+dl.dltable40 dt,
+dl.dltable40 dd,
+dl.dltable60 dt,
+dl.dltable60 dd,
+dl.syll-categories dt,
+dl.syll-testgrades dt,
+dl.syll-categories dd,
+dl.syll-testgrades dd,
 body.assessment .quizheading,
 body.assessment .studentheading,
 .column-left,
@@ -69,6 +77,7 @@ span.cyan {
   padding: 0 1px;
   border: 1px solid;
   border-radius: 3px;
+  white-space: nowrap;
 }
 .box-block,
 .label,
@@ -106,10 +115,10 @@ blockquote.prose cite.source::after,
 .ov-optional::after {
   content: ')';
 }
-.informal > p:first-child,
-figure > p:first-child,
-blockquote > p:first-child,
-.postal > p:first-child {
+.informative > :first-child,
+figure > :first-child,
+blockquote > :first-child,
+.postal > :first-child {
   margin-top: 0;
 }
 .standard-id,
@@ -125,10 +134,11 @@ caption {
   text-align: right;
   line-height: 2;
 }
-.informal,
+.informative,
 figure,
 blockquote,
 .postal {
+  display: block;
   margin-top: 14.832815729997478px !important;
   padding-top: 9.167184270002526px !important;
 }
@@ -206,7 +216,7 @@ dl.syll-testgrades dd,
 }
 .breadcrumbs a:not([href]),
 .course-testlist a:not([href]) {
-  color: #333366;
+  color: #111111;
 }
 .table-list thead,
 .table-bars thead,
@@ -241,17 +251,41 @@ table.pacing-guide.left,
 table.pacing-guide {
   text-align: left;
 }
+.ov-deletional[datetime],
+.ov-insertional[datetime] {
+  cursor: help;
+}
+.ov-deletional[datetime]::after,
+.ov-insertional[datetime]::after {
+  display: none;
+  position: relative;
+  left: 5px;
+  top: 5px;
+  color: #000066;
+  background-color: #eeeeff;
+  text-decoration: none;
+}
+.ov-deletional[datetime]:hover::after,
+.ov-insertional[datetime]:hover::after {
+  display: inline;
+}
 .ov-deletional {
   padding-right: 0.5em;
   text-decoration: line-through;
   color: #660000;
   background-color: #ffcccc;
 }
+.ov-deletional[datetime]::after {
+  content: 'deleted on ' attr(datetime);
+}
 .ov-insertional {
   padding-left: 0.5em;
   text-decoration: underline;
   color: #006600;
   background-color: #ccffcc;
+}
+.ov-insertional[datetime]::after {
+  content: 'inserted on ' attr(datetime);
 }
 span.warning,
 span.caution,
@@ -261,9 +295,10 @@ span.help,
 span.cyan {
   padding: 1px;
   border: 0;
+  font-style: normal;
+  font-weight: normal;
   font-size: 12px;
   font-family: 'Avenir', 'Calibri', 'Century Gothic', sans-serif;
-  cursor: help;
 }
 span.warning::before,
 span.caution::before,
@@ -277,6 +312,10 @@ span.cyan::before {
   font-family: 'Menlo', 'Lucida Sans Typewriter', 'Monaco', monospace;
 }
 @media print {
+  .ov-deletional,
+  .ov-insertional {
+    background-color: transparent;
+  }
   kbd > kbd {
     color: #000000;
     background-color: #fff;
@@ -426,7 +465,7 @@ p.wu-answer {
   color: #777777;
 }
 .ov-teachernote {
-  background-color: #ffccff;
+  background-color: #ffeeff;
 }
 /* @end */
 /* @group lesson plans */

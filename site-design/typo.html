@@ -9,7 +9,7 @@
 <meta charset="UTF-8"/>
 <link rel="stylesheet" href="sitedesign.css"/>
 <style>
-	body {background: url('../core/line24.png') repeat;}
+/*	body {background: url('../core/line24.png') repeat;}*/
 </style>
 <!--
 {% include all-js.html %}
@@ -43,14 +43,50 @@
 		<h1 class="h-beta">Group-Level Elements</h1>
 		<p class="prose">This section...</p>
 	</header>
+	<section id="scheme-section">
+		<h1 class="h-gamma">Sectioning</h1>
+		<p class="prose">An outline exists for every document. On the web, the <code class="lang-css">body</code> represents the document, and we refer to its outline as the <a class="sp" href="http://www.w3.org/html/wg/drafts/html/master/sections.html#outline">Document Outline</a>.</p>
+		<p clas="prose"><dfn><a class="sp" href="http://www.w3.org/html/wg/drafts/html/master/dom.html#sectioning-content-0">Sectioning content</a></dfn> is content that contributes to the Document Outline. Each sectioing element potentially has a heading and its own outline, which contributes to the outline of its ancestors. The following elements mark up sectioning content and introduce new levels in the Document Outline:</p>
+		<ul>
+			<li><code class="lang-css">section</code></li>
+			<li><code class="lang-css">article</code> (a special case of <code class="lang-css">section</code>)</li>
+			<li><code class="lang-css">aside</code></li>
+			<li><code class="lang-css">nav</code></li>
+		</ul>
+		<p class="prose">A <dfn><a class="sp" href="http://www.w3.org/html/wg/drafts/html/master/sections.html#sectioning-root">sectioning root</a></dfn> is like sectioning content in that it may have its own heading and outline, however, the outline of a sectioning root does not affect the Document Outline (unless of course, the sectioning root in question is the <code class="lang-cs">body</code> element, in which case its outline <em>is</em> the Document Outline). This means sectioning roots may include sectioning content but their outlines are isolated and do not add levels to the outlines of their ancestors. The following elements are sectioning roots:</p>
+		<ul>
+			<li><code class="lang-css">body</code></li>
+			<li><code class="lang-css"><a href="#scheme-figure-blockquote">figure</a></code></li>
+			<li><code class="lang-css"><a href="#scheme-figure-blockquote">blockquote</a></code></li>
+			<li><code class="lang-css"><a href="#scheme-table">td</a></code></li>
+			<li><code class="lang-css">fieldset</code></li>
+			<li><code class="lang-css">details</code></li>
+			<li><code class="lang-css">dialog</code></li>
+		</ul>
+		<p class="informative"><span class="warning">Warning <time>2014-02-26</time>:</span> <code class="lang-css"><a href="#scheme-list">li</a></code> seems like it should be a sectioning root but it is not! Do not contain sectioning content inside an <code class="lang-css">li</code> unless you want to change the document outline!</p>
+		<section>
+			<h1 class="h-delta">Elements of Sections</h1>
+			<p class="prose">Group all page-specific content into exactly one <code class="lang-css">main</code> element. There should only be one <code class="lang-css">main</code> element per document, and it should only contain the content specific to that document. It should not include any site-wide navigational aids, headers, footers, <i lang="la"><abbr title="et cetera">etc.</abbr></i> <code class="lang-css">main</code> is not sectioning content, so it does not add a level to the Document Outline.</p>
+			<p class="informative"><span class="warning">Warning <time>2014-02-26</time>:</span> Not all browsers implement <code class="lang-css">main</code> yet. For the time being, use <code class="lang-css">div.main</code>.</p>
+			<p class="prose">A <code class="lang-css">section</code> represents a thematic grouping of content that is added to the outline of the nearest ancestor sectioning root (which may be the Document Outline). If the nearest ancestor sectioning root is the <code class="lang-css">body</code>, then its level will be added to the Document Outline. If its nearest ancestor sectioning root is another sectioning root, then the level will be added to that sectioning root's outline without affecting the Document Outline.</p>
+			<p class="prose">Each section may have its own <a href="#scheme-heading">heading</a> and outline. In addition, a section may contain a header or a footer, which do not affect its outline.</p>
+			<p class="prose"><code class="lang-css">header</code>s for a section should contain a <a href="#scheme-heading">heading</a> and introductory content. Introductory content may include but is not limited to navigational aids within the section and metadata about the section <em>itself</em> such as authors, editors, and time written/published.</p>
+			<p class="prose"><code class="lang-css">footer</code>s for a section should contain metadata about the <em>content</em> in the section, such as copyright information, related links, and contact information (possibly in an <code class="lang-css"><a href="#scheme-address">address</a></code> element).</p>
+			<div class="informative">
+				<p><span class="caution">Caution: <time>2014-02-26</time></span> There is a grey area concerning the content that should belong in the <code class="lang-css">header</code> versus the <code class="lang-css">footer</code> elements. Semantically, the order in which these elements are written is irrelevant (it doesn't matter where they appear on the page), however the distinction between them is so small that it is best to consider the <code class="lang-css">header</code> as opening material and the <code class="lang-css">footer</code> as closing material for a section.</p>
+				<p>Another stance authors may want to take is to consider using only the <code class="lang-css">header</code> element&mdash;possibly more than once in a section: at the top and at the bottom, for example&mdash;and completely disregarding the <code class="lang-css">footer</code> element.</p>
+			</div>
+		</section>
+	</section>
 	<section id="scheme-heading">
 		<header>
 			<h1 class="h-gamma">Heading Scheme</h1>
-			<p class="prose">Headings describe sections of a document. They're like mini-titles. Use the <code class="lang-css">h1</code>&ndash;<code class="lang-css">h6</code> elements, or use the <code>.h-alpha</code>, <code>.h-beta</code>, <code>.h-gamma</code>, <code>.h-delta</code>, <code>.h-epsilon</code>, and <code>.h-zeta</code> classes to style non-heading elements. It is recommended, however, to consistently use <code class="lang-css">h1</code>s, and then apply respective classes above based on heading level.</p>
-		<p class="prose">Some headings may require a subheading. To use one, add a <code class="lang-css">.hsub</code> <em>inside</em> the heading element, as shown below.<ins datetime="2014-02-23T16:41"> <small>The correct element used for subheadings has been controversial&mdash;some developors support the use of <code class="lang-css">small</code>, while others believe this element is best used only for side comments, small print, legal information, <i lang="la"><abbr title="et cetera">etc</abbr></i>. For now, stick with a <code class="lang-css">span</code> and stay tuned for updates.</small></ins></p>
+			<p class="prose">Headings describe sections of a document. They're like mini-titles for levels in the Document Outline. Use the <code class="lang-css">h1</code>&ndash;<code class="lang-css">h6</code> elements, or use the <code>.h-alpha</code>, <code>.h-beta</code>, <code>.h-gamma</code>, <code>.h-delta</code>, <code>.h-epsilon</code>, and <code>.h-zeta</code> classes to style non-heading elements. It is recommended, however, to consistently use <code class="lang-css">h1</code>s, and then apply respective classes above based on heading level.</p>
+			<p class="prose">Some headings may require a subheading. To use one, add a <code class="lang-css">span.hsub</code> <em>inside</em> the heading element, as shown below.</p>
+			<p class="informative"><span class="caution">Caution <time>2014-02-23</time>:</span> The correct element used for subheadings has been controversial&mdash;some developors support the use of <code class="lang-css">small</code>, while others believe this element is best used only for side comments, small print, legal information, <i lang="la"><abbr title="et cetera">etc</abbr></i>. For now, stick with a <code class="lang-css">span</code> and stay tuned for updates.</p>
 		</header>
 		<h1 class="h-alpha">Heading 1 <span class="hsub">Level Alpha</span></h1>
-		<p class="prose"><a href="">Lorem ipsum dolor sit amet</a>, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+		<p class="prose">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 		<h1 class="h-beta">Heading 2 <span class="hsub">Level Beta</span></h1>
 		<p class="prose">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 		<h1 class="h-gamma">Heading 3 <span class="hsub">Level Gamma</span></h1>
@@ -73,31 +109,35 @@
 		<p class="prose" style="font-style: italic;">Some prose paragraphs may be presented in italics. This paragraph merely serves as a visual example. The quick brown fox jumps over the lazy dog.</p>
 		<p class="prose" style="font-weight: bold;">Some prose paragraphs may be presented in bold. This paragraph merely serves as a visual example. The quick brown fox jumps over the lazy dog.</p>
 		<p class="prose" style="font-style: italic; font-weight: bold">This is a prose paragraph in italics and bold. The quick brown fox jumps over the lazy dog.</p>
-		<section id="scheme-informal">
-			<h1 class="h-delta">Informal Blocks</h1>
-			<p class="informal">Informal blocks are meant for text that is not included in the official or normative document. They are still part of the normal flow of the document, so they would not makes sense out of context as a <code class="lang-css">figure</code> or <code class="lang-css">aside</code> would, however they are rendered differently from formal text to indicate that they are not official. Use the <code class="lang-css">.informal</code> class on a single <code class="lang-css">p</code>, or on a container as shown below.</p>
-			<div class="informal">
+		<section id="scheme-informative">
+			<h1 class="h-delta">Informative Text</h1>
+			<p class="informative">Informative (non-normative) text is not included in the official or normative document. They are still part of the normal flow of the document, so they would not makes sense out of context as a <code class="lang-css">figure</code> or <code class="lang-css">aside</code> would, however they are rendered differently from formal text to indicate that they are not official.</p>
+			<p class="informative">Wrap all informative text with a <code class="lang-css">p.informative</code> as done here, or on a container such as <code class="lang-css">div.informative > p</code> as shown below.</p>
+			<div class="informative">
 				<p>Sometimes, informal text may span across multiple <code class="lang-css">p</code> elements or other elements such as <code class="lang-css">img</code>s.</p>
-				<p>In this case, you should <em>not</em> apply the <code class="lang-css">.informal</code> class to each element inside. Rather, if multiple informal elements are grouped together, apply the <code class="lang-css">.informal</code> class to the entire <code class="lang-css">div</code> or other containing element.</p>
-				<p>Since the <code class="lang-css">.prose</code> class is reserved for more important, formal text, do <em>not</em> apply this class to an <code class="lang-css">.informal</code> paragraph or container.</p>
+				<p>In this case, you should <em>not</em> apply the <code class="lang-css">.informative</code> class to each element inside. Rather, if multiple informative elements are grouped together, apply the <code class="lang-css">.informative</code> class to the entire <code class="lang-css">div</code> or other containing element.</p>
+				<p>Since the <code class="lang-css">.prose</code> class is reserved for more formal text, informative text should <em>not</em> be written in prose.</p>
 			</div>
 		</section>
 		<section id="scheme-figure-blockquote">
-			<h1 class="h-delta">Figures and Block Quotes</h1>
-			<p class="prose"><code class="lang-css">figure</code>s and <code class="lang-css">blockquote</code>s are <dfn><a class="sp" href="http://www.w3.org/html/wg/drafts/html/master/sections.html#sectioning-root">sectioning roots</a></dfn>, that is, their <a class="sp" href="http://www.w3.org/html/wg/drafts/html/master/sections.html#outline">document outlines</a> are contained and do not affect the outlines of their ancestors. This means they may include headings, sections, and other <a class="sp" href="http://www.w3.org/html/wg/drafts/html/master/dom.html#sectioning-content">sectioning content</a>, creating an internal outline for the element, without changing the outline of the rest of the document.</p>
-			<figure><code class="lang-css">figure</code> elements contain excerpts of text, examples, or images that are used to illustrate a concept. Usually, figures that contain only text (rather than text wrapped in a <code class="lang-css">p</code> element) will suffice for textual examples.
-				<figcaption><span class="lede">Figure 12.</span> The <code class="lang-css">figcaption</code> element describes the content of the figure. Optionally include a <code class="lang-css">span.lede</code> containing the figure's title. The figure caption should be shorter and more concise than the figure text. Captions should not contain any paragraph elements, and they should not be styled in prose.</figcaption>
+			<header>
+				<h1 class="h-delta">Figures and Block Quotes</h1>
+				<p class="prose"><code class="lang-css">figure</code>s and <code class="lang-css">blockquote</code>s are sectioning roots.</p>
+			</header>
+			<figure><code class="lang-css">figure</code> elements contain excerpts of text, examples, or images that are used to illustrate a concept. Content in a <code class="lang-css">figure</code> element&mdash;including its <code class="lang-css">figcaption</code>&mdash;is permissible to be extracted from the document and presented on its own. If the content would not make sense out of its surrounding context, do not use this element.
+				<figcaption><span class="lede">Figure 12.</span> The <code class="lang-css">figcaption</code> element describes the content of the figure. Optionally include a <code class="lang-css">span.lede</code> containing the figure's title. The figure caption should be shorter and more concise than the figure text. Captions should not contain any <code class="lang-css">p</code>s, and they should not be styled in prose.</figcaption>
 			</figure>
 			<figure>
-				<p>Though rare, figures may contain paragraph elements if necessary.</p>
+				<p>Usually, <code class="lang-css">figure</code>s do not need child <code class="lang-css">p</code> elements; text-only child nodes will suffice for textual examples.</p>
+				<p>Though rare, figures may contain child <code class="lang-css">p</code> elements if necessary.</p>
 				<p>Multiple paragraphs are usually not the case because figures are typically too short for this. Figure elements should <em>not</em> be written in prose, either.</p>
 				<p>Figure captions are not always necessary.</p>
 			</figure>
-			<blockquote><code class="lang-css">blockquote</code> elements contain material taken directly from another source. They are usually very short and styled larger than the default font. <cite class="source">Source</cite></blockquote>
+			<blockquote><code class="lang-css">blockquote</code> elements contain material taken directly from another source. They are usually very short. They are a <i class="scare">special case</i> of <code class="lang-css">figure</code>s. <cite class="source">Source</cite></blockquote>
 			<blockquote>It's courteous&mdash;and probably required&mdash;to reference the source of the quoted text. Add a <code class="lang-css">cite.source</code> at the end of the block quote. (Yes, you should use the <code class="lang-css">cite</code> element.) <cite class="source">Source</cite></blockquote>
 			<blockquote class="prose">
 				<p>Block quotes that are longer than about 40 words should contain at least one <code class="lang-css">p</code>. Conversely, short block quotes should <em>not</em> contain paragraphs; the textual content should be contained directly inside, as shown above. Since longer passages of text are more easily read in a serif font, apply the <code class="lang-css">.prose</code> class <strong>to the entire block quote</strong> instead of to each element inside.</p>
-				<p>In a long block quote, the citation should be in a <code class="lang-css">footer &gt; cite.source</code>, with the year included as well. <small>If you're really picky, you can wrap the year with a <code class="lang-html">&lt;time&gt;</code> tag.</small></p>
+				<p>In a long block quote, the citation should be in a <code class="lang-css">footer &gt; cite.source</code>, with the year included as well. If you're really picky, you can wrap the year with a <code class="lang-html">&lt;time&gt;</code> tag.</p>
 				<footer><cite class="source">Source, <time>2000</time></cite></footer>
 			</blockquote>
 		</section>
@@ -162,7 +202,7 @@
 			</ol>
 			<ol class="list-basic typo-list">
 				<li>This is a <code class="lang-css">.list-basic</code>.</li>
-				<li>This class can be applied to any <code class="lang-css">ol</code> or <code class="lang-css">ul</code>, and both elements appear the same, though of course they differ semantically. <small>This class can also be applied to <a href="#description-lists">description lists</a>.</small></li>
+				<li>This class can be applied to any <code class="lang-css">ol</code> or <code class="lang-css">ul</code>, and both elements appear the same, though of course they differ semantically. This class can also be applied to <a href="#description-lists">description lists</a>.</li>
 				<li>Basic lists remove the padding and list-style-type from the list,</li>
 				<li>while maintaining the list-item display of each list item.</li>
 			</ol>
@@ -542,7 +582,7 @@ Lastly, the `samp` element represents sample output from a computer. These eleme
 		<p><span class="warning">This is a warning label.</span> Use it to indicate a consequence such as an action that cannot be undone.</p>
 		<p><span class="caution">This is a caution label.</span> Use it to indicate that the user must proceed with care.</p>
 		<p><span class="success">This is a success label.</span> Use it to indcate that something was done right.</p>
-		<p><span class="info">This is a info label.</span> Use it to indicate extra or informal information about an element.</p>
+		<p><span class="info">This is a info label.</span> Use it to indicate extra information about an element.</p>
 		<p><span class="help">This is a help label.</span> Use it to indicate tips and hints for the user.</p>
 		<p class="draft"><span class="cyan">This is a cyan label.</span> Use it to indicate ???</p>
 	</section>

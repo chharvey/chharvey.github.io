@@ -16,7 +16,7 @@
 @line-height-big:   1.2; // ((@font-size-base * @line-height-base)/(@font-size-big));
 @line-height-small: 2.0; // ((@font-size-base * @line-height-base)/(@font-size-small));
 
-@color-base-txt: #336;
+@color-base-txt: #111;
 @color-base-bg:  #fff;
 @color-accent: #f00;
 
@@ -93,6 +93,7 @@
 	padding: 0 1px;
 	border: 1px solid;
 	border-radius: @box-radius-small;
+	white-space: nowrap;
 }
 .box-inline-block {
 	//* inline content, with block structure, boxed
@@ -126,6 +127,14 @@ table {
 	margin: 0;
 	.margin-lh(top; 1);
 }
+.sideborder,
+li,
+dt, dd,
+td {
+	//* no margin for first-child of container
+	> :first-child {margin-top: 0;}
+}
+
 i,
 b {
 	//* non-semantic elements reset
@@ -297,12 +306,6 @@ h1, h2, h3, h4, h5, h6,
 /* @end */
 
 /* @group paragraphs */
-.sideborder,
-li,
-dt, dd,
-td {
-	> p:first-child {margin-top: 0;}
-}
 .prose {
 	font-family: @font-fam-prose;
 	text-align: justify;
@@ -328,6 +331,7 @@ span.lede {
 	line-height: @line-height-small;
 }
 .sideborder {
+	display: block;
 	.margin-lh(top; @Phi1) !important;
 	.padding-lh(top; @Phi2) !important;
 }
@@ -345,12 +349,11 @@ span.lede {
 	margin-right: @marg-width;
 	margin-left: 0;
 }
-.informal {
-	//* a container containing paragraphs, etc. that are not officially part of an official document, but are still a major part of the normal flow of the document. Used when 'aside' and 'figure' elements are not suitable.
+.informative {
+	//* a paragraph or container containing paragraphs, etc. that are not a normative part of a document, but are still a major part of the normal flow of the document. Used when 'aside' and 'figure' elements are not suitable.
 	.sideborder-left(5px; 3px; 13px; solid; @color-accent);
-	font-family: @font-fam-base;
-	background-color: @color-info-bg;
-//	& * {background-color: transparent;}
+	font-style: italic;
+	color: @color-info-txt;
 }
 figure {
 	//* example figures (text, images, etc.)
@@ -480,7 +483,10 @@ dl.list-line {
 	//* a dl list that acts like a table, with each row containing a single name-value group
 	&:extend(.list-basic all);
 	&:extend(.line);
-	dt, dd {float: left;}
+	dt, dd {
+		&:extend(.unit);
+		float: left;
+	}
 	dt {
 		clear: both;
 		width: @dtwidth;
@@ -666,9 +672,7 @@ abbr[title] {
 	}
 	&:hover::after {display: inline;}
 }
-.del, del {
-	//* `del`: text that has been actually deleted from a document
-	//* `.del`: text that needs to look like it's been deleted
+del {
 	padding-right: 0.5em;
 	text-decoration: line-through;
 //	color: @color-sp-dn-txt;
@@ -676,9 +680,7 @@ abbr[title] {
 	background-color: @color-warning-icon-bg;
 	&[datetime]::after {content: 'deleted on ' attr(datetime);}
 }
-.ins, ins {
-	//* `ins`: text that has been actually inserted into a document
-	//* `.ins`: text that needs to look like it's been inserted
+ins {
 	padding-left: 0.5em;
 	text-decoration: underline;
 //	color: @color-sp-up-txt;
@@ -804,6 +806,8 @@ code {
 	//* example of a fragment or string of code a computer would recognize
 	&:extend(.box-inline);
 	border-color: @color-code-brdr;
+	font-style: normal;
+	font-weight: normal;
 	font-size: @font-size-small;
 	font-family: @font-fam-code;
 	color: @color-code-txt;
@@ -843,6 +847,8 @@ kbd {
 		&:extend(.code);
 		padding: 2px;
 		font-family: @font-fam-base;
+		color: @color-base-bg;
+		background-color: @color-base-txt;
 	}
 }
 .latex {
@@ -864,12 +870,12 @@ var {font-style: italic;}
 /* @end */
 
 /* @group labels */
-@color-warning-txt: #300;
-@color-caution-txt: #330;
-@color-success-txt: #030;
-@color-info-txt:    #003;
-@color-help-txt:    #303;
-@color-cyan-txt:    #033;
+@color-warning-txt: #600;
+@color-caution-txt: #660;
+@color-success-txt: #060;
+@color-info-txt:    #006;
+@color-help-txt:    #606;
+@color-cyan-txt:    #066;
 
 @color-warning-bg: #fee;
 @color-caution-bg: #ffe;
@@ -890,9 +896,11 @@ var {font-style: italic;}
 	&:extend(.box-inline-block);
 	padding: 1px;
 	border: 0;
+	font-style: normal;
+	font-weight: normal;
 	font-size: @font-size-small;
 	font-family: @font-fam-accent;
-	cursor: help;
+//	cursor: help;
 	&::before {
 		&:extend(.box-inline);
 		padding: 1px;
