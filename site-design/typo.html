@@ -34,9 +34,9 @@
 <!--	<p class="timestamp">Updated <time datetime="2014-02-02T23:03">Feb 2, 2014</time>.</p>-->
 	<p class="prose">This document...</p>
 </header>
-<section id="block-level">
+<section id="group-level">
 	<header>
-		<h1 class="h-beta">Block-Level Elements</h1>
+		<h1 class="h-beta">Group-Level Elements</h1>
 		<p class="prose">This section...</p>
 	</header>
 	<section id="scheme-heading">
@@ -78,9 +78,10 @@
 				<p>Since the <code class="lang-css">.prose</code> class is reserved for more important, formal text, do <em>not</em> apply this class to an <code class="lang-css">.informal</code> paragraph or container.</p>
 			</div>
 		</section>
-		<section id="scheme-figure">
-			<h1 class="h-delta">Figures and Examples</h1>
-			<figure><code class="lang-css">figure</code> elements contain excerpts of text, examples, or images that illustrate an abstract concept. Usually, figures that contain only text (rather than text wrapped in a <code class="lang-css">p</code> element) will suffice for textual examples.
+		<section id="scheme-figure-blockquote">
+			<h1 class="h-delta">Figures and Block Quotes</h1>
+			<p class="prose"><code class="lang-css">figure</code>s and <code class="lang-css">blockquote</code>s are <dfn><a class="sp" href="http://www.w3.org/html/wg/drafts/html/master/sections.html#sectioning-root">sectioning roots</a></dfn>, that is, their <a class="sp" href="http://www.w3.org/html/wg/drafts/html/master/sections.html#outline">document outlines</a> are contained and do not affect the outlines of their ancestors. This means they may include headings, sections, and other <a class="sp" href="http://www.w3.org/html/wg/drafts/html/master/dom.html#sectioning-content">sectioning content</a>, creating an internal outline for the element, without changing the outline of the rest of the document.</p>
+			<figure><code class="lang-css">figure</code> elements contain excerpts of text, examples, or images that are used to illustrate a concept. Usually, figures that contain only text (rather than text wrapped in a <code class="lang-css">p</code> element) will suffice for textual examples.
 				<figcaption><span class="lede">Figure 12.</span> The <code class="lang-css">figcaption</code> element describes the content of the figure. Optionally include a <code class="lang-css">span.lede</code> containing the figure's title. The figure caption should be shorter and more concise than the figure text. Captions should not contain any paragraph elements, and they should not be styled in prose.</figcaption>
 			</figure>
 			<figure>
@@ -88,15 +89,12 @@
 				<p>Multiple paragraphs are usually not the case because figures are typically too short for this. Figure elements should <em>not</em> be written in prose, either.</p>
 				<p>Figure captions are not always necessary.</p>
 			</figure>
-		</section>
-		<section id="scheme-blockquote">
-			<h1 class="h-delta">Block Quotes</h1>
 			<blockquote><code class="lang-css">blockquote</code> elements contain material taken directly from another source. They are usually very short and styled larger than the default font. <cite class="source">Source</cite></blockquote>
 			<blockquote>It's courteous&mdash;and probably required&mdash;to reference the source of the quoted text. Add a <code class="lang-css">cite.source</code> at the end of the block quote. (Yes, you should use the <code class="lang-css">cite</code> element.) <cite class="source">Source</cite></blockquote>
 			<blockquote class="prose">
 				<p>Block quotes that are longer than about 40 words should contain at least one <code class="lang-css">p</code>. Conversely, short block quotes should <em>not</em> contain paragraphs; the textual content should be contained directly inside, as shown above. Since longer passages of text are more easily read in a serif font, apply the <code class="lang-css">.prose</code> class <strong>to the entire block quote</strong> instead of to each element inside.</p>
-				<p>In a long block quote, the citation should be in a <code class="lang-css">p &gt; cite.source</code>, with the year included as well. <small>If you're really picky, you can wrap the year with a <code class="lang-html">&lt;time&gt;</code> tag.</small></p>
-				<p><cite class="source">Source, <time>2000</time></cite></p>
+				<p>In a long block quote, the citation should be in a <code class="lang-css">footer &gt; cite.source</code>, with the year included as well. <small>If you're really picky, you can wrap the year with a <code class="lang-html">&lt;time&gt;</code> tag.</small></p>
+				<footer><cite class="source">Source, <time>2000</time></cite></footer>
 			</blockquote>
 		</section>
 		<section id="scheme-address">
@@ -200,11 +198,11 @@
 					<p>An <code class="lang-css">ol.prose</code> has <code class="lang-css">list-style-type: decimal;</code> by default, but some prose lists may have other <code class="lang-css">list-style-type</code>s, such as <code class="lang-css">lower-alpha</code>.</p>
 				</li>
 				<li>
-					<p><span class="lede">Typically, each list item in a prose list will have a lede sentence.</span> The first sentence of each list item can be thought of as a lede or <i class="scare">heading</i>, although it does not take part in the <abbr title="Document Object Model">DOM</abbr> tree. Add a <code class="lang-css">span.lede</code> to the beginning of the first paragraph in the list item.</p>
+					<p><span class="lede">Typically, each list item in a prose list will have a lede sentence.</span> The first sentence of each list item can be thought of as a lede or <i class="scare">heading</i>, although it does not take part in the <a class="sp" href="http://www.w3.org/html/wg/drafts/html/master/sections.html#outline">document outline</a>. Add a <code class="lang-css">span.lede</code> to the beginning of the first paragraph in the list item.</p>
 				</li>
 				<li>
 					<p class="lede">Sometimes, a prose list item may have a lede that acts like a heading&hellip;</p>
-					<p>In this case, make it a separate paragraph (<code class="lang-css">p.lede</code>), and it really should be as short as an <code class="lang-css">h1</code> would be, not an entire paragraph. Again, this lede does not affect the <abbr title="Document Object Model">DOM</abbr> tree. Though actual <code class="lang-css">h1</code>s are permissible in list items, <a class="sp" href="http://www.w3.org/html/wg/drafts/html/master/grouping-content.html#the-li-element">they usually make the DOM tree look icky</a>.</p>
+					<p>In this case, make it a separate paragraph (<code class="lang-css">p.lede</code>), and it really should be as short as an <code class="lang-css">h1</code> would be, not an entire paragraph. Again, this lede does not affect the <a class="sp" href="http://www.w3.org/html/wg/drafts/html/master/sections.html#outline">document outline</a>. Though actual <code class="lang-css">h1</code>s are <a class="sp" href="http://www.w3.org/html/wg/drafts/html/master/grouping-content.html#the-li-element">technically permissible</a> inside <code class="lang-css">li</code>s, they usually make the outline look icky.</p>
 				</li>
 			</ol>			
 		</section>
@@ -257,11 +255,22 @@
 			<p class="prose draft">The table was originally intended to mark up tabular data. That's obvious right? Well, the fact that tables provide a natural grid system was too tempting for early designers to ignore. They used tables to organize content and display it in a non-linear manner, which was a great way to override the normal flow of a page. Early tables would serve as an excellent tool to form the layout of a page.</p>
 			<p class="prose draft">With the recent development of CSS and styles, the use of tables to form layout became considered outdated and, in some cases, amateur. It is recommended to use <code class="lang-css">div</code>s and styles for layout strategies. I urge designers to remember the original purpose of tables, which is to display hard data in a row-and-column format.</p>
 		</header>
+		<table>
+			<caption><span class="lede">Table 12.</span> A table's <code class="lang-css">caption</code> describes the contents of the table in more detail. It may also include the title of the table in a <code class="lang-css">span.lede</code>. Captions should not contain any <code class="lang-css">p</code>s, and they should not be styled in prose.</caption>
+			<thead>
+				<tr><th>Header Row 1 Cell 1</th><th>Header Row 1 Cell 2</th><th>Header Row 1 Cell 3</th><th>Header Row 1 Cell 4</th><th>Header Row 1 Cell 5</th></tr>
+			</thead>
+			<tbody>
+				<tr><td>Row 1 Cell 1</td><td>Row 1 Cell 2</td><td>Row 1 Cell 3</td><td>Row 1 Cell 4</td><td>Row 1 Cell 5</td></tr>
+				<tr><td>Row 2 Cell 1</td><td>Row 2 Cell 2</td><td>Row 2 Cell 3</td><td>Row 2 Cell 4</td><td>Row 2 Cell 5</td></tr>
+				<tr><td>Row 3 Cell 1</td><td>Row 3 Cell 2</td><td>Row 3 Cell 3</td><td>Row 3 Cell 4</td><td>Row 3 Cell 5</td></tr>
+				<tr><td>Row 4 Cell 1</td><td>Row 4 Cell 2</td><td>Row 4 Cell 3</td><td>Row 4 Cell 4</td><td>Row 4 Cell 5</td></tr>
+			</tbody>
+		</table>
 		<p class="prose">Below is a list-style table (<code class="lang-css">.table-list</code>). List-style tables are best for displaying information that correlates across rows.</p>
 		<p class="prose">In a list-style table, a table header would be a row or row-group (<code class="lang-css">thead</code>) of cells. If a table header is present, its cells may be <code class="lang-css">th</code> cells or <code class="lang-css">td</code> cells. The <code class="lang-css">th</code> cells, if present, should have the <code class="lang-html">scope=&quot;col&quot;</code> or <code class="lang-html">scope=&quot;colgroup&quot;</code> attribute. For thoroughness, these headings may be targeted by all the cells in their scoped columns, via the <code class="lang-html">headers=&quot;&quot;</code> attribute. The body of the table data must be contained in one or more <code class="lang-css">tbody</code> elements. There may be an optional <code class="lang-css">tfoot</code> element.</p>
 		<p class="prose">An example of a list-style table might be a list of student information including names, ages, genders, and ID numbers.</p>
 		<table class="table-list">
-			<caption><span class="lede">Table 12.</span> A table's <code class="lang-css">caption</code> describes the contents of the table in more detail. It may also include the title of the table in a <code class="lang-css">span.lede</code>. Captions should not contain any <code class="lang-css">p</code>s, and they should not be styled in prose.</caption>
 			<thead>
 				<tr><th>Header Row 1 Cell 1</th><th>Header Row 1 Cell 2</th><th>Header Row 1 Cell 3</th><th>Header Row 1 Cell 4</th><th>Header Row 1 Cell 5</th></tr>
 			</thead>
@@ -284,6 +293,18 @@
 				<tr><th>Row 5 Cell 1</th><td>Row 5 Cell 2</td><td>Row 5 Cell 3</td><td>Row 5 Cell 4</td><td>Row 5 Cell 5</td></tr>
 			</tbody>
 		</table>
+		<table class="table-bars">
+			<thead>
+				<tr><th>Time</th><th>Acceleration</th><th>Velcity</th><th>Position</th></tr>
+			</thead>
+			<tbody>
+				<tr><th>Row 1 Cell 1</th><td>Row 1 Cell 2</td><td>Row 1 Cell 3</td><td>Row 1 Cell 4</td></tr>
+				<tr><th>Row 2 Cell 1</th><td>Row 2 Cell 2</td><td>Row 2 Cell 3</td><td>Row 2 Cell 4</td></tr>
+				<tr><th>Row 3 Cell 1</th><td>Row 3 Cell 2</td><td>Row 3 Cell 3</td><td>Row 3 Cell 4</td></tr>
+				<tr><th>Row 4 Cell 1</th><td>Row 4 Cell 2</td><td>Row 4 Cell 3</td><td>Row 4 Cell 4</td></tr>
+				<tr><th>Row 5 Cell 1</th><td>Row 5 Cell 2</td><td>Row 5 Cell 3</td><td>Row 5 Cell 4</td></tr>
+			</tbody>
+		</table>
 		<div hidden="">
 			<p class="prose">Below is a grid-style table (). Grid-style tables are best for displaying information that either correlates across rows, down columns, or tabular data that correlates among both rows and columns.</p>
 			<p class="prose">In a grid-style table, a table header could be a row or row group of cells, or a column or column group of cells. If table header(s) are present, their cells may be normal cells or heading cells (headings). The headings, if present, can have a scope of either <code class="lang-html">scope=&quot;row&quot;</code> or <code class="lang-html">scope=&quot;col&quot;</code>. Similarly, these headings can be targeted by any cells.</p>
@@ -300,9 +321,9 @@
 		</div>
 	</section>
 </section>
-<section id="inline-level">
+<section id="text-level">
 	<header>
-		<h1 class="h-beta">Inline-Level Elements</h1>
+		<h1 class="h-beta">Text-Level Elements</h1>
 		<p class="prose draft">......</p>
 	</header>
 	<section id="scheme-highlight">
