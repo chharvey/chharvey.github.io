@@ -675,7 +675,6 @@ abbr[title] {
 //	&:hover::after {display: inline;}
 }
 del {
-	padding-right: 0.5em;
 	text-decoration: line-through;
 //	color: @color-sp-dn-txt;
 	color: @color-warning-txt;
@@ -683,16 +682,16 @@ del {
 	&[datetime]::after {content: 'deleted on ' attr(datetime);}
 }
 ins {
-	padding-left: 0.5em;
 	text-decoration: underline;
 //	color: @color-sp-up-txt;
 	color: @color-success-txt;
 	background-color: @color-success-icon-bg;
 	&[datetime]::after {content: 'inserted on ' attr(datetime);}
 }
+del + ins {padding-left: 0.5em;}
 abbr {
 	color: @color-info-txt;
-	background-color: @color-info-icon-bg;
+//	background-color: @color-info-icon-bg;
 	&[title]::after {content: attr(title);}
 }
 dfn {
@@ -708,7 +707,12 @@ small, sup, sub {
 }
 sup {vertical-align: super;}
 sub {vertical-align: sub;}
-
+.ft {
+	//* a footnote. use `a.ft` with `href="#???"` to create the link, and `span.ft#???` for the note
+	&:extend(sup);
+	&::before {content: '[';}
+	&::after  {content: ']';}
+}
 /* @end */
 
 /* @group hyperlinks */

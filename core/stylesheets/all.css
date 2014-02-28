@@ -1007,7 +1007,6 @@ abbr[title]::after {
   text-decoration: none;
 }
 del {
-  padding-right: 0.5em;
   text-decoration: line-through;
   color: #660000;
   background-color: #ffcccc;
@@ -1016,7 +1015,6 @@ del[datetime]::after {
   content: 'deleted on ' attr(datetime);
 }
 ins {
-  padding-left: 0.5em;
   text-decoration: underline;
   color: #006600;
   background-color: #ccffcc;
@@ -1024,9 +1022,11 @@ ins {
 ins[datetime]::after {
   content: 'inserted on ' attr(datetime);
 }
+del + ins {
+  padding-left: 0.5em;
+}
 abbr {
   color: #000066;
-  background-color: #ccccff;
 }
 abbr[title]::after {
   content: attr(title);
@@ -1040,14 +1040,22 @@ dfn {
 }
 small,
 sup,
-sub {
+sub,
+.ft {
   font-size: 12px;
 }
-sup {
+sup,
+.ft {
   vertical-align: super;
 }
 sub {
   vertical-align: sub;
+}
+.ft::before {
+  content: '[';
+}
+.ft::after {
+  content: ']';
 }
 /* @end */
 /* @group hyperlinks */
