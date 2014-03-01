@@ -329,12 +329,24 @@ pre > code {
   margin-right: 4px;
 }
 .parens::before,
-blockquote.prose cite.source::before {
+blockquote.prose .source::before,
+i.parenth::before {
   content: '(';
 }
 .parens::after,
-blockquote.prose cite.source::after {
+blockquote.prose .source::after,
+i.parenth::after {
   content: ')';
+}
+.quotes::before,
+i.scare::before,
+i.mention::before {
+  content: open-quote;
+}
+.quotes::after,
+i.scare::after,
+i.mention::after {
+  content: close-quote;
 }
 /* @end */
 /* @group element-reset */
@@ -348,6 +360,7 @@ dd {
   margin: 0;
 }
 p,
+header,
 footer,
 figure,
 blockquote,
@@ -366,13 +379,8 @@ td > :first-child,
 div.informative > :first-child,
 figure > :first-child,
 blockquote > :first-child,
-.postal > :first-child {
+div.postal > :first-child {
   margin-top: 0;
-}
-i,
-b {
-  font-style: inherit;
-  font-weight: inherit;
 }
 /* @end */
 /* @group sections */
@@ -414,8 +422,46 @@ main {
   font-size: 96px;
   font-family: 'Times', 'Times New Roman', serif;
 }
+aside.major,
+aside.minor,
+aside.footnotes {
+  font-size: 12px;
+  line-height: 2;
+}
+aside.major {
+  position: absolute;
+  left: 0;
+  width: 14.58980337503155%;
+  padding-left: 3.4441853748633053%;
+  padding-right: 5.572809000084125%;
+}
+aside.minor {
+  position: absolute;
+  right: 0;
+  width: 9.01699437494743%;
+  padding-left: 3.4441853748633053%;
+  padding-right: 2.1286236252208206%;
+}
+aside.footnotes {
+  padding-top: 9px;
+  border-top: 1px solid #ff0000;
+  margin-top: 14px;
+}
+aside.footnotes > ul {
+  margin-top: 0;
+}
+aside .h,
+aside .h-alpha,
+aside .h-beta,
+aside .h-gamma,
+aside .h-delta,
+aside .h-epsilon,
+aside .h-zeta {
+  text-indent: 0;
+}
 /* @end */
 /* @group headings */
+.h,
 h1,
 h2,
 h3,
@@ -436,6 +482,7 @@ h6,
   font-family: 'Avenir', 'Calibri', 'Century Gothic', sans-serif;
   letter-spacing: 1px;
 }
+.h .latex,
 h1 .latex,
 h2 .latex,
 h3 .latex,
@@ -450,6 +497,7 @@ h6 .latex,
 .h-zeta .latex {
   color: inherit;
 }
+.h .hsub,
 h1 .hsub,
 h2 .hsub,
 h3 .hsub,
@@ -466,65 +514,70 @@ h6 .hsub,
   padding-left: 1em;
   font-weight: normal;
 }
+.h + p,
 h1 + p,
 h2 + p,
 h3 + p,
 h4 + p,
 h5 + p,
 h6 + p,
-.h-alpha + p,
-.h-beta + p,
-.h-gamma + p,
-.h-delta + p,
-.h-epsilon + p,
-.h-zeta + p,
+.h + ol,
 h1 + ol,
 h2 + ol,
 h3 + ol,
 h4 + ol,
 h5 + ol,
 h6 + ol,
-.h-alpha + ol,
-.h-beta + ol,
-.h-gamma + ol,
-.h-delta + ol,
-.h-epsilon + ol,
-.h-zeta + ol,
+.h + ul,
 h1 + ul,
 h2 + ul,
 h3 + ul,
 h4 + ul,
 h5 + ul,
 h6 + ul,
-.h-alpha + ul,
-.h-beta + ul,
-.h-gamma + ul,
-.h-delta + ul,
-.h-epsilon + ul,
-.h-zeta + ul,
+.h + dl,
 h1 + dl,
 h2 + dl,
 h3 + dl,
 h4 + dl,
 h5 + dl,
 h6 + dl,
-.h-alpha + dl,
-.h-beta + dl,
-.h-gamma + dl,
-.h-delta + dl,
-.h-epsilon + dl,
-.h-zeta + dl,
+.h + table,
 h1 + table,
 h2 + table,
 h3 + table,
 h4 + table,
 h5 + table,
 h6 + table,
+.h-alpha + p,
+.h-alpha + ol,
+.h-alpha + ul,
+.h-alpha + dl,
 .h-alpha + table,
+.h-beta + p,
+.h-beta + ol,
+.h-beta + ul,
+.h-beta + dl,
 .h-beta + table,
+.h-gamma + p,
+.h-gamma + ol,
+.h-gamma + ul,
+.h-gamma + dl,
 .h-gamma + table,
+.h-delta + p,
+.h-delta + ol,
+.h-delta + ul,
+.h-delta + dl,
 .h-delta + table,
+.h-epsilon + p,
+.h-epsilon + ol,
+.h-epsilon + ul,
+.h-epsilon + dl,
 .h-epsilon + table,
+.h-zeta + p,
+.h-zeta + ol,
+.h-zeta + ul,
+.h-zeta + dl,
 .h-zeta + table {
   margin-top: 0;
 }
@@ -629,10 +682,10 @@ caption {
 div.informative,
 figure,
 blockquote,
-.postal {
+div.postal {
   display: block;
-  margin-top: 14.832815729997478px !important;
-  padding-top: 9.167184270002526px !important;
+  padding-top: 9px;
+  margin-top: 15px;
 }
 div.informative {
   padding-left: 5px;
@@ -687,7 +740,7 @@ address {
   margin: 0;
   font-style: inherit;
 }
-.postal {
+div.postal {
   padding-right: 21px;
   border-right: 13px solid #ff0000;
   margin-right: 55px;
@@ -698,7 +751,7 @@ address {
   text-align: right;
   line-height: 1.2;
 }
-.postal a {
+div.postal a {
   border: 0;
 }
 /* @end */
@@ -1038,17 +1091,9 @@ strong {
 mark {
   background-color: transparent;
 }
-i.scare::before {
-  content: open-quote;
-}
-i.scare::after {
-  content: close-quote;
-}
-i.mention::before {
-  content: open-quote;
-}
-i.mention::after {
-  content: close-quote;
+i {
+  font-style: inherit;
+  font-weight: inherit;
 }
 i.thought::before {
   content: '\00ab';
@@ -1056,21 +1101,20 @@ i.thought::before {
 i.thought::after {
   content: '\00bb';
 }
+.foreignlang,
 i:lang(la),
 i:lang(it),
-i:lang(fr) {
-  font-style: italic;
-  font-family: 'Times', 'Times New Roman', serif;
-}
+i:lang(fr),
 i[lang=la],
 i[lang=it],
-i[lang=fr] {
-  font-style: italic;
-  font-family: 'Times', 'Times New Roman', serif;
-}
+i[lang=fr],
 .solfege {
   font-style: italic;
   font-family: 'Times', 'Times New Roman', serif;
+}
+b {
+  font-style: inherit;
+  font-weight: inherit;
 }
 b.keyword {
   font-weight: bold;
@@ -1135,24 +1179,27 @@ dfn {
   color: #000066;
   background-color: #ccccff;
 }
-small,
 sup,
-sub,
-.ft {
-  font-size: 12px;
-}
-sup,
-.ft {
-  vertical-align: super;
-}
 sub {
-  vertical-align: sub;
+  font-size: 12px;
+  vertical-align: baseline;
 }
-.ft::before {
+sup {
+  position: relative;
+  bottom: 6px;
+}
+sup.fn a {
+  border-bottom: 0;
+}
+sup.fn a::before {
   content: '[';
 }
-.ft::after {
+sup.fn a::after {
   content: ']';
+}
+sub {
+  position: relative;
+  top: 6px;
 }
 /* @end */
 /* @group hyperlinks */
@@ -1385,21 +1432,16 @@ hr,
 }
 @media print {
   body,
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6,
+  .h,
+  blockquote,
+  .postal,
+  table,
   .h-alpha,
   .h-beta,
   .h-gamma,
   .h-delta,
   .h-epsilon,
-  .h-zeta,
-  blockquote,
-  .postal,
-  table {
+  .h-zeta {
     font-size: 16px !important;
     line-height: 1.5 !important;
   }

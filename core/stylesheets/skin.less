@@ -115,6 +115,11 @@
 	&::before {content: '(';}
 	&::after  {content: ')';}	
 }
+.quotes {
+	//* mixin used for lots of things
+	&::before {content: open-quote;}
+	&::after  {content: close-quote;}
+}
 /* @end */
 
 /* @group element-reset */
@@ -124,7 +129,7 @@ ol, ul, li, dl, dt, dd {
 	margin: 0;
 }
 p,
-footer,
+header, footer,
 figure, blockquote,
 ol, ul,
 dl,
@@ -139,13 +144,6 @@ dt, dd,
 td {
 	//* no margin for first-child of container
 	> :first-child {margin-top: 0;}
-}
-
-i,
-b {
-	//* non-semantic elements reset
-	font-style: inherit;
-	font-weight: inherit;
 }
 /* @end */
 
@@ -187,9 +185,46 @@ body,
 		}
 	}
 }
-header {}
 section {}
-footer {}
+aside {
+//	@padding-inside: 2em;
+//	@padding-outside: 1em;
+	&.major,
+	&.minor,
+	&.footnotes {
+		font-size: @font-size-small;
+		line-height: @line-height-small;
+	}
+	&.major {
+//		width: (@width-Golden3 - (@padding-inside + @padding-outside));
+//		padding-left: @padding-outside;
+//		padding-right: @padding-inside;
+		position: absolute;
+		left: 0;
+		width: @width-Golden4;         // P1 within a P3
+		padding-left: @width-Golden7;  // P4 within a P3
+		padding-right: @width-Golden6; // P3 within a P3
+		
+	}
+	&.minor {
+//		width: (@width-Golden4 - (@padding-inside + @padding-outside));
+//		padding-left: @padding-inside;
+//		padding-right: @padding-outside;
+		position: absolute;
+		right: 0;
+		width: @width-Golden5;         // P1 within a P4
+		padding-left: @width-Golden7;  // P3 within a P4
+		padding-right: @width-Golden8; // P4 within a P4
+	}
+	&.footnotes {
+		.padding-lh(top; (9/24));
+		border-top: ((1/24) * @line-height-base * @font-size-base) solid @color-accent;
+		.margin-lh(top; (14/24));
+		> ul {margin-top: 0;}
+	}
+	.h {text-indent: 0;}
+}
+header {}
 /* @end */
 
 /* @group headings */
@@ -211,13 +246,8 @@ footer {}
 @color-hn-secondary: #840;
 @hsub-lighten: 20%;
 
-h1, h2, h3, h4, h5, h6,
-.h-alpha,
-.h-beta,
-.h-gamma,
-.h-delta,
-.h-epsilon,
-.h-zeta {
+.h,
+h1, h2, h3, h4, h5, h6 {
 	padding: 0;
 	margin: 0;
 	font-style: normal;
@@ -237,6 +267,7 @@ h1, h2, h3, h4, h5, h6,
 	+ table {margin-top: 0;}
 }
 .h-alpha {
+	&:extend(.h all);
 	.padding-lh(bottom; 1);
 	.margin-lh(top; 2);
 	font-variant: small-caps;
@@ -251,6 +282,7 @@ h1, h2, h3, h4, h5, h6,
 	}
 }
 .h-beta {
+	&:extend(.h all);
 	.padding-lh(bottom; 0.5);
 	.margin-lh(top; 1.5);
 	font-weight: bold;
@@ -263,6 +295,7 @@ h1, h2, h3, h4, h5, h6,
 	}
 }
 .h-gamma {
+	&:extend(.h all);
 	.padding-lh(bottom; 0.25);
 	.margin-lh(top; 0.75);
 	font-variant: small-caps;
@@ -275,6 +308,7 @@ h1, h2, h3, h4, h5, h6,
 	}
 }
 .h-delta {
+	&:extend(.h all);
 	.margin-lh(top; 1);
 	font-style: italic;
 	font-weight: bold;
@@ -286,6 +320,7 @@ h1, h2, h3, h4, h5, h6,
 	}
 }
 .h-epsilon {
+	&:extend(.h all);
 	font-style: italic;
 	font-size: @font-size-h5;
 	text-indent: 0.5in;
@@ -297,6 +332,7 @@ h1, h2, h3, h4, h5, h6,
 	}
 }
 .h-zeta {
+	&:extend(.h all);
 	font-style: italic;
 	font-variant: small-caps;
 	font-size: @font-size-h6;
@@ -336,8 +372,10 @@ h1, h2, h3, h4, h5, h6,
 }
 .sideborder {
 	display: block;
-	.margin-lh(top; @Phi1) !important;
-	.padding-lh(top; @Phi2) !important;
+//	.padding-lh(top; @Phi2);
+//	.margin-lh(top; @Phi1);
+	.padding-lh(top; (9/24));
+	.margin-lh(top; (15/24));
 }
 .sideborder-left(@pad-width; @brdr-width; @marg-width; @brdr-style; @brdr-color) {
 	&:extend(.sideborder all);
@@ -392,7 +430,7 @@ address {
 	margin: 0;
 	font-style: inherit;
 }
-.postal {
+div.postal {
 	.sideborder-right(21px; 13px; 55px; solid ;@color-accent);
 	border-radius: 10px;
 	font-size: @font-size-big;
@@ -617,22 +655,25 @@ div.informative,
 }
 strong {font-weight: bold;}
 mark {background-color: transparent;}
+i {font-style: inherit;font-weight: inherit;}
+i.parenth {
+	//* parenthetical remark
+	&:extend(.parens all);
+}
 i.scare {
 	//* scare quotes contain abuse of vocabulary or language
-	&::before {content: open-quote;}
-	&::after  {content: close-quote;}
+	&:extend(.quotes all);
 }
 i.mention {
 	//* mentions refer to phrases without referring to their meaning
-	&::before {content: open-quote;}
-	&::after  {content: close-quote;}
+	&:extend(.quotes all);
 }
 i.thought {
 	//* phrases representing silent thoughts
 	&::before {content: '\00ab';} // &laquo;
 	&::after  {content: '\00bb';} // &raquo;
 }
-.foreignlang() {
+.foreignlang {
 	//* phrases in foreign languages
 	font-style: italic;
 	font-family: @font-fam-math;
@@ -640,16 +681,17 @@ i.thought {
 i:lang(la),
 i:lang(it),
 i:lang(fr) { 
-	.foreignlang();
+	&:extend(.foreignlang);
 }
 i[lang=la],
 i[lang=it],
 i[lang=fr] {
-	.foreignlang();
+	&:extend(.foreignlang);
 }
 .solfege {
-	.foreignlang();
+	&:extend(.foreignlang);
 }
+b {font-style: inherit;font-weight: inherit;}
 b.keyword {
 	//* keywords or technical terms
 	font-weight: bold;
@@ -719,15 +761,33 @@ dfn {
 //small,
 sup, sub {
 	font-size: @font-size-small;
+	vertical-align: baseline;
 }
-sup {vertical-align: super;}
-sub {vertical-align: sub;}
-.ft {
-	//* a footnote. use `a.ft` with `href="#???"` to create the link, and `span.ft#???` for the note
-	&:extend(sup);
-	&::before {content: '[';}
-	&::after  {content: ']';}
+sup {
+	position: relative;
+	bottom: 6px;
+	&.fn {
+		a {
+			border-bottom: 0;
+			&::before {
+				content: '[';
+			}
+			&::after {
+				content: ']';
+			}
+		}
+	}
 }
+sub {
+	position: relative;
+	top: 6px;
+}
+//.ft {
+//	//* a footnote. use `a.ft` with `href="#???"` to create the link, and `span.ft#???` for the note
+//	&:extend(sup);
+//	&::before {content: '[';}
+//	&::after  {content: ']';}
+//}
 /* @end */
 
 /* @group hyperlinks */
@@ -997,8 +1057,7 @@ hr,
 }
 @media print {
 	body,
-	h1, h2, h3, h4, h5, h6,
-	.h-alpha, .h-beta, .h-gamma, .h-delta, .h-epsilon, .h-zeta,
+	.h,
 	blockquote, .postal,
 	table {
 		font-size: @font-size-base !important;
