@@ -25,6 +25,7 @@ TO DO
 ### styles ###
 - 2014-01-24 fix timestamp issues in `skin.less`
 - 2014-02-24 remove all "scoped" Less and make use of "namespaces"
+- 2014-03-01 all quasi-elements should be qualified selectors, e.g., `div.eg` in the stylesheet. Conversely, all qualified elements need to be quasi-elements. if a selector is not a quasi-element, make it unqualified!
 #### typography ####
 - 2014-02-24 line break violations:
 	- right after a preposition (to, for, with, over, by, etc.)
@@ -48,7 +49,6 @@ TO DO
 - 2014-01-21 finish last section (Phi demonstration)
 
 ### /site-design/typo.html ###
-- 2014-03-01 `<aside>` scheme
 - 2014-02-15 vertical rhythm for tables
 - inline elements: highlighting
 - 2014-02-16 do labels/tooltips/whatever hint: [http://kushagragour.in/lab/hint/]()

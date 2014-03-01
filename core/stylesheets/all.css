@@ -363,7 +363,7 @@ li > :first-child,
 dt > :first-child,
 dd > :first-child,
 td > :first-child,
-.informative > :first-child,
+div.informative > :first-child,
 figure > :first-child,
 blockquote > :first-child,
 .postal > :first-child {
@@ -611,7 +611,7 @@ h6 + table,
 p.lede {
   text-align: justify;
 }
-p.lede + p {
+p.lede + * {
   margin-top: 48px;
 }
 span.lede {
@@ -626,27 +626,21 @@ caption {
   line-height: 2;
 }
 .sideborder,
-.informative,
+div.informative,
 figure,
 blockquote,
 .postal {
+  display: block;
   margin-top: 14.832815729997478px !important;
   padding-top: 9.167184270002526px !important;
 }
-.informative {
+div.informative {
   padding-left: 5px;
   border-left: 3px solid #ff0000;
   margin-left: 13px;
   margin-right: 0;
   font-style: italic;
   color: #000066;
-}
-span.informative {
-  display: inline;
-  padding: 0;
-  border: 0;
-  margin: 0;
-  position: static;
 }
 figure {
   padding-left: 8px;
@@ -679,14 +673,14 @@ blockquote.prose {
   font-size: 16px;
   line-height: 1.5;
 }
-blockquote.prose cite.source {
+blockquote.prose .source {
   padding-left: 0;
 }
-blockquote cite.source {
+blockquote .source {
   padding-left: 1em;
   font-family: 'Optima', 'Candara', 'Lucida Sans', sans-serif;
 }
-blockquote cite.source::before {
+blockquote .source::before {
   content: '~';
 }
 address {
@@ -712,6 +706,15 @@ address {
 ol,
 ul {
   padding-left: 0.5in;
+}
+ol.prose {
+  list-style-type: decimal;
+}
+ol.prose li + li {
+  margin-top: 24px;
+}
+ol.prose p.lede + p {
+  margin-top: 0;
 }
 li ol,
 dt ol,
@@ -835,30 +838,21 @@ dl.dltable70 dd,
 .breadcrumbs li::before {
   content: '';
 }
-ol.prose {
-  list-style-type: decimal;
-}
-ol.prose li + li {
-  margin-top: 24px;
-}
-ol.prose p.lede + p {
-  margin-top: 0;
-}
 /* @end */
 /* @group association lists (`dl`s) a.k.a. mappings */
 dd {
   padding-left: 0.5in;
 }
-dl.list-line dt,
-dl.list-line dd {
+.list-line dt,
+.list-line dd {
   float: left;
   padding-right: 1em;
 }
-dl.list-line dt + dd,
-dl.list-line dd + dt {
+.list-line dt + dd,
+.list-line dd + dt {
   clear: both;
 }
-dl.list-line dt + dd {
+.list-line dt + dd {
   margin-left: 0.5in;
 }
 dl.dltable30 dt,
@@ -1033,7 +1027,9 @@ th {
 em {
   font-style: italic;
 }
-em > em {
+em > em,
+div.informative > em,
+.foreignlang > em {
   font-weight: bold;
 }
 strong {

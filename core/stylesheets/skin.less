@@ -321,24 +321,21 @@ h1, h2, h3, h4, h5, h6,
 	font-weight: bold;
 	font-family: @font-fam-base;
 	color: #000;
-}
-p.lede {
-	text-align: justify;
-	+ p {.margin-lh(top; 2);}
-}
-span.lede {
-	padding-right: 1em;
+	p& {
+		text-align: justify;
+		+ * {.margin-lh(top; 2);}
+	}
+	span& {padding-right: 1em;}
 }
 
 .caption {
-	//* captions of figures, tables, or anything
 	font-style: normal;
 	font-size: @font-size-small;
 	text-align: right;
 	line-height: @line-height-small;
 }
 .sideborder {
-//	display: block;
+	display: block;
 	.margin-lh(top; @Phi1) !important;
 	.padding-lh(top; @Phi2) !important;
 }
@@ -356,21 +353,12 @@ span.lede {
 	margin-right: @marg-width;
 	margin-left: 0;
 }
-.informative {
-	//* a paragraph or container containing paragraphs, etc. that are not a normative part of a document, but are still a major part of the normal flow of the document. Used when 'aside' and 'figure' elements are not suitable.
+div.informative {
 	.sideborder-left(5px; 3px; 13px; solid; @color-accent);
 	font-style: italic;
 	color: @color-info-txt;
 }
-span.informative {
-	display: inline;
-	padding: 0;
-	border: 0;
-	margin: 0;
-	position: static;
-}
 figure {
-	//* example figures (text, images, etc.)
 	.sideborder-left(8px; 5px; 21px; solid; @color-accent);
 	&.bad, &.bad * {
 		color: @color-base-bg;
@@ -389,12 +377,12 @@ blockquote {
 	&.prose {
 		font-size: @font-size-base;
 		line-height: @line-height-base;
-		cite.source {
+		.source {
 			&:extend(.parens all);
 			padding-left: 0;
 		}
 	}
-	cite.source {
+	.source {
 		padding-left: 1em;
 		font-family: @font-fam-base;
 		&::before {content: '~';}
@@ -424,6 +412,13 @@ address {
 ol, ul {
 	padding-left: 0.5in;
 //	+ ol, + ul {.margin-lh(top; 1);}
+}
+ol {
+	&.prose {
+		list-style-type: decimal;
+		li + li {.margin-lh(top; 1);}
+		p.lede + p {margin-top: 0;}
+	}
 }
 li, dt, dd {
 	ol, ul {margin-top: 0;}
@@ -463,7 +458,6 @@ li, dt, dd {
 	a {border: 0;}
 	a:not([href]) {color: @color-base-txt;}
 }
-body > nav .breadcrumbs {&:extend(.P1-midright);}
 .breadcrumbs {
 	&:extend(.list-inline all);
 	&:extend(.list-action all);
@@ -472,11 +466,7 @@ body > nav .breadcrumbs {&:extend(.P1-midright);}
 		padding-right: 1em;
 		&::before {content: '';}
 	}
-}
-ol.prose {
-	list-style-type: decimal;
-	li + li {.margin-lh(top; 1);}
-	p.lede + p {margin-top: 0;}
+	body > nav & {&:extend(.P1-midright);}
 }
 /* @end */
 
@@ -489,7 +479,7 @@ dd {
 	padding-left: 0.5in;
 //	& + dt {margin-top: 0.5em;}
 }
-dl.list-line {
+.list-line {
 	dt,
 	dd {
 		float: left;
@@ -619,8 +609,10 @@ th {
 /* @end */
 
 /* @group highlighted text */
-em {
-	font-style: italic;
+em {font-style: italic;}
+em,
+div.informative,
+.foreignlang {
 	> em {font-weight: bold;}
 }
 strong {font-weight: bold;}
@@ -680,9 +672,7 @@ b.ref {
 //	text-align: left;
 //}
 q {}
-cite {
-	font-style: inherit;
-}
+cite {font-style: inherit;}
 del[datetime],
 ins[datetime],
 abbr[title] {
@@ -726,7 +716,8 @@ dfn {
 	color: @color-info-txt;
 	background-color: @color-info-icon-bg;
 }
-small, sup, sub {
+//small,
+sup, sub {
 	font-size: @font-size-small;
 }
 sup {vertical-align: super;}

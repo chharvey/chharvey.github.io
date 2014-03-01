@@ -61,18 +61,27 @@
 			<li><code class="lang-css">details</code></li>
 			<li><code class="lang-css">dialog</code></li>
 		</ul>
-		<p class="informative"><span class="warning">Warning <time>2014-02-26</time>:</span> <code class="lang-css"><a href="#scheme-list">li</a></code> seems like it should be a sectioning root but it is not! Do not contain sectioning content inside an <code class="lang-css">li</code> unless you want to change the document outline!</p>
+		<div class="informative">
+			<p><span class="warning">Warning <time>2014-02-26</time>:</span> <code class="lang-css"><a href="#scheme-list">li</a></code> seems like it should be a sectioning root but it is not! Do not contain sectioning content inside an <code class="lang-css">li</code> unless you want to change the document outline!</p>
+		</div>
 		<section>
 			<h1 class="h-delta">Elements of Sections</h1>
 			<p class="prose">Group all page-specific content into exactly one <code class="lang-css">main</code> element. There should only be one <code class="lang-css">main</code> element per document, and it should only contain the content specific to that document. It should not include any site-wide navigational aids, headers, footers, <i lang="la"><abbr title="et cetera">etc.</abbr></i> <code class="lang-css">main</code> is not sectioning content, so it does not add a level to the Document Outline.</p>
-			<p class="informative"><span class="warning">Warning <time>2014-02-26</time>:</span> Not all browsers implement <code class="lang-css">main</code> yet. For the time being, use <code class="lang-css">div.main</code>.</p>
-			<p class="prose">A <code class="lang-css">section</code> represents a thematic grouping of content that is added to the outline of the nearest ancestor sectioning root. If the nearest ancestor sectioning root is the <code class="lang-css">body</code>, then its level will be added to the Document Outline. If its nearest ancestor sectioning root is another sectioning root, then the level will be added to that sectioning root's outline without affecting the Document Outline. Each section may have its own <a href="#scheme-heading">heading</a> and outline. In addition, a section may contain a header or a footer, which does not affect its outline.</p>
-			<p class="prose"><code class="lang-css">header</code>s for a section should contain a <a href="#scheme-heading">heading</a> and introductory content. Introductory content may include but is not limited to navigational aids within the section and metadata about the section <em>itself</em> such as authors, editors, and time written/published.</p>
-			<p class="prose"><code class="lang-css">footer</code>s for a section should contain metadata about the <em>content</em> in the section, such as copyright information, related links, and contact information (possibly in an <code class="lang-css"><a href="#scheme-address">address</a></code> element).</p>
 			<div class="informative">
-				<p><span class="caution">Caution: <time>2014-02-26</time></span> There is a grey area concerning the content that should belong in the <code class="lang-css">header</code> versus the <code class="lang-css">footer</code> elements. Semantically, the order in which these elements are written is irrelevant (it doesn't matter where they appear on the page), however the distinction between them is so small that it is best to consider the <code class="lang-css">header</code> as opening material and the <code class="lang-css">footer</code> as closing material for a section.</p>
-				<p>Another stance authors may want to take is to consider using only the <code class="lang-css">header</code> element&mdash;possibly more than once in a section: at the top and at the bottom, for example&mdash;and completely disregarding the <code class="lang-css">footer</code> element.</p>
+				<p><span class="warning">Warning <time>2014-02-26</time>:</span> Not all browsers implement <code class="lang-css">main</code> yet. For the time being, use <code class="lang-css">div.main</code>.</p>
 			</div>
+			<p class="prose">A <code class="lang-css">section</code> represents a thematic grouping of content that is added to the outline of the nearest ancestor sectioning root. If the nearest ancestor sectioning root is the <code class="lang-css">body</code>, then its level will be added to the Document Outline. If its nearest ancestor sectioning root is another sectioning root, then the level will be added to that sectioning root's outline without affecting the Document Outline. Each section may have its own <a href="#scheme-heading">heading</a> and outline. In addition, a section may contain a header or a footer, which does not affect its outline.</p>
+			<section id="scheme-header">
+				<h1 class="h-epsilon">Headers and Footers</h1>
+				<p class="prose"><code class="lang-css">header</code>s for a section should contain a <a href="#scheme-heading">heading</a> and introductory content. Introductory content may include but is not limited to navigational aids within the section and metadata about the section <em>itself</em> such as authors, editors, and time written/published.</p>
+				<p class="prose"><code class="lang-css">footer</code>s for a section should contain metadata about the <em>content</em> in the section, such as copyright information, related links, and contact information (possibly in an <code class="lang-css"><a href="#scheme-address">address</a></code> element).</p>
+				<div class="informative">
+					<p><span class="caution">Caution: <time>2014-02-26</time></span> There is a grey area concerning the content that should belong in the <code class="lang-css">header</code> versus the <code class="lang-css">footer</code> elements. Semantically, the order in which these elements are written is irrelevant (it doesn't matter where they appear on the page), however the distinction between them is so small that it is best to consider the <code class="lang-css">header</code> as opening material and the <code class="lang-css">footer</code> as closing material for a section.</p>
+					<p>Another stance authors may want to take is to consider using only the <code class="lang-css">header</code> element&mdash;possibly more than once in a section: at the top and at the bottom, for example&mdash;and completely disregarding the <code class="lang-css">footer</code> element.</p>
+				</div>
+			</section>
+		</section>
+		<section id="scheme-aside">
 		</section>
 	</section>
 	<section id="scheme-heading">
@@ -96,42 +105,43 @@
 	<section id="scheme-paragraph">
 		<h1 class="h-gamma">Paragraph Scheme</h1>
 		<p>Paragraphs (<code class="lang-css">p</code>) are the backbone of a document; they are made to organize and group textual ideas together. In the written media, paragraphs can span anywhere from 3 to 8 sentences. However on the Web, they can be much, much shorter. This paragraph does not have any classes added. We will call these <i class="mention">regular paragraphs</i>.</p>
-		<p style="font-style: italic;">Some regular paragraphs may be presented in italics. This paragraph merely serves as a visual example. The quick brown fox jumps over the lazy dog.</p>
-		<p style="font-weight: bold;">Some regular paragraphs may be presented in bold. This paragraph merely serves as a visual example. The quick brown fox jumps over the lazy dog.</p>
-		<p style="font-style: italic; font-weight: bold">This is a regular paragraph in italics and bold. The quick brown fox jumps over the lazy dog.</p>
-		<p class="lede">This is a lede paragraph. A lede is traditionally an introductory or summary sentence or paragraph to catch the reader's attention. If a lede sentence is part of a paragraph, it acts like a mini-heading for that text. This site's ledes are designed to catch the reader's eye, as they are bolder, darker, more spaced, and in a sans-serif font, which has a slightly slower reading speed than serif fonts. Use the <code class="lang-css">.lede</code> class on whole paragraphs, or on the first span within a paragraph as shown below.</p>
-		<p class="prose"><span class="lede">This is a paragraph in prose.</span> Prose paragraphs are offset from the page because they are a bit more formal and provide more detail. Rather than a typical box or list users can skim, they usually require more careful reading. It is for this reason that paragraphs in prose are presented in a serif font, which is believed to help the reader's eyes move faster along the page. Prose, being more formal than other web-based texts, is left-right justified. Paragraphs in the normal flow of formal documents will be writen in prose. The <code class="lang-css">.prose</code> class is used for this style.</p>
-		<p class="prose" style="font-style: italic;">Some prose paragraphs may be presented in italics. This paragraph merely serves as a visual example. The quick brown fox jumps over the lazy dog.</p>
-		<p class="prose" style="font-weight: bold;">Some prose paragraphs may be presented in bold. This paragraph merely serves as a visual example. The quick brown fox jumps over the lazy dog.</p>
-		<p class="prose" style="font-style: italic; font-weight: bold">This is a prose paragraph in italics and bold. The quick brown fox jumps over the lazy dog.</p>
+		<figure>
+			<p style="font-style: italic;">Some regular paragraphs may be presented in italics. This paragraph merely serves as a visual example. The quick brown fox jumps over the lazy dog.</p>
+			<p style="font-weight: bold;">Some regular paragraphs may be presented in bold. This paragraph merely serves as a visual example. The quick brown fox jumps over the lazy dog.</p>
+			<p style="font-style: italic; font-weight: bold">This is a regular paragraph in italics and bold. The quick brown fox jumps over the lazy dog.</p>
+		</figure>
+		<p class="lede">This is a lede paragraph. A lede is traditionally an introductory or summary sentence or paragraph to catch the reader's attention. This site's ledes are designed to catch the reader's eye, as they are bolder, darker, more spaced, and in a sans-serif font, which has a slightly slower reading speed than serif fonts.</p>
+		<p class="lede">Lede paragraphs should <em>not</em> be given the <code class="lang-css">.prose</code> class, even if they are written as part of a formal section or document. Use the <code class="lang-css">.lede</code> class on a whole paragraph such as this one, or on the first span within a paragraph as shown below. If a lede sentence is part of a paragraph, it acts like a mini-heading for that text.</p>
+		<p class="prose"><span class="lede">This is a paragraph in prose.</span> Paragraphs in the normal flow of <strong>formal documents</strong> will be writen in prose. The <code class="lang-css">.prose</code> class is used for this style. Prose, being more formal and providing more detail than other web-based texts, is offset from the page: rather than a typical box or list users can skim, paragraphs styled in prose usually require more careful reading.</p>
+		<figure>
+			<p class="prose" style="font-style: italic;">Some prose paragraphs may be presented in italics. This paragraph merely serves as a visual example. The quick brown fox jumps over the lazy dog.</p>
+			<p class="prose" style="font-weight: bold;">Some prose paragraphs may be presented in bold. This paragraph merely serves as a visual example. The quick brown fox jumps over the lazy dog.</p>
+			<p class="prose" style="font-style: italic; font-weight: bold">This is a prose paragraph in italics and bold. The quick brown fox jumps over the lazy dog.</p>
 		<section id="scheme-informative">
 			<h1 class="h-delta">Informative Text</h1>
-			<p class="informative">Informative (non-normative) text is not included in the official or normative document. They are still part of the normal flow of the document, so they would not makes sense out of context as a <code class="lang-css">figure</code> or <code class="lang-css">aside</code> would, however they are rendered differently from formal text to indicate that they are not official.</p>
-			<p class="informative">Wrap all informative text with a <code class="lang-css">p.informative</code> as done here, or on a container such as <code class="lang-css">div.informative > p</code> as shown below.</p>
+			<p class="lede">This section describes the creation of a <a>quasi-element</a>: the <code class="lang-css">div.informative</code> class.</p>
 			<div class="informative">
-				<p>Sometimes, informal text may span across multiple <code class="lang-css">p</code> elements or other elements such as <code class="lang-css">img</code>s.</p>
-				<p>In this case, you should <em>not</em> apply the <code class="lang-css">.informative</code> class to each element inside. Rather, if multiple informative elements are grouped together, apply the <code class="lang-css">.informative</code> class to the entire <code class="lang-css">div</code> or other containing element.</p>
+				<p>An informative (non-normative) block of text is not officially part of a normative document. It is still part of the normal flow of the document, so it would not makes sense out of context as a <code class="lang-css"><a href="#scheme-figure-blockquote">figure</a></code> or <code class="lang-css"><a href="#scheme-aside">aside</a></code> would, however it is presented differently from formal text to indicate that it is not official.</p>
+				<p>Wrap all informative content, including <code class="lang-css">p</code>s, <code class="lang-css">img</code>s, and <code class="lang-css">figure</code>s with a <code class="lang-css">div.informative</code>. <strong>All non-normative text should be contained in flow, non-phrasing content</strong>. This separates the text from the normative document. If there is a non-normative span of text present in a normative paragraph, authors are strongly encouraged to move the span to its own separate, non-normative division.</p>
 				<p>Since the <code class="lang-css">.prose</code> class is reserved for more formal text, informative text should <em>not</em> be written in prose.</p>
 			</div>
 		</section>
 		<section id="scheme-figure-blockquote">
 			<h1 class="h-delta">Figures and Block Quotes</h1>
-			<p class="prose"><code class="lang-css">figure</code>s and <code class="lang-css">blockquote</code>s are sectioning roots.</p>
+			<p class="prose"><code class="lang-css">figure</code>s and <code class="lang-css">blockquote</code>s are <a href="#scheme-section">sectioning roots</a>.</p>
 			<figure><code class="lang-css">figure</code> elements contain excerpts of text, examples, or images that are used to illustrate a concept. Content in a <code class="lang-css">figure</code> element&mdash;including its <code class="lang-css">figcaption</code>&mdash;is permissible to be extracted from the document and presented on its own. If the content would not make sense out of its surrounding context, do not use this element.
 				<figcaption><span class="lede">Figure 12.</span> The <code class="lang-css">figcaption</code> element describes the content of the figure. Optionally include a <code class="lang-css">span.lede</code> containing the figure's title. The figure caption should be shorter and more concise than the figure text. Captions should not contain any <code class="lang-css">p</code>s, and they should not be styled in prose.</figcaption>
 			</figure>
 			<figure>
-				<p>Usually, <code class="lang-css">figure</code>s do not need child <code class="lang-css">p</code> elements; text-only child nodes will suffice for textual examples.</p>
-				<p>Though rare, figures may contain child <code class="lang-css">p</code> elements if necessary.</p>
-				<p>Multiple paragraphs are usually not the case because figures are typically too short for this. Figure elements should <em>not</em> be written in prose, either.</p>
+				<p>Usually, <code class="lang-css">figure</code>s do not need child <code class="lang-css">p</code> elements because figures are typically too short for multiple paragraphs; text-only child nodes will suffice for textual examples.</p>
+				<p>Though rare, figures may contain child <code class="lang-css">p</code> elements if necessary. However, text in <code class="lang-css">figure</code>s should <em>not</em> be written in prose.</p>
 				<p>Figure captions are not always necessary.</p>
 			</figure>
 			<blockquote><code class="lang-css">blockquote</code> elements contain material taken directly from another source. They are usually very short. They are a <i class="scare">special case</i> of <code class="lang-css">figure</code>s. <cite class="source">Source</cite></blockquote>
 			<blockquote>It's courteous&mdash;and probably required&mdash;to reference the source of the quoted text. Add a <code class="lang-css">cite.source</code> at the end of the block quote. (Yes, you should use the <code class="lang-css">cite</code> element.) <cite class="source">Source</cite></blockquote>
 			<blockquote class="prose">
 				<p>Block quotes that are longer than about 40 words should contain at least one <code class="lang-css">p</code>. Conversely, short block quotes should <em>not</em> contain paragraphs; the textual content should be contained directly inside, as shown above. Since longer passages of text are more easily read in a serif font, apply the <code class="lang-css">.prose</code> class <strong>to the entire block quote</strong> instead of to each element inside.</p>
-				<p>In a long block quote, the citation should be in a <code class="lang-css">footer &gt; cite.source</code>, with the year included as well. If you're really picky, you can wrap the year with a <code class="lang-html">&lt;time&gt;</code> tag.</p>
-				<footer><cite class="source">Source, <time>2000</time></cite></footer>
+				<p>In a long block quote, the citation should be in a <code class="lang-css">header &gt; cite.source</code> <i class="parenth"><a href="#scheme-header">yes, <code class="lang-css">header</code></a></i>, with the year included as well. If you're really picky, you can wrap the year with a <code class="lang-html">&lt;time&gt;</code> tag.</p>
 			</blockquote>
 		</section>
 		<section id="scheme-address">
