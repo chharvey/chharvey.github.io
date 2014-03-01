@@ -121,6 +121,7 @@
 p,
 footer,
 figure, blockquote,
+ol, ul,
 dl,
 table {
 	//* margin reset
@@ -227,7 +228,8 @@ h1, h2, h3, h4, h5, h6,
 	}
 	+ p,
 	+ ol, + ul,
-	+ dl {margin-top: 0;}
+	+ dl,
+	+ table {margin-top: 0;}
 }
 .h-alpha {
 	.padding-lh(bottom; 1);
@@ -414,10 +416,9 @@ address {
 /* @end */
 
 /* @group lists */
-ul, ol {
-	margin: 0;
+ol, ul {
 	padding-left: 0.5in;
-	+ ul, + ol {.margin-lh(top; 1);}
+//	+ ol, + ul {.margin-lh(top; 1);}
 }
 //* outlined lists
 .list-omega   {list-style-type: decimal-leading-zero;}
@@ -487,7 +488,7 @@ dl.list-line {
 	dt + dd {margin-left: 0.5in;}
 }
 .dltable(@dtwidth) {
-	//* a dl list that acts like a table, with each row containing a single name-value group
+	//* a dl list that acts like a table, with each row containing a single name-value group. the `@dtwidth` parameter must be a percentage.
 	&:extend(.list-basic all);
 	&:extend(.line);
 	dt, dd {
@@ -495,8 +496,8 @@ dl.list-line {
 		float: left;
 	}
 	dt {
-		clear: both;
 		width: @dtwidth;
+		clear: both;
 	}
 	dd {
 		width: (100% - @dtwidth);
@@ -505,8 +506,19 @@ dl.list-line {
 	dt + dd {margin-left: 0;}
 	dd + dd {clear: both;}
 }
-dl.dltable40 {.dltable(40%)}
-dl.dltable60 {.dltable(60%)}
+// find a way to abstractify the classes below:
+//dl.dltable40 {.dltable(40%)}
+//dl.dltable60 {.dltable(60%)}
+.dltablegenerator(@num) {
+	dl.dltable@{num} {
+		.dltable(@num * 1%);
+	}
+}
+.dltablegenerator(30);
+.dltablegenerator(40);
+.dltablegenerator(50);
+.dltablegenerator(60);
+.dltablegenerator(70);
 /* @end */
 
 /* @group tables */
