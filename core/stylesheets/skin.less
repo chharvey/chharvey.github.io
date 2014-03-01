@@ -118,6 +118,11 @@
 /* @end */
 
 /* @group element-reset */
+ol, ul, li, dl, dt, dd {
+	//* list reset
+	padding: 0;
+	margin: 0;
+}
 p,
 footer,
 figure, blockquote,
@@ -420,6 +425,9 @@ ol, ul {
 	padding-left: 0.5in;
 //	+ ol, + ul {.margin-lh(top; 1);}
 }
+li, dt, dd {
+	ol, ul {margin-top: 0;}
+}
 //* outlined lists
 .list-omega   {list-style-type: decimal-leading-zero;}
 .list-alpha   {list-style-type: upper-roman;}
@@ -473,8 +481,12 @@ ol.prose {
 /* @end */
 
 /* @group association lists (`dl`s) a.k.a. mappings */
+dt,
 dd {
-	margin-left: 0.5in;
+	> ul:only-child {&:extend(.list-basic);}
+}
+dd {
+	padding-left: 0.5in;
 //	& + dt {margin-top: 0.5em;}
 }
 dl.list-line {

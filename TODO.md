@@ -18,6 +18,8 @@ TO DO
 	- and `a`s (links to documents, sections, etc.)
 - 2014-01-24 fix timestamp issues. maybe use `dl`?
 - 2014-02-26 don't overuse `<small>`! It is supposed to represent small print such as disclaimers/legal information, not parenthetical remarks.
+- 2014-03-01 create new class: `i.parenth` for parenthetical remarks
+- 2014-03-01 use `<small>` for labels---they really are disclamers/caveats/etc.
 - 2014-02-26 get rid of all "introductory prose" from `<header>` elements. `header`s should only contain metadata about the document.
 
 ### styles ###
@@ -31,6 +33,8 @@ TO DO
 
 ### scripts ###
 - 2013-12-14 investigate the use of templates (`<template>`)
+- 2014-03-01 move table row-counting functionality (`all.js:39`) from JS to CSS with counters
+- 2014-03-01 use JS to change the line-height of blockquotes to 1.5 times the usual amount (currently (2014-03-01), from 1.2 to 1.8), and then adjust margin-bottom to keep vertical rhythm.
 
 
 ## specific projects ##
@@ -44,11 +48,14 @@ TO DO
 - 2014-01-21 finish last section (Phi demonstration)
 
 ### /site-design/typo.html ###
+- 2014-03-01 `<aside>` scheme
 - 2014-02-15 vertical rhythm for tables
 - inline elements: highlighting
 - 2014-02-16 do labels/tooltips/whatever hint: [http://kushagragour.in/lab/hint/]()
+- 2014-02-28 footnote scheme (`.ft`)
 - quotation-scheme examples
 - code scheme
+
 
 ### /resume/ ###
 - fix print.css!
