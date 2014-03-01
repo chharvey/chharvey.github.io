@@ -42,16 +42,22 @@
 <section id="group-level">
 	<h1 class="h-beta">Group-Level Elements</h1>
 	<p class="prose">This section...</p>
+	<p class="prose">Group all page-specific content into exactly one <code class="lang-css">main</code> element. There should only be one <code class="lang-css">main</code> element per document, and it should only contain the content specific to that document, yet it should contain all content specific to the document, including any side text, footers, or other extraneous information. It should not include any site-wide navigational aids, headers, footers, <i lang="la"><abbr title="et cetera">etc.</abbr></i> <code class="lang-css">main</code> is not sectioning content, so it does not add a level to the Document Outline.</p>
+	<div class="informative">
+		<p><span class="warning">Warning <time>2014-02-26</time>:</span> Not all browsers implement <code class="lang-css">main</code> yet. For the time being, use <code class="lang-css">div.main</code>.</p>
+	</div>
 	<section id="scheme-section">
-		<h1 class="h-gamma">Sectioning</h1>
+		<h1 class="h-gamma">Sectioning the Document Outline</h1>
 		<p class="prose">An outline exists for every document. On a Web page, the <code class="lang-css">body</code> represents the document and we refer to its outline as the <a class="sp" href="http://www.w3.org/html/wg/drafts/html/master/sections.html#outline">Document Outline</a>.</p>
-		<p class="prose"><dfn><a class="sp" href="http://www.w3.org/html/wg/drafts/html/master/dom.html#sectioning-content-0">Sectioning content</a></dfn> is content that contributes to the Document Outline. Each sectioing element potentially has a heading and its own outline, which contributes to the outline of its ancestors. The following elements mark up sectioning content and introduce new levels in the Document Outline:</p>
+		<p class="prose"><dfn><a class="sp" href="http://www.w3.org/html/wg/drafts/html/master/dom.html#sectioning-content-0">Sectioning content</a></dfn> is content that contributes to the Document Outline. Each sectioning element potentially has a heading and its own outline, which contributes to the outline of its ancestors. The following elements mark up sectioning content and introduce new levels in the Document Outline:</p>
 		<ul>
 			<li><code class="lang-css">section</code></li>
-			<li><code class="lang-css">article</code></li>
 			<li><code class="lang-css"><a href="#scheme-aside">aside</a></code></li>
 			<li><code class="lang-css">nav</code></li>
+			<li><code class="lang-css">article</code></li>
 		</ul>
+		<p class="prose">A <code class="lang-css">section</code> represents a thematic grouping of content that is added to the outline of the nearest ancestor sectioning root. If the nearest ancestor sectioning root is the <code class="lang-css">body</code>, then its level will be added to the Document Outline. If its nearest ancestor sectioning root is another sectioning root, then the level will be added to that sectioning root's outline without affecting the Document Outline. Each section may have its own <a href="#scheme-heading">heading</a> and outline. In addition, a section may contain a <a href="#scheme-header">header and/or a footer</a>, which does not affect its outline.</p>
+		<p class="prose">Implicit sections may also be added to the Document Outline via headings. For example, in a <code class="lang-css">section</code> titled with an <code class="lang-css">h1</code>, there may exist an <code class="lang-css">h2</code>, which implicitly creates and titles a subsection of the <code class="lang-css">section</code> element. It is <em>not</em> recommended to follow this convention. When creating a section, always do it explicitly with a <code class="lang-css">section</code> element and title it with an <code class="lang-css">h1</code>. See the <a href="#scheme-heading">Heading Scheme</a> below for styles.</p>
 		<p class="prose">A <dfn><a class="sp" href="http://www.w3.org/html/wg/drafts/html/master/sections.html#sectioning-root">sectioning root</a></dfn> is like sectioning content in that it may have its own heading and outline, however, the outline of a sectioning root does not affect the Document Outline (unless of course, the sectioning root in question is the <code class="lang-cs">body</code> element, in which case its outline <em>is</em> the Document Outline). This means sectioning roots may include sectioning content but their outlines are isolated and do not add levels to the outlines of their ancestors. The following elements are sectioning roots:</p>
 		<ul>
 			<li><code class="lang-css">body</code></li>
@@ -63,55 +69,53 @@
 			<li><code class="lang-css">dialog</code></li>
 		</ul>
 		<div class="informative">
-			<p><span class="warning">Warning <time>2014-02-26</time>:</span> <code class="lang-css"><a href="#scheme-list">li</a></code> seems like it should be a sectioning root but it is not! Do not contain sectioning content inside an <code class="lang-css">li</code> unless you want to change the document outline!</p>
+			<p><span class="caution">Caution <time>2014-02-26</time>:</span> <code class="lang-css"><a href="#scheme-list">li</a></code> seems like it should be a sectioning root but it is not! Do not contain sectioning content inside an <code class="lang-css">li</code> unless you want to change the Document Outline.</p>
 		</div>
-		<section>
-			<h1 class="h-delta">Elements of Sections</h1>
-			<p class="prose">Group all page-specific content into exactly one <code class="lang-css">main</code> element. There should only be one <code class="lang-css">main</code> element per document, and it should only contain the content specific to that document. It should not include any site-wide navigational aids, headers, footers, <i lang="la"><abbr title="et cetera">etc.</abbr></i> <code class="lang-css">main</code> is not sectioning content, so it does not add a level to the Document Outline.</p>
-			<div class="informative">
-				<p><span class="warning">Warning <time>2014-02-26</time>:</span> Not all browsers implement <code class="lang-css">main</code> yet. For the time being, use <code class="lang-css">div.main</code>.</p>
-			</div>
-			<p class="prose">A <code class="lang-css">section</code> represents a thematic grouping of content that is added to the outline of the nearest ancestor sectioning root. If the nearest ancestor sectioning root is the <code class="lang-css">body</code>, then its level will be added to the Document Outline. If its nearest ancestor sectioning root is another sectioning root, then the level will be added to that sectioning root's outline without affecting the Document Outline. Each section may have its own <a href="#scheme-heading">heading</a> and outline. In addition, a section may contain a header or a footer, which does not affect its outline.</p>
-			<section id="scheme-header">
-				<h1 class="h-epsilon">Headers and Footers</h1>
-				<p class="prose"><code class="lang-css">header</code>s for a section should contain a <a href="#scheme-heading">heading</a> and introductory content. Introductory content may include but is not limited to navigational aids within the section and metadata about the section <em>itself</em> such as authors, editors, and time written/published.</p>
-				<p class="prose"><code class="lang-css">footer</code>s for a section should contain metadata about the <em>content</em> in the section, such as copyright information, related links, and contact information (possibly in an <code class="lang-css"><a href="#scheme-address">address</a></code> element).</p>
-				<div class="informative">
-					<p><span class="caution">Caution: <time>2014-02-26</time></span> There is a grey area concerning the content that should belong in the <code class="lang-css">header</code> versus the <code class="lang-css">footer</code> elements. Semantically, the order in which these elements are written is irrelevant (it doesn't matter where they appear on the page), however the distinction between them is so small that it is best to consider the <code class="lang-css">header</code> as opening material and the <code class="lang-css">footer</code> as closing material for a section.</p>
-					<p>Another stance authors may want to take is to consider using only the <code class="lang-css">header</code> element&mdash;possibly more than once in a section: at the top and at the bottom, for example&mdash;and completely disregarding the <code class="lang-css">footer</code> element.</p>
-				</div>
-			</section>
-		</section>
 		<section id="scheme-aside">
 			<h1 class="h-delta">Asides</h1>
 			<p class="prose">See the following two <code class="lang-css">aside</code> elements.</p>
 			<aside class="major">
-				<h1 class="h-epsilon">Major Aside</h1>
-				<p class="prose">An <code class="lang-css">aside</code> is a sectioning element, which means it creates a new level in the Document Outline. <code class="lang-css">aside</code>s may not affect the normal flow of the document, however, which means they may be taken out of context and placed in a margin, appendix, or other perihperal part of the document.</p>
+				<h1 class="h-epsilon">Major Asides</h1>
+				<p class="prose">An aside contains content that is tangentially related to the main content of the document. The <code class="lang-css">aside</code> is a sectioning element, which means it creates a new level in the Document Outline. <code class="lang-css">aside</code>s may not affect the normal flow of the document, however, which means they may be taken out of context and placed in a margin, appendix, or other perihperal part of the document.</p>
 				<p class="prose">To that end, there are two rules to an <code class="lang-css">aside</code>: the normal flow of the document must not be disturbed if it were removed <i class="parenth">thus the document must make sense without it</i>, and the <code class="lang-css">aside</code> itself must make sense isolated and out of context.</p>
 				<p class="prose">An <code class="lang-css">aside</code> is a special case of a <code class="lang-css">section</code>, so it should be treated like one, containing a <a href="#scheme-heading">heading</a> and an outline made of other flow-content elements.</p>
 			</aside>
 			<aside class="minor">
-				<h1 class="h-epsilon">Minor Aside</h1>
+				<h1 class="h-epsilon">Minor Asides</h1>
 				<p class="prose">There are two classes of aside: <code class="lang-css">aside.major</code> and <code class="lang-css">aside.minor</code>. The previous aside was <code class="lang-css">aside.major</code> and this is an <code class="lang-css">aside.minor</code>.</p>
 			</aside>
-			<section id="scheme-footnotes">
-				<h1 class="h-epsilon">Footnotes</h1>
-				<p class="prose">Use footnotes for annotations that can be taken out of context. The reference<sup class="fn"><a id="r1" href="#fn1">1</a></sup> should link to the footnote<sup class="fn"><a id="r2" href="#fn2">2</a></sup>. All footnotes are contained within an <code class="lang-css">aside.footnotes > ul</code>.</p>
-				<aside class="footnotes">
-					<ul>
-						<li><sup class="fn"><a id="fn1" href="#r1">1</a></sup> followed by a <code class="lang-css">sup.fn > a#r1[href=&quot;#fn1&quot;]</code>, where <code class="lang-css">a#r1</code> is the anchor in the reference and <code class="lang-css">a#fn1</code> is the footnote to which it links.</li>
-						<li><sup class="fn"><a id="fn2" href="#r1">2</a></sup> preceded by a <code class="lang-css">sup.fn > a#fn1[href=&quot;#r1&quot;]</code>, where <code class="lang-css">a#fn1</code> is the anchor in the footnote and <code class="lang-css">a#r1</code> is the reference to which it links.</li>
+		</section>
+	</section>
+	<section id="scheme-header">
+		<h1 class="h-gamma">Headers and Footers</h1>
+		<p class="prose">Headers and footers are not sectioning content, so they do not add levels to the Document Outline.</p>
+		<p class="prose"><code class="lang-css">header</code>s for a section should contain a <a href="#scheme-heading">heading</a> and introductory content. Introductory content may include but is not limited to navigational aids within the section and metadata about the section <em>itself</em> such as authors, editors, and time written/published.</p>
+		<p class="prose"><code class="lang-css">footer</code>s for a section should contain metadata about the <em>content</em> in the section, such as copyright information, related links, and contact information (possibly in an <code class="lang-css"><a href="#scheme-address">address</a></code> element). The section below describes how to use footers to contain footnotes.</p>
+		<div class="informative">
+			<p><span class="caution">Caution: <time>2014-02-26</time></span> There is a large grey area concerning the content that should belong in the <code class="lang-css">header</code> versus the <code class="lang-css">footer</code> elements. Since the order in which these elements are written is semantically irrelevant (it doesn't matter where they appear on the page) and the distinction between them is so small, authors who wish to use both may best consider the <code class="lang-css">header</code> as opening material and the <code class="lang-css">footer</code> as closing material for a section.</p>
+			<p>A different stance authors may want to takeis to consider using only the <code class="lang-css">header</code> element&mdash;possibly more than once in a section, <i lang="la"><abbr title="examplia gratis">e.g.</abbr></i>, at the top and at the bottom&mdash;and completely disregarding the <code class="lang-css">footer</code> element. This is the stance taken and recommendation given by this documentation.</p>
+		</div>
+		<section id="scheme-footnotes">
+			<h1 class="h-epsilon">Footnotes</h1>
+				<p class="prose">Footnotes are annotations that can be taken out of context. The reference<sup class="fn"><a id="r1" href="#fn1">1</a></sup> should link to the footnote<sup class="fn"><a id="r2" href="#fn2">2</a></sup>. All footnotes are contained within a <code class="lang-css">header > ul.footnotes</code>. The <code class="lang-css">header > ul.footnotes</code> should appear at the <em>bottom</em> of the document or article. Since footnotes are too short to be considered <i class="scare">content</i>, they are not suitiable in an <code class="lang-css">aside</code> element.</p>
+				<header>
+					<ul class="footnotes">
+						<li><sup class="fn"><a id="fn1" href="#r1">1</a></sup> A reference (shown above) is followed by a <code class="lang-css">sup.fn > a#r1[href=&quot;#fn1&quot;]</code>, where <code class="lang-css">a#r1</code> is the anchor in the reference and <code class="lang-css">a#fn1</code> is the footnote to which it links.</li>
+						<li><sup class="fn"><a id="fn2" href="#r1">2</a></sup> A footnote (shown here) is preceded by a <code class="lang-css">sup.fn > a#fn1[href=&quot;#r1&quot;]</code>, where <code class="lang-css">a#fn1</code> is the anchor in the footnote and <code class="lang-css">a#r1</code> is the reference to which it links.</li>
 					</ul>
-				</aside>
-			</section>
+					<div class="informative">
+						<p><span class="caution">Caution <time>2014-03-01</time></span>: As of currently, the author must be responsible for the numbers that appear in the reference anchor and the corresponding footnote anchor. JavaScript will be implemented soon to automate this task.</p>
+					</div>
+				</header>
 		</section>
 	</section>
 	<section id="scheme-heading">
 		<h1 class="h-gamma">Heading Scheme</h1>
-		<p class="prose">Headings describe sections of a document. They're like mini-titles for levels in the Document Outline. Use the <code class="lang-css">h1</code>&ndash;<code class="lang-css">h6</code> elements, or use the <code>.h-alpha</code>, <code>.h-beta</code>, <code>.h-gamma</code>, <code>.h-delta</code>, <code>.h-epsilon</code>, and <code>.h-zeta</code> classes to style non-heading elements. It is recommended, however, to consistently use <code class="lang-css">h1</code>s, and then apply respective classes above based on heading level.</p>
+		<p class="prose">Headings describe sections of a document. They title the levels in the Document Outline. Use the <code class="lang-css">h1</code>&ndash;<code class="lang-css">h6</code> elements, or use the <code>.h-alpha</code>, <code>.h-beta</code>, <code>.h-gamma</code>, <code>.h-delta</code>, <code>.h-epsilon</code>, and <code>.h-zeta</code> classes to make non-heading elements look like headings. It is recommended, however, to consistently use <code class="lang-css">section > h1</code>s, and then apply respective classes above based on heading level. This document exercises this practice.</p>
 		<p class="prose">Some headings may require a subheading. To use one, add a <code class="lang-css">span.hsub</code> <em>inside</em> the heading element, as shown below.</p>
-		<p class="informative"><span class="caution">Caution <time>2014-02-23</time>:</span> The correct element used for subheadings has been controversial&mdash;some developors support the use of <code class="lang-css">small</code>, while others believe this element is best used only for side comments, small print, legal information, <i lang="la"><abbr title="et cetera">etc</abbr></i>. For now, stick with a <code class="lang-css">span</code> and stay tuned for updates.</p>
+		<div class="informative">
+			<p><span class="caution">Caution <time>2014-02-23</time>:</span> The correct element used for subheadings has been controversial&mdash;some developors support the use of <code class="lang-css">small</code>, while others believe this element is best used only for side comments, small print, legal information, <i lang="la"><abbr title="et cetera">etc</abbr></i>. For now, stick with a <code class="lang-css">span</code> and stay tuned for updates.</p>
+		</div>
 		<h1 class="h-alpha">Heading 1 <span class="hsub">Level Alpha</span></h1>
 		<p class="prose">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 		<h1 class="h-beta">Heading 2 <span class="hsub">Level Beta</span></h1>
@@ -165,7 +169,7 @@
 			<blockquote>It's courteous&mdash;and probably required&mdash;to reference the source of the quoted text. Add a <code class="lang-css">cite.source</code> at the end of the block quote. (Yes, you should use the <code class="lang-css">cite</code> element.) <cite class="source">Source</cite></blockquote>
 			<blockquote class="prose">
 				<p>Block quotes that are longer than about 40 words should contain at least one <code class="lang-css">p</code>. Conversely, short block quotes should <em>not</em> contain paragraphs; the textual content should be contained directly inside, as shown above. Since longer passages of text are more easily read in a serif font, apply the <code class="lang-css">.prose</code> class <strong>to the entire block quote</strong> instead of to each element inside.</p>
-				<p>In a long block quote, the citation should be in a <code class="lang-css">header &gt; cite.source</code> <i class="parenth"><a href="#scheme-header">yes, <code class="lang-css">header</code></a></i>, with the year included as well. If you're really picky, you can wrap the year with a <code class="lang-html">&lt;time&gt;</code> tag.</p>
+				<p>In a long block quote, the citation should be in a <code class="lang-css">header &gt; cite.source</code> <i class="parenth"><a href="#scheme-header">yes, header</a></i>, with the year included as well. If you're really picky, you can wrap the year with a <code class="lang-html">&lt;time&gt;</code> tag.</p>
 				<header><cite class="source">Source, <time>2000</time></cite></header>
 			</blockquote>
 		</section>

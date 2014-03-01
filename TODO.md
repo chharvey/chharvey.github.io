@@ -52,7 +52,6 @@ TO DO
 - 2014-02-15 vertical rhythm for tables
 - inline elements: highlighting
 - 2014-02-16 do labels/tooltips/whatever hint: [http://kushagragour.in/lab/hint/]()
-- 2014-02-28 footnote scheme (`.ft`)
 - quotation-scheme examples
 - code scheme
 

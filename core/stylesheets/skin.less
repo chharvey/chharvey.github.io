@@ -129,7 +129,6 @@ ol, ul, li, dl, dt, dd {
 	margin: 0;
 }
 p,
-header, footer,
 figure, blockquote,
 ol, ul,
 dl,
@@ -190,8 +189,7 @@ aside {
 //	@padding-inside: 2em;
 //	@padding-outside: 1em;
 	&.major,
-	&.minor,
-	&.footnotes {
+	&.minor {
 		font-size: @font-size-small;
 		line-height: @line-height-small;
 	}
@@ -216,15 +214,8 @@ aside {
 		padding-left: @width-Golden7;  // P3 within a P4
 		padding-right: @width-Golden8; // P4 within a P4
 	}
-	&.footnotes {
-		.padding-lh(top; (9/24));
-		border-top: ((1/24) * @line-height-base * @font-size-base) solid @color-accent;
-		.margin-lh(top; (14/24));
-		> ul {margin-top: 0;}
-	}
 	.h {text-indent: 0;}
 }
-header {}
 /* @end */
 
 /* @group headings */
@@ -496,6 +487,18 @@ li, dt, dd {
 	a {border: 0;}
 	a:not([href]) {color: @color-base-txt;}
 }
+.footnotes {
+	&:extend(.list-basic);
+	.padding-lh(top; (9/24));
+	border-top: ((1/24) * @line-height-base * @font-size-base) solid @color-accent;
+	.margin-lh(top; (14/24));
+	font-size: @font-size-small;
+	line-height: @line-height-small;
+	li {
+		padding-left: @fn-width;
+		text-indent: -@fn-width;
+	}
+}
 .breadcrumbs {
 	&:extend(.list-inline all);
 	&:extend(.list-action all);
@@ -763,10 +766,12 @@ sup, sub {
 	font-size: @font-size-small;
 	vertical-align: baseline;
 }
+@fn-width: 1.5em;
 sup {
 	position: relative;
 	bottom: 6px;
 	&.fn {
+		width: @fn-width;
 		a {
 			border-bottom: 0;
 			&::before {
@@ -782,12 +787,6 @@ sub {
 	position: relative;
 	top: 6px;
 }
-//.ft {
-//	//* a footnote. use `a.ft` with `href="#???"` to create the link, and `span.ft#???` for the note
-//	&:extend(sup);
-//	&::before {content: '[';}
-//	&::after  {content: ']';}
-//}
 /* @end */
 
 /* @group hyperlinks */
