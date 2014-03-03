@@ -6,21 +6,11 @@ TO DO
 ### semantics ###
 - don't rely on `title` attributes for any element (mobile browsers)
 - 2014-02-18 use `title` attribute on all `a` elements to describe the **Title of the linked document**
-- `rel` attributes on `link` and `a` elements, see [http://dev.w3.org/html5/spec/links.html#linkTypes]()
-	- 2014-03-03 `next`: current doc is part of a series, and that the `a`, for example in breadcrumbs, links to the next document in the series. May be used with `sibling`
-	- 2014-03-03 `prev`: current doc is part of a series, and that the `a`, for example in breadcrumbs, links to the previous document in the series. May be used with `sibling`
-	- 2014-03-03 `home`: links to the "logical top level" document
-	- 2014-03-03 `parent`: links to the "logical parent" of this page
-	- 2014-03-03 `child`: links to a "logical child" of this page
-	- 2014-03-03 `sibling`: links to a page that has the same "logical parent" as this page
-	- 2014-03-03 `external`: the linked page is not part of the same site
-- breadcrumbs! three choices:
+- 2012-01-12 fix breadcrumbs concept! three choices:
 	- "owns": `&ni;` or `\220b`
 	- "superset": `&supe;` or `\2287`
 	- "slash":/ or "bar": |
-- 2012-01-12 fix breadcrumbs concept!
 - Add any boolean `hidden` attribute to all elements not ready for publishing
-- **only in formal documents**: Change all possessive and contraction apostrophe characters `'` to right single quotes `&rsquo;`. Leave the apostrophes alone in regular pages. The typographical precision is not worth the effort.
 - 2014-03-02 see which `<b>` tags you can remove; which ones do you REALLY need?
 	- 2013-12-14 see which `b.ref`s you can change to `cite`s (titles of works) and `a`s (links to documents, sections, etc.)
 - 2014-01-24 fix timestamp issues. maybe use `dl`?
@@ -28,18 +18,28 @@ TO DO
 - 2014-03-01 use `<small>` for labels---they really are disclamers/caveats/etc.
 - 2014-02-26 get rid of all "introductory prose" from `<header>` elements. `header`s should only contain metadata about the document.
 
+#### metadata and micro-semantics (very low priority) ###
+- `rel` attributes on `link` and `a` elements, see [http://dev.w3.org/html5/spec/links.html#linkTypes]()
+	- 2014-03-03 `next`: current doc is part of a series, and that the `a`, for example in breadcrumbs, links to the next document in the series. May be used with `sibling`
+	- 2014-03-03 `prev`: current doc is part of a series, and that the `a`, for example in breadcrumbs, links to the previous document in the series. May be used with `sibling`
+	- 2014-03-03 `top`: links to the "logical top level" document. implies `ancestor`
+	- 2014-03-03 `parent`: links to the "logical parent" of this page
+	- 2014-03-03 `ancestor`: links to the "logical parent" of this page, or the "logical parent" of an `ancestor` of this page (recursively defined)
+	- 2014-03-03 `child`: links to a "logical child" of this page
+	- 2014-03-03 `descendent`: links to a "logical child" of this page, or a "logical child" of a `descendent` of this page (recursively defined)
+	- 2014-03-03 `sibling`: links to a page that has the same "logical parent" as this page
+	- 2014-03-03 `external`: the linked page is not part of the same site
+- 2013-03-03 choose between:
+	- microformats (special `class`es)
+	- microdata (`itemscope` and `itemprop`, via [schema.org]())
+- 2013-03-03 ARIA roles
+
 ### styles ###
 - 2014-01-24 fix timestamp issues in `skin.less`
 - 2014-02-24 remove all "scoped" Less and make use of "namespaces"
 	- in `reals.less` lines 120–149, and 157–183
 	- in `secondary-ed.less` lines 154–234
 - 2014-03-01 all quasi-elements should be qualified selectors, e.g., `div.eg` in the stylesheet. Conversely, all qualified elements need to be quasi-elements. if a selector is not a quasi-element, make it unqualified!
-
-#### typography notes ####
-- 2014-02-24 line break violations:
-	- right after a preposition (to, for, with, over, by, etc.)
-	- after a small word (2- or 3-letter words)
-	- in the middle of a highlighted phrase 3 words or fewer (em, strong, i, b, etc.)
 
 ### scripts ###
 - 2013-12-14 investigate the use of templates (`<template>`)
@@ -58,17 +58,21 @@ TO DO
 - 2014-01-21 finish last section (Phi demonstration)
 
 ### /site-design/typo.html ###
-- 2014-02-15 vertical rhythm for tables
 - inline elements: highlighting
 - 2014-02-16 do labels/tooltips/whatever hint: [http://kushagragour.in/lab/hint/]()
-- quotation-scheme examples
 - code scheme
 
+#### /site-design/punct.html (under typography) ####
+- 2014-02-24 line break violations:
+	- right after a preposition (to, for, with, over, by, etc.)
+	- after a small word (2- or 3-letter words)
+	- in the middle of a highlighted phrase 3 words or fewer (em, strong, i, b, etc.)
+- **only in formal documents**: Change all possessive and contraction apostrophe characters `'` to right single quotes `&rsquo;`. Leave the apostrophes alone in regular pages. The typographical precision is not worth the effort.
 
 ### /resume/ ###
 - fix print.css!
 
-### /home/folio/ pages ###
+### /home/folio/ ###
 - class drop-downs shouldn't be summary elements, just because the behavior is something ideal. Use divs and JavaScript to emulate the drop-down/expando behavior.
 - re-write all index pages for higher-ed courses.
 
@@ -100,11 +104,10 @@ TO DO
 - 2014-01-15 fix `dl`s to look like: 'dt — dd — dd'
 - last page: use `form`s for student and parent input
 
-#### Math7/standards-based-grading/ ####
-- create SBG 7.3 versions (integer operations)
-- fix and convert SBG 7.13a versions (verbal math)
+#### Math7/standards/ ####
+- create TEST 7.3 versions (integer operations)
+- fix and convert TEST 7.13a versions (verbal math)
 - add problems requiring identifying properties to solve equations on SBG 7.16 (to both versions)
-
 
 #### Math7/integers/ ####
 - upload `ints-add-hw.html`
@@ -158,7 +161,7 @@ TO DO
 ##### topic: metric spaces #####
 definition: delta-neighborhood: Given a metric M, and a distance delta, and an element x in M, the delta-neighborhood of x, V, is the set of all t in M such that d(x,t) < delta.
 
-Definition of “density”: a metric M is “dense” if and only if for every x in M, and for every distance delta, there exists a t in M such that t is in the delta-neighborhood of x.
+Definition of "density": a metric M is "dense" if and only if for every x in M, and for every distance delta, there exists a t in M such that t is in the delta-neighborhood of x.
 
 Another definition of density: Given a metric M, M is dense if and only if for every two elements x and y in M, there exists another element t such that x <= t <= y. Is this equivalent to the first definition?
 
