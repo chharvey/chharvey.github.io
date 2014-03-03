@@ -14,9 +14,8 @@ TO DO
 - 2012-01-12 fix breadcrumbs concept!
 - Add any boolean `hidden` attribute to all elements not ready for publishing
 - **only in formal documents**: Change all possessive and contraction apostrophe characters `'` to right single quotes `&rsquo;`. Leave the apostrophes alone in regular pages. The typographical precision is not worth the effort.
-- 2014-03-01 don't use `i.scare`; mark up scare quotes with the `&ldquo;` and `&rdquo;` entities.
-- 2013-12-14 see which `b.ref`s you can change to `cite`s (titles of works)
-	- and `a`s (links to documents, sections, etc.)
+- 2014-03-02 see which `<b>` tags you can remove; which ones do you REALLY need?
+	- 2013-12-14 see which `b.ref`s you can change to `cite`s (titles of works) and `a`s (links to documents, sections, etc.)
 - 2014-01-24 fix timestamp issues. maybe use `dl`?
 - 2014-02-26 don't overuse `<small>`! It is supposed to represent small print such as disclaimers/legal information, not parenthetical remarks.
 - 2014-03-01 use `<small>` for labels---they really are disclamers/caveats/etc.
@@ -25,8 +24,11 @@ TO DO
 ### styles ###
 - 2014-01-24 fix timestamp issues in `skin.less`
 - 2014-02-24 remove all "scoped" Less and make use of "namespaces"
+	- in `reals.less` lines 120–149, and 157–183
+	- in `secondary-ed.less` lines 154–234
 - 2014-03-01 all quasi-elements should be qualified selectors, e.g., `div.eg` in the stylesheet. Conversely, all qualified elements need to be quasi-elements. if a selector is not a quasi-element, make it unqualified!
-#### typography ####
+
+#### typography notes ####
 - 2014-02-24 line break violations:
 	- right after a preposition (to, for, with, over, by, etc.)
 	- after a small word (2- or 3-letter words)
