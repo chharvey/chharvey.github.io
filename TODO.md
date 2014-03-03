@@ -7,6 +7,13 @@ TO DO
 - don't rely on `title` attributes for any element (mobile browsers)
 - 2014-02-18 use `title` attribute on all `a` elements to describe the **Title of the linked document**
 - `rel` attributes on `link` and `a` elements, see [http://dev.w3.org/html5/spec/links.html#linkTypes]()
+	- 2014-03-03 `next`: current doc is part of a series, and that the `a`, for example in breadcrumbs, links to the next document in the series. May be used with `sibling`
+	- 2014-03-03 `prev`: current doc is part of a series, and that the `a`, for example in breadcrumbs, links to the previous document in the series. May be used with `sibling`
+	- 2014-03-03 `home`: links to the "logical top level" document
+	- 2014-03-03 `parent`: links to the "logical parent" of this page
+	- 2014-03-03 `child`: links to a "logical child" of this page
+	- 2014-03-03 `sibling`: links to a page that has the same "logical parent" as this page
+	- 2014-03-03 `external`: the linked page is not part of the same site
 - breadcrumbs! three choices:
 	- "owns": `&ni;` or `\220b`
 	- "superset": `&supe;` or `\2287`
