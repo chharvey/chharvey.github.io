@@ -271,6 +271,7 @@
 code,
 .label::before,
 .box-block,
+div.precode,
 kbd > kbd,
 .label,
 span.warning::before,
@@ -280,7 +281,7 @@ span.info::before,
 span.help::before,
 span.cyan::before,
 a.a-block,
-pre > code,
+div.precode,
 span.warning,
 span.caution,
 span.success,
@@ -297,7 +298,7 @@ span.cyan {
 .box-block,
 .label,
 a.a-block,
-pre > code,
+div.precode,
 span.warning,
 span.caution,
 span.success,
@@ -308,7 +309,7 @@ span.cyan {
 }
 .box-block,
 a.a-block,
-pre > code {
+div.precode {
   display: block;
   padding: 2px 4px;
   margin-bottom: -1px;
@@ -373,6 +374,7 @@ dd > :first-child,
 td > :first-child,
 div.informative > :first-child,
 figure > :first-child,
+figure.bad > :first-child,
 blockquote > :first-child,
 div.postal > :first-child {
   margin-top: 0;
@@ -675,6 +677,7 @@ caption {
 .sideborder,
 div.informative,
 figure,
+figure.bad,
 blockquote,
 div.postal {
   display: block;
@@ -694,10 +697,13 @@ figure {
   margin-left: 21px;
   margin-right: 0;
 }
-figure.bad,
-figure.bad * {
-  color: #ffffff;
-  background-color: #333333;
+figure.bad {
+  padding-right: 8px;
+  border-right: 5px solid #ff0000;
+  margin-right: 21px;
+  padding-left: 0;
+  border-left: 0;
+  margin-left: 0;
 }
 figcaption {
   margin-bottom: -1px;
@@ -1254,17 +1260,8 @@ a.a-block[href]:active {
 }
 /* @end */
 /* @group coding and math */
-pre {
-  margin: 0;
-  white-space: pre-wrap;
-}
-pre > code {
-  line-height: 2;
-}
-samp {
-  font-family: inherit;
-}
 code,
+div.precode,
 kbd > kbd {
   border-color: #000000;
   font-style: normal;
@@ -1274,41 +1271,59 @@ kbd > kbd {
   color: #000000;
   background-color: #ffffff;
 }
-code.lang-html .tag {
+code.lang-html .tag,
+div.precode.lang-html .tag {
   color: #990000;
 }
-code.lang-html .attribute {
+code.lang-html .attribute,
+div.precode.lang-html .attribute {
   color: #000099;
 }
-code.lang-html .value {
+code.lang-html .value,
+div.precode.lang-html .value {
   color: #009900;
 }
-code.lang-css .selector {
+code.lang-css .selector,
+div.precode.lang-css .selector {
   color: #990000;
 }
-code.lang-css .property {
+code.lang-css .property,
+div.precode.lang-css .property {
   color: #000099;
 }
-code.lang-css .value {
+code.lang-css .value,
+div.precode.lang-css .value {
   color: #009900;
 }
-code.lang-latex .cmd {
+code.lang-latex .cmd,
+div.precode.lang-latex .cmd {
   color: #990000;
 }
-code.lang-latex .arg {
+code.lang-latex .arg,
+div.precode.lang-latex .arg {
   color: #000099;
 }
-code.dir {
+code.dir,
+div.precode.dir {
   border: 0;
   font-style: italic;
   font-family: 'Optima', 'Candara', 'Lucida Sans', sans-serif;
 }
-code .comment {
+code .comment,
+div.precode .comment {
   color: #999999;
 }
-kbd {
+div.precode {
+  line-height: 2;
+  white-space: pre-wrap;
+}
+samp {
   font-family: inherit;
-  white-space: nowrap;
+}
+kbd {
+  font-style: inherit;
+  font-weight: bold;
+  font-family: inherit;
 }
 kbd > kbd {
   padding: 0 4px;
@@ -1318,7 +1333,7 @@ kbd > kbd {
 }
 .latex {
   font-family: 'Times', 'Times New Roman', serif;
-  white-space: pre-line;
+  white-space: pre-wrap;
   color: #000000;
 }
 div.latex,

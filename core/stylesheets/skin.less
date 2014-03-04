@@ -383,9 +383,11 @@ div.informative {
 }
 figure {
 	.sideborder-left(8px; 5px; 21px; solid; @color-accent);
-	&.bad, &.bad * {
-		color: @color-base-bg;
-		background-color: @color-base-txt;
+	&.bad {
+		.sideborder-right(8px; 5px; 21px; solid; @color-accent);
+		padding-left: 0;
+		border-left: 0;
+		margin-left: 0;
 	}
 }
 figcaption {
@@ -881,17 +883,6 @@ a.a-block {
 	@color-code-latex-arg:  @color-code-html-attr;
 @color-latex-txt: #000;
 @color-latex-bg:  #fff;
-
-pre {
-	margin: 0;
-	white-space: pre-wrap;
-	> code {
-		&:extend(.box-block);
-		line-height: @line-height-small;
-	}
-}
-//figure pre > code {.border-all(0; solid);}
-samp {font-family: inherit;}
 code {
 	//* example of a fragment or string of code a computer would recognize
 	&:extend(.box-inline);
@@ -924,10 +915,19 @@ code {
 	}
 	.comment {color: @color-code-comment;}
 }
+div.precode {
+	//* a preformatted block of text containing computer code
+	&:extend(.box-block);
+	&:extend(code all);
+	line-height: @line-height-small;
+	white-space: pre-wrap;
+}
+samp {font-family: inherit;}
 kbd { 
 	//* user input, in the form of a string, menu item, etc.
+	font-style: inherit;
+	font-weight: bold;
 	font-family: inherit;
-	white-space: nowrap;
 //	&.write { // what is this?
 //		font-family: inherit;
 //		&::before {content: open-quote;}
@@ -946,7 +946,7 @@ kbd {
 //	font-size: @font-size-small;
 //	line-height: @line-height-small;
 	font-family: @font-fam-math;
-	white-space: pre-line;
+	white-space: pre-wrap;
 	color: @color-latex-txt;
 	div&, p& {
 		//* block-level containers
