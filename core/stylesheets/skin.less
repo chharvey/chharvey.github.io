@@ -17,6 +17,7 @@
 @line-height-small: 2.0; // ((@font-size-base * @line-height-base)/(@font-size-small));
 
 @color-base-txt: #111;
+@color-base-txt: #333;
 @color-base-bg:  #fff;
 @color-accent: #f00;
 
@@ -123,8 +124,11 @@
 /* @end */
 
 /* @group element-reset */
+body,
+section, article, aside, nav,
+.main, main, header, footer,
 ol, ul, li, dl, dt, dd {
-	//* list reset
+	//* padding and margin reset
 	padding: 0;
 	margin: 0;
 }
@@ -132,8 +136,9 @@ p,
 figure, blockquote,
 ol, ul,
 dl,
-table {
-	//* margin reset
+table,
+pre {
+	//* margin reset with top = 1 line
 	margin: 0;
 	.margin-lh(top; 1);
 }
@@ -147,9 +152,7 @@ td {
 /* @end */
 
 /* @group sections */
-body,
-.hub-body {
-	margin: 0 4px;
+body {
 	font-size: @font-size-base;
 	font-family: @font-fam-base;
 	text-align: left;
@@ -163,9 +166,31 @@ body,
 	background-repeat: repeat-y;
 	background-size: contain;
 }
+aside {
+	&.major,
+	&.minor {
+		font-size: @font-size-small;
+		line-height: @line-height-small;
+	}
+	&.major {
+		width: @width-Golden4;         // P1 within a P3
+		padding-left: @width-Golden7;  // P4 within a P3
+		padding-right: @width-Golden6; // P3 within a P3
+		position: absolute;
+		left: 0;		
+	}
+	&.minor {
+		width: @width-Golden5;         // P1 within a P4
+		padding-left: @width-Golden7;  // P3 within a P4
+		padding-right: @width-Golden8; // P4 within a P4
+		position: absolute;
+		right: 0;
+	}
+	.h {text-indent: 0;}
+}
 .main, main {
 	//* the main container in the body
-	&:extend(.P1-midright);
+	.P1-midright;
 	margin-bottom: 192px; // 2in
 }
 .masthead {
@@ -174,7 +199,7 @@ body,
 	position: fixed;
 	top: (@iconsize / 2);
 	nav {
-		&:extend(.P1-midleft);
+		.P1-midleft;
 		.mylogo {
 			display: block;
 			.border(bottom; 0; solid);
@@ -183,38 +208,6 @@ body,
 			font-family: 'Times','Times New Roman',serif;
 		}
 	}
-}
-section {}
-aside {
-//	@padding-inside: 2em;
-//	@padding-outside: 1em;
-	&.major,
-	&.minor {
-		font-size: @font-size-small;
-		line-height: @line-height-small;
-	}
-	&.major {
-//		width: (@width-Golden3 - (@padding-inside + @padding-outside));
-//		padding-left: @padding-outside;
-//		padding-right: @padding-inside;
-		position: absolute;
-		left: 0;
-		width: @width-Golden4;         // P1 within a P3
-		padding-left: @width-Golden7;  // P4 within a P3
-		padding-right: @width-Golden6; // P3 within a P3
-		
-	}
-	&.minor {
-//		width: (@width-Golden4 - (@padding-inside + @padding-outside));
-//		padding-left: @padding-inside;
-//		padding-right: @padding-outside;
-		position: absolute;
-		right: 0;
-		width: @width-Golden5;         // P1 within a P4
-		padding-left: @width-Golden7;  // P3 within a P4
-		padding-right: @width-Golden8; // P4 within a P4
-	}
-	.h {text-indent: 0;}
 }
 /* @end */
 
@@ -387,7 +380,6 @@ h1, h2, h3, h4, h5, h6 {
 div.informative {
 	.sideborder-left(5px; 3px; 13px; solid; @color-accent);
 	font-style: italic;
-	color: @color-info-txt;
 }
 figure {
 	.sideborder-left(8px; 5px; 21px; solid; @color-accent);
@@ -430,7 +422,6 @@ div.postal {
 	font-family: @font-fam-accent;
 	text-align: right;
 	line-height: @line-height-big;
-	a {border: 0;}
 }
 //.phone, // use microformats
 //.tel,
@@ -486,20 +477,7 @@ li, dt, dd {
 	color: @color-link-up-txt;
 	ul, ol, dl {list-style-type: none;}
 	li::before {content: '\2713\0020';} // check mark, space
-	a {border: 0;}
 	a:not([href]) {color: @color-base-txt;}
-}
-.footnotes {
-	&:extend(.list-basic);
-	.padding-lh(top; (9/24));
-	border-top: ((1/24) * @line-height-base * @font-size-base) solid @color-accent;
-	.margin-lh(top; (14/24));
-	font-size: @font-size-small;
-	line-height: @line-height-small;
-	li {
-		padding-left: @fn-width;
-		text-indent: -@fn-width;
-	}
 }
 .breadcrumbs {
 	&:extend(.list-inline all);
@@ -509,7 +487,7 @@ li, dt, dd {
 		padding-right: 1em;
 		&::before {content: '';}
 	}
-	body > nav & {&:extend(.P1-midright);}
+	body > nav & {.P1-midright;}
 }
 /* @end */
 
@@ -580,7 +558,6 @@ table {
 	margin-left: auto;
 	margin-right: auto;
 	text-align: center;
-	a {border: 0;}
 }
 caption {
 	&:extend(.caption);
@@ -729,9 +706,16 @@ b.ref {
 //}
 q {}
 cite {font-style: inherit;}
+dfn,
+abbr {color: @color-info-txt;}
+dfn {
+	font-weight: bold;
+	font-style: inherit;
+	font-family: @font-fam-prose;
+}
+abbr[title],
 del[datetime],
-ins[datetime],
-abbr[title] {
+ins[datetime] {
 	cursor: help;
 	&::after {
 		display: none;
@@ -744,60 +728,61 @@ abbr[title] {
 	}
 //	&:hover::after {display: inline;}
 }
+abbr {
+	&[title]::after {content: attr(title);}
+}
 del {
 	text-decoration: line-through;
 //	color: @color-sp-dn-txt;
 	color: @color-warning-txt;
-	background-color: @color-warning-icon-bg;
+	background-color: @color-warning-bg;
 	&[datetime]::after {content: 'deleted on ' attr(datetime);}
 }
 ins {
 	text-decoration: underline;
 //	color: @color-sp-up-txt;
 	color: @color-success-txt;
-	background-color: @color-success-icon-bg;
+	background-color: @color-success-bg;
 	&[datetime]::after {content: 'inserted on ' attr(datetime);}
 }
 del + ins {padding-left: 0.5em;}
-abbr {
-	color: @color-info-txt;
-//	background-color: @color-info-icon-bg;
-	&[title]::after {content: attr(title);}
-}
-dfn {
-	//* defining instance of a term
-	font-weight: bold;
-	font-style: inherit;
-	font-family: @font-fam-prose;
-	color: @color-info-txt;
-	background-color: @color-info-icon-bg;
-}
 //small,
 sup, sub {
 	font-size: @font-size-small;
 	vertical-align: baseline;
 }
-@fn-width: 1.5em;
 sup {
 	position: relative;
 	bottom: 6px;
-	&.fn {
-		width: @fn-width;
-		a {
-			border-bottom: 0;
-			&::before {
-				content: '[';
-			}
-			&::after {
-				content: ']';
-			}
-		}
-	}
 }
 sub {
 	position: relative;
 	top: 6px;
 }
+	/* @group footnotes */
+	@fn-width: 1.5em;
+	.footnotes {
+		//* an unordered list containing footnotes
+		&:extend(.list-basic);
+		.padding-lh(top; (9/24));
+		border-top: ((1/24) * @line-height-base * @font-size-base) solid @color-accent;
+		.margin-lh(top; (14/24));
+		font-size: @font-size-small;
+		line-height: @line-height-small;
+		li {
+			padding-left: @fn-width;
+			text-indent: -@fn-width;
+		}
+	}
+	sup.fn {
+		//* the superscript containing a link to the footnote or back to the reference
+		width: @fn-width;
+		a {
+			&::before {content: '[';}
+			&::after {content: ']';}
+		}
+	}
+	/* @end */
 /* @end */
 
 /* @group hyperlinks */
@@ -830,7 +815,6 @@ sub {
 	
 	@color-sp-up-txt: green;
 	@color-sp-dn-txt: purple;
-
 a {
 	text-decoration: none;
 	color: inherit;
@@ -850,6 +834,14 @@ a {
 		//* `title` attribute should be the Title of the linked document
 	}
 	.latex {color: inherit}
+}
+blockquote,
+div.postal,
+.list-action,
+table,
+sup.fn {
+	//* no border for links in certain containers
+	a {border: 0;}
 }
 a.a-block {
 	&:extend(.box-block);
@@ -1070,7 +1062,7 @@ hr,
 @media print {
 	body,
 	.h,
-	blockquote, .postal,
+	blockquote, div.postal,
 	table {
 		font-size: @font-size-base !important;
 		line-height: @line-height-base !important;
