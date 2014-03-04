@@ -97,6 +97,7 @@ TO DO
 #### Math7/ ####
 - on all course overview, unit overviews, and lessons: include breadcrumbs!
 - 2014-02-28 on all unit overviews: vocab in `dl.vocablist` should be wrapped with `<dfn>`, with an `id` equal to its contents. on all lesson plans with a `ul.vocablist` in the header: do not redefine terms; simply link to the corresponding `id` in the unit overview. syntax-is-that-of-naming-html-pages.
+- 2014-03-04 fix Assessment styles
 
 #### Math7/index.html ####
 
