@@ -24,6 +24,13 @@
 /* @end */
 
 /* @group absract mixins */
+.width-horiz(@origwidth; @marg-l; @marg-r; @pad-l; @pad-r) {
+	margin-left: @marg-l;
+	margin-right: @marg-r;
+	padding-left: @pad-l;
+	padding-right: @pad-r;
+	width: (@origwidth - (@pad-l + @pad-r));
+}
 .padding-lh(top; @lh-top) {
 	padding-top: @lh-top * @line-height-base * @font-size-base;
 }
@@ -162,9 +169,9 @@ body {
 	background-color: @color-base-bg;
 }
 .hub-body {
-	background-image: url('/home/images/phi-stripes-trans.png');
-	background-repeat: repeat-y;
-	background-size: contain;
+//	background-image: url('/home/images/phi-stripes-trans.png');
+//	background-repeat: repeat-y;
+//	background-size: contain;
 }
 aside {
 	&.major,
@@ -173,16 +180,14 @@ aside {
 		line-height: @line-height-small;
 	}
 	&.major {
-		width: @width-Golden4;         // P1 within a P3
-		padding-left: @width-Golden7;  // P4 within a P3
-		padding-right: @width-Golden6; // P3 within a P3
+		.width-horiz(@width-Golden4; @width-Golden7; @width-Golden6; @width-Golden12; @width-Golden11);
+		.width-horiz(@width-Golden4; @width-Golden7; @width-Golden6; 0; 0);
 		position: absolute;
 		left: 0;		
 	}
 	&.minor {
-		width: @width-Golden5;         // P1 within a P4
-		padding-left: @width-Golden7;  // P3 within a P4
-		padding-right: @width-Golden8; // P4 within a P4
+		.width-horiz(@width-Golden5; @width-Golden7; @width-Golden8; @width-Golden12; @width-Golden11);
+		.width-horiz(@width-Golden5; @width-Golden7; @width-Golden8; 0; 0);
 		position: absolute;
 		right: 0;
 	}
@@ -191,6 +196,12 @@ aside {
 .main, main {
 	//* the main container in the body
 	.P1-midright;
+//	.width-horiz(@width-Golden1; @width-Golden3; @width-Golden4; @width-Golden12; @width-Golden11);
+//	width: (@width-Golden1 - (@pad-l + @pad-r));
+//	@pad-l: @width-Golden12;
+//	@pad-r: @width-Golden11;
+//	padding-left:  @pad-l;
+//	padding-right: @pad-r;
 	margin-bottom: 192px; // 2in
 }
 .masthead {
@@ -883,6 +894,7 @@ a.a-block {
 	@color-code-latex-arg:  @color-code-html-attr;
 @color-latex-txt: #000;
 @color-latex-bg:  #fff;
+pre {white-space: pre-wrap;}
 code {
 	//* example of a fragment or string of code a computer would recognize
 	&:extend(.box-inline);
