@@ -1,4 +1,7 @@
 // main: all.less
+
+// *** PART 1: HORIZONTAL GRID *** //
+
 /* @group Widths */
 @Phi1: ((-1 + sqrt(5)) / 2);
 //@Phi1: 0.618033988749894848;
@@ -134,18 +137,19 @@
 .unit-5to6 {width: (100% * (5/6));} //  83.3%
 /* @end */
 
+/* @group automated box widths. may be used on regular blocks or on `.line`s containing `.unit`s */
 .linebreadth(@breadth) {
 	width:  @breadth;
 	margin-left:  ((100% - @breadth) / 2);
 	margin-right: ((100% - @breadth) / 2);
 }
-.linebreadth-full   {.linebreadth(100%);}
-.linebreadth-large  {.linebreadth(100% * (3/4));} // geometric:  75.00%
-.linebreadth-medium {.linebreadth(100% * (2/3));} // arithmetic: 66.66%
-.linebreadth-small  {.linebreadth(@width-Golden1);}
+.linebreadth-full   {.linebreadth(100%);}           // same as `.line`
+.linebreadth-large  {.linebreadth(100% * (3/4));}   // geometric:  75.00%
+.linebreadth-medium {.linebreadth(100% * (2/3));}   // arithmetic: 66.66%
+.linebreadth-small  {.linebreadth(@width-Golden1);} // Golden:     61.80%
+/* @end */
 
-
-/* @group on-screen only */
+/* @group Undo Golden widths and margins */
 .undoGolden,
 .undoP1-midleft,
 .undoP1-midright,
@@ -178,7 +182,110 @@
 .undoU-P3-right {width: @width-u-golden3; left: -30.9016994374947424%;} // -30.9016994374947424%
 .undoU-P3-right {width: @width-u-golden4;}
 .undoU-P4-right {width: @width-u-golden4; left: -17.0820393249936909%;} // -17.0820393249936909%
+/* @end */
 
-@media screen {
+// *** PART 2: VERTICAL GRID *** //
+
+/* @group Font Size and Line Height */
+@font-size-base:  16px;
+@line-height-base:  1.5;
+.font-size(medium) {
+	font-size: @font-size-base;
+	line-height: @line-height-base;
 }
+.font-size(large; inherit) {
+	font-size: (@font-size-base * (5/4)); // 20px	
+}
+.font-size(large) {
+	.font-size(large; inherit);
+	line-height: 1.2; // ((@font-size-base * @line-height-base)/(@font-size-big));
+}
+.font-size(small; inherit) {
+	font-size: (@font-size-base * (3/4)); // 12px
+}
+.font-size(small) {
+	.font-size(small; inherit);
+	line-height: 2.0; // ((@font-size-base * @line-height-base)/(@font-size-small));
+}
+/* @end */
+
+/* @group Mixins for controlling vertical padding, margins, and borders */
+@olh: @line-height-base * @font-size-base; // 24px
+.padding-lh(top; @lh-top) {
+	padding-top: @lh-top * @olh;
+}
+.padding-lh(bottom; @lh-bot) {
+	padding-bottom: @lh-bot * @olh;
+}
+.margin-lh(top; @lh-top) {
+	margin-top: @lh-top * @olh;
+}
+.margin-lh(bottom; @lh-bot) {
+	margin-bottom: @lh-bot * @olh;
+}
+.spacing-top-Phi() {
+	.padding-lh(top; @Phi2);
+	.margin-lh(top; @Phi1);
+}
+.spacing-top-Phi(@brdr) {
+	padding-top: ((@olh - @brdr) * @Phi2);
+	border-top: @brdr solid @color-accent;
+	margin-top: ((@olh - @brdr) * @Phi1);
+}
+
+// * Use the folowing mixins to adjust borders for BLOCK elements only! They will adjust borders while keeping the vertical rhythm intact (via making margin-bottom negative). DO NOT use these mixins on INLINE elements.
+.border-vert-single(@width) {
+	margin-bottom: (-1 * @width);
+	position: relative;
+	top: (-1 * @width);
+}
+.border-vert-both(@width) {
+	.border-vert-single(@width);
+	margin-bottom: (-2 * @width);
+}
+.border(top; @width; @style) {
+	.border-vert-single(@width);
+	border-top-width: @width;
+	border-top-style: @style;
+}
+.border(top; @width; @style; @color) {
+	.border(top; @width; @style);
+	border-color: @color;
+}
+.border(bottom; @width; @style) {
+	.border-vert-single(@width);
+	border-bottom-width: @width;
+	border-bottom-style: @style;
+}
+.border(bottom; @width; @style; @color) {
+	.border(bottom; @width; @style);
+	border-color: @color;
+}
+.border(topbot; @width; @style) {
+	.border-vert-both(@width);
+	border-width: @width;
+	border-style: @style;
+	border-left: 0;
+	border-right: 0;
+}
+.border(topbot; @width; @style; @color) {
+	.border(topbot; @width; @style);
+	border-color: @color;
+}
+.border(all; @width; @style) {
+	.border-vert-both(@width);
+	border-width: @width;
+	border-style: @style;
+}
+.border(all; @width; @style; @color) {
+	.border(all; @width; @style);
+	border-color: @color;
+}
+//.width-horiz(@origwidth; @marg-l; @marg-r; @pad-l; @pad-r) {
+//	margin-left: @marg-l;
+//	margin-right: @marg-r;
+//	padding-left: @pad-l;
+//	padding-right: @pad-r;
+//	width: (@origwidth - (@pad-l + @pad-r));
+//}
 /* @end */

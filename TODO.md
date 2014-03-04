@@ -40,6 +40,7 @@ TO DO
 	- in `reals.less` lines 120–149, and 157–183
 	- in `secondary-ed.less` lines 154–234
 - 2014-03-01 all quasi-elements should be qualified selectors, e.g., `div.eg` in the stylesheet. Conversely, all qualified elements need to be quasi-elements. if a selector is not a quasi-element, make it unqualified!
+- 2014-03-04 don’t make `figure.bad` look different from `figure`; they’re the same!
 
 ### scripts ###
 - 2013-12-14 investigate the use of templates (`<template>`)
