@@ -57,6 +57,7 @@ TO DO
 
 ### /site-design/grid.html ###
 - 2014-01-21 finish last section (Phi demonstration)
+- 2014-03-05 add Gutter section below all Grid stuff
 
 ### /site-design/typo.html ###
 - inline elements: highlighting
