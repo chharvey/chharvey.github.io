@@ -228,17 +228,34 @@
 }
 /* @end */
 
-/* @group Mixins for controlling vertical padding, margins, and borders */
+/* @group Mixins for controlling padding, margins, and borders */
+.spacing-top-Phi(@brdr-width; @brdr-style) {
+	padding-top: ((@olh - @brdr-width) * @Phi2);
+	border-top: @brdr-width @brdr-style @color-accent;
+	margin-top: ((@olh - @brdr-width) * @Phi1);
+}
+.spacing-top-Phi(@brdr-width) {
+	.spacing-top-Phi(@brdr-width; solid);
+}
 .spacing-top-Phi() {
-	padding-top: @Phi2 * @olh;
-	margin-top: @Phi1 * @olh;
+	.spacing-top-Phi(0px);
 }
-.spacing-top-Phi(@brdr) {
-	padding-top: ((@olh - @brdr) * @Phi2);
-	border-top: @brdr solid @color-accent;
-	margin-top: ((@olh - @brdr) * @Phi1);
+.spacing-left-Phi(@brdr-width; @brdr-style) {
+	padding-left: @brdr-width * @phi1;
+	border-left: @brdr-width @brdr-style @color-accent;
+	margin-left: @brdr-width * @phi3;
 }
-
+.spacing-left-Phi(@brdr-width) {
+	.spacing-left-Phi(@brdr-width; solid);
+}
+.spacing-right-Phi(@brdr-width; @brdr-style) {
+	padding-right: @brdr-width * @phi1;
+	border-right: @brdr-width @brdr-style @color-accent;
+	margin-right: @brdr-width * @phi3;
+}
+.spacing-right-Phi(@brdr-width) {
+	.spacing-right-Phi(@brdr-width; solid);
+}
 // * Use the folowing mixins to adjust borders for BLOCK elements only! They will adjust borders while keeping the vertical rhythm intact (via making margin-bottom negative). DO NOT use these mixins on INLINE elements.
 .border-vert-single(@width) {
 	margin-bottom: (-1 * @width);
