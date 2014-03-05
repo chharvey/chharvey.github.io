@@ -36,7 +36,7 @@
 	// * a block structure, boxed
 	&:extend(.box-inline-block);
 	display: block;
-	padding: 2px 4px;
+	padding: 0 4px;
 	.border(all; 1px; solid);
 	border-radius: @box-radius-large;
 	margin-left: 4px;
@@ -70,30 +70,28 @@ body {
 //	background-size: contain;
 }
 aside {
-	&.major,
-	&.minor {
-		.font-size(small);
-	}
-	&.major {
-//		.width-horiz(@width-Golden4; @width-Golden7; @width-Golden6; @width-Golden12; @width-Golden11);
-		// P1-midleft within a P3-left
-		width: @width-Golden4;
-		margin-left: @width-Golden7;
-		margin-right: @width-Golden6;
-		position: absolute;
-		left: 0;		
-	}
-	&.minor {
-//		.width-horiz(@width-Golden5; @width-Golden7; @width-Golden8; @width-Golden12; @width-Golden11);
-		// P1-midright within a P4-right
-		width: @width-Golden5;
-		margin-left: @width-Golden7;
-		margin-right: @width-Golden8;
-		position: absolute;
-		right: 0;
-	}
-	.h {text-indent: 0;}
+	position: absolute;
+	.font-size(small);
 }
+.aside-major {
+	&:extend(aside);
+//	.width-horiz(@width-Golden4; @width-Golden7; @width-Golden6; @width-Golden12; @width-Golden11);
+	// P1-midleft within a P3-left
+	width: @width-Golden4;
+	margin-left: @width-Golden7;
+	margin-right: @width-Golden6;
+	left: 0;		
+}
+.aside-minor {
+	&:extend(aside);
+//	.width-horiz(@width-Golden5; @width-Golden7; @width-Golden8; @width-Golden12; @width-Golden11);
+	// P1-midright within a P4-right
+	width: @width-Golden5;
+	margin-left: @width-Golden7;
+	margin-right: @width-Golden8;
+	right: 0;
+}
+
 .main, main {
 	// * the main container in the body
 	.P1-midright;
@@ -136,7 +134,7 @@ aside {
 @font-size-h4: (@font-size-base * @h4-ratio); // 16px or 12pt
 @font-size-h5: (@font-size-base * @h5-ratio); // 14px or 10.5pt
 @font-size-h6: (@font-size-base * @h6-ratio); // 12px or 9pt
-@hsub-ratio: 0.8;
+@hsub-size: 80%;
 
 @color-hn-primary: #f80;
 @color-hn-secondary: #840;
@@ -152,15 +150,12 @@ h1, h2, h3, h4, h5, h6 {
 	font-family: @font-fam-heading;
 	letter-spacing: 1px;
 	.latex {color: inherit;}
-	.hsub {
-		font-size: (@hsub-ratio * 100%);
-		padding-left: 1em;
-		font-weight: normal;
-	}
-	+ p,
-	+ ol, + ul,
-	+ dl,
-	+ table {margin-top: 0;}
+}
+span.hsub {
+	// * QUASI-ELEMENT: subheading
+	font-size: @hsub-size;
+	padding-left: 1em;
+	font-weight: normal;
 }
 .h-alpha {
 	&:extend(.h all);
@@ -172,8 +167,7 @@ h1, h2, h3, h4, h5, h6 {
 	text-align: center;
 	line-height: (@line-height-base/@h1-ratio);
 	color: @color-hn-primary;
-	.hsub {
-//		font-size: @font-size-h1 * @hsub-ratio;
+	> .hsub {
 		color: lighten(@color-hn-primary, @hsub-lighten);
 	}
 }
@@ -185,8 +179,7 @@ h1, h2, h3, h4, h5, h6 {
 	font-size: @font-size-h2;
 	line-height: (@line-height-base/@h2-ratio);
 	color: @color-hn-secondary;
-	.hsub {
-//		font-size: @font-size-h2 * @hsub-ratio;
+	> .hsub {
 		color: lighten(@color-hn-secondary, @hsub-lighten);
 	}
 }
@@ -198,8 +191,7 @@ h1, h2, h3, h4, h5, h6 {
 	font-weight: bold;
 	font-size: @font-size-h3;
 	line-height: (@line-height-base/@h3-ratio);
-	.hsub {
-//		font-size: @font-size-h3 * @hsub-ratio;
+	> .hsub {
 		color: lighten(@color-base-txt, @hsub-lighten);
 	}
 }
@@ -210,8 +202,7 @@ h1, h2, h3, h4, h5, h6 {
 	font-weight: bold;
 	font-size: @font-size-h4;
 	line-height: (@line-height-base/@h4-ratio);
-	.hsub {
-//		font-size: @font-size-h4 * @hsub-ratio;
+	> .hsub {
 		color: lighten(@color-base-txt, @hsub-lighten);
 	}
 }
@@ -222,8 +213,7 @@ h1, h2, h3, h4, h5, h6 {
 	text-indent: 0.5in;
 	line-height: (@line-height-base/@h5-ratio);
 	color: @color-hn-secondary;
-	.hsub {
-//		font-size: @font-size-h5 * @hsub-ratio;
+	> .hsub {
 		color: lighten(@color-hn-secondary, @hsub-lighten);
 	}
 }
@@ -234,30 +224,37 @@ h1, h2, h3, h4, h5, h6 {
 	font-size: @font-size-h6;
 	text-indent: 0.5in;
 	line-height: (@line-height-base/@h6-ratio);
-	.hsub {
-//		font-size: @font-size-h6 * @hsub-ratio;
+	> .hsub {
 		color: lighten(@color-base-txt, @hsub-lighten);
 	}
 }
-.title, .title * {
+.h-aside {
 	text-align: center;
+	text-indent: 0;
 }
 /* @end */
 
 /* @group paragraphs */
 .prose {
+	.font-size(medium);
 	font-family: @font-fam-prose;
 	text-align: justify;
+	list-style-type: decimal;
+	li {.margin-lh(top; 1);}
 }
 .lede {
 	font-weight: bold;
 	font-family: @font-fam-base;
 	color: #000;
-	p& {
-		text-align: justify;
-		+ * {.margin-lh(top; 2);}
-	}
-	span& {padding-right: 1em;}
+}
+.p-lede {
+	&:extend(.lede);
+	.padding-lh(bottom; 1);
+	text-align: justify;
+}
+.s-lede {
+	&:extend(.lede);
+	padding-right: 1em;
 }
 
 .caption {
@@ -286,6 +283,7 @@ h1, h2, h3, h4, h5, h6 {
 	margin-left: 0;
 }
 div.informative {
+	// * QUASI-ELEMENT: informative (non-normative) element
 	.sideborder-left(5px; 3px; 13px; solid; @color-accent);
 	font-style: italic;
 }
@@ -306,17 +304,10 @@ blockquote {
 	.sideborder-left(13px; 8px; 34px; double; @color-accent);
 	.font-size(large);
 	font-family: @font-fam-accent;
-	&.prose {
-		.font-size(medium);
-		.source {
-			&:extend(.parens all);
-			padding-left: 0;
-		}
-	}
-	.source {
+	&:not(.prose) > cite {
 		padding-left: 1em;
-		font-family: @font-fam-base;
 		&::before {content: '~';}
+		&::after {content: '';}
 	}
 }
 address {
@@ -324,6 +315,7 @@ address {
 	font-style: inherit;
 }
 div.postal {
+	// * QUASI-ELEMENT: postal address
 	.sideborder-right(21px; 13px; 55px; solid ;@color-accent);
 	.font-size(large);
 	border-radius: 10px;
@@ -340,14 +332,6 @@ div.postal {
 /* @group lists */
 ol, ul {
 	padding-left: 0.5in;
-//	+ ol, + ul {.margin-lh(top; 1);}
-}
-ol {
-	&.prose {
-		list-style-type: decimal;
-		li + li {.margin-lh(top; 1);}
-		p.lede + p {margin-top: 0;}
-	}
 }
 li, dt, dd {
 	ol, ul {margin-top: 0;}
@@ -370,7 +354,7 @@ li, dt, dd {
 	// * a basic list except the list items are inline. dt elements are still blocks
 	&:extend(.list-basic all);
 	display: block;
-	li {display: inline;}
+	> li {display: inline;}
 }
 .list-line {
 	// * a basic list that acts as a table, with the list items acting as table cells
@@ -405,17 +389,19 @@ dd {
 }
 dd {
 	padding-left: 0.5in;
-//	& + dt {margin-top: 0.5em;}
 }
-.list-line {
+.dl-group {
+	// * groups dt elements together on a line, and dd elements together on a line
+	display: table;
 	dt,
 	dd {
-		float: left;
+		padding: 0;
 		padding-right: 1em;
+		float: left;
 	}
 	dt + dd,
 	dd + dt {clear: both;}
-	dt + dd {margin-left: 0.5in;}
+	dt + dd {padding-left: 0.5in;}
 }
 .dltable(@dtwidth) {
 	// * a dl list that acts like a table, with each row containing a single name-value group. the `@dtwidth` parameter must be a percentage.
@@ -436,9 +422,6 @@ dd {
 	dt + dd {margin-left: 0;}
 	dd + dd {clear: both;}
 }
-// find a way to abstractify the classes below:
-//dl.dltable40 {.dltable(40%)}
-//dl.dltable60 {.dltable(60%)}
 .dltablegenerator(@num) {
 	.dltable@{num} {
 		.dltable(@num * 1%);
@@ -476,10 +459,7 @@ caption {
 	border-right: 0;
 }
 thead, tfoot {font-weight: bold;}
-tbody {
-	vertical-align: top;
-//	.code, code {background-color: transparent;} // fix later when fixing code, boxes, etc.
-}
+tbody {vertical-align: top;}
 th, td {
 	padding: 0 4px;
 	.padding-lh(top; 0.5);
@@ -498,13 +478,15 @@ th {
 	th {background-color: @color-table-bg-strong;}
 }
 .table-list {
-	thead,
-	tbody,
-	tfoot {
-		tr:nth-child(odd)  {background-color: @color-table-bg-medium;}
-		tr:nth-child(even) {background-color: @color-table-bg-weak;}
-	}
+//	thead,
+//	tbody,
+//	tfoot {
+//		tr:nth-child(odd)  {background-color: @color-table-bg-medium;}
+//		tr:nth-child(even) {background-color: @color-table-bg-weak;}
+//	}
 	tbody {&:extend(.rowgroup);}
+	tr:nth-child(odd)  {background-color: @color-table-bg-medium;}
+	tr:nth-child(even) {background-color: @color-table-bg-weak;}
 }
 .table-bars {
 	thead {
@@ -513,10 +495,12 @@ th {
 		th:nth-child(even) {background-color: lighten(@color-table-bg-medium, @headlt);}
 		th:first-child     {background-color: lighten(@color-table-bg-strong, @headlt);}
 	}
-	tbody {
-		td:nth-child(odd)  {background-color: @color-table-bg-weak;}
-		td:nth-child(even) {background-color: @color-table-bg-medium;}
-	}
+//	tbody {
+//		td:nth-child(odd)  {background-color: @color-table-bg-weak;}
+//		td:nth-child(even) {background-color: @color-table-bg-medium;}
+//	}
+	td:nth-child(odd)  {background-color: @color-table-bg-weak;}
+	td:nth-child(even) {background-color: @color-table-bg-medium;}
 }
 //table {
 //	counter-reset: nrows;
@@ -554,11 +538,12 @@ em {font-style: italic;}
 em,
 div.informative,
 .foreignlang {
+	//* italics within italics
 	> em {font-weight: bold;}
 }
 strong {font-weight: bold;}
 mark {background-color: transparent;}
-i {font-style: inherit;font-weight: inherit;}
+i {font-style: inherit; font-weight: inherit;}
 //i.scare {
 //	// * scare quotes contain abuse of vocabulary or language
 //	&:extend(.quotes all);
@@ -568,7 +553,7 @@ i {font-style: inherit;font-weight: inherit;}
 //	&:extend(.quotes all);
 //}
 i.thought {
-	// * phrases representing silent thoughts
+	// * QUASI-ELEMENT: phrases representing silent thoughts
 	&::before {content: '\00ab';} // &laquo;
 	&::after  {content: '\00bb';} // &raquo;
 }
@@ -588,18 +573,19 @@ i[lang] {
 .solfege {
 	&:extend(.foreignlang);
 }
-b {font-style: inherit;font-weight: inherit;}
+b {font-style: inherit; font-weight: inherit;}
 b.keyword {
-	// * keywords or technical terms
+	// * QUASI-ELEMENT: keywords or technical terms
+	// * 
 	font-weight: bold;
 }
 b.proper {
-	// * proper noun traditionally italicized
+	// * QUASI-ELEMENT: proper noun traditionally italicized
 	font-style: italic;
 	text-transform: capitalize;
 }
 b.ref {
-	// * reference to a title, section heading, figure, table, or creative work. use only when the `a` element or the `cite` element would not be appropriate
+	// * QUASI-ELEMENT: reference to a title, section heading, figure, table, or creative work. use only when the `a` element or the `cite` element would not be appropriate
 	font-weight: bold;
 }
 /* @end */
@@ -611,7 +597,11 @@ b.ref {
 //	text-align: left;
 //}
 q {}
-cite {font-style: inherit;}
+cite {
+	&:extend(.parens all);
+	font-style: inherit;
+	font-family: @font-fam-base;
+}
 dfn,
 abbr {color: @color-info-txt;}
 dfn {
@@ -665,27 +655,28 @@ sub {
 	position: relative;
 	top: 6px;
 }
-	/* @group footnotes */
-	@fn-width: 1.5em;
-	.footnotes {
-		// * an unordered list containing footnotes
-		&:extend(.list-basic);
-		.spacing-top-Phi(1px);
-		.font-size(small);
-		li {
-			padding-left: @fn-width;
-			text-indent: -@fn-width;
-		}
+/* @group footnotes */
+@fn-width: 1.5em;
+.footnotes {
+	// * an unordered list containing footnotes
+	&:extend(.list-basic);
+	.spacing-top-Phi(1px);
+	.font-size(small);
+	li {
+		padding-left: @fn-width;
+		text-indent: -@fn-width;
 	}
-	sup.fn {
-		// * the superscript containing a link to the footnote or back to the reference
-		width: @fn-width;
-		a {
-			&::before {content: '[';}
-			&::after {content: ']';}
-		}
+}
+.fn {
+	// * the superscript containing a link to the footnote or back to the reference
+	&:extend(sup all);
+	width: @fn-width;
+	a {
+		&::before {content: '[';}
+		&::after {content: ']';}
 	}
-	/* @end */
+}
+/* @end */
 /* @end */
 
 /* @group hyperlinks */
@@ -818,10 +809,10 @@ code {
 	font-family: @font-fam-base;
 }
 div.precode {
-	// * a preformatted block of text containing computer code
+	// * QUASI-ELEMENT: a preformatted block of text containing computer code
 	&:extend(.box-block);
 	&:extend(code all);
-	.font-size(small; inherit);
+	.font-size(small);
 	white-space: pre-wrap;
 }
 samp {font-family: inherit;}

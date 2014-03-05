@@ -289,7 +289,9 @@ dl,
 dt,
 dd,
 table,
-pre {
+pre,
+.aside-major,
+.aside-minor {
   padding: 0;
   margin: 0;
 }
@@ -301,6 +303,43 @@ ul,
 dl,
 table {
   margin-top: 24px;
+}
+.h + p,
+.h + ol,
+.h + ul,
+.h + dl,
+.h + table,
+.h-alpha + p,
+.h-alpha + ol,
+.h-alpha + ul,
+.h-alpha + dl,
+.h-alpha + table,
+.h-beta + p,
+.h-beta + ol,
+.h-beta + ul,
+.h-beta + dl,
+.h-beta + table,
+.h-gamma + p,
+.h-gamma + ol,
+.h-gamma + ul,
+.h-gamma + dl,
+.h-gamma + table,
+.h-delta + p,
+.h-delta + ol,
+.h-delta + ul,
+.h-delta + dl,
+.h-delta + table,
+.h-epsilon + p,
+.h-epsilon + ol,
+.h-epsilon + ul,
+.h-epsilon + dl,
+.h-epsilon + table,
+.h-zeta + p,
+.h-zeta + ol,
+.h-zeta + ul,
+.h-zeta + dl,
+.h-zeta + table {
+  margin-top: 0;
 }
 .sideborder > :first-child,
 li > :first-child,
@@ -363,7 +402,7 @@ span.cyan {
 a.a-block,
 div.precode {
   display: block;
-  padding: 2px 4px;
+  padding: 0 4px;
   margin-bottom: -1px;
   position: relative;
   top: -1px;
@@ -375,11 +414,11 @@ div.precode {
   margin-right: 4px;
 }
 .parens::before,
-blockquote.prose .source::before {
+cite::before {
   content: '(';
 }
 .parens::after,
-blockquote.prose .source::after {
+cite::after {
   content: ')';
 }
 .quotes::before {
@@ -399,33 +438,24 @@ body {
   color: #333333;
   background-color: #ffffff;
 }
-aside.major,
-aside.minor {
+aside,
+.aside-major,
+.aside-minor {
+  position: absolute;
   font-size: 12px;
   line-height: 2.0;
 }
-aside.major {
+.aside-major {
   width: 14.58980337503155%;
   margin-left: 3.4441853748633053%;
   margin-right: 5.572809000084125%;
-  position: absolute;
   left: 0;
 }
-aside.minor {
+.aside-minor {
   width: 9.01699437494743%;
   margin-left: 3.4441853748633053%;
   margin-right: 2.1286236252208206%;
-  position: absolute;
   right: 0;
-}
-aside .h,
-aside .h-alpha,
-aside .h-beta,
-aside .h-gamma,
-aside .h-delta,
-aside .h-epsilon,
-aside .h-zeta {
-  text-indent: 0;
 }
 .main,
 main {
@@ -495,89 +525,10 @@ h6 .latex,
 .h-zeta .latex {
   color: inherit;
 }
-.h .hsub,
-h1 .hsub,
-h2 .hsub,
-h3 .hsub,
-h4 .hsub,
-h5 .hsub,
-h6 .hsub,
-.h-alpha .hsub,
-.h-beta .hsub,
-.h-gamma .hsub,
-.h-delta .hsub,
-.h-epsilon .hsub,
-.h-zeta .hsub {
+span.hsub {
   font-size: 80%;
   padding-left: 1em;
   font-weight: normal;
-}
-.h + p,
-h1 + p,
-h2 + p,
-h3 + p,
-h4 + p,
-h5 + p,
-h6 + p,
-.h + ol,
-h1 + ol,
-h2 + ol,
-h3 + ol,
-h4 + ol,
-h5 + ol,
-h6 + ol,
-.h + ul,
-h1 + ul,
-h2 + ul,
-h3 + ul,
-h4 + ul,
-h5 + ul,
-h6 + ul,
-.h + dl,
-h1 + dl,
-h2 + dl,
-h3 + dl,
-h4 + dl,
-h5 + dl,
-h6 + dl,
-.h + table,
-h1 + table,
-h2 + table,
-h3 + table,
-h4 + table,
-h5 + table,
-h6 + table,
-.h-alpha + p,
-.h-alpha + ol,
-.h-alpha + ul,
-.h-alpha + dl,
-.h-alpha + table,
-.h-beta + p,
-.h-beta + ol,
-.h-beta + ul,
-.h-beta + dl,
-.h-beta + table,
-.h-gamma + p,
-.h-gamma + ol,
-.h-gamma + ul,
-.h-gamma + dl,
-.h-gamma + table,
-.h-delta + p,
-.h-delta + ol,
-.h-delta + ul,
-.h-delta + dl,
-.h-delta + table,
-.h-epsilon + p,
-.h-epsilon + ol,
-.h-epsilon + ul,
-.h-epsilon + dl,
-.h-epsilon + table,
-.h-zeta + p,
-.h-zeta + ol,
-.h-zeta + ul,
-.h-zeta + dl,
-.h-zeta + table {
-  margin-top: 0;
 }
 .h-alpha {
   padding-bottom: 24px;
@@ -589,7 +540,7 @@ h6 + table,
   line-height: 0.75;
   color: #ff8800;
 }
-.h-alpha .hsub {
+.h-alpha > .hsub {
   color: #ffb866;
 }
 .h-beta {
@@ -600,7 +551,7 @@ h6 + table,
   line-height: 1;
   color: #884400;
 }
-.h-beta .hsub {
+.h-beta > .hsub {
   color: #ee7700;
 }
 .h-gamma {
@@ -611,7 +562,7 @@ h6 + table,
   font-size: 20px;
   line-height: 1.2;
 }
-.h-gamma .hsub {
+.h-gamma > .hsub {
   color: #666666;
 }
 .h-delta {
@@ -621,7 +572,7 @@ h6 + table,
   font-size: 16px;
   line-height: 1.5;
 }
-.h-delta .hsub {
+.h-delta > .hsub {
   color: #666666;
 }
 .h-epsilon {
@@ -631,7 +582,7 @@ h6 + table,
   line-height: 1.7142857142857142;
   color: #884400;
 }
-.h-epsilon .hsub {
+.h-epsilon > .hsub {
   color: #ee7700;
 }
 .h-zeta {
@@ -641,31 +592,37 @@ h6 + table,
   text-indent: 0.5in;
   line-height: 2;
 }
-.h-zeta .hsub {
+.h-zeta > .hsub {
   color: #666666;
 }
-.title,
-.title * {
+.h-aside {
   text-align: center;
+  text-indent: 0;
 }
 /* @end */
 /* @group paragraphs */
 .prose {
+  font-size: 16px;
+  line-height: 1.5;
   font-family: 'Baskerville', 'Palatino', 'Book Antiqua', serif;
   text-align: justify;
+  list-style-type: decimal;
 }
-.lede {
+.prose li {
+  margin-top: 24px;
+}
+.lede,
+.p-lede,
+.s-lede {
   font-weight: bold;
   font-family: 'Optima', 'Candara', 'Lucida Sans', sans-serif;
   color: #000;
 }
-p.lede {
+.p-lede {
+  padding-bottom: 24px;
   text-align: justify;
 }
-p.lede + * {
-  margin-top: 48px;
-}
-span.lede {
+.s-lede {
   padding-right: 1em;
 }
 .caption,
@@ -725,19 +682,14 @@ blockquote {
   line-height: 1.2;
   font-family: 'Avenir', 'Calibri', 'Century Gothic', sans-serif;
 }
-blockquote.prose {
-  font-size: 16px;
-  line-height: 1.5;
-}
-blockquote.prose .source {
-  padding-left: 0;
-}
-blockquote .source {
+blockquote:not(.prose) > cite {
   padding-left: 1em;
-  font-family: 'Optima', 'Candara', 'Lucida Sans', sans-serif;
 }
-blockquote .source::before {
+blockquote:not(.prose) > cite::before {
   content: '~';
+}
+blockquote:not(.prose) > cite::after {
+  content: '';
 }
 address {
   margin: 0;
@@ -759,15 +711,6 @@ div.postal {
 ol,
 ul {
   padding-left: 0.5in;
-}
-ol.prose {
-  list-style-type: decimal;
-}
-ol.prose li + li {
-  margin-top: 24px;
-}
-ol.prose p.lede + p {
-  margin-top: 0;
 }
 li ol,
 dt ol,
@@ -855,8 +798,8 @@ dd > ul:only-child,
 .breadcrumbs {
   display: block;
 }
-.list-inline li,
-.breadcrumbs li {
+.list-inline > li,
+.breadcrumbs > li {
   display: inline;
 }
 .list-action,
@@ -898,17 +841,21 @@ body > nav .breadcrumbs {
 dd {
   padding-left: 0.5in;
 }
-.list-line dt,
-.list-line dd {
-  float: left;
-  padding-right: 1em;
+.dl-group {
+  display: table;
 }
-.list-line dt + dd,
-.list-line dd + dt {
+.dl-group dt,
+.dl-group dd {
+  padding: 0;
+  padding-right: 1em;
+  float: left;
+}
+.dl-group dt + dd,
+.dl-group dd + dt {
   clear: both;
 }
-.list-line dt + dd {
-  margin-left: 0.5in;
+.dl-group dt + dd {
+  padding-left: 0.5in;
 }
 .dltable30 dt,
 .dltable30 dd {
@@ -1046,14 +993,10 @@ th {
 .table-bars th {
   background-color: #eeeeee;
 }
-.table-list thead tr:nth-child(odd),
-.table-list tbody tr:nth-child(odd),
-.table-list tfoot tr:nth-child(odd) {
+.table-list tr:nth-child(odd) {
   background-color: #dddddd;
 }
-.table-list thead tr:nth-child(even),
-.table-list tbody tr:nth-child(even),
-.table-list tfoot tr:nth-child(even) {
+.table-list tr:nth-child(even) {
   background-color: #cccccc;
 }
 .table-bars thead th:nth-child(odd) {
@@ -1065,10 +1008,10 @@ th {
 .table-bars thead th:first-child {
   background-color: #ffffff;
 }
-.table-bars tbody td:nth-child(odd) {
+.table-bars td:nth-child(odd) {
   background-color: #cccccc;
 }
-.table-bars tbody td:nth-child(even) {
+.table-bars td:nth-child(even) {
   background-color: #dddddd;
 }
 /* @end */
@@ -1124,6 +1067,7 @@ b.ref {
 /* @group documentation */
 cite {
   font-style: inherit;
+  font-family: 'Optima', 'Candara', 'Lucida Sans', sans-serif;
 }
 dfn,
 abbr {
@@ -1173,11 +1117,13 @@ del + ins {
   padding-left: 0.5em;
 }
 sup,
-sub {
+sub,
+.fn {
   font-size: 12px;
   vertical-align: baseline;
 }
-sup {
+sup,
+.fn {
   position: relative;
   bottom: 6px;
 }
@@ -1197,13 +1143,13 @@ sub {
   padding-left: 1.5em;
   text-indent: -1.5em;
 }
-sup.fn {
+.fn {
   width: 1.5em;
 }
-sup.fn a::before {
+.fn a::before {
   content: '[';
 }
-sup.fn a::after {
+.fn a::after {
   content: ']';
 }
 /* @end */
@@ -1239,7 +1185,8 @@ div.postal a,
 .list-action a,
 table a,
 sup.fn a,
-.breadcrumbs a {
+.breadcrumbs a,
+.fn.fn a {
   border: 0;
 }
 a.a-block {
@@ -1310,6 +1257,7 @@ div.precode .comment {
 }
 div.precode {
   font-size: 12px;
+  line-height: 2.0;
   white-space: pre-wrap;
 }
 samp {
