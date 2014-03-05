@@ -49,6 +49,7 @@
 /* @end */
 
 /* @group Golden widths and margins */
+// DO NOT EXTEND THESE CLASSES IN SUB-STYLESHEETS. INCLUDE THEM ONLY. (because they will get overrideen with margin-reset.)
 .P1-midleft,
 .P1-midright,
 .P1-left,
@@ -92,7 +93,23 @@
 .U-P3-right {.automargin(right; @width-Golden3);}
 .U-P4-left  {.automargin(left;  @width-Golden4);}
 .U-P4-right {.automargin(right; @width-Golden4);}
-// DO NOT EXTEND THESE CLASSES IN SUB-STYLESHEETS. INCLUDE THEM ONLY. (because they will get overrideen with margin-reset.)
+
+.gutter-major {
+	// * P1-midleft within a P3-left
+	width: @width-Golden4;
+	margin-left: @width-Golden7;
+	margin-right: @width-Golden6;
+	position: absolute;
+	left: 0;		
+}
+.gutter-minor {
+	// * P1-midright within a P4-right
+	width: @width-Golden5;
+	margin-left: @width-Golden7;
+	margin-right: @width-Golden8;
+	position: absolute;
+	right: 0;
+}
 /* @end */
 
 /* @group lines and units */
@@ -189,6 +206,8 @@
 /* @group Font Size and Line Height */
 @font-size-base:  16px;
 @line-height-base:  1.5;
+@olh: @line-height-base * @font-size-base; // 24px
+
 .font-size(medium) {
 	font-size: @font-size-base;
 	line-height: @line-height-base;
@@ -198,19 +217,18 @@
 }
 .font-size(large) {
 	.font-size(large; inherit);
-	line-height: 1.2; // ((@font-size-base * @line-height-base)/(@font-size-big));
+	line-height: 1.2; // (@olh / @font-size-big);
 }
 .font-size(small; inherit) {
 	font-size: (@font-size-base * (3/4)); // 12px
 }
 .font-size(small) {
 	.font-size(small; inherit);
-	line-height: 2.0; // ((@font-size-base * @line-height-base)/(@font-size-small));
+	line-height: 2.0; // (@olh / @font-size-small);
 }
 /* @end */
 
 /* @group Mixins for controlling vertical padding, margins, and borders */
-@olh: @line-height-base * @font-size-base; // 24px
 .padding-lh(top; @lh-top) {
 	padding-top: @lh-top * @olh;
 }
@@ -289,3 +307,13 @@
 //	width: (@origwidth - (@pad-l + @pad-r));
 //}
 /* @end */
+
+@media print {
+	.gutter-major,
+	.gutter-minor {
+		width: auto;
+		margin-left: auto;
+		margin-right: auto;
+		position: static;
+	}
+}

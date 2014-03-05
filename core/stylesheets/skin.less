@@ -70,37 +70,15 @@ body {
 //	background-size: contain;
 }
 aside {
-	position: absolute;
 	.font-size(small);
-}
-.aside-major {
-	&:extend(aside);
-//	.width-horiz(@width-Golden4; @width-Golden7; @width-Golden6; @width-Golden12; @width-Golden11);
-	// P1-midleft within a P3-left
-	width: @width-Golden4;
-	margin-left: @width-Golden7;
-	margin-right: @width-Golden6;
-	left: 0;		
-}
-.aside-minor {
-	&:extend(aside);
-//	.width-horiz(@width-Golden5; @width-Golden7; @width-Golden8; @width-Golden12; @width-Golden11);
-	// P1-midright within a P4-right
-	width: @width-Golden5;
-	margin-left: @width-Golden7;
-	margin-right: @width-Golden8;
-	right: 0;
+	.h {
+		text-align: center;
+		text-indent: 0;
+	}
 }
 
 .main, main {
-	// * the main container in the body
 	.P1-midright;
-//	.width-horiz(@width-Golden1; @width-Golden3; @width-Golden4; @width-Golden12; @width-Golden11);
-//	width: (@width-Golden1 - (@pad-l + @pad-r));
-//	@pad-l: @width-Golden12;
-//	@pad-r: @width-Golden11;
-//	padding-left:  @pad-l;
-//	padding-right: @pad-r;
 	margin-bottom: 192px; // 2in
 }
 .masthead {
@@ -142,8 +120,6 @@ aside {
 
 .h,
 h1, h2, h3, h4, h5, h6 {
-	padding: 0;
-	margin: 0;
 	font-style: normal;
 	font-variant: normal;
 	font-weight: normal;
@@ -228,10 +204,6 @@ span.hsub {
 		color: lighten(@color-base-txt, @hsub-lighten);
 	}
 }
-.h-aside {
-	text-align: center;
-	text-indent: 0;
-}
 /* @end */
 
 /* @group paragraphs */
@@ -282,6 +254,12 @@ span.hsub {
 	margin-right: @marg-width;
 	margin-left: 0;
 }
+.sideborder-left(0) {
+	.sideborder-left(0; 0; 0; solid; #000);
+}
+.sideborder-right(0) {
+	.sideborder-right(0; 0; 0; solid; #000);
+}
 div.informative {
 	// * QUASI-ELEMENT: informative (non-normative) element
 	.sideborder-left(5px; 3px; 13px; solid; @color-accent);
@@ -316,7 +294,7 @@ address {
 }
 div.postal {
 	// * QUASI-ELEMENT: postal address
-	.sideborder-right(21px; 13px; 55px; solid ;@color-accent);
+	.sideborder-right(21px; 13px; 55px; solid; @color-accent);
 	.font-size(large);
 	border-radius: 10px;
 	font-family: @font-fam-accent;
@@ -348,7 +326,7 @@ li, dt, dd {
 .list-basic {
 	padding: 0;
 	list-style-type: none;
-	li, dt, dd {margin: 0; padding: 0;}
+	dt, dd {margin: 0; padding: 0;}
 }
 .list-inline {
 	// * a basic list except the list items are inline. dt elements are still blocks
@@ -954,9 +932,9 @@ hr,
 @media print {
 	body,
 	.h,
-	blockquote, div.postal,
+	.sideborder,
 	table {
-		.font-size(medium) !important;
+		.font-size(medium);
 	}
 	body {
 		color: #000;
@@ -964,14 +942,16 @@ hr,
 		background-image: none;
 	}
 	.main, main {
-		width: auto !important;
-		margin: auto !important;
+		width: auto;
+		margin-left: auto;
+		margin-right: auto;
 	}
 	.masthead {display: none;}
-	.postal {
-		.border(all; 0; solid);
-		text-align: left;
-	}
+//	.sideborder {
+//		.sideborder-left(0);
+//		.sideborder-right(0);
+//		text-align: left;
+//	}
 	ins, del, abbr {background-color: transparent;}
 	.code {
 		color: #000000;

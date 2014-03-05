@@ -49,6 +49,15 @@ List of Quasi-Elements:
 ## Child and Descendent Selectors ##
 It is common practice to avoid child selectors, e.g. `parent > child` or descendent selectors, `ancestor > descendent` in CSS files as they increase specificity and decrease efficiency. However, there are some cases in which this is okay. By the HTML standards and by my own documentation, certain elements are grouped together intrinsicaly.
 
+### Headings ###
+Some will argue that an `.h-gamma` should look like an `.h-gamma` no matter where it is placed in the document. If you were to move that heading to a different location or out of its containing element, it should still look the same. While that philosophy is reasonable, I tend to disagree.
+
+Take the Document Outline Model. In a top section, a heading should be big, centered, and possibly all caps (design left to the designer). But let's say you do some revising and decide to nest that section inside another section. Then the heading would have to change, become smaller and maybe not centered. Does that mean you should change the class on the heading? Why can't you let the DOM take care of the heading's style?
+
+So the philosophy that "elements' styles should be location-independent" works for most elements, but not always for headings. Sometimes we **want** a heading to be location-dependent so that when we move it, it will change accordingly. Again, this is an exception. For most elements, you do *not* want it to change based on where it is.
+
+Another example: you want all headings in an `aside` to look the same. It doesn't matter whether they are an `.h-beta` or an `.h-epsilon`. You want an aside to look like an aside, and that includes the heading. Thus it is okay to use the selector `aside > h1`, even though it is a child selector.
+
 ### Lists ###
 The following CSS is *very* efficient and not very specific at all. This is normally very good CSS.
 

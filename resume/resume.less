@@ -3,15 +3,12 @@
 
 /** --RESUME.LESS-- **/
 
-.main, main {&:extend(.linebreadth-full);}
-header {
-	&:extend(.P1-midright);
-//	padding-bottom: .5em;
-//	border-bottom: 2px solid @color-accent;
-//	margin-bottom: 1em;
-	.postal {margin-right: 0;}
+/* @group headings */
+.h {
+	// * undoes the margin and padding for headings
+	margin-top: 0;
+	padding-bottom: 0;
 }
-
 .res-h-name:extend(.h-alpha all) {}
 .res-h-skilltitle:extend(.h-beta all) {}
 .res-h-org:extend(.h-gamma all) {}
@@ -19,60 +16,48 @@ header {
 .res-degree:extend(.h-epsilon all) {}
 .res-institution:extend(.h-zeta all) {}	
 
+.res-h-name {.margin-lh(top; 1);}
 .res-degree,
 .res-institution {text-indent: 0;}
-.res-h-skilltitle,
-.res-h-org,
-.res-h-occup {
-	padding: 0;
-	margin: 0;
+
+/* @end */
+
+div.postal {
+	.sideborder-right(0);
 }
-.res-skillgroup,
-.res-job {
-	margin: 0;
-	.margin-lh(top; 1);
-}
-.res-skilldetail > .res-job:first-child {margin-top: 0;}
 
 /* @group skillgroups (top sections) */
-.res-skillgroup {
-	&:extend(.line);
+.res-skillgroup,
+.res-job {
+	.margin-lh(top; 1);
 }
+.res-skillgroup:first-of-type {.spacing-top-Phi(1px);}
 .res-h-skilltitle {
-	&:extend(.unit-P3);
-	padding-left:  (100% * @Phi3 * @Phi3); // P6 or (P3 to P3)
-	padding-right: (100% * @Phi3 * @Phi4); // P7 or (P4 to P3)
+	&:extend(.gutter-major);
 	text-align: right;
-	position: relative;
-	right: 4px;
 }
-.res-skilldetail {
-	&:extend(.unit-U-P3);
-	padding-left: 0;
-	padding-right: @width-Golden4;
-}
+.res-skilldetail {}
 /* @end */
 
 /* @group jobs (level 2 sections) */
+.res-job:first-child {margin-top: 0;}
+
 .res-h-org,
 .res-h-occup,
 .res-degree,
 .res-institution {
-	&:extend(.line);
-	font-size: @font-size-base;
-	.res-spacetime {
-		//* date & location of job
-		&:extend(.unit-P3);
-		padding-left: 0;
-		font-weight: normal;
-		font-variant: normal;
-		font-style: normal;
-		font-size: inherit;
-		font-family: @font-fam-base;
-		color: @color-base-txt;
-		text-align: right;
-		letter-spacing: normal;
-	}
+	.font-size(medium);
+}
+.res-spacetime {
+	//* date & location of job
+	&:extend(span.hsub);
+	float: right;
+	font-weight: normal;
+	font-variant: normal;
+	font-style: normal;
+	font-size: inherit;
+	font-family: @font-fam-base;
+	letter-spacing: normal;
 }
 ul.res-jobdetail {
 	//* bullet list of job descriptions and awards
@@ -92,8 +77,15 @@ ul.res-jobdetail {
 }
 .res-tech-langs {
 	&:extend(.list-line all);
-	li {width: auto;}
 }
+
+.res-footer {
+	.line;
+	.margin-lh(top; 2)
+}
+.res-footer-name,
+.res-footer-pagecount {.unit-1to2;}
+.res-footer-pagecount {text-align: right;}
 
 
 
@@ -104,129 +96,45 @@ ul.res-jobdetail {
 
 
 @media screen {
-	footer {display: none;}
-//	.res-skillgroup.res-edu {
-//		.res-org {.h-epsilon; }
-//		.res-occup {.h-zeta; text-indent: 0;}
-//	}
+	.res-footer {display: none;}
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 @media print {
-	.leftcell() {
-		padding-left: 1em;
-		padding-right: 0.5em;
+	body,
+	.res-h-org,
+	.res-h-occup,
+	.res-degree,
+	.res-institution,
+	.res-spacetime,
+	div.postal {
+		font-size: 12px;
+		line-height: 1.5;
+		font-family: 'Helvetica','Arial',sans-serif;
+		font-family: @font-fam-math;
 	}
-	.rightcell() {
-		padding-left: 0.5em;
-		padding-right: 1em;
-	}
-	.res-h-print() {
+	.h {
 		font-style: inherit;
 		font-variant: inherit;
 		font-weight: inherit;
-		font-size: 10pt;
 		font-family: inherit;
 		letter-spacing: normal;
-		color: #000000;
-		background-color: #ffffff;
+		color: inherit;
 	}
-	body {
-		width: 8.5in;
-		margin: auto;
-		font-size: 10pt;
-		font-family: 'Arial','Helvetica',sans-serif;
-		color: #000000;
-		background-color: #ffffff;
-		background-image: none !important;
-	}
-	.main, main {
-		width: 8.0in;
-		margin: auto;
-		margin-bottom: 10px;
-	}
-	header {
-		border-bottom-color: #808080;
-		width: 100%;
-		margin-left: 0;
-		margin-right: 0;
-		.res-name {
-			.res-h-print();
-			font-size: 14pt;
-			font-family: 'Times','Times New Roman',serif;
-			letter-spacing: 1px;
-		}
-		address {padding: 0 1em;}
-	}
-	footer {
-		.line;
-		margin: 0.5in 0 1em;
-		> .res-footer-name,
-		> .res-footer-pagecount {
-			.unit-1to2;
-		}
-		> .res-footer-name {
-			.leftcell();
-			text-align: left;
-		}
-		> .res-footer-pagecount {
-			.rightcell();
-			text-align: right;
-		}
-	}
-	.res-skillgroup {
-		margin-bottom: 2em;
-		&.res-edu .res-occup {font-style: italic !important;}
-	}
-	.res-skilltitle {
-		.res-h-print();
-		.leftcell();
-		width: 1in;
-		position: static;
-		font-variant: small-caps;
+	.res-h-name,
+	.res-h-skilltitle {
 		font-weight: bold;
-		letter-spacing: 1px;
+		font-size: 16px;
+		line-height: 1.125;
 	}
-	.res-skilldetail {
-		.rightcell();
-		width: auto;
+	.res-h-skilltitle {
+		font-variant: small-caps;
+		text-align: left;
 	}
-		.res-job {
-			margin-bottom: 2em;
-		}
-			.res-org, .res-occup {width: auto;}
-			.res-org {
-				.res-h-print();
-				font-weight: bold;
-			}
-			.res-occup {
-				.res-h-print();
-			}
-	.res-spacetime {width: 2in;}
-	a {
-		border: 0 !important;
-		text-decoration: none !important;
-		color: inherit !important;
+	.res-h-org {
+		font-weight: bold;
 	}
-	i:lang(la) {font-family: inherit;}
+	.res-h-occup,
+	.res-institution {
+		font-style: italic;
+	}
 }
