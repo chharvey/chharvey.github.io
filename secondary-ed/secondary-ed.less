@@ -34,6 +34,7 @@
 	&:extend(.list-action all);
 	&:extend(.cat-test);
 	margin-top: 0;
+	background-color: transparent;
 }
 /* @end */
 
@@ -51,7 +52,29 @@ blockquote.standard-txt {
 		list-style-type: lower-alpha;
 	}
 }
-.standard-pa2012 {color: #6c12f6;}
+.standard-pa(@year, @color) {
+	color: @color;
+	&:hover::after {
+		content: '(' %('%a',@year) ')';
+		display: inline;
+		position: absolute;
+		background-color: lighten(@color, 45%);
+	}
+}
+.standard-pa-generator(@year, @color) {
+	.standard-pa@{year} {
+		.standard-pa(@year, @color);
+	}
+}
+.standard-pa-generator(2012, #6c12f6);
+.standard-pa-generator(2013, #1972bb);
+
+//.standard-pa2012 {
+//	.standard-pa('2012', @color-pa2012);
+//}
+//.standard-pa2013 {
+//	.standard-pa('2013', @color-pa2013);
+//}
 /* @end */
 
 /* @group syllabusdothtml */
