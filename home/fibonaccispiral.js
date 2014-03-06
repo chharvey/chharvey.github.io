@@ -63,7 +63,6 @@ function makepretty() {
 }
 
 $(document).ready(function() {
-	$('.webdev').append(newElemFilled('div','latex','\\(\\Phi\\)'));
 	makepretty();
 });
 $(window).resize(function() {
