@@ -24,26 +24,26 @@ function positionSquares(mainwidth) {
 	var P10 = p(10, mainwidth);
 	var P11 = p(11, mainwidth);
 	var P12 = p(12, mainwidth);
-	$('.spiralbutton').css('position','absolute'); // this is in JS and not in CSS: in case users have JS disabled but CSS not disabled, the position should be static
-	$('.a1').css('left',P2);
-	$('.c1').css('top',P2);
-	$('.d1').css('left',P3).css('top',P2+P5);
-	$('.e1').css('left',P3+P6).css('top',P2);
-	$('.f1').css('left',P3).css('top',P2);
-	$('.g1').css('left',P3).css('top',P2+P6);
-	$('.h1').css('left',P3+P7).css('top',P2+P6+P9);
-	$('.i1').css('left',P3+P7+P10).css('top',P2+P6);
-	$('.j1').css('left',P3+P7).css('top',P2+P6);
-	$('.k1').css('left',P3+P7).css('top',P2+P6+P10);
-	$('.l1').css('left',P3+P7+P11).css('top',P2+P6+P10);
+	$('.spiralbutton').css('position', 'absolute'); // this is in JS and not in CSS: in case users have JS disabled but CSS not disabled, the position should be static
+	$('.a1').css('left', P2);
+	$('.c1').css('top', P2);
+	$('.d1').css('left', P3).css('top', P2 + P5);
+	$('.e1').css('left', P3 + P6).css('top', P2);
+	$('.f1').css('left', P3).css('top', P2);
+	$('.g1').css('left', P3).css('top', P2 + P6);
+	$('.h1').css('left', P3 + P7).css('top', P2 + P6 + P9);
+	$('.i1').css('left', P3 + P7 + P10).css('top', P2 + P6);
+	$('.j1').css('left', P3 + P7).css('top', P2 + P6);
+	$('.k1').css('left', P3 + P7).css('top', P2 + P6 + P10);
+	$('.l1').css('left', P3 + P7 + P11).css('top', P2 + P6 + P10);
 }
 function bigtext() {
 	// * sets a proportional font size for each box link
-	$('.buttontext').css('font-size', function () {
+	$('.buttontext').css('font-size', function() {
 		return $(this).parents('a').height() / 4 + 'px';
 	});
 	// * vertically aligns the font in each box link
-	$('.buttontext').css('top',function () {
+	$('.buttontext').css('top', function() {
 		return ($(this).parents('a').height() - $(this).height()) / 2 + 'px';
 	});
 }

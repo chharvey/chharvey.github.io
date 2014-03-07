@@ -17,6 +17,9 @@ TO DO
 - 2014-02-26 don't overuse `<small>`! It is supposed to represent small print such as disclaimers/legal information, not parenthetical remarks.
 - 2014-03-01 use `<small>` for labels---they really are disclamers/caveats/etc.
 - 2014-02-26 get rid of all "introductory prose" from `<header>` elements. `header`s should only contain metadata about the document.
+- 2014-03-06 change all apostrophes (`'`) to right single quotes `&rsquo;` on the following pages... (Leave the apostrophes alone in regular pages. The typographical precision is not worth the effort.)
+	- 'portal' pages (`/home/edu.html`, `/home/math.html`, etc.)
+	- **formal** documents such as articles or blog posts (maybe in `/docs/`?)
 
 #### metadata and micro-semantics (very low priority) ###
 - `rel` attributes on `link` and `a` elements, see [http://dev.w3.org/html5/spec/links.html#linkTypes]()
@@ -47,38 +50,36 @@ TO DO
 - 2014-03-01 move table row-counting functionality (`all.js:39`) from JS to CSS with counters
 - 2014-03-01 use JS to change the line-height of blockquotes to 1.5 times the usual amount (currently (2014-03-01), from 1.2 to 1.8), and then adjust margin-bottom to keep vertical rhythm.
 
-
 ## specific projects ##
+
 ### /index.html ###
 - make popping text on index page fade in and out easier
 
-### /site-design/phi.html ###
+### /home/ ###
+- class drop-downs shouldn't be summary elements, just because the behavior is something ideal. Use divs and JavaScript to emulate the drop-down/expando behavior.
+
+### /site-design/ ###
+#### phi.html ####
 - FIX IT. the whole thing.
 
-### /site-design/grid.html ###
+#### grid.html ####
 - 2014-01-21 finish last section (Phi demonstration)
 - 2014-03-05 add Gutter section below all Grid stuff
 
-### /site-design/typo.html ###
+#### typo.html ####
 - inline elements: highlighting
 - 2014-02-16 do labels/tooltips/whatever hint: [http://kushagragour.in/lab/hint/]()
 - code scheme
 
-#### /site-design/punct.html (under typography) ####
+##### punct.html (under typography) #####
 - 2014-02-24 line break violations:
 	- right after a preposition (to, for, with, over, by, etc.)
 	- after a small word (2- or 3-letter words)
 	- in the middle of a highlighted phrase 3 words or fewer (em, strong, i, b, etc.)
-- **only in formal documents**: Change all possessive and contraction apostrophe characters `'` to right single quotes `&rsquo;`. Leave the apostrophes alone in regular pages. The typographical precision is not worth the effort.
-
-### /resume/ ###
-- fix print.css!
-
-### /home/folio/ ###
-- class drop-downs shouldn't be summary elements, just because the behavior is something ideal. Use divs and JavaScript to emulate the drop-down/expando behavior.
-- re-write all index pages for higher-ed courses.
 
 ### /higher-ed/ ###
+- re-write all index pages for higher-ed courses.
+
 #### EDCI 5724/ ####
 - add cohort project lesson plan (`SIOPLessonPlan.docx`), presentation, and other items to folder
 
@@ -90,7 +91,6 @@ TO DO
 #### MATH 4644 technology lessons ####
 - conform to site-wide styles
 - relocate all lessons to `/secondary-ed/`
-
 
 ### /secondary-ed/ ###
 - **find a way to write SVG images!**
