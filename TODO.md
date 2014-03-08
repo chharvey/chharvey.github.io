@@ -13,7 +13,6 @@ TO DO
 - Add any boolean `hidden` attribute to all elements not ready for publishing
 - 2014-03-02 see which `<b>` tags you can remove; which ones do you REALLY need?
 	- 2013-12-14 see which `b.ref`s you can change to `cite`s (titles of works) and `a`s (links to documents, sections, etc.)
-- 2014-01-24 fix timestamp issues. maybe use `dl`?
 - 2014-02-26 don't overuse `<small>`! It is supposed to represent small print such as disclaimers/legal information, not parenthetical remarks.
 - 2014-03-01 use `<small>` for labels---they really are disclamers/caveats/etc.
 - 2014-02-26 get rid of all "introductory prose" from `<header>` elements. `header`s should only contain metadata about the document.
@@ -35,7 +34,6 @@ TO DO
 - 2013-03-03 ARIA roles
 
 ### styles ###
-- 2014-01-24 fix timestamp issues in `skin.less`
 - 2014-02-24 remove all "scoped" Less and make use of "namespaces"
 	- in `reals.less` lines 120–149, and 157–183
 	- in `secondary-ed.less` lines 154–234

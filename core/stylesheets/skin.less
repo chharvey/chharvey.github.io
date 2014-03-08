@@ -68,14 +68,6 @@ body {
 //	background-repeat: repeat-y;
 //	background-size: contain;
 }
-aside {
-	.font-size(small);
-	.h {
-		text-align: center;
-		text-indent: 0;
-	}
-}
-
 .main, main {
 	.P1-midright;
 	margin-bottom: 192px; // 2in
@@ -119,12 +111,20 @@ aside {
 
 .h,
 h1, h2, h3, h4, h5, h6 {
+	display: block;
 	font-style: normal;
 	font-variant: normal;
 	font-weight: normal;
 	font-family: @font-fam-heading;
 	letter-spacing: 1px;
 	.latex {color: inherit;}
+}
+.gutter-major,
+.gutter-minor {
+	.h {
+		text-align: center;
+		text-indent: 0;
+	}
 }
 span.hsub {
 	// * QUASI-ELEMENT: subheading
@@ -311,7 +311,9 @@ li, dt, dd {
 .list-basic {
 	padding: 0;
 	list-style-type: none;
-	dt, dd {margin: 0; padding: 0;}
+	> li,
+	> dt,
+	> dd {margin: 0; padding: 0;}
 }
 .list-inline {
 	// * a basic list except the list items are inline. dt elements are still blocks
@@ -353,6 +355,9 @@ dd {
 dd {
 	padding-left: 0.5in;
 }
+.dl-tree {
+//	dd > dl {margin-left: 0.5in;}
+}
 .dl-group {
 	// * groups dt elements together on a line, and dd elements together on a line
 	display: table;
@@ -366,35 +371,56 @@ dd {
 	dd + dt {clear: both;}
 	dt + dd {padding-left: 0.5in;}
 }
-.dltable(@dtwidth) {
+.dl-table(@dtwidth) {
 	// * a dl list that acts like a table, with each row containing a single name-value group. the `@dtwidth` parameter must be a percentage.
 	&:extend(.list-basic all);
 	&:extend(.line);
-	dt, dd {
+	> dt,
+	> dd {
 		&:extend(.unit);
 		float: left;
 	}
-	dt {
+	> dt {
 		width: @dtwidth;
 		clear: both;
 	}
-	dd {
+	> dd {
 		width: (100% - @dtwidth);
 		margin-left: @dtwidth;
 	}
-	dt + dd {margin-left: 0;}
-	dd + dd {clear: both;}
+	> dt + dd {margin-left: 0;}
+	> dd + dd {clear: both;}
 }
-.dltable-generator(@num) {
-	.dltable@{num} {
-		.dltable(@num * 1%);
+//.dl-table-generator(@num) {
+//	.dl-table@{num} {
+//		.dl-table(@num * 1%);
+//	}
+//}
+//.dl-table-generator(30);
+//.dl-table-generator(40);
+//.dl-table-generator(50);
+//.dl-table-generator(60);
+//.dl-table-generator(70);
+.dl-table-sml {.dl-table(@width-Golden3);}   // 23.6067977499789696%
+.dl-table-msm {.dl-table(@width-Golden2);}   // 38.1966011250105152%
+.dl-table-med {.dl-table(50%);}
+.dl-table-mlg {.dl-table(@width-Golden1);}   // 61.8033988749894848%
+.dl-table-lrg {.dl-table(@width-U-Golden3);} // 76.3932022500210304%
+.docmeta {
+	&:extend(.dl-table-sml all);
+//	&::before {
+//		&:extend(.h-zeta all);
+//		content: 'Document Information';
+//		display: block;
+//		.font-size(medium);
+//		text-indent: 0;
+//	}
+//	background-color: @color-base-bg;
+	> dt {
+		font-weight: bold;
+		&::after {content: ':';}
 	}
 }
-.dltable-generator(30);
-.dltable-generator(40);
-.dltable-generator(50);
-.dltable-generator(60);
-.dltable-generator(70);
 /* @end */
 
 /* @group tables */
@@ -634,7 +660,7 @@ sub {
 	// * the superscript containing a link to the footnote or back to the reference
 	&:extend(sup all);
 	width: @fn-width;
-	a {
+	> a {
 		&::before {content: '[';}
 		&::after {content: ']';}
 	}
@@ -690,6 +716,8 @@ a {
 	&[title] {
 		// * `title` attribute should be the Title of the linked document
 	}
+	dfn,
+	code,
 	.latex {color: inherit}
 }
 blockquote,
