@@ -11,7 +11,7 @@
 @color-base-txt: #111;
 @color-base-txt: #333;
 @color-base-bg:  #fff;
-@color-accent: #f00;
+@color-accent: #00c;
 
 /* @end */
 
@@ -206,13 +206,6 @@ span.hsub {
 /* @end */
 
 /* @group paragraphs */
-.prose {
-	.font-size(medium);
-	font-family: @font-fam-prose;
-	text-align: justify;
-	list-style-type: decimal;
-	li {margin-top: @olh;}
-}
 .lede {
 	font-weight: bold;
 	font-family: @font-fam-base;
@@ -226,6 +219,19 @@ span.hsub {
 .s-lede {
 	&:extend(.lede);
 	padding-right: @olh;
+}
+.prose {
+	.font-size(medium);
+	font-family: @font-fam-prose;
+	text-align: justify;
+	list-style-type: decimal;
+	li {margin-top: @olh;}
+}
+.nonnormative {
+//	.spacing-top-Phi();
+//	.spacing-left-Phi(3px; dotted);
+	font-style: italic;
+	font-family: @font-fam-base;
 }
 .dropcap::first-letter {
 	float: left;
@@ -246,12 +252,6 @@ span.hsub {
 	font-style: normal;
 	text-align: right;
 }
-//div.informative {
-//	// * QUASI-ELEMENT: informative (non-normative) element
-//	.spacing-top-Phi();
-//	.spacing-left-Phi(3px);
-//	font-style: italic;
-//}
 figure {
 	.spacing-top-Phi();
 	.spacing-left-Phi(4px);
@@ -497,10 +497,10 @@ th {
 
 /* @group highlighted text */
 em {font-style: italic;}
+.nonnormative,
 em,
-//div.informative,
 .foreignlang {
-	//* italics within italics
+	//* em within italics
 	> em {font-weight: bold;}
 }
 strong {font-weight: bold;}
@@ -696,7 +696,8 @@ blockquote,
 div.postal,
 .list-action,
 table,
-sup.fn {
+sup.fn,
+code {
 	// * no border for links in certain containers
 	a {border: 0;}
 }
@@ -932,11 +933,17 @@ hr,
 		margin-right: auto;
 	}
 	.masthead {display: none;}
-//	.sideborder {
-//		.sideborder-left(0);
-//		.sideborder-right(0);
-//		text-align: left;
-//	}
+	figure,
+	blockquote,
+	div.postal {
+		.spacing-left-Phi();
+		.spacing-right-Phi();
+	}
+	figure,
+	blockquote {
+		margin-left:  0.5in;
+		margin-right: 0.5in;
+	}
 	ins, del, abbr {background-color: transparent;}
 	.code {
 		color: #000000;
