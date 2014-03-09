@@ -6,10 +6,6 @@ TO DO
 ### semantics ###
 - don't rely on `title` attributes for any element (mobile browsers)
 - 2014-02-18 use `title` attribute on all `a` elements to describe the **Title of the linked document**
-- 2012-01-12 fix breadcrumbs concept! three choices:
-	- "owns": `&ni;` or `\220b`
-	- "superset": `&supe;` or `\2287`
-	- "slash":/ or "bar": |
 - Add any boolean `hidden` attribute to all elements not ready for publishing
 - 2014-03-02 see which `<b>` tags you can remove; which ones do you REALLY need?
 	- 2013-12-14 see which `b.ref`s you can change to `cite`s (titles of works) and `a`s (links to documents, sections, etc.)
