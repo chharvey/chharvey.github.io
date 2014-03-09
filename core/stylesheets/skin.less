@@ -335,15 +335,49 @@ li, dt, dd {
 	li::before {content: '\2713\0020';} // check mark, space
 	a:not([href]) {color: @color-base-txt;}
 }
-.breadcrumbs {
-	&:extend(.list-inline all);
-	&:extend(.list-action all);
-	font-family: @font-fam-heading;
-	li {
-		padding-right: @olh;
-		&::before {content: '';}
+//.breadcrumbs {
+//	&:extend(.list-inline all);
+//	&:extend(.list-action all);
+//	font-family: @font-fam-heading;
+//	li {
+//		padding-right: @olh;
+//		&::before {content: '';}
+//	}
+//	body > nav & {.P1-midright;}
+//}
+.breadcrumbs { 
+	&:extend(.gutter-major);
+	position: fixed;
+	top: 2 * @olh;
+	.bc-ancestors,
+	.bc-siblings,
+	.bc-descendants {
+		&:extend(.list-basic all);
+		margin-top: 0;
+		a::before {margin-right: 0.5 * @olh;}
 	}
-	body > nav & {.P1-midright;}
+	.bc-ancestors {
+		padding-bottom: 1 * @olh;
+		a::before {content: '\22a5';} // `\bot` or 'up tack'
+	}
+	.bc-siblings {
+		a::before {content: '\22a2';} // `\vdash` or 'turnstile'
+	}
+	.bc-descendants {
+		margin-top: 1 * @olh;
+		a::before {content: '\22a4';} // `\top` or 'down tack'
+	}
+	li {
+		margin-top: 0.75 * @olh;
+		margin-bottom: -2px;
+	}
+	a {
+		&:extend(.a-block all);
+		padding: (0.125 * @olh) 15px;
+		border-radius: 15px;
+		text-align: left;
+	}
+	.this {font-weight: bold;}
 }
 /* @end */
 
