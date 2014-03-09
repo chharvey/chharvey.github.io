@@ -778,9 +778,9 @@ dd ul {
 .list-inline,
 .list-line,
 .list-action,
-.bc-ancestors,
-.bc-siblings,
-.bc-descendants,
+.bc-anc,
+.bc-sib,
+.bc-child,
 dt > ul:only-child,
 dd > ul:only-child,
 .dl-table-sml,
@@ -805,15 +805,15 @@ dd > ul:only-child,
 .list-action > li,
 .list-action > dt,
 .list-action > dd,
-.bc-ancestors > li,
-.bc-ancestors > dt,
-.bc-ancestors > dd,
-.bc-siblings > li,
-.bc-siblings > dt,
-.bc-siblings > dd,
-.bc-descendants > li,
-.bc-descendants > dt,
-.bc-descendants > dd,
+.bc-anc > li,
+.bc-anc > dt,
+.bc-anc > dd,
+.bc-sib > li,
+.bc-sib > dt,
+.bc-sib > dd,
+.bc-child > li,
+.bc-child > dt,
+.bc-child > dd,
 .dl-table-sml > li,
 .dl-table-sml > dt,
 .dl-table-sml > dd,
@@ -856,6 +856,21 @@ dd > ul:only-child,
   color: #333333;
 }
 .breadcrumbs {
+  /*
+	- a navigational array containg exactly:
+		- optionally 1 `ol.bc-anc`, followed by
+		- optionally 1 `ul.bc-sib`, followed by
+		- optionally 1 `ul.bc-child`.
+	- Each `ol` and `ul` may contain any number of `li`s. In the `ol.bc-anc`, the order of `li`s must be in logical tree order from top to bottom.
+	- The `li`s in each list must contain only exactly 1 `a`. The `rel` attribute on the `a` is dependent on the class of the list:
+		- `ol.bc-anc   > li > a` should contain `rel="ancestor"`
+		- `ul.bc-sib   > li > a` should contain `rel="sibling"`
+		- `ul.bc-child > li > a` should contain `rel="child"`
+	\231c: top-left corner
+	\231d: top-right corner
+	\231e: bottom-left corner
+	\231f: bottom-right corner
+	*/
   position: fixed;
   top: 48px;
 }
@@ -866,30 +881,34 @@ dd > ul:only-child,
 .breadcrumbs .this {
   font-weight: bold;
 }
-.bc-ancestors,
-.bc-siblings,
-.bc-descendants {
+.breadcrumbs .this::before {
+  content: '';
+  margin-right: 0;
+}
+.bc-anc,
+.bc-sib,
+.bc-child {
   margin-top: 0;
 }
-.bc-ancestors a::before,
-.bc-siblings a::before,
-.bc-descendants a::before {
+.bc-anc a::before,
+.bc-sib a::before,
+.bc-child a::before {
   margin-right: 12px;
 }
-.bc-ancestors {
+.bc-anc {
   padding-bottom: 24px;
 }
-.bc-ancestors a::before {
-  content: '\22a5';
+.bc-anc a::before {
+  content: '<';
 }
-.bc-siblings a::before {
-  content: '\22a2';
+.bc-sib a::before {
+  content: '+';
 }
-.bc-descendants {
+.bc-child {
   margin-top: 24px;
 }
-.bc-descendants a::before {
-  content: '\22a4';
+.bc-child a::before {
+  content: '>';
 }
 /* @end */
 /* @group association lists (`dl`s) a.k.a. mappings */
