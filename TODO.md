@@ -6,6 +6,7 @@ TO DO
 ### semantics ###
 - don't rely on `title` attributes for any element (mobile browsers)
 - 2014-02-18 use `title` attribute on all `a` elements to describe the **Title of the linked document**
+	- 2014-03-08 unless the text content in the link is already the title.
 - 2012-01-12 fix breadcrumbs concept! three choices:
 	- "owns": `&ni;` or `\220b`
 	- "superset": `&supe;` or `\2287`
@@ -56,7 +57,6 @@ TO DO
 - make popping text on index page fade in and out easier
 
 ### /home/ ###
-- class drop-downs shouldn't be summary elements, just because the behavior is something ideal. Use divs and JavaScript to emulate the drop-down/expando behavior.
 
 ### /site-design/ ###
 #### phi.html ####
