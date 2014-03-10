@@ -88,6 +88,19 @@ body {
 		}
 	}
 }
+.bc {
+	&:extend(.gutter-major);
+	position: fixed;
+	top: 2 * @olh;
+	z-index: 1;
+	.this {
+		font-weight: bold;
+		&::before {
+			content: '';
+			margin-right: 0;
+		}
+	}
+}
 /* @end */
 
 /* @group headings */
@@ -335,61 +348,36 @@ li, dt, dd {
 	li::before {content: '\2713\0020';} // check mark, space
 	a:not([href]) {color: @color-base-txt;}
 }
-.breadcrumbs {
-	/*
-	- a navigational array containg exactly:
-		- optionally 1 `ol.bc-anc`, followed by
-		- optionally 1 `ul.bc-sib`, followed by
-		- optionally 1 `ul.bc-child`.
-	- Each `ol` and `ul` may contain any number of `li`s. In the `ol.bc-anc`, the order of `li`s must be in logical tree order from top to bottom.
-	- The `li`s in each list must contain only exactly 1 `a`. The `rel` attribute on the `a` is dependent on the class of the list:
-		- `ol.bc-anc   > li > a` should contain `rel="ancestor"`
-		- `ul.bc-sib   > li > a` should contain `rel="sibling"`
-		- `ul.bc-child > li > a` should contain `rel="child"`
-	\231c: top-left corner
-	\231d: top-right corner
-	\231e: bottom-left corner
-	\231f: bottom-right corner
-	*/
-	&:extend(.gutter-major);
-	position: fixed;
-	top: 2 * @olh;
-	li {
-		margin-top: 0.75 * @olh;
-		margin-bottom: -2px;
-	}
-	.this {
-		font-weight: bold;
-		&::before {
-			content: '';
-			margin-right: 0;
+	/* @group breadcrumb lists (contained in `nav.bc`) */
+	.bc-anc,
+	.bc-sib,
+	.bc-child {
+		&:extend(.list-basic all);
+		margin-top: 0;
+		li {
+			margin-top: 0.75 * @olh;
+			margin-bottom: -2px;
 		}
+		a::before {margin-right: 0.5 * @olh;}
 	}
-}
-.bc-anc,
-.bc-sib,
-.bc-child {
-	&:extend(.list-basic all);
-	margin-top: 0;
-	a::before {margin-right: 0.5 * @olh;}
-}
-.bc-anc {
-	padding-bottom: 1 * @olh;
-//	a::before {content: '\22a5';} // `\bot` or 'up tack'
-//	a::before {content: '\22b7';} // 'image of'
-	a::before {content: '<';}
-}
-.bc-sib {
-//	a::before {content: '\22a2';} // `\vdash` or 'turnstile'
-//	a::before {content: '\29df';} // 'double-ended multimap'
-	a::before {content: '+';}
-}
-.bc-child {
-	margin-top: 1 * @olh;
-//	a::before {content: '\22a4';} // `\top` or 'down tack'
-//	a::before {content: '\22b6';} // 'original of'
-	a::before {content: '>';}
-}
+	.bc-anc {
+		padding-bottom: 1 * @olh;
+	//	a::before {content: '\22a5';} // `\bot` or 'up tack'
+	//	a::before {content: '\22b7';} // 'image of'
+	//	a::before {content: '<';}
+	}
+	.bc-sib {
+	//	a::before {content: '\22a2';} // `\vdash` or 'turnstile'
+	//	a::before {content: '\29df';} // 'double-ended multimap'
+	//	a::before {content: '+';}
+	}
+	.bc-child {
+		margin-top: 1 * @olh;
+	//	a::before {content: '\22a4';} // `\top` or 'down tack'
+	//	a::before {content: '\22b6';} // 'original of'
+	//	a::before {content: '>';}
+	}
+	/* @end */
 /* @end */
 
 /* @group association lists (`dl`s) a.k.a. mappings */
@@ -797,7 +785,7 @@ code {
 		}
 	}
 }
-.breadcrumbs a {
+.bc a {
 	&:extend(.a-block all);
 	padding: (0.125 * @olh) 15px;
 	border-radius: 15px;

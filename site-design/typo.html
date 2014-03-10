@@ -21,12 +21,15 @@ body {
 </head>
 <body>
 {% include masthead.html %}
-<nav>
-	<ol class="breadcrumbs">
+<nav class="bc">
+	<ol class="bc-anc">
+		<li><a href="../index.html">Home</a></li>
+		<li><a href="../home/web.html">Web</a></li>
+	</ol>
+	<ol class="bc-sib">
 		<li><a href="phi.html">Mathematical Background</a></li>
 		<li><a href="grid.html">The Grid</a></li>
-		<li><a href="typo.html">Typography</a></li>
-		<li><a href="mods.html" class="broken">Modules</a></li>
+		<li><a href="typo.html" class="this">Typography</a></li>
 		<li><a href="colors.html">Colors</a></li>
 	</ol>
 </nav>
@@ -39,7 +42,7 @@ body {
 <section id="group-level">
 	<h1 class="h-beta">Group-Level Semantics</h1>
 	<p class="prose">This section...</p>
-	<p class="prose">Group all page-specific content into exactly one <code class="lang-css">main</code> element. There should only be one <code class="lang-css">main</code> element per document, and it should only contain the content specific to that document, yet it should contain all content specific to the document, including any side text, footers, or other extraneous information. It should not include any site-wide navigational aids, headers, footers, <i lang="la"><abbr title="et cetera">etc.</abbr></i> <code class="lang-css">main</code> is not sectioning content, so it does not add a level to the Document Outline.</p>
+	<p id="scheme-main" class="prose">Group all page-specific content into exactly one <code class="lang-css">main</code> element. There should only be one <code class="lang-css">main</code> element per document, and it should only contain the content specific to that document, yet it should contain all content specific to the document, including any side text, footers, or other extraneous information. It should not include any site-wide navigational aids, headers, footers, <i lang="la"><abbr title="et cetera">etc.</abbr></i> <code class="lang-css">main</code> is not sectioning content, so it does not add a level to the Document Outline.</p>
 	<p><span class="warning">Warning <time>2014-02-26</time>:</span> Not all browsers implement <code class="lang-css">main</code> yet. For the time being, use <code class="lang-css">div.main</code>.</p>
 	<section id="scheme-section">
 		<h1 class="h-gamma">Sectioning the Document Outline</h1>
@@ -79,6 +82,35 @@ body {
 				<p>This is a <code class="lang-css">aside.gutter-minor</code>. Apply this class to any element you want to appear in the minor gutter outside the document.</p>
 			</aside>
 		</aside>
+		<section id="scheme-nav">
+			<h1 class="h-delta">Navigational Elements</h1>
+			<p class="prose">A <code class="lang-css">nav</code> is sectioning content that contains links to other pages or to parts within the same page. There are two classes for the nav element: <code class="lang-css">nav.bc</code>, a section of links to <a href="#D-logical-relative">logical relatives</a> of that page, and <code class="lang-css">nav.toc</code>, a section of links to other sections in that page.</p>
+			<section>
+				<h1 class="h-epsilon">Breadcrumbs</h1>
+				<section>
+					<h1 class="h-zeta">Page Relationships</h1>
+					<p class="prose">For simplicity, we will use the examples <code class="dir">page-a.html</code> and <code class="dir">page-b.html</code> in this section for an illustration. We will use <var>A</var> to refer to <code class="dir">page-a.html</code>, and <var>B</var> to refer to <code class="dir">page-a.html</code>.</p>
+					<p class="prose">A <dfn id="D-logical-relative">logical relative</dfn> to a page <var>A</var>, is another page <var>B</var> that is related in content to <var>A</var>. The logical relation between <var>A</var> and <var>B</var> has nothing to do with their locations in the digital directory, but rather a &ldquo;semantic filetree&rdquo; that describes how the pages are related.</p>
+					<p class="prose">There are three ways <var>B</var> can be logically related to <var>A</var>: it may be its <dfn>logical child</dfn>, indicating that the content of <var>B</var> is a subset or tangential extension of the content of <var>A</var>; it may be its <dfn>logical sibling</dfn>, in which case <var>A</var> and <var>B</var> are both logical children of the same page; or it may be its <dfn>logical parent</dfn>, in other words, <var>A</var> is a logical child of <var>B</var>.</p>
+					<p class="prose">A <dfn>logical ancestor</dfn>, <var>C</var>, to a page <var>A</var> is either the logical parent of <var>A</var> or the logical parent of any <dfn>logical ancestor</dfn> of <var>A</var>. (This term is recursively defined.)</p>
+				</section>
+				<p class="prose">To make breadcrumbs for a given page, create a <code class="lang-css">nav.bc</code> <strong><em>outside</em> the <code class="lang-css"><a href="#scheme-main">main</a></code> element</strong>. This <code class="lang-css">nav.bc</code> must contain exactly three elements, in the following order:</p>
+				<ol>
+					<li><code class="lang-css">ol.bc-anc</code>, which contains all the logical ancestors, in order of the &ldquo;semantic filetree&rdquo; from top to bottom;</li>
+					<li><code class="lang-css">ul.bc-sib</code>, which contains all the logical siblings, in any order; and</li>
+					<li><code class="lang-css">ul.bc-child</code>, which contains all the logical children, in any order.</li>
+				</ol>
+				<p class="prose">Each of the three lists above must contain 0 or more list items, with each list item containing only exactly 1 link. The links in the each list correspond to the logical relatives of the current page.</p>
+				<div class="draft">
+					<p class="prose">Each <code class="lang-css">a</code> element must have a <code class="lang-html">rel</code> attribute, which must be one of three values:</p>
+					<ul>
+						<li><code class="lang-html">rel=&quot;ancestor&quot;</code>, if the link is an <code class="lang-css">ol.bc-anc a</code>;</li>
+						<li><code class="lang-html">rel=&quot;sibling&quot;</code>, if the link is an <code class="lang-css">ul.bc-sib a</code>; or</li>
+						<li><code class="lang-html">rel=&quot;child&quot;</code>, if the link is an <code class="lang-css">ol.bc-child a</code>.</li>
+					</ul>
+				</div>
+			</section>
+		</section>
 	</section>
 	<section id="scheme-header">
 		<h1 class="h-gamma">Headers and Footers</h1>
@@ -244,12 +276,6 @@ body {
 				<li><a>This is an <code class="lang-css">a</code>.</a></li>
 				<li><a href="">This is an <code class="lang-css">a[href]</code>.</a></li>
 			</ol>
-			<ol class="breadcrumbs typo-list draft">
-				<li>To make breadcrumbs,</li>
-				<li>use an <code class="lang-css">ol.breadcrumbs</code> (recommended to include in a <code class="lang-css">nav</code> element).</li>
-				<li>This list's style combines the styles of <code class="lang-css">.list-action</code> with <code class="lang-css">.list-inline</code>.</li>
-				<li>Of course, each list item should contain a link.</li>
-			</ol>
 			<ol class="prose typo-list">
 				<li>
 					<p><span class="s-lede">This is an <code class="lang-css">ol.prose</code>.</span> A prose list is an ordered list whose items consist of flow-content. Each list item contains typically 1, but possibly more, paragraph elements. Since the <code class="lang-css">.prose</code> class is applied <strong>to the entire list</strong>, it does not need to apply to the list items or paragraphs within each list item.</p>
@@ -375,7 +401,7 @@ body {
 				<dt>This list is a</dt>
 				<dd><code class="lang-css">dl.dl-table-lrg</code>&nbsp;</dd>
 			</dl>
-			<p class="prose">Use the <code class="lang-css">dl.docmeta</code> class to mark up metadata for a document or article. This should be contained in the <code class="lang-css"><a href="#group-level">main</a> &gt; header</code> or <code class="lang-css">article &gt; header</code>. The following is an example.</p>
+			<p class="prose">Use the <code class="lang-css">dl.docmeta</code> class to mark up metadata for a document or article. Since this metadata is document-specific, it should be contained in the <code class="lang-css"><a href="#scheme-main">main</a> &gt; header</code> or <code class="lang-css">article &gt; header</code>. The following is an example.</p>
 			<figure>
 				<dl class="docmeta typo-list">
 					<dt>Author</dt>
@@ -728,13 +754,13 @@ body {
 
 		<p><a>This is an <code class="lang-css">a</code>.</a></p>
 		<p><a class="sp">This is an <code class="lang-css">a.sp</code>.</a></p>
-		<p><a href="">This is an <code class="lang-css">a[href]</code>.</a></p>
-		<p><a class="sp" href="">This is an <code class="lang-css">a.sp[href]</code>.</a></p>
+		<p><a href="#">This is an <code class="lang-css">a[href]</code>.</a></p>
+		<p><a class="sp" href="#">This is an <code class="lang-css">a.sp[href]</code>.</a></p>
 
 		<a class="a-block">This is an <code class="lang-css">a.a-block</code>.</a>
 		<a class="a-block sp">This is an <code class="lang-css">a.a-block.sp</code>.</a>
-		<a class="a-block" href="">This is an <code class="lang-css">a.a-block[href]</code>.</a>
-		<a class="a-block sp" href="">This is an <code class="lang-css">a.a-block.sp[href]</code>.</a>
+		<a class="a-block" href="#">This is an <code class="lang-css">a.a-block[href]</code>.</a>
+		<a class="a-block sp" href="#">This is an <code class="lang-css">a.a-block.sp[href]</code>.</a>
 	</section>
 	<section id="scheme-code">
 		<h1 class="h-gamma">Code and Math Scheme</h1>

@@ -185,7 +185,7 @@ td > :first-child {
   margin-right: 0;
 }
 .gutter-major,
-.breadcrumbs {
+.bc {
   width: 14.58980337503155%;
   margin-left: 3.4441853748633053%;
   margin-right: 5.572809000084125%;
@@ -384,7 +384,7 @@ td > :first-child {
 @media print {
   .gutter-major,
   .gutter-minor,
-  .breadcrumbs {
+  .bc {
     width: auto;
     margin-left: auto;
     margin-right: auto;
@@ -416,7 +416,7 @@ span.success,
 span.info,
 span.help,
 span.cyan,
-.breadcrumbs a {
+.bc a {
   display: inline;
   padding: 0 1px;
   border: 1px solid;
@@ -434,13 +434,13 @@ span.success,
 span.info,
 span.help,
 span.cyan,
-.breadcrumbs a {
+.bc a {
   display: inline-block;
 }
 .box-block,
 .a-block,
 div.precode,
-.breadcrumbs a {
+.bc a {
   display: block;
   padding: 0 4px;
   margin-bottom: -1px;
@@ -508,6 +508,29 @@ main {
   font-weight: bold;
   font-size: 96px;
   font-family: 'Times', 'Times New Roman', serif;
+}
+.bc {
+  /*
+	- a navigational array containg exactly:
+		- optionally 1 `ol.bc-anc`, followed by
+		- optionally 1 `ul.bc-sib`, followed by
+		- optionally 1 `ul.bc-child`.
+	- Each `ol` and `ul` may contain any number of `li`s. In the `ol.bc-anc`, the order of `li`s must be in logical tree order from top to bottom.
+	- The `li`s in each list must contain only exactly 1 `a`. The `rel` attribute on the `a` is dependent on the class of the list:
+		- `ol.bc-anc   > li > a` should contain `rel="ancestor"`
+		- `ul.bc-sib   > li > a` should contain `rel="sibling"`
+		- `ul.bc-child > li > a` should contain `rel="child"`
+	*/
+  position: fixed;
+  top: 48px;
+  z-index: 1;
+}
+.bc .this {
+  font-weight: bold;
+}
+.bc .this::before {
+  content: '';
+  margin-right: 0;
 }
 /* @end */
 /* @group headings */
@@ -855,40 +878,17 @@ dd > ul:only-child,
 .list-action a:not([href]) {
   color: #333333;
 }
-.breadcrumbs {
-  /*
-	- a navigational array containg exactly:
-		- optionally 1 `ol.bc-anc`, followed by
-		- optionally 1 `ul.bc-sib`, followed by
-		- optionally 1 `ul.bc-child`.
-	- Each `ol` and `ul` may contain any number of `li`s. In the `ol.bc-anc`, the order of `li`s must be in logical tree order from top to bottom.
-	- The `li`s in each list must contain only exactly 1 `a`. The `rel` attribute on the `a` is dependent on the class of the list:
-		- `ol.bc-anc   > li > a` should contain `rel="ancestor"`
-		- `ul.bc-sib   > li > a` should contain `rel="sibling"`
-		- `ul.bc-child > li > a` should contain `rel="child"`
-	\231c: top-left corner
-	\231d: top-right corner
-	\231e: bottom-left corner
-	\231f: bottom-right corner
-	*/
-  position: fixed;
-  top: 48px;
-}
-.breadcrumbs li {
-  margin-top: 18px;
-  margin-bottom: -2px;
-}
-.breadcrumbs .this {
-  font-weight: bold;
-}
-.breadcrumbs .this::before {
-  content: '';
-  margin-right: 0;
-}
+/* @group breadcrumb lists (contained in `nav.bc`) */
 .bc-anc,
 .bc-sib,
 .bc-child {
   margin-top: 0;
+}
+.bc-anc li,
+.bc-sib li,
+.bc-child li {
+  margin-top: 18px;
+  margin-bottom: -2px;
 }
 .bc-anc a::before,
 .bc-sib a::before,
@@ -898,18 +898,10 @@ dd > ul:only-child,
 .bc-anc {
   padding-bottom: 24px;
 }
-.bc-anc a::before {
-  content: '<';
-}
-.bc-sib a::before {
-  content: '+';
-}
 .bc-child {
   margin-top: 24px;
 }
-.bc-child a::before {
-  content: '>';
-}
+/* @end */
 /* @end */
 /* @group association lists (`dl`s) a.k.a. mappings */
 dd {
@@ -1280,27 +1272,27 @@ div.precode a {
   border: 0;
 }
 .a-block,
-.breadcrumbs a {
+.bc a {
   border-radius: 6px;
   text-align: center;
   background-color: transparent;
 }
 .a-block[href],
-.breadcrumbs a[href] {
+.bc a[href] {
   border-color: #000066;
   background-color: #eeeeff;
 }
 .a-block[href]:hover,
-.breadcrumbs a[href]:hover {
+.bc a[href]:hover {
   border-color: #663300;
   background-color: #ffffee;
 }
 .a-block[href]:active,
-.breadcrumbs a[href]:active {
+.bc a[href]:active {
   border-color: #ffff00;
   background-color: #000000;
 }
-.breadcrumbs a {
+.bc a {
   padding: 3px 15px;
   border-radius: 15px;
   text-align: left;
