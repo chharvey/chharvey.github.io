@@ -89,19 +89,6 @@ body {
 		}
 	}
 }
-.bc {
-	&:extend(.gutter-major);
-	position: fixed;
-	top: 2 * @olh;
-	z-index: 1;
-	.this {
-		font-weight: bold;
-		&::before {
-			content: '';
-			margin-right: 0;
-		}
-	}
-}
 /* @end */
 
 /* @group headings */
@@ -346,36 +333,6 @@ li, dt, dd {
 	li::before {content: '\2713\0020';} // check mark, space
 	a:not([href]) {color: @color-base-txt;}
 }
-	/* @group breadcrumb lists (contained in `nav.bc`) */
-	.bc-anc,
-	.bc-sib,
-	.bc-child {
-		&:extend(.list-basic all);
-		margin-top: 0;
-		li {
-			margin-top: 0.75 * @olh;
-			margin-bottom: -2px;
-		}
-		a::before {margin-right: 0.5 * @olh;}
-	}
-	.bc-anc {
-		padding-bottom: 1 * @olh;
-	//	a::before {content: '\22a5';} // `\bot` or 'up tack'
-	//	a::before {content: '\22b7';} // 'image of'
-	//	a::before {content: '<';}
-	}
-	.bc-sib {
-	//	a::before {content: '\22a2';} // `\vdash` or 'turnstile'
-	//	a::before {content: '\29df';} // 'double-ended multimap'
-	//	a::before {content: '+';}
-	}
-	.bc-child {
-		margin-top: 1 * @olh;
-	//	a::before {content: '\22a4';} // `\top` or 'down tack'
-	//	a::before {content: '\22b6';} // 'original of'
-	//	a::before {content: '>';}
-	}
-	/* @end */
 /* @end */
 
 /* @group association lists (`dl`s) a.k.a. mappings */
@@ -786,11 +743,54 @@ code {
 		}
 	}
 }
-.bc a {
-	&:extend(.a-block all);
-	padding: (0.125 * @olh) 15px;
-	border-radius: 15px;
-	text-align: left;
+/* @end */
+/* @group breadcrumbs */
+.bc {
+	&:extend(.gutter-major);
+	position: fixed;
+	top: 2 * @olh;
+	z-index: 1;
+	.this {
+		font-weight: bold;
+		&::before {
+			content: '';
+			margin-right: 0;
+		}
+	}
+	a {
+		&:extend(.a-block all);
+		padding: (0.125 * @olh) 15px;
+		border-radius: 15px;
+		text-align: left;
+		&::before {margin-right: 0.5 * @olh;}
+	}
+}
+.bc-anc,
+.bc-sib,
+.bc-child {
+	&:extend(.list-basic all);
+	margin-top: 0;
+	li {
+		margin-top: 0.75 * @olh;
+		margin-bottom: -2px;
+	}
+}
+.bc-anc {
+	padding-bottom: 1 * @olh;
+//	a::before {content: '\22a5';} // `\bot` or 'up tack'
+//	a::before {content: '\22b7';} // 'image of'
+//	a::before {content: '<';}
+}
+.bc-sib {
+//	a::before {content: '\22a2';} // `\vdash` or 'turnstile'
+//	a::before {content: '\29df';} // 'double-ended multimap'
+//	a::before {content: '+';}
+}
+.bc-child {
+	margin-top: 1 * @olh;
+//	a::before {content: '\22a4';} // `\top` or 'down tack'
+//	a::before {content: '\22b6';} // 'original of'
+//	a::before {content: '>';}
 }
 /* @end */
 
