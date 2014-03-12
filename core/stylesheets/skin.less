@@ -1,4 +1,5 @@
 // main: all.less
+
 /* @group variables */
 @font-fam-base:    'Optima','Candara','Lucida Sans',sans-serif;
 @font-fam-heading: 'Avenir','Calibri','Century Gothic',sans-serif;
@@ -11,7 +12,7 @@
 @color-base-txt: #111;
 @color-base-txt: #333;
 @color-base-bg:  #fff;
-@color-accent: #f00;
+@color-accent: #00c;
 
 /* @end */
 
@@ -68,14 +69,6 @@ body {
 //	background-repeat: repeat-y;
 //	background-size: contain;
 }
-aside {
-	.font-size(small);
-	.h {
-		text-align: center;
-		text-indent: 0;
-	}
-}
-
 .main, main {
 	.P1-midright;
 	margin-bottom: 192px; // 2in
@@ -93,6 +86,19 @@ aside {
 			font-weight: bold;
 			font-size: @iconsize;
 			font-family: 'Times','Times New Roman',serif;
+		}
+	}
+}
+.bc {
+	&:extend(.gutter-major);
+	position: fixed;
+	top: 2 * @olh;
+	z-index: 1;
+	.this {
+		font-weight: bold;
+		&::before {
+			content: '';
+			margin-right: 0;
 		}
 	}
 }
@@ -119,12 +125,20 @@ aside {
 
 .h,
 h1, h2, h3, h4, h5, h6 {
+	display: block;
 	font-style: normal;
 	font-variant: normal;
 	font-weight: normal;
 	font-family: @font-fam-heading;
 	letter-spacing: 1px;
 	.latex {color: inherit;}
+}
+.gutter-major,
+.gutter-minor {
+	.h {
+		text-align: center;
+		text-indent: 0;
+	}
 }
 span.hsub {
 	// * QUASI-ELEMENT: subheading
@@ -142,7 +156,7 @@ span.hsub {
 	text-align: center;
 	line-height: (@line-height-base/@h1-ratio);
 	color: @color-hn-primary;
-	> .hsub {
+	> span.hsub {
 		color: lighten(@color-hn-primary, @hsub-lighten);
 	}
 }
@@ -154,7 +168,7 @@ span.hsub {
 	font-size: @font-size-h2;
 	line-height: (@line-height-base/@h2-ratio);
 	color: @color-hn-secondary;
-	> .hsub {
+	> span.hsub {
 		color: lighten(@color-hn-secondary, @hsub-lighten);
 	}
 }
@@ -166,7 +180,7 @@ span.hsub {
 	font-weight: bold;
 	font-size: @font-size-h3;
 	line-height: (@line-height-base/@h3-ratio);
-	> .hsub {
+	> span.hsub {
 		color: lighten(@color-base-txt, @hsub-lighten);
 	}
 }
@@ -177,7 +191,7 @@ span.hsub {
 	font-weight: bold;
 	font-size: @font-size-h4;
 	line-height: (@line-height-base/@h4-ratio);
-	> .hsub {
+	> span.hsub {
 		color: lighten(@color-base-txt, @hsub-lighten);
 	}
 }
@@ -188,7 +202,7 @@ span.hsub {
 	text-indent: 0.5in;
 	line-height: (@line-height-base/@h5-ratio);
 	color: @color-hn-secondary;
-	> .hsub {
+	> span.hsub {
 		color: lighten(@color-hn-secondary, @hsub-lighten);
 	}
 }
@@ -199,20 +213,13 @@ span.hsub {
 	font-size: @font-size-h6;
 	text-indent: 0.5in;
 	line-height: (@line-height-base/@h6-ratio);
-	> .hsub {
+	> span.hsub {
 		color: lighten(@color-base-txt, @hsub-lighten);
 	}
 }
 /* @end */
 
 /* @group paragraphs */
-.prose {
-	.font-size(medium);
-	font-family: @font-fam-prose;
-	text-align: justify;
-	list-style-type: decimal;
-	li {margin-top: @olh;}
-}
 .lede {
 	font-weight: bold;
 	font-family: @font-fam-base;
@@ -227,6 +234,30 @@ span.hsub {
 	&:extend(.lede);
 	padding-right: @olh;
 }
+.prose {
+	.font-size(medium);
+	font-family: @font-fam-prose;
+	text-align: justify;
+	list-style-type: decimal;
+	li {margin-top: @olh;}
+}
+.nonnormative {
+//	.spacing-top-Phi();
+//	.spacing-left-Phi(3px; dotted);
+	font-style: italic;
+	font-family: @font-fam-base;
+}
+.dropcap::first-letter {
+	float: left;
+	padding-top: 0.75 * @font-size-base;
+	padding-right: 4px;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 3 * @font-size-base;
+	font-family: @font-fam-math;
+	line-height: 0.5;
+	color: @color-accent;
+}
 
 .caption {
 	.font-size(small);
@@ -235,12 +266,6 @@ span.hsub {
 	font-style: normal;
 	text-align: right;
 }
-//div.informative {
-//	// * QUASI-ELEMENT: informative (non-normative) element
-//	.spacing-top-Phi();
-//	.spacing-left-Phi(3px);
-//	font-style: italic;
-//}
 figure {
 	.spacing-top-Phi();
 	.spacing-left-Phi(4px);
@@ -300,7 +325,6 @@ li, dt, dd {
 .list-basic {
 	padding: 0;
 	list-style-type: none;
-	dt, dd {margin: 0; padding: 0;}
 }
 .list-inline {
 	// * a basic list except the list items are inline. dt elements are still blocks
@@ -322,16 +346,36 @@ li, dt, dd {
 	li::before {content: '\2713\0020';} // check mark, space
 	a:not([href]) {color: @color-base-txt;}
 }
-.breadcrumbs {
-	&:extend(.list-inline all);
-	&:extend(.list-action all);
-	font-family: @font-fam-heading;
-	li {
-		padding-right: @olh;
-		&::before {content: '';}
+	/* @group breadcrumb lists (contained in `nav.bc`) */
+	.bc-anc,
+	.bc-sib,
+	.bc-child {
+		&:extend(.list-basic all);
+		margin-top: 0;
+		li {
+			margin-top: 0.75 * @olh;
+			margin-bottom: -2px;
+		}
+		a::before {margin-right: 0.5 * @olh;}
 	}
-	body > nav & {.P1-midright;}
-}
+	.bc-anc {
+		padding-bottom: 1 * @olh;
+	//	a::before {content: '\22a5';} // `\bot` or 'up tack'
+	//	a::before {content: '\22b7';} // 'image of'
+	//	a::before {content: '<';}
+	}
+	.bc-sib {
+	//	a::before {content: '\22a2';} // `\vdash` or 'turnstile'
+	//	a::before {content: '\29df';} // 'double-ended multimap'
+	//	a::before {content: '+';}
+	}
+	.bc-child {
+		margin-top: 1 * @olh;
+	//	a::before {content: '\22a4';} // `\top` or 'down tack'
+	//	a::before {content: '\22b6';} // 'original of'
+	//	a::before {content: '>';}
+	}
+	/* @end */
 /* @end */
 
 /* @group association lists (`dl`s) a.k.a. mappings */
@@ -341,6 +385,12 @@ dd {
 }
 dd {
 	padding-left: 0.5in;
+}
+.dl-basic {
+	> dd {margin: 0; padding: 0;}
+}
+.dl-tree {
+//	dd > dl {margin-left: 0.5in;}
 }
 .dl-group {
 	// * groups dt elements together on a line, and dd elements together on a line
@@ -355,35 +405,56 @@ dd {
 	dd + dt {clear: both;}
 	dt + dd {padding-left: 0.5in;}
 }
-.dltable(@dtwidth) {
+.dl-table(@dtwidth) {
 	// * a dl list that acts like a table, with each row containing a single name-value group. the `@dtwidth` parameter must be a percentage.
 	&:extend(.list-basic all);
 	&:extend(.line);
-	dt, dd {
+	> dt,
+	> dd {
 		&:extend(.unit);
 		float: left;
 	}
-	dt {
+	> dt {
 		width: @dtwidth;
 		clear: both;
 	}
-	dd {
+	> dd {
 		width: (100% - @dtwidth);
 		margin-left: @dtwidth;
 	}
-	dt + dd {margin-left: 0;}
-	dd + dd {clear: both;}
+	> dt + dd {margin-left: 0;}
+	> dd + dd {clear: both;}
 }
-.dltable-generator(@num) {
-	.dltable@{num} {
-		.dltable(@num * 1%);
+//.dl-table-generator(@num) {
+//	.dl-table@{num} {
+//		.dl-table(@num * 1%);
+//	}
+//}
+//.dl-table-generator(30);
+//.dl-table-generator(40);
+//.dl-table-generator(50);
+//.dl-table-generator(60);
+//.dl-table-generator(70);
+.dl-table-sml {.dl-table(@width-Golden3);}   // 23.6067977499789696%
+.dl-table-msm {.dl-table(@width-Golden2);}   // 38.1966011250105152%
+.dl-table-med {.dl-table(50%);}
+.dl-table-mlg {.dl-table(@width-Golden1);}   // 61.8033988749894848%
+.dl-table-lrg {.dl-table(@width-U-Golden3);} // 76.3932022500210304%
+.docmeta {
+	&:extend(.dl-table-sml all);
+//	&::before {
+//		&:extend(.h-zeta all);
+//		content: 'Document Information';
+//		display: block;
+//		.font-size(medium);
+//		text-indent: 0;
+//	}
+//	background-color: @color-base-bg;
+	> dt {
+		font-weight: bold;
+		&::after {content: ':';}
 	}
 }
-.dltable-generator(30);
-.dltable-generator(40);
-.dltable-generator(50);
-.dltable-generator(60);
-.dltable-generator(70);
 /* @end */
 
 /* @group tables */
@@ -486,10 +557,10 @@ th {
 
 /* @group highlighted text */
 em {font-style: italic;}
+.nonnormative,
 em,
-//div.informative,
 .foreignlang {
-	//* italics within italics
+	//* em within italics
 	> em {font-weight: bold;}
 }
 strong {font-weight: bold;}
@@ -623,7 +694,7 @@ sub {
 	// * the superscript containing a link to the footnote or back to the reference
 	&:extend(sup all);
 	width: @fn-width;
-	a {
+	> a {
 		&::before {content: '[';}
 		&::after {content: ']';}
 	}
@@ -679,13 +750,20 @@ a {
 	&[title] {
 		// * `title` attribute should be the Title of the linked document
 	}
-	.latex {color: inherit}
+	dfn,
+	abbr,
+	code,
+	.latex {
+		// * certain elements in links not discolored
+		color: inherit;
+	}
 }
 blockquote,
 div.postal,
 .list-action,
 table,
-sup.fn {
+sup.fn,
+code {
 	// * no border for links in certain containers
 	a {border: 0;}
 }
@@ -707,6 +785,12 @@ sup.fn {
 			background-color: @color-link-active-block-bg;
 		}
 	}
+}
+.bc a {
+	&:extend(.a-block all);
+	padding: (0.125 * @olh) 15px;
+	border-radius: 15px;
+	text-align: left;
 }
 /* @end */
 
@@ -921,11 +1005,17 @@ hr,
 		margin-right: auto;
 	}
 	.masthead {display: none;}
-//	.sideborder {
-//		.sideborder-left(0);
-//		.sideborder-right(0);
-//		text-align: left;
-//	}
+	figure,
+	blockquote,
+	div.postal {
+		.spacing-left-Phi();
+		.spacing-right-Phi();
+	}
+	figure,
+	blockquote {
+		margin-left:  0.5in;
+		margin-right: 0.5in;
+	}
 	ins, del, abbr {background-color: transparent;}
 	.code {
 		color: #000000;
