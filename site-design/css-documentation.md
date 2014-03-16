@@ -37,7 +37,6 @@ Thus, in my CSS file, I have a selector called `div.postal`. This selector by it
 All quasi-elements should be represented by qualified selectors, and conversely, the only qualified selectors must represent quasi-elements. If there are qualified selectors that aren't quasi-elements, make the selector unqualified.
 
 List of Quasi-Elements:
-- `div.informative`: draft... may be deleting soon...
 - `div.postal`: a postal address
 - `div.precode`: a pre-formatted block of computer code, equivalent to `pre > code`
 - `span.hsub`: a subheading or "tagline" (contained within a heading element)
