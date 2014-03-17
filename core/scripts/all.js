@@ -4,6 +4,21 @@
 function newElem(elemname) {
 	return $(document.createElement(elemname));
 }
+/** Converts an rgb string, of the form `rgb(r, g, b)`, into a hex string, of the form `#RRGGBB` */
+function rgbToHex(rgbString) {
+	var sliced = rgbString.slice(4, -1);
+	var splitted = sliced.split(',');
+	var decR = splitted[0];
+	var decG = splitted[1];
+	var decB = splitted[2];
+	function toHex(n) {
+		n = parseInt(n,10);
+		if (isNaN(n)) return "00";
+		n = Math.max(0,Math.min(n,255));
+		return "0123456789ABCDEF".charAt((n - n % 16) / 16) + "0123456789ABCDEF".charAt(n % 16);
+	}
+	return '#' + toHex(decR) + toHex(decG) + toHex(decB);
+}
 //function newElemFilled(elemname, classname, html) {
 //	return newElem(elemname).addClass(classname).html(html);
 //}
