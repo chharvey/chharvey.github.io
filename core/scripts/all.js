@@ -1,5 +1,5 @@
 //** ======== SITE-WIDE BEHAVIORS (all.js) ========
-var t_ani = 200;
+//var t_ani = 200;
 /** Creates a new HTML element and returns it as a jQuery object. */
 function newElem(elemname) {
 	return $(document.createElement(elemname));
@@ -116,15 +116,15 @@ $(document).ready(function() {
 
 $(document).ready(function() {
 	//broken links - really only meant for inline links, buggy on block links
-	var oldHTML;
-	var oldHref;
-	$('.a-broken').hover(function() {
-		oldHTML = $(this).html();
-		oldHref = $(this).attr('href');
-		$(this).html('coming soon...');
-		$(this).removeAttr('href');
-	}, function() {
-		$(this).html(oldHTML);
-		$(this).attr('href', oldHref);
-	});
+//	var oldHTML;
+//	var oldHref;
+//	$('.a-broken').hover(function() {
+//		oldHTML = $(this).html();
+//		oldHref = $(this).attr('href');
+//		$(this).html('coming soon...');
+//		$(this).removeAttr('href');
+//	}, function() {
+//		$(this).html(oldHTML);
+//		$(this).attr('href', oldHref);
+//	});
 });

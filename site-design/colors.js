@@ -6,7 +6,7 @@ function makeTables(start, stop) {
 		 37,  41,  46,  55,  69,  91
 	];
 	var tableArray = [];
-	for (var i=start; i<stop; i++) {
+	for (var i = start; i < stop; i++) {
 		tableArray[i - start] = newElem('table').addClass('hue-' + hueArray[i]).append(new Array(
 			newElem('thead').append(
 				newElem('tr').append(new Array(
@@ -30,7 +30,7 @@ function makeTables(start, stop) {
 					$(trArray[j]).append(new Array(
 						newElem('td').addClass('val-full'),
 						newElem('td').addClass('val-lite'),
-						newElem('td').addClass('val-med'),
+						newElem('td').addClass('val-medi'),
 						newElem('td').addClass('val-dark')
 					));
 				}
@@ -40,22 +40,22 @@ function makeTables(start, stop) {
 	}
 	return tableArray;
 }
-function insertColorname(hue, sat, val, id) {
-	if (sat ==   100) {sat = 'tr.sat-alph';}
-	if (sat == 83.33) {sat = 'tr.sat-beta';}
-	if (sat == 66.66) {sat = 'tr.sat-gamm';}
-	if (sat ==    50) {sat = 'tr.sat-delt';}
-	if (sat == 33.33) {sat = 'tr.sat-epsi';}
-	if (sat == 16.66) {sat = 'tr.sat-zeta';}
+function insertColornameLink(hue, sat, val, id) {
+	if (sat ===   100) {sat = 'tr.sat-alph';}
+	if (sat === 83.33) {sat = 'tr.sat-beta';}
+	if (sat === 66.66) {sat = 'tr.sat-gamm';}
+	if (sat ===    50) {sat = 'tr.sat-delt';}
+	if (sat === 33.33) {sat = 'tr.sat-epsi';}
+	if (sat === 16.66) {sat = 'tr.sat-zeta';}
 	
-	if (val == 100) {val = 'td.val-full';}
-	if (val ==  75) {val = 'td.val-lite';}
-	if (val ==  50) {val = 'td.val-med';}
-	if (val ==  25) {val = 'td.val-dark';}
+	if (val === 100) {val = 'td.val-full';}
+	if (val ===  75) {val = 'td.val-lite';}
+	if (val ===  50) {val = 'td.val-medi';}
+	if (val ===  25) {val = 'td.val-dark';}
 	
-	$('table.hue-'+hue + ' ' + sat + ' ' + val).append(
+	$('table.hue-' + hue + ' ' + sat + ' ' + val).append(
 		newElem('a').addClass('colorname').attr('href', id).html(
-			$('li'+id + ' span.h-gamma').html()
+			$('li' + id + ' span.h-gamma').html()
 		)
 	);
 }
@@ -64,26 +64,24 @@ $(document).ready(function() {
 	$('.palettes .group2').append(makeTables(12, 24));
 	
 	$('.palettes td, .chosencolors > li').append(
-		newElem('div').addClass('colorcode invisible').html('What is this color?')
-	).hover(function() {
-		$(this).children('.colorcode').toggleClass('invisible');
-	});
+		newElem('div').addClass('colorcode').html('#')
+	);
 	$('.colorcode').html(function() {
 		return $(this).parent().css('background-color');
 	});
+
+//	insertColornameLink(217,   100, 100, '#atlas-blue');
+//	insertColornameLink( 37,   100, 100, '#pbody-orange');
 	
-//	insertColorname(217,   100, 100, '#atlas-blue');
-//	insertColorname( 37,   100, 100, '#pbody-orange');
-	
-//	insertColorname(217,   100, 100, '#bridges-of-light');
-//	insertColorname(185, 66.66, 100, '#light-bridge-edge');
-//	insertColorname(217,   100, 100, '#asbestos');
-//	insertColorname(217,   100, 100, '#lake-superior');
-//	insertColorname(217,   100, 100, '#facility-abyss');
-//	insertColorname(217,   100, 100, '#caves-caves');
-//	insertColorname(217,   100, 100, '#deploying');
-//	insertColorname(217,   100, 100, '#her-eye');
-//	insertColorname(217,   100, 100, '#neurotoxin');
-//	insertColorname(217,   100, 100, '#vilify');
-//	insertColorname(217,   100, 100, '#heart-of-a-companion');
+//	insertColornameLink(217,   100, 100, '#bridges-of-light');
+//	insertColornameLink(185, 66.66, 100, '#light-bridge-edge');
+//	insertColornameLink(217,   100, 100, '#asbestos');
+//	insertColornameLink(217,   100, 100, '#lake-superior');
+//	insertColornameLink(217,   100, 100, '#facility-abyss');
+//	insertColornameLink(217,   100, 100, '#caves-caves');
+//	insertColornameLink(217,   100, 100, '#deploying');
+//	insertColornameLink(217,   100, 100, '#her-eye');
+//	insertColornameLink(217,   100, 100, '#neurotoxin');
+//	insertColornameLink(217,   100, 100, '#vilify');
+//	insertColornameLink(217,   100, 100, '#heart-of-a-companion');
 });
