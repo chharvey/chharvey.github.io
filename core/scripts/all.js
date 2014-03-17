@@ -4,9 +4,9 @@ var t_ani = 200;
 function newElem(elemname) {
 	return $(document.createElement(elemname));
 }
-function newElemFilled(elemname, classname, html) {
-	return newElem(elemname).addClass(classname).html(html);
-}
+//function newElemFilled(elemname, classname, html) {
+//	return newElem(elemname).addClass(classname).html(html);
+//}
 //function addSomethingTo(jQobj, elemname, classname, html) {
 //	jQobj.prepend(newElemFilled(elemname, classname, html));
 //}
