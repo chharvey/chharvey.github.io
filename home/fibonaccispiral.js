@@ -55,7 +55,7 @@ function positionSpiral(mw) {
 }
 function makepretty() {
 	// * brings it all together
-	var mainwidth = $('.main').width();
+	var mainwidth = $('.index-main').width();
 	squareheight('.phispiral-button');
 	positionSquares(mainwidth);
 	bigtext();
