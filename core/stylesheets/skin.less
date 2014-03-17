@@ -20,7 +20,7 @@
 @box-radius-small:  3px; // 1 + 2
 @box-radius-medium: 6px; // 1 + 2 + 3
 @box-radius-large: 10px; // 1 + 2 + 3 + 4
-.box-inline {
+.box-inline() {
 	// * inline content, boxed
 	display: inline;
 	padding: 0 1px;
@@ -28,14 +28,14 @@
 	border-radius: @box-radius-small;
 	white-space: nowrap;
 }
-.box-inline-block {
+.box-inline-block() {
 	// * inline content, with block structure, boxed
-	&:extend(.box-inline);
+	.box-inline();
 	display: inline-block;
 }
-.box-block {
+.box-block() {
 	// * a block structure, boxed
-	&:extend(.box-inline-block);
+	.box-inline-block();
 	display: block;
 	padding: 0 4px;
 	.border(all; 1px; solid);
@@ -44,15 +44,17 @@
 	margin-right: 4px;
 	white-space: normal;
 }
-.parens {
-	// * mixin used for lots of things
+.parens() {
 	&::before {content: '(';}
 	&::after  {content: ')';}	
 }
-.quotes {
-	// * mixin used for lots of things
+.quotes() {
 	&::before {content: open-quote;}
 	&::after  {content: close-quote;}
+}
+.transp() {
+	opacity: @Phi1;
+	&:hover {opacity: 1;}
 }
 /* @end */
 
@@ -330,8 +332,11 @@ li, dt, dd {
 .list-action {
 	// * a list typically containing textual (non-block) hyperlinks
 	&:extend(.list-basic all);
-	color: @color-link-up-txt;
 	ul, ol, dl {list-style-type: none;}
+	li {
+		color: @color-link-up-txt;
+		&:hover {color: @color-link-dn-txt;}
+	}
 	li::before {content: '\2713\0020';} // check mark, space
 	a:not([href]) {color: @color-base-txt;}
 }
@@ -583,7 +588,7 @@ cite {
 	font-style: inherit;
 }
 .src {
-	&:extend(.parens all);
+	.parens();
 }
 dfn,
 abbr {color: @color-info-txt;}
@@ -726,7 +731,7 @@ code {
 	a {border: 0;}
 }
 .a-block {
-	&:extend(.box-block);
+	.box-block();
 	border-radius: @box-radius-medium;
 	text-align: center;
 	background-color: transparent;
@@ -814,7 +819,7 @@ code {
 pre {white-space: pre-wrap;}
 code {
 	// * example of a fragment or string of code a computer would recognize
-	&:extend(.box-inline);
+	.box-inline();
 	.font-size(small; inherit);
 	border-color: @color-code-brdr;
 	font-style: normal;
@@ -846,7 +851,7 @@ code {
 }
 div.precode {
 	// * QUASI-ELEMENT: a preformatted block of text containing computer code
-	&:extend(.box-block);
+	.box-block();
 	&:extend(code all);
 	.font-size(small);
 	white-space: pre-wrap;
@@ -912,7 +917,7 @@ var {font-style: italic;}
 
 .label {
 	// * labels are little warnings/tips/etc. for the user. More elegant than tooltips
-	&:extend(.box-inline-block);
+	.box-inline-block();
 	.font-size(small; inherit);
 	padding: 1px;
 	border: 0;
@@ -921,7 +926,7 @@ var {font-style: italic;}
 	font-family: @font-fam-accent;
 //	cursor: help;
 	&::before {
-		&:extend(.box-inline);
+		.box-inline();
 		padding: 1px;
 		border: 0;
 		margin-right: @olh;
