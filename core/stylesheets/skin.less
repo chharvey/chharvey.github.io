@@ -318,9 +318,8 @@ li, dt, dd {
 	list-style-type: none;
 }
 .list-inline {
-	// * a basic list except the list items are inline. dt elements are still blocks
+	// * a basic list except the list items are inline.
 	&:extend(.list-basic all);
-	display: block;
 	> li {display: inline;}
 }
 .list-line {
@@ -329,6 +328,22 @@ li, dt, dd {
 	&:extend(.line);
 	> li {&:extend(.unit);}
 }
+.list-float(@liwidth) {
+	// * a basic list whose items are blocks that float left
+	&:extend(.list-basic all);
+	display: table;
+	li {
+		width: @liwidth;
+		float: left;
+	}
+}
+.list-float-1 {.list-float(100%);}
+.list-float-2 {.list-float(50%);}
+.list-float-3 {.list-float(33.333%);}
+.list-float-4 {.list-float(25%);}
+.list-float-5 {.list-float(20%);}
+.list-float-6 {.list-float(16.666%);}
+
 .list-action {
 	// * a list typically containing textual (non-block) hyperlinks
 	&:extend(.list-basic all);
@@ -390,16 +405,6 @@ dd {
 	> dt + dd {margin-left: 0;}
 	> dd + dd {clear: both;}
 }
-//.dl-table-generator(@num) {
-//	.dl-table@{num} {
-//		.dl-table(@num * 1%);
-//	}
-//}
-//.dl-table-generator(30);
-//.dl-table-generator(40);
-//.dl-table-generator(50);
-//.dl-table-generator(60);
-//.dl-table-generator(70);
 .dl-table-sml {.dl-table(@width-Golden3);}   // 23.6067977499789696%
 .dl-table-msm {.dl-table(@width-Golden2);}   // 38.1966011250105152%
 .dl-table-med {.dl-table(50%);}
