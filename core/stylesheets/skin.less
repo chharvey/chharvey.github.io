@@ -89,19 +89,6 @@ body {
 		}
 	}
 }
-.bc {
-	&:extend(.gutter-major);
-	position: fixed;
-	top: 2 * @olh;
-	z-index: 1;
-	.this {
-		font-weight: bold;
-		&::before {
-			content: '';
-			margin-right: 0;
-		}
-	}
-}
 /* @end */
 
 /* @group headings */
@@ -123,8 +110,9 @@ body {
 @color-hn-secondary: #840;
 @hsub-lighten: 20%;
 
-.h,
-h1, h2, h3, h4, h5, h6 {
+//.h,
+//h1, h2, h3, h4, h5, h6 {
+.h {
 	display: block;
 	font-style: normal;
 	font-variant: normal;
@@ -347,36 +335,6 @@ li, dt, dd {
 	li::before {content: '\2713\0020';} // check mark, space
 	a:not([href]) {color: @color-base-txt;}
 }
-	/* @group breadcrumb lists (contained in `nav.bc`) */
-	.bc-anc,
-	.bc-sib,
-	.bc-child {
-		&:extend(.list-basic all);
-		margin-top: 0;
-		li {
-			margin-top: 0.75 * @olh;
-			margin-bottom: -2px;
-		}
-		a::before {margin-right: 0.5 * @olh;}
-	}
-	.bc-anc {
-		padding-bottom: 1 * @olh;
-	//	a::before {content: '\22a5';} // `\bot` or 'up tack'
-	//	a::before {content: '\22b7';} // 'image of'
-	//	a::before {content: '<';}
-	}
-	.bc-sib {
-	//	a::before {content: '\22a2';} // `\vdash` or 'turnstile'
-	//	a::before {content: '\29df';} // 'double-ended multimap'
-	//	a::before {content: '+';}
-	}
-	.bc-child {
-		margin-top: 1 * @olh;
-	//	a::before {content: '\22a4';} // `\top` or 'down tack'
-	//	a::before {content: '\22b6';} // 'original of'
-	//	a::before {content: '>';}
-	}
-	/* @end */
 /* @end */
 
 /* @group association lists (`dl`s) a.k.a. mappings */
@@ -396,15 +354,15 @@ dd {
 .dl-group {
 	// * groups dt elements together on a line, and dd elements together on a line
 	display: table;
-	dt,
-	dd {
+	> dt,
+	> dd {
 		padding: 0;
 		padding-right: @olh;
 		float: left;
 	}
-	dt + dd,
-	dd + dt {clear: both;}
-	dt + dd {padding-left: 0.5in;}
+	> dt + dd,
+	> dd + dt {clear: both;}
+	> dt + dd {padding-left: 0.5in;}
 }
 .dl-table(@dtwidth) {
 	// * a dl list that acts like a table, with each row containing a single name-value group. the `@dtwidth` parameter must be a percentage.
@@ -422,6 +380,7 @@ dd {
 	> dd {
 		width: (100% - @dtwidth);
 		margin-left: @dtwidth;
+		padding-left: 0;
 	}
 	> dt + dd {margin-left: 0;}
 	> dd + dd {clear: both;}
@@ -784,11 +743,54 @@ code {
 		}
 	}
 }
-.bc a {
-	&:extend(.a-block all);
-	padding: (0.125 * @olh) 15px;
-	border-radius: 15px;
-	text-align: left;
+/* @end */
+/* @group breadcrumbs */
+.bc {
+	&:extend(.gutter-major);
+	position: fixed;
+	top: 2 * @olh;
+	z-index: 1;
+	.this {
+		font-weight: bold;
+		&::before {
+			content: '';
+			margin-right: 0;
+		}
+	}
+	a {
+		&:extend(.a-block all);
+		padding: (0.125 * @olh) 15px;
+		border-radius: 15px;
+		text-align: left;
+		&::before {margin-right: 0.5 * @olh;}
+	}
+}
+.bc-anc,
+.bc-sib,
+.bc-child {
+	&:extend(.list-basic all);
+	margin-top: 0;
+	li {
+		margin-top: 0.75 * @olh;
+		margin-bottom: -2px;
+	}
+}
+.bc-anc {
+	padding-bottom: 1 * @olh;
+//	a::before {content: '\22a5';} // `\bot` or 'up tack'
+//	a::before {content: '\22b7';} // 'image of'
+//	a::before {content: '<';}
+}
+.bc-sib {
+//	a::before {content: '\22a2';} // `\vdash` or 'turnstile'
+//	a::before {content: '\29df';} // 'double-ended multimap'
+//	a::before {content: '+';}
+}
+.bc-child {
+	margin-top: 1 * @olh;
+//	a::before {content: '\22a4';} // `\top` or 'down tack'
+//	a::before {content: '\22b6';} // 'original of'
+//	a::before {content: '>';}
 }
 /* @end */
 
@@ -988,7 +990,7 @@ hr,
 @media print {
 	body,
 	.h,
-	.sideborder,
+	blockquote, div.postal,
 	table {
 		.font-size(medium);
 	}
@@ -1014,7 +1016,8 @@ hr,
 		margin-left:  0.5in;
 		margin-right: 0.5in;
 	}
-	ins, del, abbr {background-color: transparent;}
+	ins, del {background-color: transparent;}
+	dfn, abbr {color: inherit;}
 	.code {
 		color: #000000;
 		background-color: #fff;
