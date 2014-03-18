@@ -4,12 +4,6 @@ var degreeArray = [
 	307, 343,   5,  19,  28,  33,
 	 37,  41,  46,  55,  69,  91
 ];
-//degreeArray = [
-//	  0,  15,  30,  45,  60,  75,
-//	 90, 105, 120, 135, 150, 165,
-//	180, 195, 210, 225, 240, 255,
-//	270, 285, 300, 315, 330, 345
-//];
 function table(degree) {
 	function tdArray() {
 		return [
@@ -47,46 +41,98 @@ function tables(start, stop) {
 	return tableArray;
 }
 function insertColorCodes() {
-	$('.colortable td, .chosencolors > li').append(
-		newElem('div').addClass('colorcode').html('#')
+	$('.colortable td').append(
+		newElem('code').addClass('lang-css colorcode').html('?')
 	);
 	$('.colorcode').html(function () {
 		return rgbToHex($(this).parent().css('background-color'));
 	});
 }
+var colorArray = [
+	[0, 0, 100, 'aperture-white'],
+	[0, 0, 0, 'aperture-black'],
+	[217,  100, 100, 'atlas'],
+	[ 37,  100, 100, 'pbody'],
+	[  5,  100, 100, 'deploying'],
+	[ 55, 66.6, 100, 'her-eye'],
+	[226,  100,  50, 'lake-superior'],
+	[ 28, 66.6,  50, 'caves-caves'],
+	[199,   50,  50, 'facility-abyss'],
+	[ 46,  100,  75, 'asbestos']
+];
+//#bridges-of-light     {background-color: @bridges-of-light;}
+//#light-bridge-edge    {background-color: @bridges-of-light;}
+//#deploying            {background-color: @deploying;}
+//#her-eye              {background-color: @her-eye;}
+//#neurotoxin           {background-color: @neurotoxin;}
+//#vilify               {background-color: @vilify;}
+//#heart-of-a-companion {background-color: @heart-of-a-companion;}
+
+	//	setupColors(217,   100, 100, '#bridges-of-light');
+//	
+//	setupColors(217,   100, 100, '#neurotoxin');
+//	setupColors(217,   100, 100, '#vilify');
+//	setupColors(217,   100, 100, '#heart-of-a-companion');
+//			@asbestos:             hsv( 47, 33.33%, 100%);
+
+//			@bridges-of-light:     hsv(207, 33.33%, 100%);
+//			@light-bridge-edge:    hsv(185, 66.66%, 100%);
+//			
+//			
+//			
+//			@neurotoxin:           hsv( 97, 66.66%,  75%);
+//			@vilify:               hsv(277, 66.66%,  75%);
+//			@heart-of-a-companion: hsv(337, 33.33%, 100%);
+//Excursion Funnel, forward
+//Excursion Funnel, backward
+//
+//Repulsion Gel
+//Propulsion Gel
+//
+//Hard Light Bridge
+//Thermal Discouragement Beam
+//
+//Fizzler (testsubj yes, portals no, objects no)
+//Lazer Field (testsubj no, portals yes, objects yes)
+//
+//Glass
+//Grate
+//
+//gray cube
+//super button
+
+	
 function insertColorNames() {
-//	function colorNameLink(hue, sat, val, id) {
-//		if (sat ===   100) {sat = 'tr.sat-alph';}
-//		if (sat === 83.33) {sat = 'tr.sat-beta';}
-//		if (sat === 66.66) {sat = 'tr.sat-gamm';}
-//		if (sat ===    50) {sat = 'tr.sat-delt';}
-//		if (sat === 33.33) {sat = 'tr.sat-epsi';}
-//		if (sat === 16.66) {sat = 'tr.sat-zeta';}
-//
-//		if (val === 100) {val = 'td.val-full';}
-//		if (val ===  75) {val = 'td.val-lite';}
-//		if (val ===  50) {val = 'td.val-medi';}
-//		if (val ===  25) {val = 'td.val-dark';}
-//
-//		$('table.hue-' + hue + ' ' + sat + ' ' + val).prepend(
-//			newElem('a').addClass('colorname').attr('href', id).html(
-//				$('li' + id + ' span.h-gamma').html()
-//			)
-//		);
-//	}
-//	colorNameLink(217,   100, 100, '#atlas-blue');
-//	colorNameLink( 37,   100, 100, '#pbody-orange');
-//	colorNameLink(217,   100, 100, '#bridges-of-light');
-//	colorNameLink(185, 66.66, 100, '#light-bridge-edge');
-//	colorNameLink(217,   100, 100, '#asbestos');
-//	colorNameLink(217,   100, 100, '#lake-superior');
-//	colorNameLink(217,   100, 100, '#facility-abyss');
-//	colorNameLink(217,   100, 100, '#caves-caves');
-//	colorNameLink(217,   100, 100, '#deploying');
-//	colorNameLink(217,   100, 100, '#her-eye');
-//	colorNameLink(217,   100, 100, '#neurotoxin');
-//	colorNameLink(217,   100, 100, '#vilify');
-//	colorNameLink(217,   100, 100, '#heart-of-a-companion');
+	for (var i = 0; i < colorArray.length; i++) {
+		var hue = colorArray[i][0];
+		var sat = colorArray[i][1];
+		var val = colorArray[i][2];
+		var id  = colorArray[i][3];
+
+		if (sat ===  100) {sat = 'tr.sat-alph';}
+		if (sat === 83.3) {sat = 'tr.sat-beta';}
+		if (sat === 66.6) {sat = 'tr.sat-gamm';}
+		if (sat ===   50) {sat = 'tr.sat-delt';}
+		if (sat === 33.3) {sat = 'tr.sat-epsi';}
+		if (sat === 16.6) {sat = 'tr.sat-zeta';}
+
+		if (val === 100) {val = 'td.val-full';}
+		if (val ===  75) {val = 'td.val-lite';}
+		if (val ===  50) {val = 'td.val-medi';}
+		if (val ===  25) {val = 'td.val-dark';}
+		
+		$('table.hue-' + hue + ' ' + sat + ' ' + val).prepend(
+			newElem('a').addClass('colorname').attr('href', id).html($('#' + id + ' h1').html())
+		);
+	}
+}
+function setupColors() {
+	for (var i = 0; i < colorArray.length; i++) {
+		var theColor = colorArray[i];
+		var rgb = hsvToRgb(theColor[0], theColor[1], theColor[2]);
+		var hex = rgbToHex('rgb(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ')');
+		$('#' + theColor[3]).css('background-color', hex);
+	}
 }
 $(document).ready(function() {
 	$('.palettes').append([
@@ -95,4 +141,5 @@ $(document).ready(function() {
 	]);
 	insertColorCodes();
 	insertColorNames();
+	setupColors();
 });
