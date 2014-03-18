@@ -19,6 +19,8 @@
 @caves-caves:   hsv( 28, 66.6%, 50%);
 @facility-abyss: hsv(199,   50%,  50%);
 @asbestos:       hsv( 46, 83.3%, 100%);
+@companion:  hsv(343, 33.3%, 100%);
+@neurotoxin: hsv( 69, 83.3%,  75%);
 
 @color-base-txt: #333;
 @color-base-bg:  #fff;
@@ -118,12 +120,11 @@ body {
 @font-size-h6: (@font-size-base * @h6-ratio); // 12px or 9pt
 @hsub-size: 80%;
 
-@color-hn-primary:   @lake-superior;
-@color-hn-secondary: @caves-caves;
-@hsub-lighten: 20%;
+@color-hn-major: @lake-superior;
+@color-hn-minor: @caves-caves;
+@color-hsub-major: @facility-abyss;
+@color-hsub-minor: @asbestos;
 
-//.h,
-//h1, h2, h3, h4, h5, h6 {
 .h {
 	display: block;
 	font-style: normal;
@@ -145,6 +146,7 @@ span.hsub {
 	font-size: @hsub-size;
 	padding-left: @olh;
 	font-weight: normal;
+	color: lighten(@color-base-txt, @width-Golden3);
 }
 .h-alpha {
 	&:extend(.h all);
@@ -155,9 +157,9 @@ span.hsub {
 	font-size: @font-size-h1;
 	text-align: center;
 	line-height: (@line-height-base/@h1-ratio);
-	color: @color-hn-primary;
+	color: @color-hn-major;
 	> span.hsub {
-		color: lighten(@color-hn-primary, @hsub-lighten);
+		color: @color-hsub-major;
 	}
 }
 .h-beta {
@@ -167,9 +169,9 @@ span.hsub {
 	font-weight: bold;
 	font-size: @font-size-h2;
 	line-height: (@line-height-base/@h2-ratio);
-	color: @color-hn-secondary;
+	color: @color-hn-minor;
 	> span.hsub {
-		color: lighten(@color-hn-secondary, @hsub-lighten);
+		color: @color-hsub-minor
 	}
 }
 .h-gamma {
@@ -180,9 +182,6 @@ span.hsub {
 	font-weight: bold;
 	font-size: @font-size-h3;
 	line-height: (@line-height-base/@h3-ratio);
-	> span.hsub {
-		color: lighten(@color-base-txt, @hsub-lighten);
-	}
 }
 .h-delta {
 	&:extend(.h all);
@@ -191,9 +190,6 @@ span.hsub {
 	font-weight: bold;
 	font-size: @font-size-h4;
 	line-height: (@line-height-base/@h4-ratio);
-	> span.hsub {
-		color: lighten(@color-base-txt, @hsub-lighten);
-	}
 }
 .h-epsilon {
 	&:extend(.h all);
@@ -201,9 +197,9 @@ span.hsub {
 	font-size: @font-size-h5;
 	text-indent: 0.5in;
 	line-height: (@line-height-base/@h5-ratio);
-	color: @color-hn-secondary;
+	color: @color-hn-minor;
 	> span.hsub {
-		color: lighten(@color-hn-secondary, @hsub-lighten);
+		color: @color-hsub-minor;
 	}
 }
 .h-zeta {
@@ -213,9 +209,6 @@ span.hsub {
 	font-size: @font-size-h6;
 	text-indent: 0.5in;
 	line-height: (@line-height-base/@h6-ratio);
-	> span.hsub {
-		color: lighten(@color-base-txt, @hsub-lighten);
-	}
 }
 /* @end */
 
@@ -492,7 +485,7 @@ th {
 }
 .table-bars {
 	thead {
-		@headlt: 10%;
+		@headlt: @width-Golden4;
 		th:nth-child(odd)  {background-color: lighten(@color-table-bg-weak,   @headlt);}
 		th:nth-child(even) {background-color: lighten(@color-table-bg-medium, @headlt);}
 		th:first-child     {background-color: lighten(@color-table-bg-strong, @headlt);}
@@ -606,7 +599,9 @@ cite {
 	.parens();
 }
 dfn,
-abbr {color: @color-info-txt;}
+abbr,
+del,
+ins {color: @color-info-txt;}
 dfn {
 	font-weight: bold;
 	font-style: inherit;
@@ -632,16 +627,10 @@ abbr {
 }
 del {
 	text-decoration: line-through;
-//	color: @color-sp-dn-txt;
-	color: @color-warning-txt;
-	background-color: @color-warning-bg;
 	&[datetime]::after {content: 'deleted on ' attr(datetime);}
 }
 ins {
 	text-decoration: underline;
-//	color: @color-sp-up-txt;
-	color: @color-success-txt;
-	background-color: @color-success-bg;
 	&[datetime]::after {content: 'inserted on ' attr(datetime);}
 }
 del + ins {padding-left: 0.5em;}
@@ -695,8 +684,8 @@ sub {
 @color-link-active-block-brdr: @color-link-active-txt;
 @color-link-active-block-bg: @aperture-black;
 
-@color-sp-up-txt: #000;
-@color-sp-dn-txt: #000;
+@color-sp-up-txt: @neurotoxin;
+@color-sp-dn-txt: @neurotoxin;
 a {
 	display: inline;
 	border-bottom: 1px dotted;
@@ -708,7 +697,7 @@ a {
 		&.sp,
 		&[rel="external"] {
 			color: @color-sp-up-txt;
-			&:hover {color: @color-sp-dn-txt;}
+			&:hover {color: spin(@color-sp-dn-txt, 180);}
 		}
 		&:active {color: @color-link-active-txt;}
 	}

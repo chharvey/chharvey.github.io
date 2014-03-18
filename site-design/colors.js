@@ -58,50 +58,24 @@ var colorArray = [
 	[226,  100,  50, 'lake-superior'],
 	[ 28, 66.6,  50, 'caves-caves'],
 	[199,   50,  50, 'facility-abyss'],
-	[ 46,  100,  75, 'asbestos']
+	[ 46,  100,  75, 'asbestos'],
+	[343, 33.3, 100, 'companion'],
+	[ 69, 83.3,  75, 'neurotoxin']
 ];
-//#bridges-of-light     {background-color: @bridges-of-light;}
-//#light-bridge-edge    {background-color: @bridges-of-light;}
-//#deploying            {background-color: @deploying;}
-//#her-eye              {background-color: @her-eye;}
-//#neurotoxin           {background-color: @neurotoxin;}
-//#vilify               {background-color: @vilify;}
-//#heart-of-a-companion {background-color: @heart-of-a-companion;}
 
-	//	setupColors(217,   100, 100, '#bridges-of-light');
-//	
-//	setupColors(217,   100, 100, '#neurotoxin');
-//	setupColors(217,   100, 100, '#vilify');
-//	setupColors(217,   100, 100, '#heart-of-a-companion');
-//			@asbestos:             hsv( 47, 33.33%, 100%);
-
-//			@bridges-of-light:     hsv(207, 33.33%, 100%);
-//			@light-bridge-edge:    hsv(185, 66.66%, 100%);
-//			
-//			
-//			
-//			@neurotoxin:           hsv( 97, 66.66%,  75%);
-//			@vilify:               hsv(277, 66.66%,  75%);
-//			@heart-of-a-companion: hsv(337, 33.33%, 100%);
 //Excursion Funnel, forward
 //Excursion Funnel, backward
-//
 //Repulsion Gel
 //Propulsion Gel
 //
 //Hard Light Bridge
-//Thermal Discouragement Beam
+//setupColors(217,   100, 100, '#bridges-of-light');
+//@bridges-of-light:     hsv(207, 33.33%, 100%);
+//@light-bridge-edge:    hsv(185, 66.66%, 100%);
 //
-//Fizzler (testsubj yes, portals no, objects no)
-//Lazer Field (testsubj no, portals yes, objects yes)
-//
-//Glass
-//Grate
-//
-//gray cube
-//super button
+//@vilify:               hsv(277, 66.66%,  75%);
+//setupColors(217,   100, 100, '#vilify');
 
-	
 function insertColorNames() {
 	for (var i = 0; i < colorArray.length; i++) {
 		var hue = colorArray[i][0];
@@ -121,8 +95,10 @@ function insertColorNames() {
 		if (val ===  50) {val = 'td.val-medi';}
 		if (val ===  25) {val = 'td.val-dark';}
 		
+		id = '#' + id;
+		
 		$('table.hue-' + hue + ' ' + sat + ' ' + val).prepend(
-			newElem('a').addClass('colorname').attr('href', id).html($('#' + id + ' h1').html())
+			newElem('a').addClass('colorname').attr('href', id).html($(id + ' h1').html())
 		);
 	}
 }
