@@ -37,8 +37,6 @@ TO DO
 - 2014-02-24 remove all "scoped" Less and make use of "namespaces"
 	- in `reals.less` lines 120–149, and 157–183
 	- in `secondary-ed.less` lines 154–234
-- 2014-03-01 all quasi-elements should be qualified selectors, e.g., `div.eg` in the stylesheet. Conversely, all qualified elements need to be quasi-elements. if a selector is not a quasi-element, make it unqualified!
-- 2014-03-04 don’t make `figure.bad` look different from `figure`; they’re the same!
 
 ### scripts ###
 - 2013-12-14 investigate the use of templates (`<template>`)
@@ -92,7 +90,7 @@ TO DO
 
 #### Math7/ ####
 - on all course overview, unit overviews, and lessons: include breadcrumbs!
-- 2014-02-28 on all unit overviews: vocab in `dl.vocablist` should be wrapped with `<dfn>`, with an `id` equal to its contents. on all lesson plans with a `ul.vocablist` in the header: do not redefine terms; simply link to the corresponding `id` in the unit overview. syntax-is-that-of-naming-html-pages.
+- 2014-02-28 on all unit overviews: vocab in `dl.vocablist` should be wrapped with `<dfn>`, with an `id` representing its contents. on all lesson plans with a `ul.vocablist` in the header: do not redefine terms; simply link to the corresponding `id` in the unit overview. syntax-is-that-of-naming-html-pages.
 - 2014-03-04 fix Assessment styles
 
 #### Math7/index.html ####

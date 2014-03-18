@@ -12,7 +12,7 @@
 @color-base-txt: #111;
 @color-base-txt: #333;
 @color-base-bg:  #fff;
-@color-accent: #00c;
+@color-accent: #0cc;
 
 /* @end */
 
@@ -20,7 +20,7 @@
 @box-radius-small:  3px; // 1 + 2
 @box-radius-medium: 6px; // 1 + 2 + 3
 @box-radius-large: 10px; // 1 + 2 + 3 + 4
-.box-inline {
+.box-inline() {
 	// * inline content, boxed
 	display: inline;
 	padding: 0 1px;
@@ -28,14 +28,14 @@
 	border-radius: @box-radius-small;
 	white-space: nowrap;
 }
-.box-inline-block {
+.box-inline-block() {
 	// * inline content, with block structure, boxed
-	&:extend(.box-inline);
+	.box-inline();
 	display: inline-block;
 }
-.box-block {
+.box-block() {
 	// * a block structure, boxed
-	&:extend(.box-inline-block);
+	.box-inline-block();
 	display: block;
 	padding: 0 4px;
 	.border(all; 1px; solid);
@@ -44,15 +44,17 @@
 	margin-right: 4px;
 	white-space: normal;
 }
-.parens {
-	// * mixin used for lots of things
+.parens() {
 	&::before {content: '(';}
 	&::after  {content: ')';}	
 }
-.quotes {
-	// * mixin used for lots of things
+.quotes() {
 	&::before {content: open-quote;}
 	&::after  {content: close-quote;}
+}
+.transp() {
+	opacity: @Phi1;
+	&:hover {opacity: 1;}
 }
 /* @end */
 
@@ -69,7 +71,7 @@ body {
 //	background-repeat: repeat-y;
 //	background-size: contain;
 }
-.main, main {
+main {
 	.P1-midright;
 	margin-bottom: 192px; // 2in
 }
@@ -86,19 +88,6 @@ body {
 			font-weight: bold;
 			font-size: @iconsize;
 			font-family: 'Times','Times New Roman',serif;
-		}
-	}
-}
-.bc {
-	&:extend(.gutter-major);
-	position: fixed;
-	top: 2 * @olh;
-	z-index: 1;
-	.this {
-		font-weight: bold;
-		&::before {
-			content: '';
-			margin-right: 0;
 		}
 	}
 }
@@ -123,8 +112,9 @@ body {
 @color-hn-secondary: #840;
 @hsub-lighten: 20%;
 
-.h,
-h1, h2, h3, h4, h5, h6 {
+//.h,
+//h1, h2, h3, h4, h5, h6 {
+.h {
 	display: block;
 	font-style: normal;
 	font-variant: normal;
@@ -268,8 +258,9 @@ span.hsub {
 }
 figure {
 	.spacing-top-Phi();
-	.spacing-left-Phi(4px);
-	.spacing-right-Phi(4px);
+	.spacing-left-Phi(4px; solid; @color-accent);
+	.spacing-right-Phi(4px; solid; @color-accent);
+	background-color: @color-info-bg;
 }
 figcaption {
 	&:extend(.caption);
@@ -277,7 +268,7 @@ figcaption {
 }
 blockquote {
 	.spacing-top-Phi();
-	.spacing-left-Phi(7px; double);
+	.spacing-left-Phi(7px; double; @color-accent);
 	.font-size(large);
 	font-family: @font-fam-accent;
 	&:not(.prose) > .src {
@@ -293,7 +284,7 @@ address {
 div.postal {
 	// * QUASI-ELEMENT: postal address
 	.spacing-top-Phi();
-	.spacing-right-Phi(3px);
+	.spacing-right-Phi(3px; solid; @color-accent);
 	.font-size(large);
 	border-radius: 3px;
 	font-family: @font-fam-accent;
@@ -327,9 +318,8 @@ li, dt, dd {
 	list-style-type: none;
 }
 .list-inline {
-	// * a basic list except the list items are inline. dt elements are still blocks
+	// * a basic list except the list items are inline.
 	&:extend(.list-basic all);
-	display: block;
 	> li {display: inline;}
 }
 .list-line {
@@ -338,44 +328,33 @@ li, dt, dd {
 	&:extend(.line);
 	> li {&:extend(.unit);}
 }
+.list-float(@liwidth) {
+	// * a basic list whose items are blocks that float left
+	&:extend(.list-basic all);
+	display: table;
+	li {
+		width: @liwidth;
+		float: left;
+	}
+}
+.list-float-1 {.list-float(100%);}
+.list-float-2 {.list-float(50%);}
+.list-float-3 {.list-float(33.333%);}
+.list-float-4 {.list-float(25%);}
+.list-float-5 {.list-float(20%);}
+.list-float-6 {.list-float(16.666%);}
+
 .list-action {
 	// * a list typically containing textual (non-block) hyperlinks
 	&:extend(.list-basic all);
-	color: @color-link-up-txt;
 	ul, ol, dl {list-style-type: none;}
+	li {
+		color: @color-link-up-txt;
+		&:hover {color: @color-link-dn-txt;}
+	}
 	li::before {content: '\2713\0020';} // check mark, space
 	a:not([href]) {color: @color-base-txt;}
 }
-	/* @group breadcrumb lists (contained in `nav.bc`) */
-	.bc-anc,
-	.bc-sib,
-	.bc-child {
-		&:extend(.list-basic all);
-		margin-top: 0;
-		li {
-			margin-top: 0.75 * @olh;
-			margin-bottom: -2px;
-		}
-		a::before {margin-right: 0.5 * @olh;}
-	}
-	.bc-anc {
-		padding-bottom: 1 * @olh;
-	//	a::before {content: '\22a5';} // `\bot` or 'up tack'
-	//	a::before {content: '\22b7';} // 'image of'
-	//	a::before {content: '<';}
-	}
-	.bc-sib {
-	//	a::before {content: '\22a2';} // `\vdash` or 'turnstile'
-	//	a::before {content: '\29df';} // 'double-ended multimap'
-	//	a::before {content: '+';}
-	}
-	.bc-child {
-		margin-top: 1 * @olh;
-	//	a::before {content: '\22a4';} // `\top` or 'down tack'
-	//	a::before {content: '\22b6';} // 'original of'
-	//	a::before {content: '>';}
-	}
-	/* @end */
 /* @end */
 
 /* @group association lists (`dl`s) a.k.a. mappings */
@@ -395,15 +374,15 @@ dd {
 .dl-group {
 	// * groups dt elements together on a line, and dd elements together on a line
 	display: table;
-	dt,
-	dd {
+	> dt,
+	> dd {
 		padding: 0;
 		padding-right: @olh;
 		float: left;
 	}
-	dt + dd,
-	dd + dt {clear: both;}
-	dt + dd {padding-left: 0.5in;}
+	> dt + dd,
+	> dd + dt {clear: both;}
+	> dt + dd {padding-left: 0.5in;}
 }
 .dl-table(@dtwidth) {
 	// * a dl list that acts like a table, with each row containing a single name-value group. the `@dtwidth` parameter must be a percentage.
@@ -421,20 +400,11 @@ dd {
 	> dd {
 		width: (100% - @dtwidth);
 		margin-left: @dtwidth;
+		padding-left: 0;
 	}
 	> dt + dd {margin-left: 0;}
 	> dd + dd {clear: both;}
 }
-//.dl-table-generator(@num) {
-//	.dl-table@{num} {
-//		.dl-table(@num * 1%);
-//	}
-//}
-//.dl-table-generator(30);
-//.dl-table-generator(40);
-//.dl-table-generator(50);
-//.dl-table-generator(60);
-//.dl-table-generator(70);
 .dl-table-sml {.dl-table(@width-Golden3);}   // 23.6067977499789696%
 .dl-table-msm {.dl-table(@width-Golden2);}   // 38.1966011250105152%
 .dl-table-med {.dl-table(50%);}
@@ -623,7 +593,7 @@ cite {
 	font-style: inherit;
 }
 .src {
-	&:extend(.parens all);
+	.parens();
 }
 dfn,
 abbr {color: @color-info-txt;}
@@ -683,7 +653,7 @@ sub {
 .footnotes {
 	// * an unordered list containing footnotes
 	&:extend(.list-basic);
-	.spacing-top-Phi(1px);
+	.spacing-top-Phi(1px; solid; @color-accent);
 	.font-size(small);
 	li {
 		padding-left: @fn-width;
@@ -703,35 +673,36 @@ sub {
 /* @end */
 
 /* @group hyperlinks */
-//@color-link-up-txt:  #000;
-//@color-link-up-block-brdr: #000;
-//@color-link-up-block-bg:   #fff;
-//
-//@color-link-dn-txt:  #000;
-//@color-link-dn-block-brdr: #000;
-//@color-link-dn-block-bg:   #fff;
-//
-//@color-link-active-txt:  #000;
-//@color-link-active-block-brdr: #fff;
-//@color-link-active-block-bg:   @color-body-txt;
-//
-//@color-link-sp-up-txt: #000;
-//@color-link-sp-dn-txt: #000;
+// temporary colors for debugging... change these when color scheme is final
+@color-link-up-txt:  #999;
+@color-link-up-block-brdr: @color-link-up-txt;
+@color-link-up-block-bg:   #ddd;
+
+@color-link-dn-txt:  #ccc;
+@color-link-dn-block-brdr: @color-link-dn-txt;
+@color-link-dn-block-bg:   #eee;
+
+@color-link-active-txt:  @color-base-bg;
+@color-link-active-block-brdr: @color-link-active-txt;
+@color-link-active-block-bg: @color-base-txt;
+
+@color-sp-up-txt: #000;
+@color-sp-dn-txt: #000;
 	// temporary colors for debugging... remove these when color scheme is final
-	@color-link-up-txt:  #00f;
-	@color-link-up-block-brdr: #006;
-	@color-link-up-block-bg:   #eef;
-	
-	@color-link-dn-txt:  #f90;
-	@color-link-dn-block-brdr: #630;
-	@color-link-dn-block-bg:   #ffe;
-	
-	@color-link-active-txt:  #f00;
-	@color-link-active-block-brdr: #ff0;
-	@color-link-active-block-bg:   #000;
-	
-	@color-sp-up-txt: green;
-	@color-sp-dn-txt: purple;
+//	@color-link-up-txt:  #00f;
+//	@color-link-up-block-brdr: #006;
+//	@color-link-up-block-bg:   #eef;
+//	
+//	@color-link-dn-txt:  #f90;
+//	@color-link-dn-block-brdr: #630;
+//	@color-link-dn-block-bg:   #ffe;
+//	
+//	@color-link-active-txt:  #f00;
+//	@color-link-active-block-brdr: #ff0;
+//	@color-link-active-block-bg:   #000;
+//	
+//	@color-sp-up-txt: green;
+//	@color-sp-dn-txt: purple;
 a {
 	display: inline;
 	border-bottom: 1px dotted;
@@ -746,9 +717,6 @@ a {
 			&:hover {color: @color-sp-dn-txt;}
 		}
 		&:active {color: @color-link-active-txt;}
-	}
-	&[title] {
-		// * `title` attribute should be the Title of the linked document
 	}
 	dfn,
 	abbr,
@@ -768,8 +736,7 @@ code {
 	a {border: 0;}
 }
 .a-block {
-	&:extend(.box-block);
-//	border-color: inherit;
+	.box-block();
 	border-radius: @box-radius-medium;
 	text-align: center;
 	background-color: transparent;
@@ -786,11 +753,54 @@ code {
 		}
 	}
 }
-.bc a {
-	&:extend(.a-block all);
-	padding: (0.125 * @olh) 15px;
-	border-radius: 15px;
-	text-align: left;
+/* @end */
+/* @group breadcrumbs */
+.bc {
+	&:extend(.gutter-major);
+	position: fixed;
+	top: 2 * @olh;
+	z-index: 1;
+	.this {
+		font-weight: bold;
+		&::before {
+			content: '';
+			margin-right: 0;
+		}
+	}
+	a {
+		&:extend(.a-block all);
+		padding: (0.125 * @olh) 15px;
+		border-radius: 15px;
+		text-align: left;
+		&::before {margin-right: 0.5 * @olh;}
+	}
+}
+.bc-anc,
+.bc-sib,
+.bc-child {
+	&:extend(.list-basic all);
+	margin-top: 0;
+	li {
+		margin-top: 0.75 * @olh;
+		margin-bottom: -2px;
+	}
+}
+.bc-anc {
+	padding-bottom: 1 * @olh;
+//	a::before {content: '\22a5';} // `\bot` or 'up tack'
+//	a::before {content: '\22b7';} // 'image of'
+//	a::before {content: '<';}
+}
+.bc-sib {
+//	a::before {content: '\22a2';} // `\vdash` or 'turnstile'
+//	a::before {content: '\29df';} // 'double-ended multimap'
+//	a::before {content: '+';}
+}
+.bc-child {
+	margin-top: 1 * @olh;
+//	a::before {content: '\22a4';} // `\top` or 'down tack'
+//	a::before {content: '\22b6';} // 'original of'
+//	a::before {content: '>';}
 }
 /* @end */
 
@@ -814,7 +824,7 @@ code {
 pre {white-space: pre-wrap;}
 code {
 	// * example of a fragment or string of code a computer would recognize
-	&:extend(.box-inline);
+	.box-inline();
 	.font-size(small; inherit);
 	border-color: @color-code-brdr;
 	font-style: normal;
@@ -846,7 +856,7 @@ code {
 }
 div.precode {
 	// * QUASI-ELEMENT: a preformatted block of text containing computer code
-	&:extend(.box-block);
+	.box-block();
 	&:extend(code all);
 	.font-size(small);
 	white-space: pre-wrap;
@@ -912,7 +922,7 @@ var {font-style: italic;}
 
 .label {
 	// * labels are little warnings/tips/etc. for the user. More elegant than tooltips
-	&:extend(.box-inline-block);
+	.box-inline-block();
 	.font-size(small; inherit);
 	padding: 1px;
 	border: 0;
@@ -921,7 +931,7 @@ var {font-style: italic;}
 	font-family: @font-fam-accent;
 //	cursor: help;
 	&::before {
-		&:extend(.box-inline);
+		.box-inline();
 		padding: 1px;
 		border: 0;
 		margin-right: @olh;
@@ -990,7 +1000,7 @@ hr,
 @media print {
 	body,
 	.h,
-	.sideborder,
+	blockquote, div.postal,
 	table {
 		.font-size(medium);
 	}
@@ -999,7 +1009,7 @@ hr,
 		background-color: #fff;
 		background-image: none;
 	}
-	.main, main {
+	main {
 		width: auto;
 		margin-left: auto;
 		margin-right: auto;
@@ -1016,7 +1026,8 @@ hr,
 		margin-left:  0.5in;
 		margin-right: 0.5in;
 	}
-	ins, del, abbr {background-color: transparent;}
+	ins, del {background-color: transparent;}
+	dfn, abbr {color: inherit;}
 	.code {
 		color: #000000;
 		background-color: #fff;

@@ -1,10 +1,14 @@
-@import url('../core/stylesheets/all.css');
-@import (reference) url('../core/stylesheets/all.less');
+// main: all.less
 
 /** --RESUME.LESS-- **/
 
 /* @group headings */
-.h {
+.res-h-name,
+.res-h-skilltitle,
+.res-h-org,
+.res-h-occup,
+.res-degree,
+.res-institution {
 	// * undoes the margin and padding for headings
 	margin-top: 0;
 	padding-bottom: 0;
@@ -19,11 +23,11 @@
 .res-h-name {margin-top: @olh;}
 .res-degree,
 .res-institution {text-indent: 0;}
-
 /* @end */
 
-div.postal {
-	.spacing-right-Phi(0);
+.res-postal {
+	&:extend(div.postal all);
+	.spacing-right-Phi();
 }
 
 /* @group skillgroups (top sections) */
@@ -31,7 +35,7 @@ div.postal {
 .res-job {
 	margin-top: @olh;
 }
-.res-skillgroup:first-of-type {.spacing-top-Phi(1px);}
+.res-skillgroup:first-of-type {.spacing-top-Phi(1px; solid; @color-accent);}
 .res-h-skilltitle {
 	&:extend(.gutter-major);
 	text-align: right;
@@ -59,7 +63,7 @@ div.postal {
 	font-family: @font-fam-base;
 	letter-spacing: normal;
 }
-ul.res-jobdetail {
+.res-jobdetail {
 	//* bullet list of job descriptions and awards
 	padding: 0;
 	margin: 0;
@@ -67,52 +71,47 @@ ul.res-jobdetail {
 }
 /* @end */
 
+.res-tech-apps,
+.res-tech-langs {
+	&:extend(.res-jobdetail);
+}
 .res-tech-apps {
-	&:extend(.list-basic all);
-	display: table;
-	li {
-		width: 50%;
-		float: left;
-	}
+	&:extend(.list-float-2 all);
 }
 .res-tech-langs {
 	&:extend(.list-line all);
 }
 
 .res-footer {
-	.line;
+	&:extend(.line);
 	margin-top: 2 * @olh;
 }
 .res-footer-name,
-.res-footer-pagecount {.unit-1to2;}
+.res-footer-pagecount {&:extend(.unit-1to2);}
 .res-footer-pagecount {text-align: right;}
-
-
-
-
-
-
-
-
 
 @media screen {
 	.res-footer {display: none;}
 }
 
 @media print {
-	body,
+	.res-body,
 	.res-h-org,
 	.res-h-occup,
 	.res-degree,
 	.res-institution,
 	.res-spacetime,
-	div.postal {
+	.res-postal {
 		font-size: 12px;
 		line-height: 1.5;
-		font-family: 'Helvetica','Arial',sans-serif;
 		font-family: @font-fam-math;
 	}
-	.h {
+	.res-h-name,
+	.res-h-skilltitle,
+	.res-h-org,
+	.res-h-occup,
+	.res-degree,
+	.res-institution {
 		font-style: inherit;
 		font-variant: inherit;
 		font-weight: inherit;

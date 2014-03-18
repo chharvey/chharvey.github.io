@@ -6,7 +6,6 @@
 <title>Typography &in; Site Design</title>
 <meta charset="UTF-8"/>
 <link rel="stylesheet" href="../core/stylesheets/all.css"/>
-<!--<link rel="stylesheet" href="sitedesign.css"/>-->
 <style>
 body {
 	background-image: url('../core/images/crossgrid24.png');
@@ -33,7 +32,7 @@ body {
 		<li><a href="colors.html">Colors</a></li>
 	</ol>
 </nav>
-<div class="main">
+<main>
 <header>
 	<h1 class="h-alpha">Site Design &mdash; Typography</h1>
 <!--	<p class="timestamp">Updated <time datetime="2014-02-02T23:03">Feb 2, 2014</time>.</p>-->
@@ -43,11 +42,10 @@ body {
 	<h1 class="h-beta">Group-Level Semantics</h1>
 	<p class="prose">This section...</p>
 	<p id="scheme-main" class="prose">Group all page-specific content into exactly one <code class="lang-css">main</code> element. There should only be one <code class="lang-css">main</code> element per document, and it should only contain the content specific to that document, yet it should contain all content specific to the document, including any side text, footers, or other extraneous information. It should not include any site-wide navigational aids, headers, footers, <i lang="la"><abbr title="et cetera">etc.</abbr></i> <code class="lang-css">main</code> is not sectioning content, so it does not add a level to the Document Outline.</p>
-	<p><span class="warning">Warning <time>2014-02-26</time>:</span> Not all browsers implement <code class="lang-css">main</code> yet. For the time being, use <code class="lang-css">div.main</code>.</p>
 	<section id="scheme-section">
 		<h1 class="h-gamma">Sectioning the Document Outline</h1>
 		<p class="prose">An outline exists for every document. On a Web page, the <code class="lang-css">body</code> represents the document and we refer to its outline as the <a class="sp" href="http://www.w3.org/html/wg/drafts/html/master/sections.html#outline" rel="external">Document Outline</a>.</p>
-		<p class="prose"><dfn><a class="sp" href="http://www.w3.org/html/wg/drafts/html/master/dom.html#sectioning-content-0" rel="external">Sectioning content</a></dfn> is content that contributes to the Document Outline. Each sectioning element potentially has a heading and its own outline, which contributes to the outline of its ancestors. The following elements mark up sectioning content and introduce new levels in the Document Outline:</p>
+		<p class="prose"><dfn id="sectioning-content"><a class="sp" href="http://www.w3.org/html/wg/drafts/html/master/dom.html#sectioning-content-0" rel="external">Sectioning content</a></dfn> is content that contributes to the Document Outline. Each sectioning element potentially has a heading and its own outline, which contributes to the outline of its ancestors. The following elements mark up sectioning content and introduce new levels in the Document Outline:</p>
 		<ul>
 			<li><code class="lang-css">section</code></li>
 			<li><code class="lang-css"><a href="#scheme-aside">aside</a></code></li>
@@ -56,7 +54,7 @@ body {
 		</ul>
 		<p class="prose">A <code class="lang-css">section</code> represents a thematic grouping of content that is added to the outline of the nearest ancestor sectioning root. If the nearest ancestor sectioning root is the <code class="lang-css">body</code>, then its level will be added to the Document Outline. If its nearest ancestor sectioning root is another sectioning root, then the level will be added to that sectioning root's outline without affecting the Document Outline. Each section may have its own <a href="#scheme-heading">heading</a> and outline. In addition, a section may contain a <a href="#scheme-header">header and/or a footer</a>, which does not affect its outline.</p>
 		<p class="prose">Implicit sections may also be added to the Document Outline via headings. For example, in a <code class="lang-css">section</code> titled with an <code class="lang-css">h1</code>, there may exist an <code class="lang-css">h2</code>, which implicitly creates and titles a subsection of the <code class="lang-css">section</code> element. It is <em>not</em> recommended to follow this convention. When creating a section, always do it explicitly with a <code class="lang-css">section</code> element and title it with an <code class="lang-css">h1</code>. See the <a href="#scheme-heading">Heading Scheme</a> below for styles.</p>
-		<p class="prose">A <dfn><a class="sp" href="http://www.w3.org/html/wg/drafts/html/master/sections.html#sectioning-root" rel="external">sectioning root</a></dfn> is like sectioning content in that it may have its own heading and outline, however, the outline of a sectioning root does not affect the Document Outline (unless of course, the sectioning root in question is the <code class="lang-cs">body</code> element, in which case its outline <em>is</em> the Document Outline). This means sectioning roots may include sectioning content but their outlines are isolated and do not add levels to the outlines of their ancestors. The following elements are sectioning roots:</p>
+		<p class="prose">A <dfn id="sectioning-root"><a class="sp" href="http://www.w3.org/html/wg/drafts/html/master/sections.html#sectioning-root" rel="external">sectioning root</a></dfn> is like sectioning content in that it may have its own heading and outline, however, the outline of a sectioning root does not affect the Document Outline (unless of course, the sectioning root in question is the <code class="lang-cs">body</code> element, in which case its outline <em>is</em> the Document Outline). This means sectioning roots may include sectioning content but their outlines are isolated and do not add levels to the outlines of their ancestors. The following elements are sectioning roots:</p>
 		<ul>
 			<li><code class="lang-css">body</code></li>
 			<li><code class="lang-css"><a href="#scheme-figure-blockquote">figure</a></code></li>
@@ -91,8 +89,8 @@ body {
 					<h1 class="h-zeta">Page Relationships</h1>
 					<p class="prose">For simplicity, we will use the examples <code class="dir">page-a.html</code> and <code class="dir">page-b.html</code> in this section for an illustration. We will use <var>A</var> to refer to <code class="dir">page-a.html</code>, and <var>B</var> to refer to <code class="dir">page-a.html</code>.</p>
 					<p class="prose">A <dfn id="D-logical-relative">logical relative</dfn> to a page <var>A</var>, is another page <var>B</var> that is related in content to <var>A</var>. The logical relation between <var>A</var> and <var>B</var> has nothing to do with their locations in the digital directory, but rather a &ldquo;semantic filetree&rdquo; that describes how the pages are related.</p>
-					<p class="prose">There are three ways <var>B</var> can be logically related to <var>A</var>: it may be its <dfn>logical child</dfn>, indicating that the content of <var>B</var> is a subset or tangential extension of the content of <var>A</var>; it may be its <dfn>logical sibling</dfn>, in which case <var>A</var> and <var>B</var> are both logical children of the same page; or it may be its <dfn>logical parent</dfn>, in other words, <var>A</var> is a logical child of <var>B</var>.</p>
-					<p class="prose">A <dfn>logical ancestor</dfn>, <var>C</var>, to a page <var>A</var> is either the logical parent of <var>A</var> or the logical parent of any <dfn>logical ancestor</dfn> of <var>A</var>. (This term is recursively defined.)</p>
+					<p class="prose">There are three ways <var>B</var> can be logically related to <var>A</var>: it may be its <dfn id="logical-child">logical child</dfn>, indicating that the content of <var>B</var> is a subset or tangential extension of the content of <var>A</var>; it may be its <dfn id="logical-sibling">logical sibling</dfn>, in which case <var>A</var> and <var>B</var> are both logical children of the same page; or it may be its <dfn id="logical-parent">logical parent</dfn>, in other words, <var>A</var> is a logical child of <var>B</var>.</p>
+					<p class="prose">A <dfn id="logical-ancestor">logical ancestor</dfn>, <var>C</var>, to a page <var>A</var> is either the logical parent of <var>A</var> or the logical parent of any <a href="#logical-ancestor">logical ancestor</a> of <var>A</var>. (This term is recursively defined.)</p>
 				</section>
 				<p class="prose">To make breadcrumbs for a given page, create a <code class="lang-css">nav.bc</code> <strong><em>outside</em> the <code class="lang-css"><a href="#scheme-main">main</a></code> element</strong>. This <code class="lang-css">nav.bc</code> must contain exactly three elements, in the following order:</p>
 				<ol>
@@ -156,8 +154,8 @@ body {
 			<p class="prose" style="font-weight: bold;">Some prose paragraphs may be presented in bold. This paragraph merely serves as a visual example. The quick brown fox jumps over the lazy dog.</p>
 			<p class="prose" style="font-style: italic; font-weight: bold">This is a prose paragraph in italics and bold. The quick brown fox jumps over the lazy dog.</p>
 		</figure>
-		<p class="nonnormative">Sometimes, authors may want to include <dfn>non-normative</dfn> text in a normative document. This text is informative or &ldquo;unofficial,&rdquo; for example, supplemental remarks or a summary of normative information provided for the reader's convenience. Another common example of non-normative text is duplicating normative text on another part of the page.</p>
-		<p class="nonnormative">Non-normative text is still part of the normal flow of the document, so it would not makes sense out of context as a <code class="lang-css"><a href="#scheme-figure-blockquote">figure</a></code> or <code class="lang-css"><a href="#scheme-aside">aside</a></code> would, however it is presented differently than formal text to indicate that it is not official. As such, apply the <code class="lang-css">.nonnormative</code> class to the text. This text may be a single paragraph, a container such as a <code class="lang-css">div</code> or <code class="lang-css">figure</code>, or even a small span of text within a paragraph such as a parenthetical remark. (In this last case, the author should use the <code class="lang-css">.nonnormative</code> class to indicate the remark is unofficial, but <a href="punct.html#parens">also contain the remark in parentheses</a>.)</p>
+		<p class="nonnormative">Sometimes, authors may want to include <dfn id="non-normative">non-normative</dfn> text in a normative document. This text is informative or &ldquo;unofficial,&rdquo; for example, supplemental remarks or a summary of normative information provided for the reader's convenience. Another common example of non-normative text is duplicating normative text on another part of the page.</p>
+		<p class="nonnormative">Non-normative text is still part of the normal flow of the document, so it would not makes sense out of context as a <code class="lang-css"><a href="#scheme-figure-blockquote">figure</a></code> or <code class="lang-css"><a href="#scheme-aside">aside</a></code> would, however it is presented differently than formal text to indicate that it is not official. <ins class="draft">At the same time, the <code class="lang-css"><a href="">i</a></code> element is not appropriate either, because the non-normative span of text does not represent a change of voice or mood. Could it be considered a change in mood?</ins> As such, apply the <code class="lang-css">.nonnormative</code> class to the text. This text may be a single paragraph, a container such as a <code class="lang-css">div</code> or <code class="lang-css">figure</code>, or even a small span of text within a paragraph such as a parenthetical remark. (In this last case, the author should use the <code class="lang-css">.nonnormative</code> class to indicate the remark is unofficial, but <a href="punct.html#parens">also contain the remark in parentheses</a>.)</p>
 		<p class="nonnormative">The author may also indicate verbally (in writing preceding the text) that the text is non-normative. If the non-normative text is one paragraph, the author may simply place the indication in the previous paragraph. If the text is large enough for its own figure or section, though, the indication should be in that element's <code class="lang-css">header</code>.</p>
 		<p class="lede dropcap">Authors may want to use a fancy drop cap in the first paragraph of an article. Usually the first paragraph will also be a lede. This is a <code class="lang-css">p.lede.dropcap</code>. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text.</p>
 		<p class="prose dropcap">Prose paragraphs can also have drop caps, for example, as a first paragraph in a book chapter. This is a <code class="lang-css">p.prose.dropcap</code>. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text.</p>
@@ -206,14 +204,14 @@ body {
 		<h1 class="h-gamma">List Scheme</h1>
 		<section id="ordered-unordered-lists">
 			<h1 class="h-delta">Ordered and Unordered Lists</h1>
-			<p class="prose">On all lists below, outlines and background colors have been added to each item to show structure.</p>
+			<p><span class="success">Note:</span> On all lists below, outlines and background colors have been added to each item to show structure.</p>
 			<ol class="typo-list">
 				<li>This is an ordered list (<code class="lang-css">ol</code>), without any classes added. Ordered lists contain 0 or more list items (<code class="lang-css">li</code>).</li>
-				<li>Use ordered lists to list items of which the order is <dfn>relevant</dfn>, that is, changing the order of the items would change the outcome or semantics of the list.</li>
+				<li>Use ordered lists to list items of which the order is <dfn id="order-relevant">relevant</dfn>, that is, changing the order of the items would change the outcome or semantics of the list.</li>
 			</ol>
 			<ul class="typo-list">
 				<li>This is an unordered list (<code class="lang-css">ul</code>), without any classes added. Unordered lists contain 0 or more list items (<code class="lang-css">li</code>).</li>
-				<li>Use unordered lists to list items of which the order is <dfn>irrelevant</dfn>, that is, changing the order of the items would not change the outcome or semantics of the list.</li>
+				<li>Use unordered lists to list items of which the order is <dfn id="order-irrelevant">irrelevant</dfn>, that is, changing the order of the items would not change the outcome or semantics of the list.</li>
 			</ul>
 			<ul class="typo-list">
 				<li>To nest lists,
@@ -248,7 +246,7 @@ body {
 			</ol>
 			<ol class="list-basic typo-list">
 				<li>This is a <code class="lang-css">.list-basic</code>.</li>
-				<li>This class can be applied to any <code class="lang-css">ol</code> or <code class="lang-css">ul</code>, and both elements appear the same, though of course they differ semantically. This class can also be applied to <a href="#association-lists">association lists</a>.</li>
+				<li>This class can be applied to any <code class="lang-css">ol</code> or <code class="lang-css">ul</code>, and both elements appear the same, though of course they differ semantically. For the <a href="#association-lists">association list</a> equivalent, do not use this class. Use <code class="lang-css">.dl-basic</code> instead.</li>
 				<li>Basic lists remove the padding and list-style-type from the list,</li>
 				<li>while maintaining the list-item display of each list item.</li>
 			</ol>
@@ -262,6 +260,29 @@ body {
 			<ol class="list-line typo-list">
 				<li>A <code class="lang-css">.list-line</code> is a basic list that acts as a table,</li>
 				<li>with the list items acting as table cells.</li>
+				<li>The <code class="lang-css">li</code> widths are not specified, unless you extend <a href="grid.html#custom-units">unit classes</a>.</li>
+			</ol>
+			<ol class="list-float-3 typo-list">
+				<li>To create a list in which list items float to the left,</li>
+				<li> include the <code class="lang-css">.list-float(@liwidth)</code> mixin in your Less, where <code class="lang-css">@liwidth</code> is the width, in percent, you specify for each <code class="lang-css">li</code>.</li>
+				<li>Alternatively, you may use the following pre-defined classes.</li>
+				<li>
+					<dl class="dl-table-med">
+						<dt><code class="lang-css">.list-float-1</code>&nbsp;</dt>
+						<dd>= 100%</dd>
+						<dt><code class="lang-css">.list-float-2</code>&nbsp;</dt>
+						<dd>= 50%</dd>
+						<dt><code class="lang-css">.list-float-3</code>&nbsp;</dt>
+						<dd>&asymp; 33.333%</dd>
+						<dt><code class="lang-css">.list-float-4</code>&nbsp;</dt>
+						<dd>= 25%</dd>
+						<dt><code class="lang-css">.list-float-5</code>&nbsp;</dt>
+						<dd>= 20%</dd>
+						<dt><code class="lang-css">.list-float-6</code>&nbsp;</dt>
+						<dd>&asymp; 16.666%</dd>
+					</dl>
+				</li>
+				<li>The <code class="lang-css">.list-float(@liwidth)</code> works like a <code class="lang-css">.list-line</code>, except that the list items' widths are fixed and the list may span multiple lines.</li>
 			</ol>
 			<ol class="list-action typo-list">
 				<li>This is a <code class="lang-css">.list-action</code>.</li>
@@ -300,11 +321,11 @@ body {
 			</dl>
 			<dl class="dl-basic typo-list">
 				<dt>(This is a <code class="lang-css">dl.dl-basic</code>.) An association list can be thought of as a mathematical relation that is:</dt>
-				<dd><dfn>defined</dfn>: each name is related to at least one value, and</dd>
-				<dd><dfn>surjective</dfn>: each value is related to at least one name.</dd>
+				<dd><dfn id="defined">defined</dfn>: each name is related to at least one value, and</dd>
+				<dd><dfn id="surjective">surjective</dfn>: each value is related to at least one name.</dd>
 				<dt>An association list may not necessarily be:</dt>
-				<dd><dfn>well-defined</dfn>: it is not necessarily true that each name is related to exactly one value, or</dd>
-				<dd><dfn>injective</dfn>: it is not necessarily true that each value is related to exactly one name.</dd>
+				<dd><dfn id="well-defined">well-defined</dfn>: it is not necessarily true that each name is related to exactly one value, or</dd>
+				<dd><dfn id="injective">injective</dfn>: it is not necessarily true that each value is related to exactly one name.</dd>
 				<dt>Due to the nature of association lists,</dt>
 				<dd>nested assocation lists can be used to create <a>flow-charts or decision trees</a>.</dd>
 			</dl>
@@ -361,15 +382,6 @@ body {
 						<dt><code class="lang-css">dl.dl-table-lrg</code>&nbsp;</dt>
 						<dd>&asymp; 76.393%</dd>
 					</dl>
-<!--
-					<ul>
-						<li><code class="lang-css">dl.dl-table-sml</code> (&asymp;23.607%)</li>
-						<li><code class="lang-css">dl.dl-table-msm</code> (&asymp;38.197%)</li>
-						<li><code class="lang-css">dl.dl-table-med</code> (=50%)</li>
-						<li><code class="lang-css">dl.dl-table-mlg</code> (&asymp;61.803%)</li>
-						<li><code class="lang-css">dl.dl-table-lrg</code> (&asymp;76.393%)</li>
-					</ul>
--->
 				</dd>
 				<dt>If a name-value group contains</dt>
 				<dd>1 name and 1 value, the line will hold the entire group.</dd>
@@ -708,8 +720,8 @@ body {
 		</section>
 		<section id="definitions">
 			<code class="lang-css">dfn</code>
-			<dfn>definining instance of a term</dfn>
-			<p class="draft">something</p>
+			<dfn id="">definining instance of a term</dfn>
+			<p class="draft">Every <code class="lang-css">dfn</code> must have an <code class="lang-html">id</code> present. Thus there must only be one <code class="lang-css">dfn</code> per page which contains a given term in question. Furthermore, other hyperlinks can point to the defining instance of the term.</p>
 		</section>
 		<section id="abbreviations">
 			<code class="lang-css">abbr[title]</code>
@@ -744,9 +756,7 @@ body {
 						<li><sup class="fn"><a id="fn2" href="#r1">2</a></sup> A footnote (shown here) is preceded by a <code class="lang-css">sup.fn &gt; a#fn1[href=&quot;#r1&quot;]</code>, where <code class="lang-css">a#fn1</code> is the anchor in the footnote and <code class="lang-css">a#r1</code> is the reference to which it links.</li>
 					</ul>
 				</header>
-				<div class="informative">
-					<p><span class="caution">Caution <time>2014-03-01</time></span>: As of currently, the author must be responsible for the numbers that appear in the reference anchor and the corresponding footnote anchor. JavaScript will be implemented soon to automate this task.</p>
-				</div>
+				<p><span class="caution">Caution <time>2014-03-01</time></span>: As of currently, the author must be responsible for the numbers that appear in the reference anchor and the corresponding footnote anchor. JavaScript will be implemented soon to automate this task.</p>
 		</section>
 	</section>
 	<section id="scheme-links">
@@ -827,6 +837,6 @@ Colors: <span class="hsub">move to <code class="dir">colors.html</code></span>
 	<h1 class="h-beta">Form Elements</h1>
 	<p class="prose">......</p>
 </section>
-</div>
+</main>
 </body>
 </html>

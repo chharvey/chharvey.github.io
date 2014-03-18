@@ -49,7 +49,6 @@
 /* @end */
 
 /* @group Golden widths and margins */
-// DO NOT EXTEND THESE CLASSES IN SUB-STYLESHEETS. INCLUDE THEM ONLY. (because they will get overrideen with margin-reset.)
 .P1-midleft,
 .P1-midright,
 .P1-left,
@@ -142,16 +141,16 @@
 }
 .unit-1to1 {width: (100% * (1/1));} // 100%
 .unit-1to2 {width: (100% * (1/2));} //  50%
-.unit-1to3 {width: (100% * (1/3));} //  33.3%
-.unit-2to3 {width: (100% * (2/3));} //  66.6%
+.unit-1to3 {width: (100% * (1/3));} //  33.333%
+.unit-2to3 {width: (100% * (2/3));} //  66.666%
 .unit-1to4 {width: (100% * (1/4));} //  25%
 .unit-3to4 {width: (100% * (3/4));} //  75%
 .unit-1to5 {width: (100% * (1/5));} //  20%
 .unit-2to5 {width: (100% * (2/5));} //  40%
 .unit-3to5 {width: (100% * (3/5));} //  60%
 .unit-4to5 {width: (100% * (4/5));} //  80%
-.unit-1to6 {width: (100% * (1/6));} //  16.6%
-.unit-5to6 {width: (100% * (5/6));} //  83.3%
+.unit-1to6 {width: (100% * (1/6));} //  16.666%
+.unit-5to6 {width: (100% * (5/6));} //  83.333%
 /* @end */
 
 /* @group automated box widths. may be used on regular blocks or on `.line`s containing `.unit`s */
@@ -231,38 +230,29 @@
 /* @end */
 
 /* @group mixins for controlling padding, margins, and borders */
-.spacing-top-Phi(@brdr-width; @brdr-style) {
+.spacing-top-Phi(@brdr-width; @brdr-style; @brdr-color) {
 	padding-top: ((@olh - @brdr-width) * @Phi2);
-	border-top: @brdr-width @brdr-style @color-accent;
+	border-top: @brdr-width @brdr-style @brdr-color;
 	margin-top: ((@olh - @brdr-width) * @Phi1);
 }
-.spacing-top-Phi(@brdr-width) {
-	.spacing-top-Phi(@brdr-width; solid);
-}
 .spacing-top-Phi() {
-	.spacing-top-Phi(0px);
+	.spacing-top-Phi(0; solid; #000);
 }
-.spacing-left-Phi(@brdr-width; @brdr-style) {
+.spacing-left-Phi(@brdr-width; @brdr-style; @brdr-color) {
 	padding-left: @brdr-width * @phi1;
-	border-left: @brdr-width @brdr-style @color-accent;
+	border-left: @brdr-width @brdr-style @brdr-color;
 	margin-left: @brdr-width * @phi3;
 }
-.spacing-left-Phi(@brdr-width) {
-	.spacing-left-Phi(@brdr-width; solid);
-}
 .spacing-left-Phi() {
-	.spacing-left-Phi(0);
+	.spacing-left-Phi(0; solid; #000);
 }
-.spacing-right-Phi(@brdr-width; @brdr-style) {
+.spacing-right-Phi(@brdr-width; @brdr-style; @brdr-color) {
 	padding-right: @brdr-width * @phi1;
-	border-right: @brdr-width @brdr-style @color-accent;
+	border-right: @brdr-width @brdr-style @brdr-color;
 	margin-right: @brdr-width * @phi3;
 }
-.spacing-right-Phi(@brdr-width) {
-	.spacing-right-Phi(@brdr-width; solid);
-}
 .spacing-right-Phi() {
-	.spacing-right-Phi(0);
+	.spacing-right-Phi(0; solid; #000);
 }
 // * Use the folowing mixins to adjust borders for BLOCK elements only! They will adjust borders while keeping the vertical rhythm intact (via making margin-bottom negative). DO NOT use these mixins on INLINE elements.
 .border-vert-single(@width) {
@@ -274,18 +264,24 @@
 	.border-vert-single(@width);
 	margin-bottom: (-2 * @width);
 }
-.border(top; @width; @style) {
+.border(top; @width) {
 	.border-vert-single(@width);
 	border-top-width: @width;
+}
+.border(top; @width; @style) {
+	.border(top; @width);
 	border-top-style: @style;
 }
 .border(top; @width; @style; @color) {
 	.border(top; @width; @style);
 	border-color: @color;
 }
-.border(bottom; @width; @style) {
+.border(bottom; @width) {
 	.border-vert-single(@width);
 	border-bottom-width: @width;
+}
+.border(bottom; @width; @style) {
+	.border(bottom; @width);
 	border-bottom-style: @style;
 }
 .border(bottom; @width; @style; @color) {
