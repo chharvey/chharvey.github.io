@@ -94,11 +94,11 @@ function hsvToRgb(h, s, v) {
 //}
 //function showOnHover(container) {
 //	container.wrapInner(newElem('div').addClass('js-wrapper invisible'));
-//	container.hover(function() {
+//	container.hover(function () {
 //		$(this).find('.js-wrapper').toggleClass('invisible',t_ani);
 //	});
 //}
-$(document).ready(function() {
+$(document).ready(function () {
 	/**
 	Subtracts margin-bottom, or adds padding-bottom to tables to compensate for horizontal borders.
 	ONLY USE THIS FUNCTION ON TABLES WITH HORIZONTAL BORDERS.
@@ -118,9 +118,9 @@ $(document).ready(function() {
 	if g(x) <= 0, then margin-bottom that number
 	else, padding-bottom that number.
 	*/
-	$('table').each(function() {
+	$('table').each(function () {
 		var n_rows = 0;
-		$(this).find('tr').each(function() {
+		$(this).find('tr').each(function () {
 			n_rows++;
 		});
 		n_rows++; // once more for the last border
@@ -149,7 +149,7 @@ $(document).ready(function() {
 	/** JavaScript 'grabber' classes --- only here for jQuery selectors */
 });
 
-$(document).ready(function() {
+$(document).ready(function () {
 	/* BLOCK ELEMENTS */
 	
 	/** Colors tables' rows and columns alternating colors. 
@@ -159,14 +159,14 @@ $(document).ready(function() {
 // 		$(this).children('tr:even').addClass('row-odd');
 // 		$(this).children('tr:odd').addClass('row-even');
 // 	});
-// 	$('.table-bars tbody tr').each(function() {
+// 	$('.table-bars tbody tr').each(function () {
 // 		$(this).children('td:even').addClass('column-odd');
 // 		$(this).children('td:odd').addClass('column-even');
 // 	});
-//	$('.table-grid tbody').each(function() {
+//	$('.table-grid tbody').each(function () {
 //		$(this).children('tr:even').addClass('row-odd');
 //		$(this).children('tr:odd').addClass('row-even');
-//		$(this).children('tr').each(function() {
+//		$(this).children('tr').each(function () {
 //			$(this).children('td:even').addClass('column-odd');
 //			$(this).children('td:odd').addClass('column-even');
 //		});
@@ -184,7 +184,7 @@ $(document).ready(function() {
 
 	/* math */
 	/** puts the LaTeX source in the 'title' attribute */
-// 	$('.latex').attr('title',function() {
+// 	$('.latex').attr('title',function () {
 // 		return $(this).text();
 // 	});
 	
@@ -196,16 +196,16 @@ $(document).ready(function() {
 });
 
 
-$(document).ready(function() {
+$(document).ready(function () {
 	//broken links - really only meant for inline links, buggy on block links
 //	var oldHTML;
 //	var oldHref;
-//	$('.a-broken').hover(function() {
+//	$('.a-broken').hover(function () {
 //		oldHTML = $(this).html();
 //		oldHref = $(this).attr('href');
 //		$(this).html('coming soon...');
 //		$(this).removeAttr('href');
-//	}, function() {
+//	}, function () {
 //		$(this).html(oldHTML);
 //		$(this).attr('href', oldHref);
 //	});

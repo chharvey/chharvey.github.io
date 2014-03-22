@@ -1,9 +1,4 @@
-var degreeArray = [
-	127, 163, 185, 199, 208, 213,
-	217, 221, 226, 235, 249, 271,
-	307, 343,   5,  19,  28,  33,
-	 37,  41,  46,  55,  69,  91
-];
+/** Creates a table containing empty cells corresponding to different levels of saturation and value for a particular hue. */
 function table(degree) {
 	function tdArray() {
 		return [
@@ -33,13 +28,22 @@ function table(degree) {
 		])
 	]);
 }
+/** Creates an array of tables. */
 function tables(start, stop) {
+	/** The degrees of the base hues. */
+	var degreeArray = [
+		127, 163, 185, 199, 208, 213,
+		217, 221, 226, 235, 249, 271,
+		307, 343,   5,  19,  28,  33,
+		 37,  41,  46,  55,  69,  91
+	];
 	var tableArray = [];
-	for (var i = start; i < stop; i++) {
+	for (var i = start; i <= stop; i++) {
 		tableArray[i - start] = table(degreeArray[i]);
 	}
 	return tableArray;
 }
+/** Fills the empty cells with codes for its background color. (Remember, CSS will give the cells their background color.) */
 function insertColorCodes() {
 	$('.colortable td').append(
 		newElem('code').addClass('lang-css colorcode').html('?')
@@ -48,6 +52,7 @@ function insertColorCodes() {
 		return rgbToHex($(this).parent().css('background-color'));
 	});
 }
+/** The colors used in the site. Each entry of this array is another array: [hue, sat, val, id]. */
 var colorArray = [
 	[0, 0, 100, 'aperture-white'],
 	[0, 0, 0, 'aperture-black'],
@@ -61,47 +66,49 @@ var colorArray = [
 	[ 46,  100,  75, 'asbestos'],
 	[343, 33.3, 100, 'companion'],
 	[ 69, 83.3,  75, 'neurotoxin']
+//	Excursion Funnel, forward
+//	Excursion Funnel, backward
+//	Repulsion Gel
+//	Propulsion Gel
+//
+//	Hard Light Bridge
+//	setupColors(217,   100, 100, '#bridges-of-light');
+//	@bridges-of-light:     hsv(207, 33.33%, 100%);
+//	@light-bridge-edge:    hsv(185, 66.66%, 100%);
+//
+//	@vilify:               hsv(277, 66.66%,  75%);
+//	setupColors(217,   100, 100, '#vilify');
 ];
-
-//Excursion Funnel, forward
-//Excursion Funnel, backward
-//Repulsion Gel
-//Propulsion Gel
-//
-//Hard Light Bridge
-//setupColors(217,   100, 100, '#bridges-of-light');
-//@bridges-of-light:     hsv(207, 33.33%, 100%);
-//@light-bridge-edge:    hsv(185, 66.66%, 100%);
-//
-//@vilify:               hsv(277, 66.66%,  75%);
-//setupColors(217,   100, 100, '#vilify');
-
+/** Adds a color name to corresponding cell in the palette. Each color name is a link to its description. */
 function insertColorNames() {
 	for (var i = 0; i < colorArray.length; i++) {
 		var hue = colorArray[i][0];
 		var sat = colorArray[i][1];
 		var val = colorArray[i][2];
 		var id  = colorArray[i][3];
-
-		if (sat ===  100) {sat = 'tr.sat-alph';}
-		if (sat === 83.3) {sat = 'tr.sat-beta';}
-		if (sat === 66.6) {sat = 'tr.sat-gamm';}
-		if (sat ===   50) {sat = 'tr.sat-delt';}
-		if (sat === 33.3) {sat = 'tr.sat-epsi';}
-		if (sat === 16.6) {sat = 'tr.sat-zeta';}
-
-		if (val === 100) {val = 'td.val-full';}
-		if (val ===  75) {val = 'td.val-lite';}
-		if (val ===  50) {val = 'td.val-medi';}
-		if (val ===  25) {val = 'td.val-dark';}
 		
-		id = '#' + id;
+		var satClass;
+		if (sat ===  100) {satClass = 'tr.sat-alph';}
+		if (sat === 83.3) {satClass = 'tr.sat-beta';}
+		if (sat === 66.6) {satClass = 'tr.sat-gamm';}
+		if (sat ===   50) {satClass = 'tr.sat-delt';}
+		if (sat === 33.3) {satClass = 'tr.sat-epsi';}
+		if (sat === 16.6) {satClass = 'tr.sat-zeta';}
 		
-		$('table.hue-' + hue + ' ' + sat + ' ' + val).prepend(
-			newElem('a').addClass('colorname').attr('href', id).html($(id + ' h1').html())
+		var valClass;
+		if (val === 100) {valClass = 'td.val-full';}
+		if (val ===  75) {valClass = 'td.val-lite';}
+		if (val ===  50) {valClass = 'td.val-medi';}
+		if (val ===  25) {valClass = 'td.val-dark';}
+		
+		var idId = '#' + id;
+		
+		$('table.hue-' + hue + ' ' + satClass + ' ' + valClass).prepend(
+			newElem('a').addClass('colorname').attr('href', idId).html($(idId + ' h1').html())
 		);
 	}
 }
+/** Automatically styles CSS id selectors with background colors. */
 function setupColors() {
 	for (var i = 0; i < colorArray.length; i++) {
 		var theColor = colorArray[i];
@@ -110,10 +117,10 @@ function setupColors() {
 		$('#' + theColor[3]).css('background-color', hex);
 	}
 }
-$(document).ready(function() {
+$(document).ready(function () {
 	$('.palettes').append([
-		newElem('div').addClass('group-cold').append(tables( 0, 12)),
-		newElem('div').addClass('group-warm').append(tables(12, 24))
+		newElem('div').addClass('group-cold').append(tables( 0, 11)),
+		newElem('div').addClass('group-warm').append(tables(12, 23))
 	]);
 	insertColorCodes();
 	insertColorNames();
