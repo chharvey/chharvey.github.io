@@ -54,10 +54,12 @@ function insertColorCodes() {
 }
 /** The colors used in the site. Each entry of this array is another array: [hue, sat, val, id]. */
 var colorArray = [
-	[217, 2.13, 100, 'aperture-white'],
-	[ 37,  100,   2, 'aperture-black'],
+	[217, 2.13,   100, 'aperture-white'],
+	[ 37,  100,  2.13, 'aperture-black'],
 	[217,  100, 100, 'atlas'],
 	[ 37,  100, 100, 'pbody'],
+	[208, 83.3, 100, 'repulsion'],
+	[ 28, 83.3, 100, 'propulsion'],
 	[  5,  100, 100, 'deploying'],
 	[ 55, 66.6, 100, 'her-eye'],
 	[226,  100,  50, 'lake-superior'],
@@ -68,8 +70,6 @@ var colorArray = [
 	[ 69, 83.3,  75, 'neurotoxin']
 //	Excursion Funnel, forward
 //	Excursion Funnel, backward
-//	Repulsion Gel
-//	Propulsion Gel
 //
 //	Hard Light Bridge
 //	setupColors(217,   100, 100, '#bridges-of-light');
@@ -87,21 +87,23 @@ function insertColorNames() {
 		var val = colorArray[i][2];
 		var id  = colorArray[i][3];
 		
-		var satClass;
-		if (sat ===  100) {satClass = 'tr.sat-alph';}
-		if (sat === 83.3) {satClass = 'tr.sat-beta';}
-		if (sat === 66.6) {satClass = 'tr.sat-gamm';}
-		if (sat ===   50) {satClass = 'tr.sat-delt';}
-		if (sat === 33.3) {satClass = 'tr.sat-epsi';}
-		if (sat === 16.6) {satClass = 'tr.sat-zeta';}
-		
-		var valClass;
-		if (val === 100) {valClass = 'td.val-full';}
-		if (val ===  75) {valClass = 'td.val-lite';}
-		if (val ===  50) {valClass = 'td.val-medi';}
-		if (val ===  25) {valClass = 'td.val-dark';}
-		
+		var satClass = 0;
+		var valClass = 0;
 		var idId = '#' + id;
+		
+		     if (sat ===  100) {satClass = 'tr.sat-alph';}
+		else if (sat === 83.3) {satClass = 'tr.sat-beta';}
+		else if (sat === 66.6) {satClass = 'tr.sat-gamm';}
+		else if (sat ===   50) {satClass = 'tr.sat-delt';}
+		else if (sat === 33.3) {satClass = 'tr.sat-epsi';}
+		else if (sat === 16.6) {satClass = 'tr.sat-zeta';}
+		else                   {}
+		
+		     if (val === 100) {valClass = 'td.val-full';}
+		else if (val ===  75) {valClass = 'td.val-lite';}
+		else if (val ===  50) {valClass = 'td.val-medi';}
+		else if (val ===  25) {valClass = 'td.val-dark';}
+		else                  {}
 		
 		$('table.hue-' + hue + ' ' + satClass + ' ' + valClass).prepend(
 			newElem('a').addClass('colorname').attr('href', idId).html($(idId + ' h1').html())
