@@ -66,10 +66,10 @@ var colorArray = [
 	[ 28, 66.6,  50, 'caves-caves'],
 	[199,   50,  50, 'facility-abyss'],
 	[ 46,  100,  75, 'asbestos'],
-	[343, 33.3, 100, 'companion'],
-	[ 69, 83.3,  75, 'neurotoxin']
-//	Excursion Funnel, forward
-//	Excursion Funnel, backward
+	[ 69, 83.3,  75, 'neurotoxin'],
+	[271,  100,  75, 'vilify'],
+	[185, 16.6, 100, 'bridges'],
+	[343, 33.3, 100, 'companion']
 //
 //	Hard Light Bridge
 //	setupColors(217,   100, 100, '#bridges-of-light');
