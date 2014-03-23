@@ -14,6 +14,9 @@ body {
 	background-size: 100% 24px;
 }
 */
+.yes {background-color: #9f9;}
+.maybe {background-color: #ff9;}
+.no {background-color: #f99;}
 </style>
 {% include all-js.html %}
 <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
@@ -45,6 +48,26 @@ body {
 	<h1 class="h-beta">Site-Wide Elements</h1>
 	<section id="breadcrumbs">
 		<h1 class="h-gamma">Breadcrumbs</h1>
+		<p class="prose">Each page must contain exactly 1 breadcrumb tree. This will take the form of a <code class="lang-css">nav.bc</code> <strong><em>outside</em> the <code class="lang-css"><a href="#scheme-main">main</a></code> element</strong>. This <code class="lang-css">nav.bc</code> must contain only and exactly 3 elements, in the following order:</p>
+		<ol>
+			<li>1 <code class="lang-css">ol.bc-anc</code>, which contains all the <a href="#D-logical-ancestor">logical ancestors</a> (including the <a href="#D-logical-parent">logical parent</a>) of the page, in order of the &ldquo;semantic filetree&rdquo; from top to bottom;</li>
+			<li>1 <code class="lang-css">ul.bc-sib</code>, which contains all the <a href="#D-logical-sibling">logical siblings</a> of the page (including the same page itself), in any order;</li>
+			<li>and 1 <code class="lang-css">ul.bc-child</code>, which contains all the <a href="#D-logical-child">logical children</a> of the page, in any order. There will be no links to non-child <a href="#D-logical-descendant">descendants</a> in the breadcrumb tree.</li>
+		</ol>
+		<p class="prose">Each of the 3 lists above must contain at least 0 list items, with each list item containing only and exactly 1 link. The links in the each list correspond to the logical relatives of the current page.</p>
+		<p class="prose">Each <code class="lang-css">a</code> element on a page's breadcrumbs list must have exactly one <code class="lang-html">rel</code> attribute, which must be one of the following values:</p>
+		<dl>
+			<dt><code class="lang-html">rel=&quot;ancestor&quot;</code></dt>
+			<dd>if the link corresponds to a <em>non-<a href="#D-logical-parent">parent</a></em> <a href="#D-logical-ancestor">logical ancestor</a> of the page</dd>
+			<dt><code class="lang-html">rel=&quot;parent&quot;</code></dt>
+			<dd>if the link corresponds to the unique <a href="#D-logical-parent">logical parent</a> of the page</dd>
+			<dt><code class="lang-html">rel=&quot;sibling&quot;</code></dt>
+			<dd>if the link corresponds to a <a href="#D-logical-sibling">logical sibling</a> to a page but is <em>not</em> that page</dd>
+			<dt><code class="lang-html">rel=&quot;this&quot;</code></dt>
+			<dd>if the link corresponds to the same page</dd>
+			<dt><code class="lang-html">rel=&quot;child&quot;</code></dt>
+			<dd>if the link corresponds to a <a href="#D-logical-child">logical child</a> of the page</dd>
+		</dl>
 		<aside class="debug-box-block">
 			<h1 class="h-delta">Page Relationships</h1>
 			<p class="prose">For simplicity, we will use the examples <code class="dir">page-a.html</code> and <code class="dir">page-b.html</code> in this section for an illustration. We will use <var>A</var> to refer to <code class="dir">page-a.html</code>, and <var>B</var> to refer to <code class="dir">page-b.html</code>.</p>
@@ -53,8 +76,8 @@ body {
 			<ol class="prose">
 				<li>
 					<p><var>B</var> may be a <dfn id="D-logical-child">logical child</dfn> of <var>A</var>, indicating that the content of <var>B</var> is a subset or tangential extension of the content of <var>A</var>.</p></li>
-				<li><p><var>B</var> may be a <dfn id="D-logical-sibling">logical sibling</dfn> of <var>A</var>, in which case <var>A</var> and <var>B</var> are both <a href="D-logical-child">children</a> of the same page. Every page is a sibling of itself.</p></li>
-				<li><p><var>B</var> may be <em>the unique</em> <dfn id="D-logical-parent">logical parent</dfn> of <var>A</var>, in other words, <var>A</var> is a <a href="D-logical-child">child</a> of <var>B</var>.</p></li>
+				<li><p><var>B</var> may be a <dfn id="D-logical-sibling">logical sibling</dfn> of <var>A</var>, in which case <var>A</var> and <var>B</var> are both <a href="#D-logical-child">children</a> of the same page. Every page is a sibling of itself.</p></li>
+				<li><p><var>B</var> may be <em>the unique</em> <dfn id="D-logical-parent">logical parent</dfn> of <var>A</var>, in other words, <var>A</var> is a <a href="#D-logical-child">child</a> of <var>B</var>.</p></li>
 			</ol>
 			<p class="prose">There are also &ldquo;extended relationships&rdquo; between pages:</p>
 			<ol class="prose">
@@ -66,7 +89,7 @@ body {
 				</li>
 				<li><p><var>B</var> may be a <dfn id="D-logical-ancestor">logical ancestor</dfn> of <var>A</var>, meaning exactly one is true:</p>
 					<ul>
-						<li>either <var>B</var> is the unique <a href="#D-logicalparent">parent</a> of <var>A</var> (we say <var>B</var> is a &ldquo;direct ancestor&rdquo; of <var>A</var>),</li>
+						<li>either <var>B</var> is the unique <a href="#D-logical-parent">parent</a> of <var>A</var> (we say <var>B</var> is a &ldquo;direct ancestor&rdquo; of <var>A</var>),</li>
 						<li>or <var>B</var> is the unique parent of an <a href="#D-logical-ancestor">ancestor</a> of <var>A</var>. (This term is recursively defined.)</li>
 					</ul>
 				</li>
@@ -87,83 +110,63 @@ body {
 				</thead>
 				<tbody>
 					<tr>
-						<th scope="row">logical descendant</th>
-						<td>antireflexive</td>
-						<td>antisymmetric</td>
-						<td>transitive</td>
-						<td>unconnected</td>
-						<td>defined (exception: root element)</td>
-						<td>not surjective</td>
-						<td>not well-defined</td>
-						<td>not injective</td>
+						<th scope="row">logical descendant of</th>
+						<td class="no">antireflexive</td>
+						<td class="no">antisymmetric</td>
+						<td class="yes">transitive</td>
+						<td class="maybe">unconnected</td>
+						<td class="yes">defined (exception: root element)</td>
+						<td class="no">not surjective</td>
+						<td class="no">not well-defined</td>
+						<td class="no">not injective</td>
 					</tr>
 					<tr>
-						<th scope="row">logical child</th>
-						<td>antireflexive</td>
-						<td>antisymmetric</td>
-						<td>antitransitive</td>
-						<td>unconnected</td>
-						<td>defined (exception: root element)</td>
-						<td>not surjective</td>
-						<td>well-defined</td>
-						<td>not injective</td>
+						<th scope="row">logical child of</th>
+						<td class="no">antireflexive</td>
+						<td class="no">antisymmetric</td>
+						<td class="no">antitransitive</td>
+						<td class="maybe">unconnected</td>
+						<td class="yes">defined (exception: root element)</td>
+						<td class="no">not surjective</td>
+						<td class="yes">well-defined</td>
+						<td class="no">not injective</td>
 					</tr>
 					<tr>
-						<th scope="row">logical sibling</th>
-						<td>reflexive</td>
-						<td>symmetric</td>
-						<td>transitive</td>
-						<td>unconnected</td>
-						<td>not defined</td>
-						<td>not surjective</td>
-						<td>not well-defined</td>
-						<td>not injective</td>
+						<th scope="row">logical sibling of</th>
+						<td class="yes">reflexive</td>
+						<td class="yes">symmetric</td>
+						<td class="yes">transitive</td>
+						<td class="maybe">unconnected</td>
+						<td class="no">not defined</td>
+						<td class="no">not surjective</td>
+						<td class="no">not well-defined</td>
+						<td class="no">not injective</td>
 					</tr>
 					<tr>
-						<th scope="row">logical parent</th>
-						<td>antireflexive</td>
-						<td>antisymmetric</td>
-						<td>antitransitive</td>
-						<td>unconnected</td>
-						<td>not defined</td>
-						<td>surjective (exception: root element)</td>
-						<td>not well-defined</td>
-						<td>injective</td>
+						<th scope="row">logical parent of</th>
+						<td class="no">antireflexive</td>
+						<td class="no">antisymmetric</td>
+						<td class="no">antitransitive</td>
+						<td class="maybe">unconnected</td>
+						<td class="no">not defined</td>
+						<td class="yes">surjective (exception: root element)</td>
+						<td class="no">not well-defined</td>
+						<td class="yes">injective</td>
 					</tr>
 					<tr>
-						<th scope="row">logical ancestor</th>
-						<td>antireflexive</td>
-						<td>antisymmetric</td>
-						<td>transitive</td>
-						<td>unconnected</td>
-						<td>defined (exception: root element)</td>
-						<td>not surjective</td>
-						<td>not well-defined</td>
-						<td>not injective</td>
+						<th scope="row">logical ancestor of</th>
+						<td class="no">antireflexive</td>
+						<td class="no">antisymmetric</td>
+						<td class="yes">transitive</td>
+						<td class="maybe">unconnected</td>
+						<td class="no">not defined</td>
+						<td class="yes">surjective (exception: root element)</td>
+						<td class="no">not well-defined</td>
+						<td class="no">not injective</td>
 					</tr>
 				</tbody>
 			</table>
 		</aside>
-		<p class="prose">Each page must contain a breadcrumb tree. This will take the form of a <code class="lang-css">nav.bc</code> <strong><em>outside</em> the <code class="lang-css"><a href="#scheme-main">main</a></code> element</strong>. This <code class="lang-css">nav.bc</code> must contain exactly three elements, in the following order:</p>
-		<ol>
-			<li>one <code class="lang-css">ol.bc-anc</code>, which contains all the <a href="D-logical-ancestor">logical ancestors</a> (including the <a href="#D-logical-parent">logical parent</a>) of the page, in order of the &ldquo;semantic filetree&rdquo; from top to bottom;</li>
-			<li>one <code class="lang-css">ul.bc-sib</code>, which contains all the <a href="D-logical-sibling">logical siblings</a> of the page (including the same page itself), in any order;</li>
-			<li>and one <code class="lang-css">ul.bc-child</code>, which contains all the <a href="D-logical-child">logical children</a> of the page, in any order. There will be no links to non-child <a href="D-logical-descendant">descendants</a> in the breadcrumb list.</li>
-		</ol>
-		<p class="prose">Each of the three lists above must contain 0 or more list items, with each list item containing only exactly 1 link. The links in the each list correspond to the logical relatives of the current page.</p>
-		<p class="prose">Each <code class="lang-css">a</code> element on a page's breadcrumbs list must have exactly one <code class="lang-html">rel</code> attribute, which must be one of the following values:</p>
-		<dl>
-			<dt><code class="lang-html">rel=&quot;ancestor&quot;</code></dt>
-			<dd>if the link corresponds to a <em>non-<a href="#D-logical-parent">parent</a></em> <a href="#D-logical-ancestor">logical ancestor</a> of the page</dd>
-			<dt><code class="lang-html">rel=&quot;parent&quot;</code></dt>
-			<dd>if the link corresponds to the unique <a href="#D-logical-parent">logical parent</a> of the page</dd>
-			<dt><code class="lang-html">rel=&quot;sibling&quot;</code></dt>
-			<dd>if the link corresponds to a <a href="#D-logical-sibling">logical sibling</a> to a page but is <em>not</em> that page</dd>
-			<dt><code class="lang-html">rel=&quot;this&quot;</code></dt>
-			<dd>if the link corresponds to the same page</dd>
-			<dt><code class="lang-html">rel=&quot;child&quot;</code></dt>
-			<dd>if the link corresponds to a <a href="#D-logical-child">logical child</a> of the page</dd>
-		</dl>
 	</section>
 </section>
 <section id="group-level">
