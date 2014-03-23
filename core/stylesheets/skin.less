@@ -9,10 +9,55 @@
 //@font-fam-accent:  'Gill Sans','Century Gothic',sans-serif;
 @font-fam-accent: @font-fam-heading;
 
-@color-base-txt: #111;
-@color-base-txt: #333;
-@color-base-bg:  #fff;
-@color-accent: #0cc;
+@aperture-white: hsv(217, @width-Golden8,           100%);
+@aperture-black: hsv( 37,           100%, @width-Golden8);
+@atlas: hsv(217,   100%, 100%);
+@pbody: hsv( 37,   100%, 100%);
+@repulsion:  hsv(208, 83.3%, 100%);
+@propulsion: hsv( 28, 83.3%, 100%);
+@deploying: hsv( 5,  100%, 100%);
+@her-eye:   hsv(55, 66.6%, 100%);
+@lake-superior: hsv(226,  100%, 50%);
+@caves-caves:   hsv( 28, 66.6%, 50%);
+@facility-abyss: hsv(199,  50%, 50%);
+@asbestos:       hsv( 46, 100%, 75%);
+@vilify:     hsv(271,  100%,  75%);
+@neurotoxin: hsv( 69, 83.3%,  75%);
+@bridges:   hsv(185, 16.6%, 100%);
+@companion: hsv(343, 33.3%, 100%);
+
+#aperture-white {background-color: @aperture-white;}
+#aperture-black {background-color: @aperture-black;}
+#atlas {background-color: @atlas;}
+#pbody {background-color: @pbody;}
+#repulsion  {background-color: @repulsion;}
+#propulsion {background-color: @propulsion;}
+#deploying {background-color: @deploying;}
+#her-eye   {background-color: @her-eye;}
+#lake-superior {background-color: @lake-superior;}
+#caves-caves   {background-color: @caves-caves;}
+#facility-abyss {background-color: @facility-abyss;}
+#asbestos       {background-color: @asbestos;}
+#vilify     {background-color: @vilify;}
+#neurotoxin {background-color: @neurotoxin;}
+#bridges   {background-color: @bridges;}
+#companion {background-color: @companion;}
+
+#aperture-black,
+#atlas,
+#deploying,
+#lake-superior,
+#caves-caves,
+#facility-abyss,
+#asbestos,
+#vilify {color: @aperture-white;}
+
+
+@color-base-txt: @aperture-black;
+@color-base-bg:  @aperture-white;
+@color-accent: @deploying;
+
+@headlt: @width-Golden2;
 
 /* @end */
 
@@ -108,12 +153,11 @@ main {
 @font-size-h6: (@font-size-base * @h6-ratio); // 12px or 9pt
 @hsub-size: 80%;
 
-@color-hn-primary: #f80;
-@color-hn-secondary: #840;
-@hsub-lighten: 20%;
+@color-hn-major: @lake-superior;
+@color-hn-minor: @caves-caves;
+@color-hsub-major: @facility-abyss;
+@color-hsub-minor: @asbestos;
 
-//.h,
-//h1, h2, h3, h4, h5, h6 {
 .h {
 	display: block;
 	font-style: normal;
@@ -135,6 +179,7 @@ span.hsub {
 	font-size: @hsub-size;
 	padding-left: @olh;
 	font-weight: normal;
+	color: lighten(@color-base-txt, @headlt);
 }
 .h-alpha {
 	&:extend(.h all);
@@ -145,10 +190,8 @@ span.hsub {
 	font-size: @font-size-h1;
 	text-align: center;
 	line-height: (@line-height-base/@h1-ratio);
-	color: @color-hn-primary;
-	> span.hsub {
-		color: lighten(@color-hn-primary, @hsub-lighten);
-	}
+	color: @color-hn-major;
+	> span.hsub {color: @color-hsub-major;}
 }
 .h-beta {
 	&:extend(.h all);
@@ -157,10 +200,8 @@ span.hsub {
 	font-weight: bold;
 	font-size: @font-size-h2;
 	line-height: (@line-height-base/@h2-ratio);
-	color: @color-hn-secondary;
-	> span.hsub {
-		color: lighten(@color-hn-secondary, @hsub-lighten);
-	}
+	color: @color-hn-minor;
+	> span.hsub {color: @color-hsub-minor;}
 }
 .h-gamma {
 	&:extend(.h all);
@@ -170,9 +211,6 @@ span.hsub {
 	font-weight: bold;
 	font-size: @font-size-h3;
 	line-height: (@line-height-base/@h3-ratio);
-	> span.hsub {
-		color: lighten(@color-base-txt, @hsub-lighten);
-	}
 }
 .h-delta {
 	&:extend(.h all);
@@ -181,9 +219,6 @@ span.hsub {
 	font-weight: bold;
 	font-size: @font-size-h4;
 	line-height: (@line-height-base/@h4-ratio);
-	> span.hsub {
-		color: lighten(@color-base-txt, @hsub-lighten);
-	}
 }
 .h-epsilon {
 	&:extend(.h all);
@@ -191,10 +226,8 @@ span.hsub {
 	font-size: @font-size-h5;
 	text-indent: 0.5in;
 	line-height: (@line-height-base/@h5-ratio);
-	color: @color-hn-secondary;
-	> span.hsub {
-		color: lighten(@color-hn-secondary, @hsub-lighten);
-	}
+	color: @color-hn-minor;
+	> span.hsub {color: @color-hsub-minor;}
 }
 .h-zeta {
 	&:extend(.h all);
@@ -203,9 +236,6 @@ span.hsub {
 	font-size: @font-size-h6;
 	text-indent: 0.5in;
 	line-height: (@line-height-base/@h6-ratio);
-	> span.hsub {
-		color: lighten(@color-base-txt, @hsub-lighten);
-	}
 }
 /* @end */
 
@@ -246,7 +276,7 @@ span.hsub {
 	font-size: 3 * @font-size-base;
 	font-family: @font-fam-math;
 	line-height: 0.5;
-	color: @color-accent;
+	color: @color-hn-major;
 }
 
 .caption {
@@ -429,12 +459,10 @@ dd {
 
 /* @group tables */
 @color-table-brdr: @color-accent;
-//@color-table-bg-head:      #fff;
-//@color-table-bg-primary:   #fff;
-//@color-table-bg-secondary: #fff;
-@color-table-bg-strong: #eee;
-@color-table-bg-medium: #ddd;
-@color-table-bg-weak:   #ccc;
+
+@color-table-bg-strong: hsv(185, 16.6%, 100%);
+@color-table-bg-medium: hsv(185, 11.1%, 100%);
+@color-table-bg-weak:   hsv(185,  5.5%, 100%);
 
 table {
 	border-collapse: collapse;
@@ -456,7 +484,7 @@ thead, tfoot {font-weight: bold;}
 tbody {vertical-align: top;}
 th, td {
 	padding: (0.5 * @olh) 6px;
-	border: 1px solid #888;
+	border: 1px solid #808080;
 }
 th {
 	font-weight: bold;
@@ -466,7 +494,7 @@ th {
 .table-bars {
 	thead,
 	tfoot {&:extend(.rowgroup);}
-	th, td {border: 1px solid;}
+	th, td {border: 0;}
 	th {background-color: @color-table-bg-strong;}
 }
 .table-list {
@@ -482,7 +510,6 @@ th {
 }
 .table-bars {
 	thead {
-		@headlt: 10%;
 		th:nth-child(odd)  {background-color: lighten(@color-table-bg-weak,   @headlt);}
 		th:nth-child(even) {background-color: lighten(@color-table-bg-medium, @headlt);}
 		th:first-child     {background-color: lighten(@color-table-bg-strong, @headlt);}
@@ -494,21 +521,21 @@ th {
 	td:nth-child(odd)  {background-color: @color-table-bg-weak;}
 	td:nth-child(even) {background-color: @color-table-bg-medium;}
 }
-//table {
-//	counter-reset: nrows;
-//	tr {
-//		counter-increment: nrows;
-//	}
-//	counter-increment: nrows; // once more for the last border
-//	/*
-//		@btm: -(((nrows + 12) % 24) - 12);
-//		if (btm <= 0) {
-//			margin-bottom: @btm;
-//		} else {
-//			padding-bottom: @btm;
-//		}
-//	*/
-//}
+table {
+	counter-reset: nrows;
+	tr {
+		counter-increment: nrows;
+	}
+	counter-increment: nrows; // once more for the last border
+	/*
+		@btm: -(((nrows + 12) % 24) - 12);
+		if (btm <= 0) {
+			margin-bottom: @btm;
+		} else {
+			padding-bottom: @btm;
+		}
+	*/
+}
 //.table-grid {
 //	.table;
 //	td {.special-table-border();}
@@ -595,8 +622,10 @@ cite {
 .src {
 	.parens();
 }
-dfn,
-abbr {color: @color-info-txt;}
+//dfn,
+//abbr,
+//del,
+//ins {color: @color-info-txt;}
 dfn {
 	font-weight: bold;
 	font-style: inherit;
@@ -622,16 +651,10 @@ abbr {
 }
 del {
 	text-decoration: line-through;
-//	color: @color-sp-dn-txt;
-	color: @color-warning-txt;
-	background-color: @color-warning-bg;
 	&[datetime]::after {content: 'deleted on ' attr(datetime);}
 }
 ins {
 	text-decoration: underline;
-//	color: @color-sp-up-txt;
-	color: @color-success-txt;
-	background-color: @color-success-bg;
 	&[datetime]::after {content: 'inserted on ' attr(datetime);}
 }
 del + ins {padding-left: 0.5em;}
@@ -673,36 +696,21 @@ sub {
 /* @end */
 
 /* @group hyperlinks */
-// temporary colors for debugging... change these when color scheme is final
-@color-link-up-txt:  #999;
-@color-link-up-block-brdr: @color-link-up-txt;
-@color-link-up-block-bg:   #ddd;
+@color-link-up-txt: @atlas;
+@color-link-up-bg: lighten(@atlas, @headlt);
 
-@color-link-dn-txt:  #ccc;
-@color-link-dn-block-brdr: @color-link-dn-txt;
-@color-link-dn-block-bg:   #eee;
+@color-link-dn-txt: @pbody;
+@color-link-dn-bg: lighten(@pbody, @headlt);
 
-@color-link-active-txt:  @color-base-bg;
-@color-link-active-block-brdr: @color-link-active-txt;
-@color-link-active-block-bg: @color-base-txt;
+@color-sp-up-txt: @neurotoxin;
+@color-sp-up-bg: lighten(@color-sp-up-txt, @headlt);
 
-@color-sp-up-txt: #000;
-@color-sp-dn-txt: #000;
-	// temporary colors for debugging... remove these when color scheme is final
-//	@color-link-up-txt:  #00f;
-//	@color-link-up-block-brdr: #006;
-//	@color-link-up-block-bg:   #eef;
-//	
-//	@color-link-dn-txt:  #f90;
-//	@color-link-dn-block-brdr: #630;
-//	@color-link-dn-block-bg:   #ffe;
-//	
-//	@color-link-active-txt:  #f00;
-//	@color-link-active-block-brdr: #ff0;
-//	@color-link-active-block-bg:   #000;
-//	
-//	@color-sp-up-txt: green;
-//	@color-sp-dn-txt: purple;
+@color-sp-dn-txt: @vilify;
+@color-sp-dn-bg: lighten(@color-sp-dn-txt, @headlt);
+
+@color-link-active-txt: @her-eye;
+@color-link-active-bg: @aperture-black;
+
 a {
 	display: inline;
 	border-bottom: 1px dotted;
@@ -730,7 +738,7 @@ blockquote,
 div.postal,
 .list-action,
 table,
-sup.fn,
+.fn,
 code {
 	// * no border for links in certain containers
 	a {border: 0;}
@@ -741,16 +749,14 @@ code {
 	text-align: center;
 	background-color: transparent;
 	&[href] {
-		border-color: @color-link-up-block-brdr;
-		background-color: @color-link-up-block-bg;
-		&:hover {
-			border-color: @color-link-dn-block-brdr;
-			background-color: @color-link-dn-block-bg;
+		background-color: @color-link-up-bg;
+		&:hover {background-color: @color-link-dn-bg;}
+		&.sp,
+		&[rel="external"] {
+			background-color: @color-sp-up-bg;
+			&:hover {background-color: @color-sp-dn-bg;}
 		}
-		&:active {
-			border-color: @color-link-active-block-brdr;
-			background-color: @color-link-active-block-bg;
-		}
+		&:active {background-color: @color-link-active-bg;}
 	}
 }
 /* @end */
@@ -808,17 +814,15 @@ code {
 @color-code-txt:  #000;
 @color-code-brdr: #000;
 @color-code-bg:   #fff;
-@color-code-label-txt: #000;
-@color-code-label-bg:  #fff;
-	@color-code-comment:   #999;
-	@color-code-html-tag:  #900;
-	@color-code-html-attr: #009;
-	@color-code-html-val:  #090;
-	@color-code-css-sel:   @color-code-html-tag;
-	@color-code-css-prop:  @color-code-html-attr;
-	@color-code-css-val:   @color-code-html-val;
-	@color-code-latex-comm: @color-code-html-tag;
-	@color-code-latex-arg:  @color-code-html-attr;
+@color-code-comment: #999;
+@color-code-html-tag:  #009;
+@color-code-html-attr: #900;
+@color-code-html-val:  #090;
+@color-code-css-sel:   @color-code-html-tag;
+@color-code-css-prop:  @color-code-html-attr;
+@color-code-css-val:   @color-code-html-val;
+@color-code-latex-comm: @color-code-html-tag;
+@color-code-latex-arg:  @color-code-html-attr;
 @color-latex-txt: #000;
 @color-latex-bg:  #fff;
 pre {white-space: pre-wrap;}
@@ -877,8 +881,8 @@ kbd {
 		&:extend(code);
 		padding: 0 4px;
 		font-family: @font-fam-base;
-		color: @color-base-bg;
-		background-color: @color-base-txt;
+		color: @aperture-white;
+		background-color: @aperture-black;
 	}
 }
 .latex {

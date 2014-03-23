@@ -1,22 +1,104 @@
 //** ======== SITE-WIDE BEHAVIORS (all.js) ========
-var t_ani = 200;
+//var t_ani = 200;
 /** Creates a new HTML element and returns it as a jQuery object. */
 function newElem(elemname) {
 	return $(document.createElement(elemname));
 }
-function newElemFilled(elemname, classname, html) {
-	return newElem(elemname).addClass(classname).html(html);
+/** Converts an rgb string, of the form `rgb(r, g, b)`, into a hex string, of the form `#RRGGBB` */
+function rgbToHex(rgbString) {
+	var sliced = rgbString.slice(4, -1);
+	var splitted = sliced.split(',');
+	var decR = splitted[0];
+	var decG = splitted[1];
+	var decB = splitted[2];
+	function toHex(n) {
+		n = parseInt(n,10);
+		if (isNaN(n)) return "00";
+		n = Math.max(0,Math.min(n,255));
+		return "0123456789ABCDEF".charAt((n - n % 16) / 16) + "0123456789ABCDEF".charAt(n % 16);
+	}
+	return '#' + toHex(decR) + toHex(decG) + toHex(decB);
 }
+/**
+ * HSV to RGB color conversion
+ *
+ * H runs from 0 to 360 degrees
+ * S and V run from 0 to 100
+ * 
+ * Ported from the excellent java algorithm by Eugene Vishnevsky at:
+ * http://www.cs.rit.edu/~ncs/color/t_convert.html
+ */
+function hsvToRgb(h, s, v) {
+	var r, g, b;
+	var i;
+	var f, p, q, t;
+ 	// Make sure our arguments stay in-range
+	h = Math.max(0, Math.min(360, h));
+	s = Math.max(0, Math.min(100, s));
+	v = Math.max(0, Math.min(100, v));
+ 	// We accept saturation and value arguments from 0 to 100 because that's
+	// how Photoshop represents those values. Internally, however, the
+	// saturation and value are calculated from a range of 0 to 1. We make
+	// That conversion here.
+	s /= 100;
+	v /= 100;
+	if(s == 0) {
+		// Achromatic (grey)
+		r = g = b = v;
+		return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
+	}
+	h /= 60; // sector 0 to 5
+	i = Math.floor(h);
+	f = h - i; // factorial part of h
+	p = v * (1 - s);
+	q = v * (1 - s * f);
+	t = v * (1 - s * (1 - f));
+	switch(i) {
+		case 0:
+			r = v;
+			g = t;
+			b = p;
+			break;
+		case 1:
+			r = q;
+			g = v;
+			b = p;
+			break;
+		case 2:
+			r = p;
+			g = v;
+			b = t;
+			break;
+		case 3:
+			r = p;
+			g = q;
+			b = v;
+			break;
+		case 4:
+			r = t;
+			g = p;
+			b = v;
+			break;
+		default: // case 5:
+			r = v;
+			g = p;
+			b = q;
+	}
+	return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
+}
+//function newElemFilled(elemname, classname, html) {
+//	return newElem(elemname).addClass(classname).html(html);
+//}
 //function addSomethingTo(jQobj, elemname, classname, html) {
 //	jQobj.prepend(newElemFilled(elemname, classname, html));
 //}
 //function showOnHover(container) {
 //	container.wrapInner(newElem('div').addClass('js-wrapper invisible'));
-//	container.hover(function() {
+//	container.hover(function () {
 //		$(this).find('.js-wrapper').toggleClass('invisible',t_ani);
 //	});
 //}
-$(document).ready(function() {
+$(document).ready(function () {
 	/**
 	Subtracts margin-bottom, or adds padding-bottom to tables to compensate for horizontal borders.
 	ONLY USE THIS FUNCTION ON TABLES WITH HORIZONTAL BORDERS.
@@ -36,9 +118,9 @@ $(document).ready(function() {
 	if g(x) <= 0, then margin-bottom that number
 	else, padding-bottom that number.
 	*/
-	$('table').each(function() {
+	$('table').each(function () {
 		var n_rows = 0;
-		$(this).find('tr').each(function() {
+		$(this).find('tr').each(function () {
 			n_rows++;
 		});
 		n_rows++; // once more for the last border
@@ -67,7 +149,7 @@ $(document).ready(function() {
 	/** JavaScript 'grabber' classes --- only here for jQuery selectors */
 });
 
-$(document).ready(function() {
+$(document).ready(function () {
 	/* BLOCK ELEMENTS */
 	
 	/** Colors tables' rows and columns alternating colors. 
@@ -77,14 +159,14 @@ $(document).ready(function() {
 // 		$(this).children('tr:even').addClass('row-odd');
 // 		$(this).children('tr:odd').addClass('row-even');
 // 	});
-// 	$('.table-bars tbody tr').each(function() {
+// 	$('.table-bars tbody tr').each(function () {
 // 		$(this).children('td:even').addClass('column-odd');
 // 		$(this).children('td:odd').addClass('column-even');
 // 	});
-//	$('.table-grid tbody').each(function() {
+//	$('.table-grid tbody').each(function () {
 //		$(this).children('tr:even').addClass('row-odd');
 //		$(this).children('tr:odd').addClass('row-even');
-//		$(this).children('tr').each(function() {
+//		$(this).children('tr').each(function () {
 //			$(this).children('td:even').addClass('column-odd');
 //			$(this).children('td:odd').addClass('column-even');
 //		});
@@ -102,7 +184,7 @@ $(document).ready(function() {
 
 	/* math */
 	/** puts the LaTeX source in the 'title' attribute */
-// 	$('.latex').attr('title',function() {
+// 	$('.latex').attr('title',function () {
 // 		return $(this).text();
 // 	});
 	
@@ -114,17 +196,17 @@ $(document).ready(function() {
 });
 
 
-$(document).ready(function() {
+$(document).ready(function () {
 	//broken links - really only meant for inline links, buggy on block links
-	var oldHTML;
-	var oldHref;
-	$('.a-broken').hover(function() {
-		oldHTML = $(this).html();
-		oldHref = $(this).attr('href');
-		$(this).html('coming soon...');
-		$(this).removeAttr('href');
-	}, function() {
-		$(this).html(oldHTML);
-		$(this).attr('href', oldHref);
-	});
+//	var oldHTML;
+//	var oldHref;
+//	$('.a-broken').hover(function () {
+//		oldHTML = $(this).html();
+//		oldHref = $(this).attr('href');
+//		$(this).html('coming soon...');
+//		$(this).removeAttr('href');
+//	}, function () {
+//		$(this).html(oldHTML);
+//		$(this).attr('href', oldHref);
+//	});
 });
