@@ -28,6 +28,8 @@
 @color-base-bg:  @aperture-white;
 @color-accent: @deploying;
 
+@headlt: @width-Golden2;
+
 /* @end */
 
 /* @group absract mixins */
@@ -148,7 +150,7 @@ span.hsub {
 	font-size: @hsub-size;
 	padding-left: @olh;
 	font-weight: normal;
-	color: lighten(@color-base-txt, @width-Golden3);
+	color: lighten(@color-base-txt, @headlt);
 }
 .h-alpha {
 	&:extend(.h all);
@@ -487,7 +489,6 @@ th {
 }
 .table-bars {
 	thead {
-		@headlt: @width-Golden4;
 		th:nth-child(odd)  {background-color: lighten(@color-table-bg-weak,   @headlt);}
 		th:nth-child(even) {background-color: lighten(@color-table-bg-medium, @headlt);}
 		th:first-child     {background-color: lighten(@color-table-bg-strong, @headlt);}
@@ -600,10 +601,10 @@ cite {
 .src {
 	.parens();
 }
-dfn,
-abbr,
-del,
-ins {color: @color-info-txt;}
+//dfn,
+//abbr,
+//del,
+//ins {color: @color-info-txt;}
 dfn {
 	font-weight: bold;
 	font-style: inherit;
@@ -675,19 +676,20 @@ sub {
 
 /* @group hyperlinks */
 @color-link-up-txt: @atlas;
-@color-link-up-block-brdr: @color-link-up-txt;
-@color-link-up-block-bg:   #ddd;
+@color-link-up-bg: lighten(@atlas, @headlt);
 
 @color-link-dn-txt: @pbody;
-@color-link-dn-block-brdr: @color-link-dn-txt;
-@color-link-dn-block-bg:   #eee;
-
-@color-link-active-txt: @her-eye;
-@color-link-active-block-brdr: @color-link-active-txt;
-@color-link-active-block-bg: @aperture-black;
+@color-link-dn-bg: lighten(@pbody, @headlt);
 
 @color-sp-up-txt: @neurotoxin;
-@color-sp-dn-txt: @neurotoxin;
+@color-sp-up-bg: lighten(@color-sp-up-txt, @headlt);
+
+@color-sp-dn-txt: spin(@color-sp-up-txt, 180);
+@color-sp-dn-bg: lighten(@color-sp-dn-txt, @headlt);
+
+@color-link-active-txt: @her-eye;
+@color-link-active-bg: @aperture-black;
+
 a {
 	display: inline;
 	border-bottom: 1px dotted;
@@ -699,7 +701,7 @@ a {
 		&.sp,
 		&[rel="external"] {
 			color: @color-sp-up-txt;
-			&:hover {color: spin(@color-sp-dn-txt, 180);}
+			&:hover {color: @color-sp-dn-txt;}
 		}
 		&:active {color: @color-link-active-txt;}
 	}
@@ -726,16 +728,14 @@ code {
 	text-align: center;
 	background-color: transparent;
 	&[href] {
-		border-color: @color-link-up-block-brdr;
-		background-color: @color-link-up-block-bg;
-		&:hover {
-			border-color: @color-link-dn-block-brdr;
-			background-color: @color-link-dn-block-bg;
+		background-color: @color-link-up-bg;
+		&:hover {background-color: @color-link-dn-bg;}
+		&.sp,
+		&[rel="external"] {
+			background-color: @color-sp-up-bg;
+			&:hover {background-color: @color-sp-dn-bg;}
 		}
-		&:active {
-			border-color: @color-link-active-block-brdr;
-			background-color: @color-link-active-block-bg;
-		}
+		&:active {background-color: @color-link-active-bg;}
 	}
 }
 /* @end */
