@@ -77,7 +77,6 @@ var colorArray = [
 //	@light-bridge-edge:    hsv(185, 66.66%, 100%);
 //
 //	@vilify:               hsv(277, 66.66%,  75%);
-//	setupColors(217,   100, 100, '#vilify');
 ];
 /** Adds a color name to corresponding cell in the palette. Each color name is a link to its description. */
 function insertColorNames() {
@@ -111,14 +110,14 @@ function insertColorNames() {
 	}
 }
 /** Automatically styles CSS id selectors with background colors. */
-function setupColors() {
-	for (var i = 0; i < colorArray.length; i++) {
-		var theColor = colorArray[i];
-		var rgb = hsvToRgb(theColor[0], theColor[1], theColor[2]);
-		var hex = rgbToHex('rgb(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ')');
-		$('#' + theColor[3]).css('background-color', hex);
-	}
-}
+//function setupColors() {
+//	for (var i = 0; i < colorArray.length; i++) {
+//		var theColor = colorArray[i];
+//		var rgb = hsvToRgb(theColor[0], theColor[1], theColor[2]);
+//		var hex = rgbToHex('rgb(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ')');
+//		$('#' + theColor[3]).css('background-color', hex);
+//	}
+//}
 $(document).ready(function () {
 	$('.palettes').append([
 		newElem('div').addClass('group-cold').append(tables( 0, 11)),
@@ -126,5 +125,4 @@ $(document).ready(function () {
 	]);
 	insertColorCodes();
 	insertColorNames();
-	setupColors();
 });
