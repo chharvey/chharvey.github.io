@@ -54,8 +54,8 @@ function insertColorCodes() {
 }
 /** The colors used in the site. Each entry of this array is another array: [hue, sat, val, id]. */
 var colorArray = [
-	[0, 0, 100, 'aperture-white'],
-	[0, 0, 0, 'aperture-black'],
+	[217, 2.13, 100, 'aperture-white'],
+	[ 37,  100,   2, 'aperture-black'],
 	[217,  100, 100, 'atlas'],
 	[ 37,  100, 100, 'pbody'],
 	[  5,  100, 100, 'deploying'],
