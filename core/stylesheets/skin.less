@@ -73,20 +73,12 @@
 	border-radius: @box-radius-small;
 	white-space: nowrap;
 }
-.box-inline-block() {
-	// * inline content, with block structure, boxed
-	.box-inline();
-	display: inline-block;
-}
 .box-block() {
 	// * a block structure, boxed
-	.box-inline-block();
-	display: block;
-	padding: 0 4px;
 	.border(all; 1px; solid);
+	display: block;
+	padding: (0.5 * @olh) 6px;
 	border-radius: @box-radius-large;
-	margin-left: 4px;
-	margin-right: 4px;
 	white-space: normal;
 }
 .parens() {
@@ -129,7 +121,7 @@ main {
 		.P1-midleft;
 		.mylogo {
 			display: block;
-			.border(bottom; 0; solid);
+			.border(bottom; 0);
 			font-weight: bold;
 			font-size: @iconsize;
 			font-family: 'Times','Times New Roman',serif;
@@ -725,12 +717,14 @@ a {
 		}
 		&:active {color: @color-link-active-txt;}
 	}
+	// * certain elements in links not discolored
 	dfn,
 	abbr,
 	code,
-	.latex {
-		// * certain elements in links not discolored
-		color: inherit;
+	.latex {color: inherit;}
+	code {
+		// * no bgcolor for code in link containers
+		background-color: transparent;
 	}
 }
 blockquote,
@@ -739,14 +733,16 @@ div.postal,
 table,
 .fn,
 code {
-	// * no border for links in certain containers
-	a {border: 0;}
+	a {
+		// * no border for links in certain containers
+		border: 0;
+	}
 }
 .a-block {
 	.box-block();
+	.border(all; 1px; solid);
 	border-radius: @box-radius-medium;
 	text-align: center;
-	background-color: transparent;
 	&[href] {
 		background-color: @color-link-up-bg;
 		&:hover {background-color: @color-link-dn-bg;}
@@ -811,7 +807,7 @@ code {
 
 /* @group coding and math */
 @color-code-txt:  #000;
-@color-code-bg:   #fff;
+@color-code-bg:   #ced;
 @color-code-comment: #999;
 @color-code-html-tag:  #009;
 @color-code-html-attr: #900;
@@ -819,20 +815,21 @@ code {
 @color-code-css-sel:   @color-code-html-tag;
 @color-code-css-prop:  @color-code-html-attr;
 @color-code-css-val:   @color-code-html-val;
-@color-code-latex-comm: @color-code-html-tag;
-@color-code-latex-arg:  @color-code-html-attr;
+@color-code-latex-cmd: @color-code-html-tag;
+@color-code-latex-arg: @color-code-html-attr;
 pre {white-space: pre-wrap;}
 code {
 	// * example of a fragment or string of code a computer would recognize
 	.box-inline();
 	.font-size(small; inherit);
+	border: 0;
 	font-style: normal;
 	font-weight: normal;
 	font-family: @font-fam-code;
 	color: @color-code-txt;
 	background-color: @color-code-bg;
-	.comment {color: @color-code-comment;}
 }
+.comment {color: @color-code-comment;}
 .lang-html {
 	.tag       {color: @color-code-html-tag;}
 	.attribute {color: @color-code-html-attr;}
@@ -844,7 +841,7 @@ code {
 	.value    {color: @color-code-css-val;}
 }
 .lang-latex {
-	.cmd {color: @color-code-latex-comm;}
+	.cmd {color: @color-code-latex-cmd;}
 	.arg {color: @color-code-latex-arg;}
 }
 .dir {
@@ -855,10 +852,12 @@ code {
 }
 div.precode {
 	// * QUASI-ELEMENT: a preformatted block of text containing computer code
-	.box-block();
 	&:extend(code all);
+	.border(all; 0);
 	.font-size(small);
+	display: block;
 	white-space: pre-wrap;
+	background-color: transparent;
 }
 samp {font-family: inherit;}
 kbd { 
@@ -873,8 +872,8 @@ kbd {
 //	}
 	> kbd {
 		// * an individual key on a keyboard, calculator, or other device
-		&:extend(code);
-		padding: 0 4px;
+		&:extend(code all);
+		padding: 0 6px;
 		font-family: @font-fam-base;
 		color: @aperture-white;
 		background-color: @aperture-black;
@@ -921,8 +920,9 @@ var {font-style: italic;}
 
 .label {
 	// * labels are little warnings/tips/etc. for the user. More elegant than tooltips
-	.box-inline-block();
+	.box-inline();
 	.font-size(small; inherit);
+	display: inline-block;
 	padding: 1px;
 	border: 0;
 	font-style: normal;
@@ -975,7 +975,7 @@ span.cyan {
 /* @group forms */
 fieldset {
 	padding: 0;
-	.border(all; 0; solid);
+	.border(all; 0);
 	margin: 0;
 }
 /* @end */
@@ -1027,7 +1027,7 @@ hr,
 	}
 	ins, del {background-color: transparent;}
 	dfn, abbr {color: inherit;}
-	.code {
+	code {
 		color: #000000;
 		background-color: #fff;
 	}
