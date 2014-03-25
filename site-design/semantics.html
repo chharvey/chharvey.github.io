@@ -1,0 +1,840 @@
+---
+---
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Semantics &in; Site Design</title>
+<meta charset="UTF-8"/>
+<link rel="stylesheet" href="../core/stylesheets/all.css"/>
+<style>
+/*
+body {
+	background-image: url('../core/images/crossgrid24.png');
+	background-repeat: repeat-y;
+	background-size: 100% 24px;
+}
+*/
+.yes {background-color: #9f9;}
+.maybe {background-color: #ff9;}
+.no {background-color: #f99;}
+</style>
+{% include all-js.html %}
+<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML,http://chharvey.github.io/core/scripts/mathjax-localconfig.js"></script>
+<script src="../core/scripts/all.js"></script>
+</head>
+<body>
+{% include masthead.html %}
+<nav class="bc">
+	<ol class="bc-anc">
+		<li><a href="../index.html" rel="ancestor">Home</a></li>
+		<li><a href="../home/web.html" rel="parent">Web</a></li>
+	</ol>
+	<ol class="bc-sib">
+		<li><a href="semantics.html" rel="this">Semantics</a>
+		<li><a href="grid.html" rel="sibling">The Grid</a></li>
+		<li><a href="typo.html" rel="sibling">Typography</a></li>
+		<li><a href="colors.html" rel="sibling">Colors</a></li>
+	</ol>
+	<ol class="bc-child">
+	</ol>
+</nav>
+<main>
+<header>
+	<h1 class="h-alpha">Site Design &mdash; Semantics</h1>
+</header>
+<p class="prose">This document...</p>
+<dl hidden="">
+	<dt><dfn id="D-must">must</dfn></dt>
+	<dt><dfn id="D-required">required</dfn></dt>
+	<dd></dd>
+	<dt><dfn id="D-should">should</dfn></dt>
+	<dt><dfn id="D-required">recommended</dfn></dt>
+	<dd></dd>
+	<dt><dfn id="D-should">may</dfn></dt>
+	<dt><dfn id="D-should">optional</dfn></dt>
+	<dd></dd>
+	<dt><dfn id="D-atleast">at least</dfn> <var>n</var></dt>
+	<dd>no less than <var>n</var></dd>
+	<dt><dfn id="D-atmost">at most</dfn> <var>n</var></dt>
+	<dd>no more than <var>n</var></dd>
+	<dt><dfn id="D-exactly">exactly</dfn> <var>n</var></dt>
+	<dd><a href="#D-atleast">at least</a> <var>n</var> and <a href="#D-atmost">at most</a> <var>n</var></dd>
+	<dt><dfn id="D-about">about</dfn> <var>n</var></dt>
+	<dd>not <a href="#D-exactly">exactly</a>, but approximately, <var>n</var>, to the author's discretion</dd>
+	<dt><dfn id="D-contain-only">contain only</dfn> <var>objects</var></dt>
+	<dd><a href="#D-must">must</a> contain nothing other than <var>objects</var></dd>
+	<dt><dfn id="D-intheorder">in [the, the following, this] order</dfn>&hellip;</dt>
+	<dt><dfn id="D-order-relevant">order is relevant</dfn></dt>
+	<dd>changing the order of the <var>objects</var> would change the outcome or semantics of the <var>containing element</var></dd>
+	<dt><dfn id="D-inanyorder">in [any, no particular] order</dfn>&hellip;</dt>
+	<dt><dfn id="D-order-irrelevant">order is irrelevant</dfn></dt>
+	<dd>changing the order of the <var>objects</var> would <em>not</em> change the outcome or semantics of the <var>containing element</var></dd>
+</dl>
+<section id="sem-site-wide">
+	<h1 class="h-beta">Site-Wide Elements</h1>
+	<section id="sem-masthead">
+		<h1 class="h-gamma">Masthead</h1>
+	</section>
+	<section id="sem-breadcrumbs">
+		<h1 class="h-gamma">Breadcrumbs</h1>
+		<p class="prose">Each page must contain exactly 1 breadcrumb tree. This will take the form of a <code class="lang-css">nav.bc</code> <strong><em>outside</em> the <code class="lang-css"><a href="#scheme-main">main</a></code> element</strong>. This <code class="lang-css">nav.bc</code> must contain only and exactly 3 elements, in the following order:</p>
+		<ol>
+			<li>1 <code class="lang-css">ol.bc-anc</code>, which contains all the <a href="#D-logical-ancestor">logical ancestors</a> (including the <a href="#D-logical-parent">logical parent</a>) of the page, in order of the &ldquo;semantic filetree&rdquo; from top to bottom;</li>
+			<li>1 <code class="lang-css">ul.bc-sib</code>, which contains all the <a href="#D-logical-sibling">logical siblings</a> of the page (including the same page itself), in any order;</li>
+			<li>and 1 <code class="lang-css">ul.bc-child</code>, which contains all the <a href="#D-logical-child">logical children</a> of the page, in any order. There will be no links to non-child <a href="#D-logical-descendant">descendants</a> in the breadcrumb tree.</li>
+		</ol>
+		<p class="prose">Each of the 3 lists above must contain at least 0 list items, with each list item containing only and exactly 1 link. The links in the each list correspond to the logical relatives of the current page.</p>
+		<p class="prose">Each <code class="lang-css">a</code> element on a page's breadcrumbs list must have exactly 1 <code class="lang-html">rel</code> attribute, which must be at least 1 of the following values:</p>
+		<dl>
+			<dt><code class="lang-html">rel=&quot;ancestor&quot;</code></dt>
+			<dd>if the link corresponds to a <em>non-<a href="#D-logical-parent">parent</a></em> <a href="#D-logical-ancestor">logical ancestor</a> of the page</dd>
+			<dt><code class="lang-html">rel=&quot;parent&quot;</code></dt>
+			<dd>if the link corresponds to the unique <a href="#D-logical-parent">logical parent</a> of the page</dd>
+			<dt><code class="lang-html">rel=&quot;sibling&quot;</code></dt>
+			<dd>if the link corresponds to a <a href="#D-logical-sibling">logical sibling</a> to a page but is <em>not</em> that page</dd>
+			<dt><code class="lang-html">rel=&quot;this&quot;</code></dt>
+			<dd>if the link corresponds to the same page</dd>
+			<dt><code class="lang-html">rel=&quot;child&quot;</code></dt>
+			<dd>if the link corresponds to a <a href="#D-logical-child">logical child</a> of the page</dd>
+		</dl>
+		<aside class="debug-box-block">
+			<h1 class="h-delta">Page Relationships</h1>
+			<p class="prose">For simplicity, we will use the examples <code class="dir">page-a.html</code> and <code class="dir">page-b.html</code> in this section for an illustration. We will use <var>A</var> to refer to <code class="dir">page-a.html</code>, and <var>B</var> to refer to <code class="dir">page-b.html</code>.</p>
+			<p class="prose">A <dfn id="D-logical-relative">logical relative</dfn> to a page <var>A</var>, is another page <var>B</var> that is related in content to <var>A</var>. The logical relation between <var>A</var> and <var>B</var> has nothing to do with their locations in the file directory, but rather a &ldquo;semantic filetree&rdquo; that describes how the pages are related.</p>
+			<p class="prose">Page <var>B</var> can be logically related to page <var>A</var> in different ways.</p>
+			<ol class="prose">
+				<li>
+					<p><var>B</var> may be a <dfn id="D-logical-child">logical child</dfn> of <var>A</var>, indicating that the content of <var>B</var> is a subset or tangential extension of the content of <var>A</var>.</p></li>
+				<li><p><var>B</var> may be a <dfn id="D-logical-sibling">logical sibling</dfn> of <var>A</var>, in which case <var>A</var> and <var>B</var> are both <a href="#D-logical-child">children</a> of the same page. Every page is a sibling of itself.</p></li>
+				<li><p><var>B</var> may be <em>the unique</em> <dfn id="D-logical-parent">logical parent</dfn> of <var>A</var>, in other words, <var>A</var> is a <a href="#D-logical-child">child</a> of <var>B</var>.</p></li>
+			</ol>
+			<p class="prose">There are also &ldquo;extended relationships&rdquo; between pages:</p>
+			<ol class="prose">
+				<li><p><var>B</var> may be a <dfn id="D-logical-descendant">logical descendant</dfn> of <var>A</var>, which means exactly 1 of the following is true:</p>
+					<ul>
+						<li>either <var>B</var> is a <a href="#D-logical-child">child</a> of <var>A</var> (in which case we say <var>B</var> is a &ldquo;direct descendant&rdquo; of <var>A</var>),</li>
+						<li>or <var>B</var> is a child of a <a href="#D-logical-descendant">descendant</a> of <var>A</var>. (This term is recursively defined.)</li>
+					</ul>
+				</li>
+				<li><p><var>B</var> may be a <dfn id="D-logical-ancestor">logical ancestor</dfn> of <var>A</var>, meaning exactly 1 is true:</p>
+					<ul>
+						<li>either <var>B</var> is the unique <a href="#D-logical-parent">parent</a> of <var>A</var> (we say <var>B</var> is a &ldquo;direct ancestor&rdquo; of <var>A</var>),</li>
+						<li>or <var>B</var> is the unique parent of an <a href="#D-logical-ancestor">ancestor</a> of <var>A</var>. (This term is recursively defined.)</li>
+					</ul>
+				</li>
+			</ol>
+			<table class="table-list">
+				<thead>
+					<tr>
+						<th scope="col">relation</th>
+						<th scope="col">reflexivity</th>
+						<th scope="col">symmetry</th>
+						<th scope="col">transitivity</th>
+						<th scope="col">connectivity</th>
+						<th scope="col">defined</th>
+						<th scope="col">surjective</th>
+						<th scope="col">well-defined</th>
+						<th scope="col">injective</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th scope="row">logical descendant of</th>
+						<td class="no">antireflexive</td>
+						<td class="no">antisymmetric</td>
+						<td class="yes">transitive</td>
+						<td class="maybe">unconnected</td>
+						<td class="yes">defined (exception: root element)</td>
+						<td class="no">not surjective</td>
+						<td class="no">not well-defined</td>
+						<td class="no">not injective</td>
+					</tr>
+					<tr>
+						<th scope="row">logical child of</th>
+						<td class="no">antireflexive</td>
+						<td class="no">antisymmetric</td>
+						<td class="no">antitransitive</td>
+						<td class="maybe">unconnected</td>
+						<td class="yes">defined (exception: root element)</td>
+						<td class="no">not surjective</td>
+						<td class="yes">well-defined</td>
+						<td class="no">not injective</td>
+					</tr>
+					<tr>
+						<th scope="row">logical sibling of</th>
+						<td class="yes">reflexive</td>
+						<td class="yes">symmetric</td>
+						<td class="yes">transitive</td>
+						<td class="maybe">unconnected</td>
+						<td class="no">not defined</td>
+						<td class="no">not surjective</td>
+						<td class="no">not well-defined</td>
+						<td class="no">not injective</td>
+					</tr>
+					<tr>
+						<th scope="row">logical parent of</th>
+						<td class="no">antireflexive</td>
+						<td class="no">antisymmetric</td>
+						<td class="no">antitransitive</td>
+						<td class="maybe">unconnected</td>
+						<td class="no">not defined</td>
+						<td class="yes">surjective (exception: root element)</td>
+						<td class="no">not well-defined</td>
+						<td class="yes">injective</td>
+					</tr>
+					<tr>
+						<th scope="row">logical ancestor of</th>
+						<td class="no">antireflexive</td>
+						<td class="no">antisymmetric</td>
+						<td class="yes">transitive</td>
+						<td class="maybe">unconnected</td>
+						<td class="no">not defined</td>
+						<td class="yes">surjective (exception: root element)</td>
+						<td class="no">not well-defined</td>
+						<td class="no">not injective</td>
+					</tr>
+				</tbody>
+			</table>
+		</aside>
+	</section>
+</section>
+<section id="sem-document-specific">
+	<h1 class="h-beta">Document-Specific Elements</h1>
+	<section id="sem-main">
+		<h1 class="h-gamma">Main</h1>
+		<p class="prose">Each document must contain at most 1 <code class="lang-css">main</code> element. This element, if present, must contain all content specific to the individual document, including any side text, footers, or other extraneous information. It must not include any site-wide navigational aids, breadcrumbs, headers, footers, or other elements that repeat across pages. <code class="lang-css">main</code> is not <a href="#D-sectioning-content">sectioning content</a>, so it does not add a level to the Document Outline.</p>
+	</section>
+	<section id="sem-outline">
+		<h1 class="h-gamma">The Document Outline</h1>
+		<p class="prose">An outline exists for every document. On a Web page, the <code class="lang-css">body</code> represents the document and we refer to its outline as the <a class="sp" href="http://www.w3.org/html/wg/drafts/html/master/sections.html#outline" rel="external">Document Outline</a>.</p>
+		<p class="prose"><dfn id="D-sectioning-content">Sectioning content</dfn> is <a class="sp" href="http://www.w3.org/html/wg/drafts/html/master/dom.html#sectioning-content-0" rel="external">content that contributes to the Document Outline</a>. Each sectioning element potentially has a heading and its own outline, which contributes to the outline of its ancestors. Only and all the following elements mark up sectioning content and introduce new levels in the Document Outline:</p>
+		<ul>
+			<li><code class="lang-css">section</code></li>
+			<li><code class="lang-css"><a href="#scheme-aside">aside</a></code></li>
+			<li><code class="lang-css">nav</code></li>
+			<li><code class="lang-css">article</code></li>
+		</ul>
+		<p class="prose">A <dfn id="D-sectioning-root">sectioning root</dfn> is like sectioning content in that it may have its own heading and outline, however, the outline of a sectioning root <a class="sp" href="http://www.w3.org/html/wg/drafts/html/master/sections.html#sectioning-root" rel="external">does not affect the Document Outline</a> (unless of course, the sectioning root in question is the <code class="lang-cs">body</code> element, in which case its outline <em>is</em> the Document Outline). This means sectioning roots may include sectioning content but their outlines are isolated and do not add levels to the outlines of their ancestors. The following elements are sectioning roots:</p>
+		<ul>
+			<li><code class="lang-css">body</code></li>
+			<li><code class="lang-css"><a href="#scheme-figure-blockquote">figure</a></code></li>
+			<li><code class="lang-css"><a href="#scheme-figure-blockquote">blockquote</a></code></li>
+			<li><code class="lang-css"><a href="#scheme-table">td</a></code></li>
+			<li><code class="lang-css">fieldset</code></li>
+			<li><code class="lang-css">details</code></li>
+			<li><code class="lang-css">dialog</code></li>
+		</ul>
+		<p><span class="caution">Caution <time>2014-02-26</time>:</span> <code class="lang-css"><a href="#scheme-list">li</a></code> seems like it should be a sectioning root but it is not! Do not contain sectioning content inside an <code class="lang-css">li</code> unless you want to change the Document Outline.</p>
+		<section id="sem-section">
+			<h1 class="h-delta">Sections</h1>
+			<p class="prose">A <dfn id="D-section">section</dfn> is a thematic grouping of content. Each section has its own <a href="#sem-heading">heading (<abbr title="also known as">AKA</abbr> title)</a> and outline, which is added to the outline of the nearest ancestor <a href="#D-sectioning-root">sectioning root</a>. If the nearest ancestor sectioning root is the <code class="lang-css">body</code>, then its level will be added to the Document Outline. If its nearest ancestor sectioning root is not the <code class="lang-css">body</code>, then the level will be added to that sectioning root's outline without affecting the Document Outline.</p>
+			<p class="prose">Each thematic grouping of content must be contained within a <code class="lang-css">section</code> element. This <code class="lang-css">section</code> must contain at least 0 <code class="lang-css">header</code> elements, followed by optional flow content, followed by at least 0 <code class="lang-css">header</code> elements. The <code class="lang-css">header</code>s, if present, must adhere to <a href="#sem-header">these specifications</a>.</p>
+			<p class="prose">Each <code class="lang-css">section</code> may be titled with at most 1 <code class="lang-css">h1</code>. If the <code class="lang-css">h1</code> is present, it must be the first child of the <code class="lang-css">section &gt; header:first-child</code>, or if that is not present, it must be the first child of the <code class="lang-css">section</code> itself. The section's heading, if it exists, must be present in exactly 1 of those 2 places and nowhere else. (There may be descendant <code class="lang-css">h1</code>s present, but only if they are children of&mdash;and thus headings of&mdash;any existing descendant <code class="lang-css">section</code>s.)</p>
+		</section>
+		<section id="sem-aside">
+			<h1 class="h-delta">Asides</h1>
+			<p class="prose">An aside contains content that is tangentially related to the main content of the document, but is not big enough to be its own document. An example of an aside could be a pull quote in a magazine article, or a definition in the margin of a textbook that has been extracted from the glossary.</p>
+			<p class="prose">The <code class="lang-css">aside</code> element is sectioning content, so its <a href="#scheme-heading">heading</a> and outline are added to the Document Outline. The actual content in an <code class="lang-css">aside</code>s must not affect the normal flow of the document content, however, which means it may be taken out of context and placed in a margin, appendix, or other perihperal part of the document.</p>
+			<p class="prose">To that end, there are two rules to an <code class="lang-css">aside</code>. First, the normal flow of the document must not be disturbed if it were removed, so the reader should be able to completely skip the aside without missing a beat. Second, the aside itself must make sense isolated and out of context, so reading the aside all by itself should make sense.</p>
+		</section>
+	</section>
+	<section id="sem-header">
+		<h1 class="h-gamma">Headers and Footers</h1>
+		<p class="prose">Headers and footers are not <a href="#D-sectioning-content">sectioning content</a>, so they do not add levels to the Document Outline. Headers of a section should contain data about the section <em>itself</em>, including, but not limited to, <a href="#sem-heading">headings</a>, a <a href="#sem-toc">table of contents</a>, a list of authors/editors, time written/published/updated, and related tags. Footers of a section should contain data about the <em>content</em> in the section, such as copyright information, contact information (possibly in an <code class="lang-css"><a href="#scheme-address">address</a></code> element), related links or references, and <a href="#sem-footnotes">footnotes</a>.</p>
+		<p class="prose">In each case, both header and footer information must be contained in <code class="lang-css">header</code> elements. Any number of <code class="lang-css">header</code> elements may be contained in a <code class="lang-css">section</code>, in any order. It is recommended to put header content (including the heading) in the <code class="lang-css">section &gt; header:first-child</code>, and footer content in the <code class="lang-css">section &gt; header:last-child</code>.</p>
+		<section id="sem-heading">
+			<h1 class="h-delta">Headings</h1>
+			<p class="prose">Headings describe sections of a document and title the levels in the Document Outline. The title of a section is described by its <code class="lang-css">section &gt; header:first-child &gt; h1:first-child</code>, or if a header is not present, the <code class="lang-css">section &gt; h1:first-child</code>. The heading may only be in an <code class="lang-css">h1</code> element.</p>
+			<p class="prose">Some headings may have a subheading, or tagline. This text must be contained in a <code class="lang-css">h1 &gt; span.hsub</code>. A <code class="lang-css">h1</code> must contain at most 1 <code class="lang-css">span.hsub</code>.</p>
+			<p><span class="caution">Caution <time>2014-02-23</time>:</span> The correct element used for subheadings has been controversial&mdash;some developors support the use of <code class="lang-css">small</code>, while others believe this element is best used only for side comments, small print, legal information, <i lang="la"><abbr title="et cetera">etc</abbr></i>. For now, stick with a <code class="lang-css">span</code> and stay tuned for updates.</p>
+		</section>
+		<section id="sem-toc" class="draft">
+			<h1 class="h-delta">Tables of Content</h1>
+			<p class="prose">Since each document has a Document Outline, it has a corresponding table of contents. Use <code class="lang-css">nav.toc</code>, a section of links to other sections in the same page.</p>
+		</section>
+		<section id="sem-footnotes">
+			<h1 class="h-delta">Footnotes</h1>
+				<p class="prose">Footnotes are annotations that can be taken out of context. The reference<sup class="fn"><a id="r1" href="#fn1">1</a></sup> should link to the footnote<sup class="fn"><a id="r2" href="#fn2">2</a></sup>. Each footnote is contained within a <code class="lang-css"><a href="#sem-header">header</a> &gt; ul.footnotes &gt; li</code>. This element should appear at the <em>bottom</em> of the document or article. Since footnotes are too short to be considered &ldquo;content,&rdquo; they are not suitiable in an <code class="lang-css">aside</code> element.</p>
+				<header>
+					<ul class="footnotes">
+						<li><sup class="fn"><a id="fn1" href="#r1">1</a></sup> A reference (shown above) is followed by a <code class="lang-css">sup.fn &gt; a#r1[href=&quot;#fn1&quot;]</code>, where <code class="lang-css">a#r1</code> is the anchor in the reference and <code class="lang-css">a#fn1</code> is the footnote to which it links.</li>
+						<li><sup class="fn"><a id="fn2" href="#r1">2</a></sup> A footnote (shown here) is preceded by a <code class="lang-css">sup.fn &gt; a#fn1[href=&quot;#r1&quot;]</code>, where <code class="lang-css">a#fn1</code> is the anchor in the footnote and <code class="lang-css">a#r1</code> is the reference to which it links.</li>
+					</ul>
+				</header>
+				<p><span class="caution">Caution <time>2014-03-01</time></span>: As of currently, the author must be responsible for the numbers that appear in the reference anchor and the corresponding footnote anchor. JavaScript will be implemented soon to automate this task.</p>
+		</section>
+	</section>
+</section>
+
+
+
+
+
+
+<section id="group-level">
+	<h1 class="h-beta">Group-Level Semantics</h1>
+	<p class="prose">This section...</p>
+	<section id="scheme-paragraph">
+		<h1 class="h-gamma">Paragraph Scheme</h1>
+		<p>Paragraphs (<code class="lang-css">p</code>) are the backbone of a document; they are made to organize and group textual ideas together. In the written media, paragraphs can span anywhere from 3 to 8 sentences. However on the Web, they can be much, much shorter. This paragraph does not have any classes added. We will call these &ldquo;regular paragraphs.&rdquo;</p>
+		<figure>
+			<p style="font-style: italic;">Some regular paragraphs may be presented in italics. This paragraph merely serves as a visual example. The quick brown fox jumps over the lazy dog.</p>
+			<p style="font-weight: bold;">Some regular paragraphs may be presented in bold. This paragraph merely serves as a visual example. The quick brown fox jumps over the lazy dog.</p>
+			<p style="font-style: italic; font-weight: bold">This is a regular paragraph in italics and bold. The quick brown fox jumps over the lazy dog.</p>
+		</figure>
+		<p class="p-lede">This is a lede paragraph. A lede is traditionally an introductory or summary sentence or paragraph to catch the reader's attention. This site's ledes are designed to catch the reader's eye and attention.</p>
+		<p class="p-lede">Lede paragraphs should <em>not</em> be given the <code class="lang-css">.prose</code> class, even if they are written as part of a formal section or document. Use the <code class="lang-css">.p-lede</code> class on a whole paragraph such as this one, or <code class="lang-css">.s-lede</code> on the first span within a paragraph as shown below. If a lede sentence is part of a paragraph, it acts like a mini-heading for that text.</p>
+		<p class="prose"><span class="s-lede">This is a paragraph in prose.</span> Paragraphs in the <strong>normal flow of formal or normative documents</strong> will be writen in prose. The <code class="lang-css">.prose</code> class is used for this style. Prose, being more formal and providing more detail than other web-based texts, usually requires more careful reading.</p>
+		<figure>
+			<p class="prose" style="font-style: italic;">Some prose paragraphs may be presented in italics. This paragraph merely serves as a visual example. The quick brown fox jumps over the lazy dog.</p>
+			<p class="prose" style="font-weight: bold;">Some prose paragraphs may be presented in bold. This paragraph merely serves as a visual example. The quick brown fox jumps over the lazy dog.</p>
+			<p class="prose" style="font-style: italic; font-weight: bold">This is a prose paragraph in italics and bold. The quick brown fox jumps over the lazy dog.</p>
+		</figure>
+		<p class="nonnormative">Sometimes, authors may want to include <dfn id="non-normative">non-normative</dfn> text in a normative document. This text is informative or &ldquo;unofficial,&rdquo; for example, supplemental remarks or a summary of normative information provided for the reader's convenience. Another common example of non-normative text is duplicating normative text on another part of the page.</p>
+		<p class="nonnormative">Non-normative text is still part of the normal flow of the document, so it would not makes sense out of context as a <code class="lang-css"><a href="#scheme-figure-blockquote">figure</a></code> or <code class="lang-css"><a href="#scheme-aside">aside</a></code> would, however it is presented differently than formal text to indicate that it is not official. <ins class="draft">At the same time, the <code class="lang-css"><a href="">i</a></code> element is not appropriate either, because the non-normative span of text does not represent a change of voice or mood. Could it be considered a change in mood?</ins> As such, apply the <code class="lang-css">.nonnormative</code> class to the text. This text may be a single paragraph, a container such as a <code class="lang-css">div</code> or <code class="lang-css">figure</code>, or even a small span of text within a paragraph such as a parenthetical remark. (In this last case, the author should use the <code class="lang-css">.nonnormative</code> class to indicate the remark is unofficial, but <a href="punct.html#parens">also contain the remark in parentheses</a>.)</p>
+		<p class="nonnormative">The author may also indicate verbally (in writing preceding the text) that the text is non-normative. If the non-normative text is one paragraph, the author may simply place the indication in the previous paragraph. If the text is large enough for its own figure or section, though, the indication should be in that element's <code class="lang-css">header</code>.</p>
+		<p class="lede dropcap">Authors may want to use a fancy drop cap in the first paragraph of an article. Usually the first paragraph will also be a lede. This is a <code class="lang-css">p.lede.dropcap</code>. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text.</p>
+		<p class="prose dropcap">Prose paragraphs can also have drop caps, for example, as a first paragraph in a book chapter. This is a <code class="lang-css">p.prose.dropcap</code>. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text.</p>
+		<p class="dropcap">Drop caps can be beautiful, but it is unusual to use one on a normal, non-prose paragraph. This <code class="lang-css">p.dropcap</code> is here simply for visual comprehension. Notice how the drop cap font does not complement the normal paragraph font very well. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text.</p>
+<!--
+			<div class="informative">
+				<p>Wrap all informative content, including <code class="lang-css">p</code>s, <code class="lang-css">img</code>s, and <code class="lang-css">figure</code>s with a <code class="lang-css">div.informative</code>. <strong>All non-normative text should be contained in flow, non-phrasing content</strong>. This separates the text from the normative document. If there is a non-normative span of text present in a normative paragraph, authors are strongly encouraged to move the span to its own separate, non-normative division.</p>
+				<p>Since the <code class="lang-css">.prose</code> class is reserved for more formal text, informative text should <em>not</em> be written in prose.</p>
+			</div>
+		</section>
+-->
+		<section id="scheme-figure-blockquote-address">
+			<h1 class="h-delta">Figures, Block Quotes, and Addresses</h1>
+			<p class="prose"><code class="lang-css">figure</code>s and <code class="lang-css">blockquote</code>s are <a href="#scheme-section">sectioning roots</a>.</p>
+			<figure><code class="lang-css">figure</code> elements contain excerpts of text, examples, or images that are used to illustrate a concept. Content in a <code class="lang-css">figure</code> element&mdash;including its <code class="lang-css">figcaption</code>&mdash;is permissible to be extracted from the document and presented on its own. If the content would not make sense out of its surrounding context, do not use this element.
+				<figcaption><span class="lede">Figure 12.</span> The <code class="lang-css">figcaption</code> element describes the content of the figure. Optionally include a <code class="lang-css">span.s-lede</code> containing the figure's title. The figure caption should be shorter and more concise than the figure text. Captions should not contain any <code class="lang-css">p</code>s, and they should not be styled in prose.</figcaption>
+			</figure>
+			<figure>
+				<p>Usually, <code class="lang-css">figure</code>s do not need child <code class="lang-css">p</code> elements because figures are typically too short for multiple paragraphs; text-only child nodes will suffice for textual examples.</p>
+				<p>Though rare, figures may contain child <code class="lang-css">p</code> elements if necessary. However, text in <code class="lang-css">figure</code>s should <em>not</em> be written in prose.</p>
+				<p>Figure captions are not always necessary.</p>
+			</figure>
+			<figure><span class="warning">This is bad! (but just an example)</span> This is a <code class="lang-css">figure</code> that represents a non-example or emphasis of what <em>not</em> to do. Notice there is no special class for the <code class="lang-css">figure</code>. When demonstrating a bad example, indicate this with a <code class="lang-css">span.warning</code> as it is more likely to catch the reader's attention.</figure>
+			<blockquote><code class="lang-css">blockquote</code> elements contain material taken directly from another source. They are usually very short. <cite class="src">Source</cite></blockquote>
+			<blockquote>It's courteous&mdash;and probably required&mdash;to reference the source of the quoted text. If the reference is cited, a <code class="lang-css">cite.src</code> must be present at the end of the block quote. (Yes, use the <code class="lang-css">cite</code> element.) <cite class="src">Source</cite></blockquote>
+			<blockquote class="prose">
+				<p>Block quotes that are longer than about 40 words must contain at least 1 <code class="lang-css">p</code> and must be styled in prose. The <code class="lang-css">.prose</code> class must be applied <strong>to the entire block quote</strong> instead of to each element inside.</p>
+				<p>Conversely, short block quotes should <em>not</em> contain paragraphs; the textual content should be contained directly inside.</p>
+				<p>In a long block quote, the citation must be in a <code class="lang-css">header &gt; p &gt; cite.src</code> (<a href="#scheme-header">yes, header</a>), with the year included as well. If you're really picky, you may wrap the year with a <code class="lang-html">&lt;time&gt;</code> tag.</p>
+				<header><p><cite class="src">Source, <time>2000</time></cite></p></header>
+			</blockquote>
+			<p class="lede">This section describes the creation of a <a>quasi-element</a>: the <code class="lang-css">div.postal</code> class.</p>
+			<p class="prose">Use the <code class="lang-css">address</code> element to mark up contact information for authors of (part of) a document. This contact information may include a postal address, or it may simply include an email address or link. If the <code class="lang-css">address</code> element contins a postal address, place the postal address in an <code class="lang-css">address div.postal</code>. If the postal address is not an author's contact information but rather an arbitrary postal address, also use <code class="lang-css">div.postal</code>, but do not place it in an <code class="lang-css">address</code> element. It is convention to use the <code class="lang-html">&lt;br/&gt;</code> tag to indicate line breaks within a postal address.</p>
+			<address>
+				<div class="postal">
+					Chris Harvey<br/>
+					12345 Main St.<br/>
+					Washington, DC 00001<br/>
+					<a class="tel">(555) 555-5555</a><br/>
+					<a href="">ch@example.com</a><br/>
+					<a href="">@ch12345</a>
+				</div>
+			</address>
+		</section>
+	</section>
+	<section id="scheme-list">
+		<h1 class="h-gamma">List Scheme</h1>
+		<section id="ordered-unordered-lists">
+			<h1 class="h-delta">Ordered and Unordered Lists</h1>
+			<ol>
+				<li>Ordered lists (<code class="lang-css">ol</code>) must contain at least 0 list items (<code class="lang-css">li</code>).</li>
+				<li>Use ordered lists to list items of which the order is <a href="#D-order-relevant">relevant</a>, that is, changing the order of the items would change the outcome or semantics of the list.</li>
+			</ol>
+			<ul>
+				<li>Unordered lists (<code class="lang-css">ul</code>) must contain at least 0 list items (<code class="lang-css">li</code>).</li>
+				<li>Use unordered lists to list items of which the order is <a href="#D-order-irrelevant">irrelevant</a>, that is, changing the order of the items would not change the outcome or semantics of the list.</li>
+			</ul>
+			<ul>
+				<li>To nest lists,
+					<ul>
+						<li>contain an <code class="lang-css">ol</code> or <code class="lang-css">ul</code> inside an <code class="lang-css">li</code> of the parent list.</li>
+					</ul>
+				</li>
+			</ul>
+			<ol class="prose">
+				<li>
+					<p>A prose list (<code class="lang-css">ol.prose</code>) is an ordered list whose items consist of flow content. Each list item must contain at least 1 paragraph element. Since the <code class="lang-css">.prose</code> class is applied <strong>to the entire list</strong>, it must <em>not</em> apply to the list items or paragraphs within each list item.</p>
+				</li>
+				<li>
+					<p><span class="s-lede">Typically, each list item in a prose list will have a lede sentence.</span> This acts like an actual list item in a short list, if the rest of the prose weren't present. It can also be be thought of as a lede or &ldquo;heading&rdquo; for the text, although it does not take part in the Document Outline. Add a <code class="lang-css">span.s-lede</code> to the beginning of the first paragraph in the list item.</p>
+				</li>
+				<li>
+					<p><span class="s-lede">Sometimes, a prose list item may have a lede that acts like a heading&hellip;</span><br/>In this case, still use <code class="lang-css">span.s-lede</code>, followed by the <code class="lang-html">&lt;br/&gt;</code> tag to separate the lede from the rest of the paragraph. Again, this lede does not affect the Document Outline. Though actual <code class="lang-css">h1</code>s are <a class="sp" href="http://www.w3.org/html/wg/drafts/html/master/grouping-content.html#the-li-element" rel="external">technically permissible</a> inside <code class="lang-css">li</code>s, they usually make the Outline look icky.</p>
+				</li>
+			</ol>			
+		</section>
+		<section id="association-lists">
+			<h1 class="h-delta">Association Lists</h1>
+			<dl>
+				<dt>An association list (<code class="lang-css">dl</code>)</dt>
+				<dd>contains at least 0 name-value groups. The order of the name-value groups is <b class="keyword">irrelevant</b>.</dd>
+				<dt>A single name-value group consists of at least 1 name (<code class="lang-css">dt</code>) and at least 1 value (<code class="lang-css">dd</code>).</dt>
+				<dd>If there are multiple <code class="lang-css">dt</code>s in a particular group, the order of <code class="lang-css">dt</code>s is <b class="keyword">irrelevant</b>.</dd>
+				<dd>If there are multiple <code class="lang-css">dd</code>s in a particular group, the order of <code class="lang-css">dd</code>s is also <b class="keyword">irrelevant</b>.</dd>
+			</dl>
+			<p class="prose">An association list can be thought of as a mathematical relation with the following properties:</p>
+			<table class="table-list">
+				<thead>
+					<tr>
+						<th scope="col">relation</th>
+						<th scope="col">defined</th>
+						<th scope="col">surjective</th>
+						<th scope="col">well-defined</th>
+						<th scope="col">injective</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th scope="row"><code class="lang-css">dt</code> related to <code class="lang-css">dd</code></th>
+						<td>defined</td>
+						<td>surjective</td>
+						<td>not well-defined</td>
+						<td>not injective</td>
+					</tr>
+				</tbody>
+			</table>
+			<dl class="draft">
+				<dt>Due to the nature of association lists,</dt>
+				<dd>nested assocation lists can be used to create <a>flow-charts or decision trees</a>.</dd>
+			</dl>
+			<dl>
+				<dt>If a name-value group</dt>
+				<dt>contains more than one name per value,</dt>
+				<dd>these names are <em>alternative</em> in that either one, or possibly both, may be accepted.</dd>
+				<dt>The same is true if</dt>
+				<dd>a name-value group</dd>
+				<dd>contains more than one value per name.</dd>
+				<dt>
+					<ul>
+						<li>If authors want <em>all</em> names</li>
+						<li>to apply to a value</li>
+						<li>in one name-value group,</li>
+					</ul>
+				</dt>
+				<dd>they should use a single <code class="lang-css">dt</code> containing only a single <code class="lang-css">ul</code>. The <code class="lang-css">dt &gt; ul:only-child</code> automatically extends <code class="lang-css">.list-basic</code>.</dd>
+				<dt>The same is true for multiple values:</dt>
+				<dd>
+					<ul>
+						<li>If authors want <em>all</em> values</li>
+						<li>to apply to a name,</li>
+						<li>contain only a single <code class="lang-css">ul</code> in a single <code class="lang-css">dd</code>. <code class="lang-css">dd &gt; ul:only-child</code> automatically extends <code class="lang-css">.list-basic</code>.</li>
+					</ul>
+				</dd>
+			</dl>
+			<section id="document-metadata">
+				<h1 class="h-epsilon">Document Metadata</h1>
+				<figure>
+					<figcaption>The following association list is an example.</figcaption>
+					<dl class="docmeta typo-list">
+						<dt>Author</dt>
+						<dd>Chris Harvey</dd>
+						<dt>Submitted</dt>
+						<dd><time class="submit" datetime="2013-07-16T03:18">Jul 16, 2013 <span class="hm">03:18</span></time></dd>
+						<dt>Updated</dt>
+						<dd class="seo-only"><time datetime="2013-08-01">Aug 1, 2013</time></dd>
+						<dd class="seo-only"><time datetime="2013-09-01">Sep 1, 2013</time></dd>
+						<dd><time datetime="2013-12-10">Dec 10, 2013</time></dd>
+						<dd><time datetime="2014-01-20">Jan 20, 2013</time></dd>
+						<dd><time datetime="2014-02-02">Feb 2, 2014</time></dd>
+						<dd><time datetime="2014-03-01">Mar 1, 2014</time></dd>
+						<dd><time datetime="2014-03-02">Mar 2, 2014</time></dd>
+						<dd><time datetime="2014-03-03">Mar 3, 2014</time></dd>
+						<dd><time datetime="2014-03-04">Mar 4, 2014</time></dd>
+						<dd><time datetime="2014-03-05">Mar 5, 2014</time></dd>
+						<dd><time datetime="2014-03-06">Mar 6, 2014</time></dd>
+						<dd><time datetime="2014-03-07T23:45">Mar 7, 2013 <span class="hm">23:45</span></time></dd>
+						<dd><time datetime="2014-03-08T01:47">Mar 8, 2013 <span class="hm">01:47</span></time></dd>
+						<dd><time class="recent" datetime="2014-03-08T02:53">Mar 8, 2013 <span class="hm">02:53</span></time></dd>
+						<dt>Tags</dt>
+						<dd>HTML</dd>
+						<dd>semantic</dd>
+						<dd>lists</dd>
+					</dl>
+				</figure>
+				<p class="prose">Use the <code class="lang-css">dl.docmeta</code> class to mark up metadata for a document or article. Since this metadata is document-specific, it should be contained in the <code class="lang-css"><a href="#sem-main">main</a> &gt; header</code> or <code class="lang-css">article &gt; header</code>.</p>
+				<p class="draft">required names: author, submitted, updated, tags, ...?</p>
+				<section>
+					<h1 class="h-zeta">Specifications for Updates</h1>
+					<p class="prose">In the <b class="ref">Submitted</b> and <b class="ref">Updated</b> name-value groups, each <code class="lang-css">dd</code> must contain only and exactly 1 <code class="lang-css">time[datetime]</code> element. The value of the <code class="lang-css">datetime</code> attribute must be in the format <code><var>YYYY</var>-<var>MM</var>-<var>DD</var>T<var>HH</var>:<var>MM</var></code>, where <var>YYYY</var> is the four-digit year, <var>MM</var> is the two-digit number representing the month, <var>DD</var> is the two-digit date, <var>HH</var> is the two-digit hour in military time (24-hour time), and <var>MM</var> is the two-digit minute of the hour. <span class="nonnormative">(The <code class="lang-html">T</code> separates the date and hour.)</span></p>
+					<p class="prose">The <b class="ref">Submitted</b> name-value group must have exactly 1 value: a <code class="lang-css">dd &gt; time[datetime].submit</code>. In the <b class="ref">Updated</b> name-value group, the <em>unique, most recent</em> update should be in the value represented by <code class="lang-css">dd &gt; time[datetime].recent</code>.</p>
+					<p class="prose">Each <code class="lang-css">time[datetime]</code> represents the time of update (or submission) and must contain HTML of the form <code class="lang-html"><var>MMM</var> <var>D</var>, <var>YYYY</var> &lt;span class=&quot;hm&quot;&gt;<var>HH</var>:<var>MM</var>&lt;/span&gt;</code>, where <var>MMM</var> contains the three-letter abbreviation of the month name, <var>D</var> is the one- or two-digit date, <var>YYYY</var> is the four-digit year, <var>HH</var> is the two-digit hour in military time (24-hour time), and <var>MM</var> is the two-digit minute of the hour.</p>
+					<p class="draft">Javascript will (eventually) take care of automatically displaying or hiding the timestamp (<code class="lang-css">.hm</code>) based on the time the page is loaded. Rules for javascript (draft): `time[datetime].submit &gt; .hm` and `time[datetime].recent &gt; .hm` are always shown. `time[datetime] &gt; .hm` is only shown if `datetime` is within past 24 hours.</p>
+					<p class="draft">more specs for updates: each update, with timestamp, for the past 24 hours; each day for the past 7 days; first update of each month for the past 6 months; first update of each year otherwise (submission counts as update). Do not remove old updates; only add class <code class="lang-css">dd.seo-only</code>. update log will be updated only on file updates. flowchart below:</p>
+					<dl class="dl-tree draft">
+						<dt>Is the update the submission date?</dt>
+						<dd>Yes: add class <code class="latex">dd.submit</code> and keep it under <b class="ref">Submitted</b>.</dd>
+						<dd>No:
+							<dl>
+								<dt>Is this the most recent update?</dt>
+								<dd>Yes: keep it under <b class="ref">Updated</b> and display the timestamp.</dd>
+								<dd>No:
+									<dl>
+										<dt>Is this update within the past 24 hours?</dt>
+										<dd>Yes: display it and display the timestamp.</dd>
+										<dd>No:
+											<dl>
+												<dt>Is this update within the past 7 days?</dt>
+												<dd>Yes:
+													<dl>
+														<dt>Is this the first update of a day?</dt>
+														<dd>Yes: display it without a timestamp.</dd>
+														<dd>No: hide it.</dd>
+													</dl>
+												</dd>
+												<dd>No:
+													<dl>
+														<dt>Is this update within the past 6 months?</dt>
+														<dd>Yes: 
+															<dl>
+																<dt>Is this the first update of a month?</dt>
+																<dd>Yes: display it without a timestamp.</dd>
+																<dd>No: hide it.</dd>
+															</dl>
+														</dd>
+														<dd>No:
+															<dl>
+																<dt>Is the update the first update of a calendar year?</dt>
+																<dd>Yes: display it without a timestamp.</dd>
+																<dd>No: hide it.</dd>
+															</dl>
+														</dd>
+													</dl>
+												</dd>
+											</dl>
+										</dd>
+									</dl>
+								</dd>
+							</dl>
+						</dd>
+					</dl>
+				</section>
+			</section>
+		</section>
+	</section>
+	<section id="scheme-table">
+		<h1 class="h-gamma">Table Scheme</h1>
+		<p class="prose draft">The table was originally intended to mark up tabular data. That's obvious right? Well, the fact that tables provide a natural grid system was too tempting for early designers to ignore. They used tables to organize content and display it in a non-linear manner, which was a great way to override the normal flow of a page. Early tables would serve as an excellent tool to form the layout of a page.</p>
+		<p class="prose draft">With the recent development of CSS and styles, the use of tables to form layout became considered outdated and, in some cases, amateur. It is recommended to use <code class="lang-css">div</code>s and styles for layout strategies. I urge designers to remember the original purpose of tables, which is to display hard data in a row-and-column format.</p>
+		<p class="prose">The <code class="lang-css">table</code> element is used to mark up data represented in more than one dimension. A <code class="lang-css">table</code> must contain only and exactly the following, in the following order:</p>
+		<ol>
+			<li>at most 1 <code class="lang-css">caption</code> element</li>
+			<li>at most 1 <code class="lang-css">thead</code> element</li>
+			<li>at least 0 <code class="lang-css">tbody</code> elements</li>
+			<li>at most 1 <code class="lang-css">tfoot</code> element</li>
+			<li>at most 1 <code class="lang-css">caption</code> element (permissible only if a <code class="lang-css">caption</code> is not present at the beginning)</li>
+		</ol>
+		<p class="prose">The <code class="lang-css">caption</code> element should describe the contents of the table in more detail. It may also include the title of the table in a <code class="lang-css">span.s-lede</code>, which, if present, must appear at the beginning of the <code class="lang-css">caption</code>. Captions must not contain any <code class="lang-css">p</code>s, and they must not be styled in prose.</p>
+		<p class="prose">The <code class="lang-css">thead</code>, <code class="lang-css">tbody</code>, and <code class="lang-css">tfoot</code> elements all represent row-groups and they must contain at least 0 <code class="lang-css">tr</code> elements, which represent rows. Each <code class="lang-css">tr</code> element must contain exactly 0 or more <code class="lang-css">th</code> elements (table headings) and 0 or more <code class="lang-css">td</code> elements (table cells), in any order.</p>
+		<p class="prose">In a list-style table, if a <code class="lang-css">thead</code> is present and contains <code class="lang-css">th</code> elements, the <code class="lang-css">th</code> elements should have the <code class="lang-html">scope=&quot;col&quot;</code> or <code class="lang-html">scope=&quot;colgroup&quot;</code> attribute. For thoroughness, these headings may be targeted by all the cells in their scoped columns, via the <code class="lang-html">headers=&quot;&quot;</code> attribute.</p>
+		<p class="prose">In a bar-style table, a table header would be a column or column group of cells (for which there is no corresponding HTML element). Table heading cells (<code class="lang-css">th</code> cells), if present, should have the <code class="lang-html">scope=&quot;row&quot;</code> or <code class="lang-html">scope=&quot;rowgroup&quot;</code> attribute. For thoroughness, these headings may be targeted by all the cells in their scoped rows, via the <code class="lang-html">headers=&quot;&quot;</code> attribute.</p>
+		<table>
+			<thead>
+				<tr>
+					<th>Header Row 1 Heading 1</th>
+					<th>Header Row 1 Heading 2</th>
+					<th>Header Row 1 Heading 3</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Body Row 1 Cell 1</td>
+					<td>Body Row 1 Cell 2</td>
+					<td>Body Row 1 Cell 3</td>
+				</tr>
+				<tr>
+					<td>Body Row 2 Cell 1</td>
+					<td>Body Row 2 Cell 2</td>
+					<td>Body Row 2 Cell 3</td>
+				</tr>
+				<tr>
+					<td>Body Row 3 Cell 1</td>
+					<td>Body Row 3 Cell 2</td>
+					<td>Body Row 3 Cell 3</td>
+				</tr>
+			</tbody>
+		</table>		
+		<table class="table-list">
+			<thead>
+				<tr>
+					<th>Header Row 1 Heading 1</th>
+					<th>Header Row 1 Heading 2</th>
+					<th>Header Row 1 Heading 3</th>
+				</tr>
+				<tr>
+					<td>Header Row 1 Cell 1</td>
+					<td>Header Row 1 Cell 2</td>
+					<td>Header Row 1 Cell 3</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Body Row 1 Cell 1</td>
+					<td>Body Row 1 Cell 2</td>
+					<td>Body Row 1 Cell 3</td>
+				</tr>
+				<tr>
+					<td>Body Row 2 Cell 1</td>
+					<td>Body Row 2 Cell 2</td>
+					<td>Body Row 2 Cell 3</td>
+				</tr>
+				<tr>
+					<td>Body Row 3 Cell 1</td>
+					<td>Body Row 3 Cell 2</td>
+					<td>Body Row 3 Cell 3</td>
+				</tr>
+			</tbody>
+		</table>
+		<table class="table-bars">
+			<tbody>
+				<tr>
+					<th>Row 1 Cell 1</th>
+					<td>Row 1 Cell 2</td>
+					<td>Row 1 Cell 3</td>
+					<td>Row 1 Cell 4</td>
+					<td>Row 1 Cell 5</td>
+				</tr>
+				<tr>
+					<th>Row 2 Cell 1</th>
+					<td>Row 2 Cell 2</td>
+					<td>Row 2 Cell 3</td>
+					<td>Row 2 Cell 4</td>
+					<td>Row 2 Cell 5</td>
+				</tr>
+				<tr>
+					<th>Row 3 Cell 1</th>
+					<td>Row 3 Cell 2</td>
+					<td>Row 3 Cell 3</td>
+					<td>Row 3 Cell 4</td>
+					<td>Row 3 Cell 5</td>
+				</tr>
+			</tbody>
+		</table>
+		<table class="table-bars">
+			<thead>
+				<tr>
+					<th>T</th>
+					<th>A</th>
+					<th>V</th>
+					<th>X</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th>11</th>
+					<td>12</td>
+					<td>13</td>
+					<td>14</td>
+				</tr>
+				<tr>
+					<th>21</th>
+					<td>22</td>
+					<td>23</td>
+					<td>24</td>
+				</tr>
+				<tr>
+					<th>31</th>
+					<td>32</td>
+					<td>33</td>
+					<td>34</td>
+				</tr>
+			</tbody>
+		</table>
+<!--
+		<div>
+			<p class="prose">Below is a grid-style table (). Grid-style tables are best for displaying information that either correlates across rows, down columns, or tabular data that correlates among both rows and columns.</p>
+			<p class="prose">In a grid-style table, a table header could be a row or row group of cells, or a column or column group of cells. If table header(s) are present, their cells may be normal cells or heading cells (headings). The headings, if present, can have a scope of either <code class="lang-html">scope=&quot;row&quot;</code> or <code class="lang-html">scope=&quot;col&quot;</code>. Similarly, these headings can be targeted by any cells.</p>
+			<p>An example of a grid-style table might be...</p>
+			<table class="table-grid">
+				<tbody>
+					<tr><td>Row 1 Cell 1</td><td>Row 1 Cell 2</td><td>Row 1 Cell 3</td><td>Row 1 Cell 4</td><td>Row 1 Cell 5</td></tr>
+					<tr><td>Row 2 Cell 1</td><td>Row 2 Cell 2</td><td>Row 2 Cell 3</td><td>Row 2 Cell 4</td><td>Row 2 Cell 5</td></tr>
+					<tr><td>Row 3 Cell 1</td><td>Row 3 Cell 2</td><td>Row 3 Cell 3</td><td>Row 3 Cell 4</td><td>Row 3 Cell 5</td></tr>
+					<tr><td>Row 4 Cell 1</td><td>Row 4 Cell 2</td><td>Row 4 Cell 3</td><td>Row 4 Cell 4</td><td>Row 4 Cell 5</td></tr>
+					<tr><td>Row 5 Cell 1</td><td>Row 5 Cell 2</td><td>Row 5 Cell 3</td><td>Row 5 Cell 4</td><td>Row 5 Cell 5</td></tr>
+				</tbody>
+			</table>
+		</div>
+-->
+	</section>
+</section>
+<section id="text-level">
+	<h1 class="h-beta">Text-Level Semantics</h1>
+	<p class="prose">This section......</p>
+	<section id="scheme-punct">
+		<h1 class="h-gamma">Punctuation</h1>
+		<p class="prose">First and foremost, <strong>punctuation should be used to mark up text.</strong> The meaning we give to textual elements in the written language is primarily conveyed through punctuation, and if that fails, we turn to HTML. I'm not saying HTML is bad and that we shouldn't use it, but there is a line between not enough markup and too much markup.</p>
+		<p class="prose">Let me ask you this: do you find yourself trying to decide whether to wrap a question with something like <code class="lang-html">&lt;i class=&quot;question&quot;&gt;</code>? After all, a question does indicate a change of tone. No, we would rather simply type a question mark. Now imagine having to mark up every sentence with <code class="lang-html">&lt;sntc&gt;</code> tag, or even worse, every word with <code class="lang-html">&lt;word&gt;</code>.</p>
+		<p class="prose">Truth be told, question marks, periods, and spaces give meaning to the sentences and words we write. Likewise, we should make the best use we can of spaces, commas, apostrophes, stops (including periods, question marks, and exclamation marks) hyphens, colons, dashes, ellipses, semicolons, quotation marks, and any other punctuation characters at our disposal, as we normally would on a typewriter.</p>
+		<p class="prose">Without further ado, the number-one rule is this: <strong>if you can use punctuation to mark up text-level content, <em>do it</em></strong>. Save yourself the time and effort on trying to decide on an HTML element and just write naturally (as long as you consistently adhere to some prescribed manual of style). After that is all said and done, then it would be time to turn to the HTML elements we know and love.</p>
+		<p class="prose">This document is not meant to be a comprehensive manual for the written English language, so it is left to the discrection of the author (and/or his employer) to decide how to use punctuation. <a href="punct.html" rel="child">Read further on common practices of using punction.</a></p>
+	</section>
+	
+	
+	
+	
+	
+	
+	
+	<section id="scheme-highlight" class="draft">
+		<h1 class="h-gamma">Highlighted Text Scheme</h1>
+		<dl hidden="">
+			<dt>italics / oblique</dt>
+			<dd>easier to read; script glyphs for serif fonts; stands out from normal text, but just barely; the slant causes the reader's eyes to move faster</dd>
+			<dt>bold</dt>
+			<dd>harder to read; heaviness causes reader's eyes to slow down; heavily stands out from normal text</dd>
+			<dt>capitalization</dt>
+			<dd>heavily stands out; sounds 'loud'</dd>
+			<dt>text size</dt>
+			<dd>changes the line height</dd>
+			<dt>font face</dt>
+			<dd>not much difference when keeping serif/sans-serif, but slightly more difference when changing</dd>
+			<dt>foreground color</dt>
+			<dd>warmer colors used for harsher meaning, cooler colors for more casual. e.g.: red (danger), orange (caution), yellow (warning), green (okay), blue (attraction)</dd>
+			<dt>background color</dt>
+			<dd>highlight</dd>
+		</dl>
+		<section id="emph">
+			<h1 class="h-delta">Emphasis</h1>
+			<code class="lang-css">em</code>
+			<em>emphasized text (stress in tone of voice)</em>
+			<p class="draft">represent words or phrases that are stressed, as if the tone of voice would be affected. More importantly, <strong>the placement of stress should affect the meaning of the passage</strong>. If the emphasis were to be removed or relocated, the passage's meaning should change.</p>
+			
+			<code class="lang-css">em > em</code>
+			<em><em>further emphasis</em></em>
+			<p class="draft">adds a level of emphasis</p>
+		</section>
+		<section id="impt">
+			<h1 class="h-delta">Importance</h1>
+			<code class="lang-css">strong</code>
+			<strong>important text</strong>
+			<p class="draft">represent text that has a level of importance. Important text does not necessarily affect tone of voice (although it may), but rather upsets the normal prose by causing the reader to examine the text more carefully. The placement of importance should not affect the meaning of the passage.</p>
+		</section>
+		<section id="rlvn">
+			<h1 class="h-delta">Relevance</h1>
+			<code class="lang-css">mark</code>
+			<mark>relevant text</mark>
+			<p class="draft">represent phrases that are relevant to a particular subject in a different context. <span class="draft">In an article about black holes, for example, the author may want to mark up anything that has to do with the <b>Law of Conservation of Information</b> in one way, and mark up any phrases involving <b>String Theory</b> in another way (using classes, the reviewer could style different contexts accordingly). <code class="lang-css">mark</code> is ideal because these two subjects are not directly related to the article's main topic. Readers will be drawn to the corresponding subjects more efficiently.</span></p>
+		</section>
+		<section id="mood">
+			<h1 class="h-delta">Altered Tone of Voice</h1>
+			
+			
+			
+			<code class="lang-css">i.thought</code>
+			<i class="thought">silent thought</i>
+			<p class="draft">represents an altered voice in the form of a thought</p>
+			
+			<code class="lang-css">i[lang="it"]</code>
+			<i lang="it">foreign language</i>
+			<p class="draft">can be used to mark up phrases in foreign languages, such as the taxonomic classification (in Latin) of an organism.</p>
+		</section>
+		<section id="kywd">
+			<h1 class="h-delta">Keywords</h1>
+			<code class="lang-css">b.keyword</code>
+			<b class="keyword">keywords or technical terms</b>
+			<p class="draft">represent text that indicates specific terms, key words, technical terms or vocabulary words</p>
+			
+			<code class="lang-css">b.proper</code>
+			<b class="proper">proper noun traditionally italicized</b>
+			<p class="draft">traditionally italicized proper nouns such as ship names, periodical titles, etc.</p>
+			
+			<code class="lang-css">b.ref</code>
+			<b class="ref">reference</b>
+			<p class="draft">reference to the name or title of a <a href="#scheme-heading">heading</a>, section, <a href="#scheme-figure">figure</a>, or <a href="#scheme-table">table</a> (or column in a table), when <a>hyperlinks</a> or <a>citations</a> are not ideal.</p>
+		</section>
+	</section>
+	<section id="scheme-doc">
+		<h1 class="h-gamma">Documentation Scheme</h1>
+		<section id="quotations">
+			<code class="lang-css">q</code>
+			<q>something</q>
+			<p class="draft">directly quoting small material,  etc.</p>
+		</section>
+		<section id="citations">
+			<code class="lang-css">cite</code>
+			<cite>something</cite>
+			<p class="draft">citing copyrighted material, titles of published works, etc.</p>
+		</section>
+		<section id="definitions">
+			<code class="lang-css">dfn</code>
+			<dfn id="">definining instance of a term</dfn>
+			<p class="draft">Every <code class="lang-css">dfn</code> must have an <code class="lang-html">id</code> present. Thus there must only be one <code class="lang-css">dfn</code> per page which contains a given term in question. Furthermore, other hyperlinks can point to the defining instance of the term.</p>
+		</section>
+		<section id="abbreviations">
+			<code class="lang-css">abbr[title]</code>
+			<abbr title="expanded">abbreviated text with a <code class="lang-html">title</code> attribute</abbr>
+			<p class="draft">something</p>
+		</section>
+		<section id="edits">
+			<h1 class="h-delta">Document Edits</h1>
+			<section>
+				<code class="lang-css">del</code>
+				<del>text deleted from a document</del>
+				<del datetime="1970-01-01">deleted text with a <code class="lang-html">datetime</code></del>
+				<p class="draft">something</p>
+			</section>
+			<section>
+				<code class="lang-css">ins</code>
+				<ins>text inserted into a document</ins>
+				<ins datetime="1970-01-01">inserted text with a <code class="lang-html">datetime</code></ins>
+				<p class="draft">something</p>
+			</section>
+			<p class="prose">Use an <a href="#association-lists">association list</a> to mark up document metadata.</p>
+		</section>
+		<section id="scripts">
+			<h1 class="h-delta">Super- and Subscripts</h1>
+		</section>
+	</section>
+	<section id="scheme-links">
+		<h1 class="h-gamma">Hyperlink Scheme</h1>
+
+		<p><a>This is an <code class="lang-css">a</code>.</a></p>
+		<p><a class="sp">This is an <code class="lang-css">a.sp</code>.</a></p>
+		<p><a href="#">This is an <code class="lang-css">a[href]</code>.</a></p>
+		<p><a class="sp" href="#">This is an <code class="lang-css">a.sp[href]</code>.</a></p>
+
+		<a class="a-block">This is an <code class="lang-css">a.a-block</code>.</a>
+		<a class="a-block sp">This is an <code class="lang-css">a.a-block.sp</code>.</a>
+		<a class="a-block" href="#">This is an <code class="lang-css">a.a-block[href]</code>.</a>
+		<a class="a-block sp" href="#">This is an <code class="lang-css">a.a-block.sp[href]</code>.</a>
+	</section>
+	<section id="scheme-code">
+		<h1 class="h-gamma">Code and Math Scheme</h1>
+		<pre class="draft">
+there are many different "coding" (for lack of better term) elements.
+To start off with the easiest, the `code` element represents a span or string of text that a computer program would recognize. For example, it could be an element or class name, an object, function, or property name, a declaration, or even a whole block of code. Anything that is recognizable by a program.
+
+The `pre` element represents preformatted text. I put this element under the <b>coding</b> category because it's really only used for code, but was meant for marking up that the meaning of the contents is conveyed through its typographical presentation. For example, indents in an email may convey quote levels, the presentation and organization of the text in a poem might have been meant for preserving, and ASC-II art.
+
+Blocks of code are meant to preserve their formatting and that in some languages if the formatting changes, the program changes. A `code` element nested in a `pre` element represents a block of code.
+
+Then there is the `kbd` element. It *per se* represents user input. This could be in the form of typing, choosing a menu item, or even speaking. Any kind of information the user is expected to, or could possibly do, give to the interface should be marked down with `kbd`.
+
+Sometimes, user input calls for specific actions. For example, the interface might direct the user to calculate the sum of 5 and 6. If the interface told the user explicitly which buttons to press, these would each be marked down with a `kbd` element within a `kbd` element. The outer `kbd` element represents the user input, the action of adding 5 and 6. But then there would be three nested `kbd` elements, each corresponding to a key (one for the 5, one for the plus, and one for the 6).
+
+Lastly, the `samp` element represents sample output from a computer. These elements are mainly used for demonstrations, for example if a block of code is presented, then the sample rendering is presented alongside the code to show the reader the relationship.
+		</pre>
+	</section>
+	<section id="scheme-labels">
+		<h1 class="h-gamma">Label Scheme</h1>
+		<p><span class="warning">This is a warning label.</span> Use it to indicate a negative consequence, such as an action that cannot be undone or will cause something to break.</p>
+		<p><span class="caution">This is a caution label.</span> Use it to indicate that the user must proceed with care.</p>
+		<p><span class="success">This is a success label.</span> Use it to indcate that something was done right.</p>
+		<p><span class="info">This is a info label.</span> Use it to indicate extra information about an element.</p>
+		<p><span class="help">This is a help label.</span> Use it to indicate tips and hints for the user.</p>
+		<p class="draft"><span class="cyan">This is a cyan label.</span> Use it to indicate ???</p>
+	</section>
+</section>
+<section id="forms" class="draft">
+	<h1 class="h-beta">Form Elements</h1>
+	<p class="prose">......</p>
+</section>
+</main>
+</body>
+</html>

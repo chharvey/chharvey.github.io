@@ -132,12 +132,12 @@ td {
 .res-institution + table {
   margin-top: 0;
 }
-figure > :first-child,
-blockquote > :first-child,
-li > :first-child,
-dt > :first-child,
-dd > :first-child,
-td > :first-child {
+figure > :first-child:not(h1),
+blockquote > :first-child:not(h1),
+li > :first-child:not(h1),
+dt > :first-child:not(h1),
+dd > :first-child:not(h1),
+td > :first-child:not(h1) {
   margin-top: 0;
 }
 /* @end */
@@ -544,29 +544,6 @@ main,
   margin-right: 14.58980338%;
   margin-bottom: 192px;
 }
-.masthead {
-  width: 14.58980338%;
-  margin-left: 85.41019662%;
-  margin-right: 0;
-  position: fixed;
-  top: 48px;
-}
-.masthead nav {
-  width: 61.80339887%;
-  margin-left: 14.58980338%;
-  margin-right: 23.60679775%;
-}
-.masthead nav .mylogo {
-  display: block;
-  margin-bottom: 0;
-  position: relative;
-  top: 0;
-  border-bottom-width: 0;
-  border-bottom-style: solid;
-  font-weight: bold;
-  font-size: 96px;
-  font-family: 'Times', 'Times New Roman', serif;
-}
 /* @end */
 /* @group headings */
 .h,
@@ -646,7 +623,7 @@ span.hsub,
   font-size: 80%;
   padding-left: 24px;
   font-weight: normal;
-  color: #c87b00;
+  color: rgba(5, 3, 0, 0.61803399);
 }
 .h-alpha,
 .phispiral-button-text,
@@ -739,7 +716,7 @@ span.hsub,
   text-align: justify;
   list-style-type: decimal;
 }
-.prose li {
+.prose > li {
   margin-top: 24px;
 }
 .nonnormative {
@@ -801,7 +778,7 @@ blockquote:not(.prose) > .src {
   float: right;
 }
 blockquote:not(.prose) > .src::before {
-  content: '~ ';
+  content: '~\0020';
 }
 blockquote:not(.prose) > .src::after {
   content: '';
@@ -884,6 +861,9 @@ dd > ul:only-child,
 .list-music-orgs,
 .list-math-vt,
 .list-music-vt,
+.list-inline-c,
+.list-inline-n,
+.list-inline-m,
 .docmeta,
 .list-swimming,
 .list-blogs,
@@ -895,8 +875,29 @@ dd > ul:only-child,
   padding: 0;
   list-style-type: none;
 }
-.list-inline > li {
+.list-inline > li,
+.list-inline-c > li,
+.list-inline-n > li,
+.list-inline-m > li {
   display: inline;
+}
+.list-inline-c > li::after {
+  content: ',' '\0020';
+}
+.list-inline-c > li:last-child::after {
+  content: '';
+}
+.list-inline-n > li::after {
+  content: '\0020\2013' '\0020';
+}
+.list-inline-n > li:last-child::after {
+  content: '';
+}
+.list-inline-m > li::after {
+  content: '\0020\2014' '\0020';
+}
+.list-inline-m > li:last-child::after {
+  content: '';
 }
 .list-float-1 {
   display: table;
@@ -1105,6 +1106,12 @@ dd {
 .docmeta > dt::after {
   content: ':';
 }
+.docmeta time:not(.submit):not(.recent) .hm {
+  display: none;
+}
+.docmeta .hm::before {
+  content: '@\0020';
+}
 /* @end */
 /* @group tables */
 table {
@@ -1157,13 +1164,13 @@ th {
   background-color: #f1feff;
 }
 .table-bars thead th:nth-child(odd) {
-  background-color: #ffffff;
+  background-color: #f4fcfc;
 }
 .table-bars thead th:nth-child(even) {
-  background-color: #ffffff;
+  background-color: #e8f8fa;
 }
 .table-bars thead th:first-child {
-  background-color: #ffffff;
+  background-color: #ddf5f7;
 }
 .table-bars td:nth-child(odd) {
   background-color: #f1feff;
@@ -1347,10 +1354,7 @@ a[href][rel="external"]:hover {
 a[href]:active {
   color: #fff155;
 }
-a dfn,
-a abbr,
 a code,
-a .latex,
 a div.precode {
   color: inherit;
 }
@@ -1430,18 +1434,34 @@ div.precode a,
   background-color: #050300;
 }
 /* @end */
-/* @group breadcrumbs */
+/* @group masthead and breadcrumbs */
+.masthead {
+  width: 14.58980338%;
+  margin-left: 85.41019662%;
+  margin-right: 0;
+  position: fixed;
+  top: 48px;
+}
+.masthead nav {
+  width: 61.80339887%;
+  margin-left: 14.58980338%;
+  margin-right: 23.60679775%;
+}
+.masthead nav .mylogo {
+  display: block;
+  margin-bottom: 0;
+  position: relative;
+  top: 0;
+  border-bottom-width: 0;
+  border-bottom-style: solid;
+  font-weight: bold;
+  font-size: 96px;
+  font-family: 'Times', 'Times New Roman', serif;
+}
 .bc {
   position: fixed;
   top: 48px;
   z-index: 1;
-}
-.bc .this {
-  font-weight: bold;
-}
-.bc .this::before {
-  content: '';
-  margin-right: 0;
 }
 .bc a {
   padding: 3px 15px;
@@ -1451,22 +1471,24 @@ div.precode a,
 .bc a::before {
   margin-right: 12px;
 }
+.bc [rel~="this"] {
+  font-weight: bold;
+}
+.bc [rel~="this"]::before {
+  content: '';
+  margin-right: 0;
+}
 .bc-anc,
 .bc-sib,
 .bc-child {
   margin-top: 0;
+  padding-bottom: 24px;
 }
 .bc-anc li,
 .bc-sib li,
 .bc-child li {
   margin-top: 18px;
   margin-bottom: -2px;
-}
-.bc-anc {
-  padding-bottom: 24px;
-}
-.bc-child {
-  margin-top: 24px;
 }
 /* @end */
 /* @group coding and math */
@@ -1561,7 +1583,6 @@ kbd > kbd {
 .latex {
   font-family: 'Times', 'Times New Roman', serif;
   white-space: pre-wrap;
-  color: #000000;
 }
 div.latex,
 p.latex {
@@ -2130,3 +2151,23 @@ figure .U-P4-right {
   padding: 0 6px;
 }
 /* @end */
+.debug-box-block {
+  display: inline;
+  padding: 0 1px;
+  border: 1px solid;
+  border-radius: 3px;
+  white-space: nowrap;
+  display: inline-block;
+  display: block;
+  padding: 0 4px;
+  margin-bottom: -1px;
+  position: relative;
+  top: -1px;
+  margin-bottom: -2px;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 10px;
+  margin-left: 4px;
+  margin-right: 4px;
+  white-space: normal;
+}

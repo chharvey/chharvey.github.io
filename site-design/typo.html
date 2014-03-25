@@ -22,55 +22,41 @@ body {
 {% include masthead.html %}
 <nav class="bc">
 	<ol class="bc-anc">
-		<li><a href="../index.html">Home</a></li>
-		<li><a href="../home/web.html">Web</a></li>
+		<li><a href="../index.html" rel="ancestor">Home</a></li>
+		<li><a href="../home/web.html" rel="parent">Web</a></li>
 	</ol>
 	<ol class="bc-sib">
-		<li><a href="phi.html">Mathematical Background</a></li>
-		<li><a href="grid.html">The Grid</a></li>
-		<li><a href="typo.html" class="this">Typography</a></li>
-		<li><a href="colors.html">Colors</a></li>
+		<li><a href="semantics.html" rel="sibling">Semantics</a>
+		<li><a href="grid.html" rel="sibling">The Grid</a></li>
+		<li><a href="typo.html" rel="this">Typography</a></li>
+		<li><a href="colors.html" rel="sibling">Colors</a></li>
+	</ol>
+	<ol class="bc-child">
 	</ol>
 </nav>
 <main>
 <header>
 	<h1 class="h-alpha">Site Design &mdash; Typography</h1>
-<!--	<p class="timestamp">Updated <time datetime="2014-02-02T23:03">Feb 2, 2014</time>.</p>-->
 </header>
 <p class="prose">This document...</p>
-<section id="group-level">
-	<h1 class="h-beta">Group-Level Semantics</h1>
+<section id="scheme-flow">
+	<h1 class="h-beta">Flow Content</h1>
 	<p class="prose">This section...</p>
-	<p id="scheme-main" class="prose">Group all page-specific content into exactly one <code class="lang-css">main</code> element. There should only be one <code class="lang-css">main</code> element per document, and it should only contain the content specific to that document, yet it should contain all content specific to the document, including any side text, footers, or other extraneous information. It should not include any site-wide navigational aids, headers, footers, <i lang="la"><abbr title="et cetera">etc.</abbr></i> <code class="lang-css">main</code> is not sectioning content, so it does not add a level to the Document Outline.</p>
-	<section id="scheme-section">
-		<h1 class="h-gamma">Sectioning the Document Outline</h1>
-		<p class="prose">An outline exists for every document. On a Web page, the <code class="lang-css">body</code> represents the document and we refer to its outline as the <a class="sp" href="http://www.w3.org/html/wg/drafts/html/master/sections.html#outline" rel="external">Document Outline</a>.</p>
-		<p class="prose"><dfn id="sectioning-content"><a class="sp" href="http://www.w3.org/html/wg/drafts/html/master/dom.html#sectioning-content-0" rel="external">Sectioning content</a></dfn> is content that contributes to the Document Outline. Each sectioning element potentially has a heading and its own outline, which contributes to the outline of its ancestors. The following elements mark up sectioning content and introduce new levels in the Document Outline:</p>
-		<ul>
-			<li><code class="lang-css">section</code></li>
-			<li><code class="lang-css"><a href="#scheme-aside">aside</a></code></li>
-			<li><code class="lang-css">nav</code></li>
-			<li><code class="lang-css">article</code></li>
-		</ul>
-		<p class="prose">A <code class="lang-css">section</code> represents a thematic grouping of content that is added to the outline of the nearest ancestor sectioning root. If the nearest ancestor sectioning root is the <code class="lang-css">body</code>, then its level will be added to the Document Outline. If its nearest ancestor sectioning root is another sectioning root, then the level will be added to that sectioning root's outline without affecting the Document Outline. Each section may have its own <a href="#scheme-heading">heading</a> and outline. In addition, a section may contain a <a href="#scheme-header">header and/or a footer</a>, which does not affect its outline.</p>
-		<p class="prose">Implicit sections may also be added to the Document Outline via headings. For example, in a <code class="lang-css">section</code> titled with an <code class="lang-css">h1</code>, there may exist an <code class="lang-css">h2</code>, which implicitly creates and titles a subsection of the <code class="lang-css">section</code> element. It is <em>not</em> recommended to follow this convention. When creating a section, always do it explicitly with a <code class="lang-css">section</code> element and title it with an <code class="lang-css">h1</code>. See the <a href="#scheme-heading">Heading Scheme</a> below for styles.</p>
-		<p class="prose">A <dfn id="sectioning-root"><a class="sp" href="http://www.w3.org/html/wg/drafts/html/master/sections.html#sectioning-root" rel="external">sectioning root</a></dfn> is like sectioning content in that it may have its own heading and outline, however, the outline of a sectioning root does not affect the Document Outline (unless of course, the sectioning root in question is the <code class="lang-cs">body</code> element, in which case its outline <em>is</em> the Document Outline). This means sectioning roots may include sectioning content but their outlines are isolated and do not add levels to the outlines of their ancestors. The following elements are sectioning roots:</p>
-		<ul>
-			<li><code class="lang-css">body</code></li>
-			<li><code class="lang-css"><a href="#scheme-figure-blockquote">figure</a></code></li>
-			<li><code class="lang-css"><a href="#scheme-figure-blockquote">blockquote</a></code></li>
-			<li><code class="lang-css"><a href="#scheme-table">td</a></code></li>
-			<li><code class="lang-css">fieldset</code></li>
-			<li><code class="lang-css">details</code></li>
-			<li><code class="lang-css">dialog</code></li>
-		</ul>
-		<p><span class="caution">Caution <time>2014-02-26</time>:</span> <code class="lang-css"><a href="#scheme-list">li</a></code> seems like it should be a sectioning root but it is not! Do not contain sectioning content inside an <code class="lang-css">li</code> unless you want to change the Document Outline.</p>
-		<aside id="scheme-aside">
-			<h1 class="h-delta">Asides</h1>
-			<p class="prose">This is an aside. An aside contains content that is tangentially related to the main content of the document. An example of an aside could be a pull quote in a magazine article, or a definition in the margin of a textbook that has been extracted from the glossary.</p>
-			<p class="prose">The <code class="lang-css">aside</code> element is sectioning content, so it may contain a <a href="#scheme-heading">heading</a> and an outline, which adds to the Document Outline. The actual content in an <code class="lang-css">aside</code>s should not affect the normal flow of the document content, however, which means it may be taken out of context and placed in a margin, appendix, or other perihperal part of the document.</p>
-			<p class="prose">To that end, there are two rules to an <code class="lang-css">aside</code>. First, the normal flow of the document must not be disturbed if it were removed, so you should be able to completely skip the aside without missing a beat. Second, the aside itself must make sense isolated and out of context, so reading the aside all by itself should make sense.</p>
-			<p class="prose">Sometimes you may want to place an aside literally to the side of the document. <a href="grid.html">The <code class="lang-css">.gutter-major</code> and <code class="lang-css">.gutter-minor</code> classes</a> can be used on any element, but use them on an <code class="lang-css">aside</code> if you wish. See the following two asides. (It is valid to have an <code class="lang-css">aside > aside</code>.)</p>
+	<section id="scheme-heading">
+		<h1 class="h-gamma">Heading Scheme</h1>
+		<p class="prose">See the scheme below for styles. Use the <code>.h-alpha</code>, <code>.h-beta</code>, <code>.h-gamma</code>, <code>.h-delta</code>, <code>.h-epsilon</code>, and <code>.h-zeta</code> classes.</p>
+		<figure>
+			<h1 class="h-alpha">Heading 1 <span class="hsub">Level Alpha</span></h1>
+			<h1 class="h-beta">Heading 2 <span class="hsub">Level Beta</span></h1>
+			<h1 class="h-gamma">Heading 3 <span class="hsub">Level Gamma</span></h1>
+			<h1 class="h-delta">Heading 4 <span class="hsub">Level Delta</span></h1>
+			<h1 class="h-epsilon">Heading 5 <span class="hsub">Level Epsilon</span></h1>
+			<h1 class="h-zeta">Heading 6 <span class="hsub">Level Zeta</span></h1>
+		</figure>
+	</section>
+		<aside id="scheme-aside" class="draft">
+			<h1 class="h-delta">Asides---Move to <code class="dir">grid.html</code></h1>
+			<p class="prose">This is an aside. Sometimes you may want to place an aside literally to the side of the document. <a href="grid.html">The <code class="lang-css">.gutter-major</code> and <code class="lang-css">.gutter-minor</code> classes</a> can be used on any element, but use them on an <code class="lang-css">aside</code> if you wish. See the following two asides. (It is valid to have an <code class="lang-css">aside > aside</code>.)</p>
 			<aside class="gutter-major">
 				<h1 class="h-epsilon">Major Aside</h1>
 				<p>This is an <code class="lang-css">aside.gutter-major</code>. Apply this class to any element you want to appear in the major gutter outside the document.</p>
@@ -80,64 +66,6 @@ body {
 				<p>This is a <code class="lang-css">aside.gutter-minor</code>. Apply this class to any element you want to appear in the minor gutter outside the document.</p>
 			</aside>
 		</aside>
-		<section id="scheme-nav">
-			<h1 class="h-delta">Navigational Elements</h1>
-			<p class="prose">A <code class="lang-css">nav</code> is sectioning content that contains links to other pages or to parts within the same page. There are two classes for the nav element: <code class="lang-css">nav.bc</code>, a section of links to <a href="#D-logical-relative">logical relatives</a> of that page, and <code class="lang-css">nav.toc</code>, a section of links to other sections in that page.</p>
-			<section>
-				<h1 class="h-epsilon">Breadcrumbs</h1>
-				<section>
-					<h1 class="h-zeta">Page Relationships</h1>
-					<p class="prose">For simplicity, we will use the examples <code class="dir">page-a.html</code> and <code class="dir">page-b.html</code> in this section for an illustration. We will use <var>A</var> to refer to <code class="dir">page-a.html</code>, and <var>B</var> to refer to <code class="dir">page-a.html</code>.</p>
-					<p class="prose">A <dfn id="D-logical-relative">logical relative</dfn> to a page <var>A</var>, is another page <var>B</var> that is related in content to <var>A</var>. The logical relation between <var>A</var> and <var>B</var> has nothing to do with their locations in the digital directory, but rather a &ldquo;semantic filetree&rdquo; that describes how the pages are related.</p>
-					<p class="prose">There are three ways <var>B</var> can be logically related to <var>A</var>: it may be its <dfn id="logical-child">logical child</dfn>, indicating that the content of <var>B</var> is a subset or tangential extension of the content of <var>A</var>; it may be its <dfn id="logical-sibling">logical sibling</dfn>, in which case <var>A</var> and <var>B</var> are both logical children of the same page; or it may be its <dfn id="logical-parent">logical parent</dfn>, in other words, <var>A</var> is a logical child of <var>B</var>.</p>
-					<p class="prose">A <dfn id="logical-ancestor">logical ancestor</dfn>, <var>C</var>, to a page <var>A</var> is either the logical parent of <var>A</var> or the logical parent of any <a href="#logical-ancestor">logical ancestor</a> of <var>A</var>. (This term is recursively defined.)</p>
-				</section>
-				<p class="prose">To make breadcrumbs for a given page, create a <code class="lang-css">nav.bc</code> <strong><em>outside</em> the <code class="lang-css"><a href="#scheme-main">main</a></code> element</strong>. This <code class="lang-css">nav.bc</code> must contain exactly three elements, in the following order:</p>
-				<ol>
-					<li><code class="lang-css">ol.bc-anc</code>, which contains all the logical ancestors, in order of the &ldquo;semantic filetree&rdquo; from top to bottom;</li>
-					<li><code class="lang-css">ul.bc-sib</code>, which contains all the logical siblings, in any order; and</li>
-					<li><code class="lang-css">ul.bc-child</code>, which contains all the logical children, in any order.</li>
-				</ol>
-				<p class="prose">Each of the three lists above must contain 0 or more list items, with each list item containing only exactly 1 link. The links in the each list correspond to the logical relatives of the current page.</p>
-				<div class="draft">
-					<p class="prose">Each <code class="lang-css">a</code> element must have a <code class="lang-html">rel</code> attribute, which must be one of three values:</p>
-					<ul>
-						<li><code class="lang-html">rel=&quot;ancestor&quot;</code>, if the link is an <code class="lang-css">ol.bc-anc a</code>;</li>
-						<li><code class="lang-html">rel=&quot;sibling&quot;</code>, if the link is an <code class="lang-css">ul.bc-sib a</code>; or</li>
-						<li><code class="lang-html">rel=&quot;child&quot;</code>, if the link is an <code class="lang-css">ol.bc-child a</code>.</li>
-					</ul>
-				</div>
-			</section>
-		</section>
-	</section>
-	<section id="scheme-header">
-		<h1 class="h-gamma">Headers and Footers</h1>
-		<p class="prose">Headers and footers are not sectioning content, so they do not add levels to the Document Outline.</p>
-		<p class="prose"><code class="lang-css">header</code>s for a section should contain a <a href="#scheme-heading">heading</a> and introductory content. Introductory content may include but is not limited to navigational aids within the section and metadata about the section <em>itself</em> such as authors, editors, and time written/published.</p>
-		<p class="prose"><code class="lang-css">footer</code>s for a section should contain metadata about the <em>content</em> in the section, such as copyright information, related links, and contact information (possibly in an <code class="lang-css"><a href="#scheme-address">address</a></code> element). The section below describes how to use headers/footers to markup <a href="#scheme-footnotes">footnotes</a>.</p>
-		<p><span class="caution">Caution: <time>2014-02-26</time></span> There is a large gray area concerning the content that should belong in the <code class="lang-css">header</code> versus the <code class="lang-css">footer</code> elements. Since the order in which these elements are written is semantically irrelevant (it doesn't matter where they appear on the page) and the distinction between them is so small, authors who wish to use both may best consider the <code class="lang-css">header</code> as opening material and the <code class="lang-css">footer</code> as closing material for a section.</p>
-		<p>A different stance authors may want to take is to consider using only the <code class="lang-css">header</code> element&mdash;possibly more than once in a section, <i lang="la"><abbr title="examplia gratis">e.g.</abbr></i>, at the top and at the bottom&mdash;and completely disregarding the <code class="lang-css">footer</code> element. This is the recommendation given by this documentation.</p>
-	</section>
-	<section id="scheme-heading">
-		<h1 class="h-gamma">Heading Scheme</h1>
-		<p class="prose">Headings describe sections of a document. They title the levels in the Document Outline. Use the <code class="lang-css">h1</code>&ndash;<code class="lang-css">h6</code> elements, or use the <code>.h-alpha</code>, <code>.h-beta</code>, <code>.h-gamma</code>, <code>.h-delta</code>, <code>.h-epsilon</code>, and <code>.h-zeta</code> classes to make non-heading elements look like headings. It is recommended to consistently use <code class="lang-css">section &gt; h1</code>s, and then apply respective classes above based on heading level. This document exercises this practice.</p>
-		<p class="prose">Some headings may require a subheading. To use one, add a <code class="lang-css">span.hsub</code> <em>inside</em> the heading element, as shown below.</p>
-		<p><span class="caution">Caution <time>2014-02-23</time>:</span> The correct element used for subheadings has been controversial&mdash;some developors support the use of <code class="lang-css">small</code>, while others believe this element is best used only for side comments, small print, legal information, <i lang="la"><abbr title="et cetera">etc</abbr></i>. For now, stick with a <code class="lang-css">span</code> and stay tuned for updates.</p>
-		<figure>
-			<h1 class="h-alpha">Heading 1 <span class="hsub">Level Alpha</span></h1>
-			<p class="prose">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-			<h1 class="h-beta">Heading 2 <span class="hsub">Level Beta</span></h1>
-			<p class="prose">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-			<h1 class="h-gamma">Heading 3 <span class="hsub">Level Gamma</span></h1>
-			<p class="prose">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-			<h1 class="h-delta">Heading 4 <span class="hsub">Level Delta</span></h1>
-			<p class="prose">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-			<h1 class="h-epsilon">Heading 5 <span class="hsub">Level Epsilon</span></h1>
-			<p class="prose">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-			<h1 class="h-zeta">Heading 6 <span class="hsub">Level Zeta</span></h1>
-			<p class="prose">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-		</figure>
-	</section>
 	<section id="scheme-paragraph">
 		<h1 class="h-gamma">Paragraph Scheme</h1>
 		<p>Paragraphs (<code class="lang-css">p</code>) are the backbone of a document; they are made to organize and group textual ideas together. In the written media, paragraphs can span anywhere from 3 to 8 sentences. However on the Web, they can be much, much shorter. This paragraph does not have any classes added. We will call these &ldquo;regular paragraphs.&rdquo;</p>
@@ -202,24 +130,51 @@ body {
 	</section>
 	<section id="scheme-list">
 		<h1 class="h-gamma">List Scheme</h1>
+		<section>
+			<h1 class="h-epsilon">Breadcrumbs</h1>
+		</section>
+		<section>
+			<h1 class="h-epsilon">Table of Contents</h1>
+		</section>
+
 		<section id="ordered-unordered-lists">
 			<h1 class="h-delta">Ordered and Unordered Lists</h1>
 			<p><span class="success">Note:</span> On all lists below, outlines and background colors have been added to each item to show structure.</p>
-			<ol class="typo-list">
-				<li>This is an ordered list (<code class="lang-css">ol</code>), without any classes added. Ordered lists contain 0 or more list items (<code class="lang-css">li</code>).</li>
-				<li>Use ordered lists to list items of which the order is <dfn id="order-relevant">relevant</dfn>, that is, changing the order of the items would change the outcome or semantics of the list.</li>
+			<ol class="list-basic typo-list">
+				<li>This is a <code class="lang-css">.list-basic</code>.</li>
+				<li>This class can be applied to any <code class="lang-css">ol</code> or <code class="lang-css">ul</code>, and both elements appear the same, though of course they differ semantically. For the <a href="#association-lists">association list</a> equivalent, do not use this class. Use <code class="lang-css">.dl-basic</code> instead.</li>
+				<li>Basic lists remove the padding and list-style-type from the list,</li>
+				<li>while maintaining the list-item display of each list item.</li>
 			</ol>
-			<ul class="typo-list">
-				<li>This is an unordered list (<code class="lang-css">ul</code>), without any classes added. Unordered lists contain 0 or more list items (<code class="lang-css">li</code>).</li>
-				<li>Use unordered lists to list items of which the order is <dfn id="order-irrelevant">irrelevant</dfn>, that is, changing the order of the items would not change the outcome or semantics of the list.</li>
-			</ul>
-			<ul class="typo-list">
-				<li>To nest lists,
-					<ul>
-						<li>contain an <code class="lang-css">ol</code> or <code class="lang-css">ul</code> inside an <code class="lang-css">li</code> of the parent list.</li>
-					</ul>
-				</li>
-			</ul>
+			<ol class="list-inline typo-list">
+				<li>For a basic list in which</li>
+				<li>the list items</li>
+				<li>are displayed inline,</li>
+				<li>use <code class="lang-css">.list-inline</code>.</li>
+				<li>The list itself is still displayed as a block.</li>
+			</ol>
+			<ol class="list-inline-c typo-list">
+				<li>Use <code class="lang-css">.list-inline-c</code></li>
+				<li>for an inline list</li>
+				<li>with comma-separated</li>
+				<li>list items.</li>
+				<li>This would be best for a list of keywords, etc.</li>
+				<li>The last list item</li>
+				<li>is not followed by</li>
+				<li>a comma.</li>
+			</ol>
+			<ol class="list-inline-n typo-list">
+				<li><code class="lang-css">.list-inline-n</code></li>
+				<li>achieves the same effect</li>
+				<li>except it uses en dashes</li>
+				<li>instead of commas.</li>
+			</ol>
+			<ol class="list-inline-m typo-list">
+				<li><code class="lang-css">.list-inline-m</code></li>
+				<li>achieves the same effect</li>
+				<li>except it uses em dashes</li>
+				<li>instead of commas.</li>
+			</ol>
 			<ol class="list-alpha typo-list">
 				<li>Ordered lists can be nested to represent an outline, such as a table of contents. If you want to do this, use the following classes.</li>
 				<li>This is an <code class="lang-css">ol.list-alpha</code> (upper-roman)
@@ -243,19 +198,6 @@ body {
 						</li>
 					</ol>
 				</li>
-			</ol>
-			<ol class="list-basic typo-list">
-				<li>This is a <code class="lang-css">.list-basic</code>.</li>
-				<li>This class can be applied to any <code class="lang-css">ol</code> or <code class="lang-css">ul</code>, and both elements appear the same, though of course they differ semantically. For the <a href="#association-lists">association list</a> equivalent, do not use this class. Use <code class="lang-css">.dl-basic</code> instead.</li>
-				<li>Basic lists remove the padding and list-style-type from the list,</li>
-				<li>while maintaining the list-item display of each list item.</li>
-			</ol>
-			<ol class="list-inline typo-list">
-				<li>For a basic list in which</li>
-				<li>the list items</li>
-				<li>are displayed inline,</li>
-				<li>use <code class="lang-css">.list-inline</code>.</li>
-				<li>The list itself is still displayed as a block.</li>
 			</ol>
 			<ol class="list-line typo-list">
 				<li>A <code class="lang-css">.list-line</code> is a basic list that acts as a table,</li>
@@ -299,59 +241,21 @@ body {
 			</ol>
 			<ol class="prose typo-list">
 				<li>
-					<p><span class="s-lede">This is an <code class="lang-css">ol.prose</code>.</span> A prose list is an ordered list whose items consist of flow-content. Each list item contains typically 1, but possibly more, paragraph elements. Since the <code class="lang-css">.prose</code> class is applied <strong>to the entire list</strong>, it does not need to apply to the list items or paragraphs within each list item.</p>
 					<p>An <code class="lang-css">ol.prose</code> has <code class="lang-css">list-style-type: decimal;</code> by default, but some prose lists may have other <code class="lang-css">list-style-type</code>s, such as <code class="lang-css">lower-alpha</code>. Use the Greek letter list classes shown above for cutsom numbering.</p>
 				</li>
 				<li>
-					<p><span class="s-lede">Typically, each list item in a prose list will have a lede sentence.</span> This acts like an actual list item in a short list, if the rest of the prose weren't present. It can also be be thought of as a lede or &ldquo;heading&rdquo; for the text, although it does not take part in the Document Outline. Add a <code class="lang-css">span.s-lede</code> to the beginning of the first paragraph in the list item.</p>
+					<p><span class="s-lede">This is a lede sentence of a prose list item.</span> The rest of this list item is normal text. The rest of this list item is normal text. The rest of this list item is normal text. The rest of this list item is normal text.</p>
 				</li>
 				<li>
-					<p><span class="s-lede">Sometimes, a prose list item may have a lede that acts like a heading&hellip;</span><br/>In this case, still use <code class="lang-css">span.s-lede</code>, followed by the <code class="lang-html">&lt;br/&gt;</code> tag to separate the lede from the rest of the paragraph. Again, this lede does not affect the Document Outline. Though actual <code class="lang-css">h1</code>s are <a class="sp" href="http://www.w3.org/html/wg/drafts/html/master/grouping-content.html#the-li-element" rel="external">technically permissible</a> inside <code class="lang-css">li</code>s, they usually make the Outline look icky.</p>
+					<p><span class="s-lede">This is a lede that acts like a heading&hellip;</span><br/>The rest of this list item is normal text. The rest of this list item is normal text. The rest of this list item is normal text. The rest of this list item is normal text.</p>
 				</li>
 			</ol>			
 		</section>
 		<section id="association-lists">
 			<h1 class="h-delta">Association Lists</h1>
-			<dl class="typo-list">
-				<dt>This is an association list (<code class="lang-css">dl</code>), without any classes added.</dt>
-				<dd>An association list contains 0 or more name-value groups. The order of the name-value groups is <b class="keyword">irrelevant</b>.</dd>
-				<dt>A single name-value group consists of 1 or more names (<code class="lang-css">dt</code>) and 1 or more values (<code class="lang-css">dd</code>).</dt>
-				<dd>If there are multiple <code class="lang-css">dt</code>s in a particular group, the order of <code class="lang-css">dt</code>s is <b class="keyword">irrelevant</b>.</dd>
-				<dd>If there are multiple <code class="lang-css">dd</code>s in a particular group, the order of <code class="lang-css">dd</code>s is also <b class="keyword">irrelevant</b>.</dd>
-			</dl>
 			<dl class="dl-basic typo-list">
-				<dt>(This is a <code class="lang-css">dl.dl-basic</code>.) An association list can be thought of as a mathematical relation that is:</dt>
-				<dd><dfn id="defined">defined</dfn>: each name is related to at least one value, and</dd>
-				<dd><dfn id="surjective">surjective</dfn>: each value is related to at least one name.</dd>
-				<dt>An association list may not necessarily be:</dt>
-				<dd><dfn id="well-defined">well-defined</dfn>: it is not necessarily true that each name is related to exactly one value, or</dd>
-				<dd><dfn id="injective">injective</dfn>: it is not necessarily true that each value is related to exactly one name.</dd>
-				<dt>Due to the nature of association lists,</dt>
-				<dd>nested assocation lists can be used to create <a>flow-charts or decision trees</a>.</dd>
-			</dl>
-			<dl class="typo-list">
-				<dt>If a name-value group</dt>
-				<dt>contains more than one name per value,</dt>
-				<dd>these names are <em>alternative</em> in that either one, or possibly both, may be accepted.</dd>
-				<dt>The same is true if</dt>
-				<dd>a name-value group</dd>
-				<dd>contains more than one value per name.</dd>
-				<dt>
-					<ul>
-						<li>If authors want <em>all</em> names</li>
-						<li>to apply to a value</li>
-						<li>in one name-value group,</li>
-					</ul>
-				</dt>
-				<dd>they should use a single <code class="lang-css">dt</code> containing only a single <code class="lang-css">ul</code>. The <code class="lang-css">dt &gt; ul:only-child</code> automatically extends <code class="lang-css">.list-basic</code>.</dd>
-				<dt>The same is true for multiple values:</dt>
-				<dd>
-					<ul>
-						<li>If authors want <em>all</em> values</li>
-						<li>to apply to a name,</li>
-						<li>contain only a single <code class="lang-css">ul</code> in a single <code class="lang-css">dd</code>. <code class="lang-css">dd &gt; ul:only-child</code> automatically extends <code class="lang-css">.list-basic</code>.</li>
-					</ul>
-				</dd>
+				<dt>This is a <code class="lang-css">dl.dl-basic</code>.</dt>
+				<dd>Basic association lists look like basic ordered and unordered lists.</dd>
 			</dl>
 			<dl class="dl-group typo-list">
 				<dt>A <code class="lang-css">dl.dl-group</code></dt>
@@ -413,8 +317,8 @@ body {
 				<dt>This list is a</dt>
 				<dd><code class="lang-css">dl.dl-table-lrg</code>&nbsp;</dd>
 			</dl>
-			<p class="prose">Use the <code class="lang-css">dl.docmeta</code> class to mark up metadata for a document or article. Since this metadata is document-specific, it should be contained in the <code class="lang-css"><a href="#scheme-main">main</a> &gt; header</code> or <code class="lang-css">article &gt; header</code>. The following is an example.</p>
 			<figure>
+				<figcaption>The following association list is an example.</figcaption>
 				<dl class="docmeta typo-list">
 					<dt>Author</dt>
 					<dd>Chris Harvey</dd>
@@ -437,48 +341,6 @@ body {
 					<dd><time datetime="2014-03-08T02:53">Mar 8, 2013 @ 02:53</time></dd>
 				</dl>
 			</figure>
-			<p class="draft">specs: each update, with timestamp, for the past 24 hours; each day for the past 7 days; first update of each month for the past 6 months; first update of each year otherwise (submission counts as update). Do not remove old updates; only add class <code class="lang-css">.seo-only</code>. update log will be updated only on file updates. flowchart below:</p>
-			<dl class="prose dl-tree draft">
-				<dt>Is the update the submission date?</dt>
-				<dd>Yes: keep it under <b class="ref">Submitted</b> and display the timestamp.</dd>
-				<dd>
-					<dl>No: 
-						<dt>Is this update within the past 24 hours?</dt>
-						<dd>Yes: display it and display the timestamp.</dd>
-						<dd>
-							<dl>No: 
-								<dt>Is this update within the past 7 days?</dt>
-								<dd>Yes: 
-									<dl>
-										<dt>Is this the first update of a day?</dt>
-										<dd>Yes: display it.</dd>
-										<dd>No: hide it.</dd>
-									</dl>
-								</dd>
-								<dd>No: 
-									<dl>
-										<dt>Is this update within the past 6 months?</dt>
-										<dd>Yes: 
-											<dl>
-												<dt>Is this the first update of a month?</dt>
-												<dd>Yes: display it.</dd>
-												<dd>No: hide it.</dd>
-											</dl>
-										</dd>
-										<dd>No: 
-											<dl>
-												<dt>Is the update the first update of a calendar year?</dt>
-												<dd>Yes: display it.</dd>
-												<dd>No: hide it.</dd>
-											</dl>
-										</dd>
-									</dl>
-								</dd>
-							</dl>
-						</dd>
-					</dl>
-				</dd>
-			</dl>
 		</section>
 	</section>
 	<section id="scheme-table">
@@ -512,9 +374,7 @@ body {
 				</tr>
 			</tbody>
 		</table>
-		<p class="prose">Below is a list-style table (<code class="lang-css">.table-list</code>). List-style tables are best for displaying information that correlates across rows.</p>
-		<p class="prose">In a list-style table, a table header would be a row or row-group (<code class="lang-css">thead</code>) of cells. If a table header is present, its cells may be <code class="lang-css">th</code> cells or <code class="lang-css">td</code> cells. The <code class="lang-css">th</code> cells, if present, should have the <code class="lang-html">scope=&quot;col&quot;</code> or <code class="lang-html">scope=&quot;colgroup&quot;</code> attribute. For thoroughness, these headings may be targeted by all the cells in their scoped columns, via the <code class="lang-html">headers=&quot;&quot;</code> attribute. The body of the table data must be contained in one or more <code class="lang-css">tbody</code> elements. There may be an optional <code class="lang-css">tfoot</code> element.</p>
-		<p class="prose">An example of a list-style table might be a list of student information including names, ages, genders, and ID numbers.</p>
+		<p class="prose">Below is a list-style table (<code class="lang-css">.table-list</code>). List-style tables are best for displaying information that correlates across rows. An example of a list-style table might be a list of student information including names, ages, genders, and ID numbers.</p>
 		<table class="table-list">
 			<thead>
 				<tr>
@@ -546,9 +406,7 @@ body {
 				</tr>
 			</tbody>
 		</table>
-		<p class="prose">Below is a bar-style-table (<code class="lang-css">.table-bars</code>). Bar-style tables are best for displaying information that correlates down columns.</p>
-		<p class="prose">In a bar-style table, a table header would be a column or column group of cells (for which there is no corresponding HTML element). Table heading cells (<code class="lang-css">th</code> cells), if present, should have the <code class="lang-html">scope=&quot;row&quot;</code> or <code class="lang-html">scope=&quot;rowgroup&quot;</code> attribute. For thoroughness, these headings may be targeted by all the cells in their scoped rows, via the <code class="lang-html">headers=&quot;&quot;</code> attribute. The body of the table data must be contained in one or more <code class="lang-css">tbody</code> elements.</p>
-		<p class="prose">An example of a bar-style table might be a spreadsheet displaying the position, velocity, and acceleration values of a falling object across time.</p>
+		<p class="prose">Below is a bar-style-table (<code class="lang-css">.table-bars</code>). Bar-style tables are best for displaying information that correlates down columns. An example of a bar-style table might be a spreadsheet displaying the position, velocity, and acceleration values of a falling object across time.</p>
 		<table class="table-bars">
 			<tbody>
 				<tr>
@@ -604,7 +462,8 @@ body {
 				</tr>
 			</tbody>
 		</table>
-		<div hidden="">
+<!--
+		<div>
 			<p class="prose">Below is a grid-style table (). Grid-style tables are best for displaying information that either correlates across rows, down columns, or tabular data that correlates among both rows and columns.</p>
 			<p class="prose">In a grid-style table, a table header could be a row or row group of cells, or a column or column group of cells. If table header(s) are present, their cells may be normal cells or heading cells (headings). The headings, if present, can have a scope of either <code class="lang-html">scope=&quot;row&quot;</code> or <code class="lang-html">scope=&quot;col&quot;</code>. Similarly, these headings can be targeted by any cells.</p>
 			<p>An example of a grid-style table might be...</p>
@@ -618,6 +477,7 @@ body {
 				</tbody>
 			</table>
 		</div>
+-->
 	</section>
 </section>
 <section id="text-level">
