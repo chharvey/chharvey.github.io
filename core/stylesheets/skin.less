@@ -287,7 +287,7 @@ blockquote {
 	&:not(.prose) > .src {
 		padding-right: @olh;
 		float: right;
-		&::before {content: '~ ';}
+		&::before {content: '~\0020';}
 		&::after {content: '';}
 	}
 }
@@ -334,6 +334,20 @@ li, dt, dd {
 	// * a basic list except the list items are inline.
 	&:extend(.list-basic all);
 	> li {display: inline;}
+}
+.list-inline-separator(@sep) {
+	&:extend(.list-inline all);
+	> li::after {content: @sep '\0020';}
+	> li:last-child::after {content: '';}
+}
+.list-inline-c {
+	.list-inline-separator(',');
+}
+.list-inline-n {
+	.list-inline-separator('\0020\2013');
+}
+.list-inline-m {
+	.list-inline-separator('\0020\2014');
 }
 .list-line {
 	// * a basic list that acts as a table, with the list items acting as table cells
@@ -709,11 +723,8 @@ a {
 		}
 		&:active {color: @color-link-active-txt;}
 	}
-	dfn,
-	abbr,
-	code,
-	.latex {
-		// * certain elements in links not discolored
+	code {
+		// * code in links not discolored
 		color: inherit;
 	}
 }
@@ -723,8 +734,10 @@ div.postal,
 table,
 .fn,
 code {
-	// * no border for links in certain containers
-	a {border: 0;}
+	a {
+		// * no border for links in certain containers
+		border: 0;
+	}
 }
 .a-block {
 	.box-block();
@@ -883,14 +896,15 @@ kbd {
 //	.font-size(small);
 	font-family: @font-fam-math;
 	white-space: pre-wrap;
-	color: @color-code-txt;
 	div&, p& {
 		// * block-level containers
 		overflow: auto;
 	}
 }
 var {font-style: italic;}
-.tex { // a reminder to change all <... class="tex"> to <... class="latex">
+.tex {
+	//a reminder to change all `<... class="tex">` to `<... class="latex">`
+	//a reminder to change all `.tex` to `.latex`
 	color: #f00;
 	* {color: #f00;}
 }
