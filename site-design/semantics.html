@@ -3,15 +3,20 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>Typography &in; Site Design</title>
+<title>Semantics &in; Site Design</title>
 <meta charset="UTF-8"/>
 <link rel="stylesheet" href="../core/stylesheets/all.css"/>
 <style>
+/*
 body {
 	background-image: url('../core/images/crossgrid24.png');
 	background-repeat: repeat-y;
 	background-size: 100% 24px;
 }
+*/
+.yes {background-color: #9f9;}
+.maybe {background-color: #ff9;}
+.no {background-color: #f99;}
 </style>
 {% include all-js.html %}
 <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
@@ -26,9 +31,9 @@ body {
 		<li><a href="../home/web.html" rel="parent">Web</a></li>
 	</ol>
 	<ol class="bc-sib">
-		<li><a href="semantics.html" rel="sibling">Semantics</a>
+		<li><a href="semantics.html" rel="this">Semantics</a>
 		<li><a href="grid.html" rel="sibling">The Grid</a></li>
-		<li><a href="typo.html" rel="this">Typography</a></li>
+		<li><a href="typo.html" rel="sibling">Typography</a></li>
 		<li><a href="colors.html" rel="sibling">Colors</a></li>
 	</ol>
 	<ol class="bc-child">
@@ -36,9 +41,134 @@ body {
 </nav>
 <main>
 <header>
-	<h1 class="h-alpha">Site Design &mdash; Typography</h1>
+	<h1 class="h-alpha">Site Design &mdash; Semantics</h1>
 </header>
 <p class="prose">This document...</p>
+<section id="site-wide">
+	<h1 class="h-beta">Site-Wide Elements</h1>
+	<section id="breadcrumbs">
+		<h1 class="h-gamma">Breadcrumbs</h1>
+		<p class="prose">Each page must contain exactly 1 breadcrumb tree. This will take the form of a <code class="lang-css">nav.bc</code> <strong><em>outside</em> the <code class="lang-css"><a href="#scheme-main">main</a></code> element</strong>. This <code class="lang-css">nav.bc</code> must contain only and exactly 3 elements, in the following order:</p>
+		<ol>
+			<li>1 <code class="lang-css">ol.bc-anc</code>, which contains all the <a href="#D-logical-ancestor">logical ancestors</a> (including the <a href="#D-logical-parent">logical parent</a>) of the page, in order of the &ldquo;semantic filetree&rdquo; from top to bottom;</li>
+			<li>1 <code class="lang-css">ul.bc-sib</code>, which contains all the <a href="#D-logical-sibling">logical siblings</a> of the page (including the same page itself), in any order;</li>
+			<li>and 1 <code class="lang-css">ul.bc-child</code>, which contains all the <a href="#D-logical-child">logical children</a> of the page, in any order. There will be no links to non-child <a href="#D-logical-descendant">descendants</a> in the breadcrumb tree.</li>
+		</ol>
+		<p class="prose">Each of the 3 lists above must contain at least 0 list items, with each list item containing only and exactly 1 link. The links in the each list correspond to the logical relatives of the current page.</p>
+		<p class="prose">Each <code class="lang-css">a</code> element on a page's breadcrumbs list must have exactly one <code class="lang-html">rel</code> attribute, which must be one of the following values:</p>
+		<dl>
+			<dt><code class="lang-html">rel=&quot;ancestor&quot;</code></dt>
+			<dd>if the link corresponds to a <em>non-<a href="#D-logical-parent">parent</a></em> <a href="#D-logical-ancestor">logical ancestor</a> of the page</dd>
+			<dt><code class="lang-html">rel=&quot;parent&quot;</code></dt>
+			<dd>if the link corresponds to the unique <a href="#D-logical-parent">logical parent</a> of the page</dd>
+			<dt><code class="lang-html">rel=&quot;sibling&quot;</code></dt>
+			<dd>if the link corresponds to a <a href="#D-logical-sibling">logical sibling</a> to a page but is <em>not</em> that page</dd>
+			<dt><code class="lang-html">rel=&quot;this&quot;</code></dt>
+			<dd>if the link corresponds to the same page</dd>
+			<dt><code class="lang-html">rel=&quot;child&quot;</code></dt>
+			<dd>if the link corresponds to a <a href="#D-logical-child">logical child</a> of the page</dd>
+		</dl>
+		<aside class="debug-box-block">
+			<h1 class="h-delta">Page Relationships</h1>
+			<p class="prose">For simplicity, we will use the examples <code class="dir">page-a.html</code> and <code class="dir">page-b.html</code> in this section for an illustration. We will use <var>A</var> to refer to <code class="dir">page-a.html</code>, and <var>B</var> to refer to <code class="dir">page-b.html</code>.</p>
+			<p class="prose">A <dfn id="D-logical-relative">logical relative</dfn> to a page <var>A</var>, is another page <var>B</var> that is related in content to <var>A</var>. The logical relation between <var>A</var> and <var>B</var> has nothing to do with their locations in the file directory, but rather a &ldquo;semantic filetree&rdquo; that describes how the pages are related.</p>
+			<p class="prose">Page <var>B</var> can be logically related to page <var>A</var> in different ways.</p>
+			<ol class="prose">
+				<li>
+					<p><var>B</var> may be a <dfn id="D-logical-child">logical child</dfn> of <var>A</var>, indicating that the content of <var>B</var> is a subset or tangential extension of the content of <var>A</var>.</p></li>
+				<li><p><var>B</var> may be a <dfn id="D-logical-sibling">logical sibling</dfn> of <var>A</var>, in which case <var>A</var> and <var>B</var> are both <a href="#D-logical-child">children</a> of the same page. Every page is a sibling of itself.</p></li>
+				<li><p><var>B</var> may be <em>the unique</em> <dfn id="D-logical-parent">logical parent</dfn> of <var>A</var>, in other words, <var>A</var> is a <a href="#D-logical-child">child</a> of <var>B</var>.</p></li>
+			</ol>
+			<p class="prose">There are also &ldquo;extended relationships&rdquo; between pages:</p>
+			<ol class="prose">
+				<li><p><var>B</var> may be a <dfn id="D-logical-descendant">logical descendant</dfn> of <var>A</var>, which means exactly one of the following is true:</p>
+					<ul>
+						<li>either <var>B</var> is a <a href="#D-logical-child">child</a> of <var>A</var> (in which case we say <var>B</var> is a &ldquo;direct descendant&rdquo; of <var>A</var>),</li>
+						<li>or <var>B</var> is a child of a <a href="#D-logical-descendant">descendant</a> of <var>A</var>. (This term is recursively defined.)</li>
+					</ul>
+				</li>
+				<li><p><var>B</var> may be a <dfn id="D-logical-ancestor">logical ancestor</dfn> of <var>A</var>, meaning exactly one is true:</p>
+					<ul>
+						<li>either <var>B</var> is the unique <a href="#D-logical-parent">parent</a> of <var>A</var> (we say <var>B</var> is a &ldquo;direct ancestor&rdquo; of <var>A</var>),</li>
+						<li>or <var>B</var> is the unique parent of an <a href="#D-logical-ancestor">ancestor</a> of <var>A</var>. (This term is recursively defined.)</li>
+					</ul>
+				</li>
+			</ol>
+			<table class="table-list">
+				<thead>
+					<tr>
+						<th scope="col">relation</th>
+						<th scope="col">reflexivity</th>
+						<th scope="col">symmetry</th>
+						<th scope="col">transitivity</th>
+						<th scope="col">connectivity</th>
+						<th scope="col">defined</th>
+						<th scope="col">surjective</th>
+						<th scope="col">well-defined</th>
+						<th scope="col">injective</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th scope="row">logical descendant of</th>
+						<td class="no">antireflexive</td>
+						<td class="no">antisymmetric</td>
+						<td class="yes">transitive</td>
+						<td class="maybe">unconnected</td>
+						<td class="yes">defined (exception: root element)</td>
+						<td class="no">not surjective</td>
+						<td class="no">not well-defined</td>
+						<td class="no">not injective</td>
+					</tr>
+					<tr>
+						<th scope="row">logical child of</th>
+						<td class="no">antireflexive</td>
+						<td class="no">antisymmetric</td>
+						<td class="no">antitransitive</td>
+						<td class="maybe">unconnected</td>
+						<td class="yes">defined (exception: root element)</td>
+						<td class="no">not surjective</td>
+						<td class="yes">well-defined</td>
+						<td class="no">not injective</td>
+					</tr>
+					<tr>
+						<th scope="row">logical sibling of</th>
+						<td class="yes">reflexive</td>
+						<td class="yes">symmetric</td>
+						<td class="yes">transitive</td>
+						<td class="maybe">unconnected</td>
+						<td class="no">not defined</td>
+						<td class="no">not surjective</td>
+						<td class="no">not well-defined</td>
+						<td class="no">not injective</td>
+					</tr>
+					<tr>
+						<th scope="row">logical parent of</th>
+						<td class="no">antireflexive</td>
+						<td class="no">antisymmetric</td>
+						<td class="no">antitransitive</td>
+						<td class="maybe">unconnected</td>
+						<td class="no">not defined</td>
+						<td class="yes">surjective (exception: root element)</td>
+						<td class="no">not well-defined</td>
+						<td class="yes">injective</td>
+					</tr>
+					<tr>
+						<th scope="row">logical ancestor of</th>
+						<td class="no">antireflexive</td>
+						<td class="no">antisymmetric</td>
+						<td class="yes">transitive</td>
+						<td class="maybe">unconnected</td>
+						<td class="no">not defined</td>
+						<td class="yes">surjective (exception: root element)</td>
+						<td class="no">not well-defined</td>
+						<td class="no">not injective</td>
+					</tr>
+				</tbody>
+			</table>
+		</aside>
+	</section>
+</section>
 <section id="group-level">
 	<h1 class="h-beta">Group-Level Semantics</h1>
 	<p class="prose">This section...</p>
@@ -84,9 +214,6 @@ body {
 		<section id="scheme-nav">
 			<h1 class="h-delta">Navigational Elements</h1>
 			<p class="prose">A <code class="lang-css">nav</code> is sectioning content that contains links to other pages or to parts within the same page. There are two classes for the nav element: <code class="lang-css">nav.bc</code>, a section of links to <a href="#D-logical-relative">logical relatives</a> of that page, and <code class="lang-css">nav.toc</code>, a section of links to other sections in that page.</p>
-			<section>
-				<h1 class="h-epsilon">Breadcrumbs</h1>
-			</section>
 		</section>
 	</section>
 	<section id="scheme-header">
@@ -184,220 +311,166 @@ body {
 		<section id="ordered-unordered-lists">
 			<h1 class="h-delta">Ordered and Unordered Lists</h1>
 			<p><span class="success">Note:</span> On all lists below, outlines and background colors have been added to each item to show structure.</p>
-			<ol class="list-basic typo-list">
-				<li>This is a <code class="lang-css">.list-basic</code>.</li>
-				<li>This class can be applied to any <code class="lang-css">ol</code> or <code class="lang-css">ul</code>, and both elements appear the same, though of course they differ semantically. For the <a href="#association-lists">association list</a> equivalent, do not use this class. Use <code class="lang-css">.dl-basic</code> instead.</li>
-				<li>Basic lists remove the padding and list-style-type from the list,</li>
-				<li>while maintaining the list-item display of each list item.</li>
+			<ol>
+				<li>Ordered lists (<code class="lang-css">ol</code>) contain 0 or more list items (<code class="lang-css">li</code>).</li>
+				<li>Use ordered lists to list items of which the order is <dfn id="D-order-relevant">relevant</dfn>, that is, changing the order of the items would change the outcome or semantics of the list.</li>
 			</ol>
-			<ol class="list-inline typo-list">
-				<li>For a basic list in which</li>
-				<li>the list items</li>
-				<li>are displayed inline,</li>
-				<li>use <code class="lang-css">.list-inline</code>.</li>
-				<li>The list itself is still displayed as a block.</li>
-			</ol>
-			<ol class="list-alpha typo-list">
-				<li>Ordered lists can be nested to represent an outline, such as a table of contents. If you want to do this, use the following classes.</li>
-				<li>This is an <code class="lang-css">ol.list-alpha</code> (upper-roman)
-					<ol class="list-beta">
-						<li>This is an <code class="lang-css">ol.list-beta</code> (upper-alpha)
-							<ol class="list-gamma">
-								<li>This is an <code class="lang-css">ol.list-gamma</code> (decimal)
-									<ol class="list-delta">
-										<li>This is an <code class="lang-css">ol.list-delta</code> (lower-alpha)
-											<ol class="list-epsilon">
-												<li>This is an <code class="lang-css">ol.list-epsilon</code> (lower-roman)
-													<ol class="list-zeta">
-														<li>This is an <code class="lang-css">ol.list-zeta</code> (lower-greek)</li>
-													</ol>
-												</li>
-											</ol>
-										</li>
-									</ol>
-								</li>
-							</ol>
-						</li>
-					</ol>
-				</li>
-			</ol>
-			<ol class="list-basic typo-list">
-				<li>This is a <code class="lang-css">.list-basic</code>.</li>
-				<li>This class can be applied to any <code class="lang-css">ol</code> or <code class="lang-css">ul</code>, and both elements appear the same, though of course they differ semantically. For the <a href="#association-lists">association list</a> equivalent, do not use this class. Use <code class="lang-css">.dl-basic</code> instead.</li>
-				<li>Basic lists remove the padding and list-style-type from the list,</li>
-				<li>while maintaining the list-item display of each list item.</li>
-			</ol>
-			<ol class="list-inline typo-list">
-				<li>For a basic list in which</li>
-				<li>the list items</li>
-				<li>are displayed inline,</li>
-				<li>use <code class="lang-css">.list-inline</code>.</li>
-				<li>The list itself is still displayed as a block.</li>
-			</ol>
-			<ol class="list-inline-c typo-list">
- 				<li>Use <code class="lang-css">.list-inline-c</code></li>
- 				<li>for an inline list</li>
- 				<li>with comma-separated</li>
- 				<li>list items.</li>
- 				<li>This would be best for a list of keywords, etc.</li>
- 				<li>The last list item</li>
- 				<li>is not followed by</li>
- 				<li>a comma.</li>
- 			</ol>
- 			<ol class="list-inline-n typo-list">
- 				<li><code class="lang-css">.list-inline-n</code></li>
- 				<li>achieves the same effect</li>
- 				<li>except it uses en dashes</li>
- 				<li>instead of commas.</li>
- 			</ol>
- 			<ol class="list-inline-m typo-list">
- 				<li><code class="lang-css">.list-inline-m</code></li>
- 				<li>achieves the same effect</li>
- 				<li>except it uses em dashes</li>
- 				<li>instead of commas.</li>
- 			</ol>
-			<ol class="list-line typo-list">
-				<li>A <code class="lang-css">.list-line</code> is a basic list that acts as a table,</li>
-				<li>with the list items acting as table cells.</li>
-				<li>The <code class="lang-css">li</code> widths are not specified, unless you extend <a href="grid.html#custom-units">unit classes</a>.</li>
-			</ol>
-			<ol class="list-float-3 typo-list">
-				<li>To create a list in which list items float to the left,</li>
-				<li> include the <code class="lang-css">.list-float(@liwidth)</code> mixin in your Less, where <code class="lang-css">@liwidth</code> is the width, in percent, you specify for each <code class="lang-css">li</code>.</li>
-				<li>Alternatively, you may use the following pre-defined classes.</li>
-				<li>
-					<dl class="dl-table-med">
-						<dt><code class="lang-css">.list-float-1</code>&nbsp;</dt>
-						<dd>= 100%</dd>
-						<dt><code class="lang-css">.list-float-2</code>&nbsp;</dt>
-						<dd>= 50%</dd>
-						<dt><code class="lang-css">.list-float-3</code>&nbsp;</dt>
-						<dd>&asymp; 33.333%</dd>
-						<dt><code class="lang-css">.list-float-4</code>&nbsp;</dt>
-						<dd>= 25%</dd>
-						<dt><code class="lang-css">.list-float-5</code>&nbsp;</dt>
-						<dd>= 20%</dd>
-						<dt><code class="lang-css">.list-float-6</code>&nbsp;</dt>
-						<dd>&asymp; 16.666%</dd>
-					</dl>
-				</li>
-				<li>The <code class="lang-css">.list-float(@liwidth)</code> works like a <code class="lang-css">.list-line</code>, except that the list items' widths are fixed and the list may span multiple lines.</li>
-			</ol>
-			<ol class="list-action typo-list">
-				<li>This is a <code class="lang-css">.list-action</code>.</li>
-				<li>Action lists are used specifically for:
+			<ul>
+				<li>Unordered lists (<code class="lang-css">ul</code>) contain 0 or more list items (<code class="lang-css">li</code>).</li>
+				<li>Use unordered lists to list items of which the order is <dfn id="D-order-irrelevant">irrelevant</dfn>, that is, changing the order of the items would not change the outcome or semantics of the list.</li>
+			</ul>
+			<ul>
+				<li>To nest lists,
 					<ul>
-						<li>short,</li>
-						<li>one-line,</li>
-						<li>textual hyperlinks.</li>
+						<li>contain an <code class="lang-css">ol</code> or <code class="lang-css">ul</code> inside an <code class="lang-css">li</code> of the parent list.</li>
 					</ul>
 				</li>
-				<li>This is normal text.</li>
-				<li><a>This is an <code class="lang-css">a</code>.</a></li>
-				<li><a href="">This is an <code class="lang-css">a[href]</code>.</a></li>
-			</ol>
-			<ol class="prose typo-list">
+			</ul>
+			<ol class="prose">
 				<li>
-					<p>An <code class="lang-css">ol.prose</code> has <code class="lang-css">list-style-type: decimal;</code> by default, but some prose lists may have other <code class="lang-css">list-style-type</code>s, such as <code class="lang-css">lower-alpha</code>. Use the Greek letter list classes shown above for cutsom numbering.</p>
+					<p>A prose list (<code class="lang-css">ol.prose</code>) is an ordered list whose items consist of flow content. Each list item must contain at least 1 paragraph element. Since the <code class="lang-css">.prose</code> class is applied <strong>to the entire list</strong>, it must <em>not</em> apply to the list items or paragraphs within each list item.</p>
 				</li>
 				<li>
-					<p><span class="s-lede">This is a lede sentence of a prose list item.</span> The rest of this list item is normal text. The rest of this list item is normal text. The rest of this list item is normal text. The rest of this list item is normal text.</p>
+					<p><span class="s-lede">Typically, each list item in a prose list will have a lede sentence.</span> This acts like an actual list item in a short list, if the rest of the prose weren't present. It can also be be thought of as a lede or &ldquo;heading&rdquo; for the text, although it does not take part in the Document Outline. Add a <code class="lang-css">span.s-lede</code> to the beginning of the first paragraph in the list item.</p>
 				</li>
 				<li>
-					<p><span class="s-lede">This is a lede that acts like a heading&hellip;</span><br/>The rest of this list item is normal text. The rest of this list item is normal text. The rest of this list item is normal text. The rest of this list item is normal text.</p>
+					<p><span class="s-lede">Sometimes, a prose list item may have a lede that acts like a heading&hellip;</span><br/>In this case, still use <code class="lang-css">span.s-lede</code>, followed by the <code class="lang-html">&lt;br/&gt;</code> tag to separate the lede from the rest of the paragraph. Again, this lede does not affect the Document Outline. Though actual <code class="lang-css">h1</code>s are <a class="sp" href="http://www.w3.org/html/wg/drafts/html/master/grouping-content.html#the-li-element" rel="external">technically permissible</a> inside <code class="lang-css">li</code>s, they usually make the Outline look icky.</p>
 				</li>
 			</ol>			
 		</section>
 		<section id="association-lists">
 			<h1 class="h-delta">Association Lists</h1>
-			<dl class="dl-basic typo-list">
-				<dt>This is a <code class="lang-css">dl.dl-basic</code>.</dt>
-				<dd>Basic association lists look like basic ordered and unordered lists.</dd>
+			<dl>
+				<dt>An association list (<code class="lang-css">dl</code>)</dt>
+				<dd>contains 0 or more name-value groups. The order of the name-value groups is <b class="keyword">irrelevant</b>.</dd>
+				<dt>A single name-value group consists of 1 or more names (<code class="lang-css">dt</code>) and 1 or more values (<code class="lang-css">dd</code>).</dt>
+				<dd>If there are multiple <code class="lang-css">dt</code>s in a particular group, the order of <code class="lang-css">dt</code>s is <b class="keyword">irrelevant</b>.</dd>
+				<dd>If there are multiple <code class="lang-css">dd</code>s in a particular group, the order of <code class="lang-css">dd</code>s is also <b class="keyword">irrelevant</b>.</dd>
 			</dl>
-			<dl class="dl-group typo-list">
-				<dt>A <code class="lang-css">dl.dl-group</code></dt>
-				<dt>groups <code class="lang-css">dt</code>s together</dt>
-				<dt>and <code class="lang-css">dd</code>s together</dt>
-				<dd>on the same line.</dd>
-				<dt>This separates</dt>
-				<dd>name-value groups,</dd>
-				<dd>while keeping multiple</dd>
-				<dd>names together and values together.</dd>
+			<p class="prose">An association list can be thought of as a mathematical relation with the following properties:</p>
+			<table class="table-list">
+				<thead>
+					<tr>
+						<th scope="col">relation</th>
+						<th scope="col">defined</th>
+						<th scope="col">surjective</th>
+						<th scope="col">well-defined</th>
+						<th scope="col">injective</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th scope="row"><code class="lang-css">dt</code> related to <code class="lang-css">dd</code></th>
+						<td>defined</td>
+						<td>surjective</td>
+						<td>not well-defined</td>
+						<td>not injective</td>
+					</tr>
+				</tbody>
+			</table>
+			<dl class="draft">
+				<dt>Due to the nature of association lists,</dt>
+				<dd>nested assocation lists can be used to create <a>flow-charts or decision trees</a>.</dd>
 			</dl>
-			<dl class="dl-table-msm typo-list">
-				<dt>If you want to display</dt>
-				<dd>each name-value group in one line,</dd>
-				<dd>include the <code class="lang-css">.dl-table(@dtwidth)</code> mixin in your Less,</dd>
-				<dd> where <code class="lang-css">@dtwidth</code> is the width, in percent, you specify for each <code class="lang-css">dt</code>.</dd>
-				<dt>Alternatively, you may use the following pre-defined classes. <a href="phi.html">Notice the associated <code class="lang-css">@dtwidth</code> values.</a></dt>
+			<dl>
+				<dt>If a name-value group</dt>
+				<dt>contains more than one name per value,</dt>
+				<dd>these names are <em>alternative</em> in that either one, or possibly both, may be accepted.</dd>
+				<dt>The same is true if</dt>
+				<dd>a name-value group</dd>
+				<dd>contains more than one value per name.</dd>
+				<dt>
+					<ul>
+						<li>If authors want <em>all</em> names</li>
+						<li>to apply to a value</li>
+						<li>in one name-value group,</li>
+					</ul>
+				</dt>
+				<dd>they should use a single <code class="lang-css">dt</code> containing only a single <code class="lang-css">ul</code>. The <code class="lang-css">dt &gt; ul:only-child</code> automatically extends <code class="lang-css">.list-basic</code>.</dd>
+				<dt>The same is true for multiple values:</dt>
 				<dd>
-					<dl class="dl-table-msm">
-						<dt><code class="lang-css">dl.dl-table-sml</code>&nbsp;</dt>
-						<dd>&asymp; 23.607%</dd>
-						<dt><code class="lang-css">dl.dl-table-msm</code>&nbsp;</dt>
-						<dd>&asymp; 38.197%</dd>
-						<dt><code class="lang-css">dl.dl-table-med</code>&nbsp;</dt>
-						<dd>= 50%</dd>
-						<dt><code class="lang-css">dl.dl-table-mlg</code>&nbsp;</dt>
-						<dd>&asymp; 61.803%</dd>
-						<dt><code class="lang-css">dl.dl-table-lrg</code>&nbsp;</dt>
-						<dd>&asymp; 76.393%</dd>
-					</dl>
+					<ul>
+						<li>If authors want <em>all</em> values</li>
+						<li>to apply to a name,</li>
+						<li>contain only a single <code class="lang-css">ul</code> in a single <code class="lang-css">dd</code>. <code class="lang-css">dd &gt; ul:only-child</code> automatically extends <code class="lang-css">.list-basic</code>.</li>
+					</ul>
 				</dd>
-				<dt>If a name-value group contains</dt>
-				<dd>1 name and 1 value, the line will hold the entire group.</dd>
-				<dt>Multiple names</dt>
-				<dt>per group</dt>
-				<dt>are allowed,</dt>
-				<dd>but they are on separate lines.</dd>
-				<dt>Multiple values</dt>
-				<dd>are allowed as well,</dd>
-				<dd>but each is on its own line as well.</dd>
 			</dl>
-			<dl class="dl-table-sml typo-list">
-				<dt>This list is a</dt>
-				<dd><code class="lang-css">dl.dl-table-sml</code>&nbsp;</dd>
-			</dl>
-			<dl class="dl-table-msm typo-list">
-				<dt>This list is a</dt>
-				<dd><code class="lang-css">dl.dl-table-msm</code>&nbsp;</dd>
-			</dl>
-			<dl class="dl-table-med typo-list">
-				<dt>This list is a</dt>
-				<dd><code class="lang-css">dl.dl-table-med</code>&nbsp;</dd>
-			</dl>
-			<dl class="dl-table-mlg typo-list">
-				<dt>This list is a</dt>
-				<dd><code class="lang-css">dl.dl-table-mlg</code>&nbsp;</dd>
-			</dl>
-			<dl class="dl-table-lrg typo-list">
-				<dt>This list is a</dt>
-				<dd><code class="lang-css">dl.dl-table-lrg</code>&nbsp;</dd>
-			</dl>
-			<figure>
-				<figcaption>The following association list is an example.</figcaption>
-				<dl class="docmeta typo-list">
-					<dt>Author</dt>
-					<dd>Chris Harvey</dd>
-					<dt>Submitted</dt>
-					<dd><time datetime="2013-07-16T03:18">Jul 16, 2013 @ 03:18</time></dd>
-					<dt>Updated</dt>
-					<dd class="seo-only"><time datetime="2013-08-01">Aug 1, 2013</time></dd>
-					<dd class="seo-only"><time datetime="2013-09-01">Sep 1, 2013</time></dd>
-					<dd><time datetime="2013-12-10">Dec 10, 2013</time></dd>
-					<dd><time datetime="2014-01-20">Jan 20, 2013</time></dd>
-					<dd><time datetime="2014-02-02">Feb 2, 2014</time></dd>
-					<dd><time datetime="2014-03-01">Mar 1, 2014</time></dd>
-					<dd><time datetime="2014-03-02">Mar 2, 2014</time></dd>
-					<dd><time datetime="2014-03-03">Mar 3, 2014</time></dd>
-					<dd><time datetime="2014-03-04">Mar 4, 2014</time></dd>
-					<dd><time datetime="2014-03-05">Mar 5, 2014</time></dd>
-					<dd><time datetime="2014-03-06">Mar 6, 2014</time></dd>
-					<dd><time datetime="2014-03-07T23:45">Mar 7, 2013 @ 23:45</time></dd>
-					<dd><time datetime="2014-03-08T01:47">Mar 8, 2013 @ 01:47</time></dd>
-					<dd><time datetime="2014-03-08T02:53">Mar 8, 2013 @ 02:53</time></dd>
+			<section id="document-metadata">
+				<h1 class="h-epsilon">Document Metadata</h1>
+				<p class="prose">Use the <code class="lang-css">dl.docmeta</code> class to mark up metadata for a document or article. Since this metadata is document-specific, it should be contained in the <code class="lang-css"><a href="#scheme-main">main</a> &gt; header</code> or <code class="lang-css">article &gt; header</code>.</p>
+				<figure>
+					<figcaption>The following association list is an example.</figcaption>
+					<dl class="docmeta typo-list">
+						<dt>Author</dt>
+						<dd>Chris Harvey</dd>
+						<dt>Submitted</dt>
+						<dd><time datetime="2013-07-16T03:18">Jul 16, 2013 @ 03:18</time></dd>
+						<dt>Updated</dt>
+						<dd class="seo-only"><time datetime="2013-08-01">Aug 1, 2013</time></dd>
+						<dd class="seo-only"><time datetime="2013-09-01">Sep 1, 2013</time></dd>
+						<dd><time datetime="2013-12-10">Dec 10, 2013</time></dd>
+						<dd><time datetime="2014-01-20">Jan 20, 2013</time></dd>
+						<dd><time datetime="2014-02-02">Feb 2, 2014</time></dd>
+						<dd><time datetime="2014-03-01">Mar 1, 2014</time></dd>
+						<dd><time datetime="2014-03-02">Mar 2, 2014</time></dd>
+						<dd><time datetime="2014-03-03">Mar 3, 2014</time></dd>
+						<dd><time datetime="2014-03-04">Mar 4, 2014</time></dd>
+						<dd><time datetime="2014-03-05">Mar 5, 2014</time></dd>
+						<dd><time datetime="2014-03-06">Mar 6, 2014</time></dd>
+						<dd><time datetime="2014-03-07T23:45">Mar 7, 2013 @ 23:45</time></dd>
+						<dd><time datetime="2014-03-08T01:47">Mar 8, 2013 @ 01:47</time></dd>
+						<dd><time datetime="2014-03-08T02:53">Mar 8, 2013 @ 02:53</time></dd>
+						<dt>Tags</dt>
+						<dd>HTML</dd>
+						<dd>semantic</dd>
+						<dd>lists</dd>
+					</dl>
+				</figure>
+				<p class="prose draft">Specs for dl.docmeta: required names: author, submitted, updated, tags, ...?</p>
+				<p class="draft">specs: each update, with timestamp, for the past 24 hours; each day for the past 7 days; first update of each month for the past 6 months; first update of each year otherwise (submission counts as update). Do not remove old updates; only add class <code class="lang-css">.seo-only</code>. update log will be updated only on file updates. flowchart below:</p>
+				<dl class="prose dl-tree draft">
+					<dt>Is the update the submission date?</dt>
+					<dd>Yes: keep it under <b class="ref">Submitted</b> and display the timestamp.</dd>
+					<dd>
+						<dl>No: 
+							<dt>Is this update within the past 24 hours?</dt>
+							<dd>Yes: display it and display the timestamp.</dd>
+							<dd>
+								<dl>No: 
+									<dt>Is this update within the past 7 days?</dt>
+									<dd>Yes: 
+										<dl>
+											<dt>Is this the first update of a day?</dt>
+											<dd>Yes: display it.</dd>
+											<dd>No: hide it.</dd>
+										</dl>
+									</dd>
+									<dd>No: 
+										<dl>
+											<dt>Is this update within the past 6 months?</dt>
+											<dd>Yes: 
+												<dl>
+													<dt>Is this the first update of a month?</dt>
+													<dd>Yes: display it.</dd>
+													<dd>No: hide it.</dd>
+												</dl>
+											</dd>
+											<dd>No: 
+												<dl>
+													<dt>Is the update the first update of a calendar year?</dt>
+													<dd>Yes: display it.</dd>
+													<dd>No: hide it.</dd>
+												</dl>
+											</dd>
+										</dl>
+									</dd>
+								</dl>
+							</dd>
+						</dl>
+					</dd>
 				</dl>
-			</figure>
+			</section>
 		</section>
 	</section>
 	<section id="scheme-table">
