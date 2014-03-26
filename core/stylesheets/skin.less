@@ -120,22 +120,6 @@ main {
 	.P1-midright;
 	margin-bottom: 192px; // 2in
 }
-.masthead {
-	@iconsize: 96px; // 1in
-	.P4-right;
-	position: fixed;
-	top: (@iconsize / 2);
-	nav {
-		.P1-midleft;
-		.mylogo {
-			display: block;
-			.border(bottom; 0; solid);
-			font-weight: bold;
-			font-size: @iconsize;
-			font-family: 'Times','Times New Roman',serif;
-		}
-	}
-}
 /* @end */
 
 /* @group headings */
@@ -179,7 +163,7 @@ span.hsub {
 	font-size: @hsub-size;
 	padding-left: @olh;
 	font-weight: normal;
-	color: lighten(@color-base-txt, @headlt);
+	color: fadeout(@color-base-txt, @headlt);
 }
 .h-alpha {
 	&:extend(.h all);
@@ -303,7 +287,7 @@ blockquote {
 	&:not(.prose) > .src {
 		padding-right: @olh;
 		float: right;
-		&::before {content: '~ ';}
+		&::before {content: '~\0020';}
 		&::after {content: '';}
 	}
 }
@@ -455,11 +439,14 @@ dd {
 //		.font-size(medium);
 //		text-indent: 0;
 //	}
-//	background-color: @color-base-bg;
 	> dt {
 		font-weight: bold;
 		&::after {content: ':';}
 	}
+	time:not(.submit):not(.recent) {
+		.hm {display: none;}
+	}
+	.hm::before {content: '@\0020';}
 }
 /* @end */
 
@@ -516,9 +503,9 @@ th {
 }
 .table-bars {
 	thead {
-		th:nth-child(odd)  {background-color: lighten(@color-table-bg-weak,   @headlt);}
-		th:nth-child(even) {background-color: lighten(@color-table-bg-medium, @headlt);}
-		th:first-child     {background-color: lighten(@color-table-bg-strong, @headlt);}
+		th:nth-child(odd)  {background-color: desaturate(@color-table-bg-weak,   @headlt);}
+		th:nth-child(even) {background-color: desaturate(@color-table-bg-medium, @headlt);}
+		th:first-child     {background-color: desaturate(@color-table-bg-strong, @headlt);}
 	}
 //	tbody {
 //		td:nth-child(odd)  {background-color: @color-table-bg-weak;}
@@ -732,11 +719,8 @@ a {
 		}
 		&:active {color: @color-link-active-txt;}
 	}
-	dfn,
-	abbr,
-	code,
-	.latex {
-		// * certain elements in links not discolored
+	code {
+		// * code in links not discolored
 		color: inherit;
 	}
 }
@@ -746,8 +730,10 @@ div.postal,
 table,
 .fn,
 code {
-	// * no border for links in certain containers
-	a {border: 0;}
+	a {
+		// * no border for links in certain containers
+		border: 0;
+	}
 }
 .a-block {
 	.box-block();
@@ -766,7 +752,23 @@ code {
 	}
 }
 /* @end */
-/* @group breadcrumbs */
+/* @group masthead and breadcrumbs */
+.masthead {
+	@iconsize: 96px; // 1in
+	.P4-right;
+	position: fixed;
+	top: (@iconsize / 2);
+	nav {
+		.P1-midleft;
+		.mylogo {
+			display: block;
+			.border(bottom; 0; solid);
+			font-weight: bold;
+			font-size: @iconsize;
+			font-family: 'Times','Times New Roman',serif;
+		}
+	}
+}
 .bc {
 	&:extend(.gutter-major);
 	position: fixed;
@@ -890,14 +892,15 @@ kbd {
 //	.font-size(small);
 	font-family: @font-fam-math;
 	white-space: pre-wrap;
-	color: @color-code-txt;
 	div&, p& {
 		// * block-level containers
 		overflow: auto;
 	}
 }
 var {font-style: italic;}
-.tex { // a reminder to change all <... class="tex"> to <... class="latex">
+.tex {
+	//a reminder to change all `<... class="tex">` to `<... class="latex">`
+	//a reminder to change all `.tex` to `.latex`
 	color: #f00;
 	* {color: #f00;}
 }
