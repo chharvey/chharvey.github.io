@@ -12,7 +12,6 @@ TO DO
 - 2014-03-06 change all apostrophes (`'`) to right single quotes `&rsquo;` on the following pages... (Leave the apostrophes alone in regular pages. The typographical precision is not worth the effort.)
 	- 'portal' pages (`/home/edu.html`, `/home/math.html`, etc.)
 	- **formal** documents such as articles or blog posts (maybe in `/docs/`?)
-- 2014-03-25 add prefix 'd-' to each `<dfn>` id (lowercase)
 
 #### metadata and micro-semantics (very low priority) ###
 - `rel` attributes on `link` and `a` elements, see [http://dev.w3.org/html5/spec/links.html#linkTypes]()
@@ -87,7 +86,6 @@ TO DO
 
 #### Math7/ ####
 - on all course overview, unit overviews, and lessons: include breadcrumbs!
-- 2014-02-28 on all unit overviews: vocab in `dl.vocablist` should be wrapped with `<dfn>`, with an `id` representing its contents. on all lesson plans with a `ul.vocablist` in the header: do not redefine terms; simply link to the corresponding `id` in the unit overview. syntax-is-that-of-naming-html-pages.
 - 2014-03-04 fix Assessment styles
 
 #### Math7/index.html ####
