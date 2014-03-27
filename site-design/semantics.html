@@ -27,7 +27,7 @@ body {
 {% include masthead.html %}
 <nav class="bc">
 	<ol class="bc-anc">
-		<li><a href="../index.html" rel="ancestor">Home</a></li>
+		<li><a href="../index.html" rel="top">Home</a></li>
 		<li><a href="../home/web.html" rel="parent">Web</a></li>
 	</ol>
 	<ol class="bc-sib">
@@ -41,10 +41,10 @@ body {
 </nav>
 <main>
 <header>
-	<h1 class="h-alpha">Site Design &mdash; Semantics</h1>
+	<h1 class="h-alpha">Semantics</h1>
 </header>
 <p class="prose">This document...</p>
-<dl hidden="">
+<dl>
 	<dt><dfn id="D-must">must</dfn></dt>
 	<dt><dfn id="D-required">required</dfn></dt>
 	<dd></dd>
@@ -84,29 +84,32 @@ body {
 			<li>1 <code class="lang-css">ul.bc-sib</code>, which contains all the <a href="#D-logical-sibling">logical siblings</a> of the page (including the same page itself), in any order;</li>
 			<li>and 1 <code class="lang-css">ul.bc-child</code>, which contains all the <a href="#D-logical-child">logical children</a> of the page, in any order. There will be no links to non-child <a href="#D-logical-descendant">descendants</a> in the breadcrumb tree.</li>
 		</ol>
-		<p class="prose">Each of the 3 lists above must contain at least 0 list items, with each list item containing only and exactly 1 link. The links in the each list correspond to the logical relatives of the current page.</p>
-		<p class="prose">Each <code class="lang-css">a</code> element on a page's breadcrumbs list must have exactly 1 <code class="lang-html">rel</code> attribute, which must be at least 1 of the following values:</p>
+		<p class="prose">Each of the 3 lists above must contain only and at least 0 list items, with each list item containing only and exactly 1 link. The links in the each list correspond to the logical relatives of the current page.</p>
+		<p class="prose">Each <code class="lang-css">a</code> element on a page's breadcrumbs list must have exactly 1 <code class="lang-html">rel</code> attribute, whose value must be at least 1 of the following tokens.</p>
 		<dl>
+			<dt><code class="lang-html">rel=&quot;top&quot;</code></dt>
+			<dd>if the link corresponds to the root of the &ldquo;semantic tree,&rdquo; that is, the common <a href="#D-logical-ancestor">logical ancestor</a> of all pages in the site (this value implies <code class="lang-html">rel=&quot;ancestor&quot;</code>)</dd>
 			<dt><code class="lang-html">rel=&quot;ancestor&quot;</code></dt>
 			<dd>if the link corresponds to a <em>non-<a href="#D-logical-parent">parent</a></em> <a href="#D-logical-ancestor">logical ancestor</a> of the page</dd>
 			<dt><code class="lang-html">rel=&quot;parent&quot;</code></dt>
-			<dd>if the link corresponds to the unique <a href="#D-logical-parent">logical parent</a> of the page</dd>
+			<dd>if the link corresponds to the unique <a href="#D-logical-parent">logical parent</a> of the page (this value implies <code class="lang-html">rel=&quot;ancestor&quot;</code>)</dd>
 			<dt><code class="lang-html">rel=&quot;sibling&quot;</code></dt>
 			<dd>if the link corresponds to a <a href="#D-logical-sibling">logical sibling</a> to a page but is <em>not</em> that page</dd>
 			<dt><code class="lang-html">rel=&quot;this&quot;</code></dt>
-			<dd>if the link corresponds to the same page</dd>
+			<dd>if the link corresponds to the same page (this value implies <code class="lang-html">rel=&quot;sibling&quot;</code>)</dd>
 			<dt><code class="lang-html">rel=&quot;child&quot;</code></dt>
 			<dd>if the link corresponds to a <a href="#D-logical-child">logical child</a> of the page</dd>
 		</dl>
+		<p class="prose">The value of the <code class="lang-html">rel</code> attribute may also contain other tokens as well. In the case of conflicting tokens (e.g., <code class="lang-html">parent</code> and <code class="lang-html">child</code>), the latter must be considered and the former must be disregarded.</p>
 		<aside class="debug-box-block">
 			<h1 class="h-delta">Page Relationships</h1>
 			<p class="prose">For simplicity, we will use the examples <code class="dir">page-a.html</code> and <code class="dir">page-b.html</code> in this section for an illustration. We will use <var>A</var> to refer to <code class="dir">page-a.html</code>, and <var>B</var> to refer to <code class="dir">page-b.html</code>.</p>
 			<p class="prose">A <dfn id="D-logical-relative">logical relative</dfn> to a page <var>A</var>, is another page <var>B</var> that is related in content to <var>A</var>. The logical relation between <var>A</var> and <var>B</var> has nothing to do with their locations in the file directory, but rather a &ldquo;semantic filetree&rdquo; that describes how the pages are related.</p>
-			<p class="prose">Page <var>B</var> can be logically related to page <var>A</var> in different ways.</p>
+			<p class="prose">Page <var>B</var> can be logically related to page <var>A</var> in different ways:</p>
 			<ol class="prose">
 				<li>
 					<p><var>B</var> may be a <dfn id="D-logical-child">logical child</dfn> of <var>A</var>, indicating that the content of <var>B</var> is a subset or tangential extension of the content of <var>A</var>.</p></li>
-				<li><p><var>B</var> may be a <dfn id="D-logical-sibling">logical sibling</dfn> of <var>A</var>, in which case <var>A</var> and <var>B</var> are both <a href="#D-logical-child">children</a> of the same page. Every page is a sibling of itself.</p></li>
+				<li><p><var>B</var> may be a <dfn id="D-logical-sibling">logical sibling</dfn> of <var>A</var>, in which case <var>A</var> and <var>B</var> are both <a href="#D-logical-child">children</a> of the same page.</p></li>
 				<li><p><var>B</var> may be <em>the unique</em> <dfn id="D-logical-parent">logical parent</dfn> of <var>A</var>, in other words, <var>A</var> is a <a href="#D-logical-child">child</a> of <var>B</var>.</p></li>
 			</ol>
 			<p class="prose">There are also &ldquo;extended relationships&rdquo; between pages:</p>
@@ -119,7 +122,7 @@ body {
 				</li>
 				<li><p><var>B</var> may be a <dfn id="D-logical-ancestor">logical ancestor</dfn> of <var>A</var>, meaning exactly 1 is true:</p>
 					<ul>
-						<li>either <var>B</var> is the unique <a href="#D-logical-parent">parent</a> of <var>A</var> (we say <var>B</var> is a &ldquo;direct ancestor&rdquo; of <var>A</var>),</li>
+						<li>either <var>B</var> is the unique <a href="#D-logical-parent">parent</a> of <var>A</var> (we say <var>B</var> is the &ldquo;direct ancestor&rdquo; of <var>A</var>),</li>
 						<li>or <var>B</var> is the unique parent of an <a href="#D-logical-ancestor">ancestor</a> of <var>A</var>. (This term is recursively defined.)</li>
 					</ul>
 				</li>
@@ -230,7 +233,7 @@ body {
 			<h1 class="h-delta">Sections</h1>
 			<p class="prose">A <dfn id="D-section">section</dfn> is a thematic grouping of content. Each section has its own <a href="#sem-heading">heading (<abbr title="also known as">AKA</abbr> title)</a> and outline, which is added to the outline of the nearest ancestor <a href="#D-sectioning-root">sectioning root</a>. If the nearest ancestor sectioning root is the <code class="lang-css">body</code>, then its level will be added to the Document Outline. If its nearest ancestor sectioning root is not the <code class="lang-css">body</code>, then the level will be added to that sectioning root's outline without affecting the Document Outline.</p>
 			<p class="prose">Each thematic grouping of content must be contained within a <code class="lang-css">section</code> element. This <code class="lang-css">section</code> must contain at least 0 <code class="lang-css">header</code> elements, followed by optional flow content, followed by at least 0 <code class="lang-css">header</code> elements. The <code class="lang-css">header</code>s, if present, must adhere to <a href="#sem-header">these specifications</a>.</p>
-			<p class="prose">Each <code class="lang-css">section</code> may be titled with at most 1 <code class="lang-css">h1</code>. If the <code class="lang-css">h1</code> is present, it must be the first child of the <code class="lang-css">section &gt; header:first-child</code>, or if that is not present, it must be the first child of the <code class="lang-css">section</code> itself. The section's heading, if it exists, must be present in exactly 1 of those 2 places and nowhere else. (There may be descendant <code class="lang-css">h1</code>s present, but only if they are children of&mdash;and thus headings of&mdash;any existing descendant <code class="lang-css">section</code>s.)</p>
+			<p class="prose">Each <code class="lang-css">section</code> may be titled with at most 1 <code class="lang-css">h1</code>. If the <code class="lang-css">h1</code> is present, it must be the first child of the <code class="lang-css">section &gt; header:first-child</code>, or if that is not present, it must be the first child of the <code class="lang-css">section</code> itself. The section's heading, if it exists, must be present in exactly 1 of those two places and nowhere else. (There may be descendant <code class="lang-css">h1</code>s present, but only if they are children of&mdash;and thus headings of&mdash;any existing descendant <code class="lang-css">section</code>s.)</p>
 		</section>
 		<section id="sem-aside">
 			<h1 class="h-delta">Asides</h1>
