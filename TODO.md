@@ -8,10 +8,10 @@ TO DO
 	- 2014-03-08 unless the text content in the link is already the title.
 - 2014-03-02 see which `<b>` tags you can remove; which ones do you REALLY need?
 	- 2013-12-14 see which `b.ref`s you can change to `cite`s (titles of works) and `a`s (links to documents, sections, etc.)
-- 2014-03-01 use `<small>` for labels---they really are disclamers/caveats/etc.
 - 2014-03-06 change all apostrophes (`'`) to right single quotes `&rsquo;` on the following pages... (Leave the apostrophes alone in regular pages. The typographical precision is not worth the effort.)
 	- 'portal' pages (`/home/edu.html`, `/home/math.html`, etc.)
 	- **formal** documents such as articles or blog posts (maybe in `/docs/`?)
+- 2014-03-27 `<a>` links should contain more textual content for SEO
 
 #### metadata and micro-semantics (very low priority) ###
 - `rel` attributes on `link` and `a` elements, see [http://dev.w3.org/html5/spec/links.html#linkTypes]()
@@ -33,6 +33,8 @@ TO DO
 - 2014-02-24 remove all "scoped" Less and make use of "namespaces"
 	- in `reals.less` lines 120–149, and 157–183
 	- in `secondary-ed.less` lines 154–234
+- 2014-03-27 label scheme:
+	- 2014-03-01 use `<small>` for labels---they really are disclamers/caveats/etc.
 
 ### scripts ###
 - 2013-12-14 investigate the use of templates (`<template>`)
