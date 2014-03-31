@@ -59,11 +59,11 @@ body {
 	<dt><dfn id="d-atmost">at most</dfn> <var>n</var></dt>
 	<dd>no more than <var>n</var></dd>
 	<dt><dfn id="d-exactly">exactly</dfn> <var>n</var></dt>
-	<dd><a href="#D-atleast">at least</a> <var>n</var> and <a href="#D-atmost">at most</a> <var>n</var></dd>
+	<dd><a href="#d-atleast">at least</a> <var>n</var> and <a href="#d-atmost">at most</a> <var>n</var></dd>
 	<dt><dfn id="d-about">about</dfn> <var>n</var></dt>
-	<dd>not <a href="#D-exactly">exactly</a>, but approximately, <var>n</var>, to the author's discretion</dd>
+	<dd>not <a href="#d-exactly">exactly</a>, but approximately, <var>n</var>, to the author's discretion</dd>
 	<dt><dfn id="d-contain-only">contain only</dfn> <var>objects</var></dt>
-	<dd><a href="#D-must">must</a> contain nothing other than <var>objects</var></dd>
+	<dd><a href="#d-must">must</a> contain nothing other than <var>objects</var></dd>
 	<dt><dfn id="d-intheorder">in [the, the following, this] order</dfn>&hellip;</dt>
 	<dt><dfn id="d-order-relevant">order is relevant</dfn></dt>
 	<dd>changing the order of the <var>objects</var> would change the outcome or semantics of the <var>containing element</var></dd>
@@ -80,25 +80,25 @@ body {
 		<h1 class="h-gamma">Breadcrumbs</h1>
 		<p class="prose">Each page must contain exactly 1 breadcrumb tree. This will take the form of a <code class="lang-css">nav.bc</code> <strong><em>outside</em> the <code class="lang-css"><a href="#scheme-main">main</a></code> element</strong>. This <code class="lang-css">nav.bc</code> must contain only and exactly 3 elements, in the following order:</p>
 		<ol>
-			<li>1 <code class="lang-css">ol.bc-anc</code>, which contains all the <a href="#D-logical-ancestor">logical ancestors</a> (including the <a href="#D-logical-parent">logical parent</a>) of the page, in order of the &ldquo;semantic filetree&rdquo; from top to bottom;</li>
-			<li>1 <code class="lang-css">ul.bc-sib</code>, which contains all the <a href="#D-logical-sibling">logical siblings</a> of the page (including the same page itself), in any order;</li>
-			<li>and 1 <code class="lang-css">ul.bc-child</code>, which contains all the <a href="#D-logical-child">logical children</a> of the page, in any order. There will be no links to non-child <a href="#D-logical-descendant">descendants</a> in the breadcrumb tree.</li>
+			<li>1 <code class="lang-css">ol.bc-anc</code>, which contains all the <a href="#d-logical-ancestor">logical ancestors</a> (including the <a href="#d-logical-parent">logical parent</a>) of the page, in order of the &ldquo;semantic filetree&rdquo; from top to bottom;</li>
+			<li>1 <code class="lang-css">ul.bc-sib</code>, which contains all the <a href="#d-logical-sibling">logical siblings</a> of the page (including the same page itself), in any order;</li>
+			<li>and 1 <code class="lang-css">ul.bc-child</code>, which contains all the <a href="#d-logical-child">logical children</a> of the page, in any order. There will be no links to non-child <a href="#d-logical-descendant">descendants</a> in the breadcrumb tree.</li>
 		</ol>
 		<p class="prose">Each of the 3 lists above must contain only and at least 0 list items, with each list item containing only and exactly 1 link. The links in the each list correspond to the logical relatives of the current page.</p>
 		<p class="prose">Each <code class="lang-css">a</code> element on a page's breadcrumbs list must have exactly 1 <code class="lang-html">rel</code> attribute, whose value must be at least 1 of the following tokens.</p>
 		<dl>
 			<dt><code class="lang-html">rel=&quot;top&quot;</code></dt>
-			<dd>if the link corresponds to the root of the &ldquo;semantic tree,&rdquo; that is, the common <a href="#D-logical-ancestor">logical ancestor</a> of all pages in the site (this value implies <code class="lang-html">rel=&quot;ancestor&quot;</code>)</dd>
+			<dd>if the link corresponds to the root of the &ldquo;semantic tree,&rdquo; that is, the common <a href="#d-logical-ancestor">logical ancestor</a> of all pages in the site (this value implies <code class="lang-html">rel=&quot;ancestor&quot;</code>)</dd>
 			<dt><code class="lang-html">rel=&quot;ancestor&quot;</code></dt>
-			<dd>if the link corresponds to a <em>non-<a href="#D-logical-parent">parent</a></em> <a href="#D-logical-ancestor">logical ancestor</a> of the page</dd>
+			<dd>if the link corresponds to a <em>non-<a href="#d-logical-parent">parent</a></em> <a href="#d-logical-ancestor">logical ancestor</a> of the page</dd>
 			<dt><code class="lang-html">rel=&quot;parent&quot;</code></dt>
-			<dd>if the link corresponds to the unique <a href="#D-logical-parent">logical parent</a> of the page (this value implies <code class="lang-html">rel=&quot;ancestor&quot;</code>)</dd>
+			<dd>if the link corresponds to the unique <a href="#d-logical-parent">logical parent</a> of the page (this value implies <code class="lang-html">rel=&quot;ancestor&quot;</code>)</dd>
 			<dt><code class="lang-html">rel=&quot;sibling&quot;</code></dt>
-			<dd>if the link corresponds to a <a href="#D-logical-sibling">logical sibling</a> to a page but is <em>not</em> that page</dd>
+			<dd>if the link corresponds to a <a href="#d-logical-sibling">logical sibling</a> to a page but is <em>not</em> that page</dd>
 			<dt><code class="lang-html">rel=&quot;this&quot;</code></dt>
 			<dd>if the link corresponds to the same page (this value implies <code class="lang-html">rel=&quot;sibling&quot;</code>)</dd>
 			<dt><code class="lang-html">rel=&quot;child&quot;</code></dt>
-			<dd>if the link corresponds to a <a href="#D-logical-child">logical child</a> of the page</dd>
+			<dd>if the link corresponds to a <a href="#d-logical-child">logical child</a> of the page</dd>
 		</dl>
 		<p class="prose">The value of the <code class="lang-html">rel</code> attribute may also contain other tokens as well. In the case of conflicting tokens (e.g., <code class="lang-html">parent</code> and <code class="lang-html">child</code>), the latter must be considered and the former must be disregarded.</p>
 		<aside class="debug-box-block">
@@ -109,21 +109,21 @@ body {
 			<ol class="prose">
 				<li>
 					<p><var>B</var> may be a <dfn id="d-logical-child">logical child</dfn> of <var>A</var>, indicating that the content of <var>B</var> is a subset or tangential extension of the content of <var>A</var>.</p></li>
-				<li><p><var>B</var> may be a <dfn id="d-logical-sibling">logical sibling</dfn> of <var>A</var>, in which case <var>A</var> and <var>B</var> are both <a href="#D-logical-child">children</a> of the same page.</p></li>
-				<li><p><var>B</var> may be <em>the unique</em> <dfn id="d-logical-parent">logical parent</dfn> of <var>A</var>, in other words, <var>A</var> is a <a href="#D-logical-child">child</a> of <var>B</var>.</p></li>
+				<li><p><var>B</var> may be a <dfn id="d-logical-sibling">logical sibling</dfn> of <var>A</var>, only if <var>A</var> and <var>B</var> are both <a href="#d-logical-child">children</a> of the same page. This implication is unidirectional. That is, if <var>A</var> and <var>B</var> are children of the same parent <var>C</var>, they may not be logical siblings: they may be in separate groups of children of <var>C</var>. Think of <var>A</var> and <var>B</var> as &ldquo;step-siblings.&rdquo;</p></li>
+				<li><p><var>B</var> may be <em>the unique</em> <dfn id="d-logical-parent">logical parent</dfn> of <var>A</var>, in other words, <var>A</var> is a <a href="#d-logical-child">child</a> of <var>B</var>.</p></li>
 			</ol>
 			<p class="prose">There are also &ldquo;extended relationships&rdquo; between pages:</p>
 			<ol class="prose">
 				<li><p><var>B</var> may be a <dfn id="d-logical-descendant">logical descendant</dfn> of <var>A</var>, which means exactly 1 of the following is true:</p>
 					<ul>
-						<li>either <var>B</var> is a <a href="#D-logical-child">child</a> of <var>A</var> (in which case we say <var>B</var> is a &ldquo;direct descendant&rdquo; of <var>A</var>),</li>
-						<li>or <var>B</var> is a child of a <a href="#D-logical-descendant">descendant</a> of <var>A</var>. (This term is recursively defined.)</li>
+						<li>either <var>B</var> is a <a href="#d-logical-child">child</a> of <var>A</var> (in which case we say <var>B</var> is a &ldquo;direct descendant&rdquo; of <var>A</var>),</li>
+						<li>or <var>B</var> is a child of a <a href="#d-logical-descendant">descendant</a> of <var>A</var>. (This term is recursively defined.)</li>
 					</ul>
 				</li>
 				<li><p><var>B</var> may be a <dfn id="d-logical-ancestor">logical ancestor</dfn> of <var>A</var>, meaning exactly 1 is true:</p>
 					<ul>
-						<li>either <var>B</var> is the unique <a href="#D-logical-parent">parent</a> of <var>A</var> (we say <var>B</var> is the &ldquo;direct ancestor&rdquo; of <var>A</var>),</li>
-						<li>or <var>B</var> is the unique parent of an <a href="#D-logical-ancestor">ancestor</a> of <var>A</var>. (This term is recursively defined.)</li>
+						<li>either <var>B</var> is the unique <a href="#d-logical-parent">parent</a> of <var>A</var> (we say <var>B</var> is the &ldquo;direct ancestor&rdquo; of <var>A</var>),</li>
+						<li>or <var>B</var> is the unique parent of an <a href="#d-logical-ancestor">ancestor</a> of <var>A</var>. (This term is recursively defined.)</li>
 					</ul>
 				</li>
 			</ol>
@@ -206,7 +206,7 @@ body {
 	<h1 class="h-beta">Document-Specific Elements</h1>
 	<section id="sem-main">
 		<h1 class="h-gamma">Main</h1>
-		<p class="prose">Each document must contain at most 1 <code class="lang-css">main</code> element. This element, if present, must contain all content specific to the individual document, including any side text, footers, or other extraneous information. It must not include any site-wide navigational aids, breadcrumbs, headers, footers, or other elements that repeat across pages. <code class="lang-css">main</code> is not <a href="#D-sectioning-content">sectioning content</a>, so it does not add a level to the Document Outline.</p>
+		<p class="prose">Each document must contain at most 1 <code class="lang-css">main</code> element. This element, if present, must contain all content specific to the individual document, including any side text, footers, or other extraneous information. It must not include any site-wide navigational aids, breadcrumbs, headers, footers, or other elements that repeat across pages. <code class="lang-css">main</code> is not <a href="#d-sectioning-content">sectioning content</a>, so it does not add a level to the Document Outline.</p>
 	</section>
 	<section id="sem-outline">
 		<h1 class="h-gamma">The Document Outline</h1>
@@ -231,7 +231,7 @@ body {
 		<p><span class="caution">Caution <time>2014-02-26</time>:</span> <code class="lang-css"><a href="#scheme-list">li</a></code> seems like it should be a sectioning root but it is not! Do not contain sectioning content inside an <code class="lang-css">li</code> unless you want to change the Document Outline.</p>
 		<section id="sem-section">
 			<h1 class="h-delta">Sections</h1>
-			<p class="prose">A <dfn id="d-section">section</dfn> is a thematic grouping of content. Each section has its own <a href="#sem-heading">heading (<abbr title="also known as">AKA</abbr> title)</a> and outline, which is added to the outline of the nearest ancestor <a href="#D-sectioning-root">sectioning root</a>. If the nearest ancestor sectioning root is the <code class="lang-css">body</code>, then its level will be added to the Document Outline. If its nearest ancestor sectioning root is not the <code class="lang-css">body</code>, then the level will be added to that sectioning root's outline without affecting the Document Outline.</p>
+			<p class="prose">A <dfn id="d-section">section</dfn> is a thematic grouping of content. Each section has its own <a href="#sem-heading">heading (<abbr title="also known as">AKA</abbr> title)</a> and outline, which is added to the outline of the nearest ancestor <a href="#d-sectioning-root">sectioning root</a>. If the nearest ancestor sectioning root is the <code class="lang-css">body</code>, then its level will be added to the Document Outline. If its nearest ancestor sectioning root is not the <code class="lang-css">body</code>, then the level will be added to that sectioning root's outline without affecting the Document Outline.</p>
 			<p class="prose">Each thematic grouping of content must be contained within a <code class="lang-css">section</code> element. This <code class="lang-css">section</code> must contain at least 0 <code class="lang-css">header</code> elements, followed by optional flow content, followed by at least 0 <code class="lang-css">header</code> elements. The <code class="lang-css">header</code>s, if present, must adhere to <a href="#sem-header">these specifications</a>.</p>
 			<p class="prose">Each <code class="lang-css">section</code> may be titled with at most 1 <code class="lang-css">h1</code>. If the <code class="lang-css">h1</code> is present, it must be the first child of the <code class="lang-css">section &gt; header:first-child</code>, or if that is not present, it must be the first child of the <code class="lang-css">section</code> itself. The section's heading, if it exists, must be present in exactly 1 of those two places and nowhere else. (There may be descendant <code class="lang-css">h1</code>s present, but only if they are children of&mdash;and thus headings of&mdash;any existing descendant <code class="lang-css">section</code>s.)</p>
 		</section>
@@ -244,7 +244,7 @@ body {
 	</section>
 	<section id="sem-header">
 		<h1 class="h-gamma">Headers and Footers</h1>
-		<p class="prose">Headers and footers are not <a href="#D-sectioning-content">sectioning content</a>, so they do not add levels to the Document Outline. Headers of a section should contain data about the section <em>itself</em>, including, but not limited to, <a href="#sem-heading">headings</a>, a <a href="#sem-toc">table of contents</a>, a list of authors/editors, time written/published/updated, and related tags. Footers of a section should contain data about the <em>content</em> in the section, such as copyright information, contact information (possibly in an <code class="lang-css"><a href="#scheme-address">address</a></code> element), related links or references, and <a href="#sem-footnotes">footnotes</a>.</p>
+		<p class="prose">Headers and footers are not <a href="#d-sectioning-content">sectioning content</a>, so they do not add levels to the Document Outline. Headers of a section should contain data about the section <em>itself</em>, including, but not limited to, <a href="#sem-heading">headings</a>, a <a href="#sem-toc">table of contents</a>, a list of authors/editors, time written/published/updated, and related tags. Footers of a section should contain data about the <em>content</em> in the section, such as copyright information, contact information (possibly in an <code class="lang-css"><a href="#scheme-address">address</a></code> element), related links or references, and <a href="#sem-footnotes">footnotes</a>.</p>
 		<p class="prose">In each case, both header and footer information must be contained in <code class="lang-css">header</code> elements. Any number of <code class="lang-css">header</code> elements may be contained in a <code class="lang-css">section</code>, in any order. It is recommended to put header content (including the heading) in the <code class="lang-css">section &gt; header:first-child</code>, and footer content in the <code class="lang-css">section &gt; header:last-child</code>.</p>
 		<section id="sem-heading">
 			<h1 class="h-delta">Headings</h1>
@@ -347,11 +347,11 @@ body {
 			<h1 class="h-delta">Ordered and Unordered Lists</h1>
 			<ol>
 				<li>Ordered lists (<code class="lang-css">ol</code>) must contain at least 0 list items (<code class="lang-css">li</code>).</li>
-				<li>Use ordered lists to list items of which the order is <a href="#D-order-relevant">relevant</a>, that is, changing the order of the items would change the outcome or semantics of the list.</li>
+				<li>Use ordered lists to list items of which the order is <a href="#d-order-relevant">relevant</a>, that is, changing the order of the items would change the outcome or semantics of the list.</li>
 			</ol>
 			<ul>
 				<li>Unordered lists (<code class="lang-css">ul</code>) must contain at least 0 list items (<code class="lang-css">li</code>).</li>
-				<li>Use unordered lists to list items of which the order is <a href="#D-order-irrelevant">irrelevant</a>, that is, changing the order of the items would not change the outcome or semantics of the list.</li>
+				<li>Use unordered lists to list items of which the order is <a href="#d-order-irrelevant">irrelevant</a>, that is, changing the order of the items would not change the outcome or semantics of the list.</li>
 			</ul>
 			<ul>
 				<li>To nest lists,
