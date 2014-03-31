@@ -663,28 +663,6 @@ sub {
 	position: relative;
 	top: 6px;
 }
-/* @group footnotes */
-@fn-width: 1.5em;
-.footnotes {
-	// * an unordered list containing footnotes
-	&:extend(.list-basic);
-	.spacing-top-Phi(1px; solid; @color-accent);
-	.font-size(small);
-	li {
-		padding-left: @fn-width;
-		text-indent: -@fn-width;
-	}
-}
-.fn {
-	// * the superscript containing a link to the footnote or back to the reference
-	&:extend(sup all);
-	width: @fn-width;
-	> a {
-		&::before {content: '[';}
-		&::after {content: ']';}
-	}
-}
-/* @end */
 /* @end */
 
 /* @group hyperlinks */
@@ -749,70 +727,6 @@ code {
 		}
 		&:active {background-color: @color-link-active-bg;}
 	}
-}
-/* @end */
-/* @group masthead and breadcrumbs */
-.masthead {
-	@iconsize: 96px; // 1in
-	.P4-right;
-	position: fixed;
-	top: (@iconsize / 2);
-	nav {
-		.P1-midleft;
-		.mylogo {
-			display: block;
-			.border(bottom; 0; solid);
-			font-weight: bold;
-			font-size: @iconsize;
-			font-family: 'Times','Times New Roman',serif;
-		}
-	}
-}
-.bc {
-	&:extend(.gutter-major);
-	position: fixed;
-	top: 2 * @olh;
-	z-index: 1;
-	a {
-		&:extend(.a-block all);
-		padding: (0.125 * @olh) 15px;
-		border-radius: 15px;
-		text-align: left;
-		&::before {margin-right: 0.5 * @olh;}
-	}
-	[rel~="this"] {
-		font-weight: bold;
-		&::before {
-			content: '';
-			margin-right: 0;
-		}
-	}
-}
-.bc-anc,
-.bc-sib,
-.bc-child {
-	&:extend(.list-basic all);
-	margin-top: 0;
-	padding-bottom: 1 * @olh;
-	li {
-		margin-top: 0.75 * @olh;
-		margin-bottom: -2px;
-	}
-}
-.bc-anc {
-//	a::before {content: '\22a5';} // `\bot` or 'up tack'
-//	a::before {content: '\22b7';} // 'image of'
-//	a::before {content: '<';}
-}
-.bc-sib {
-//	a::before {content: '\22a2';} // `\vdash` or 'turnstile'
-//	a::before {content: '\29df';} // 'double-ended multimap'
-//	a::before {content: '+';}
-}
-.bc-child {
-//	a::before {content: '\22a4';} // `\top` or 'down tack'
-//	a::before {content: '\22b6';} // 'original of'
-//	a::before {content: '>';}
 }
 /* @end */
 
@@ -1005,6 +919,96 @@ hr,
 	// * Elements still in testing mode but still not yet ready for implementation.
 	color: #999; background-color: #fe8;
 }
+/* @end */
+
+/* @group masthead and breadcrumbs --- needs to go after `a` in code */
+.masthead {
+	@iconsize: 96px; // 1in
+	.P4-right;
+	position: fixed;
+	top: (@iconsize / 2);
+	nav {
+		.P1-midleft;
+		.mylogo {
+			display: block;
+			.border(bottom; 0; solid);
+			font-weight: bold;
+			font-size: @iconsize;
+			font-family: 'Times','Times New Roman',serif;
+		}
+	}
+}
+.bc {
+	&:extend(.gutter-major);
+	position: fixed;
+	top: 2 * @olh;
+	z-index: 1;
+	a {
+		&:extend(.a-block all);
+		padding: (0.125 * @olh) 15px;
+		border-radius: 15px;
+		text-align: left;
+		&::before {margin-right: 0.5 * @olh;}
+	}
+	[rel~="this"] {
+		font-weight: bold;
+		&::before {
+			content: '';
+			margin-right: 0;
+		}
+	}
+}
+.bc-anc,
+.bc-sib,
+.bc-child {
+	&:extend(.list-basic all);
+	margin-top: 0;
+	padding-bottom: 1 * @olh;
+	li {
+		margin-top: 0.75 * @olh;
+		margin-bottom: -2px;
+	}
+}
+.bc-anc {
+//	a::before {content: '\22a5';} // `\bot` or 'up tack'
+//	a::before {content: '\22b7';} // 'image of'
+//	a::before {content: '<';}
+}
+.bc-sib {
+//	a::before {content: '\22a2';} // `\vdash` or 'turnstile'
+//	a::before {content: '\29df';} // 'double-ended multimap'
+//	a::before {content: '+';}
+}
+.bc-child {
+//	a::before {content: '\22a4';} // `\top` or 'down tack'
+//	a::before {content: '\22b6';} // 'original of'
+//	a::before {content: '>';}
+}
+/* @end */
+
+/* @group footnotes --- needs to go after `.list-basic` in code*/
+@fn-width: 1.5em;
+.footnotes {
+	// * an unordered list containing footnotes
+	&:extend(.list-basic);
+	.spacing-top-Phi(1px; solid; @color-accent);
+	.font-size(small);
+	li {
+		padding-left: @fn-width;
+		text-indent: -@fn-width;
+	}
+}
+.fn {
+	// * the superscript containing a link to the footnote or back to the reference
+	width: @fn-width;
+	> a {
+		&::before {content: '[';}
+		&::after {content: ']';}
+	}
+}
+/* @end */
+
+
 @media print {
 	body,
 	.h,
@@ -1057,4 +1061,3 @@ hr,
 		page-break-before: always; padding-top: 0.5in;
 	}
 }
-/* @end */

@@ -76,7 +76,7 @@ body {
 	<section id="sem-masthead">
 		<h1 class="h-gamma">Masthead</h1>
 	</section>
-	<section id="sem-breadcrumbs">
+	<section id="sem-bc">
 		<h1 class="h-gamma">Breadcrumbs</h1>
 		<p class="prose">Each page must contain exactly 1 breadcrumb tree. This will take the form of a <code class="lang-css">nav.bc</code> <strong><em>outside</em> the <code class="lang-css"><a href="#scheme-main">main</a></code> element</strong>. This <code class="lang-css">nav.bc</code> must contain only and exactly 3 elements, in the following order:</p>
 		<ol>
@@ -246,7 +246,7 @@ body {
 		<h1 class="h-gamma">Headers and Footers</h1>
 		<p class="prose">Headers and footers are not <a href="#d-sectioning-content">sectioning content</a>, so they do not add levels to the Document Outline. Headers of a section should contain data about the section <em>itself</em>, including, but not limited to, <a href="#sem-heading">headings</a>, a <a href="#sem-toc">table of contents</a>, a list of authors/editors, time written/published/updated, and related tags. Footers of a section should contain data about the <em>content</em> in the section, such as copyright information, contact information (possibly in an <code class="lang-css"><a href="#scheme-address">address</a></code> element), related links or references, and <a href="#sem-footnotes">footnotes</a>.</p>
 		<p class="prose">In each case, both header and footer information must be contained in <code class="lang-css">header</code> elements. Any number of <code class="lang-css">header</code> elements may be contained in a <code class="lang-css">section</code>, in any order. It is recommended to put header content (including the heading) in the <code class="lang-css">section &gt; header:first-child</code>, and footer content in the <code class="lang-css">section &gt; header:last-child</code>.</p>
-		<section id="sem-heading">
+		<section id="sem-hn">
 			<h1 class="h-delta">Headings</h1>
 			<p class="prose">Headings describe sections of a document and title the levels in the Document Outline. The title of a section is described by its <code class="lang-css">section &gt; header:first-child &gt; h1:first-child</code>, or if a header is not present, the <code class="lang-css">section &gt; h1:first-child</code>. The heading may only be in an <code class="lang-css">h1</code> element.</p>
 			<p class="prose">Some headings may have a subheading, or tagline. This text must be contained in a <code class="lang-css">h1 &gt; span.hsub</code>. A <code class="lang-css">h1</code> must contain at most 1 <code class="lang-css">span.hsub</code>.</p>
@@ -256,16 +256,17 @@ body {
 			<h1 class="h-delta">Tables of Content</h1>
 			<p class="prose">Since each document has a Document Outline, it has a corresponding table of contents. Use <code class="lang-css">nav.toc</code>, a section of links to other sections in the same page.</p>
 		</section>
-		<section id="sem-footnotes">
+		<section id="sem-fn">
 			<h1 class="h-delta">Footnotes</h1>
-				<p class="prose">Footnotes are annotations that can be taken out of context. The reference<sup class="fn"><a id="r1" href="#fn1">1</a></sup> should link to the footnote<sup class="fn"><a id="r2" href="#fn2">2</a></sup>. Each footnote is contained within a <code class="lang-css"><a href="#sem-header">header</a> &gt; ul.footnotes &gt; li</code>. This element should appear at the <em>bottom</em> of the document or article. Since footnotes are too short to be considered &ldquo;content,&rdquo; they are not suitiable in an <code class="lang-css">aside</code> element.</p>
-				<header>
-					<ul class="footnotes">
-						<li><sup class="fn"><a id="fn1" href="#r1">1</a></sup> A reference (shown above) is followed by a <code class="lang-css">sup.fn &gt; a#r1[href=&quot;#fn1&quot;]</code>, where <code class="lang-css">a#r1</code> is the anchor in the reference and <code class="lang-css">a#fn1</code> is the footnote to which it links.</li>
-						<li><sup class="fn"><a id="fn2" href="#r1">2</a></sup> A footnote (shown here) is preceded by a <code class="lang-css">sup.fn &gt; a#fn1[href=&quot;#r1&quot;]</code>, where <code class="lang-css">a#fn1</code> is the anchor in the footnote and <code class="lang-css">a#r1</code> is the reference to which it links.</li>
-					</ul>
-				</header>
-				<p><span class="caution">Caution <time>2014-03-01</time></span>: As of currently, the author must be responsible for the numbers that appear in the reference anchor and the corresponding footnote anchor. JavaScript will be implemented soon to automate this task.</p>
+			<p class="prose">Footnotes are annotations that can be taken out of context. Since footnotes are too short to be considered &ldquo;content,&rdquo; they are not suitiable in an <code class="lang-css">aside</code> element. Rather, they belong in the section's footer (represented by a <code class="lang-css"><a href="#sem-header">header</a></code> element).</p>
+			<p class="prose">Where a reference to a footnote occurs, the section text must contain a <code class="lang-css">sup.fn &gt; a#r<var>k</var>[href=&quot;#fn<var>k</var>&quot;]</code>, where <code class="lang-css">a#r<var>k</var></code> is the link to the to the <var>k</var><sup>th</sup> footnote identified by <code class="lang-css">#fn<var>k</var></code>. The content of <code class="lang-css">a#r<var>k</var></code> must be exactly <var>k</var>. For example, <var>k</var> would be the index <code class="lang-css">1</code> if it is the first footnote.</p>
+			<p><span class="caution">Caution <time>2014-03-01</time></span>: As of currently, the author must be responsible for the numbers that appear in the reference anchor and the corresponding footnote anchor. CSS or JavaScript will be implemented soon to automate this task.</p>
+			<p class="prose">A footnote list must be a <code class="lang-css">section &gt; header:last-child &gt; ul.footnotes</code>. This list must contain at least 0 <code class="lang-css">li</code> elements, with each <code class="lang-css">li</code> beginning with at least 1 <code class="lang-css">sup.fn &gt; a#fn<var>k</var>[href=&quot;#r<var>k</var>&quot;]</code>, where <code class="lang-css">a#fn1</code> is the link back to the reference identified by <code class="lang-css">#r1</code> in the section text. The content of <code class="lang-css">a#fn<var>k</var></code> must be exactly <var>k</var>.</p>
+			<section class="draft">
+				<h1 class="h-epsilon">Placement of References</h1>
+				<p class="prose">If a reference occurs at the end of a phrase, clause, or sentence in the section text, it must be displayed after the stopping punctuation mark. However, if it occurs at the end of a parenthetical statement or a statement surrounded by dashes, it must occur just inside the closing punctuation mark.</p>
+				<p class="prose">If more than one reference to the same footnote is required, for example, if the section contains multiple references to the same works cited, still, a different ordinal index <var>k</var> must be assigned to each link. Furthermore, the footnote itself must be preceeded by the same number of links equal to the number of references, containing the respective indeces.</p>
+			</section>
 		</section>
 	</section>
 </section>
