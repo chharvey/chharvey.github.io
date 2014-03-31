@@ -101,7 +101,7 @@ body {
 			<dd>if the link corresponds to a <a href="#d-logical-child">logical child</a> of the page</dd>
 		</dl>
 		<p class="prose">The value of the <code class="lang-html">rel</code> attribute may also contain other tokens as well. In the case of conflicting tokens (e.g., <code class="lang-html">parent</code> and <code class="lang-html">child</code>), the latter must be considered and the former must be disregarded.</p>
-		<aside class="debug-box-block">
+		<aside style="background-color: #eee;">
 			<h1 class="h-delta">Page Relationships</h1>
 			<p class="prose">For simplicity, we will use the examples <code class="dir">page-a.html</code> and <code class="dir">page-b.html</code> in this section for an illustration. We will use <var>A</var> to refer to <code class="dir">page-a.html</code>, and <var>B</var> to refer to <code class="dir">page-b.html</code>.</p>
 			<p class="prose">A <dfn id="d-logical-relative">logical relative</dfn> to a page <var>A</var>, is another page <var>B</var> that is related in content to <var>A</var>. The logical relation between <var>A</var> and <var>B</var> has nothing to do with their locations in the file directory, but rather a &ldquo;semantic filetree&rdquo; that describes how the pages are related.</p>
@@ -204,10 +204,6 @@ body {
 </section>
 <section id="sem-document-specific">
 	<h1 class="h-beta">Document-Specific Elements</h1>
-	<section id="sem-main">
-		<h1 class="h-gamma">Main</h1>
-		<p class="prose">Each document must contain at most 1 <code class="lang-css">main</code> element. This element, if present, must contain all content specific to the individual document, including any side text, footers, or other extraneous information. It must not include any site-wide navigational aids, breadcrumbs, headers, footers, or other elements that repeat across pages. <code class="lang-css">main</code> is not <a href="#d-sectioning-content">sectioning content</a>, so it does not add a level to the Document Outline.</p>
-	</section>
 	<section id="sem-outline">
 		<h1 class="h-gamma">The Document Outline</h1>
 		<p class="prose">An outline exists for every document. On a Web page, the <code class="lang-css">body</code> represents the document and we refer to its outline as the <a class="sp" href="http://www.w3.org/html/wg/drafts/html/master/sections.html#outline" rel="external">Document Outline</a>.</p>
@@ -242,6 +238,10 @@ body {
 			<p class="prose">To that end, there are two rules to an <code class="lang-css">aside</code>. First, the normal flow of the document must not be disturbed if it were removed, so the reader should be able to completely skip the aside without missing a beat. Second, the aside itself must make sense isolated and out of context, so reading the aside all by itself should make sense.</p>
 		</section>
 	</section>
+	<section id="sem-main">
+		<h1 class="h-gamma">Main</h1>
+		<p class="prose">Each document must contain at most 1 <code class="lang-css">main</code> element. This element, if present, must contain all content specific to the individual document, including any side text, footers, or other extraneous information. It must not include any site-wide navigational aids, breadcrumbs, headers, footers, or other elements that repeat across pages. <code class="lang-css">main</code> is not <a href="#d-sectioning-content">sectioning content</a>, so it does not add a level to the Document Outline.</p>
+	</section>
 	<section id="sem-header">
 		<h1 class="h-gamma">Headers and Footers</h1>
 		<p class="prose">Headers and footers are not <a href="#d-sectioning-content">sectioning content</a>, so they do not add levels to the Document Outline. Headers of a section should contain data about the section <em>itself</em>, including, but not limited to, <a href="#sem-heading">headings</a>, a <a href="#sem-toc">table of contents</a>, a list of authors/editors, time written/published/updated, and related tags. Footers of a section should contain data about the <em>content</em> in the section, such as copyright information, contact information (possibly in an <code class="lang-css"><a href="#scheme-address">address</a></code> element), related links or references, and <a href="#sem-footnotes">footnotes</a>.</p>
@@ -269,31 +269,15 @@ body {
 		</section>
 	</section>
 </section>
-
-
-
-
-
-
-<section id="group-level">
-	<h1 class="h-beta">Group-Level Semantics</h1>
+<section id="sem-group">
+	<h1 class="h-beta">Grouping Semantics</h1>
 	<p class="prose">This section...</p>
 	<section id="scheme-paragraph">
 		<h1 class="h-gamma">Paragraph Scheme</h1>
-		<p>Paragraphs (<code class="lang-css">p</code>) are the backbone of a document; they are made to organize and group textual ideas together. In the written media, paragraphs can span anywhere from 3 to 8 sentences. However on the Web, they can be much, much shorter. This paragraph does not have any classes added. We will call these &ldquo;regular paragraphs.&rdquo;</p>
-		<figure>
-			<p style="font-style: italic;">Some regular paragraphs may be presented in italics. This paragraph merely serves as a visual example. The quick brown fox jumps over the lazy dog.</p>
-			<p style="font-weight: bold;">Some regular paragraphs may be presented in bold. This paragraph merely serves as a visual example. The quick brown fox jumps over the lazy dog.</p>
-			<p style="font-style: italic; font-weight: bold">This is a regular paragraph in italics and bold. The quick brown fox jumps over the lazy dog.</p>
-		</figure>
-		<p class="p-lede">This is a lede paragraph. A lede is traditionally an introductory or summary sentence or paragraph to catch the reader's attention. This site's ledes are designed to catch the reader's eye and attention.</p>
-		<p class="p-lede">Lede paragraphs should <em>not</em> be given the <code class="lang-css">.prose</code> class, even if they are written as part of a formal section or document. Use the <code class="lang-css">.p-lede</code> class on a whole paragraph such as this one, or <code class="lang-css">.s-lede</code> on the first span within a paragraph as shown below. If a lede sentence is part of a paragraph, it acts like a mini-heading for that text.</p>
-		<p class="prose"><span class="s-lede">This is a paragraph in prose.</span> Paragraphs in the <strong>normal flow of formal or normative documents</strong> will be writen in prose. The <code class="lang-css">.prose</code> class is used for this style. Prose, being more formal and providing more detail than other web-based texts, usually requires more careful reading.</p>
-		<figure>
-			<p class="prose" style="font-style: italic;">Some prose paragraphs may be presented in italics. This paragraph merely serves as a visual example. The quick brown fox jumps over the lazy dog.</p>
-			<p class="prose" style="font-weight: bold;">Some prose paragraphs may be presented in bold. This paragraph merely serves as a visual example. The quick brown fox jumps over the lazy dog.</p>
-			<p class="prose" style="font-style: italic; font-weight: bold">This is a prose paragraph in italics and bold. The quick brown fox jumps over the lazy dog.</p>
-		</figure>
+		<p>Paragraphs (<code class="lang-css">p</code>) are the backbone of a document; they are made to organize and group textual ideas together. In the written media, paragraphs can span anywhere from 3 to 8 sentences. However on the Web, they can be much, much shorter.</p>
+		<p class="p-lede">A lede paragraph is traditionally an introductory or summary sentence or paragraph to catch the reader's attention. This site's ledes are designed to catch the reader's eye and attention. Lede paragraphs must <em>not</em> be given the <code class="lang-css">.prose</code> class, even if they are written as part of a formal section or document. Use the <code class="lang-css">.p-lede</code> class on a whole paragraph, or <code class="lang-css">span.s-lede</code> on the first sentence. If a lede sentence is part of a paragraph, it acts like a mini-heading for that text. This can be especially useful in a <a>prose list</a>.</p>
+		<p class="prose">Paragraphs in the <strong>normal flow of formal or normative documents</strong> will be writen in <code class="lang-css">.prose</code>. The <code class="lang-css">.prose</code> class is used for this style. Prose, being more formal and providing more detail than other web-based texts, usually requires more careful reading.</p>
+
 		<p class="nonnormative">Sometimes, authors may want to include <dfn id="d-nonnormative">non-normative</dfn> text in a normative document. This text is informative or &ldquo;unofficial,&rdquo; for example, supplemental remarks or a summary of normative information provided for the reader's convenience. Another common example of non-normative text is duplicating normative text on another part of the page.</p>
 		<p class="nonnormative">Non-normative text is still part of the normal flow of the document, so it would not makes sense out of context as a <code class="lang-css"><a href="#scheme-figure-blockquote">figure</a></code> or <code class="lang-css"><a href="#scheme-aside">aside</a></code> would, however it is presented differently than formal text to indicate that it is not official. <ins class="draft">At the same time, the <code class="lang-css"><a href="">i</a></code> element is not appropriate either, because the non-normative span of text does not represent a change of voice or mood. Could it be considered a change in mood?</ins> As such, apply the <code class="lang-css">.nonnormative</code> class to the text. This text may be a single paragraph, a container such as a <code class="lang-css">div</code> or <code class="lang-css">figure</code>, or even a small span of text within a paragraph such as a parenthetical remark. (In this last case, the author should use the <code class="lang-css">.nonnormative</code> class to indicate the remark is unofficial, but <a href="punct.html#parens">also contain the remark in parentheses</a>.)</p>
 		<p class="nonnormative">The author may also indicate verbally (in writing preceding the text) that the text is non-normative. If the non-normative text is one paragraph, the author may simply place the indication in the previous paragraph. If the text is large enough for its own figure or section, though, the indication should be in that element's <code class="lang-css">header</code>.</p>
