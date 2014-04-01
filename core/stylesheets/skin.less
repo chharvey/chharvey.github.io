@@ -311,8 +311,9 @@ div.postal {
 /* @end */
 
 /* @group lists */
+@list-indent: 0.5in;
 ol, ul {
-	padding-left: 0.5in;
+	padding-left: @list-indent;
 }
 li, dt, dd {
 	ol, ul {margin-top: 0;}
@@ -380,10 +381,23 @@ li, dt, dd {
 /* @group association lists (`dl`s) a.k.a. mappings */
 dt,
 dd {
-	> ul:only-child {&:extend(.list-basic);}
+	> ol:only-child {
+		padding-left: 0;
+		list-style-position: inside;
+	}
+	> ul:only-child {&:extend(.list-basic all);}
 }
 dd {
-	padding-left: 0.5in;
+	padding-left: @list-indent;
+}
+.dl-ordered {
+	padding-left: @list-indent;
+	> dt:first-child,
+	> dd + dt {
+		display: list-item;
+		list-style-type: decimal;
+		list-style-position: outside;
+	}
 }
 .dl-basic {
 	> dd {margin: 0; padding: 0;}
