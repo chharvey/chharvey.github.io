@@ -19,6 +19,7 @@ TO DO
 	- 'portal' pages (`/home/edu.html`, `/home/math.html`, etc.)
 	- **formal** documents such as articles or blog posts (maybe in `/docs/`?)
 - 2014-03-30 instead of using classes (`span.hsub`, etc.) for QUASI-ELEMENTS, use the `data-*` attribute. For example, `<span data-qe="subh">`. Then style these with `span[data-qe="subh"]`. The selector is equally as specific as `span.subh` but may be less efficient; though this is a minor cost to pay for semantic benefit.
+- 2014-04-01 separate pure-style classes (e.g. `.list-basic`, `.dl-table-sml`, `.table-list`, etc.) from semantic classes (e.g. `.dl-ordered`, `.hsub`, `.postal`, etc.). Maybe use the HTML `data-*` attribute?
 
 #### metadata and micro-semantics (very low priority) ###
 - `rel` attributes on `link` and `a` elements, see [http://dev.w3.org/html5/spec/links.html#linkTypes]()
