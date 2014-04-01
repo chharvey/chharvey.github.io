@@ -1,6 +1,12 @@
 TO DO
 ========
 
+- 2014-03-06 every list must go under a heading and every heading must be followed by exactly one list, unless that heading is followed by subheading(s) that are followed by list(s).
+- 2014-03-06 every list item must begin with a date in the format `YYYY-MM-DD`. This is the date the list item is added. (Starting on 2013-12-14. list items before that date will not have dates added. See Git repo history for more info.)
+- 2014-03-06 add list items to the bottom of each list; that way the list stays in chronological order (starting as of today).
+- 2014-03-06 when list items are complete, *do not* delete the list item. Wrap it with the `<del>` tag. (Starting as of today; see Git repo history for items deleted before today.)
+
+
 ## Site-wide to-do list ##
 
 ### semantics ###
@@ -12,6 +18,8 @@ TO DO
 - 2014-03-06 change all apostrophes (`'`) to right single quotes `&rsquo;` on the following pages... (Leave the apostrophes alone in regular pages. The typographical precision is not worth the effort.)
 	- 'portal' pages (`/home/edu.html`, `/home/math.html`, etc.)
 	- **formal** documents such as articles or blog posts (maybe in `/docs/`?)
+- 2014-03-30 instead of using classes (`span.hsub`, etc.) for QUASI-ELEMENTS, use the `data-*` attribute. For example, `<span data-qe="subh">`. Then style these with `span[data-qe="subh"]`. The selector is equally as specific as `span.subh` but may be less efficient; though this is a minor cost to pay for semantic benefit.
+- 2014-04-01 separate pure-style classes (e.g. `.list-basic`, `.dl-table-sml`, `.table-list`, etc.) from semantic classes (e.g. `.dl-ordered`, `.hsub`, `.postal`, etc.). Maybe use the HTML `data-*` attribute?
 
 #### metadata and micro-semantics (very low priority) ###
 - `rel` attributes on `link` and `a` elements, see [http://dev.w3.org/html5/spec/links.html#linkTypes]()
