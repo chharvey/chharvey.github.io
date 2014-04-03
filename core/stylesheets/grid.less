@@ -1,10 +1,29 @@
 // main: all.less
 
-// *** PART 1: HORIZONTAL GRID *** //
+/*-------------*\
+	grid.less
+\*-------------*/
 
-/* @group Widths */
-@Phi1: ((-1 + sqrt(5)) / 2);
-//@Phi1: 0.618033988749894848;
+//Table of Contents
+//- HORIZONTAL GRID
+//	- Widths
+//	- Golden widths and margins
+//	- Lines and units
+//	- Automated box widths
+//	- Undo golden widths and margins
+//- VERTICAL GRID
+//	- Font size and line height
+//	- Padding, margin, border
+
+
+//=================
+//@HORIZONTAL GRID
+//=================
+
+//-------
+//@Widths
+//-------
+@Phi1: ((-1 + sqrt(5)) / 2); // 0.618033988749894848
 @Phi2: (@Phi1 * @Phi1);
 @Phi3: (@Phi2 * @Phi1);
 @Phi4: (@Phi3 * @Phi1);
@@ -46,9 +65,11 @@
 @width-Golden10: (100% * @Phi10);
 @width-Golden11: (100% * @Phi11);
 @width-Golden12: (100% * @Phi12);
-/* @end */
+//---- @end Widths ----
 
-/* @group Golden widths and margins */
+//--------------------------
+//@Golden widths and margins
+//--------------------------
 .P1-midleft,
 .P1-midright,
 .P1-left,
@@ -109,9 +130,11 @@
 	position: absolute;
 	right: 0;
 }
-/* @end */
+//---- @end Golden widths and margins ----
 
-/* @group lines and units */
+//----------------
+//@Lines and units
+//----------------
 .line {
 	display: table;
 	width: 100%;
@@ -151,9 +174,12 @@
 .unit-4to5 {width: (100% * (4/5));} //  80%
 .unit-1to6 {width: (100% * (1/6));} //  16.666%
 .unit-5to6 {width: (100% * (5/6));} //  83.333%
-/* @end */
+//---- @end Lines and units ----
 
-/* @group automated box widths. may be used on regular blocks or on `.line`s containing `.unit`s */
+//---------------------
+//@Automated box widths
+//---------------------
+// may be used on regular blocks or on `.line`s containing `.unit`s
 .linebreadth(@breadth) {
 	width:  @breadth;
 	margin-left:  ((100% - @breadth) / 2);
@@ -163,9 +189,11 @@
 .linebreadth-lrg() {.linebreadth(100% * (3/4));}   // geometric:  75.00%
 .linebreadth-med() {.linebreadth(100% * (2/3));}    // arithmetic: 66.66%
 .linebreadth-sml() {.linebreadth(@width-Golden1);} // Golden:     61.80%
-/* @end */
+//---- @end Automated box widths ----
 
-/* @group Undo Golden widths and margins */
+//-------------------------------
+//@Undo golden widths and margins
+//-------------------------------
 .undoGolden,
 .undoP1-midleft,
 .undoP1-midright,
@@ -198,13 +226,17 @@
 .undoU-P3-right {width: @width-u-golden3; left: -30.9016994374947424%;} // -30.9016994374947424%
 .undoU-P3-right {width: @width-u-golden4;}
 .undoU-P4-right {width: @width-u-golden4; left: -17.0820393249936909%;} // -17.0820393249936909%
-/* @end */
+//---- @end Undo golden widths and margins ----
+//==== @end HORIZONTAL GRID ====
 
 
+//==============
+//@VERTICAL GRID
+//==============
 
-// *** PART 2: VERTICAL GRID *** //
-
-/* @group font size and line height */
+//--------------------------
+//@Font size and line height
+//--------------------------
 @font-size-base:  16px;
 @line-height-base:  1.5;
 @olh: @line-height-base * @font-size-base; // 24px
@@ -227,9 +259,11 @@
 	.font-size(small; inherit);
 	line-height: 2.0; // (@olh / @font-size-small);
 }
-/* @end */
+//---- @end Font size and line height ----
 
-/* @group mixins for controlling padding, margins, and borders */
+//------------------------
+//@Padding, margin, border
+//------------------------
 .spacing-top-Phi(@brdr-width; @brdr-style; @brdr-color) {
 	padding-top: ((@olh - @brdr-width) * @Phi2);
 	border-top: @brdr-width @brdr-style @brdr-color;
@@ -315,10 +349,10 @@
 //	padding-right: @pad-r;
 //	width: (@origwidth - (@pad-l + @pad-r));
 //}
-/* @end */
-
-
-// *** PART 3: PRINT *** //
+//---- @end Padding, margin, border ----
+//==================
+//@end VERTICAL GRID
+//==================
 
 @media print {
 	.gutter-major,
