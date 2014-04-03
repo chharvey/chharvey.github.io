@@ -1,0 +1,256 @@
+---
+---
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>CSS Guidelines</title>
+<meta charset="UTF-8"/>
+<meta name="author" content="Christopher H. Harvey"/>
+<meta name="description" content="Guidelines on how to write CSS and Less."/>
+<link rel="stylesheet" href="../core/stylesheets/all.css"/>
+<style>
+</style>
+{% include all-js.html %}
+</head>
+<body>
+<main>
+<header>
+	<h1 class="h-alpha">CSS Guidelines</h1>
+</header>
+<p class="prose">The guidelines here are for stylesheets written in <a href="http://lesscss.org" rel="external">Less</a>.</p>
+<section id="stylesheet-structure">
+	<h1 class="h-beta">Elements of a Stylesheet</h1>
+	<section id="filename">
+		<h1 class="h-gamma">File Name</h1>
+		<p class="prose">At the top of every stylesheet after imports and other such directives, the filename must be indicated as so:</p>
+		<pre><code class="lang-css">
+/*--------------*\
+	reset.less
+\*--------------*/
+		</code></pre>
+		<p class="prose">The filename must be indented once. Notice the lines above and below the filename contain 2 hyphens to the left and right of the filename. This is the only comment in the stylesheet with the `/* */` notation. All other comments must be proceded by the `//` notation so that Less does not compile them into the CSS files.</p>
+	</section>
+	<section id="toc">
+		<h1 class="h-gamma">Table of Contents</h1>
+		<p class="prose">After the filename, include a table of contnents. Each line on the table of contents represents a group and is written as a <code class="lang-css">ul</code> in Markdown format. Each stylesheet must only have 2 levels of groups: <b class="keyword">top-level</b> and <b class="keyword">low-level</b>. The top-level headings must be in all-caps, and the low-level headings must be first cap only. The table of contents must be preceed by a blank line. Below is an example.</p>
+		<pre><code class="lang-css">
+//Table of Contents
+//- HORIZONTAL GRID
+//	- Widths
+//	- Golden widths and margins
+//	- Lines and units
+//	- Automated box widths
+//	- Undo golden widths and margins
+//- VERTICAL GRID
+//	- Font size and line height
+//	- Padding, margin, border
+		</code></pre>
+	</section>
+	<section id="headings">
+		<h1 class="h-gamma">Group Headings</h1>
+		<section id="sections-top-level">
+			<h1 class="h-delta">Top-Level</h1>
+			<p class="prose">Top-level group headings be preceeded by 2 blank lines and must appear as so:</p>
+			<pre><code class="lang-css">
+//================
+//@HORIZONTAL GRID
+//================
+			</code></pre>
+			<p class="prose">The heading name must be in all caps, proceded by the at-sign (<code>@</code> <a href="http://www.fileformat.info/info/unicode/char/0040/index.htm" rel="external">U+0040</a>). The at-sign makes it easy to <abbr title="find"><kbd>&#x2318;-F</kbd></abbr> the section headings. Notice the lines above and below have a number of equals signs (<code>=</code> <a href="http://www.fileformat.info/info/unicode/char/003d/index.htm" rel="external">U+003D</a>) that extend out to the end of the heading name.</p>
+			<p class="prose">At the end of the top-level section, include the following:</p>
+			<pre><code class="lang-css">
+//==== @end HORIZONTAL GRID ====
+			</code></pre>
+			<p class="prose">Notice the four equals signs before and after the heading name.</p>
+		</section>
+		<section id="sections-low-level">
+			<h1 class="h-delta">Low-Level</h1>
+			<p class="prose">Low-level group headings must be preceded by 1 blank line and must appear as so:</p>
+			<pre><code class="lang-css">
+//-------
+//@Widths
+//-------
+			</code></pre>
+			<p class="prose">The heading name must be first-cap only, (unless there are any proper nouns in the heading), and also preceded by the at-sign. Notice the lines above and below have a number of hyphens (<code>-</code> <a href="http://www.fileformat.info/info/unicode/char/002d/index.htm" rel="external">U+002D</a>) that extend out to the end of the heading name.</p>
+			<p class="prose">At the end of the low-level section, include the following:</p>
+			<pre><code class="lang-css">
+//---- @end Widths ----
+			</code></pre>
+			<p class="prose">Notice the four hyphens before and after the heading name.</p>
+		</section>
+	</section>
+</section>
+<section id="text">
+	<h1 class="h-beta">Guidelines for Formatting Text</h1>
+	<section id="indent">
+		<h1 class="h-gamma">Indentation</h1>
+		<p class="prose">Use 1 tab (<a href="http://www.fileformat.info/info/unicode/char/0009/index.htm" rel="external">U+0009</a>) for each level of indent. Tab size is 4 by defualt, but authors may change it to match workplace convention.</p>
+	</section>
+	<section id="blocks">
+		<h1 class="h-gamma">Style Blocks</h1>
+		<p class="prose">Groups of similar selectors, including combination selectors (child, descendant, sibling, etc.) must appear on their own line. &ldquo;Similar&rdquo; may be to the author's discretion. The opening brace must <em>not</em> follow the last selector, but must be on its own line. The closing brace must also be on its own line after the style declarations in the block.</p>
+		<p class="prose">Each style declaration must be indented once, and must also appear on its own line. The colon (<code>:</code> <a href="http://www.fileformat.info/info/unicode/char/003a/index.htm" rel="external">U+003A</a>) between the property and value must <em>not</em> be preceded by, but must be followed by, <strong>at least one</strong> space (<a href="http://www.fileformat.info/info/unicode/char/0020/index.htm" rel="external">U+0020</a>). The number of spaces may be increased to vertically align values of similar properties. Each value, including the last in the block, must be followed by a semicolon (<code>;</code> <a href="http://www.fileformat.info/info/unicode/char/003b/index.htm" rel="external">U+003B</a>).</p>
+		<p class="prose">&ldquo;Javadoc&rdquo; (but CSS version) documentation must appear <em>inside</em> the style block, after the opening bracket, on its own line. This comment must be preceded by the <code class="lang-css">// * </code> notation (notice the space between the slashes and the asterisk) and is intended for developers only.</p>
+		<p class="prose">An example is below.</p>
+		<pre><code class="lang-css">
+body,
+section, article, aside, nav,
+main, header, footer,
+h1, h2, h3, h4, h5, h6,
+p,
+figure, blockquote, address,
+ol, ul, li,
+dl, dt, dd,
+table,
+pre
+{
+	// * reset margin and padding on most block-level elements... this comment is clearly unnecessary.
+	padding: 0;
+	margin:  0;
+}
+		</code></pre>
+		<p class="prose"><strong>The example below is an exception to the one-line rule.</strong> This may be used in cases with multiple style blocks in a row that each contain one declaration or multiple parallel declarations.</p>
+		<pre><code class="lang-css">
+.P1-left  {.automargin(left;  (100% - @width-Golden1));}
+.P1-right {.automargin(right; (100% - @width-Golden1));}
+.P2-left  {.automargin(left;  (100% - @width-Golden2));}
+.P2-right {.automargin(right; (100% - @width-Golden2));}
+.P3-left  {.automargin(left;  (100% - @width-Golden3));}
+.P3-right {.automargin(right; (100% - @width-Golden3));}
+.P4-left  {.automargin(left;  (100% - @width-Golden4));}
+.P4-right {.automargin(right; (100% - @width-Golden4));}
+		</code></pre>
+		<section id="properties">
+			<h1 class="h-delta">Order of CSS Properties</h1>
+			<p class="prose">The properties within a style block must appear in the following order.</p>
+			<ol>
+				<li>Structural:
+					<ol>
+						<li>display properties</li>
+						<li>sizing properties (<code class="lang-css">width</code>, <code class="lang-css">height</code>, etc.)</li>
+						<li>padding properties</li>
+						<li>border properties</li>
+						<li>outline properties</li>
+						<li>margin properties</li>
+						<li>positioning properties</li>
+						<li>z-index properties</li>
+						<li>transformations</li>
+					</ol>
+				</li>
+				<li>Textual:
+					<ol>
+						<li>font properties (style, variant, weight, size, family, etc.)</li>
+						<li>horizontal text properties (<code class="lang-css">-align</code>, <code class="lang-css">-indent</code>, <code class="lang-css">letter-spacing</code>, etc.)</li>
+						<li>vertical text properties (<code class="lang-css">line-height</code>, <code class="lang-css">white-space</code>, etc.)</li>
+						<li>miscellaneous (<code class="lang-css">list-style</code> <code class="lang-css">-type</code>, <code class="lang-css">-position</code>, <code class="lang-css">-image</code>, etc.)
+					</ol>
+				</li>
+				<li>Skin:
+					<ol>
+						<li>color</li>
+						<li>background properties (color, position, size, repeat, origin, clip, attachment, image, etc.)</li>
+						<li>opacity, visibility, etc.</li>
+					</ol>
+				</li>
+			</ol>
+		</section>
+	</section>
+</section>
+<section id="classes">
+	<h1 class="h-beta">Guidelines for Naming Classes</h1>
+	<p class="prose">Classnames must consist of either lowercase letters of the English alphabet (<a href="http://www.fileformat.info/info/unicode/char/0061/index.htm" rel="external">U+0061</a>&ndash;<a href="http://www.fileformat.info/info/unicode/char/007a/index.htm" rel="external">U+007A</a>), hyphens (<code>-</code> <a href="http://www.fileformat.info/info/unicode/char/002d/index.htm" rel="external">U+002D</a>), or underscores (<code>_</code> <a href="http://www.fileformat.info/info/unicode/char/005f/index.htm" rel="external">U+005F</a>).</p>
+	<p class="prose">Major words in a classname must appear in order from general to specific, and separated by one hyphen. Minor words should be combined, not separated. Examples:</p>
+	<ul>
+		<li><code class="lang-css">.lede-para</code></li>
+		<li><code class="lang-css">.lede-sent</code></li>
+		<li><code class="lang-css">.dropcap</code></li>
+		<li><code class="lang-css">.rowgroup</code></li>
+	</ul>
+	<section id="namespace">
+		<h1 class="h-gamma">Namespace Prefixes</h1>
+		<p class="prose">Classnames used only on one page or in a group of pages (e.g., a sub-site) must begin with a namespace prefix. This will help keep styles separated and prevent overuse of classnames. The namespace must contain only lowercase letters and should be less than 6 characters. The namespace must be followed by an underscore.</p>
+		<ul>
+			<li><code class="lang-css">.res_skillgroup</code></li>
+			<li><code class="lang-css">.scheme_colortable</code></li>
+			<li><code class="lang-css">.grid_phidemo</code></li>
+		</ul>
+		<p class="prose">Chances are, you will need to add classes to your HTML elements so JavaScript can grab them and do things to them. We call these classes <dfn>JS hooks</dfn>. <strong>Never use CSS styling classes for JS hooks.</strong> Use the <code class="lang-css">.js_</code> namespace prefix, and don't apply any styles to these classes.</p>
+		<ul>
+			<li><code class="lang-css">.js_table</code></li>
+			<li><code class="lang-css">.js_expando</code></li>
+		</ul>
+	</section>
+	<section id="modifiers">
+		<h1 class="h-gamma">Modifiers</h1>
+		<p class="prose">Some classes will need modifiers, for sizing, etc. Use a double-hyphen to separate a classname with its modifier. Classes may have nested modifiers, that is, modifiers for modifiers.</p>
+		<ul>
+			<li><code class="lang-css">.box--inline</code></li>
+			<li><code class="lang-css">.h--alpha</code></li>
+			<li><code class="lang-css">.list--bare</code></li>
+			<li><code class="lang-css">.list--inline--c</code></li>
+			<li><code class="lang-css">.dl--table--sml</code></li>
+		</ul>
+	</section>
+	<section id="subcomponents">
+		<h1 class="h-gamma">Sub-Components</h1>
+		<p class="prose">With <a>some exceptions</a>, descendant selectors are usually avoided, so indicating that one class of HTML element belongs as a descendent of another class of element is <a>not specified via selector</a>: it is usually specified in some sort of documentation. However it is advantageous to additionaly <strong>indicate so in the classname</strong> for extra unambiguity, without sacrificing specificity or efficiency. This way, the developer knows that the element belongs inside the other by inspection.</p>
+		<p class="prose">In the name of a class that is a descendant of another class, the &ldquo;parent classname&rdquo; and &ldquo;child classname&rdquo; are separated by two underscores. This similar to the practice of using one underscore to indicate namespaces. (In a way, the child classname is in the parent classname namespace.) If a child classname such as <code class="lang-css">.bar__foo</code> exists, it is assumed that a classname <code class="lang-css">.bar</code> exists.</p>
+		<ul>
+			<li><code class="lang-css">.bc__anc</code></li>
+			<li><code class="lang-css">.fnotes__fn</code></li>
+			<li><code class="lang-css">.lang--html__tag</code></li>
+			<li><code class="lang-css">.res_skilldetail__job</code></li>
+		</ul>
+	</section>
+</section>
+<section id="selectors">
+	<h1 class="h-beta">Guidelines for Writing Selectors</h1>
+	<p class="prose">Each selector has a <a>specificity</a> and an <a>efficiency</a>. I won't talk about them too much here, but generally the more efficient a selector is, the more specific it gets, and vice versa: less specific selectors are usually not that efficient. Our goal is to find the right balance between keeping our selectors low in specificity while high in efficiency.</p>
+	<p class="prose">The majority of the selectors in a stylesheet should be single classes only. Class selectors are the most efficient way for browsers to style pages, <a>not counting IDs</a>. For the most part, use single class selectors.</p>
+	<p class="prose">There are a few exceptions to this rule.</p>
+	<section>
+		<h1 class="h-gamma">Child and Descendant Selectors</h1>
+		<p class="prose"><a href="#subcomponents">As stated above</a>, it is best practice to avoid child selectors (<code class="lang-css">.parent &gt; .child</code>) and descendant selectors (<code class="lang-css">.ancestor .descendant</code>). However there are some cases in which this is okay, and these cases involve intrinsic ownership: elements that belong to other elements by HTML standards.</p>
+		<section id="lists">
+			<h1 class="h-delta">Lists</h1>
+			<p class="prose">The following CSS is <em>very</em> efficient and not very specific at all. This is normally very good CSS:</p>
+			<pre><code class="lang-css">
+.nav {&hellip;}
+.nav__link {&hellip;}
+			</code></pre>
+			<pre><code class="lang-html">
+&lt;ol class=&quot;nav&quot;&gt;
+	&lt;li class=&quot;nav__link&quot;&gt;&lt;a&gt;link 1&lt;/a&gt;&lt;/li&gt;
+	&lt;li class=&quot;nav__link&quot;&gt;&lt;a&gt;link 2&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+			</code></pre>
+			<p class="prose">While this is usually best practice, the issue here is that each list item requires the class <code class="lang-css">.nav__link</code>, and that every time an item gets added to the list, the class has to be added again. While this may be efficient CSS, this is very <em>inefficient</em> HTML and it's not very <abbr title="don't repeat yourself">DRY</abbr>. For instance, if the list item classname were to change in the <a>Theoretical Redesign Future&trade;</a>, we would have to go back and change all the classes on each list item in the HTML.</p>
+			<p class="prose">In this case it is better to view the list as one component, with the list items as subcomponents of that component. Here we are using a class selector to target the <code class="lang-css">ol</code>, but we are permitted to use an element selector to target the <code class="lang-css">li</code>s inside. Yes, the selector <code class="lang-css">.nav &gt; li</code> is more specific than <code class="lang-css">.nav__link</code>, but that is a small price to pay for more efficient HTML.</p>
+			<pre><code class="lang-css">
+.nav {&hellip;}
+.nav &gt; li {&hellip;}
+			</code></pre>
+			<pre><code class="lang-html">
+&lt;ol class=&quot;nav&quot;&gt;
+	&lt;li&gt;&lt;a&gt;link 1&lt;/a&gt;&lt;/li&gt;
+	&lt;li&gt;&lt;a&gt;link 2&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+			</code></pre>
+		</section>
+		<section id="tables">
+			<h1 class="h-delta">Tables</h1>
+			<p class="prose">I'm not going to give any examples here, but selectors describing any <code class="lang-css">thead</code>, <code class="lang-css">tbody</code>, <code class="lang-css">tfoot</code>, <code class="lang-css">tr</code>, <code class="lang-css">th</code>, or <code class="lang-css">td</code> elements, etc. inside any <code class="lang-css">table</code> elements are acceptable exceptions to the &ldquo;single-class&rdquo; rule.</p>
+		</section>
+		<section>
+			<h1 class="h-delta">Miscellaneous Groupings</h1>
+			<ul>
+				<li><code class="lang-css">h1 &gt; .h__sub</code>, etc. a subheading element within a heading 1 (as opposed to a heading 2, etc.). Otherwise we would need <code class="lang-css">.h1__sub</code> through <code class="lang-css">.h6__sub</code>.</li>
+				<li><code class="lang-css">.fn a</code>, a link inside a footnote superscript</li>
+				<li><code class="lang-css">blockquote &gt; cite</code>, a citation inside a blockquote</li>
+			</ul>
+		</section>
+	</section>
+</section>
+</main>
+</body>
+</html>

@@ -1,4 +1,3 @@
-# Writing CSS #
 **CSS is not "documentation" for HTML.** It is not the job of CSS to enforce or validate proper semantics. The job of CSS is to style elements, and just because authors have the power to use selectors to "prohibit" broken elements from being styled does not mean that the HTML will become any less broken as a result. It only means that CSS will not style the broken HTML.
 
 Here's an example: let's say in your CSS you have a selector `ol.nav > li > a`, which creates a yellow background color. In your HTML, you might have:
@@ -46,8 +45,6 @@ List of Quasi-Elements:
 - `b.ref`: reference to a title, section heading, figure, table, or creative work. use only when the `a` element or the `cite` element would not be appropriate
 
 ## Child and Descendent Selectors ##
-It is common practice to avoid child selectors, e.g. `parent > child` or descendent selectors, `ancestor > descendent` in CSS files as they increase specificity and decrease efficiency. However, there are some cases in which this is okay. By the HTML standards and by my own documentation, certain elements are grouped together intrinsicaly.
-
 ### Headings ###
 Some will argue that an `.h-gamma` should look like an `.h-gamma` no matter where it is placed in the document. If you were to move that heading to a different location or out of its containing element, it should still look the same. While that philosophy is reasonable, I tend to disagree.
 
@@ -56,33 +53,3 @@ Take the Document Outline Model. In a top section, a heading should be big, cent
 So the philosophy that "elements' styles should be location-independent" works for most elements, but not always for headings. Sometimes we **want** a heading to be location-dependent so that when we move it, it will change accordingly. Again, this is an exception. For most elements, you do *not* want it to change based on where it is.
 
 Another example: you want all headings in an `aside` to look the same. It doesn't matter whether they are an `.h-beta` or an `.h-epsilon`. You want an aside to look like an aside, and that includes the heading. Thus it is okay to use the selector `aside > h1`, even though it is a child selector.
-
-### Lists ###
-The following CSS is *very* efficient and not very specific at all. This is normally very good CSS.
-
-	.nav {border: 1px solid black;}
-	.navlink {background-color: yellow;}
-
-However there is an exception. Look at the HTML below.
-
-	<ol class="nav">
-		<li><a class="navlink">link 1</a></li>
-		<li><a class="navlink">link 2</a></li>
-	</ol>
-
-The issue is that every time a link gets added to the navigation list, the class `.navlink` must be added. While this may be efficient CSS, this is very inefficient HTML and it is not very **DRY** (don't repeat yourself). For example, if the classname were to change, every single link would have to be changed. It would be much simpler to view the list as one entity and the list items inside as part of that entity.
-
-	.nav {border: 1px solid black;}
-	.nav a {background-color: yellow;}
-	<ol class="nav">
-		<li><a>link 1</a></li>
-		<li><a>link 2</a></li>
-	</ol>
-
-Below is a comprehensive list of intrinsically grouped elements on this site:
-- `.h-alpha > .hsub`, `.h-alpha > .hsub`, etc. subheadings within a heading element
-- any `ol`, `ul`, `li`, `dl`, `dt`, or `dd` inside any list element `ol`, `ul`, or `dl`
-- any `thead`, `tbody`, `tfoot`, `tr`, `th`, or `td` inside any `table` element
-
-- `.fn a`: a link inside the superscript a footnote superscript
-- `blockquote:not(.prose) > cite` citations inside a non-prose blockquote ... is there a better way than this?
