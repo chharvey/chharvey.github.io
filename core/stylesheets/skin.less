@@ -409,11 +409,11 @@ dd {
 @color-table-bg-weak:   hsv(185,  5.5%, 100%);
 
 table {
+	.font-size(small);
 	border-collapse: collapse;
 	margin-left: auto;
 	margin-right: auto;
 	text-align: center;
-	line-height: inherit;
 }
 caption {
 	&:extend(.caption);
@@ -424,19 +424,22 @@ caption {
 	border-left: 0;
 	border-right: 0;
 }
-thead, tfoot {font-weight: bold;}
+thead, tfoot {
+	font-weight: bold;
+	vertical-align: bottom;
+}
 tbody {vertical-align: top;}
 th, td {
-	padding: (0.5 * @olh) 6px;
+	.cellpaddingdefault();
 	border: 1px solid #808080;
 }
 th {
 	font-weight: bold;
-	vertical-align: bottom;
 }
 .table-list,
 .table-bars {
 	thead,
+	tbody,
 	tfoot {&:extend(.rowgroup);}
 	th, td {border: 0;}
 	th {background-color: @color-table-bg-strong;}
@@ -448,7 +451,6 @@ th {
 //		tr:nth-child(odd)  {background-color: @color-table-bg-medium;}
 //		tr:nth-child(even) {background-color: @color-table-bg-weak;}
 //	}
-	tbody {&:extend(.rowgroup);}
 	tr:nth-child(odd)  {background-color: @color-table-bg-medium;}
 	tr:nth-child(even) {background-color: @color-table-bg-weak;}
 }
@@ -618,13 +620,14 @@ sup, sub {
 	.font-size(small; inherit);
 	vertical-align: baseline;
 }
+@supsub-move: @olh / 4;
 sup {
 	position: relative;
-	bottom: 6px;
+	bottom: @supsub-move;
 }
 sub {
 	position: relative;
-	top: 6px;
+	top: @supsub-move;
 }
 //==== @end DOCUMENTATION ====
 

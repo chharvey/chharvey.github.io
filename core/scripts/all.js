@@ -119,14 +119,26 @@ $(document).ready(function () {
 	else, padding-bottom that number.
 	*/
 	$('table').each(function () {
-		var n_rows = 0;
-		$(this).find('tr').each(function () {
-			n_rows++;
-		});
-		n_rows++; // once more for the last border
-		var btm = -(((n_rows + 12) % 24) - 12);
-		if (btm <= 0) {$(this).css('margin-bottom',btm);}
-		else          {$(this).css('padding-bottom',btm);}
+		if ($(this).hasClass('table-list') || $(this).hasClass('table-bars')) {
+			var n_rowgroups = 0;
+			$(this).find('thead, tbody, tfoot').each(function () {
+				n_rowgroups++;
+			});
+			n_rowgroups++; // once more for the last border
+			var btm = -(((n_rowgroups + 12) % 24) - 12);
+			if (btm <= 0) {$(this).css('margin-bottom',btm);}
+			else          {$(this).css('padding-bottom',btm);}
+		}
+		else {
+			var n_rows = 0;
+			$(this).find('tr').each(function () {
+				n_rows++;
+			});
+			n_rows++; // once more for the last border
+			var btm = -(((n_rows + 12) % 24) - 12);
+			if (btm <= 0) {$(this).css('margin-bottom',btm);}
+			else          {$(this).css('padding-bottom',btm);}
+		}
 	});
 	
 	
