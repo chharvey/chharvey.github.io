@@ -18,18 +18,24 @@
 //+++++++++
 //@HEADINGS
 //+++++++++
-@ratio--h1: (2/1); // (16/8) or 2.000
-@ratio--h2: (3/2); // (12/8) or 1.500
-@ratio--h3: (5/4); // (10/8) or 1.250
-@ratio--h4: (1/1); // (08/8) or 1.000
-@ratio--h5: (7/8); // (07/8) or 0.875
-@ratio--h6: (3/4); // (06/8) or 0.750
+@ratio--h1: (2/1); // (16/8) or 2.000em
+@ratio--h2: (3/2); // (12/8) or 1.500em
+@ratio--h3: (5/4); // (10/8) or 1.250em
+@ratio--h4: (1/1); // (08/8) or 1.000em
+@ratio--h5: (7/8); // (07/8) or 0.875em
+@ratio--h6: (3/4); // (06/8) or 0.750em
 @fontsize--h1: (@fontsize--base * @ratio--h1); // 32px or 24pt
 @fontsize--h2: (@fontsize--base * @ratio--h2); // 24px or 18pt
 @fontsize--h3: (@fontsize--base * @ratio--h3); // 20px or 15pt
 @fontsize--h4: (@fontsize--base * @ratio--h4); // 16px or 12pt
 @fontsize--h5: (@fontsize--base * @ratio--h5); // 14px or 10.5pt
 @fontsize--h6: (@fontsize--base * @ratio--h6); // 12px or 9pt
+@lineheight--h1: (@lineheight--base/@ratio--h1); // (@olh / @fontsize--h1); // 0.75
+@lineheight--h2: (@lineheight--base/@ratio--h2); // (@olh / @fontsize--h2); // 1.00
+@lineheight--h3: (@lineheight--base/@ratio--h3); // (@olh / @fontsize--h3); // 1.20
+@lineheight--h4: (@lineheight--base/@ratio--h4); // (@olh / @fontsize--h4); // 1.50
+@lineheight--h5: (@lineheight--base/@ratio--h5); // (@olh / @fontsize--h5); // 1.714
+@lineheight--h6: (@lineheight--base/@ratio--h6); // (@olh / @fontsize--h6); // 2.00
 
 @color_h--major: @lake-superior;
 @color_h--minor: @caves-caves;
@@ -67,7 +73,7 @@ span.hsub {
 	font-weight: bold;
 	font-size: @fontsize--h1;
 	text-align: center;
-	line-height: (@lineheight--base/@ratio--h1);
+	line-height: @lineheight--h1;
 	color: @color_h--major;
 	> span.hsub {color: @color_hsub--major;}
 }
@@ -77,7 +83,7 @@ span.hsub {
 	margin-top: 1.5 * @olh;
 	font-weight: bold;
 	font-size: @fontsize--h2;
-	line-height: (@lineheight--base/@ratio--h2);
+	line-height: @lineheight--h2;
 	color: @color_h--minor;
 	> span.hsub {color: @color_hsub--minor;}
 }
@@ -88,7 +94,7 @@ span.hsub {
 	font-variant: small-caps;
 	font-weight: bold;
 	font-size: @fontsize--h3;
-	line-height: (@lineheight--base/@ratio--h3);
+	line-height: @lineheight--h3;
 }
 .h-delta {
 	&:extend(.h all);
@@ -96,14 +102,14 @@ span.hsub {
 	font-style: italic;
 	font-weight: bold;
 	font-size: @fontsize--h4;
-	line-height: (@lineheight--base/@ratio--h4);
+	line-height: @lineheight--h4;
 }
 .h-epsilon {
 	&:extend(.h all);
 	font-style: italic;
 	font-size: @fontsize--h5;
 	text-indent: 0.5in;
-	line-height: (@lineheight--base/@ratio--h5);
+	line-height: @lineheight--h5;
 	color: @color_h--minor;
 	> span.hsub {color: @color_hsub--minor;}
 }
@@ -113,7 +119,7 @@ span.hsub {
 	font-variant: small-caps;
 	font-size: @fontsize--h6;
 	text-indent: 0.5in;
-	line-height: (@lineheight--base/@ratio--h6);
+	line-height: @lineheight--h6;
 }
 //++++ @end HEADINGS ++++
 
@@ -561,8 +567,7 @@ i.thought {
 	// *********************
 	// semantic class alert!
 	// *********************
-	&::before {content: '\00ab';} // &laquo;
-	&::after  {content: '\00bb';} // &raquo;
+	.guillemets();
 }
 .foreignlang {
 	// * phrases in foreign languages
