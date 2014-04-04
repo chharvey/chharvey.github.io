@@ -9,7 +9,7 @@
 //- GOLDEN WIDTHS, MARGINS
 //- UNDO GOLDEN WIDTHS, MARGINS
 //- ROWS, CELLS
-//- AUTOMATED WIDTHS
+//- GUTTERS
 
 //=======
 //@WIDTHS
@@ -172,41 +172,34 @@
 .row--sextet  > .cell:extend(.cell--1o6) {}
 //==== @end ROWS, CELLS ====
 
-//=================
-//@AUTOMATED WIDTHS
-//=================
-// may be used on regular blocks or on `.line`s containing `.unit`s
-.linebreadth(@breadth) {
-	width:  @breadth;
-	margin-left:  ((100% - @breadth) / 2);
-	margin-right: ((100% - @breadth) / 2);
+//========
+//@GUTTERS
+//========
+.gutter {
+	position: absolute;
 }
-.linebreadth-full {width: 100%; margin-left: 0; margin-right: 0;}
-.linebreadth-lrg  {.linebreadth(100% * (3/4));} // geometric:  75.00%
-.linebreadth-med  {.linebreadth(100% * (2/3));} // arithmetic: 66.66%
-.linebreadth-sml  {.linebreadth(@golden1);}     // Golden:     61.80%
-.gutter-major {
+.gutter--major {
 	// * .p1--midleft within a .p3--left
+	&:extend(.gutter all);
 	width: @golden4;
 	margin-left: @golden7;
 	margin-right: @golden6;
-	position: absolute;
 	left: 0;		
 }
-.gutter-minor {
+.gutter--minor {
 	// * .p1--midright within a .p4--right
+	&:extend(.gutter all);
 	width: @golden5;
 	margin-left: @golden7;
 	margin-right: @golden8;
-	position: absolute;
 	right: 0;
 }
-//==== @end AUTOMATED WIDTHS ====
+//==== @end GUTTERS ====
 
 
 @media print {
-	.gutter-major,
-	.gutter-minor {
+	.gutter--major,
+	.gutter--minor {
 		width: auto;
 		margin-left: auto;
 		margin-right: auto;
