@@ -1,0 +1,137 @@
+// main: all.less
+
+/*-------------*\
+	vert.less
+\*-------------*/
+
+//Table of Contents
+//- FONT SIZE, LINE HEIGHT
+//- PADDING, MARGIN, BORDER
+
+
+//=======================
+//@FONT SIZE, LINE HEIGHT
+//=======================
+@font-size-base:  16px;
+@line-height-base:  1.5;
+@olh: @line-height-base * @font-size-base; // 24px
+p,
+figure, blockquote
+li,
+dt, dd,
+td {
+	// * minimum height for text-containing elements
+	min-height: @olh;
+}
+
+.font-size(medium) {
+	font-size: @font-size-base;
+	line-height: @line-height-base;
+}
+.font-size(large; inherit) {
+	font-size: (@font-size-base * (5/4)); // 20px	
+}
+.font-size(large) {
+	.font-size(large; inherit);
+	line-height: 1.2; // (@olh / @font-size-big);
+}
+.font-size(small; inherit) {
+	font-size: (@font-size-base * (3/4)); // 12px
+}
+.font-size(small) {
+	.font-size(small; inherit);
+	line-height: 2.0; // (@olh / @font-size-small);
+}
+//==== @end FONT SIZE, LINE HEIGHT ====
+
+
+//========================
+//@PADDING, MARGIN, BORDER
+//========================
+.olh-top {
+	margin-top: @olh;
+}
+p,
+ol, ul,
+dl,
+table {
+	&:extend(.olh-top all);
+}
+.h {
+	 + .olh-top {
+		 // * no margin-top following all headings
+		 margin-top: 0;
+	 }
+}
+figure, blockquote,
+li,
+dt, dd,
+td {
+	> .olh-top:first-child {
+		// * no margin-top for some first child of some containers
+		margin-top: 0;
+	}
+}
+.spacing-top-Phi(@brdr-width; @brdr-style; @brdr-color) {
+	padding-top: ((@olh - @brdr-width) * @Phi2);
+	border-top: @brdr-width @brdr-style @brdr-color;
+	margin-top: ((@olh - @brdr-width) * @Phi1);
+}
+.spacing-top-Phi() {
+	.spacing-top-Phi(0; solid; #000);
+}
+// * Use the folowing mixins to adjust borders for BLOCK elements only! They will adjust borders while keeping the vertical rhythm intact (via making margin-bottom negative). DO NOT use these mixins on INLINE elements.
+.border-vert-single(@width) {
+	margin-bottom: (-1 * @width);
+	position: relative;
+	top: (-1 * @width);
+}
+.border-vert-both(@width) {
+	.border-vert-single(@width);
+	margin-bottom: (-2 * @width);
+}
+.border(top; @width) {
+	.border-vert-single(@width);
+	border-top-width: @width;
+}
+.border(top; @width; @style) {
+	.border(top; @width);
+	border-top-style: @style;
+}
+.border(top; @width; @style; @color) {
+	.border(top; @width; @style);
+	border-color: @color;
+}
+.border(bottom; @width) {
+	.border-vert-single(@width);
+	border-bottom-width: @width;
+}
+.border(bottom; @width; @style) {
+	.border(bottom; @width);
+	border-bottom-style: @style;
+}
+.border(bottom; @width; @style; @color) {
+	.border(bottom; @width; @style);
+	border-color: @color;
+}
+.border(topbot; @width; @style) {
+	.border-vert-both(@width);
+	border-width: @width;
+	border-style: @style;
+	border-left: 0;
+	border-right: 0;
+}
+.border(topbot; @width; @style; @color) {
+	.border(topbot; @width; @style);
+	border-color: @color;
+}
+.border(all; @width; @style) {
+	.border-vert-both(@width);
+	border-width: @width;
+	border-style: @style;
+}
+.border(all; @width; @style; @color) {
+	.border(all; @width; @style);
+	border-color: @color;
+}
+//==== @end PADDING, MARGIN, BORDER ====

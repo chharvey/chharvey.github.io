@@ -1,0 +1,417 @@
+// main: all.less
+
+/*-------------*\
+	mods.less
+\*-------------*/
+
+//Table of Contents
+//- ABSTRACT BOXES
+//- HYPERLINKS
+//- CODING AND MATH
+//- MESSAGES
+//- FORMS
+//- MISC
+//- MASTHEAD
+//- BREADCRUMBS
+//- FOOTNOTES
+
+//===============
+//@ABSTRACT BOXES
+//===============
+@box-radius-small:  3px; // 1 + 2
+@box-radius-medium: 6px; // 1 + 2 + 3
+@box-radius-large: 10px; // 1 + 2 + 3 + 4
+.box-inline() {
+	// * inline content, boxed
+	display: inline;
+	padding: 0 1px;
+	border: 1px solid;
+	border-radius: @box-radius-small;
+	white-space: nowrap;
+}
+.box-inline-block() {
+	// * inline content, with block structure, boxed
+	.box-inline();
+	display: inline-block;
+}
+.box-block() {
+	// * a block structure, boxed
+	.box-inline-block();
+	display: block;
+	padding: 0 4px;
+	.border(all; 1px; solid);
+	border-radius: @box-radius-large;
+	margin-left: 4px;
+	margin-right: 4px;
+	white-space: normal;
+}
+.spacing-left-Phi(@brdr-width; @brdr-style; @brdr-color) {
+	padding-left: @brdr-width * @phi1;
+	border-left: @brdr-width @brdr-style @brdr-color;
+	margin-left: @brdr-width * @phi3;
+}
+.spacing-left-Phi() {
+	.spacing-left-Phi(0; solid; #000);
+}
+.spacing-right-Phi(@brdr-width; @brdr-style; @brdr-color) {
+	padding-right: @brdr-width * @phi1;
+	border-right: @brdr-width @brdr-style @brdr-color;
+	margin-right: @brdr-width * @phi3;
+}
+.spacing-right-Phi() {
+	.spacing-right-Phi(0; solid; #000);
+}
+//==== @end ABSTRACT BOXES ====
+
+
+//===========
+//@HYPERLINKS
+//===========
+@color-link-up-txt: @atlas;
+@color-link-up-bg: lighten(@atlas, @headlt);
+
+@color-link-dn-txt: @pbody;
+@color-link-dn-bg: lighten(@pbody, @headlt);
+
+@color-sp-up-txt: @neurotoxin;
+@color-sp-up-bg: lighten(@color-sp-up-txt, @headlt);
+
+@color-sp-dn-txt: @vilify;
+@color-sp-dn-bg: lighten(@color-sp-dn-txt, @headlt);
+
+@color-link-active-txt: @her-eye;
+@color-link-active-bg: @aperture-black;
+
+a {
+	display: inline;
+	border-bottom: 1px dotted;
+	text-decoration: none;
+	color: inherit;
+	&[href] {
+		color: @color-link-up-txt; // also sets border color
+		&:hover {color: @color-link-dn-txt;}
+		&.sp,
+		&[rel="external"] {
+			color: @color-sp-up-txt;
+			&:hover {color: @color-sp-dn-txt;}
+		}
+		&:active {color: @color-link-active-txt;}
+	}
+	code {
+		// * code in links not discolored
+		color: inherit;
+	}
+}
+blockquote,
+div.postal,
+.list-action,
+table,
+.fn,
+code {
+	a {
+		// * no border for links in certain containers
+		border: 0;
+	}
+}
+.a-block {
+	.box-block();
+	border-radius: @box-radius-medium;
+	text-align: center;
+	background-color: transparent;
+	&[href] {
+		background-color: @color-link-up-bg;
+		&:hover {background-color: @color-link-dn-bg;}
+		&.sp,
+		&[rel="external"] {
+			background-color: @color-sp-up-bg;
+			&:hover {background-color: @color-sp-dn-bg;}
+		}
+		&:active {background-color: @color-link-active-bg;}
+	}
+}
+//==== @end HYPERLINKS ====
+
+
+//================
+//@CODING AND MATH
+//================
+@color-code-txt:  #000;
+@color-code-bg:   #fff;
+@color-code-comment: #999;
+@color-code-html-tag:  #009;
+@color-code-html-attr: #900;
+@color-code-html-val:  #090;
+@color-code-css-sel:   @color-code-html-tag;
+@color-code-css-prop:  @color-code-html-attr;
+@color-code-css-val:   @color-code-html-val;
+@color-code-latex-comm: @color-code-html-tag;
+@color-code-latex-arg:  @color-code-html-attr;
+pre {white-space: pre-wrap;}
+code {
+	// * example of a fragment or string of code a computer would recognize
+	.box-inline();
+	.font-size(small; inherit);
+	font-style: normal;
+	font-weight: normal;
+	font-family: @font-fam-code;
+	color: @color-code-txt;
+	background-color: @color-code-bg;
+	.comment {color: @color-code-comment;}
+}
+.lang-html {
+	.tag       {color: @color-code-html-tag;}
+	.attribute {color: @color-code-html-attr;}
+	.value     {color: @color-code-html-val;}
+}
+.lang-css {
+	.selector {color: @color-code-css-sel;}
+	.property {color: @color-code-css-prop;}
+	.value    {color: @color-code-css-val;}
+}
+.lang-latex {
+	.cmd {color: @color-code-latex-comm;}
+	.arg {color: @color-code-latex-arg;}
+}
+.dir {
+	// * directory system (folders and files)
+	border: 0;
+	font-style: italic;
+	font-family: @font-fam-base;
+}
+pre > code {
+	&:extend(code all);
+	.box-block();
+	.font-size(small);
+	white-space: pre-wrap;
+}
+samp {font-family: inherit;}
+kbd { 
+	// * user input, in the form of a string, menu item, etc.
+	font-style: inherit;
+	font-weight: bold;
+	font-family: inherit;
+//	&.write { // what is this?
+//		font-family: inherit;
+//		&::before {content: open-quote;}
+//		&::after  {content: close-quote;}
+//	}
+	> kbd {
+		// * an individual key on a keyboard, calculator, or other device
+		&:extend(code all);
+		padding: 0 6px;
+		border-style: outset;
+		font-family: @font-fam-base;
+		color: @aperture-white;
+		background-color: @aperture-black;
+	}
+}
+.latex {
+//	.font-size(small);
+	font-family: @font-fam-math;
+	white-space: pre-wrap;
+	div&, p& {
+		// * block-level containers
+		overflow: auto;
+	}
+}
+var {font-style: italic;}
+.tex {
+	//a reminder to change all `<... class="tex">` to `<... class="latex">`
+	//a reminder to change all `.tex` to `.latex`
+	color: #f00;
+	* {color: #f00;}
+}
+//==== @end CODING AND MATH ====
+
+
+//=========
+//@MESSAGES
+//=========
+@color-warning-txt: #600;
+@color-caution-txt: #660;
+@color-success-txt: #060;
+@color-info-txt:    #006;
+@color-help-txt:    #606;
+@color-cyan-txt:    #066;
+
+@color-warning-bg: #fee;
+@color-caution-bg: #ffe;
+@color-success-bg: #efe;
+@color-info-bg:    #eef;
+@color-help-bg:    #fef;
+@color-cyan-bg:    #eff;
+
+@color-warning-icon-bg: #fcc;
+@color-caution-icon-bg: #ffc;
+@color-success-icon-bg: #cfc;
+@color-info-icon-bg:    #ccf;
+@color-help-icon-bg:    #fcf;
+@color-cyan-icon-bg:    #cff;
+
+.label {
+	// * labels are little warnings/tips/etc. for the user. More elegant than tooltips
+	.box-inline-block();
+	.font-size(small; inherit);
+	padding: 1px;
+	border: 0;
+	font-style: normal;
+	font-weight: normal;
+	font-family: @font-fam-accent;
+//	cursor: help;
+	&::before {
+		.box-inline();
+		padding: 1px;
+		border: 0;
+		margin-right: @olh;
+		font-family: @font-fam-code;
+	}
+}
+.label(@color-txt; @color-bg; @color-icon-bg; @content) {
+	color: @color-txt;
+	background-color: @color-bg;
+	&::before {
+		content: @content;
+		color: @color-txt;
+		background-color: @color-icon-bg;
+	}
+}
+span.warning {
+	&:extend(.label all);
+	.label(@color-warning-txt; @color-warning-bg; @color-warning-icon-bg; '!');
+}
+span.caution {
+	&:extend(.label all);
+	.label(@color-caution-txt; @color-caution-bg; @color-caution-icon-bg; '\2026'); // &hellip;
+}
+span.success {
+	&:extend(.label all);
+	.label(@color-success-txt; @color-success-bg; @color-success-icon-bg; '\263A'); // smiley
+}
+span.info {
+	&:extend(.label all);
+	.label(@color-info-txt; @color-info-bg; @color-info-icon-bg; '?');
+}
+span.help {
+	&:extend(.label all);
+	.label(@color-help-txt; @color-help-bg; @color-help-icon-bg; '\2665'); // &hearts;
+}
+span.cyan {
+	&:extend(.label all);
+	.label(@color-cyan-txt; @color-cyan-bg; @color-cyan-icon-bg; 'c');
+}
+//==== @end MESSAGES ====
+
+
+//=========
+//@MASTHEAD
+//=========
+.masthead {
+	@iconsize: 96px; // 1in
+	.P4-right;
+	position: fixed;
+	top: (@iconsize / 2);
+	nav {
+		.P1-midleft;
+		.mylogo {
+			display: block;
+			.border(bottom; 0; solid);
+			font-weight: bold;
+			font-size: @iconsize;
+			font-family: 'Times','Times New Roman',serif;
+		}
+	}
+}
+//==== @end MASTHEAD ====
+
+
+//============
+//@BREADCRUMBS
+//============
+.bc {
+	&:extend(.gutter-major);
+	position: fixed;
+	top: 2 * @olh;
+	z-index: 1;
+	a {
+		&:extend(.a-block all);
+		padding: (0.125 * @olh) 15px;
+		border-radius: 15px;
+		text-align: left;
+		&::before {margin-right: 0.5 * @olh;}
+	}
+	[rel~="this"] {
+		font-weight: bold;
+		&::before {
+			content: '';
+			margin-right: 0;
+		}
+	}
+}
+.bc-anc,
+.bc-sib,
+.bc-child {
+	&:extend(.list-basic all);
+	margin-top: 0;
+	padding-bottom: 1 * @olh;
+	li {
+		margin-top: 0.75 * @olh;
+		margin-bottom: -2px;
+	}
+}
+.bc-anc {
+//	a::before {content: '\22a5';} // `\bot` or 'up tack'
+//	a::before {content: '\22b7';} // 'image of'
+//	a::before {content: '<';}
+}
+.bc-sib {
+//	a::before {content: '\22a2';} // `\vdash` or 'turnstile'
+//	a::before {content: '\29df';} // 'double-ended multimap'
+//	a::before {content: '+';}
+}
+.bc-child {
+//	a::before {content: '\22a4';} // `\top` or 'down tack'
+//	a::before {content: '\22b6';} // 'original of'
+//	a::before {content: '>';}
+}
+//==== @end BREADCRUMBS ====
+
+
+//==========
+//@FOOTNOTES
+//==========
+@fn-width: 1.5em;
+.footnotes {
+	// * an unordered list containing footnotes
+	&:extend(.list-basic);
+	.spacing-top-Phi(1px; solid; @color-accent);
+	.font-size(small);
+	li {
+		padding-left: @fn-width;
+		text-indent: -@fn-width;
+	}
+}
+.fn {
+	// * the superscript containing a link to the footnote or back to the reference
+	width: @fn-width;
+	> a {
+		&::before {content: '[';}
+		&::after {content: ']';}
+	}
+}
+//==== @end FOOTNOTES ====
+
+@media print {
+	.masthead {display: none;}
+	.warning,
+	.caution,
+	.success,
+	.info,
+	.help,
+	.cyan {
+		&::before {display: none;}
+	}
+	code {
+		color: #000000;
+		background-color: #fff;
+	}
+}

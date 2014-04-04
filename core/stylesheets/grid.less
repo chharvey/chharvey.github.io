@@ -5,24 +5,15 @@
 \*-------------*/
 
 //Table of Contents
-//- HORIZONTAL GRID
-//	- Widths
-//	- Golden widths and margins
-//	- Lines and units
-//	- Automated box widths
-//	- Undo golden widths and margins
-//- VERTICAL GRID
-//	- Font size and line height
-//	- Padding, margin, border
-
+//- WIDTHS
+//- GOLDEN WIDTHS, MARGINS
+//- LINES, UNITS
+//- AUTOMATED WIDTHS
+//- UNDO GRID
 
 //================
-//@HORIZONTAL GRID
+//@WIDTHS
 //================
-
-//-------
-//@Widths
-//-------
 @Phi1: ((-1 + sqrt(5)) / 2); // 0.618033988749894848
 @Phi2: (@Phi1 * @Phi1);
 @Phi3: (@Phi2 * @Phi1);
@@ -65,11 +56,11 @@
 @width-Golden10: (100% * @Phi10);
 @width-Golden11: (100% * @Phi11);
 @width-Golden12: (100% * @Phi12);
-//---- @end Widths ----
+//==== @end WIDTHS ====
 
-//--------------------------
-//@Golden widths and margins
-//--------------------------
+//=======================
+//@GOLDEN WIDTHS, MARGINS
+//=======================
 .P1-midleft,
 .P1-midright,
 .P1-left,
@@ -130,11 +121,11 @@
 	position: absolute;
 	right: 0;
 }
-//---- @end Golden widths and margins ----
+//==== @end GOLDEN WIDTHS, MARGINS ====
 
-//----------------
-//@Lines and units
-//----------------
+//=============
+//@LINES, UNITS
+//=============
 .line {
 	display: table;
 	width: 100%;
@@ -174,11 +165,11 @@
 .unit-4to5 {width: (100% * (4/5));} //  80%
 .unit-1to6 {width: (100% * (1/6));} //  16.666%
 .unit-5to6 {width: (100% * (5/6));} //  83.333%
-//---- @end Lines and units ----
+//==== @end LINES, UNITS ====
 
-//---------------------
-//@Automated box widths
-//---------------------
+//=================
+//@AUTOMATED WIDTHS
+//=================
 // may be used on regular blocks or on `.line`s containing `.unit`s
 .linebreadth(@breadth) {
 	width:  @breadth;
@@ -189,11 +180,11 @@
 .linebreadth-lrg() {.linebreadth(100% * (3/4));}   // geometric:  75.00%
 .linebreadth-med() {.linebreadth(100% * (2/3));}    // arithmetic: 66.66%
 .linebreadth-sml() {.linebreadth(@width-Golden1);} // Golden:     61.80%
-//---- @end Automated box widths ----
+//==== @end AUTOMATED WIDTHS ====
 
-//-------------------------------
-//@Undo golden widths and margins
-//-------------------------------
+//==========
+//@UNDO GRID
+//==========
 .undoGolden,
 .undoP1-midleft,
 .undoP1-midright,
@@ -226,133 +217,8 @@
 .undoU-P3-right {width: @width-u-golden3; left: -30.9016994374947424%;} // -30.9016994374947424%
 .undoU-P3-right {width: @width-u-golden4;}
 .undoU-P4-right {width: @width-u-golden4; left: -17.0820393249936909%;} // -17.0820393249936909%
-//---- @end Undo golden widths and margins ----
-//==== @end HORIZONTAL GRID ====
+//==== @end UNDO GRID ====
 
-
-//==============
-//@VERTICAL GRID
-//==============
-
-//--------------------------
-//@Font size and line height
-//--------------------------
-@font-size-base:  16px;
-@line-height-base:  1.5;
-@olh: @line-height-base * @font-size-base; // 24px
-
-.font-size(medium) {
-	font-size: @font-size-base;
-	line-height: @line-height-base;
-}
-.font-size(large; inherit) {
-	font-size: (@font-size-base * (5/4)); // 20px	
-}
-.font-size(large) {
-	.font-size(large; inherit);
-	line-height: 1.2; // (@olh / @font-size-big);
-}
-.font-size(small; inherit) {
-	font-size: (@font-size-base * (3/4)); // 12px
-}
-.font-size(small) {
-	.font-size(small; inherit);
-	line-height: 2.0; // (@olh / @font-size-small);
-}
-//---- @end Font size and line height ----
-
-//------------------------
-//@Padding, margin, border
-//------------------------
-.spacing-top-Phi(@brdr-width; @brdr-style; @brdr-color) {
-	padding-top: ((@olh - @brdr-width) * @Phi2);
-	border-top: @brdr-width @brdr-style @brdr-color;
-	margin-top: ((@olh - @brdr-width) * @Phi1);
-}
-.spacing-top-Phi() {
-	.spacing-top-Phi(0; solid; #000);
-}
-.spacing-left-Phi(@brdr-width; @brdr-style; @brdr-color) {
-	padding-left: @brdr-width * @phi1;
-	border-left: @brdr-width @brdr-style @brdr-color;
-	margin-left: @brdr-width * @phi3;
-}
-.spacing-left-Phi() {
-	.spacing-left-Phi(0; solid; #000);
-}
-.spacing-right-Phi(@brdr-width; @brdr-style; @brdr-color) {
-	padding-right: @brdr-width * @phi1;
-	border-right: @brdr-width @brdr-style @brdr-color;
-	margin-right: @brdr-width * @phi3;
-}
-.spacing-right-Phi() {
-	.spacing-right-Phi(0; solid; #000);
-}
-// * Use the folowing mixins to adjust borders for BLOCK elements only! They will adjust borders while keeping the vertical rhythm intact (via making margin-bottom negative). DO NOT use these mixins on INLINE elements.
-.border-vert-single(@width) {
-	margin-bottom: (-1 * @width);
-	position: relative;
-	top: (-1 * @width);
-}
-.border-vert-both(@width) {
-	.border-vert-single(@width);
-	margin-bottom: (-2 * @width);
-}
-.border(top; @width) {
-	.border-vert-single(@width);
-	border-top-width: @width;
-}
-.border(top; @width; @style) {
-	.border(top; @width);
-	border-top-style: @style;
-}
-.border(top; @width; @style; @color) {
-	.border(top; @width; @style);
-	border-color: @color;
-}
-.border(bottom; @width) {
-	.border-vert-single(@width);
-	border-bottom-width: @width;
-}
-.border(bottom; @width; @style) {
-	.border(bottom; @width);
-	border-bottom-style: @style;
-}
-.border(bottom; @width; @style; @color) {
-	.border(bottom; @width; @style);
-	border-color: @color;
-}
-.border(topbot; @width; @style) {
-	.border-vert-both(@width);
-	border-width: @width;
-	border-style: @style;
-	border-left: 0;
-	border-right: 0;
-}
-.border(topbot; @width; @style; @color) {
-	.border(topbot; @width; @style);
-	border-color: @color;
-}
-.border(all; @width; @style) {
-	.border-vert-both(@width);
-	border-width: @width;
-	border-style: @style;
-}
-.border(all; @width; @style; @color) {
-	.border(all; @width; @style);
-	border-color: @color;
-}
-//.width-horiz(@origwidth; @marg-l; @marg-r; @pad-l; @pad-r) {
-//	margin-left: @marg-l;
-//	margin-right: @marg-r;
-//	padding-left: @pad-l;
-//	padding-right: @pad-r;
-//	width: (@origwidth - (@pad-l + @pad-r));
-//}
-//---- @end Padding, margin, border ----
-//==================
-//@end VERTICAL GRID
-//==================
 
 @media print {
 	.gutter-major,
