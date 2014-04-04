@@ -83,63 +83,56 @@ td {
 	.spacing-top-phi(0; solid; #000);
 }
 // * Use the folowing mixins to adjust borders for BLOCK elements only! They will adjust borders while keeping the vertical rhythm intact (via making margin-bottom negative). DO NOT use these mixins on INLINE elements.
-.border-vert-single(@width) {
-	margin-bottom: (-1 * @width);
+.border-vert(@width) {
+	display: block;
 	position: relative;
 	top: (-1 * @width);
 }
-.border-vert-both(@width) {
-	.border-vert-single(@width);
+.border-vert--one(@width) {
+	.border-vert(@width);
+	margin-bottom: (-1 * @width);
+}
+.border-vert--one(@side; @width) {
+	.border-vert--one(@width);
+	border-@{side}-width: @width;
+}
+.border-vert--one(@side; @width; @style) {
+	.border-vert--one(@side; @width);
+	border-@{side}-style: @style;
+}
+.border-vert--one(@side; @width; @style; @color) {
+	.border-vert--one(@side; @width; @style);
+	border-color: @color;
+}
+// cannot overload methods with same # of parameters
+.border-vert--both(@width) {
+	.border-vert(@width);
 	margin-bottom: (-2 * @width);
 }
-.border(top; @width) {
-	.border-vert-single(@width);
-	border-top-width: @width;
-}
-.border(top; @width; @style) {
-	.border(top; @width);
-	border-top-style: @style;
-}
-.border(top; @width; @style; @color) {
-	.border(top; @width; @style);
-	border-color: @color;
-}
-.border(bottom; @width) {
-	.border-vert-single(@width);
-	border-bottom-width: @width;
-}
-.border(bottom; @width; @style) {
-	.border(bottom; @width);
-	border-bottom-style: @style;
-}
-.border(bottom; @width; @style; @color) {
-	.border(bottom; @width; @style);
-	border-color: @color;
-}
-.border(topbot; @width) {
-	.border-vert-both(@width);
+.border-vert--both(topbot; @width) {
+	.border-vert--both(@width);
 	border-width: @width;
 	border-left: 0;
 	border-right: 0;
 }
-.border(topbot; @width; @style) {
-	.border(topbot; @width);
+.border-vert--both(topbot; @width; @style) {
+	.border-vert--both(topbot; @width);
 	border-style: @style;
 }
-.border(topbot; @width; @style; @color) {
-	.border(topbot; @width; @style);
+.border-vert--both(topbot; @width; @style; @color) {
+	.border-vert--both(topbot; @width; @style);
 	border-color: @color;
 }
-.border(all; @width) {
-	.border-vert-both(@width);
+.border-vert--both(all; @width) {
+	.border-vert--both(@width);
 	border-width: @width;
 }
-.border(all; @width; @style) {
-	.border(all; @width);
+.border-vert--both(all; @width; @style) {
+	.border-vert--both(all; @width);
 	border-style: @style;
 }
-.border(all; @width; @style; @color) {
-	.border(all; @width; @style);
+.border-vert-both(all; @width; @style; @color) {
+	.border-vert-both(all; @width; @style);
 	border-color: @color;
 }
 //==== @end PADDING, MARGIN, BORDER ====
