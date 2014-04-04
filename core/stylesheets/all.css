@@ -180,7 +180,14 @@ main {
 .dl-table-med,
 .dl-table-mlg,
 .dl-table-lrg,
-.docmeta {
+.message,
+.docmeta,
+.warning,
+.caution,
+.success,
+.info,
+.help,
+.special {
   display: table;
   width: 100%;
 }
@@ -1065,7 +1072,7 @@ ins[datetime]::after {
   left: 5px;
   top: 5px;
   color: #000066;
-  background-color: #eeeeff;
+  background-color: #ededff;
   text-decoration: none;
 }
 abbr[title]::after {
@@ -1105,7 +1112,6 @@ fieldset {
   top: 0;
   margin-bottom: 0;
   border-width: 0;
-  border-style: solid;
   margin: 0;
 }
 hr,
@@ -1184,11 +1190,15 @@ a[href][rel="external"]:hover {
 a[href]:active {
   color: #fff155;
 }
+a .latex {
+  color: inherit;
+}
 a code,
 a pre > code,
 a kbd > kbd,
 a pre > kbd > kbd {
   color: inherit;
+  background-color: transparent;
 }
 blockquote a,
 div.postal a,
@@ -1211,19 +1221,18 @@ pre > kbd > kbd a {
   display: inline-block;
   display: block;
   padding: 0 4px;
+  border-radius: 10px;
+  margin-left: 4px;
+  margin-right: 4px;
+  white-space: normal;
   margin-bottom: -1px;
   position: relative;
   top: -1px;
   margin-bottom: -2px;
   border-width: 1px;
   border-style: solid;
-  border-radius: 10px;
-  margin-left: 4px;
-  margin-right: 4px;
-  white-space: normal;
   border-radius: 6px;
   text-align: center;
-  background-color: transparent;
 }
 .a-block[href],
 .bc a[href] {
@@ -1262,16 +1271,14 @@ pre > kbd > kbd {
   border-radius: 3px;
   white-space: nowrap;
   font-size: 12px;
+  border: 0;
   font-style: normal;
   font-weight: normal;
   font-family: 'Menlo', 'Lucida Sans Typewriter', 'Monaco', monospace;
   color: #000000;
-  background-color: #ffffff;
+  background-color: #cceedd;
 }
-code .comment,
-pre > code .comment,
-kbd > kbd .comment,
-pre > kbd > kbd .comment {
+.comment {
   color: #999999;
 }
 .lang-html .tag {
@@ -1314,7 +1321,6 @@ pre > kbd > kbd {
   display: block;
   padding: 0 4px;
   margin-bottom: -1px;
-  position: relative;
   top: -1px;
   margin-bottom: -2px;
   border-width: 1px;
@@ -1323,9 +1329,14 @@ pre > kbd > kbd {
   margin-left: 4px;
   margin-right: 4px;
   white-space: normal;
+  position: relative;
+  top: 0;
+  margin-bottom: 0;
+  border-width: 0;
   font-size: 12px;
   line-height: 2.0;
   white-space: pre-wrap;
+  background-color: transparent;
 }
 samp {
   font-family: inherit;
@@ -1359,96 +1370,104 @@ var {
 .tex * {
   color: #f00;
 }
-.label,
-span.warning,
-span.caution,
-span.success,
-span.info,
-span.help,
-span.cyan {
+.message,
+.warning,
+.caution,
+.success,
+.info,
+.help,
+.special {
+  width: 61.80339887%;
+  margin-left: 19.09830056%;
+  margin-right: 19.09830056%;
   display: inline;
   padding: 0 1px;
   border: 1px solid;
   border-radius: 3px;
   white-space: nowrap;
   display: inline-block;
+  display: block;
+  padding: 0 4px;
+  margin-bottom: -1px;
+  position: relative;
+  top: -1px;
+  margin-bottom: -2px;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 10px;
+  margin-left: 4px;
+  margin-right: 4px;
+  white-space: normal;
   font-size: 12px;
-  padding: 1px;
-  border: 0;
+  line-height: 2.0;
+  margin-top: 24px;
   font-style: normal;
   font-weight: normal;
   font-family: 'Avenir', 'Calibri', 'Century Gothic', sans-serif;
+  line-height: 1;
 }
-.label::before,
-span.warning::before,
-span.caution::before,
-span.success::before,
-span.info::before,
-span.help::before,
-span.cyan::before {
-  display: inline;
-  padding: 0 1px;
-  border: 1px solid;
-  border-radius: 3px;
-  white-space: nowrap;
-  padding: 1px;
-  border: 0;
-  margin-right: 24px;
+.message::before,
+.warning::before,
+.caution::before,
+.success::before,
+.info::before,
+.help::before,
+.special::before {
   font-family: 'Menlo', 'Lucida Sans Typewriter', 'Monaco', monospace;
 }
-span.warning {
+.warning {
   color: #660000;
-  background-color: #ffeeee;
+  background-color: #ffeded;
+  border-color: #ff2a2a;
 }
-span.warning::before {
+.warning::before {
+  color: #660000;
   content: '!';
-  color: #660000;
-  background-color: #ffcccc;
 }
-span.caution {
+.caution {
   color: #666600;
-  background-color: #ffffee;
+  background-color: #ffffed;
+  border-color: #ffff2a;
 }
-span.caution::before {
+.caution::before {
+  color: #666600;
   content: '\2026';
-  color: #666600;
-  background-color: #ffffcc;
 }
-span.success {
+.success {
   color: #006600;
-  background-color: #eeffee;
+  background-color: #edffed;
+  border-color: #2aff2a;
 }
-span.success::before {
+.success::before {
+  color: #006600;
   content: '\263A';
-  color: #006600;
-  background-color: #ccffcc;
 }
-span.info {
+.info {
   color: #000066;
-  background-color: #eeeeff;
+  background-color: #ededff;
+  border-color: #2a2aff;
 }
-span.info::before {
+.info::before {
+  color: #000066;
   content: '?';
-  color: #000066;
-  background-color: #ccccff;
 }
-span.help {
+.help {
   color: #660066;
-  background-color: #ffeeff;
+  background-color: #ffedff;
+  border-color: #ff2aff;
 }
-span.help::before {
+.help::before {
+  color: #660066;
   content: '\2665';
-  color: #660066;
-  background-color: #ffccff;
 }
-span.cyan {
+.special {
   color: #006666;
-  background-color: #eeffff;
+  background-color: #edffff;
+  border-color: #2affff;
 }
-span.cyan::before {
-  content: 'c';
+.special::before {
   color: #006666;
-  background-color: #ccffff;
+  content: '\2605';
 }
 .masthead {
   width: 14.58980338%;
@@ -1534,7 +1553,7 @@ span.cyan::before {
   .success::before,
   .info::before,
   .help::before,
-  .cyan::before {
+  .special::before {
     display: none;
   }
   code,

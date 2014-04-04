@@ -101,9 +101,15 @@ a {
 		}
 		&:active {color: @color-link-active-txt;}
 	}
+	.latex {
+		// * math in links not discolored
+		color: inherit;
+	}
 	code {
 		// * code in links not discolored
 		color: inherit;
+		// * no bgcolor for code in link containers
+		background-color: transparent;
 	}
 }
 blockquote,
@@ -119,9 +125,9 @@ code {
 }
 .a-block {
 	.box-block();
+	.border(all; 1px; solid);
 	border-radius: @box-radius-medium;
 	text-align: center;
-	background-color: transparent;
 	&[href] {
 		background-color: @color-link-up-bg;
 		&:hover {background-color: @color-link-dn-bg;}
@@ -140,7 +146,7 @@ code {
 //@CODING AND MATH
 //================
 @color-code-txt:  #000;
-@color-code-bg:   #fff;
+@color-code-bg:   #ced;
 @color-code-comment: #999;
 @color-code-html-tag:  #009;
 @color-code-html-attr: #900;
@@ -148,20 +154,21 @@ code {
 @color-code-css-sel:   @color-code-html-tag;
 @color-code-css-prop:  @color-code-html-attr;
 @color-code-css-val:   @color-code-html-val;
-@color-code-latex-comm: @color-code-html-tag;
-@color-code-latex-arg:  @color-code-html-attr;
+@color-code-latex-cmd: @color-code-html-tag;
+@color-code-latex-arg: @color-code-html-attr;
 pre {white-space: pre-wrap;}
 code {
 	// * example of a fragment or string of code a computer would recognize
 	.box-inline();
 	.font-size(small; inherit);
+	border: 0;
 	font-style: normal;
 	font-weight: normal;
 	font-family: @font-fam-code;
 	color: @color-code-txt;
 	background-color: @color-code-bg;
-	.comment {color: @color-code-comment;}
 }
+.comment {color: @color-code-comment;}
 .lang-html {
 	.tag       {color: @color-code-html-tag;}
 	.attribute {color: @color-code-html-attr;}
@@ -173,7 +180,7 @@ code {
 	.value    {color: @color-code-css-val;}
 }
 .lang-latex {
-	.cmd {color: @color-code-latex-comm;}
+	.cmd {color: @color-code-latex-cmd;}
 	.arg {color: @color-code-latex-arg;}
 }
 .dir {
@@ -185,8 +192,10 @@ code {
 pre > code {
 	&:extend(code all);
 	.box-block();
+	.border(all; 0);
 	.font-size(small);
 	white-space: pre-wrap;
+	background-color: transparent;
 }
 samp {font-family: inherit;}
 kbd { 
@@ -236,72 +245,87 @@ var {font-style: italic;}
 @color-success-txt: #060;
 @color-info-txt:    #006;
 @color-help-txt:    #606;
-@color-cyan-txt:    #066;
+@color-special-txt:    #066;
+
+@color-warning-brdr: #fcc;
+@color-caution-brdr: #ffc;
+@color-success-brdr: #cfc;
+@color-info-brdr:    #ccf;
+@color-help-brdr:    #fcf;
+@color-special-brdr:    #cff;
 
 @color-warning-bg: #fee;
 @color-caution-bg: #ffe;
 @color-success-bg: #efe;
 @color-info-bg:    #eef;
 @color-help-bg:    #fef;
-@color-cyan-bg:    #eff;
+@color-special-bg:    #eff;
 
-@color-warning-icon-bg: #fcc;
-@color-caution-icon-bg: #ffc;
-@color-success-icon-bg: #cfc;
-@color-info-icon-bg:    #ccf;
-@color-help-icon-bg:    #fcf;
-@color-cyan-icon-bg:    #cff;
+@color-warning-brdr: lighten(@color-warning-txt, @headlt);
+@color-caution-brdr: lighten(@color-caution-txt, @headlt);
+@color-success-brdr: lighten(@color-success-txt, @headlt);
+@color-info-brdr: lighten(@color-info-txt, @headlt);
+@color-help-brdr: lighten(@color-help-txt, @headlt);
+@color-special-brdr: lighten(@color-special-txt, @headlt);
+@color-warning-bg: lighten(@color-warning-brdr, @headlt);
+@color-caution-bg: lighten(@color-caution-brdr, @headlt);
+@color-success-bg: lighten(@color-success-brdr, @headlt);
+@color-info-bg: lighten(@color-info-brdr, @headlt);
+@color-help-bg: lighten(@color-help-brdr, @headlt);
+@color-special-bg: lighten(@color-special-brdr, @headlt);
 
-.label {
-	// * labels are little warnings/tips/etc. for the user. More elegant than tooltips
-	.box-inline-block();
-	.font-size(small; inherit);
-	padding: 1px;
-	border: 0;
+.message {
+	&:extend(.line all);
+	.linebreadth-sml();
+	.box-block();
+	.font-size(small);
+	margin-top: @olh;
 	font-style: normal;
 	font-weight: normal;
 	font-family: @font-fam-accent;
-//	cursor: help;
+	line-height: 1;
 	&::before {
-		.box-inline();
-		padding: 1px;
-		border: 0;
-		margin-right: @olh;
 		font-family: @font-fam-code;
+//		&:extend(.unit all);
+//		&:extend(.dropcap::first-letter all);
+//		padding-top: 0;
+//		margin-top: -12px;
+//		float: left;
 	}
 }
-.label(@color-txt; @color-bg; @color-icon-bg; @content) {
+.message-mx(@color-txt; @color-bg; @color-brdr; @content) {
 	color: @color-txt;
 	background-color: @color-bg;
+	border-color: @color-brdr;
 	&::before {
-		content: @content;
 		color: @color-txt;
-		background-color: @color-icon-bg;
+		content: @content;
 	}
 }
-span.warning {
-	&:extend(.label all);
-	.label(@color-warning-txt; @color-warning-bg; @color-warning-icon-bg; '!');
+//eventually find a way to abstract these blocks
+.warning {
+	&:extend(.message all);
+	.message-mx(@color-warning-txt; @color-warning-bg; @color-warning-brdr; '!');
 }
-span.caution {
-	&:extend(.label all);
-	.label(@color-caution-txt; @color-caution-bg; @color-caution-icon-bg; '\2026'); // &hellip;
+.caution {
+	&:extend(.message all);
+	.message-mx(@color-caution-txt; @color-caution-bg; @color-caution-brdr; '\2026'); // &hellip;
 }
-span.success {
-	&:extend(.label all);
-	.label(@color-success-txt; @color-success-bg; @color-success-icon-bg; '\263A'); // smiley
+.success {
+	&:extend(.message all);
+	.message-mx(@color-success-txt; @color-success-bg; @color-success-brdr; '\263A'); // smiley
 }
-span.info {
-	&:extend(.label all);
-	.label(@color-info-txt; @color-info-bg; @color-info-icon-bg; '?');
+.info {
+	&:extend(.message all);
+	.message-mx(@color-info-txt; @color-info-bg; @color-info-brdr; '?');
 }
-span.help {
-	&:extend(.label all);
-	.label(@color-help-txt; @color-help-bg; @color-help-icon-bg; '\2665'); // &hearts;
+.help {
+	&:extend(.message all);
+	.message-mx(@color-help-txt; @color-help-bg; @color-help-brdr; '\2665'); // &hearts;
 }
-span.cyan {
-	&:extend(.label all);
-	.label(@color-cyan-txt; @color-cyan-bg; @color-cyan-icon-bg; 'c');
+.special {
+	&:extend(.message all);
+	.message-mx(@color-special-txt; @color-special-bg; @color-special-brdr; '\2605'); // star
 }
 //==== @end MESSAGES ====
 
@@ -411,7 +435,7 @@ span.cyan {
 	.success,
 	.info,
 	.help,
-	.cyan {
+	.special {
 		&::before {display: none;}
 	}
 	code {
