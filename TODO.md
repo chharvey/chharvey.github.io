@@ -1,5 +1,4 @@
-TO DO
-========
+# TO DO #
 
 - 2014-03-06 every list must go under a heading and every heading must be followed by exactly one list, unless that heading is followed by subheading(s) that are followed by list(s).
 - 2014-03-06 every list item must begin with a date in the format `YYYY-MM-DD`. This is the date the list item is added. (Starting on 2013-12-14. list items before that date will not have dates added. See Git repo history for more info.)
@@ -43,6 +42,7 @@ TO DO
 	- in `secondary-ed.less` lines 154–234
 - 2014-03-27 label scheme:
 	- 2014-03-01 use `<small>` for labels---they really are disclamers/caveats/etc.
+- 2014-04-04 in `mods.less` eventually find a way to abstract the `.message` blocks
 
 ### scripts ###
 - 2013-12-14 investigate the use of templates (`<template>`)
@@ -63,6 +63,9 @@ TO DO
 #### grid.html ####
 - 2014-01-21 finish last section (Phi demonstration)
 - 2014-03-05 add Gutter section below all Grid stuff
+
+#### semantics.html ####
+- 2014-04-04 given an element, when deciding to add a link to that element, always wrap the link *around* the other element. E.g. always do `a > code` or `a > dfn`, not `code > a` or `dfn > a`. (style) Any changes of color inside links should be made `inherit` so the hovering capability will still be visible.
 
 #### typo.html ####
 - inline elements: highlighting

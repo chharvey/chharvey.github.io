@@ -1,4 +1,7 @@
-//** ======== SITE-WIDE BEHAVIORS (all.js) ========
+/*----------*\
+	all.js
+\*----------*/
+
 //var t_ani = 200;
 /** Creates a new HTML element and returns it as a jQuery object. */
 function newElem(elemname) {
