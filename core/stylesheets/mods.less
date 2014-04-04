@@ -18,6 +18,10 @@
 //===============
 //@ABSTRACT BOXES
 //===============
+.cellpaddingdefault() {
+	// * default padding for cell-like structures (table cells, units, boxes, etc.)
+	padding: (@olh / 2) (@olh / 2 * @Phi1);
+}
 @box-radius-small:  3px; // 1 + 2
 @box-radius-medium: 6px; // 1 + 2 + 3
 @box-radius-large: 10px; // 1 + 2 + 3 + 4
@@ -29,25 +33,13 @@
 	border-radius: @box-radius-small;
 	white-space: nowrap;
 }
-.box-inline-block() {
-	// * inline content, with block structure, boxed
-	.box-inline();
-	display: inline-block;
-}
 .box-block() {
 	// * a block structure, boxed
-	.box-inline-block();
-	display: block;
-	padding: 0 4px;
+	.cellpaddingdefault();
 	.border(all; 1px; solid);
+	display: block;
 	border-radius: @box-radius-large;
-	margin-left: 4px;
-	margin-right: 4px;
 	white-space: normal;
-}
-.cellpaddingdefault() {
-	// * default padding for cell-like structures (table cells, units, boxes, etc.)
-	padding: (@olh / 2) (@olh / 2 * @Phi1);
 }
 .spacing-left-Phi(@brdr-width; @brdr-style; @brdr-color) {
 	padding-left: @brdr-width * @phi1;
@@ -88,7 +80,7 @@
 
 a {
 	display: inline;
-	border-bottom: 1px dotted;
+//	border-bottom: 1px dotted;
 	text-decoration: none;
 	color: inherit;
 	&[href] {
@@ -112,20 +104,19 @@ a {
 		background-color: transparent;
 	}
 }
-blockquote,
-div.postal,
-.list-action,
-table,
-.fn,
-code {
-	a {
-		// * no border for links in certain containers
-		border: 0;
-	}
-}
+//blockquote,
+//div.postal,
+//.list-action,
+//table,
+//.fn,
+//code {
+//	a {
+//		// * no border for links in certain containers
+//		border: 0;
+//	}
+//}
 .a-block {
 	.box-block();
-	.border(all; 1px; solid);
 	border-radius: @box-radius-medium;
 	text-align: center;
 	&[href] {
@@ -342,10 +333,10 @@ var {font-style: italic;}
 		.P1-midleft;
 		.mylogo {
 			display: block;
-			.border(bottom; 0; solid);
+			.border(bottom; 0);
 			font-weight: bold;
 			font-size: @iconsize;
-			font-family: 'Times','Times New Roman',serif;
+			font-family: @font-fam-math;
 		}
 	}
 }
@@ -365,14 +356,9 @@ var {font-style: italic;}
 		padding: (0.125 * @olh) 15px;
 		border-radius: 15px;
 		text-align: left;
-		&::before {margin-right: 0.5 * @olh;}
 	}
 	[rel~="this"] {
 		font-weight: bold;
-		&::before {
-			content: '';
-			margin-right: 0;
-		}
 	}
 }
 .bc-anc,
@@ -420,6 +406,7 @@ var {font-style: italic;}
 }
 .fn {
 	// * the superscript containing a link to the footnote or back to the reference
+	&:extend(sup all);
 	width: @fn-width;
 	> a {
 		&::before {content: '[';}
