@@ -8,7 +8,7 @@
 //- WIDTHS
 //- GOLDEN WIDTHS, MARGINS
 //- UNDO GOLDEN WIDTHS, MARGINS
-//- LINES, UNITS
+//- ROWS, CELLS
 //- AUTOMATED WIDTHS
 
 //=======
@@ -125,59 +125,45 @@
 
 
 //=============
-//@LINES, UNITS
+//@ROWS, CELLS
 //=============
-//.row {
-//	display: table;
-//	width: 100%;
-//}
-//.cell {
-//	display: table-cell;
-//	vertical-align: top;
-//	overflow: visible;
-//}
-//
-//.row--solo > .cell {}
-.line {
+.row {
 	display: table;
 	width: 100%;
 }
-.unit,
-.unit-1to1,
-.unit-1to2,
-.unit-1to3,
-.unit-2to3,
-.unit-1to4,
-.unit-3to4,
-.unit-1to5,
-.unit-2to5,
-.unit-3to5,
-.unit-4to5,
-.unit-1to6,
-.unit-5to6,
-.unit-p1,
-.unit-p2,
-.unit-p3,
-.unit-p4,
-.unit-U-p3,
-.unit-U-p4 {
+.cell {
 	display: table-cell;
 	vertical-align: top;
 	overflow: visible;
 }
-.unit-1to1 {width: (100% * (1/1));} // 100%
-.unit-1to2 {width: (100% * (1/2));} //  50%
-.unit-1to3 {width: (100% * (1/3));} //  33.333%
-.unit-2to3 {width: (100% * (2/3));} //  66.666%
-.unit-1to4 {width: (100% * (1/4));} //  25%
-.unit-3to4 {width: (100% * (3/4));} //  75%
-.unit-1to5 {width: (100% * (1/5));} //  20%
-.unit-2to5 {width: (100% * (2/5));} //  40%
-.unit-3to5 {width: (100% * (3/5));} //  60%
-.unit-4to5 {width: (100% * (4/5));} //  80%
-.unit-1to6 {width: (100% * (1/6));} //  16.666%
-.unit-5to6 {width: (100% * (5/6));} //  83.333%
-//==== @end LINES, UNITS ====
+
+.cell--1o1:extend(.cell) {width: (100% * (1/1));} // 100%
+.cell--1o2:extend(.cell) {width: (100% * (1/2));} //  50%
+.cell--1o3:extend(.cell) {width: (100% * (1/3));} //  33.333%
+.cell--2o3:extend(.cell) {width: (100% * (2/3));} //  66.666%
+.cell--1o4:extend(.cell) {width: (100% * (1/4));} //  25%
+.cell--3o4:extend(.cell) {width: (100% * (3/4));} //  75%
+.cell--1o5:extend(.cell) {width: (100% * (1/5));} //  20%
+.cell--2o5:extend(.cell) {width: (100% * (2/5));} //  40%
+.cell--3o5:extend(.cell) {width: (100% * (3/5));} //  60%
+.cell--4o5:extend(.cell) {width: (100% * (4/5));} //  80%
+.cell--1o6:extend(.cell) {width: (100% * (1/6));} //  16.666%
+.cell--5o6:extend(.cell) {width: (100% * (5/6));} //  83.333%
+
+.row--solo,
+.row--duet,
+.row--trio,
+.row--quartet,
+.row--quintet,
+.row--sextet {&:extend(.row);}
+
+.row--solo    > .cell:extend(.cell--1o1) {}
+.row--duet    > .cell:extend(.cell--1o2) {}
+.row--trio    > .cell:extend(.cell--1o3) {}
+.row--quartet > .cell:extend(.cell--1o4) {}
+.row--quintet > .cell:extend(.cell--1o5) {}
+.row--sextet  > .cell:extend(.cell--1o6) {}
+//==== @end ROWS, CELLS ====
 
 //=================
 //@AUTOMATED WIDTHS
