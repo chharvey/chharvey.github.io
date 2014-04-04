@@ -88,7 +88,7 @@
 	</section>
 	<section id="blocks">
 		<h1 class="h-gamma">Style Blocks</h1>
-		<p class="prose">Groups of similar selectors, including combination selectors (child, descendant, sibling, etc.) must appear on their own line. &ldquo;Similar&rdquo; may be to the author's discretion. The opening brace must <em>not</em> follow the last selector, but must be on its own line. The closing brace must also be on its own line after the style declarations in the block.</p>
+		<p class="prose">Groups of similar selectors, including combination selectors (child, descendant, sibling, etc.) must appear on their own line. &ldquo;Similar&rdquo; may be to the author's discretion. The opening brace must follow the last selector after a space, on the same line. The closing brace must be on its own line after the style declarations in the block.</p>
 		<p class="prose">Each style declaration must be indented once, and must also appear on its own line. The colon (<code>:</code> <a href="http://www.fileformat.info/info/unicode/char/003a/index.htm" rel="external">U+003A</a>) between the property and value must <em>not</em> be preceded by, but must be followed by, <strong>at least one</strong> space (<a href="http://www.fileformat.info/info/unicode/char/0020/index.htm" rel="external">U+0020</a>). The number of spaces may be increased to vertically align values of similar properties. Each value, including the last in the block, must be followed by a semicolon (<code>;</code> <a href="http://www.fileformat.info/info/unicode/char/003b/index.htm" rel="external">U+003B</a>).</p>
 		<p class="prose">&ldquo;Javadoc&rdquo; (but CSS version) documentation must appear <em>inside</em> the style block, after the opening bracket, on its own line. This comment must be preceded by the <code class="lang-css">// * </code> notation (notice the space between the slashes and the asterisk) and is intended for developers only.</p>
 		<p class="prose">An example is below.</p>
@@ -102,8 +102,7 @@ figure, blockquote, address,
 ol, ul, li,
 dl, dt, dd,
 table,
-pre
-{
+pre {
 	// * reset margin and padding on most block-level elements... this comment is clearly unnecessary.
 	padding: 0;
 	margin:  0;
@@ -111,14 +110,18 @@ pre
 		</code></pre>
 		<p class="prose"><strong>The example below is an exception to the one-line rule.</strong> This may be used in cases with multiple style blocks in a row that each contain one declaration or multiple parallel declarations.</p>
 		<pre><code class="lang-css">
-.P1-left  {.automargin(left;  (100% - @width-Golden1));}
-.P1-right {.automargin(right; (100% - @width-Golden1));}
-.P2-left  {.automargin(left;  (100% - @width-Golden2));}
-.P2-right {.automargin(right; (100% - @width-Golden2));}
-.P3-left  {.automargin(left;  (100% - @width-Golden3));}
-.P3-right {.automargin(right; (100% - @width-Golden3));}
-.P4-left  {.automargin(left;  (100% - @width-Golden4));}
-.P4-right {.automargin(right; (100% - @width-Golden4));}
+.unit-1to1 {width: (100% * (1/1));} // 100%
+.unit-1to2 {width: (100% * (1/2));} //  50%
+.unit-1to3 {width: (100% * (1/3));} //  33.333%
+.unit-2to3 {width: (100% * (2/3));} //  66.666%
+.unit-1to4 {width: (100% * (1/4));} //  25%
+.unit-3to4 {width: (100% * (3/4));} //  75%
+.unit-1to5 {width: (100% * (1/5));} //  20%
+.unit-2to5 {width: (100% * (2/5));} //  40%
+.unit-3to5 {width: (100% * (3/5));} //  60%
+.unit-4to5 {width: (100% * (4/5));} //  80%
+.unit-1to6 {width: (100% * (1/6));} //  16.666%
+.unit-5to6 {width: (100% * (5/6));} //  83.333%
 		</code></pre>
 		<section id="properties">
 			<h1 class="h-delta">Order of CSS Properties</h1>
@@ -158,49 +161,55 @@ pre
 </section>
 <section id="classes">
 	<h1 class="h-beta">Guidelines for Naming Classes</h1>
-	<p class="prose">Classnames must consist of either lowercase letters of the English alphabet (<a href="http://www.fileformat.info/info/unicode/char/0061/index.htm" rel="external">U+0061</a>&ndash;<a href="http://www.fileformat.info/info/unicode/char/007a/index.htm" rel="external">U+007A</a>), hyphens (<code>-</code> <a href="http://www.fileformat.info/info/unicode/char/002d/index.htm" rel="external">U+002D</a>), or underscores (<code>_</code> <a href="http://www.fileformat.info/info/unicode/char/005f/index.htm" rel="external">U+005F</a>).</p>
-	<p class="prose">Major words in a classname must appear in order from general to specific, and separated by one hyphen. Minor words should be combined, not separated. Examples:</p>
-	<ul>
-		<li><code class="lang-css">.lede-para</code></li>
-		<li><code class="lang-css">.lede-sent</code></li>
-		<li><code class="lang-css">.dropcap</code></li>
-		<li><code class="lang-css">.rowgroup</code></li>
-	</ul>
-	<section id="namespace">
-		<h1 class="h-gamma">Namespace Prefixes</h1>
-		<p class="prose">Classnames used only on one page or in a group of pages (e.g., a sub-site) must begin with a namespace prefix. This will help keep styles separated and prevent overuse of classnames. The namespace must contain only lowercase letters and should be less than 6 characters. The namespace must be followed by an underscore.</p>
+	<section id="classname-syntax">
+		<h1 class="h-gamma">Classname Syntax</h1>
+		<p class="prose">Classnames must consist of either lowercase letters of the English alphabet (<a href="http://www.fileformat.info/info/unicode/char/0061/index.htm" rel="external">U+0061</a>&ndash;<a href="http://www.fileformat.info/info/unicode/char/007a/index.htm" rel="external">U+007A</a>), hyphens (<code>-</code> <a href="http://www.fileformat.info/info/unicode/char/002d/index.htm" rel="external">U+002D</a>), or underscores (<code>_</code> <a href="http://www.fileformat.info/info/unicode/char/005f/index.htm" rel="external">U+005F</a>).</p>
+		<p class="prose">Major words in a classname must appear in order from general to specific, and separated by one hyphen. Minor words should be combined, not separated. Examples:</p>
 		<ul>
-			<li><code class="lang-css">.res_skillgroup</code></li>
-			<li><code class="lang-css">.scheme_colortable</code></li>
-			<li><code class="lang-css">.grid_phidemo</code></li>
+			<li><code class="lang-css">.lede-para</code></li>
+			<li><code class="lang-css">.lede-sent</code></li>
+			<li><code class="lang-css">.dropcap</code></li>
+			<li><code class="lang-css">.rowgroup</code></li>
 		</ul>
-		<p class="prose">Chances are, you will need to add classes to your HTML elements so JavaScript can grab them and do things to them. We call these classes <dfn>JS hooks</dfn>. <strong>Never use CSS styling classes for JS hooks.</strong> Use the <code class="lang-css">.js_</code> namespace prefix, and don't apply any styles to these classes.</p>
-		<ul>
-			<li><code class="lang-css">.js_table</code></li>
-			<li><code class="lang-css">.js_expando</code></li>
-		</ul>
+		<section id="namespace">
+			<h1 class="h-delta">Namespace Prefixes</h1>
+			<p class="prose">Classnames used only on one page or in a group of pages (e.g., a sub-site) must begin with a namespace prefix. This will help keep styles separated and prevent overuse of classnames. The namespace must contain only lowercase letters and should be less than 6 characters. The namespace must be followed by an underscore.</p>
+			<ul>
+				<li><code class="lang-css">.res_skillgroup</code></li>
+				<li><code class="lang-css">.scheme_colortable</code></li>
+				<li><code class="lang-css">.grid_phidemo</code></li>
+			</ul>
+			<p class="prose">Chances are, you will need to add classes to your HTML elements so JavaScript can grab them and do things to them. We call these classes <dfn>JS hooks</dfn>. <strong>Never use CSS styling classes for JS hooks.</strong> Use the <code class="lang-css">.js_</code> namespace prefix, and don't apply any styles to these classes.</p>
+			<ul>
+				<li><code class="lang-css">.js_table</code></li>
+				<li><code class="lang-css">.js_expando</code></li>
+			</ul>
+		</section>
+		<section id="modifiers">
+			<h1 class="h-delta">Modifiers</h1>
+			<p class="prose">Some classes will need modifiers, for sizing, etc. Use a double-hyphen to separate a classname with its modifier. Classes may have nested modifiers, that is, modifiers for modifiers.</p>
+			<ul>
+				<li><code class="lang-css">.box--inline</code></li>
+				<li><code class="lang-css">.h--alpha</code></li>
+				<li><code class="lang-css">.list--bare</code></li>
+				<li><code class="lang-css">.list--inline--c</code></li>
+				<li><code class="lang-css">.dl--table--sml</code></li>
+			</ul>
+		</section>
+		<section id="subcomponents">
+			<h1 class="h-delta">Sub-Components</h1>
+			<p class="prose">With <a>some exceptions</a>, descendant selectors are usually avoided, so indicating that one class of HTML element belongs as a descendent of another class of element is <a>not specified via selector</a>: it is usually specified in some sort of documentation. However it is advantageous to additionaly <strong>indicate so in the classname</strong> for extra unambiguity, without sacrificing specificity or efficiency. This way, the developer knows that the element belongs inside the other by inspection.</p>
+			<p class="prose">In the name of a class that is a descendant of another class, the &ldquo;parent classname&rdquo; and &ldquo;child classname&rdquo; are separated by two underscores. This similar to the practice of using one underscore to indicate namespaces. (In a way, the child classname is in the parent classname namespace.) If a child classname such as <code class="lang-css">.bar__foo</code> exists, it is assumed that a classname <code class="lang-css">.bar</code> exists.</p>
+			<ul>
+				<li><code class="lang-css">.bc__anc</code></li>
+				<li><code class="lang-css">.fnotes__fn</code></li>
+				<li><code class="lang-css">.lang--html__tag</code></li>
+				<li><code class="lang-css">.res_skilldetail__job</code></li>
+			</ul>
+		</section>
 	</section>
-	<section id="modifiers">
-		<h1 class="h-gamma">Modifiers</h1>
-		<p class="prose">Some classes will need modifiers, for sizing, etc. Use a double-hyphen to separate a classname with its modifier. Classes may have nested modifiers, that is, modifiers for modifiers.</p>
-		<ul>
-			<li><code class="lang-css">.box--inline</code></li>
-			<li><code class="lang-css">.h--alpha</code></li>
-			<li><code class="lang-css">.list--bare</code></li>
-			<li><code class="lang-css">.list--inline--c</code></li>
-			<li><code class="lang-css">.dl--table--sml</code></li>
-		</ul>
-	</section>
-	<section id="subcomponents">
-		<h1 class="h-gamma">Sub-Components</h1>
-		<p class="prose">With <a>some exceptions</a>, descendant selectors are usually avoided, so indicating that one class of HTML element belongs as a descendent of another class of element is <a>not specified via selector</a>: it is usually specified in some sort of documentation. However it is advantageous to additionaly <strong>indicate so in the classname</strong> for extra unambiguity, without sacrificing specificity or efficiency. This way, the developer knows that the element belongs inside the other by inspection.</p>
-		<p class="prose">In the name of a class that is a descendant of another class, the &ldquo;parent classname&rdquo; and &ldquo;child classname&rdquo; are separated by two underscores. This similar to the practice of using one underscore to indicate namespaces. (In a way, the child classname is in the parent classname namespace.) If a child classname such as <code class="lang-css">.bar__foo</code> exists, it is assumed that a classname <code class="lang-css">.bar</code> exists.</p>
-		<ul>
-			<li><code class="lang-css">.bc__anc</code></li>
-			<li><code class="lang-css">.fnotes__fn</code></li>
-			<li><code class="lang-css">.lang--html__tag</code></li>
-			<li><code class="lang-css">.res_skilldetail__job</code></li>
-		</ul>
+	<section id="classname-semantics">
+		<h1 class="h-gamma">Classname Semantics</h1>
 	</section>
 </section>
 <section id="selectors">
