@@ -37,7 +37,7 @@ body {
 	<h1 class="h-alpha">The Grid</h1>
 <!--	<p class="timestamp">Updated <time datetime="2014-01-23T21:42">Jan 23, 2014</time>.</p>-->
 </header>
-<p class="prose">This page describes the grid system of the site. <a class="sp" href="../core/stylesheets/grid.less">The grid</a> implements the structure and layout of any page. It consists of lines and units, treated as table rows and table cells respectively.</p>
+<p class="prose">This page describes the grid system of the site. <a href="../core/stylesheets/grid.less">The grid</a> implements the structure and layout of any page. It consists of rows and cells, treated as table rows and table cells respectively.</p>
 <p><span class="caution">Important <time>2014-01-23</time>:</span> Since the classes used in the grid system define where the elements are positioned, the classnames are purely presentational and non-semantic. Therefore, the developer is encouraged to use concrete semantic classnames where relevant, and <b class="keyword">extend</b> the classes in <code class="dir">grid.less</code>.</p>
 <!--
 <p>For example, say you want a certain <code class="lang-css">div.essay</code> to look like a <code class="lang-css">.p1--left</code>. Rather than putting <code class="lang-html">&lt;div class=&quot;essay P1-left&quot;&gt;</code> in the HTML, you should put <code class="lang-less">.essay {&:extend(.p1--left);}</code> in the Less stylesheet. That way, the <code class="lang-html">&lt;div class=&quot;essay&quot;&gt;</code> will appear like a <code class="lang-css">.p1--left</code> while still being semantically named. <small>For more information, see <a class="sp" href="http://less.github.io/features.html#extend-feature">the Less documentation</a>, and read up on <a>Object-Oriented CSS</a> and <a>semantic class naming</a>.</small></p>
@@ -45,27 +45,27 @@ body {
 <p class="prose">Seeing as the grid is presentational, it should <b>degrade gracefully</b>. This means that if someone were to &ldquo;turn off&rdquo; the grid, you would still be able to read and interact with the website without any problems. It might not look pretty, but the content should be intact.</p>
 <section id="setup">
 	<h1 class="h-beta">Setting It Up</h1>
-	<p class="prose">To set up a grid, you'll need to create a line with units inside. The effect will be a table-like structure, with the line acting as a row and the units acting as cells.</p>
+	<p class="prose">To set up a grid, you'll need to create a row with cells inside. The effect will be a table-like structure.</p>
 	<figure>
-		<div class="precode lang-html"><span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">line</span>&quot;</span>&gt;</span> <span class="comment">&lt;!--this is a line!--&gt;</span>
-	<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit</span>&quot;</span>&gt;</span>this is unit 1!<span class="tag">&lt;/div&gt;</span>
-	<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit</span>&quot;</span>&gt;</span>this is unit 2!<span class="tag">&lt;/div&gt;</span>
-	<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit</span>&quot;</span>&gt;</span>this is unit 3!<span class="tag">&lt;/div&gt;</span>
+		<div class="precode lang-html"><span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">row</span>&quot;</span>&gt;</span> <span class="comment">&lt;!--this is a row!--&gt;</span>
+	<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">cell</span>&quot;</span>&gt;</span>this is cell 1!<span class="tag">&lt;/div&gt;</span>
+	<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">cell</span>&quot;</span>&gt;</span>this is cell 2!<span class="tag">&lt;/div&gt;</span>
+	<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">cell</span>&quot;</span>&gt;</span>this is cell 3!<span class="tag">&lt;/div&gt;</span>
 <span class="tag">&lt;/div&gt;</span></code></div>
-		<div class="line">
-			<div class="unit" style="width: 20%;">this is unit 1!</div>
-			<div class="unit" style="width: 60%;">this is unit 2!</div>
-			<div class="unit" style="width: 20%;">this is unit 3!</div>
+		<div class="row">
+			<div class="cell grid-otln" style="width: 20%;">this is cell 1!</div>
+			<div class="cell grid-otln" style="width: 60%;">this is cell 2!</div>
+			<div class="cell grid-otln" style="width: 20%;">this is cell 3!</div>
 		</div>
 		<figcaption>Outlines are added to show structure, and widths are not equal to show they are not fixed.</figcaption>
 	</figure>
-	<p class="prose">Of course, a good developer wouldn't use the <code class="lang-css">.line</code> and <code class="lang-css">.unit</code> classes themselves, but would <b class="keyword">extend</b> them to more meaningful classes. This way, the HTML author wouldn't have to worry about how the elements are styled, and in the future if the CSS designer wants to change the way the elements look, they can just go into the CSS and change some styles rather than having to  change the classnames in the HTML.</p>
+	<p class="prose">Of course, a good developer wouldn't use the <code class="lang-css">.row</code> and <code class="lang-css">.cell</code> classes themselves, but would <b class="keyword">extend</b> them to more meaningful classes. This way, the HTML author wouldn't have to worry about how the elements are styled, and in the future if the CSS designer wants to change the way the elements look, they can just go into the CSS and change some styles rather than having to  change the classnames in the HTML.</p>
 </section>
-<section  id="custom-units">
-	<h1 class="h-beta">Custom Units</h1>
-	<p class="prose">Each line is 100% the width of its container, unless otherwise specified. Each line can have any number of units. Notice that in the example above, that the units were not evenly distributed: the middle unit will likely be significantly wider than the other two units, assuming there will be more text in that element. If you want the line to <em>force</em> the units to have equal widths, you must add classes to the units to specify their widths. See the following classes:</p>
+<section  id="custom-cells">
+	<h1 class="h-beta">Custom Cells</h1>
+	<p class="prose">Each row is 100% the width of its container, unless otherwise specified. Each row can have any number of cells. Notice that in the example above, that the cells were not evenly distributed: the middle cell will likely be significantly wider than the other two cells, assuming there will be more text in that element. If you want the row to <em>force</em> the cells to have equal widths, you must add classes to the cells to specify their widths. See the following classes:</p>
 	<table class="table-list">
-		<caption>Note that these classes automatically extend the <code class="lang-less">.unit</code> class in <code class="dir">grid.less</code>.</caption>
+		<caption>Note that these classes automatically extend the <code class="lang-less">.cell</code> class in <code class="dir">grid.less</code>.</caption>
 		<thead>
 			<tr>
 				<th>classname</th>
@@ -74,188 +74,188 @@ body {
 		</thead>
 		<tbody>
 			<tr>
-				<td><code class="lang-less">.unit-1to1</code></td>
+				<td><code class="lang-less">.cell--1o1</code></td>
 				<td>= 100%</td>
 			</tr>
 			<tr>
-				<td><code class="lang-less">.unit-1to2</code></td>
+				<td><code class="lang-less">.cell--1o2</code></td>
 				<td>= 50%</td>
 			</tr>
 			<tr>
-				<td><code class="lang-less">.unit-1to3</code></td>
+				<td><code class="lang-less">.cell--1o3</code></td>
 				<td>&asymp; 33.333%</td>
 			</tr>
 			<tr>
-				<td><code class="lang-less">.unit-2to3</code></td>
+				<td><code class="lang-less">.cell--2o3</code></td>
 				<td>&asymp; 66.666%</td>
 			</tr>
 			<tr>
-				<td><code class="lang-less">.unit-1to4</code></td>
+				<td><code class="lang-less">.cell--1o4</code></td>
 				<td>= 25%</td>
 			</tr>
 			<tr>
-				<td><code class="lang-less">.unit-3to4</code></td>
+				<td><code class="lang-less">.cell--3o4</code></td>
 				<td>= 75%</td>
 			</tr>
 			<tr>
-				<td><code class="lang-less">.unit-1to5</code></td>
+				<td><code class="lang-less">.cell--1o5</code></td>
 				<td>= 20%</td>
 			</tr>
 			<tr>
-				<td><code class="lang-less">.unit-2to5</code></td>
+				<td><code class="lang-less">.cell--2o5</code></td>
 				<td>= 40%</td>
 			</tr>
 			<tr>
-				<td><code class="lang-less">.unit-3to5</code></td>
+				<td><code class="lang-less">.cell--3o5</code></td>
 				<td>= 60%</td>
 			</tr>
 			<tr>
-				<td><code class="lang-less">.unit-4to5</code></td>
+				<td><code class="lang-less">.cell--4o5</code></td>
 				<td>= 80%</td>
 			</tr>
 			<tr>
-				<td><code class="lang-less">.unit-1to6</code></td>
+				<td><code class="lang-less">.cell--1o6</code></td>
 				<td>&asymp; 16.666%</td>
 			</tr>
 			<tr>
-				<td><code class="lang-css">.unit-5to6</code></td>
+				<td><code class="lang-css">.cell--5o6</code></td>
 				<td>&asymp; 83.333%</td>
 			</tr>
 		</tbody>
 		<tbody>
 			<tr>
-				<td><code class="lang-less">.unit-P1</code></td>
+				<td><code class="lang-less">.cell--p1</code></td>
 				<td>&asymp; 61.803%</td>
 			</tr>
 			<tr>
-				<td><code class="lang-less">.unit-P2</code></td>
+				<td><code class="lang-less">.cell--p2</code></td>
 				<td>&asymp; 38.197%</td>
 			</tr>
 			<tr>
-				<td><code class="lang-less">.unit-P3</code></td>
+				<td><code class="lang-less">.cell--p3</code></td>
 				<td>&asymp; 23.607%</td>
 			</tr>
 			<tr>
-				<td><code class="lang-less">.unit-P4</code></td>
+				<td><code class="lang-less">.cell--p4</code></td>
 				<td>&asymp; 14.590%</td>
 			</tr>
 			<tr>
-				<td><code class="lang-less">.unit-U-P3</code></td>
+				<td><code class="lang-less">.cell--p3-c</code></td>
 				<td>&asymp; 76.393%</td>
 			</tr>
 			<tr>
-				<td><code class="lang-less">.unit-U-P4</code></td>
+				<td><code class="lang-less">.cell--p4-c</code></td>
 				<td>&asymp; 85.410%</td>
 			</tr>
 		</tbody>
 	</table>
-	<p class="prose">Let's make sure our cells are equal width. Remember that all of the units must add up to 100%.</p>
+	<p class="prose">Let's make sure our cells are equal width. Remember that all of the cells must add up to 100%.</p>
 	<figure>
-		<div class="precode lang-html"><span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">line</span>&quot;</span>&gt;</span>
-	<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit<span class="new">-1to3</span></span>&quot;</span>&gt;</span>this is unit 1!<span class="tag">&lt;/div&gt;</span>
-	<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit<span class="new">-1to3</span></span>&quot;</span>&gt;</span>this is unit 2!<span class="tag">&lt;/div&gt;</span>
-	<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit<span class="new">-1to3</span></span>&quot;</span>&gt;</span>this is unit 3!<span class="tag">&lt;/div&gt;</span>
+		<div class="precode lang-html"><span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">row</span>&quot;</span>&gt;</span>
+	<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">cell<span class="new">--1o3</span></span>&quot;</span>&gt;</span>this is cell 1!<span class="tag">&lt;/div&gt;</span>
+	<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">cell<span class="new">--1o3</span></span>&quot;</span>&gt;</span>this is cell 2!<span class="tag">&lt;/div&gt;</span>
+	<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">cell<span class="new">--1o3</span></span>&quot;</span>&gt;</span>this is cell 3!<span class="tag">&lt;/div&gt;</span>
 <span class="tag">&lt;/div&gt;</span></div>
-		<div class="line">
-			<div class="unit-1to3 grid-outline">this is unit 1!</div>
-			<div class="unit-1to3 grid-outline">this is unit 2!</div>
-			<div class="unit-1to3 grid-outline">this is unit 3!</div>
+		<div class="row">
+			<div class="cell--1o3 grid-otln">this is cell 1!</div>
+			<div class="cell--1o3 grid-otln">this is cell 2!</div>
+			<div class="cell--1o3 grid-otln">this is cell 3!</div>
 		</div>
 	</figure>
-	<section id="golden-unit-widths">
+	<section id="golden-cell-widths">
 		<header>
-			<h1 class="h-gamma">Golden Unit Widths</h1>
+			<h1 class="h-gamma">Golden Cell Widths</h1>
 			<p class="prose">Please read up on some <a href="phi.html">background information</a> for a more enriching understanding of this section.</p>
 			<p class="prose"><span class="lede"><abbr title="too long; didn't read">tl;dr</abbr></span> In a nutshell, one full container width (100%) must be broken up into a <span class="latex">\(\Phi^1\)</span> and <span class="latex">\(\Phi^2\)</span>, with <span class="latex">\(\Phi^1 = \Phi^2 + \Phi^3\)</span>, and <span class="latex">\(\Phi^2 = \Phi^3 + \Phi^4\)</span>, etc.</p>
 		</header>
 		<section>
-			<h1 class="h-delta">Lines with Two Units</h1>
+			<h1 class="h-delta">Rows with Two Cells</h1>
 			<figure>
 				<figcaption>100% can be broken up into P1 + P2.</figcaption>
-				<div class="line">
-					<div class="unit-P1"><code class="lang-less">.unit-P1</code></div>
-					<div class="unit-P2"><code class="lang-less">.unit-P2</code></div>
+				<div class="row">
+					<div class="cell--p1"><code class="lang-less">.cell--p1</code></div>
+					<div class="cell--p2"><code class="lang-less">.cell--p2</code></div>
 				</div>
-				<div class="line">
-					<div class="unit-P2"><code class="lang-less">.unit-P2</code></div>
-					<div class="unit-P1"><code class="lang-less">.unit-P1</code></div>
+				<div class="row">
+					<div class="cell--p2"><code class="lang-less">.cell--p2</code></div>
+					<div class="cell--p1"><code class="lang-less">.cell--p1</code></div>
 				</div>
 			</figure>
 			<figure>
 				<figcaption>100% can be broken up into P3 + (U-P3).</figcaption>
-				<div class="line">
-					<div class="unit-P3"><code class="lang-less">.unit-P3</code></div>
-					<div class="unit-U-P3"><code class="lang-less">.unit-U-P3</code></div>
+				<div class="row">
+					<div class="cell--p3"><code class="lang-less">.cell--p3</code></div>
+					<div class="cell-U-P3"><code class="lang-less">.cell--p3-c</code></div>
 				</div>
-				<div class="line">
-					<div class="unit-U-P3"><code class="lang-less">.unit-U-P3</code></div>
-					<div class="unit-P3"><code class="lang-less">.unit-P3</code></div>
+				<div class="row">
+					<div class="cell-U-P3"><code class="lang-less">.cell--p3-c</code></div>
+					<div class="cell--p3"><code class="lang-less">.cell--p3</code></div>
 				</div>
 			</figure>
 			<figure>
 				<figcaption>100% can be broken up into P4 + (U-P4).</figcaption>
-				<div class="line">
-					<div class="unit-P4"><code class="lang-less">.unit-P4</code></div>
-					<div class="unit-U-P4"><code class="lang-less">.unit-U-P4</code></div>
+				<div class="row">
+					<div class="cell--p4"><code class="lang-less">.cell--p4</code></div>
+					<div class="cell-U-P4"><code class="lang-less">.cell--p4-c</code></div>
 				</div>
-				<div class="line">
-					<div class="unit-U-P4"><code class="lang-less">.unit-U-P4</code></div>
-					<div class="unit-P4"><code class="lang-less">.unit-P4</code></div>
+				<div class="row">
+					<div class="cell-U-P4"><code class="lang-less">.cell--p4-c</code></div>
+					<div class="cell--p4"><code class="lang-less">.cell--p4</code></div>
 				</div>
 			</figure>
 		</section>
 		<section>
-			<h1 class="h-delta">Lines with Three Units</h1>
+			<h1 class="h-delta">Rows with Three Cells</h1>
 			<figure>
 				<figcaption>100% can be broken up into any combination of P2 + P2 + P3. This is because P1 = P2 + P3.</figcaption>
-				<div class="line">
-					<div class="unit-P2"><code class="lang-less">.unit-P2</code></div>
-					<div class="unit-P2"><code class="lang-less">.unit-P2</code></div>
-					<div class="unit-P3"><code class="lang-less">.unit-P3</code></div>
+				<div class="row">
+					<div class="cell--p2"><code class="lang-less">.cell--p2</code></div>
+					<div class="cell--p2"><code class="lang-less">.cell--p2</code></div>
+					<div class="cell--p3"><code class="lang-less">.cell--p3</code></div>
 				</div>
-				<div class="line">
-					<div class="unit-P2"><code class="lang-less">.unit-P2</code></div>
-					<div class="unit-P3"><code class="lang-less">.unit-P3</code></div>
-					<div class="unit-P2"><code class="lang-less">.unit-P2</code></div>
+				<div class="row">
+					<div class="cell--p2"><code class="lang-less">.cell--p2</code></div>
+					<div class="cell--p3"><code class="lang-less">.cell--p3</code></div>
+					<div class="cell--p2"><code class="lang-less">.cell--p2</code></div>
 				</div>
-				<div class="line">
-					<div class="unit-P3"><code class="lang-less">.unit-P3</code></div>
-					<div class="unit-P2"><code class="lang-less">.unit-P2</code></div>
-					<div class="unit-P2"><code class="lang-less">.unit-P2</code></div>
+				<div class="row">
+					<div class="cell--p3"><code class="lang-less">.cell--p3</code></div>
+					<div class="cell--p2"><code class="lang-less">.cell--p2</code></div>
+					<div class="cell--p2"><code class="lang-less">.cell--p2</code></div>
 				</div>
 			</figure>
 			<figure>
 				<figcaption>100% can be broken up into any combination of P1 + P3 + P4. This is because P2 = P3 + P4.<br/>One of these patterns is the structure for my site. Can you see which one it is?</figcaption>
-				<div class="line">
-					<div class="unit-P1"><code class="lang-less">.unit-P1</code></div>
-					<div class="unit-P3"><code class="lang-less">.unit-P3</code></div>
-					<div class="unit-P4"><code class="lang-less">.unit-P4</code></div>
+				<div class="row">
+					<div class="cell--p1"><code class="lang-less">.cell--p1</code></div>
+					<div class="cell--p3"><code class="lang-less">.cell--p3</code></div>
+					<div class="cell--p4"><code class="lang-less">.cell--p4</code></div>
 				</div>
-				<div class="line">
-					<div class="unit-P1"><code class="lang-less">.unit-P1</code></div>
-					<div class="unit-P4"><code class="lang-less">.unit-P4</code></div>
-					<div class="unit-P3"><code class="lang-less">.unit-P3</code></div>
+				<div class="row">
+					<div class="cell--p1"><code class="lang-less">.cell--p1</code></div>
+					<div class="cell--p4"><code class="lang-less">.cell--p4</code></div>
+					<div class="cell--p3"><code class="lang-less">.cell--p3</code></div>
 				</div>
-				<div class="line">
-					<div class="unit-P3"><code class="lang-less">.unit-P3</code></div>
-					<div class="unit-P1"><code class="lang-less">.unit-P1</code>
+				<div class="row">
+					<div class="cell--p3"><code class="lang-less">.cell--p3</code></div>
+					<div class="cell--p1"><code class="lang-less">.cell--p1</code>
 						<span class="help">This is it!</span></div>
-					<div class="unit-P4"><code class="lang-less">.unit-P4</code></div>
+					<div class="cell--p4"><code class="lang-less">.cell--p4</code></div>
 				</div>			
-				<div class="line">
-					<div class="unit-P3"><code class="lang-less">.unit-P3</code></div>
-					<div class="unit-P4"><code class="lang-less">.unit-P4</code></div>
-					<div class="unit-P1"><code class="lang-less">.unit-P1</code></div>
+				<div class="row">
+					<div class="cell--p3"><code class="lang-less">.cell--p3</code></div>
+					<div class="cell--p4"><code class="lang-less">.cell--p4</code></div>
+					<div class="cell--p1"><code class="lang-less">.cell--p1</code></div>
 				</div>			
-				<div class="line">
-					<div class="unit-P4"><code class="lang-less">.unit-P4</code></div>
-					<div class="unit-P1"><code class="lang-less">.unit-P1</code></div>
-					<div class="unit-P3"><code class="lang-less">.unit-P3</code></div>
+				<div class="row">
+					<div class="cell--p4"><code class="lang-less">.cell--p4</code></div>
+					<div class="cell--p1"><code class="lang-less">.cell--p1</code></div>
+					<div class="cell--p3"><code class="lang-less">.cell--p3</code></div>
 				</div>			
-				<div class="line">
-					<div class="unit-P4"><code class="lang-less">.unit-P4</code></div>
-					<div class="unit-P3"><code class="lang-less">.unit-P3</code></div>
-					<div class="unit-P1"><code class="lang-less">.unit-P1</code></div>
+				<div class="row">
+					<div class="cell--p4"><code class="lang-less">.cell--p4</code></div>
+					<div class="cell--p3"><code class="lang-less">.cell--p3</code></div>
+					<div class="cell--p1"><code class="lang-less">.cell--p1</code></div>
 				</div>
 			</figure>
 		</section>
@@ -264,49 +264,47 @@ body {
 <section id="custom-block-widths">
 	<header>
 		<h1 class="h-beta">Custom Block Widths</h1>
-		<p class="prose">Sometimes you may want to change the widths of a block or a <code clas="lang-less">.line</code>. For this, use classes for custom widths.</p>
-		<p class="prose">The following mixins change the appearance of general block elements. They can be included in the class of any block element, or to any extension of <code class="lang-less">.line</code>s, which contain <code clas="lang-less">.unit</code>s.</p>
+		<p class="prose">Sometimes you may want to change the widths of a block or a <code clas="lang-less">.row</code>. For this, use classes for custom widths.</p>
+		<p class="prose">The following mixins change the appearance of general block elements. They can be included in the class of any block element, or to any extension of <code class="lang-less">.row</code>s, which contain <code clas="lang-less">.cell</code>s.</p>
 		<p class="prose"><span class="caution">Caution:</span> For the sake of simplicity, I'll be using the Less mixin names for the HTML elements' class attributes; I am merely saving time and space. As the developer, you are encouraged to give the elements semantic classnames and include the Less mixins.</p>
 	</header>
-<!--
 	<section>
-		<h1 class="h-gamma">.linebreadth-full()</h1>
+		<h1 class="h-gamma">.linebreadth-full</h1>
 		<p class="prose">A normal block element defaults to 100% width and no left/right margins. This is equivalent to the <code class="lang-less">.linebreadth-full</code> class, which you can use to override another class if need be.</p>
 		<figure>
-			<div class="linebreadth-full grid-outline">
-				<p>The <code class="lang-less">.linebreadth-full</code> class sets the line width to 100% with no margins. It's modeled after the <b>harmonic sequence</b></p>
+			<div class="linebreadth-full grid-otln">
+				<p>The <code class="lang-less">.linebreadth-full</code> class sets the row width to 100% with no margins. It's modeled after the <b>harmonic sequence</b></p>
 				<div class="latex">\[ \left(\mathbf{1},\frac{1}{2},\frac{1}{3},\frac{1}{4},\dots,\frac{1}{n+1}\right) \]</div>
-				<p>where <var>n</var> is the number of units (<var>n</var> starts at 0).</p>
+				<p>where <var>n</var> is the number of cells (<var>n</var> starts at 0).</p>
 			</div>
 		</figure>
 	</section>
--->
 	<section>
-		<h1 class="h-gamma">.linebreadth-lrg()</h1>
+		<h1 class="h-gamma">.linebreadth-lrg</h1>
 		<figure>
-			<div class="linebreadth-lrg grid-outline">
-				<p>The <code class="lang-less">.linebreadth-lrg()</code> mixin sets the line width to 75% with equal margins (12.5%). It's modeled after the <b>geometric sequence</b></p>
+			<div class="linebreadth-lrg grid-otln">
+				<p>The <code class="lang-less">.linebreadth-lrg()</code> mixin sets the row width to 75% with equal margins (12.5%). It's modeled after the <b>geometric sequence</b></p>
 				<div class="latex">\[ \left(\frac{9}{8},\mathbf{\frac{3}{4}},\frac{1}{2},\frac{1}{3},\frac{2}{9},\dots,\frac{9}{8}\left(\frac{2}{3}\right)^n\right) \]</div>
-				<p>where <var>n</var> is the number of units (<var>n</var> starts at 0).</p>
+				<p>where <var>n</var> is the number of cells (<var>n</var> starts at 0).</p>
 			</div>
 		</figure>
 	</section>
 	<section>
-		<h1 class="h-gamma">.linebreadth-med()</h1>
+		<h1 class="h-gamma">.linebreadth-med</h1>
 		<figure>
-			<div class="linebreadth-med grid-outline">
-				<p>The <code class="lang-less">.linebreadth-med()</code> mixin sets the line width to 66.6% and equal margins (16.6%). It's modeled after the <b>arithmetic sequence</b></p>
+			<div class="linebreadth-med grid-otln">
+				<p>The <code class="lang-less">.linebreadth-med()</code> mixin sets the row width to 66.6% and equal margins (16.6%). It's modeled after the <b>arithmetic sequence</b></p>
 				<div class="latex">\[ \left(\frac{5}{6},\mathbf{\frac{2}{3}},\frac{1}{2},\frac{1}{3},\frac{1}{6},\dots,\frac{5-n}{6}\right) \]</div>
-				<p>where <var>n</var> is the number of units (<var>n</var> starts at 0).</p>
+				<p>where <var>n</var> is the number of cells (<var>n</var> starts at 0).</p>
 			</div>
 		</figure>
 	</section>
 	<section>
-		<h1 class="h-gamma">.linebreadth-sml()</h1>
+		<h1 class="h-gamma">.linebreadth-sml</h1>
 		<figure>
-			<div class="linebreadth-sml grid-outline">
-				<p>The <code class="lang-less">.linebreadth-sml()</code> mixin sets the line width to about 61.8% and equal margins (19.1%). It's approximately <a href="phi.html">the ratio <var>&Phi;</var></a>.</p>
-				<p>This means that if you add the margins (38.2%) and take the ratio of that to the line width (61.8%), it's the same as the ratio of the line width to the container (100%). That is, 38.2% is to 61.8% as 61.8% is to 100%.</p>
+			<div class="linebreadth-sml grid-otln">
+				<p>The <code class="lang-less">.linebreadth-sml()</code> mixin sets the row width to about 61.8% and equal margins (19.1%). It's approximately <a href="phi.html">the ratio <var>&Phi;</var></a>.</p>
+				<p>This means that if you add the margins (38.2%) and take the ratio of that to the row width (61.8%), it's the same as the ratio of the row width to the container (100%). That is, 38.2% is to 61.8% as 61.8% is to 100%.</p>
 			</div>
 		</figure>
 	</section>
@@ -386,157 +384,157 @@ body {
 		</figure>
 	</section>
 </section>
-<section id="nested-lines">
+<section id="nested-rows">
 	<header>
-		<h1 class="h-beta">Nested Lines</h1>
-		<p class="prose">There is something else worth mentioning. It is possible to have more than 6 units in a line by <strong>nesting lines</strong>. This means putting lines within lines. More accurately, lines within units within lines.</p>
+		<h1 class="h-beta">Nested Rows</h1>
+		<p class="prose">There is something else worth mentioning. It is possible to have more than 6 cells in a row by <strong>nesting rows</strong>. This means putting rows within rows. More accurately, rows within cells within rows.</p>
 	</header>
-	<p class="prose">For example, lets say you want twelve equal-width units. Then you could create a line with two <code class="lang-less">.unit-1to2</code>s, and in each unit, build a line with 6 <code class="lang-less">.unit-1to6</code>s each. You could also have three groups of four, etc.</p>
+	<p class="prose">For example, lets say you want twelve equal-width cells. Then you could create a row with two <code class="lang-less">.cell--1o2</code>s, and in each cell, build a row with 6 <code class="lang-less">.cell--1o6</code>s each. You could also have three groups of four, etc.</p>
 	<figure>
-		<div class="precode lang-html"><span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">line</span>&quot;</span>&gt;</span> <span class="comment">&lt;!-- big line --&gt;</span>
-	<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to2</span>&quot;</span>&gt;</span> <span class="comment">&lt;!-- unit 50% --&gt;</span>
-		<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">line</span>&quot;</span>&gt;</span> <span class="comment">&lt;!-- small line --&gt;</span>
-			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to6</span>&quot;</span>&gt;</span> unit 16.6% <span class="tag">&lt;/div&gt;</span>
-			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to6</span>&quot;</span>&gt;</span> unit 16.6% <span class="tag">&lt;/div&gt;</span>
-			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to6</span>&quot;</span>&gt;</span> unit 16.6% <span class="tag">&lt;/div&gt;</span>
-			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to6</span>&quot;</span>&gt;</span> unit 16.6% <span class="tag">&lt;/div&gt;</span>
-			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to6</span>&quot;</span>&gt;</span> unit 16.6% <span class="tag">&lt;/div&gt;</span>
-			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to6</span>&quot;</span>&gt;</span> unit 16.6% <span class="tag">&lt;/div&gt;</span>
+		<div class="precode lang-html"><span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">row</span>&quot;</span>&gt;</span> <span class="comment">&lt;!-- big row --&gt;</span>
+	<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">cell--1o2</span>&quot;</span>&gt;</span> <span class="comment">&lt;!-- cell 50% --&gt;</span>
+		<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">row</span>&quot;</span>&gt;</span> <span class="comment">&lt;!-- small row --&gt;</span>
+			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">cell--1o6</span>&quot;</span>&gt;</span> cell 16.6% <span class="tag">&lt;/div&gt;</span>
+			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">cell--1o6</span>&quot;</span>&gt;</span> cell 16.6% <span class="tag">&lt;/div&gt;</span>
+			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">cell--1o6</span>&quot;</span>&gt;</span> cell 16.6% <span class="tag">&lt;/div&gt;</span>
+			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">cell--1o6</span>&quot;</span>&gt;</span> cell 16.6% <span class="tag">&lt;/div&gt;</span>
+			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">cell--1o6</span>&quot;</span>&gt;</span> cell 16.6% <span class="tag">&lt;/div&gt;</span>
+			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">cell--1o6</span>&quot;</span>&gt;</span> cell 16.6% <span class="tag">&lt;/div&gt;</span>
 		<span class="tag">&lt;/div&gt;</span>
 	<span class="tag">&lt;/div&gt;</span>
-	<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to2</span>&quot;</span>&gt;</span> <span class="comment">&lt;!-- unit 50% --&gt;</span>
-		<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">line</span>&quot;</span>&gt;</span> <span class="comment">&lt;!-- small line --&gt;</span>
-			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to6</span>&quot;</span>&gt;</span> unit 16.6% <span class="tag">&lt;/div&gt;</span>
-			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to6</span>&quot;</span>&gt;</span> unit 16.6% <span class="tag">&lt;/div&gt;</span>
-			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to6</span>&quot;</span>&gt;</span> unit 16.6% <span class="tag">&lt;/div&gt;</span>
-			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to6</span>&quot;</span>&gt;</span> unit 16.6% <span class="tag">&lt;/div&gt;</span>
-			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to6</span>&quot;</span>&gt;</span> unit 16.6% <span class="tag">&lt;/div&gt;</span>
-			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to6</span>&quot;</span>&gt;</span> unit 16.6% <span class="tag">&lt;/div&gt;</span>
+	<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">cell--1o2</span>&quot;</span>&gt;</span> <span class="comment">&lt;!-- cell 50% --&gt;</span>
+		<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">row</span>&quot;</span>&gt;</span> <span class="comment">&lt;!-- small row --&gt;</span>
+			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">cell--1o6</span>&quot;</span>&gt;</span> cell 16.6% <span class="tag">&lt;/div&gt;</span>
+			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">cell--1o6</span>&quot;</span>&gt;</span> cell 16.6% <span class="tag">&lt;/div&gt;</span>
+			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">cell--1o6</span>&quot;</span>&gt;</span> cell 16.6% <span class="tag">&lt;/div&gt;</span>
+			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">cell--1o6</span>&quot;</span>&gt;</span> cell 16.6% <span class="tag">&lt;/div&gt;</span>
+			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">cell--1o6</span>&quot;</span>&gt;</span> cell 16.6% <span class="tag">&lt;/div&gt;</span>
+			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">cell--1o6</span>&quot;</span>&gt;</span> cell 16.6% <span class="tag">&lt;/div&gt;</span>
 		<span class="tag">&lt;/div&gt;</span>
 	<span class="tag">&lt;/div&gt;</span>
 <span class="tag">&lt;/div&gt;</span>
-<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">line</span>&quot;</span>&gt;</span> <span class="comment">&lt;!-- big line --&gt;</span>
-	<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to3</span>&quot;</span>&gt;</span> <span class="comment">&lt;!-- unit 33.3% --&gt;</span>
-		<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">line</span>&quot;</span>&gt;</span> <span class="comment">&lt;!-- small line --&gt;</span>
-			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to4</span>&quot;</span>&gt;</span> unit 25% <span class="tag">&lt;/div&gt;</span>
-			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to4</span>&quot;</span>&gt;</span> unit 25% <span class="tag">&lt;/div&gt;</span>
-			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to4</span>&quot;</span>&gt;</span> unit 25% <span class="tag">&lt;/div&gt;</span>
-			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to4</span>&quot;</span>&gt;</span> unit 25% <span class="tag">&lt;/div&gt;</span>
+<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">row</span>&quot;</span>&gt;</span> <span class="comment">&lt;!-- big row --&gt;</span>
+	<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">cell--1o3</span>&quot;</span>&gt;</span> <span class="comment">&lt;!-- cell 33.3% --&gt;</span>
+		<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">row</span>&quot;</span>&gt;</span> <span class="comment">&lt;!-- small row --&gt;</span>
+			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">cell--1o4</span>&quot;</span>&gt;</span> cell 25% <span class="tag">&lt;/div&gt;</span>
+			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">cell--1o4</span>&quot;</span>&gt;</span> cell 25% <span class="tag">&lt;/div&gt;</span>
+			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">cell--1o4</span>&quot;</span>&gt;</span> cell 25% <span class="tag">&lt;/div&gt;</span>
+			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">cell--1o4</span>&quot;</span>&gt;</span> cell 25% <span class="tag">&lt;/div&gt;</span>
 		<span class="tag">&lt;/div&gt;</span>
 	<span class="tag">&lt;/div&gt;</span>
-	<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to3</span>&quot;</span>&gt;</span> <span class="comment">&lt;!-- unit 33.3% --&gt;</span>
-		<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">line</span>&quot;</span>&gt;</span> <span class="comment">&lt;!-- small line --&gt;</span>
-			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to4</span>&quot;</span>&gt;</span> unit 25% <span class="tag">&lt;/div&gt;</span>
-			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to4</span>&quot;</span>&gt;</span> unit 25% <span class="tag">&lt;/div&gt;</span>
-			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to4</span>&quot;</span>&gt;</span> unit 25% <span class="tag">&lt;/div&gt;</span>
-			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to4</span>&quot;</span>&gt;</span> unit 25% <span class="tag">&lt;/div&gt;</span>
+	<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">cell--1o3</span>&quot;</span>&gt;</span> <span class="comment">&lt;!-- cell 33.3% --&gt;</span>
+		<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">row</span>&quot;</span>&gt;</span> <span class="comment">&lt;!-- small row --&gt;</span>
+			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">cell--1o4</span>&quot;</span>&gt;</span> cell 25% <span class="tag">&lt;/div&gt;</span>
+			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">cell--1o4</span>&quot;</span>&gt;</span> cell 25% <span class="tag">&lt;/div&gt;</span>
+			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">cell--1o4</span>&quot;</span>&gt;</span> cell 25% <span class="tag">&lt;/div&gt;</span>
+			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">cell--1o4</span>&quot;</span>&gt;</span> cell 25% <span class="tag">&lt;/div&gt;</span>
 		<span class="tag">&lt;/div&gt;</span>
 	<span class="tag">&lt;/div&gt;</span>
-	<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to3</span>&quot;</span>&gt;</span> <span class="comment">&lt;!-- unit 33.3% --&gt;</span>
-		<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">line</span>&quot;</span>&gt;</span> <span class="comment">&lt;!-- small line --&gt;</span>
-			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to4</span>&quot;</span>&gt;</span> unit 25% <span class="tag">&lt;/div&gt;</span>
-			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to4</span>&quot;</span>&gt;</span> unit 25% <span class="tag">&lt;/div&gt;</span>
-			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to4</span>&quot;</span>&gt;</span> unit 25% <span class="tag">&lt;/div&gt;</span>
-			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to4</span>&quot;</span>&gt;</span> unit 25% <span class="tag">&lt;/div&gt;</span>
+	<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">cell--1o3</span>&quot;</span>&gt;</span> <span class="comment">&lt;!-- cell 33.3% --&gt;</span>
+		<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">row</span>&quot;</span>&gt;</span> <span class="comment">&lt;!-- small row --&gt;</span>
+			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">cell--1o4</span>&quot;</span>&gt;</span> cell 25% <span class="tag">&lt;/div&gt;</span>
+			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">cell--1o4</span>&quot;</span>&gt;</span> cell 25% <span class="tag">&lt;/div&gt;</span>
+			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">cell--1o4</span>&quot;</span>&gt;</span> cell 25% <span class="tag">&lt;/div&gt;</span>
+			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">cell--1o4</span>&quot;</span>&gt;</span> cell 25% <span class="tag">&lt;/div&gt;</span>
 		<span class="tag">&lt;/div&gt;</span>
 	<span class="tag">&lt;/div&gt;</span>
 <span class="tag">&lt;/div&gt;</span></div>
 	</figure>
 	<p class="prose">Here's another example:</p>
 	<figure>
-		<div class="precode lang-html"><span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">line</span>&quot;</span>&gt;</span>
-	<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-2to3</span>&quot;</span>&gt;</span>
-		<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">line</span>&quot;</span>&gt;</span>
-			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to5</span>&quot;</span>&gt;</span> unit 1 (13.33%) <span class="tag">&lt;/div&gt;</span>
-			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to5</span>&quot;</span>&gt;</span> unit 2 (13.33%) <span class="tag">&lt;/div&gt;</span>
-			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to5</span>&quot;</span>&gt;</span> unit 3 (13.33%) <span class="tag">&lt;/div&gt;</span>
-			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to5</span>&quot;</span>&gt;</span> unit 4 (13.33%) <span class="tag">&lt;/div&gt;</span>
-			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to5</span>&quot;</span>&gt;</span> unit 5 (13.33%) <span class="tag">&lt;/div&gt;</span>
+		<div class="precode lang-html"><span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">row</span>&quot;</span>&gt;</span>
+	<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">cell--2o3</span>&quot;</span>&gt;</span>
+		<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">row</span>&quot;</span>&gt;</span>
+			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">cell--1o5</span>&quot;</span>&gt;</span> cell 1 (13.33%) <span class="tag">&lt;/div&gt;</span>
+			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">cell--1o5</span>&quot;</span>&gt;</span> cell 2 (13.33%) <span class="tag">&lt;/div&gt;</span>
+			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">cell--1o5</span>&quot;</span>&gt;</span> cell 3 (13.33%) <span class="tag">&lt;/div&gt;</span>
+			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">cell--1o5</span>&quot;</span>&gt;</span> cell 4 (13.33%) <span class="tag">&lt;/div&gt;</span>
+			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">cell--1o5</span>&quot;</span>&gt;</span> cell 5 (13.33%) <span class="tag">&lt;/div&gt;</span>
 		<span class="tag">&lt;/div&gt;</span>
 	<span class="tag">&lt;/div&gt;</span>
-	<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to3</span>&quot;</span>&gt;</span>
-		<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">line</span>&quot;</span>&gt;</span>
-			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to3</span>&quot;</span>&gt;</span> unit 6 (11.11%) <span class="tag">&lt;/div&gt;</span>
-			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to3</span>&quot;</span>&gt;</span> unit 7 (11.11%) <span class="tag">&lt;/div&gt;</span>
-			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">unit-1to3</span>&quot;</span>&gt;</span> unit 8 (11.11%) <span class="tag">&lt;/div&gt;</span>
+	<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">cell--1o3</span>&quot;</span>&gt;</span>
+		<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">row</span>&quot;</span>&gt;</span>
+			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">cell--1o3</span>&quot;</span>&gt;</span> cell 6 (11.11%) <span class="tag">&lt;/div&gt;</span>
+			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">cell--1o3</span>&quot;</span>&gt;</span> cell 7 (11.11%) <span class="tag">&lt;/div&gt;</span>
+			<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">cell--1o3</span>&quot;</span>&gt;</span> cell 8 (11.11%) <span class="tag">&lt;/div&gt;</span>
 		<span class="tag">&lt;/div&gt;</span>
 	<span class="tag">&lt;/div&gt;</span>
 <span class="tag">&lt;/div&gt;</span></div>
-		<div class="line">
-			<div class="unit" style="width: 66.66%">
-				<div class="line">
-					<div class="unit" style="width: 20%"> unit 1 (13.33%) </div>
-					<div class="unit" style="width: 20%"> unit 2 (13.33%) </div>
-					<div class="unit" style="width: 20%"> unit 3 (13.33%) </div>
-					<div class="unit" style="width: 20%"> unit 4 (13.33%) </div>
-					<div class="unit" style="width: 20%"> unit 5 (13.33%) </div>
+		<div class="row">
+			<div class="cell" style="width: 66.66%">
+				<div class="row">
+					<div class="cell" style="width: 20%"> cell 1 (13.33%) </div>
+					<div class="cell" style="width: 20%"> cell 2 (13.33%) </div>
+					<div class="cell" style="width: 20%"> cell 3 (13.33%) </div>
+					<div class="cell" style="width: 20%"> cell 4 (13.33%) </div>
+					<div class="cell" style="width: 20%"> cell 5 (13.33%) </div>
 				</div>
 			</div>
-			<div class="unit" style="width: 33.33%">
-				<div class="line">
-					<div class="unit" style="width: 33.33%"> unit 6 (11.11%) </div>
-					<div class="unit" style="width: 33.33%"> unit 7 (11.11%) </div>
-					<div class="unit" style="width: 33.33%"> unit 8 (11.11%) </div>
+			<div class="cell" style="width: 33.33%">
+				<div class="row">
+					<div class="cell" style="width: 33.33%"> cell 6 (11.11%) </div>
+					<div class="cell" style="width: 33.33%"> cell 7 (11.11%) </div>
+					<div class="cell" style="width: 33.33%"> cell 8 (11.11%) </div>
 				</div>
 			</div>
 		</div>
 	</figure>
-	<p class="prose">Notice how in these examples there were <strong>lines within units</strong>. If you are nesting lines, you must contain the second-level <em>line</em> within the first-level <em>unit</em>. The <code class="lang-less">.line</code> and <code class="lang-less">.unit</code> classes were not meant to mix in the same element. There shouldn't be any elements with both classes in your HTML.</p>
+	<p class="prose">Notice how in these examples there were <strong>rows within cells</strong>. If you are nesting rows, you must contain the second-level <em>row</em> within the first-level <em>cell</em>. The <code class="lang-less">.row</code> and <code class="lang-less">.cell</code> classes were not meant to mix in the same element. There shouldn't be any elements with both classes in your HTML.</p>
 	<figure>
 		<p><span class="warning">Warning:</span> this is bad and it will break!</p>
-		<div class="precode lang-html">&lt;div class=&quot;line&quot;&gt;
-	&lt;div class=&quot;unit-2to3 line&quot;&gt;
-		&lt;div class=&quot;unit-1to3&quot;&gt;unit 1&lt;/div&gt;
-		&lt;div class=&quot;unit-1to3&quot;&gt;unit 2&lt;/div&gt;
-		&lt;div class=&quot;unit-1to3&quot;&gt;unit 3&lt;/div&gt;
+		<div class="precode lang-html">&lt;div class=&quot;row&quot;&gt;
+	&lt;div class=&quot;cell--2o3 row&quot;&gt;
+		&lt;div class=&quot;cell--1o3&quot;&gt;cell 1&lt;/div&gt;
+		&lt;div class=&quot;cell--1o3&quot;&gt;cell 2&lt;/div&gt;
+		&lt;div class=&quot;cell--1o3&quot;&gt;cell 3&lt;/div&gt;
 	&lt;/div&gt;
-	&lt;div class=&quot;unit-1to3 line&quot;&gt;
-		&lt;div class=&quot;unit-1to2&quot;&gt;unit 4&lt;/div&gt;
-		&lt;div class=&quot;unit-1to2&quot;&gt;unit 5&lt;/div&gt;
+	&lt;div class=&quot;cell--1o3 row&quot;&gt;
+		&lt;div class=&quot;cell--1o2&quot;&gt;cell 4&lt;/div&gt;
+		&lt;div class=&quot;cell--1o2&quot;&gt;cell 5&lt;/div&gt;
 	&lt;/div&gt;
 &lt;/div&gt;</div>
 	</figure>	
 </section>
 <section class="draft">
 	<p class="prose">Hover over each cell below.</p>
-	<div class="undoP1-midright">
+	<div class="undo--p1--midright">
 		<div class="grid-phidemo">
-			<div class="line">
-				<div class="unit-P3 cyan lv1" title="&Phi;3">
-					<div class="line">
-						<div class="unit-P4 pink lv2" title="&Phi;4">
-							<div class="line">
-								<div class="unit-P4 yellow lv3" title="&Phi;4"></div>
-								<div class="unit-P1 blue lv3" title="&Phi;1"></div>
-								<div class="unit-P3 yellow lv3" title="&Phi;3"></div>
+			<div class="row">
+				<div class="cell--p3 cyan lv1" title="&Phi;3">
+					<div class="row">
+						<div class="cell--p4 pink lv2" title="&Phi;4">
+							<div class="row">
+								<div class="cell--p4 yellow lv3" title="&Phi;4"></div>
+								<div class="cell--p1 blue lv3" title="&Phi;1"></div>
+								<div class="cell--p3 yellow lv3" title="&Phi;3"></div>
 							</div>
 						</div>
-						<div class="unit-P1 green lv2" title="&Phi;1"></div>
-						<div class="unit-P3 pink lv2" title="&Phi;3">
-							<div class="line">
-								<div class="unit-P4 yellow lv3" title="&Phi;4"></div>
-								<div class="unit-P1 blue lv3" title="&Phi;1"></div>
-								<div class="unit-P3 yellow lv3" title="&Phi;3"></div>
+						<div class="cell--p1 green lv2" title="&Phi;1"></div>
+						<div class="cell--p3 pink lv2" title="&Phi;3">
+							<div class="row">
+								<div class="cell--p4 yellow lv3" title="&Phi;4"></div>
+								<div class="cell--p1 blue lv3" title="&Phi;1"></div>
+								<div class="cell--p3 yellow lv3" title="&Phi;3"></div>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="unit-P1 red lv1" title="&Phi;1"></div>
-				<div class="unit-P4 cyan lv1" title="&Phi;4">
-					<div class="line">
-						<div class="unit-P3 pink lv2" title="&Phi;3">
-							<div class="line">
-								<div class="unit-P3 yellow lv3" title="&Phi;3"></div>
-								<div class="unit-P1 blue lv3" title="&Phi;1"></div>
-								<div class="unit-P4 yellow lv3" title="&Phi;4"></div>
+				<div class="cell--p1 red lv1" title="&Phi;1"></div>
+				<div class="cell--p4 cyan lv1" title="&Phi;4">
+					<div class="row">
+						<div class="cell--p3 pink lv2" title="&Phi;3">
+							<div class="row">
+								<div class="cell--p3 yellow lv3" title="&Phi;3"></div>
+								<div class="cell--p1 blue lv3" title="&Phi;1"></div>
+								<div class="cell--p4 yellow lv3" title="&Phi;4"></div>
 							</div>
 						</div>
-						<div class="unit-P1 green lv2" title="&Phi;1"></div>
-						<div class="unit-P4 pink lv2" title="&Phi;4">
-							<div class="line">
-								<div class="unit-P3 yellow lv3" title="&Phi;3"></div>
-								<div class="unit-P1 blue lv3" title="&Phi;1"></div>
-								<div class="unit-P4 yellow lv3" title="&Phi;4"></div>
+						<div class="cell--p1 green lv2" title="&Phi;1"></div>
+						<div class="cell--p4 pink lv2" title="&Phi;4">
+							<div class="row">
+								<div class="cell--p3 yellow lv3" title="&Phi;3"></div>
+								<div class="cell--p1 blue lv3" title="&Phi;1"></div>
+								<div class="cell--p4 yellow lv3" title="&Phi;4"></div>
 							</div>
 						</div>
 					</div>
