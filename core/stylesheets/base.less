@@ -8,18 +8,19 @@
 //- GLOBAL VARIABLES
 //- RESET
 //- SECTIONS
+//- ABSTRACT MIXINS
 
 
 //+++++++++++++++++
 //@GLOBAL VARIABLES
 //+++++++++++++++++
-@font-fam-base:    'Optima','Candara','Helvetica',sans-serif;
-@font-fam-heading: 'Avenir','Calibri','Century Gothic',sans-serif;
-@font-fam-prose:   'Baskerville','Palatino','Book Antiqua',serif;
-@font-fam-code:    'Menlo','Lucida Sans Typewriter','Monaco',monospace;
-@font-fam-math:    'Times','Times New Roman',serif;
-//@font-fam-accent:  'Gill Sans','Century Gothic',sans-serif;
-@font-fam-accent: @font-fam-heading;
+@fontfam--base:    'Optima','Candara','Helvetica',sans-serif;
+@fontfam--heading: 'Avenir','Calibri','Century Gothic',sans-serif;
+@fontfam--prose:   'Baskerville','Palatino','Book Antiqua',serif;
+@fontfam--code:    'Menlo','Lucida Sans Typewriter','Monaco',monospace;
+@fontfam--math:    'Times','Times New Roman',serif;
+//@fontfam--accent:  'Gill Sans','Century Gothic',sans-serif;
+@fontfam--accent: @fontfam--heading;
 
 @aperture-white: hsv(217, @golden8,           100%);
 @aperture-black: hsv( 37,           100%, @golden8);
@@ -68,18 +69,18 @@ pre {
 //+++++++++
 //@SECTIONS
 //+++++++++
-@color-base-txt: @aperture-black;
-@color-base-bg:  @aperture-white;
-@color-accent: @deploying;
+@color_base--txt: @aperture-black;
+@color_base--bg:  @aperture-white;
+@color_base--faded: fadeout(@color_base--txt, @headlt);
+@color_accent: @deploying;
 @headlt: @golden2;
-@color-base-faded: fadeout(@color-base-txt, @headlt);
 body {
 	.font-size(medium);
-	font-family: @font-fam-base;
+	font-family: @fontfam--base;
 	text-align: left;
 	vertical-align: baseline;
-	color: @color-base-txt;
-	background-color: @color-base-bg;
+	color: @color_base--txt;
+	background-color: @color_base--bg;
 //	background-image: url('/home/images/phi-stripes-trans.png');
 //	background-repeat: repeat-y;
 //	background-size: contain;
@@ -89,6 +90,24 @@ main {
 	margin-bottom: 192px; // 2in
 }
 //++++ @end SECTIONS ++++
+
+
+//++++++++++++++++
+//@ABSTRACT MIXINS
+//++++++++++++++++
+.parens() {
+	&::before {content: '(';}
+	&::after  {content: ')';}	
+}
+.quotes() {
+	&::before {content: open-quote;}
+	&::after  {content: close-quote;}
+}
+.transp() {
+	opacity: @phi1;
+	&:hover {opacity: 1;}
+}
+//++++ @end ABSTRACT MIXINS ++++
 
 
 @media print {

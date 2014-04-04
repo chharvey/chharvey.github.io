@@ -5,7 +5,6 @@
 \*-------------*/
 
 //Table of Contents
-//- ABSTRACT MIXINS
 //- HEADINGS
 //- PARAGRAPHS
 //- LISTS
@@ -13,53 +12,35 @@
 //- TABLES
 //- HIGHLIGHTED TEXT
 //- DOCUMENTATION
-
-
-//++++++++++++++++
-//@ABSTRACT MIXINS
-//++++++++++++++++
-.parens() {
-	&::before {content: '(';}
-	&::after  {content: ')';}	
-}
-.quotes() {
-	&::before {content: open-quote;}
-	&::after  {content: close-quote;}
-}
-.transp() {
-	opacity: @phi1;
-	&:hover {opacity: 1;}
-}
-//++ @end ABSTRACT MIXINS ++
+//- HYPERLINKS
 
 
 //+++++++++
 //@HEADINGS
 //+++++++++
-@h1-ratio: (2/1); // (16/8) or 2.000
-@h2-ratio: (3/2); // (12/8) or 1.500
-@h3-ratio: (5/4); // (10/8) or 1.250
-@h4-ratio: (1/1); // (08/8) or 1.000
-@h5-ratio: (7/8); // (07/8) or 0.875
-@h6-ratio: (3/4); // (06/8) or 0.750
-@font-size-h1: (@font-size-base * @h1-ratio); // 32px or 24pt
-@font-size-h2: (@font-size-base * @h2-ratio); // 24px or 18pt
-@font-size-h3: (@font-size-base * @h3-ratio); // 20px or 15pt
-@font-size-h4: (@font-size-base * @h4-ratio); // 16px or 12pt
-@font-size-h5: (@font-size-base * @h5-ratio); // 14px or 10.5pt
-@font-size-h6: (@font-size-base * @h6-ratio); // 12px or 9pt
-@hsub-size: 80%;
+@ratio--h1: (2/1); // (16/8) or 2.000
+@ratio--h2: (3/2); // (12/8) or 1.500
+@ratio--h3: (5/4); // (10/8) or 1.250
+@ratio--h4: (1/1); // (08/8) or 1.000
+@ratio--h5: (7/8); // (07/8) or 0.875
+@ratio--h6: (3/4); // (06/8) or 0.750
+@fontsize--h1: (@fontsize--base * @ratio--h1); // 32px or 24pt
+@fontsize--h2: (@fontsize--base * @ratio--h2); // 24px or 18pt
+@fontsize--h3: (@fontsize--base * @ratio--h3); // 20px or 15pt
+@fontsize--h4: (@fontsize--base * @ratio--h4); // 16px or 12pt
+@fontsize--h5: (@fontsize--base * @ratio--h5); // 14px or 10.5pt
+@fontsize--h6: (@fontsize--base * @ratio--h6); // 12px or 9pt
 
-@color-hn-major: @lake-superior;
-@color-hn-minor: @caves-caves;
-@color-hsub-major: @facility-abyss;
-@color-hsub-minor: @asbestos;
+@color_h--major: @lake-superior;
+@color_h--minor: @caves-caves;
+@color_hsub--major: @facility-abyss;
+@color_hsub--minor: @asbestos;
 .h {
 	display: block;
 	font-style: normal;
 	font-variant: normal;
 	font-weight: normal;
-	font-family: @font-fam-heading;
+	font-family: @fontfam--heading;
 	letter-spacing: 1px;
 	.latex {color: inherit;}
 }
@@ -73,10 +54,10 @@ span.hsub {
 	// *********************
 	// semantic class alert!
 	// *********************
-	font-size: @hsub-size;
+	font-size: 80%;
 	padding-left: @olh;
 	font-weight: normal;
-	color: @color-base-faded;
+	color: @color_base--faded;
 }
 .h-alpha {
 	&:extend(.h all);
@@ -84,21 +65,21 @@ span.hsub {
 	margin-top: 2 * @olh;
 	font-variant: small-caps;
 	font-weight: bold;
-	font-size: @font-size-h1;
+	font-size: @fontsize--h1;
 	text-align: center;
-	line-height: (@line-height-base/@h1-ratio);
-	color: @color-hn-major;
-	> span.hsub {color: @color-hsub-major;}
+	line-height: (@lineheight--base/@ratio--h1);
+	color: @color_h--major;
+	> span.hsub {color: @color_hsub--major;}
 }
 .h-beta {
 	&:extend(.h all);
 	padding-bottom: 0.5 * @olh;
 	margin-top: 1.5 * @olh;
 	font-weight: bold;
-	font-size: @font-size-h2;
-	line-height: (@line-height-base/@h2-ratio);
-	color: @color-hn-minor;
-	> span.hsub {color: @color-hsub-minor;}
+	font-size: @fontsize--h2;
+	line-height: (@lineheight--base/@ratio--h2);
+	color: @color_h--minor;
+	> span.hsub {color: @color_hsub--minor;}
 }
 .h-gamma {
 	&:extend(.h all);
@@ -106,33 +87,33 @@ span.hsub {
 	margin-top: 0.75 * @olh;
 	font-variant: small-caps;
 	font-weight: bold;
-	font-size: @font-size-h3;
-	line-height: (@line-height-base/@h3-ratio);
+	font-size: @fontsize--h3;
+	line-height: (@lineheight--base/@ratio--h3);
 }
 .h-delta {
 	&:extend(.h all);
 	margin-top: @olh;
 	font-style: italic;
 	font-weight: bold;
-	font-size: @font-size-h4;
-	line-height: (@line-height-base/@h4-ratio);
+	font-size: @fontsize--h4;
+	line-height: (@lineheight--base/@ratio--h4);
 }
 .h-epsilon {
 	&:extend(.h all);
 	font-style: italic;
-	font-size: @font-size-h5;
+	font-size: @fontsize--h5;
 	text-indent: 0.5in;
-	line-height: (@line-height-base/@h5-ratio);
-	color: @color-hn-minor;
-	> span.hsub {color: @color-hsub-minor;}
+	line-height: (@lineheight--base/@ratio--h5);
+	color: @color_h--minor;
+	> span.hsub {color: @color_hsub--minor;}
 }
 .h-zeta {
 	&:extend(.h all);
 	font-style: italic;
 	font-variant: small-caps;
-	font-size: @font-size-h6;
+	font-size: @fontsize--h6;
 	text-indent: 0.5in;
-	line-height: (@line-height-base/@h6-ratio);
+	line-height: (@lineheight--base/@ratio--h6);
 }
 //++++ @end HEADINGS ++++
 
@@ -142,7 +123,7 @@ span.hsub {
 //+++++++++++
 .lede {
 	font-weight: bold;
-	font-family: @font-fam-base;
+	font-family: @fontfam--base;
 	color: #000;
 }
 .p-lede {
@@ -156,7 +137,7 @@ span.hsub {
 }
 .prose {
 	.font-size(medium);
-	font-family: @font-fam-prose;
+	font-family: @fontfam--prose;
 	text-align: justify;
 	list-style-type: decimal;
 	> li {margin-top: @olh;}
@@ -165,18 +146,21 @@ span.hsub {
 //	.spacing-top-phi();
 //	.spacing-left-phi(3px; dotted);
 	font-style: italic;
-	font-family: @font-fam-base;
+	font-family: @fontfam--base;
 }
-.dropcap::first-letter {
-	float: left;
-	padding-top: (@olh / 2);
-	padding-right: 4px; // why this number?
-	font-style: normal;
-	font-weight: normal;
-	font-size: 3 * @font-size-base;
-	font-family: @font-fam-math;
-	line-height: 0.5;
-	color: @color-hn-major;
+.dropcap {
+	.cap,
+	&::first-letter {
+		float: left;
+		padding-top: (@olh / 2);
+		padding-right: 4px; // why this number?
+		font-style: normal;
+		font-weight: normal;
+		font-size: 3 * @fontsize--base;
+		font-family: @fontfam--math;
+		line-height: 0.5;
+		color: @color_h--major;
+	}
 }
 
 .caption {
@@ -187,19 +171,28 @@ span.hsub {
 	text-align: right;
 }
 figure {
+	// *****************
+	// element selector!
+	// *****************
 	.spacing-top-phi();
-	.spacing-left-phi(4px; solid; @color-accent);
-	.spacing-right-phi(4px; solid; @color-accent);
+	.spacing-left-phi(4px; solid; @color_accent);
+	.spacing-right-phi(4px; solid; @color_accent);
 }
 figcaption {
+	// *****************
+	// element selector!
+	// *****************
 	&:extend(.caption);
 	.border-vert--one(top; 1px; dashed);
 }
 blockquote {
+	// *****************
+	// element selector!
+	// *****************
 	.spacing-top-phi();
-	.spacing-left-phi(7px; double; @color-accent);
+	.spacing-left-phi(7px; double; @color_accent);
 	.font-size(large);
-	font-family: @font-fam-accent;
+	font-family: @fontfam--accent;
 	&:not(.prose) > .src {
 		padding-right: @olh;
 		float: right;
@@ -208,6 +201,9 @@ blockquote {
 	}
 }
 address {
+	// *****************
+	// element selector!
+	// *****************
 	font-style: inherit;
 }
 div.postal {
@@ -215,16 +211,16 @@ div.postal {
 	// semantic class alert!
 	// *********************
 	.spacing-top-phi();
-	.spacing-right-phi(3px; solid; @color-accent);
+	.spacing-right-phi(3px; solid; @color_accent);
 	.font-size(large);
 	border-radius: 3px;
-	font-family: @font-fam-accent;
+	font-family: @fontfam--accent;
 	text-align: right;
 }
 //.phone, // use microformats
 //.tel,
 //.email {
-//	font-family: @font-fam-code;
+//	font-family: @fontfam--code;
 //}
 //++++ @end PARAGRAPHS ++++
 
@@ -234,9 +230,15 @@ div.postal {
 //++++++
 @list-indent: 0.5in;
 ol, ul {
+	// *****************
+	// element selector!
+	// *****************
 	padding-left: @list-indent;
 }
 li, dt, dd {
+	// *****************
+	// element selector!
+	// *****************
 	ol, ul {margin-top: 0;}
 }
 // * outlined lists
@@ -295,11 +297,10 @@ li, dt, dd {
 	&:extend(.list--bare all);
 	ul, ol, dl {list-style-type: none;}
 	li {
-		color: @color-link-up-txt;
-		&:hover {color: @color-link-dn-txt;}
+		color: @color_link--up--txt;
+		&:hover {color: @color_link--dn--txt;}
 	}
 	li::before {content: '\2713\0020';} // check mark, space
-	a:not([href]) {color: @color-base-txt;}
 }
 //++++ @end LISTS ++++
 
@@ -310,13 +311,19 @@ li, dt, dd {
 //a.k.a. mappings
 dt,
 dd {
+	// *****************
+	// element selector!
+	// *****************
 	> ol:only-child {
 		padding-left: 0;
 		list-style-position: inside;
 	}
-	> ul:only-child {&:extend(.list-basic all);}
+	> ul:only-child {&:extend(.list--bare all);}
 }
 dd {
+	// *****************
+	// element selector!
+	// *****************
 	padding-left: @list-indent;
 }
 .dl--ordered {
@@ -392,12 +399,15 @@ dd {
 //+++++++
 //@TABLES
 //+++++++
-@color-table-brdr: @color-accent;
-@color-table-bg-strong: hsv(185, 16.6%, 100%);
-@color-table-bg-medium: hsv(185, 11.1%, 100%);
-@color-table-bg-weak:   hsv(185,  5.5%, 100%);
+@color_table-brdr: @color_accent;
+@color_table-bg-strong: hsv(185, 16.6%, 100%);
+@color_table-bg-medium: hsv(185, 11.1%, 100%);
+@color_table-bg-weak:   hsv(185,  5.5%, 100%);
 
 table {
+	// *****************
+	// element selector!
+	// *****************
 	.font-size(small);
 	border-collapse: collapse;
 	margin-left: auto;
@@ -405,24 +415,41 @@ table {
 	text-align: center;
 }
 caption {
+	// *****************
+	// element selector!
+	// *****************
 	&:extend(.caption);
 //	.border-vert--one(bottom; 1px; dashed); // use this only if there are no borders on table or cells
 }
 .rowgroup {
-	border: 1px solid @color-table-brdr;
+	border: 1px solid @color_table-brdr;
 	border-left: 0;
 	border-right: 0;
 }
 thead, tfoot {
+	// *****************
+	// element selector!
+	// *****************
 	font-weight: bold;
 	vertical-align: bottom;
 }
-tbody {vertical-align: top;}
+tbody {
+	// *****************
+	// element selector!
+	// *****************
+	vertical-align: top;
+}
 th, td {
+	// *****************
+	// element selector!
+	// *****************
 	.cellpaddingdefault();
 	border: 1px solid #808080;
 }
 th {
+	// *****************
+	// element selector!
+	// *****************
 	font-weight: bold;
 }
 .table-list,
@@ -431,30 +458,30 @@ th {
 	tbody,
 	tfoot {&:extend(.rowgroup);}
 	th, td {border: 0;}
-	th {background-color: @color-table-bg-strong;}
+	th {background-color: @color_table-bg-strong;}
 }
 .table-list {
 //	thead,
 //	tbody,
 //	tfoot {
-//		tr:nth-child(odd)  {background-color: @color-table-bg-medium;}
-//		tr:nth-child(even) {background-color: @color-table-bg-weak;}
+//		tr:nth-child(odd)  {background-color: @color_table-bg-medium;}
+//		tr:nth-child(even) {background-color: @color_table-bg-weak;}
 //	}
-	tr:nth-child(odd)  {background-color: @color-table-bg-medium;}
-	tr:nth-child(even) {background-color: @color-table-bg-weak;}
+	tr:nth-child(odd)  {background-color: @color_table-bg-medium;}
+	tr:nth-child(even) {background-color: @color_table-bg-weak;}
 }
 .table-bars {
 	thead {
-		th:nth-child(odd)  {background-color: desaturate(@color-table-bg-weak,   @headlt);}
-		th:nth-child(even) {background-color: desaturate(@color-table-bg-medium, @headlt);}
-		th:first-child     {background-color: desaturate(@color-table-bg-strong, @headlt);}
+		th:nth-child(odd)  {background-color: desaturate(@color_table-bg-weak,   @headlt);}
+		th:nth-child(even) {background-color: desaturate(@color_table-bg-medium, @headlt);}
+		th:first-child     {background-color: desaturate(@color_table-bg-strong, @headlt);}
 	}
 //	tbody {
-//		td:nth-child(odd)  {background-color: @color-table-bg-weak;}
-//		td:nth-child(even) {background-color: @color-table-bg-medium;}
+//		td:nth-child(odd)  {background-color: @color_table-bg-weak;}
+//		td:nth-child(even) {background-color: @color_table-bg-medium;}
 //	}
-	td:nth-child(odd)  {background-color: @color-table-bg-weak;}
-	td:nth-child(even) {background-color: @color-table-bg-medium;}
+	td:nth-child(odd)  {background-color: @color_table-bg-weak;}
+	td:nth-child(even) {background-color: @color_table-bg-medium;}
 }
 table {
 	counter-reset: nrows;
@@ -475,14 +502,14 @@ table {
 //	.table;
 //	td {.special-table-border();}
 //	.header,
-//	th {background-color: @color-table-bg-head;}
+//	th {background-color: @color_table-bg-head;}
 //	.row-odd {
-//		.column-odd  {background-color: @color-table-bg-weak;}
-//		.column-even {background-color: @color-table-bg-medium;}
+//		.column-odd  {background-color: @color_table-bg-weak;}
+//		.column-even {background-color: @color_table-bg-medium;}
 //	}
 //	.row-even {
-//		.column-odd  {background-color: @color-table-bg-medium;}
-//		.column-even {background-color: @color-table-bg-strong;}
+//		.column-odd  {background-color: @color_table-bg-medium;}
+//		.column-even {background-color: @color_table-bg-strong;}
 //	}
 //}
 //++++ @end TABLES ++++
@@ -491,16 +518,37 @@ table {
 //+++++++++++++++++
 //@HIGHLIGHTED TEXT
 //+++++++++++++++++
-em {font-style: italic;}
+em {
+	// *****************
+	// element selector!
+	// *****************
+	font-style: italic;
+}
 .nonnormative,
 em,
 .foreignlang {
 	//* em within italics
 	> em {font-weight: bold;}
 }
-strong {font-weight: bold;}
-mark {background-color: transparent;}
-i {font-style: inherit; font-weight: inherit;}
+strong {
+	// *****************
+	// element selector!
+	// *****************
+	font-weight: bold;
+}
+mark {
+	// *****************
+	// element selector!
+	// *****************
+	background-color: transparent;
+}
+i {
+	// *****************
+	// element selector!
+	// *****************
+	font-style: inherit;
+	font-weight: inherit;
+}
 //i.scare {
 //	// * scare quotes contain abuse of vocabulary or language
 //	&:extend(.quotes all);
@@ -519,7 +567,7 @@ i.thought {
 .foreignlang {
 	// * phrases in foreign languages
 	font-style: italic;
-	font-family: @font-fam-math;
+	font-family: @fontfam--math;
 }
 i[lang],
 i:lang(la),
@@ -530,7 +578,13 @@ i:lang(fr) {
 .solfege {
 	&:extend(.foreignlang);
 }
-b {font-style: inherit; font-weight: inherit;}
+b {
+	// *****************
+	// element selector!
+	// *****************
+	font-style: inherit;
+	font-weight: inherit;
+}
 b.keyword {
 	// *********************
 	// semantic class alert!
@@ -582,8 +636,16 @@ b.ref {
 //	font-size: smaller;
 //	text-align: left;
 //}
-q {.quotes();}
+q {
+	// *****************
+	// element selector!
+	// *****************
+	.quotes();
+}
 cite {
+	// *****************
+	// element selector!
+	// *****************
 	font-style: inherit;
 }
 .src {
@@ -592,60 +654,149 @@ cite {
 //dfn,
 //abbr,
 //del,
-//ins {color: @color-info-txt;}
+//ins {color: @color_info--txt;}
 dfn {
+	// *****************
+	// element selector!
+	// *****************
 	font-weight: bold;
 	font-style: inherit;
-	font-family: @font-fam-prose;
+	font-family: @fontfam--prose;
 }
 abbr[title],
 del[datetime],
 ins[datetime] {
+	// *****************
+	// element selector!
+	// *****************
 	cursor: help;
 	&::after {
 		display: none;
 		position: relative;
 		left: 5px;
 		top: 5px;
-		color: @color-info-txt;
-		background-color: @color-info-bg;
+		color: @color_info--txt;
+		background-color: @color_info--bg;
 		text-decoration: none;
 	}
 //	&:hover::after {display: inline;}
 }
 abbr {
+	// *****************
+	// element selector!
+	// *****************
 	&[title]::after {content: attr(title);}
 }
 del {
+	// *****************
+	// element selector!
+	// *****************
 	text-decoration: line-through;
 	&[datetime]::after {content: 'deleted on ' attr(datetime);}
 }
 ins {
+	// *****************
+	// element selector!
+	// *****************
 	text-decoration: underline;
 	&[datetime]::after {content: 'inserted on ' attr(datetime);}
 }
-del + ins {padding-left: 0.5em;}
+del + ins {
+	// *****************
+	// element selector!
+	// *****************
+	padding-left: 0.5em;
+}
 //small,
 sup, sub {
-	font-size: @font-size-small;
+	// *****************
+	// element selector!
+	// *****************
+	font-size: @fontsize--small;
 	vertical-align: baseline;
 }
 @supsub-move: @olh / 4;
 sup {
+	// *****************
+	// element selector!
+	// *****************
 	position: relative;
 	bottom: @supsub-move;
 }
 sub {
+	// *****************
+	// element selector!
+	// *****************
 	position: relative;
 	top: @supsub-move;
 }
 //++++ @end DOCUMENTATION ++++
 
 
+//+++++++++++
+//@HYPERLINKS
+//+++++++++++
+@color_link--up--txt: @atlas;
+@color_link--up--bg: lighten(@atlas, @headlt);
+
+@color_link--dn--txt: @pbody;
+@color_link--dn--bg: lighten(@pbody, @headlt);
+
+@color_sp--up--txt: @neurotoxin;
+@color_sp--up--bg: lighten(@color_sp--up--txt, @headlt);
+
+@color_sp--dn--txt: @vilify;
+@color_sp--dn--bg: lighten(@color_sp--dn--txt, @headlt);
+
+@color_link--active-txt: @her-eye;
+@color_link--active-bg: @aperture-black;
+
+a {
+	display: inline;
+	text-decoration: none;
+	color: @color_base--faded;
+	&[href] {
+		color: @color_link--up--txt; // also sets border color
+		&:hover {color: @color_link--dn--txt;}
+		&.sp,
+		&[rel~="external"] {
+			color: @color_sp--up--txt;
+			&:hover {color: @color_sp--dn--txt;}
+		}
+		&:active {color: @color_link--active-txt;}
+	}
+	code,
+	.latex {
+		// * certain elements in links not discolored
+		color: inherit;
+		background-color: transparent;
+	}
+}
+.a-block {
+	.box-block();
+	border-radius: @box-radius-medium;
+	text-align: center;
+	&[href] {
+		background-color: @color_link--up--bg;
+		&:hover {background-color: @color_link--dn--bg;}
+		&.sp,
+		&[rel="external"] {
+			background-color: @color_sp--up--bg;
+			&:hover {background-color: @color_sp--dn--bg;}
+		}
+		&:active {background-color: @color_link--active-bg;}
+	}
+}
+//++++ @end HYPERLINKS ++++
+
+
 //++++++
 //@FORMS
 //++++++
 fieldset {
+	// *****************
+	// element selector!
+	// *****************
 	padding: 0;
 	.border-vert--both(all; 0);
 	margin: 0;
