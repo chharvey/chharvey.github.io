@@ -241,55 +241,59 @@ li, dt, dd {
 	ol, ul {margin-top: 0;}
 }
 // * outlined lists
-.list-omega   {list-style-type: decimal-leading-zero;}
-.list-alpha   {list-style-type: upper-roman;}
-.list-beta    {list-style-type: upper-alpha;}
-.list-gamma   {list-style-type: decimal;}
-.list-delta   {list-style-type: lower-alpha;}
-.list-epsilon {list-style-type: lower-roman;}
-.list-zeta    {list-style-type: lower-greek;}
+.list--omega   {list-style-type: decimal-leading-zero;}
+.list--alpha   {list-style-type: upper-roman;}
+.list--beta    {list-style-type: upper-alpha;}
+.list--gamma   {list-style-type: decimal;}
+.list--delta   {list-style-type: lower-alpha;}
+.list--epsilon {list-style-type: lower-roman;}
+.list--zeta    {list-style-type: lower-greek;}
 
-.list-basic {
+.list--bare {
 	padding: 0;
 	list-style-type: none;
 }
-.list-inline {
-	// * a basic list except the list items are inline.
-	&:extend(.list-basic all);
+.list--inline {
+	// * a bare list except the list items are inline.
+	&:extend(.list--bare all);
 	> li {display: inline;}
 }
-.list-inline-separator(@sep) {
-	&:extend(.list-inline all);
+.list--inline--sep_mx(@sep) {
+	&:extend(.list--inline all);
 	> li:not(:last-child)::after {content: @sep '\0020';}
 }
-.list-inline-c {.list-inline-separator(',');}
-.list-inline-n {.list-inline-separator('\0020\2013');}
-.list-inline-m {.list-inline-separator('\0020\2014');}
+.list--inline--c {.list--inline--sep_mx(',');}
+.list--inline--n {.list--inline--sep_mx('\0020\2013');}
+.list--inline--m {.list--inline--sep_mx('\0020\2014');}
 .list-line {
-	// * a basic list that acts as a table, with the list items acting as table cells
-	&:extend(.list-basic all);
-	&:extend(.line);
-	> li {&:extend(.unit);}
+	// * a bare list that acts as a table, with the list items acting as table cells
+	&:extend(.list--bare all);
+	&:extend(.row);
+	> li {&:extend(.cell);}
 }
-.list-float(@liwidth) {
+.list--float {
 	// * a basic list whose items are blocks that float left
-	&:extend(.list-basic all);
+	&:extend(.list--bare all);
 	display: table;
 	li {
-		width: @liwidth;
 		float: left;
 	}
 }
-.list-float-1 {.list-float(100%);}
-.list-float-2 {.list-float(50%);}
-.list-float-3 {.list-float(33.333%);}
-.list-float-4 {.list-float(25%);}
-.list-float-5 {.list-float(20%);}
-.list-float-6 {.list-float(16.666%);}
+.list--float_mx(@liwidth) {
+	li {
+		width: @liwidth;
+	}
+}
+.list--float--1:extend(.list--float all) {.list--float_mx(@1o1);}
+.list--float--2:extend(.list--float all) {.list--float_mx(@1o2);}
+.list--float--3:extend(.list--float all) {.list--float_mx(@1o3);}
+.list--float--4:extend(.list--float all) {.list--float_mx(@1o4);}
+.list--float--5:extend(.list--float all) {.list--float_mx(@1o5);}
+.list--float--6:extend(.list--float all) {.list--float_mx(@1o6);}
 
-.list-action {
+.list--action {
 	// * a list typically containing textual (non-block) hyperlinks
-	&:extend(.list-basic all);
+	&:extend(.list--bare all);
 	ul, ol, dl {list-style-type: none;}
 	li {
 		color: @color-link-up-txt;
@@ -316,7 +320,7 @@ dd {
 dd {
 	padding-left: @list-indent;
 }
-.dl-ordered {
+.dl--ordered {
 	// *********************
 	// semantic class alert!
 	// *********************
@@ -328,16 +332,16 @@ dd {
 		list-style-position: outside;
 	}
 }
-.dl-basic {
+.dl--bare {
 	> dd {margin: 0; padding: 0;}
 }
-.dl-tree {
+.dl--tree {
 	// *********************
 	// semantic class alert!
 	// *********************
 //	dd > dl {margin-left: 0.5in;}
 }
-.dl-group {
+.dl--group {
 	// * groups dt elements together on a line, and dd elements together on a line
 	display: table;
 	> dt,
@@ -350,37 +354,44 @@ dd {
 	> dd + dt {clear: both;}
 	> dt + dd {padding-left: 0.5in;}
 }
-.dl-table(@dtwidth) {
-	// * a dl list that acts like a table, with each row containing a single name-value group. the `@dtwidth` parameter must be a percentage.
-	&:extend(.list-basic all);
-	&:extend(.line);
+.dl--table {
+	// * a dl list that acts like a table, with each row containing a single name-value group.
+	&:extend(.dl--bare all);
+	&:extend(.row);
 	> dt,
 	> dd {
-		&:extend(.unit);
+		&:extend(.cell);
 		float: left;
 	}
 	> dt {
-		width: @dtwidth;
 		clear: both;
 	}
 	> dd {
-		width: (100% - @dtwidth);
-		margin-left: @dtwidth;
 		padding-left: 0;
 	}
 	> dt + dd {margin-left: 0;}
 	> dd + dd {clear: both;}
 }
-.dl-table-sml {.dl-table(@golden3);}   // 23.6067977499789696%
-.dl-table-msm {.dl-table(@golden2);}   // 38.1966011250105152%
-.dl-table-med {.dl-table(50%);}
-.dl-table-mlg {.dl-table(@golden1);}   // 61.8033988749894848%
-.dl-table-lrg {.dl-table(@golden3-c);} // 76.3932022500210304%
+.dl--table_mx(@dtwidth) {
+	// * the `@dtwidth` parameter must be a percentage.
+	> dt {
+		width: @dtwidth;
+	}
+	> dd {
+		width: (100% - @dtwidth);
+		margin-left: @dtwidth;
+	}
+}
+.dl--table--sml:extend(.dl--table all) {.dl--table_mx(@golden3);}   // 23.6067977499789696%
+.dl--table--msm:extend(.dl--table all) {.dl--table_mx(@golden2);}   // 38.1966011250105152%
+.dl--table--med:extend(.dl--table all) {.dl--table_mx(@1o2);}       // 50%
+.dl--table--mlg:extend(.dl--table all) {.dl--table_mx(@golden1);}   // 61.8033988749894848%
+.dl--table--lrg:extend(.dl--table all) {.dl--table_mx(@golden3-c);} // 76.3932022500210304%
 .docmeta {
 	// *********************
 	// semantic class alert!
 	// *********************
-	&:extend(.dl-table-sml all);
+	&:extend(.dl--table--sml all);
 //	&::before {
 //		&:extend(.h-zeta all);
 //		content: 'Document Information';
