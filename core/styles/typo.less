@@ -5,6 +5,8 @@
 \*-------------*/
 
 //Table of Contents
+//- RESET
+//- SECTIONS
 //- HEADINGS
 //- PARAGRAPHS
 //- LISTS
@@ -15,10 +17,69 @@
 //- HYPERLINKS
 
 
+//++++++
+//@RESET
+//++++++
+section, article, aside, nav,
+main, header, footer {
+	// * support for non-HTML5 browsers
+	display: block;
+}
+body,
+section, article, aside, nav,
+main, header, footer,
+h1, h2, h3, h4, h5, h6,
+p,
+figure, blockquote, address,
+ol, ul, li,
+dl, dt, dd,
+table,
+pre {
+	// * padding and margin reset
+	padding: 0;
+	margin: 0;
+}
+//++++ @end RESET ++++
+
+
+//+++++++++
+//@SECTIONS
+//+++++++++
+body {
+	.fontsize(medium);
+	font-family: @fontfam--base;
+	text-align: left;
+	vertical-align: baseline;
+	color: @color_base--txt;
+	background-color: @color_base--bg;
+//	background-image: url('/home/images/phi-stripes-trans.png');
+//	background-repeat: repeat-y;
+//	background-size: contain;
+}
+@media print {
+	body {
+		color: #000;
+		background-color: #fff;
+		background-image: none;
+	}
+}
+main {
+	&:extend(.p1--midright);
+	margin-bottom: 192px; // 2in
+}
+@media print {
+	main {
+		width: auto;
+		margin-left: auto;
+		margin-right: auto;
+	}
+}
+//++++ @end SECTIONS ++++
+
+
 //+++++++++
 //@HEADINGS
 //+++++++++
-
 @color_h--major: @lake-superior;
 @color_h--minor: @caves-caves;
 @color_hsub--major: @facility-abyss;
@@ -92,11 +153,10 @@ span.hsub {
 }
 .h-zeta {
 	&:extend(.h all);
+	.fontsize--scale(@fontsize--ratio--zeta);
 	font-style: italic;
 	font-variant: small-caps;
-	font-size: @fontsize--h6;
 	text-indent: 0.5in;
-	line-height: @lineheight--h6;
 }
 //++++ @end HEADINGS ++++
 
@@ -111,19 +171,19 @@ span.hsub {
 }
 .p-lede {
 	&:extend(.lede);
-	padding-bottom: @olh;
+	padding-bottom: @vru;
 	text-align: justify;
 }
 .s-lede {
 	&:extend(.lede);
-	padding-right: @olh;
+	padding-right: @vru;
 }
 .prose {
-	.font-size(medium);
+	.fontsize(medium);
 	font-family: @fontfam--prose;
 	text-align: justify;
 	list-style-type: decimal;
-	> li {margin-top: @olh;}
+	> li {margin-top: @vru;}
 }
 .nonnormative {
 //	.spacing-top-phi();
@@ -135,7 +195,7 @@ span.hsub {
 	.cap,
 	&::first-letter {
 		float: left;
-		padding-top: (@olh / 2);
+		padding-top: (@vru / 2);
 		padding-right: 4px; // why this number?
 		font-style: normal;
 		font-weight: normal;
@@ -147,7 +207,7 @@ span.hsub {
 }
 
 .caption {
-	.font-size(small);
+	.fontsize(small);
 	padding: 0;
 	margin: 0;
 	font-style: normal;
@@ -174,10 +234,10 @@ blockquote {
 	// *****************
 	.spacing-top-phi();
 	.spacing-left-phi(7px; double; @color_accent);
-	.font-size(large);
+	.fontsize(large);
 	font-family: @fontfam--accent;
 	&:not(.prose) > .src {
-		padding-right: @olh;
+		padding-right: @vru;
 		float: right;
 		&::before {content: '~\0020';}
 		&::after {content: '';}
@@ -195,7 +255,7 @@ div.postal {
 	// *********************
 	.spacing-top-phi();
 	.spacing-right-phi(3px; solid; @color_accent);
-	.font-size(large);
+	.fontsize(large);
 	border-radius: 3px;
 	font-family: @fontfam--accent;
 	text-align: right;
@@ -336,7 +396,7 @@ dd {
 	> dt,
 	> dd {
 		padding: 0;
-		padding-right: @olh;
+		padding-right: @vru;
 		float: left;
 	}
 	> dt + dd,
@@ -391,7 +451,7 @@ table {
 	// *****************
 	// element selector!
 	// *****************
-	.font-size(small);
+	.fontsize(small);
 	border-collapse: collapse;
 	margin-left: auto;
 	margin-right: auto;
@@ -601,7 +661,6 @@ b.ref {
 //		&:extend(.h-zeta all);
 //		content: 'Document Information';
 //		display: block;
-//		.font-size(medium);
 //		text-indent: 0;
 //	}
 	> dt {
@@ -694,10 +753,10 @@ sup, sub {
 	// *****************
 	// element selector!
 	// *****************
-	font-size: @fontsize--small;
+	.fontsize(small; inline);
 	vertical-align: baseline;
 }
-@supsub-move: @olh / 4;
+@supsub-move: @vru / 4;
 sup {
 	// *****************
 	// element selector!
@@ -791,7 +850,7 @@ fieldset {
 	.h,
 	blockquote, div.postal,
 	table {
-		.font-size(medium);
+		.fontsize(medium);
 	}	
 	figure,
 	blockquote,
