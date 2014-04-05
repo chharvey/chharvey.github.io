@@ -78,8 +78,8 @@
 @color_code--latex--cmd: @color_code--html--tag;
 @color_code--latex--arg: @color_code--html--attr;
 pre {white-space: pre-wrap;}
-code {
-	// * example of a fragment or string of code a computer would recognize
+code,
+.code {
 	.box-inline();
 	.fontsize(small; inline);
 	border: 0;
@@ -89,18 +89,36 @@ code {
 	color: @color_code--txt;
 	background-color: @color_code--bg;
 }
-.comment {color: @color_code--comment;}
+.link__code {
+	color: inherit;
+	background-color: transparent;
+}
+.comment {
+	// *********************
+	// semantic class alert!
+	// *********************
+	color: @color_code--comment;
+}
 .lang-html {
+	// *********************
+	// semantic class alert!
+	// *********************
 	.tag       {color: @color_code--html--tag;}
 	.attribute {color: @color_code--html--attr;}
 	.value     {color: @color_code--html--val;}
 }
 .lang-css {
+	// *********************
+	// semantic class alert!
+	// *********************
 	.selector {color: @color_code--css--sel;}
 	.property {color: @color_code--css--prop;}
 	.value    {color: @color_code--css--val;}
 }
 .lang-latex {
+	// *********************
+	// semantic class alert!
+	// *********************
 	.cmd {color: @color_code--latex--cmd;}
 	.arg {color: @color_code--latex--arg;}
 }
@@ -110,8 +128,9 @@ code {
 	font-style: italic;
 	font-family: @fontfam--base;
 }
-pre > code {
-	&:extend(code all);
+pre > code,
+.precode {
+	&:extend(.code all);
 	.box-block();
 	.border-vert--both(all; 0);
 	.fontsize(small);
@@ -149,6 +168,7 @@ kbd {
 		overflow: auto;
 	}
 }
+.h__latex {color: inherit;}
 var {font-style: italic;}
 .tex {
 	//a reminder to change all `<... class="tex">` to `<... class="latex">`
@@ -256,11 +276,11 @@ var {font-style: italic;}
 //+++++++++
 .masthead {
 	@iconsize: 96px; // 1in
-	&:extend(.p4--right);
+	.p4--right;
 	position: fixed;
 	top: (@iconsize / 2);
 	nav {
-		&:extend(.p1--midleft);
+		.p1--midleft;
 		.mylogo {
 			display: block;
 			.border-vert--one(bottom; 0);
@@ -277,24 +297,15 @@ var {font-style: italic;}
 //@BREADCRUMBS
 //++++++++++++
 .bc {
-	&:extend(.gutter-major);
+	.gutter--major;
 	position: fixed;
 	top: 2 * @vru;
 	z-index: 1;
-	a {
-		&:extend(.a-block all);
-		padding: (0.125 * @vru) 15px;
-		border-radius: 15px;
-		text-align: left;
-	}
-	[rel~="this"] {
-		font-weight: bold;
-	}
 }
-.bc-anc,
-.bc-sib,
-.bc-child {
-	&:extend(.list-basic all);
+.bc__anc,
+.bc__sib,
+.bc__child {
+	&:extend(.list--bare all);
 	margin-top: 0;
 	padding-bottom: @vru;
 	li {
@@ -302,17 +313,30 @@ var {font-style: italic;}
 		margin-bottom: -2px;
 	}
 }
-.bc-anc {
+.bc__link {
+	&:extend(.link all);
+	.box-block();
+	padding: (0.125 * @vru) 15px;
+	border-radius: 15px;
+	text-align: left;
+	background-color: @color_link--up--bg;
+	&:hover {background-color: @color_link--dn--bg;}
+	&:active {background-color: @color_link--active-bg;}
+	&[rel~="this"] {
+		font-weight: bold;
+	}
+}
+.bc__anc {
 //	a::before {content: '\22a5';} // `\bot` or 'up tack'
 //	a::before {content: '\22b7';} // 'image of'
 //	a::before {content: '<';}
 }
-.bc-sib {
+.bc__sib {
 //	a::before {content: '\22a2';} // `\vdash` or 'turnstile'
 //	a::before {content: '\29df';} // 'double-ended multimap'
 //	a::before {content: '+';}
 }
-.bc-child {
+.bc__child {
 //	a::before {content: '\22a4';} // `\top` or 'down tack'
 //	a::before {content: '\22b6';} // 'original of'
 //	a::before {content: '>';}
@@ -326,16 +350,16 @@ var {font-style: italic;}
 @fn-width: 1.5em;
 .footnotes {
 	// * an unordered list containing footnotes
-	&:extend(.list-basic);
+	&:extend(.list--bare);
 	.spacing-top-phi(1px; solid; @color_accent);
 	.fontsize(small);
-	li {
+	> li {
 		padding-left: @fn-width;
 		text-indent: -@fn-width;
 	}
 }
-.fn {
-	// * the superscript containing a link to the footnote or back to the reference
+/*sup*/.fn {
+	// * the superscript containing a link
 	&:extend(sup all);
 	width: @fn-width;
 	> a {

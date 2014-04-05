@@ -10,9 +10,7 @@
 .p1--midright,
 .p1--left,
 .p1--right,
-.cell--p1,
-main,
-.masthead nav {
+.cell--p1 {
   width: 61.80339887%;
 }
 .p2,
@@ -30,8 +28,7 @@ main,
 .p4,
 .p4--left,
 .p4--right,
-.cell--p4,
-.masthead {
+.cell--p4 {
   width: 14.58980338%;
 }
 .p3-c,
@@ -65,13 +62,11 @@ main,
 .masthead {
   margin-right: 0;
 }
-.p1--midleft,
-.masthead nav {
+.p1--midleft {
   margin-left: 14.58980338%;
   margin-right: 23.60679775%;
 }
-.p1--midright,
-main {
+.p1--midright {
   margin-left: 23.60679775%;
   margin-right: 14.58980338%;
 }
@@ -96,8 +91,7 @@ main {
 .p4--left {
   margin-right: 85.41019662%;
 }
-.p4--right,
-.masthead {
+.p4--right {
   margin-left: 85.41019662%;
 }
 .p3-c--left {
@@ -323,13 +317,15 @@ main {
 }
 .gutter,
 .gutter--major,
-.gutter--minor {
+.gutter--minor,
+.bc {
   position: absolute;
 }
 @media print {
   .gutter,
   .gutter--major,
-  .gutter--minor {
+  .gutter--minor,
+  .bc {
     width: auto;
     margin-left: auto;
     margin-right: auto;
@@ -354,15 +350,6 @@ main {
 /*-------------*\
 	typo.less
 \*-------------*/
-section,
-article,
-aside,
-nav,
-main,
-header,
-footer {
-  display: block;
-}
 body,
 section,
 article,
@@ -389,8 +376,60 @@ dt,
 dd,
 table,
 pre {
+  display: block;
   padding: 0;
+  border: 0;
+  outline: 0;
   margin: 0;
+  position: static;
+}
+em,
+strong,
+mark,
+i,
+b,
+q,
+cite,
+time,
+dfn,
+abbr,
+del,
+ins,
+sup,
+sub,
+.fn {
+  display: inline;
+}
+body {
+  font: normal normal normal 12pt serif;
+  text-align: left;
+  line-height: 1;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+figure,
+blockquote,
+address,
+em,
+strong,
+mark,
+i,
+b,
+q,
+cite,
+dfn,
+abbr,
+del,
+ins,
+sup,
+sub,
+.fn {
+  font-style: normal;
+  font-weight: normal;
 }
 body {
   font-size: 16px;
@@ -409,6 +448,8 @@ body {
   }
 }
 main {
+  margin-left: 23.60679775%;
+  margin-right: 14.58980338%;
   margin-bottom: 192px;
 }
 @media print {
@@ -418,13 +459,7 @@ main {
     margin-right: auto;
   }
 }
-.h,
-.h-alpha,
-.h-beta,
-.h-gamma,
-.h-delta,
-.h-epsilon,
-.h-zeta {
+h1 {
   display: block;
   font-style: normal;
   font-variant: normal;
@@ -432,24 +467,7 @@ main {
   font-family: 'Avenir', 'Calibri', 'Century Gothic', sans-serif;
   letter-spacing: 1px;
 }
-.h .latex,
-.h-alpha .latex,
-.h-beta .latex,
-.h-gamma .latex,
-.h-delta .latex,
-.h-epsilon .latex,
-.h-zeta .latex {
-  color: inherit;
-}
-.gutter .h,
-.gutter--major .h,
-.gutter--minor .h,
-.gutter .h-alpha,
-.gutter .h-beta,
-.gutter .h-gamma,
-.gutter .h-delta,
-.gutter .h-epsilon,
-.gutter .h-zeta {
+.gutter__h {
   text-align: center;
   text-indent: 0;
 }
@@ -515,18 +533,22 @@ span.hsub {
   font-variant: small-caps;
   text-indent: 0.5in;
 }
+p {
+  min-height: 24px;
+  margin-top: 24px;
+}
 .lede,
-.p-lede,
-.s-lede {
+.lede--para,
+.lede--sent {
   font-weight: bold;
   font-family: 'Optima', 'Candara', 'Helvetica', sans-serif;
   color: #000;
 }
-.p-lede {
+.lede--para {
   padding-bottom: 24px;
   text-align: justify;
 }
-.s-lede {
+.lede--sent {
   padding-right: 24px;
 }
 .prose {
@@ -595,16 +617,6 @@ blockquote {
   line-height: 1.2;
   font-family: 'Avenir', 'Calibri', 'Century Gothic', sans-serif;
 }
-blockquote:not(.prose) > .src {
-  padding-right: 24px;
-  float: right;
-}
-blockquote:not(.prose) > .src::before {
-  content: '~\0020';
-}
-blockquote:not(.prose) > .src::after {
-  content: '';
-}
 address {
   font-style: inherit;
 }
@@ -624,14 +636,6 @@ div.postal {
 ol,
 ul {
   padding-left: 0.5in;
-}
-li ol,
-dt ol,
-dd ol,
-li ul,
-dt ul,
-dd ul {
-  margin-top: 0;
 }
 .list--omega {
   list-style-type: decimal-leading-zero;
@@ -661,6 +665,10 @@ dd ul {
 .list--action,
 dt > ul:only-child,
 dd > ul:only-child,
+.bc__anc,
+.bc__sib,
+.bc__child,
+.footnotes,
 .list--inline--c,
 .list--inline--n,
 .list--inline--m,
@@ -1026,6 +1034,16 @@ cite {
 .src::after {
   content: ')';
 }
+.src--informal {
+  padding-right: 24px;
+  float: right;
+}
+.src--informal::before {
+  content: '~\0020';
+}
+.src--informal::after {
+  content: '';
+}
 dfn {
   font-weight: bold;
   font-style: inherit;
@@ -1068,6 +1086,8 @@ del + ins {
 sup,
 sub,
 .fn {
+  display: inline;
+  line-height: 1.5;
   font-size: 12px;
   line-height: 2;
   vertical-align: baseline;
@@ -1092,63 +1112,18 @@ a[href] {
 a[href]:hover {
   color: #ff9d00;
 }
-a[href].sp,
-a[href][rel~="external"] {
-  color: #a7bf20;
-}
-a[href].sp:hover,
-a[href][rel~="external"]:hover {
-  color: #6300bf;
-}
 a[href]:active {
   color: #fff155;
 }
-a code,
-a .latex,
-a pre > code,
-a kbd > kbd,
-a .precode,
-a pre > kbd > kbd {
+a[rel~="external"] {
+  color: #a7bf20;
+}
+a[rel~="external"]:hover {
+  color: #6300bf;
+}
+.link__latex {
   color: inherit;
   background-color: transparent;
-}
-.a-block,
-.bc a {
-  padding: 12px 7.41640786px;
-  position: relative;
-  top: -1px;
-  margin-bottom: -2px;
-  border-width: 1px;
-  border-style: solid;
-  display: block;
-  border-radius: 10px;
-  white-space: normal;
-  border-radius: 6px;
-  text-align: center;
-}
-.a-block[href],
-.bc a[href] {
-  background-color: #c3daff;
-}
-.a-block[href]:hover,
-.bc a[href]:hover {
-  background-color: #ffe8c3;
-}
-.a-block[href].sp,
-.a-block[href][rel="external"],
-.bc a[href].sp,
-.bc a[href][rel="external"] {
-  background-color: #e8f2b0;
-}
-.a-block[href].sp:hover,
-.a-block[href][rel="external"]:hover,
-.bc a[href].sp:hover,
-.bc a[href][rel="external"]:hover {
-  background-color: #c383ff;
-}
-.a-block[href]:active,
-.bc a[href]:active {
-  background-color: #050300;
 }
 fieldset {
   padding: 0;
@@ -1204,15 +1179,18 @@ pre {
   white-space: pre-wrap;
 }
 code,
+.code,
 pre > code,
+.precode,
 kbd > kbd,
 .precode,
 pre > kbd > kbd {
-  display: inline;
   padding: 0 2px;
   border: 1px solid;
   border-radius: 3px;
   white-space: nowrap;
+  display: inline;
+  line-height: 1.5;
   font-size: 12px;
   line-height: 2;
   border: 0;
@@ -1221,6 +1199,10 @@ pre > kbd > kbd {
   font-family: 'Menlo', 'Lucida Sans Typewriter', 'Monaco', monospace;
   color: #000000;
   background-color: #cceedd;
+}
+.link__code {
+  color: inherit;
+  background-color: transparent;
 }
 .comment {
   color: #999999;
@@ -1255,6 +1237,7 @@ pre > kbd > kbd {
   font-family: 'Optima', 'Candara', 'Helvetica', sans-serif;
 }
 pre > code,
+.precode,
 .precode,
 pre > kbd > kbd {
   padding: 12px 7.41640786px;
@@ -1296,6 +1279,9 @@ kbd > kbd {
 div.latex,
 p.latex {
   overflow: auto;
+}
+.h__latex {
+  color: inherit;
 }
 var {
   font-style: italic;
@@ -1397,8 +1383,13 @@ var {
   content: '\2605';
 }
 .masthead {
+  margin-left: 85.41019662%;
   position: fixed;
   top: 48px;
+}
+.masthead nav {
+  margin-left: 14.58980338%;
+  margin-right: 23.60679775%;
 }
 .masthead nav .mylogo {
   display: block;
@@ -1411,29 +1402,49 @@ var {
   font-family: 'Times', 'Times New Roman', serif;
 }
 .bc {
+  width: 14.58980338%;
+  margin-left: 3.44418537%;
+  margin-right: 5.572809%;
+  left: 0;
   position: fixed;
   top: 48px;
   z-index: 1;
 }
-.bc a {
-  padding: 3px 15px;
-  border-radius: 15px;
-  text-align: left;
-}
-.bc [rel~="this"] {
-  font-weight: bold;
-}
-.bc-anc,
-.bc-sib,
-.bc-child {
+.bc__anc,
+.bc__sib,
+.bc__child {
   margin-top: 0;
   padding-bottom: 24px;
 }
-.bc-anc li,
-.bc-sib li,
-.bc-child li {
+.bc__anc li,
+.bc__sib li,
+.bc__child li {
   margin-top: 18px;
   margin-bottom: -2px;
+}
+.bc__link {
+  padding: 12px 7.41640786px;
+  position: relative;
+  top: -1px;
+  margin-bottom: -2px;
+  border-width: 1px;
+  border-style: solid;
+  display: block;
+  border-radius: 10px;
+  white-space: normal;
+  padding: 3px 15px;
+  border-radius: 15px;
+  text-align: left;
+  background-color: #c3daff;
+}
+.bc__link:hover {
+  background-color: #ffe8c3;
+}
+.bc__link:active {
+  background-color: #050300;
+}
+.bc__link[rel~="this"] {
+  font-weight: bold;
 }
 .footnotes {
   padding-top: 8.78521826px;
@@ -1442,10 +1453,11 @@ var {
   font-size: 12px;
   line-height: 2;
 }
-.footnotes li {
+.footnotes > li {
   padding-left: 1.5em;
   text-indent: -1.5em;
 }
+/*sup*/
 .fn {
   width: 1.5em;
 }
@@ -1468,10 +1480,7 @@ var {
     display: none;
   }
   code,
-  pre > code,
-  kbd > kbd,
-  .precode,
-  pre > kbd > kbd {
+  kbd > kbd {
     color: #000000;
     background-color: #fff;
   }
@@ -1479,18 +1488,6 @@ var {
 /*-------------*\
 	vert.less
 \*-------------*/
-.fontsize--inline,
-sup,
-sub,
-code,
-pre > code,
-kbd > kbd,
-.fn,
-.precode,
-pre > kbd > kbd {
-  display: inline;
-  line-height: 1.5;
-}
 .util_vru--content {
   min-height: 24px;
 }
@@ -1506,7 +1503,6 @@ pre > kbd > kbd {
 .util_vru--bottom--false {
   padding-bottom: 0;
 }
-p,
 figure,
 blockquote li,
 dt,
@@ -1514,7 +1510,6 @@ dd,
 td {
   min-height: 24px;
 }
-p,
 ol,
 ul,
 dl,

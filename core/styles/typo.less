@@ -20,11 +20,6 @@
 //++++++
 //@RESET
 //++++++
-section, article, aside, nav,
-main, header, footer {
-	// * support for non-HTML5 browsers
-	display: block;
-}
 body,
 section, article, aside, nav,
 main, header, footer,
@@ -35,9 +30,28 @@ ol, ul, li,
 dl, dt, dd,
 table,
 pre {
-	// * padding and margin reset
+	display: block;
 	padding: 0;
+	border: 0;
+	outline: 0;
 	margin: 0;
+	position: static;
+}
+em, strong, mark, i, b,
+q, cite, time, dfn, abbr, del, ins, sup, sub {
+	display: inline;
+}
+body {
+	font: normal normal normal 12pt serif;
+	text-align: left;
+	line-height: 1;
+}
+h1, h2, h3, h4, h5, h6,
+figure, blockquote, address,
+em, strong, mark, i, b,
+q, cite, dfn, abbr, del, ins, sup, sub {
+	font-style: normal;
+	font-weight: normal;
 }
 //++++ @end RESET ++++
 
@@ -64,7 +78,7 @@ body {
 	}
 }
 main {
-	&:extend(.p1--midright);
+	.p1--midright;
 	margin-bottom: 192px; // 2in
 }
 @media print {
@@ -84,20 +98,17 @@ main {
 @color_h--minor: @caves-caves;
 @color_hsub--major: @facility-abyss;
 @color_hsub--minor: @asbestos;
-.h {
+h1 {
 	display: block;
 	font-style: normal;
 	font-variant: normal;
 	font-weight: normal;
 	font-family: @fontfam--heading;
 	letter-spacing: 1px;
-	.latex {color: inherit;}
 }
-.gutter {
-	.h {
-		text-align: center;
-		text-indent: 0;
-	}
+.gutter__h {
+	text-align: center;
+	text-indent: 0;
 }
 span.hsub {
 	// *********************
@@ -164,17 +175,21 @@ span.hsub {
 //+++++++++++
 //@PARAGRAPHS
 //+++++++++++
+p {
+	.util_vru--content;
+	.util_vru--top;
+}
 .lede {
 	font-weight: bold;
 	font-family: @fontfam--base;
 	color: #000;
 }
-.p-lede {
+.lede--para {
 	&:extend(.lede);
 	padding-bottom: @vru;
 	text-align: justify;
 }
-.s-lede {
+.lede--sent {
 	&:extend(.lede);
 	padding-right: @vru;
 }
@@ -186,6 +201,9 @@ span.hsub {
 	> li {margin-top: @vru;}
 }
 .nonnormative {
+	// *********************
+	// semantic class alert!
+	// *********************
 //	.spacing-top-phi();
 //	.spacing-left-phi(3px; dotted);
 	font-style: italic;
@@ -236,12 +254,6 @@ blockquote {
 	.spacing-left-phi(7px; double; @color_accent);
 	.fontsize(large);
 	font-family: @fontfam--accent;
-	&:not(.prose) > .src {
-		padding-right: @vru;
-		float: right;
-		&::before {content: '~\0020';}
-		&::after {content: '';}
-	}
 }
 address {
 	// *****************
@@ -271,18 +283,12 @@ div.postal {
 //++++++
 //@LISTS
 //++++++
-@list-indent: 0.5in;
+@listindent: 0.5in;
 ol, ul {
 	// *****************
 	// element selector!
 	// *****************
-	padding-left: @list-indent;
-}
-li, dt, dd {
-	// *****************
-	// element selector!
-	// *****************
-	ol, ul {margin-top: 0;}
+	padding-left: @listindent;
 }
 // * outlined lists
 .list--omega   {list-style-type: decimal-leading-zero;}
@@ -367,13 +373,13 @@ dd {
 	// *****************
 	// element selector!
 	// *****************
-	padding-left: @list-indent;
+	padding-left: @listindent;
 }
 .dl--ordered {
 	// *********************
 	// semantic class alert!
 	// *********************
-	padding-left: @list-indent;
+	padding-left: @listindent;
 	> dt:first-child,
 	> dd + dt {
 		display: list-item;
@@ -692,6 +698,13 @@ cite {
 .src {
 	.parens();
 }
+.src--informal {
+	padding-right: @vru;
+	float: right;
+	&::before {content: '~\0020';}
+	&::after {content: '';}
+}
+
 //dfn,
 //abbr,
 //del,
@@ -793,40 +806,28 @@ sub {
 @color_link--active-bg: @aperture-black;
 
 a {
+	// *****************
+	// element selector!
+	// *****************
 	display: inline;
 	text-decoration: none;
 	color: @color_base--faded;
 	&[href] {
 		color: @color_link--up--txt; // also sets border color
 		&:hover {color: @color_link--dn--txt;}
-		&.sp,
-		&[rel~="external"] {
-			color: @color_sp--up--txt;
-			&:hover {color: @color_sp--dn--txt;}
-		}
 		&:active {color: @color_link--active-txt;}
 	}
-	code,
-	.latex {
-		// * certain elements in links not discolored
-		color: inherit;
-		background-color: transparent;
-	}
 }
-.a-block {
-	.box-block();
-	border-radius: @box-radius-medium;
-	text-align: center;
-	&[href] {
-		background-color: @color_link--up--bg;
-		&:hover {background-color: @color_link--dn--bg;}
-		&.sp,
-		&[rel="external"] {
-			background-color: @color_sp--up--bg;
-			&:hover {background-color: @color_sp--dn--bg;}
-		}
-		&:active {background-color: @color_link--active-bg;}
-	}
+a[rel~="external"] {
+	// *****************
+	// element selector!
+	// *****************
+	color: @color_sp--up--txt;
+	&:hover {color: @color_sp--dn--txt;}
+}
+.link__latex {
+	color: inherit;
+	background-color: transparent;
 }
 //++++ @end HYPERLINKS ++++
 
