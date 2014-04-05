@@ -5,8 +5,6 @@
 \*-------------*/
 
 //Table of Contents
-//- RESET
-//- SECTIONS
 //- HEADINGS
 //- PARAGRAPHS
 //- LISTS
@@ -17,78 +15,8 @@
 //- HYPERLINKS
 
 
-//++++++
-//@RESET
-//++++++
-body,
-section, article, aside, nav,
-main, header, footer,
-h1, h2, h3, h4, h5, h6,
-p,
-figure, blockquote, address,
-ol, ul, li,
-dl, dt, dd,
-table,
-pre {
-	display: block;
-	padding: 0;
-	border: 0;
-	outline: 0;
-	margin: 0;
-	position: static;
-}
-em, strong, mark, i, b,
-q, cite, time, dfn, abbr, del, ins, sup, sub {
-	display: inline;
-}
-body {
-	font: normal normal normal 12pt serif;
-	text-align: left;
-	line-height: 1;
-}
-h1, h2, h3, h4, h5, h6,
-figure, blockquote, address,
-em, strong, mark, i, b,
-q, cite, dfn, abbr, del, ins, sup, sub {
-	font-style: normal;
-	font-weight: normal;
-}
-//++++ @end RESET ++++
 
 
-//+++++++++
-//@SECTIONS
-//+++++++++
-body {
-	.fontsize(medium);
-	font-family: @fontfam--base;
-	text-align: left;
-	vertical-align: baseline;
-	color: @color_base--txt;
-	background-color: @color_base--bg;
-//	background-image: url('/home/images/phi-stripes-trans.png');
-//	background-repeat: repeat-y;
-//	background-size: contain;
-}
-@media print {
-	body {
-		color: #000;
-		background-color: #fff;
-		background-image: none;
-	}
-}
-main {
-	.p1--midright;
-	margin-bottom: 192px; // 2in
-}
-@media print {
-	main {
-		width: auto;
-		margin-left: auto;
-		margin-right: auto;
-	}
-}
-//++++ @end SECTIONS ++++
 
 
 //+++++++++
@@ -98,14 +26,6 @@ main {
 @color_h--minor: @caves-caves;
 @color_hsub--major: @facility-abyss;
 @color_hsub--minor: @asbestos;
-h1 {
-	display: block;
-	font-style: normal;
-	font-variant: normal;
-	font-weight: normal;
-	font-family: @fontfam--heading;
-	letter-spacing: 1px;
-}
 .gutter__h {
 	text-align: center;
 	text-indent: 0;
@@ -175,10 +95,6 @@ span.hsub {
 //+++++++++++
 //@PARAGRAPHS
 //+++++++++++
-p {
-	.util_vru--content;
-	.util_vru--top;
-}
 .lede {
 	font-weight: bold;
 	font-family: @fontfam--base;
@@ -204,7 +120,7 @@ p {
 	// *********************
 	// semantic class alert!
 	// *********************
-//	.spacing-top-phi();
+//	.vru-phi--top();
 //	.spacing-left-phi(3px; dotted);
 	font-style: italic;
 	font-family: @fontfam--base;
@@ -231,41 +147,11 @@ p {
 	font-style: normal;
 	text-align: right;
 }
-figure {
-	// *****************
-	// element selector!
-	// *****************
-	.spacing-top-phi();
-	.spacing-left-phi(4px; solid; @color_accent);
-	.spacing-right-phi(4px; solid; @color_accent);
-}
-figcaption {
-	// *****************
-	// element selector!
-	// *****************
-	&:extend(.caption);
-	.border-vert--one(top; 1px; dashed);
-}
-blockquote {
-	// *****************
-	// element selector!
-	// *****************
-	.spacing-top-phi();
-	.spacing-left-phi(7px; double; @color_accent);
-	.fontsize(large);
-	font-family: @fontfam--accent;
-}
-address {
-	// *****************
-	// element selector!
-	// *****************
-	font-style: inherit;
-}
-div.postal {
+/*div*/.postal {
 	// *********************
 	// semantic class alert!
 	// *********************
-	.spacing-top-phi();
+	.vru-phi--top();
 	.spacing-right-phi(3px; solid; @color_accent);
 	.fontsize(large);
 	border-radius: 3px;
@@ -284,12 +170,6 @@ div.postal {
 //@LISTS
 //++++++
 @listindent: 0.5in;
-ol, ul {
-	// *****************
-	// element selector!
-	// *****************
-	padding-left: @listindent;
-}
 // * outlined lists
 .list--omega   {list-style-type: decimal-leading-zero;}
 .list--alpha   {list-style-type: upper-roman;}
@@ -358,23 +238,6 @@ ol, ul {
 //@ASSOCIATION LISTS
 //++++++++++++++++++
 //a.k.a. mappings
-dt,
-dd {
-	// *****************
-	// element selector!
-	// *****************
-	> ol:only-child {
-		padding-left: 0;
-		list-style-position: inside;
-	}
-	> ul:only-child {&:extend(.list--bare all);}
-}
-dd {
-	// *****************
-	// element selector!
-	// *****************
-	padding-left: @listindent;
-}
 .dl--ordered {
 	// *********************
 	// semantic class alert!
@@ -453,54 +316,6 @@ dd {
 @color_table-bg-medium: hsv(185, 11.1%, 100%);
 @color_table-bg-weak:   hsv(185,  5.5%, 100%);
 
-table {
-	// *****************
-	// element selector!
-	// *****************
-	.fontsize(small);
-	border-collapse: collapse;
-	margin-left: auto;
-	margin-right: auto;
-	text-align: center;
-}
-caption {
-	// *****************
-	// element selector!
-	// *****************
-	&:extend(.caption);
-//	.border-vert--one(bottom; 1px; dashed); // use this only if there are no borders on table or cells
-}
-.rowgroup {
-	border: 1px solid @color_table-brdr;
-	border-left: 0;
-	border-right: 0;
-}
-thead, tfoot {
-	// *****************
-	// element selector!
-	// *****************
-	font-weight: bold;
-	vertical-align: bottom;
-}
-tbody {
-	// *****************
-	// element selector!
-	// *****************
-	vertical-align: top;
-}
-th, td {
-	// *****************
-	// element selector!
-	// *****************
-	.cellpaddingdefault();
-	border: 1px solid #808080;
-}
-th {
-	// *****************
-	// element selector!
-	// *****************
-	font-weight: bold;
-}
 .table-list,
 .table-bars {
 	thead,
@@ -518,6 +333,11 @@ th {
 //	}
 	tr:nth-child(odd)  {background-color: @color_table-bg-medium;}
 	tr:nth-child(even) {background-color: @color_table-bg-weak;}
+}
+.rowgroup {
+	border: 1px solid @color_table-brdr;
+	border-left: 0;
+	border-right: 0;
 }
 .table-bars {
 	thead {

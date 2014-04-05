@@ -5,7 +5,166 @@
 \*-------------*/
 
 //Table of Contents
+//- RESET
+//- ELEMENTS
 
 
+//++++++
+//@RESET
+//++++++
+body,
+section, article, aside, nav,
+main, header, footer,
+h1, h2, h3, h4, h5, h6,
+p,
+figure, blockquote, address,
+ol, ul, li,
+dl, dt, dd,
+table,
+pre {
+	display: block;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	margin: 0;
+	position: static;
+}
+em, strong, mark, i, b,
+q, cite, time, dfn, abbr, del, ins, sup, sub {
+	display: inline;
+}
+body {
+	font: normal normal normal 12pt serif;
+	text-align: left;
+	line-height: 1;
+}
+h1, h2, h3, h4, h5, h6,
+figure, blockquote, address,
+em, strong, mark, i, b,
+q, cite, dfn, abbr, del, ins, sup, sub,
+pre, code, kbd, samp, var {
+	font-style: inherit;
+	font-weight: inherit;
+	font-family: inherit;
+}
+hr {display: none;} // DO NOT USE THIS ELEMENT! Use `</section><section>` instead.
+//++++ @end RESET ++++
 
 
+//+++++++++
+//@ELEMENTS
+//+++++++++
+body {
+	.fontsize(medium);
+	font-family: @fontfam--base;
+	text-align: left;
+	vertical-align: baseline;
+	color: @color_base--txt;
+	background-color: @color_base--bg;
+//	background-image: url('/home/images/phi-stripes-trans.png');
+//	background-repeat: repeat-y;
+//	background-size: contain;
+}
+@media print {
+	body {
+		color: #000;
+		background-color: #fff;
+		background-image: none;
+	}
+}
+main {
+	.p1--midright;
+	margin-bottom: 192px; // 2in
+}
+@media print {
+	main {
+		width: auto;
+		margin-left: auto;
+		margin-right: auto;
+	}
+}
+p, blockquote,
+li,
+dt, dd, th, td {
+	.vru--content();
+}
+p, ol, ul, dl, table {.vru--top();}
+h1 {
+	display: block;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: normal;
+	font-family: @fontfam--heading;
+	letter-spacing: 1px;
+}
+figure {
+	.vru--content();
+	.vru-phi--top();
+	.spacing-left-phi(4px; solid; @color_accent);
+	.spacing-right-phi(4px; solid; @color_accent);
+}
+figcaption {
+	&:extend(.caption);
+	.border-vert--one(top; 1px; dashed);
+}
+blockquote {
+	.vru-phi--top();
+	.spacing-left-phi(7px; double; @color_accent);
+	.fontsize(large);
+	font-family: @fontfam--accent;
+}
+ol, ul {
+	padding-left: @listindent;
+}
+dt, dd {
+	> ol:only-child {
+		padding-left: 0;
+		list-style-position: inside;
+	}
+	> ul:only-child {&:extend(.list--bare all);}
+}
+dd {
+	padding-left: @listindent;
+}
+table {
+	.fontsize(small);
+	border-collapse: collapse;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+caption {
+	&:extend(.caption);
+}
+thead, tfoot {
+	font-weight: bold;
+	vertical-align: bottom;
+}
+tbody {
+	vertical-align: top;
+}
+th, td {
+	.cellpaddingdefault();
+	border: 1px solid #808080;
+}
+th {
+	font-weight: bold;
+}
+code {
+	.box-inline();
+	.fontsize(small; inline);
+	border: 0;
+	font-style: normal;
+	font-weight: normal;
+	font-family: @fontfam--code;
+	color: @color_code--txt;
+	background-color: @color_code--bg;
+}
+kbd { 
+	// * user input, in the form of a string, menu item, etc.
+	font-style: inherit;
+	font-weight: bold;
+	font-family: inherit;
+}
+var {font-style: italic;}
+//++++ @end ELEMENTS ++++

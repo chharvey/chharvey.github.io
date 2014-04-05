@@ -17,10 +17,6 @@
 //+++++++++++++++
 //@ABSTRACT BOXES
 //+++++++++++++++
-.cellpaddingdefault() {
-	// * default padding for cell-like structures (table cells, units, boxes, etc.)
-	padding: (@vru / 2) (@vru / 2 * @phi1);
-}
 @box-radius-small:  3px; // 1 + 2
 @box-radius-medium: 6px; // 1 + 2 + 3
 @box-radius-large: 10px; // 1 + 2 + 3 + 4
@@ -77,18 +73,6 @@
 @color_code--css--val:   @color_code--html--val;
 @color_code--latex--cmd: @color_code--html--tag;
 @color_code--latex--arg: @color_code--html--attr;
-pre {white-space: pre-wrap;}
-code,
-.code {
-	.box-inline();
-	.fontsize(small; inline);
-	border: 0;
-	font-style: normal;
-	font-weight: normal;
-	font-family: @fontfam--code;
-	color: @color_code--txt;
-	background-color: @color_code--bg;
-}
 .link__code {
 	color: inherit;
 	background-color: transparent;
@@ -128,8 +112,10 @@ code,
 	font-style: italic;
 	font-family: @fontfam--base;
 }
-pre > code,
 .precode {
+	// *********************
+	// semantic class alert!
+	// *********************
 	&:extend(.code all);
 	.box-block();
 	.border-vert--both(all; 0);
@@ -137,45 +123,21 @@ pre > code,
 	white-space: pre-wrap;
 	background-color: transparent;
 }
-.precode:extend(pre > code all) {}
-samp {font-family: inherit;}
-kbd { 
-	// * user input, in the form of a string, menu item, etc.
-	font-style: inherit;
-	font-weight: bold;
-	font-family: inherit;
-//	&.write { // what is this?
-//		font-family: inherit;
-//		&::before {content: open-quote;}
-//		&::after  {content: close-quote;}
-//	}
-	> kbd {
-		// * an individual key on a keyboard, calculator, or other device
-		&:extend(code all);
-		padding: 0 6px;
-		border-style: outset;
-		font-family: @fontfam--base;
-		color: @aperture-white;
-		background-color: @aperture-black;
-	}
+.key {
+	// * an individual key on a keyboard, calculator, or other device
+	&:extend(code all);
+	padding: 0 6px; // why this number?
+	border-style: outset;
+	font-family: @fontfam--base;
+	color: @aperture-white;
+	background-color: @aperture-black;
 }
 .latex {
-//	.fontsize(small);
+	overflow: auto;
 	font-family: @fontfam--math;
 	white-space: pre-wrap;
-	div&, p& {
-		// * block-level containers
-		overflow: auto;
-	}
 }
 .h__latex {color: inherit;}
-var {font-style: italic;}
-.tex {
-	//a reminder to change all `<... class="tex">` to `<... class="latex">`
-	//a reminder to change all `.tex` to `.latex`
-	color: #f00;
-	* {color: #f00;}
-}
 //++++ @end CODING AND MATH ++++
 
 
@@ -187,21 +149,21 @@ var {font-style: italic;}
 @color_success--txt: #060;
 @color_info--txt:    #006;
 @color_help--txt:    #606;
-@color_special--txt:    #066;
+@color_special--txt: #066;
 
 @color_warning--brdr: #fcc;
 @color_caution--brdr: #ffc;
 @color_success--brdr: #cfc;
 @color_info--brdr:    #ccf;
 @color_help--brdr:    #fcf;
-@color_special--brdr:    #cff;
+@color_special--brdr: #cff;
 
 @color_warning--bg: #fee;
 @color_caution--bg: #ffe;
 @color_success--bg: #efe;
 @color_info--bg:    #eef;
 @color_help--bg:    #fef;
-@color_special--bg:    #eff;
+@color_special--bg: #eff;
 
 @color_warning--brdr: lighten(@color_warning--txt, @headlt);
 @color_caution--brdr: lighten(@color_caution--txt, @headlt);
@@ -218,8 +180,8 @@ var {font-style: italic;}
 
 .message {
 	&:extend(.row all);
-	.width--sml();
 	.box-block();
+	.width--sml();
 	.fontsize(small);
 	margin-top: @vru;
 	font-style: normal;
@@ -351,7 +313,7 @@ var {font-style: italic;}
 .footnotes {
 	// * an unordered list containing footnotes
 	&:extend(.list--bare);
-	.spacing-top-phi(1px; solid; @color_accent);
+	.vru-phi--top(1px; solid; @color_accent);
 	.fontsize(small);
 	> li {
 		padding-left: @fn-width;

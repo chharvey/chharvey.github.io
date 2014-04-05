@@ -7,6 +7,9 @@
 //Table of Contents
 //- GLOBAL VARIABLES
 //- GENERAL MIXINS
+//	- Delimiters
+//	- Automated Widths
+//- MISC
 
 
 //+++++++++++++++++
@@ -51,6 +54,10 @@
 //+++++++++++++++
 //@GENERAL MIXINS
 //+++++++++++++++
+
+//-----------
+//@Delimiters
+//-----------
 .parens() {
 	&::before {content: '(';}
 	&::after  {content: ')';}	
@@ -67,6 +74,47 @@
 	opacity: @phi1;
 	&:hover {opacity: 1;}
 }
+//---- @end Delimiters ----
+
+//-----------------
+//@Automated Widths
+//-----------------
+.width(@breadth) {
+	width:  @breadth;
+	margin-left:  ((100% - @breadth) / 2);
+	margin-right: ((100% - @breadth) / 2);
+}
+.width--full() {width: 100%; margin-left: 0; margin-right: 0;}
+.width--lrg()  {.width(100% * (3/4));} // geometric:  75.00%
+.width--med()  {.width(100% * (2/3));} // arithmetic: 66.66%
+.width--sml()  {.width(@golden1);}     // Golden:     61.80%
+//---- @end Automated Widths ----
+.cellpaddingdefault() {
+	// * default padding for cell-like structures (table cells, units, boxes, etc.)
+	padding: (@vru / 2) (@vru / 2 * @phi1);
+}
 //++++ @end GENERAL MIXINS ++++
+
+
+//+++++
+//@MISC
+//+++++
+.seo-only {
+	// *********************
+	// semantic class alert!
+	// *********************
+	// * Elements needed for SEO *only* (e.g. extraneous titles, etc). Try to only use this selector as a last resort.
+	display: none !important;
+}
+.draft {
+	// *********************
+	// semantic class alert!
+	// *********************
+	// * Elements still in testing mode but still not yet ready for implementation.
+	color: fadeout(#000, 50%);
+	background-color: fadeout(#fff, 50%);
+	opacity: .5;
+}
+//++++ @end MISC ++++
 
 

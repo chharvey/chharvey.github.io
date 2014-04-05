@@ -5,13 +5,14 @@
 \*-------------*/
 
 //Table of Contents
-//- VERTICAL RHYTHM
-//	- Vertical borders
+//- FONT SIZES
+//- VERTICAL SPACING
+//- VERTICAL BORDERS
 
 
-//++++++++++++++++
-//@VERTICAL RHYTHM
-//++++++++++++++++
+//+++++++++++
+//@FONT SIZES
+//+++++++++++
 @vru: @lineheight--base * @fontsize--base; // 24px
 
 @fontsize--ratio--giga:    (6/1); // (48/8) or 6.000em
@@ -51,43 +52,48 @@
 	.fontsize--inline();
 	.fontsize(small);
 }
+//++++ @end FONT SIZES ++++
 
 
-.util_vru--content {
+//+++++++++++++++++
+//@VERTICAL SPACING
+//+++++++++++++++++
+.vru--content() {
 	// * minimum height for text-containing block elements
 	min-height: @vru;
 }
-.util_vru--top {
+.vru--top() {
 	// * provides a margin-top of one vertical rhythm unit
 	margin-top: @vru;
 }
-.util_vru--top--false {
+.vru--bottom() {
+	// * provides a padding-bottom of one vertical rhythm unit
+	padding-bottom: @vru;
+}
+.vru--top--false() {
 	// * no margin-top:
 	// - following all headings
 	// - first child of some containers (figure, blockquote, li, dt, dd, td)
 	margin-top: 0;
 }
-.util_vru--bottom {
-	// * provides a padding-bottom of one vertical rhythm unit
-	padding-bottom: @vru;
-}
-.util_vru--bottom--false {
+.vru--bottom--false() {
 	padding-bottom: 0;
 }
-.spacing-top-phi(@brdr-width; @brdr-style; @brdr-color) {
-	// CHANGE THIS CLASSNAME
+.vru-phi--top(@brdr-width; @brdr-style; @brdr-color) {
+	// * provides a padding-top, border-top, and margin-top. The padding : margin ratio is Golden.
 	padding-top: ((@vru - @brdr-width) * @phi2);
 	border-top: @brdr-width @brdr-style @brdr-color;
 	margin-top: ((@vru - @brdr-width) * @phi1);
 }
-.spacing-top-phi() {
-	// CHANGE THIS CLASSNAME
-	.spacing-top-phi(0; solid; #000);
+.vru-phi--top() {
+	.vru-phi--top(0; solid; #000);
 }
+//++++ @end VERTICAL SPACING ++++
 
-//-----------------
-//@Vertical borders
-//-----------------
+
+//+++++++++++++++++
+//@VERTICAL BORDERS
+//+++++++++++++++++
 // * Use the folowing mixins to adjust borders for **BLOCK** elements only! They will keep the vertical rhythm intact when adding borders (by slightly adjusting position and margins). *DO NOT* use these mixins on INLINE elements!
 // Cannot overload methods with same # of parameters, thus mixin names have modifiers.
 .border-vert(@width) {
@@ -141,18 +147,4 @@
 	.border-vert-both(all; @width; @style);
 	border-color: @color;
 }
-//---- @end Vertical borders ----
-//++++ @end VERTICAL RHYTHM ++++
-
-figure, blockquote
-li,
-dt, dd,
-td {
-	.util_vru--content;
-}
-ol, ul,
-dl,
-table {
-	.util_vru--top;
-}
-
+//++++ @end VERTICAL BORDERS ++++
