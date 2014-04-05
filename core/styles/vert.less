@@ -4,131 +4,18 @@
 	vert.less
 \*-------------*/
 
-//Table of Contents
-//- FONT SIZE, LINE HEIGHT
-//- PADDING, MARGIN, BORDER
-
-
-//+++++++++++++++++++++++
-//@FONT SIZE, LINE HEIGHT
-//+++++++++++++++++++++++
-@fontsize--base:  16px;
-@fontsize--large: (@fontsize--base * (5/4)); // (@fontsize--base * @ratio--h3); // 20px
-@fontsize--small: (@fontsize--base * (3/4)); // (@fontsize--base * @ratio--h6); // 12px
-@lineheight--base:  1.5;
-@olh: @lineheight--base * @fontsize--base; // 24px
 p,
 figure, blockquote
 li,
 dt, dd,
 td {
-	// * minimum height for text-containing elements
-	min-height: @olh;
-}
-
-.font-size(medium) {
-	font-size: @fontsize--base;
-	line-height: @lineheight--base;
-}
-.font-size(large) {
-	font-size: @fontsize--large;
-	line-height: 1.2; // (@olh / @fontsize--large); // can't use math because units won't divide
-}
-.font-size(small) {
-	font-size: @fontsize--small;
-	line-height: 2.0; // (@olh / @fontsize--small); // can't use math because units won't divide
-}
-//++++ @end FONT SIZE, LINE HEIGHT ++++
-
-
-//++++++++++++++++++++++++
-//@PADDING, MARGIN, BORDER
-//++++++++++++++++++++++++
-.olh-top {
-	margin-top: @olh;
+	.util_vru--content;
 }
 p,
 ol, ul,
 dl,
 table {
-	&:extend(.olh-top all);
+	.util_vru--top;
 }
-.h {
-	 + .olh-top {
-		 // * no margin-top following all headings
-		 margin-top: 0;
-	 }
-}
-figure, blockquote,
-li,
-dt, dd,
-td {
-	> .olh-top:first-child {
-		// * no margin-top for some first child of some containers
-		margin-top: 0;
-	}
-}
-.spacing-top-phi(@brdr-width; @brdr-style; @brdr-color) {
-	// CHANGE THIS CLASSNAME
-	padding-top: ((@olh - @brdr-width) * @phi2);
-	border-top: @brdr-width @brdr-style @brdr-color;
-	margin-top: ((@olh - @brdr-width) * @phi1);
-}
-.spacing-top-phi() {
-	// CHANGE THIS CLASSNAME
-	.spacing-top-phi(0; solid; #000);
-}
-// * Use the folowing mixins to adjust borders for BLOCK elements only! They will adjust borders while keeping the vertical rhythm intact (via making margin-bottom negative). DO NOT use these mixins on INLINE elements.
-.border-vert(@width) {
-	display: block;
-	position: relative;
-	top: (-1 * @width);
-}
-.border-vert--one(@width) {
-	.border-vert(@width);
-	margin-bottom: (-1 * @width);
-}
-.border-vert--one(@side; @width) {
-	.border-vert--one(@width);
-	border-@{side}-width: @width;
-}
-.border-vert--one(@side; @width; @style) {
-	.border-vert--one(@side; @width);
-	border-@{side}-style: @style;
-}
-.border-vert--one(@side; @width; @style; @color) {
-	.border-vert--one(@side; @width; @style);
-	border-color: @color;
-}
-// cannot overload methods with same # of parameters
-.border-vert--both(@width) {
-	.border-vert(@width);
-	margin-bottom: (-2 * @width);
-}
-.border-vert--both(topbot; @width) {
-	.border-vert--both(@width);
-	border-width: @width;
-	border-left: 0;
-	border-right: 0;
-}
-.border-vert--both(topbot; @width; @style) {
-	.border-vert--both(topbot; @width);
-	border-style: @style;
-}
-.border-vert--both(topbot; @width; @style; @color) {
-	.border-vert--both(topbot; @width; @style);
-	border-color: @color;
-}
-.border-vert--both(all; @width) {
-	.border-vert--both(@width);
-	border-width: @width;
-}
-.border-vert--both(all; @width; @style) {
-	.border-vert--both(all; @width);
-	border-style: @style;
-}
-.border-vert-both(all; @width; @style; @color) {
-	.border-vert-both(all; @width; @style);
-	border-color: @color;
-}
-//++++ @end PADDING, MARGIN, BORDER ++++
+
+

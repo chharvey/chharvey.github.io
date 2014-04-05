@@ -7,9 +7,10 @@
 //Table of Contents
 //- WIDTHS
 //- GOLDEN WIDTHS, MARGINS
-//- UNDO GOLDEN WIDTHS, MARGINS
 //- ROWS, CELLS
 //- GUTTERS
+//- VERTICAL RHYTHM
+//	- Vertical borders
 
 //+++++++
 //@WIDTHS
@@ -114,12 +115,7 @@
 .p3-c--right:extend(.p3-c) {.automargin(right; @golden3);}
 .p4-c--left:extend(.p4-c)  {.automargin(left;  @golden4);}
 .p4-c--right:extend(.p4-c) {.automargin(right; @golden4);}
-//++++ @end GOLDEN WIDTHS, MARGINS ++++
 
-
-//++++++++++++++++++++++++++++
-//@UNDO GOLDEN WIDTHS, MARGINS
-//++++++++++++++++++++++++++++
 .undoGolden {
 	position: relative;
 	left: 0;
@@ -145,7 +141,7 @@
 .undo--p3-c--right:extend(.undo--p3-c) {left: -30.9016994374947424%;} // -30.9016994374947424%
 .undo--p3-c--right:extend(.undo--p4-c) {}
 .undo--p4-c--right:extend(.undo--p4-c) {left: -17.0820393249936909%;} // -17.0820393249936909%
-//++++ @end UNDO GOLDEN WIDTHS, MARGINS ++++
+//++++ @end  GOLDEN WIDTHS, MARGINS ++++
 
 
 //++++++++++++
@@ -211,6 +207,14 @@
 .gutter {
 	position: absolute;
 }
+@media print {
+	.gutter {
+		width: auto;
+		margin-left: auto;
+		margin-right: auto;
+		position: static;
+	}
+}
 .gutter--major {
 	// * .p1--midleft within a .p3--left
 	&:extend(.gutter all);
@@ -230,12 +234,116 @@
 //++++ @end GUTTERS ++++
 
 
-@media print {
-	.gutter--major,
-	.gutter--minor {
-		width: auto;
-		margin-left: auto;
-		margin-right: auto;
-		position: static;
-	}
+//++++++++++++++++
+//@VERTICAL RHYTHM
+//++++++++++++++++
+@fontsize--base:  16px;
+@fontsize--large: (@fontsize--base * (5/4)); // (@fontsize--base * @ratio--h3); // 20px
+@fontsize--small: (@fontsize--base * (3/4)); // (@fontsize--base * @ratio--h6); // 12px
+@lineheight--base:  1.5;
+@vru: @lineheight--base * @fontsize--base; // 24px
+
+.font-size(medium) {
+	font-size: @fontsize--base;
+	line-height: @lineheight--base;
 }
+.font-size(large) {
+	font-size: @fontsize--large;
+	line-height: 1.2; // (@vru / @fontsize--large); // can't use math because units won't divide
+}
+.font-size(small) {
+	font-size: @fontsize--small;
+	line-height: 2.0; // (@vru / @fontsize--small); // can't use math because units won't divide
+}
+.util_vru--content {
+	// * minimum height for text-containing block elements
+	min-height: @vru;
+}
+.util_vru--top {
+	// * provides a margin-top of one vertical rhythm unit
+	margin-top: @vru;
+}
+.util_vru--top--false {
+	// * no margin-top:
+	// - following all headings
+	// - first child of some containers (figure, blockquote, li, dt, dd, td)
+	margin-top: 0;
+}
+.util_vru--bottom {
+	// * provides a padding-bottom of one vertical rhythm unit
+	padding-bottom: @vru;
+}
+.util_vru--bottom--false {
+	padding-bottom: 0;
+}
+.spacing-top-phi(@brdr-width; @brdr-style; @brdr-color) {
+	// CHANGE THIS CLASSNAME
+	padding-top: ((@vru - @brdr-width) * @phi2);
+	border-top: @brdr-width @brdr-style @brdr-color;
+	margin-top: ((@vru - @brdr-width) * @phi1);
+}
+.spacing-top-phi() {
+	// CHANGE THIS CLASSNAME
+	.spacing-top-phi(0; solid; #000);
+}
+
+//-----------------
+//@Vertical borders
+//-----------------
+// * Use the folowing mixins to adjust borders for **BLOCK** elements only! They will keep the vertical rhythm intact when adding borders (by slightly adjusting position and margins). *DO NOT* use these mixins on INLINE elements!
+// Cannot overload methods with same # of parameters, thus mixin names have modifiers.
+.border-vert(@width) {
+	display: block;
+	position: relative;
+	top: (-1 * @width);
+}
+.border-vert--one(@width) {
+	.border-vert(@width);
+	margin-bottom: (-1 * @width);
+}
+.border-vert--one(@side; @width) {
+	.border-vert--one(@width);
+	border-@{side}-width: @width;
+}
+.border-vert--one(@side; @width; @style) {
+	.border-vert--one(@side; @width);
+	border-@{side}-style: @style;
+}
+.border-vert--one(@side; @width; @style; @color) {
+	.border-vert--one(@side; @width; @style);
+	border-color: @color;
+}
+.border-vert--both(@width) {
+	.border-vert(@width);
+	margin-bottom: (-2 * @width);
+}
+.border-vert--both(topbot; @width) {
+	.border-vert--both(@width);
+	border-width: @width;
+	border-left: 0;
+	border-right: 0;
+}
+.border-vert--both(topbot; @width; @style) {
+	.border-vert--both(topbot; @width);
+	border-style: @style;
+}
+.border-vert--both(topbot; @width; @style; @color) {
+	.border-vert--both(topbot; @width; @style);
+	border-color: @color;
+}
+.border-vert--both(all; @width) {
+	.border-vert--both(@width);
+	border-width: @width;
+}
+.border-vert--both(all; @width; @style) {
+	.border-vert--both(all; @width);
+	border-style: @style;
+}
+.border-vert-both(all; @width; @style; @color) {
+	.border-vert-both(all; @width; @style);
+	border-color: @color;
+}
+//---- @end Vertical borders ----
+//++++ @end VERTICAL RHYTHM ++++
+
+
