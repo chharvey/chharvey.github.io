@@ -4,6 +4,68 @@
 	vert.less
 \*-------------*/
 
+@vru: @lineheight--base * @fontsize--base; // 24px
+
+@fontsize--ratio--giga:    (6/1); // (48/8) or 6.000em
+@fontsize--ratio--mega:    (4/1); // (32/8) or 4.000em
+@fontsize--ratio--kilo:    (3/1); // (24/8) or 3.000em
+
+@fontsize--ratio--alpha:   (2/1); // (16/8) or 2.000em
+@fontsize--ratio--beta:    (3/2); // (12/8) or 1.500em
+@fontsize--ratio--gamma:   (5/4); // (10/8) or 1.250em
+@fontsize--ratio--delta:   (1/1); // (08/8) or 1.000em
+@fontsize--ratio--epsilon: (7/8); // (07/8) or 0.875em
+@fontsize--ratio--zeta:    (3/4); // (06/8) or 0.750em
+
+@fontsize--ratio--milli:   (1/2); // (04/8) or 0.500em
+
+.fontsize--scale(@ratio) {
+	// * multiplies font-size by @ratio and adjusts line-height so that font-size * line-height = @vru
+	font-size: (@fontsize--base * @ratio);
+	// this.line-height = @vru / this.font-size
+	//                  = (@lineheight--base * @fontsize--base) / (@fontsize--base * @ratio)
+	//                  = @lineheight--base / @ratio
+	line-height: (@lineheight--base / @ratio);
+}
+.fontsize(large)  {.fontsize--scale(@fontsize--ratio--gamma);}
+.fontsize(medium) {.fontsize--scale(1);}
+.fontsize(small)  {.fontsize--scale(@fontsize--ratio--zeta);}
+
+.fontsize--inline {
+	display: inline;
+	line-height: @lineheight--base;
+}
+.fontsize(large, inline) {
+	&:extend(.fontsize--inline);
+	.fontsize(large);
+}
+.fontsize(small, inline) {
+	&:extend(.fontsize--inline);
+	.fontsize(small);
+}
+
+
+.util_vru--content {
+	// * minimum height for text-containing block elements
+	min-height: @vru;
+}
+.util_vru--top {
+	// * provides a margin-top of one vertical rhythm unit
+	margin-top: @vru;
+}
+.util_vru--top--false {
+	// * no margin-top:
+	// - following all headings
+	// - first child of some containers (figure, blockquote, li, dt, dd, td)
+	margin-top: 0;
+}
+.util_vru--bottom {
+	// * provides a padding-bottom of one vertical rhythm unit
+	padding-bottom: @vru;
+}
+.util_vru--bottom--false {
+	padding-bottom: 0;
+}
 p,
 figure, blockquote
 li,
