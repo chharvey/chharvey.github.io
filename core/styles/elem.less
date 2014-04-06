@@ -7,6 +7,7 @@
 //Table of Contents
 //- RESET
 //- ELEMENTS
+//- QUASI-ELEMENTS
 
 
 //++++++//
@@ -18,20 +19,35 @@ main, header, footer,
 h1, h2, h3, h4, h5, h6,
 p,
 figure, blockquote, address,
-ol, ul, li,
+ol, ul,
 dl, dt, dd,
 table,
 pre {
 	display: block;
+}
+li {
+	display: list-item;
+}
+em, strong, mark, i, b,
+q, cite, time, dfn, abbr, del, ins, sup, sub,
+code, kbd, samp, var {
+	display: inline;
+}
+body,
+section, article, aside, nav,
+main, header, footer,
+h1, h2, h3, h4, h5, h6,
+p,
+figure, blockquote, address,
+ol, ul, li,
+dl, dt, dd,
+table,
+pre {
 	padding: 0;
 	border: 0;
 	outline: 0;
 	margin: 0;
 	position: static;
-}
-em, strong, mark, i, b,
-q, cite, time, dfn, abbr, del, ins, sup, sub {
-	display: inline;
 }
 body {
 	font: normal normal normal 12pt serif;
@@ -61,9 +77,6 @@ body {
 	vertical-align: baseline;
 	color: @color_base--txt;
 	background-color: @color_base--bg;
-//	background-image: url('/home/images/phi-stripes-trans.png');
-//	background-repeat: repeat-y;
-//	background-size: contain;
 }
 @media print {
 	body {
@@ -88,14 +101,15 @@ li,
 dt, dd, th, td {
 	.vru--content();
 }
-p, ol, ul, dl, table {.vru--top();}
-h1 {
-	display: block;
-	font-style: normal;
-	font-variant: normal;
-	font-weight: normal;
-	font-family: @fontfam--heading;
-	letter-spacing: 1px;
+p,
+ol, ul,
+dl,
+table {
+	.vru--top();
+}
+
+h1, h2, h3, h4, h5, h6 {
+	&:extend(.h);
 }
 figure {
 	.vru--content();
@@ -150,6 +164,21 @@ th, td {
 th {
 	font-weight: bold;
 }
+a {
+	&:extend(.link all);
+}
+
+
+em {
+	&:extend(.emph all);
+}
+
+
+
+
+
+
+
 code {
 	.box-inline();
 	.fontsize(small; inline);
@@ -173,3 +202,31 @@ kbd {
 }
 var {font-style: italic;}
 //++++ @end ELEMENTS ++++//
+
+
+//+++++++++++++++//
+/*@QUASI-ELEMENTS*/
+//+++++++++++++++//
+[data-e="hsub"] {
+	font-size: 80%;
+	padding-left: @vru;
+	font-weight: normal;
+	color: @color_base--faded;
+}
+[data-e="postal"] {
+	.vru-phi--top();
+	.spacing-right-phi(3px; solid; @color_accent);
+	.fontsize(large);
+	border-radius: 3px;
+	font-family: @fontfam--accent;
+	text-align: right;
+}
+[data-code-lang="html"],
+[data-code-lang="css"],
+[data-code-lang="latex"] {}
+//.phone, // use microformats
+//.tel,
+//.email {
+//	font-family: @fontfam--code;
+//}
+//++++ @end QUASI-ELEMENTS ++++//

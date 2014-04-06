@@ -210,6 +210,27 @@ pre {
 	</section>
 	<section id="classname-semantics">
 		<h1 class="h-gamma">Classname Semantics</h1>
+		<p class="prose"><span class="lede-sent">Let's look at the original intent of HTML classes.</span></p>
+		<p class="prose"><span class="lede-sent">&ldquo;Classes&rdquo; of Classes.</span> There is a clear case of <a>&ldquo;classitis&rdquo;</a> in the Web-developing world. Before you object, I'd like to explain my definition of classitis: classitis refers not to the overuse of classes&mdash;there can never be too many classes present in an HTML document&mdash;but to the fact that we are using classes for <em>everything</em>. We need to seriously look at how and why we are using classes, what kinds of &ldquo;classifications&rdquo; into which we can organize them, and maybe provide some alternative methods of implementing semantics and style.</p>
+		<p class="prose">The following sections describe different ways classes are being used in CSS.</p>
+		<section>
+			<h1 class="h--delta">Presentational</h1>
+			<p class="prose">Presentational classnames describe the properties of the class. Examples include <code>.big</code>, <code>.margin-top-24</code>, <code>.list-inline</code>, and <code>.grid-50-left</code>.</p>
+			<p class="prose">There are some cases in which having these classes available in CSS is helpful. In short, they provide abstraction. Classes such as <code>.list-inline</code> and <code>.margin-top-24</code> can be used as a mechanism for consistency, and can save developers the hassle of having to repeat the same lines of code over and over again. For example, redefining the same top margin on multiple elements is not only tedius but also error prone. The developer has to remember the number of pixels, code is repeated, and upkeep is expensive. These so-called &ldquo;utility classes&rdquo; provide an easy and scalable solution. Another case of this is using a <a href="grid.html">grid system</a>. A class such as <code>.grid-50-left</code> is <em>very</em> presentational but necessary for <abbr title="don't repeat yourself">DRY</abbr> code.</p>
+			<p class="prose">That being said, utility classes should <em>not</em> be accessible to the HTML. There are a number of reasons:</p>
+			<ol class="prose">
+				<li><span class="lede-sent">HTML describes content, not presentation.</span> Technically, classes are in the HTML. Adding class <code>.boldred</code> to an <code>small</code> element does not add any semantic value to the text. An ideal alternative would be to use <code>small.warning</code> (or something similar) and then have the <code>.warning</code> class extend <code>.boldred</code> in some way.</li>
+				<li><span class="lede-sent">The Theoretical Redesign Future.</span> If you wanted to change the properties of the <code>.boldred</code> class, say, make it italic instead of bold, now you have to deal with an awkward classname, or you have to change the classname everywhere in the HTML.</li>
+			</ol>
+			<p class="prose">There are a few solutions to this usage. The first solution is to use a mixin. A mixin allows the developer to reuse lines of code without having to write them over and over again. It's basically a glorified copy-and-paste. Mixins are available in CSS pre-processors such as Less and Sass, and using a mixin instead of a class will hide the <del>classname</del> <ins>mixin name</ins> from the CSS output. That means the name can't be used in HTML, which is good.</p>
+			<p class="prose">The problem with mixins is that although they make life easier for the developer, the compiled CSS is still not DRY. The properties are still being written over and over again (this time by the compiler), which means a lot of work for the browser, a lot of bytes to download, etc.</p>
+			<p class="prose">A better solution is to still use a class, but &ldquo;hide&rsquo; it from the HTML by nesting it into a nonsensical ID selector. For example, in your CSS (or Less), define <code>#--&nbsp;&nbsp;.boldred {&hellip;}</code> and extend it with the classes you need such as <code>.warning</code>. Yes, the class <code>.boldred</code> is still available to the HTML, but the styles will only apply if it's in an element with <code>id=&quot;--&quot;</code>, which I hope you'd never use if you want valid HTML. By the way, this is the one time you can use an ID selector. (And it's really not even an ID selector.) </p>
+		</section>
+		<section>
+			<h1 class="h--delta">Semantic</h1>
+			<p class="prose">Semantic classnames describe the meaning of the component and/or its contents. Examples include <code>.pacingtable</code>, <code>.answer</code>, <code>.optional</code>, and <code>.success</code>.</p>
+			<p class="prose">These are good classes to have because they mark up HTML elements with data describing what they mean. For example, take the element <code>p.success</code>. There are two semantic things going on here: first, the <code>&lt;p&gt;</code> tag describes what the element <em>is</em> (a paragraph), but second, the <code>&quot;success&quot;</code> class describes what the element <em>means</em>: it is some sort of indication of success, such as the completion of an upload. In a way, the classname has more semantic value than the element name itself!</p>
+		</section>
 	</section>
 </section>
 <section id="selectors">

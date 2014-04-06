@@ -10,9 +10,10 @@
 //- LISTS
 //- ASSOCIATION LISTS
 //- TABLES
+//- HYPERLINKS
 //- HIGHLIGHTED TEXT
 //- DOCUMENTATION
-//- HYPERLINKS
+//- CODING AND MATH
 //- FORMS
 
 
@@ -23,21 +24,22 @@
 @color_h--minor: @caves-caves;
 @color_hsub--major: @facility-abyss;
 @color_hsub--minor: @asbestos;
+.h {
+	display: block;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: normal;
+	font-family: @fontfam--heading;
+	letter-spacing: 1px;
+}
 .gutter__h {
+	// ***********************
+	// unsemantic class alert!
+	// ***********************
 	text-align: center;
 	text-indent: 0;
 }
-span.hsub {
-	// *********************
-	// semantic class alert!
-	// *********************
-	font-size: 80%;
-	padding-left: @vru;
-	font-weight: normal;
-	color: @color_base--faded;
-}
-.h-alpha {
-	&:extend(.h all);
+.h--alpha {
 	.fontsize--scale(@fontsize--ratio--alpha);
 	padding-bottom: @vru;
 	margin-top: 2 * @vru;
@@ -47,7 +49,7 @@ span.hsub {
 	color: @color_h--major;
 	> span.hsub {color: @color_hsub--major;}
 }
-.h-beta {
+.h--beta {
 	&:extend(.h all);
 	.fontsize--scale(@fontsize--ratio--beta);
 	padding-bottom: 0.5 * @vru;
@@ -56,7 +58,7 @@ span.hsub {
 	color: @color_h--minor;
 	> span.hsub {color: @color_hsub--minor;}
 }
-.h-gamma {
+.h--gamma {
 	&:extend(.h all);
 	.fontsize--scale(@fontsize--ratio--gamma);
 	padding-bottom: 0.25 * @vru;
@@ -64,14 +66,14 @@ span.hsub {
 	font-variant: small-caps;
 	font-weight: bold;
 }
-.h-delta {
+.h--delta {
 	&:extend(.h all);
 	.fontsize--scale(@fontsize--ratio--delta);
 	margin-top: @vru;
 	font-style: italic;
 	font-weight: bold;
 }
-.h-epsilon {
+.h--epsilon {
 	&:extend(.h all);
 	.fontsize--scale(@fontsize--ratio--epsilon);
 	font-style: italic;
@@ -79,7 +81,7 @@ span.hsub {
 	color: @color_h--minor;
 	> span.hsub {color: @color_hsub--minor;}
 }
-.h-zeta {
+.h--zeta {
 	&:extend(.h all);
 	.fontsize--scale(@fontsize--ratio--zeta);
 	font-style: italic;
@@ -92,18 +94,18 @@ span.hsub {
 //+++++++++++//
 /*@PARAGRAPHS*/
 //+++++++++++//
-.lede {
+#-- .lede {
 	font-weight: bold;
 	font-family: @fontfam--base;
 	color: #000;
 }
-.lede--para {
-	&:extend(.lede);
+.lede-para {
+	&:extend(#-- .lede);
 	padding-bottom: @vru;
 	text-align: justify;
 }
-.lede--sent {
-	&:extend(.lede);
+.lede-sent {
+	&:extend(#-- .lede);
 	padding-right: @vru;
 }
 .prose {
@@ -113,30 +115,17 @@ span.hsub {
 	list-style-type: decimal;
 	> li {margin-top: @vru;}
 }
-.nonnormative {
-	// *********************
-	// semantic class alert!
-	// *********************
-//	.vru-phi--top();
-//	.spacing-left-phi(3px; dotted);
-	font-style: italic;
-	font-family: @fontfam--base;
-}
 .dropcap {
-	.cap,
-	&::first-letter {
-		float: left;
-		padding-top: (@vru / 2);
-		padding-right: 4px; // why this number?
-		font-style: normal;
-		font-weight: normal;
-		font-size: 3 * @fontsize--base;
-		font-family: @fontfam--math;
-		line-height: 0.5;
-		color: @color_h--major;
-	}
+	float: left;
+	padding-top: (@vru / 2);
+	padding-right: 4px; // why this number?
+	font-style: normal;
+	font-weight: normal;
+	font-size: 3 * @fontsize--base;
+	font-family: @fontfam--math;
+	line-height: 0.5;
+	color: @color_h--major;
 }
-
 .caption {
 	.fontsize(small);
 	padding: 0;
@@ -144,22 +133,6 @@ span.hsub {
 	font-style: normal;
 	text-align: right;
 }
-/*div*/.postal {
-	// *********************
-	// semantic class alert!
-	// *********************
-	.vru-phi--top();
-	.spacing-right-phi(3px; solid; @color_accent);
-	.fontsize(large);
-	border-radius: 3px;
-	font-family: @fontfam--accent;
-	text-align: right;
-}
-//.phone, // use microformats
-//.tel,
-//.email {
-//	font-family: @fontfam--code;
-//}
 //++++ @end PARAGRAPHS ++++//
 
 
@@ -167,7 +140,6 @@ span.hsub {
 /*@LISTS*/
 //++++++//
 @listindent: 0.5in;
-// * outlined lists
 .list--omega   {list-style-type: decimal-leading-zero;}
 .list--alpha   {list-style-type: upper-roman;}
 .list--beta    {list-style-type: upper-alpha;}
@@ -181,7 +153,6 @@ span.hsub {
 	list-style-type: none;
 }
 .list--inline {
-	// * a bare list except the list items are inline.
 	&:extend(.list--bare all);
 	> li {display: inline;}
 }
@@ -193,13 +164,11 @@ span.hsub {
 .list--inline--n {.list--inline--sep_mx('\0020\2013');}
 .list--inline--m {.list--inline--sep_mx('\0020\2014');}
 .list--line {
-	// * a bare list that acts as a table, with the list items acting as table cells
 	&:extend(.list--bare all);
 	&:extend(.row);
 	> li {&:extend(.cell);}
 }
 .list--float {
-	// * a basic list whose items are blocks that float left
 	&:extend(.list--bare all);
 	display: table;
 	li {
@@ -219,7 +188,6 @@ span.hsub {
 .list--float--6:extend(.list--float all) {.list--float_mx(@1o6);}
 
 .list--action {
-	// * a list typically containing textual (non-block) hyperlinks
 	&:extend(.list--bare all);
 	ul, ol, dl {list-style-type: none;}
 	li {
@@ -235,10 +203,7 @@ span.hsub {
 /*@ASSOCIATION LISTS*/
 //++++++++++++++++++//
 //a.k.a. mappings
-.dl--ordered {
-	// *********************
-	// semantic class alert!
-	// *********************
+/*dl*/.dl--ordered {
 	padding-left: @listindent;
 	> dt:first-child,
 	> dd + dt {
@@ -247,14 +212,14 @@ span.hsub {
 		list-style-position: outside;
 	}
 }
-.dl--bare {
-	> dd {margin: 0; padding: 0;}
-}
-.dl--tree {
-	// *********************
-	// semantic class alert!
-	// *********************
+/*dl*/.dl--tree {
 //	dd > dl {margin-left: 0.5in;}
+}
+.dl--bare {
+	// ***********************
+	// unsemantic class alert!
+	// ***********************
+	> dd {margin: 0; padding: 0;}
 }
 .dl--group {
 	// * groups dt elements together on a line, and dd elements together on a line
@@ -379,13 +344,46 @@ table {
 //++++ @end TABLES ++++//
 
 
+//+++++++++++//
+/*@HYPERLINKS*/
+//+++++++++++//
+@color_link--up--txt: @atlas;
+@color_link--up--bg: lighten(@color_link--up--txt, @headlt);
+@color_link--dn--txt: @pbody;
+@color_link--dn--bg: lighten(@color_link--dn--txt, @headlt);
+@color_sp--up--txt: @neurotoxin;
+@color_sp--up--bg: lighten(@color_sp--up--txt, @headlt);
+@color_sp--dn--txt: @vilify;
+@color_sp--dn--bg: lighten(@color_sp--dn--txt, @headlt);
+@color_link--active-txt: @her-eye;
+@color_link--active-bg: @aperture-black;
+.link {
+	text-decoration: none;
+	color: @color_base--faded;
+	&[href] {
+		color: @color_link--up--txt;
+		&:hover {color: @color_link--dn--txt;}
+		&:active {color: @color_link--active-txt;}
+	}
+	&[rel~="external"] {
+		color: @color_sp--up--txt;
+		&:hover {color: @color_sp--dn--txt;}
+	}
+}
+//++++ @end HYPERLINKS ++++//
+
+
 //+++++++++++++++++//
 /*@HIGHLIGHTED TEXT*/
 //+++++++++++++++++//
-em {
-	// *****************
-	// element selector!
-	// *****************
+.nonnormative {
+	// *********************
+	// semantic class alert!
+	// *********************
+	font-style: italic;
+	font-family: @fontfam--base;
+}
+.emph {
 	font-style: italic;
 }
 .nonnormative,
@@ -602,50 +600,90 @@ sub {
 //++++ @end DOCUMENTATION ++++//
 
 
-//+++++++++++//
-/*@HYPERLINKS*/
-//+++++++++++//
-@color_link--up--txt: @atlas;
-@color_link--up--bg: lighten(@atlas, @headlt);
-
-@color_link--dn--txt: @pbody;
-@color_link--dn--bg: lighten(@pbody, @headlt);
-
-@color_sp--up--txt: @neurotoxin;
-@color_sp--up--bg: lighten(@color_sp--up--txt, @headlt);
-
-@color_sp--dn--txt: @vilify;
-@color_sp--dn--bg: lighten(@color_sp--dn--txt, @headlt);
-
-@color_link--active-txt: @her-eye;
-@color_link--active-bg: @aperture-black;
-
-a {
-	// *****************
-	// element selector!
-	// *****************
-	display: inline;
-	text-decoration: none;
-	color: @color_base--faded;
-	&[href] {
-		color: @color_link--up--txt; // also sets border color
-		&:hover {color: @color_link--dn--txt;}
-		&:active {color: @color_link--active-txt;}
-	}
-}
-a[rel~="external"] {
-	// *****************
-	// element selector!
-	// *****************
-	color: @color_sp--up--txt;
-	&:hover {color: @color_sp--dn--txt;}
+//++++++++++++++++//
+/*@CODING AND MATH*/
+//++++++++++++++++//
+@color_code--txt:  #000;
+@color_code--bg:   #ced;
+@color_code--comment: #999;
+@color_code--html--tag:  #009;
+@color_code--html--attr: #900;
+@color_code--html--val:  #090;
+@color_code--css--sel:   @color_code--html--tag;
+@color_code--css--prop:  @color_code--html--attr;
+@color_code--css--val:   @color_code--html--val;
+@color_code--latex--cmd: @color_code--html--tag;
+@color_code--latex--arg: @color_code--html--attr;
+.link__code {
+	color: inherit;
+	background-color: transparent;
 }
 .link__latex {
 	color: inherit;
 	background-color: transparent;
 }
-//++++ @end HYPERLINKS ++++//
-
+.comment {
+	// *********************
+	// semantic class alert!
+	// *********************
+	color: @color_code--comment;
+}
+.lang-html {
+	// *********************
+	// semantic class alert!
+	// *********************
+	.tag       {color: @color_code--html--tag;}
+	.attribute {color: @color_code--html--attr;}
+	.value     {color: @color_code--html--val;}
+}
+.lang-css {
+	// *********************
+	// semantic class alert!
+	// *********************
+	.selector {color: @color_code--css--sel;}
+	.property {color: @color_code--css--prop;}
+	.value    {color: @color_code--css--val;}
+}
+.lang-latex {
+	// *********************
+	// semantic class alert!
+	// *********************
+	.cmd {color: @color_code--latex--cmd;}
+	.arg {color: @color_code--latex--arg;}
+}
+.dir {
+	// * directory system (folders and files)
+	border: 0;
+	font-style: italic;
+	font-family: @fontfam--base;
+}
+.precode {
+	// *********************
+	// semantic class alert!
+	// *********************
+	&:extend(.code all);
+	.box-block();
+	.border-vert--both(all; 0);
+	.fontsize(small);
+	white-space: pre-wrap;
+	background-color: transparent;
+}
+.key {
+	// * an individual key on a keyboard, calculator, or other device
+	&:extend(code all);
+	padding: 0 6px; // why this number?
+	border-style: outset;
+	font-family: @fontfam--base;
+	color: @aperture-white;
+	background-color: @aperture-black;
+}
+.latex {
+	overflow: auto;
+	font-family: @fontfam--math;
+	white-space: pre-wrap;
+}
+.h__latex {color: inherit;}
+//++++ @end CODING AND MATH ++++//
 
 //++++++//
 /*@FORMS*/
