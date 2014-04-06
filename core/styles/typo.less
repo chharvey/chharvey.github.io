@@ -606,61 +606,25 @@ sub {
 @color_code--txt:  #000;
 @color_code--bg:   #ced;
 @color_code--comment: #999;
-@color_code--html--tag:  #009;
-@color_code--html--attr: #900;
-@color_code--html--val:  #090;
-@color_code--css--sel:   @color_code--html--tag;
-@color_code--css--prop:  @color_code--html--attr;
-@color_code--css--val:   @color_code--html--val;
-@color_code--latex--cmd: @color_code--html--tag;
-@color_code--latex--arg: @color_code--html--attr;
-.link__code {
-	color: inherit;
-	background-color: transparent;
-}
-.link__latex {
-	color: inherit;
-	background-color: transparent;
-}
-.comment {
-	// *********************
-	// semantic class alert!
-	// *********************
-	color: @color_code--comment;
-}
-.lang-html {
-	// *********************
-	// semantic class alert!
-	// *********************
-	.tag       {color: @color_code--html--tag;}
-	.attribute {color: @color_code--html--attr;}
-	.value     {color: @color_code--html--val;}
-}
-.lang-css {
-	// *********************
-	// semantic class alert!
-	// *********************
-	.selector {color: @color_code--css--sel;}
-	.property {color: @color_code--css--prop;}
-	.value    {color: @color_code--css--val;}
-}
-.lang-latex {
-	// *********************
-	// semantic class alert!
-	// *********************
-	.cmd {color: @color_code--latex--cmd;}
-	.arg {color: @color_code--latex--arg;}
-}
-.dir {
-	// * directory system (folders and files)
+@color_code--tag:  #009;
+@color_code--attr: #900;
+@color_code--val:  #090;
+@color_code--sel:  #099;
+@color_code--prop: #990;
+@color_code--cmd: #909;
+@color_code--arg: #000;
+.code {
+	// * a piece of text that a computer program would recognize
+	.box-inline();
+	.fontsize(small; inline);
 	border: 0;
-	font-style: italic;
-	font-family: @fontfam--base;
+	font-style: normal;
+	font-weight: normal;
+	font-family: @fontfam--code;
+	color: @color_code--txt;
+	background-color: @color_code--bg;
 }
-.precode {
-	// *********************
-	// semantic class alert!
-	// *********************
+.code--block {
 	&:extend(.code all);
 	.box-block();
 	.border-vert--both(all; 0);
@@ -668,9 +632,23 @@ sub {
 	white-space: pre-wrap;
 	background-color: transparent;
 }
+.comment {color: @color_code--comment;}
+.code--tag       {color: @color_code--tag;}
+.code--attribute {color: @color_code--attr;}
+.code--value     {color: @color_code--val;}
+.code--selector {color: @color_code--sel;}
+.code--property {color: @color_code--prop;}
+.code--cmd {color: @color_code--cmd;}
+.code--arg {color: @color_code--arg;}
+.dir {
+	// * directory system (folders and files)
+	border: 0;
+	font-style: italic;
+	font-family: @fontfam--base;
+}
 .key {
 	// * an individual key on a keyboard, calculator, or other device
-	&:extend(code all);
+	&:extend(.code all);
 	padding: 0 6px; // why this number?
 	border-style: outset;
 	font-family: @fontfam--base;
