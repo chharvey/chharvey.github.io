@@ -606,58 +606,26 @@ sub {
 //++++++++++++++++//
 @color_code--txt:  #000;
 @color_code--bg:   #ced;
-@color_code--comment: #999;
-@color_code--html--tag:  #009;
-@color_code--html--attr: #900;
-@color_code--html--val:  #090;
-@color_code--css--sel:   @color_code--html--tag;
-@color_code--css--prop:  @color_code--html--attr;
-@color_code--css--val:   @color_code--html--val;
-@color_code--latex--cmd: @color_code--html--tag;
-@color_code--latex--arg: @color_code--html--attr;
-.link__code {
-	color: inherit;
-	background-color: transparent;
-}
-.comment {
-	// *********************
-	// semantic class alert!
-	// *********************
-	color: @color_code--comment;
-}
-.lang-html {
-	// *********************
-	// semantic class alert!
-	// *********************
-	.tag       {color: @color_code--html--tag;}
-	.attribute {color: @color_code--html--attr;}
-	.value     {color: @color_code--html--val;}
-}
-.lang-css {
-	// *********************
-	// semantic class alert!
-	// *********************
-	.selector {color: @color_code--css--sel;}
-	.property {color: @color_code--css--prop;}
-	.value    {color: @color_code--css--val;}
-}
-.lang-latex {
-	// *********************
-	// semantic class alert!
-	// *********************
-	.cmd {color: @color_code--latex--cmd;}
-	.arg {color: @color_code--latex--arg;}
-}
-.dir {
-	// * directory system (folders and files)
+@color_code__comm: #999;
+@color_code__tag:  #009;
+@color_code__attr: #900;
+@color_code__val:  #090;
+@color_code__sel:  #099;
+@color_code__prop: #909;
+@color_code__cmd: #990;
+@color_code__arg: #000;
+.code {
+	// * a piece of text that a computer program would recognize
+	.box-inline();
+	.fontsize(small; inline);
 	border: 0;
-	font-style: italic;
-	font-family: @fontfam--base;
+	font-style: normal;
+	font-weight: normal;
+	font-family: @fontfam--code;
+	color: @color_code--txt;
+	background-color: @color_code--bg;
 }
-.precode {
-	// *********************
-	// semantic class alert!
-	// *********************
+.code--block {
 	&:extend(.code all);
 	.box-block();
 	.border-vert--both(all; 0);
@@ -665,9 +633,23 @@ sub {
 	white-space: pre-wrap;
 	background-color: transparent;
 }
+.code__comm {color: @color_code__comm;}
+.code__tag       {color: @color_code__tag;}
+.code__attr {color: @color_code__attr;}
+.code__val     {color: @color_code__val;}
+.code__sel {color: @color_code__sel;}
+.code__prop {color: @color_code__prop;}
+.code__cmd {color: @color_code__cmd;}
+.code__arg {color: @color_code__arg;}
+.dir {
+	// * directory system (folders and files)
+	border: 0;
+	font-style: italic;
+	font-family: @fontfam--base;
+}
 .key {
 	// * an individual key on a keyboard, calculator, or other device
-	&:extend(code all);
+	&:extend(.code all);
 	padding: 0 6px; // why this number?
 	border-style: outset;
 	font-family: @fontfam--base;

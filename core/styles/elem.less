@@ -164,42 +164,16 @@ th, td {
 th {
 	font-weight: bold;
 }
-a {
-	&:extend(.link all);
-}
 
 
-em {
-	&:extend(.emph all);
-}
+a:extend(.link all) {}
 
 
+em:extend(.emph all) {}
 
-
-
-
-
-code {
-	.box-inline();
-	.fontsize(small; inline);
-	border: 0;
-	font-style: normal;
-	font-weight: normal;
-	font-family: @fontfam--code;
-	color: @color_code--txt;
-	background-color: @color_code--bg;
-}
-pre > code {
-	// temporary fix --- delete soon
-	white-space: pre-wrap;
-	background-color: transparent;
-}
-kbd { 
-	// * user input, in the form of a string, menu item, etc.
-	font-style: inherit;
-	font-weight: bold;
-	font-family: inherit;
-}
+code:extend(.code all) {}
+kbd {font-weight: bold;}
+kbd > kbd:extend(.key all) {}
 var {font-style: italic;}
 //++++ @end ELEMENTS ++++//
 
@@ -221,9 +195,11 @@ var {font-style: italic;}
 	font-family: @fontfam--accent;
 	text-align: right;
 }
-[data-code-lang="html"],
-[data-code-lang="css"],
-[data-code-lang="latex"] {}
+[data-code-lang="html"].precode,
+[data-code-lang="css"].precode,
+[data-code-lang="latex"].precode {
+	// * Denote the language of a block of code.
+}
 //.phone, // use microformats
 //.tel,
 //.email {
