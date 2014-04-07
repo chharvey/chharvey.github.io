@@ -56,6 +56,10 @@
 
 ### /home/ ###
 
+#### resume.html ####
+- 2014-03-26 remove `!important` from `.res-spacetime {font-size}` and `.res-spacetime {color}` and somehow fix quasi-element `span.hsub`.
+- 2014-03-26 add web-dev exp
+
 ### /site-design/ ###
 #### phi.html ####
 - FIX IT. the whole thing.
