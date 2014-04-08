@@ -61,6 +61,7 @@ Specs for this TODO:
 - 2014-03-26 remove `!important` from `.res-spacetime {font-size}` and `.res-spacetime {color}` and somehow fix quasi-element `span.hsub`.
 <del datetime="2014-04-06">- 2014-03-26 add web-dev exp</del>
 - 2014-04-07 find a way to use JS to add `.res-footer`s (pagecount, etc.)
+- 2014-04-08 fix `list-style-type: none;` in definition of `.res-tech-apps {}`
 
 ### /site-design/ ###
 #### phi.html ####
