@@ -28,7 +28,7 @@
     reset.less
 \*--------------*/
 		</span></code>
-		<p class="prose">The filename must be indented once. Notice the lines above and below the filename contain 2 hyphens to the left and right of the filename. This comment has the <code>/* */</code> notation so that it gets compiled into the CSS files. The filename and heading names will use this notation. All other comments must use the <code>//</code> notation.</p>
+		<p class="prose">The filename must be indented with 4 spaces. Notice the lines above and below the filename contain 2 hyphens to the left and right of the filename. This comment has the <code>/* */</code> notation so that it gets compiled into the CSS files. The filename and heading names will use this notation. All other comments must use the <code>//</code> notation.</p>
 	</section>
 	<section id="toc">
 		<h1 class="h--gamma">Table of Contents</h1>
@@ -86,13 +86,42 @@
 		<h1 class="h--gamma">Indentation</h1>
 		<p class="prose">Use 1 tab (<a href="http://www.fileformat.info/info/unicode/char/0009/index.htm" rel="external"><code>U+0009</code></a>) for each level of indent. Tab size is 4 by defualt, but authors may change it to match workplace convention.</p>
 	</section>
+	<section id="selectors" class="draft" data-status="draft">
+		<h1 class="h--gamma">Order of Selectors</h1>
+		<p>For the most part, write your selectors in order of increasing specificity.</p>
+		<p>Since an adjacent sibling <em>is</em> a general sibling, its styles should trump the general sibling's styles. There's nothing inherent in CSS to implement this, thus we must write the selectors in this order. Same for child and general descendant.</p>
+	</section>
 	<section id="blocks">
-		<h1 class="h--gamma">Style Blocks</h1>
-		<p class="prose">Groups of similar selectors, including combination selectors (child, descendant, sibling, etc.) must appear on their own line. &ldquo;Similar&rdquo; may be to the author's discretion. The opening brace must follow the last selector after a space, on the same line. The closing brace must be on its own line after the style declarations in the block.</p>
+		<h1 class="h--gamma">Rulesets</h1>
+		<p class="prose">A ruleset or style block is simply the block of declarations that apply to a selector. Groups of similar selectors, including combination selectors (child, descendant, sibling, etc.) must appear on their own line. &ldquo;Similar&rdquo; may be to the author's discretion. The opening brace must follow the last selector after a space, on the same line. The closing brace must be on its own line after the style declarations in the block.</p>
 		<p class="prose">Each style declaration must be indented once, and must also appear on its own line. The colon (<code>:</code> <a href="http://www.fileformat.info/info/unicode/char/003a/index.htm" rel="external"><code>U+003A</code></a>) between the property and value must <em>not</em> be preceded by, but must be followed by, <strong>at least one</strong> space (<a href="http://www.fileformat.info/info/unicode/char/0020/index.htm" rel="external"><code>U+0020</code></a>). The number of spaces may be increased to vertically align values of similar properties. Each value, including the last in the block, must be followed by a semicolon (<code>;</code> <a href="http://www.fileformat.info/info/unicode/char/003b/index.htm" rel="external"><code>U+003B</code></a>).</p>
-		<p class="prose">&ldquo;Javadoc&rdquo; (but CSS version) documentation must appear <em>inside</em> the style block, after the opening bracket, on its own line. This comment must be preceded by the <code>// * </code> notation (notice the space between the slashes and the asterisk) and is intended for developers only.</p>
+		<p class="prose draft" data-status="draft">&ldquo;Javadoc&rdquo; (but CSS version) documentation must appear <em>inside</em> the style block, after the opening bracket, on its own line. This comment must be preceded by the <code>// * </code> notation (notice the space between the slashes and the asterisk) and is intended for developers only.</p>
+		<p class="prose draft"><a>Doc Blocks</a> must precede the selector...</p>
 		<p class="prose">An example is below.</p>
 		<code class="code--block">
+<span class="code__comm">/**
+  * This is a Doc Block comment. It describes an <a>OOPCSS Class</a>.
+  * Notice how the block comment starts with <code>/**</code>
+  * Limit blocks to 80 chars width.
+  * Doc Block comments should apply to Classes (in the OOP sense) only,
+  * not just any old ruleset as shown in this example.
+  * Precede every line with 2 spaces and 1 asterisk.
+  * 
+  * Reset margin and padding on most block-level elements.
+  * 
+  * The following Kramdown-styled &lt;dl&gt; is metadata describing the class:
+  * @extend
+  * : `.parentclass`
+  * @author
+  * : Chris Harvey
+  * @tags
+  * : #tag1
+  * : #tag2
+  * : #tag3 (notice how each tag starts with <code>#</code>)
+  * @updated
+  * : 2014-04-03
+  * : 2014-04-07
+  */</span>
 <span class="code__sel">body,
 section, article, aside, nav,
 main, header, footer,
@@ -103,13 +132,26 @@ ol, ul, li,
 dl, dt, dd,
 table,
 pre {
-	<span class="code__comm">// * reset margin and padding on most block-level elements... this comment is clearly unnecessary.</span>
+	<span class="code__comm">// * Reset margin and padding on most block-level elements.... this comment is clearly unnecessary. (old Doc comments used to be inside rulesets)</span>
 	<span class="code__prop">padding: <span class="code__val">0</span>;</span>
 	<span class="code__prop">margin:  <span class="code__val">0</span>;</span>
 }</span>
 		</code>
-		<p class="prose"><strong>The example below is an exception to the one-line rule.</strong> This may be used in cases with multiple style blocks in a row that each contain one declaration or multiple parallel declarations.</p>
+		<p class="prose"><strong>The example below is an exception to the one-line rule.</strong> This may be used in cases with multiple style blocks in a row that each contain one declaration or multiple parallel declarations. Typically, style blocks such as these are so similar that they may share one Doc Block.</p>
 		<code class="code--block">
+<span class="code__comm">/**
+  * The following Classes represent cells with specified widths.
+  * 
+  * @extend
+  * : `.cell`
+  * @author
+  * : Chris Harvey
+  * @tags
+  * : #grid
+  * : #cell
+  * @updated
+  * : 2014-04-05
+  */</span>
 <span class="code__sel">.cell--1o1 {<span class="code__prop">width: <span class="code__val">(100% * (1/1))</span>;</span>}</span> <span class="code__comm">// 100%</span>
 <span class="code__sel">.cell--1o2 {<span class="code__prop">width: <span class="code__val">(100% * (1/2))</span>;</span>}</span> <span class="code__comm">//  50%</span>
 <span class="code__sel">.cell--1o3 {<span class="code__prop">width: <span class="code__val">(100% * (1/3))</span>;</span>}</span> <span class="code__comm">//  33.333%</span>
@@ -118,35 +160,59 @@ pre {
 <span class="code__sel">.cell--1o6 {<span class="code__prop">width: <span class="code__val">(100% * (1/6))</span>;</span>}</span> <span class="code__comm">//  16.666%</span>
 		</code>
 		<section id="properties">
-			<h1 class="h--delta">Order of CSS Properties</h1>
-			<p class="prose">The properties within a style block must appear in the following order.</p>
-			<ol>
-				<li>Structural:
+			<h1 class="h--delta">Order of Declarations</h1>
+			<p class="prose">The properties and declarations within a ruleset must appear in the following order.</p>
+			<ol class="list--outline">
+				<li><span class="lede-sent">Extensions</span> If an extension is not in the selector (per <code>.this:extend(.parent) {}</code>), it should appear in the ruleset. The extensions in the ruleset must appear in the order they are defined in the stylesheet. Classes must only extend classes that are defined previously in the stylesheet, as to not break the Cascade.</li>
+				<li><span class="lede-sent">Mixins</span> Mixins must appear in the order they are defined in the stylesheet, as to not break the Cascade. However rulesets may include any mixins, even if they are defined after the ruleset.</li>
+				<li><span class="lede-sent">Properties</span> After extensions and mixins are set, CSS properties must appear in the following order.
 					<ol>
-						<li>display properties</li>
-						<li>sizing properties (<code>width</code>, <code>height</code>, etc.)</li>
-						<li>padding properties</li>
-						<li>border properties</li>
-						<li>outline properties</li>
-						<li>margin properties</li>
-						<li>positioning properties</li>
-						<li>z-index properties</li>
-						<li>transformations</li>
+						<li>Structural:
+							<ol>
+								<li>display properties</li>
+								<li>sizing properties (<code>width</code>, <code>height</code>, etc.)</li>
+								<li>padding properties</li>
+								<li>border properties</li>
+								<li>border radius properties</li>
+								<li>outline properties</li>
+								<li>margin properties</li>
+								<li>positioning properties</li>
+								<li>z-index properties</li>
+								<li>transformations</li>
+							</ol>
+						</li>
+						<li>Textual:
+							<ol>
+								<li>font properties (style, variant, weight, size, family, etc.)</li>
+								<li>horizontal text properties (<code>-align</code>, <code>-indent</code>, <code>letter-spacing</code>, etc.)</li>
+								<li>vertical text properties (<code>line-height</code>, <code>white-space</code>, etc.)</li>
+								<li>miscellaneous (<code>list-style</code> <code>-type</code>, <code>-position</code>, <code>-image</code>, etc.)</li>
+							</ol>
+						</li>
+						<li>Schematic:
+							<ol>
+								<li>color</li>
+								<li>background properties (color, position, size, repeat, origin, clip, attachment, image, etc.)</li>
+								<li>opacity, visibility, etc.</li>
+							</ol>
+						</li>
+						<li>Miscellaneous</li>
 					</ol>
 				</li>
-				<li>Textual:
+				<li><span class="lede-sent">Qualifiers</span> After the properties of this selector have been set, define properties of qualifying sub-selectors in the following order.
 					<ol>
-						<li>font properties (style, variant, weight, size, family, etc.)</li>
-						<li>horizontal text properties (<code>-align</code>, <code>-indent</code>, <code>letter-spacing</code>, etc.)</li>
-						<li>vertical text properties (<code>line-height</code>, <code>white-space</code>, etc.)</li>
-						<li>miscellaneous (<code>list-style</code> <code>-type</code>, <code>-position</code>, <code>-image</code>, etc.)
+						<li>Classes (<code>&amp;.mod {}</code>)</li>
+						<li>Pseudo-classes (<code>&amp;:hover {}</code>)</li>
+						<li>Attributes (<code>&amp;[rel~=&quot;external&quot;] {}</code>)</li>
+						<li>Pseudo-elements (<code>&amp;::before {}</code>)</li>
 					</ol>
 				</li>
-				<li>Skin:
+				<li><span class="lede-sent">Combinators</span> The order of the combinator selectors is chosen specifically to follow the Cascade. 
 					<ol>
-						<li>color</li>
-						<li>background properties (color, position, size, repeat, origin, clip, attachment, image, etc.)</li>
-						<li>opacity, visibility, etc.</li>
+						<li>general descendant selectors <code>&#x0020;</code></li>
+						<li>child selectors <code>&gt;</code></li>
+						<li>general sibling selectors <code>~</code></li>
+						<li>adjacent sibling selectors <code>+</code></li>
 					</ol>
 				</li>
 			</ol>
@@ -227,30 +293,6 @@ pre {
 				<li><code>.lang--html__tag</code></li>
 				<li><code>.res_skilldetail__job</code></li>
 			</ul>
-		</section>
-	</section>
-	<section id="classname-semantics">
-		<h1 class="h-gamma">Classname Semantics</h1>
-		<p class="prose"><span class="lede-sent">Let's look at the original intent of HTML classes.</span></p>
-		<p class="prose"><span class="lede-sent">&ldquo;Classes&rdquo; of Classes.</span> There is a clear case of <a>&ldquo;classitis&rdquo;</a> in the Web-developing world. Before you object, I'd like to explain my definition of classitis: classitis refers not to the overuse of classes&mdash;there can never be too many classes present in an HTML document&mdash;but to the fact that we are using classes for <em>everything</em>. We need to seriously look at how and why we are using classes, what kinds of &ldquo;classifications&rdquo; into which we can organize them, and maybe provide some alternative methods of implementing semantics and style.</p>
-		<p class="prose">The following sections describe different ways classes are being used in CSS.</p>
-		<section>
-			<h1 class="h--delta">Presentational</h1>
-			<p class="prose">Presentational classnames describe the properties of the class. Examples include <code>.big</code>, <code>.margin-top-24</code>, <code>.list-inline</code>, and <code>.grid-50-left</code>.</p>
-			<p class="prose">There are some cases in which having these classes available in CSS is helpful. In short, they provide abstraction. Classes such as <code>.list-inline</code> and <code>.margin-top-24</code> can be used as a mechanism for consistency, and can save developers the hassle of having to repeat the same lines of code over and over again. For example, redefining the same top margin on multiple elements is not only tedius but also error prone. The developer has to remember the number of pixels, code is repeated, and upkeep is expensive. These so-called &ldquo;utility classes&rdquo; provide an easy and scalable solution. Another case of this is using a <a href="grid.html">grid system</a>. A class such as <code>.grid-50-left</code> is <em>very</em> presentational but necessary for <abbr title="don't repeat yourself">DRY</abbr> code.</p>
-			<p class="prose">That being said, utility classes should <em>not</em> be accessible to the HTML. There are a number of reasons:</p>
-			<ol class="prose">
-				<li><span class="lede-sent">HTML describes content, not presentation.</span> Technically, classes are in the HTML. Adding class <code>.boldred</code> to an <code>small</code> element does not add any semantic value to the text. An ideal alternative would be to use <code>small.warning</code> (or something similar) and then have the <code>.warning</code> class extend <code>.boldred</code> in some way.</li>
-				<li><span class="lede-sent">The Theoretical Redesign Future&trade;.</span> If you wanted to change the properties of the <code>.boldred</code> class, say, make it italic instead of bold, now you have to deal with an awkward classname, or you have to change the classname everywhere in the HTML.</li>
-			</ol>
-			<p class="prose">There are a few solutions to this usage. The first solution is to use a mixin. A mixin allows the developer to reuse lines of code without having to write them over and over again. It's basically a glorified copy-and-paste. Mixins are available in CSS pre-processors such as Less and Sass, and using a mixin instead of a class will hide the <del>classname</del> <ins>mixin name</ins> from the CSS output. That means the name can't be used in HTML, which is good.</p>
-			<p class="prose">The problem with mixins is that although they make life easier for the developer, the compiled CSS is still not DRY. The properties are still being written over and over again (this time by the compiler), which means a lot of work for the browser, a lot of bytes to download, etc.</p>
-			<p class="prose">A better solution is to still use a class, but &ldquo;hide&rsquo; it from the HTML by nesting it into a nonsensical ID selector. For example, in your CSS (or Less), define <code>#--&nbsp;&nbsp;.boldred {&hellip;}</code> and extend it with the classes you need such as <code>.warning</code>. Yes, the class <code>.boldred</code> is still available to the HTML, but the styles will only apply if it's in an element with <code>id=&quot;--&quot;</code>, which I hope you'd never use if you want valid HTML. By the way, this is the one time you can use an ID selector. (And it's really not even an ID selector.) </p>
-		</section>
-		<section>
-			<h1 class="h--delta">Semantic</h1>
-			<p class="prose">Semantic classnames describe the meaning of the component and/or its contents. Examples include <code>.pacingtable</code>, <code>.answer</code>, <code>.optional</code>, and <code>.success</code>.</p>
-			<p class="prose">These are good classes to have because they mark up HTML elements with data describing what they mean. For example, take the element <code>p.success</code>. There are two semantic things going on here: first, the <code>&lt;p&gt;</code> tag describes what the element <em>is</em> (a paragraph), but second, the <code>&quot;success&quot;</code> class describes what the element <em>means</em>: it is some sort of indication of success, such as the completion of an upload. In a way, the classname has more semantic value than the element name itself!</p>
 		</section>
 	</section>
 </section>

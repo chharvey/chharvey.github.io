@@ -1,6 +1,7 @@
 # TO DO #
 
 Specs for this TODO:
+
 - 2014-03-06 every list must go under a heading and every heading must be followed by exactly one list, unless that heading is followed by subheading(s) that are followed by list(s).
 - 2014-03-06 every list item must begin with a date in the format `YYYY-MM-DD`. This is the date the list item is added. (Starting on 2013-12-14. list items before that date will not have dates added. See Git repo history for more info.)
 - 2014-03-06 add list items to the bottom of each list; that way the list stays in chronological order (starting as of today).
@@ -44,6 +45,8 @@ Specs for this TODO:
 - 2014-03-27 label scheme:
 	- 2014-03-01 use `<small>` for labels---they really are disclamers/caveats/etc.
 - 2014-04-04 in `mods.less` eventually find a way to abstract the `.message` blocks
+- 2014-04-08 add `[data-status~="normative"]`, `[data-status~="nonnormative"]`, `[data-status~="draft"]`, etc to stylesheets, get rid of class `.draft`, `.nonnormative`, etc.
+- 2014-04-08 change all `[data-e=""]` selectors to `[data-e~=""]`
 
 ### scripts ###
 - 2013-12-14 investigate the use of templates (`<template>`)
