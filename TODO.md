@@ -1,10 +1,12 @@
 TO DO
 ========
 
-- 2014-03-06 every list must go under a heading and every heading must be followed by exactly one list, unless that heading is followed by subheading(s) that are followed by list(s).
-- 2014-03-06 every list item must begin with a date in the format `YYYY-MM-DD`. This is the date the list item is added. (Starting on 2013-12-14. list items before that date will not have dates added. See Git repo history for more info.)
-- 2014-03-06 add list items to the bottom of each list; that way the list stays in chronological order (starting as of today).
-- 2014-03-06 when list items are complete, *do not* delete the list item. Wrap it with the `<del>` tag. (Starting as of today; see Git repo history for items deleted before today.)
+Specs for this TODO:
+
+- [ ] 2014-03-06 every list must go under a heading and every heading must be followed by exactly one list, unless that heading is followed by subheading(s) that are followed by list(s).
+- [ ] 2014-03-06 every list item must begin with a date in the format `YYYY-MM-DD`. This is the date the list item is added. (Starting on 2013-12-14. list items before that date will not have dates added. See Git repo history for more info.)
+- [ ] 2014-03-06 add list items to the bottom of each list; that way the list stays in chronological order (starting as of today).
+- [x] 2014-03-06 when list items are complete, *do not* delete the list item. Wrap it with the `<del datetime="">` tag. (Starting as of today; see Git repo history for items deleted before today.)
 
 
 ## Site-wide to-do list ##
