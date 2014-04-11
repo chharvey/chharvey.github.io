@@ -4,9 +4,9 @@ TO DO
 Specs for this TODO:
 
 - [ ] 2014-03-30 every list must go under a heading and every heading must be followed by exactly one list, unless that heading is followed by subheading(s) that are followed by list(s).
-- [ ] 2014-03-06 every list item must begin with a date in the format `YYYY-MM-DD`. This is the date the list item is added. (Starting on 2013-12-14. list items before that date will not have dates added. See Git repo history for more info.)
-- [ ] 2014-03-06 add list items to the bottom of each list; that way the list stays in chronological order (starting as of today).
-- [x] 2014-03-06 when list items are complete, *do not* delete the list item. Wrap it with the `<del datetime="">` tag. (Starting as of today; see Git repo history for items deleted before today.)
+- [ ] 2014-03-06 every list item must begin with a hyphen, `-`, the character that denotes an `<li>` in Markdown. Then follow this with the string ` [ ] `, which denotes an empty checkbox. Follow this with the date in the format `YYYY-MM-DD`, which is the date the item is added. (Starting on 2013-12-14. list items before that date will not have dates added. See Git repo history for more info.)
+- [ ] 2014-03-06 add list items to the bottom of each list, so that the list stays in chronological order (starting as of today).
+- [x] 2014-03-06 when list items are complete, *do not* delete the list item or wrap it with the `<del>` tag. Instead, replace the space in the checkbox with a lower-case `x` to indicate the item has been completed. (Starting as of today; see Git repo history for items deleted before today.)
 
 ## Site-wide to-do list ##
 
