@@ -3,23 +3,151 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>CSS Guidelines</title>
+<title>CSS Formatting Guidelines</title>
 <meta charset="UTF-8"/>
 <meta name="author" content="Christopher H. Harvey"/>
-<meta name="description" content="Guidelines on how to write CSS and Less."/>
+<meta name="description" content="Guidelines on how to format text in CSS and Less files."/>
 <link rel="stylesheet" href="../core/styles/all.css"/>
 <style>
+	[data-status="draft"] {
+		background-color: #fffcfa;
+		opacity: 0.618;
+	}
 </style>
 {% include all-js.html %}
 </head>
 <body>
 <main>
 <header>
-	<h1 class="h--alpha">CSS Guidelines</h1>
+	<h1 class="h--alpha">CSS Formatting Guidelines</h1>
 </header>
-<p class="prose">The guidelines here are for Cascading Style Sheets written in <a href="http://lesscss.org" rel="external">Less</a>.</p>
+<p class="prose">This document describes formatting guidelines for <a href="http://www.w3.org/TR/CSS/" rel="external">Cascading Style Sheets</a> and <a href="http://lesscss.org" rel="external">Less Style Sheets</a>.</p>
+<section id="general">
+	<h1 class="h--beta">General Formatting</h1>
+	<section id="indent">
+		<p class="prose">Use 1 tab (<a href="http://www.fileformat.info/info/unicode/char/0009/index.htm" rel="external"><code>U+0009</code></a>) for each level of indent. Tab size is 4 by defualt, but authors may change it to match workplace convention.</p>
+		<section id="property-format">
+			<h1 class="h--gamma">Property Format</h1>
+			<p class="prose">Each property (style declaration) inside a block must be indented by 1 tab, plus optional additional spaces (<a href="http://www.fileformat.info/info/unicode/char/0020/index.htm" rel="external"><code>U+0020</code></a>) to vertically align vendor-specific properties to account for prefixes.</p>
+			<p class="prose">Each property must appear on its own line. The colon (<code>:</code> <a href="http://www.fileformat.info/info/unicode/char/003a/index.htm" rel="external"><code>U+003A</code></a>) between the property name and value must <em>not</em> be preceded by any spaces, but must be followed by <strong>at least one</strong> space. The number of spaces may be increased to vertically align values of similar properties. Each value, including the last in the block, must be followed by a semicolon (<code>;</code> <a href="http://www.fileformat.info/info/unicode/char/003b/index.htm" rel="external"><code>U+003B</code></a>).</p>
+			<p class="prose">The example below illustrates property indentation.</p>
+			<code class="code--block">
+<span class="code__sel">&hellip; {
+	<span class="code__prop">margin:  <span class="code__val">0</span>;</span>
+	<span class="code__prop">padding: <span class="code__val">0</span>;</span>
+	<span class="code__prop">-webkit-transform: <span class="code__val"><span class="code__cmd">translate(<span class="code__arg">100px</span>)</span> <span class="code__cmd">rotate(<span class="code__arg">20deg</span>)</span></span>;</span>
+	<span class="code__prop">   -moz-transform: <span class="code__val"><span class="code__cmd">translate(<span class="code__arg">100px</span>)</span> <span class="code__cmd">rotate(<span class="code__arg">20deg</span>)</span></span>;</span>
+	<span class="code__prop">        transform: <span class="code__val"><span class="code__cmd">translate(<span class="code__arg">100px</span>)</span> <span class="code__cmd">rotate(<span class="code__arg">20deg</span>)</span></span>;</span>
+}</span>
+			</code>
+		</section>
+		<section id="selector-format">
+			<h1 class="h--gamma">Selector Format</h1>
+			<p class="prose">Each selector must appear on its own line, except in the case of combintion selectors (child, descendant, sibling, etc.). The opening brace of the block (<code>{</code> <a href="http://www.fileformat.info/info/unicode/char/007b/index.htm" rel="external"><code>U+007B</code></a>) must follow the last selector after one space, on the same line. The closing brace (<code>}</code> <a href="http://www.fileformat.info/info/unicode/char/007d/index.htm" rel="external"><code>U+007D</code></a>) must be on its own line after the declarations in the block.</p>
+			<p class="prose"><span class="lede-sent">There are some exceptions to the one-line rule.</span> First, if many selectors are given the same set of styles such as in a reset stylesheet, then similar selectors (&ldquo;similar&rdquo; being up to the author's discretion) may appear on the same line.</p>
+			<code class="code--block">
+<span class="code__sel">body,
+section, article, aside, nav,
+main, header, footer,
+h1, h2, h3, h4, h5, h6,
+p,
+figure, blockquote, address,
+ol, ul, li,
+dl, dt, dd,
+table,
+pre {
+	<span class="code__prop">padding: <span class="code__val">0</span>;</span>
+	<span class="code__prop">margin:  <span class="code__val">0</span>;</span>
+}</span>
+			</code>
+			<p class="prose">Second, if multiple style blocks in a row each contain one declaration or multiple parallel declarations, the entire block may be reduced to one line.</p>
+			<code class="code--block">
+	<span class="code__sel">.cell--1o1 {<span class="code__prop">display: <span class="code__val">table-cell</span>;</span> <span class="code__prop">width: <span class="code__val">(100% * (1/1))</span>;</span>}</span> <span class="code__comm">// 100%</span>
+	<span class="code__sel">.cell--1o2 {<span class="code__prop">display: <span class="code__val">table-cell</span>;</span> <span class="code__prop">width: <span class="code__val">(100% * (1/2))</span>;</span>}</span> <span class="code__comm">//  50%</span>
+	<span class="code__sel">.cell--1o3 {<span class="code__prop">display: <span class="code__val">table-cell</span>;</span> <span class="code__prop">width: <span class="code__val">(100% * (1/3))</span>;</span>}</span> <span class="code__comm">//  33.333%</span>
+	<span class="code__sel">.cell--1o4 {<span class="code__prop">display: <span class="code__val">table-cell</span>;</span> <span class="code__prop">width: <span class="code__val">(100% * (1/4))</span>;</span>}</span> <span class="code__comm">//  25%</span>
+	<span class="code__sel">.cell--1o5 {<span class="code__prop">display: <span class="code__val">table-cell</span>;</span> <span class="code__prop">width: <span class="code__val">(100% * (1/5))</span>;</span>}</span> <span class="code__comm">//  20%</span>
+	<span class="code__sel">.cell--1o6 {<span class="code__prop">display: <span class="code__val">table-cell</span>;</span> <span class="code__prop">width: <span class="code__val">(100% * (1/6))</span>;</span>}</span> <span class="code__comm">//  16.666%</span>
+			</code>
+		</section>
+	</section>
+</section>
+<section>
+	<h1 class="h--beta">Honor the Cascade</h1>
+	<section id="property-order">
+		<h1 class="h--gamma">Property Order</h1>
+		<p class="prose">Within a block, the properties must be written in an order in decreasing structure definition. See the figure below for an illustration.</p>
+		<figure class="nonnormative">
+			<img src="/"/>
+			<figcaption>This pyramid illustrates how CSS properties are related. The base of the pyramid contains properties that set up foundation and structure, such as display and position. The tip contains low-level appearance properties, such as color. Authors are encouraged to write properties in order from bottom to top.</figcaption>
+		</figure>
+		<p class="prose">The properties and declarations within a block must appear in the following order. <span class="success">Note: This list applies to the Less language as well.</span></p>
+		<ol class="list--outline">
+			<li><span class="lede-sent">Extensions</span> An <a>extension</a> is a directive that indicates this class is a subclass of a parent class. If multiple extensions are present, they must appear in the order they are defined in the stylesheet.</li>
+			<li><span class="lede-sent">Mixins</span> Mixins must appear in the order they are defined in the stylesheet.</li>
+			<li><span class="lede-sent">Properties</span> After extensions and mixins are set, CSS properties must appear in the following order.
+				<ol>
+					<li>Structural:
+						<ol>
+							<li>display properties</li>
+							<li>sizing properties (<code>width</code>, <code>height</code>, etc.)</li>
+							<li>padding properties</li>
+							<li>border properties</li>
+							<li>border radius properties</li>
+							<li>outline properties</li>
+							<li>margin properties</li>
+							<li>positioning properties</li>
+							<li>z-index properties</li>
+							<li>transformations</li>
+						</ol>
+					</li>
+					<li>Textual:
+						<ol>
+							<li>font properties (style, variant, weight, size, family, etc.)</li>
+							<li>horizontal text properties (<code>-align</code>, <code>-indent</code>, <code>letter-spacing</code>, etc.)</li>
+							<li>vertical text properties (<code>line-height</code>, <code>white-space</code>, etc.)</li>
+							<li>miscellaneous (<code>list-style</code> <code>-type</code>, <code>-position</code>, <code>-image</code>, etc.)</li>
+						</ol>
+					</li>
+					<li>Schematic:
+						<ol>
+							<li>color</li>
+							<li>background properties (color, position, size, repeat, origin, clip, attachment, image, etc.)</li>
+							<li>opacity, visibility, etc.</li>
+						</ol>
+					</li>
+					<li>Miscellaneous</li>
+				</ol>
+			</li>
+			<li><span class="lede-sent">Qualifiers</span> After the properties of this selector have been set, define properties of qualifying sub-selectors in the following order.
+				<ol>
+					<li>Classes (<code>&amp;.mod {}</code>)</li>
+					<li>Pseudo-classes (<code>&amp;:hover {}</code>)</li>
+					<li>Attributes (<code>&amp;[rel~=&quot;external&quot;] {}</code>)</li>
+					<li>Pseudo-elements (<code>&amp;::before {}</code>)</li>
+				</ol>
+			</li>
+			<li><span class="lede-sent">Combinators</span> The order of the combinator selectors is <a href="#selector-order">chosen specifically</a> so. 
+				<ol>
+					<li>general descendant selectors <code>&amp; .des {}</code></li>
+					<li>child selectors <code>&amp; &gt; .child {}</code></li>
+					<li>general sibling selectors <code>&amp; ~ .sib {}</code></li>
+					<li>adjacent sibling selectors <code>&amp; + .firstsib {}</code></li>
+				</ol>
+			</li>
+		</ol>
+	</section>
+	<section id="selector-order">
+		<h1 class="h--gamma">Selector Order</h1>
+		<p class="prose">This document does not discuss <a>how authors should organize their stylesheets</a>, but we do discuss how selectors within a group of selectors should be written.</p>
+		<p class="success">Examples in this section use metasyntactic variables for illustration purposes. See <a href="http://www.ietf.org/rfc/rfc3092.txt">RFC 3902</a> for more information.</p>
+		<p class="prose">In general, selectors should be written in order of increasing specificity. This means elements first, then classes, then qualifiers/modifiers (pseudo-), and combinators last. The order of qualifiers is not too important, but the order of combinators is. This is because multiple selectors may have the same specificity when the author's intent is that they do not.</p>
+		<p class="prose">For example, the adjacent sibling of an element <em>is</em> a general sibling, but it is a &ldquo;specific&rdquo; type of sibling, namely, an adjacent one. Therefore it is a common misconception that the selector <code>.foo + .bar {}</code> has a higher <a>specificity</a> than <code>.foo ~ .bar {}</code>, and thus the former will override the latter (regardless of the order in which they are defined). However, these two selectors actually have equivalent <a>specificity</a>, so whichever one is written last in the stylesheet will take precidence. The bottom line is that authors must define <code>.foo ~ .bar {}</code> <em>before</em> <code>.foo + .bar {}</code> in the stylesheet in order to get the results they expect. The same method applies to <code>.baz .qux {}</code> and <code>.baz > .qux {}</code>: the former must be defined before the latter.</p>
+	</section>
+</section>
 <section id="stylesheet-structure">
-	<h1 class="h--beta">Elements of a Stylesheet</h1>
+	<h1 class="h--beta">Stylesheet Anatomy</h1>
+	<p class="prose">While the in the last sections we discussed how to format specific syntaxes, this section focuses more on the stylesheet structure itself.</p>
 	<section id="filename">
 		<h1 class="h--gamma">File Name</h1>
 		<p class="prose">At the top of every stylesheet after imports and other such directives, the filename must be indicated as so:</p>
@@ -28,11 +156,11 @@
     reset.less
 \*--------------*/
 		</span></code>
-		<p class="prose">The filename must be indented with 4 spaces. Notice the lines above and below the filename contain 2 hyphens to the left and right of the filename. This comment has the <code>/* */</code> notation so that it gets compiled into the CSS files. The filename and heading names will use this notation. All other comments must use the <code>//</code> notation.</p>
+		<p class="prose">The filename must be indented with 4 spaces (not 1 tab, even if the tab size is set to 4). Notice the lines above and below the filename contain hyphens (<code>-</code> <a href="http://www.fileformat.info/info/unicode/char/002d/index.htm" rel="external"><code>U+002D</code></a>), extending 2 to the left and 2 to the right of the filename. This comment uses the block comment notation (<code>/* &hellip; */</code>) so that it gets compiled into the CSS files. The filename and <a href="#headings">heading names</a> will be block comments as well. All other comments must be inline (<code>// &hellip; </code>).</p>
 	</section>
 	<section id="toc">
 		<h1 class="h--gamma">Table of Contents</h1>
-		<p class="prose">After the filename, include a table of contents. Each line on the table of contents represents a group and is written as a <code>ul</code> in <a href="https://daringfireball.net/projects/markdown/" rel="external">Markdown</a> format. Each stylesheet must only have 2 levels of groups: <b class="keyword">top-level</b> and <b class="keyword">low-level</b>. The top-level headings must be in all-caps, and the low-level headings must be first cap only. The table of contents must be preceed by a blank line. Below is an example.</p>
+		<p class="prose">After the filename, include a table of contents in inline comments. Each line on the table of contents represents a heading and is written as a <code>ul</code> in <a href="https://daringfireball.net/projects/markdown/" rel="external">Markdown format</a>. Each stylesheet must only have 2 levels of headings: <b class="keyword">top-level</b> and <b class="keyword">low-level</b>. (Any deeper levels will make the stylesheet too complex; if this is the case, the author is suggested to break up the file into multiple files.) The top-level headings must be in all-caps, and the low-level headings must be first cap only. The table of contents must be preceed by a blank line. Below is an example.</p>
 		<code class="code--block">
 <span class="code__comm">//Table of Contents
 //- HORIZONTAL GRID
@@ -71,7 +199,7 @@
 /*@Widths*/
 //-------//
 			</span></code>
-			<p class="prose">The heading name must be first-cap only, (unless there are any proper nouns in the heading), and also preceded by the at-sign. Notice the lines above and below have a number of hyphens (<code>-</code> <a href="http://www.fileformat.info/info/unicode/char/002d/index.htm" rel="external"><code>U+002D</code></a>) that extend out to the end of the heading name.</p>
+			<p class="prose">The heading name must be first-cap only, (unless there are any proper nouns in the heading), and also preceded by the at-sign. Notice the lines above and below have a number of hyphens that extend out to the end of the heading name.</p>
 			<p class="prose">At the end of the low-level section, include the following:</p>
 			<code class="code--block"><span class="code__comm">
 //---- @end Widths ----//
@@ -80,25 +208,34 @@
 		</section>
 	</section>
 </section>
-<section id="text">
-	<h1 class="h--beta">Guidelines for Formatting CSS</h1>
-	<section id="indent">
-		<h1 class="h--gamma">Indentation</h1>
-		<p class="prose">Use 1 tab (<a href="http://www.fileformat.info/info/unicode/char/0009/index.htm" rel="external"><code>U+0009</code></a>) for each level of indent. Tab size is 4 by defualt, but authors may change it to match workplace convention.</p>
-	</section>
-	<section id="selectors" class="draft" data-status="draft">
-		<h1 class="h--gamma">Order of Selectors</h1>
-		<p>For the most part, write your selectors in order of increasing specificity.</p>
-		<p>Since an adjacent sibling <em>is</em> a general sibling, its styles should trump the general sibling's styles. There's nothing inherent in CSS to implement this, thus we must write the selectors in this order. Same for child and general descendant.</p>
-	</section>
-	<section id="blocks">
-		<h1 class="h--gamma">Rulesets</h1>
-		<p class="prose">A ruleset or style block is simply the block of declarations that apply to a selector. Groups of similar selectors, including combination selectors (child, descendant, sibling, etc.) must appear on their own line. &ldquo;Similar&rdquo; may be to the author's discretion. The opening brace must follow the last selector after a space, on the same line. The closing brace must be on its own line after the style declarations in the block.</p>
-		<p class="prose">Each style declaration must be indented once, and must also appear on its own line. The colon (<code>:</code> <a href="http://www.fileformat.info/info/unicode/char/003a/index.htm" rel="external"><code>U+003A</code></a>) between the property and value must <em>not</em> be preceded by, but must be followed by, <strong>at least one</strong> space (<a href="http://www.fileformat.info/info/unicode/char/0020/index.htm" rel="external"><code>U+0020</code></a>). The number of spaces may be increased to vertically align values of similar properties. Each value, including the last in the block, must be followed by a semicolon (<code>;</code> <a href="http://www.fileformat.info/info/unicode/char/003b/index.htm" rel="external"><code>U+003B</code></a>).</p>
-		<p class="prose draft" data-status="draft">&ldquo;Javadoc&rdquo; (but CSS version) documentation must appear <em>inside</em> the style block, after the opening bracket, on its own line. This comment must be preceded by the <code>// * </code> notation (notice the space between the slashes and the asterisk) and is intended for developers only.</p>
-		<p class="prose draft"><a>Doc Blocks</a> must precede the selector...</p>
-		<p class="prose">An example is below.</p>
-		<code class="code--block">
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+				<section>
+			<p> There are a number of approaches.</p>
+			<h1>Approach A</h1>
+			<p> In general, within a stylesheet, </p>
+			<p>Selectors should be grouped by theme. That is,</p>
+		</section>
+
+<section>
+	<p class="prose">&ldquo;Javadoc&rdquo; (but CSS version) documentation must appear <em>inside</em> the style block, after the opening bracket, on its own line. This comment must be preceded by the <code>// * </code> notation (notice the space between the slashes and the asterisk) and is intended for developers only.</p>
+	<span class="code__comm">// * Reset margin and padding on most block-level elements.... this comment is clearly unnecessary. (old Doc comments used to be inside rulesets)</span>
+	<code class="code--block">
 <span class="code__comm">/**
   * This is a Doc Block comment. It describes an <a>OOPCSS Class</a>.
   * Notice how the block comment starts with <code>/**</code>
@@ -122,23 +259,9 @@
   * : 2014-04-03
   * : 2014-04-07
   */</span>
-<span class="code__sel">body,
-section, article, aside, nav,
-main, header, footer,
-h1, h2, h3, h4, h5, h6,
-p,
-figure, blockquote, address,
-ol, ul, li,
-dl, dt, dd,
-table,
-pre {
-	<span class="code__comm">// * Reset margin and padding on most block-level elements.... this comment is clearly unnecessary. (old Doc comments used to be inside rulesets)</span>
-	<span class="code__prop">padding: <span class="code__val">0</span>;</span>
-	<span class="code__prop">margin:  <span class="code__val">0</span>;</span>
-}</span>
-		</code>
-		<p class="prose"><strong>The example below is an exception to the one-line rule.</strong> This may be used in cases with multiple style blocks in a row that each contain one declaration or multiple parallel declarations. Typically, style blocks such as these are so similar that they may share one Doc Block.</p>
-		<code class="code--block">
+<span class="code__sel">&hellip; {}</span>
+	</code>
+	<code class="code--block">
 <span class="code__comm">/**
   * The following Classes represent cells with specified widths.
   * 
@@ -152,77 +275,45 @@ pre {
   * @updated
   * : 2014-04-05
   */</span>
-<span class="code__sel">.cell--1o1 {<span class="code__prop">width: <span class="code__val">(100% * (1/1))</span>;</span>}</span> <span class="code__comm">// 100%</span>
-<span class="code__sel">.cell--1o2 {<span class="code__prop">width: <span class="code__val">(100% * (1/2))</span>;</span>}</span> <span class="code__comm">//  50%</span>
-<span class="code__sel">.cell--1o3 {<span class="code__prop">width: <span class="code__val">(100% * (1/3))</span>;</span>}</span> <span class="code__comm">//  33.333%</span>
-<span class="code__sel">.cell--1o4 {<span class="code__prop">width: <span class="code__val">(100% * (1/4))</span>;</span>}</span> <span class="code__comm">//  25%</span>
-<span class="code__sel">.cell--1o5 {<span class="code__prop">width: <span class="code__val">(100% * (1/5))</span>;</span>}</span> <span class="code__comm">//  20%</span>
-<span class="code__sel">.cell--1o6 {<span class="code__prop">width: <span class="code__val">(100% * (1/6))</span>;</span>}</span> <span class="code__comm">//  16.666%</span>
-		</code>
-		<section id="properties">
-			<h1 class="h--delta">Order of Declarations</h1>
-			<p class="prose">The properties and declarations within a ruleset must appear in the following order.</p>
-			<ol class="list--outline">
-				<li><span class="lede-sent">Extensions</span> If an extension is not in the selector (per <code>.this:extend(.parent) {}</code>), it should appear in the ruleset. The extensions in the ruleset must appear in the order they are defined in the stylesheet. Classes must only extend classes that are defined previously in the stylesheet, as to not break the Cascade.</li>
-				<li><span class="lede-sent">Mixins</span> Mixins must appear in the order they are defined in the stylesheet, as to not break the Cascade. However rulesets may include any mixins, even if they are defined after the ruleset.</li>
-				<li><span class="lede-sent">Properties</span> After extensions and mixins are set, CSS properties must appear in the following order.
-					<ol>
-						<li>Structural:
-							<ol>
-								<li>display properties</li>
-								<li>sizing properties (<code>width</code>, <code>height</code>, etc.)</li>
-								<li>padding properties</li>
-								<li>border properties</li>
-								<li>border radius properties</li>
-								<li>outline properties</li>
-								<li>margin properties</li>
-								<li>positioning properties</li>
-								<li>z-index properties</li>
-								<li>transformations</li>
-							</ol>
-						</li>
-						<li>Textual:
-							<ol>
-								<li>font properties (style, variant, weight, size, family, etc.)</li>
-								<li>horizontal text properties (<code>-align</code>, <code>-indent</code>, <code>letter-spacing</code>, etc.)</li>
-								<li>vertical text properties (<code>line-height</code>, <code>white-space</code>, etc.)</li>
-								<li>miscellaneous (<code>list-style</code> <code>-type</code>, <code>-position</code>, <code>-image</code>, etc.)</li>
-							</ol>
-						</li>
-						<li>Schematic:
-							<ol>
-								<li>color</li>
-								<li>background properties (color, position, size, repeat, origin, clip, attachment, image, etc.)</li>
-								<li>opacity, visibility, etc.</li>
-							</ol>
-						</li>
-						<li>Miscellaneous</li>
-					</ol>
-				</li>
-				<li><span class="lede-sent">Qualifiers</span> After the properties of this selector have been set, define properties of qualifying sub-selectors in the following order.
-					<ol>
-						<li>Classes (<code>&amp;.mod {}</code>)</li>
-						<li>Pseudo-classes (<code>&amp;:hover {}</code>)</li>
-						<li>Attributes (<code>&amp;[rel~=&quot;external&quot;] {}</code>)</li>
-						<li>Pseudo-elements (<code>&amp;::before {}</code>)</li>
-					</ol>
-				</li>
-				<li><span class="lede-sent">Combinators</span> The order of the combinator selectors is chosen specifically to follow the Cascade. 
-					<ol>
-						<li>general descendant selectors <code>&#x0020;</code></li>
-						<li>child selectors <code>&gt;</code></li>
-						<li>general sibling selectors <code>~</code></li>
-						<li>adjacent sibling selectors <code>+</code></li>
-					</ol>
-				</li>
-			</ol>
-		</section>
+<span class="code__sel">&hellip; {}</span>
+	</code>
+		<p class="prose draft"><a>Doc Blocks</a> must precede the selector...</p>
+	<section id="indent">
+		
 	</section>
 </section>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 <section id="classes">
 	<h1 class="h--beta">Guidelines for Naming Classes</h1>
 	<section id="classname-semantics">
 		<h1 class="h--gamma">Classname Semantics</h1>
+		<p>OOCSS classes may only extend classes that have been previously defined in a stylesheet. The reason is to honor the Cascade. If a class were to extend a class that were defined <em>afterward</em>, then some of the properties in the subclass may get overridden by properties in the superclass.</p>
+		<p>However, any class may include any mixin, regardless of where the mixin was defined. Keep in mind that the order of mixin declarations in a class's style block will affect the order of styles that apply on compilation. Mixins should be "called" in the order they were defined in the stylesheet.</p>
 		<p class="prose"><span class="lede-sent">The original intent of HTML classes.</span> Classes were <a>originally</a> meant to group <strong>semantically similar</strong> elements together. For example, all elements that represent warnings on a page could be instances of the <code>.warning</code> class. A side effect of similar elements belonging to one class is that they can all be styled the same way with CSS.</p>
 		<p class="prose">Now with the development of <a>Object-Oriented CSS</a>, we have learned to take advantage of classes and use them for many different reasons. Such a diverse use of one specific feature of HTML has grown so large it has become an epidemic.</p>
 		<p class="prose"><span class="lede-sent">&ldquo;Classes&rdquo; of Classes.</span> There is a clear case of <a>&ldquo;classitis&rdquo;</a> in the Web-developing world. Before you object, my definition of classitis refers not to the overuse of classes&mdash;there can never be too many classes present in an HTML document&mdash;but to the fact that we are using classes for <em>everything</em>. We need to seriously look at how and why we are using classes, what kinds of &ldquo;classifications&rdquo; into which we can organize them, and maybe provide some alternative methods and/or conventions for implementing semantics and style.</p>

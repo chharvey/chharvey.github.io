@@ -23,7 +23,7 @@ Specs for all TODO lists:
 - [ ] 2014-04-01 separate pure-style classes (e.g. `.list-basic`, `.dl-table-sml`, `.table-list`, etc.) from semantic classes (e.g. `.dl-ordered`, `.hsub`, `.postal`, etc.). Maybe use the HTML `data-*` attribute?
 - [ ] 2014-04-04 given an element, when deciding to add a link to that element, always wrap the link *around* the other element. E.g. always do `a > code` or `a > dfn`, not `code > a` or `dfn > a`. (style) Any changes of color inside links should be made `inherit` so the hovering capability will still be visible.
 
-#### metadata and micro-semantics (very low priority) ###
+#### metadata and micro-semantics (very low priority) ####
 - [ ] 2014-03-03 `rel` attributes on `link` and `a` elements, see [http://dev.w3.org/html5/spec/links.html#linkTypes]()
 	- `next`: current doc is part of a series, and that the `a`, for example in breadcrumbs, links to the next document in the series. May be used with `sibling`
 	- `prev`: current doc is part of a series, and that the `a`, for example in breadcrumbs, links to the previous document in the series. May be used with `sibling`
@@ -34,26 +34,23 @@ Specs for all TODO lists:
 	- `descendent`: links to a "logical child" of this page, or a "logical child" of a `descendent` of this page (recursively defined)
 	- `sibling`: links to a page that has the same "logical parent" as this page
 	- `external`: the linked page is not part of the same site
-- 2013-03-03 choose between:
+- [ ] 2013-03-03 choose between:
 	- microformats (special `class`es)
 	- microdata (`itemscope` and `itemprop`, via [schema.org]())
-- 2013-03-03 ARIA roles
+- [ ] 2013-03-03 ARIA roles
 
 ### styles ###
 - [ ] 2014-02-24 remove all "scoped" Less and make use of "namespaces"
 	- in `reals.less` lines 120–149, and 157–183
 	- in `secondary-ed.less` lines 154–234
-- 2014-03-27 label scheme:
-	- 2014-03-01 use `<small>` for labels---they really are disclamers/caveats/etc.
 - 2014-04-04 in `mods.less` eventually find a way to abstract the `.message` blocks
-- 2014-04-08 add `[data-status~="normative"]`, `[data-status~="nonnormative"]`, `[data-status~="draft"]`, etc to stylesheets, get rid of class `.draft`, `.nonnormative`, etc.
 - 2014-04-08 change all `[data-e=""]` selectors to `[data-e~=""]`
+- 2014-04-08 add `[data-status~="normative"]`, `[data-status~="nonnormative"]`, `[data-status~="draft"]`, etc to stylesheets, get rid of class `.draft`, `.nonnormative`, etc.
 
 #### boxes ####
 - [ ] 2013-08-18 code scheme
 - [ ] 2014-02-16 do labels/tooltips/whatever hint: [http://kushagragour.in/lab/hint/]()
 - [ ] 2014-03-01 use `<small>` for labels---they really are disclamers/caveats/etc.
-
 
 ### scripts ###
 - [ ] 2013-12-14 investigate the use of templates (`<template>`)
