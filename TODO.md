@@ -11,37 +11,43 @@ Specs for this TODO:
 ## Site-wide to-do list ##
 
 ### semantics ###
-- [ ] 2014-02-18 use `title` attribute on all `a` elements to describe the **Title of the linked document**
-	- 2014-03-08 unless the text content in the link is already the title.
+- [x] 2013-08-24 `img alt` attributes should be semantic
+- [ ] 2014-02-18 use `title` attribute on all `a` elements to describe the **Title of the linked document** unless the text content in the link is already the title.
 - [ ] 2014-03-02 see which `<b>` tags you can remove; which ones do you REALLY need?
 	- 2013-12-14 see which `b.ref`s you can change to `cite`s (titles of works) and `a`s (links to documents, sections, etc.)
 - [ ] 2014-03-01 use `<small>` for labels---they really are disclamers/caveats/etc.
 - [ ] 2014-03-06 change all apostrophes (`'`) to right single quotes `&rsquo;` on the following pages... (Leave the apostrophes alone in regular pages. The typographical precision is not worth the effort.)
 	- 'portal' pages (`/home/edu.html`, `/home/math.html`, etc.)
 	- **formal** documents such as articles or blog posts (maybe in `/docs/`?)
+- [x] 2013-08-24 all self-closing tags should end in `/>`, not ` />`. (remove the space before the slash)
 - [ ] 2014-03-30 instead of using classes (`span.hsub`, etc.) for QUASI-ELEMENTS, use the `data-*` attribute. For example, `<span data-qe="subh">`. Then style these with `span[data-qe="subh"]`. The selector is equally as specific as `span.subh` but may be less efficient; though this is a minor cost to pay for semantic benefit.
 - [ ] 2014-04-01 separate pure-style classes (e.g. `.list-basic`, `.dl-table-sml`, `.table-list`, etc.) from semantic classes (e.g. `.dl-ordered`, `.hsub`, `.postal`, etc.). Maybe use the HTML `data-*` attribute?
 
 #### metadata and micro-semantics (very low priority) ###
 - [ ] 2014-03-03 `rel` attributes on `link` and `a` elements, see [http://dev.w3.org/html5/spec/links.html#linkTypes]()
 	- `next`: current doc is part of a series, and that the `a`, for example in breadcrumbs, links to the next document in the series. May be used with `sibling`
-	- [ ] `prev`: current doc is part of a series, and that the `a`, for example in breadcrumbs, links to the previous document in the series. May be used with `sibling`
-	- [ ] `top`: links to the "logical top level" document. implies `ancestor`
-	- [ ] `parent`: links to the "logical parent" of this page
-	- [ ] `ancestor`: links to the "logical parent" of this page, or the "logical parent" of an `ancestor` of this page (recursively defined)
-	- [ ] `child`: links to a "logical child" of this page
-	- [ ] `descendent`: links to a "logical child" of this page, or a "logical child" of a `descendent` of this page (recursively defined)
-	- [ ] `sibling`: links to a page that has the same "logical parent" as this page
-	- [ ] `external`: the linked page is not part of the same site
+	- `prev`: current doc is part of a series, and that the `a`, for example in breadcrumbs, links to the previous document in the series. May be used with `sibling`
+	- `top`: links to the "logical top level" document. implies `ancestor`
+	- `parent`: links to the "logical parent" of this page
+	- `ancestor`: links to the "logical parent" of this page, or the "logical parent" of an `ancestor` of this page (recursively defined)
+	- `child`: links to a "logical child" of this page
+	- `descendent`: links to a "logical child" of this page, or a "logical child" of a `descendent` of this page (recursively defined)
+	- `sibling`: links to a page that has the same "logical parent" as this page
+	- `external`: the linked page is not part of the same site
 - 2013-03-03 choose between:
-	- [ ] microformats (special `class`es)
-	- [ ] microdata (`itemscope` and `itemprop`, via [schema.org]())
+	- microformats (special `class`es)
+	- microdata (`itemscope` and `itemprop`, via [schema.org]())
 - 2013-03-03 ARIA roles
 
 ### styles ###
 - [ ] 2014-02-24 remove all "scoped" Less and make use of "namespaces"
 	- in `reals.less` lines 120–149, and 157–183
 	- in `secondary-ed.less` lines 154–234
+
+#### boxes ####
+- [ ] 2014-02-16 do labels/tooltips/whatever hint: [http://kushagragour.in/lab/hint/]()
+- [ ] 2013-08-18 code scheme
+
 
 ### scripts ###
 - [ ] 2013-12-14 investigate the use of templates (`<template>`)
@@ -51,7 +57,7 @@ Specs for this TODO:
 ## specific projects ##
 
 ### /index.html ###
-- [ ] make popping text on index page fade in and out easier
+- [ ] 2013-08-18 make popping text on index page fade in and out easier
 
 ### /home/ ###
 
@@ -68,9 +74,7 @@ Specs for this TODO:
 - [ ] 2014-03-05 add Gutter section below all Grid stuff
 
 #### typo.html ####
-- [ ] inline elements: highlighting
-- [ ] 2014-02-16 do labels/tooltips/whatever hint: [http://kushagragour.in/lab/hint/]()
-- [ ] code scheme
+- [ ] 2013-08-18 inline elements: highlighting
 
 ##### punct.html (under typography) #####
 - [ ] 2014-02-24 line break violations:
@@ -79,26 +83,26 @@ Specs for this TODO:
 	- in the middle of a highlighted phrase 3 words or fewer (em, strong, i, b, etc.)
 
 ### /higher-ed/ ###
-- [ ] re-write all index pages for higher-ed courses.
+- [ ] 2013-08-18 re-write all index pages for higher-ed courses.
 
 #### EDCI 5724/ ####
 - [ ] add cohort project lesson plan (`SIOPLessonPlan.docx`), presentation, and other items to folder
 
 #### MATH 4626 limits project ####
-- [ ] convert all php files to html files
-- [ ] conform to site-wide styles
-- [ ] convert all math into LaTeX
+- [ ] 2013-08-24 convert all php files to html files
+- [ ] 2013-08-24 conform to site-wide styles
+- [ ] 2013-08-24 convert all math into LaTeX
 
 #### MATH 4644 technology lessons ####
-- [ ] conform to site-wide styles
-- [ ] relocate all lessons to `/secondary-ed/`
+- [ ] 2013-08-24 conform to site-wide styles
+- [ ] 2013-08-24 relocate all lessons to `/secondary-ed/`
 
 ### /secondary-ed/ ###
-- [ ] **find a way to write SVG images!**
+- [ ] 2013-09-21 **find a way to write SVG images!**
 - [ ] 2014-01-12 clean up `@group assessments` in `secondary-ed.less`
 
 #### Math7/ ####
-- [ ] on all course overview, unit overviews, and lessons: include breadcrumbs!
+- [ ] 2013-11-05 on all course overview, unit overviews, and lessons: include breadcrumbs!
 - [ ] 2014-03-04 fix Assessment styles
 
 #### Math7/index.html ####
@@ -110,31 +114,41 @@ Specs for this TODO:
 #### Math7/standards/ ####
 - [ ] create TEST 7.3 versions (integer operations)
 - [ ] fix and convert TEST 7.13a versions (verbal math)
-- [ ] add problems requiring identifying properties to solve equations on SBG 7.16 (to both versions)
+- [x] 2013-10-25 create SBG 7.16 versions (properties)
+- [ ] 2013-10-25 add problems requiring identifying properties to solve equations on SBG 7.16 (to both versions)
+- [x] create SBG 7.14 versions (equations)
 
 #### Math7/integers/ ####
-- [ ] upload `ints-add-hw.html`
-- [ ] add number lines to HW 1.3
-- [ ] create `ints-sub-lesson.html`
-- [ ] move subtraction notes from `ints-add-lesson.html` to `ints-sub-lesson.html`
-- [ ] move link to `ints-sub-quiz.html` from `ints-add-lesson.html` to `ints-sub-lesson.html`
-- [ ] create `ints-sub-hw.html`
-- [ ] create `ints-multdiv-hw.html` (with chips, number lines, (and blocks))
-- [ ] move formative feedback questions at the end of `ooo-lesson.html` to `ooo-prequiz.html`
-- [ ] create `fieldprops-lesson.html`
-- [ ] Test 1
+- [x] 2013-09-21 unit overview (`index.html`): add unit vocabulary and unit homework
+- [ ] 2013-09-21 upload HW 1.3 (`ints-add-hw.html`)
+- [ ] 2013-09-21 add number lines to HW 1.3
+- [ ] 2013-09-24 create `ints-sub-lesson.html`
+- [ ] 2013-09-24 move subtraction notes from `ints-add-lesson.html` to `ints-sub-lesson.html`
+- [ ] 2013-09-21 create HW 1.4 (`ints-sub-hw.html`)
+- [x] 2013-09-21 create lesson 1.5 (`ints-multdiv-lesson.html`) due 2013-09-23
+- [x] 2013-09-21 create HW 1.5 (`ints-multdiv-hw.html`) due 2013-09-23
+- [x] 2013-09-21 create Quiz 1.5 (`ints-multdiv-quiz.html`) due 2013-09-27
+- [x] 2013-09-21 create SBG 7.3, integer operations due 2013-10-02
+- [ ] 2013-09-21 move link to `ints-sub-quiz.html` from `ints-add-lesson.html` to `ints-sub-lesson.html`
+- [ ] 2013-09-21 move formative feedback questions at the end of `ooo-lesson.html` to `ooo-prequiz.html`
+- [ ] 2013-09-21 create `fieldprops-lesson.html`
+- [x] 2013-09-21 convert Unit 1 Test to `wholenumbersintegers-test.html`
+- [ ] 2013-09-21 Test 1
 	- add images from Unit 1 Test (on Drive)
 	- remove verbal mathematics and add to **Test 2**
 
-#### Math7/equations-inequalities/ ####
-- [ ] create `verbals-lesson.html`
+#### Math7/equations/ ####
+- [ ] 2013-11-05 create `verbals-lesson.html`
 - [ ] create `eqns-onestep-lesson.html`
-- [ ] move links to `eqns-onestep-prequiz.html` and `eqns-onestep-quiz.html` from `eqns-twostep-lesson.html` to `eqns-onestep-lesson.html`
+- [ ] 2013-08-23 move links to `eqns-onestep-prequiz.html` and `eqns-onestep-quiz.html` from `eqns-twostep-lesson.html` to `eqns-onestep-lesson.html`
+- [x] 2013-10-25 convert Pre-Quiz 1.2 (`eqns-twostep-prequiz.html`) from GDrive
 - [ ] fix `eqns-twostep-lesson.html`
+- [x] 2013-10-25 create `eqns-twostep-quiz.html` (mini-quiz on only math part of solving equations)
 - [ ] fix `eqns-word-lesson.html`
 - [ ] update `ineq-writegraph-lesson.html`
+- [ ] 2013-11-05 create `ineq-addsub-lesson.html`
 - [ ] update `ineq-solve-lesson.html`
-- [ ] add **Inequalities Part 3** from Pages on GDrive to `ineq-solve-lesson.html`
+- [ ] 2013-10-25 add **Inequalities Part 3** from Pages on GDrive to `ineq-solve-lesson.html`
 - [ ] add material from `ModifiedLessonWriteup.pdf` on GDrive to `ineq-writegraph-lesson.html` and `ineq-solve-lesson.html`
 - [ ] Test 2
 	- add verbal mathematics
@@ -150,12 +164,9 @@ Specs for this TODO:
 #### Math7/proportions/ ####
 - [ ] convert `SIOPLessonPlan.docx` from GDrive
 
-#### Math7/geometry/ ####
-
-#### Math7/prob-stats/ ####
-
 
 ### /reals/ ###
+
 #### TODO for set theory ####
 
 ##### topic: set theory #####
