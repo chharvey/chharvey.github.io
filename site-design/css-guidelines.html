@@ -30,8 +30,9 @@
 			<h1 class="h--gamma">Property Format</h1>
 			<p class="prose">Each property (style declaration) inside a block must be indented by 1 tab, plus optional additional spaces (<a href="http://www.fileformat.info/info/unicode/char/0020/index.htm" rel="external"><code>U+0020</code></a>) to vertically align vendor-specific properties to account for prefixes.</p>
 			<p class="prose">Each property must appear on its own line. The colon (<code>:</code> <a href="http://www.fileformat.info/info/unicode/char/003a/index.htm" rel="external"><code>U+003A</code></a>) between the property name and value must <em>not</em> be preceded by any spaces, but must be followed by <strong>at least one</strong> space. The number of spaces may be increased to vertically align values of similar properties. Each value, including the last in the block, must be followed by a semicolon (<code>;</code> <a href="http://www.fileformat.info/info/unicode/char/003b/index.htm" rel="external"><code>U+003B</code></a>).</p>
-			<p class="prose">The example below illustrates property indentation.</p>
-			<code class="code--block">
+			<figure>
+				<figcaption>The example below illustrates property indentation.</figcaption>
+				<code class="code--block">
 <span class="code__sel">&hellip; {
 	<span class="code__prop">margin:  <span class="code__val">0</span>;</span>
 	<span class="code__prop">padding: <span class="code__val">0</span>;</span>
@@ -39,13 +40,15 @@
 	<span class="code__prop">   -moz-transform: <span class="code__val"><span class="code__cmd">translate(<span class="code__arg">100px</span>)</span> <span class="code__cmd">rotate(<span class="code__arg">20deg</span>)</span></span>;</span>
 	<span class="code__prop">        transform: <span class="code__val"><span class="code__cmd">translate(<span class="code__arg">100px</span>)</span> <span class="code__cmd">rotate(<span class="code__arg">20deg</span>)</span></span>;</span>
 }</span>
-			</code>
+				</code>
+			</figure>
 		</section>
 		<section id="selector-format">
 			<h1 class="h--gamma">Selector Format</h1>
 			<p class="prose">Each selector must appear on its own line, except in the case of combintion selectors (child, descendant, sibling, etc.). The opening brace of the block (<code>{</code> <a href="http://www.fileformat.info/info/unicode/char/007b/index.htm" rel="external"><code>U+007B</code></a>) must follow the last selector after one space, on the same line. The closing brace (<code>}</code> <a href="http://www.fileformat.info/info/unicode/char/007d/index.htm" rel="external"><code>U+007D</code></a>) must be on its own line after the declarations in the block.</p>
 			<p class="prose"><span class="lede-sent">There are some exceptions to the one-line rule.</span> First, if many selectors are given the same set of styles such as in a reset stylesheet, then similar selectors (&ldquo;similar&rdquo; being up to the author's discretion) may appear on the same line.</p>
-			<code class="code--block">
+			<figure>
+				<code class="code--block">
 <span class="code__sel">body,
 section, article, aside, nav,
 main, header, footer,
@@ -59,16 +62,19 @@ pre {
 	<span class="code__prop">padding: <span class="code__val">0</span>;</span>
 	<span class="code__prop">margin:  <span class="code__val">0</span>;</span>
 }</span>
-			</code>
+				</code>
+			</figure>
 			<p class="prose">Second, if multiple style blocks in a row each contain one declaration or multiple parallel declarations, the entire block may be reduced to one line.</p>
-			<code class="code--block">
+			<figure>
+				<code class="code--block">
 	<span class="code__sel">.cell--1o1 {<span class="code__prop">display: <span class="code__val">table-cell</span>;</span> <span class="code__prop">width: <span class="code__val">(100% * (1/1))</span>;</span>}</span> <span class="code__comm">// 100%</span>
 	<span class="code__sel">.cell--1o2 {<span class="code__prop">display: <span class="code__val">table-cell</span>;</span> <span class="code__prop">width: <span class="code__val">(100% * (1/2))</span>;</span>}</span> <span class="code__comm">//  50%</span>
 	<span class="code__sel">.cell--1o3 {<span class="code__prop">display: <span class="code__val">table-cell</span>;</span> <span class="code__prop">width: <span class="code__val">(100% * (1/3))</span>;</span>}</span> <span class="code__comm">//  33.333%</span>
 	<span class="code__sel">.cell--1o4 {<span class="code__prop">display: <span class="code__val">table-cell</span>;</span> <span class="code__prop">width: <span class="code__val">(100% * (1/4))</span>;</span>}</span> <span class="code__comm">//  25%</span>
 	<span class="code__sel">.cell--1o5 {<span class="code__prop">display: <span class="code__val">table-cell</span>;</span> <span class="code__prop">width: <span class="code__val">(100% * (1/5))</span>;</span>}</span> <span class="code__comm">//  20%</span>
 	<span class="code__sel">.cell--1o6 {<span class="code__prop">display: <span class="code__val">table-cell</span>;</span> <span class="code__prop">width: <span class="code__val">(100% * (1/6))</span>;</span>}</span> <span class="code__comm">//  16.666%</span>
-			</code>
+				</code>
+			</figure>
 		</section>
 	</section>
 </section>
@@ -83,8 +89,9 @@ pre {
 		</figure>
 		<p class="prose">The properties and declarations within a block must appear in the following order. <span class="success">Note: This list applies to the Less language as well.</span></p>
 		<ol class="list--outline">
-			<li><span class="lede-sent">Extensions</span> An <a>extension</a> is a directive that indicates this class is a subclass of a parent class. If multiple extensions are present, they must appear in the order they are defined in the stylesheet.</li>
-			<li><span class="lede-sent">Mixins</span> Mixins must appear in the order they are defined in the stylesheet.</li>
+			<li><span class="lede-sent">Extensions</span> An <a>extension</a> is a directive that indicates this class is a subclass of a parent class. If multiple extensions are present, they must appear in the order they are defined in the stylesheet. This class must only extend classes that have been previously defined.</li>
+			<li><span class="lede-sent">Class Includes</span> Included classes must appear in the order they are defined in the stylesheet. This class must only include classes that have been previously defined.</li>
+			<li><span class="lede-sent">Mixin Includes</span> Mixins must appear in the order they are defined in the stylesheet. This class must only include mixins that have been previously defined.</li>
 			<li><span class="lede-sent">Properties</span> After extensions and mixins are set, CSS properties must appear in the following order.
 				<ol>
 					<li>Structural:
@@ -151,17 +158,20 @@ pre {
 	<section id="filename">
 		<h1 class="h--gamma">File Name</h1>
 		<p class="prose">At the top of every stylesheet after imports and other such directives, the filename must be indicated as so:</p>
-		<code class="code--block"><span class="code__comm" style="display: block;">
-/*--------------*\
+		<figure>
+			<code class="code--block">
+<span class="code__comm">/*--------------*\
     reset.less
-\*--------------*/
-		</span></code>
-		<p class="prose">The filename must be indented with 4 spaces (not 1 tab, even if the tab size is set to 4). Notice the lines above and below the filename contain hyphens (<code>-</code> <a href="http://www.fileformat.info/info/unicode/char/002d/index.htm" rel="external"><code>U+002D</code></a>), extending 2 to the left and 2 to the right of the filename. This comment uses the block comment notation (<code>/* &hellip; */</code>) so that it gets compiled into the CSS files. The filename and <a href="#headings">heading names</a> will be block comments as well. All other comments must be inline (<code>// &hellip; </code>).</p>
+\*--------------*/</span>
+			</code>
+		</figure>
+		<p class="prose">The filename must be indented with 4 spaces (not 1 tab, even if the tab size is set to 4). Notice the lines above and below the filename contain hyphens (<code>-</code> <a href="http://www.fileformat.info/info/unicode/char/002d/index.htm" rel="external"><code>U+002D</code></a>), extending 2 to the left and 2 to the right of the filename. This comment uses the block comment notation (<code>/* &hellip; */</code>) so that it gets compiled into the CSS files. Besides the filename, <a href="#headings">heading names</a> and <a href="#comments">Doc Blocks</a> will be block comments as well. All other comments must be inline (<code>// &hellip; </code>).</p>
 	</section>
 	<section id="toc">
 		<h1 class="h--gamma">Table of Contents</h1>
 		<p class="prose">After the filename, include a table of contents in inline comments. Each line on the table of contents represents a heading and is written as a <code>ul</code> in <a href="https://daringfireball.net/projects/markdown/" rel="external">Markdown format</a>. Each stylesheet must only have 2 levels of headings: <b class="keyword">top-level</b> and <b class="keyword">low-level</b>. (Any deeper levels will make the stylesheet too complex; if this is the case, the author is suggested to break up the file into multiple files.) The top-level headings must be in all-caps, and the low-level headings must be first cap only. The table of contents must be preceed by a blank line. Below is an example.</p>
-		<code class="code--block">
+		<figure>
+			<code class="code--block">
 <span class="code__comm">//Table of Contents
 //- HORIZONTAL GRID
 //	- Widths
@@ -172,147 +182,112 @@ pre {
 //- VERTICAL GRID
 //	- Font size and line height
 //	- Padding, margin, border</span>
-		</code>
+			</code>
+		</figure>
 	</section>
 	<section id="headings">
 		<h1 class="h--gamma">Group Headings</h1>
 		<section id="sections-top-level">
 			<h1 class="h--delta">Top-Level</h1>
 			<p class="prose">Top-level group headings be preceeded by 2 blank lines and must appear as so:</p>
-			<code class="code--block"><span class="code__comm">
-//++++++++++++++++//
+			<figure>
+				<code class="code--block">
+<span class="code__comm">//++++++++++++++++//
 /*@HORIZONTAL GRID*/
-//++++++++++++++++//
-			</span></code>
+//++++++++++++++++//</span>
+				</code>
+			</figure>
 			<p class="prose">The heading name must be in all caps, proceded by the at-sign (<code>@</code> <a href="http://www.fileformat.info/info/unicode/char/0040/index.htm" rel="external"><code>U+0040</code></a>), and enclosed in a block comment (<code>/* */</code>). The at-sign makes it easy to <abbr title="find"><kbd>&#x2318;-F</kbd></abbr> the section headings. Notice the lines above and below have a number of plus signs (<code>+</code> <a href="http://www.fileformat.info/info/unicode/char/002b/index.htm" rel="external"><code>U+002B</code></a>) that extend out to the end of the heading name, but are inline comments (<code>//</code>). The ending slashes are for stylistic purposes. Using this notation will compile the heading name, but not the surrounding plusses, into the CSS file.</p>
 			<p class="prose">At the end of the top-level section, include the following:</p>
-			<code class="code--block"><span class="code__comm">
-//++++ @end HORIZONTAL GRID ++++//
-			</span></code>
+			<figure>
+				<code class="code--block">
+<span class="code__comm">//++++ @end HORIZONTAL GRID ++++//</span>
+				</code>
+			</figure>
 			<p class="prose">The end of the section doesn't need to be a block comment because it is typically followed by the start of the next section. Notice the four plus signs before and after the heading name. Again, the last two slashes are just for looks.</p>
 		</section>
 		<section id="sections-low-level">
 			<h1 class="h--delta">Low-Level</h1>
 			<p class="prose">Low-level group headings must be preceded by 1 blank line and must appear as so:</p>
-			<code class="code--block"><span class="code__comm">
-//-------//
+			<figure>
+				<code class="code--block">
+<span class="code__comm">//-------//
 /*@Widths*/
-//-------//
-			</span></code>
+//-------//</span>
+				</code>
+			</figure>
 			<p class="prose">The heading name must be first-cap only, (unless there are any proper nouns in the heading), and also preceded by the at-sign. Notice the lines above and below have a number of hyphens that extend out to the end of the heading name.</p>
 			<p class="prose">At the end of the low-level section, include the following:</p>
-			<code class="code--block"><span class="code__comm">
-//---- @end Widths ----//
-			</span></code>
+			<figure>
+				<code class="code--block">
+<span class="code__comm">//---- @end Widths ----//</span>
+				</code>
+			</figure>
 			<p class="prose">Notice the four hyphens before and after the heading name.</p>
 		</section>
 	</section>
-</section>
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-				<section>
-			<p> There are a number of approaches.</p>
-			<h1>Approach A</h1>
-			<p> In general, within a stylesheet, </p>
-			<p>Selectors should be grouped by theme. That is,</p>
-		</section>
-
-<section>
-	<p class="prose">&ldquo;Javadoc&rdquo; (but CSS version) documentation must appear <em>inside</em> the style block, after the opening bracket, on its own line. This comment must be preceded by the <code>// * </code> notation (notice the space between the slashes and the asterisk) and is intended for developers only.</p>
-	<span class="code__comm">// * Reset margin and padding on most block-level elements.... this comment is clearly unnecessary. (old Doc comments used to be inside rulesets)</span>
-	<code class="code--block">
-<span class="code__comm">/**
+	<section id="comments">
+		<h1 class="h--gamma">Comments</h1>
+		<p class="prose">Small comments to and from developers must be inline comments (starting with <code>//</code>). Besides the filename and headings as discussed above, OOCSS classes may have documentation comments, comments that describe the class, in a block comment. We will call these comments &ldquo;Doc Blocks.&rdquo;</p>
+		<figure>
+			<code class="code--block">
+<span class="code__comm--doc">/**
   * This is a Doc Block comment. It describes an <a>OOPCSS Class</a>.
-  * Notice how the block comment starts with <code>/**</code>
+  * Notice how the block comment starts with <code>/**</code> instead of simply <code>/*</code>.
   * Limit blocks to 80 chars width.
   * Doc Block comments should apply to Classes (in the OOP sense) only,
-  * not just any old ruleset as shown in this example.
-  * Precede every line with 2 spaces and 1 asterisk.
+  * not just any old ruleset.
+  * Precede every line with 2 spaces, 1 asterisk (<code>*</code> <a href="http://www.fileformat.info/info/unicode/char/002a/index.htm" rel="external"><code>U+002A</code></a>), then another space,
+&lt;p&gt;unless inserting code.&lt;/p&gt;
   * 
-  * Reset margin and padding on most block-level elements.
-  * 
-  * The following Kramdown-styled &lt;dl&gt; is metadata describing the class:
-  * @extend
-  * : `.parentclass`
-  * @author
-  * : Chris Harvey
-  * @tags
-  * : #tag1
-  * : #tag2
-  * : #tag3 (notice how each tag starts with <code>#</code>)
-  * @updated
-  * : 2014-04-03
-  * : 2014-04-07
+  * The following Kramdown-styled <code>dl</code> is metadata describing the class. There are no asterisks.
+@extend
+: `.parentclass`
+@author
+: John Doe
+@tags
+: #tag1
+: #tag2
+: #tag3 (notice how each tag starts with <code>#</code>)
+@updated
+: 2014-04-03
+: 2014-04-07
   */</span>
 <span class="code__sel">&hellip; {}</span>
-	</code>
-	<code class="code--block">
-<span class="code__comm">/**
+			</code>
+		</figure>
+		<figure>
+			<code class="code--block">
+<span class="code__comm--doc">/**
   * The following Classes represent cells with specified widths.
   * 
-  * @extend
-  * : `.cell`
-  * @author
-  * : Chris Harvey
-  * @tags
-  * : #grid
-  * : #cell
-  * @updated
-  * : 2014-04-05
+@extend
+: `.cell`
+@author
+: Chris Harvey
+@tags
+: #grid
+: #cell
+@updated
+: 2014-04-05
   */</span>
 <span class="code__sel">&hellip; {}</span>
-	</code>
-		<p class="prose draft"><a>Doc Blocks</a> must precede the selector...</p>
-	<section id="indent">
-		
+			</code>
+		</figure>
 	</section>
 </section>
+
 	
 	
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-<section id="classes">
+<section id="classes" class="draft">
 	<h1 class="h--beta">Guidelines for Naming Classes</h1>
 	<section id="classname-semantics">
 		<h1 class="h--gamma">Classname Semantics</h1>
-		<p>OOCSS classes may only extend classes that have been previously defined in a stylesheet. The reason is to honor the Cascade. If a class were to extend a class that were defined <em>afterward</em>, then some of the properties in the subclass may get overridden by properties in the superclass.</p>
+		<p>OOCSS classes must only extend classes that have been previously defined in a stylesheet. The reason is to honor the Cascade. If a class were to extend a class that were defined <em>afterward</em>, then some of the properties in the subclass may get overridden by properties in the superclass.</p>
+		<p>OOCSS classes must only include classes that have been previously defined in a styesheet. The reason is to prevent infinite loops (or in set theory terms, irregular sets). If class .bar includes class .foo and class .foo includes class .bar, the Less will not compile. Thus if .foo is written before .bar, then .bar may extend .foo but .foo may not include .bar.</p>
 		<p>However, any class may include any mixin, regardless of where the mixin was defined. Keep in mind that the order of mixin declarations in a class's style block will affect the order of styles that apply on compilation. Mixins should be "called" in the order they were defined in the stylesheet.</p>
 		<p class="prose"><span class="lede-sent">The original intent of HTML classes.</span> Classes were <a>originally</a> meant to group <strong>semantically similar</strong> elements together. For example, all elements that represent warnings on a page could be instances of the <code>.warning</code> class. A side effect of similar elements belonging to one class is that they can all be styled the same way with CSS.</p>
 		<p class="prose">Now with the development of <a>Object-Oriented CSS</a>, we have learned to take advantage of classes and use them for many different reasons. Such a diverse use of one specific feature of HTML has grown so large it has become an epidemic.</p>
@@ -387,7 +362,7 @@ pre {
 		</section>
 	</section>
 </section>
-<section id="selectors">
+<section id="selectors" class="draft">
 	<h1 class="h--beta">Guidelines for Writing Selectors</h1>
 	<p class="prose">Each selector has a <a>specificity</a> and an <a>efficiency</a>. I won't talk about them too much here, but generally the more efficient a selector is, the more specific it gets, and vice versa: less specific selectors are usually not that efficient. Our goal is to find the right balance between keeping our selectors low in specificity while high in efficiency.</p>
 	<p class="prose">The majority of the selectors in a stylesheet should be single classes only. Class selectors are the most efficient way for browsers to style pages, <a>not counting IDs</a>. For the most part, use single class selectors.</p>
