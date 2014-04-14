@@ -8,8 +8,7 @@
 <link rel="stylesheet" href="../core/styles/all.css"/>
 <style>
 body {
-	background-image: url('../core/images/crossgrid24.png');
-	background-repeat: repeat-y;
+	background-image: url('../core/images/crossgrid-1440x24-pxs.png');
 	background-size: 100% 24px;
 }
 .outline {outline: 1px solid #999;}
@@ -49,23 +48,25 @@ body {
 <main>
 <header>
 	<h1 class="h-alpha">The Grid</h1>
-<!--	<p class="timestamp">Updated <time datetime="2014-01-23T21:42">Jan 23, 2014</time>.</p>-->
+<!--	<p class="timestamp">Updated <time datetime="2014-01-23T21:42">Jan 23, 2014</time>.</p> updated 2014-04-14T01:20-->
 </header>
 <p class="prose">This page describes the grid system of the site. <a href="../core/styles/grid.less">The grid</a> implements the structure and layout of any page. It consists of rows and cells, treated as table rows and table cells respectively.</p>
-<p><span class="caution">Important <time>2014-01-23</time>:</span> Since the classes used in the grid system define where the elements are positioned, the classnames are purely presentational and non-semantic. Therefore, the developer is encouraged to use concrete semantic classnames where relevant, and <b class="keyword">extend</b> the classes in <code class="dir">grid.less</code>.</p>
+<p class="caution draft"><span>Important <time>2014-01-23</time>:</span> Since the classes used in the grid system define where the elements are positioned, the classnames are purely presentational and &ldquo;unsemantic.&rdquo; This is okay, however, since the grid consists of mere <em>containers</em>, not actual content itself. The classnames don't describe content because the contents within these containers are expected to do so. An alternative is to use concrete semantic classnames where relevant, and <b class="keyword">extend</b> the classes in <code class="dir">grid.less</code>.</p>
 <!--
 <p>For example, say you want a certain <code class="lang-css">div.essay</code> to look like a <code class="lang-css">.p1--left</code>. Rather than putting <code class="lang-html">&lt;div class=&quot;essay P1-left&quot;&gt;</code> in the HTML, you should put <code class="lang-less">.essay {.p1--left;}</code> in the Less stylesheet. That way, the <code class="lang-html">&lt;div class=&quot;essay&quot;&gt;</code> will appear like a <code class="lang-css">.p1--left</code> while still being semantically named. <small>For more information, see <a class="sp">the Less documentation</a>, and read up on <a>Object-Oriented CSS</a> and <a>semantic class naming</a>.</small></p>
 -->
-<p class="prose">Seeing as the grid is presentational, it should <b>degrade gracefully</b>. This means that if someone were to &ldquo;turn off&rdquo; the grid, you would still be able to read and interact with the website without any problems. It might not look pretty, but the content should be intact.</p>
+<p class="prose">Seeing as the grid is presentational, it should <a>degrade gracefully</a>. This means that if someone were to &ldquo;turn off&rdquo; the grid, you would still be able to read and interact with the website without any problems. It might not look pretty, but the content should be intact.</p>
 <section id="setup">
 	<h1 class="h-beta">Setting It Up</h1>
 	<p class="prose">To set up a grid, you'll need to create a row with cells inside. The effect will be a table-like structure.</p>
 	<figure>
-		<div class="precode lang-html"><span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">row</span>&quot;</span>&gt;</span> <span class="comment">&lt;!--this is a row!--&gt;</span>
-	<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">cell</span>&quot;</span>&gt;</span>this is cell 1!<span class="tag">&lt;/div&gt;</span>
-	<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">cell</span>&quot;</span>&gt;</span>this is cell 2!<span class="tag">&lt;/div&gt;</span>
-	<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">cell</span>&quot;</span>&gt;</span>this is cell 3!<span class="tag">&lt;/div&gt;</span>
-<span class="tag">&lt;/div&gt;</span></code></div>
+		<code class="code--block">
+<span class="code__tag">&lt;div <span class="code__attr">class=&quot;<span class="code__val">row</span>&quot;</span>&gt;</span> <span class="code__comm">&lt;!--this is a row!--&gt;</span>
+	<span class="code__tag">&lt;div <span class="code__attr">class=&quot;<span class="code__val">cell</span>&quot;</span>&gt;</span>this is cell 1!<span class="code__tag">&lt;/div&gt;</span>
+	<span class="code__tag">&lt;div <span class="code__attr">class=&quot;<span class="code__val">cell</span>&quot;</span>&gt;</span>this is cell 2!<span class="code__tag">&lt;/div&gt;</span>
+	<span class="code__tag">&lt;div <span class="code__attr">class=&quot;<span class="code__val">cell</span>&quot;</span>&gt;</span>this is cell 3!<span class="code__tag">&lt;/div&gt;</span>
+<span class="code__tag">&lt;/div&gt;</span>
+		</code>
 		<div class="row">
 			<div class="cell outline" style="width: 20%;">this is cell 1!</div>
 			<div class="cell outline" style="width: 60%;">this is cell 2!</div>
@@ -73,109 +74,122 @@ body {
 		</div>
 		<figcaption>Outlines are added to show structure, and widths are not equal to show they are not fixed.</figcaption>
 	</figure>
-	<p class="prose">Of course, a good developer wouldn't use the <code class="lang-css">.row</code> and <code class="lang-css">.cell</code> classes themselves, but would <b class="keyword">extend</b> them to more meaningful classes. This way, the HTML author wouldn't have to worry about how the elements are styled, and in the future if the CSS designer wants to change the way the elements look, they can just go into the CSS and change some styles rather than having to  change the classnames in the HTML.</p>
+	<p class="prose draft">Of course, a good developer wouldn't use the <code class="lang-css">.row</code> and <code class="lang-css">.cell</code> classes themselves, but would <b class="keyword">extend</b> them to more meaningful classes. This way, the HTML author wouldn't have to worry about how the elements are styled, and in the future if the CSS designer wants to change the way the elements look, they can just go into the CSS and change some styles rather than having to  change the classnames in the HTML.</p>
 </section>
 <section id="custom-cells">
 	<h1 class="h-beta">Custom Cells</h1>
-	<p class="prose">Each row is 100% the width of its container, unless otherwise specified. Each row can have any number of cells. Notice that in the example above, that the cells were not evenly distributed: the middle cell will likely be significantly wider than the other two cells, assuming there will be more text in that element. If you want the row to <em>force</em> the cells to have equal widths, you must add classes to the cells to specify their widths. See the following classes:</p>
-	<table class="table-list">
-		<caption>Note that these classes automatically extend the <code class="lang-less">.cell</code> class in <code class="dir">grid.less</code>.</caption>
-		<thead>
-			<tr>
-				<th>classname</th>
-				<th>width</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td><code class="lang-less">.cell--1o1</code></td>
-				<td>= 100%</td>
-			</tr>
-			<tr>
-				<td><code class="lang-less">.cell--1o2</code></td>
-				<td>= 50%</td>
-			</tr>
-			<tr>
-				<td><code class="lang-less">.cell--1o3</code></td>
-				<td>&asymp; 33.333%</td>
-			</tr>
-			<tr>
-				<td><code class="lang-less">.cell--2o3</code></td>
-				<td>&asymp; 66.666%</td>
-			</tr>
-			<tr>
-				<td><code class="lang-less">.cell--1o4</code></td>
-				<td>= 25%</td>
-			</tr>
-			<tr>
-				<td><code class="lang-less">.cell--3o4</code></td>
-				<td>= 75%</td>
-			</tr>
-			<tr>
-				<td><code class="lang-less">.cell--1o5</code></td>
-				<td>= 20%</td>
-			</tr>
-			<tr>
-				<td><code class="lang-less">.cell--2o5</code></td>
-				<td>= 40%</td>
-			</tr>
-			<tr>
-				<td><code class="lang-less">.cell--3o5</code></td>
-				<td>= 60%</td>
-			</tr>
-			<tr>
-				<td><code class="lang-less">.cell--4o5</code></td>
-				<td>= 80%</td>
-			</tr>
-			<tr>
-				<td><code class="lang-less">.cell--1o6</code></td>
-				<td>&asymp; 16.666%</td>
-			</tr>
-			<tr>
-				<td><code class="lang-css">.cell--5o6</code></td>
-				<td>&asymp; 83.333%</td>
-			</tr>
-		</tbody>
-		<tbody>
-			<tr>
-				<td><code class="lang-less">.cell--p1</code></td>
-				<td>&asymp; 61.803%</td>
-			</tr>
-			<tr>
-				<td><code class="lang-less">.cell--p2</code></td>
-				<td>&asymp; 38.197%</td>
-			</tr>
-			<tr>
-				<td><code class="lang-less">.cell--p3</code></td>
-				<td>&asymp; 23.607%</td>
-			</tr>
-			<tr>
-				<td><code class="lang-less">.cell--p4</code></td>
-				<td>&asymp; 14.590%</td>
-			</tr>
-			<tr>
-				<td><code class="lang-less">.cell--p3-c</code></td>
-				<td>&asymp; 76.393%</td>
-			</tr>
-			<tr>
-				<td><code class="lang-less">.cell--p4-c</code></td>
-				<td>&asymp; 85.410%</td>
-			</tr>
-		</tbody>
-	</table>
-	<p class="prose">Let's make sure our cells are equal width. Remember that all of the cells must add up to 100%.</p>
-	<figure>
-		<div class="precode lang-html"><span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">row</span>&quot;</span>&gt;</span>
-	<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">cell<span class="new">--1o3</span></span>&quot;</span>&gt;</span>this is cell 1!<span class="tag">&lt;/div&gt;</span>
-	<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">cell<span class="new">--1o3</span></span>&quot;</span>&gt;</span>this is cell 2!<span class="tag">&lt;/div&gt;</span>
-	<span class="tag">&lt;div <span class="attribute">class=&quot;<span class="value">cell<span class="new">--1o3</span></span>&quot;</span>&gt;</span>this is cell 3!<span class="tag">&lt;/div&gt;</span>
-<span class="tag">&lt;/div&gt;</span></div>
-		<div class="row">
-			<div class="cell--1o3 outline">this is cell 1!</div>
-			<div class="cell--1o3 outline">this is cell 2!</div>
-			<div class="cell--1o3 outline">this is cell 3!</div>
-		</div>
-	</figure>
+	<p class="prose">Each row is 100% the width of its container, unless otherwise specified. Each row can have any number of cells. Notice that in the example above, that the cells were not evenly distributed: the middle cell will likely be significantly wider than the other two cells, assuming there will be more text in that element. If you want the row to <em>force</em> the cells to have equal widths, there are two methods.</p>
+	<section>
+		<h1 class="h-gamma">Custom Row Names</h1>
+		<p>The first method is to apply a subclass to the row. Instead of calling the row <code>.row</code>, think about calling it <code>.row--trio</code>, if it has three cells. This subclass will force all three cells to have equal widths: 33.333%</p>
+		<p>The table below lists custom subclasses of <code>.row</code>.</p>
+		<dl>
+			<dt><code>.row--solo &gt; .cell</code></dt>
+			<dd><code>width: 100%;</code></dd>
+			<dt><code>.row--duet &gt; .cell</code></dt>
+			<dd><code>width: 50%;</code></dd>
+			<dt><code>.row--trio &gt; .cell</code></dt>
+			<dd><code>width: 33.333%;</code></dd>
+			<dt><code>.row--quartet &gt; .cell</code></dt>
+			<dd><code>width: 25%;</code></dd>
+			<dt><code>.row--quintet &gt; .cell</code></dt>
+			<dd><code>width: 20%;</code></dd>
+			<dt><code>.row--sextet &gt; .cell</code></dt>
+			<dd><code>width: 16.666%;</code></dd>
+		</dl>
+		<figure>
+			<code class="code--block">
+<span class="code__tag">&lt;div <span class="code__attr">class=&quot;<span class="code__val">row<mark>--trio</mark></span>&quot;</span>&gt;</span>
+	<span class="code__tag">&lt;div <span class="code__attr">class=&quot;<span class="code__val">cell</span>&quot;</span>&gt;</span>this is cell 1!<span class="code__tag">&lt;/div&gt;</span>
+	<span class="code__tag">&lt;div <span class="code__attr">class=&quot;<span class="code__val">cell</span>&quot;</span>&gt;</span>this is cell 2!<span class="code__tag">&lt;/div&gt;</span>
+	<span class="code__tag">&lt;div <span class="code__attr">class=&quot;<span class="code__val">cell</span>&quot;</span>&gt;</span>this is cell 3!<span class="code__tag">&lt;/div&gt;</span>
+<span class="code__tag">&lt;/div&gt;</span>
+			</code>
+			<div class="row--trio">
+				<div class="cell outline">this is cell 1!</div>
+				<div class="cell outline">this is cell 2!</div>
+				<div class="cell outline">this is cell 3!</div>
+			</div>
+		</figure>
+	</section>
+	<section>
+		<h1 class="h-gamma">Custom Cell Names</h1>
+		<p>The other method is to add subclasses to the cells themselves to specify their widths.</p>
+		<p>The tables below lists custom subclasses of <code>.cell</code>.</p>
+		<dl>
+			<dt><code>.cell--1o1</code></dt>
+			<dd><code>width: 100%;</code></dd>
+			<dt><code>.cell--1o2</code></dt>
+			<dd><code>width: 50%;</code></dd>
+			<dt><code>.cell--2o2</code></dt>
+			<dd><code>width: 100%;</code></dd>
+			<dt><code>.cell--1o3</code></dt>
+			<dd><code>width: 33.333%;</code></dd>
+			<dt><code>.cell--2o3</code></dt>
+			<dd><code>width: 66.666%;</code></dd>
+			<dt><code>.cell--3o3</code></dt>
+			<dd><code>width: 100%;</code></dd>
+			<dt><code>.cell--1o4</code></dt>
+			<dd><code>width: 25%;</code></dd>
+			<dt><code>.cell--2o4</code></dt>
+			<dd><code>width: 50%;</code></dd>
+			<dt><code>.cell--3o4</code></dt>
+			<dd><code>width: 75%;</code></dd>
+			<dt><code>.cell--4o4</code></dt>
+			<dd><code>width: 100%;</code></dd>
+			<dt><code>.cell--1o5</code></dt>
+			<dd><code>width: 20%;</code></dd>
+			<dt><code>.cell--2o5</code></dt>
+			<dd><code>width: 40%;</code></dd>
+			<dt><code>.cell--3o5</code></dt>
+			<dd><code>width: 60%;</code></dd>
+			<dt><code>.cell--4o5</code></dt>
+			<dd><code>width: 80%;</code></dd>
+			<dt><code>.cell--5o5</code></dt>
+			<dd><code>width: 100%;</code></dd>
+			<dt><code>.cell--1o6</code></dt>
+			<dd><code>width: 16.666%;</code></dd>
+			<dt><code>.cell--2o6</code></dt>
+			<dd><code>width: 33.333%;</code></dd>
+			<dt><code>.cell--3o6</code></dt>
+			<dd><code>width: 50%;</code></dd>
+			<dt><code>.cell--4o6</code></dt>
+			<dd><code>width: 66.666%;</code></dd>
+			<dt><code>.cell--5o6</code></dt>
+			<dd><code>width: 83.333%;</code></dd>
+			<dt><code>.cell--6o6</code></dt>
+			<dd><code>width: 100%;</code></dd>
+		</dl>
+		<dl>
+			<dt><code>.cell--p1</code></dt>
+			<dd><code>width: 61.803%</code></dd>
+			<dt><code>.cell--p2</code></dt>
+			<dd><code>width: 38.197%</code></dd>
+			<dt><code>.cell--p3</code></dt>
+			<dd><code>width: 23.607%</code></dd>
+			<dt><code>.cell--p4</code></dt>
+			<dd><code>width: 14.590%</code></dd>
+			<dt><code>.cell--p3-c</code></dt>
+			<dd><code>width: 76.393%</code></dd>
+			<dt><code>.cell--p4-c</code></dt>
+			<dd><code>width: 85.410%</code></dd>
+		</dl>
+		<figure>
+			<figcaption>Let's make sure our cells are equal width. Remember that all of the cells must add up to 100%.</figcaption>
+			<code class="code--block">
+<span class="code__tag">&lt;div <span class="code__attr">class=&quot;<span class="code__val">row</span>&quot;</span>&gt;</span>
+	<span class="code__tag">&lt;div <span class="code__attr">class=&quot;<span class="code__val">cell<mark>--1o3</mark></span>&quot;</span>&gt;</span>this is cell 1!<span class="code__tag">&lt;/div&gt;</span>
+	<span class="code__tag">&lt;div <span class="code__attr">class=&quot;<span class="code__val">cell<mark>--1o3</mark></span>&quot;</span>&gt;</span>this is cell 2!<span class="code__tag">&lt;/div&gt;</span>
+	<span class="code__tag">&lt;div <span class="code__attr">class=&quot;<span class="code__val">cell<mark>--1o3</mark></span>&quot;</span>&gt;</span>this is cell 3!<span class="code__tag">&lt;/div&gt;</span>
+<span class="code__tag">&lt;/div&gt;</span>
+			</code>
+			<div class="row">
+				<div class="cell--1o3 outline">this is cell 1!</div>
+				<div class="cell--1o3 outline">this is cell 2!</div>
+				<div class="cell--1o3 outline">this is cell 3!</div>
+			</div>
+		</figure>
+	</section>
 	<section id="golden-cell-widths">
 		<header>
 			<h1 class="h-gamma">Golden Cell Widths</h1>
