@@ -7,7 +7,13 @@
 //Table of Contents
 //- WIDTHS
 //- GOLDEN WIDTHS, MARGINS
-//- ROWS, CELLS
+//- TABLE SYSTEM
+//	- Solo rows
+//	- Duet rows
+//	- Trio rows
+//	- Quartet rows
+//	- Quintet rows
+//	- Sextet rows
 //- GUTTERS
 
 //+++++++//
@@ -35,18 +41,47 @@
 @5o6: (100% * (5/6)); //  83.333%
 @6o6: @1o1;
 
+.f1o1 {width: @1o1;}
+.f1o2 {width: @1o2;}
+.f2o2:extend(.f1o1) {}
+.f1o3 {width: @1o3;}
+.f2o3 {width: @2o3;}
+.f3o3:extend(.f1o1) {}
+.f1o4 {width: @1o4;}
+.f2o4:extend(.f1o2) {}
+.f3o4 {width: @3o4;}
+.f4o4:extend(.f1o1) {}
+.f1o5 {width: @1o5;}
+.f2o5 {width: @2o5;}
+.f3o5 {width: @3o5;}
+.f4o5 {width: @4o5;}
+.f5o5:extend(.f1o1) {}
+.f1o6 {width: @1o6;}
+.f2o6:extend(.f1o3) {}
+.f3o6:extend(.f1o2) {}
+.f4o6:extend(.f2o3) {}
+.f5o6 {width: @5o6;}
+.f6o6:extend(.f1o1) {}
+
 @phi1: ((-1 + sqrt(5)) / 2); // 0.618033988749894848
 @phi2: (@phi1 * @phi1);
 @phi3: (@phi2 * @phi1);
 @phi4: (@phi3 * @phi1);
-@phi3-c: (1 - @phi3);
-@phi4-c: (1 - @phi4);
+@phi3c: (1 - @phi3);
+@phi4c: (1 - @phi4);
 @golden1: (100% * @phi1);    // 61.8033988749894848%
 @golden2: (100% * @phi2);    // 38.1966011250105152%
 @golden3: (100% * @phi3);    // 23.6067977499789696%
 @golden4: (100% * @phi4);    // 14.5898033750315455%
-@golden3-c: (100% * @phi3-c);  // 76.3932022500210304%
-@golden4-c: (100% * @phi4-c);  // 85.4101966249684545%
+@golden3c: (100% * @phi3c);  // 76.3932022500210304%
+@golden4c: (100% * @phi4c);  // 85.4101966249684545%
+
+.p1 {width: @golden1;}
+.p2 {width: @golden2;}
+.p3 {width: @golden3;}
+.p4 {width: @golden4;}
+.p3c {width: @golden3c;}
+.p4c {width: @golden4c;}
 
 @phi5:  (@phi4  * @phi1);
 @phi6:  (@phi5  * @phi1);
@@ -69,25 +104,19 @@
 @inv-phi2: (1 / @phi2);
 @inv-phi3: (1 / @phi3);
 @inv-phi4: (1 / @phi4);
-@inv-phi3-c: (1 - (@inv-phi3));
-@inv-phi4-c: (1 - (@inv-phi4));
+@inv-phi3c: (1 - (@inv-phi3));
+@inv-phi4c: (1 - (@inv-phi4));
 @inv-golden1: (100% * @inv-phi1);   // 161.8033988749894848%
 @inv-golden2: (100% * @inv-phi2);   // 261.8033988749894848%
 @inv-golden3: (100% * @inv-phi3);   // 423.6067977499789696%
 @inv-golden4: (100% * @inv-phi4);   // 685.4101966249684545%
-@inv-golden3-c: (100% * @inv-phi3-c); // 130.9016994374947424%
-@inv-golden4-c: (100% * @inv-phi4-c); // 117.0820393249936909%
+@inv-golden3c: (100% * @inv-phi3c); // 130.9016994374947424%
+@inv-golden4c: (100% * @inv-phi4c); // 117.0820393249936909%
 //++++ @end WIDTHS ++++//
 
 //+++++++++++++++++++++++//
 /*@GOLDEN WIDTHS, MARGINS*/
 //+++++++++++++++++++++++//
-.p1 {width: @golden1;}
-.p2 {width: @golden2;}
-.p3 {width: @golden3;}
-.p4 {width: @golden4;}
-.p3-c {width: @golden3-c;}
-.p4-c {width: @golden4-c;}
 #_ {
 	.left {margin-left: 0;}
 	.right {margin-right: 0;}
@@ -100,52 +129,52 @@
 	&:extend(#_ .right);
 	margin-left: @othermargin;
 }
-.p1--midleft:extend(.p1)  {margin-left: @golden4; margin-right: @golden3;}
-.p1--midright:extend(.p1) {margin-left: @golden3; margin-right: @golden4;}
-.p1--left:extend(.p1)  {.automargin(left;  (100% - @golden1));}
-.p1--right:extend(.p1) {.automargin(right; (100% - @golden1));}
-.p2--left:extend(.p2)  {.automargin(left;  (100% - @golden2));}
-.p2--right:extend(.p2) {.automargin(right; (100% - @golden2));}
-.p3--left:extend(.p3)  {.automargin(left;  (100% - @golden3));}
-.p3--right:extend(.p3) {.automargin(right; (100% - @golden3));}
-.p4--left:extend(.p4)  {.automargin(left;  (100% - @golden4));}
-.p4--right:extend(.p4) {.automargin(right; (100% - @golden4));}
-.p3-c--left:extend(.p3-c)  {.automargin(left;  @golden3);}
-.p3-c--right:extend(.p3-c) {.automargin(right; @golden3);}
-.p4-c--left:extend(.p4-c)  {.automargin(left;  @golden4);}
-.p4-c--right:extend(.p4-c) {.automargin(right; @golden4);}
+//.p1--midleft:extend(.p1)  {margin-left: @golden4; margin-right: @golden3;}
+//.p1--midright:extend(.p1) {margin-left: @golden3; margin-right: @golden4;}
+//.p1--left:extend(.p1)  {.automargin(left;  @golden2);}
+//.p1--right:extend(.p1) {.automargin(right; @golden2);}
+//.p2--left:extend(.p2)  {.automargin(left;  @golden1);}
+//.p2--right:extend(.p2) {.automargin(right; @golden1);}
+//.p3--left:extend(.p3)  {.automargin(left;  @golden3c);}
+//.p3--right:extend(.p3) {.automargin(right; @golden3c);}
+//.p4--left:extend(.p4)  {.automargin(left;  @golden4c);}
+//.p4--right:extend(.p4) {.automargin(right; @golden4c);}
+//.p3c--left:extend(.p3c)  {.automargin(left;  @golden3);}
+//.p3c--right:extend(.p3c) {.automargin(right; @golden3);}
+//.p4c--left:extend(.p4c)  {.automargin(left;  @golden4);}
+//.p4c--right:extend(.p4c) {.automargin(right; @golden4);}
 
-.undoGolden {
-	position: relative;
-	left: 0;
-}
-.undo--p1:extend(.undoGolden) {width: @inv-golden1;}
-.undo--p2:extend(.undoGolden) {width: @inv-golden2;}
-.undo--p3:extend(.undoGolden) {width: @inv-golden3;}
-.undo--p4:extend(.undoGolden) {width: @inv-golden4;}
-.undo--p3-c:extend(.undoGolden) {width: @inv-golden3-c;}
-.undo--p4-c:extend(.undoGolden) {width: @inv-golden4-c;}
+//.undoGolden {
+//	position: relative;
+//	left: 0;
+//}
+//.undo--p1:extend(.undoGolden) {width: @inv-golden1;}
+//.undo--p2:extend(.undoGolden) {width: @inv-golden2;}
+//.undo--p3:extend(.undoGolden) {width: @inv-golden3;}
+//.undo--p4:extend(.undoGolden) {width: @inv-golden4;}
+//.undo--p3c:extend(.undoGolden) {width: @inv-golden3c;}
+//.undo--p4c:extend(.undoGolden) {width: @inv-golden4c;}
+//
+//.undo--p1--midleft:extend(.undo--p1)  {left: -@golden3;}
+//.undo--p1--midright:extend(.undo--p1) {left: -@golden2;}
+//.undo--p1--left:extend(.undo--p1)  {}
+//.undo--p1--right:extend(.undo--p1) {left: -@golden1;}
+//.undo--p2--left:extend(.undo--p2)  {}
+//.undo--p2--right:extend(.undo--p2) {left: -100%;}
+//.undo--p3--left:extend(.undo--p3)  {}
+//.undo--p3--right:extend(.undo--p3) {left: -323.6067977499789696%;}  // -323.6067977499789696%
+//.undo--p4--left:extend(.undo--p4)  {}
+//.undo--p4--right:extend(.undo--p4) {left: -585.4101966249684545%;}  // -585.4101966249684545%
+//.undo--p3c--left:extend(.undo--p3c)  {}
+//.undo--p3c--right:extend(.undo--p3c) {left: -30.9016994374947424%;} // -30.9016994374947424%
+//.undo--p3c--right:extend(.undo--p4c) {}
+//.undo--p4c--right:extend(.undo--p4c) {left: -17.0820393249936909%;} // -17.0820393249936909%
+//++++ @end GOLDEN WIDTHS, MARGINS ++++//
 
-.undo--p1--midleft:extend(.undo--p1)  {left: -@golden3;}
-.undo--p1--midright:extend(.undo--p1) {left: -@golden2;}
-.undo--p1--left:extend(.undo--p1)  {}
-.undo--p1--right:extend(.undo--p1) {left: -@golden1;}
-.undo--p2--left:extend(.undo--p2)  {}
-.undo--p2--right:extend(.undo--p2) {left: -100%;}
-.undo--p3--left:extend(.undo--p3)  {}
-.undo--p3--right:extend(.undo--p3) {left: -323.6067977499789696%;}  // -323.6067977499789696%
-.undo--p4--left:extend(.undo--p4)  {}
-.undo--p4--right:extend(.undo--p4) {left: -585.4101966249684545%;}  // -585.4101966249684545%
-.undo--p3-c--left:extend(.undo--p3-c)  {}
-.undo--p3-c--right:extend(.undo--p3-c) {left: -30.9016994374947424%;} // -30.9016994374947424%
-.undo--p3-c--right:extend(.undo--p4-c) {}
-.undo--p4-c--right:extend(.undo--p4-c) {left: -17.0820393249936909%;} // -17.0820393249936909%
-//++++ @end  GOLDEN WIDTHS, MARGINS ++++//
 
-
-//++++++++++++//
-/*@ROWS, CELLS*/
-//++++++++++++//
+//+++++++++++++//
+/*@TABLE SYSTEM*/
+//+++++++++++++//
 .row {
 	display: table;
 	width: 100%;
@@ -155,50 +184,586 @@
 	vertical-align: top;
 	overflow: visible;
 }
-
-.cell--1o1:extend(.cell) {width: @1o1;}
-.cell--1o2:extend(.cell) {width: @1o2;}
-.cell--2o2:extend(.cell--1o1) {}
-.cell--1o3:extend(.cell) {width: @1o3;}
-.cell--2o3:extend(.cell) {width: @2o3;}
-.cell--3o3:extend(.cell--1o1) {}
-.cell--1o4:extend(.cell) {width: @1o4;}
-.cell--2o4:extend(.cell--1o2) {}
-.cell--3o4:extend(.cell) {width: @3o4;}
-.cell--4o4:extend(.cell--1o1) {}
-.cell--1o5:extend(.cell) {width: @1o5;}
-.cell--2o5:extend(.cell) {width: @2o5;}
-.cell--3o5:extend(.cell) {width: @3o5;}
-.cell--4o5:extend(.cell) {width: @4o5;}
-.cell--5o5:extend(.cell--1o1) {}
-.cell--1o6:extend(.cell) {width: @1o6;}
-.cell--2o6:extend(.cell--1o3) {}
-.cell--3o6:extend(.cell--1o2) {}
-.cell--4o6:extend(.cell--2o3) {}
-.cell--5o6:extend(.cell) {width: @5o6;}
-.cell--6o6:extend(.cell--1o1) {}
-
-.cell--p1:extend(.cell, .p1) {}
-.cell--p2:extend(.cell, .p2) {}
-.cell--p3:extend(.cell, .p3) {}
-.cell--p4:extend(.cell, .p4) {}
-.cell--p3-c:extend(.cell, .p3-c) {}
-.cell--p4-c:extend(.cell, .p4-c) {}
-
 .row--solo,
 .row--duet,
 .row--trio,
 .row--quartet,
 .row--quintet,
-.row--sextet {&:extend(.row);}
+.row--sextet {
+	&:extend(.row);
+}
 
-.row--solo    > .cell:extend(.cell--1o1) {}
-.row--duet    > .cell:extend(.cell--1o2) {}
-.row--trio    > .cell:extend(.cell--1o3) {}
-.row--quartet > .cell:extend(.cell--1o4) {}
-.row--quintet > .cell:extend(.cell--1o5) {}
-.row--sextet  > .cell:extend(.cell--1o6) {}
-//++++ @end ROWS, CELLS ++++//
+//----------//
+/*@Solo rows*/
+//----------//
+.row--solo > .cell:extend(.f1o1) {}
+.row--solo-f1o1 {
+	&:extend(.row--solo all);
+}
+//---- @end Solo rows ----//
+
+//----------//
+/*@Duet rows*/
+//----------//
+.row--duet > .cell:extend(.f1o2) {}
+.row--duet--f1o2-f1o2,
+.row--duet--f2o3-f1o3,
+.row--duet--f1o3-f2o3,
+.row--duet--f3o4-f1o4,
+.row--duet--f2o4-f2o4,
+.row--duet--f1o4-f3o4,
+.row--duet--f4o5-f1o5,
+.row--duet--f3o5-f2o5,
+.row--duet--f2o5-f3o5,
+.row--duet--f1o5-f4o5,
+.row--duet--f5o6-f1o6,
+.row--duet--f4o6-f2o6,
+.row--duet--f3o6-f3o6,
+.row--duet--f2o6-f4o6,
+.row--duet--f1o6-f5o6,
+.row--duet--p1-p2,
+.row--duet--p2-p1,
+.row--duet--p3-p3c,
+.row--duet--p3c-p3,
+.row--duet--p4-p4c,
+.row--duet--p4c-p4 {
+	&:extend(.row--duet all);
+}
+.row--duet--f1o2-f1o2 {}
+.row--duet--f2o3-f1o3 {
+	> .cell:nth-child(1):extend(.f2o3) {}
+	> .cell:nth-child(2):extend(.f1o3) {}
+}
+.row--duet--f1o3-f2o3 {
+	> .cell:nth-child(1):extend(.f1o3) {}
+	> .cell:nth-child(2):extend(.f2o3) {}
+}
+.row--duet--f3o4-f1o4 {
+	> .cell:nth-child(1):extend(.f3o4) {}
+	> .cell:nth-child(2):extend(.f1o4) {}
+}
+.row--duet--f2o4-f2o4:extend(.row--duet--f1o2-f1o2 all) {}
+.row--duet--f1o4-f3o4 {
+	> .cell:nth-child(1):extend(.f1o4) {}
+	> .cell:nth-child(2):extend(.f3o4) {}
+}
+.row--duet--f4o5-f1o5 {
+	> .cell:nth-child(1):extend(.f4o5) {}
+	> .cell:nth-child(2):extend(.f1o5) {}
+}
+.row--duet--f3o5-f2o5 {
+	> .cell:nth-child(1):extend(.f3o5) {}
+	> .cell:nth-child(2):extend(.f2o5) {}
+}
+.row--duet--f2o5-f3o5 {
+	> .cell:nth-child(1):extend(.f2o5) {}
+	> .cell:nth-child(2):extend(.f3o5) {}
+}
+.row--duet--f1o5-f4o5 {
+	> .cell:nth-child(1):extend(.f1o5) {}
+	> .cell:nth-child(2):extend(.f4o5) {}
+}
+.row--duet--f5o6-f1o6 {
+	> .cell:nth-child(1):extend(.f5o6) {}
+	> .cell:nth-child(2):extend(.f1o6) {}
+}
+.row--duet--f4o6-f2o6:extend(.row--duet--f2o3-f1o3 all) {}
+.row--duet--f3o6-f3o6:extend(.row--duet--f1o2-f1o2 all) {}
+.row--duet--f2o6-f4o6:extend(.row--duet--f1o3-f2o3 all) {}
+.row--duet--f1o6-f5o6 {
+	> .cell:nth-child(1):extend(.f1o6) {}
+	> .cell:nth-child(2):extend(.f5o6) {}
+}
+.row--duet--p1-p2 {
+	> .cell:nth-child(1):extend(.p1) {}
+	> .cell:nth-child(2):extend(.p2) {}
+}
+.row--duet--p2-p1 {
+	> .cell:nth-child(1):extend(.p2) {}
+	> .cell:nth-child(2):extend(.p1) {}
+}
+.row--duet--p3-p3c {
+	> .cell:nth-child(1):extend(.p3)  {}
+	> .cell:nth-child(2):extend(.p3c) {}
+}
+.row--duet--p3c-p3 {
+	> .cell:nth-child(1):extend(.p3c) {}
+	> .cell:nth-child(2):extend(.p3)  {}
+}
+.row--duet--p4-p4c {
+	> .cell:nth-child(1):extend(.p4)  {}
+	> .cell:nth-child(2):extend(.p4c) {}
+}
+.row--duet--p4c-p4 {
+	> .cell:nth-child(1):extend(.p4c) {}
+	> .cell:nth-child(2):extend(.p4)  {}
+}
+//---- @end Duet rows ----//
+
+//----------//
+/*@Trio rows*/
+//----------//
+.row--trio > .cell:extend(.f1o3) {}
+.row--trio--f1o3-f1o3-f1o3,
+.row--trio--f2o4-f1o4-f1o4,
+.row--trio--f1o4-f2o4-f1o4,
+.row--trio--f1o4-f1o4-f2o4,
+.row--trio--f3o5-f1o5-f1o5,
+.row--trio--f2o5-f2o5-f1o5,
+.row--trio--f2o5-f1o5-f2o5,
+.row--trio--f1o5-f3o5-f1o5,
+.row--trio--f1o5-f2o5-f2o5,
+.row--trio--f1o5-f1o5-f3o5,
+.row--trio--f4o6-f1o6-f1o6,
+.row--trio--f3o6-f2o6-f1o6,
+.row--trio--f3o6-f1o6-f2o6,
+.row--trio--f2o6-f3o6-f1o6,
+.row--trio--f2o6-f2o6-f2o6,
+.row--trio--f2o6-f1o6-f3o6,
+.row--trio--f1o6-f4o6-f1o6,
+.row--trio--f1o6-f3o6-f2o6,
+.row--trio--f1o6-f2o6-f3o6,
+.row--trio--f1o6-f1o6-f4o6,
+.row--trio--p1-p3-p4,
+.row--trio--p1-p4-p3,
+.row--trio--p3-p1-p4,
+.row--trio--p3-p4-p1,
+.row--trio--p4-p1-p3,
+.row--trio--p4-p3-p1 {
+	&:extend(.row--trio all);
+}
+.row--trio--f1o3-f1o3-f1o3 {}
+.row--trio--f2o4-f1o4-f1o4 {
+	> .cell:nth-child(1):extend(.f2o4) {}
+	> .cell:nth-child(2):extend(.f1o4) {}
+	> .cell:nth-child(3):extend(.f1o4) {}
+}
+.row--trio--f1o4-f2o4-f1o4 {
+	> .cell:nth-child(1):extend(.f1o4) {}
+	> .cell:nth-child(2):extend(.f2o4) {}
+	> .cell:nth-child(3):extend(.f1o4) {}
+}
+.row--trio--f1o4-f1o4-f2o4 {
+	> .cell:nth-child(1):extend(.f1o4) {}
+	> .cell:nth-child(2):extend(.f1o4) {}
+	> .cell:nth-child(3):extend(.f2o4) {}
+}
+.row--trio--f3o5-f1o5-f1o5 {
+	> .cell:nth-child(1):extend(.f3o5) {}
+	> .cell:nth-child(2):extend(.f1o5) {}
+	> .cell:nth-child(3):extend(.f1o5) {}
+}
+.row--trio--f2o5-f2o5-f1o5 {
+	> .cell:nth-child(1):extend(.f2o5) {}
+	> .cell:nth-child(2):extend(.f2o5) {}
+	> .cell:nth-child(3):extend(.f1o5) {}
+}
+.row--trio--f2o5-f1o5-f2o5 {
+	> .cell:nth-child(1):extend(.f2o5) {}
+	> .cell:nth-child(2):extend(.f1o5) {}
+	> .cell:nth-child(3):extend(.f2o5) {}
+}
+.row--trio--f1o5-f3o5-f1o5 {
+	> .cell:nth-child(1):extend(.f1o5) {}
+	> .cell:nth-child(2):extend(.f3o5) {}
+	> .cell:nth-child(3):extend(.f1o5) {}
+}
+.row--trio--f1o5-f2o5-f2o5 {
+	> .cell:nth-child(1):extend(.f1o5) {}
+	> .cell:nth-child(2):extend(.f2o5) {}
+	> .cell:nth-child(3):extend(.f2o5) {}
+}
+.row--trio--f1o5-f1o5-f3o5 {
+	> .cell:nth-child(1):extend(.f1o5) {}
+	> .cell:nth-child(2):extend(.f1o5) {}
+	> .cell:nth-child(3):extend(.f3o5) {}
+}
+.row--trio--f4o6-f1o6-f1o6 {
+	> .cell:nth-child(1):extend(.f4o6) {}
+	> .cell:nth-child(2):extend(.f1o6) {}
+	> .cell:nth-child(3):extend(.f1o6) {}
+}
+.row--trio--f3o6-f2o6-f1o6 {
+	> .cell:nth-child(1):extend(.f3o6) {}
+	> .cell:nth-child(2):extend(.f2o6) {}
+	> .cell:nth-child(3):extend(.f1o6) {}
+}
+.row--trio--f3o6-f1o6-f2o6 {
+	> .cell:nth-child(1):extend(.f3o6) {}
+	> .cell:nth-child(2):extend(.f1o6) {}
+	> .cell:nth-child(3):extend(.f2o6) {}
+}
+.row--trio--f2o6-f3o6-f1o6 {
+	> .cell:nth-child(1):extend(.f2o6) {}
+	> .cell:nth-child(2):extend(.f3o6) {}
+	> .cell:nth-child(3):extend(.f1o6) {}
+}
+.row--trio--f2o6-f2o6-f2o6:extend(.row--trio--f1o3-f1o3-f1o3 all) {}
+.row--trio--f2o6-f1o6-f3o6 {
+	> .cell:nth-child(1):extend(.f2o6) {}
+	> .cell:nth-child(2):extend(.f1o6) {}
+	> .cell:nth-child(3):extend(.f3o6) {}
+}
+.row--trio--f1o6-f4o6-f1o6 {
+	> .cell:nth-child(1):extend(.f1o6) {}
+	> .cell:nth-child(2):extend(.f4o6) {}
+	> .cell:nth-child(3):extend(.f1o6) {}
+}
+.row--trio--f1o6-f3o6-f2o6 {
+	> .cell:nth-child(1):extend(.f1o6) {}
+	> .cell:nth-child(2):extend(.f3o6) {}
+	> .cell:nth-child(3):extend(.f2o6) {}
+}
+.row--trio--f1o6-f2o6-f3o6 {
+	> .cell:nth-child(1):extend(.f1o6) {}
+	> .cell:nth-child(2):extend(.f2o6) {}
+	> .cell:nth-child(3):extend(.f3o6) {}
+}
+.row--trio--f1o6-f1o6-f4o6 {
+	> .cell:nth-child(1):extend(.f1o6) {}
+	> .cell:nth-child(2):extend(.f1o6) {}
+	> .cell:nth-child(3):extend(.f4o6) {}
+}
+.row--trio--p1-p3-p4 {
+	> .cell:nth-child(1):extend(.p1) {}
+	> .cell:nth-child(2):extend(.p3) {}
+	> .cell:nth-child(3):extend(.p4) {}
+}
+.row--trio--p1-p4-p3 {
+	> .cell:nth-child(1):extend(.p1) {}
+	> .cell:nth-child(2):extend(.p4) {}
+	> .cell:nth-child(3):extend(.p3) {}
+}
+.row--trio--p3-p1-p4 {
+	> .cell:nth-child(1):extend(.p3) {}
+	> .cell:nth-child(2):extend(.p1) {}
+	> .cell:nth-child(3):extend(.p4) {}
+}
+.row--trio--p3-p4-p1 {
+	> .cell:nth-child(1):extend(.p3) {}
+	> .cell:nth-child(2):extend(.p4) {}
+	> .cell:nth-child(3):extend(.p1) {}
+}
+.row--trio--p4-p1-p3 {
+	> .cell:nth-child(1):extend(.p4) {}
+	> .cell:nth-child(2):extend(.p1) {}
+	> .cell:nth-child(3):extend(.p3) {}
+}
+.row--trio--p4-p3-p1 {
+	> .cell:nth-child(1):extend(.p4) {}
+	> .cell:nth-child(2):extend(.p3) {}
+	> .cell:nth-child(3):extend(.p1) {}
+}
+//---- @end Trio rows ----//
+
+//-------------//
+/*@Quartet rows*/
+//-------------//
+.row--quartet > .cell:extend(.f1o4) {}
+.row--quartet--f1o4-f1o4-f1o4-f1o4,
+.row--quartet--f2o5-f1o5-f1o5-f1o5,
+.row--quartet--f1o5-f2o5-f1o5-f1o5,
+.row--quartet--f1o5-f1o5-f2o5-f1o5,
+.row--quartet--f1o5-f1o5-f1o5-f2o5,
+.row--quartet--f3o6-f1o6-f1o6-f1o6,
+.row--quartet--f2o6-f2o6-f1o6-f1o6,
+.row--quartet--f2o6-f1o6-f2o6-f1o6,
+.row--quartet--f2o6-f1o6-f1o6-f2o6,
+.row--quartet--f1o6-f3o6-f1o6-f1o6,
+.row--quartet--f1o6-f2o6-f2o6-f1o6,
+.row--quartet--f1o6-f2o6-f1o6-f2o6,
+.row--quartet--f1o6-f1o6-f2o6-f2o6,
+.row--quartet--f1o6-f1o6-f1o6-f3o6,
+.row--quartet--p2-p3-p3-p4,
+.row--quartet--p2-p3-p4-p3,
+.row--quartet--p2-p4-p3-p3,
+.row--quartet--p3-p2-p3-p4,
+.row--quartet--p3-p2-p4-p3,
+.row--quartet--p3-p3-p2-p4,
+.row--quartet--p3-p3-p4-p2,
+.row--quartet--p4-p2-p3-p3,
+.row--quartet--p4-p3-p2-p3,
+.row--quartet--p4-p3-p3-p2 {
+	&:extend(.row--quartet all);
+}
+.row--quartet--f1o4-f1o4-f1o4-f1o4 {}
+.row--quartet--f2o5-f1o5-f1o5-f1o5 {
+	> .cell:nth-child(1):extend(.f2o5) {}
+	> .cell:nth-child(2):extend(.f1o5) {}
+	> .cell:nth-child(3):extend(.f1o5) {}
+	> .cell:nth-child(4):extend(.f1o5) {}
+}
+.row--quartet--f1o5-f2o5-f1o5-f1o5 {
+	> .cell:nth-child(1):extend(.f1o5) {}
+	> .cell:nth-child(2):extend(.f2o5) {}
+	> .cell:nth-child(3):extend(.f1o5) {}
+	> .cell:nth-child(4):extend(.f1o5) {}
+}
+.row--quartet--f1o5-f1o5-f2o5-f1o5 {
+	> .cell:nth-child(1):extend(.f1o5) {}
+	> .cell:nth-child(2):extend(.f1o5) {}
+	> .cell:nth-child(3):extend(.f2o5) {}
+	> .cell:nth-child(4):extend(.f1o5) {}
+}
+.row--quartet--f1o5-f1o5-f1o5-f2o5 {
+	> .cell:nth-child(1):extend(.f1o5) {}
+	> .cell:nth-child(2):extend(.f1o5) {}
+	> .cell:nth-child(3):extend(.f1o5) {}
+	> .cell:nth-child(4):extend(.f2o5) {}
+}
+.row--quartet--f3o6-f1o6-f1o6-f1o6 {
+	> .cell:nth-child(1):extend(.f3o6) {}
+	> .cell:nth-child(2):extend(.f1o6) {}
+	> .cell:nth-child(3):extend(.f1o6) {}
+	> .cell:nth-child(4):extend(.f1o6) {}
+}
+.row--quartet--f2o6-f2o6-f1o6-f1o6 {
+	> .cell:nth-child(1):extend(.f2o6) {}
+	> .cell:nth-child(2):extend(.f2o6) {}
+	> .cell:nth-child(3):extend(.f1o6) {}
+	> .cell:nth-child(4):extend(.f1o6) {}
+}
+.row--quartet--f2o6-f1o6-f2o6-f1o6 {
+	> .cell:nth-child(1):extend(.f2o6) {}
+	> .cell:nth-child(2):extend(.f1o6) {}
+	> .cell:nth-child(3):extend(.f2o6) {}
+	> .cell:nth-child(4):extend(.f1o6) {}
+}
+.row--quartet--f2o6-f1o6-f1o6-f2o6 {
+	> .cell:nth-child(1):extend(.f2o6) {}
+	> .cell:nth-child(2):extend(.f1o6) {}
+	> .cell:nth-child(3):extend(.f1o6) {}
+	> .cell:nth-child(4):extend(.f2o6) {}
+}
+.row--quartet--f1o6-f3o6-f1o6-f1o6 {
+	> .cell:nth-child(1):extend(.f1o6) {}
+	> .cell:nth-child(2):extend(.f3o6) {}
+	> .cell:nth-child(3):extend(.f1o6) {}
+	> .cell:nth-child(4):extend(.f1o6) {}
+}
+.row--quartet--f1o6-f2o6-f2o6-f1o6 {
+	> .cell:nth-child(1):extend(.f1o6) {}
+	> .cell:nth-child(2):extend(.f2o6) {}
+	> .cell:nth-child(3):extend(.f2o6) {}
+	> .cell:nth-child(4):extend(.f1o6) {}
+}
+.row--quartet--f1o6-f2o6-f1o6-f2o6 {
+	> .cell:nth-child(1):extend(.f1o6) {}
+	> .cell:nth-child(2):extend(.f2o6) {}
+	> .cell:nth-child(3):extend(.f1o6) {}
+	> .cell:nth-child(4):extend(.f2o6) {}
+}
+.row--quartet--f1o6-f1o6-f2o6-f2o6 {
+	> .cell:nth-child(1):extend(.f1o6) {}
+	> .cell:nth-child(2):extend(.f1o6) {}
+	> .cell:nth-child(3):extend(.f2o6) {}
+	> .cell:nth-child(4):extend(.f2o6) {}
+}
+.row--quartet--f1o6-f1o6-f1o6-f3o6 {
+	> .cell:nth-child(1):extend(.f1o6) {}
+	> .cell:nth-child(2):extend(.f1o6) {}
+	> .cell:nth-child(3):extend(.f1o6) {}
+	> .cell:nth-child(4):extend(.f3o6) {}
+}
+.row--quartet--p2-p3-p3-p4 {
+	> .cell:nth-child(1):extend(.p2) {}
+	> .cell:nth-child(2):extend(.p3) {}
+	> .cell:nth-child(3):extend(.p3) {}
+	> .cell:nth-child(4):extend(.p4) {}
+}
+.row--quartet--p2-p3-p4-p3 {
+	> .cell:nth-child(1):extend(.p2) {}
+	> .cell:nth-child(2):extend(.p3) {}
+	> .cell:nth-child(3):extend(.p4) {}
+	> .cell:nth-child(4):extend(.p3) {}
+}
+.row--quartet--p2-p4-p3-p3 {
+	> .cell:nth-child(1):extend(.p2) {}
+	> .cell:nth-child(2):extend(.p4) {}
+	> .cell:nth-child(3):extend(.p3) {}
+	> .cell:nth-child(4):extend(.p3) {}
+}
+.row--quartet--p3-p2-p3-p4 {
+	> .cell:nth-child(1):extend(.p3) {}
+	> .cell:nth-child(2):extend(.p2) {}
+	> .cell:nth-child(3):extend(.p3) {}
+	> .cell:nth-child(4):extend(.p4) {}
+}
+.row--quartet--p3-p2-p4-p3 {
+	> .cell:nth-child(1):extend(.p3) {}
+	> .cell:nth-child(2):extend(.p2) {}
+	> .cell:nth-child(3):extend(.p4) {}
+	> .cell:nth-child(4):extend(.p3) {}
+}
+.row--quartet--p3-p3-p2-p4 {
+	> .cell:nth-child(1):extend(.p3) {}
+	> .cell:nth-child(2):extend(.p3) {}
+	> .cell:nth-child(3):extend(.p2) {}
+	> .cell:nth-child(4):extend(.p4) {}
+}
+.row--quartet--p3-p3-p4-p2 {
+	> .cell:nth-child(1):extend(.p3) {}
+	> .cell:nth-child(2):extend(.p3) {}
+	> .cell:nth-child(3):extend(.p4) {}
+	> .cell:nth-child(4):extend(.p2) {}
+}
+.row--quartet--p4-p2-p3-p3 {
+	> .cell:nth-child(1):extend(.p4) {}
+	> .cell:nth-child(2):extend(.p2) {}
+	> .cell:nth-child(3):extend(.p3) {}
+	> .cell:nth-child(4):extend(.p3) {}
+}
+.row--quartet--p4-p3-p2-p3 {
+	> .cell:nth-child(1):extend(.p4) {}
+	> .cell:nth-child(2):extend(.p3) {}
+	> .cell:nth-child(3):extend(.p2) {}
+	> .cell:nth-child(4):extend(.p3) {}
+}
+.row--quartet--p4-p3-p3-p2 {
+	> .cell:nth-child(1):extend(.p4) {}
+	> .cell:nth-child(2):extend(.p3) {}
+	> .cell:nth-child(3):extend(.p3) {}
+	> .cell:nth-child(4):extend(.p2) {}
+}
+//---- @end Quartet rows ----//
+
+//-------------//
+/*@Quintet rows*/
+//-------------//
+.row--quintet > .cell:extend(.f1o5) {}
+.row--quintet--f1o5-f1o5-f1o5-f1o5-f1o5,
+.row--quintet--p3-p3-p3-p4-p4,
+.row--quintet--p3-p3-p4-p3-p4,
+.row--quintet--p3-p3-p4-p4-p3,
+.row--quintet--p3-p4-p3-p3-p4,
+.row--quintet--p3-p4-p3-p4-p3,
+.row--quintet--p3-p4-p4-p3-p3,
+.row--quintet--p4-p3-p3-p3-p4,
+.row--quintet--p4-p3-p3-p4-p3,
+.row--quintet--p4-p3-p4-p3-p3,
+.row--quintet--p4-p4-p3-p3-p3 {
+	&:extend(.row--quintet all);
+}
+.row--quintet--f1o5-f1o5-f1o5-f1o5-f1o5 {}
+.row--quintet--p3-p3-p3-p4-p4 {
+	> .cell:nth-child(1):extend(.p3) {}
+	> .cell:nth-child(2):extend(.p3) {}
+	> .cell:nth-child(3):extend(.p3) {}
+	> .cell:nth-child(4):extend(.p4) {}
+	> .cell:nth-child(5):extend(.p4) {}
+}
+.row--quintet--p3-p3-p4-p3-p4 {
+	> .cell:nth-child(1):extend(.p3) {}
+	> .cell:nth-child(2):extend(.p3) {}
+	> .cell:nth-child(3):extend(.p4) {}
+	> .cell:nth-child(4):extend(.p3) {}
+	> .cell:nth-child(5):extend(.p4) {}
+}
+.row--quintet--p3-p3-p4-p4-p3 {
+	> .cell:nth-child(1):extend(.p3) {}
+	> .cell:nth-child(2):extend(.p3) {}
+	> .cell:nth-child(3):extend(.p4) {}
+	> .cell:nth-child(4):extend(.p4) {}
+	> .cell:nth-child(5):extend(.p3) {}
+}
+.row--quintet--p3-p4-p3-p3-p4 {
+	> .cell:nth-child(1):extend(.p3) {}
+	> .cell:nth-child(2):extend(.p4) {}
+	> .cell:nth-child(3):extend(.p3) {}
+	> .cell:nth-child(4):extend(.p3) {}
+	> .cell:nth-child(5):extend(.p4) {}
+}
+.row--quintet--p3-p4-p3-p4-p3 {
+	> .cell:nth-child(1):extend(.p3) {}
+	> .cell:nth-child(2):extend(.p4) {}
+	> .cell:nth-child(3):extend(.p3) {}
+	> .cell:nth-child(4):extend(.p4) {}
+	> .cell:nth-child(5):extend(.p3) {}
+}
+.row--quintet--p3-p4-p4-p3-p3 {
+	> .cell:nth-child(1):extend(.p3) {}
+	> .cell:nth-child(2):extend(.p4) {}
+	> .cell:nth-child(3):extend(.p4) {}
+	> .cell:nth-child(4):extend(.p3) {}
+	> .cell:nth-child(5):extend(.p3) {}
+}
+.row--quintet--p4-p3-p3-p3-p4 {
+	> .cell:nth-child(1):extend(.p4) {}
+	> .cell:nth-child(2):extend(.p3) {}
+	> .cell:nth-child(3):extend(.p3) {}
+	> .cell:nth-child(4):extend(.p3) {}
+	> .cell:nth-child(5):extend(.p4) {}
+}
+.row--quintet--p4-p3-p3-p4-p3 {
+	> .cell:nth-child(1):extend(.p4) {}
+	> .cell:nth-child(2):extend(.p3) {}
+	> .cell:nth-child(3):extend(.p3) {}
+	> .cell:nth-child(4):extend(.p4) {}
+	> .cell:nth-child(5):extend(.p3) {}
+}
+.row--quintet--p4-p3-p4-p3-p3 {
+	> .cell:nth-child(1):extend(.p4) {}
+	> .cell:nth-child(2):extend(.p3) {}
+	> .cell:nth-child(3):extend(.p4) {}
+	> .cell:nth-child(4):extend(.p3) {}
+	> .cell:nth-child(5):extend(.p3) {}
+}
+.row--quintet--p4-p4-p3-p3-p3 {
+	> .cell:nth-child(1):extend(.p4) {}
+	> .cell:nth-child(2):extend(.p4) {}
+	> .cell:nth-child(3):extend(.p3) {}
+	> .cell:nth-child(4):extend(.p3) {}
+	> .cell:nth-child(5):extend(.p3) {}
+}
+
+//---- @end Quintet rows ----//
+
+//------------//
+/*@Sextet rows*/
+//------------//
+.row--sextet  > .cell:extend(.f1o6) {}
+.row--sextet--f1o6-f1o6-f1o6-f1o6-f1o6-f1o6 {
+	&:extend(.row--sextet all);
+}
+.row--sextet--f1o6-f1o6-f1o6-f1o6-f1o6-f1o6 {}
+//---- @end Sextet rows ----//
+
+//.cell--1o1:extend(.cell) {width: @1o1;}
+//.cell--1o2:extend(.cell) {width: @1o2;}
+//.cell--2o2:extend(.cell--1o1) {}
+//.cell--1o3:extend(.cell) {width: @1o3;}
+//.cell--2o3:extend(.cell) {width: @2o3;}
+//.cell--3o3:extend(.cell--1o1) {}
+//.cell--1o4:extend(.cell) {width: @1o4;}
+//.cell--2o4:extend(.cell--1o2) {}
+//.cell--3o4:extend(.cell) {width: @3o4;}
+//.cell--4o4:extend(.cell--1o1) {}
+//.cell--1o5:extend(.cell) {width: @1o5;}
+//.cell--2o5:extend(.cell) {width: @2o5;}
+//.cell--3o5:extend(.cell) {width: @3o5;}
+//.cell--4o5:extend(.cell) {width: @4o5;}
+//.cell--5o5:extend(.cell--1o1) {}
+//.cell--1o6:extend(.cell) {width: @1o6;}
+//.cell--2o6:extend(.cell--1o3) {}
+//.cell--3o6:extend(.cell--1o2) {}
+//.cell--4o6:extend(.cell--2o3) {}
+//.cell--5o6:extend(.cell) {width: @5o6;}
+//.cell--6o6:extend(.cell--1o1) {}
+
+//.cell--p1:extend(.cell) {width: @golden1;}
+//.cell--p2:extend(.cell) {width: @golden2;}
+//.cell--p3:extend(.cell) {width: @golden3;}
+//.cell--p4:extend(.cell) {width: @golden4;}
+//.cell--p3c:extend(.cell) {width: @golden3c;}
+//.cell--p4c:extend(.cell) {width: @golden4c;}
+//.cell--p1:extend(.cell, .p1) {}
+//.cell--p2:extend(.cell, .p2) {}
+//.cell--p3:extend(.cell, .p3) {}
+//.cell--p4:extend(.cell, .p4) {}
+//.cell--p3c:extend(.cell, .p3c) {}
+//.cell--p4c:extend(.cell, .p4c) {}
+//++++ @end TABLE SYSTEM ++++//
+
 
 //++++++++//
 /*@GUTTERS*/
