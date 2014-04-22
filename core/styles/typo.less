@@ -384,19 +384,34 @@ table {
 @color_sp--dn--bg: lighten(@color_sp--dn--txt, @headlt);
 @color_link--active-txt: @her-eye;
 @color_link--active-bg: @aperture-black;
+/**
+ * The abstract concept of a hyperlink.
+@tags
+: hyperlink
+@updated
+: 2014-04-21
+ */
 .link {
 	text-decoration: none;
-	color: @color_base--faded;
-	&:hover {text-decoration: underline;}
-	&[href] {
-		color: @color_link--up--txt;
-		&:hover {color: @color_link--dn--txt;}
-		&:active {color: @color_link--active-txt;}
+	color: @color_link--up--txt;
+	&:hover {
+		text-decoration: underline;
+		color: @color_link--dn--txt;
 	}
-	&[rel~="external"] {
-		color: @color_sp--up--txt;
-		&:hover {color: @color_sp--dn--txt;}
+	&:active {color: @color_link--active-txt;}
+	&.sp {
 	}
+}
+/**
+ * A special link. May refer to an external link, or some other type.
+@extend
+: `.link`
+@updated
+: 2014-04-21
+ */
+.link.sp {
+	color: @color_sp--up--txt;
+	&:hover {color: @color_sp--dn--txt;}
 }
 //++++ @end HYPERLINKS ++++//
 
