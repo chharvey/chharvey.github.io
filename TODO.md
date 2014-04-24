@@ -75,7 +75,7 @@ Specs for all TODO lists:
 ### grid.html ###
 - [ ] 2014-01-21 finish last section (Phi demonstration)
 - [ ] 2014-03-05 add Gutter section below all Grid stuff
-- [ ] 2014-04-22 rewrite all table-cell functionality
+- [x] 2014-04-22 rewrite all table-cell functionality
 - [ ] 2014-04-22 update content with styles
 - [ ] 2014-04-22 use SVG for background images
 
