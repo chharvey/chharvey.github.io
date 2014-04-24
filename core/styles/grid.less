@@ -5,14 +5,9 @@
 
 //Table of Contents
 //- WIDTHS
-//- GOLDEN WIDTHS, MARGINS
 //- TABLE SYSTEM
-//	- Solo rows
-//	- Duet rows
-//	- Trio rows
-//	- Quartet rows
-//	- Quintet rows
-//	- Sextet rows
+//- BLOCKS WITH MARGINS
+//	- Undo Golden Blocks
 //- GUTTERS
 
 //+++++++//
@@ -179,63 +174,6 @@
 }
 //++++ @end WIDTHS ++++//
 
-//+++++++++++++++++++++++//
-/*@GOLDEN WIDTHS, MARGINS*/
-//+++++++++++++++++++++++//
-#_ {
-	.left {margin-left: 0;}
-	.right {margin-right: 0;}
-}
-.automargin(left; @othermargin) {
-	&:extend(#_ .left);
-	margin-right: @othermargin;
-}
-.automargin(right; @othermargin) {
-	&:extend(#_ .right);
-	margin-left: @othermargin;
-}
-//.p1--midleft:extend(.p1)  {margin-left: @golden4; margin-right: @golden3;}
-//.p1--midright:extend(.p1) {margin-left: @golden3; margin-right: @golden4;}
-//.p1--left:extend(.p1)  {.automargin(left;  @golden2);}
-//.p1--right:extend(.p1) {.automargin(right; @golden2);}
-//.p2--left:extend(.p2)  {.automargin(left;  @golden1);}
-//.p2--right:extend(.p2) {.automargin(right; @golden1);}
-//.p3--left:extend(.p3)  {.automargin(left;  @golden3c);}
-//.p3--right:extend(.p3) {.automargin(right; @golden3c);}
-//.p4--left:extend(.p4)  {.automargin(left;  @golden4c);}
-//.p4--right:extend(.p4) {.automargin(right; @golden4c);}
-//.p3c--left:extend(.p3c)  {.automargin(left;  @golden3);}
-//.p3c--right:extend(.p3c) {.automargin(right; @golden3);}
-//.p4c--left:extend(.p4c)  {.automargin(left;  @golden4);}
-//.p4c--right:extend(.p4c) {.automargin(right; @golden4);}
-
-//.undoGolden {
-//	position: relative;
-//	left: 0;
-//}
-//.undo--p1:extend(.undoGolden) {width: @inv-golden1;}
-//.undo--p2:extend(.undoGolden) {width: @inv-golden2;}
-//.undo--p3:extend(.undoGolden) {width: @inv-golden3;}
-//.undo--p4:extend(.undoGolden) {width: @inv-golden4;}
-//.undo--p3c:extend(.undoGolden) {width: @inv-golden3c;}
-//.undo--p4c:extend(.undoGolden) {width: @inv-golden4c;}
-//
-//.undo--p1--midleft:extend(.undo--p1)  {left: -@golden3;}
-//.undo--p1--midright:extend(.undo--p1) {left: -@golden2;}
-//.undo--p1--left:extend(.undo--p1)  {}
-//.undo--p1--right:extend(.undo--p1) {left: -@golden1;}
-//.undo--p2--left:extend(.undo--p2)  {}
-//.undo--p2--right:extend(.undo--p2) {left: -100%;}
-//.undo--p3--left:extend(.undo--p3)  {}
-//.undo--p3--right:extend(.undo--p3) {left: -323.6067977499789696%;}  // -323.6067977499789696%
-//.undo--p4--left:extend(.undo--p4)  {}
-//.undo--p4--right:extend(.undo--p4) {left: -585.4101966249684545%;}  // -585.4101966249684545%
-//.undo--p3c--left:extend(.undo--p3c)  {}
-//.undo--p3c--right:extend(.undo--p3c) {left: -30.9016994374947424%;} // -30.9016994374947424%
-//.undo--p3c--right:extend(.undo--p4c) {}
-//.undo--p4c--right:extend(.undo--p4c) {left: -17.0820393249936909%;} // -17.0820393249936909%
-//++++ @end GOLDEN WIDTHS, MARGINS ++++//
-
 
 //+++++++++++++//
 /*@TABLE SYSTEM*/
@@ -278,6 +216,87 @@
 //	&.f6o6:extend(#_ .width-f6o6) {}
 }
 //++++ @end TABLE SYSTEM ++++//
+
+
+//++++++++++++++++++++//
+/*@BLOCKS WITH MARGINS*/
+//++++++++++++++++++++//
+.margin--phi--left(@width) {
+	margin-left:  ((100% - @width) * @phi1);
+	margin-right: ((100% - @width) * @phi2);
+}
+.margin--phi--right(@width) {
+	margin-left:  ((100% - @width) * @phi2);
+	margin-right: ((100% - @width) * @phi1);
+}
+.margin--even(@width) {
+	margin-left:  ((100% - @width) * 0.5);
+	margin-right: ((100% - @width) * 0.5);
+}
+.margin--all--left(@width) {
+	margin-left: (100% - @width);
+	margin-right: 0;
+}
+.margin--all--right(@width) {
+	margin-left: 0;
+	margin-right: (100% - @width);
+}
+
+.block {
+	display: block;
+}
+
+.block--p1--left:extend(.block, #_ .width-p1) {.margin--all--right(@golden1);}
+.block--p2--left:extend(.block, #_ .width-p2) {.margin--all--right(@golden2);}
+.block--p3--left:extend(.block, #_ .width-p3) {.margin--all--right(@golden3);}
+.block--p4--left:extend(.block, #_ .width-p4) {.margin--all--right(@golden4);}
+.block--p3c--left:extend(.block, #_ .width-p3c) {.margin--all--right(@golden3c);}
+.block--p4c--left:extend(.block, #_ .width-p4c) {.margin--all--right(@golden4c);}
+
+.block--p1--right:extend(.block, #_ .width-p1) {.margin--all--left(@golden1);}
+.block--p2--right:extend(.block, #_ .width-p2) {.margin--all--left(@golden2);}
+.block--p3--right:extend(.block, #_ .width-p3) {.margin--all--left(@golden3);}
+.block--p4--right:extend(.block, #_ .width-p4) {.margin--all--left(@golden4);}
+.block--p3c--right:extend(.block, #_ .width-p3c) {.margin--all--left(@golden3c);}
+.block--p4c--right:extend(.block, #_ .width-p4c) {.margin--all--left(@golden4c);}
+
+.block--p1--ml:extend(.block, #_ .width-p1) {.margin--phi--right(@golden1);}
+.block--p1--mr:extend(.block, #_ .width-p1) {.margin--phi--left(@golden1);}
+
+.block--sml:extend(.block, #_ .width-p1)   {.margin--even(@golden1);} // Golden:     61.80%
+.block--med:extend(.block, #_ .width-f2o3) {.margin--even(@2o3);}     // arithmetic: 66.66%
+.block--lrg:extend(.block, #_ .width-f3o4) {.margin--even(@3o4);}     // geometric:  75.00%
+
+//-------------------//
+/*@Undo Golden Blocks*/
+//-------------------//
+//.undoGolden {
+//	position: relative;
+//	left: 0;
+//}
+//.undo--p1:extend(.undoGolden) {width: @inv-golden1;}
+//.undo--p2:extend(.undoGolden) {width: @inv-golden2;}
+//.undo--p3:extend(.undoGolden) {width: @inv-golden3;}
+//.undo--p4:extend(.undoGolden) {width: @inv-golden4;}
+//.undo--p3c:extend(.undoGolden) {width: @inv-golden3c;}
+//.undo--p4c:extend(.undoGolden) {width: @inv-golden4c;}
+//
+//.undo--p1--midleft:extend(.undo--p1)  {left: -@golden3;}
+//.undo--p1--midright:extend(.undo--p1) {left: -@golden2;}
+//.undo--p1--left:extend(.undo--p1)  {}
+//.undo--p1--right:extend(.undo--p1) {left: -@golden1;}
+//.undo--p2--left:extend(.undo--p2)  {}
+//.undo--p2--right:extend(.undo--p2) {left: -100%;}
+//.undo--p3--left:extend(.undo--p3)  {}
+//.undo--p3--right:extend(.undo--p3) {left: -323.6067977499789696%;}  // -323.6067977499789696%
+//.undo--p4--left:extend(.undo--p4)  {}
+//.undo--p4--right:extend(.undo--p4) {left: -585.4101966249684545%;}  // -585.4101966249684545%
+//.undo--p3c--left:extend(.undo--p3c)  {}
+//.undo--p3c--right:extend(.undo--p3c) {left: -30.9016994374947424%;} // -30.9016994374947424%
+//.undo--p3c--right:extend(.undo--p4c) {}
+//.undo--p4c--right:extend(.undo--p4c) {left: -17.0820393249936909%;} // -17.0820393249936909%
+//---- @end Undo Golden Blocks ----//
+//++++ @end BLOCKS WITH MARGINS ++++//
 
 
 //++++++++//
