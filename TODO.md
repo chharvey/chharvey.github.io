@@ -77,7 +77,7 @@ Specs for all TODO lists:
 - [ ] 2014-03-05 add Gutter section below all Grid stuff
 - [x] 2014-04-22 rewrite all table-cell functionality
 - [ ] 2014-04-22 update content with styles
-- [ ] 2014-04-22 use SVG for background images
+- [x] 2014-04-22 use SVG for background grid images
 
 ### typo.html ###
 - [ ] 2013-08-18 inline elements: highlighting
