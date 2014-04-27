@@ -1,0 +1,628 @@
+
+
+/**
+  * This Class represents a lede, which serves as an introductory paragraph or sentence. A lede paragraph may be an introduction or abstract to an article; a lede sentence may act as a "heading" for the paragraph it's in.
+@author
+: Chris Harvey
+@tags
+: #typography
+: #paragraph
+@updated
+: 2014-04-26
+  */
+
+.prose {
+	.vru--top();
+	font-family: @fontfam--prose;
+	text-align: justify;
+	list-style-type: decimal;
+}
+
+
+
+
+.dropcap {
+	float: left;
+	padding-top: (@vru / 2);
+	padding-right: 4px; // why this number?
+	font-style: normal;
+	font-weight: normal;
+	font-size: 3 * @fontsize--base;
+	font-family: @fontfam--math;
+	line-height: 0.5;
+	color: @color_h--major;
+}
+.caption {
+	.fontsize(small);
+	padding: 0;
+	margin: 0;
+	font-style: normal;
+	text-align: right;
+}
+//++++ @end PARAGRAPHS ++++//
+
+
+//++++++//
+/*@LISTS*/
+//++++++//
+@listindent: 0.5in;
+.list {
+	padding-left: @listindent;
+}
+.list--omega   {list-style-type: decimal-leading-zero;}
+.list--alpha   {list-style-type: upper-roman;}
+.list--beta    {list-style-type: upper-alpha;}
+.list--gamma   {list-style-type: decimal;}
+.list--delta   {list-style-type: lower-alpha;}
+.list--epsilon {list-style-type: lower-roman;}
+.list--zeta    {list-style-type: lower-greek;}
+
+.list--bare {
+	padding: 0;
+	list-style-type: none;
+}
+.list--inline {
+	&:extend(.list--bare all);
+	> li {display: inline;}
+}
+.list--inline--sep_mx(@sep) {
+	&:extend(.list--inline all);
+	> li:not(:last-child)::after {content: @sep '\0020';}
+}
+.list--inline--c {.list--inline--sep_mx(',');}
+.list--inline--n {.list--inline--sep_mx('\0020\2013');}
+.list--inline--m {.list--inline--sep_mx('\0020\2014');}
+.list--line {
+	&:extend(.list--bare all);
+	&:extend(.row);
+	> li {&:extend(.cell);}
+}
+.list--float {
+	&:extend(.list--bare all);
+	display: table;
+	li {
+		float: left;
+	}
+}
+.list--float_mx(@liwidth) {
+	li {
+		width: @liwidth;
+	}
+}
+.list--float--1:extend(.list--float all) {.list--float_mx(@1o1);}
+.list--float--2:extend(.list--float all) {.list--float_mx(@1o2);}
+.list--float--3:extend(.list--float all) {.list--float_mx(@1o3);}
+.list--float--4:extend(.list--float all) {.list--float_mx(@1o4);}
+.list--float--5:extend(.list--float all) {.list--float_mx(@1o5);}
+.list--float--6:extend(.list--float all) {.list--float_mx(@1o6);}
+
+.list--action {
+	&:extend(.list--bare all);
+	ul, ol, dl {list-style-type: none;}
+	li {
+		color: @color_link--up--txt;
+		&:hover {color: @color_link--dn--txt;}
+	}
+	li::before {content: '\2713\0020';} // check mark, space
+}
+.list--outline {
+	.list {
+		.vru--top--false();
+		margin-top: 0;
+	}
+}
+//++++ @end LISTS ++++//
+
+
+//++++++++++++++++++//
+/*@ASSOCIATION LISTS*/
+//++++++++++++++++++//
+//a.k.a. mappings
+/*dl*/.dl--ordered {
+	padding-left: @listindent;
+	> dt:first-child,
+	> dd + dt {
+		display: list-item;
+		list-style-type: decimal;
+		list-style-position: outside;
+	}
+}
+/*dl*/.dl--tree {
+//	dd > dl {margin-left: 0.5in;}
+}
+.dl--bare {
+	// ***********************
+	// unsemantic class alert!
+	// ***********************
+	> dd {margin: 0; padding: 0;}
+}
+.dl--group {
+	// * groups dt elements together on a line, and dd elements together on a line
+	display: table;
+	> dt,
+	> dd {
+		padding: 0;
+		padding-right: @vru;
+		float: left;
+	}
+	> dt + dd,
+	> dd + dt {clear: both;}
+	> dt + dd {padding-left: 0.5in;}
+}
+.dl--table {
+	// * a dl list that acts like a table, with each row containing a single name-value group.
+	&:extend(.dl--bare all);
+	&:extend(.row);
+	> dt,
+	> dd {
+		&:extend(.cell);
+		float: left;
+	}
+	> dt {
+		clear: both;
+	}
+	> dd {
+		padding-left: 0;
+	}
+	> dt + dd {margin-left: 0;}
+	> dd + dd {clear: both;}
+}
+.dl--table_mx(@dtwidth) {
+	// * the `@dtwidth` parameter must be a percentage.
+	> dt {
+		width: @dtwidth;
+	}
+	> dd {
+		width: (100% - @dtwidth);
+		margin-left: @dtwidth;
+	}
+}
+.dl--table--sml:extend(.dl--table all) {.dl--table_mx(@golden3);}   // 23.6067977499789696%
+.dl--table--msm:extend(.dl--table all) {.dl--table_mx(@golden2);}   // 38.1966011250105152%
+.dl--table--med:extend(.dl--table all) {.dl--table_mx(@1o2);}       // 50%
+.dl--table--mlg:extend(.dl--table all) {.dl--table_mx(@golden1);}   // 61.8033988749894848%
+.dl--table--lrg:extend(.dl--table all) {.dl--table_mx(@golden3c);}  // 76.3932022500210304%
+//++++ @end ASSOCIATION LISTS ++++//
+
+
+//+++++++//
+/*@TABLES*/
+//+++++++//
+@color_table-brdr: @color_accent;
+@color_table-bg-strong: hsv(185, 16.6%, 100%);
+@color_table-bg-medium: hsv(185, 11.1%, 100%);
+@color_table-bg-weak:   hsv(185,  5.5%, 100%);
+
+.table-list,
+.table-bars {
+	thead,
+	tbody,
+	tfoot {&:extend(.rowgroup);}
+	th, td {border: 0;}
+	th {background-color: @color_table-bg-strong;}
+}
+.table-list {
+//	thead,
+//	tbody,
+//	tfoot {
+//		tr:nth-child(odd)  {background-color: @color_table-bg-medium;}
+//		tr:nth-child(even) {background-color: @color_table-bg-weak;}
+//	}
+	tr:nth-child(odd)  {background-color: @color_table-bg-medium;}
+	tr:nth-child(even) {background-color: @color_table-bg-weak;}
+}
+.rowgroup {
+	border: 1px solid @color_table-brdr;
+	border-left: 0;
+	border-right: 0;
+}
+.table-bars {
+	thead {
+		th:nth-child(odd)  {background-color: desaturate(@color_table-bg-weak,   @headlt);}
+		th:nth-child(even) {background-color: desaturate(@color_table-bg-medium, @headlt);}
+		th:first-child     {background-color: desaturate(@color_table-bg-strong, @headlt);}
+	}
+//	tbody {
+//		td:nth-child(odd)  {background-color: @color_table-bg-weak;}
+//		td:nth-child(even) {background-color: @color_table-bg-medium;}
+//	}
+	td:nth-child(odd)  {background-color: @color_table-bg-weak;}
+	td:nth-child(even) {background-color: @color_table-bg-medium;}
+}
+table {
+	counter-reset: nrows;
+	tr {
+		counter-increment: nrows;
+	}
+	counter-increment: nrows; // once more for the last border
+//		@btm: -(((nrows + 12) % 24) - 12);
+//		if (btm <= 0) {
+//			margin-bottom: @btm;
+//		} else {
+//			padding-bottom: @btm;
+//		}
+}
+//.table-grid {
+//	.table;
+//	td {.special-table-border();}
+//	.header,
+//	th {background-color: @color_table-bg-head;}
+//	.row-odd {
+//		.column-odd  {background-color: @color_table-bg-weak;}
+//		.column-even {background-color: @color_table-bg-medium;}
+//	}
+//	.row-even {
+//		.column-odd  {background-color: @color_table-bg-medium;}
+//		.column-even {background-color: @color_table-bg-strong;}
+//	}
+//}
+//++++ @end TABLES ++++//
+
+
+//+++++++++++//
+/*@HYPERLINKS*/
+//+++++++++++//
+@color_link--up--txt: @atlas;
+@color_link--up--bg: lighten(@color_link--up--txt, @headlt);
+@color_link--dn--txt: @pbody;
+@color_link--dn--bg: lighten(@color_link--dn--txt, @headlt);
+@color_sp--up--txt: @neurotoxin;
+@color_sp--up--bg: lighten(@color_sp--up--txt, @headlt);
+@color_sp--dn--txt: @vilify;
+@color_sp--dn--bg: lighten(@color_sp--dn--txt, @headlt);
+@color_link--active-txt: @her-eye;
+@color_link--active-bg: @aperture-black;
+/**
+ * The abstract concept of a hyperlink.
+@tags
+: hyperlink
+@updated
+: 2014-04-21
+ */
+.link {
+	text-decoration: none;
+	color: @color_link--up--txt;
+	&:hover {
+		text-decoration: underline;
+		color: @color_link--dn--txt;
+	}
+	&:active {color: @color_link--active-txt;}
+	&.sp {
+	}
+}
+/**
+ * A special link. May refer to an external link, or some other type.
+@extend
+: `.link`
+@updated
+: 2014-04-21
+ */
+.link.sp {
+	color: @color_sp--up--txt;
+	&:hover {color: @color_sp--dn--txt;}
+}
+//++++ @end HYPERLINKS ++++//
+
+
+//+++++++++++++++++//
+/*@HIGHLIGHTED TEXT*/
+//+++++++++++++++++//
+.emph {
+	font-style: italic;
+}
+.nonnormative,
+em,
+.foreignlang {
+	//* em within italics
+	> em {font-weight: bold;}
+}
+strong {
+	// *****************
+	// element selector!
+	// *****************
+	font-weight: bold;
+}
+mark {
+	// *****************
+	// element selector!
+	// *****************
+	background-color: transparent;
+}
+i {
+	// *****************
+	// element selector!
+	// *****************
+	font-style: inherit;
+	font-weight: inherit;
+}
+//i.scare {
+//	// * scare quotes contain abuse of vocabulary or language
+//	&:extend(.quotes all);
+//}
+//i.mention {
+//	// * mentions refer to phrases without referring to their meaning
+//	&:extend(.quotes all);
+//}
+i.thought {
+	// *********************
+	// semantic class alert!
+	// *********************
+	.guillemets();
+}
+.foreignlang {
+	// * phrases in foreign languages
+	font-style: italic;
+	font-family: @fontfam--math;
+}
+i[lang],
+i:lang(la),
+i:lang(it),
+i:lang(fr) { 
+	&:extend(.foreignlang);
+}
+.solfege {
+	&:extend(.foreignlang);
+}
+b {
+	// *****************
+	// element selector!
+	// *****************
+	font-style: inherit;
+	font-weight: inherit;
+}
+b.keyword {
+	// *********************
+	// semantic class alert!
+	// *********************
+	font-weight: bold;
+}
+b.proper {
+	// *********************
+	// semantic class alert!
+	// *********************
+	font-style: italic;
+	text-transform: capitalize;
+}
+b.ref {
+	// *********************
+	// semantic class alert!
+	// *********************
+	font-weight: bold;
+}
+//++++ @end HIGHLIGHTED TEXT ++++//
+
+
+//++++++++++++++//
+/*@DOCUMENTATION*/
+//++++++++++++++//
+.docmeta {
+	// *********************
+	// semantic class alert!
+	// *********************
+	&:extend(.dl--table--sml all);
+//	&::before {
+//		&:extend(.h-zeta all);
+//		content: 'Document Information';
+//		display: block;
+//		text-indent: 0;
+//	}
+	> dt {
+		font-weight: bold;
+		&::after {content: ':';}
+	}
+	time:not(.submit):not(.recent) {
+		.hm {display: none;}
+	}
+	.hm::before {content: '@\0020';}
+}
+//p.timestamp {
+//	// * a paragraph element that indicates the most recent edit of a webpage or document. includes a <time datetime=""> element
+//	font-size: smaller;
+//	text-align: left;
+//}
+.nonnormative {
+	// *********************
+	// semantic class alert!
+	// *********************
+	font-style: italic;
+	font-family: @fontfam--base;
+}
+q {
+	// *****************
+	// element selector!
+	// *****************
+	.quotes();
+}
+cite {
+	// *****************
+	// element selector!
+	// *****************
+	font-style: inherit;
+}
+.src {
+	.parens();
+}
+.src--informal {
+	padding-right: @vru;
+	float: right;
+	&::before {content: '~\0020';}
+	&::after {content: '';}
+}
+
+//dfn,
+//abbr,
+//del,
+//ins {color: @color_info--txt;}
+dfn {
+	// *****************
+	// element selector!
+	// *****************
+	font-weight: bold;
+	font-style: inherit;
+	font-family: @fontfam--prose;
+}
+abbr[title],
+del[datetime],
+ins[datetime] {
+	// *****************
+	// element selector!
+	// *****************
+	cursor: help;
+	&::after {
+		display: none;
+		position: relative;
+		left: 5px;
+		top: 5px;
+		color: @color_info--txt;
+		background-color: @color_info--bg;
+		text-decoration: none;
+	}
+//	&:hover::after {display: inline;}
+}
+abbr {
+	// *****************
+	// element selector!
+	// *****************
+	&[title]::after {content: attr(title);}
+}
+del {
+	// *****************
+	// element selector!
+	// *****************
+	text-decoration: line-through;
+	&[datetime]::after {content: 'deleted on ' attr(datetime);}
+}
+ins {
+	// *****************
+	// element selector!
+	// *****************
+	text-decoration: underline;
+	&[datetime]::after {content: 'inserted on ' attr(datetime);}
+}
+del + ins {
+	// *****************
+	// element selector!
+	// *****************
+	padding-left: 0.5em;
+}
+//small,
+sup, sub {
+	// *****************
+	// element selector!
+	// *****************
+	.fontsize(small; inline);
+	vertical-align: baseline;
+}
+@supsub-move: @vru / 4;
+sup {
+	// *****************
+	// element selector!
+	// *****************
+	position: relative;
+	bottom: @supsub-move;
+}
+sub {
+	// *****************
+	// element selector!
+	// *****************
+	position: relative;
+	top: @supsub-move;
+}
+//++++ @end DOCUMENTATION ++++//
+
+
+//++++++++++++++++//
+/*@CODING AND MATH*/
+//++++++++++++++++//
+@color_code--txt:  #000;
+@color_code--bg:   #ced;
+@color_code__comm: #999;
+@color_code__tag:  #009;
+@color_code__attr: #900;
+@color_code__val:  #090;
+@color_code__sel:  #099;
+@color_code__prop: #909;
+@color_code__cmd: #990;
+@color_code__arg: #000;
+.code {
+	// * a piece of text that a computer program would recognize
+	.box-inline();
+	.fontsize(small; inline);
+	border: 0;
+	font-style: normal;
+	font-weight: normal;
+	font-family: @fontfam--code;
+	color: @color_code--txt;
+	background-color: @color_code--bg;
+}
+.code--block {
+	&:extend(.code all);
+	.box-block();
+	.border-vert--both(all; 0);
+	.fontsize(small);
+	white-space: pre-wrap;
+	background-color: transparent;
+}
+.code__comm {color: @color_code__comm;}
+.code__tag       {color: @color_code__tag;}
+.code__attr {color: @color_code__attr;}
+.code__val     {color: @color_code__val;}
+.code__sel {color: @color_code__sel;}
+.code__prop {color: @color_code__prop;}
+.code__cmd {color: @color_code__cmd;}
+.code__arg {color: @color_code__arg;}
+.dir {
+	// * directory system (folders and files)
+	border: 0;
+	font-style: italic;
+	font-family: @fontfam--base;
+}
+.key {
+	// * an individual key on a keyboard, calculator, or other device
+	&:extend(.code all);
+	padding: 0 6px; // why this number?
+	border-style: outset;
+	font-family: @fontfam--base;
+	color: @aperture-white;
+	background-color: @aperture-black;
+}
+.latex {
+	overflow: auto;
+	font-family: @fontfam--math;
+	white-space: pre-wrap;
+}
+//++++ @end CODING AND MATH ++++//
+
+//++++++//
+/*@FORMS*/
+//++++++//
+fieldset {
+	// *****************
+	// element selector!
+	// *****************
+	padding: 0;
+	.border-vert--both(all; 0);
+	margin: 0;
+}
+//++++ @end FORMS ++++//
+
+
+@media print {
+	body,
+	.h,
+	blockquote, div.postal,
+	table {
+		.fontsize(medium);
+	}	
+	figure,
+	blockquote,
+	div.postal {
+		.spacing-left-phi();
+		.spacing-right-phi();
+	}
+	figure,
+	blockquote {
+		margin-left:  0.5in;
+		margin-right: 0.5in;
+	}
+}
