@@ -73,6 +73,131 @@ pre {
 		</section>
 	</section>
 </section>
+<section id="stylesheet-anatomy">
+	<h1 class="h--beta">Stylesheet Anatomy</h1>
+	<p class="prose">While the in the last sections we discussed how to format specific syntaxes, this section focuses more on the stylesheet structure itself.</p>
+	<section id="filename">
+		<h1 class="h--gamma">File Name</h1>
+		<p class="prose">At the top of every stylesheet after imports and other such directives, the filename must be indicated as so:</p>
+		<figure>
+			<code class="code--block">
+<span class="code__comm">/*--------------*\
+    reset.less
+\*--------------*/</span>
+			</code>
+		</figure>
+		<p class="prose">The filename must be indented with 4 spaces (not 1 tab, even if the tab size is set to 4). Notice the lines above and below the filename contain hyphens (<code>-</code> <a href="http://www.fileformat.info/info/unicode/char/002d/index.htm" rel="external"><code>U+002D</code></a>), extending 2 to the left and 2 to the right of the filename. This comment uses the block comment notation (<code>/* &hellip; */</code>) so that it gets compiled into the CSS files. Besides the filename, <a href="#headings">heading names</a> and <a href="#comments">Doc Blocks</a> will be block comments as well. All other comments must be inline (<code>// &hellip; </code>).</p>
+	</section>
+	<section id="toc">
+		<h1 class="h--gamma">Table of Contents</h1>
+		<p class="prose">After the filename, include a table of contents in inline comments. Each line on the table of contents represents a heading and is written as a <code>ul</code> in <a href="https://daringfireball.net/projects/markdown/" rel="external">Markdown format</a>. Each stylesheet must only have 2 levels of headings: <b class="keyword">top-level</b> and <b class="keyword">low-level</b>. (Any deeper levels will make the stylesheet too complex; if this is the case, the author is suggested to break up the file into multiple files.) The top-level headings must be in all-caps, and the low-level headings must be first cap only. The table of contents must be preceed by a blank line. Below is an example.</p>
+		<figure>
+			<code class="code--block">
+<span class="code__comm">//Table of Contents
+//- HORIZONTAL GRID
+//	- Widths
+//	- Golden widths and margins
+//	- Lines and units
+//	- Automated box widths
+//	- Undo golden widths and margins
+//- VERTICAL GRID
+//	- Font size and line height
+//	- Padding, margin, border</span>
+			</code>
+		</figure>
+	</section>
+	<section id="headings">
+		<h1 class="h--gamma">Group Headings</h1>
+		<section id="sections-top-level">
+			<h1 class="h--delta">Top-Level</h1>
+			<p class="prose">Top-level group headings be preceeded by 2 blank lines and must appear as so:</p>
+			<figure>
+				<code class="code--block">
+<span class="code__comm">//++++++++++++++++//
+/*@HORIZONTAL GRID*/
+//++++++++++++++++//</span>
+				</code>
+			</figure>
+			<p class="prose">The heading name must be in all caps, proceded by the at-sign (<code>@</code> <a href="http://www.fileformat.info/info/unicode/char/0040/index.htm" rel="external"><code>U+0040</code></a>), and enclosed in a block comment (<code>/* */</code>). The at-sign makes it easy to <abbr title="find"><kbd>&#x2318;-F</kbd></abbr> the section headings. Notice the lines above and below have a number of plus signs (<code>+</code> <a href="http://www.fileformat.info/info/unicode/char/002b/index.htm" rel="external"><code>U+002B</code></a>) that extend out to the end of the heading name, but are inline comments (<code>//</code>). The ending slashes are for stylistic purposes. Using this notation will compile the heading name, but not the surrounding plusses, into the CSS file.</p>
+			<p class="prose">At the end of the top-level section, include the following:</p>
+			<figure>
+				<code class="code--block">
+<span class="code__comm">//++++ @end HORIZONTAL GRID ++++//</span>
+				</code>
+			</figure>
+			<p class="prose">The end of the section doesn't need to be a block comment because it is typically followed by the start of the next section. Notice the four plus signs before and after the heading name. Again, the last two slashes are just for looks.</p>
+		</section>
+		<section id="sections-low-level">
+			<h1 class="h--delta">Low-Level</h1>
+			<p class="prose">Low-level group headings must be preceded by 1 blank line and must appear as so:</p>
+			<figure>
+				<code class="code--block">
+<span class="code__comm">//-------//
+/*@Widths*/
+//-------//</span>
+				</code>
+			</figure>
+			<p class="prose">The heading name must be first-cap only, (unless there are any proper nouns in the heading), and also preceded by the at-sign. Notice the lines above and below have a number of hyphens that extend out to the end of the heading name.</p>
+			<p class="prose">At the end of the low-level section, include the following:</p>
+			<figure>
+				<code class="code--block">
+<span class="code__comm">//---- @end Widths ----//</span>
+				</code>
+			</figure>
+			<p class="prose">Notice the four hyphens before and after the heading name.</p>
+		</section>
+	</section>
+	<section id="comments">
+		<h1 class="h--gamma">Comments</h1>
+		<p class="prose">Small comments to and from developers must be inline comments (starting with <code>//</code>). Besides the filename and headings as discussed above, OOCSS classes may have documentation comments, comments that describe the class, in a block comment. We will call these comments &ldquo;Doc Blocks.&rdquo;</p>
+		<figure>
+			<code class="code--block">
+<span class="code__comm--doc">/**
+  * This is a Doc Block comment. It describes an <a>OOPCSS Class</a>.
+  * Notice how the block comment starts with <code>/**</code> instead of simply <code>/*</code>.
+  * Limit blocks to 80 chars width.
+  * Doc Block comments should apply to Classes (in the OOP sense) only,
+  * not just any old ruleset.
+  * Precede every line with 2 spaces, 1 asterisk (<code>*</code> <a href="http://www.fileformat.info/info/unicode/char/002a/index.htm" rel="external"><code>U+002A</code></a>), then another space,
+&lt;p&gt;unless inserting code.&lt;/p&gt;
+  * 
+  * The following Kramdown-styled <code>dl</code> is metadata describing the class. There are no asterisks.
+@extend
+: .parentclass (use for Classes/Patterns)
+@params
+: @mixinparam1 (use for Mixins)
+@author
+: John Doe
+@tags
+: #tag1
+: #tag2
+: #tag3 (notice how each tag starts with <code>#</code>)
+@updated
+: 2014-04-07 (just put the most recent update, don't keep track of all of them)
+  */</span>
+<span class="code__sel">&hellip; {}</span>
+			</code>
+		</figure>
+		<figure>
+			<code class="code--block">
+<span class="code__comm--doc">/**
+  * The following Classes represent cells with specified widths.
+  * 
+@author
+: Chris Harvey
+@extend
+: `.cell`
+@tags
+: #grid
+: #cell
+@updated
+: 2014-04-05
+  */</span>
+<span class="code__sel">&hellip; {}</span>
+			</code>
+		</figure>
+	</section>
+</section>
 <section id="cascade">
 	<h1 class="h--beta">Honor the Cascade</h1>
 	<p>The &ldquo;C&rdquo; in CSS stands for &ldquo;Cascading.&rdquo; There are two aspects of the way that stylesheets Cascade: one, and most obviously, some properties of elements are inherited from their parent elements (&ldquo;parent&rdquo; here referring to the container in the DOM tree). These properties trickle down the tree, getting applied to each child unless it is overriden by that child's property. This has nothing to do with specificity; this has only to do with the fact that elements' properties override the inherited properties of their parents.</p>
@@ -212,131 +337,6 @@ pre {
 		<p><dfn>Modules</dfn></p>
 		<p><dfn>Style trumps</dfn></p>
 	</section>
-</section>
-<section id="stylesheet-anatomy">
-	<h1 class="h--beta">Stylesheet Anatomy</h1>
-	<p class="prose">While the in the last sections we discussed how to format specific syntaxes, this section focuses more on the stylesheet structure itself.</p>
-	<section id="filename">
-		<h1 class="h--gamma">File Name</h1>
-		<p class="prose">At the top of every stylesheet after imports and other such directives, the filename must be indicated as so:</p>
-		<figure>
-			<code class="code--block">
-<span class="code__comm">/*--------------*\
-    reset.less
-\*--------------*/</span>
-			</code>
-		</figure>
-		<p class="prose">The filename must be indented with 4 spaces (not 1 tab, even if the tab size is set to 4). Notice the lines above and below the filename contain hyphens (<code>-</code> <a href="http://www.fileformat.info/info/unicode/char/002d/index.htm" rel="external"><code>U+002D</code></a>), extending 2 to the left and 2 to the right of the filename. This comment uses the block comment notation (<code>/* &hellip; */</code>) so that it gets compiled into the CSS files. Besides the filename, <a href="#headings">heading names</a> and <a href="#comments">Doc Blocks</a> will be block comments as well. All other comments must be inline (<code>// &hellip; </code>).</p>
-	</section>
-	<section id="toc">
-		<h1 class="h--gamma">Table of Contents</h1>
-		<p class="prose">After the filename, include a table of contents in inline comments. Each line on the table of contents represents a heading and is written as a <code>ul</code> in <a href="https://daringfireball.net/projects/markdown/" rel="external">Markdown format</a>. Each stylesheet must only have 2 levels of headings: <b class="keyword">top-level</b> and <b class="keyword">low-level</b>. (Any deeper levels will make the stylesheet too complex; if this is the case, the author is suggested to break up the file into multiple files.) The top-level headings must be in all-caps, and the low-level headings must be first cap only. The table of contents must be preceed by a blank line. Below is an example.</p>
-		<figure>
-			<code class="code--block">
-<span class="code__comm">//Table of Contents
-//- HORIZONTAL GRID
-//	- Widths
-//	- Golden widths and margins
-//	- Lines and units
-//	- Automated box widths
-//	- Undo golden widths and margins
-//- VERTICAL GRID
-//	- Font size and line height
-//	- Padding, margin, border</span>
-			</code>
-		</figure>
-	</section>
-	<section id="headings">
-		<h1 class="h--gamma">Group Headings</h1>
-		<section id="sections-top-level">
-			<h1 class="h--delta">Top-Level</h1>
-			<p class="prose">Top-level group headings be preceeded by 2 blank lines and must appear as so:</p>
-			<figure>
-				<code class="code--block">
-<span class="code__comm">//++++++++++++++++//
-/*@HORIZONTAL GRID*/
-//++++++++++++++++//</span>
-				</code>
-			</figure>
-			<p class="prose">The heading name must be in all caps, proceded by the at-sign (<code>@</code> <a href="http://www.fileformat.info/info/unicode/char/0040/index.htm" rel="external"><code>U+0040</code></a>), and enclosed in a block comment (<code>/* */</code>). The at-sign makes it easy to <abbr title="find"><kbd>&#x2318;-F</kbd></abbr> the section headings. Notice the lines above and below have a number of plus signs (<code>+</code> <a href="http://www.fileformat.info/info/unicode/char/002b/index.htm" rel="external"><code>U+002B</code></a>) that extend out to the end of the heading name, but are inline comments (<code>//</code>). The ending slashes are for stylistic purposes. Using this notation will compile the heading name, but not the surrounding plusses, into the CSS file.</p>
-			<p class="prose">At the end of the top-level section, include the following:</p>
-			<figure>
-				<code class="code--block">
-<span class="code__comm">//++++ @end HORIZONTAL GRID ++++//</span>
-				</code>
-			</figure>
-			<p class="prose">The end of the section doesn't need to be a block comment because it is typically followed by the start of the next section. Notice the four plus signs before and after the heading name. Again, the last two slashes are just for looks.</p>
-		</section>
-		<section id="sections-low-level">
-			<h1 class="h--delta">Low-Level</h1>
-			<p class="prose">Low-level group headings must be preceded by 1 blank line and must appear as so:</p>
-			<figure>
-				<code class="code--block">
-<span class="code__comm">//-------//
-/*@Widths*/
-//-------//</span>
-				</code>
-			</figure>
-			<p class="prose">The heading name must be first-cap only, (unless there are any proper nouns in the heading), and also preceded by the at-sign. Notice the lines above and below have a number of hyphens that extend out to the end of the heading name.</p>
-			<p class="prose">At the end of the low-level section, include the following:</p>
-			<figure>
-				<code class="code--block">
-<span class="code__comm">//---- @end Widths ----//</span>
-				</code>
-			</figure>
-			<p class="prose">Notice the four hyphens before and after the heading name.</p>
-		</section>
-	</section>
-	<section id="comments">
-		<h1 class="h--gamma">Comments</h1>
-		<p class="prose">Small comments to and from developers must be inline comments (starting with <code>//</code>). Besides the filename and headings as discussed above, OOCSS classes may have documentation comments, comments that describe the class, in a block comment. We will call these comments &ldquo;Doc Blocks.&rdquo;</p>
-		<figure>
-			<code class="code--block">
-<span class="code__comm--doc">/**
-  * This is a Doc Block comment. It describes an <a>OOPCSS Class</a>.
-  * Notice how the block comment starts with <code>/**</code> instead of simply <code>/*</code>.
-  * Limit blocks to 80 chars width.
-  * Doc Block comments should apply to Classes (in the OOP sense) only,
-  * not just any old ruleset.
-  * Precede every line with 2 spaces, 1 asterisk (<code>*</code> <a href="http://www.fileformat.info/info/unicode/char/002a/index.htm" rel="external"><code>U+002A</code></a>), then another space,
-&lt;p&gt;unless inserting code.&lt;/p&gt;
-  * 
-  * The following Kramdown-styled <code>dl</code> is metadata describing the class. There are no asterisks.
-@extend
-: .parentclass (use for Classes/Patterns)
-@params
-: @mixinparam1 (use for Mixins)
-@author
-: John Doe
-@tags
-: #tag1
-: #tag2
-: #tag3 (notice how each tag starts with <code>#</code>)
-@updated
-: 2014-04-07 (just put the most recent update, don't keep track of all of them)
-  */</span>
-<span class="code__sel">&hellip; {}</span>
-			</code>
-		</figure>
-		<figure>
-			<code class="code--block">
-<span class="code__comm--doc">/**
-  * The following Classes represent cells with specified widths.
-  * 
-@author
-: Chris Harvey
-@extend
-: `.cell`
-@tags
-: #grid
-: #cell
-@updated
-: 2014-04-05
-  */</span>
-<span class="code__sel">&hellip; {}</span>
-			</code>
-		</figure>
-</section>
 </section>
 <section id="classes" class="draft">
 	<h1 class="h--beta">Guidelines for Naming Classes</h1>
