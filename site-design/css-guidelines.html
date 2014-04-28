@@ -195,12 +195,25 @@ pre {
 	</section>
 	<section id="stylesheet-order">
 		<h1 class="h--gamma">Stylesheet Order</h1>
-		
-		<p>A reset stylesheet resets every element to its basic values, e.g. gets rid of all margins, padding, bold, italic, etc. It strips the elements down to nothing. The use of a CSS-Reset is controversial. Some authors would say there’s no point in removing a margin if you’re going to add it back in later; this is just more work for the browser. Others might say that there’s no predicting how a browser might one day change the default presentation of an element (all of a sudden it might decide to just go ahead and italicize all paragraphs), so it’s best to reset everything just in case.</p>
-		<p>It's best to combine a mix of both opinions. This means resetting things that need to be reset, such as margin and padding if you are implementing a <a>vertical rhythm system</a>, but leaving other things alone that don't need to be reset, such as font weight and font style. The properties that are left alone can always be defined in particular elements or classes, later on in more targeted stylesheets. The reset stylesheet should be very broad and general, because it comes first in the Cascade and is likely to be overridden later.</p>
+		<p>Stylesheets should be imported in order from least specifying to most specifying. It is recommended to split stylesheets into the following categories:</p>
+		<ol>
+			<li>base stylesheet, including global variables and mixins</li>
+			<li>reset stylesheet with element selectors only</li>
+			<li>layout stylesheets such as grids and vertical rhythm systems</li>
+			<li>typography (headings, paragraphs, etc.)</li>
+			<li>modules (abstract objects like buttons, breadcrumbs)</li>
+			<li>style trumps (states, anomalies, etc.)</li>
+		</ol>
+		<p>A <dfn>base stylesheet</dfn> contains all your global (site-wide) variables, mixins, and utility patterns used throughout the site. Since this file is imported first, every other CSS (or Less) file has access to it.</p>
+		<p>A <dfn>reset stylesheet</dfn> removes all styles, e.g. gets rid of all margins, padding, bold, italics, etc. It strips the elements down to nothing. The use of a CSS-Reset is controversial. Authors against the use of a reset would say there's no point in removing a margin if you're going to add it back in later; this is just more work for the browser. Proponents might say that there's no predicting how a browser might one day change the default presentation of an element (all of a sudden it might decide to just go ahead and italicize all paragraphs), so you might as well reset everything just in case.</p>
+		<p>It's best to use a mix of both philosophies. This means resetting things that need to be reset, such as margin and padding if you are implementing a <a>vertical rhythm system</a>, and other browser-specific resets (such as non-HTML5-compliant browsers), but leaving other things alone that don't need to be reset, such as font weight and font style. This process can be done on an element-by-element basis, which may take long to write. The properties that are left alone can always be defined in particular elements or classes, later on in more targeted stylesheets (such as typography or modules). The reset stylesheet should be very broad and general, because it comes early in the Cascade and is likely to be overridden later.</p>
+		<p>The <dfn>layout stylesheet(s)</dfn> will define the <a>grid system</a> and/or <a>vertical rhythm system</a> of the site. These stylesheets will define only Classes that are meant for containers, not content. Thus it is acceptable that these classnames be presentational.</p>
+		<p>The <dfn>typography stylesheet</dfn> defines Classes for typographical content including headings, paragraphs, block quotes, lists, figures, tables, and text-level semantics (highlighting, etc.). Some authors choose to split even these categories into separate stylesheets. This stylesheet does not use element selectors as you would expect, but rather conceptual Classes that correspond to elements of a document. The <a>HTML elements must instantiate the CSS Classes</a> for proper styling. Elements that do not instantiate a Class will be styled via <a>Reset</a> or browser-default.</p>
+		<p><dfn>Modules</dfn></p>
+		<p><dfn>Style trumps</dfn></p>
 	</section>
 </section>
-<section id="stylesheet-structure">
+<section id="stylesheet-anatomy">
 	<h1 class="h--beta">Stylesheet Anatomy</h1>
 	<p class="prose">While the in the last sections we discussed how to format specific syntaxes, this section focuses more on the stylesheet structure itself.</p>
 	<section id="filename">
@@ -323,6 +336,7 @@ pre {
 <span class="code__sel">&hellip; {}</span>
 			</code>
 		</figure>
+</section>
 </section>
 <section id="classes" class="draft">
 	<h1 class="h--beta">Guidelines for Naming Classes</h1>
