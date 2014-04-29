@@ -1,10 +1,10 @@
 # TO DO - /secondary-ed/ #
 
-- [ ] 2013-09-21 **find a way to write SVG images!**
+- [x] 2013-09-21 **find a way to write SVG images!**
 - [ ] 2014-01-12 clean up `@group assessments` in `secondary-ed.less`
 
 ## Math7/ ##
-- [ ] 2013-11-05 on all course overview, unit overviews, and lessons: include breadcrumbs!
+- [x] 2013-11-05 on all course overview, unit overviews, and lessons: include breadcrumbs!
 - [ ] 2014-03-04 fix Assessment styles
 
 ### Math7/index.html ###
