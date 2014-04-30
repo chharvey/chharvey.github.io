@@ -7,6 +7,10 @@
 //- MAIN ELEMENTS
 //- HEADINGS
 //- PARAGRAPHS
+//- TEXT-LEVEL
+
+
+
 //- LISTS
 //- ASSOCIATION LISTS
 //- TABLES
@@ -21,6 +25,7 @@
 //++++++++++++++//
 body {
 	.fontsize(medium);
+	margin: 0;
 	font-family: @fontfam_base;
 	text-align: left;
 	vertical-align: baseline;
@@ -43,6 +48,21 @@ main {
 		margin-right: auto;
 	}
 }
+/**
+  * This Object represents the text in an article. The text may be content of a literal `article` element or it may be content of the `main` element of a generic article, document, blog post, etc.
+@tags
+: #typography
+: #article
+@author
+: Chris Harvey
+@updated
+: 2014-04-30
+  */
+.Article {
+	font-family: @fontfam_prose;
+	text-align: justify;
+	list-style-type: decimal;
+}
 //++++ @end MAIN ELEMENTS ++++//
 
 
@@ -50,39 +70,55 @@ main {
 /*@HEADINGS*/
 //+++++++++//
 /**
-  * This Class represents a generic heading of a section, article, or document.
-@author
-: Chris Harvey
+  * This Object represents a generic heading of a section, article, or document.
 @tags
 : #typography
 : #heading
 : #section
+@author
+: Chris Harvey
 @updated
 : 2014-04-14
   */
-.h {
+.H {
 	display: block;
 	font-style: normal;
 	font-variant: normal;
 	font-weight: normal;
 	font-family: @fontfam_heading;
 	letter-spacing: 1px;
+	/**
+	  * This Object represents a generic tagline inside a heading, called a 'subheading'.
+	@tags
+	: #typography
+	: #heading
+	@author
+	: Chris Harvey
+	@updated
+	: 2014-04-30
+	  */
+	> .Hsub {
+		font-size: 80%;
+		padding-left: @vru;
+		font-weight: normal;
+		color: @color_base--faded;
+	}
 }
 /**
-  * The six Classes below represent different levels of headings, starting from top-level to level 6.
-@author
-: Chris Harvey
-@extend
-: .h
+  * The six Objects below represent different levels of headings, starting from top-level to level 6.
+@extends
+: .H
 @tags
 : #typography
 : #heading
 : #section
+@author
+: Chris Harvey
 @updated
 : 2014-04-14
   */
-.h--alpha {
-	&:extend(.h all);
+.H--Alpha {
+	&:extend(.H all);
 	.fontsize--scale(@fontsize_ratio--alpha);
 	padding-bottom: @vru;
 	margin-top: 2 * @vru;
@@ -90,42 +126,42 @@ main {
 	font-weight: bold;
 	text-align: center;
 	color: @color_h--major;
-	> span.hsub {color: @color_hsub--major;}
+	> .Hsub {color: @color_hsub--major;}
 }
-.h--beta {
-	&:extend(.h all);
+.H--Beta {
+	&:extend(.H all);
 	.fontsize--scale(@fontsize_ratio--beta);
 	padding-bottom: 0.5 * @vru;
 	margin-top: 1.5 * @vru;
 	font-weight: bold;
 	color: @color_h--minor;
-	> span.hsub {color: @color_hsub--minor;}
+	> .Hsub {color: @color_hsub--minor;}
 }
-.h--gamma {
-	&:extend(.h all);
+.H--Gamma {
+	&:extend(.H all);
 	.fontsize--scale(@fontsize_ratio--gamma);
 	padding-bottom: 0.25 * @vru;
 	margin-top: 0.75 * @vru;
 	font-variant: small-caps;
 	font-weight: bold;
 }
-.h--delta {
-	&:extend(.h all);
+.H--Delta {
+	&:extend(.H all);
 	.fontsize--scale(@fontsize_ratio--delta);
 	margin-top: @vru;
 	font-style: italic;
 	font-weight: bold;
 }
-.h--epsilon {
-	&:extend(.h all);
+.H--Epsilon {
+	&:extend(.H all);
 	.fontsize--scale(@fontsize_ratio--epsilon);
 	font-style: italic;
 	text-indent: 0.5in;
 	color: @color_h--minor;
-	> span.hsub {color: @color_hsub--minor;}
+	> .Hsub {color: @color_hsub--minor;}
 }
-.h--zeta {
-	&:extend(.h all);
+.H--Zeta {
+	&:extend(.H all);
 	.fontsize--scale(@fontsize_ratio--zeta);
 	font-style: italic;
 	font-variant: small-caps;
@@ -138,60 +174,120 @@ main {
 /*@PARAGRAPHS*/
 //+++++++++++//
 /**
-  * This Class represents a generic paragraph in a section, article, or document.
-@author
-: Chris Harvey
+  * This Object represents a generic paragraph in a section, article, or document. Paragraphs are the backbone of a document; they are made to organize and group textual ideas together. In the written media, paragraphs can span anywhere from 3 to 8 sentences. However on the Web, they can be much, much shorter.
+@implements
+: .vru--content
+: .vru--top;
 @tags
 : #typography
 : #paragraph
+@author
+: Chris Harvey
 @updated
 : 2014-04-26
   */
-.p {
-	.vru--content();
-	.vru--top();
+.P {
+	&:extend(.vru--content);
+	&:extend(.vru--top);
 }
 /**
-  * This Class represents a lede, which serves as an introductory paragraph or sentence.
-@author
-: Chris Harvey
+  * This Object represents a lede paragraph, which may be an introduction or abstract to an article.
+@extends
+: .P
+@implements
+: .lede
 @tags
 : #typography
 : #paragraph
-@updated
-: 2014-04-26
-  */
-.lede {
-	font-weight: bold;
-	font-family: @fontfam_base;
-	color: #000;
-}
-/**
-  * A lede paragraph may be an introduction or abstract to an article
 @author
 : Chris Harvey
-@tags
-: #typography
-: #paragraph
 @updated
 : 2014-04-26
   */
-.lede--para {
-	&:extend(.p, .lede);
+.P--Lede {
+	&:extend(.P);
+	&:extend(.lede);
 	padding-bottom: @vru;
 	text-align: justify;
 }
 /**
-  * A lede sentence may act as a "heading" for the paragraph it's in.
-@author
-: Chris Harvey
+  * This Object represents a caption of any sort. It may be a caption of a table, figure, or any element. Captions are usually short summaries of the objects they describe. They may precede or follow the object.
 @tags
 : #typography
 : #paragraph
+: #table
+: #figure
+@author
+: Chris Harvey
+@updated
+: 2014-04-29
+  */
+.Caption {
+	&:extend(.P);
+	.fontsize(small);
+	padding: 0;
+	margin: 0;
+	font-style: normal;
+	text-align: right;
+}
+/**
+  * This Object represents a paragraph whose first letter is a drop cap.
+@tags
+: #typography
+: #paragraph
+@author
+: Chris Harvey
+@updated
+: 2014-04-30
+  */
+.Dropcap::first-letter {
+	&:extend(.P);
+	float: left;
+	padding-top: (@vru / 2);
+	padding-right: 4px; // why this number?
+	font-style: normal;
+	font-weight: normal;
+	font-size: 3 * @fontsize_base;
+	font-family: @fontfam_math;
+	line-height: 0.5;
+	color: @color_h--major;
+}
+//++++ @end PARAGRAPHS ++++//
+
+
+//+++++++++++//
+/*@TEXT-LEVEL*/
+//+++++++++++//
+/**
+  * This Object represents a generic span of text in a paragraph, quote, list item, table cell, or any container of text.
+@tags
+: #typography
+: #span
+@author
+: Chris Harvey
+@updated
+: 2014-04-30
+  */
+.S {}
+/**
+  * This Object represents a lede sentence, which may act as a "heading" for the paragraph it's in. If a lede sentence is part of a paragraph, it acts like a mini-heading for that paragraph. This can be especially useful in a prose list.
+@extends
+: .S
+@implements
+: .lede
+@tags
+: #typography
+: #span
+: #list
+@author
+: Chris Harvey
 @updated
 : 2014-04-26
   */
-.lede--sent {
+.S--Lede {
+	&:extend(.S);
 	&:extend(.lede);
 	padding-right: @vru;
 }
+//++++ @end TEXT-LEVEL ++++//
+

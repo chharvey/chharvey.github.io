@@ -372,13 +372,7 @@ var {
   position: absolute;
 }
 .gutter .h,
-.gutter--minor .h,
-.gutter .h--alpha,
-.gutter .h--beta,
-.gutter .h--gamma,
-.gutter .h--delta,
-.gutter .h--epsilon,
-.gutter .h--zeta {
+.gutter--minor .h {
   text-align: center;
   text-indent: 0;
 }
@@ -416,26 +410,62 @@ var {
   * These Mixins multiply `font-size` by `@ratio` and adjusts `line-height` such that `font-size` * `line-height` = `@vru` (@vru is one vertical rhythm unit).
 @params
 : @ratio: the ratio of the new font size to `fontsize_base`
-@author
-: Chris Harvey
 @tags
 : #verticalrhythm
+@author
+: Chris Harvey
 @updated
 : 2014-04-26
   */
 /*@VERTICAL SPACING*/
 /**
-  * These Mixins provide vertical spacing of one vertical rhythm unit.
-  * The .vru--content() Mixin provides minimum height and is meant for text-containing block elements.
-  * The .vru-phi--top() Mixin provides a padding-top, border-top, and margin-top such that the padding-to-margin ratio is Golden.
-@author
-: Chris Harvey
+  * This Mixin provides a padding-top, border-top, and margin-top such that the padding-to-margin ratio is Golden.
+@params
+: @brdrw : value of the border-top-width property
+: @brdrs : value of the border-top-style property
+: @brdrc : value of the border-top-color property
 @tags
 : #verticalrhythm
 : #golden
+@author
+: Chris Harvey
 @updated
 : 2014-04-26
   */
+/**
+  * These Interfaces provide vertical spacing of one vertical rhythm unit.
+  * .vru--content is meant for text-containing block elements,
+  *     such as p, blockquote, li, dt, dd, th, td 
+@tags
+: #verticalrhythm
+: #golden
+@author
+: Chris Harvey
+@updated
+: 2014-04-26
+  */
+.vru--content,
+.P,
+.P--Lede,
+.Caption,
+.Dropcap::first-letter {
+  min-height: 24px;
+}
+.vru--top,
+.P,
+.P--Lede,
+.Caption,
+.Dropcap::first-letter {
+  margin-top: 24px;
+}
+.vru--bottom {
+  padding-bottom: 24px;
+}
+.vru-phi--top {
+  padding-top: 9.16718427px;
+  border-top: 0 solid #000000;
+  margin-top: 14.83281573px;
+}
 /*@VERTICAL BORDERS*/
 /**
   * The following Mixins adjust borders for **BLOCK** elements only! They will keep the vertical rhythm intact when adding borders (by slightly adjusting position and margins). *Do *not** use these mixins on INLINE elements!
@@ -445,11 +475,11 @@ var {
 : @side:  either `top` or `bottom`
 : @style: a `border-style` value
 : @color: a `border-color` value
-@author
-: Chris Harvey
 @tags
 : #verticalrhythm
 : #border
+@author
+: Chris Harvey
 @updated
 : 2014-04-26
   */
@@ -460,6 +490,7 @@ var {
 body {
   font-size: 16px;
   line-height: 1.5;
+  margin: 0;
   font-family: 'Optima', 'Candara', 'Helvetica', sans-serif;
   text-align: left;
   vertical-align: baseline;
@@ -483,46 +514,83 @@ main {
     margin-right: auto;
   }
 }
-/*@HEADINGS*/
 /**
-  * This Class represents a generic heading of a section, article, or document.
+  * This Object represents the text in an article. The text may be content of a literal `article` element or it may be content of the `main` element of a generic article, document, blog post, etc.
+@tags
+: #typography
+: #article
 @author
 : Chris Harvey
+@updated
+: 2014-04-30
+  */
+.Article {
+  font-family: 'Baskerville', 'Palatino', 'Book Antiqua', serif;
+  text-align: justify;
+  list-style-type: decimal;
+}
+/*@HEADINGS*/
+/**
+  * This Object represents a generic heading of a section, article, or document.
 @tags
 : #typography
 : #heading
 : #section
+@author
+: Chris Harvey
 @updated
 : 2014-04-14
   */
-.h,
-.h--alpha,
-.h--beta,
-.h--gamma,
-.h--delta,
-.h--epsilon,
-.h--zeta {
+.H,
+.H--Alpha,
+.H--Beta,
+.H--Gamma,
+.H--Delta,
+.H--Epsilon,
+.H--Zeta {
   display: block;
   font-style: normal;
   font-variant: normal;
   font-weight: normal;
   font-family: 'Avenir', 'Calibri', 'Century Gothic', sans-serif;
   letter-spacing: 1px;
+  /**
+	  * This Object represents a generic tagline inside a heading, called a 'subheading'.
+	@tags
+	: #typography
+	: #heading
+	@author
+	: Chris Harvey
+	@updated
+	: 2014-04-30
+	  */
+}
+.H > .Hsub,
+.H--Alpha > .Hsub,
+.H--Beta > .Hsub,
+.H--Gamma > .Hsub,
+.H--Delta > .Hsub,
+.H--Epsilon > .Hsub,
+.H--Zeta > .Hsub {
+  font-size: 80%;
+  padding-left: 24px;
+  font-weight: normal;
+  color: rgba(5, 3, 0, 0.61803399);
 }
 /**
-  * The six Classes below represent different levels of headings, starting from top-level to level 6.
-@author
-: Chris Harvey
-@extend
-: .h
+  * The six Objects below represent different levels of headings, starting from top-level to level 6.
+@extends
+: .H
 @tags
 : #typography
 : #heading
 : #section
+@author
+: Chris Harvey
 @updated
 : 2014-04-14
   */
-.h--alpha {
+.H--Alpha {
   font-size: 32px;
   line-height: 0.75;
   padding-bottom: 24px;
@@ -532,10 +600,10 @@ main {
   text-align: center;
   color: #001e80;
 }
-.h--alpha > span.hsub {
+.H--Alpha > .Hsub {
   color: #406b80;
 }
-.h--beta {
+.H--Beta {
   font-size: 24px;
   line-height: 1;
   padding-bottom: 12px;
@@ -543,10 +611,10 @@ main {
   font-weight: bold;
   color: #80522b;
 }
-.h--beta > span.hsub {
+.H--Beta > .Hsub {
   color: #bf9300;
 }
-.h--gamma {
+.H--Gamma {
   font-size: 20px;
   line-height: 1.2;
   padding-bottom: 6px;
@@ -554,24 +622,24 @@ main {
   font-variant: small-caps;
   font-weight: bold;
 }
-.h--delta {
+.H--Delta {
   font-size: 16px;
   line-height: 1.5;
   margin-top: 24px;
   font-style: italic;
   font-weight: bold;
 }
-.h--epsilon {
+.H--Epsilon {
   font-size: 14px;
   line-height: 1.71428571;
   font-style: italic;
   text-indent: 0.5in;
   color: #80522b;
 }
-.h--epsilon > span.hsub {
+.H--Epsilon > .Hsub {
   color: #bf9300;
 }
-.h--zeta {
+.H--Zeta {
   font-size: 12px;
   line-height: 2;
   font-style: italic;
@@ -580,61 +648,103 @@ main {
 }
 /*@PARAGRAPHS*/
 /**
-  * This Class represents a generic paragraph in a section, article, or document.
-@author
-: Chris Harvey
+  * This Object represents a generic paragraph in a section, article, or document. Paragraphs are the backbone of a document; they are made to organize and group textual ideas together. In the written media, paragraphs can span anywhere from 3 to 8 sentences. However on the Web, they can be much, much shorter.
+@implements
+: .vru--content
+: .vru--top;
 @tags
 : #typography
 : #paragraph
+@author
+: Chris Harvey
 @updated
 : 2014-04-26
   */
-.p,
-.lede--para {
-  min-height: 24px;
-  margin-top: 24px;
-}
 /**
-  * This Class represents a lede, which serves as an introductory paragraph or sentence.
-@author
-: Chris Harvey
+  * This Object represents a lede paragraph, which may be an introduction or abstract to an article.
+@extends
+: .P
+@implements
+: .lede
 @tags
 : #typography
 : #paragraph
-@updated
-: 2014-04-26
-  */
-.lede,
-.lede--para,
-.lede--sent {
-  font-weight: bold;
-  font-family: 'Optima', 'Candara', 'Helvetica', sans-serif;
-  color: #000;
-}
-/**
-  * A lede paragraph may be an introduction or abstract to an article
 @author
 : Chris Harvey
-@tags
-: #typography
-: #paragraph
 @updated
 : 2014-04-26
   */
-.lede--para {
+.P--Lede {
   padding-bottom: 24px;
   text-align: justify;
 }
 /**
-  * A lede sentence may act as a "heading" for the paragraph it's in.
-@author
-: Chris Harvey
+  * This Object represents a caption of any sort. It may be a caption of a table, figure, or any element. Captions are usually short summaries of the objects they describe. They may precede or follow the object.
 @tags
 : #typography
 : #paragraph
+: #table
+: #figure
+@author
+: Chris Harvey
+@updated
+: 2014-04-29
+  */
+.Caption {
+  font-size: 12px;
+  line-height: 2;
+  padding: 0;
+  margin: 0;
+  font-style: normal;
+  text-align: right;
+}
+/**
+  * This Object represents a paragraph whose first letter is a drop cap.
+@tags
+: #typography
+: #paragraph
+@author
+: Chris Harvey
+@updated
+: 2014-04-30
+  */
+.Dropcap::first-letter {
+  float: left;
+  padding-top: 12px;
+  padding-right: 4px;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 48px;
+  font-family: 'Times', 'Times New Roman', serif;
+  line-height: 0.5;
+  color: #001e80;
+}
+/*@TEXT-LEVEL*/
+/**
+  * This Object represents a generic span of text in a paragraph, quote, list item, table cell, or any container of text.
+@tags
+: #typography
+: #span
+@author
+: Chris Harvey
+@updated
+: 2014-04-30
+  */
+/**
+  * This Object represents a lede sentence, which may act as a "heading" for the paragraph it's in. If a lede sentence is part of a paragraph, it acts like a mini-heading for that paragraph. This can be especially useful in a prose list.
+@extends
+: .S
+@implements
+: .lede
+@tags
+: #typography
+: #span
+: #list
+@author
+: Chris Harvey
 @updated
 : 2014-04-26
   */
-.lede--sent {
+.S--Lede {
   padding-right: 24px;
 }
