@@ -1,7 +1,6 @@
-// main: all.less
 
 /*-------------*\
-	vert.less
+    vert.less
 \*-------------*/
 
 //Table of Contents
@@ -13,37 +12,46 @@
 //+++++++++++//
 /*@FONT SIZES*/
 //+++++++++++//
-@vru: @lineheight--base * @fontsize--base; // 24px
+@vru: @fontsize_base * @lineheight_base; // 24px
 
-@fontsize--ratio--giga:    (6/1); // (48/8) or 6.000em
-@fontsize--ratio--mega:    (4/1); // (32/8) or 4.000em
-@fontsize--ratio--kilo:    (3/1); // (24/8) or 3.000em
+@fontsize_ratio--giga:    (6/1); // (48/8) or 6.000em
+@fontsize_ratio--mega:    (4/1); // (32/8) or 4.000em
+@fontsize_ratio--kilo:    (3/1); // (24/8) or 3.000em
 
-@fontsize--ratio--alpha:   (2/1); // (16/8) or 2.000em
-@fontsize--ratio--beta:    (3/2); // (12/8) or 1.500em
-@fontsize--ratio--gamma:   (5/4); // (10/8) or 1.250em
-@fontsize--ratio--delta:   (1/1); // (08/8) or 1.000em
-@fontsize--ratio--epsilon: (7/8); // (07/8) or 0.875em
-@fontsize--ratio--zeta:    (3/4); // (06/8) or 0.750em
+@fontsize_ratio--alpha:   (2/1); // (16/8) or 2.000em
+@fontsize_ratio--beta:    (3/2); // (12/8) or 1.500em
+@fontsize_ratio--gamma:   (5/4); // (10/8) or 1.250em
+@fontsize_ratio--delta:   (1/1); // (08/8) or 1.000em
+@fontsize_ratio--epsilon: (7/8); // (07/8) or 0.875em
+@fontsize_ratio--zeta:    (3/4); // (06/8) or 0.750em
 
-@fontsize--ratio--milli:   (1/2); // (04/8) or 0.500em
+@fontsize_ratio--milli:   (1/2); // (04/8) or 0.500em
 
+/**
+  * These Mixins multiply `font-size` by `@ratio` and adjusts `line-height` such that `font-size` * `line-height` = `@vru` (@vru is one vertical rhythm unit).
+@params
+: @ratio: the ratio of the new font size to `fontsize_base`
+@tags
+: #verticalrhythm
+@author
+: Chris Harvey
+@updated
+: 2014-04-26
+  */
 .fontsize--scale(@ratio) {
-	// * multiplies font-size by @ratio and adjusts line-height so that font-size * line-height = @vru
-	font-size: (@fontsize--base * @ratio);
+	font-size: (@fontsize_base * @ratio);
 	// this.line-height = @vru / this.font-size
 	//                  = (@lineheight--base * @fontsize--base) / (@fontsize--base * @ratio)
 	//                  = @lineheight--base / @ratio
-	line-height: (@lineheight--base / @ratio);
+	line-height: (@lineheight_base / @ratio);
 }
-.fontsize(large)  {.fontsize--scale(@fontsize--ratio--gamma);}
-.fontsize(medium) {.fontsize--scale(1);}
-.fontsize(small)  {.fontsize--scale(@fontsize--ratio--zeta);}
-
 .fontsize--inline() {
 	display: inline;
-	line-height: @lineheight--base;
+	line-height: @lineheight_base;
 }
+.fontsize(large)  {.fontsize--scale(@fontsize_ratio--gamma);}
+.fontsize(medium) {.fontsize--scale(1);}
+.fontsize(small)  {.fontsize--scale(@fontsize_ratio--zeta);}
 .fontsize(large, inline) {
 	.fontsize(large);
 	.fontsize--inline();
@@ -58,36 +66,41 @@
 //+++++++++++++++++//
 /*@VERTICAL SPACING*/
 //+++++++++++++++++//
-.vru--content() {
-	// * minimum height for text-containing block elements
-	min-height: @vru;
+/**
+  * This Mixin provides a padding-top, border-top, and margin-top such that the padding-to-margin ratio is Golden.
+@params
+: @brdrw : value of the border-top-width property
+: @brdrs : value of the border-top-style property
+: @brdrc : value of the border-top-color property
+@tags
+: #verticalrhythm
+: #golden
+@author
+: Chris Harvey
+@updated
+: 2014-04-26
+  */
+.vru-phi--top(@brdrw; @brdrs; @brdrc) {
+	padding-top: ((@vru - @brdrw) * @phi2);
+	border-top: @brdrw @brdrs @brdrc;
+	margin-top: ((@vru - @brdrw) * @phi1);
 }
-.vru--top() {
-	// * provides a margin-top of one vertical rhythm unit
-	margin-top: @vru;
-}
-.vru--bottom() {
-	// * provides a padding-bottom of one vertical rhythm unit
-	padding-bottom: @vru;
-}
-.vru--top--false() {
-	// * no margin-top:
-	// - following all headings
-	// - first child of some containers (figure, blockquote, li, dt, dd, td)
-	// why is this a mixin?
-	margin-top: 0;
-}
-.vru--bottom--false() {
-	// why is this a mixin?
-	padding-bottom: 0;
-}
-.vru-phi--top(@brdr-width; @brdr-style; @brdr-color) {
-	// * provides a padding-top, border-top, and margin-top. The padding : margin ratio is Golden.
-	padding-top: ((@vru - @brdr-width) * @phi2);
-	border-top: @brdr-width @brdr-style @brdr-color;
-	margin-top: ((@vru - @brdr-width) * @phi1);
-}
-.vru-phi--top() {
+/**
+  * These Interfaces provide vertical spacing of one vertical rhythm unit.
+  * .vru--content is meant for text-containing block elements,
+  *     such as p, blockquote, li, dt, dd, th, td 
+@tags
+: #verticalrhythm
+: #golden
+@author
+: Chris Harvey
+@updated
+: 2014-04-26
+  */
+.vru--content {min-height: @vru;}
+.vru--top {margin-top: @vru;}
+.vru--bottom {padding-bottom: @vru;}
+.vru-phi--top {
 	.vru-phi--top(0; solid; #000);
 }
 //++++ @end VERTICAL SPACING ++++//
@@ -96,8 +109,23 @@
 //+++++++++++++++++//
 /*@VERTICAL BORDERS*/
 //+++++++++++++++++//
-// * Use the folowing mixins to adjust borders for **BLOCK** elements only! They will keep the vertical rhythm intact when adding borders (by slightly adjusting position and margins). *DO NOT* use these mixins on INLINE elements!
-// Cannot overload methods with same # of parameters, thus mixin names have modifiers.
+// 
+/**
+  * The following Mixins adjust borders for **BLOCK** elements only! They will keep the vertical rhythm intact when adding borders (by slightly adjusting position and margins). *Do *not** use these mixins on INLINE elements!
+  * Note: Methods with same # of params cannot be overloaded; thus mixin names have modifiers.
+@params
+: @width: the width of the top or bottom border
+: @side:  either `top` or `bottom`
+: @style: a `border-style` value
+: @color: a `border-color` value
+@tags
+: #verticalrhythm
+: #border
+@author
+: Chris Harvey
+@updated
+: 2014-04-26
+  */
 .border-vert(@width) {
 	display: block;
 	position: relative;

@@ -5,42 +5,100 @@
 \*-------------*/
 
 //Table of Contents
-//- GENERAL MIXINS
+//- UTILITIES
 //	- Delimiters
-//	- Automated Widths
 //- TRUMPS
 
 
-//+++++++++++++++//
-/*@GENERAL MIXINS*/
-//+++++++++++++++//
+//++++++++++//
+/*@UTILITIES*/
+//++++++++++//
+/**
+  * This Interface represents a lede, an introductory/summary sentence or paragraph which catches the reader's attention.
+@tags
+: #typography
+: #paragraph
+: #span
+@author
+: Chris Harvey
+@updated
+: 2014-04-26
+  */
+.lede {
+	font-weight: bold;
+	font-family: @fontfam_base;
+	color: #000;
+}
+/**
+  * This Interface creates default padding for cell-like structures (table cells, grid cells, boxes, etc.). The padding is based on the Vertical Rhythm Unit.
+@tags
+: #verticalrhythm
+: #padding
+@author
+: Chris Harvey
+@updated
+: 2014-04-30
+  */
+.cellpaddingdefault {
+	padding: (@vru / 2) (@vru / 2 * @phi1);
+}
+/**
+  * This Interface makes an object slightly transparent, but it becomes opaque upon `:hover`.
+@tags
+: #schematic
+@author
+: Chris Harvey
+@updated
+: 2014-04-30
+  */
+.transp {
+	opacity: 0.618033988749894848;
+	&:hover {opacity: 1;}
+}
 
 //-----------//
 /*@Delimiters*/
 //-----------//
-.parens() {
+.parens {
 	&::before {content: '(';}
 	&::after  {content: ')';}	
 }
-.quotes() {
+.quotes {
 	&::before {content: open-quote;}
 	&::after  {content: close-quote;}
 }
-.guillemets() {
+.guillemets {
 	&::before {content: '\00ab';} // &laquo;
 	&::after  {content: '\00bb';} // &raquo;
 }
-.transp() {
-	opacity: @phi1;
-	&:hover {opacity: 1;}
-}
 //---- @end Delimiters ----//
-
-.cellpaddingdefault() {
-	// * default padding for cell-like structures (table cells, grid cells, boxes, etc.)
-	padding: (@vru / 2) (@vru / 2 * @phi1);
+@media print {
+	/**
+	  * This Interface displays an Object on screen but does not print it.
+	@tags
+	: #schematic
+	@author
+	: Chris Harvey
+	@updated
+	: 2014-04-30
+	  */
+	.noprint {
+		display: none !important;
+	}
+	/**
+	  * This Interface starts a new page in the print media.
+	@tags
+	: #schematic
+	@author
+	: Chris Harvey
+	@updated
+	: 2014-04-30
+	  */
+	.pagebreak {
+		page-break-before: always; padding-top: 0.25in;
+	}
 }
-//++++ @end GENERAL MIXINS ++++//
+//++++ @end UTILITIES ++++//
 
 
 //+++++++//
@@ -61,15 +119,5 @@
 //	color: fadeout(#000, 50%);
 //	background-color: fadeout(#fff, 50%);
 	opacity: .5;
-}
-@media print {
-	.noprint {
-		// * To display on screen but not to print.
-		display: none !important;
-	}
-	.pagebreak {
-		// * Starts a new page
-		page-break-before: always; padding-top: 0.25in;
-	}
 }
 //++++ @end TRUMPS ++++//
