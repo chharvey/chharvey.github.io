@@ -20,6 +20,7 @@ body {
 	outline: 1px solid #bbb;
 	background: #eee;
 }
+code {font-family: monospace; border: 1px solid black; padding: 1px; font-size: smaller; white-space: nowrap;}
 </style>
 <!--{% include all-js.html %}-->
 <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
@@ -27,7 +28,7 @@ body {
 <script src="../core/scripts/all.js"></script>
 <script>
 $(document).ready(function () {
-	$('p').addClass('P');
+//	$('p').addClass('P');
 });
 </script>
 </head>
@@ -84,7 +85,7 @@ $(document).ready(function () {
 		</aside> -->
 	<section id="scheme-paragraph">
 		<h1 class="H--Gamma">Paragraph Scheme</h1>
-		<p>This is a regular paragraph (<code>.P</code>).
+		<p class="P">This is a regular paragraph (<code>.P</code>).
 			The quick brown fox jumps over the lazy dog.
 			<span style="font-style: italic;">The quick brown fox jumps over the lazy dog.</span>
 			<span style="font-weight: bold;">The quick brown fox jumps over the lazy dog.</span>
@@ -96,14 +97,29 @@ $(document).ready(function () {
 			<span style="font-weight: bold;">The quick brown fox jumps over the lazy dog.</span>
 			<span style="font-style: italic; font-weight: bold">The quick brown fox jumps over the lazy dog.</span>
 		</p>
-		<p><span class="S--Lede">This is a lede sentence (<code>.S--Lede</code>) within a paragraph.</span> This is the rest of the paragraph.</p>
-		<p class="Article">This is a paragraph styled like an <code>.Article</code>.
-			The quick brown fox jumps over the lazy dog.
-			<span style="font-style: italic;">The quick brown fox jumps over the lazy dog.</span>
-			<span style="font-weight: bold;">The quick brown fox jumps over the lazy dog.</span>
-			<span style="font-style: italic; font-weight: bold">The quick brown fox jumps over the lazy dog.</span>
-		</p>
-		
+		<p class="P"><span class="S--Lede">This is a lede sentence (<code>.S--Lede</code>) within a paragraph.</span> This is the rest of the paragraph.</p>
+		<div class="Article">
+			<p class="P">This is an <code>.Article &gt; .P</code>.
+				The quick brown fox jumps over the lazy dog.
+				<span style="font-style: italic;">The quick brown fox jumps over the lazy dog.</span>
+				<span style="font-weight: bold;">The quick brown fox jumps over the lazy dog.</span>
+				<span style="font-style: italic; font-weight: bold">The quick brown fox jumps over the lazy dog.</span>
+			</p>
+			<p class="P--Lede">This is an <code>.Article &gt; .P--Lede</code>.
+				The quick brown fox jumps over the lazy dog.
+				<span style="font-style: italic;">The quick brown fox jumps over the lazy dog.</span>
+				<span style="font-weight: bold;">The quick brown fox jumps over the lazy dog.</span>
+				<span style="font-style: italic; font-weight: bold">The quick brown fox jumps over the lazy dog.</span>
+			</p>
+			<p class="P"><span class="S--Lede">This is a lede sentence (<code>.S--Lede</code>) within an <code>.Article &gt; .P</code>.</span> This is the rest of the paragraph in the article.</p>
+		</div>
+		<p class="P--Dropcap">Drop caps can be beautiful, but it is unusual to use one on a normal paragraph. This <code>.P--Dropcap</code> is here simply for visual comprehension. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text.</p>
+		<p class="P--Lede P--Dropcap">In a normal (non-<code>.Article</code>) document, drop caps can still be used, but they don't look as pretty. This is a <code>.P--Lede.P--Dropcap</code>. Notice how the drop cap font does not complement the normal paragraph font very well. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text.</p>
+		<div class="Article">
+			<p class="P--Dropcap">Authors may want to use a fancy drop cap in the first paragraph of an article or in a book chapter. This is an <code>.Article &gt; .P--Dropcap</code>. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text.</p>
+			<p class="P--Lede P--Dropcap">Sometimes, the Article may have a Lede paragraph. This is an <code>.Article &gt; .P--Lede.P--Dropcap</code>. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text.</p>
+		</div>
+
 		
 		
 
@@ -117,9 +133,6 @@ $(document).ready(function () {
 		
 		
 		
-		<p class="lede"><span class="dropcap">A</span>uthors may want to use a fancy drop cap in the first paragraph of an article. Usually the first paragraph will also be a lede. Use the <code>.dropcap</code> class on the first letter. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text.</p>
-		<p class="prose dropcap">Prose paragraphs can also have drop caps, for example, as a first paragraph in a book chapter. This is a <code class="lang-css">p.prose.dropcap</code>. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text.</p>
-		<p class="dropcap">Drop caps can be beautiful, but it is unusual to use one on a normal, non-prose paragraph. This <code class="lang-css">p.dropcap</code> is here simply for visual comprehension. Notice how the drop cap font does not complement the normal paragraph font very well. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text.</p>
 <!--
 			<div class="informative">
 				<p>Wrap all informative content, including <code class="lang-css">p</code>s, <code class="lang-css">img</code>s, and <code class="lang-css">figure</code>s with a <code class="lang-css">div.informative</code>. <strong>All non-normative text should be contained in flow, non-phrasing content</strong>. This separates the text from the normative document. If there is a non-normative span of text present in a normative paragraph, authors are strongly encouraged to move the span to its own separate, non-normative division.</p>
