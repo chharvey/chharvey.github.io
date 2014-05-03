@@ -2,10 +2,6 @@
 /*-------------*\
     base.less
 \*-------------*/
-/*@GLOBAL VARIABLES*/
-/*@General Values*/
-/*@Fonts*/
-/*@Colors*/
 /*@RESET*/
 body,
 section,
@@ -128,6 +124,131 @@ var {
   font-weight: inherit;
   font-family: inherit;
 }
+/*@GLOBAL VARIABLES*/
+/*@General Values*/
+/*@Fonts*/
+/*@Colors*/
+/*@INTERFACES*/
+/**
+  * This Interface represents a lede, an introductory/summary sentence or paragraph which catches the reader's attention.
+@tags
+: #typography
+: #paragraph
+: #span
+@author
+: Chris Harvey
+@updated
+: 2014-04-26
+  */
+.lede,
+.P--Lede,
+.S--Lede {
+  font-weight: bold;
+  font-family: 'Optima', 'Candara', 'Helvetica', sans-serif;
+  color: #000;
+}
+/**
+  * This Interface creates default padding for cell-like structures (table cells, grid cells, boxes, etc.). The padding is based on the Vertical Rhythm Unit.
+@tags
+: #verticalrhythm
+: #padding
+@author
+: Chris Harvey
+@updated
+: 2014-04-30
+  */
+.cellpaddingdefault {
+  padding: 12px 7.41640786px;
+}
+/**
+  * This Interface makes an object slightly transparent, but it becomes opaque upon `:hover`.
+@tags
+: #schematic
+@author
+: Chris Harvey
+@updated
+: 2014-04-30
+  */
+.transp {
+  opacity: 0.618033988749894848;
+}
+.transp:hover {
+  opacity: 1;
+}
+/*@Delimiters*/
+/**
+  * This Interface adds opening and closing parentheses surrounding an element.
+@tags
+: #typography
+@author
+: Chris Harvey
+@updated
+: 2014-05-02
+  */
+.parens::before {
+  content: '(';
+}
+.parens::after {
+  content: ')';
+}
+/**
+  * This Interface adds opening and closing quotation marks surrounding an element.
+@tags
+: #typography
+@author
+: Chris Harvey
+@updated
+: 2014-05-02
+  */
+.quotes::before {
+  content: open-quote;
+}
+.quotes::after {
+  content: close-quote;
+}
+/**
+  * This Interface adds opening and closing guillemets (double angle quotes) surrounding an element.
+@tags
+: #typography
+@author
+: Chris Harvey
+@updated
+: 2014-05-02
+  */
+.guillemets::before {
+  content: '\00ab';
+}
+.guillemets::after {
+  content: '\00bb';
+}
+@media print {
+  /**
+	  * This Interface displays an Object on screen but does not print it.
+	@tags
+	: #schematic
+	@author
+	: Chris Harvey
+	@updated
+	: 2014-04-30
+	  */
+  .noprint {
+    display: none !important;
+  }
+  /**
+	  * This Interface starts a new page in the print media.
+	@tags
+	: #schematic
+	@author
+	: Chris Harvey
+	@updated
+	: 2014-04-30
+	  */
+  .pagebreak {
+    page-break-before: always;
+    padding-top: 0.25in;
+  }
+}
+/*@MIXINS*/
 /*-------------*\
     grid.less
 \*-------------*/
@@ -412,7 +533,7 @@ var {
 /**
   * These Mixins multiply `font-size` by `@ratio` and adjusts `line-height` such that `font-size` * `line-height` = `@vru` (@vru is one vertical rhythm unit).
 @params
-: @ratio: the ratio of the new font size to `fontsize_base`
+: @ratio : the ratio of the new font size to `fontsize_base`
 @tags
 : #verticalrhythm
 @author
@@ -651,7 +772,7 @@ main {
 }
 /*@PARAGRAPHS*/
 /**
-  * This Object represents a generic paragraph in a section, article, or document. Paragraphs are the backbone of a document; they are made to organize and group textual ideas together. In the written media, paragraphs can span anywhere from 3 to 8 sentences. However on the Web, they can be much, much shorter.
+  * This Object represents a generic paragraph in a section, article, or document. A paragraph Object is a small grouping of textual ideas. In the written media, paragraphs can span anywhere from 3 to 8 sentences. However on the Web, they can be much, much shorter.
 @implements
 : .vru--content
 : .vru--top;
