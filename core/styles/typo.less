@@ -173,6 +173,16 @@ main {
 	text-align: justify;
 //	list-style-type: decimal;
 }
+/**
+  * This Object represents text in an article that is not to displayed like .Article text. Essentially it reverts back to the body copy styles.
+@tags
+: #typography
+: #article
+@author
+: Chris Harvey
+@updated
+: 2014-05-02
+  */
 .UndoArticle {
 	font-family: @fontfam_base;
 	text-align: left;
@@ -180,8 +190,8 @@ main {
 /**
   * This Object represents a generic paragraph in a section, article, or document. A paragraph Object is a small grouping of textual ideas. In the written media, paragraphs can span anywhere from 3 to 8 sentences. However on the Web, they can be much, much shorter.
 @implements
-: .vru--content
-: .vru--top
+: .vru-content
+: .vru-top
 @tags
 : #typography
 : #paragraph
@@ -191,8 +201,8 @@ main {
 : 2014-04-26
   */
 .P {
-	&:extend(.vru--content);
-	&:extend(.vru--top);
+	&:extend(.vru-content);
+	&:extend(.vru-top);
 }
 /**
   * This Object represents a lede paragraph, which may be an introduction or abstract to an article.
@@ -215,7 +225,8 @@ main {
 	text-align: justify;
 }
 /**
-  * This Object represents a caption of any sort. It may be a caption of a table, figure, or any element. Captions are usually short summaries of the objects they describe. They may precede or follow the object.
+  * This Object represents a caption of any sort. It may be a caption of a literal `table`, `figure`, or any element. `.Capt`s are usually short summaries of the Objects they describe. They may precede or follow that Object.
+  * A `.P--Capt--First` appears before the Object it describes; a `.P--Captino--Last` appears after.
 @extends
 : .P
 @implements
@@ -228,9 +239,9 @@ main {
 @author
 : Chris Harvey
 @updated
-: 2014-04-29
+: 2014-05-03
   */
-.P--Caption {
+.P--Capt {
 	&:extend(.P);
 	&:extend(.fontsize-small);
 	padding: 0;
@@ -238,10 +249,14 @@ main {
 	font-style: normal;
 	text-align: right;
 }
+.P--Capt--First {.border-vert-one(bottom; 1px; dotted; @color_accent);}
+.P--Capt--Last  {.border-vert-one(top;    1px; dotted; @color_accent);}
 /**
   * This Object represents a paragraph whose first letter is a drop cap.
 @extends
 : .P
+@mixesin
+: .fontsize-scale()
 @tags
 : #typography
 : #paragraph
@@ -253,18 +268,148 @@ main {
 .P--Dropcap {
 	&:extend(.P);
 	&::first-letter {
+		.fontsize-scale(3);
 		float: left;
 		padding-top: (@vru / 2);
 		padding-right: 4px; // why this number?
 		font-style: normal;
 		font-weight: normal;
-		font-size: 3 * @fontsize_base;
 		font-family: @fontfam_math;
-		line-height: 0.5;
 		color: @color_h_major;
 	}
 }
+/**
+  * This Object represents a generic figure in a document. It may be a literal `figure` element, or the abstract concept of a figure. Inside this .Figure there may exist a .Caption, either at the beginning or at the end. The .Caption may or may not be a `figcaption` element.
+@implemens
+: .vru-content
+: .vru-top
+@tags
+: #typography
+: #figure
+: #caption
+@author
+: Chris Harvey
+@updated
+: 2014-05-03
+  */
+.Fig {
+	&:extend(.vru-content);
+	&:extend(.vru-top-phi);
+	.spacing-phi(left;  4px; solid; @color_accent);
+	.spacing-phi(right; 4px; solid; @color_accent);
+}
+/**
+  * This Object represents a generic quotation.
+@extends
+: .P
+@implemens
+: .vru-top-phi
+: .fontsize-large
+@mixesin
+: .spacing-phi()
+@tags
+: #typography
+: #paragraph
+: #geolocation
+@author
+: Chris Harvey
+@updated
+: 2014-04-30
+  */
+.quote {}
+.Qblock {
+	&:extend(.vru-content);
+	&:extend(.vru-top-phi);
+	.spacing-phi(left; 7px; double; @color_accent);
+	font-family: @fontfam_accent;
+}
+/**
+  * This Object represents a generic postal address. It may be the contact address of the document author (contained in an `address` element), or it may be any postal mailing address.
+@extends
+: .P
+@implemens
+: .vru-top-phi
+: .fontsize-large
+@mixesin
+: .spacing-phi()
+@tags
+: #typography
+: #paragraph
+: #geolocation
+@author
+: Chris Harvey
+@updated
+: 2014-04-30
+  */
+.Address {
+	&:extend(.P);
+	&:extend(.vru-top-phi);
+	&:extend(.fontsize-large);
+	.spacing-phi(right; 3px; solid; @color_accent);
+	border-radius: 3px;
+	font-family: @fontfam_accent;
+	text-align: right;
+}
 //++++ @end PARAGRAPHS ++++//
+
+/**
+  * This Object represents a generic list. It may be a literal `ol` or `ul` element containing `li` elements, or it may be an abstract notion of a list of other Objects. The order of list items may be releveant or irrelevant.
+@tags
+: #typography
+: #lists
+@author
+: Chris Harvey
+@updated
+: 2014-05-03
+  */
+.List {
+	display: block;
+	padding-left: 48px; // 0.5in;
+}
+/**
+  * This Object represents a list used for an outline. Typical uses include table of contents, etc. Outlines are by definition, ordered.
+@tags
+: #typography
+: #lists
+: #ordered
+@author
+: Chris Harvey
+@updated
+: 2014-05-03
+  */
+.List--Otln {
+	list-style-type: decimal-leading-zero; //  01.  02.  03.
+}
+/**
+  * These Objects represent outlined lists with different enumeration types.
+@tags
+: #typography
+: #lists
+@author
+: Chris Harvey
+@updated
+: 2014-05-03
+  */
+.List--Otln--Omega   {list-style-type: decimal-leading-zero;} //  01.  02.  03.
+.List--Otln--Alpha   {list-style-type: upper-roman;}          //   I.  II. III.
+.List--Otln--Beta    {list-style-type: upper-alpha;}          //   A.   B.   C.
+.List--Otln--Gamma   {list-style-type: decimal;}              //   1.   2.   3.
+.List--Otln--Delta   {list-style-type: lower-alpha;}          //   a.   b.   c.
+.List--Otln--Epsilon {list-style-type: lower-roman;}          //   i.  ii. iii.
+.List--Otln--Zeta    {list-style-type: lower-greek;}          //   α.   β.   γ.
+/**
+  * This Object represents a generic list item. It may be a `li` element inside an `ol` or `ul` element, or it may be an abstract notion of an item in a List.
+@tags
+: #typography
+: #lists
+@author
+: Chris Harvey
+@updated
+: 2014-05-03
+  */
+.List > .Item {
+	display: list-item;
+}
 
 
 //+++++++++++//
@@ -280,7 +425,9 @@ main {
 @updated
 : 2014-04-30
   */
-.S {}
+.S {
+	display: inline;
+}
 /**
   * This Object represents a lede sentence, which may act as a "heading" for the paragraph it's in. If a lede sentence is part of a paragraph, it acts like a mini-heading for that paragraph. This can be especially useful in a prose list.
 @extends
@@ -301,5 +448,32 @@ main {
 	&:extend(.lede);
 	padding-right: @vru;
 }
+/**
+  * This Object represents an inline quotation: a span of text that is taken directly from another source.
+@extends
+: .S
+@implements
+: .quotes
+@tags
+: #typography
+: #span
+: #quote
+@author
+: Chris Harvey
+@updated
+: 2014-05-03
+  */
+.S--Q {
+	&:extend(.S);
+	&:extend(.quotes all);
+}
+.Src--Informal {
+	padding-right: @vru;
+	float: right;
+	&::before {content: '~\0020';}
+	&::after  {content: '';}
+}
+.Src--Formal {
+	&:extend(.parens all);
+}
 //++++ @end TEXT-LEVEL ++++//
-

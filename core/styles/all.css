@@ -135,25 +135,33 @@ var {
 /*-------------------*\
     interfaces.less
 \*-------------------*/
-/*@INTERFACES*/
+/*@MIXINS*/
 /**
-  * This Interface represents a lede, an introductory/summary sentence or paragraph which catches the reader's attention.
+  * These Mixins set the padding, border, and margin on the left or right side, such that the border:padding ratio and the (border+padding):margin ratio are Golden.
+@params
+: @side:  either `left` or `right`
+: @brdrw : value of the border-[left/right]-width property
+: @brdrs : value of the border-[left/right]-style property
+: @brdrc : value of the border-[left/right]-color property
 @tags
-: #typography
-: #paragraph
-: #span
+: #golden
 @author
 : Chris Harvey
 @updated
 : 2014-04-26
   */
-.lede,
-.P--Lede,
-.S--Lede {
-  font-weight: bold;
-  font-family: 'Optima', 'Candara', 'Helvetica', sans-serif;
-  color: #000;
+/** negate the effects of `.spacing-phi(@side; @brdrw; @brdrs; @brdrc)` */
+.spacing-phi-left {
+  padding-left: 0;
+  border-left: 0 solid #000000;
+  margin-left: 0;
 }
+.spacing-phi-right {
+  padding-right: 0;
+  border-right: 0 solid #000000;
+  margin-right: 0;
+}
+/*@INTERFACES*/
 /**
   * This Interface creates default padding for cell-like structures (table cells, grid cells, boxes, etc.). The padding is based on the Vertical Rhythm Unit.
 @tags
@@ -182,6 +190,24 @@ var {
 .transp:hover {
   opacity: 1;
 }
+/**
+  * This Interface represents a lede, an introductory/summary sentence or paragraph which catches the reader's attention.
+@tags
+: #typography
+: #paragraph
+: #span
+@author
+: Chris Harvey
+@updated
+: 2014-04-26
+  */
+.lede,
+.P--Lede,
+.S--Lede {
+  font-weight: bold;
+  font-family: 'Optima', 'Candara', 'Helvetica', sans-serif;
+  color: #000;
+}
 /*@Delimiters*/
 /**
   * This Interface adds opening and closing parentheses surrounding an element.
@@ -192,10 +218,12 @@ var {
 @updated
 : 2014-05-02
   */
-.parens::before {
+.parens::before,
+.Src--Formal::before {
   content: '(';
 }
-.parens::after {
+.parens::after,
+.Src--Formal::after {
   content: ')';
 }
 /**
@@ -207,10 +235,12 @@ var {
 @updated
 : 2014-05-02
   */
-.quotes::before {
+.quotes::before,
+.S--Q::before {
   content: open-quote;
 }
-.quotes::after {
+.quotes::after,
+.S--Q::after {
   content: close-quote;
 }
 /**
@@ -255,7 +285,6 @@ var {
     padding-top: 0.25in;
   }
 }
-/*@MIXINS*/
 /*-------------*\
     grid.less
 \*-------------*/
@@ -537,6 +566,7 @@ var {
     vert.less
 \*-------------*/
 /*@FONT SIZES*/
+/** One vertical rhythm unit. This is the 'magic number'. */
 /**
   * These Mixins multiply `font-size` by `@ratio` and adjusts `line-height` such that `font-size` * `line-height` = `@vru` (@vru is one vertical rhythm unit).
 @params
@@ -549,14 +579,9 @@ var {
 @updated
 : 2014-04-26
   */
-.fontsize-inline,
-.fontsize-large-inline,
-.fontsize-small-inline {
-  display: inline;
-  line-height: 1.5;
-}
 .fontsize-large,
-.fontsize-large-inline {
+.fontsize-large-inline,
+.Address {
   font-size: 20px;
   line-height: 1.2;
 }
@@ -566,9 +591,15 @@ var {
 }
 .fontsize-small,
 .fontsize-small-inline,
-.P--Caption {
+.P--Capt {
   font-size: 12px;
   line-height: 2;
+}
+.fontsize-inline,
+.fontsize-large-inline,
+.fontsize-small-inline {
+  display: inline;
+  line-height: 1.5;
 }
 /**
   * This Interface sets large font-size and adjusts line-height.
@@ -584,7 +615,7 @@ var {
 : 2014-05-03
   */
 /**
-  * This Interface sets large font-size and adjusts line-height.
+  * This Interface sets small font-size and adjusts line-height.
 @implements
 : .fontsize-large
 : .fontsize-inline
@@ -598,37 +629,6 @@ var {
   */
 /*@VERTICAL SPACING*/
 /**
-  * This Mixin sets the padding-top, border-top, and margin-top such that the padding-to-margin ratio is Golden.
-@params
-: @brdrw : value of the border-top-width property
-: @brdrs : value of the border-top-style property
-: @brdrc : value of the border-top-color property
-@tags
-: #verticalrhythm
-: #golden
-@author
-: Chris Harvey
-@updated
-: 2014-04-26
-  */
-/**
-  * This Interface is a special case of the .vru-phi-top() Mixin with a border-width of zero.
-@mixesin
-: .vru-phi-top()
-@tags
-: #verticalrhythm
-: #golden
-@author
-: Chris Harvey
-@updated
-: 2014-05-03
-  */
-.vru-phi-top {
-  padding-top: 9.16718427px;
-  border-top: 0 solid #000000;
-  margin-top: 14.83281573px;
-}
-/**
   * These Interfaces provide vertical spacing of one vertical rhythm unit.
   * .vru-content is meant for text-containing block elements,
   *     such as p, blockquote, li, dt, dd, th, td 
@@ -640,14 +640,48 @@ var {
 @updated
 : 2014-04-26
   */
-.vru-content {
+.vru-content,
+.P,
+.Fig,
+.Qblock,
+.P--Lede,
+.P--Capt,
+.P--Dropcap,
+.Address {
   min-height: 24px;
 }
-.vru-top {
+.vru-top,
+.P,
+.P--Lede,
+.P--Capt,
+.P--Dropcap,
+.Address {
   margin-top: 24px;
 }
 .vru-bottom {
   padding-bottom: 24px;
+}
+/**
+  * This Mixin sets the padding-top, border-top, and margin-top such that the padding:margin ratio is Golden, while keeping the border-top-width. The sum of the padding, border, and margin is one vertical rhythm unit.
+@params
+: @brdrw : value of the border-top-width property. Must be less than `@vru`.
+: @brdrs : value of the border-top-style property
+: @brdrc : value of the border-top-color property
+@tags
+: #verticalrhythm
+: #golden
+@author
+: Chris Harvey
+@updated
+: 2014-04-26
+  */
+.vru-top-phi,
+.Fig,
+.Qblock,
+.Address {
+  padding-top: 9.16718427px;
+  border-top: 0 solid #000000;
+  margin-top: 14.83281573px;
 }
 /*@VERTICAL BORDERS*/
 /**
@@ -832,6 +866,16 @@ main {
   font-family: 'Baskerville', 'Palatino', 'Book Antiqua', serif;
   text-align: justify;
 }
+/**
+  * This Object represents text in an article that is not to displayed like .Article text. Essentially it reverts back to the body copy styles.
+@tags
+: #typography
+: #article
+@author
+: Chris Harvey
+@updated
+: 2014-05-02
+  */
 .UndoArticle {
   font-family: 'Optima', 'Candara', 'Helvetica', sans-serif;
   text-align: left;
@@ -839,8 +883,8 @@ main {
 /**
   * This Object represents a generic paragraph in a section, article, or document. A paragraph Object is a small grouping of textual ideas. In the written media, paragraphs can span anywhere from 3 to 8 sentences. However on the Web, they can be much, much shorter.
 @implements
-: .vru--content
-: .vru--top
+: .vru-content
+: .vru-top
 @tags
 : #typography
 : #paragraph
@@ -868,7 +912,8 @@ main {
   text-align: justify;
 }
 /**
-  * This Object represents a caption of any sort. It may be a caption of a table, figure, or any element. Captions are usually short summaries of the objects they describe. They may precede or follow the object.
+  * This Object represents a caption of any sort. It may be a caption of a literal `table`, `figure`, or any element. `.Capt`s are usually short summaries of the Objects they describe. They may precede or follow that Object.
+  * A `.P--Capt--First` appears before the Object it describes; a `.P--Captino--Last` appears after.
 @extends
 : .P
 @implements
@@ -881,18 +926,38 @@ main {
 @author
 : Chris Harvey
 @updated
-: 2014-04-29
+: 2014-05-03
   */
-.P--Caption {
+.P--Capt {
   padding: 0;
   margin: 0;
   font-style: normal;
   text-align: right;
 }
+.P--Capt--First {
+  display: block;
+  position: relative;
+  top: -1px;
+  margin-bottom: -1px;
+  border-bottom-width: 1px;
+  border-bottom-style: dotted;
+  border-color: #ff1500;
+}
+.P--Capt--Last {
+  display: block;
+  position: relative;
+  top: -1px;
+  margin-bottom: -1px;
+  border-top-width: 1px;
+  border-top-style: dotted;
+  border-color: #ff1500;
+}
 /**
   * This Object represents a paragraph whose first letter is a drop cap.
 @extends
 : .P
+@mixesin
+: .fontsize-scale()
 @tags
 : #typography
 : #paragraph
@@ -902,15 +967,159 @@ main {
 : 2014-04-30
   */
 .P--Dropcap::first-letter {
+  font-size: 48px;
+  line-height: 0.5;
   float: left;
   padding-top: 12px;
   padding-right: 4px;
   font-style: normal;
   font-weight: normal;
-  font-size: 48px;
   font-family: 'Times', 'Times New Roman', serif;
-  line-height: 0.5;
   color: #001e80;
+}
+/**
+  * This Object represents a generic figure in a document. It may be a literal `figure` element, or the abstract concept of a figure. Inside this .Figure there may exist a .Caption, either at the beginning or at the end. The .Caption may or may not be a `figcaption` element.
+@implemens
+: .vru-content
+: .vru-top
+@tags
+: #typography
+: #figure
+: #caption
+@author
+: Chris Harvey
+@updated
+: 2014-05-03
+  */
+.Fig {
+  padding-left: 6.47213595px;
+  border-left: 4px solid #ff1500;
+  margin-left: 16.94427191px;
+  padding-right: 6.47213595px;
+  border-right: 4px solid #ff1500;
+  margin-right: 16.94427191px;
+}
+/**
+  * This Object represents a generic quotation.
+@extends
+: .P
+@implemens
+: .vru-top-phi
+: .fontsize-large
+@mixesin
+: .spacing-phi()
+@tags
+: #typography
+: #paragraph
+: #geolocation
+@author
+: Chris Harvey
+@updated
+: 2014-04-30
+  */
+.Qblock {
+  padding-left: 11.32623792px;
+  border-left: 7px double #ff1500;
+  margin-left: 29.65247584px;
+  font-family: 'Avenir', 'Calibri', 'Century Gothic', sans-serif;
+}
+/**
+  * This Object represents a generic postal address. It may be the contact address of the document author (contained in an `address` element), or it may be any postal mailing address.
+@extends
+: .P
+@implemens
+: .vru-top-phi
+: .fontsize-large
+@mixesin
+: .spacing-phi()
+@tags
+: #typography
+: #paragraph
+: #geolocation
+@author
+: Chris Harvey
+@updated
+: 2014-04-30
+  */
+.Address {
+  padding-right: 4.85410197px;
+  border-right: 3px solid #ff1500;
+  margin-right: 12.70820393px;
+  border-radius: 3px;
+  font-family: 'Avenir', 'Calibri', 'Century Gothic', sans-serif;
+  text-align: right;
+}
+/**
+  * This Object represents a generic list. It may be a literal `ol` or `ul` element containing `li` elements, or it may be an abstract notion of a list of other Objects. The order of list items may be releveant or irrelevant.
+@tags
+: #typography
+: #lists
+@author
+: Chris Harvey
+@updated
+: 2014-05-03
+  */
+.List {
+  display: block;
+  padding-left: 48px;
+}
+/**
+  * This Object represents a list used for an outline. Typical uses include table of contents, etc. Outlines are by definition, ordered.
+@tags
+: #typography
+: #lists
+: #ordered
+@author
+: Chris Harvey
+@updated
+: 2014-05-03
+  */
+.List--Otln {
+  list-style-type: decimal-leading-zero;
+}
+/**
+  * These Objects represent outlined lists with different enumeration types.
+@tags
+: #typography
+: #lists
+@author
+: Chris Harvey
+@updated
+: 2014-05-03
+  */
+.List--Otln--Omega {
+  list-style-type: decimal-leading-zero;
+}
+.List--Otln--Alpha {
+  list-style-type: upper-roman;
+}
+.List--Otln--Beta {
+  list-style-type: upper-alpha;
+}
+.List--Otln--Gamma {
+  list-style-type: decimal;
+}
+.List--Otln--Delta {
+  list-style-type: lower-alpha;
+}
+.List--Otln--Epsilon {
+  list-style-type: lower-roman;
+}
+.List--Otln--Zeta {
+  list-style-type: lower-greek;
+}
+/**
+  * This Object represents a generic list item. It may be a `li` element inside an `ol` or `ul` element, or it may be an abstract notion of an item in a List.
+@tags
+: #typography
+: #lists
+@author
+: Chris Harvey
+@updated
+: 2014-05-03
+  */
+.List > .Item {
+  display: list-item;
 }
 /*@TEXT-LEVEL*/
 /**
@@ -923,6 +1132,11 @@ main {
 @updated
 : 2014-04-30
   */
+.S,
+.S--Lede,
+.S--Q {
+  display: inline;
+}
 /**
   * This Object represents a lede sentence, which may act as a "heading" for the paragraph it's in. If a lede sentence is part of a paragraph, it acts like a mini-heading for that paragraph. This can be especially useful in a prose list.
 @extends
@@ -940,4 +1154,29 @@ main {
   */
 .S--Lede {
   padding-right: 24px;
+}
+/**
+  * This Object represents an inline quotation: a span of text that is taken directly from another source.
+@extends
+: .S
+@implements
+: .quotes
+@tags
+: #typography
+: #span
+: #quote
+@author
+: Chris Harvey
+@updated
+: 2014-05-03
+  */
+.Src--Informal {
+  padding-right: 24px;
+  float: right;
+}
+.Src--Informal::before {
+  content: '~\0020';
+}
+.Src--Informal::after {
+  content: '';
 }
