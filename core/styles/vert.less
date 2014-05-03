@@ -14,18 +14,18 @@
 //+++++++++++//
 @vru: @fontsize_base * @lineheight_base; // 24px
 
-@fontsize_ratio--giga:    (6/1); // (48/8) or 6.000em
-@fontsize_ratio--mega:    (4/1); // (32/8) or 4.000em
-@fontsize_ratio--kilo:    (3/1); // (24/8) or 3.000em
+@fontsize_ratio_giga:    (6/1); // (48/8) or 6.000em
+@fontsize_ratio_mega:    (4/1); // (32/8) or 4.000em
+@fontsize_ratio_kilo:    (3/1); // (24/8) or 3.000em
 
-@fontsize_ratio--alpha:   (2/1); // (16/8) or 2.000em
-@fontsize_ratio--beta:    (3/2); // (12/8) or 1.500em
-@fontsize_ratio--gamma:   (5/4); // (10/8) or 1.250em
-@fontsize_ratio--delta:   (1/1); // (08/8) or 1.000em
-@fontsize_ratio--epsilon: (7/8); // (07/8) or 0.875em
-@fontsize_ratio--zeta:    (3/4); // (06/8) or 0.750em
+@fontsize_ratio_alpha:   (2/1); // (16/8) or 2.000em
+@fontsize_ratio_beta:    (3/2); // (12/8) or 1.500em
+@fontsize_ratio_gamma:   (5/4); // (10/8) or 1.250em
+@fontsize_ratio_delta:   (1/1); // (08/8) or 1.000em
+@fontsize_ratio_epsilon: (7/8); // (07/8) or 0.875em
+@fontsize_ratio_zeta:    (3/4); // (06/8) or 0.750em
 
-@fontsize_ratio--milli:   (1/2); // (04/8) or 0.500em
+@fontsize_ratio_milli:   (1/2); // (04/8) or 0.500em
 
 /**
   * These Mixins multiply `font-size` by `@ratio` and adjusts `line-height` such that `font-size` * `line-height` = `@vru` (@vru is one vertical rhythm unit).
@@ -33,32 +33,59 @@
 : @ratio : the ratio of the new font size to `fontsize_base`
 @tags
 : #verticalrhythm
+: #fontsize
 @author
 : Chris Harvey
 @updated
 : 2014-04-26
   */
-.fontsize--scale(@ratio) {
+.fontsize-scale(@ratio) {
 	font-size: (@fontsize_base * @ratio);
 	// this.line-height = @vru / this.font-size
 	//                  = (@lineheight--base * @fontsize--base) / (@fontsize--base * @ratio)
 	//                  = @lineheight--base / @ratio
 	line-height: (@lineheight_base / @ratio);
 }
-.fontsize--inline() {
+.fontsize-inline {
 	display: inline;
 	line-height: @lineheight_base;
 }
-.fontsize(large)  {.fontsize--scale(@fontsize_ratio--gamma);}
-.fontsize(medium) {.fontsize--scale(1);}
-.fontsize(small)  {.fontsize--scale(@fontsize_ratio--zeta);}
-.fontsize(large, inline) {
-	.fontsize(large);
-	.fontsize--inline();
+.fontsize-large  {.fontsize-scale(@fontsize_ratio_gamma);}
+.fontsize-medium {.fontsize-scale(1);}
+.fontsize-small  {.fontsize-scale(@fontsize_ratio_zeta);}
+/**
+  * This Interface sets large font-size and adjusts line-height.
+@implements
+: .fontsize-large
+: .fontsize-inline
+@tags
+: #verticalrhythm
+: #fontsize
+@author
+: Chris Harvey
+@updated
+: 2014-05-03
+  */
+.fontsize-large-inline {
+	&:extend(.fontsize-large);
+	&:extend(.fontsize-inline);
 }
-.fontsize(small, inline) {
-	.fontsize(small);
-	.fontsize--inline();
+/**
+  * This Interface sets large font-size and adjusts line-height.
+@implements
+: .fontsize-large
+: .fontsize-inline
+@tags
+: #verticalrhythm
+: #fontsize
+@author
+: Chris Harvey
+@updated
+: 2014-05-03
+  */
+.fontsize-small-inline {
+	&:extend(.fontsize-small);
+	&:extend(.fontsize-inline);
 }
 //++++ @end FONT SIZES ++++//
 
@@ -67,7 +94,7 @@
 /*@VERTICAL SPACING*/
 //+++++++++++++++++//
 /**
-  * This Mixin provides a padding-top, border-top, and margin-top such that the padding-to-margin ratio is Golden.
+  * This Mixin sets the padding-top, border-top, and margin-top such that the padding-to-margin ratio is Golden.
 @params
 : @brdrw : value of the border-top-width property
 : @brdrs : value of the border-top-style property
@@ -80,14 +107,29 @@
 @updated
 : 2014-04-26
   */
-.vru-phi--top(@brdrw; @brdrs; @brdrc) {
+.vru-phi-top(@brdrw; @brdrs; @brdrc) {
 	padding-top: ((@vru - @brdrw) * @phi2);
 	border-top: @brdrw @brdrs @brdrc;
 	margin-top: ((@vru - @brdrw) * @phi1);
 }
 /**
+  * This Interface is a special case of the .vru-phi-top() Mixin with a border-width of zero.
+@mixesin
+: .vru-phi-top()
+@tags
+: #verticalrhythm
+: #golden
+@author
+: Chris Harvey
+@updated
+: 2014-05-03
+  */
+.vru-phi-top {
+	.vru-phi-top(0; solid; #000);
+}
+/**
   * These Interfaces provide vertical spacing of one vertical rhythm unit.
-  * .vru--content is meant for text-containing block elements,
+  * .vru-content is meant for text-containing block elements,
   *     such as p, blockquote, li, dt, dd, th, td 
 @tags
 : #verticalrhythm
@@ -97,12 +139,9 @@
 @updated
 : 2014-04-26
   */
-.vru--content {min-height: @vru;}
-.vru--top {margin-top: @vru;}
-.vru--bottom {padding-bottom: @vru;}
-.vru-phi--top {
-	.vru-phi--top(0; solid; #000);
-}
+.vru-content {min-height: @vru;}
+.vru-top {margin-top: @vru;}
+.vru-bottom {padding-bottom: @vru;}
 //++++ @end VERTICAL SPACING ++++//
 
 
@@ -131,46 +170,49 @@
 	position: relative;
 	top: (-1 * @width);
 }
-.border-vert--one(@width) {
+/** Adjust only the top or bottom border. */
+.border-vert-one(@width) {
 	.border-vert(@width);
 	margin-bottom: (-1 * @width);
 }
-.border-vert--one(@side; @width) {
-	.border-vert--one(@width);
+.border-vert-one(@side; @width) {
+	.border-vert-one(@width);
 	border-@{side}-width: @width;
 }
-.border-vert--one(@side; @width; @style) {
-	.border-vert--one(@side; @width);
+.border-vert-one(@side; @width; @style) {
+	.border-vert-one(@side; @width);
 	border-@{side}-style: @style;
 }
-.border-vert--one(@side; @width; @style; @color) {
-	.border-vert--one(@side; @width; @style);
+.border-vert-one(@side; @width; @style; @color) {
+	.border-vert-one(@side; @width; @style);
 	border-color: @color;
 }
-.border-vert--both(@width) {
+/** Adjust both the top and bottom borders. */
+.border-vert-both(@width) {
 	.border-vert(@width);
 	margin-bottom: (-2 * @width);
 }
-.border-vert--both(topbot; @width) {
-	.border-vert--both(@width);
+.border-vert-both(topbot; @width) {
+	.border-vert-both(@width);
 	border-width: @width;
 	border-left: 0;
 	border-right: 0;
 }
-.border-vert--both(topbot; @width; @style) {
-	.border-vert--both(topbot; @width);
+.border-vert-both(topbot; @width; @style) {
+	.border-vert-both(topbot; @width);
 	border-style: @style;
 }
-.border-vert--both(topbot; @width; @style; @color) {
-	.border-vert--both(topbot; @width; @style);
+.border-vert-both(topbot; @width; @style; @color) {
+	.border-vert-both(topbot; @width; @style);
 	border-color: @color;
 }
-.border-vert--both(all; @width) {
-	.border-vert--both(@width);
+/** Adjust all four borders. */
+.border-vert-both(all; @width) {
+	.border-vert-both(@width);
 	border-width: @width;
 }
-.border-vert--both(all; @width; @style) {
-	.border-vert--both(all; @width);
+.border-vert-both(all; @width; @style) {
+	.border-vert-both(all; @width);
 	border-style: @style;
 }
 .border-vert-both(all; @width; @style; @color) {

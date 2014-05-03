@@ -543,14 +543,62 @@ var {
 : @ratio : the ratio of the new font size to `fontsize_base`
 @tags
 : #verticalrhythm
+: #fontsize
 @author
 : Chris Harvey
 @updated
 : 2014-04-26
   */
+.fontsize-inline,
+.fontsize-large-inline,
+.fontsize-small-inline {
+  display: inline;
+  line-height: 1.5;
+}
+.fontsize-large,
+.fontsize-large-inline {
+  font-size: 20px;
+  line-height: 1.2;
+}
+.fontsize-medium {
+  font-size: 16px;
+  line-height: 1.5;
+}
+.fontsize-small,
+.fontsize-small-inline,
+.P--Caption {
+  font-size: 12px;
+  line-height: 2;
+}
+/**
+  * This Interface sets large font-size and adjusts line-height.
+@implements
+: .fontsize-large
+: .fontsize-inline
+@tags
+: #verticalrhythm
+: #fontsize
+@author
+: Chris Harvey
+@updated
+: 2014-05-03
+  */
+/**
+  * This Interface sets large font-size and adjusts line-height.
+@implements
+: .fontsize-large
+: .fontsize-inline
+@tags
+: #verticalrhythm
+: #fontsize
+@author
+: Chris Harvey
+@updated
+: 2014-05-03
+  */
 /*@VERTICAL SPACING*/
 /**
-  * This Mixin provides a padding-top, border-top, and margin-top such that the padding-to-margin ratio is Golden.
+  * This Mixin sets the padding-top, border-top, and margin-top such that the padding-to-margin ratio is Golden.
 @params
 : @brdrw : value of the border-top-width property
 : @brdrs : value of the border-top-style property
@@ -564,8 +612,25 @@ var {
 : 2014-04-26
   */
 /**
+  * This Interface is a special case of the .vru-phi-top() Mixin with a border-width of zero.
+@mixesin
+: .vru-phi-top()
+@tags
+: #verticalrhythm
+: #golden
+@author
+: Chris Harvey
+@updated
+: 2014-05-03
+  */
+.vru-phi-top {
+  padding-top: 9.16718427px;
+  border-top: 0 solid #000000;
+  margin-top: 14.83281573px;
+}
+/**
   * These Interfaces provide vertical spacing of one vertical rhythm unit.
-  * .vru--content is meant for text-containing block elements,
+  * .vru-content is meant for text-containing block elements,
   *     such as p, blockquote, li, dt, dd, th, td 
 @tags
 : #verticalrhythm
@@ -575,27 +640,14 @@ var {
 @updated
 : 2014-04-26
   */
-.vru--content,
-.P,
-.P--Lede,
-.P--Caption,
-.P--Dropcap {
+.vru-content {
   min-height: 24px;
 }
-.vru--top,
-.P,
-.P--Lede,
-.P--Caption,
-.P--Dropcap {
+.vru-top {
   margin-top: 24px;
 }
-.vru--bottom {
+.vru-bottom {
   padding-bottom: 24px;
-}
-.vru-phi--top {
-  padding-top: 9.16718427px;
-  border-top: 0 solid #000000;
-  margin-top: 14.83281573px;
 }
 /*@VERTICAL BORDERS*/
 /**
@@ -614,6 +666,9 @@ var {
 @updated
 : 2014-04-26
   */
+/** Adjust only the top or bottom border. */
+/** Adjust both the top and bottom borders. */
+/** Adjust all four borders. */
 /*-------------*\
     typo.less
 \*-------------*/
@@ -670,17 +725,17 @@ main {
   font-weight: normal;
   font-family: 'Avenir', 'Calibri', 'Century Gothic', sans-serif;
   letter-spacing: 1px;
-  /**
-	  * This Object represents a generic tagline inside a heading, called a 'subheading'.
-	@tags
-	: #typography
-	: #heading
-	@author
-	: Chris Harvey
-	@updated
-	: 2014-04-30
-	  */
 }
+/**
+  * This Object represents a generic tagline inside a heading, called a 'subheading'.
+@tags
+: #typography
+: #heading
+@author
+: Chris Harvey
+@updated
+: 2014-04-30
+  */
 .H > .Hsub,
 .H--Alpha > .Hsub,
 .H--Beta > .Hsub,
@@ -814,6 +869,10 @@ main {
 }
 /**
   * This Object represents a caption of any sort. It may be a caption of a table, figure, or any element. Captions are usually short summaries of the objects they describe. They may precede or follow the object.
+@extends
+: .P
+@implements
+: .fontsize-small
 @tags
 : #typography
 : #paragraph
@@ -825,8 +884,6 @@ main {
 : 2014-04-29
   */
 .P--Caption {
-  font-size: 12px;
-  line-height: 2;
   padding: 0;
   margin: 0;
   font-style: normal;
