@@ -7,20 +7,15 @@
 <meta charset="UTF-8"/>
 <meta name="author" content="Christopher H. Harvey"/>
 <meta name="description" content="Guidelines on how to format text in CSS and Less files."/>
-<link rel="stylesheet" href="../core/styles/all.css"/>
+<!--<link rel="stylesheet" href="../core/styles/all.css"/>-->
 <style>
-	[data-status="draft"] {
-		background-color: #fffcfa;
-		opacity: 0.618;
-	}
+	.code--block {white-space: pre-wrap;}
 </style>
 {% include all-js.html %}
 </head>
 <body>
 <main>
-<header>
-	<h1 class="h--alpha">CSS Formatting Guidelines</h1>
-</header>
+<h1 class="h--alpha">CSS Formatting Guidelines</h1>
 <p class="prose">This document describes formatting guidelines for <a href="http://www.w3.org/TR/CSS/" rel="external">Cascading Style Sheets</a> and <a href="http://lesscss.org" rel="external">Less Style Sheets</a>.</p>
 <section id="general">
 	<h1 class="h--beta">General Formatting</h1>
@@ -78,81 +73,7 @@ pre {
 		</section>
 	</section>
 </section>
-<section>
-	<h1 class="h--beta">Honor the Cascade</h1>
-	<section id="property-order">
-		<h1 class="h--gamma">Property Order</h1>
-		<p class="prose">Within a block, the properties must be written in an order in decreasing structure definition. See the figure below for an illustration.</p>
-		<figure class="nonnormative">
-			<img src="/"/>
-			<figcaption>This pyramid illustrates how CSS properties are related. The base of the pyramid contains properties that set up foundation and structure, such as display and position. The tip contains low-level appearance properties, such as color. Authors are encouraged to write properties in order from bottom to top.</figcaption>
-		</figure>
-		<p class="prose">The properties and declarations within a block must appear in the following order. <span class="success">Note: This list applies to the Less language as well.</span></p>
-		<ol class="list--outline">
-			<li><span class="lede-sent">Extensions</span> An <a>extension</a> is a directive that indicates this class is a subclass of a parent class. If multiple extensions are present, they must appear in the order they are defined in the stylesheet. This class must only extend classes that have been previously defined.</li>
-			<li><span class="lede-sent">Class Includes</span> Included classes must appear in the order they are defined in the stylesheet. This class must only include classes that have been previously defined.</li>
-			<li><span class="lede-sent">Mixin Includes</span> Mixins must appear in the order they are defined in the stylesheet. This class must only include mixins that have been previously defined.</li>
-			<li><span class="lede-sent">Properties</span> After extensions and mixins are set, CSS properties must appear in the following order.
-				<ol>
-					<li>Structural:
-						<ol>
-							<li>display properties</li>
-							<li>sizing properties (<code>width</code>, <code>height</code>, etc.)</li>
-							<li>padding properties</li>
-							<li>border properties</li>
-							<li>border radius properties</li>
-							<li>outline properties</li>
-							<li>margin properties</li>
-							<li>positioning properties</li>
-							<li>z-index properties</li>
-							<li>transformations</li>
-						</ol>
-					</li>
-					<li>Textual:
-						<ol>
-							<li>font properties (style, variant, weight, size, family, etc.)</li>
-							<li>horizontal text properties (<code>-align</code>, <code>-indent</code>, <code>letter-spacing</code>, etc.)</li>
-							<li>vertical text properties (<code>line-height</code>, <code>white-space</code>, etc.)</li>
-							<li>miscellaneous (<code>list-style</code> <code>-type</code>, <code>-position</code>, <code>-image</code>, etc.)</li>
-						</ol>
-					</li>
-					<li>Schematic:
-						<ol>
-							<li>color</li>
-							<li>background properties (color, position, size, repeat, origin, clip, attachment, image, etc.)</li>
-							<li>opacity, visibility, etc.</li>
-						</ol>
-					</li>
-					<li>Miscellaneous</li>
-				</ol>
-			</li>
-			<li><span class="lede-sent">Qualifiers</span> After the properties of this selector have been set, define properties of qualifying sub-selectors in the following order.
-				<ol>
-					<li>Classes (<code>&amp;.mod {}</code>)</li>
-					<li>Pseudo-classes (<code>&amp;:hover {}</code>)</li>
-					<li>Attributes (<code>&amp;[rel~=&quot;external&quot;] {}</code>)</li>
-					<li>Pseudo-elements (<code>&amp;::before {}</code>)</li>
-				</ol>
-			</li>
-			<li><span class="lede-sent">Combinators</span> The order of the combinator selectors is <a href="#selector-order">chosen specifically</a> so. 
-				<ol>
-					<li>general descendant selectors <code>&amp; .des {}</code></li>
-					<li>child selectors <code>&amp; &gt; .child {}</code></li>
-					<li>general sibling selectors <code>&amp; ~ .sib {}</code></li>
-					<li>adjacent sibling selectors <code>&amp; + .firstsib {}</code></li>
-				</ol>
-			</li>
-		</ol>
-	</section>
-	<section id="selector-order">
-		<h1 class="h--gamma">Selector Order</h1>
-		<p class="prose">This document does not discuss <a>how authors should organize their stylesheets</a>, but we do discuss how selectors within a group of selectors should be written.</p>
-		<p class="success">Examples in this section use metasyntactic variables for illustration purposes. See <a href="http://www.ietf.org/rfc/rfc3092.txt">RFC 3902</a> for more information.</p>
-		<p class="prose">In general, selectors should be written in order of increasing specificity. This means elements first, then classes, then qualifiers/modifiers (pseudo-), and combinators last. The order of qualifiers is not too important, but the order of combinators is. This is because multiple selectors may have the same specificity when the author's intent is that they do not.</p>
-		<p class="prose">For example, the adjacent sibling of an element <em>is</em> a general sibling, but it is a &ldquo;specific&rdquo; type of sibling, namely, an adjacent one. Therefore it is a common misconception that the selector <code>.foo + .bar {}</code> has a higher <a>specificity</a> than <code>.foo ~ .bar {}</code>, and thus the former will override the latter (regardless of the order in which they are defined). However, these two selectors actually have equivalent <a>specificity</a>, so whichever one is written last in the stylesheet will take precidence. The bottom line is that authors must define <code>.foo ~ .bar {}</code> <em>before</em> <code>.foo + .bar {}</code> in the stylesheet in order to get the results they expect. The same method applies to <code>.baz .qux {}</code> and <code>.baz > .qux {}</code>: the former must be defined before the latter.</p>
-	</section>
-</section>
-<section id="stylesheet-structure">
+<section id="stylesheet-anatomy">
 	<h1 class="h--beta">Stylesheet Anatomy</h1>
 	<p class="prose">While the in the last sections we discussed how to format specific syntaxes, this section focuses more on the stylesheet structure itself.</p>
 	<section id="filename">
@@ -232,23 +153,27 @@ pre {
 		<figure>
 			<code class="code--block">
 <span class="code__comm--doc">/**
-  * This is a Doc Block comment. It describes an <a>OOPCSS Class</a>.
+  * This is a Doc Block comment. It describes a Class in the <a>Object-Oriented</a> sense.
   * Notice how the block comment starts with <code>/**</code> instead of simply <code>/*</code>.
   * Limit blocks to 80 chars width.
-  * Doc Block comments should apply to Classes (in the OOP sense) only,
+  * Doc Block comments should apply to Classes only,
   * not just any old ruleset.
   * Precede every line with 2 spaces, 1 asterisk (<code>*</code> <a href="http://www.fileformat.info/info/unicode/char/002a/index.htm" rel="external"><code>U+002A</code></a>), then another space,
 &lt;p&gt;unless inserting code.&lt;/p&gt;
   * 
   * The following Kramdown-styled <code>dl</code> is metadata describing the class. There are no asterisks.
-@extend
-: `.parentclass`
-@author
-: John Doe
+@extends
+: .Parentclass (indicates that this <code>&amp;:extend(.Parentclass);</code>)
+@implements
+: .interface (indicates that this <code>&amp;:extend(.interface);</code>)
+@params
+: @mixinparam1 : description (use only for parametric Mixins)
 @tags
 : #tag1
 : #tag2
 : #tag3 (notice how each tag starts with <code>#</code>)
+@author
+: John Doe
 @updated
 : 2014-04-07 (just put the most recent update, don't keep track of all of them)
   */</span>
@@ -260,13 +185,13 @@ pre {
 <span class="code__comm--doc">/**
   * The following Classes represent cells with specified widths.
   * 
-@author
-: Chris Harvey
-@extend
-: `.cell`
+@extends
+: .Cell
 @tags
 : #grid
 : #cell
+@author
+: Chris Harvey
 @updated
 : 2014-04-05
   */</span>
@@ -275,12 +200,148 @@ pre {
 		</figure>
 	</section>
 </section>
-
-	
-	
-	
-	
-	
+<section id="cascade">
+	<h1 class="h--beta">Honor the Cascade</h1>
+	<p>The &ldquo;C&rdquo; in CSS stands for &ldquo;Cascading.&rdquo; There are two aspects of the way that stylesheets Cascade: one, and most obviously, some properties of elements are inherited from their parent elements (&ldquo;parent&rdquo; here referring to the container in the DOM tree). These properties trickle down the tree, getting applied to each child unless it is overriden by that child's property. This has nothing to do with specificity; this has only to do with the fact that elements' properties override the inherited properties of their parents.</p>
+	<p>The second aspect of the Cascade is where the true beauty of CSS can be appreciated. In terms of <a>selector specificity</a>, more specific properties override less specific ones. This means that the least specific properties (those that apply to element selectors) get applied first, followed by class selectors, followed by combinator selectors, and so on. The order these selectors are defined doesn't matter: their specificity will take precidence. However, in the case that two selectors have the same specificity, the styles will cascade from top to bottom in the CSS file, so the latter selector's property will override the former's. It is for this reason that we want to define our properties, selectors, and stylsheets in order of increasing specificity.</p>
+	<section id="property-order">
+		<h1 class="h--gamma">Property Order</h1>
+		<p class="prose">Within a block, the properties must be written in order of decreasing structure definition. See the figure below for an illustration.</p>
+		<figure>
+			<svg xmlns="http://www.w3.org/2000/svg" width="600" height="260">
+				<style scoped="">
+					line {
+						stroke-width: 2px;
+					}
+					text {
+						font-size: 11pt;
+						font-family: sans-serif;
+					}
+					.tier1 {
+						fill: #0270bb;
+						stroke: #0270bb;
+					}
+					.tier2 {
+						fill: #2ba8e0;
+						stroke: #2ba8e0;
+					}
+					.tier3 {
+						fill: #54e0ff;
+						stroke: #54e0ff;
+					}
+					.category {
+						font-weight: bold;
+						fill: #fff;
+					}
+				</style>
+				<polygon class="tier1" points="0,0
+				                               300,0
+				                               150,260"/>
+				<polygon class="tier2" points="50,87
+				                               250, 87
+				                               150, 260"/>
+				<polygon class="tier3" points="100,173
+				                               200,173
+				                               150,260"/>
+				<line class="tier1" x1="150" y1="50"  x2="600" y2="50"/>
+				<line class="tier2" x1="150" y1="135" x2="600" y2="135"/>
+				<line class="tier3" x1="150" y1="220" x2="600" y2="220"/>
+				<text class="category" x="110" y="20">Structural</text>
+				<text class="category" x="120" y="105">Textual</text>
+				<text class="category" x="112" y="190">Schematic</text>
+				<text x="300" y="45">display, box model, position, transform</text>
+				<text x="300" y="130">content, font, text, decoration</text>
+				<text x="300" y="215">color, background, visibility</text>
+			</svg>
+			<figcaption>This inverted pyramid illustrates how CSS properties are related. Authors are encouraged to define properties in order shown from top to bottom in the pyramid. The top base of the pyramid contains properties that set up foundation and structure, such as display and position. The middle contains font and text properties. Notice how <a>container is defined before content</a>. Then we finish with low-level schematic (&ldquo;scheme-like&rdquo;) properties, such as color, at the vertex on the bottom.</figcaption>
+		</figure>
+		<p class="prose">The properties and declarations within a block must appear in the following order. <span class="success">Note: This list applies to the Less language as well.</span></p>
+		<ol class="list--outline">
+			<li><span class="lede-sent">Extensions</span> An <a>extension</a> is a directive that indicates this <del datetime="2014-05-02T02:52">class is a subclass of a parent class</del> <ins datetime="2014-05-02T02:52">block shares common properties with another block</ins>. If multiple extensions are present, they must appear in the order they are defined in the stylesheet. This block must only use <code>:extend()</code> on blocks that have been previously defined.</li>
+			<li><span class="lede-sent">Class Includes</span> Included blocks must appear in the order they are defined in the stylesheet. This block must only include blocks that have been previously defined.</li>
+			<li><span class="lede-sent">Mixin Includes</span> Mixins must appear in the order they are defined in the stylesheet. This block must only include mixins that have been previously defined.</li>
+			<li><span class="lede-sent">Properties</span> After extensions and includes are set, CSS properties must appear in the following order.
+				<ol>
+					<li>Structural:
+						<ol>
+							<li>display properties</li>
+							<li>sizing properties (<code>width</code>, <code>height</code>, etc.)</li>
+							<li>padding properties</li>
+							<li>border properties</li>
+							<li>border radius properties</li>
+							<li>outline properties</li>
+							<li>margin properties</li>
+							<li>positioning properties</li>
+							<li>z-index properties</li>
+							<li>transformations</li>
+						</ol>
+					</li>
+					<li>Textual:
+						<ol>
+							<li><code>content</code> (for <code>::before</code> and <code>::after</code>)</li>
+							<li>font properties (<code>-style</code>, <code>-variant</code>, <code>-weight</code>, <code>-size</code>, <code>-family</code>, etc.)</li>
+							<li>text display properties (<code>-decoration</code>, <code>-transform</code>, etc.)</li>
+							<li>horizontal text properties (<code>-align</code>, <code>-indent</code>, <code>letter-spacing</code>, etc.)</li>
+							<li>vertical text properties (<code>line-height</code>, <code>white-space</code>, etc.)</li>
+							<li>miscellaneous (<code>list-style</code> <code>-type</code>, <code>-position</code>, <code>-image</code>, etc.)</li>
+						</ol>
+					</li>
+					<li>Schematic:
+						<ol>
+							<li>color</li>
+							<li><code>background</code> properties (<code>-color</code>, <code>-position</code>, <code>-size</code>, <code>-repeat</code>, <code>-origin</code>, <code>-clip</code>, <code>-attachment</code>, <code>-image</code>, etc.)</li>
+							<li>opacity, visibility, etc.</li>
+						</ol>
+					</li>
+				</ol>
+			</li>
+			<li><span class="lede-sent">Qualifiers</span> After the properties of this selector have been set, define properties of qualifying sub-selectors in the following order.
+				<ol>
+					<li>Classes (<code>&amp;.mod {}</code>)</li>
+					<li>Pseudo-classes (<code>&amp;:hover {}</code>)</li>
+					<li>Attributes (<code>&amp;[rel~=&quot;external&quot;] {}</code>)</li>
+					<li>Pseudo-elements (<code>&amp;::before {}</code>)</li>
+				</ol>
+			</li>
+			<li><span class="lede-sent">Combinators</span> The order of the combinator selectors is <a href="#selector-order">chosen specifically</a> so. 
+				<ol>
+					<li>general descendant selectors <code>&amp; .des {}</code></li>
+					<li>child selectors <code>&amp; &gt; .child {}</code></li>
+					<li>general sibling selectors <code>&amp; ~ .sib {}</code></li>
+					<li>adjacent sibling selectors <code>&amp; + .firstsib {}</code></li>
+				</ol>
+			</li>
+		</ol>
+	</section>
+	<section id="selector-order" class="draft">
+		<h1 class="h--gamma">Selector Order</h1>
+		<p class="prose">This section does not discuss <a>how authors should organize their stylesheets</a>, but the order selectors should be written within a group of selectors.</p>
+		<p class="prose">In general, selectors within a group of style blocks should be written in order of increasing specificity. This means elements first, then classes, then qualifiers/modifiers (pseudo-), and combinators last. The order of qualifiers is not too important, but the order of combinators is. This is because multiple selectors may have the same specificity when an author's belief might be that they do not.</p>
+		<p class="success">The example below uses metasyntactic variables for illustration purposes. See <a href="http://www.ietf.org/rfc/rfc3092.txt">RFC 3902</a> for more information.</p>
+		<p class="prose">The adjacent sibling of an element <em>is</em> a general sibling, but it is a &ldquo;specific&rdquo; type of sibling, namely, an adjacent one. Therefore it is a common misconception that the selector <code>.foo + .bar {}</code> has a higher <a>specificity</a> than <code>.foo ~ .bar {}</code>, and thus the former will override the latter (regardless of the order in which they are defined). After all, wouldn't you think that a <code>.foo + .bar {}</code> <em>is</em> a <code>.foo ~ .bar {}</code>? However, these two selectors actually have equivalent <a>specificity</a>, so whichever one is written last in the stylesheet will take precidence. The bottom line is that authors must define <code>.foo ~ .bar {}</code> <em>before</em> <code>.foo + .bar {}</code> in the stylesheet in order to get the results they expect. The same method applies to <code>.baz .qux {}</code> and <code>.baz > .qux {}</code>: the former must be defined before the latter.</p>
+	</section>
+	<section id="stylesheet-order">
+		<h1 class="h--gamma">Stylesheet Order</h1>
+		<p>Stylesheets should be imported in order from most generic to least generic. It is recommended to split stylesheets into the following categories:</p>
+		<ol>
+			<li>global settings, such as variables and functions (for preprocessors)</li>
+			<li>reset (unclassed element selectors only)</li>
+			<li>global interfaces and mixins</li>
+			<li>layout and containers: grids, vertical rhythm systems</li>
+			<li>typographical objects (headings, paragraphs, etc.)</li>
+			<li>modules (components like lists, buttons, breadcrumbs)</li>
+			<li>style trumps (states, anomalies, etc.)</li>
+		</ol>
+		<p>A <dfn>global stylesheet</dfn> contains all the variables and functions that you want to be accessible throughout the entire site. Common varaibles include font size, line height, and theme colors. It's a good idea to  include common maths helpers here as well. This file doesn't actually produce any CSS. Since this file is imported first, every other CSS (or Less) file has access to it.</p>
+		<p>A <dfn>reset stylesheet</dfn> removes all styles, e.g. gets rid of all margins, padding, bold, italics, etc. It strips the elements down to nothing. The use of a CSS reset is controversial. Authors against the use of a reset would say there's no point in removing a margin if you're going to add it back in later; this is just more work for the browser. Proponents might say that there's no predicting how a browser might one day change the default presentation of an element (all of a sudden it might decide to just go ahead and italicize all paragraphs), so you might as well reset everything just in case.</p>
+		<p>It's best to use a mix of both philosophies. This means resetting things that need to be reset, such as margin and padding if you are implementing a <a>vertical rhythm system</a>, and other browser-specific resets (such as non-HTML5-compliant browsers), but leaving other things alone that don't need to be reset, such as font weight and font style. This process can be done on an element-by-element basis, which may take long to write. The properties that are left alone can always be defined in particular elements or classes, later on in more targeted stylesheets (such as typography or modules). The reset stylesheet should be very broad and general, because it comes early in the Cascade and is likely to be overridden later.</p>
+		<p>An <dfn>interface stylesheet</dfn> contains all abstract Interfaces and Mixins that your Objects will want to implement later on. These Interfaces aren't actual things on a site (no HTML element should instantiate them); they're just helper classes and design patterns that appear many times throughout the site. An example might be <code>.transp {}</code>, which sets a certain opacity.</p>
+		<p>The <dfn>layout stylesheet(s)</dfn> will define the <a>grid system</a> and/or <a>vertical rhythm system</a> of the site. These stylesheets will define only Classes that are meant for <a>containers, not content</a>. Thus it is acceptable that these classnames be presentational.</p>
+		<p>The <dfn>typography stylesheet</dfn> defines Objects for typographical content including headings, paragraphs, block quotes, lists, figures, tables, and text-level semantics (highlighting, etc.). Some authors choose to split even these categories into separate stylesheets. This stylesheet does not use element selectors as you would expect, but rather conceptual Objects that correspond to features of a document. For example, the Heading Object in this stylesheet will not have the selector <code>h1 {}</code>, but rather an abstract Object selector such as <code>.H {}</code>. <a>HTML elements on a page must instantiate the CSS Objects</a> for proper styling. Elements that do not instantiate an Object will be styled via <a>reset</a> or browser-default.</p>
+		<p><dfn>Modules</dfn></p>
+		<p><dfn>Style trumps</dfn></p>
+	</section>
+</section>
 <section id="classes" class="draft">
 	<h1 class="h--beta">Guidelines for Naming Classes</h1>
 	<section id="classname-semantics">
@@ -361,7 +422,7 @@ pre {
 		</section>
 	</section>
 </section>
-<section id="selectors" class="draft">
+<section id="selectors" class="draft" hidden="">
 	<h1 class="h--beta">Guidelines for Writing Selectors</h1>
 	<p class="prose">Each selector has a <a>specificity</a> and an <a>efficiency</a>. I won't talk about them too much here, but generally the more efficient a selector is, the more specific it gets, and vice versa: less specific selectors are usually not that efficient. Our goal is to find the right balance between keeping our selectors low in specificity while high in efficiency.</p>
 	<p class="prose">The majority of the selectors in a stylesheet should be single classes only. Class selectors are the most efficient way for browsers to style pages, <a>not counting IDs</a>. For the most part, use single class selectors.</p>

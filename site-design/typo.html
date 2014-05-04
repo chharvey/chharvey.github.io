@@ -20,11 +20,43 @@ body {
 	outline: 1px solid #bbb;
 	background: #eee;
 }
+code {
+	padding: 1px 2px;
+	border: 1px solid #bdf;
+	border-radius: 3px;
+	font-size: 75%;
+	font-family: monospace;
+	white-space: nowrap;
+	background-color: #def;
+	background-color: rgba(221, 238, 255, 0.618);
+}
+code:hover {background-color: #def;}
+.code__sel  {color: #099;}
+.code__prop {color: #909;}
+.code__val  {color: #090;}
+
+table {
+	width: 100%;
+	text-align: center;
+}
+th, td {
+	border: 1px solid #808080;
+	background-color: #fff;
+}
+th {font-weight: bold;}
+td[data-bin="yes"] {background-color: #9f9;}
+td[data-bin="maybe"] {background-color: #ff9;}
+td[data-bin="no"] {background-color: #f99;}
 </style>
 <!--{% include all-js.html %}-->
 <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
 <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML,http://chharvey.github.io/core/scripts/mathjax-localconfig.js"></script>
 <script src="../core/scripts/all.js"></script>
+<script>
+$(document).ready(function () {
+//	$('p').addClass('P');
+});
+</script>
 </head>
 <body>
 <!--{% include masthead.html %}-->
@@ -42,26 +74,86 @@ body {
 	<ol class="bc-child"></ol>
 </nav> -->
 <main>
-<header>
-	<h1 class="h--alpha">Typography</h1>
-</header>
-<p class="prose">This document...</p>
+<h1 class="H--Alpha">Typography</h1>
+<p>This document...</p>
 <section id="scheme-flow">
-	<h1 class="h--beta">Flow Content</h1>
-	<p class="prose">This section...</p>
-	<section id="scheme-hn">
-		<h1 class="h--gamma">Heading Scheme</h1>
-		<p class="prose">See the scheme below for styles. Use the <code>.h--alpha</code>, <code>.h--beta</code>, <code>.h--gamma</code>, <code>.h--delta</code>, <code>.h--epsilon</code>, and <code>.h--zeta</code> classes.</p>
-		<h1 class="h--alpha">Heading 1 <span class="hsub">Level Alpha</span></h1>
-		<h1 class="h--beta">Heading 2 <span class="hsub">Level Beta</span></h1>
-		<h1 class="h--gamma">Heading 3 <span class="hsub">Level Gamma</span></h1>
-		<h1 class="h--delta">Heading 4 <span class="hsub">Level Delta</span></h1>
-		<h1 class="h--epsilon">Heading 5 <span class="hsub">Level Epsilon</span></h1>
-		<h1 class="h--zeta">Heading 6 <span class="hsub">Level Zeta</span></h1>
+	<h1 class="H--Beta">Flow Content</h1>
+	<p>This section...</p>
+	<section id="scheme-heading">
+		<h1 class="H--Gamma">Heading Scheme</h1>
+		<p>See the scheme below for styles. Use the
+			<code>.H--Alpha</code>,
+			<code>.H--Beta</code>,
+			<code>.H--Gamma</code>,
+			<code>.H--Delta</code>,
+			<code>.H--Epsilon</code>, and
+			<code>.H--Zeta</code> classes.</p>
+		<h1 class="H--Alpha">Heading 1   <span class="Hsub">Level Alpha</span></h1>
+		<h1 class="H--Beta">Heading 2    <span class="Hsub">Level Beta</span></h1>
+		<h1 class="H--Gamma">Heading 3   <span class="Hsub">Level Gamma</span></h1>
+		<h1 class="H--Delta">Heading 4   <span class="Hsub">Level Delta</span></h1>
+		<h1 class="H--Epsilon">Heading 5 <span class="Hsub">Level Epsilon</span></h1>
+		<h1 class="H--Zeta">Heading 6    <span class="Hsub">Level Zeta</span></h1>
+		<table data-status="informative">
+			<caption class="P--Capt">An informative summary of the six heading levels' styles.</caption>
+			<thead>
+				<tr>
+					<th class="cell--p3">Heading Level</th>
+					<th class="cell--p4"><code class="code__prop">font-style</code></th>
+					<th class="cell--p3"><code class="code__prop">font-variant</code></th>
+					<th class="cell--p4"><code class="code__prop">font-weight</code></th>
+					<th class="cell--p3"><code class="code__prop">color</code></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th><code class="code__sel">.H--Alpha</code></th>
+					<td data-bin="no"> <code class="code__val">normal</code></td>
+					<td data-bin="yes"><code class="code__val">small-caps</code></td>
+					<td data-bin="yes"><code class="code__val">bold</code></td>
+					<td data-bin="yes"><code class="code__val">@color_h_major</code></td>
+				</tr>
+				<tr>
+					<th><code class="code__sel">.H--Beta</code></th>
+					<td data-bin="no"> <code class="code__val">normal</code></td>
+					<td data-bin="no"> <code class="code__val">normal</code></td>
+					<td data-bin="yes"><code class="code__val">bold</code></td>
+					<td data-bin="yes"><code class="code__val">@color_h_minor</code></td>
+				</tr>
+				<tr>
+					<th><code class="code__sel">.H--Gamma</code></th>
+					<td data-bin="no"> <code class="code__val">normal</code></td>
+					<td data-bin="yes"><code class="code__val">small-caps</code></td>
+					<td data-bin="yes"><code class="code__val">bold</code></td>
+					<td data-bin="no"> <code class="code__val">@color_base_txt</code></td>
+				</tr>
+				<tr>
+					<th><code class="code__sel">.H--Delta</code></th>
+					<td data-bin="yes"><code class="code__val">italic</code></td>
+					<td data-bin="no"> <code class="code__val">normal</code></td>
+					<td data-bin="yes"><code class="code__val">bold</code></td>
+					<td data-bin="no"> <code class="code__val">@color_base_txt</code></td>
+				</tr>
+				<tr>
+					<th><code class="code__sel">.H--Epsilon</code></th>
+					<td data-bin="yes"><code class="code__val">italic</code></td>
+					<td data-bin="no"> <code class="code__val">normal</code></td>
+					<td data-bin="no"> <code class="code__val">normal</code></td>
+					<td data-bin="yes"><code class="code__val">@color_h_minor</code></td>
+				</tr>
+				<tr>
+					<th><code class="code__sel">.H--Zeta</code></th>
+					<td data-bin="yes"><code class="code__val">italic</code></td>
+					<td data-bin="yes"><code class="code__val">small-caps</code></td>
+					<td data-bin="no"> <code class="code__val">normal</code></td>
+					<td data-bin="no"> <code class="code__val">@color_base_txt</code></td>
+				</tr>
+			</tbody>
+		</table>
 	</section>
 		<!-- <aside id="scheme-aside" class="draft">
 			<h1 class="h--delta">Asides---Move to <code class="dir">grid.html</code></h1>
-			<p class="prose">This is an aside. Sometimes you may want to place an aside literally to the side of the document. <a href="grid.html">The <code class="lang-css">.gutter-major</code> and <code class="lang-css">.gutter-minor</code> classes</a> can be used on any element, but use them on an <code class="lang-css">aside</code> if you wish. See the following two asides. (It is valid to have an <code class="lang-css">aside > aside</code>.)</p>
+			<p>This is an aside. Sometimes you may want to place an aside literally to the side of the document. <a href="grid.html">The <code class="lang-css">.gutter-major</code> and <code class="lang-css">.gutter-minor</code> classes</a> can be used on any element, but use them on an <code class="lang-css">aside</code> if you wish. See the following two asides. (It is valid to have an <code class="lang-css">aside > aside</code>.)</p>
 			<aside class="gutter-major">
 				<h1 class="h--epsilon">Major Aside</h1>
 				<p>This is an <code class="lang-css">aside.gutter-major</code>. Apply this class to any element you want to appear in the major gutter outside the document.</p>
@@ -72,19 +164,44 @@ body {
 			</aside>
 		</aside> -->
 	<section id="scheme-paragraph">
-		<h1 class="h--gamma">Paragraph Scheme</h1>
-		<p>This paragraph does not have any classes added. We will call these &ldquo;regular paragraphs.&rdquo;</p>
-		<p style="font-style: italic;">Some regular paragraphs may be presented in italics. This paragraph merely serves as a visual example. The quick brown fox jumps over the lazy dog.</p>
-		<p style="font-weight: bold;">Some regular paragraphs may be presented in bold. This paragraph merely serves as a visual example. The quick brown fox jumps over the lazy dog.</p>
-		<p style="font-style: italic; font-weight: bold">This is a regular paragraph in italics and bold. The quick brown fox jumps over the lazy dog.</p>
+		<h1 class="H--Gamma">Paragraph Scheme</h1>
+		<p class="P">This is a regular paragraph (<code>.P</code>).
+			The quick brown fox jumps over the lazy dog.
+			<span style="font-style: italic;">The quick brown fox jumps over the lazy dog.</span>
+			<span style="font-weight: bold;">The quick brown fox jumps over the lazy dog.</span>
+			<span style="font-style: italic; font-weight: bold">The quick brown fox jumps over the lazy dog.</span>
+		</p>
+		<p class="P--Lede">This is a lede paragraph (<code>.P--Lede</code>).
+			The quick brown fox jumps over the lazy dog.
+			<span style="font-style: italic;">The quick brown fox jumps over the lazy dog.</span>
+			<span style="font-weight: bold;">The quick brown fox jumps over the lazy dog.</span>
+			<span style="font-style: italic; font-weight: bold">The quick brown fox jumps over the lazy dog.</span>
+		</p>
+		<p class="P"><span class="S--Lede">This is a lede sentence (<code>.S--Lede</code>) within a paragraph.</span> This is the rest of the paragraph.</p>
+		<div class="Article">
+			<p class="P">This is an <code>.Article &gt; .P</code>.
+				The quick brown fox jumps over the lazy dog.
+				<span style="font-style: italic;">The quick brown fox jumps over the lazy dog.</span>
+				<span style="font-weight: bold;">The quick brown fox jumps over the lazy dog.</span>
+				<span style="font-style: italic; font-weight: bold">The quick brown fox jumps over the lazy dog.</span>
+			</p>
+			<p class="P--Lede">This is an <code>.Article &gt; .P--Lede</code>.
+				The quick brown fox jumps over the lazy dog.
+				<span style="font-style: italic;">The quick brown fox jumps over the lazy dog.</span>
+				<span style="font-weight: bold;">The quick brown fox jumps over the lazy dog.</span>
+				<span style="font-style: italic; font-weight: bold">The quick brown fox jumps over the lazy dog.</span>
+			</p>
+			<p class="P"><span class="S--Lede">This is a lede sentence (<code>.S--Lede</code>) within an <code>.Article &gt; .P</code>.</span> This is the rest of the paragraph in the article.</p>
+		</div>
+		<p class="P--Dropcap">Drop caps can be beautiful, but it is unusual to use one on a normal paragraph. This <code>.P--Dropcap</code> is here simply for visual comprehension. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text.</p>
+		<p class="P--Lede P--Dropcap">In a normal (non-<code>.Article</code>) document, drop caps can still be used, but they don't look as pretty. This is a <code>.P--Lede.P--Dropcap</code>. Notice how the drop cap font does not complement the normal paragraph font very well. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text.</p>
+		<div class="Article">
+			<p class="P--Dropcap">Authors may want to use a fancy drop cap in the first paragraph of an article or in a book chapter. This is an <code>.Article &gt; .P--Dropcap</code>. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text.</p>
+			<p class="P--Lede P--Dropcap">Sometimes, the Article may have a Lede paragraph. This is an <code>.Article &gt; .P--Lede.P--Dropcap</code>. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text.</p>
+		</div>
+
 		
-		<p class="lede--para">This is a lede paragraph (<code>p.lede--para</code>). The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.</p>
-		<p><span class="lede--sent">This is a lede sentence (<code>p > .lede--sent</code>) within a paragraph.</span> The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.</p>
 		
-		<p class="prose"><span class="s-lede">This is a lede sentence (<code class="lang-css">span.s-lede</code>) within a <code class="lang-css">p.prose</code>.</span> The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.</p>
-		<p class="prose" style="font-style: italic;">Some prose paragraphs may be presented in italics. This paragraph merely serves as a visual example. The quick brown fox jumps over the lazy dog.</p>
-		<p class="prose" style="font-weight: bold;">Some prose paragraphs may be presented in bold. This paragraph merely serves as a visual example. The quick brown fox jumps over the lazy dog.</p>
-		<p class="prose" style="font-style: italic; font-weight: bold">This is a prose paragraph in italics and bold. The quick brown fox jumps over the lazy dog.</p>
 
 		
 		
@@ -96,9 +213,6 @@ body {
 		
 		
 		
-		<p class="lede"><span class="dropcap">A</span>uthors may want to use a fancy drop cap in the first paragraph of an article. Usually the first paragraph will also be a lede. Use the <code>.dropcap</code> class on the first letter. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text.</p>
-		<p class="prose dropcap">Prose paragraphs can also have drop caps, for example, as a first paragraph in a book chapter. This is a <code class="lang-css">p.prose.dropcap</code>. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text.</p>
-		<p class="dropcap">Drop caps can be beautiful, but it is unusual to use one on a normal, non-prose paragraph. This <code class="lang-css">p.dropcap</code> is here simply for visual comprehension. Notice how the drop cap font does not complement the normal paragraph font very well. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text.</p>
 <!--
 			<div class="informative">
 				<p>Wrap all informative content, including <code class="lang-css">p</code>s, <code class="lang-css">img</code>s, and <code class="lang-css">figure</code>s with a <code class="lang-css">div.informative</code>. <strong>All non-normative text should be contained in flow, non-phrasing content</strong>. This separates the text from the normative document. If there is a non-normative span of text present in a normative paragraph, authors are strongly encouraged to move the span to its own separate, non-normative division.</p>
@@ -107,8 +221,8 @@ body {
 		</section>
 -->
 		<section id="scheme-figure-blockquote-address">
-			<h1 class="h--delta">Figures, Block Quotes, and Addresses</h1>
-			<p class="prose"><code class="lang-css">figure</code>s and <code class="lang-css">blockquote</code>s are <a href="#scheme-section">sectioning roots</a>.</p>
+			<h1 class="H--Delta">Figures, Block Quotes, and Addresses</h1>
+			<p><code class="lang-css">figure</code>s and <code class="lang-css">blockquote</code>s are <a href="#scheme-section">sectioning roots</a>.</p>
 			<figure><code class="lang-css">figure</code> elements contain excerpts of text, examples, or images that are used to illustrate a concept. Content in a <code class="lang-css">figure</code> element&mdash;including its <code class="lang-css">figcaption</code>&mdash;is permissible to be extracted from the document and presented on its own. If the content would not make sense out of its surrounding context, do not use this element.
 				<figcaption><span class="lede">Figure 12.</span> The <code class="lang-css">figcaption</code> element describes the content of the figure. Optionally include a <code class="lang-css">span.s-lede</code> containing the figure's title. The figure caption should be shorter and more concise than the figure text. Captions should not contain any <code class="lang-css">p</code>s, and they should not be styled in prose.</figcaption>
 			</figure>
@@ -120,13 +234,13 @@ body {
 			<figure><span class="warning">This is bad! (but just an example)</span> This is a <code class="lang-css">figure</code> that represents a non-example or emphasis of what <em>not</em> to do. Notice there is no special class for the <code class="lang-css">figure</code>. When demonstrating a bad example, indicate this with a <code class="lang-css">span.warning</code> as it is more likely to catch the reader's attention.</figure>
 			<blockquote><code class="lang-css">blockquote</code> elements contain material taken directly from another source. They are usually very short. <cite class="src">Source</cite></blockquote>
 			<blockquote>It's courteous&mdash;and probably required&mdash;to reference the source of the quoted text. Add a <code class="lang-css">cite.src</code> at the end of the block quote. (Yes, you should use the <code class="lang-css">cite</code> element.) <cite class="src">Source</cite></blockquote>
-			<blockquote class="prose">
+			<blockquote>
 				<p>Block quotes that are longer than about 40 words should contain at least one <code class="lang-css">p</code>. Conversely, short block quotes should <em>not</em> contain paragraphs; the textual content should be contained directly inside, as shown above. Since longer passages of text are more easily read in a serif font, apply the <code class="lang-css">.prose</code> class <strong>to the entire block quote</strong> instead of to each element inside.</p>
 				<p>In a long block quote, the citation should be in a <code class="lang-css">header &gt; p &gt; cite.src</code> (<a href="#scheme-header">yes, header</a>), with the year included as well. If you're really picky, you can wrap the year with a <code class="lang-html">&lt;time&gt;</code> tag.</p>
 				<header><p><cite class="src">Source, <time>2000</time></cite></p></header>
 			</blockquote>
 			<p class="lede">This section describes the creation of a <a>quasi-element</a>: the <code class="lang-css">div.postal</code> class.</p>
-			<p class="prose">Use the <code class="lang-css">address</code> element to mark up contact information for authors of (part of) a document. This contact information may include a postal address, or it may simply include an email address or link. If the <code class="lang-css">address</code> element contins a postal address, place the postal address in an <code class="lang-css">address div.postal</code>. If the postal address is not an author's contact information but rather an arbitrary postal address, also use <code class="lang-css">div.postal</code>, but do not place it in an <code class="lang-css">address</code> element. It is convention to use the <code class="lang-html">&lt;br/&gt;</code> tag to indicate line breaks within a postal address.</p>
+			<p>Use the <code class="lang-css">address</code> element to mark up contact information for authors of (part of) a document. This contact information may include a postal address, or it may simply include an email address or link. If the <code class="lang-css">address</code> element contins a postal address, place the postal address in an <code class="lang-css">address div.postal</code>. If the postal address is not an author's contact information but rather an arbitrary postal address, also use <code class="lang-css">div.postal</code>, but do not place it in an <code class="lang-css">address</code> element. It is convention to use the <code class="lang-html">&lt;br/&gt;</code> tag to indicate line breaks within a postal address.</p>
 			<address>
 				<div class="postal">
 					Chris Harvey<br/>
@@ -461,7 +575,7 @@ body {
 				</tr>
 			</tbody>
 		</table>
-		<p class="prose">Below is a list-style table (<code class="lang-css">.table-list</code>). List-style tables are best for displaying information that correlates across rows. An example of a list-style table might be a list of student information including names, ages, genders, and ID numbers.</p>
+		<p>Below is a list-style table (<code class="lang-css">.table-list</code>). List-style tables are best for displaying information that correlates across rows. An example of a list-style table might be a list of student information including names, ages, genders, and ID numbers.</p>
 		<table class="table-list">
 			<thead>
 				<tr>
@@ -493,7 +607,7 @@ body {
 				</tr>
 			</tbody>
 		</table>
-		<p class="prose">Below is a bar-style-table (<code class="lang-css">.table-bars</code>). Bar-style tables are best for displaying information that correlates down columns. An example of a bar-style table might be a spreadsheet displaying the position, velocity, and acceleration values of a falling object across time.</p>
+		<p>Below is a bar-style-table (<code class="lang-css">.table-bars</code>). Bar-style tables are best for displaying information that correlates down columns. An example of a bar-style table might be a spreadsheet displaying the position, velocity, and acceleration values of a falling object across time.</p>
 		<table class="table-bars">
 			<tbody>
 				<tr>
@@ -551,8 +665,8 @@ body {
 		</table>
 <!--
 		<div>
-			<p class="prose">Below is a grid-style table (). Grid-style tables are best for displaying information that either correlates across rows, down columns, or tabular data that correlates among both rows and columns.</p>
-			<p class="prose">In a grid-style table, a table header could be a row or row group of cells, or a column or column group of cells. If table header(s) are present, their cells may be normal cells or heading cells (headings). The headings, if present, can have a scope of either <code class="lang-html">scope=&quot;row&quot;</code> or <code class="lang-html">scope=&quot;col&quot;</code>. Similarly, these headings can be targeted by any cells.</p>
+			<p>Below is a grid-style table (). Grid-style tables are best for displaying information that either correlates across rows, down columns, or tabular data that correlates among both rows and columns.</p>
+			<p>In a grid-style table, a table header could be a row or row group of cells, or a column or column group of cells. If table header(s) are present, their cells may be normal cells or heading cells (headings). The headings, if present, can have a scope of either <code class="lang-html">scope=&quot;row&quot;</code> or <code class="lang-html">scope=&quot;col&quot;</code>. Similarly, these headings can be targeted by any cells.</p>
 			<p>An example of a grid-style table might be...</p>
 			<table class="table-grid">
 				<tbody>
@@ -569,14 +683,14 @@ body {
 </section>
 <section id="text-level">
 	<h1 class="h--beta">Text-Level Semantics</h1>
-	<p class="prose">This section......</p>
+	<p>This section......</p>
 	<section id="scheme-punct">
 		<h1 class="h--gamma">Punctuation</h1>
-		<p class="prose">First and foremost, <strong>punctuation should be used to mark up text.</strong> The meaning we give to textual elements in the written language is primarily conveyed through punctuation, and if that fails, we turn to HTML. I'm not saying HTML is bad and that we shouldn't use it, but there is a line between not enough markup and too much markup.</p>
-		<p class="prose">Let me ask you this: do you find yourself trying to decide whether to wrap a question with something like <code class="lang-html">&lt;i class=&quot;question&quot;&gt;</code>? After all, a question does indicate a change of tone. No, we would rather simply type a question mark. Now imagine having to mark up every sentence with <code class="lang-html">&lt;sntc&gt;</code> tag, or even worse, every word with <code class="lang-html">&lt;word&gt;</code>.</p>
-		<p class="prose">Truth be told, question marks, periods, and spaces give meaning to the sentences and words we write. Likewise, we should make the best use we can of spaces, commas, apostrophes, stops (including periods, question marks, and exclamation marks) hyphens, colons, dashes, ellipses, semicolons, quotation marks, and any other punctuation characters at our disposal, as we normally would on a typewriter.</p>
-		<p class="prose">Without further ado, the number-one rule is this: <strong>if you can use punctuation to mark up text-level content, <em>do it</em></strong>. Save yourself the time and effort on trying to decide on an HTML element and just write naturally (as long as you consistently adhere to some prescribed manual of style). After that is all said and done, then it would be time to turn to the HTML elements we know and love.</p>
-		<p class="prose">This document is not meant to be a comprehensive manual for the written English language, so it is left to the discrection of the author (and/or his employer) to decide how to use punctuation. <a href="punct.html" rel="child">Read further on common practices of using punction.</a></p>
+		<p>First and foremost, <strong>punctuation should be used to mark up text.</strong> The meaning we give to textual elements in the written language is primarily conveyed through punctuation, and if that fails, we turn to HTML. I'm not saying HTML is bad and that we shouldn't use it, but there is a line between not enough markup and too much markup.</p>
+		<p>Let me ask you this: do you find yourself trying to decide whether to wrap a question with something like <code class="lang-html">&lt;i class=&quot;question&quot;&gt;</code>? After all, a question does indicate a change of tone. No, we would rather simply type a question mark. Now imagine having to mark up every sentence with <code class="lang-html">&lt;sntc&gt;</code> tag, or even worse, every word with <code class="lang-html">&lt;word&gt;</code>.</p>
+		<p>Truth be told, question marks, periods, and spaces give meaning to the sentences and words we write. Likewise, we should make the best use we can of spaces, commas, apostrophes, stops (including periods, question marks, and exclamation marks) hyphens, colons, dashes, ellipses, semicolons, quotation marks, and any other punctuation characters at our disposal, as we normally would on a typewriter.</p>
+		<p>Without further ado, the number-one rule is this: <strong>if you can use punctuation to mark up text-level content, <em>do it</em></strong>. Save yourself the time and effort on trying to decide on an HTML element and just write naturally (as long as you consistently adhere to some prescribed manual of style). After that is all said and done, then it would be time to turn to the HTML elements we know and love.</p>
+		<p>This document is not meant to be a comprehensive manual for the written English language, so it is left to the discrection of the author (and/or his employer) to decide how to use punctuation. <a href="punct.html" rel="child">Read further on common practices of using punction.</a></p>
 	</section>
 	
 	
@@ -689,7 +803,7 @@ body {
 				<ins datetime="1970-01-01">inserted text with a <code class="lang-html">datetime</code></ins>
 				<p class="draft">something</p>
 			</section>
-			<p class="prose">Use an <a href="#association-lists">association list</a> to mark up document metadata.</p>
+			<p>Use an <a href="#association-lists">association list</a> to mark up document metadata.</p>
 		</section>
 		<section id="scripts">
 			<h1 class="h--delta">Super- and Subscripts</h1>
@@ -735,7 +849,7 @@ The next line shows the syntax for a Less declaration.
 </section>
 <section id="forms" class="draft">
 	<h1 class="h--beta">Form Elements</h1>
-	<p class="prose">......</p>
+	<p>......</p>
 </section>
 </main>
 </body>

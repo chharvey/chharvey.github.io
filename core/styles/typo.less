@@ -23,18 +23,52 @@
 //++++++++++++++//
 /*@MAIN ELEMENTS*/
 //++++++++++++++//
-body {
-	.fontsize(medium);
-	margin: 0;
+html {
+	font-weight: normal;
+	font-variant: normal;
+	font-style: normal;
+	font-size: @fontsize_base;
 	font-family: @fontfam_base;
+	line-height: @lineheight_base;
+}
+body {
+	margin: 0;
 	text-align: left;
 	vertical-align: baseline;
-	color: @color_base--txt;
-	background-color: @color_base--bg;
+	color: @color_base_txt;
+	background-color: @color_base_bg;
 }
 main {
 	.Block.P1.Mr;
 	margin-bottom: 192px; // 2in
+}
+/**
+  * This Object represents a generic article, technical document, blog post, etc. This Object may or may not take the form of a literal `article` element or `main` element of a page. This Object is designed to contain other block-level Objects such as Headings and Paragraphs.
+@tags
+: #typography
+: #article
+@author
+: Chris Harvey
+@updated
+: 2014-05-03
+  */
+.Article {
+	font-family: @fontfam_prose;
+	text-align: justify;
+}
+/**
+  * This Object represents text in an article that is not to displayed like .Article text. Essentially it reverts back to the body copy styles.
+@tags
+: #typography
+: #article
+@author
+: Chris Harvey
+@updated
+: 2014-05-02
+  */
+.UndoArticle {
+	font-family: @fontfam_base;
+	text-align: left;
 }
 @media print {
 	body {
@@ -48,21 +82,6 @@ main {
 		margin-right: auto;
 	}
 }
-/**
-  * This Object represents the text in an article. The text may be content of a literal `article` element or it may be content of the `main` element of a generic article, document, blog post, etc.
-@tags
-: #typography
-: #article
-@author
-: Chris Harvey
-@updated
-: 2014-04-30
-  */
-.Article {
-	font-family: @fontfam_prose;
-	text-align: justify;
-	list-style-type: decimal;
-}
 //++++ @end MAIN ELEMENTS ++++//
 
 
@@ -70,7 +89,7 @@ main {
 /*@HEADINGS*/
 //+++++++++//
 /**
-  * This Object represents a generic heading of a section, article, or document.
+  * This Object represents a generic heading of a section, post, article, or document.
 @tags
 : #typography
 : #heading
@@ -87,22 +106,24 @@ main {
 	font-weight: normal;
 	font-family: @fontfam_heading;
 	letter-spacing: 1px;
-	/**
-	  * This Object represents a generic tagline inside a heading, called a 'subheading'.
-	@tags
-	: #typography
-	: #heading
-	@author
-	: Chris Harvey
-	@updated
-	: 2014-04-30
-	  */
-	> .Hsub {
-		font-size: 80%;
-		padding-left: @vru;
-		font-weight: normal;
-		color: @color_base--faded;
-	}
+	color: @color_base_txt;
+}
+/**
+  * This Object represents a generic tagline inside a heading, called a 'subheading'.
+@tags
+: #typography
+: #heading
+@author
+: Chris Harvey
+@updated
+: 2014-04-30
+  */
+.H > .Hsub {
+	font-size: 80%;
+	padding-left: @vru_px;
+	padding-left: @vru_rem;
+	font-weight: normal;
+	color: @color_base_faded;
 }
 /**
   * The six Objects below represent different levels of headings, starting from top-level to level 6.
@@ -118,48 +139,59 @@ main {
 : 2014-04-14
   */
 .H.Alpha {
-	.fontsize--scale(@fontsize_ratio--alpha);
-	padding-bottom: @vru;
-	margin-top: 2 * @vru;
+//	.fontsize-scale(@fontsize_ratio_alpha);
+	.fontsize-scale-double(@fontsize_ratio_alpha);
+	.vru-top(2 * @phi1);
+	.vru-bottom(2 * @phi2);
 	font-variant: small-caps;
 	font-weight: bold;
 	text-align: center;
-	color: @color_h--major;
-	> .Hsub {color: @color_hsub--major;}
+	color: @color_h_major;
+	> .Hsub {color: @color_hsub_major;}
 }
 .H.Beta {
-	.fontsize--scale(@fontsize_ratio--beta);
-	padding-bottom: 0.5 * @vru;
-	margin-top: 1.5 * @vru;
+	.fontsize-scale(@fontsize_ratio_beta);
+	.vru-top(1);
+	.vru-bottom(1);
 	font-weight: bold;
-	color: @color_h--minor;
-	> .Hsub {color: @color_hsub--minor;}
+	color: @color_h_minor;
+	> .Hsub {color: @color_hsub_minor;}
 }
 .H.Gamma {
-	.fontsize--scale(@fontsize_ratio--gamma);
-	padding-bottom: 0.25 * @vru;
-	margin-top: 0.75 * @vru;
+	.fontsize-scale(@fontsize_ratio_gamma);
+	.vru-top(1.333);
+	.vru-bottom(0.667);
 	font-variant: small-caps;
 	font-weight: bold;
 }
 .H.Delta {
-	.fontsize--scale(@fontsize_ratio--delta);
-	margin-top: @vru;
+	.fontsize-scale(@fontsize_ratio_delta);
+	.vru-top(0.75);
+	.vru-bottom(0.25);
 	font-style: italic;
 	font-weight: bold;
 }
 .H.Epsilon {
-	.fontsize--scale(@fontsize_ratio--epsilon);
+	.fontsize-scale(@fontsize_ratio_epsilon);
+	.vru-top(0);
+	.vru-bottom(0);
 	font-style: italic;
-	text-indent: 0.5in;
-	color: @color_h--minor;
-	> .Hsub {color: @color_hsub--minor;}
+//	text-indent: 0.5in;
+	color: @color_h_minor;
+	> .Hsub {color: @color_hsub_minor;}
 }
 .H.Zeta {
-	.fontsize--scale(@fontsize_ratio--zeta);
+	.fontsize-scale(@fontsize_ratio_zeta);
+	.vru-top(0);
+	.vru-bottom(0);
 	font-style: italic;
 	font-variant: small-caps;
-	text-indent: 0.5in;
+//	text-indent: 0.5in;
+}
+@media print {
+	.H {
+		.fontsize-med;
+	}
 }
 //++++ @end HEADINGS ++++//
 
@@ -168,10 +200,10 @@ main {
 /*@PARAGRAPHS*/
 //+++++++++++//
 /**
-  * This Object represents a generic paragraph in a section, article, or document. Paragraphs are the backbone of a document; they are made to organize and group textual ideas together. In the written media, paragraphs can span anywhere from 3 to 8 sentences. However on the Web, they can be much, much shorter.
+  * This Object represents a generic paragraph in a section, article, or document. A paragraph Object is a small grouping of textual ideas. In the written media, paragraphs can span anywhere from 3 to 8 sentences. However on the Web, they can be much, much shorter.
 @implements
-: .vru--content
-: .vru--top;
+: .vru-content
+: .vru-top
 @tags
 : #typography
 : #paragraph
@@ -181,8 +213,8 @@ main {
 : 2014-04-26
   */
 .P {
-	&:extend(.vru--content);
-	&:extend(.vru--top);
+	&:extend(.vru-content);
+	&:extend(.vru-top);
 }
 /**
   * This Object represents a lede paragraph, which may be an introduction or abstract to an article.
@@ -200,11 +232,16 @@ main {
   */
 .P.Lede {
 	&:extend(.lede);
-	padding-bottom: @vru;
+	.vru-bottom(1);
 	text-align: justify;
 }
 /**
-  * This Object represents a caption of any sort. It may be a caption of a table, figure, or any element. Captions are usually short summaries of the objects they describe. They may precede or follow the object.
+  * This Object represents a caption of any sort. It may be a caption of a literal `table`, `figure`, or any element. `.Capt`s are usually short summaries of the Objects they describe. They may precede or follow that Object.
+  * A `.P--Capt--First` appears before the Object it describes; a `.P--Captino--Last` appears after.
+@extends
+: .P
+@implements
+: .fontsize-small
 @tags
 : #typography
 : #paragraph
@@ -213,17 +250,22 @@ main {
 @author
 : Chris Harvey
 @updated
-: 2014-04-29
+: 2014-05-03
   */
-.P.Caption {
-	.fontsize(small);
+.P.Capt {
+	&:extend(.fontsize-sml);
 	padding: 0;
 	margin: 0;
-	font-style: normal;
 	text-align: right;
 }
+.P--Capt--First {.border-vert-one(bottom; 1px; dotted; @color_accent);}
+.P--Capt--Last  {.border-vert-one(top;    1px; dotted; @color_accent);}
 /**
   * This Object represents a paragraph whose first letter is a drop cap.
+@extends
+: .P
+@mixesin
+: .fontsize-scale()
 @tags
 : #typography
 : #paragraph
@@ -232,18 +274,151 @@ main {
 @updated
 : 2014-04-30
   */
-.P.Dropcap::first-letter {
-	float: left;
-	padding-top: (@vru / 2);
-	padding-right: 4px; // why this number?
-	font-style: normal;
-	font-weight: normal;
-	font-size: 3 * @fontsize_base;
-	font-family: @fontfam_math;
-	line-height: 0.5;
-	color: @color_h--major;
+.P.Dropcap {
+	&::first-letter {
+		.fontsize-scale(3);
+		float: left;
+		padding-top: (@vru_px  / 2);
+		padding-top: (@vru_rem / 2);
+		padding-right: 4px; // why this number?
+		font-style: normal;
+		font-weight: normal;
+		font-family: @fontfam_math;
+		color: @color_h_major;
+	}
+}
+/**
+  * This Object represents a generic figure in a document. It may be a literal `figure` element, or the abstract concept of a figure. Inside this .Figure there may exist a .Caption, either at the beginning or at the end. The .Caption may or may not be a `figcaption` element.
+@implemens
+: .vru-content
+: .vru-top
+@tags
+: #typography
+: #figure
+: #caption
+@author
+: Chris Harvey
+@updated
+: 2014-05-03
+  */
+.Fig {
+	&:extend(.vru-content);
+	&:extend(.vru-top-phi);
+	.spacing-phi(left;  4px; solid; @color_accent);
+	.spacing-phi(right; 4px; solid; @color_accent);
+}
+/**
+  * This Object represents a generic quotation.
+@extends
+: .P
+@implemens
+: .vru-top-phi
+: .fontsize-lrg
+@mixesin
+: .spacing-phi()
+@tags
+: #typography
+: #paragraph
+: #geolocation
+@author
+: Chris Harvey
+@updated
+: 2014-04-30
+  */
+.quote {}
+.Qblock {
+	&:extend(.vru-content);
+	&:extend(.vru-top-phi);
+	.spacing-phi(left; 7px; double; @color_accent);
+	font-family: @fontfam_accent;
+}
+/**
+  * This Object represents a generic postal address. It may be the contact address of the document author (contained in an `address` element), or it may be any postal mailing address.
+@extends
+: .P
+@implemens
+: .vru-top-phi
+: .fontsize-lrg
+@mixesin
+: .spacing-phi()
+@tags
+: #typography
+: #paragraph
+: #geolocation
+@author
+: Chris Harvey
+@updated
+: 2014-04-30
+  */
+.Address {
+	&:extend(.P);
+	&:extend(.vru-top-phi);
+	&:extend(.fontsize-lrg);
+	.spacing-phi(right; 3px; solid; @color_accent);
+	border-radius: 3px;
+	font-family: @fontfam_accent;
+	text-align: right;
 }
 //++++ @end PARAGRAPHS ++++//
+
+/**
+  * This Object represents a generic list. It may be a literal `ol` or `ul` element containing `li` elements, or it may be an abstract notion of a list of other Objects. The order of list items may be releveant or irrelevant.
+@tags
+: #typography
+: #lists
+@author
+: Chris Harvey
+@updated
+: 2014-05-03
+  */
+.List {
+	display: block;
+	padding-left: 48px; // 0.5in;
+}
+/**
+  * This Object represents a list used for an outline. Typical uses include table of contents, etc. Outlines are by definition, ordered.
+@tags
+: #typography
+: #lists
+: #ordered
+@author
+: Chris Harvey
+@updated
+: 2014-05-03
+  */
+.List--Otln {
+	list-style-type: decimal-leading-zero; //  01.  02.  03.
+}
+/**
+  * These Objects represent outlined lists with different enumeration types.
+@tags
+: #typography
+: #lists
+@author
+: Chris Harvey
+@updated
+: 2014-05-03
+  */
+.List--Otln--Omega   {list-style-type: decimal-leading-zero;} //  01.  02.  03.
+.List--Otln--Alpha   {list-style-type: upper-roman;}          //   I.  II. III.
+.List--Otln--Beta    {list-style-type: upper-alpha;}          //   A.   B.   C.
+.List--Otln--Gamma   {list-style-type: decimal;}              //   1.   2.   3.
+.List--Otln--Delta   {list-style-type: lower-alpha;}          //   a.   b.   c.
+.List--Otln--Epsilon {list-style-type: lower-roman;}          //   i.  ii. iii.
+.List--Otln--Zeta    {list-style-type: lower-greek;}          //   α.   β.   γ.
+/**
+  * This Object represents a generic list item. It may be a `li` element inside an `ol` or `ul` element, or it may be an abstract notion of an item in a List.
+@tags
+: #typography
+: #lists
+@author
+: Chris Harvey
+@updated
+: 2014-05-03
+  */
+.List > .Item {
+	display: list-item;
+}
 
 
 //+++++++++++//
@@ -259,7 +434,9 @@ main {
 @updated
 : 2014-04-30
   */
-.S {}
+.S {
+	display: inline;
+}
 /**
   * This Object represents a lede sentence, which may act as a "heading" for the paragraph it's in. If a lede sentence is part of a paragraph, it acts like a mini-heading for that paragraph. This can be especially useful in a prose list.
 @extends
@@ -277,7 +454,36 @@ main {
   */
 .S.Lede {
 	&:extend(.lede);
-	padding-right: @vru;
+	padding-right: @vru_px;
+	padding-right: @vru_rem;
+}
+/**
+  * This Object represents an inline quotation: a span of text that is taken directly from another source.
+@extends
+: .S
+@implements
+: .quotes
+@tags
+: #typography
+: #span
+: #quote
+@author
+: Chris Harvey
+@updated
+: 2014-05-03
+  */
+.S--Q {
+	&:extend(.S);
+	&:extend(.quotes all);
+}
+.Src--Informal {
+	padding-right: @vru_px;
+	padding-right: @vru_rem;
+	float: right;
+	&::before {content: '~\0020';}
+	&::after  {content: '';}
+}
+.Src--Formal {
+	&:extend(.parens all);
 }
 //++++ @end TEXT-LEVEL ++++//
-
