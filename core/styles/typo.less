@@ -23,10 +23,16 @@
 //++++++++++++++//
 /*@MAIN ELEMENTS*/
 //++++++++++++++//
-body {
-	.fontsize-med;
-	margin: 0;
+html {
+	font-weight: normal;
+	font-variant: normal;
+	font-style: normal;
+	font-size: @fontsize_base;
 	font-family: @fontfam_base;
+	line-height: @lineheight_base;
+}
+body {
+	margin: 0;
 	text-align: left;
 	vertical-align: baseline;
 	color: @color_base_txt;
@@ -113,7 +119,8 @@ main {
   */
 .H > .Hsub {
 	font-size: 80%;
-	padding-left: @vru;
+	padding-left: @vru_px;
+	padding-left: @vru_rem;
 	font-weight: normal;
 	color: @color_base_faded;
 }
@@ -132,9 +139,10 @@ main {
   */
 .H--Alpha {
 	&:extend(.H all);
-	.fontsize-scale(@fontsize_ratio_alpha);
-	padding-bottom: @vru;
-	margin-top: 2 * @vru;
+//	.fontsize-scale(@fontsize_ratio_alpha);
+	.fontsize-scale-double(@fontsize_ratio_alpha);
+	.vru-top(2 * @phi1);
+	.vru-bottom(2 * @phi2);
 	font-variant: small-caps;
 	font-weight: bold;
 	text-align: center;
@@ -144,8 +152,8 @@ main {
 .H--Beta {
 	&:extend(.H all);
 	.fontsize-scale(@fontsize_ratio_beta);
-	padding-bottom: 0.5 * @vru;
-	margin-top: 1.5 * @vru;
+	.vru-top(1);
+	.vru-bottom(1);
 	font-weight: bold;
 	color: @color_h_minor;
 	> .Hsub {color: @color_hsub_minor;}
@@ -153,32 +161,37 @@ main {
 .H--Gamma {
 	&:extend(.H all);
 	.fontsize-scale(@fontsize_ratio_gamma);
-	padding-bottom: 0.25 * @vru;
-	margin-top: 0.75 * @vru;
+	.vru-top(1.333);
+	.vru-bottom(0.667);
 	font-variant: small-caps;
 	font-weight: bold;
 }
 .H--Delta {
 	&:extend(.H all);
 	.fontsize-scale(@fontsize_ratio_delta);
-	margin-top: @vru;
+	.vru-top(0.75);
+	.vru-bottom(0.25);
 	font-style: italic;
 	font-weight: bold;
 }
 .H--Epsilon {
 	&:extend(.H all);
 	.fontsize-scale(@fontsize_ratio_epsilon);
+	.vru-top(0);
+	.vru-bottom(0);
 	font-style: italic;
-	text-indent: 0.5in;
+//	text-indent: 0.5in;
 	color: @color_h_minor;
 	> .Hsub {color: @color_hsub_minor;}
 }
 .H--Zeta {
 	&:extend(.H all);
 	.fontsize-scale(@fontsize_ratio_zeta);
+	.vru-top(0);
+	.vru-bottom(0);
 	font-style: italic;
 	font-variant: small-caps;
-	text-indent: 0.5in;
+//	text-indent: 0.5in;
 }
 @media print {
 	.H {
@@ -225,7 +238,7 @@ main {
 .P--Lede {
 	&:extend(.P);
 	&:extend(.lede);
-	padding-bottom: @vru;
+	.vru-bottom(1);
 	text-align: justify;
 }
 /**
@@ -247,10 +260,9 @@ main {
   */
 .P--Capt {
 	&:extend(.P);
-	&:extend(.fontsize-small);
+	&:extend(.fontsize-sml);
 	padding: 0;
 	margin: 0;
-	font-style: normal;
 	text-align: right;
 }
 .P--Capt--First {.border-vert-one(bottom; 1px; dotted; @color_accent);}
@@ -274,7 +286,8 @@ main {
 	&::first-letter {
 		.fontsize-scale(3);
 		float: left;
-		padding-top: (@vru / 2);
+		padding-top: (@vru_px  / 2);
+		padding-top: (@vru_rem / 2);
 		padding-right: 4px; // why this number?
 		font-style: normal;
 		font-weight: normal;
@@ -450,7 +463,8 @@ main {
 .S--Lede {
 	&:extend(.S);
 	&:extend(.lede);
-	padding-right: @vru;
+	padding-right: @vru_px;
+	padding-right: @vru_rem;
 }
 /**
   * This Object represents an inline quotation: a span of text that is taken directly from another source.
@@ -472,7 +486,8 @@ main {
 	&:extend(.quotes all);
 }
 .Src--Informal {
-	padding-right: @vru;
+	padding-right: @vru_px;
+	padding-right: @vru_rem;
 	float: right;
 	&::before {content: '~\0020';}
 	&::after  {content: '';}
