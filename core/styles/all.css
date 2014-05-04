@@ -3,14 +3,16 @@
     settings.less
 \*----------------*/
 /*@GLOBAL VARIABLES*/
-/*@General Values*/
+/*@General Constants*/
+/*@General Variables*/
+/** Determines the amount to fade out. Change this if you wish. */
 /*@Fonts*/
+/** These determine 1rem and the 'magic number'. Change these if you wish. */
 /*@Colors*/
 /*@FUNCTIONS*/
 /*--------------*\
     reset.less
 \*--------------*/
-/*@RESET*/
 body,
 section,
 article,
@@ -34,12 +36,34 @@ ul,
 dl,
 dt,
 dd,
-table,
 pre {
   display: block;
 }
 li {
   display: list-item;
+}
+table {
+  display: table;
+  border-collapse: collapse;
+}
+caption {
+  display: table-caption;
+}
+thead {
+  display: table-header-group;
+}
+tbody {
+  display: table-row-group;
+}
+tfoot {
+  display: table-footer-group;
+}
+tr {
+  display: table-row;
+}
+th,
+td {
+  display: table-cell;
 }
 em,
 strong,
@@ -89,17 +113,14 @@ dl,
 dt,
 dd,
 table,
+th,
+td,
 pre {
   padding: 0;
   border: 0;
   outline: 0;
   margin: 0;
   position: static;
-}
-body {
-  font: normal normal normal 12pt serif;
-  text-align: left;
-  line-height: 1;
 }
 h1,
 h2,
@@ -110,6 +131,7 @@ h6,
 figure,
 blockquote,
 address,
+th,
 em,
 strong,
 mark,
@@ -174,6 +196,7 @@ var {
   */
 .cellpaddingdefault {
   padding: 12px 7.41640786px;
+  padding: 0.75rem 0.46352549rem;
 }
 /**
   * This Interface makes an object slightly transparent, but it becomes opaque upon `:hover`.
@@ -568,7 +591,9 @@ var {
 /*@FONT SIZES*/
 /** One vertical rhythm unit. This is the 'magic number'. */
 /**
-  * These Mixins multiply `font-size` by `@ratio` and adjusts `line-height` such that `font-size` * `line-height` = `@vru` (@vru is one vertical rhythm unit).
+  * These Mixins multiply `font-size` by `@ratio` and adjusts `line-height` such that
+  * 	`font-size` * `line-height` = one vertical rhythm unit.
+  * The `.fontsize-scale-double()` Mixin adjusts `line-height` such that `font-size` * `line-height` = two vertical rhythm units
 @params
 : @ratio : the ratio of the new font size to `fontsize_base`
 @tags
@@ -583,15 +608,19 @@ var {
 .fontsize-lrg-inline,
 .Address {
   font-size: 20px;
+  font-size: 1.25rem;
   line-height: 1.2;
 }
 .fontsize-med {
   font-size: 16px;
+  font-size: 1rem;
   line-height: 1.5;
 }
 .fontsize-sml,
-.fontsize-sml-inline {
+.fontsize-sml-inline,
+.P--Capt {
   font-size: 12px;
+  font-size: 0.75rem;
   line-height: 2;
 }
 .fontsize-inline,
@@ -601,10 +630,10 @@ var {
   line-height: 1.5;
 }
 /**
-  * This Interface sets large font-size and adjusts line-height.
-@implements
-: .fontsize-large
-: .fontsize-inline
+  * Same as `.fontsize-scale()` Mixins except adjusts `line-height` such that
+  * 	`font-size` * `line-height` = two vertical rhythm units.
+@params
+: @ratio : the ratio of the new font size to `fontsize_base`
 @tags
 : #verticalrhythm
 : #fontsize
@@ -614,9 +643,9 @@ var {
 : 2014-05-03
   */
 /**
-  * This Interface sets small font-size and adjusts line-height.
+  * This Interface sets [large/small] font-size and adjusts line-height.
 @implements
-: .fontsize-large
+: .fontsize-[large/small]
 : .fontsize-inline
 @tags
 : #verticalrhythm
@@ -628,12 +657,15 @@ var {
   */
 /*@VERTICAL SPACING*/
 /**
-  * These Interfaces provide vertical spacing of one vertical rhythm unit.
+  * These Mixins provide vertical spacing of a multiple of a vertical rhythm unit.
   * .vru-content is meant for text-containing block elements,
-  *     such as p, blockquote, li, dt, dd, th, td 
+  *     such as p, blockquote, li, dt, dd, th, td.
+  * 	It exists so that if these elements have shorter contents,
+  * 	the vertical rhythm won't break.
+@params
+: @ratio : the multliplier, aka. how many `rem`s
 @tags
 : #verticalrhythm
-: #golden
 @author
 : Chris Harvey
 @updated
@@ -648,6 +680,7 @@ var {
 .P--Dropcap,
 .Address {
   min-height: 24px;
+  min-height: 1.5rem;
 }
 .vru-top,
 .P,
@@ -656,14 +689,16 @@ var {
 .P--Dropcap,
 .Address {
   margin-top: 24px;
+  margin-top: 1.5rem;
 }
 .vru-bottom {
   padding-bottom: 24px;
+  padding-bottom: 1.5rem;
 }
 /**
   * This Mixin sets the padding-top, border-top, and margin-top such that the padding:margin ratio is Golden, while keeping the border-top-width. The sum of the padding, border, and margin is one vertical rhythm unit.
 @params
-: @brdrw : value of the border-top-width property. Must be less than `@vru`.
+: @brdrw : value of the border-top-width property. Must be less than `@vru_px`.
 : @brdrs : value of the border-top-style property
 : @brdrc : value of the border-top-color property
 @tags
@@ -706,11 +741,16 @@ var {
     typo.less
 \*-------------*/
 /*@MAIN ELEMENTS*/
-body {
+html {
+  font-weight: normal;
+  font-variant: normal;
+  font-style: normal;
   font-size: 16px;
-  line-height: 1.5;
-  margin: 0;
   font-family: 'Optima', 'Candara', 'Helvetica', sans-serif;
+  line-height: 1.5;
+}
+body {
+  margin: 0;
   text-align: left;
   vertical-align: baseline;
   color: #050300;
@@ -786,6 +826,7 @@ main {
   font-weight: normal;
   font-family: 'Avenir', 'Calibri', 'Century Gothic', sans-serif;
   letter-spacing: 1px;
+  color: #050300;
 }
 /**
   * This Object represents a generic tagline inside a heading, called a 'subheading'.
@@ -806,6 +847,7 @@ main {
 .H--Zeta > .Hsub {
   font-size: 80%;
   padding-left: 24px;
+  padding-left: 1.5rem;
   font-weight: normal;
   color: rgba(5, 3, 0, 0.61803399);
 }
@@ -823,10 +865,14 @@ main {
 : 2014-04-14
   */
 .H--Alpha {
-  font-size: 32px;
-  line-height: 0.75;
-  padding-bottom: 24px;
-  margin-top: 48px;
+  font-size: 48px;
+  font-size: 3rem;
+  line-height: 0.5;
+  line-height: 1;
+  margin-top: 29.66563146px;
+  margin-top: 1.85410197rem;
+  padding-bottom: 18.33436854px;
+  padding-bottom: 1.14589803rem;
   font-variant: small-caps;
   font-weight: bold;
   text-align: center;
@@ -836,10 +882,13 @@ main {
   color: #406b80;
 }
 .H--Beta {
-  font-size: 24px;
-  line-height: 1;
-  padding-bottom: 12px;
-  margin-top: 36px;
+  font-size: 35px;
+  font-size: 2.1875rem;
+  line-height: 0.68571429;
+  margin-top: 24px;
+  margin-top: 1.5rem;
+  padding-bottom: 24px;
+  padding-bottom: 1.5rem;
   font-weight: bold;
   color: #80522b;
 }
@@ -847,36 +896,51 @@ main {
   color: #bf9300;
 }
 .H--Gamma {
-  font-size: 20px;
-  line-height: 1.2;
-  padding-bottom: 6px;
-  margin-top: 18px;
+  font-size: 26px;
+  font-size: 1.625rem;
+  line-height: 0.92307692;
+  margin-top: 31.992px;
+  margin-top: 1.9995rem;
+  padding-bottom: 16.008px;
+  padding-bottom: 1.0005rem;
   font-variant: small-caps;
   font-weight: bold;
 }
 .H--Delta {
-  font-size: 16px;
-  line-height: 1.5;
-  margin-top: 24px;
+  font-size: 21px;
+  font-size: 1.3125rem;
+  line-height: 1.14285714;
+  margin-top: 18px;
+  margin-top: 1.125rem;
+  padding-bottom: 6px;
+  padding-bottom: 0.375rem;
   font-style: italic;
   font-weight: bold;
 }
 .H--Epsilon {
-  font-size: 14px;
-  line-height: 1.71428571;
+  font-size: 18px;
+  font-size: 1.125rem;
+  line-height: 1.33333333;
+  margin-top: 0px;
+  margin-top: 0rem;
+  padding-bottom: 0px;
+  padding-bottom: 0rem;
   font-style: italic;
-  text-indent: 0.5in;
   color: #80522b;
 }
 .H--Epsilon > .Hsub {
   color: #bf9300;
 }
 .H--Zeta {
-  font-size: 12px;
-  line-height: 2;
+  font-size: 16px;
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-top: 0px;
+  margin-top: 0rem;
+  padding-bottom: 0px;
+  padding-bottom: 0rem;
   font-style: italic;
   font-variant: small-caps;
-  text-indent: 0.5in;
 }
 @media print {
   .H,
@@ -887,6 +951,7 @@ main {
   .H--Epsilon,
   .H--Zeta {
     font-size: 16px;
+    font-size: 1rem;
     line-height: 1.5;
   }
 }
@@ -920,6 +985,7 @@ main {
   */
 .P--Lede {
   padding-bottom: 24px;
+  padding-bottom: 1.5rem;
   text-align: justify;
 }
 /**
@@ -942,7 +1008,6 @@ main {
 .P--Capt {
   padding: 0;
   margin: 0;
-  font-style: normal;
   text-align: right;
 }
 .P--Capt--First {
@@ -979,9 +1044,11 @@ main {
   */
 .P--Dropcap::first-letter {
   font-size: 48px;
+  font-size: 3rem;
   line-height: 0.5;
   float: left;
   padding-top: 12px;
+  padding-top: 0.75rem;
   padding-right: 4px;
   font-style: normal;
   font-weight: normal;
@@ -1165,6 +1232,7 @@ main {
   */
 .S--Lede {
   padding-right: 24px;
+  padding-right: 1.5rem;
 }
 /**
   * This Object represents an inline quotation: a span of text that is taken directly from another source.
@@ -1183,6 +1251,7 @@ main {
   */
 .Src--Informal {
   padding-right: 24px;
+  padding-right: 1.5rem;
   float: right;
 }
 .Src--Informal::before {
