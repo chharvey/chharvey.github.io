@@ -625,12 +625,14 @@ var {
 .vru-content,
 .P,
 .Fig,
-.Qblock {
+.Qblock,
+.List > .Item {
   min-height: 24px;
   min-height: 1.5rem;
 }
 .vru-top,
-.P {
+.P,
+.List {
   margin-top: 24px;
   margin-top: 1.5rem;
 }
@@ -1005,18 +1007,18 @@ main {
   margin-right: 16.94427191px;
 }
 /**
-  * This Object represents a generic quotation.
-@extends
-: .P
+  * This Object represents any Block Quotation, representing material taken directly from another source.
+  * If the original source is less than 40 words and does not have paragraph breaks, this Block Quotation should not contain Paragraphs; it should directly contain the source's text.
+  * If the original source is more than 40 words and does not have paragraph breaks, this Block Quotation should have exactly one Paragraph, which contains the text from the source.
+  * If the original source has paragraph breaks (regardless of word count), this Block Quotation should have paragraph breaks corresponding to the source.
 @implemens
+: .vru-content
 : .vru-top-phi
-: .fontsize-lrg
 @mixesin
 : .spacing-phi()
 @tags
 : #typography
-: #paragraph
-: #geolocation
+: #quote
 @author
 : Chris Harvey
 @updated
@@ -1054,8 +1056,11 @@ main {
   font-family: 'Avenir', 'Calibri', 'Century Gothic', sans-serif;
   text-align: right;
 }
+/*@LISTS*/
 /**
   * This Object represents a generic list. It may be a literal `ol` or `ul` element containing `li` elements, or it may be an abstract notion of a list of other Objects. The order of list items may be releveant or irrelevant.
+@implemens
+: .vru-top
 @tags
 : #typography
 : #lists
@@ -1114,14 +1119,16 @@ main {
   list-style-type: lower-greek;
 }
 /**
-  * This Object represents a generic list item. It may be a `li` element inside an `ol` or `ul` element, or it may be an abstract notion of an item in a List.
+  * This Object represents a generic list item. It may be a literal `li` element inside an `ol` or `ul` element, or it may be any Object in a List Object.
+@implemens
+: .vru-content
 @tags
 : #typography
 : #lists
 @author
 : Chris Harvey
 @updated
-: 2014-05-03
+: 2014-05-08
   */
 .List > .Item {
   display: list-item;
