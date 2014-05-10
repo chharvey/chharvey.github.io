@@ -1,3 +1,4 @@
+@separator: 24px;
 
 /*-------------*\
     typo.less
@@ -120,8 +121,7 @@ main {
   */
 .H > .Hsub {
 	font-size: 80%;
-	padding-left: @vru_px;
-	padding-left: @vru_rem;
+	padding-left: @separator;
 	font-weight: normal;
 	color: @color_base_faded;
 }
@@ -203,7 +203,7 @@ main {
   * This Object represents a generic paragraph in a section, article, or document. A paragraph Object is a small grouping of textual ideas. In the written media, paragraphs can span anywhere from 3 to 8 sentences. However on the Web, they can be much, much shorter.
 @implements
 : .vru-content
-: .vru-top
+: .vru-top-1
 @tags
 : #typography
 : #paragraph
@@ -214,7 +214,7 @@ main {
   */
 .P {
 	&:extend(.vru-content);
-	&:extend(.vru-top);
+	&:extend(.vru-top-1);
 }
 /**
   * This Object represents a lede paragraph, which may be an introduction or abstract to an article.
@@ -222,6 +222,7 @@ main {
 : .P
 @implements
 : .lede
+: .vru-bottom-1
 @tags
 : #typography
 : #paragraph
@@ -232,38 +233,11 @@ main {
   */
 .P.Lede {
 	&:extend(.lede);
-	.vru-bottom(1);
+	&:extend(.vru-bottom-1);
 	text-align: justify;
 }
 /**
-  * This Object represents a caption of any sort. It may be a caption of a literal `table`, `figure`, or any element. `.Capt`s are usually short summaries of the Objects they describe. They may precede or follow that Object.
-  * A `.P--Capt--First` appears before the Object it describes; a `.P--Captino--Last` appears after.
-@extends
-: .P
-@implements
-: .fontsize-small
-@mixesin
-: .border-vert-one()
-@tags
-: #typography
-: #paragraph
-: #table
-: #figure
-@author
-: Chris Harvey
-@updated
-: 2014-05-03
-  */
-.P.Capt {
-	&:extend(.fontsize-sml);
-	padding: 0;
-	margin: 0;
-	text-align: right;
-}
-.P.Capt.First {.border-vert-one(bottom; 1px; dotted; @color_accent);}
-.P.Capt.Last  {.border-vert-one(top;    1px; dotted; @color_accent);}
-/**
-  * This Object represents a paragraph whose first letter is a drop cap.
+  * This Object represents a paragraph whose first letter is a dropped capital ("drop cap").
 @extends
 : .P
 @mixesin
@@ -280,9 +254,8 @@ main {
 	&::first-letter {
 		.fontsize-scale(3);
 		float: left;
-		padding-top: (@vru_px  / 2);
-		padding-top: (@vru_rem / 2);
-		padding-right: 4px; // why this number?
+		padding-top:   (@separator / 2);
+		padding-right: (@separator / 6);
 		font-style: normal;
 		font-weight: normal;
 		font-family: @fontfam_math;
@@ -290,49 +263,33 @@ main {
 	}
 }
 /**
-  * This Object represents a generic figure in a document. It may be a literal `figure` element, or the abstract concept of a figure. Inside this .Figure there may exist a .Caption, either at the beginning or at the end. The .Caption may or may not be a `figcaption` element.
-@implemens
-: .vru-content
-: .vru-top
+  * This Object represents a generic caption of any sort. A caption is usually a short summary or description of the content in its parent Object. Since it is an extension of the `.P` Object, it may not contain paragraphs. If the parent Object contains only text, the caption should be shorter and more concise than the parent's text.
+  * The parent object may or may not be a literal `table` or `figure`. If this `.Capt` is a child of a `table` element, it may or may not be a `caption` element. If this `.Capt` is a child of a `figure` element, it may or may not be a `figcaption` element.
+  * A caption may appear at the beginning or end of that Object. A `.P.Capt.First` appears at the beginning; a `.P.Capt.Last` appears at the end.
+@extends
+: .P
+@implements
+: .fontsize-small
+@mixesin
+: .border-vert-one()
 @tags
 : #typography
+: #paragraph
+: #table
 : #figure
 : #caption
 @author
 : Chris Harvey
 @updated
-: 2014-05-03
+: 2014-05-10
   */
-.Fig {
-	&:extend(.vru-content);
-	&:extend(.vru-top-phi);
-	.spacing-phi(left;  4px; solid; @color_accent);
-	.spacing-phi(right; 4px; solid; @color_accent);
+.P.Capt {
+	&:extend(.fontsize-sml);
+	&:extend(.vru-top-0);
+	text-align: right;
 }
-/**
-  * This Object represents any Block Quotation, representing material taken directly from another source.
-  * If the original source is less than 40 words and does not have paragraph breaks, this Block Quotation should not contain Paragraphs; it should directly contain the source's text.
-  * If the original source is more than 40 words and does not have paragraph breaks, this Block Quotation should have exactly one Paragraph, which contains the text from the source.
-  * If the original source has paragraph breaks (regardless of word count), this Block Quotation should have paragraph breaks corresponding to the source.
-@implemens
-: .vru-content
-: .vru-top-phi
-@mixesin
-: .spacing-phi()
-@tags
-: #typography
-: #quote
-@author
-: Chris Harvey
-@updated
-: 2014-04-30
-  */
-.Qblock {
-	&:extend(.vru-content);
-	&:extend(.vru-top-phi);
-	.spacing-phi(left; 7px; double; @color_accent);
-	font-family: @fontfam_accent;
-}
+.P.Capt.First {.border-vert-one(bottom; 1px; dotted; @color_accent);}
+.P.Capt.Last  {.border-vert-one(top;    1px; dotted; @color_accent);}
 /**
   * This Object represents a generic postal address. It may be the contact address of the document author (contained in an `address` element), or it may be any postal mailing address.
 @extends
@@ -358,6 +315,52 @@ main {
 	border-radius: 3px;
 	font-family: @fontfam_accent;
 	text-align: right;
+}
+/**
+  * This Object represents a generic figure in a document. A figure contains excerpts of text, examples, or images that are used to illustrate a concept. This may or may not be a literal `figure` element.
+  * Inside this `.Fig` there may exist a `.Capt` (a generic caption), either at the beginning or at the end. The `.Capt` may or may not be a `figcaption` or `caption` element.
+  * Content in this `.Fig`---including its caption---is permissible to be extracted from the document and presented on its own.
+@implemens
+: .vru-content
+: .vru-top
+@tags
+: #typography
+: #figure
+: #caption
+@author
+: Chris Harvey
+@updated
+: 2014-05-10
+  */
+.Fig {
+	&:extend(.vru-content);
+	&:extend(.vru-top-phi);
+	.spacing-phi(left;  4px; solid; @color_accent);
+	.spacing-phi(right; 4px; solid; @color_accent);
+}
+/**
+  * This Object represents any Block Quotation, representing material taken directly from another source. It may or may not take the form of a literal `blockquote` element.
+  * If the original source is less than 40 words and does not have paragraph breaks (for example, extracted inline text from an article), this `.Qblock` should not contain Paragraphs; it should directly contain the source's text.
+  * If the original source is more than 40 words and does not have paragraph breaks, this `.Qblock` should have exactly one Paragraph, which contains the text from the source.
+  * If the original source has paragraph breaks, regardless of word count, this `.Qblock` should have paragraph breaks that correspond to the source.
+@implemens
+: .vru-content
+: .vru-top-phi
+@mixesin
+: .spacing-phi()
+@tags
+: #typography
+: #quote
+@author
+: Chris Harvey
+@updated
+: 2014-05-10
+  */
+.Qblock {
+	&:extend(.vru-content);
+	&:extend(.vru-top-phi);
+	.spacing-phi(left; 7px; double; @color_accent);
+	font-family: @fontfam_accent;
 }
 //++++ @end PARAGRAPHS ++++//
 
@@ -436,14 +439,14 @@ main {
 /*@TEXT-LEVEL*/
 //+++++++++++//
 /**
-  * This Object represents a generic span of text in a paragraph, quote, list item, table cell, or any container of text.
+  * This Object represents a generic span of text in a paragraph, figure, caption, quote, list item, table cell, or any container of text. It may or may not be a literal `span` element.
 @tags
 : #typography
 : #span
 @author
 : Chris Harvey
 @updated
-: 2014-04-30
+: 2014-05-10
   */
 .S {
 	display: inline;
@@ -465,8 +468,7 @@ main {
   */
 .S.Lede {
 	&:extend(.lede);
-	padding-right: @vru_px;
-	padding-right: @vru_rem;
+	padding-right: @separator;
 }
 /**
   * This Object represents an inline quotation: a span of text that is taken directly from another source.
@@ -487,8 +489,7 @@ main {
 	&:extend(.quotes all);
 }
 .Src--Informal {
-	padding-right: @vru_px;
-	padding-right: @vru_rem;
+	padding-right: @separator;
 	float: right;
 	&::before {content: '~\0020';}
 	&::after  {content: '';}

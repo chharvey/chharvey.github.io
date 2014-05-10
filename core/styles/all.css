@@ -209,26 +209,26 @@ var {
 /**
   * These Mixins set the padding, border, and margin on the left or right side, such that the border:padding ratio and the (border+padding):margin ratio are Golden.
 @params
-: @side:  either `left` or `right`
-: @brdrw : value of the border-[left/right]-width property
-: @brdrs : value of the border-[left/right]-style property
-: @brdrc : value of the border-[left/right]-color property
+: @side:  either "left" or "right"
+: @brdrw : value of the `border-[left|right]-width` property
+: @brdrs : value of the `border-[left|right]-style` property
+: @brdrc : value of the `border-[left|right]-color` property
 @tags
 : #golden
 @author
 : Chris Harvey
 @updated
-: 2014-04-26
+: 2014-05-10
   */
-/** negate the effects of `.spacing-phi(@side; @brdrw; @brdrs; @brdrc)` */
+/** negate the effects of `.spacing-phi(@side; @brdrw; @brdrs; @brdrc)`  on the [left|right] side */
 .spacing-phi-left {
-  padding-left: 0;
   border-left: 0 solid #000000;
+  padding-left: 0;
   margin-left: 0;
 }
 .spacing-phi-right {
-  padding-right: 0;
   border-right: 0 solid #000000;
+  padding-right: 0;
   margin-right: 0;
 }
 /*@INTERFACES*/
@@ -555,6 +555,19 @@ var {
 @updated
 : 2014-04-26
   */
+/**
+  * Same as `.fontsize-scale()` Mixins except adjusts `line-height` such that
+  * 	`font-size` * `line-height` = two vertical rhythm units.
+@params
+: @ratio : the ratio of the new font size to `fontsize_base`
+@tags
+: #verticalrhythm
+: #fontsize
+@author
+: Chris Harvey
+@updated
+: 2014-05-03
+  */
 .fontsize-lrg,
 .fontsize-lrg-inline,
 .P.Address {
@@ -581,19 +594,6 @@ var {
   line-height: 1.5;
 }
 /**
-  * Same as `.fontsize-scale()` Mixins except adjusts `line-height` such that
-  * 	`font-size` * `line-height` = two vertical rhythm units.
-@params
-: @ratio : the ratio of the new font size to `fontsize_base`
-@tags
-: #verticalrhythm
-: #fontsize
-@author
-: Chris Harvey
-@updated
-: 2014-05-03
-  */
-/**
   * This Interface sets [large/small] font-size and adjusts line-height.
 @implements
 : .fontsize-[large/small]
@@ -608,19 +608,15 @@ var {
   */
 /*@VERTICAL SPACING*/
 /**
-  * These Mixins provide vertical spacing of a multiple of a vertical rhythm unit.
-  * .vru-content is meant for text-containing block elements,
-  *     such as p, blockquote, li, dt, dd, th, td.
-  * 	It exists so that if these elements have shorter contents,
-  * 	the vertical rhythm won't break.
-@params
-: @ratio : the multliplier, aka. how many `rem`s
+  * This Interface provides a minimum height of one vertical rhythm unit.
+  * It is Meant for text-containing block elements, such as p, blockquote, li, dt, dd, th, td.
+  * If these elements have shorter contents, the vertical rhythm won't break.
 @tags
 : #verticalrhythm
 @author
 : Chris Harvey
 @updated
-: 2014-04-26
+: 2014-05-10
   */
 .vru-content,
 .P,
@@ -630,13 +626,33 @@ var {
   min-height: 24px;
   min-height: 1.5rem;
 }
-.vru-top,
-.P,
-.List {
+/**
+  * These Mixins provide [top|bottom] spacing of a multiple of a vertical rhythm unit.
+@params
+: @ratio : the multliplier, i.e. how many `rem`s
+@tags
+: #verticalrhythm
+@author
+: Chris Harvey
+@updated
+: 2014-05-10
+  */
+.vru-top-0,
+.P.Capt {
+  margin-top: 0px;
+  margin-top: 0rem;
+}
+.vru-top-1,
+.P {
   margin-top: 24px;
   margin-top: 1.5rem;
 }
-.vru-bottom {
+.vru-bottom-0 {
+  padding-bottom: 0px;
+  padding-bottom: 0rem;
+}
+.vru-bottom-1,
+.P.Lede {
   padding-bottom: 24px;
   padding-bottom: 1.5rem;
 }
@@ -655,9 +671,9 @@ var {
 : 2014-04-26
   */
 .vru-top-phi,
+.P.Address,
 .Fig,
-.Qblock,
-.P.Address {
+.Qblock {
   padding-top: 9.16718427px;
   border-top: 0 solid #000000;
   margin-top: 14.83281573px;
@@ -780,7 +796,6 @@ main {
 .H > .Hsub {
   font-size: 80%;
   padding-left: 24px;
-  padding-left: 1.5rem;
   font-weight: normal;
   color: rgba(5, 3, 0, 0.61803399);
 }
@@ -887,7 +902,7 @@ main {
   * This Object represents a generic paragraph in a section, article, or document. A paragraph Object is a small grouping of textual ideas. In the written media, paragraphs can span anywhere from 3 to 8 sentences. However on the Web, they can be much, much shorter.
 @implements
 : .vru-content
-: .vru-top
+: .vru-top-1
 @tags
 : #typography
 : #paragraph
@@ -902,6 +917,7 @@ main {
 : .P
 @implements
 : .lede
+: .vru-bottom-1
 @tags
 : #typography
 : #paragraph
@@ -911,13 +927,38 @@ main {
 : 2014-04-26
   */
 .P.Lede {
-  padding-bottom: 24px;
-  padding-bottom: 1.5rem;
   text-align: justify;
 }
 /**
-  * This Object represents a caption of any sort. It may be a caption of a literal `table`, `figure`, or any element. `.Capt`s are usually short summaries of the Objects they describe. They may precede or follow that Object.
-  * A `.P--Capt--First` appears before the Object it describes; a `.P--Captino--Last` appears after.
+  * This Object represents a paragraph whose first letter is a dropped capital ("drop cap").
+@extends
+: .P
+@mixesin
+: .fontsize-scale()
+@tags
+: #typography
+: #paragraph
+@author
+: Chris Harvey
+@updated
+: 2014-04-30
+  */
+.P.Dropcap::first-letter {
+  font-size: 48px;
+  font-size: 3rem;
+  line-height: 0.5;
+  float: left;
+  padding-top: 12px;
+  padding-right: 4px;
+  font-style: normal;
+  font-weight: normal;
+  font-family: 'Times', 'Times New Roman', serif;
+  color: #001e80;
+}
+/**
+  * This Object represents a generic caption of any sort. A caption is usually a short summary or description of the content in its parent Object. Since it is an extension of the `.P` Object, it may not contain paragraphs. If the parent Object contains only text, the caption should be shorter and more concise than the parent's text.
+  * The parent object may or may not be a literal `table` or `figure`. If this `.Capt` is a child of a `table` element, it may or may not be a `caption` element. If this `.Capt` is a child of a `figure` element, it may or may not be a `figcaption` element.
+  * A caption may appear at the beginning or end of that Object. A `.P.Capt.First` appears at the beginning; a `.P.Capt.Last` appears at the end.
 @extends
 : .P
 @implements
@@ -929,14 +970,13 @@ main {
 : #paragraph
 : #table
 : #figure
+: #caption
 @author
 : Chris Harvey
 @updated
-: 2014-05-03
+: 2014-05-10
   */
 .P.Capt {
-  padding: 0;
-  margin: 0;
   text-align: right;
 }
 .P.Capt.First {
@@ -958,79 +998,6 @@ main {
   border-color: #ff1500;
 }
 /**
-  * This Object represents a paragraph whose first letter is a drop cap.
-@extends
-: .P
-@mixesin
-: .fontsize-scale()
-@tags
-: #typography
-: #paragraph
-@author
-: Chris Harvey
-@updated
-: 2014-04-30
-  */
-.P.Dropcap::first-letter {
-  font-size: 48px;
-  font-size: 3rem;
-  line-height: 0.5;
-  float: left;
-  padding-top: 12px;
-  padding-top: 0.75rem;
-  padding-right: 4px;
-  font-style: normal;
-  font-weight: normal;
-  font-family: 'Times', 'Times New Roman', serif;
-  color: #001e80;
-}
-/**
-  * This Object represents a generic figure in a document. It may be a literal `figure` element, or the abstract concept of a figure. Inside this .Figure there may exist a .Caption, either at the beginning or at the end. The .Caption may or may not be a `figcaption` element.
-@implemens
-: .vru-content
-: .vru-top
-@tags
-: #typography
-: #figure
-: #caption
-@author
-: Chris Harvey
-@updated
-: 2014-05-03
-  */
-.Fig {
-  padding-left: 6.47213595px;
-  border-left: 4px solid #ff1500;
-  margin-left: 16.94427191px;
-  padding-right: 6.47213595px;
-  border-right: 4px solid #ff1500;
-  margin-right: 16.94427191px;
-}
-/**
-  * This Object represents any Block Quotation, representing material taken directly from another source.
-  * If the original source is less than 40 words and does not have paragraph breaks, this Block Quotation should not contain Paragraphs; it should directly contain the source's text.
-  * If the original source is more than 40 words and does not have paragraph breaks, this Block Quotation should have exactly one Paragraph, which contains the text from the source.
-  * If the original source has paragraph breaks (regardless of word count), this Block Quotation should have paragraph breaks corresponding to the source.
-@implemens
-: .vru-content
-: .vru-top-phi
-@mixesin
-: .spacing-phi()
-@tags
-: #typography
-: #quote
-@author
-: Chris Harvey
-@updated
-: 2014-04-30
-  */
-.Qblock {
-  padding-left: 11.32623792px;
-  border-left: 7px double #ff1500;
-  margin-left: 29.65247584px;
-  font-family: 'Avenir', 'Calibri', 'Century Gothic', sans-serif;
-}
-/**
   * This Object represents a generic postal address. It may be the contact address of the document author (contained in an `address` element), or it may be any postal mailing address.
 @extends
 : .P
@@ -1049,12 +1016,60 @@ main {
 : 2014-04-30
   */
 .P.Address {
-  padding-right: 4.85410197px;
   border-right: 3px solid #ff1500;
+  padding-right: 4.85410197px;
   margin-right: 12.70820393px;
   border-radius: 3px;
   font-family: 'Avenir', 'Calibri', 'Century Gothic', sans-serif;
   text-align: right;
+}
+/**
+  * This Object represents a generic figure in a document. A figure contains excerpts of text, examples, or images that are used to illustrate a concept. This may or may not be a literal `figure` element.
+  * Inside this `.Fig` there may exist a `.Capt` (a generic caption), either at the beginning or at the end. The `.Capt` may or may not be a `figcaption` or `caption` element.
+  * Content in this `.Fig`---including its caption---is permissible to be extracted from the document and presented on its own.
+@implemens
+: .vru-content
+: .vru-top
+@tags
+: #typography
+: #figure
+: #caption
+@author
+: Chris Harvey
+@updated
+: 2014-05-10
+  */
+.Fig {
+  border-left: 4px solid #ff1500;
+  padding-left: 6.47213595px;
+  margin-left: 16.94427191px;
+  border-right: 4px solid #ff1500;
+  padding-right: 6.47213595px;
+  margin-right: 16.94427191px;
+}
+/**
+  * This Object represents any Block Quotation, representing material taken directly from another source. It may or may not take the form of a literal `blockquote` element.
+  * If the original source is less than 40 words and does not have paragraph breaks (for example, extracted inline text from an article), this `.Qblock` should not contain Paragraphs; it should directly contain the source's text.
+  * If the original source is more than 40 words and does not have paragraph breaks, this `.Qblock` should have exactly one Paragraph, which contains the text from the source.
+  * If the original source has paragraph breaks, regardless of word count, this `.Qblock` should have paragraph breaks that correspond to the source.
+@implemens
+: .vru-content
+: .vru-top-phi
+@mixesin
+: .spacing-phi()
+@tags
+: #typography
+: #quote
+@author
+: Chris Harvey
+@updated
+: 2014-05-10
+  */
+.Qblock {
+  border-left: 7px double #ff1500;
+  padding-left: 11.32623792px;
+  margin-left: 29.65247584px;
+  font-family: 'Avenir', 'Calibri', 'Century Gothic', sans-serif;
 }
 /*@LISTS*/
 /**
@@ -1135,14 +1150,14 @@ main {
 }
 /*@TEXT-LEVEL*/
 /**
-  * This Object represents a generic span of text in a paragraph, quote, list item, table cell, or any container of text.
+  * This Object represents a generic span of text in a paragraph, figure, caption, quote, list item, table cell, or any container of text. It may or may not be a literal `span` element.
 @tags
 : #typography
 : #span
 @author
 : Chris Harvey
 @updated
-: 2014-04-30
+: 2014-05-10
   */
 .S {
   display: inline;
@@ -1164,7 +1179,6 @@ main {
   */
 .S.Lede {
   padding-right: 24px;
-  padding-right: 1.5rem;
 }
 /**
   * This Object represents an inline quotation: a span of text that is taken directly from another source.
@@ -1183,7 +1197,6 @@ main {
   */
 .Src--Informal {
   padding-right: 24px;
-  padding-right: 1.5rem;
   float: right;
 }
 .Src--Informal::before {
