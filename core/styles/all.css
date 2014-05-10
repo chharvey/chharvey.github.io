@@ -290,11 +290,11 @@ var {
 : 2014-05-02
   */
 .parens::before,
-.Src--Formal::before {
+.Src.Long::before {
   content: '(';
 }
 .parens::after,
-.Src--Formal::after {
+.Src.Long::after {
   content: ')';
 }
 /**
@@ -638,18 +638,18 @@ var {
 : 2014-05-10
   */
 .vru-top-0,
-.P.Capt {
-  margin-top: 0px;
-  margin-top: 0rem;
-}
-.vru-top-1,
-.P {
-  margin-top: 24px;
-  margin-top: 1.5rem;
+.P.Capt,
+.Qblock > :first-child {
+  margin-top: 0;
 }
 .vru-bottom-0 {
-  padding-bottom: 0px;
-  padding-bottom: 0rem;
+  padding-bottom: 0;
+}
+.vru-top-1,
+.P,
+.Src.Long {
+  margin-top: 24px;
+  margin-top: 1.5rem;
 }
 .vru-bottom-1,
 .P.Lede {
@@ -956,9 +956,9 @@ main {
   color: #001e80;
 }
 /**
-  * This Object represents a generic caption of any sort. A caption is usually a short summary or description of the content in its parent Object. Since it is an extension of the `.P` Object, it may not contain paragraphs. If the parent Object contains only text, the caption should be shorter and more concise than the parent's text.
-  * The parent object may or may not be a literal `table` or `figure`. If this `.Capt` is a child of a `table` element, it may or may not be a `caption` element. If this `.Capt` is a child of a `figure` element, it may or may not be a `figcaption` element.
-  * A caption may appear at the beginning or end of that Object. A `.P.Capt.First` appears at the beginning; a `.P.Capt.Last` appears at the end.
+  * This Object represents a generic caption of any sort. A caption is usually a short summary or description of some content ("the described content"). The described content may be in a literal `figure` element, `table` element, or it may be any generic content. Since `.Capt` is an extension of the `.P` Object, it may not contain paragraphs. If the described content is only text, the caption should be shorter and more concise than the content's text.
+  * If this `.Capt` is a child of a `figure` element, it may or may not be a `figcaption` element. If this `.Capt` is a child of a `table` element, it may or may not be a `caption` element.
+  * A caption may appear before or after the described content, even if it and the content are children of the same Object (e.g., a `figure` or `table`). A `.P.Capt.Before` appears before the content; a `.P.Capt.After` appears after.
 @extends
 : .P
 @implements
@@ -979,7 +979,7 @@ main {
 .P.Capt {
   text-align: right;
 }
-.P.Capt.First {
+.P.Capt.Before {
   display: block;
   position: relative;
   top: -1px;
@@ -988,7 +988,7 @@ main {
   border-bottom-style: dotted;
   border-color: #ff1500;
 }
-.P.Capt.Last {
+.P.Capt.After {
   display: block;
   position: relative;
   top: -1px;
@@ -1070,6 +1070,30 @@ main {
   padding-left: 11.32623792px;
   margin-left: 29.65247584px;
   font-family: 'Avenir', 'Calibri', 'Century Gothic', sans-serif;
+}
+/**
+  * This Object represents the citation of a source inside a Block Quotation. It is recommended to apply this Class to a `cite` element.
+  * Use Subclass `.Src.Short` if the original source is less than 40 words and does not have paragraph breaks (for example, extracted inline text from an article).
+  * Use subclass `.Src.Long` if the original source is more than 40 words and does not have paragraph breaks, or if the original source has paragraph breaks regardless of word count.
+@implemens
+: .vru-top-1
+@tags
+: #typography
+: #quote
+@author
+: Chris Harvey
+@updated
+: 2014-05-10
+  */
+.Src {
+  display: block;
+  text-align: right;
+}
+.Src.Short {
+  padding-right: 24px;
+}
+.Src.Short::before {
+  content: '~\0020';
 }
 /*@LISTS*/
 /**
@@ -1195,13 +1219,3 @@ main {
 @updated
 : 2014-05-03
   */
-.Src--Informal {
-  padding-right: 24px;
-  float: right;
-}
-.Src--Informal::before {
-  content: '~\0020';
-}
-.Src--Informal::after {
-  content: '';
-}

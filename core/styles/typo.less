@@ -263,9 +263,9 @@ main {
 	}
 }
 /**
-  * This Object represents a generic caption of any sort. A caption is usually a short summary or description of the content in its parent Object. Since it is an extension of the `.P` Object, it may not contain paragraphs. If the parent Object contains only text, the caption should be shorter and more concise than the parent's text.
-  * The parent object may or may not be a literal `table` or `figure`. If this `.Capt` is a child of a `table` element, it may or may not be a `caption` element. If this `.Capt` is a child of a `figure` element, it may or may not be a `figcaption` element.
-  * A caption may appear at the beginning or end of that Object. A `.P.Capt.First` appears at the beginning; a `.P.Capt.Last` appears at the end.
+  * This Object represents a generic caption of any sort. A caption is usually a short summary or description of some content ("the described content"). The described content may be in a literal `figure` element, `table` element, or it may be any generic content. Since `.Capt` is an extension of the `.P` Object, it may not contain paragraphs. If the described content is only text, the caption should be shorter and more concise than the content's text.
+  * If this `.Capt` is a child of a `figure` element, it may or may not be a `figcaption` element. If this `.Capt` is a child of a `table` element, it may or may not be a `caption` element.
+  * A caption may appear before or after the described content, even if it and the content are children of the same Object (e.g., a `figure` or `table`). A `.P.Capt.Before` appears before the content; a `.P.Capt.After` appears after.
 @extends
 : .P
 @implements
@@ -288,8 +288,8 @@ main {
 	&:extend(.vru-top-0);
 	text-align: right;
 }
-.P.Capt.First {.border-vert-one(bottom; 1px; dotted; @color_accent);}
-.P.Capt.Last  {.border-vert-one(top;    1px; dotted; @color_accent);}
+.P.Capt.Before {.border-vert-one(bottom; 1px; dotted; @color_accent);}
+.P.Capt.After  {.border-vert-one(top;    1px; dotted; @color_accent);}
 /**
   * This Object represents a generic postal address. It may be the contact address of the document author (contained in an `address` element), or it may be any postal mailing address.
 @extends
@@ -361,6 +361,33 @@ main {
 	&:extend(.vru-top-phi);
 	.spacing-phi(left; 7px; double; @color_accent);
 	font-family: @fontfam_accent;
+	> :first-child {&:extend(.vru-top-0);}
+}
+/**
+  * This Object represents the citation of a source inside a Block Quotation. It is recommended to apply this Class to a `cite` element.
+  * Use Subclass `.Src.Short` if the original source is less than 40 words and does not have paragraph breaks (for example, extracted inline text from an article).
+  * Use subclass `.Src.Long` if the original source is more than 40 words and does not have paragraph breaks, or if the original source has paragraph breaks regardless of word count.
+@implemens
+: .vru-top-1
+@tags
+: #typography
+: #quote
+@author
+: Chris Harvey
+@updated
+: 2014-05-10
+  */
+.Src {
+	display: block;
+	text-align: right;
+}
+.Src.Short {
+	&::before {content: '~\0020';}
+	padding-right: @separator;
+}
+.Src.Long {
+	&:extend(.parens all);
+	&:extend(.vru-top-1);
 }
 //++++ @end PARAGRAPHS ++++//
 
@@ -488,13 +515,5 @@ main {
 .S.Q {
 	&:extend(.quotes all);
 }
-.Src--Informal {
-	padding-right: @separator;
-	float: right;
-	&::before {content: '~\0020';}
-	&::after  {content: '';}
-}
-.Src--Formal {
-	&:extend(.parens all);
-}
+
 //++++ @end TEXT-LEVEL ++++//

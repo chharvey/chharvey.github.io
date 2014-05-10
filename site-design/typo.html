@@ -54,7 +54,7 @@ th {font-weight: bold;}
 <!--{% include all-js.html %}-->
 <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
 <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML,http://chharvey.github.io/core/scripts/mathjax-localconfig.js"></script>
-<script src="../core/scripts/all.js"></script>
+<script src="../core/scripts/global.js"></script>
 <script>
 $(document).ready(function () {
 //	$('p').addClass('P');
@@ -168,19 +168,12 @@ $(document).ready(function () {
 		</aside> -->
 	<section id="scheme-paragraph">
 		<h1 class="H Gamma">Paragraph Scheme</h1>
-		<p class="P">This is a regular paragraph (<code>.P</code>).
+		<p class="P">This is a <code>.P</code> Object. It represents a generic paragraph.
 			The quick brown fox jumps over the lazy dog.
 			<span style="font-style: italic;">The quick brown fox jumps over the lazy dog.</span>
 			<span style="font-weight: bold;">The quick brown fox jumps over the lazy dog.</span>
 			<span style="font-style: italic; font-weight: bold">The quick brown fox jumps over the lazy dog.</span>
 		</p>
-		<p class="P Lede">This is a lede paragraph (<code>.P.Lede</code>).
-			The quick brown fox jumps over the lazy dog.
-			<span style="font-style: italic;">The quick brown fox jumps over the lazy dog.</span>
-			<span style="font-weight: bold;">The quick brown fox jumps over the lazy dog.</span>
-			<span style="font-style: italic; font-weight: bold">The quick brown fox jumps over the lazy dog.</span>
-		</p>
-		<p class="P"><span class="S Lede">This is a lede sentence (<code>.S.Lede</code>) within a paragraph.</span> This is the rest of the paragraph.</p>
 		<div class="Article">
 			<p class="P">This is an <code>.Article &gt; .P</code>.
 				The quick brown fox jumps over the lazy dog.
@@ -188,71 +181,53 @@ $(document).ready(function () {
 				<span style="font-weight: bold;">The quick brown fox jumps over the lazy dog.</span>
 				<span style="font-style: italic; font-weight: bold">The quick brown fox jumps over the lazy dog.</span>
 			</p>
-			<p class="P Lede">This is an <code>.Article &gt; .P.Lede</code>.
-				The quick brown fox jumps over the lazy dog.
-				<span style="font-style: italic;">The quick brown fox jumps over the lazy dog.</span>
-				<span style="font-weight: bold;">The quick brown fox jumps over the lazy dog.</span>
-				<span style="font-style: italic; font-weight: bold">The quick brown fox jumps over the lazy dog.</span>
-			</p>
-			<p class="P"><span class="S Lede">This is a lede sentence (<code>.S.Lede</code>) within an <code>.Article &gt; .P</code>.</span> This is the rest of the paragraph in the article.</p>
 		</div>
-		<p class="P Dropcap">Drop caps can be beautiful, but it is unusual to use one on a normal paragraph. This <code>.P.Dropcap</code> is here simply for visual comprehension. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text.</p>
+		<p class="P Lede">This is a <code>.P.Lede</code> Object.
+			The quick brown fox jumps over the lazy dog.
+			<span style="font-style: italic;">The quick brown fox jumps over the lazy dog.</span>
+			<span style="font-weight: bold;">The quick brown fox jumps over the lazy dog.</span>
+			<span style="font-style: italic; font-weight: bold">The quick brown fox jumps over the lazy dog.</span>
+		</p>
+		<p class="P"><span class="S Lede">This is an <code>.S.Lede</code> Object within a paragraph.</span> This is the rest of the paragraph.</p>
+		<p class="P Dropcap">Dropped capitals (&ldquo;drop caps&rdquo;) can be beautiful, but it is unusual to use one on a normal paragraph. This <code>.P.Dropcap</code> is here simply for visual comprehension. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text.</p>
 		<p class="P Lede Dropcap">In a normal (non-<code>.Article</code>) document, drop caps can still be used, but they don't look as pretty. This is a <code>.P.Lede.Dropcap</code>. Notice how the drop cap font does not complement the normal paragraph font very well. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text.</p>
 		<div class="Article">
 			<p class="P Dropcap">Authors may want to use a fancy drop cap in the first paragraph of an article or in a book chapter. This is an <code>.Article &gt; .P.Dropcap</code>. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text.</p>
 			<p class="P Lede Dropcap">Sometimes, the Article may have a Lede paragraph. This is an <code>.Article &gt; .P.Lede.Dropcap</code>. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text.</p>
 		</div>
-
-		
-		
-
-		
-		
-		
-		
-		<p class="nonnormative">Sometimes, authors may want to include <dfn id="d-nonnormative">non-normative</dfn> text in a normative document. This text is informative or &ldquo;unofficial,&rdquo; for example, supplemental remarks or a summary of normative information provided for the reader's convenience. Another common example of non-normative text is duplicating normative text on another part of the page.</p>
-		<p class="nonnormative">Non-normative text is still part of the normal flow of the document, so it would not makes sense out of context as a <code class="lang-css"><a href="#scheme-figure-blockquote">figure</a></code> or <code class="lang-css"><a href="#scheme-aside">aside</a></code> would, however it is presented differently than formal text to indicate that it is not official. <ins class="draft">At the same time, the <code class="lang-css"><a href="">i</a></code> element is not appropriate either, because the non-normative span of text does not represent a change of voice or mood. Could it be considered a change in mood?</ins> As such, apply the <code class="lang-css">.nonnormative</code> class to the text. This text may be a single paragraph, a container such as a <code class="lang-css">div</code> or <code class="lang-css">figure</code>, or even a small span of text within a paragraph such as a parenthetical remark. (In this last case, the author should use the <code class="lang-css">.nonnormative</code> class to indicate the remark is unofficial, but <a href="punct.html#parens">also contain the remark in parentheses</a>.)</p>
-		<p class="nonnormative">The author may also indicate verbally (in writing preceding the text) that the text is non-normative. If the non-normative text is one paragraph, the author may simply place the indication in the previous paragraph. If the text is large enough for its own figure or section, though, the indication should be in that element's <code class="lang-css">header</code>.</p>
-		
-		
-		
-<!--
-			<div class="informative">
-				<p>Wrap all informative content, including <code class="lang-css">p</code>s, <code class="lang-css">img</code>s, and <code class="lang-css">figure</code>s with a <code class="lang-css">div.informative</code>. <strong>All non-normative text should be contained in flow, non-phrasing content</strong>. This separates the text from the normative document. If there is a non-normative span of text present in a normative paragraph, authors are strongly encouraged to move the span to its own separate, non-normative division.</p>
-				<p>Since the <code class="lang-css">.prose</code> class is reserved for more formal text, informative text should <em>not</em> be written in prose.</p>
+		<p class="P Capt">This is a <code>P.Capt</code>.</p>
+		<p class="P Capt Before">This is a <code>P.Capt.Before</code>. It goes before the content it describes. In a <code>[figure|table]</code>, it would be the <code>[fig]?caption:first-child</code>.</p>
+		<p class="P Capt After">This is a <code>P.Capt.After</code> It goes after the content it describes. In a <code>[figure|table]</code>, it would be the <code>[fig]?caption:last-child</code>.</p>
+		<p class="lede">Here describes the creation of a <a>quasi-element</a>: the <code class="lang-css">div.postal</code> class.</p>
+		<p>Use the <code class="lang-css">address</code> element to mark up contact information for authors of (part of) a document. This contact information may include a postal address, or it may simply include an email address or link. If the <code class="lang-css">address</code> element contins a postal address, place the postal address in an <code class="lang-css">address div.postal</code>. If the postal address is not an author's contact information but rather an arbitrary postal address, also use <code class="lang-css">div.postal</code>, but do not place it in an <code class="lang-css">address</code> element. It is convention to use the <code class="lang-html">&lt;br/&gt;</code> tag to indicate line breaks within a postal address.</p>
+		<address>
+			<div class="postal">
+				Chris Harvey<br/>
+				12345 Main St.<br/>
+				Washington, DC 00001<br/>
+				<a class="tel">(555) 555-5555</a><br/>
+				<a href="">ch@example.com</a><br/>
+				<a href="">@ch12345</a>
 			</div>
-		</section>
--->
-		<section id="scheme-figure-blockquote-address">
-			<h1 class="H--Delta">Figures, Block Quotes, and Addresses</h1>
-			<p><code class="lang-css">figure</code>s and <code class="lang-css">blockquote</code>s are <a href="#scheme-section">sectioning roots</a>.</p>
-			<figure><code class="lang-css">figure</code> elements contain excerpts of text, examples, or images that are used to illustrate a concept. Content in a <code class="lang-css">figure</code> element&mdash;including its <code class="lang-css">figcaption</code>&mdash;is permissible to be extracted from the document and presented on its own. If the content would not make sense out of its surrounding context, do not use this element.
-				<figcaption><span class="lede">Figure 12.</span> The <code class="lang-css">figcaption</code> element describes the content of the figure. Optionally include a <code class="lang-css">span.s-lede</code> containing the figure's title. The figure caption should be shorter and more concise than the figure text. Captions should not contain any <code class="lang-css">p</code>s, and they should not be styled in prose.</figcaption>
+		</address>
+		<section id="scheme-figure-blockquote">
+			<h1 class="H Delta">Figures and Block Quotes</h1>
+			<figure class="Fig">This is a <code>.Fig</code> Object. It may or may not contain <code>.P</code> Objects.
+				<figcaption class="P Capt"><span class="S Lede">This is a <code>.Fig &gt; .Capt &gt; .S.Lede</code>.</span>  It usually contains the <code>.Fig</code>'s title (e.g., &ldquo;Figure 1&rdquo;). This is the rest of the <code>.Fig &gt; .Capt</code>.</figcaption>
 			</figure>
-			<figure>
-				<p>Usually, <code class="lang-css">figure</code>s do not need child <code class="lang-css">p</code> elements because figures are typically too short for multiple paragraphs; text-only child nodes will suffice for textual examples.</p>
-				<p>Though rare, figures may contain child <code class="lang-css">p</code> elements if necessary. However, text in <code class="lang-css">figure</code>s should <em>not</em> be written in prose.</p>
-				<p>Figure captions are not always necessary.</p>
-			</figure>
-			<figure><span class="warning">This is bad! (but just an example)</span> This is a <code class="lang-css">figure</code> that represents a non-example or emphasis of what <em>not</em> to do. Notice there is no special class for the <code class="lang-css">figure</code>. When demonstrating a bad example, indicate this with a <code class="lang-css">span.warning</code> as it is more likely to catch the reader's attention.</figure>
-			<blockquote><code class="lang-css">blockquote</code> elements . They are usually very short. <cite class="src">Source</cite></blockquote>
-			<blockquote>It's courteous&mdash;and probably required&mdash;to reference the source of the quoted text. Add a <code class="lang-css">cite.src</code> at the end of the block quote. (Yes, you should use the <code class="lang-css">cite</code> element.) <cite class="src">Source</cite></blockquote>
-			<blockquote>
-				<p>In a long block quote, the citation should be in a <code class="lang-css">header &gt; p &gt; cite.src</code> (<a href="#scheme-header">yes, header</a>), with the year included as well. If you're really picky, you can wrap the year with a <code class="lang-html">&lt;time&gt;</code> tag.</p>
-				<header><p><cite class="src">Source, <time>2000</time></cite></p></header>
+			<blockquote class="Qblock">
+				This is a short <code>.Qblock</code> with no paragraph childeren. <cite class="Src Short">Source&nbsp;(<code>.Qblock &gt; .Src.Short</code>)</cite>
 			</blockquote>
-			<p class="lede">This section describes the creation of a <a>quasi-element</a>: the <code class="lang-css">div.postal</code> class.</p>
-			<p>Use the <code class="lang-css">address</code> element to mark up contact information for authors of (part of) a document. This contact information may include a postal address, or it may simply include an email address or link. If the <code class="lang-css">address</code> element contins a postal address, place the postal address in an <code class="lang-css">address div.postal</code>. If the postal address is not an author's contact information but rather an arbitrary postal address, also use <code class="lang-css">div.postal</code>, but do not place it in an <code class="lang-css">address</code> element. It is convention to use the <code class="lang-html">&lt;br/&gt;</code> tag to indicate line breaks within a postal address.</p>
-			<address>
-				<div class="postal">
-					Chris Harvey<br/>
-					12345 Main St.<br/>
-					Washington, DC 00001<br/>
-					<a class="tel">(555) 555-5555</a><br/>
-					<a href="">ch@example.com</a><br/>
-					<a href="">@ch12345</a>
-				</div>
-			</address>
+			<blockquote class="Qblock">
+				<p class="P">This is a long <code>.Qblock &gt; .P:only-of-type</code>. The original source has more than 40 words but with no paragraph breaks. This is the rest of the quotation. This is the rest of the quotation. This is the rest of the quotation. This is the rest of the quotation. This is the rest of the quotation.</p>
+				<footer><cite class="Src Long">Source, <time>2000</time> (<code>.Qblock .Src.Long</code>)</cite></footer>
+			</blockquote>
+			<blockquote class="Qblock">
+				<p class="P">This is a <code>.Qblock &gt; .P</code>.</p>
+				<p class="P">This is another <code>.Qblock &gt; .P</code>.</p>
+				<p class="P">The original source has paragraph breaks (regardless of word count).</p>
+				<footer><cite class="Src Long">Source, <time>2000</time></cite></footer>
+			</blockquote>
 		</section>
 	</section>
 	<section id="scheme-list">
