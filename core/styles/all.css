@@ -9,54 +9,6 @@
 /*@Fonts*/
 /** These determine 1rem and the 'magic number'. Change these if you wish. */
 /*@Colors*/
-#aperture_white {
-  background-color: #fafcff;
-}
-#aperture_black {
-  background-color: #050300;
-}
-#atlas {
-  background-color: #0062ff;
-}
-#pbody {
-  background-color: #ff9d00;
-}
-#repulsion {
-  background-color: #2b9cff;
-}
-#propulsion {
-  background-color: #ff8e2b;
-}
-#deploying {
-  background-color: #ff1500;
-}
-#hereye {
-  background-color: #fff155;
-}
-#lakesuperior {
-  background-color: #001e80;
-}
-#cavescaves {
-  background-color: #80522b;
-}
-#facilityabyss {
-  background-color: #406b80;
-}
-#asbestos {
-  background-color: #bf9300;
-}
-#vilify {
-  background-color: #6300bf;
-}
-#neurotoxin {
-  background-color: #a7bf20;
-}
-#bridges {
-  background-color: #d5fbff;
-}
-#companion {
-  background-color: #ffaac2;
-}
 /*@FUNCTIONS*/
 /*--------------*\
     reset.less
@@ -277,7 +229,6 @@ var {
 .S.Lede {
   font-weight: bold;
   font-family: 'Optima', 'Candara', 'Helvetica', sans-serif;
-  color: #000;
 }
 /*@Delimiters*/
 /**
@@ -290,11 +241,11 @@ var {
 : 2014-05-02
   */
 .parens::before,
-.Src.Long::before {
+.Qblock.Long .Src.Long::before {
   content: '(';
 }
 .parens::after,
-.Src.Long::after {
+.Qblock.Long .Src.Long::after {
   content: ')';
 }
 /**
@@ -340,7 +291,7 @@ var {
 	: 2014-04-30
 	  */
   .noprint {
-    display: none !important;
+    display: none;
   }
   /**
 	  * This Interface starts a new page in the print media.
@@ -570,19 +521,22 @@ var {
   */
 .fontsize-lrg,
 .fontsize-lrg-inline,
-.P.Address {
+.Qblock {
   font-size: 20px;
   font-size: 1.25rem;
   line-height: 1.2;
 }
-.fontsize-med {
+.fontsize-med,
+.Qblock.Long,
+.Qblock.Long .Src.Long {
   font-size: 16px;
   font-size: 1rem;
   line-height: 1.5;
 }
 .fontsize-sml,
 .fontsize-sml-inline,
-.P.Capt {
+.P.Capt,
+.Qblock .Src {
   font-size: 12px;
   font-size: 0.75rem;
   line-height: 2;
@@ -647,7 +601,7 @@ var {
 }
 .vru-top-1,
 .P,
-.Src.Long {
+.Qblock.Long .Src.Long {
   margin-top: 24px;
   margin-top: 1.5rem;
 }
@@ -671,7 +625,7 @@ var {
 : 2014-04-26
   */
 .vru-top-phi,
-.P.Address,
+.P.Addy,
 .Fig,
 .Qblock {
   padding-top: 9.16718427px;
@@ -722,6 +676,21 @@ main {
   margin-right: 14.58980338%;
   margin-bottom: 192px;
 }
+@media print {
+  body {
+    font-size: 16px;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #000;
+    background-color: #fff;
+    background-image: none;
+  }
+  main {
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
 /**
   * This Object represents a generic article, technical document, blog post, etc. This Object may or may not take the form of a literal `article` element or `main` element of a page. This Object is designed to contain other block-level Objects such as Headings and Paragraphs.
 @tags
@@ -749,18 +718,6 @@ main {
 .UndoArticle {
   font-family: 'Optima', 'Candara', 'Helvetica', sans-serif;
   text-align: left;
-}
-@media print {
-  body {
-    color: #000;
-    background-color: #fff;
-    background-image: none;
-  }
-  main {
-    width: auto;
-    margin-left: auto;
-    margin-right: auto;
-  }
 }
 /*@HEADINGS*/
 /**
@@ -956,9 +913,10 @@ main {
   color: #001e80;
 }
 /**
-  * This Object represents a generic caption of any sort. A caption is usually a short summary or description of some content ("the described content"). The described content may be in a literal `figure` element, `table` element, or it may be any generic content. Since `.Capt` is an extension of the `.P` Object, it may not contain paragraphs. If the described content is only text, the caption should be shorter and more concise than the content's text.
-  * If this `.Capt` is a child of a `figure` element, it may or may not be a `figcaption` element. If this `.Capt` is a child of a `table` element, it may or may not be a `caption` element.
-  * A caption may appear before or after the described content, even if it and the content are children of the same Object (e.g., a `figure` or `table`). A `.P.Capt.Before` appears before the content; a `.P.Capt.After` appears after.
+  * This Object represents a generic caption of any sort. A caption is usually a short summary or description of some content ("the described content"). The described content may be in a literal `figure` element, `table` element, or it may be any generic content. Since `.Capt` is an extension of the `.P` Object, it may *not* contain paragraphs. If the described content is only text, the caption should be shorter and more concise than the content's text.
+  * If this `.Capt` is a child of a `figure` element, it should be a `figcaption` element. If this `.Capt` is a child of a `table` element, it should be a `caption` element.
+  * A caption may appear before or after the described content, even if it and the content are children of the same Object (e.g., a `figure`). A `.P.Capt.Before` appears before the content; a `.P.Capt.After` appears after.
+  * Note: According to the HTML5 specs, a `table > caption`, if it exists, may *only* be the first child.
 @extends
 : .P
 @implements
@@ -998,12 +956,11 @@ main {
   border-color: #ff1500;
 }
 /**
-  * This Object represents a generic postal address. It may be the contact address of the document author (contained in an `address` element), or it may be any postal mailing address.
+  * This Object represents a generic postal address. It may be the contact address of the document author(s) (contained in an `address` element), or it may be any arbitrary postal mailing address.
 @extends
 : .P
 @implemens
 : .vru-top-phi
-: .fontsize-lrg
 @mixesin
 : .spacing-phi()
 @tags
@@ -1015,7 +972,7 @@ main {
 @updated
 : 2014-04-30
   */
-.P.Address {
+.P.Addy {
   border-right: 3px solid #ff1500;
   padding-right: 4.85410197px;
   margin-right: 12.70820393px;
@@ -1055,6 +1012,7 @@ main {
 @implemens
 : .vru-content
 : .vru-top-phi
+: .fontsize-lrg
 @mixesin
 : .spacing-phi()
 @tags
@@ -1070,30 +1028,54 @@ main {
   padding-left: 11.32623792px;
   margin-left: 29.65247584px;
   font-family: 'Avenir', 'Calibri', 'Century Gothic', sans-serif;
+  /**
+	  * This Object represents the citation of a source inside a Block Quotation. It is recommended to apply this Class to a `cite` element.
+	  * Use Subclass `.Src.Short` if the original source is less than 40 words and does not have paragraph breaks (for example, extracted inline text from an article).
+	  * Use subclass `.Src.Long` if the original source is more than 40 words and does not have paragraph breaks, or if the original source has paragraph breaks regardless of word count.
+	@implemens
+	: .vru-top-1
+	: .fontsize-med
+	@tags
+	: #typography
+	: #quote
+	@author
+	: Chris Harvey
+	@updated
+	: 2014-05-10
+	  */
 }
-/**
-  * This Object represents the citation of a source inside a Block Quotation. It is recommended to apply this Class to a `cite` element.
-  * Use Subclass `.Src.Short` if the original source is less than 40 words and does not have paragraph breaks (for example, extracted inline text from an article).
-  * Use subclass `.Src.Long` if the original source is more than 40 words and does not have paragraph breaks, or if the original source has paragraph breaks regardless of word count.
-@implemens
-: .vru-top-1
-@tags
-: #typography
-: #quote
-@author
-: Chris Harvey
-@updated
-: 2014-05-10
-  */
-.Src {
+.Qblock .Src {
   display: block;
+  padding-right: 24px;
   text-align: right;
 }
-.Src.Short {
-  padding-right: 24px;
-}
-.Src.Short::before {
+.Qblock .Src::before {
   content: '~\0020';
+}
+.Qblock.Long .Src.Long {
+  padding-right: 0;
+}
+@media print {
+  .Fig,
+  .P.Addy,
+  .Qblock {
+    border-left: 0 solid #000000;
+    padding-left: 0;
+    margin-left: 0;
+    border-right: 0 solid #000000;
+    padding-right: 0;
+    margin-right: 0;
+    font-size: 16px;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+}
+@media print {
+  .Table {
+    font-size: 16px;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
 }
 /*@LISTS*/
 /**
