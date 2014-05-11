@@ -10,6 +10,10 @@
 <!--<link rel="stylesheet" href="../core/styles/all.css"/>-->
 <style>
 	.code--block {white-space: pre-wrap;}
+	[data-status="draft"] {
+		background-color: #fffcfa;
+		opacity: 0.618;
+	}
 </style>
 {% include all-js.html %}
 </head>
@@ -71,6 +75,148 @@ pre {
 				</code>
 			</figure>
 		</section>
+	</section>
+</section>
+<section id="cascade">
+	<h1 class="h--beta">Honor the Cascade</h1>
+	<p>The &ldquo;C&rdquo; in CSS stands for &ldquo;Cascading.&rdquo; There are two aspects of the way that stylesheets Cascade: one, and most obviously, some properties of elements are inherited from their parent elements (&ldquo;parent&rdquo; here referring to the container in the DOM tree). These properties trickle down the tree, getting applied to each child unless it is overriden by that child's property. This has nothing to do with specificity; this has only to do with the fact that elements' properties override the inherited properties of their parents.</p>
+	<p>The second aspect of the Cascade is where the true beauty of CSS can be appreciated. In terms of <a>selector specificity</a>, more specific properties override less specific ones. This means that the least specific properties (those that apply to element selectors) get applied first, followed by class selectors, followed by combinator selectors, and so on. The order these selectors are defined doesn't matter: their specificity will take precidence. However, in the case that two selectors have the same specificity, the styles will cascade from top to bottom in the CSS file, so the latter selector's property will override the former's. It is for this reason that we want to define our properties, selectors, and stylsheets in order of increasing specificity.</p>
+	<section id="property-order">
+		<h1 class="h--gamma">Property Order</h1>
+		<p class="prose">Within a block, the properties must be written in order of decreasing structure definition. See the figure below for an illustration.</p>
+		<figure>
+			<svg xmlns="http://www.w3.org/2000/svg" width="600" height="260">
+				<style scoped="">
+					line {
+						stroke-width: 2px;
+					}
+					text {
+						font-size: 11pt;
+						font-family: sans-serif;
+					}
+					.tier1 {
+						fill: #0270bb;
+						stroke: #0270bb;
+					}
+					.tier2 {
+						fill: #2ba8e0;
+						stroke: #2ba8e0;
+					}
+					.tier3 {
+						fill: #54e0ff;
+						stroke: #54e0ff;
+					}
+					.category {
+						font-weight: bold;
+						fill: #fff;
+					}
+				</style>
+				<polygon class="tier1" points="0,0
+				                               300,0
+				                               150,260"/>
+				<polygon class="tier2" points="50,87
+				                               250, 87
+				                               150, 260"/>
+				<polygon class="tier3" points="100,173
+				                               200,173
+				                               150,260"/>
+				<line class="tier1" x1="150" y1="50"  x2="600" y2="50"/>
+				<line class="tier2" x1="150" y1="135" x2="600" y2="135"/>
+				<line class="tier3" x1="150" y1="220" x2="600" y2="220"/>
+				<text class="category" x="110" y="20">Structural</text>
+				<text class="category" x="120" y="105">Textual</text>
+				<text class="category" x="112" y="190">Schematic</text>
+				<text x="300" y="45">display, box model, position, transform</text>
+				<text x="300" y="130">content, font, text, decoration</text>
+				<text x="300" y="215">color, background, visibility</text>
+			</svg>
+			<figcaption>This inverted pyramid illustrates how CSS properties are related. Authors are encouraged to define properties in order shown from top to bottom in the pyramid. The top base of the pyramid contains properties that set up foundation and structure, such as display and position. The middle contains font and text properties. Notice how <a>container is defined before content</a>. Then we finish with low-level schematic (&ldquo;scheme-like&rdquo;) properties, such as color, at the vertex on the bottom.</figcaption>
+		</figure>
+		<p class="prose">The properties and declarations within a block must appear in the following order. <span class="success">Note: This list applies to the Less language as well.</span></p>
+		<ol class="list--outline">
+			<li><span class="lede-sent">Extensions</span> An <a>extension</a> is a directive that indicates this <del datetime="2014-05-02T02:52">class is a subclass of a parent class</del> <ins datetime="2014-05-02T02:52">block shares common properties with another block</ins>. If multiple extensions are present, they must appear in the order they are defined in the stylesheet. This block must only use <code>:extend()</code> on blocks that have been previously defined.</li>
+			<li><span class="lede-sent">Class Includes</span> Included blocks must appear in the order they are defined in the stylesheet. This block must only include blocks that have been previously defined.</li>
+			<li><span class="lede-sent">Mixin Includes</span> Mixins must appear in the order they are defined in the stylesheet. This block must only include mixins that have been previously defined.</li>
+			<li><span class="lede-sent">Properties</span> After extensions and includes are set, CSS properties must appear in the following order.
+				<ol>
+					<li>Structural:
+						<ol>
+							<li>display properties</li>
+							<li>sizing properties (<code>width</code>, <code>height</code>, etc.)</li>
+							<li>padding properties</li>
+							<li>border properties</li>
+							<li>border radius properties</li>
+							<li>outline properties</li>
+							<li>margin properties</li>
+							<li>positioning properties</li>
+							<li>z-index properties</li>
+							<li>transformations</li>
+						</ol>
+					</li>
+					<li>Textual:
+						<ol>
+							<li><code>content</code> (for <code>::before</code> and <code>::after</code>)</li>
+							<li>font properties (<code>-style</code>, <code>-variant</code>, <code>-weight</code>, <code>-size</code>, <code>-family</code>, etc.)</li>
+							<li>text display properties (<code>-decoration</code>, <code>-transform</code>, etc.)</li>
+							<li>horizontal text properties (<code>-align</code>, <code>-indent</code>, <code>letter-spacing</code>, etc.)</li>
+							<li>vertical text properties (<code>line-height</code>, <code>white-space</code>, etc.)</li>
+							<li>miscellaneous (<code>list-style</code> <code>-type</code>, <code>-position</code>, <code>-image</code>, etc.)</li>
+						</ol>
+					</li>
+					<li>Schematic:
+						<ol>
+							<li>color</li>
+							<li><code>background</code> properties (<code>-color</code>, <code>-position</code>, <code>-size</code>, <code>-repeat</code>, <code>-origin</code>, <code>-clip</code>, <code>-attachment</code>, <code>-image</code>, etc.)</li>
+							<li>opacity, visibility, etc.</li>
+						</ol>
+					</li>
+				</ol>
+			</li>
+			<li><span class="lede-sent">Qualifiers</span> After the properties of this selector have been set, define properties of qualifying sub-selectors in the following order.
+				<ol>
+					<li>Classes (<code>&amp;.mod {}</code>)</li>
+					<li>Pseudo-classes (<code>&amp;:hover {}</code>)</li>
+					<li>Attributes (<code>&amp;[rel~=&quot;external&quot;] {}</code>)</li>
+					<li>Pseudo-elements (<code>&amp;::before {}</code>)</li>
+				</ol>
+			</li>
+			<li><span class="lede-sent">Combinators</span> The order of the combinator selectors is <a href="#selector-order">chosen specifically</a> so. 
+				<ol>
+					<li>general descendant selectors <code>&amp; .des {}</code></li>
+					<li>child selectors <code>&amp; &gt; .child {}</code></li>
+					<li>general sibling selectors <code>&amp; ~ .sib {}</code></li>
+					<li>adjacent sibling selectors <code>&amp; + .firstsib {}</code></li>
+				</ol>
+			</li>
+		</ol>
+	</section>
+	<section id="selector-order">
+		<h1 class="h--gamma">Selector Order</h1>
+		<p class="prose">This section does not discuss <a href="#stylesheet-order">how authors should organize their stylesheets</a>, but the order selectors should be written within a group of selectors.</p>
+		<p class="prose">In general, selectors within a group of style blocks should be written in order of increasing specificity. This means elements first, then classes, then qualifiers/modifiers (pseudo-), and combinators last. The order of qualifiers is not too important, but the order of combinators is. This is because multiple selectors may have the same specificity when an author's belief might be that they do not.</p>
+		<p class="success">The example below uses metasyntactic variables for illustration purposes. See <a href="http://www.ietf.org/rfc/rfc3092.txt">RFC 3902</a> for more information.</p>
+		<p class="prose">The adjacent sibling of an element <em>is</em> a general sibling, but it is a &ldquo;specific&rdquo; type of sibling, namely, an adjacent one. Therefore it is a common misconception that the selector <code>.foo + .bar {}</code> has a higher <a>specificity</a> than <code>.foo ~ .bar {}</code>, and thus the former will override the latter (regardless of the order in which they are defined). After all, wouldn't you think that a <code>.foo + .bar {}</code> <em>is</em> a <code>.foo ~ .bar {}</code>? However, these two selectors actually have equivalent <a>specificity</a>, so whichever one is written last in the stylesheet will take precidence. The bottom line is that authors must define <code>.foo ~ .bar {}</code> <em>before</em> <code>.foo + .bar {}</code> in the stylesheet in order to get the results they expect. The same method applies to <code>.baz .qux {}</code> and <code>.baz > .qux {}</code>: the former must be defined before the latter.</p>
+	</section>
+	<section id="stylesheet-order">
+		<h1 class="h--gamma">Stylesheet Order</h1>
+		<p>Stylesheets should be imported in order from most generic to least generic. It is recommended to split stylesheets into the following categories:</p>
+		<ol>
+			<li>global settings, such as variables and functions (for preprocessors)</li>
+			<li>reset (unclassed element selectors only)</li>
+			<li>global interfaces and mixins</li>
+			<li>layout and containers: grids, vertical rhythm systems</li>
+			<li>typographical objects (headings, paragraphs, etc.)</li>
+			<li>modules (components like lists, buttons, breadcrumbs)</li>
+			<li>style trumps (states, anomalies, etc.)</li>
+		</ol>
+		<p>A <dfn>global stylesheet</dfn> contains all the variables and functions that you want to be accessible throughout the entire site. Common varaibles include font size, line height, and theme colors. It's a good idea to  include common maths helpers here as well. This file doesn't actually produce any CSS. Since this file is imported first, every other CSS (or Less) file has access to it.</p>
+		<p>A <dfn>reset stylesheet</dfn> removes all styles, e.g. gets rid of all margins, padding, bold, italics, etc. It strips the elements down to nothing. The use of a CSS reset is controversial. Authors against the use of a reset would say there's no point in removing a margin if you're going to add it back in later; this is just more work for the browser. Proponents might say that there's no predicting how a browser might one day change the default presentation of an element (all of a sudden it might decide to just go ahead and italicize all paragraphs), so you might as well reset everything just in case.</p>
+		<p>It's best to use a mix of both philosophies. This means resetting things that need to be reset, such as margin and padding if you are implementing a <a>vertical rhythm system</a>, and other browser-specific resets (such as non-HTML5-compliant browsers), but leaving other things alone that don't need to be reset, such as font weight and font style. This process can be done on an element-by-element basis, which may take long to write. The properties that are left alone can always be defined in particular elements or classes, later on in more targeted stylesheets (such as typography or modules). The reset stylesheet should be very broad and general, because it comes early in the Cascade and is likely to be overridden later.</p>
+		<p>An <dfn>interface stylesheet</dfn> contains all abstract Interfaces and Mixins that your Objects will want to implement later on. These Interfaces aren't actual things on a site (no HTML element should instantiate them); they're just helper classes and design patterns that appear many times throughout the site. An example might be <code>.transp {}</code>, which sets a certain opacity.</p>
+		<p>The <dfn>layout stylesheet(s)</dfn> will define the <a>grid system</a> and/or <a>vertical rhythm system</a> of the site. These stylesheets will define only Classes that are meant for <a>containers, not content</a>. Thus it is acceptable that these classnames be presentational.</p>
+		<p>The <dfn>typography stylesheet</dfn> defines Objects for typographical content including headings, paragraphs, block quotes, lists, figures, tables, and text-level semantics (highlighting, etc.). Some authors choose to split even these categories into separate stylesheets. This stylesheet does not use element selectors as you would expect, but rather conceptual Objects that correspond to features of a document. For example, the Heading Object in this stylesheet will not have the selector <code>h1 {}</code>, but rather an abstract Object selector such as <code>.H {}</code>. <a>HTML elements on a page must instantiate the CSS Objects</a> for proper styling. Elements that do not instantiate an Object will be styled via <a>reset</a> or browser-default.</p>
+		<p><dfn>Modules</dfn></p>
+		<p><dfn>Style trumps</dfn></p>
 	</section>
 </section>
 <section id="stylesheet-anatomy">
@@ -200,236 +346,60 @@ pre {
 		</figure>
 	</section>
 </section>
-<section id="cascade">
-	<h1 class="h--beta">Honor the Cascade</h1>
-	<p>The &ldquo;C&rdquo; in CSS stands for &ldquo;Cascading.&rdquo; There are two aspects of the way that stylesheets Cascade: one, and most obviously, some properties of elements are inherited from their parent elements (&ldquo;parent&rdquo; here referring to the container in the DOM tree). These properties trickle down the tree, getting applied to each child unless it is overriden by that child's property. This has nothing to do with specificity; this has only to do with the fact that elements' properties override the inherited properties of their parents.</p>
-	<p>The second aspect of the Cascade is where the true beauty of CSS can be appreciated. In terms of <a>selector specificity</a>, more specific properties override less specific ones. This means that the least specific properties (those that apply to element selectors) get applied first, followed by class selectors, followed by combinator selectors, and so on. The order these selectors are defined doesn't matter: their specificity will take precidence. However, in the case that two selectors have the same specificity, the styles will cascade from top to bottom in the CSS file, so the latter selector's property will override the former's. It is for this reason that we want to define our properties, selectors, and stylsheets in order of increasing specificity.</p>
-	<section id="property-order">
-		<h1 class="h--gamma">Property Order</h1>
-		<p class="prose">Within a block, the properties must be written in order of decreasing structure definition. See the figure below for an illustration.</p>
-		<figure>
-			<svg xmlns="http://www.w3.org/2000/svg" width="600" height="260">
-				<style scoped="">
-					line {
-						stroke-width: 2px;
-					}
-					text {
-						font-size: 11pt;
-						font-family: sans-serif;
-					}
-					.tier1 {
-						fill: #0270bb;
-						stroke: #0270bb;
-					}
-					.tier2 {
-						fill: #2ba8e0;
-						stroke: #2ba8e0;
-					}
-					.tier3 {
-						fill: #54e0ff;
-						stroke: #54e0ff;
-					}
-					.category {
-						font-weight: bold;
-						fill: #fff;
-					}
-				</style>
-				<polygon class="tier1" points="0,0
-				                               300,0
-				                               150,260"/>
-				<polygon class="tier2" points="50,87
-				                               250, 87
-				                               150, 260"/>
-				<polygon class="tier3" points="100,173
-				                               200,173
-				                               150,260"/>
-				<line class="tier1" x1="150" y1="50"  x2="600" y2="50"/>
-				<line class="tier2" x1="150" y1="135" x2="600" y2="135"/>
-				<line class="tier3" x1="150" y1="220" x2="600" y2="220"/>
-				<text class="category" x="110" y="20">Structural</text>
-				<text class="category" x="120" y="105">Textual</text>
-				<text class="category" x="112" y="190">Schematic</text>
-				<text x="300" y="45">display, box model, position, transform</text>
-				<text x="300" y="130">content, font, text, decoration</text>
-				<text x="300" y="215">color, background, visibility</text>
-			</svg>
-			<figcaption>This inverted pyramid illustrates how CSS properties are related. Authors are encouraged to define properties in order shown from top to bottom in the pyramid. The top base of the pyramid contains properties that set up foundation and structure, such as display and position. The middle contains font and text properties. Notice how <a>container is defined before content</a>. Then we finish with low-level schematic (&ldquo;scheme-like&rdquo;) properties, such as color, at the vertex on the bottom.</figcaption>
-		</figure>
-		<p class="prose">The properties and declarations within a block must appear in the following order. <span class="success">Note: This list applies to the Less language as well.</span></p>
-		<ol class="list--outline">
-			<li><span class="lede-sent">Extensions</span> An <a>extension</a> is a directive that indicates this <del datetime="2014-05-02T02:52">class is a subclass of a parent class</del> <ins datetime="2014-05-02T02:52">block shares common properties with another block</ins>. If multiple extensions are present, they must appear in the order they are defined in the stylesheet. This block must only use <code>:extend()</code> on blocks that have been previously defined.</li>
-			<li><span class="lede-sent">Class Includes</span> Included blocks must appear in the order they are defined in the stylesheet. This block must only include blocks that have been previously defined.</li>
-			<li><span class="lede-sent">Mixin Includes</span> Mixins must appear in the order they are defined in the stylesheet. This block must only include mixins that have been previously defined.</li>
-			<li><span class="lede-sent">Properties</span> After extensions and includes are set, CSS properties must appear in the following order.
-				<ol>
-					<li>Structural:
-						<ol>
-							<li>display properties</li>
-							<li>sizing properties (<code>width</code>, <code>height</code>, etc.)</li>
-							<li>padding properties</li>
-							<li>border properties</li>
-							<li>border radius properties</li>
-							<li>outline properties</li>
-							<li>margin properties</li>
-							<li>positioning properties</li>
-							<li>z-index properties</li>
-							<li>transformations</li>
-						</ol>
-					</li>
-					<li>Textual:
-						<ol>
-							<li><code>content</code> (for <code>::before</code> and <code>::after</code>)</li>
-							<li>font properties (<code>-style</code>, <code>-variant</code>, <code>-weight</code>, <code>-size</code>, <code>-family</code>, etc.)</li>
-							<li>text display properties (<code>-decoration</code>, <code>-transform</code>, etc.)</li>
-							<li>horizontal text properties (<code>-align</code>, <code>-indent</code>, <code>letter-spacing</code>, etc.)</li>
-							<li>vertical text properties (<code>line-height</code>, <code>white-space</code>, etc.)</li>
-							<li>miscellaneous (<code>list-style</code> <code>-type</code>, <code>-position</code>, <code>-image</code>, etc.)</li>
-						</ol>
-					</li>
-					<li>Schematic:
-						<ol>
-							<li>color</li>
-							<li><code>background</code> properties (<code>-color</code>, <code>-position</code>, <code>-size</code>, <code>-repeat</code>, <code>-origin</code>, <code>-clip</code>, <code>-attachment</code>, <code>-image</code>, etc.)</li>
-							<li>opacity, visibility, etc.</li>
-						</ol>
-					</li>
-				</ol>
-			</li>
-			<li><span class="lede-sent">Qualifiers</span> After the properties of this selector have been set, define properties of qualifying sub-selectors in the following order.
-				<ol>
-					<li>Classes (<code>&amp;.mod {}</code>)</li>
-					<li>Pseudo-classes (<code>&amp;:hover {}</code>)</li>
-					<li>Attributes (<code>&amp;[rel~=&quot;external&quot;] {}</code>)</li>
-					<li>Pseudo-elements (<code>&amp;::before {}</code>)</li>
-				</ol>
-			</li>
-			<li><span class="lede-sent">Combinators</span> The order of the combinator selectors is <a href="#selector-order">chosen specifically</a> so. 
-				<ol>
-					<li>general descendant selectors <code>&amp; .des {}</code></li>
-					<li>child selectors <code>&amp; &gt; .child {}</code></li>
-					<li>general sibling selectors <code>&amp; ~ .sib {}</code></li>
-					<li>adjacent sibling selectors <code>&amp; + .firstsib {}</code></li>
-				</ol>
-			</li>
-		</ol>
-	</section>
-	<section id="selector-order" class="draft">
-		<h1 class="h--gamma">Selector Order</h1>
-		<p class="prose">This section does not discuss <a>how authors should organize their stylesheets</a>, but the order selectors should be written within a group of selectors.</p>
-		<p class="prose">In general, selectors within a group of style blocks should be written in order of increasing specificity. This means elements first, then classes, then qualifiers/modifiers (pseudo-), and combinators last. The order of qualifiers is not too important, but the order of combinators is. This is because multiple selectors may have the same specificity when an author's belief might be that they do not.</p>
-		<p class="success">The example below uses metasyntactic variables for illustration purposes. See <a href="http://www.ietf.org/rfc/rfc3092.txt">RFC 3902</a> for more information.</p>
-		<p class="prose">The adjacent sibling of an element <em>is</em> a general sibling, but it is a &ldquo;specific&rdquo; type of sibling, namely, an adjacent one. Therefore it is a common misconception that the selector <code>.foo + .bar {}</code> has a higher <a>specificity</a> than <code>.foo ~ .bar {}</code>, and thus the former will override the latter (regardless of the order in which they are defined). After all, wouldn't you think that a <code>.foo + .bar {}</code> <em>is</em> a <code>.foo ~ .bar {}</code>? However, these two selectors actually have equivalent <a>specificity</a>, so whichever one is written last in the stylesheet will take precidence. The bottom line is that authors must define <code>.foo ~ .bar {}</code> <em>before</em> <code>.foo + .bar {}</code> in the stylesheet in order to get the results they expect. The same method applies to <code>.baz .qux {}</code> and <code>.baz > .qux {}</code>: the former must be defined before the latter.</p>
-	</section>
-	<section id="stylesheet-order">
-		<h1 class="h--gamma">Stylesheet Order</h1>
-		<p>Stylesheets should be imported in order from most generic to least generic. It is recommended to split stylesheets into the following categories:</p>
-		<ol>
-			<li>global settings, such as variables and functions (for preprocessors)</li>
-			<li>reset (unclassed element selectors only)</li>
-			<li>global interfaces and mixins</li>
-			<li>layout and containers: grids, vertical rhythm systems</li>
-			<li>typographical objects (headings, paragraphs, etc.)</li>
-			<li>modules (components like lists, buttons, breadcrumbs)</li>
-			<li>style trumps (states, anomalies, etc.)</li>
-		</ol>
-		<p>A <dfn>global stylesheet</dfn> contains all the variables and functions that you want to be accessible throughout the entire site. Common varaibles include font size, line height, and theme colors. It's a good idea to  include common maths helpers here as well. This file doesn't actually produce any CSS. Since this file is imported first, every other CSS (or Less) file has access to it.</p>
-		<p>A <dfn>reset stylesheet</dfn> removes all styles, e.g. gets rid of all margins, padding, bold, italics, etc. It strips the elements down to nothing. The use of a CSS reset is controversial. Authors against the use of a reset would say there's no point in removing a margin if you're going to add it back in later; this is just more work for the browser. Proponents might say that there's no predicting how a browser might one day change the default presentation of an element (all of a sudden it might decide to just go ahead and italicize all paragraphs), so you might as well reset everything just in case.</p>
-		<p>It's best to use a mix of both philosophies. This means resetting things that need to be reset, such as margin and padding if you are implementing a <a>vertical rhythm system</a>, and other browser-specific resets (such as non-HTML5-compliant browsers), but leaving other things alone that don't need to be reset, such as font weight and font style. This process can be done on an element-by-element basis, which may take long to write. The properties that are left alone can always be defined in particular elements or classes, later on in more targeted stylesheets (such as typography or modules). The reset stylesheet should be very broad and general, because it comes early in the Cascade and is likely to be overridden later.</p>
-		<p>An <dfn>interface stylesheet</dfn> contains all abstract Interfaces and Mixins that your Objects will want to implement later on. These Interfaces aren't actual things on a site (no HTML element should instantiate them); they're just helper classes and design patterns that appear many times throughout the site. An example might be <code>.transp {}</code>, which sets a certain opacity.</p>
-		<p>The <dfn>layout stylesheet(s)</dfn> will define the <a>grid system</a> and/or <a>vertical rhythm system</a> of the site. These stylesheets will define only Classes that are meant for <a>containers, not content</a>. Thus it is acceptable that these classnames be presentational.</p>
-		<p>The <dfn>typography stylesheet</dfn> defines Objects for typographical content including headings, paragraphs, block quotes, lists, figures, tables, and text-level semantics (highlighting, etc.). Some authors choose to split even these categories into separate stylesheets. This stylesheet does not use element selectors as you would expect, but rather conceptual Objects that correspond to features of a document. For example, the Heading Object in this stylesheet will not have the selector <code>h1 {}</code>, but rather an abstract Object selector such as <code>.H {}</code>. <a>HTML elements on a page must instantiate the CSS Objects</a> for proper styling. Elements that do not instantiate an Object will be styled via <a>reset</a> or browser-default.</p>
-		<p><dfn>Modules</dfn></p>
-		<p><dfn>Style trumps</dfn></p>
-	</section>
-</section>
-<section id="classes" class="draft">
-	<h1 class="h--beta">Guidelines for Naming Classes</h1>
-	<section id="classname-semantics">
-		<h1 class="h--gamma">Classname Semantics</h1>
-		<p>OOCSS classes must only extend classes that have been previously defined in a stylesheet. The reason is to honor the Cascade. If a class were to extend a class that were defined <em>afterward</em>, then some of the properties in the subclass may get overridden by properties in the superclass.</p>
-		<p>OOCSS classes must only include classes that have been previously defined in a styesheet. The reason is to prevent infinite loops (or in set theory terms, irregular sets). If class .bar includes class .foo and class .foo includes class .bar, the Less will not compile. Thus if .foo is written before .bar, then .bar may extend .foo but .foo may not include .bar.</p>
-		<p>However, any class may include any mixin, regardless of where the mixin was defined. Keep in mind that the order of mixin declarations in a class's style block will affect the order of styles that apply on compilation. Mixins should be "called" in the order they were defined in the stylesheet.</p>
-		<p class="prose"><span class="lede-sent">The original intent of HTML classes.</span> Classes were <a>originally</a> meant to group <strong>semantically similar</strong> elements together. For example, all elements that represent warnings on a page could be instances of the <code>.warning</code> class. A side effect of similar elements belonging to one class is that they can all be styled the same way with CSS.</p>
-		<p class="prose">Now with the development of <a>Object-Oriented CSS</a>, we have learned to take advantage of classes and use them for many different reasons. Such a diverse use of one specific feature of HTML has grown so large it has become an epidemic.</p>
-		<p class="prose"><span class="lede-sent">&ldquo;Classes&rdquo; of Classes.</span> There is a clear case of <a>&ldquo;classitis&rdquo;</a> in the Web-developing world. Before you object, my definition of classitis refers not to the overuse of classes&mdash;there can never be too many classes present in an HTML document&mdash;but to the fact that we are using classes for <em>everything</em>. We need to seriously look at how and why we are using classes, what kinds of &ldquo;classifications&rdquo; into which we can organize them, and maybe provide some alternative methods and/or conventions for implementing semantics and style.</p>
-		<p class="prose">The following sections describe different ways classes are being used in CSS.</p>
-		<section>
-			<h1 class="h--delta">Presentational</h1>
-			<p class="prose">Presentational classnames describe the properties of the class. Examples include <code>.big</code>, <code>.margin-top-24</code>, <code>.list-inline</code>, and <code>.grid-50-left</code>.</p>
-			<p class="prose">There are some cases in which having these classes available in CSS is helpful. In short, they provide abstraction. Classes such as <code>.margin-top-24</code> and <code>.list-inline</code> can be used as a mechanism for consistency, and can save developers the hassle of having to repeat the same lines of code over and over again. For example, redefining the same top margin on multiple elements is not only tedius but also error prone. The developer has to remember the number of pixels, code is repeated, and upkeep is expensive. These classes provide an easy and scalable solution. Another case of this is using a <a href="grid.html">grid system</a>. A class such as <code>.grid-50-left</code> is <em>very</em> presentational but necessary for <abbr title="don't repeat yourself">DRY</abbr> code.</p>
-			<p class="prose">There are two types of presentational classes: classes that are used to abstract repeating patterns, such as <code>.margin-top-24</code>, and classes that represent physical objects like <code>.grid-50-left</code>. Though these types are tehnically indistinguishable&mdash;they have a given set of properties just like any CSS class&mdash;they are used for different purposes. We must make the distinction clear to provide a starting point for the cure of classitis. The former type, so-called &ldquo;utility classes,&rdquo; don't really represent Objects in the sense of Object-Oriented programming. They're just a collection of properties that are used many times within a site. The latter type, we'll call &ldquo;Classes&rdquo; We will see in a minute </p>
-			<p class="prose">Presentational classes should <em>not</em> be accessible to the HTML. There are a number of reasons:</p>
-			<ol class="prose">
-				<li><span class="lede-sent">HTML describes content, not presentation.</span> Technically, classes are in the HTML. Adding class <code>.boldred</code> to an <code>small</code> element does not add any semantic value to the text. An ideal alternative would be to use <code>small.warning</code> (or something similar) and then have the <code>.warning</code> class extend <code>.boldred</code> in some way.</li>
-				<li><span class="lede-sent">The Theoretical Redesign Future.</span> If you wanted to change the properties of the <code>.boldred</code> class, say, make it italic instead of bold, now you have to deal with an awkward classname, or you have to change the classname everywhere in the HTML.</li>
-			</ol>
-			<p class="prose">There are a few solutions to this usage. The first solution is to use a mixin. A mixin allows the developer to reuse lines of code without having to write them over and over again. It's basically a glorified copy-and-paste. Mixins are available in CSS pre-processors such as Less and Sass, and using a mixin instead of a class will hide the <del>classname</del> <ins>mixin name</ins> from the CSS output. That means the name can't be used in HTML, which is good.</p>
-			<p class="prose">The problem with mixins is that although they make life easier for the developer, the compiled CSS is still not DRY. The properties are still being written over and over again (this time by the compiler), which means a lot of work for the browser, a lot of bytes to download, etc.</p>
-			<p class="prose">A better solution is to still use a class, but &ldquo;hide&rsquo; it from the HTML by nesting it into a nonsensical ID selector. For example, in your CSS (or Less), define <code>#_&nbsp;&nbsp;.boldred {&hellip;}</code> and extend it with the classes you need such as <code>.warning</code>. Yes, the class <code>.boldred</code> is still available to the HTML, but the styles will only apply if it's in an element with <code>id=&quot;_&quot;</code>, which I hope you'd never use. By the way, this is the one time you can use an ID selector. (And it's really not even an ID selector.) </p>
-		</section>
-		<section>
-			<h1 class="h--delta">Semantic</h1>
-			<p class="prose">Semantic classnames describe the meaning of the component and/or its contents. Examples include <code>.pacingtable</code>, <code>.answer</code>, <code>.optional</code>, and <code>.success</code>.</p>
-			<p class="prose">These are good classes to have because they mark up HTML elements with data describing what they mean. For example, take the element <code>p.success</code>. There are two semantic things going on here: first, the <code>&lt;p&gt;</code> tag describes what the element <em>is</em> (a paragraph), but second, the <code>&quot;success&quot;</code> class describes what the element <em>means</em>: it is some sort of indication of success, such as the completion of an upload. In a way, the classname has more semantic value than the element name itself!</p>
-		</section>
-	</section>
-	<section id="classname-syntax">
-		<h1 class="h--gamma">Classname Syntax</h1>
-		<p class="prose">Classnames must consist of either lowercase letters of the English alphabet (<a href="http://www.fileformat.info/info/unicode/char/0061/index.htm" rel="external"><code>U+0061</code></a>&ndash;<a href="http://www.fileformat.info/info/unicode/char/007a/index.htm" rel="external"><code>U+007A</code></a>), hyphens (<code>-</code> <a href="http://www.fileformat.info/info/unicode/char/002d/index.htm" rel="external"><code>U+002D</code></a>), or underscores (<code>_</code> <a href="http://www.fileformat.info/info/unicode/char/005f/index.htm" rel="external"><code>U+005F</code></a>).</p>
-		<p class="prose">Major words in a classname must appear in order from general to specific, and separated by one hyphen. Minor words should be combined, not separated. &ldquo;Major&rdquo; and &ldquo;minor&rdquo; are not standardized; they are left to the author's discretion. Examples:</p>
-		<ul>
-			<li><code>.lede-para</code></li>
-			<li><code>.lede-sent</code></li>
-			<li><code>.dropcap</code></li>
-			<li><code>.rowgroup</code></li>
-		</ul>
-		<section id="namespace">
-			<h1 class="h--delta">Namespace Prefixes</h1>
-			<p class="prose">Classnames used only on one page or in a group of pages (e.g., a sub-site) must begin with a namespace prefix. This will help keep styles separated and prevent overuse of classnames. The namespace must contain only lowercase letters and should be less than 6 characters. The namespace must be followed by an underscore.</p>
-			<ul>
-				<li><code>.res_skillgroup</code></li>
-				<li><code>.scheme_colortable</code></li>
-				<li><code>.grid_phidemo</code></li>
-			</ul>
-			<p class="prose">Chances are, you will need to add classes to your HTML elements so JavaScript can grab them and do things to them. We call these classes <dfn>JS hooks</dfn>. <strong>Never use CSS styling classes for JS hooks.</strong> Use the <code>.js_</code> namespace prefix, and don't apply any styles to these classes.</p>
-			<ul>
-				<li><code>.js_table</code></li>
-				<li><code>.js_expando</code></li>
-			</ul>
-		</section>
-		<section id="extensions">
-			<h1 class="h--delta">Extensions</h1>
-			<p class="prose">Some classes will need modifiers for sizing, etc. In the name of object-oriented programming, let's call these classes &ldquo;extensions.&rdquo; For instance, let's say you want to have a class <code>.foo</code> that extends a class <code>.bar</code>. That is, <code>.foo</code> has all the properties that <code>.bar</code> has, and possibly then some. Use a double-hyphen to separate a classname with its modifier. Our extension would then be called <code>.bar--foo</code>. If a classname such as <code class="lang-css">.bar--foo</code> exists, it is assumed that a classname <code class="lang-css">.bar</code> exists, which is the parent class. Classes may have nested extensions, that is, extensions of extensions. In object-oriented language, these would be called class descendants.</p>
-			<ul>
-				<li><code>.box--inline</code></li>
-				<li><code>.h--alpha</code></li>
-				<li><code>.list--bare</code></li>
-				<li><code>.list--inline--c</code></li>
-				<li><code>.dl--table--sml</code></li>
-			</ul>
-		</section>
-		<section id="descendants">
-			<h1 class="h--delta">Descendants</h1>
-			<p class="prose draft"><em>Class</em> inheritance/descendants are different than <em>object</em> inheritance/descendants. A class child, or an extension, of a class is a class that inherits all the properties of its parent. On the other hand, a component child of an object is literally an object within an object (for example, a <code>p</code> within a <code>section</code>). Some properties such as <code>color</code> and <code>font-weight</code> are inherited through object inheritance, but other properties such as <code>border</code> are not.</p>
-			<p class="prose">With <a href="#descendant-selectors">some exceptions</a>, descendant selectors are usually avoided, so indicating that one class of HTML element belongs as a descendent of another class of element is <a>not specified via selector</a>: it is usually specified in some sort of documentation. However it is advantageous to additionaly <strong>indicate so in the classname</strong> for extra unambiguity, without sacrificing specificity or efficiency. This way, the developer knows that the element belongs inside the other by inspection.</p>
-			<p class="prose">In the name of a class that is a descendant of another class, the &ldquo;parent classname&rdquo; and &ldquo;child classname&rdquo; are separated by two underscores. This similar to the practice of using one underscore to indicate namespaces. (In a way, the child classname is in the parent classname namespace.) If a child classname such as <code>.bar__foo</code> exists, it is assumed that a classname <code>.bar</code> exists.</p>
-			<ul>
-				<li><code>.bc__anc</code></li>
-				<li><code>.fnotes__fn</code></li>
-				<li><code>.lang--html__tag</code></li>
-				<li><code>.res_skilldetail__job</code></li>
-			</ul>
-		</section>
-	</section>
-</section>
-<section id="selectors" class="draft" hidden="">
-	<h1 class="h--beta">Guidelines for Writing Selectors</h1>
+<section id="classname-syntax" data-status="draft">
+	<h1 class="h--beta">Classname Syntax</h1>
 	<p class="prose">Each selector has a <a>specificity</a> and an <a>efficiency</a>. I won't talk about them too much here, but generally the more efficient a selector is, the more specific it gets, and vice versa: less specific selectors are usually not that efficient. Our goal is to find the right balance between keeping our selectors low in specificity while high in efficiency.</p>
-	<p class="prose">The majority of the selectors in a stylesheet should be single classes only. Class selectors are the most efficient way for browsers to style pages, <a>not counting IDs</a>. For the most part, use single class selectors.</p>
+	<p class="prose">The majority of the selectors in a stylesheet should be single classes only. Class selectors are the most efficient way for browsers to style pages, <a>not counting IDs</a>. For the most part, <strong>use single class selectors</strong>.</p>
 	<p class="prose"><span class="lede-sent">Content before presentation.</span> There are exceptions to the &ldquo;single-class&rdquo; rule. When it comes down to efficient HTML versus efficient CSS, HTML wins. The reason? Semantics always trumps style. You've got a problem when you find yourself having to adjust a huge amount of HTML just to conform to CSS best practices (such as adding 8 different classes to an element to get it to look exactly how you want). It should be the other way around. CSS should conform to how HTML is (or should be) written, even if it means sacrificing a little bit of efficiency.</p>
-	<section id="descendant-selectors">
-		<h1 class="h--gamma">Child and Descendant Selectors</h1>
+	<p class="prose">Classnames must consist of uppercase and lowercase letters of the English alphabet (<a href="http://www.fileformat.info/info/unicode/char/0041/index.htm" rel="external"><code>U+0041</code></a>&ndash;<a href="http://www.fileformat.info/info/unicode/char/005a/index.htm" rel="external"><code>U+005A</code></a>, <a href="http://www.fileformat.info/info/unicode/char/0061/index.htm" rel="external"><code>U+0061</code></a>&ndash;<a href="http://www.fileformat.info/info/unicode/char/007a/index.htm" rel="external"><code>U+007A</code></a>), hyphens (<code>-</code> <a href="http://www.fileformat.info/info/unicode/char/002d/index.htm" rel="external"><code>U+002D</code></a>), or underscores (<code>_</code> <a href="http://www.fileformat.info/info/unicode/char/005f/index.htm" rel="external"><code>U+005F</code></a>).</p>
+	<p class="prose">Major words in a classname must appear in order from general to specific, and separated by one hyphen. Minor words should be combined, not separated. &ldquo;Major&rdquo; and &ldquo;minor&rdquo; are not standardized; they are left to the author's discretion. Examples:</p>
+	<ul>
+		<li><code>.lede-para</code></li>
+		<li><code>.lede-sent</code></li>
+		<li><code>.dropcap</code></li>
+		<li><code>.rowgroup</code></li>
+	</ul>
+	<section id="namespace">
+		<h1 class="h--gamma">Namespace Prefixes</h1>
+		<p class="prose">Classnames used only on one page or in a group of pages (e.g., a sub-site) must begin with a namespace prefix. This will help keep styles separated and prevent overuse of classnames. The namespace must contain only lowercase letters and should be less than 6 characters. The namespace must be followed by an underscore.</p>
+		<ul>
+			<li><code>.res_skillgroup</code></li>
+			<li><code>.scheme_colortable</code></li>
+			<li><code>.grid_phidemo</code></li>
+		</ul>
+		<p class="prose">Chances are, you will need to add classes to your HTML elements so JavaScript can grab them and do things to them. We call these classes <dfn>JS hooks</dfn>. <strong>Never use CSS styling classes for JS hooks.</strong> Use the <code>.js_</code> namespace prefix, and don't apply any styles to these classes.</p>
+		<ul>
+			<li><code>.js_table</code></li>
+			<li><code>.js_expando</code></li>
+		</ul>
+	</section>
+	<section id="subclasses">
+		<h1 class="h--gamma">Subclasses</h1>
+		<p class="prose">Some classes will need modifiers for sizing, etc. In the name of object-oriented programming, let's call these classes &ldquo;extensions.&rdquo; For instance, let's say you want to have a class <code>.foo</code> that extends a class <code>.bar</code>. That is, <code>.foo</code> has all the properties that <code>.bar</code> has, and possibly then some. Use a double-hyphen to separate a classname with its modifier. Our extension would then be called <code>.bar--foo</code>. If a classname such as <code class="lang-css">.bar--foo</code> exists, it is assumed that a classname <code class="lang-css">.bar</code> exists, which is the parent class. Classes may have nested extensions, that is, extensions of extensions. In object-oriented language, these would be called class descendants.</p>
+		<ul>
+			<li><code>.box--inline</code></li>
+			<li><code>.h--alpha</code></li>
+			<li><code>.list--bare</code></li>
+			<li><code>.list--inline--c</code></li>
+			<li><code>.dl--table--sml</code></li>
+		</ul>
+	</section>
+	<section id="descendants">
+		<h1 class="h--gamma">Descendants</h1>
+		<p class="prose draft"><em>Class</em> inheritance/descendants are different than <em>object</em> inheritance/descendants. A class child, or an extension, of a class is a class that inherits all the properties of its parent. On the other hand, a component child of an object is literally an object within an object (for example, a <code>p</code> within a <code>section</code>). Some properties such as <code>color</code> and <code>font-weight</code> are inherited through object inheritance, but other properties such as <code>border</code> are not.</p>
+		<p class="prose">With <a href="#descendant-selectors">some exceptions</a>, descendant selectors are usually avoided, so indicating that one class of HTML element belongs as a descendent of another class of element is <a>not specified via selector</a>: it is usually specified in some sort of documentation. However it is advantageous to additionaly <strong>indicate so in the classname</strong> for extra unambiguity, without sacrificing specificity or efficiency. This way, the developer knows that the element belongs inside the other by inspection.</p>
+		<p class="prose">In the name of a class that is a descendant of another class, the &ldquo;parent classname&rdquo; and &ldquo;child classname&rdquo; are separated by two underscores. This similar to the practice of using one underscore to indicate namespaces. (In a way, the child classname is in the parent classname namespace.) If a child classname such as <code>.bar__foo</code> exists, it is assumed that a classname <code>.bar</code> exists.</p>
+		<ul>
+			<li><code>.bc__anc</code></li>
+			<li><code>.fnotes__fn</code></li>
+			<li><code>.lang--html__tag</code></li>
+			<li><code>.res_skilldetail__job</code></li>
+		</ul>
 		<p class="prose"><a href="#subcomponents">As stated above</a>, it is best practice to avoid child selectors (<code>.parent &gt; .child</code>) and descendant selectors (<code>.ancestor .descendant</code>). However there are some cases in which this is okay, and these cases involve intrinsic ownership: elements that belong to other elements by HTML standards.</p>
+		<p>Another case in which this is okay: subcomponents. Even if not by HTML standards, if a class <code>.Wheel</code> belongs to (is a child of) class <code>.Car</code>, it would be okay to have the selector <code>.Car &gt; .Wheel</code></p>
+		
+		
+		
 		<section id="lists">
 			<h1 class="h--delta">Lists</h1>
 			<p class="prose">The following CSS is <em>very</em> efficient and not very specific at all. This is normally very good coding:</p>
