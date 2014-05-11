@@ -1,4 +1,4 @@
-@separator: 24px;
+@separator: 24px; // 0.25in
 
 /*-------------*\
     typo.less
@@ -198,6 +198,7 @@ main {
 .P {
 	&:extend(.vru-content);
 	&:extend(.vru-top-1);
+	display: block;
 }
 /**
   * This Object represents a lede paragraph, which may be an introduction or abstract to an article.
@@ -371,7 +372,7 @@ main {
 }
 .Qblock.Long {
 	&:extend(.fontsize-med);
-	.Src.Long {
+	.Src {
 		&:extend(.parens all);
 		&:extend(.vru-top-1);
 		&:extend(.fontsize-med);
@@ -408,7 +409,7 @@ main {
 /*@LISTS*/
 //++++++//
 /**
-  * This Object represents a generic list. It may be a literal `ol` or `ul` element containing `li` elements, or it may be an abstract notion of a list of other Objects. The order of list items may be releveant or irrelevant.
+  * This Object represents a generic list. It may be a literal `ol` or `ul` element containing `li` elements, or it may be the abstract notion of a list of other Objects. The order of list items may be releveant or irrelevant.
 @implemens
 : .vru-top
 @tags
@@ -420,41 +421,10 @@ main {
 : 2014-05-03
   */
 .List {
-	&:extend(.vru-top);
+	&:extend(.vru-top-1);
 	display: block;
-	padding-left: 48px; // 0.5in;
+	list-style-type: none;
 }
-/**
-  * This Object represents a list used for an outline. Typical uses include table of contents, etc. Outlines are by definition, ordered.
-@tags
-: #typography
-: #lists
-: #ordered
-@author
-: Chris Harvey
-@updated
-: 2014-05-03
-  */
-.List.Otln {
-	list-style-type: decimal-leading-zero; //  01.  02.  03.
-}
-/**
-  * These Objects represent outlined lists with different enumeration types.
-@tags
-: #typography
-: #lists
-@author
-: Chris Harvey
-@updated
-: 2014-05-03
-  */
-.List.Otln.Omega   {list-style-type: decimal-leading-zero;} //  01.  02.  03.
-.List.Otln.Alpha   {list-style-type: upper-roman;}          //   I.  II. III.
-.List.Otln.Beta    {list-style-type: upper-alpha;}          //   A.   B.   C.
-.List.Otln.Gamma   {list-style-type: decimal;}              //   1.   2.   3.
-.List.Otln.Delta   {list-style-type: lower-alpha;}          //   a.   b.   c.
-.List.Otln.Epsilon {list-style-type: lower-roman;}          //   i.  ii. iii.
-.List.Otln.Zeta    {list-style-type: lower-greek;}          //   α.   β.   γ.
 /**
   * This Object represents a generic list item. It may be a literal `li` element inside an `ol` or `ul` element, or it may be any Object in a List Object.
 @implemens
@@ -470,7 +440,67 @@ main {
 .List > .Item {
 	&:extend(.vru-content);
 	display: list-item;
+	> .List {&:extend(.vru-top-0);}
 }
+/**
+  * This Object represents an ordered list, or a list used for an outline. This does *not* correspond directly to a literal `ol` element; this Object is simply to be displayed with block list items, with markers that indicate order. Typical uses include table of contents, etc. Outlines are by definition, ordered.
+@tags
+: #typography
+: #list
+: #ordered
+@author
+: Chris Harvey
+@updated
+: 2014-05-11
+  */
+.List.O {
+	padding-left: (@separator * 2);
+	list-style-type: decimal-leading-zero; //  01.  02.  03.
+	list-style-type: decimal;              //   1.   2.   3.
+}
+/**
+  * These Objects represent outlined lists with different enumeration types.
+@tags
+: #typography
+: #list
+: #ordered
+@author
+: Chris Harvey
+@updated
+: 2014-05-03
+  */
+.List.O.Omega   {list-style-type: decimal-leading-zero;} //  01.  02.  03.
+.List.O.Alpha   {list-style-type: upper-roman;}          //   I.  II. III.
+.List.O.Beta    {list-style-type: upper-alpha;}          //   A.   B.   C.
+.List.O.Gamma   {list-style-type: decimal;}              //   1.   2.   3.
+.List.O.Delta   {list-style-type: lower-alpha;}          //   a.   b.   c.
+.List.O.Epsilon {list-style-type: lower-roman;}          //   i.  ii. iii.
+.List.O.Zeta    {list-style-type: lower-greek;}          //   α.   β.   γ.
+/**
+  * This Object represents a generic list whose items are to be displayed as blocks with the same markers. It does *not* necessarily correspond directly to a literal `ul` element.
+@tags
+: #typography
+: #list
+: #unordered
+@author
+: Chris Harvey
+@updated
+: 2014-05-11
+  */
+.List.U {
+	padding-left: (@separator * 2);
+	list-style-type: square;
+}
+.List.I {
+	
+}
+.List.I > .Item {
+	display: inline;
+}
+.List.I.Comma > .Item:not(:last-child)::after {content:          ',\0020';}
+.List.I.Ndash > .Item:not(:last-child)::after {content: '\0020\2013\0020';}
+.List.I.Mdash > .Item:not(:last-child)::after {content: '\0020\2014\0020';}
+
 //++++ @end LISTS ++++//
 
 

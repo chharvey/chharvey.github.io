@@ -9,6 +9,54 @@
 /*@Fonts*/
 /** These determine 1rem and the 'magic number'. Change these if you wish. */
 /*@Colors*/
+#aperture_white {
+  background-color: #fafcff;
+}
+#aperture_black {
+  background-color: #050300;
+}
+#atlas {
+  background-color: #0062ff;
+}
+#pbody {
+  background-color: #ff9d00;
+}
+#repulsion {
+  background-color: #2b9cff;
+}
+#propulsion {
+  background-color: #ff8e2b;
+}
+#deploying {
+  background-color: #ff1500;
+}
+#hereye {
+  background-color: #fff155;
+}
+#lakesuperior {
+  background-color: #001e80;
+}
+#cavescaves {
+  background-color: #80522b;
+}
+#facilityabyss {
+  background-color: #406b80;
+}
+#asbestos {
+  background-color: #bf9300;
+}
+#vilify {
+  background-color: #6300bf;
+}
+#neurotoxin {
+  background-color: #a7bf20;
+}
+#bridges {
+  background-color: #d5fbff;
+}
+#companion {
+  background-color: #ffaac2;
+}
 /*@FUNCTIONS*/
 /*--------------*\
     reset.less
@@ -154,6 +202,10 @@ var {
   font-weight: inherit;
   font-family: inherit;
 }
+ol,
+ul {
+  list-style-type: none;
+}
 /*-------------------*\
     interfaces.less
 \*-------------------*/
@@ -241,11 +293,11 @@ var {
 : 2014-05-02
   */
 .parens::before,
-.Qblock.Long .Src.Long::before {
+.Qblock.Long .Src::before {
   content: '(';
 }
 .parens::after,
-.Qblock.Long .Src.Long::after {
+.Qblock.Long .Src::after {
   content: ')';
 }
 /**
@@ -528,7 +580,7 @@ var {
 }
 .fontsize-med,
 .Qblock.Long,
-.Qblock.Long .Src.Long {
+.Qblock.Long .Src {
   font-size: 16px;
   font-size: 1rem;
   line-height: 1.5;
@@ -593,7 +645,8 @@ var {
   */
 .vru-top-0,
 .P.Capt,
-.Qblock > :first-child {
+.Qblock > :first-child,
+.List > .Item > .List {
   margin-top: 0;
 }
 .vru-bottom-0 {
@@ -601,7 +654,8 @@ var {
 }
 .vru-top-1,
 .P,
-.Qblock.Long .Src.Long {
+.Qblock.Long .Src,
+.List {
   margin-top: 24px;
   margin-top: 1.5rem;
 }
@@ -846,6 +900,9 @@ main {
 @updated
 : 2014-04-26
   */
+.P {
+  display: block;
+}
 /**
   * This Object represents a lede paragraph, which may be an introduction or abstract to an article.
 @extends
@@ -1030,7 +1087,7 @@ main {
 .Qblock .Src::before {
   content: '~\0020';
 }
-.Qblock.Long .Src.Long {
+.Qblock.Long .Src {
   padding-right: 0;
 }
 @media print {
@@ -1067,7 +1124,7 @@ main {
 }
 /*@LISTS*/
 /**
-  * This Object represents a generic list. It may be a literal `ol` or `ul` element containing `li` elements, or it may be an abstract notion of a list of other Objects. The order of list items may be releveant or irrelevant.
+  * This Object represents a generic list. It may be a literal `ol` or `ul` element containing `li` elements, or it may be the abstract notion of a list of other Objects. The order of list items may be releveant or irrelevant.
 @implemens
 : .vru-top
 @tags
@@ -1080,52 +1137,7 @@ main {
   */
 .List {
   display: block;
-  padding-left: 48px;
-}
-/**
-  * This Object represents a list used for an outline. Typical uses include table of contents, etc. Outlines are by definition, ordered.
-@tags
-: #typography
-: #lists
-: #ordered
-@author
-: Chris Harvey
-@updated
-: 2014-05-03
-  */
-.List.Otln {
-  list-style-type: decimal-leading-zero;
-}
-/**
-  * These Objects represent outlined lists with different enumeration types.
-@tags
-: #typography
-: #lists
-@author
-: Chris Harvey
-@updated
-: 2014-05-03
-  */
-.List.Otln.Omega {
-  list-style-type: decimal-leading-zero;
-}
-.List.Otln.Alpha {
-  list-style-type: upper-roman;
-}
-.List.Otln.Beta {
-  list-style-type: upper-alpha;
-}
-.List.Otln.Gamma {
-  list-style-type: decimal;
-}
-.List.Otln.Delta {
-  list-style-type: lower-alpha;
-}
-.List.Otln.Epsilon {
-  list-style-type: lower-roman;
-}
-.List.Otln.Zeta {
-  list-style-type: lower-greek;
+  list-style-type: none;
 }
 /**
   * This Object represents a generic list item. It may be a literal `li` element inside an `ol` or `ul` element, or it may be any Object in a List Object.
@@ -1141,6 +1153,81 @@ main {
   */
 .List > .Item {
   display: list-item;
+}
+/**
+  * This Object represents an ordered list, or a list used for an outline. This does *not* correspond directly to a literal `ol` element; this Object is simply to be displayed with block list items, with markers that indicate order. Typical uses include table of contents, etc. Outlines are by definition, ordered.
+@tags
+: #typography
+: #list
+: #ordered
+@author
+: Chris Harvey
+@updated
+: 2014-05-11
+  */
+.List.O {
+  padding-left: 48px;
+  list-style-type: decimal-leading-zero;
+  list-style-type: decimal;
+}
+/**
+  * These Objects represent outlined lists with different enumeration types.
+@tags
+: #typography
+: #list
+: #ordered
+@author
+: Chris Harvey
+@updated
+: 2014-05-03
+  */
+.List.O.Omega {
+  list-style-type: decimal-leading-zero;
+}
+.List.O.Alpha {
+  list-style-type: upper-roman;
+}
+.List.O.Beta {
+  list-style-type: upper-alpha;
+}
+.List.O.Gamma {
+  list-style-type: decimal;
+}
+.List.O.Delta {
+  list-style-type: lower-alpha;
+}
+.List.O.Epsilon {
+  list-style-type: lower-roman;
+}
+.List.O.Zeta {
+  list-style-type: lower-greek;
+}
+/**
+  * This Object represents a generic list whose items are to be displayed as blocks with the same markers. It does *not* necessarily correspond directly to a literal `ul` element.
+@tags
+: #typography
+: #list
+: #unordered
+@author
+: Chris Harvey
+@updated
+: 2014-05-11
+  */
+.List.U {
+  padding-left: 48px;
+  list-style-type: square;
+}
+.List.I > .Item {
+  display: inline;
+}
+.List.I.Comma > .Item:not(:last-child)::after {
+  content: ',\0020';
+}
+.List.I.Ndash > .Item:not(:last-child)::after {
+  content: '\0020\2013\0020';
+}
+.List.I.Mdash > .Item:not(:last-child)::after {
+  content: '\0020\2014\0020';
 }
 /*@TEXT-LEVEL*/
 /**
