@@ -46,6 +46,10 @@ th, td {
 th {font-weight: bold;}
 [data-bool="0"] {color: #fafcff; background-color: #0062ff;} /* aperture_white; atlas */
 [data-bool="1"] {color: #050300; background-color: #ff9d00;} /* aperture_black; pbody */
+.draft, [data-status="draft"] {
+	background-color: #fffcfa;
+	opacity: 0.618;
+}
 </style>
 <!--{% include all-js.html %}-->
 <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
@@ -269,7 +273,7 @@ $(document).ready(function () {
 			<li class="Item">
 				<p class="P Lede">Sometimes, a prose list item may have a lede that acts like a heading.</p>
 				<p class="P">In this case, it must be a <code>.P.Lede</code> Object. Again, this lede does not affect the Document Outline.</p>
-				<p class="P">Note: Though actual <code class="lang-css">h1</code>s are <a class="sp" href="http://www.w3.org/html/wg/drafts/html/master/grouping-content.html#the-li-element" rel="external">technically permissible</a> inside <code class="lang-css">li</code>s, they usually make the Document Outline look icky, so we do not use them in this specification.</p>
+				<p class="P">Note: Though literal <code>h1</code>s are <a rel="external" href="http://www.w3.org/html/wg/drafts/html/master/grouping-content.html#the-li-element">technically permissible</a> inside <code>li</code>s, they usually make the Document Outline look icky, so we don't use them.</p>
 			</li>
 		</ol>
 		<p class="P">The following is a <code>.List.U</code>. Its items are displayed as blocks with identical markers.</p>
@@ -300,56 +304,55 @@ $(document).ready(function () {
 			<li class="Item">This is a <code>.List.I.Mdash &gt; .Item</code></li>
 			<li class="Item">This is a <code>.List.I.Mdash &gt; .Item</code></li>
 		</ol>
-
-		
-		
-		
-		<ol class="list-float-3 typo-list">
-			<li>To create a list in which list items float to the left,</li>
-			<li> include the <code class="lang-css">.list-float(@liwidth)</code> mixin in your Less, where <code class="lang-css">@liwidth</code> is the width, in percent, you specify for each <code class="lang-css">li</code>.</li>
-			<li>Alternatively, you may use the following pre-defined classes.</li>
-			<li>
-				<dl class="dl-table-med">
-					<dt><code class="lang-css">.list-float-1</code>&nbsp;</dt>
-					<dd>= 100%</dd>
-					<dt><code class="lang-css">.list-float-2</code>&nbsp;</dt>
-					<dd>= 50%</dd>
-					<dt><code class="lang-css">.list-float-3</code>&nbsp;</dt>
-					<dd>&asymp; 33.333%</dd>
-					<dt><code class="lang-css">.list-float-4</code>&nbsp;</dt>
-					<dd>= 25%</dd>
-					<dt><code class="lang-css">.list-float-5</code>&nbsp;</dt>
-					<dd>= 20%</dd>
-					<dt><code class="lang-css">.list-float-6</code>&nbsp;</dt>
-					<dd>&asymp; 16.666%</dd>
-				</dl>
-			</li>
-			<li>The <code class="lang-css">.list-float(@liwidth)</code> works like a <code class="lang-css">.list-line</code>, except that the list items' widths are fixed and the list may span multiple lines.</li>
-		</ol>
-		<ol class="list-action typo-list">
-			<li>This is a <code class="lang-css">.list-action</code>.</li>
-			<li>Action lists are used specifically for:
-				<ul>
-					<li>short,</li>
-					<li>one-line,</li>
-					<li>textual hyperlinks.</li>
+		<ol class="List A">
+			<li class="Item">This is a <code>.List.A</code>, an action list.</li>
+			<li class="Item">Action lists are used specifically for:
+				<ul class="List A">
+					<li class="Item">short,</li>
+					<li class="Item">one-line,</li>
+					<li class="Item">textual hyperlinks.</li>
 				</ul>
 			</li>
-			<li>This is normal text.</li>
-			<li><a>This is an <code class="lang-css">a</code>.</a></li>
-			<li><a href="">This is an <code class="lang-css">a[href]</code>.</a></li>
+			<li class="Item">This is normal text.</li>
+			<li class="Item"><a>This is a <code>.List.A &gt; .Item &gt; a</code>.</a></li>
+			<li class="Item"><a href="">This is a <code>.List.A &gt; .Item &gt; a[href]</code>.</a></li>
 		</ol>
-		<ol class="prose typo-list">
-			<li>
-				<p>An <code class="lang-css">ol.prose</code> has <code class="lang-css">list-style-type: decimal;</code> by default, but some prose lists may have other <code class="lang-css">list-style-type</code>s, such as <code class="lang-css">lower-alpha</code>. Use the Greek letter list classes shown above for cutsom numbering.</p>
-			</li>
-			<li>
-				<p><span class="s-lede">This is a lede sentence of a prose list item.</span> The rest of this list item is normal text. The rest of this list item is normal text. The rest of this list item is normal text. The rest of this list item is normal text.</p>
-			</li>
-			<li>
-				<p><span class="s-lede">This is a lede that acts like a heading&hellip;</span><br/>The rest of this list item is normal text. The rest of this list item is normal text. The rest of this list item is normal text. The rest of this list item is normal text.</p>
-			</li>
+<!--
+		<p class="P">The following <code>.List.F</code> has items that float to the left. Each <code>.Item</code> has a Class that specifies its width.</p>
+		<ol class="List F">
+			<li class="Item F1o1">This is a <code>.List.F > .Item.F1o1</code>.</li>
 		</ol>
+		<ol class="List F">
+			<li class="Item F1o2">This is a <code>.List.F > .Item.F1o2</code>.</li>
+			<li class="Item F1o2">This is a <code>.List.F > .Item.F1o2</code>.</li>
+		</ol>
+		<ol class="List F">
+			<li class="Item F1o3">This is a <code>.List.F > .Item.F1o3</code>.</li>
+			<li class="Item F1o3">This is a <code>.List.F > .Item.F1o3</code>.</li>
+			<li class="Item F1o3">This is a <code>.List.F > .Item.F1o3</code>.</li>
+		</ol>
+		<ol class="List F">
+			<li class="Item F1o4">This is a <code>.List.F > .Item.F1o4</code>.</li>
+			<li class="Item F1o4">This is a <code>.List.F > .Item.F1o4</code>.</li>
+			<li class="Item F1o4">This is a <code>.List.F > .Item.F1o4</code>.</li>
+			<li class="Item F1o4">This is a <code>.List.F > .Item.F1o4</code>.</li>
+		</ol>
+		<ol class="List F">
+			<li class="Item F1o5">This is a <code>.List.F > .Item.F1o5</code>.</li>
+			<li class="Item F1o5">This is a <code>.List.F > .Item.F1o5</code>.</li>
+			<li class="Item F1o5">This is a <code>.List.F > .Item.F1o5</code>.</li>
+			<li class="Item F1o5">This is a <code>.List.F > .Item.F1o5</code>.</li>
+			<li class="Item F1o5">This is a <code>.List.F > .Item.F1o5</code>.</li>
+		</ol>
+		<dl>
+			<dt><code>.Item.F1o1</code></dt><dd>= 100%</dd>
+			<dt><code>.Item.F1o2</code></dt><dd>= 50%</dd>
+			<dt><code>.Item.F1o3</code></dt><dd>&asymp; 33.333%</dd>
+			<dt><code>.Item.F1o4</code></dt><dd>= 25%</dd>
+			<dt><code>.Item.F1o5</code></dt><dd>= 20%</dd>
+			<dt><code>.Item.F1o6</code></dt><dd>&asymp; 16.666%</dd>
+		</dl>
+-->
 		<section id="scheme-bc">
 			<h1 class="h--delta">Breadcrumbs</h1>
 		</section>

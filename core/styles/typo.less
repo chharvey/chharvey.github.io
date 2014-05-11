@@ -427,7 +427,7 @@ main {
 }
 /**
   * This Object represents a generic list item. It may be a literal `li` element inside an `ol` or `ul` element, or it may be any Object in a List Object.
-@implemens
+@implements
 : .vru-content
 @tags
 : #typography
@@ -440,10 +440,28 @@ main {
 .List > .Item {
 	&:extend(.vru-content);
 	display: list-item;
-	> .List {&:extend(.vru-top-0);}
+}
+/**
+  * This Object represents a List Object within a List Item Object.
+@implements
+: .vru-top-0
+: .indent
+@tags
+: #typography
+: #lists
+@author
+: Chris Harvey
+@updated
+: 2014-05-10
+  */
+.List > .Item > .List {
+	&:extend(.vru-top-0);
+	&:extend(.indent);
 }
 /**
   * This Object represents an ordered list, or a list used for an outline. This does *not* correspond directly to a literal `ol` element; this Object is simply to be displayed with block list items, with markers that indicate order. Typical uses include table of contents, etc. Outlines are by definition, ordered.
+@implements
+: .indent
 @tags
 : #typography
 : #list
@@ -454,7 +472,7 @@ main {
 : 2014-05-11
   */
 .List.O {
-	padding-left: (@separator * 2);
+	&:extend(.indent);
 	list-style-type: decimal-leading-zero; //  01.  02.  03.
 	list-style-type: decimal;              //   1.   2.   3.
 }
@@ -478,6 +496,8 @@ main {
 .List.O.Zeta    {list-style-type: lower-greek;}          //   α.   β.   γ.
 /**
   * This Object represents a generic list whose items are to be displayed as blocks with the same markers. It does *not* necessarily correspond directly to a literal `ul` element.
+@implements
+: .indent
 @tags
 : #typography
 : #list
@@ -488,19 +508,71 @@ main {
 : 2014-05-11
   */
 .List.U {
-	padding-left: (@separator * 2);
+	&:extend(.indent);
 	list-style-type: square;
 }
+/**
+  * This Object represents a generic list whose items are to be displayed inline.
+@tags
+: #typography
+: #list
+: #inline
+@author
+: Chris Harvey
+@updated
+: 2014-05-11
+  */
 .List.I {
-	
+	> .Item {
+		display: inline;
+		&.Comma::after {content:          ',\0020';}
+		&.Ndash::after {content: '\0020\2013\0020';}
+		&.Mdash::after {content: '\0020\2014\0020';}
+	}
 }
-.List.I > .Item {
-	display: inline;
+/**
+  * This Object represents a generic list whose items are to be displayed as blocks that have `float: left;`.
+@tags
+: #typography
+: #list
+: #float
+: #hack
+@author
+: Chris Harvey
+@updated
+: 2014-05-11
+  */
+//.List.F {
+//	display: table; // HACK for floats!
+//	> .Item {
+//		display: block;
+//		float: left;
+//	}
+//	> .Item.F1o1:extend(#_ .width-f1o1) {}
+//	> .Item.F1o2:extend(#_ .width-f1o2) {}
+//	> .Item.F1o3:extend(#_ .width-f1o3) {}
+//	> .Item.F1o4:extend(#_ .width-f1o4) {}
+//	> .Item.F1o5:extend(#_ .width-f1o5) {}
+//	> .Item.F1o6:extend(#_ .width-f1o6) {}
+//}
+/**
+  * This Object represents an action list, which typically contains hyperlinks.
+@tags
+: #typography
+: #list
+: #link
+@author
+: Chris Harvey
+@updated
+: 2014-05-11
+  */
+.List.A {
+	> .Item {
+		         color: @color_linka_up_txt;
+		&:hover {color: @color_linka_dn_txt;}
+		&::before {content: '\2713\0020';} // check mark, space
+	}
 }
-.List.I.Comma > .Item:not(:last-child)::after {content:          ',\0020';}
-.List.I.Ndash > .Item:not(:last-child)::after {content: '\0020\2013\0020';}
-.List.I.Mdash > .Item:not(:last-child)::after {content: '\0020\2014\0020';}
-
 //++++ @end LISTS ++++//
 
 
