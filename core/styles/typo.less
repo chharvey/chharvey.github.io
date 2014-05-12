@@ -9,12 +9,15 @@
 //- HEADINGS
 //- PARAGRAPHS
 //	- Quasi-Paragraphs
+//- LISTS
+//- MAPS
+
+
+
 //- TEXT-LEVEL
 
 
 
-//- LISTS
-//- ASSOCIATION LISTS
 //- TABLES
 //- HYPERLINKS
 //- HIGHLIGHTED TEXT
@@ -260,8 +263,6 @@ main {
 @implements
 : .vru-content
 : .fontsize-small
-@mixesin
-: .spacing-phi()
 @tags
 : #typography
 : #caption
@@ -275,7 +276,6 @@ main {
 .Capt {
 	&:extend(.vru-content);
 	&:extend(.fontsize-sml);
-//	.spacing-phi(right; 3px; solid; @color_accent);
 	text-align: right;
 }
 /**
@@ -447,11 +447,11 @@ main {
 //++++++//
 /**
   * This Object represents a generic list. It may be a literal `ol` or `ul` element containing `li` elements, or it may be the abstract notion of a list of other Objects. The order of list items may be releveant or irrelevant.
-@implemens
-: .vru-top
+@implements
+: .vru-top-1
 @tags
 : #typography
-: #lists
+: #list
 @author
 : Chris Harvey
 @updated
@@ -468,7 +468,7 @@ main {
 : .vru-content
 @tags
 : #typography
-: #lists
+: #list
 @author
 : Chris Harvey
 @updated
@@ -485,7 +485,7 @@ main {
 : .indent
 @tags
 : #typography
-: #lists
+: #list
 @author
 : Chris Harvey
 @updated
@@ -569,18 +569,19 @@ main {
 }
 /**
   * This Object represents a generic list whose items are to be displayed as blocks that have `float: left;`.
+@implements
+: .clearfix
 @tags
 : #typography
 : #list
 : #float
-: #hack
 @author
 : Chris Harvey
 @updated
 : 2014-05-11
   */
 //.List.F {
-//	display: table; // HACK for floats!
+//	&:extend(.clearfix all);
 //	> .Item {
 //		display: block;
 //		float: left;
@@ -611,6 +612,107 @@ main {
 	}
 }
 //++++ @end LISTS ++++//
+
+
+//+++++//
+/*@MAPS*/
+//+++++//
+/**
+  * This Object represents an association list, which contains name-value pairs. Each pair consists of exactly one `.Nam` and exactly one `.Val`.
+@implements
+: .vru-top-1
+@tags
+: #typography
+: #map
+@author
+: Chris Harvey
+@updated
+: 2014-05-12
+  */
+.Map {
+	&:extend(.vru-top-1);
+	display: block;
+}
+/**
+  * This Object represent the name in a name-value pair of a `.Map`.
+@tags
+: #typography
+: #map
+@author
+: Chris Harvey
+@updated
+: 2014-05-12
+  */
+.Map > .Nam {
+}
+/**
+  * This Object represent the value in a name-value pair of a `.Map`.
+@implements
+: .indent
+@tags
+: #typography
+: #map
+@author
+: Chris Harvey
+@updated
+: 2014-05-12
+  */
+.Map > .Val {
+	&:extend(.indent);
+}
+/**
+  * This Object represents a Map Object within a Name Object or Val Object.
+@implements
+: .vru-top-0
+@tags
+: #typography
+: #map
+@author
+: Chris Harvey
+@updated
+: 2014-05-12
+  */
+.Map > .Nam > .Map,
+.Map > .Val > .Map {
+	&:extend(.vru-top-0);
+}
+/**
+  * This Object represents an association list in which names are grouped together in one column and values are grouped together in one column.
+  * This map acts like a table, with each row containing a single name-value group.
+@extends
+: .Map
+@implements
+: .clearfix
+@params
+: @dtwidth : a percentage, which specifies the width of `.Nam`
+@tags
+: #typography
+: #map
+@author
+: Chris Harvey
+@updated
+: 2014-05-12
+  */
+.Map.Vert {
+	&:extend(.clearfix all);
+	> .Nam,
+	> .Val {
+		padding: 0;
+	}
+	> .Nam {float: left; width: @golden2;}
+	> .Val {float: left; width: @golden1;}
+	> .Val + .Nam {clear: both;}
+}
+.MapVertMx(@namewidth) {
+	> .Nam {width: @namewidth;}
+	> .Val {width: (100% - @namewidth);}
+}
+.Map.Vert.Sml {.MapVertMx(@golden3);}   // 23.6067977499789696%
+.Map.Vert.Msm {.MapVertMx(@golden2);}   // 38.1966011250105152% // default
+.Map.Vert.Med {.MapVertMx(@1o2);}       // 50%
+.Map.Vert.Mlg {.MapVertMx(@golden1);}   // 61.8033988749894848%
+.Map.Vert.Lrg {.MapVertMx(@golden3c);}  // 76.3932022500210304%
+//++++ @end MAPS ++++//
 
 
 //+++++++++++//
