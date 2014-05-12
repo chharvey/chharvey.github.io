@@ -601,7 +601,7 @@ ul {
 }
 .fontsize-sml,
 .fontsize-sml-inline,
-.P.Capt,
+.Capt,
 .Qblock .Src {
   font-size: 12px;
   font-size: 0.75rem;
@@ -640,6 +640,8 @@ ul {
   */
 .vru-content,
 .P,
+.Capt,
+.Addy,
 .Fig,
 .Qblock,
 .List > .Item {
@@ -658,7 +660,7 @@ ul {
 : 2014-05-10
   */
 .vru-top-0,
-.P.Capt,
+.Fig > :first-child,
 .Qblock > :first-child,
 .List > .Item > .List {
   margin-top: 0;
@@ -693,7 +695,7 @@ ul {
 : 2014-04-26
   */
 .vru-top-phi,
-.P.Addy,
+.Addy,
 .Fig,
 .Qblock {
   padding-top: 9.16718427px;
@@ -906,6 +908,7 @@ main {
 @implements
 : .vru-content
 : .vru-top-1
+//: .fontsize-med
 @tags
 : #typography
 : #paragraph
@@ -961,32 +964,46 @@ main {
   font-family: 'Times', 'Times New Roman', serif;
   color: #001e80;
 }
+/*@Quasi-Paragraphs*/
 /**
-  * This Object represents a generic caption of any sort. A caption is usually a short summary or description of some content ("the described content"). The described content may be in a literal `figure` element, `table` element, or it may be any generic content. Since `.Capt` is an extension of the `.P` Object, it may *not* contain paragraphs. If the described content is only text, the caption should be shorter and more concise than the content's text.
+  * This Object represents a generic caption of any sort. A caption is usually a short summary or description of some content ("the described content"). The described content may be in a literal `figure` element, `table` element, or it may be any generic content. Since captions are usually too short to be a paragraph, it may *not* contain `.P` Objects. If the described content is text only, the caption should be shorter and more concise than the content's text.
   * If this `.Capt` is a child of a `figure` element, it should be a `figcaption` element. If this `.Capt` is a child of a `table` element, it should be a `caption` element.
-  * A caption may appear before or after the described content, even if it and the content are children of the same Object (e.g., a `figure`). A `.P.Capt.Before` appears before the content; a `.P.Capt.After` appears after.
-  * Note: According to the HTML5 specs, a `table > caption`, if it exists, may *only* be the first child.
-@extends
-: .P
 @implements
+: .vru-content
 : .fontsize-small
+@mixesin
+: .spacing-phi()
+@tags
+: #typography
+: #caption
+: #table
+: #figure
+@author
+: Chris Harvey
+@updated
+: 2014-05-11
+  */
+.Capt {
+  text-align: right;
+}
+/**
+  * A caption may appear before or after the described content, even if it and the content are children of the same Object (e.g., a `figure`). A `.P.Capt.Before` appears before the content; a `.P.Capt.After` appears after.
+  * Note: According to the HTML5 specs, a `table > caption`, if it exists, may *only* be the first child. However, applying `.Capt.Before` to the `table > caption:first-child` will make it look ugly, because the borders conflict and it will have `display: block;` rather than `display: table-caption;`. Just don't apply `.Capt.Before` or `.Capt.After` to `table > caption`s.
+@extends
+: .Capt
 @mixesin
 : .border-vert-one()
 @tags
 : #typography
-: #paragraph
+: #caption
 : #table
 : #figure
-: #caption
 @author
 : Chris Harvey
 @updated
 : 2014-05-10
   */
-.P.Capt {
-  text-align: right;
-}
-.P.Capt.Before {
+.Capt.Before {
   display: block;
   position: relative;
   top: -1px;
@@ -995,7 +1012,7 @@ main {
   border-bottom-style: dotted;
   border-color: #ff1500;
 }
-.P.Capt.After {
+.Capt.After {
   display: block;
   position: relative;
   top: -1px;
@@ -1008,7 +1025,8 @@ main {
   * This Object represents a generic postal address. It may be the contact address of the document author(s) (contained in an `address` element), or it may be any arbitrary postal mailing address.
 @extends
 : .P
-@implemens
+@implements
+: .vru-content
 : .vru-top-phi
 @mixesin
 : .spacing-phi()
@@ -1021,11 +1039,11 @@ main {
 @updated
 : 2014-04-30
   */
-.P.Addy {
+.Addy {
   border-right: 3px solid #ff1500;
   padding-right: 4.85410197px;
   margin-right: 12.70820393px;
-  border-radius: 3px;
+  border-radius: 6px;
   font-family: 'Avenir', 'Calibri', 'Century Gothic', sans-serif;
   text-align: right;
 }
@@ -1033,9 +1051,9 @@ main {
   * This Object represents a generic figure in a document. A figure contains excerpts of text, examples, or images that are used to illustrate a concept. This may or may not be a literal `figure` element.
   * Inside this `.Fig` there may exist a `.Capt` (a generic caption), either at the beginning or at the end. The `.Capt` may or may not be a `figcaption` or `caption` element.
   * Content in this `.Fig`---including its caption---is permissible to be extracted from the document and presented on its own.
-@implemens
+@implements
 : .vru-content
-: .vru-top
+: .vru-top-phi
 @tags
 : #typography
 : #figure
@@ -1056,9 +1074,7 @@ main {
 /**
   * This Object represents any Block Quotation, representing material taken directly from another source. It may or may not take the form of a literal `blockquote` element.
   * If the original source is less than 40 words and does not have paragraph breaks (for example, extracted inline text from an article), this `.Qblock` should not contain Paragraphs; it should directly contain the source's text.
-  * If the original source is more than 40 words and does not have paragraph breaks, this `.Qblock` should have exactly one Paragraph, which contains the text from the source.
-  * If the original source has paragraph breaks, regardless of word count, this `.Qblock` should have paragraph breaks that correspond to the source.
-@implemens
+@implements
 : .vru-content
 : .vru-top-phi
 : .fontsize-lrg
@@ -1079,12 +1095,11 @@ main {
   font-family: 'Avenir', 'Calibri', 'Century Gothic', sans-serif;
 }
 /**
-  * This Object represents the citation of a source inside a Block Quotation. It is recommended to apply this Class to a `cite` element.
-  * Use Class `.Src` if the original source is less than 40 words and does not have paragraph breaks (for example, extracted inline text from an article).
-  * Use subclass `.Src.Long` if the original source is more than 40 words and does not have paragraph breaks, or if the original source has paragraph breaks regardless of word count.
-@implemens
-: .vru-top-1
-: .fontsize-med
+  * The `.Src` Object represents the citation of a source inside a `.Qblock` element. It is recommended to apply this Class to a `cite` element.
+@belongsto
+: .Qblock
+@implements
+: .fontsize-sml
 @tags
 : #typography
 : #quote
@@ -1101,6 +1116,20 @@ main {
 .Qblock .Src::before {
   content: '~\0020';
 }
+/**
+  * This Object represents a "long" block quotation.
+  * If the original source is more than 40 words and does not have paragraph breaks, this `.Qblock.Long` should have exactly one `.P` object, which contains the text from the source.
+  * If the original source has paragraph breaks, regardless of word count, this `.Qblock.Long` should have paragraph breaks that correspond to the source.
+@implements
+: .fontsize-med
+@tags
+: #typography
+: #quote
+@author
+: Chris Harvey
+@updated
+: 2014-05-10
+  */
 .Qblock.Long .Src {
   padding-right: 0;
 }

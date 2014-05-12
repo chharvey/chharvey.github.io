@@ -98,7 +98,7 @@ $(document).ready(function () {
 		<h1 class="H Epsilon">Heading 5 <span class="Hsub">Level Epsilon</span></h1>
 		<h1 class="H Zeta">Heading 6    <span class="Hsub">Level Zeta</span></h1>
 		<table class="Row" data-status="informative">
-			<caption class="P Capt">An informative summary of the six heading levels' styles.</caption>
+			<caption class="Capt">An informative summary of the six heading levels' styles.</caption>
 			<thead>
 				<tr>
 					<th class="Cell P3">Heading Level</th>
@@ -195,9 +195,16 @@ $(document).ready(function () {
 			<p class="P Dropcap">Authors may want to use a fancy drop cap in the first paragraph of an article or in a book chapter. This is an <code>.Article &gt; .P.Dropcap</code>. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text.</p>
 			<p class="P Lede Dropcap">Sometimes, the Article may have a Lede paragraph. This is an <code>.Article &gt; .P.Lede.Dropcap</code>. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text. The rest of the paragraph is text.</p>
 		</div>
-		<p class="P Capt">This is a <code>.P.Capt</code>. It should be a sibling of the content it describes.</p>
-		<p class="P Capt Before">This is a <code>.P.Capt.Before</code>. It goes before the described content.</p>
-		<p class="P Capt After">This is a <code>.P.Capt.After</code>. It goes after the described content.</p>
+	</section>
+	<section id="scheme-quasi-paragraphs">
+		<h1 class="H Gamma">Quasi-Paragraph Scheme</h1>
+		<p class="P">This section describes Objects that are similar to paragraphs in concept but do not extend the <code>.P</code> Object.</p>
+		<p class="Capt">
+			This is a <code>.Capt</code>. It should be a sibling of the content it describes.
+<!--			Some captions appear before the described content (e.g., a <code>table &gt; caption:first-child</code>), and some captions appear after the described content (e.g., a <code>figure &gt; figcaption:last-child</code>).-->
+		</p>
+		<p class="Capt Before">This is a <code>.Capt.Before</code>. It goes before the described content.</p>
+		<p class="Capt After">This is a <code>.Capt.After</code>. It goes after the described content.</p>
 		<p class="P">The following is a <code>.P.Addy</code>. It represents an arbitrary postal mailing address. It may or may not be the postal mailing address of the document author(s); if it is, it should be contained in an <code>address</code> element. The traditional method of displaying line breaks is the <code>&lt;br/&gt;</code> tag.</p>
 		<p class="P Addy">
 			Chris Harvey<br/>
@@ -207,26 +214,31 @@ $(document).ready(function () {
 			<a href="">ch@example.com</a><br/>
 			<a href="">@ch12345</a>
 		</p>
-		<section id="scheme-figure-blockquote">
-			<h1 class="H Delta">Figures and Block Quotations</h1>
-			<figure class="Fig">This is a <code>.Fig</code> Object. It may or may not contain <code>.P</code> Objects.
-				<figcaption class="P Capt"><span class="S Lede">This is a <code>.Fig &gt; .P.Capt &gt; .S.Lede</code>.</span>  It usually contains the <code>.Fig</code>'s title (e.g., &ldquo;Figure 1&rdquo;). This is the rest of the <code>.Fig &gt; .P.Capt</code>.</figcaption>
-			</figure>
-			<blockquote class="Qblock">
-				This is a short <code>.Qblock</code> with no paragraph breaks. It has less than 40 words.
-				<footer><cite class="Src">Source&nbsp;(<code>.Qblock .Src</code>)</cite></footer>
-			</blockquote>
-			<blockquote class="Qblock Long">
-				<p class="P">This is a <code>.Qblock.Long &gt; .P:only-of-type</code>. The original source has more than 40 words but no paragraph breaks. This is the rest of the quotation. This is the rest of the quotation. This is the rest of the quotation. This is the rest of the quotation. This is the rest of the quotation.</p>
-				<footer><cite class="Src">Source, <time>2000</time> (<code>.Qblock.Long .Src</code>)</cite></footer>
-			</blockquote>
-			<blockquote class="Qblock Long">
-				<p class="P">This is a <code>.Qblock.Long &gt; .P</code>.</p>
-				<p class="P">This is another <code>.Qblock.Long &gt; .P</code>.</p>
-				<p class="P">The original source has paragraph breaks (regardless of word count).</p>
-				<footer><cite class="Src">Source, <time>2000</time></cite></footer>
-			</blockquote>
-		</section>
+		<figure class="Fig">This is a <code>.Fig</code> Object. It may or may not contain <code>.P</code> Objects.
+			<figcaption class="Capt After"><span class="S Lede">This is a <code>.Fig &gt; .Capt.After &gt; .S.Lede</code>.</span>  The lede usually contains the <code>.Fig</code>'s title (e.g., &ldquo;Figure&nbsp;1&rdquo;). This is the rest of the <code>.Fig &gt; .Capt.After</code>.</figcaption>
+		</figure>
+		<figure class="Fig">
+			<figcaption class="Capt Before">Some figures contain paragraphs. This is the rest of the <code>.Fig &gt; .Capt.Before</code>.</figcaption>
+			<p class="P">This <code>.Fig</code> Object contains <code>.P</code> Objects.</p>
+			<p class="P">This is another <code>.Fig &gt; .P</code>.</p>
+		</figure>
+		<figure class="Fig">
+			<p class="P">Some <code>.Fig</code> Objects do not need <code>.Capt</code> Objects.</p>
+		</figure>
+		<blockquote class="Qblock">
+			This is a short <code>.Qblock</code> with no paragraph breaks. It has less than 40 words.
+			<footer><cite class="Src">Source&nbsp;(<code>.Qblock .Src</code>)</cite></footer>
+		</blockquote>
+		<blockquote class="Qblock Long">
+			<p class="P">This is a <code>.Qblock.Long &gt; .P:only-of-type</code>. The original source has more than 40 words but no paragraph breaks. This is the rest of the quotation. This is the rest of the quotation. This is the rest of the quotation. This is the rest of the quotation. This is the rest of the quotation.</p>
+			<footer><cite class="Src">Source, <time>2000</time> (<code>.Qblock.Long .Src</code>)</cite></footer>
+		</blockquote>
+		<blockquote class="Qblock Long">
+			<p class="P">This is a <code>.Qblock.Long &gt; .P</code>.</p>
+			<p class="P">This is another <code>.Qblock.Long &gt; .P</code>.</p>
+			<p class="P">The original source has paragraph breaks (regardless of word count).</p>
+			<footer><cite class="Src">Source, <time>2000</time></cite></footer>
+		</blockquote>
 	</section>
 	<section id="scheme-list" class="typo-list">
 		<h1 class="H Gamma">List Scheme</h1>
