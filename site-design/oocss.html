@@ -1,0 +1,56 @@
+---
+---
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Good Object-Oriented CSS</title>
+<meta charset="UTF-8"/>
+<meta name="author" content="Christopher H. Harvey"/>
+<meta name="description" content="Guidelines on CSS with a true object-oriented paradigm."/>
+<!--<link rel="stylesheet" href="../core/styles/all.css"/>-->
+<style>
+</style>
+{% include all-js.html %}
+</head>
+<body>
+<main>
+<h1 class="H Alpha">Object-Oriented CSS</h1>
+<p class="prose">This document describes guidelines for writing good <a href="http://www.w3.org/TR/CSS/" rel="external">CSS</a> with a true object-oriented programming (<abbr>OOP</abbr>) point of view. For more information, read up on <a href="http://lesscss.org" rel="external">Less CSS</a>, <a>Sass</a>, and <a rel="external" href="https://github.com/stubbornella/oocss">Nicole Sullivan's <abbr title="object-oriented cascading style sheets">OOCSS</abbr> open-source project</a>.</p>
+<section>
+	<h1 class="H Gamma">The Original Intent of HTML Classes</h1>
+	<p class="P">Classes were <a>originally</a> meant to group <strong>semantically similar</strong> elements together. For example, all elements that represent warnings on a page could be instances of the <code>.warning</code> class. A side effect of similar elements belonging to one class is that they can all be styled the same way with CSS.</p>
+	<p class="P">Now with the development of Object-Oriented CSS, we have learned to take advantage of classes and use them for many different reasons. Such a diverse use of one specific feature of HTML has grown so large it has become an epidemic.</p>
+</section>
+<section>
+	<h1 class="H Gamma">&ldquo;Classes&rdquo; of Classes</h1>
+	<p class="P">There is a clear case of &ldquo;classitis&rdquo; in the Web-developing world. Before you object, settle down. My definition of classitis refers not to the overuse of classes&mdash;there can never be too many classes present in an HTML document&mdash;but to the fact that we are using classes for <em>everything</em>. We need to seriously look at how and why we are using classes, what kinds of &ldquo;classifications&rdquo; into which we can organize them, and maybe provide some alternative methods and/or conventions for implementing semantics and style. I even go insofar as to suggest ammendments to the CSS specification. After all, <a rel="external">we are using a very old technology to achieve very new things</a>.</p>
+	<p class="P">The following sections describe different ways that classes are currently being used in CSS.</p>
+	<section>
+		<h1 class="H Delta">Presentational</h1>
+		<p class="P">Presentational classnames describe the properties of the class. Examples include <code>.big</code>, <code>.margin-top-24</code>, <code>.list-inline</code>, and <code>.grid-50-left</code>.</p>
+		<p class="P">There are some cases in which having these classes available in CSS is helpful. In short, they provide abstraction. Classes such as <code>.margin-top-24</code> and <code>.list-inline</code> can be used as a mechanism for consistency, and can save developers the hassle of having to repeat the same lines of code over and over again. For example, redefining the same top margin on multiple elements is not only tedius but also error prone. The developer has to remember the number of pixels, code is repeated, and upkeep is expensive. These classes provide an easy and scalable solution. Another case of this is using a <a href="grid.html">grid system</a>. A class such as <code>.grid-50-left</code> is <em>very</em> presentational but necessary for <abbr title="don't repeat yourself">DRY</abbr> code.</p>
+		<p class="P">There are two types of presentational classes: classes that are used to abstract repeating patterns, such as <code>.margin-top-24</code>, and classes that represent physical objects like <code>.grid-50-left</code>. Though these types are tehnically indistinguishable&mdash;they have a given set of properties just like any CSS class&mdash;they are used for different purposes. We must make the distinction clear to provide a starting point for the cure of classitis. The former type, so-called &ldquo;utility classes,&rdquo; don't really represent Objects in the sense of Object-Oriented programming. They're just a collection of properties that are used many times within a site. The latter type, we'll call &ldquo;Classes&rdquo; We will see in a minute </p>
+		<p class="P">Presentational classes should <em>not</em> be accessible to the HTML. There are a number of reasons:</p>
+		<ol class="">
+			<li><span class="lede-sent">HTML describes content, not presentation.</span> Technically, classes are in the HTML. Adding class <code>.boldred</code> to an <code>small</code> element does not add any semantic value to the text. An ideal alternative would be to use <code>small.warning</code> (or something similar) and then have the <code>.warning</code> class extend <code>.boldred</code> in some way.</li>
+			<li><span class="lede-sent">The Theoretical Redesign Future.</span> If you wanted to change the properties of the <code>.boldred</code> class, say, make it italic instead of bold, now you have to deal with an awkward classname, or you have to change the classname everywhere in the HTML.</li>
+		</ol>
+		<p class="P">There are a few solutions to this usage. The first solution is to use a mixin. A mixin allows the developer to reuse lines of code without having to write them over and over again. It's basically a glorified copy-and-paste. Mixins are available in CSS pre-processors such as Less and Sass, and using a mixin instead of a class will hide the <del>classname</del> <ins>mixin name</ins> from the CSS output. That means the name can't be used in HTML, which is good.</p>
+		<p class="P">The problem with mixins is that although they make life easier for the developer, the compiled CSS is still not DRY. The properties are still being written over and over again (this time by the compiler), which means a lot of work for the browser, a lot of bytes to download, etc.</p>
+		<p class="P">A better solution is to still use a class, but &ldquo;hide&rsquo; it from the HTML by nesting it into a nonsensical ID selector. For example, in your CSS (or Less), define <code>#_&nbsp;&nbsp;.boldred {&hellip;}</code> and extend it with the classes you need such as <code>.warning</code>. Yes, the class <code>.boldred</code> is still available to the HTML, but the styles will only apply if it's in an element with <code>id=&quot;_&quot;</code>, which I hope you'd never use. By the way, this is the one time you can use an ID selector. (And it's really not even an ID selector.) </p>
+	</section>
+	<section>
+		<h1 class="H Delta">Semantic</h1>
+		<p class="prose">Semantic classnames describe the meaning of the component and/or its contents. Examples include <code>.pacingtable</code>, <code>.answer</code>, <code>.optional</code>, and <code>.success</code>.</p>
+		<p class="P">These are good classes to have because they mark up HTML elements with data describing what they mean. For example, take the element <code>p.success</code>. There are two semantic things going on here: first, the <code>&lt;p&gt;</code> tag describes what the element <em>is</em> (a paragraph), but second, the <code>&quot;success&quot;</code> class describes what the element <em>means</em>: it is some sort of indication of success, such as the completion of an upload. In a way, the classname has more semantic value than the element name itself!</p>
+	</section>
+</section>
+<div hidden="">
+	<h1>Rules</h1>
+	<p>OOCSS classes must only implement interfaces that have been previously defined in a stylesheet. The reason is to honor the Cascade. If a class were to extend a class that were defined <em>afterward</em>, then some of the properties in the subclass may get overridden by properties in the superclass.</p>
+	<p>OOCSS classes must only include mixins that have been previously defined in a styesheet. The reason is to prevent infinite loops (or in set theory terms, irregular sets). If .bar includes .foo and .foo includes class .bar, the Less will not compile. Thus if .foo is written before .bar, then .bar may extend .foo but .foo may not include .bar.</p>
+	<p>However, any class may include any mixin, regardless of where the mixin was defined. Keep in mind that the order of mixin declarations in a class's style block will affect the order of styles that apply on compilation. Mixins should be "called" in the order they were defined in the stylesheet.</p>
+</div>
+</main>
+</body>
+</html>
