@@ -35,7 +35,7 @@ code {
 #scheme-map .Nam,
 #scheme-map .Val {
 	outline: 1px solid #bbb;
-	background: #eee;
+	background-color: #eee;
 }
 
 table {
@@ -260,17 +260,7 @@ $(document).ready(function () {
 			<li class="Item">This is a <code class="lang-css">.List.O &gt; .Item</code>.</li>
 			<li class="Item">This is a <code class="lang-css">.List.O &gt; .Item</code>.</li>
 		</ol>
-		<p class="P">Prose lists are simply <code>.List.O</code> Objects whose child <code>.Items</code> contain <code>.P</code> Objects.</p>
-		<ol class="List O">
-			<li class="Item"><p class="P">A prose list is a <code>.List.O</code> whose <code>.Item</code>s consist of prose. Each <code>.Item</code> contains only <code>.P</code> Objects.</p></li>
-			<li class="Item"><p class="P"><span class="S Lede">Typically, each list item in a prose list will have a lede sentence.</span> The lede sentence is treated like an actual list item in a short list, if the rest of the prose were not present. It can also be be thought of as a lede or &ldquo;heading&rdquo; for the text, although it does not take part in the Document Outline. The lede sentence must be a <code>.S.Lede</code> at the beginning of the <code>.Item</code>.</p></li>
-			<li class="Item" data-status="draft">
-				<p class="P Lede">Sometimes, a prose list item may have a lede that acts like a heading.</p>
-				<p class="P">In this case, it must be a <code>.P.Lede</code> Object. Again, this lede does not affect the Document Outline.</p>
-				<p class="P">Note: Though literal <code>h1</code>s are <a rel="external" href="http://www.w3.org/html/wg/drafts/html/master/grouping-content.html#the-li-element">technically permissible</a> inside <code>li</code>s, they usually make the Document Outline look icky, so we don't use them.</p>
-			</li>
-		</ol>
-		<p class="P">Nest <code>.List.O</code> subclasses to create an outline, such as a table of contents.</p>
+		<p class="P">Nest <code>.List.O</code> subclasses to create an outline list, such as a table of contents.</p>
 		<ol class="List O Alpha">
 			<li class="Item">This is a <code>.List.O.Alpha &gt; .Item</code>
 				<ol class="List O Beta">
@@ -294,13 +284,13 @@ $(document).ready(function () {
 				</ol>
 			</li>
 		</ol>
-		<p class="P">The following is a <code>.List.U</code>. Its items are displayed as blocks with identical markers.</p>
+		<p class="P">The following is a <code>.List.U</code> Object. Its items are displayed as blocks with identical markers.</p>
 		<ul class="List U">
 			<li class="Item">This is a <code>.List.U &gt; .Item</code>.</li>
 			<li class="Item">This is a <code>.List.U &gt; .Item</code>.</li>
 			<li class="Item">This is a <code>.List.U &gt; .Item</code>.</li>
 		</ul>
-		<p class="P">The following is a <code>.List.I</code>. Its items are displayed inline, with no markers.</p>
+		<p class="P">The following is a <code>.List.I</code> Object. Its items are displayed inline, with no markers.</p>
 		<ol class="List I">
 			<li class="Item">This is a <code>.List.I &gt; .Item</code>.</li>
 			<li class="Item">This is a <code>.List.I &gt; .Item</code>.</li>
@@ -322,17 +312,6 @@ $(document).ready(function () {
 			<li class="Item Mdash">This is a <code>.List.I &gt; .Item.Mdash</code></li>
 			<li class="Item">This is a <code>.List.I &gt; .Item</code></li>
 		</ol>
-		<ol class="List I" data-status="draft">
-			<li class="Item" style="outline: 0; background-color: transparent;">Combining <code>p</code> elements and <code>ol</code> elements, we can create what is known as an &ldquo;inline prose list.&rdquo; Three things happen with this construction:</li>
-			<li class="Item" style="outline: 0; background-color: transparent;">
-				<ol class="List I" style="display: inline; padding: 0;">
-					<li class="Item" style="outline: 0; background-color: transparent;">(1) There are three elements: a <code>p</code>, an <code>ol</code>, and another <code>p</code>. These elements appear inline together as one paragraph without flow interrupted. This is achieved by containing them all in a <code>div.P</code>;</li>
-					<li class="Item" style="outline: 0; background-color: transparent;">(2) The <code>li</code> items in the <code>ol</code> also appear inline, as if they were part of the paragraph itself; and</li>
-					<li class="Item" style="outline: 0; background-color: transparent;">(3) The containing paragraph, represented by a <code>div.P</code>, is still displayed as a block, so that its surrounding siblings do not appear on the same line.</li>
-				</ol>
-			</li>
-			<li class="Item" style="outline: 0; background-color: transparent;">With these three functions taking place, one can utilize the semantics of the ordered list while still maintaining the style of continuous prose.</li>
-		</ol>
 		<ol class="List A">
 			<li class="Item">This is a <code>.List.A</code>.</li>
 			<li class="Item">Action lists are used specifically for</li>
@@ -344,6 +323,45 @@ $(document).ready(function () {
 			<li class="Item"><a href="">This is a <code>.List.A &gt; .Item &gt; a[href]</code>.</a></li>
 			<li class="Item"><a class="Link">This is a <code>.List.A &gt; .Item &gt; .Link</code>.</a></li>
 		</ol>
+		<section>
+			<h1 class="H Delta">Lists and Prose</h1>
+			<p class="P">This section describes common ways of combining lists with normal prose. The first method is used for listing whole blocks of content, for example a description after each list item. The second method is for using lists within prose.</p>
+			<p class="P">A &ldquo;List of Prose&rdquo;, or a <abbr title="List of Prose">LOP</abbr>, is simply a <code>.List.O</code> Object whose child <code>.Items</code> contain <code>.P</code> Objects.</p>
+			<ol class="List O">
+				<li class="Item"><p class="P">A LOP is a <code>.List.O</code> whose <code>.Item</code>s consist of prose. Each <code>.Item</code> contains only <code>.P</code> Objects.</p></li>
+				<li class="Item"><p class="P"><span class="S Lede">Typically, each list item in a prose list will have a lede sentence.</span> The lede sentence is treated like an actual list item in a short list, if the rest of the prose were not present. It can also be be thought of as a lede or &ldquo;heading&rdquo; for the text, although it does not take part in the Document Outline. The lede sentence must be an <code>.S.Lede</code> Object at the beginning of the <code>.Item</code>.</p></li>
+				<li class="Item">
+					<p class="P Lede">Sometimes, a prose list item may have a lede that acts like a heading.</p>
+					<p class="P">In this case, it must be a <code>.P.Lede</code> Object. Again, this lede does not affect the Document Outline.</p>
+					<p class="P">Note: Though literal <code>h1</code>s are <a rel="external" href="http://www.w3.org/html/wg/drafts/html/master/grouping-content.html#the-li-element">technically permissible</a> inside <code>li</code>s, they usually make the Document Outline look icky, so we don't use them.</p>
+				</li>
+			</ol>
+			<div class="P outer">
+				<style scoped="">
+					.outer {
+						display: block;
+						counter-reset: count;
+					}
+					.inner {
+						display: inline;
+					}
+					.it {
+						display: inline;
+						counter-increment: count;
+					}
+					.it::before {
+						content: '(' counter(count) ') ';
+					}
+				</style>
+				<p class="inner">Combining <code>p</code> elements and <code>ol</code> elements, we can create what is known as a &ldquo;List in Prose,&rdquo;, or a <abbr title="List in Prose">LIP</abbr>. Three things happen with this construction:</p>
+				<ol class="inner List I">
+					<li class="it Item">there are three elements: a <code>p</code>, an <code>ol.List.I</code>, and another <code>p</code>, all contained within a <code>div.P</code>. These elements appear inline together as one paragraph without flow interrupted;</li>
+					<li class="it Item">the <code>ol.List.I &gt; li.Item</code>s also appear inline, as if they were part of the paragraph itself; and</li>
+					<li class="it Item">the containing Paragraph Object, represented by the <code>div.P</code>, is still displayed as a block so that its surrounding siblings do not appear on the same line.</li>
+				</ol>
+				<p class="inner">With these three functions taking place, one can utilize the semantics of the ordered list while still maintaining the style of continuous prose.</p>
+			</div>
+		</section>
 <!--
 		<p class="P">The following <code>.List.F</code> has items that float to the left. Each <code>.Item</code> has a Class that specifies its width.</p>
 		<ol class="List F">
