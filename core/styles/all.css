@@ -1144,6 +1144,8 @@ main {
   * This Object represents a "long" block quotation.
   * If the original source is more than 40 words and does not have paragraph breaks, this `.Qblock.Long` should have exactly one `.P` object, which contains the text from the source.
   * If the original source has paragraph breaks, regardless of word count, this `.Qblock.Long` should have paragraph breaks that correspond to the source.
+@extends
+: .Qblock
 @implements
 : .fontsize-med
 @tags
@@ -1162,8 +1164,7 @@ main {
   .H,
   .Fig,
   .P.Addy,
-  .Qblock,
-  .Table {
+  .Qblock {
     font-size: 16px;
     font-size: 1rem;
     line-height: 1.5;
@@ -1236,6 +1237,8 @@ main {
   */
 /**
   * This Object represents an ordered list, or a list used for an outline. This does *not* correspond directly to a literal `ol` element; this Object is simply to be displayed with block list items, with markers that indicate order. Typical uses include table of contents, etc. Outlines are by definition, ordered.
+@extends
+: .List
 @implements
 : .indent
 @tags
@@ -1253,6 +1256,8 @@ main {
 }
 /**
   * These Objects represent outlined lists with different enumeration types.
+@extends
+: .List.O
 @tags
 : #typography
 : #list
@@ -1285,6 +1290,8 @@ main {
 }
 /**
   * This Object represents a generic list whose items are to be displayed as blocks with the same markers. It does *not* necessarily correspond directly to a literal `ul` element.
+@extends
+: .List
 @implements
 : .indent
 @tags
@@ -1301,6 +1308,8 @@ main {
 }
 /**
   * This Object represents a generic list whose items are to be displayed inline.
+@extends
+: .List
 @tags
 : #typography
 : #list
@@ -1337,6 +1346,8 @@ main {
   */
 /**
   * This Object represents an action list, which typically contains hyperlinks.
+@extends
+: .List
 @tags
 : #typography
 : #list
@@ -1373,6 +1384,8 @@ main {
 }
 /**
   * This Object represent the name in a name-value pair of a `.Map`.
+@belongsto
+: .Map
 @tags
 : #typography
 : #map
@@ -1383,6 +1396,8 @@ main {
   */
 /**
   * This Object represent the value in a name-value pair of a `.Map`.
+@belongsto
+: .Map
 @implements
 : .indent
 @tags
@@ -1412,11 +1427,10 @@ main {
 : .Map
 @implements
 : .clearfix
-@params
-: @dtwidth : a percentage, which specifies the width of `.Nam`
 @tags
 : #typography
 : #map
+: #golden
 @author
 : Chris Harvey
 @updated
@@ -1425,18 +1439,33 @@ main {
 .Map.Vert > .Nam,
 .Map.Vert > .Val {
   padding: 0;
+  float: left;
 }
 .Map.Vert > .Nam {
-  float: left;
   width: 38.19660113%;
 }
 .Map.Vert > .Val {
-  float: left;
   width: 61.80339887%;
 }
 .Map.Vert > .Val + .Nam {
   clear: both;
 }
+/**
+  * This Object represents an association list in which names are grouped together in one column and values are grouped together in one column. The column widths are specified by this subclass.
+  * This map acts like a table, with each row containing a single name-value group.
+@extends
+: .Map.Vert
+@params
+: @namewidth : a percentage, which specifies the width of `.Nam`
+@tags
+: #typography
+: #map
+: #golden
+@author
+: Chris Harvey
+@updated
+: 2014-05-17
+  */
 .Map.Vert.Sml > .Nam {
   width: 23.60679775%;
 }
@@ -1466,6 +1495,73 @@ main {
 }
 .Map.Vert.Lrg > .Val {
   width: 23.60679775%;
+}
+/*@TABLES*/
+.Table > .Rowgroup {
+  border-width: 1px 0;
+  border-style: solid;
+  border-color: #ff1500;
+}
+.Table > .Rowgroup > .r > .c {
+  border: 0;
+}
+.Table > .Rowgroup > .r > .c.H {
+  font-weight: bold;
+  background-color: #d5fbff;
+}
+.Table.List > .Rowgroup .r:nth-child(odd) {
+  background-color: #e3fdff;
+}
+.Table.List > .Rowgroup .r:nth-child(even) {
+  background-color: #f1feff;
+}
+.Table.Bars > .Rowgroup.Head > .r .c.H:nth-child(odd) {
+  background-color: #f4fcfc;
+}
+.Table.Bars > .Rowgroup.Head > .r .c.H:nth-child(even) {
+  background-color: #e8f8fa;
+}
+.Table.Bars > .Rowgroup.Head > .r .c.H:first-child {
+  background-color: #ddf5f7;
+}
+.Table.Bars > .Rowgroup > .r .c:nth-child(odd) {
+  background-color: #f1feff;
+}
+.Table.Bars > .Rowgroup > .r .c:nth-child(even) {
+  background-color: #e3fdff;
+}
+.Table.Grid > .Rowgroup.Head,
+.Table.Grid > .Rowgroup > .r > .c.H {
+  background-color: #d5fbff;
+}
+.Table.Grid > .Rowgroup > .r > .c {
+  border: 1px solid #ff1500;
+}
+.Table.Grid > .Rowgroup > .r:nth-child(odd) > .c:nth-child(odd) {
+  background-color: #f1feff;
+}
+.Table.Grid > .Rowgroup > .r:nth-child(odd) > .c:nth-child(even) {
+  background-color: #e3fdff;
+}
+.Table.Grid > .Rowgroup > .r:nth-child(even) > .c:nth-child(odd) {
+  background-color: #e3fdff;
+}
+.Table.Grid > .Rowgroup > .r:nth-child(even) > .c:nth-child(even) {
+  background-color: #d5fbff;
+}
+table {
+  counter-reset: nrows;
+  counter-increment: nrows;
+}
+table tr {
+  counter-increment: nrows;
+}
+@media print {
+  .Table {
+    font-size: 16px;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
 }
 /*@TEXT-LEVEL*/
 /**
@@ -1522,4 +1618,14 @@ main {
 }
 [hidden] {
   display: none !important;
+}
+/*dl*/
+.dl--ordered {
+  padding-left: 48px;
+}
+.dl--ordered > dt:first-child,
+.dl--ordered > dd + dt {
+  display: list-item;
+  list-style-type: decimal;
+  list-style-position: outside;
 }

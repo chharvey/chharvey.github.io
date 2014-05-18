@@ -10,6 +10,7 @@
 //	- Quasi-Paragraphs
 //- LISTS
 //- MAPS
+//- TABLES
 
 
 
@@ -17,7 +18,6 @@
 
 
 
-//- TABLES
 //- HYPERLINKS
 //- HIGHLIGHTED TEXT
 //- DOCUMENTATION
@@ -395,6 +395,8 @@ main {
   * This Object represents a "long" block quotation.
   * If the original source is more than 40 words and does not have paragraph breaks, this `.Qblock.Long` should have exactly one `.P` object, which contains the text from the source.
   * If the original source has paragraph breaks, regardless of word count, this `.Qblock.Long` should have paragraph breaks that correspond to the source.
+@extends
+: .Qblock
 @implements
 : .fontsize-med
 @tags
@@ -419,8 +421,7 @@ main {
 @media print {
 	body,
 	.H,
-	.Fig, .P.Addy, .Qblock,
-	.Table {
+	.Fig, .P.Addy, .Qblock {
 		.fontsize-med;
 	}
 	body {
@@ -496,6 +497,8 @@ main {
 }
 /**
   * This Object represents an ordered list, or a list used for an outline. This does *not* correspond directly to a literal `ol` element; this Object is simply to be displayed with block list items, with markers that indicate order. Typical uses include table of contents, etc. Outlines are by definition, ordered.
+@extends
+: .List
 @implements
 : .indent
 @tags
@@ -514,6 +517,8 @@ main {
 }
 /**
   * These Objects represent outlined lists with different enumeration types.
+@extends
+: .List.O
 @tags
 : #typography
 : #list
@@ -532,6 +537,8 @@ main {
 .List.O.Zeta    {list-style-type: lower-greek;}          //   α.   β.   γ.
 /**
   * This Object represents a generic list whose items are to be displayed as blocks with the same markers. It does *not* necessarily correspond directly to a literal `ul` element.
+@extends
+: .List
 @implements
 : .indent
 @tags
@@ -549,6 +556,8 @@ main {
 }
 /**
   * This Object represents a generic list whose items are to be displayed inline.
+@extends
+: .List
 @tags
 : #typography
 : #list
@@ -594,6 +603,8 @@ main {
 //}
 /**
   * This Object represents an action list, which typically contains hyperlinks.
+@extends
+: .List
 @tags
 : #typography
 : #list
@@ -605,9 +616,9 @@ main {
   */
 .List.A {
 	> .Item {
-		         color: @color_linka_up_txt;
-		&:hover {color: @color_linka_dn_txt;}
-		&::before {content: '\2713\0020';} // check mark, space
+  		color: @color_linka_up_txt;
+  		&:hover {color: @color_linka_dn_txt;}
+  		&::before {content: '\2713\0020';} // check mark, space
 	}
 }
 //++++ @end LISTS ++++//
@@ -634,6 +645,8 @@ main {
 }
 /**
   * This Object represent the name in a name-value pair of a `.Map`.
+@belongsto
+: .Map
 @tags
 : #typography
 : #map
@@ -646,6 +659,8 @@ main {
 }
 /**
   * This Object represent the value in a name-value pair of a `.Map`.
+@belongsto
+: .Map
 @implements
 : .indent
 @tags
@@ -682,11 +697,10 @@ main {
 : .Map
 @implements
 : .clearfix
-@params
-: @dtwidth : a percentage, which specifies the width of `.Nam`
 @tags
 : #typography
 : #map
+: #golden
 @author
 : Chris Harvey
 @updated
@@ -697,11 +711,28 @@ main {
 	> .Nam,
 	> .Val {
 		padding: 0;
+		float: left;
 	}
-	> .Nam {float: left; width: @golden2;}
-	> .Val {float: left; width: @golden1;}
+	> .Nam {width: @golden2;}
+	> .Val {width: @golden1;}
 	> .Val + .Nam {clear: both;}
 }
+/**
+  * This Object represents an association list in which names are grouped together in one column and values are grouped together in one column. The column widths are specified by this subclass.
+  * This map acts like a table, with each row containing a single name-value group.
+@extends
+: .Map.Vert
+@params
+: @namewidth : a percentage, which specifies the width of `.Nam`
+@tags
+: #typography
+: #map
+: #golden
+@author
+: Chris Harvey
+@updated
+: 2014-05-17
+  */
 .MapVertMx(@namewidth) {
 	> .Nam {width: @namewidth;}
 	> .Val {width: (100% - @namewidth);}
@@ -712,6 +743,88 @@ main {
 .Map.Vert.Mlg {.MapVertMx(@golden1);}   // 61.8033988749894848%
 .Map.Vert.Lrg {.MapVertMx(@golden3c);}  // 76.3932022500210304%
 //++++ @end MAPS ++++//
+
+
+//+++++++//
+/*@TABLES*/
+//+++++++//
+.Table {
+	> .Head,
+	> .Body,
+	> .Foot {
+		.Cell {}
+	}
+}
+.Table > .Rowgroup {
+	border-width: 1px 0;
+	border-style: solid;
+	border-color: @color_table_brdr;
+}
+
+.Table > .Rowgroup.Head {}
+.Table > .Rowgroup.Body {}
+.Table > .Rowgroup.Foot {}
+
+.Table > .Rowgroup > .r {}
+.Table > .Rowgroup > .r > .c {
+	border: 0;
+}
+.Table > .Rowgroup > .r > .c.H {
+	font-weight: bold;
+	background-color: @color_table_bg_hi;
+}
+
+.Table.List > .Rowgroup {
+	.r:nth-child(odd)  {background-color: @color_table_bg_md;}
+	.r:nth-child(even) {background-color: @color_table_bg_lo;}
+}
+.Table.Bars {
+	> .Rowgroup.Head > .r {
+		.c.H:nth-child(odd)  {background-color: desaturate(@color_table_bg_lo, @fade);}
+		.c.H:nth-child(even) {background-color: desaturate(@color_table_bg_md, @fade);}
+		.c.H:first-child     {background-color: desaturate(@color_table_bg_hi, @fade);}
+	}
+	> .Rowgroup > .r {
+		.c:nth-child(odd)  {background-color: @color_table_bg_lo;}
+		.c:nth-child(even) {background-color: @color_table_bg_md;}
+	}
+}
+.Table.Grid {
+	> .Rowgroup.Head,
+	> .Rowgroup > .r > .c.H {background-color: @color_table_bg_hi;}
+	> .Rowgroup {
+		> .r {
+			> .c {border: 1px solid @color_table_brdr;}
+		}
+		> .r:nth-child(odd) {
+			> .c:nth-child(odd)  {background-color: @color_table_bg_lo;}
+			> .c:nth-child(even) {background-color: @color_table_bg_md;}
+		}
+		> .r:nth-child(even) {
+			> .c:nth-child(odd)  {background-color: @color_table_bg_md;}
+			> .c:nth-child(even) {background-color: @color_table_bg_hi;}
+		}
+	}
+}
+table {
+	counter-reset: nrows;
+	tr {
+		counter-increment: nrows;
+	}
+	counter-increment: nrows; // once more for the last border
+//		@btm: -(((nrows + 12) % 24) - 12);
+//		if (btm <= 0) {
+//			margin-bottom: @btm;
+//		} else {
+//			padding-bottom: @btm;
+//		}
+}
+@media print {
+	.Table {
+		.fontsize-med;
+	}
+}
+//++++ @end TABLES ++++//
 
 
 //+++++++++++//
