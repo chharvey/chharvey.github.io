@@ -4,7 +4,7 @@
 \*--------------*/
 
 /**
-	* This Object represents an association list, which contains name-value pairs. Each pair consists of exactly one `.Nam` and exactly one `.Val`.
+  * This Object represents an association list, which contains name-value pairs. Each pair consists of exactly one `.Nam` and exactly one `.Val`.
 @implements
 : .vru-top-1
 @tags
@@ -14,13 +14,15 @@
 : Chris Harvey
 @updated
 : 2014-05-12
-	*/
+  */
 .Map {
 	&:extend(.vru-top-1);
 	display: block;
 }
 /**
-	* This Object represent the name in a name-value pair of a `.Map`.
+  * This Object represent the name in a name-value pair of a `.Map`.
+@belongsto
+: .Map
 @tags
 : #typography
 : #map
@@ -28,11 +30,14 @@
 : Chris Harvey
 @updated
 : 2014-05-12
-	*/
+  */
 .Map > .Nam {
+
 }
 /**
-	* This Object represent the value in a name-value pair of a `.Map`.
+  * This Object represent the value in a name-value pair of a `.Map`.
+@belongsto
+: .Map
 @implements
 : .indent
 @tags
@@ -42,12 +47,12 @@
 : Chris Harvey
 @updated
 : 2014-05-12
-	*/
+  */
 .Map > .Val {
 	&:extend(.indent);
 }
 /**
-	* This Object represents a Map Object within a Name Object or Val Object.
+  * This Object represents a Map Object within a Name Object or Val Object.
 @implements
 : .vru-top-0
 @tags
@@ -57,38 +62,54 @@
 : Chris Harvey
 @updated
 : 2014-05-12
-	*/
+  */
 .Map > .Nam > .Map,
 .Map > .Val > .Map {
 	&:extend(.vru-top-0);
 }
 /**
-	* This Object represents an association list in which names are grouped together in one column and values are grouped together in one column.
-	* This map acts like a table, with each row containing a single name-value group.
+  * This Object represents an association list in which names are grouped together in one column and values are grouped together in one column.
+  * This map acts like a table, with each row containing a single name-value group.
 @extends
 : .Map
 @implements
 : .clearfix
-@params
-: @dtwidth : a percentage, which specifies the width of `.Nam`
 @tags
 : #typography
 : #map
+: #golden
 @author
 : Chris Harvey
 @updated
 : 2014-05-12
-	*/
+  */
 .Map.Vert {
 	&:extend(.clearfix all);
 	> .Nam,
 	> .Val {
 		padding: 0;
+		float: left;
 	}
-	> .Nam {float: left; width: @golden2;}
-	> .Val {float: left; width: @golden1;}
+	> .Nam {width: @golden2;}
+	> .Val {width: @golden1;}
 	> .Val + .Nam {clear: both;}
 }
+/**
+  * This Object represents an association list in which names are grouped together in one column and values are grouped together in one column. The column widths are specified by this subclass.
+  * This map acts like a table, with each row containing a single name-value group.
+@extends
+: .Map.Vert
+@params
+: @namewidth : a percentage, which specifies the width of `.Nam`
+@tags
+: #typography
+: #map
+: #golden
+@author
+: Chris Harvey
+@updated
+: 2014-05-17
+  */
 .MapVertMx(@namewidth) {
 	> .Nam {width: @namewidth;}
 	> .Val {width: (100% - @namewidth);}
