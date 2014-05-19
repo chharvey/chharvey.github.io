@@ -252,6 +252,10 @@ ul {
 .List > .Item > .List,
 .List.O,
 .List.U,
+.Map > .Val,
+.List > .Item > .List,
+.List.O,
+.List.U,
 .Map > .Val {
   padding-left: 48px;
 }
@@ -279,6 +283,7 @@ ul {
 : 2014-05-12
   */
 .clearfix::after,
+.Map.Vert::after,
 .Map.Vert::after {
   content: ' ';
   clear: both;
@@ -312,6 +317,7 @@ ul {
   */
 .lede,
 .P.Lede,
+.P.Lede,
 .S.Lede {
   font-weight: bold;
   font-family: 'Optima', 'Candara', 'Helvetica', sans-serif;
@@ -327,10 +333,12 @@ ul {
 : 2014-05-02
   */
 .parens::before,
+.Qblock.Long .Src::before,
 .Qblock.Long .Src::before {
   content: '(';
 }
 .parens::after,
+.Qblock.Long .Src::after,
 .Qblock.Long .Src::after {
   content: ')';
 }
@@ -607,12 +615,15 @@ ul {
   */
 .fontsize-lrg,
 .fontsize-lrg-inline,
+.Qblock,
 .Qblock {
   font-size: 20px;
   font-size: 1.25rem;
   line-height: 1.2;
 }
 .fontsize-med,
+.Qblock.Long,
+.Qblock.Long .Src,
 .Qblock.Long,
 .Qblock.Long .Src {
   font-size: 16px;
@@ -621,6 +632,8 @@ ul {
 }
 .fontsize-sml,
 .fontsize-sml-inline,
+.Capt,
+.Qblock .Src,
 .Capt,
 .Qblock .Src {
   font-size: 12px;
@@ -664,6 +677,12 @@ ul {
 .Addy,
 .Fig,
 .Qblock,
+.List > .Item,
+.P,
+.Capt,
+.Addy,
+.Fig,
+.Qblock,
 .List > .Item {
   min-height: 24px;
   min-height: 1.5rem;
@@ -684,6 +703,11 @@ ul {
 .Qblock > :first-child,
 .List > .Item > .List,
 .Map > .Nam > .Map,
+.Map > .Val > .Map,
+.Fig > :first-child,
+.Qblock > :first-child,
+.List > .Item > .List,
+.Map > .Nam > .Map,
 .Map > .Val > .Map {
   margin-top: 0;
 }
@@ -694,14 +718,19 @@ ul {
 .P,
 .Qblock.Long .Src,
 .List,
+.Map,
+.P,
+.Qblock.Long .Src,
+.List,
 .Map {
-  margin-top: 24px;
-  margin-top: 1.5rem;
+  margin-top: 1 * 24px;
+  margin-top: 1 * 1.5rem;
 }
 .vru-bottom-1,
+.P.Lede,
 .P.Lede {
-  padding-bottom: 24px;
-  padding-bottom: 1.5rem;
+  padding-bottom: 1 * 24px;
+  padding-bottom: 1 * 1.5rem;
 }
 /**
   * This Mixin sets the padding-top, border-top, and margin-top such that the padding:margin ratio is Golden, while keeping the border-top-width. The sum of the padding, border, and margin is one vertical rhythm unit.
@@ -718,6 +747,9 @@ ul {
 : 2014-04-26
   */
 .vru-top-phi,
+.Addy,
+.Fig,
+.Qblock,
 .Addy,
 .Fig,
 .Qblock {
@@ -745,6 +777,767 @@ ul {
 /** Adjust only the top or bottom border. */
 /** Adjust both the top and bottom borders. */
 /** Adjust all four borders. */
+/*--------------*\
+    _body.less
+\*--------------*/
+html {
+  font-weight: normal;
+  font-variant: normal;
+  font-style: normal;
+  font-size: 16px;
+  font-family: 'Optima', 'Candara', 'Helvetica', sans-serif;
+  line-height: 1.5;
+}
+body {
+  margin: 0;
+  text-align: left;
+  vertical-align: baseline;
+  color: #050300;
+  background-color: #fafcff;
+}
+main {
+  margin-left: 23.60679775%;
+  margin-right: 14.58980338%;
+  margin-bottom: 192px;
+}
+/**
+  * This Object represents a generic article, technical document, blog post, etc. This Object may or may not take the form of a literal `article` element or `main` element of a page. This Object is designed to contain other block-level Objects such as Headings and Paragraphs.
+@tags
+: #typography
+: #article
+@author
+: Chris Harvey
+@updated
+: 2014-05-03
+  */
+.Article {
+  font-family: 'Baskerville', 'Palatino', 'Book Antiqua', serif;
+  text-align: justify;
+}
+/**
+  * This Object represents text in an article that is not to displayed like .Article text. Essentially it reverts back to the body copy styles.
+@tags
+: #typography
+: #article
+@author
+: Chris Harvey
+@updated
+: 2014-05-02
+  */
+.UndoArticle {
+  font-family: 'Optima', 'Candara', 'Helvetica', sans-serif;
+  text-align: left;
+}
+@media print {
+  body {
+    font-size: 16px;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #000;
+    background-color: #fff;
+    background-image: none;
+  }
+  main {
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+/*------------------*\
+    _headings.less
+\*------------------*/
+/**
+	* This Object represents a generic heading of a section, post, article, or document.
+@tags
+: #typography
+: #heading
+: #section
+@author
+: Chris Harvey
+@updated
+: 2014-04-14
+	*/
+.H {
+  display: block;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  font-family: 'Avenir', 'Calibri', 'Century Gothic', sans-serif;
+  letter-spacing: 1px;
+  color: #050300;
+}
+/**
+	* This Object represents a generic tagline inside a heading, called a 'subheading'.
+@tags
+: #typography
+: #heading
+@author
+: Chris Harvey
+@updated
+: 2014-04-30
+	*/
+.H > .Hsub {
+  font-size: 80%;
+  padding-left: 24px;
+  font-weight: normal;
+  color: rgba(5, 3, 0, 0.61803399);
+}
+/**
+	* The six Objects below represent different levels of headings, starting from top-level to level 6.
+@extends
+: .H
+@tags
+: #typography
+: #heading
+: #section
+@author
+: Chris Harvey
+@updated
+: 2014-04-14
+	*/
+.H.Alpha {
+  font-size: 48px;
+  font-size: 3rem;
+  line-height: 0.5;
+  line-height: 2 * (1.5 / 3);
+  margin-top: 2 * 0.61803399 * 24px;
+  margin-top: 2 * 0.61803399 * 1.5rem;
+  padding-bottom: 2 * 0.38196601 * 24px;
+  padding-bottom: 2 * 0.38196601 * 1.5rem;
+  font-variant: small-caps;
+  font-weight: bold;
+  text-align: center;
+  color: #001e80;
+}
+.H.Alpha > .Hsub {
+  color: #406b80;
+}
+.H.Beta {
+  font-size: 35px;
+  font-size: 2.1875rem;
+  line-height: 0.68571429;
+  margin-top: 1 * 24px;
+  margin-top: 1 * 1.5rem;
+  padding-bottom: 1 * 24px;
+  padding-bottom: 1 * 1.5rem;
+  font-weight: bold;
+  color: #80522b;
+}
+.H.Beta > .Hsub {
+  color: #bf9300;
+}
+.H.Gamma {
+  font-size: 26px;
+  font-size: 1.625rem;
+  line-height: 0.92307692;
+  margin-top: 1.333 * 24px;
+  margin-top: 1.333 * 1.5rem;
+  padding-bottom: 0.667 * 24px;
+  padding-bottom: 0.667 * 1.5rem;
+  font-variant: small-caps;
+  font-weight: bold;
+}
+.H.Delta {
+  font-size: 21px;
+  font-size: 1.3125rem;
+  line-height: 1.14285714;
+  margin-top: 0.75 * 24px;
+  margin-top: 0.75 * 1.5rem;
+  padding-bottom: 0.25 * 24px;
+  padding-bottom: 0.25 * 1.5rem;
+  font-style: italic;
+  font-weight: bold;
+}
+.H.Epsilon {
+  font-size: 18px;
+  font-size: 1.125rem;
+  line-height: 1.33333333;
+  margin-top: 0 * 24px;
+  margin-top: 0 * 1.5rem;
+  padding-bottom: 0 * 24px;
+  padding-bottom: 0 * 1.5rem;
+  font-style: italic;
+  color: #80522b;
+}
+.H.Epsilon > .Hsub {
+  color: #bf9300;
+}
+.H.Zeta {
+  font-size: 16px;
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-top: 0 * 24px;
+  margin-top: 0 * 1.5rem;
+  padding-bottom: 0 * 24px;
+  padding-bottom: 0 * 1.5rem;
+  font-style: italic;
+  font-variant: small-caps;
+}
+@media print {
+  .H {
+    font-size: 16px;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+}
+/*--------------------*\
+    _paragraphs.less
+\*--------------------*/
+/**
+	* This Object represents a generic paragraph in a section, article, or document. A paragraph Object is a small grouping of textual ideas. In the written media, paragraphs can span anywhere from 3 to 8 sentences. However on the Web, they can be much, much shorter.
+@implements
+: .vru-content
+: .vru-top-1
+//: .fontsize-med
+@tags
+: #typography
+: #paragraph
+@author
+: Chris Harvey
+@updated
+: 2014-04-26
+	*/
+.P {
+  display: block;
+}
+/**
+	* This Object represents a lede paragraph, which may be an introduction or abstract to an article.
+@extends
+: .P
+@implements
+: .lede
+: .vru-bottom-1
+@tags
+: #typography
+: #paragraph
+@author
+: Chris Harvey
+@updated
+: 2014-04-26
+	*/
+.P.Lede {
+  text-align: justify;
+}
+/**
+	* This Object represents a paragraph whose first letter is a dropped capital ("drop cap").
+@extends
+: .P
+@mixesin
+: .fontsize-scale()
+@tags
+: #typography
+: #paragraph
+@author
+: Chris Harvey
+@updated
+: 2014-04-30
+	*/
+.P.Dropcap::first-letter {
+  font-size: 48px;
+  font-size: 3rem;
+  line-height: 0.5;
+  float: left;
+  padding-top: 12px;
+  padding-right: 4px;
+  font-style: normal;
+  font-weight: normal;
+  font-family: 'Times', 'Times New Roman', serif;
+  color: #001e80;
+}
+/*@Quasi-Paragraphs*/
+/**
+	* This Object represents a generic caption of any sort. A caption is usually a short summary or description of some content ("the described content"). The described content may be in a literal `figure` element, `table` element, or it may be any generic content. Since captions are usually too short to be a paragraph, it may *not* contain `.P` Objects. If the described content is text only, the caption should be shorter and more concise than the content's text.
+	* If this `.Capt` is a child of a `figure` element, it should be a `figcaption` element. If this `.Capt` is a child of a `table` element, it should be a `caption` element.
+@implements
+: .vru-content
+: .fontsize-small
+@tags
+: #typography
+: #caption
+: #table
+: #figure
+@author
+: Chris Harvey
+@updated
+: 2014-05-11
+	*/
+.Capt {
+  text-align: right;
+}
+/**
+	* A caption may appear before or after the described content, even if it and the content are children of the same Object (e.g., a `figure`). A `.P.Capt.Before` appears before the content; a `.P.Capt.After` appears after.
+	* Note: According to the HTML5 specs, a `table > caption`, if it exists, may *only* be the first child. However, applying `.Capt.Before` to the `table > caption:first-child` will make it look ugly, because the borders conflict and it will have `display: block;` rather than `display: table-caption;`. Just don't apply `.Capt.Before` or `.Capt.After` to `table > caption`s.
+@extends
+: .Capt
+@mixesin
+: .border-vert-one()
+@tags
+: #typography
+: #caption
+: #table
+: #figure
+@author
+: Chris Harvey
+@updated
+: 2014-05-10
+	*/
+.Capt.Before {
+  display: block;
+  position: relative;
+  top: -1px;
+  margin-bottom: -1px;
+  border-bottom-width: 1px;
+  border-bottom-style: dotted;
+  border-color: #ff1500;
+}
+.Capt.After {
+  display: block;
+  position: relative;
+  top: -1px;
+  margin-bottom: -1px;
+  border-top-width: 1px;
+  border-top-style: dotted;
+  border-color: #ff1500;
+}
+/**
+	* This Object represents a generic postal address. It may be the contact address of the document author(s) (contained in an `address` element), or it may be any arbitrary postal mailing address.
+@extends
+: .P
+@implements
+: .vru-content
+: .vru-top-phi
+@mixesin
+: .spacing-phi()
+@tags
+: #typography
+: #paragraph
+: #geolocation
+@author
+: Chris Harvey
+@updated
+: 2014-04-30
+	*/
+.Addy {
+  border-right: 3px solid #ff1500;
+  padding-right: 4.85410197px;
+  margin-right: 12.70820393px;
+  border-radius: 6px;
+  font-family: 'Avenir', 'Calibri', 'Century Gothic', sans-serif;
+  text-align: right;
+}
+/**
+	* This Object represents a generic figure in a document. A figure contains excerpts of text, examples, or images that are used to illustrate a concept. This may or may not be a literal `figure` element.
+	* Inside this `.Fig` there may exist a `.Capt` (a generic caption), either at the beginning or at the end. The `.Capt` may or may not be a `figcaption` or `caption` element.
+	* Content in this `.Fig`---including its caption---is permissible to be extracted from the document and presented on its own.
+@implements
+: .vru-content
+: .vru-top-phi
+@tags
+: #typography
+: #figure
+: #caption
+@author
+: Chris Harvey
+@updated
+: 2014-05-10
+	*/
+.Fig {
+  border-left: 4px solid #ff1500;
+  padding-left: 6.47213595px;
+  margin-left: 16.94427191px;
+  border-right: 4px solid #ff1500;
+  padding-right: 6.47213595px;
+  margin-right: 16.94427191px;
+}
+/**
+	* This Object represents any Block Quotation, representing material taken directly from another source. It may or may not take the form of a literal `blockquote` element.
+	* If the original source is less than 40 words and does not have paragraph breaks (for example, extracted inline text from an article), this `.Qblock` should not contain Paragraphs; it should directly contain the source's text.
+@implements
+: .vru-content
+: .vru-top-phi
+: .fontsize-lrg
+@mixesin
+: .spacing-phi()
+@tags
+: #typography
+: #quote
+@author
+: Chris Harvey
+@updated
+: 2014-05-10
+	*/
+.Qblock {
+  border-left: 7px double #ff1500;
+  padding-left: 11.32623792px;
+  margin-left: 29.65247584px;
+  font-family: 'Avenir', 'Calibri', 'Century Gothic', sans-serif;
+}
+/**
+	* The `.Src` Object represents the citation of a source inside a `.Qblock` element. It is recommended to apply this Class to a `cite` element.
+@belongsto
+: .Qblock
+@implements
+: .fontsize-sml
+@tags
+: #typography
+: #quote
+@author
+: Chris Harvey
+@updated
+: 2014-05-10
+	*/
+.Qblock .Src {
+  display: block;
+  padding-right: 24px;
+  text-align: right;
+}
+.Qblock .Src::before {
+  content: '~\0020';
+}
+/**
+	* This Object represents a "long" block quotation.
+	* If the original source is more than 40 words and does not have paragraph breaks, this `.Qblock.Long` should have exactly one `.P` object, which contains the text from the source.
+	* If the original source has paragraph breaks, regardless of word count, this `.Qblock.Long` should have paragraph breaks that correspond to the source.
+@implements
+: .fontsize-med
+@tags
+: #typography
+: #quote
+@author
+: Chris Harvey
+@updated
+: 2014-05-10
+	*/
+.Qblock.Long .Src {
+  padding-right: 0;
+}
+@media print {
+  .Fig,
+  .Addy,
+  .Qblock {
+    font-size: 16px;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-left: 0 solid #000000;
+    padding-left: 0;
+    margin-left: 0;
+    border-right: 0 solid #000000;
+    padding-right: 0;
+    margin-right: 0;
+  }
+}
+/*---------------*\
+    _lists.less
+\*---------------*/
+/**
+	* This Object represents a generic list. It may be a literal `ol` or `ul` element containing `li` elements, or it may be the abstract notion of a list of other Objects. The order of list items may be releveant or irrelevant.
+@implements
+: .vru-top-1
+@tags
+: #typography
+: #list
+@author
+: Chris Harvey
+@updated
+: 2014-05-03
+	*/
+.List {
+  display: block;
+  list-style-type: none;
+}
+/**
+	* This Object represents a generic list item. It may be a literal `li` element inside an `ol` or `ul` element, or it may be any Object in a List Object.
+@implements
+: .vru-content
+@tags
+: #typography
+: #list
+@author
+: Chris Harvey
+@updated
+: 2014-05-08
+	*/
+.List > .Item {
+  display: list-item;
+}
+/**
+	* This Object represents a List Object within a List Item Object.
+@implements
+: .vru-top-0
+: .indent
+@tags
+: #typography
+: #list
+@author
+: Chris Harvey
+@updated
+: 2014-05-10
+	*/
+/**
+	* This Object represents an ordered list, or a list used for an outline. This does *not* correspond directly to a literal `ol` element; this Object is simply to be displayed with block list items, with markers that indicate order. Typical uses include table of contents, etc. Outlines are by definition, ordered.
+@implements
+: .indent
+@tags
+: #typography
+: #list
+: #ordered
+@author
+: Chris Harvey
+@updated
+: 2014-05-11
+	*/
+.List.O {
+  list-style-type: decimal-leading-zero;
+  list-style-type: decimal;
+}
+/**
+	* These Objects represent outlined lists with different enumeration types.
+@tags
+: #typography
+: #list
+: #ordered
+@author
+: Chris Harvey
+@updated
+: 2014-05-03
+	*/
+.List.O.Omega {
+  list-style-type: decimal-leading-zero;
+}
+.List.O.Alpha {
+  list-style-type: upper-roman;
+}
+.List.O.Beta {
+  list-style-type: upper-alpha;
+}
+.List.O.Gamma {
+  list-style-type: decimal;
+}
+.List.O.Delta {
+  list-style-type: lower-alpha;
+}
+.List.O.Epsilon {
+  list-style-type: lower-roman;
+}
+.List.O.Zeta {
+  list-style-type: lower-greek;
+}
+/**
+	* This Object represents a generic list whose items are to be displayed as blocks with the same markers. It does *not* necessarily correspond directly to a literal `ul` element.
+@implements
+: .indent
+@tags
+: #typography
+: #list
+: #unordered
+@author
+: Chris Harvey
+@updated
+: 2014-05-11
+	*/
+.List.U {
+  list-style-type: square;
+}
+/**
+	* This Object represents a generic list whose items are to be displayed inline.
+@tags
+: #typography
+: #list
+: #inline
+@author
+: Chris Harvey
+@updated
+: 2014-05-11
+	*/
+.List.I > .Item {
+  display: inline;
+}
+.List.I > .Item.Comma::after {
+  content: ',\0020';
+}
+.List.I > .Item.Ndash::after {
+  content: '\0020\2013\0020';
+}
+.List.I > .Item.Mdash::after {
+  content: '\0020\2014\0020';
+}
+/**
+	* This Object represents a generic list whose items are to be displayed as blocks that have `float: left;`.
+@implements
+: .clearfix
+@tags
+: #typography
+: #list
+: #float
+@author
+: Chris Harvey
+@updated
+: 2014-05-11
+	*/
+/**
+	* This Object represents an action list, which typically contains hyperlinks.
+@tags
+: #typography
+: #list
+: #link
+@author
+: Chris Harvey
+@updated
+: 2014-05-11
+	*/
+.List.A > .Item {
+  color: #0062ff;
+}
+.List.A > .Item:hover {
+  color: #ff9d00;
+}
+.List.A > .Item::before {
+  content: '\2713\0020';
+}
+/*--------------*\
+    _maps.less
+\*--------------*/
+/**
+	* This Object represents an association list, which contains name-value pairs. Each pair consists of exactly one `.Nam` and exactly one `.Val`.
+@implements
+: .vru-top-1
+@tags
+: #typography
+: #map
+@author
+: Chris Harvey
+@updated
+: 2014-05-12
+	*/
+.Map {
+  display: block;
+}
+/**
+	* This Object represent the name in a name-value pair of a `.Map`.
+@tags
+: #typography
+: #map
+@author
+: Chris Harvey
+@updated
+: 2014-05-12
+	*/
+/**
+	* This Object represent the value in a name-value pair of a `.Map`.
+@implements
+: .indent
+@tags
+: #typography
+: #map
+@author
+: Chris Harvey
+@updated
+: 2014-05-12
+	*/
+/**
+	* This Object represents a Map Object within a Name Object or Val Object.
+@implements
+: .vru-top-0
+@tags
+: #typography
+: #map
+@author
+: Chris Harvey
+@updated
+: 2014-05-12
+	*/
+/**
+	* This Object represents an association list in which names are grouped together in one column and values are grouped together in one column.
+	* This map acts like a table, with each row containing a single name-value group.
+@extends
+: .Map
+@implements
+: .clearfix
+@params
+: @dtwidth : a percentage, which specifies the width of `.Nam`
+@tags
+: #typography
+: #map
+@author
+: Chris Harvey
+@updated
+: 2014-05-12
+	*/
+.Map.Vert > .Nam,
+.Map.Vert > .Val {
+  padding: 0;
+}
+.Map.Vert > .Nam {
+  float: left;
+  width: 38.19660113%;
+}
+.Map.Vert > .Val {
+  float: left;
+  width: 61.80339887%;
+}
+.Map.Vert > .Val + .Nam {
+  clear: both;
+}
+.Map.Vert.Sml > .Nam {
+  width: 23.60679775%;
+}
+.Map.Vert.Sml > .Val {
+  width: 76.39320225%;
+}
+.Map.Vert.Sml > .Nam {
+  width: 23.60679775%;
+}
+.Map.Vert.Sml > .Val {
+  width: 76.39320225%;
+}
+.Map.Vert.Msm > .Nam {
+  width: 38.19660113%;
+}
+.Map.Vert.Msm > .Val {
+  width: 61.80339887%;
+}
+.Map.Vert.Msm > .Nam {
+  width: 38.19660113%;
+}
+.Map.Vert.Msm > .Val {
+  width: 61.80339887%;
+}
+.Map.Vert.Med > .Nam {
+  width: 50%;
+}
+.Map.Vert.Med > .Val {
+  width: 50%;
+}
+.Map.Vert.Med > .Nam {
+  width: 50%;
+}
+.Map.Vert.Med > .Val {
+  width: 50%;
+}
+.Map.Vert.Mlg > .Nam {
+  width: 61.80339887%;
+}
+.Map.Vert.Mlg > .Val {
+  width: 38.19660113%;
+}
+.Map.Vert.Mlg > .Nam {
+  width: 61.80339887%;
+}
+.Map.Vert.Mlg > .Val {
+  width: 38.19660113%;
+}
+.Map.Vert.Lrg > .Nam {
+  width: 76.39320225%;
+}
+.Map.Vert.Lrg > .Val {
+  width: 23.60679775%;
+}
+.Map.Vert.Lrg > .Nam {
+  width: 76.39320225%;
+}
+.Map.Vert.Lrg > .Val {
+  width: 23.60679775%;
+}
 /*--------------*\
     _typo.less
 \*--------------*/
@@ -851,11 +1644,11 @@ main {
   font-size: 48px;
   font-size: 3rem;
   line-height: 0.5;
-  line-height: 1;
-  margin-top: 29.66563146px;
-  margin-top: 1.85410197rem;
-  padding-bottom: 18.33436854px;
-  padding-bottom: 1.14589803rem;
+  line-height: 2 * (1.5 / 3);
+  margin-top: 2 * 0.61803399 * 24px;
+  margin-top: 2 * 0.61803399 * 1.5rem;
+  padding-bottom: 2 * 0.38196601 * 24px;
+  padding-bottom: 2 * 0.38196601 * 1.5rem;
   font-variant: small-caps;
   font-weight: bold;
   text-align: center;
@@ -868,10 +1661,10 @@ main {
   font-size: 35px;
   font-size: 2.1875rem;
   line-height: 0.68571429;
-  margin-top: 24px;
-  margin-top: 1.5rem;
-  padding-bottom: 24px;
-  padding-bottom: 1.5rem;
+  margin-top: 1 * 24px;
+  margin-top: 1 * 1.5rem;
+  padding-bottom: 1 * 24px;
+  padding-bottom: 1 * 1.5rem;
   font-weight: bold;
   color: #80522b;
 }
@@ -882,10 +1675,10 @@ main {
   font-size: 26px;
   font-size: 1.625rem;
   line-height: 0.92307692;
-  margin-top: 31.992px;
-  margin-top: 1.9995rem;
-  padding-bottom: 16.008px;
-  padding-bottom: 1.0005rem;
+  margin-top: 1.333 * 24px;
+  margin-top: 1.333 * 1.5rem;
+  padding-bottom: 0.667 * 24px;
+  padding-bottom: 0.667 * 1.5rem;
   font-variant: small-caps;
   font-weight: bold;
 }
@@ -893,10 +1686,10 @@ main {
   font-size: 21px;
   font-size: 1.3125rem;
   line-height: 1.14285714;
-  margin-top: 18px;
-  margin-top: 1.125rem;
-  padding-bottom: 6px;
-  padding-bottom: 0.375rem;
+  margin-top: 0.75 * 24px;
+  margin-top: 0.75 * 1.5rem;
+  padding-bottom: 0.25 * 24px;
+  padding-bottom: 0.25 * 1.5rem;
   font-style: italic;
   font-weight: bold;
 }
@@ -904,10 +1697,10 @@ main {
   font-size: 18px;
   font-size: 1.125rem;
   line-height: 1.33333333;
-  margin-top: 0px;
-  margin-top: 0rem;
-  padding-bottom: 0px;
-  padding-bottom: 0rem;
+  margin-top: 0 * 24px;
+  margin-top: 0 * 1.5rem;
+  padding-bottom: 0 * 24px;
+  padding-bottom: 0 * 1.5rem;
   font-style: italic;
   color: #80522b;
 }
@@ -918,10 +1711,10 @@ main {
   font-size: 16px;
   font-size: 1rem;
   line-height: 1.5;
-  margin-top: 0px;
-  margin-top: 0rem;
-  padding-bottom: 0px;
-  padding-bottom: 0rem;
+  margin-top: 0 * 24px;
+  margin-top: 0 * 1.5rem;
+  padding-bottom: 0 * 24px;
+  padding-bottom: 0 * 1.5rem;
   font-style: italic;
   font-variant: small-caps;
 }
@@ -1157,8 +1950,8 @@ main {
 @media print {
   body,
   .H,
+  .Addy,
   .Fig,
-  .P.Addy,
   .Qblock,
   .Table {
     font-size: 16px;
@@ -1175,8 +1968,8 @@ main {
     margin-left: auto;
     margin-right: auto;
   }
+  .Addy,
   .Fig,
-  .P.Addy,
   .Qblock {
     border-left: 0 solid #000000;
     padding-left: 0;
@@ -1440,6 +2233,18 @@ main {
 .Map.Vert.Sml > .Val {
   width: 76.39320225%;
 }
+.Map.Vert.Sml > .Nam {
+  width: 23.60679775%;
+}
+.Map.Vert.Sml > .Val {
+  width: 76.39320225%;
+}
+.Map.Vert.Msm > .Nam {
+  width: 38.19660113%;
+}
+.Map.Vert.Msm > .Val {
+  width: 61.80339887%;
+}
 .Map.Vert.Msm > .Nam {
   width: 38.19660113%;
 }
@@ -1452,11 +2257,29 @@ main {
 .Map.Vert.Med > .Val {
   width: 50%;
 }
+.Map.Vert.Med > .Nam {
+  width: 50%;
+}
+.Map.Vert.Med > .Val {
+  width: 50%;
+}
 .Map.Vert.Mlg > .Nam {
   width: 61.80339887%;
 }
 .Map.Vert.Mlg > .Val {
   width: 38.19660113%;
+}
+.Map.Vert.Mlg > .Nam {
+  width: 61.80339887%;
+}
+.Map.Vert.Mlg > .Val {
+  width: 38.19660113%;
+}
+.Map.Vert.Lrg > .Nam {
+  width: 76.39320225%;
+}
+.Map.Vert.Lrg > .Val {
+  width: 23.60679775%;
 }
 .Map.Vert.Lrg > .Nam {
   width: 76.39320225%;
@@ -1511,6 +2334,12 @@ main {
 @updated
 : 2014-05-03
   */
+/*----------------*\
+    _tables.less
+\*----------------*/
+/*---------------*\
+    _links.less
+\*---------------*/
 /*@QUASI-ELEMENTS*/
 [data-status="draft"] {
   opacity: .5;
