@@ -2,12 +2,17 @@
     _settings.less
 \*------------------*/
 /*@GLOBAL VARIABLES*/
-/*@General Constants*/
 /*@General Variables*/
 /** Determines the amount to fade out. Change this if you wish. */
+/** Used for horizontal spacing, e.g., inserting a space between a heading and subheading. */
 /*@Fonts*/
 /** These determine 1rem and the 'magic number'. Change these if you wish. */
-/*@Colors*/
+/*@Color Scheme*/
+/*@FUNCTIONS*/
+/*@CONSTANTS*/
+/*@Golden Values*/
+/*@Even Values*/
+/*@Color Values*/
 #aperture_white {
   background-color: #fafcff;
 }
@@ -56,7 +61,6 @@
 #companion {
   background-color: #ffaac2;
 }
-/*@FUNCTIONS*/
 /*---------------*\
     _reset.less
 \*---------------*/
@@ -208,6 +212,10 @@ ol,
 ul {
   list-style-type: none;
 }
+a {
+  text-decoration: underline;
+  color: inherit;
+}
 /*--------------------*\
     _interfaces.less
 \*--------------------*/
@@ -351,12 +359,10 @@ ul {
 @updated
 : 2014-05-02
   */
-.quotes::before,
-.S.Q::before {
+.quotes::before {
   content: open-quote;
 }
-.quotes::after,
-.S.Q::after {
+.quotes::after {
   content: close-quote;
 }
 /**
@@ -405,105 +411,159 @@ ul {
     _grid.less
 \*--------------*/
 /*@WIDTHS*/
-#_ .width-p0,
-.Row > .Cell.P0 {
+/**
+  * The following Interfaces change the width of the Objects that implement them. The Interface names describe the widths.
+@tags
+: #grid
+: #golden
+@author
+: Chris Harvey
+@updated
+: 2014-05-18
+  */
+.width-p0,
+.Gcol.P0 {
   width: 100%;
 }
-#_ .width-p1,
-.Row > .Cell.P1,
+.width-p1,
+.Gcol.P1,
 .Block.P1,
 .Block.Sml {
   width: 61.80339887%;
 }
-#_ .width-p2,
-.Row > .Cell.P2,
+.width-p2,
+.Gcol.P2,
 .Block.P2 {
   width: 38.19660113%;
 }
-#_ .width-p3,
-.Row > .Cell.P3,
+.width-p3,
+.Gcol.P3,
 .Block.P3 {
   width: 23.60679775%;
 }
-#_ .width-p4,
-.Row > .Cell.P4,
+.width-p4,
+.Gcol.P4,
 .Block.P4 {
   width: 14.58980338%;
 }
-#_ .width-p3c,
-.Row > .Cell.P3c,
+.width-p3c,
+.Gcol.P3c,
 .Block.P3c {
   width: 76.39320225%;
 }
-#_ .width-p4c,
-.Row > .Cell.P4c,
+.width-p4c,
+.Gcol.P4c,
 .Block.P4c {
   width: 85.41019662%;
 }
-#_ .width-f1o1,
-#_ .width-f2o2,
-#_ .width-f3o3,
-#_ .width-f4o4,
-#_ .width-f5o5,
-.Row > .Cell.F1o1,
+.width-f1o1,
+.width-f2o2,
+.width-f3o3,
+.width-f4o4,
+.width-f5o5,
+.Gcol.F1o1,
 .Block.Ful,
-.Row > .Cell.F2o2,
-.Row > .Cell.F3o3,
-.Row > .Cell.F4o4,
-.Row > .Cell.F5o5 {
+.Gcol.F2o2,
+.Gcol.F3o3,
+.Gcol.F4o4,
+.Gcol.F5o5 {
   width: 100%;
 }
-#_ .width-f1o2,
-#_ .width-f2o4,
-.Row > .Cell.F1o2,
-.Row > .Cell.F2o4 {
+.width-f1o2,
+.width-f2o4,
+.Gcol.F1o2,
+.Gcol.F2o4 {
   width: 50%;
 }
-#_ .width-f1o3,
-.Row > .Cell.F1o3 {
+.width-f1o3,
+.Gcol.F1o3 {
   width: 33.33333333%;
 }
-#_ .width-f2o3,
-.Row > .Cell.F2o3,
+.width-f2o3,
+.Gcol.F2o3,
 .Block.Med {
   width: 66.66666667%;
 }
-#_ .width-f1o4,
-.Row > .Cell.F1o4 {
+.width-f1o4,
+.Gcol.F1o4 {
   width: 25%;
 }
-#_ .width-f3o4,
-.Row > .Cell.F3o4,
+.width-f3o4,
+.Gcol.F3o4,
 .Block.Lrg {
   width: 75%;
 }
-#_ .width-f1o5,
-.Row > .Cell.F1o5 {
+.width-f1o5,
+.Gcol.F1o5 {
   width: 20%;
 }
-#_ .width-f2o5,
-.Row > .Cell.F2o5 {
+.width-f2o5,
+.Gcol.F2o5 {
   width: 40%;
 }
-#_ .width-f3o5,
-.Row > .Cell.F3o5 {
+.width-f3o5,
+.Gcol.F3o5 {
   width: 60%;
 }
-#_ .width-f4o5,
-.Row > .Cell.F4o5 {
+.width-f4o5,
+.Gcol.F4o5 {
   width: 80%;
 }
 /*@TABLE SYSTEM*/
-.Row {
+/**
+  * This Object represents a container of blocks of content. The inner blocks are alinged horizontally, as if all in the same row.
+  * `.Grow` = "grid row"
+@tags
+: #grid
+@author
+: Chris Harvey
+@updated
+: 2014-05-18
+  */
+.Grow {
   display: table;
   width: 100%;
 }
-.Row > .Cell {
+/**
+  * This Object represents a block of content within a `.Grow`. These blocks are alinged horizontally.
+  * `.Gcol` = "grid col"
+@implements
+: .P0   and similar
+: .F1o1 and similar
+@tags
+: #grid
+@author
+: Chris Harvey
+@updated
+: 2014-05-18
+  */
+.Grow > .Gcol {
   display: table-cell;
   vertical-align: top;
   overflow: visible;
 }
 /*@BLOCKS WITH MARGINS*/
+/**
+  * The following Mixins define horizontal margins on `.Block`s of content.
+  * `.margin-phi-[left|right]()` splits the margins so that the ratio of [left|right] margin to [right|left] margin is Golden.
+  * `.margin-even()` splits the margins equally.
+  * `.margin-all-[left|right]()` moves all horizontal margins to the [left|right] side.
+@tags
+: #golden
+@author
+: Chris Harvey
+@updated
+: 2014-05-18
+  */
+/**
+  * This Object represents a block of content that has horizontal margins. It's not technically part of the "grid" system, but it's here because it's used for layout.
+@tags
+: #golden
+@author
+: Chris Harvey
+@updated
+: 2014-05-18
+  */
 .Block {
   display: block;
 }
@@ -723,14 +783,14 @@ ul {
 .Qblock.Long .Src,
 .List,
 .Map {
-  margin-top: 1 * 24px;
-  margin-top: 1 * 1.5rem;
+  margin-top: 24px;
+  margin-top: 1.5rem;
 }
 .vru-bottom-1,
 .P.Lede,
 .P.Lede {
-  padding-bottom: 1 * 24px;
-  padding-bottom: 1 * 1.5rem;
+  padding-bottom: 24px;
+  padding-bottom: 1.5rem;
 }
 /**
   * This Mixin sets the padding-top, border-top, and margin-top such that the padding:margin ratio is Golden, while keeping the border-top-width. The sum of the padding, border, and margin is one vertical rhythm unit.
@@ -900,10 +960,10 @@ main {
   font-size: 3rem;
   line-height: 0.5;
   line-height: 2 * (1.5 / 3);
-  margin-top: 2 * 0.61803399 * 24px;
-  margin-top: 2 * 0.61803399 * 1.5rem;
-  padding-bottom: 2 * 0.38196601 * 24px;
-  padding-bottom: 2 * 0.38196601 * 1.5rem;
+  margin-top: 29.66563146px;
+  margin-top: 1.85410197rem;
+  padding-bottom: 18.33436854px;
+  padding-bottom: 1.14589803rem;
   font-variant: small-caps;
   font-weight: bold;
   text-align: center;
@@ -916,10 +976,10 @@ main {
   font-size: 35px;
   font-size: 2.1875rem;
   line-height: 0.68571429;
-  margin-top: 1 * 24px;
-  margin-top: 1 * 1.5rem;
-  padding-bottom: 1 * 24px;
-  padding-bottom: 1 * 1.5rem;
+  margin-top: 24px;
+  margin-top: 1.5rem;
+  padding-bottom: 24px;
+  padding-bottom: 1.5rem;
   font-weight: bold;
   color: #80522b;
 }
@@ -930,10 +990,10 @@ main {
   font-size: 26px;
   font-size: 1.625rem;
   line-height: 0.92307692;
-  margin-top: 1.333 * 24px;
-  margin-top: 1.333 * 1.5rem;
-  padding-bottom: 0.667 * 24px;
-  padding-bottom: 0.667 * 1.5rem;
+  margin-top: 31.992px;
+  margin-top: 1.9995rem;
+  padding-bottom: 16.008px;
+  padding-bottom: 1.0005rem;
   font-variant: small-caps;
   font-weight: bold;
 }
@@ -941,10 +1001,10 @@ main {
   font-size: 21px;
   font-size: 1.3125rem;
   line-height: 1.14285714;
-  margin-top: 0.75 * 24px;
-  margin-top: 0.75 * 1.5rem;
-  padding-bottom: 0.25 * 24px;
-  padding-bottom: 0.25 * 1.5rem;
+  margin-top: 18px;
+  margin-top: 1.125rem;
+  padding-bottom: 6px;
+  padding-bottom: 0.375rem;
   font-style: italic;
   font-weight: bold;
 }
@@ -952,10 +1012,10 @@ main {
   font-size: 18px;
   font-size: 1.125rem;
   line-height: 1.33333333;
-  margin-top: 0 * 24px;
-  margin-top: 0 * 1.5rem;
-  padding-bottom: 0 * 24px;
-  padding-bottom: 0 * 1.5rem;
+  margin-top: 0px;
+  margin-top: 0rem;
+  padding-bottom: 0px;
+  padding-bottom: 0rem;
   font-style: italic;
   color: #80522b;
 }
@@ -966,10 +1026,10 @@ main {
   font-size: 16px;
   font-size: 1rem;
   line-height: 1.5;
-  margin-top: 0 * 24px;
-  margin-top: 0 * 1.5rem;
-  padding-bottom: 0 * 24px;
-  padding-bottom: 0 * 1.5rem;
+  margin-top: 0px;
+  margin-top: 0rem;
+  padding-bottom: 0px;
+  padding-bottom: 0rem;
   font-style: italic;
   font-variant: small-caps;
 }
@@ -1592,7 +1652,7 @@ main {
 }
 /*@HEADINGS*/
 /**
-  * This Object represents a generic heading of a section, post, article, or document.
+  * This Object represents a generic textual heading of a section, post, article, or document. It does not represent a heading in a table.
 @tags
 : #typography
 : #heading
@@ -1645,10 +1705,10 @@ main {
   font-size: 3rem;
   line-height: 0.5;
   line-height: 2 * (1.5 / 3);
-  margin-top: 2 * 0.61803399 * 24px;
-  margin-top: 2 * 0.61803399 * 1.5rem;
-  padding-bottom: 2 * 0.38196601 * 24px;
-  padding-bottom: 2 * 0.38196601 * 1.5rem;
+  margin-top: 29.66563146px;
+  margin-top: 1.85410197rem;
+  padding-bottom: 18.33436854px;
+  padding-bottom: 1.14589803rem;
   font-variant: small-caps;
   font-weight: bold;
   text-align: center;
@@ -1661,10 +1721,10 @@ main {
   font-size: 35px;
   font-size: 2.1875rem;
   line-height: 0.68571429;
-  margin-top: 1 * 24px;
-  margin-top: 1 * 1.5rem;
-  padding-bottom: 1 * 24px;
-  padding-bottom: 1 * 1.5rem;
+  margin-top: 24px;
+  margin-top: 1.5rem;
+  padding-bottom: 24px;
+  padding-bottom: 1.5rem;
   font-weight: bold;
   color: #80522b;
 }
@@ -1675,10 +1735,10 @@ main {
   font-size: 26px;
   font-size: 1.625rem;
   line-height: 0.92307692;
-  margin-top: 1.333 * 24px;
-  margin-top: 1.333 * 1.5rem;
-  padding-bottom: 0.667 * 24px;
-  padding-bottom: 0.667 * 1.5rem;
+  margin-top: 31.992px;
+  margin-top: 1.9995rem;
+  padding-bottom: 16.008px;
+  padding-bottom: 1.0005rem;
   font-variant: small-caps;
   font-weight: bold;
 }
@@ -1686,10 +1746,10 @@ main {
   font-size: 21px;
   font-size: 1.3125rem;
   line-height: 1.14285714;
-  margin-top: 0.75 * 24px;
-  margin-top: 0.75 * 1.5rem;
-  padding-bottom: 0.25 * 24px;
-  padding-bottom: 0.25 * 1.5rem;
+  margin-top: 18px;
+  margin-top: 1.125rem;
+  padding-bottom: 6px;
+  padding-bottom: 0.375rem;
   font-style: italic;
   font-weight: bold;
 }
@@ -1697,10 +1757,10 @@ main {
   font-size: 18px;
   font-size: 1.125rem;
   line-height: 1.33333333;
-  margin-top: 0 * 24px;
-  margin-top: 0 * 1.5rem;
-  padding-bottom: 0 * 24px;
-  padding-bottom: 0 * 1.5rem;
+  margin-top: 0px;
+  margin-top: 0rem;
+  padding-bottom: 0px;
+  padding-bottom: 0rem;
   font-style: italic;
   color: #80522b;
 }
@@ -1711,10 +1771,10 @@ main {
   font-size: 16px;
   font-size: 1rem;
   line-height: 1.5;
-  margin-top: 0 * 24px;
-  margin-top: 0 * 1.5rem;
-  padding-bottom: 0 * 24px;
-  padding-bottom: 0 * 1.5rem;
+  margin-top: 0px;
+  margin-top: 0rem;
+  padding-bottom: 0px;
+  padding-bottom: 0rem;
   font-style: italic;
   font-variant: small-caps;
 }
@@ -1934,6 +1994,8 @@ main {
   * This Object represents a "long" block quotation.
   * If the original source is more than 40 words and does not have paragraph breaks, this `.Qblock.Long` should have exactly one `.P` object, which contains the text from the source.
   * If the original source has paragraph breaks, regardless of word count, this `.Qblock.Long` should have paragraph breaks that correspond to the source.
+@extends
+: .Qblock
 @implements
 : .fontsize-med
 @tags
@@ -2026,6 +2088,8 @@ main {
   */
 /**
   * This Object represents an ordered list, or a list used for an outline. This does *not* correspond directly to a literal `ol` element; this Object is simply to be displayed with block list items, with markers that indicate order. Typical uses include table of contents, etc. Outlines are by definition, ordered.
+@extends
+: .List
 @implements
 : .indent
 @tags
@@ -2043,6 +2107,8 @@ main {
 }
 /**
   * These Objects represent outlined lists with different enumeration types.
+@extends
+: .List.O
 @tags
 : #typography
 : #list
@@ -2075,6 +2141,8 @@ main {
 }
 /**
   * This Object represents a generic list whose items are to be displayed as blocks with the same markers. It does *not* necessarily correspond directly to a literal `ul` element.
+@extends
+: .List
 @implements
 : .indent
 @tags
@@ -2091,6 +2159,8 @@ main {
 }
 /**
   * This Object represents a generic list whose items are to be displayed inline.
+@extends
+: .List
 @tags
 : #typography
 : #list
@@ -2127,6 +2197,8 @@ main {
   */
 /**
   * This Object represents an action list, which typically contains hyperlinks.
+@extends
+: .List
 @tags
 : #typography
 : #list
@@ -2163,6 +2235,8 @@ main {
 }
 /**
   * This Object represent the name in a name-value pair of a `.Map`.
+@belongsto
+: .Map
 @tags
 : #typography
 : #map
@@ -2173,6 +2247,8 @@ main {
   */
 /**
   * This Object represent the value in a name-value pair of a `.Map`.
+@belongsto
+: .Map
 @implements
 : .indent
 @tags
@@ -2202,11 +2278,10 @@ main {
 : .Map
 @implements
 : .clearfix
-@params
-: @dtwidth : a percentage, which specifies the width of `.Nam`
 @tags
 : #typography
 : #map
+: #golden
 @author
 : Chris Harvey
 @updated
@@ -2215,18 +2290,33 @@ main {
 .Map.Vert > .Nam,
 .Map.Vert > .Val {
   padding: 0;
+  float: left;
 }
 .Map.Vert > .Nam {
-  float: left;
   width: 38.19660113%;
 }
 .Map.Vert > .Val {
-  float: left;
   width: 61.80339887%;
 }
 .Map.Vert > .Val + .Nam {
   clear: both;
 }
+/**
+  * This Object represents an association list in which names are grouped together in one column and values are grouped together in one column. The column widths are specified by this subclass.
+  * This map acts like a table, with each row containing a single name-value group.
+@extends
+: .Map.Vert
+@params
+: @namewidth : a percentage, which specifies the width of `.Nam`
+@tags
+: #typography
+: #map
+: #golden
+@author
+: Chris Harvey
+@updated
+: 2014-05-17
+  */
 .Map.Vert.Sml > .Nam {
   width: 23.60679775%;
 }
@@ -2286,6 +2376,123 @@ main {
 }
 .Map.Vert.Lrg > .Val {
   width: 23.60679775%;
+}
+/*@TABLES*/
+/**
+  * This Object represents a table-like structure. It may or may not be a literal `table` element.
+  * A .Table is defined as an collection of data in two or more dimensions. A common example would be a multivariable map: given multiple (e.g., two) independent inputs there exists one dependent output.
+@tags
+: #typography
+: #table
+@author
+: Chris Harvey
+@updated
+: 2014-05-18
+  */
+.Table {
+  display: table;
+}
+/**
+  * This Object represents a group of rows in a `.Table`.
+@tags
+: #typography
+: #table
+@author
+: Chris Harvey
+@updated
+: 2014-05-18
+  */
+.Rowgroup {
+  border-width: 1px 0;
+  border-style: solid;
+  border-color: #ff1500;
+}
+.Rowgroup.Head {
+  display: table-header-group;
+}
+.Rowgroup.Body {
+  display: table-row-group;
+}
+.Rowgroup.Foot {
+  display: table-footer-group;
+}
+/**
+  * This Object represents a single row in a `.Table`.
+@tags
+: #typography
+: #table
+@author
+: Chris Harvey
+@updated
+: 2014-05-18
+  */
+.Row {
+  display: table-row;
+}
+/**
+  * This Object represents a single data entry in a `.Table`.
+@tags
+: #typography
+: #table
+@author
+: Chris Harvey
+@updated
+: 2014-05-18
+  */
+.Cell {
+  display: table-cell;
+}
+/**
+  * This Object represents a heading in a `.Table`. A table heading may apply to a single row, a single column, a group of rows, or a group of columns.
+@tags
+: #typography
+: #table
+@author
+: Chris Harvey
+@updated
+: 2014-05-18
+  */
+.Cell.Hc {
+  font-weight: bold;
+  background-color: #d5fbff;
+}
+.Table.Horz {
+  width: 100%;
+}
+.Table.Horz > .Rowgroup > .Row:nth-child(odd) {
+  background-color: #e3fdff;
+}
+.Table.Horz > .Rowgroup > .Row:nth-child(even) {
+  background-color: #f1feff;
+}
+.Table.Vert > .Rowgroup.Head > .Row > .Cell.Hc:nth-child(odd) {
+  background-color: #f4fcfc;
+}
+.Table.Vert > .Rowgroup.Head > .Row > .Cell.Hc:nth-child(even) {
+  background-color: #e8f8fa;
+}
+.Table.Vert > .Rowgroup.Head > .Row > .Cell.Hc:first-child {
+  background-color: #ddf5f7;
+}
+.Table.Vert > .Rowgroup > .Row > .Cell:nth-child(odd) {
+  background-color: #f1feff;
+}
+.Table.Vert > .Rowgroup > .Row > .Cell:nth-child(even) {
+  background-color: #e3fdff;
+}
+table {
+  counter-reset: nrows;
+  counter-increment: nrows;
+}
+table tr {
+  counter-increment: nrows;
+}
+@media print {
+  .Table {
+    font-size: 16px;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
 }
 /*@TEXT-LEVEL*/
 /**
@@ -2334,6 +2541,45 @@ main {
 @updated
 : 2014-05-03
   */
+/*@HYPERLINKS*/
+/**
+  * The abstract concept of a span of text that hyperlinks to another file.
+  * It does not represent an inactive placeholder (equivalent to an empty `a` element). It also does not represent a block-level hyperlink, e.g. a box that would contain an image.
+@tags
+: #hyperlink
+@author
+: Chris Harvey
+@updated
+: 2014-05-17
+*/
+.Link {
+  text-decoration: none;
+  color: #0062ff;
+}
+.Link:hover {
+  text-decoration: underline;
+  color: #ff9d00;
+}
+.Link:active {
+  color: #fff155;
+}
+/**
+  * A special link. May refer to an external link, or some other type.
+@extend
+: .link
+@tags
+: #hyperlink
+@author
+: Chris Harvey
+@updated
+: 2014-04-21
+*/
+.Link.Sp {
+  color: #a7bf20;
+}
+.Link.Sp:hover {
+  color: #6300bf;
+}
 /*----------------*\
     _tables.less
 \*----------------*/
@@ -2348,4 +2594,14 @@ main {
 }
 [hidden] {
   display: none !important;
+}
+/*dl*/
+.dl--ordered {
+  padding-left: 48px;
+}
+.dl--ordered > dt:first-child,
+.dl--ordered > dd + dt {
+  display: list-item;
+  list-style-type: decimal;
+  list-style-position: outside;
 }

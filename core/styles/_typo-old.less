@@ -9,132 +9,10 @@
 
 
 
-//++++++++++++++++++//
-/*@ASSOCIATION LISTS*/
-//++++++++++++++++++//
-//a.k.a. mappings
-/*dl*/.dl--ordered {
-	.listindent;
-	> dt:first-child,
-	> dd + dt {
-		display: list-item;
-		list-style-type: decimal;
-		list-style-position: outside;
-	}
-}
-/*dl*/.dl--tree {
-//	dd > dl {margin-left: 0.5in;}
-}
-//++++ @end ASSOCIATION LISTS ++++//
 
 
-//+++++++//
-/*@TABLES*/
-//+++++++//
-@color_table-brdr: @color_accent;
-@color_table-bg-strong: hsv(185, 16.6%, 100%);
-@color_table-bg-medium: hsv(185, 11.1%, 100%);
-@color_table-bg-weak:   hsv(185,  5.5%, 100%);
-
-.table-list,
-.table-bars {
-	thead,
-	tbody,
-	tfoot {&:extend(.rowgroup);}
-	th, td {border: 0;}
-	th {background-color: @color_table-bg-strong;}
-}
-.table-list {
-//	thead,
-//	tbody,
-//	tfoot {
-//		tr:nth-child(odd)  {background-color: @color_table-bg-medium;}
-//		tr:nth-child(even) {background-color: @color_table-bg-weak;}
-//	}
-	tr:nth-child(odd)  {background-color: @color_table-bg-medium;}
-	tr:nth-child(even) {background-color: @color_table-bg-weak;}
-}
-.rowgroup {
-	border: 1px solid @color_table-brdr;
-	border-left: 0;
-	border-right: 0;
-}
-.table-bars {
-	thead {
-		th:nth-child(odd)  {background-color: desaturate(@color_table-bg-weak,   @headlt);}
-		th:nth-child(even) {background-color: desaturate(@color_table-bg-medium, @headlt);}
-		th:first-child     {background-color: desaturate(@color_table-bg-strong, @headlt);}
-	}
-//	tbody {
-//		td:nth-child(odd)  {background-color: @color_table-bg-weak;}
-//		td:nth-child(even) {background-color: @color_table-bg-medium;}
-//	}
-	td:nth-child(odd)  {background-color: @color_table-bg-weak;}
-	td:nth-child(even) {background-color: @color_table-bg-medium;}
-}
-table {
-	counter-reset: nrows;
-	tr {
-		counter-increment: nrows;
-	}
-	counter-increment: nrows; // once more for the last border
-//		@btm: -(((nrows + 12) % 24) - 12);
-//		if (btm <= 0) {
-//			margin-bottom: @btm;
-//		} else {
-//			padding-bottom: @btm;
-//		}
-}
-//.table-grid {
-//	.table;
-//	td {.special-table-border();}
-//	.header,
-//	th {background-color: @color_table-bg-head;}
-//	.row-odd {
-//		.column-odd  {background-color: @color_table-bg-weak;}
-//		.column-even {background-color: @color_table-bg-medium;}
-//	}
-//	.row-even {
-//		.column-odd  {background-color: @color_table-bg-medium;}
-//		.column-even {background-color: @color_table-bg-strong;}
-//	}
-//}
-//++++ @end TABLES ++++//
 
 
-//+++++++++++//
-/*@HYPERLINKS*/
-//+++++++++++//
-/**
- * The abstract concept of a hyperlink.
-@tags
-: hyperlink
-@updated
-: 2014-04-21
- */
-.link {
-	text-decoration: none;
-	color: @color_link--up--txt;
-	&:hover {
-		text-decoration: underline;
-		color: @color_link--dn--txt;
-	}
-	&:active {color: @color_link--active-txt;}
-	&.sp {
-	}
-}
-/**
- * A special link. May refer to an external link, or some other type.
-@extend
-: `.link`
-@updated
-: 2014-04-21
- */
-.link.sp {
-	color: @color_sp--up--txt;
-	&:hover {color: @color_sp--dn--txt;}
-}
-//++++ @end HYPERLINKS ++++//
 
 
 //+++++++++++++++++//
@@ -195,7 +73,7 @@ i.thought {
 i[lang],
 i:lang(la),
 i:lang(it),
-i:lang(fr) { 
+i:lang(fr) {
 	&:extend(.foreignlang);
 }
 .solfege {
