@@ -81,7 +81,7 @@ main {
 /*@HEADINGS*/
 //+++++++++//
 /**
-  * This Object represents a generic heading of a section, post, article, or document.
+  * This Object represents a generic textual heading of a section, post, article, or document. It does not represent a heading in a table.
 @tags
 : #typography
 : #heading
@@ -296,6 +296,7 @@ main {
   */
 .Capt.Before {.border-vert-one(bottom; 1px; dotted; @color_accent);}
 .Capt.After  {.border-vert-one(top;    1px; dotted; @color_accent);}
+
 /**
   * This Object represents a generic postal address. It may be the contact address of the document author(s) (contained in an `address` element), or it may be any arbitrary postal mailing address.
 @extends
@@ -656,7 +657,7 @@ main {
 : 2014-05-12
   */
 .Map > .Nam {
-  
+
 }
 /**
   * This Object represent the value in a name-value pair of a `.Map`.
@@ -749,64 +750,114 @@ main {
 //+++++++//
 /*@TABLES*/
 //+++++++//
+/**
+  * This Object represents a table-like structure. It may or may not be a literal `table` element.
+  * A .Table is defined as an collection of data in two or more dimensions. A common example would be a multivariable map: given multiple (e.g., two) independent inputs there exists one dependent output.
+@tags
+: #typography
+: #table
+@author
+: Chris Harvey
+@updated
+: 2014-05-18
+  */
 .Table {
-	> .Head,
-	> .Body,
-	> .Foot {
-		.Cell {}
-	}
+	display: table;
 }
-.Table > .Rowgroup {
+/**
+  * This Object represents a group of rows in a `.Table`.
+@tags
+: #typography
+: #table
+@author
+: Chris Harvey
+@updated
+: 2014-05-18
+  */
+.Rowgroup {
 	border-width: 1px 0;
 	border-style: solid;
 	border-color: @color_table_brdr;
 }
-
-.Table > .Rowgroup.Head {}
-.Table > .Rowgroup.Body {}
-.Table > .Rowgroup.Foot {}
-
-.Table > .Rowgroup > .r {}
-.Table > .Rowgroup > .r > .c {
-	border: 0;
+.Rowgroup.Head   {display: table-header-group;}
+.Rowgroup.Body   {display: table-row-group;}
+.Rowgroup.Foot   {display: table-footer-group;}
+/**
+  * This Object represents a single row in a `.Table`.
+@tags
+: #typography
+: #table
+@author
+: Chris Harvey
+@updated
+: 2014-05-18
+  */
+.Row {
+	display: table-row;
 }
-.Table > .Rowgroup > .r > .c.H {
+/**
+  * This Object represents a single data entry in a `.Table`.
+@tags
+: #typography
+: #table
+@author
+: Chris Harvey
+@updated
+: 2014-05-18
+  */
+.Cell {
+	display: table-cell;
+}
+/**
+  * This Object represents a heading in a `.Table`. A table heading may apply to a single row, a single column, a group of rows, or a group of columns.
+@tags
+: #typography
+: #table
+@author
+: Chris Harvey
+@updated
+: 2014-05-18
+  */
+.Cell.Hc {
 	font-weight: bold;
 	background-color: @color_table_bg_hi;
 }
 
-.Table.List > .Rowgroup {
-	.r:nth-child(odd)  {background-color: @color_table_bg_md;}
-	.r:nth-child(even) {background-color: @color_table_bg_lo;}
+.Table.Horz {
+	width: 100%;
 }
-.Table.Bars {
-	> .Rowgroup.Head > .r {
-		.c.H:nth-child(odd)  {background-color: desaturate(@color_table_bg_lo, @fade);}
-		.c.H:nth-child(even) {background-color: desaturate(@color_table_bg_md, @fade);}
-		.c.H:first-child     {background-color: desaturate(@color_table_bg_hi, @fade);}
-	}
-	> .Rowgroup > .r {
-		.c:nth-child(odd)  {background-color: @color_table_bg_lo;}
-		.c:nth-child(even) {background-color: @color_table_bg_md;}
-	}
+.Table.Horz > .Rowgroup {
+	> .Row:nth-child(odd)  {background-color: @color_table_bg_md;}
+	> .Row:nth-child(even) {background-color: @color_table_bg_lo;}
 }
-.Table.Grid {
-	> .Rowgroup.Head,
-	> .Rowgroup > .r > .c.H {background-color: @color_table_bg_hi;}
-	> .Rowgroup {
-		> .r {
-			> .c {border: 1px solid @color_table_brdr;}
-		}
-		> .r:nth-child(odd) {
-			> .c:nth-child(odd)  {background-color: @color_table_bg_lo;}
-			> .c:nth-child(even) {background-color: @color_table_bg_md;}
-		}
-		> .r:nth-child(even) {
-			> .c:nth-child(odd)  {background-color: @color_table_bg_md;}
-			> .c:nth-child(even) {background-color: @color_table_bg_hi;}
-		}
+.Table.Vert {
+	> .Rowgroup.Head > .Row {
+		> .Cell.Hc:nth-child(odd)  {background-color: desaturate(@color_table_bg_lo, @fade);}
+		> .Cell.Hc:nth-child(even) {background-color: desaturate(@color_table_bg_md, @fade);}
+		> .Cell.Hc:first-child     {background-color: desaturate(@color_table_bg_hi, @fade);}
+	}
+	> .Rowgroup > .Row {
+		> .Cell:nth-child(odd)  {background-color: @color_table_bg_lo;}
+		> .Cell:nth-child(even) {background-color: @color_table_bg_md;}
 	}
 }
+// .Table.Grid {
+// 	> .Rowgroup.Head,
+// 	> .Rowgroup > .Row > .Cell.Hc {background-color: @color_table_bg_hi;}
+// 	> .Rowgroup {
+// 		> .Row {
+// 			> .Cell {border: 1px solid @color_table_brdr;}
+// 		}
+// 		> .Row:nth-child(odd) {
+// 			> .Cell:nth-child(odd)  {background-color: @color_table_bg_lo;}
+// 			> .Cell:nth-child(even) {background-color: @color_table_bg_md;}
+// 		}
+// 		> .Row:nth-child(even) {
+// 			> .Cell:nth-child(odd)  {background-color: @color_table_bg_md;}
+// 			> .Cell:nth-child(even) {background-color: @color_table_bg_hi;}
+// 		}
+// 	}
+// }
 table {
 	counter-reset: nrows;
 	tr {
