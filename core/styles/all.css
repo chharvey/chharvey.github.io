@@ -264,18 +264,20 @@ a {
   padding-left: 48px;
 }
 /**
-  * This Interface creates default padding for cell-like structures (table cells, grid cells, boxes, etc.). The padding is based on the Vertical Rhythm Unit.
+  * This Interface creates default padding for cell-like structures (table cells, grid cells, boxes, etc.).
+  * The padding is based on the Vertical Rhythm Unit. The vertical padding is in rems, and the horizontal padding is in pixels.
 @tags
 : #verticalrhythm
 : #padding
 @author
 : Chris Harvey
 @updated
-: 2014-04-30
+: 2014-05-20
   */
-.cellpaddingdefault {
+.cellpaddingdefault,
+.Cell {
   padding: 12px 7.41640786px;
-  padding: 0.75rem 0.46352549rem;
+  padding: 0.75rem 7.41640786px;
 }
 /**
   * This Interface is used on containers of floats. It pushes subsequent content to the bottom of the container.
@@ -665,6 +667,18 @@ a {
 @updated
 : 2014-05-03
   */
+/**
+  * This Interface sets a [large|medium|small] font size and corresponding line height.
+@implements
+: .fontsize-scale()
+@tags
+: #verticalrhythm
+: #fontsize
+@author
+: Chris Harvey
+@updated
+: 2014-05-20
+  */
 .fontsize-lrg,
 .fontsize-lrg-inline,
 .Qblock {
@@ -682,11 +696,22 @@ a {
 .fontsize-sml,
 .fontsize-sml-inline,
 .Capt,
-.Qblock .Src {
+.Qblock .Src,
+.Table {
   font-size: 12px;
   font-size: 0.75rem;
   line-height: 2;
 }
+/**
+  * This Interface sets an element to inline and does not affect vertical rhythm.
+@tags
+: #verticalrhythm
+: #fontsize
+@author
+: Chris Harvey
+@updated
+: 2014-05-20
+  */
 .fontsize-inline,
 .fontsize-lrg-inline,
 .fontsize-sml-inline {
@@ -694,9 +719,9 @@ a {
   line-height: 1.5;
 }
 /**
-  * This Interface sets [large/small] font-size and adjusts line-height.
+  * This Interface sets [large|small] font size for inline elements. They do not affect vertical rhythm.
 @implements
-: .fontsize-[large/small]
+: .fontsize-[lrg|sml]
 : .fontsize-inline
 @tags
 : #verticalrhythm
@@ -724,7 +749,10 @@ a {
 .Addy,
 .Fig,
 .Qblock,
-.List > .Item {
+.List > .Item,
+.Map > .Nam,
+.Map > .Val,
+.Cell {
   min-height: 24px;
   min-height: 1.5rem;
 }
@@ -754,7 +782,8 @@ a {
 .P,
 .Qblock.Long .Src,
 .List,
-.Map {
+.Map,
+.Table {
   margin-top: 24px;
   margin-top: 1.5rem;
 }
@@ -1456,6 +1485,8 @@ main {
   * This Object represent the name in a name-value pair of a `.Map`.
 @belongsto
 : .Map
+@implements
+: .vru-content
 @tags
 : #typography
 : #map
@@ -1469,7 +1500,9 @@ main {
 @belongsto
 : .Map
 @implements
+: .vru-content
 : .indent
+: .vru-top-1
 @tags
 : #typography
 : #map
@@ -1615,12 +1648,21 @@ main {
 @updated
 : 2014-05-03
   */
+kbd {
+  font-weight: bold;
+}
+var {
+  font-style: italic;
+}
 /*----------------*\
     _tables.less
 \*----------------*/
 /**
   * This Object represents a table-like structure. It may or may not be a literal `table` element.
   * A .Table is defined as an collection of data in two or more dimensions. A common example would be a multivariable map: given multiple (e.g., two) independent inputs there exists one dependent output.
+@implements
+: .vru-top-1
+: .fontsize-sml
 @tags
 : #typography
 : #table
@@ -1631,6 +1673,9 @@ main {
   */
 .Table {
   display: table;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
 }
 /**
   * This Object represents a group of rows in a `.Table`.
@@ -1649,12 +1694,15 @@ main {
 }
 .Rowgroup.Head {
   display: table-header-group;
+  vertical-align: bottom;
 }
 .Rowgroup.Body {
   display: table-row-group;
+  vertical-align: top;
 }
 .Rowgroup.Foot {
   display: table-footer-group;
+  vertical-align: bottom;
 }
 /**
   * This Object represents a single row in a `.Table`.
@@ -1671,6 +1719,9 @@ main {
 }
 /**
   * This Object represents a single data entry in a `.Table`.
+@implements
+: .cellpaddingdefault
+: .vru-content
 @tags
 : #typography
 : #table
@@ -1681,6 +1732,7 @@ main {
   */
 .Cell {
   display: table-cell;
+  border: 1px solid #808080;
 }
 /**
   * This Object represents a heading in a `.Table`. A table heading may apply to a single row, a single column, a group of rows, or a group of columns.
@@ -1704,6 +1756,9 @@ main {
 }
 .Table.Horz > .Rowgroup > .Row:nth-child(even) {
   background-color: #f1feff;
+}
+.Table.Horz > .Rowgroup.Body .Cell.Hc {
+  background-color: transparent;
 }
 .Table.Vert > .Rowgroup.Head > .Row > .Cell.Hc:nth-child(odd) {
   background-color: #f4fcfc;
@@ -1779,7 +1834,7 @@ table tr {
 [data-status="draft"] {
   opacity: .5;
   background-color: #fffcfa;
-  opacity: 0.618;
+  opacity: 0.61803399;
 }
 [hidden] {
   display: none !important;

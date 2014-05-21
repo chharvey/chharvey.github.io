@@ -6,6 +6,9 @@
 /**
   * This Object represents a table-like structure. It may or may not be a literal `table` element.
   * A .Table is defined as an collection of data in two or more dimensions. A common example would be a multivariable map: given multiple (e.g., two) independent inputs there exists one dependent output.
+@implements
+: .vru-top-1
+: .fontsize-sml
 @tags
 : #typography
 : #table
@@ -15,7 +18,12 @@
 : 2014-05-18
   */
 .Table {
+	&:extend(.vru-top-1);
+	&:extend(.fontsize-sml);
 	display: table;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
 }
 /**
   * This Object represents a group of rows in a `.Table`.
@@ -32,9 +40,18 @@
 	border-style: solid;
 	border-color: @color_table_brdr;
 }
-.Rowgroup.Head   {display: table-header-group;}
-.Rowgroup.Body   {display: table-row-group;}
-.Rowgroup.Foot   {display: table-footer-group;}
+.Rowgroup.Head   {
+	display: table-header-group;
+	vertical-align: bottom;
+}
+.Rowgroup.Body   {
+	display: table-row-group;
+	vertical-align: top;
+}
+.Rowgroup.Foot   {
+	display: table-footer-group;
+	vertical-align: bottom;
+}
 /**
   * This Object represents a single row in a `.Table`.
 @tags
@@ -50,6 +67,9 @@
 }
 /**
   * This Object represents a single data entry in a `.Table`.
+@implements
+: .cellpaddingdefault
+: .vru-content
 @tags
 : #typography
 : #table
@@ -59,7 +79,10 @@
 : 2014-05-18
   */
 .Cell {
+	&:extend(.cellpaddingdefault);
+	&:extend(.vru-content);
 	display: table-cell;
+	border: 1px solid #808080;
 }
 /**
   * This Object represents a heading in a `.Table`. A table heading may apply to a single row, a single column, a group of rows, or a group of columns.
@@ -83,6 +106,7 @@
 	> .Row:nth-child(odd)  {background-color: @color_table_bg_md;}
 	> .Row:nth-child(even) {background-color: @color_table_bg_lo;}
 }
+.Table.Horz > .Rowgroup.Body .Cell.Hc {background-color: transparent;}
 .Table.Vert {
 	> .Rowgroup.Head > .Row {
 		> .Cell.Hc:nth-child(odd)  {background-color: desaturate(@color_table_bg_lo, @fade);}

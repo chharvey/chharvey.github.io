@@ -64,17 +64,39 @@
 	.fontsize-scale(@ratio);
 	line-height: (2 * (@lineheight_base / @ratio));
 }
-.fontsize-lrg {.fontsize-scale(5/4);} // 1.2500rem
-.fontsize-med {.fontsize-scale(1/1);} // 1.0000rem
-.fontsize-sml {.fontsize-scale(3/4);} // 0.7500rem
+/**
+  * This Interface sets a [large|medium|small] font size and corresponding line height.
+@implements
+: .fontsize-scale()
+@tags
+: #verticalrhythm
+: #fontsize
+@author
+: Chris Harvey
+@updated
+: 2014-05-20
+  */
+.fontsize-lrg {.fontsize-scale(5/4);} // 1.25rem
+.fontsize-med {.fontsize-scale(1/1);} // 1.00rem
+.fontsize-sml {.fontsize-scale(3/4);} // 0.75rem
+/**
+  * This Interface sets an element to inline and does not affect vertical rhythm.
+@tags
+: #verticalrhythm
+: #fontsize
+@author
+: Chris Harvey
+@updated
+: 2014-05-20
+  */
 .fontsize-inline {
 	display: inline;
 	line-height: @lineheight_base;
 }
 /**
-  * This Interface sets [large/small] font-size and adjusts line-height.
+  * This Interface sets [large|small] font size for inline elements. They do not affect vertical rhythm.
 @implements
-: .fontsize-[large/small]
+: .fontsize-[lrg|sml]
 : .fontsize-inline
 @tags
 : #verticalrhythm
@@ -84,13 +106,15 @@
 @updated
 : 2014-05-03
   */
+.fontsize-lrg-inline,
+.fontsize-sml-inline {
+	&:extend(.fontsize-inline);
+}
 .fontsize-lrg-inline {
 	&:extend(.fontsize-lrg);
-	&:extend(.fontsize-inline);
 }
 .fontsize-sml-inline {
 	&:extend(.fontsize-sml);
-	&:extend(.fontsize-inline);
 }
 //++++ @end FONT SIZES ++++//
 
