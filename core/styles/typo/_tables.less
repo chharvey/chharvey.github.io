@@ -24,7 +24,24 @@
 	margin-left: auto;
 	margin-right: auto;
 	text-align: center;
+	color: @color_base_txt;
+	background-color: @color_base_bg;
 }
+/**
+	* This Object represents a `.Table` that takes the width of the page.
+@extends
+: .Table
+@implements
+: .width-f1o1
+@tags
+: #typography
+: #table
+@author
+: Chris Harvey
+@updated
+: 2014-05-20
+	*/
+.Table.Ful:extend(.width-f1o1) {}
 /**
   * This Object represents a group of rows in a `.Table`.
 @tags
@@ -40,17 +57,21 @@
 	border-style: solid;
 	border-color: @color_table_brdr;
 }
-.Rowgroup.Head   {
-	display: table-header-group;
+.Rowgroup.Head,
+.Rowgroup.Foot {
 	vertical-align: bottom;
+	background-color: @color_table_bg_hi;
+	.Row {background-color: transparent;}
 }
-.Rowgroup.Body   {
+.Rowgroup.Head {
+	display: table-header-group;
+}
+.Rowgroup.Body {
 	display: table-row-group;
 	vertical-align: top;
 }
-.Rowgroup.Foot   {
+.Rowgroup.Foot {
 	display: table-footer-group;
-	vertical-align: bottom;
 }
 /**
   * This Object represents a single row in a `.Table`.
@@ -64,6 +85,8 @@
   */
 .Row {
 	display: table-row;
+	&:nth-child(odd)  {background-color: @color_table_bg_md;}
+	&:nth-child(even) {background-color: @color_table_bg_lo;}
 }
 /**
   * This Object represents a single data entry in a `.Table`.
@@ -82,7 +105,6 @@
 	&:extend(.cellpaddingdefault);
 	&:extend(.vru-content);
 	display: table-cell;
-	border: 1px solid #808080;
 }
 /**
   * This Object represents a heading in a `.Table`. A table heading may apply to a single row, a single column, a group of rows, or a group of columns.
@@ -96,27 +118,11 @@
   */
 .Cell.Hc {
 	font-weight: bold;
-	background-color: @color_table_bg_hi;
 }
 
-.Table.Horz {
-	width: 100%;
-}
-.Table.Horz > .Rowgroup {
-	> .Row:nth-child(odd)  {background-color: @color_table_bg_md;}
-	> .Row:nth-child(even) {background-color: @color_table_bg_lo;}
-}
-.Table.Horz > .Rowgroup.Body .Cell.Hc {background-color: transparent;}
-.Table.Vert {
-	> .Rowgroup.Head > .Row {
-		> .Cell.Hc:nth-child(odd)  {background-color: desaturate(@color_table_bg_lo, @fade);}
-		> .Cell.Hc:nth-child(even) {background-color: desaturate(@color_table_bg_md, @fade);}
-		> .Cell.Hc:first-child     {background-color: desaturate(@color_table_bg_hi, @fade);}
-	}
-	> .Rowgroup > .Row {
-		> .Cell:nth-child(odd)  {background-color: @color_table_bg_lo;}
-		> .Cell:nth-child(even) {background-color: @color_table_bg_md;}
-	}
+.Table.Vert .Row .Cell {
+	&:nth-child(odd)  {background-color: @color_table_bg_md;}
+	&:nth-child(even) {background-color: @color_table_bg_lo;}
 }
 // .Table.Grid {
 // 	> .Rowgroup.Head,
