@@ -27,7 +27,7 @@ function rgbToHex(rgbString) {
  *
  * H runs from 0 to 360 degrees
  * S and V run from 0 to 100
- * 
+ *
  * Ported from the excellent java algorithm by Eugene Vishnevsky at:
  * http://www.cs.rit.edu/~ncs/color/t_convert.html
  */
@@ -122,30 +122,26 @@ $(document).ready(function () {
 	else, padding-bottom that number.
 	*/
 	$('table').each(function () {
-		if ($(this).hasClass('table-list') || $(this).hasClass('table-bars')) {
-			var n_rowgroups = 0;
-			$(this).find('thead, tbody, tfoot').each(function () {
-				n_rowgroups++;
-			});
-			n_rowgroups++; // once more for the last border
-			var btm = -(((n_rowgroups + 12) % 24) - 12);
-			if (btm <= 0) {$(this).css('margin-bottom',btm);}
-			else          {$(this).css('padding-bottom',btm);}
-		}
-		else {
-			var n_rows = 0;
-			$(this).find('tr').each(function () {
-				n_rows++;
-			});
-			n_rows++; // once more for the last border
-			var btm = -(((n_rows + 12) % 24) - 12);
-			if (btm <= 0) {$(this).css('margin-bottom',btm);}
-			else          {$(this).css('padding-bottom',btm);}
-		}
+		var n_rowgroups = 0;
+		$(this).find('thead, tbody, tfoot').each(function () {
+			n_rowgroups++;
+		});
+		n_rowgroups++; // once more for the last border
+		var btm = -(((n_rowgroups + 12) % 24) - 12);
+		if (btm <= 0) {$(this).css('margin-bottom',btm);}
+		else          {$(this).css('padding-bottom',btm);}
+		// var n_rows = 0;
+		// $(this).find('tr').each(function () {
+		// 	n_rows++;
+		// });
+		// n_rows++; // once more for the last border
+		// var btm = -(((n_rows + 12) % 24) - 12);
+		// if (btm <= 0) {$(this).css('margin-bottom',btm);}
+		// else          {$(this).css('padding-bottom',btm);}
 	});
-	
-	
-	
+
+
+
 	/*
 	Adds classes to necessary elements.
 	These methods are NOT meant for extending classes! For extending CSS classes, either use includes (redundant properties) or extends (multiple selectors), or some other method of inheritance in the stylesheet.
@@ -157,17 +153,17 @@ $(document).ready(function () {
 	If trying to decide whether to include a JS method to add a class, think, "does JS need to use the class or is only used for CSS?" If JS doesn't need it, you can find a better way to get what you want using CSS.
 	The only exception to this rule is to use JS to automate repetitive commands. For instance in an unordered list, if every line item needs to have a certain class, you can save time by writing a jQuery command to add the class to every line item.
 	*/
-	
+
 //	$('.js-enabled-remove').css('display','none');
 //	$('.js-disabled-remove, .wff').css('display','inline-block');
-	
+
 	/** JavaScript 'grabber' classes --- only here for jQuery selectors */
 });
 
 $(document).ready(function () {
 	/* BLOCK ELEMENTS */
-	
-	/** Colors tables' rows and columns alternating colors. 
+
+	/** Colors tables' rows and columns alternating colors.
 	remember, jQuery's :even and :odd selectors are 0-based (0 is first),
 	so the first row (row 0) should be given class 'row-odd' */
 // 	$('.table-list tbody').each(function () {
@@ -186,9 +182,9 @@ $(document).ready(function () {
 //			$(this).children('td:odd').addClass('column-even');
 //		});
 //	});
-	
+
 	/* INLINE ELEMENTS */
-	
+
 	/* MODS */
 	/* code */
 //	$('.lang-html').attr('title','HTML');
@@ -202,8 +198,8 @@ $(document).ready(function () {
 // 	$('.latex').attr('title',function () {
 // 		return $(this).text();
 // 	});
-	
-	/** an attempt to fix the cursive headings of the folio pages 
+
+	/** an attempt to fix the cursive headings of the folio pages
 	EDIT: Temporary fix available at the bottom of each hub page. */
 //	while($('.folio .h-folio').width > $('.folio').width) {
 //		$('.folio .h-folio').css('font-size', (parseInt($('.folio .h-folio').css('font-size')) - 1) + "px" );
