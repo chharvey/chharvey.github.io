@@ -35,6 +35,7 @@
 	&:extend(.lede);
 	padding-right: @spacer;
 }
+
 /**
   * This Object represents an inline quotation: a span of text that is taken directly from another source.
 @implements
@@ -48,13 +49,154 @@
 @updated
 : 2014-05-03
   */
-// .Q {
-// 	&:extend(.quotes all);
-// }
+.Quot {
+	&:extend(.quotes all);
+}
+/**
+  * This Object represents an inline thought: it's like a quote but silent.
+@implements
+: .guillemets
+@tags
+: #typography
+: #span
+: #quote
+@author
+: Chris Harvey
+@updated
+: 2014-05-25
+  */
+.Th {
+	&:extend(.guillemets all);
+}
+//.scare {
+//	// * scare quotes contain abuse of vocabulary or language
+//	&:extend(.quotes all);
+//}
+//.mention {
+//	// * mentions refer to phrases without referring to their meaning
+//	&:extend(.quotes all);
+//}
 
-em:extend(.emph all) {}
 
-code:extend(.code all) {}
-kbd {font-weight: bold;}
-kbd > kbd:extend(.key all) {}
-var {font-style: italic;}
+//+++++++++++++++++//
+/*@HIGHLIGHTED TEXT*/
+//+++++++++++++++++//
+em,
+.Emph {
+  font-style: italic;
+}
+strong,
+.Impt {
+  font-weight: bold;
+}
+mark,
+.Mark {
+  background-color: transparent;
+}
+/**
+	* A phrase in a foreign language.
+@tags
+: #typography
+: #span
+: #highlight
+@author
+: Chris Harvey
+@updated
+: 2014-05-25
+	*/
+.Foreignlang {
+	font-style: italic;
+	font-family: @fontfam_math;
+}
+/**
+  * A keyword or technical term.
+@tags
+: #typography
+: #span
+: #highlight
+@author
+: Chris Harvey
+@updated
+: 2014-05-25
+	*/
+.Keyword {
+	font-weight: bold;
+}
+/**
+	* A proper noun traditionally italicized, e.g. periodical name or ship name.
+@tags
+: #typography
+: #span
+: #highlight
+@author
+: Chris Harvey
+@updated
+: 2014-05-25
+	*/
+.Proper {
+	font-style: italic;
+	text-transform: capitalize;
+}
+//++++ @end HIGHLIGHTED TEXT ++++//
+
+
+//++++++++++++++//
+/*@DOCUMENTATION*/
+//++++++++++++++//
+dfn {
+	font-weight: bold;
+	font-style: inherit;
+	font-family: @fontfam_prose;
+}
+abbr[title],
+del[datetime],
+ins[datetime] {
+	cursor: help;
+	&::after {
+		display: none;
+		position: relative;
+		left: 5px;
+		top: 5px;
+		text-decoration: none;
+	}
+//	&:hover::after {display: inline;}
+}
+abbr {
+	&[title]::after {content: attr(title);}
+}
+del {
+	text-decoration: line-through;
+	&[datetime]::after {content: 'deleted on ' attr(datetime);}
+}
+ins {
+	text-decoration: underline;
+	&[datetime]::after {content: 'inserted on ' attr(datetime);}
+}
+del + ins {
+	padding-left: 0.5em;
+}
+sup,
+sub {
+	&:extend(.fontsize-sml-inline);
+	vertical-align: baseline;
+}
+sup {
+	position: relative;
+	bottom: @spacer / 4;
+}
+sub {
+	position: relative;
+	top: @spacer / 4
+}
+//++++ @end DOCUMENTATION ++++//
+
+
+
+//++++++//
+/*@FORMS*/
+//++++++//
+fieldset {
+	padding: 0;
+	margin: 0;
+}
+//++++ @end FORMS ++++//
