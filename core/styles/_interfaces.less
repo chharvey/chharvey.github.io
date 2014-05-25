@@ -4,9 +4,10 @@
 \*--------------------*/
 
 //Table of Contents
-//- MIXINS
-//- INTERFACES
-//	- Delimiters
+// - MIXINS
+// 	- Abstract Boxes
+// - INTERFACES
+// 	- Delimiters
 
 
 //+++++++//
@@ -37,6 +38,58 @@
 }
 .spacing-phi-left  {.spacing-phi(left);}
 .spacing-phi-right {.spacing-phi(right);}
+
+//---------------//
+/*@Abstract Boxes*/
+//---------------//
+/**
+  * This Mixin creates an abstract inline structure, boxed with a border.
+@params
+: @border_radius : the value of `border-radius` property
+@implements
+: .cellpaddingdefault
+@mixesin
+: .border-vert-both()
+@tags
+: #box
+: #verticalrhythm
+@author
+: Chris Harvey
+@updated
+: 2014-05-25
+  */
+.box-inline(@border_radius) {
+	display: inline;
+	padding: 1px 2px;
+	border: 1px solid;
+	border-radius: @border_radius;
+	white-space: nowrap;
+}
+/**
+  * This Mixin creates an abstract block structure, boxed with a border.
+@params
+: @border_radius : the value of `border-radius` property
+@implements
+: .cellpaddingdefault
+: .vru-content
+@mixesin
+: .border-vert-both()
+@tags
+: #box
+: #verticalrhythm
+@author
+: Chris Harvey
+@updated
+: 2014-05-25
+  */
+.box-block(@border_radius) {
+	&:extend(.cellpaddingdefault);
+	&:extend(.vru-content);
+	.border-vert-both(all; 1px; solid);
+	display: block;
+	border-radius: @border_radius;
+}
+//---- @end Abstract Boxes ----//
 //++++ @end MIXINS ++++//
 
 
@@ -185,4 +238,5 @@
 		padding-top: 0.25in;
 	}
 }
+
 //++++ @end INTERFACES ++++//

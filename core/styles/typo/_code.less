@@ -2,69 +2,152 @@
 /*--------------*\
     _code.less
 \*--------------*/
-
-
-@color_code--txt:  #000;
-@color_code--bg:   #ced;
-@color_code__comm: #999;
-@color_code__tag:  #009;
-@color_code__attr: #900;
-@color_code__val:  #090;
-@color_code__sel:  #099;
-@color_code__prop: #909;
-@color_code__cmd: #990;
-@color_code__arg: #000;
-.code {
-	// * a piece of text that a computer program would recognize
-	.box-inline();
-	.fontsize(small; inline);
-	border: 0;
-	font-style: normal;
-	font-weight: normal;
-	font-family: @fontfam--code;
-	color: @color_code--txt;
-	background-color: @color_code--bg;
+/**
+  * A Mixin used for both inline and block code.
+@params
+: @color_bg   : the value of the `background-color` property
+: @color_brdr : the value of the `border-color` property
+: @color_txt  : the value of the `color` property
+: @color_comm : the value of the `color` property for code comments
+@tags
+: #code
+@author
+: Chris Harvey
+@updated
+: 2014-05-25
+  */
+.allcode(@color_bg; @color_brdr; @color_txt; @color_comm) {
+	border-color: @color_brdr;
+	color: @color_txt;
+	background-color: @color_bg; // fallback
+	// background-color: fadeout(@color_bg, @golden4);
+	.Comm {color: @color_comm;}
 }
-.code--block {
-	&:extend(.code all);
-	.box-block();
-	.border-vert--both(all; 0);
-	.fontsize(small);
+/** The default border radius for code-like Objects. */
+@code_brdr_radius: 3px;
+/**
+  * A span of text that a computer program would recognize.
+@implements
+: .fontsize-sml-inline
+@mixesin
+: .box-inline()
+: .allcode()
+@tags
+: #code
+@author
+: Chris Harvey
+@updated
+: 2014-05-25
+  */
+.Code {
+	&:extend(.fontsize-sml-inline);
+	.box-inline(@code_brdr_radius);
+	.allcode(@color_code_bg; @color_code_brdr; @color_code_txt; @color_code_comm);
+	font-family: @fontfam_code;
+	white-space: nowrap;
+}
+/**
+  * A block of code. Its semantics are derived from the formatting (line breaks, indenting, etc) of the text content. This Object does *not* extend the `.Code` Object.
+@extends
+: .Code
+@implements
+: .fontsize-sml
+@mixesin
+: .box-block()
+: .allcode()
+@tags
+: #code
+@author
+: Chris Harvey
+@updated
+: 2014-05-25
+  */
+.Code.Block {
+	&:extend(.fontsize-sml);
+	.box-block(@code_brdr_radius);
+	.allcode(@color_codeblock_bg; @color_codeblock_brdr; @color_codeblock_txt; @color_codeblock_comm);
 	white-space: pre-wrap;
-	background-color: transparent;
 }
-.code__comm {color: @color_code__comm;}
-.code__tag       {color: @color_code__tag;}
-.code__attr {color: @color_code__attr;}
-.code__val     {color: @color_code__val;}
-.code__sel {color: @color_code__sel;}
-.code__prop {color: @color_code__prop;}
-.code__cmd {color: @color_code__cmd;}
-.code__arg {color: @color_code__arg;}
-.dir {
-	// * directory system (folders and files)
-	border: 0;
+/**
+  * Subcomponents of a code block.
+  * `.Tag` : an HTML tag
+  * `.Attr`: an HTML attribute
+  * `.Val` : an HTML or CSS value
+  * `.Sel` : a CSS selector
+  * `.Prop`: a CSS property
+  * `.Cmd` : a Less, LaTeX, or JS command
+  * `.Arg` : a Less, LaTeX, or JS argument
+@childof
+: .Code.Block
+@tags
+: #code
+@author
+: Chris Harvey
+@updated
+: 2014-05-25
+  */
+.Code.Block .Tag  {color: @color_code_tag;}
+.Code.Block .Attr {color: @color_code_attr;}
+.Code.Block .Val  {color: @color_code_val;}
+.Code.Block .Sel  {color: @color_code_sel;}
+.Code.Block .Prop {color: @color_code_prop;}
+.Code.Block .Cmd  {color: @color_code_cmd;}
+.Code.Block .Arg  {color: @color_code_arg;}
+
+code:extend(.Code) {}
+/**
+  * This Object represents a path in a directory system (for folders and files).
+@implements
+: .fontsize-sml-inline
+@tags
+: #code
+@author
+: Chris Harvey
+@updated
+: 2014-05-25
+  */
+.Dir {
+	&:extend(.fontsize-sml-inline);
 	font-style: italic;
-	font-family: @fontfam--base;
+	font-family: @fontfam_base;
 }
+
+
+
+
+
+
+
+
+
+
+
+/**
+  * This Object represents an individual key on a keyboard, calculator, or other device.
+@implements
+: .fontsize-sml-inline
+@tags
+: #code
+@author
+: Chris Harvey
+@updated
+: 2014-05-25
+  */
 .key {
-	// * an individual key on a keyboard, calculator, or other device
-	&:extend(.code all);
 	padding: 0 6px; // why this number?
 	border-style: outset;
-	font-family: @fontfam--base;
-	color: @aperture-white;
-	background-color: @aperture-black;
+	font-family: @fontfam_base;
+	color: @aperture_white;
+	background-color: @aperture_black;
 }
 .latex {
 	overflow: auto;
-	font-family: @fontfam--math;
+	font-family: @fontfam_math;
 	white-space: pre-wrap;
 }
-code:extend(.code all) {}
-kbd {font-weight: bold;}
-kbd > kbd:extend(.key all) {}
-var {font-style: italic;}
+// kbd {font-weight: bold;}
+// kbd > kbd:extend(.key all) {}
+// var {font-style: italic;}
 @media print {
 	code {
 		color: #000;

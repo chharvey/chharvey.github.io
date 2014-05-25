@@ -61,6 +61,54 @@
 #companion {
   background-color: #ffaac2;
 }
+#solarized_base03 {
+  background-color: #002b36;
+}
+#solarized_base02 {
+  background-color: #073642;
+}
+#solarized_base01 {
+  background-color: #586e75;
+}
+#solarized_base00 {
+  background-color: #657b83;
+}
+#solarized_base0 {
+  background-color: #839496;
+}
+#solarized_base1 {
+  background-color: #93a1a1;
+}
+#solarized_base2 {
+  background-color: #eee8d5;
+}
+#solarized_base3 {
+  background-color: #fdf6e3;
+}
+#solarized_yellow {
+  background-color: #b58900;
+}
+#solarized_orange {
+  background-color: #cb4b16;
+}
+#solarized_red {
+  background-color: #dc322f;
+}
+#solarized_magenta {
+  background-color: #d33682;
+}
+#solarized_violet {
+  background-color: #6c71c4;
+}
+#solarized_blue {
+  background-color: #268bd2;
+}
+#solarized_cyan {
+  background-color: #2aa198;
+}
+#solarized_green {
+  background-color: #859900;
+}
 /*---------------*\
     _reset.less
 \*---------------*/
@@ -173,16 +221,34 @@ pre {
   margin: 0;
   position: static;
 }
+html {
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  font-size: 16px;
+  font-family: 'Helvetica', 'Arial', sans-serif;
+  text-align: left;
+  line-height: 1.25;
+  vertical-align: baseline;
+}
+body {
+  color: #000;
+  background-color: #fff;
+}
 h1,
 h2,
 h3,
 h4,
 h5,
 h6,
+p,
 figure,
 blockquote,
 address,
 th,
+ol,
+ul,
+li,
 em,
 strong,
 mark,
@@ -194,27 +260,34 @@ dfn,
 abbr,
 del,
 ins,
+small,
 sup,
 sub,
 pre,
 code,
 kbd,
 samp,
-var {
+var,
+a {
   font-style: inherit;
+  font-variant: inherit;
   font-weight: inherit;
-  font-family: inherit;
-}
-small {
   font-size: inherit;
+  font-family: inherit;
+  text-align: inherit;
+  line-height: inherit;
+  vertical-align: inherit;
+  color: inherit;
+  background-color: transparent;
 }
 ol,
 ul {
   list-style-type: none;
 }
+del,
+ins,
 a {
   text-decoration: none;
-  color: inherit;
 }
 /*--------------------*\
     _interfaces.less
@@ -245,6 +318,40 @@ a {
   padding-right: 0;
   margin-right: 0;
 }
+/*@Abstract Boxes*/
+/**
+  * This Mixin creates an abstract inline structure, boxed with a border.
+@params
+: @border_radius : the value of `border-radius` property
+@implements
+: .cellpaddingdefault
+@mixesin
+: .border-vert-both()
+@tags
+: #box
+: #verticalrhythm
+@author
+: Chris Harvey
+@updated
+: 2014-05-25
+  */
+/**
+  * This Mixin creates an abstract block structure, boxed with a border.
+@params
+: @border_radius : the value of `border-radius` property
+@implements
+: .cellpaddingdefault
+: .vru-content
+@mixesin
+: .border-vert-both()
+@tags
+: #box
+: #verticalrhythm
+@author
+: Chris Harvey
+@updated
+: 2014-05-25
+  */
 /*@INTERFACES*/
 /**
   * This Interface adds a left padding to any Object. The padding-left is set to 48px, which is equal to 0.5in, the standard indent for APA style.
@@ -275,7 +382,8 @@ a {
 : 2014-05-20
   */
 .cellpaddingdefault,
-.Cell {
+.Cell,
+.Code.Block {
   padding: 12px 7.41640786px;
   padding: 0.75rem 7.41640786px;
 }
@@ -704,8 +812,12 @@ a {
 .Capt,
 .Qblock .Src,
 .Table,
+.Code.Block,
+.Code,
+.Dir,
 sup,
-sub {
+sub,
+code {
   font-size: 12px;
   font-size: 0.75rem;
   line-height: 2;
@@ -723,8 +835,11 @@ sub {
 .fontsize-inline,
 .fontsize-lrg-inline,
 .fontsize-sml-inline,
+.Code,
+.Dir,
 sup,
-sub {
+sub,
+code {
   display: inline;
   line-height: 1.5;
 }
@@ -762,7 +877,8 @@ sub {
 .List > .Item,
 .Map > .Nam,
 .Map > .Val,
-.Cell {
+.Cell,
+.Code.Block {
   min-height: 24px;
   min-height: 1.5rem;
 }
@@ -848,17 +964,11 @@ sub {
     _body.less
 \*--------------*/
 html {
-  font-weight: normal;
-  font-variant: normal;
-  font-style: normal;
   font-size: 16px;
   font-family: 'Optima', 'Candara', 'Helvetica', sans-serif;
   line-height: 1.5;
 }
 body {
-  margin: 0;
-  text-align: left;
-  vertical-align: baseline;
   color: #050300;
   background-color: #fafcff;
 }
@@ -1780,6 +1890,168 @@ table tr {
   }
 }
 /*--------------*\
+    _code.less
+\*--------------*/
+/**
+  * A Mixin used for both inline and block code.
+@params
+: @color_bg   : the value of the `background-color` property
+: @color_brdr : the value of the `border-color` property
+: @color_txt  : the value of the `color` property
+: @color_comm : the value of the `color` property for code comments
+@tags
+: #code
+@author
+: Chris Harvey
+@updated
+: 2014-05-25
+  */
+/** The default border radius for code-like Objects. */
+/**
+  * A span of text that a computer program would recognize.
+@implements
+: .fontsize-sml-inline
+@mixesin
+: .box-inline()
+: .allcode()
+@tags
+: #code
+@author
+: Chris Harvey
+@updated
+: 2014-05-25
+  */
+.Code,
+code {
+  display: inline;
+  padding: 1px 2px;
+  border: 1px solid;
+  border-radius: 3px;
+  border-color: #eee8d5;
+  color: #657b83;
+  background-color: #fdf6e3;
+  font-family: 'Menlo', 'Lucida Sans Typewriter', 'Monaco', monospace;
+  white-space: nowrap;
+}
+.Code .Comm {
+  color: #93a1a1;
+}
+/**
+  * A block of code. Its semantics are derived from the formatting (line breaks, indenting, etc) of the text content. This Object does *not* extend the `.Code` Object.
+@extends
+: .Code
+@implements
+: .fontsize-sml
+@mixesin
+: .box-block()
+: .allcode()
+@tags
+: #code
+@author
+: Chris Harvey
+@updated
+: 2014-05-25
+  */
+.Code.Block {
+  position: relative;
+  top: -1px;
+  margin-bottom: -2px;
+  border-width: 1px;
+  border-style: solid;
+  display: block;
+  border-radius: 3px;
+  border-color: #073642;
+  color: #839496;
+  background-color: #002b36;
+  white-space: pre-wrap;
+}
+.Code.Block .Comm {
+  color: #586e75;
+}
+/**
+  * Subcomponents of a code block.
+  * `.Tag` : an HTML tag
+  * `.Attr`: an HTML attribute
+  * `.Val` : an HTML or CSS value
+  * `.Sel` : a CSS selector
+  * `.Prop`: a CSS property
+  * `.Cmd` : a Less, LaTeX, or JS command
+  * `.Arg` : a Less, LaTeX, or JS argument
+@childof
+: .Code.Block
+@tags
+: #code
+@author
+: Chris Harvey
+@updated
+: 2014-05-25
+  */
+.Code.Block .Tag {
+  color: #268bd2;
+}
+.Code.Block .Attr {
+  color: #cb4b16;
+}
+.Code.Block .Val {
+  color: #859900;
+}
+.Code.Block .Sel {
+  color: #2aa198;
+}
+.Code.Block .Prop {
+  color: #b58900;
+}
+.Code.Block .Cmd {
+  color: #6c71c4;
+}
+.Code.Block .Arg {
+  color: #d33682;
+}
+/**
+  * This Object represents a path in a directory system (for folders and files).
+@implements
+: .fontsize-sml-inline
+@tags
+: #code
+@author
+: Chris Harvey
+@updated
+: 2014-05-25
+  */
+.Dir {
+  font-style: italic;
+  font-family: 'Optima', 'Candara', 'Helvetica', sans-serif;
+}
+/**
+  * This Object represents an individual key on a keyboard, calculator, or other device.
+@implements
+: .fontsize-sml-inline
+@tags
+: #code
+@author
+: Chris Harvey
+@updated
+: 2014-05-25
+  */
+.key {
+  padding: 0 6px;
+  border-style: outset;
+  font-family: 'Optima', 'Candara', 'Helvetica', sans-serif;
+  color: #fafcff;
+  background-color: #050300;
+}
+.latex {
+  overflow: auto;
+  font-family: 'Times', 'Times New Roman', serif;
+  white-space: pre-wrap;
+}
+@media print {
+  code {
+    color: #000;
+    background-color: #fff;
+  }
+}
+/*--------------*\
     _text.less
 \*--------------*/
 /**
@@ -2002,17 +2274,29 @@ fieldset {
   font-weight: bold;
 }
 /*@QUASI-ELEMENTS*/
-.nonnormative {
+[data-status="nonnormative"] {
   font-style: italic;
   font-family: 'Optima', 'Candara', 'Helvetica', sans-serif;
 }
+/**
+  * Elements still in testing mode but still not yet ready for implementation.
+  */
 [data-status="draft"] {
-  opacity: .5;
   background-color: #fffcfa;
   opacity: 0.61803399;
 }
 [hidden] {
   display: none !important;
+}
+[data-bool="0"] {
+  color: #fafcff;
+  background-color: #2b9cff;
+  background-color: #0062ff;
+}
+[data-bool="1"] {
+  color: #050300;
+  background-color: #ff8e2b;
+  background-color: #ff9d00;
 }
 /*dl*/
 .dl--ordered {

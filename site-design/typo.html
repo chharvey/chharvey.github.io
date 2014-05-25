@@ -14,40 +14,11 @@ body {
 	background-size: 100% 24px;
 	background-repeat: repeat-y;
 }
-code {
-	padding: 1px 2px;
-	border: 1px solid #bdf;
-	border-radius: 3px;
-	font-size: 75%;
-	font-family: monospace;
-	white-space: nowrap;
-	background-color: #fafcff; /* aperture_white */ /* fallback */
-	background-color: rgba(250, 252, 255, 0.618); /* aperture_white */
-}
-.code--block {display: block; white-space: pre-wrap; border: 0;}
-.code__sel  {color: #099;}
-.code__prop {color: #909;}
-.code__val  {color: #090;}
-.Code > .Sel  {color: #099;}
-.Code > .Prop {color: #909;}
-.Code > .Val  {color: #090;}
-
 #scheme-list .Item,
 #scheme-map .Nam,
 #scheme-map .Val {
 	outline: 1px solid #bbb;
 	background-color: #eee;
-}
-
-[data-bool="0"] {
-	/*color: #fafcff;            /* @aperture_white; */
-	background-color: #2b9cff; /* @repulsion */
-	background-color: #0062ff; /* @atlas */
-}
-[data-bool="1"] {
-	/*color: #050300;            /* @aperture_black; */
-	background-color: #ff8e2b; /* @propulsion */
-	background-color: #ff9d00; /* @pbody */
 }
 </style>
 <!--{% include all-js.html %}-->
@@ -515,8 +486,7 @@ code {
 				</tbody>
 			</table>
 		</figure>
-<!--
-		<div>
+		<!--div>
 			<p>Below is a grid-style table (). Grid-style tables are best for displaying information that either correlates across rows, down columns, or tabular data that correlates among both rows and columns.</p>
 			<p>In a grid-style table, a table header could be a row or row group of cells, or a column or column group of cells. If table header(s) are present, their cells may be normal cells or heading cells (headings). The headings, if present, can have a scope of either <code class="lang-html">scope=&quot;row&quot;</code> or <code class="lang-html">scope=&quot;col&quot;</code>. Similarly, these headings can be targeted by any cells.</p>
 			<p>An example of a grid-style table might be...</p>
@@ -529,20 +499,7 @@ code {
 					<tr><td>Row 5 Cell 1</td><td>Row 5 Cell 2</td><td>Row 5 Cell 3</td><td>Row 5 Cell 4</td><td>Row 5 Cell 5</td></tr>
 				</tbody>
 			</table>
-		</div>
--->
-	</section>
-</section>
-<section>
-	<h1 class="H Beta">Text-Level</h1>
-	<p class="P">This section......</p>
-	<section id="scheme-punct" data-status="draft">
-		<h1 class="H Gamma">Punctuation</h1>
-		<p>First and foremost, <strong>punctuation should be used to mark up text.</strong> The meaning we give to textual elements in the written language is primarily conveyed through punctuation, and if that fails, we turn to HTML. I'm not saying HTML is bad and that we shouldn't use it, but there is a line between not enough markup and too much markup.</p>
-		<p>Let me ask you this: do you find yourself trying to decide whether to wrap a question with something like <code class="lang-html">&lt;i class=&quot;question&quot;&gt;</code>? After all, a question does indicate a change of tone. No, we would rather simply type a question mark. Now imagine having to mark up every sentence with <code class="lang-html">&lt;sntc&gt;</code> tag, or even worse, every word with <code class="lang-html">&lt;word&gt;</code>.</p>
-		<p>Truth be told, question marks, periods, and spaces give meaning to the sentences and words we write. Likewise, we should make the best use we can of spaces, commas, apostrophes, stops (including periods, question marks, and exclamation marks) hyphens, colons, dashes, ellipses, semicolons, quotation marks, and any other punctuation characters at our disposal, as we normally would on a typewriter.</p>
-		<p>Without further ado, the number-one rule is this: <strong>if you can use punctuation to mark up text-level content, <em>do it</em></strong>. Save yourself the time and effort on trying to decide on an HTML element and just write naturally (as long as you consistently adhere to some prescribed manual of style). After that is all said and done, then it would be time to turn to the HTML elements we know and love.</p>
-		<p>This document is not meant to be a comprehensive manual for the written English language, so it is left to the discrection of the author (and/or his employer) to decide how to use punctuation. <a href="punct.html" rel="child">Read further on common practices of using punction.</a></p>
+		</div-->
 	</section>
 	<section id="scheme-link">
 		<h1 class="H Gamma">Hyperlink Scheme</h1>
@@ -561,6 +518,35 @@ code {
 		<a class="a-block sp">This is an <code class="lang-css">a.a-block.sp</code>.</a>
 		<a class="a-block" href="#">This is an <code class="lang-css">a.a-block[href]</code>.</a>
 		<a class="a-block sp" href="#">This is an <code class="lang-css">a.a-block.sp[href]</code>.</a> -->
+	</section>
+	<section id="scheme-code">
+		<h1 class="H Gamma">Code Scheme</h1>
+		<p class="P"><code>This is a fragment of code.</code> That fragment was just a <code>.P &gt; code</code> element. All <code>code</code> elements automatically instantiate the <code>.Code</code> Class. Optionally use it on elements other than <code>code</code> as below.</p>
+		<p class="P"><b class="Code">This is code. <span class="Comm">/* This is a code comment. */</span></b></p>
+		<p class="P">The following is a <code class="Code">.Code.Block</code> Object, or a block of code. Code blocks may have spans inside that represent different components of different languages. The first block shows the syntax for an HTML tag.</p>
+		<code class="Code Block"><span class="Tag">&lt;tag <span class="Attr">attr=&quot;<span class="Val">val val</span>&quot;</span>&gt;</span>contents<span class="Tag">&lt;/tag&gt;</span>
+<span class="Comm">&lt;!-- this is an HTML comment --&gt;</span>
+</code>
+<p class="P">The next block shows the syntax for a Less declaration.</p>
+<code class="Code Block"><span class="Sel">sel {
+	<span class="Prop">prop: <span class="Val">val</span>;</span>
+	<span class="Cmd">.cmd(<span class="Arg">arg</span>);</span>
+	&amp;:<span class="Sel">sel {<span class="Prop">prop: <span class="Val">val</span>;</span>}</span>
+	<span class="Comm">// This is a Less comment</span>
+}</span>
+</code>
+	</section>
+</section>
+<section>
+	<h1 class="H Beta">Text-Level</h1>
+	<p class="P">This section......</p>
+	<section id="scheme-punct" data-status="draft">
+		<h1 class="H Gamma">Punctuation</h1>
+		<p>First and foremost, <strong>punctuation should be used to mark up text.</strong> The meaning we give to textual elements in the written language is primarily conveyed through punctuation, and if that fails, we turn to HTML. I'm not saying HTML is bad and that we shouldn't use it, but there is a line between not enough markup and too much markup.</p>
+		<p>Let me ask you this: do you find yourself trying to decide whether to wrap a question with something like <code class="lang-html">&lt;i class=&quot;question&quot;&gt;</code>? After all, a question does indicate a change of tone. No, we would rather simply type a question mark. Now imagine having to mark up every sentence with <code class="lang-html">&lt;sntc&gt;</code> tag, or even worse, every word with <code class="lang-html">&lt;word&gt;</code>.</p>
+		<p>Truth be told, question marks, periods, and spaces give meaning to the sentences and words we write. Likewise, we should make the best use we can of spaces, commas, apostrophes, stops (including periods, question marks, and exclamation marks) hyphens, colons, dashes, ellipses, semicolons, quotation marks, and any other punctuation characters at our disposal, as we normally would on a typewriter.</p>
+		<p>Without further ado, the number-one rule is this: <strong>if you can use punctuation to mark up text-level content, <em>do it</em></strong>. Save yourself the time and effort on trying to decide on an HTML element and just write naturally (as long as you consistently adhere to some prescribed manual of style). After that is all said and done, then it would be time to turn to the HTML elements we know and love.</p>
+		<p>This document is not meant to be a comprehensive manual for the written English language, so it is left to the discrection of the author (and/or his employer) to decide how to use punctuation. <a href="punct.html" rel="child">Read further on common practices of using punction.</a></p>
 	</section>
 
 
@@ -677,21 +663,6 @@ code {
 		<section id="scripts">
 			<h1 class="h--delta">Super- and Subscripts</h1>
 		</section>
-	</section>
-	<section id="scheme-code">
-		<h1 class="h--gamma">Code and Math Scheme</h1>
-		<p><code>This is a fragment of code.</code> That fragment is inside a paragraph.</p>
-		<code class="code--block">
-This is a block of code.
-Code blocks can have spans inside, that represent different components of different languages. For example, the following line shows the syntax for an HTML tag.
-<span class="code__tag">&lt;tag <span class="code__attr">attr=&quot;<span class="code__val">val val</span>&quot;</span>&gt;</span>contents<span class="code__tag">&lt;/tag&gt;</span>
-The next line shows the syntax for a Less declaration.
-<span class="code__sel">sel {
-	<span class="code__cmd">.cmd(<span class="code__arg">arg</span>);</span>
-	<span class="code__prop">prop: <span class="code__val">val</span>;</span>
-	&amp;<span class="code__sel">:sel {<span class="code__prop">prop: <span class="code__val">val</span>;</span>}</span>
-}</span>
-		</code>
 	</section>
 	<section id="scheme-label">
 		<h1 class="h--gamma">Label Scheme</h1>
