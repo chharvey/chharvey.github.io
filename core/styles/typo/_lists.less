@@ -134,6 +134,30 @@
 	> .Item.Mdash::after {content: '\0020\2014\0020';}
 }
 /**
+  * This Object represents a 'List in Prose', a list that is contained within prose paragraphs. It is displayed inline, and has inline items as well.
+@extends
+: .List
+@tags
+: #typography
+: #list
+: #inline
+@author
+: Chris Harvey
+@updated
+: 2014-05-25
+  */
+.List.LIP {
+	display: inline;
+	counter-reset: count;
+	> .Item {
+		display: inline;
+		counter-increment: count;
+		&::before {
+			content: '(' counter(count) ') ';
+		}
+	}
+}
+/**
   * This Object represents a generic list whose items are to be displayed as blocks that have `float: left;`.
 @implements
 : .clearfix
