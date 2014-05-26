@@ -95,6 +95,108 @@
 .Code .Arg  {color: @color_code_arg;}
 
 code:extend(.Code) {}
+
+/**
+  * This Object represents a block of CSS code. Its semantics are derived not from the formatting of the text, but rather the elements inside.
+@extends
+: .Code.Block
+@tags
+: #code
+@author
+: Chris Harvey
+@updated
+: 2014-05-25
+  */
+.Code.Block.CSS {
+	white-space: nowrap;
+}
+/**
+  * This Object represents a CSS selector.
+@tags
+: #code
+@author
+: Chris Harvey
+@updated
+: 2014-05-25
+  */
+.CSS .Sel {
+	&::after {
+		content: ' {';
+	}
+}
+.CSS .Comm {
+	&::before {content: '/* ';}
+	&::after  {content: ' */';}
+}
+/**
+  * This Object represents a ruleset for a CSS selector.
+@implements
+: .clearfix
+: .vru-top-0
+@tags
+: #code
+@author
+: Chris Harvey
+@updated
+: 2014-05-25
+*/
+.CSS .Ruleset {
+	&:extend(.clearfix all);
+	&::after {
+		content: '}';
+		color: @color_code_sel;
+	}
+}
+.CSS .Ruleset > .Comm {
+	padding-left: @tab;
+}
+/**
+  * This Object represents the property in a CSS property-value pair.
+@tags
+: #code
+@author
+: Chris Harvey
+@updated
+: 2014-05-25
+  */
+.CSS .Ruleset > .Prp {
+	padding-left: @tab;
+	padding-right: @en;
+	float: left;
+	clear: both;
+	&::after {content: ':';}
+}
+/**
+  * This Object represents the value in a CSS property-value pair.
+@tags
+: #code
+@author
+: Chris Harvey
+@updated
+: 2014-05-25
+*/
+.CSS .Ruleset > .Val {
+	&::after {
+		content: ';';
+		color: @color_code_prp;
+	}
+	> .String {
+		color: @color_code_arg;
+		&::before,
+		&::after  {content: '\0027';} // &apos;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
 /**
   * This Object represents a path in a directory system (for folders and files).
 @implements

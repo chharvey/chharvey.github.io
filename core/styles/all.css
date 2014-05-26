@@ -354,23 +354,6 @@ a {
   */
 /*@INTERFACES*/
 /**
-  * This Interface adds a left padding to any Object. The padding-left is set to 48px, which is equal to 0.5in, the standard indent for APA style.
-@tags
-: #indent
-: #padding
-@author
-: Chris Harvey
-@updated
-: 2014-05-11
-  */
-.indent,
-.List > .Item > .List,
-.List.O,
-.List.U,
-.Map > .Desc {
-  padding-left: 48px;
-}
-/**
   * This Interface creates default padding for cell-like structures (table cells, grid cells, boxes, etc.).
   * The padding is based on the Vertical Rhythm Unit. The vertical padding is in rems, and the horizontal padding is in pixels.
 @tags
@@ -397,7 +380,8 @@ a {
 : 2014-05-12
   */
 .clearfix::after,
-.Map.Vert::after {
+.Map.Vert::after,
+.CSS .Ruleset::after {
   content: ' ';
   clear: both;
   display: table;
@@ -1414,6 +1398,22 @@ main {
     _lists.less
 \*---------------*/
 /**
+* This Interface adds a left padding to a `.List` Object. The padding-left is set to 48px, which is equal to 0.5in, the standard indent for APA style.
+@tags
+: #indent
+: #padding
+@author
+: Chris Harvey
+@updated
+: 2014-05-11
+*/
+.listindent,
+.List > .Item > .List,
+.List.O,
+.List.U {
+  padding-left: 48px;
+}
+/**
   * This Object represents a generic list. It may be a literal `ol` or `ul` element containing `li` elements, or it may be the abstract notion of a list of other Objects. The order of list items may be releveant or irrelevant.
 @implements
 : .vru-top-1
@@ -1448,7 +1448,7 @@ main {
   * This Object represents a List Object within a List Item Object.
 @implements
 : .vru-top-0
-: .indent
+: .listindent
 @tags
 : #typography
 : #list
@@ -1462,7 +1462,7 @@ main {
 @extends
 : .List
 @implements
-: .indent
+: .listindent
 @tags
 : #typography
 : #list
@@ -1515,7 +1515,7 @@ main {
 @extends
 : .List
 @implements
-: .indent
+: .listindent
 @tags
 : #typography
 : #list
@@ -1554,7 +1554,7 @@ main {
   content: '\0020\2014\0020';
 }
 /**
-  * This Object represents a 'List in Prose', a list that is contained within prose paragraphs. It is displayed inline, and has inline items as well.
+  * This Object represents a 'List in Prose', a list that is contained within prose paragraphs. It is displayed inline, and has inline items as well. The items are preceded with counters.
 @extends
 : .List
 @tags
@@ -1650,8 +1650,6 @@ main {
 : .Map
 @implements
 : .vru-content
-: .indent
-: .vru-top-1
 @tags
 : #typography
 : #map
@@ -1660,6 +1658,9 @@ main {
 @updated
 : 2014-05-25
   */
+.Map > .Desc {
+  padding-left: 48px;
+}
 /**
   * This Object represents a Map Object within a `.Term` Object or `.Desc` Object.
 @implements
@@ -2058,6 +2059,95 @@ code {
   color: #d33682;
 }
 /**
+  * This Object represents a block of CSS code. Its semantics are derived not from the formatting of the text, but rather the elements inside.
+@extends
+: .Code.Block
+@tags
+: #code
+@author
+: Chris Harvey
+@updated
+: 2014-05-25
+  */
+.Code.Block.CSS {
+  white-space: nowrap;
+}
+/**
+  * This Object represents a CSS selector.
+@tags
+: #code
+@author
+: Chris Harvey
+@updated
+: 2014-05-25
+  */
+.CSS .Sel::after {
+  content: ' {';
+}
+.CSS .Comm::before {
+  content: '/* ';
+}
+.CSS .Comm::after {
+  content: ' */';
+}
+/**
+  * This Object represents a ruleset for a CSS selector.
+@implements
+: .clearfix
+: .vru-top-0
+@tags
+: #code
+@author
+: Chris Harvey
+@updated
+: 2014-05-25
+*/
+.CSS .Ruleset::after {
+  content: '}';
+  color: #2aa198;
+}
+.CSS .Ruleset > .Comm {
+  padding-left: 48px;
+}
+/**
+  * This Object represents the property in a CSS property-value pair.
+@tags
+: #code
+@author
+: Chris Harvey
+@updated
+: 2014-05-25
+  */
+.CSS .Ruleset > .Prp {
+  padding-left: 48px;
+  padding-right: 6px;
+  float: left;
+  clear: both;
+}
+.CSS .Ruleset > .Prp::after {
+  content: ':';
+}
+/**
+  * This Object represents the value in a CSS property-value pair.
+@tags
+: #code
+@author
+: Chris Harvey
+@updated
+: 2014-05-25
+*/
+.CSS .Ruleset > .Val::after {
+  content: ';';
+  color: #b58900;
+}
+.CSS .Ruleset > .Val > .String {
+  color: #d33682;
+}
+.CSS .Ruleset > .Val > .String::before,
+.CSS .Ruleset > .Val > .String::after {
+  content: '\0027';
+}
+/**
   * This Object represents a path in a directory system (for folders and files).
 @implements
 : .fontsize-sml-inline
@@ -2299,9 +2389,6 @@ fieldset {
   background-color: #ff9d00;
 }
 /*dl*/
-.dl--ordered {
-  padding-left: 48px;
-}
 .dl--ordered > dt:first-child,
 .dl--ordered > dd + dt {
   display: list-item;
