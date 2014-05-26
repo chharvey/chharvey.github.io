@@ -120,13 +120,16 @@ code:extend(.Code) {}
 : 2014-05-25
   */
 .CSS .Sel {
-	&::after {
-		content: ' {';
-	}
+	&::after {content: ' {';}
 }
 .CSS .Comm {
 	&::before {content: '/* ';}
 	&::after  {content: ' */';}
+}
+.CSS .String {
+	color: @color_code_arg;
+	&::before,
+	&::after  {content: '\0027';} // &apos;
 }
 /**
   * This Object represents a ruleset for a CSS selector.
@@ -147,7 +150,7 @@ code:extend(.Code) {}
 		color: @color_code_sel;
 	}
 }
-.CSS .Ruleset > .Comm {
+.Ruleset > .Comm {
 	padding-left: @tab;
 }
 /**
@@ -159,7 +162,7 @@ code:extend(.Code) {}
 @updated
 : 2014-05-25
   */
-.CSS .Ruleset > .Prp {
+.Ruleset > .Prp {
 	padding-left: @tab;
 	padding-right: @en;
 	float: left;
@@ -175,15 +178,10 @@ code:extend(.Code) {}
 @updated
 : 2014-05-25
 */
-.CSS .Ruleset > .Val {
+.Ruleset > .Val {
 	&::after {
 		content: ';';
 		color: @color_code_prp;
-	}
-	> .String {
-		color: @color_code_arg;
-		&::before,
-		&::after  {content: '\0027';} // &apos;
 	}
 }
 
