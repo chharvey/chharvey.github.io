@@ -187,6 +187,10 @@ var {
 hr {
   display: none;
 }
+q::before,
+q::after {
+  content: none;
+}
 body,
 section,
 article,
@@ -421,55 +425,49 @@ a {
 }
 /*@Delimiters*/
 /**
-  * This Interface adds opening and closing parentheses surrounding an element.
+  * This Interface adds opening and closing punctuation marks surrounding an element. The punctuation marks are given by the `quotes` property.
 @tags
 : #typography
+: #quote
 @author
 : Chris Harvey
 @updated
-: 2014-05-02
+: 2014-05-26
   */
+.delimiters::before,
 .parens::before,
-.Qblock.Long .Src::before {
-  content: '(';
-}
-.parens::after,
-.Qblock.Long .Src::after {
-  content: ')';
-}
-/**
-  * This Interface adds opening and closing quotation marks surrounding an element.
-@tags
-: #typography
-@author
-: Chris Harvey
-@updated
-: 2014-05-02
-  */
-.quotes::before,
-.Quot::before {
+.quotes-double::before,
+.quotes-single::before,
+.guillemets::before,
+.Qblock.Long .Src::before,
+.Quot::before,
+.Th::before {
   content: open-quote;
 }
-.quotes::after,
-.Quot::after {
+.delimiters::after,
+.parens::after,
+.quotes-double::after,
+.quotes-single::after,
+.guillemets::after,
+.Qblock.Long .Src::after,
+.Quot::after,
+.Th::after {
   content: close-quote;
 }
-/**
-  * This Interface adds opening and closing guillemets (double angle quotes) surrounding an element.
-@tags
-: #typography
-@author
-: Chris Harvey
-@updated
-: 2014-05-02
-  */
-.guillemets::before,
-.Th::before {
-  content: '\00ab';
+.parens,
+.Qblock.Long .Src {
+  quotes: '\0028' '\0029';
 }
-.guillemets::after,
-.Th::after {
-  content: '\00bb';
+.quotes-double,
+.Quot {
+  quotes: '\201c' '\201d';
+}
+.quotes-single {
+  quotes: '\2018' '\2019';
+}
+.guillemets,
+.Th {
+  quotes: '\00ab' '\00bb';
 }
 @media print {
   /**
@@ -2286,7 +2284,7 @@ mark,
 /**
   * This Object represents an inline quotation: a span of text that is taken directly from another source.
 @implements
-: .quotes
+: .quotes-double
 @tags
 : #typography
 : #span
