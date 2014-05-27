@@ -1,4 +1,6 @@
 
+@import (reference) url('../../core/styles/all.less');
+
 /*---------------*\
     resume.less
 \*---------------*/
@@ -8,108 +10,88 @@
 //- SKILLGROUPS
 
 
-//+++++++++
-//@HEADINGS
-//+++++++++
-.res-h-name,
-.res-h-skilltitle,
-.res-h-org,
-.res-h-occup,
-.res-degree,
-.res-institution {
-	// * undoes the margin and padding for headings
-	margin-top: 0;
-	padding-bottom: 0;
+//+++++++++//
+/*@HEADINGS*/
+//+++++++++//
+.H.Beta,
+.H.Gamma,
+.H.Delta,
+.H.Epsilon,
+.H.Zeta {
+	.vru-top-0;
+	.vru-bottom-0;
 }
-.res-h-name:extend(.h--alpha all) {}
-.res-h-skilltitle:extend(.h--beta all) {}
-.res-h-org:extend(.h--gamma all) {}
-.res-h-occup:extend(.h--delta all) {}
-.res-degree:extend(.h--epsilon all) {}
-.res-institution:extend(.h--zeta all) {}	
-
-.res-h-name {.vru--top();}
-.res-degree,
-.res-institution {text-indent: 0;}
-
-.res-postal {
-	&:extend([data-e="postal"] all);
-	.spacing-right-phi();
+.H.Alpha {.fontsize-scale-double(3.0);}
+.H.Beta  {.fontsize-scale(1.5);}
+.H.Gamma,
+.H.Delta,
+.H.Epsilon,
+.H.Zeta {
+	&:extend(.fontsize-med);
 }
-//++++ @end HEADINGS ++++
 
-
-//++++++++++++
-//@SKILLGROUPS
-//++++++++++++
-.res-skillgroup,
-.res-job {
-	.vru--top();
-}
-.res-skillgroup:first-of-type {.vru-phi--top(1px; solid; @color_accent);}
-.res-job:first-of-type {margin-top: 0;}
-.res-h-skilltitle {
-	&:extend(.gutter--major);
+.H.Beta {
+	position: absolute;
+	left: 0;
+	width: @golden4;
+	margin-left: @golden7;
+	margin-right: @golden6;
 	text-align: right;
 }
-.res-skilldetail {
-	// a non-bulleted list of items in a skillgroup
-	&:extend(.list--bare all);
-}
-/* @end */
 
-/* @group jobs (level 2 sections) */
-.res-job:first-child {margin-top: 0;}
-
-.res-h-org,
-.res-h-occup,
-.res-degree,
-.res-institution {
-	.fontsize(medium);
+.res-postal {
+	// font-family: @fontfam_accent;
+	text-align: center;
+	.List {&:extend(.vru-top-0);}
 }
+//++++ @end HEADINGS ++++//
+
+
+//++++++++++++//
+/*@SKILLGROUPS*/
+//++++++++++++//
+
+.res-skillgroup {
+	&:extend(.vru-top-1);
+}
+.res-skillgroup:first-of-type {.vru-top-phi(1px; solid; @color_accent);}
+
+
+.res-job {
+	&:extend(.vru-top-1);
+	// &:first-child   {&:extend(.vru-top-0);}
+	&:first-of-type {&:extend(.vru-top-0);}
+}
+.res-jobdetail {
+	//* bullet list of job descriptions and awards
+	padding-left: (@tab / 2);
+	list-style: square outside none;
+}
+
+
+
+
+
 .res-spacetime {
 	//* date & location of job
-//	&:extend(span.hsub all); // does not extend span.hsub because that is a quasi-element
-	// IS an hsub but I don't want it to LOOK like an hsub
 	float: right;
 	font-weight: normal;
 	font-variant: normal;
 	font-style: normal;
 	font-size: inherit !important; // change this later!
-	font-family: @fontfam--base;
+	font-family: @fontfam_base;
 	letter-spacing: normal;
-	color: @color_base--txt !important; // change this later!
+	color: @color_base_txt !important; // change this later!
 }
-.res-jobdetail {
-	//* bullet list of job descriptions and awards
-	padding-left: 0;
-	margin-top: 0;
-	list-style: square inside none;
-}
-//++++ @end SKILLGROUPS ++++
+//++++ @end SKILLGROUPS ++++//
 
 
 
-.res-tech-apps,
-.res-tech-langs {
-	&:extend(.res-jobdetail);
-}
-.res-tech-apps {
-	&:extend(.list--float--2 all);
-	list-style-type: none; // overriding an override! fix it!
-}
-.res-tech-langs {
-	&:extend(.list--line all);
-//	li {width: 12.5%;}
-}
 
-.res-footer {
-	&:extend(.row);
-	margin-top: 48px; // 0.5in
+.res-Footer {
+	.vru-top(2);
 }
-.res-footer-name,
-.res-footer-pagecount {&:extend(.cell-1o2);}
-.res-footer-pagecount {text-align: right;}
+.res-Footer > .Pagecount {text-align: right;}
 
 @media screen {
 	.res-footer {display: none;}
@@ -117,23 +99,23 @@
 
 @media print {
 	.res-body,
-	.res-h-org,
-	.res-h-occup,
-	.res-degree,
-	.res-institution,
+	.H.Gamma,
+	.H.Delta,
+	.H.Epsilon,
+	.H.Zeta,
 	.res-spacetime,
 	.res-postal {
 		font-size: 12px;
 		line-height: 1.5;
-		font-family: @fontfam--math;
+		font-family: @fontfam_math;
 	}
-	.res-main {margin-bottom: 0;}
-	.res-h-name,
-	.res-h-skilltitle,
-	.res-h-org,
-	.res-h-occup,
-	.res-degree,
-	.res-institution {
+	main {margin-bottom: 0;}
+	.H.Alpha,
+	.H.Beta,
+	.H.Gamma,
+	.H.Delta,
+	.H.Epsilon,
+	.H.Zeta {
 		font-style: inherit;
 		font-variant: inherit;
 		font-weight: inherit;
@@ -141,21 +123,25 @@
 		letter-spacing: normal;
 		color: inherit;
 	}
-	.res-h-name,
-	.res-h-skilltitle {
+	.H.Alpha,
+	.H.Beta {
 		font-weight: bold;
 		font-size: 16px;
 		line-height: 1.125;
 	}
-	.res-h-skilltitle {
+	.H.Beta {
+		width: 100%;
+		padding: 0;
+		margin: 0;
 		font-variant: small-caps;
 		text-align: left;
+		position: static;
 	}
-	.res-h-org {
+	.H.Gamma {
 		font-weight: bold;
 	}
-	.res-h-occup,
-	.res-institution {
+	.H.Delta,
+	.H.Epsilon {
 		font-style: italic;
 	}
 }
