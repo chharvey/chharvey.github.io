@@ -450,7 +450,7 @@ mark {
 .quotes-single::before,
 .guillemets::before,
 .Qblock.Long .Src::before,
-.Quot::before,
+q::before,
 .Th::before {
   content: open-quote;
 }
@@ -460,7 +460,7 @@ mark {
 .quotes-single::after,
 .guillemets::after,
 .Qblock.Long .Src::after,
-.Quot::after,
+q::after,
 .Th::after {
   content: close-quote;
 }
@@ -469,7 +469,7 @@ mark {
   quotes: '(' ')';
 }
 .quotes-double,
-.Quot {
+q {
   quotes: '\201c' '\201d';
 }
 .quotes-single {
@@ -807,6 +807,8 @@ mark {
 .Code.Block,
 .Code,
 .Dir,
+sup,
+sub,
 code {
   font-size: 12px;
   font-size: 0.75rem;
@@ -827,6 +829,8 @@ code {
 .fontsize-sml-inline,
 .Code,
 .Dir,
+sup,
+sub,
 code {
   display: inline;
   line-height: 1.5;
@@ -1164,6 +1168,21 @@ main {
   */
 .P {
   display: block;
+}
+/**
+  * This Object refers to the first ("lede"/"lead") sentence in a paragraph or caption, which may act as a "heading" for that paragraph or caption.
+  * This can also be useful in a list of prose ("LOP"), whose list items consist of long prose text.
+@tags
+: #typography
+: #span
+@author
+: Chris Harvey
+@updated
+: 2014-05-29
+  */
+.Lede {
+  font-weight: bold;
+  padding-right: 24px;
 }
 /**
   * This Object represents an introduction paragraph, typically referred to as a "standfirst" (in the U.K.). It may also serve as an abstract of a scholarly article.
@@ -1950,7 +1969,8 @@ table tr {
 : 2014-04-21
 */
 /**
-  * This Object represents a placeholder reference to a name or title of a heading, section, figure, table (or column in a table), or creative work, only when hyperlinks or citations (or the `a` or `cite` element) are not appropriate.
+  * This Object represents a placeholder reference to a name or title of a heading, section, figure, table (or column in a table), or creative work.
+  * May be instantiated by the `a` or `cite` Elements.
 @tags
 : #hyperlink
 : #span
@@ -1961,6 +1981,21 @@ table tr {
   */
 .Ref {
   font-weight: bold;
+}
+/**
+  * A proper noun traditionally italicized, e.g. periodical name or ship name.
+@tags
+: #typography
+: #span
+: #highlight
+@author
+: Chris Harvey
+@updated
+: 2014-05-25
+  */
+.Proper {
+  font-style: italic;
+  text-transform: capitalize;
 }
 /*--------------*\
     _code.less
@@ -2231,33 +2266,70 @@ code {
   display: inline;
 }
 /*@HIGHLIGHTED TEXT*/
-/*@Emphasis*/
 /**
-  * This Object refers to the first ("lede"/"lead") sentence in a paragraph or caption, which may act as a "heading" for that paragraph or caption.
-  * This can also be useful in a list of prose ("LOP"), whose list items consist of long prose text.
+  * Emphasized text represents words or phrases that are stressed, as if the tone of voice would be affected. More importantly, **the placement of stress should affect the meaning of the passage**. If the emphasis were to be removed or relocated, the passage's meaning should change.
 @tags
 : #typography
 : #span
+: #highlight
 @author
 : Chris Harvey
 @updated
-: 2014-05-29
+: 2014-05-30
 */
-.Lede {
-  font-weight: bold;
-  padding-right: 24px;
-}
-.Emph {
+em {
   font-style: italic;
 }
-.Impt {
+/**
+  * Strong text has a level of importance. Important text does not necessarily affect tone of voice (although it may), but rather upsets the normal prose by causing the reader to examine the text more carefully. The placement of importance should not affect the meaning of the passage.
+@tags
+: #typography
+: #span
+: #highlight
+@author
+: Chris Harvey
+@updated
+: 2014-05-30
+  */
+strong {
   font-weight: bold;
 }
-.Mark {
-  background-color: transparent;
+/**
+  * Marked text represents phrases that are relevant to a particular subject in a different context.
+  * In an article about black holes, for example, the author may want to mark up anything that has to do with the **Law of Conservation of Information** in one way, and mark up any phrases involving **String Theory** in another way. Using classes, the reviewer could style different contexts accordingly.
+@tags
+: #typography
+: #span
+: #highlight
+@author
+: Chris Harvey
+@updated
+: 2014-05-30
+  */
+mark {
+  background-color: #ffaac2;
+  background-color: rgba(255, 170, 194, 0.61803399);
 }
 /**
-  * A phrase in a foreign language.
+  * A keyword, technical or specific term, or a vocabulary term.
+  * Every `dfn` must have an `id` attribute, Thus there must only be one `dfn` per page which contains a given term in question. Furthermore, hyperlinks can point to the defining instance of the term.
+@tags
+: #typography
+: #span
+: #highlight
+@author
+: Chris Harvey
+@updated
+: 2014-05-25
+	*/
+dfn[id],
+b {
+  font-weight: bold;
+  font-family: 'Baskerville', 'Palatino', 'Book Antiqua', serif;
+}
+/**
+  * A phrase in a foreign language, such as the taxonomic classification (in Latin) of an organism.
+  * Recommended to be instantiated by i[lang] Elements.
 @tags
 : #typography
 : #span
@@ -2267,42 +2339,13 @@ code {
 @updated
 : 2014-05-25
   */
-.Foreignlang {
+i[lang] {
   font-style: italic;
   font-family: 'Times', 'Times New Roman', serif;
 }
-/**
-  * A keyword or technical term.
-@tags
-: #typography
-: #span
-: #highlight
-@author
-: Chris Harvey
-@updated
-: 2014-05-25
-	*/
-.Keyword {
-  font-weight: bold;
-}
-/**
-	* A proper noun traditionally italicized, e.g. periodical name or ship name.
-@tags
-: #typography
-: #span
-: #highlight
-@author
-: Chris Harvey
-@updated
-: 2014-05-25
-	*/
-.Proper {
-  font-style: italic;
-  text-transform: capitalize;
-}
 /*@DOCUMENTATION*/
 /**
-  * This Object represents an inline quotation: a span of text that is taken directly from another source.
+  * An inline quotation: a span of text that is taken directly from another source (real or fictional).
 @implements
 : .quotes-double
 @tags
@@ -2312,10 +2355,11 @@ code {
 @author
 : Chris Harvey
 @updated
-: 2014-05-03
+: 2014-05-30
   */
 /**
-  * This Object represents an inline thought: it's like a quote but silent.
+  * This Object represents an altered voice in the form of a thought. Like a quote but silent.
+  * May be applied to the `q` Element.
 @implements
 : .guillemets
 @tags
@@ -2327,6 +2371,36 @@ code {
 @updated
 : 2014-05-25
   */
+/**
+  */
+/**
+  */
+del[datetime] {
+  text-decoration: line-through;
+}
+/**
+  */
+ins[datetime] {
+  text-decoration: underline;
+}
+del + ins {
+  padding-left: 24px;
+}
+sup,
+sub {
+  position: relative;
+  vertical-align: baseline;
+}
+/**
+  */
+sup {
+  bottom: 6px;
+}
+/**
+  */
+sub {
+  top: 6px;
+}
 /*@FORMS*/
 /*@QUASI-ELEMENTS*/
 [data-status="nonnormative"] {
