@@ -164,10 +164,9 @@ code:extend(.Code) {}
   */
 .Ruleset > .Prp {
 	padding-left: @tab;
-	padding-right: @en;
 	float: left;
 	clear: both;
-	&::after {content: ':';}
+	&::after {content: ':\00A0';}
 }
 /**
   * This Object represents the value in a CSS property-value pair.
@@ -184,7 +183,38 @@ code:extend(.Code) {}
 		color: @color_code_prp;
 	}
 }
+/**
+  * A block of CSS code whose selectors are inline. This is really useful for selectors with one property-value pair each.
+@extends
+: .Code.Block.CSS
+@tags
+: #code
+@author
+: Chris Harvey
+@updated
+: 2014-05-31
+  */
 
+.Code.Block.CSS.I {
+	.Sel {
+		display: inline;
+		float: left;
+		clear: both;
+	}
+	.Ruleset {
+		&::after {
+			display: inline;
+		}
+		> .Prp {
+			display: inline;
+			padding-left: @en;
+			float: none;
+		}
+		> .Val {
+			display: inline;
+		}
+	}
+}
 
 
 
