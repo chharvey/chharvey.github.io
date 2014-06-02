@@ -14,24 +14,35 @@
 //+++++++++//
 /*@HEADINGS*/
 //+++++++++//
-.H.Beta,
-.H.Gamma,
-.H.Delta,
-.H.Epsilon,
-.H.Zeta {
-	.vru-top-0;
-	.vru-bottom-0;
+.H.Beta.res-Skilltitle,
+.H.Gamma.res-Jobtitle,
+.H.Delta.res-Postitle,
+.H.Epsilon.res-Deg,
+.H.Zeta.res-Inst {
+	&:extend(.vru-top-0);
+	&:extend(.vru-bottom-0);
 }
-.H.Alpha {.fontsize-scale-double(3.0);}
-.H.Beta  {.fontsize-scale(1.5);}
-.H.Gamma,
-.H.Delta,
-.H.Epsilon,
-.H.Zeta {
+.H.Gamma.res-Jobtitle,
+.H.Delta.res-Postitle,
+.H.Epsilon.res-Deg,
+.H.Zeta.res-Inst {
 	&:extend(.fontsize-med);
 }
-
-.H.Beta {
+/**
+  * The title of each skillgroup, e.g. "Teaching Experience"
+@extends
+: .H.Beta
+@mixesin
+: .fontsize-scale()
+@tags
+: #golden
+@author
+: Chris Harvey
+@updated
+: 2014-06-01
+*/
+.H.Beta.res-Skilltitle {
+	.fontsize-scale(1.5);
 	position: absolute;
 	left: 0;
 	width: @golden4;
@@ -40,7 +51,7 @@
 	text-align: right;
 }
 
-.res-postal {
+.res-Postal {
 	font-family: @fontfam_heading;
 	text-align: center;
 	.List {&:extend(.vru-top-0);}
@@ -52,37 +63,48 @@
 /*@SKILLGROUPS*/
 //++++++++++++//
 
-.res-skillgroup {
+.res-Skillgroup {
+	&:extend(.vru-top-1);
+	&:first-of-type {
+		.vru-top-phi(1px; solid; @color_accent);
+	}
+}
+
+.res-Job {
+	//* a section within the skillgroup
 	&:extend(.vru-top-1);
 }
-.res-skillgroup:first-of-type {.vru-top-phi(1px; solid; @color_accent);}
-
-
-.res-job {
-	&:extend(.vru-top-1);
-	// &:first-child   {&:extend(.vru-top-0);}
-	&:first-of-type {&:extend(.vru-top-0);}
-}
-.res-jobdetail {
-	//* bullet list of job descriptions and awards
+/**
+  * A bullet list of job descriptions for each job.
+@extends
+: .List.U
+@implements
+: .vru-top-0
+@tags
+: #verticalrhythm
+@author
+: Chris Harvey
+@updated
+: 2014-06-01
+*/
+.List.U.res-Jobdetail {
+	&:extend(.vru-top-0);
 	padding-left: (@tab / 2);
-	list-style: square outside none;
 }
 
 
 
 
 
-.res-spacetime {
+.res-Spacetime {
 	//* date & location of job
 	float: right;
 	font-weight: normal;
 	font-variant: normal;
 	font-style: normal;
-	font-size: inherit !important; // change this later!
 	font-family: @fontfam_base;
 	letter-spacing: normal;
-	color: @color_base_txt !important; // change this later!
+	color: @color_base_txt;
 }
 //++++ @end SKILLGROUPS ++++//
 
@@ -95,42 +117,37 @@
 .res-Footer > .Pagecount {text-align: right;}
 
 @media screen {
-	.res-footer {display: none;}
+	.res-Footer {display: none;}
 }
 
 @media print {
-	.res-body,
-	.H.Gamma,
-	.H.Delta,
-	.H.Epsilon,
-	.H.Zeta,
-	.res-spacetime,
-	.res-postal {
-		font-size: 12px;
-		line-height: 1.5;
+	.res-Body {
+		.fontsize-med;
 		font-family: @fontfam_math;
 	}
-	main {margin-bottom: 0;}
-	.H.Alpha,
-	.H.Beta,
-	.H.Gamma,
-	.H.Delta,
-	.H.Epsilon,
-	.H.Zeta {
-		font-style: inherit;
-		font-variant: inherit;
-		font-weight: inherit;
+	.res-Main {margin-bottom: 0;}
+	.res-Job {
+		.vru-top-0;
+		.vru-bottom-1;
+	}
+	.H.Alpha.res-Name,
+	.H.Beta.res-Skilltitle,
+	.H.Gamma.res-Jobtitle,
+	.H.Delta.res-Postitle,
+	.H.Epsilon.res-Deg,
+	.H.Zeta.res-Inst {
 		font-family: inherit;
 		letter-spacing: normal;
 		color: inherit;
 	}
-	.H.Alpha,
-	.H.Beta {
-		font-weight: bold;
-		font-size: 16px;
-		line-height: 1.125;
+	.H.Alpha.res-Name,
+	.H.Beta.res-Skilltitle {
+		.fontsize-lrg;
 	}
-	.H.Beta {
+	.H.Alpha.res-Name {
+		font-variant: inherit;
+	}
+	.H.Beta.res-Skilltitle {
 		width: 100%;
 		padding: 0;
 		margin: 0;
@@ -138,11 +155,25 @@
 		text-align: left;
 		position: static;
 	}
-	.H.Gamma {
+	.H.Gamma.res-Jobtitle {
+		font-variant: inherit;
 		font-weight: bold;
 	}
-	.H.Delta,
-	.H.Epsilon {
-		font-style: italic;
+	.H.Delta.res-Postitle {
+		font-weight: inherit;
+	}
+	.H.Epsilon.res-Deg {
+		font-style: inherit;
+	}
+	.H.Zeta.res-Inst {
+		font-variant: inherit;
+	}
+
+	.res-Spacetime,
+	.res-Postal {
+		font-family: inherit;
+	}
+	.List {
+		.vru-top-0;
 	}
 }
