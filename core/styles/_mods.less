@@ -4,254 +4,40 @@
 	_mods.less
 \*--------------*/
 
-//Table of Contents
-//- ABSTRACT BOXES
-//- MESSAGES
-//- MASTHEAD
-//- BREADCRUMBS
-//- FOOTNOTES
+// Table of Contents
 
 
+/** The default border for button-like Objects. */
+@btn_brdr_width: 2px;
+@btn_brdr_radius: 6px;
 
-
-.button {
-	&:extend(.link all);
-	.box-block();
-	background-color: @color_link--up--bg;
-	&:hover {background-color: @color_link--dn--bg;}
-	&:active {background-color: @color_link--active-bg;}
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//+++++++++//
-/*@MESSAGES*/
-//+++++++++//
-@color_warning--txt: #600;
-@color_caution--txt: #660;
-@color_success--txt: #060;
-@color_info--txt:    #006;
-@color_help--txt:    #606;
-@color_special--txt: #066;
-
-@color_warning--brdr: #fcc;
-@color_caution--brdr: #ffc;
-@color_success--brdr: #cfc;
-@color_info--brdr:    #ccf;
-@color_help--brdr:    #fcf;
-@color_special--brdr: #cff;
-
-@color_warning--bg: #fee;
-@color_caution--bg: #ffe;
-@color_success--bg: #efe;
-@color_info--bg:    #eef;
-@color_help--bg:    #fef;
-@color_special--bg: #eff;
-
-@color_warning--brdr: lighten(@color_warning--txt, @headlt);
-@color_caution--brdr: lighten(@color_caution--txt, @headlt);
-@color_success--brdr: lighten(@color_success--txt, @headlt);
-@color_info--brdr: lighten(@color_info--txt, @headlt);
-@color_help--brdr: lighten(@color_help--txt, @headlt);
-@color_special--brdr: lighten(@color_special--txt, @headlt);
-@color_warning--bg: lighten(@color_warning--brdr, @headlt);
-@color_caution--bg: lighten(@color_caution--brdr, @headlt);
-@color_success--bg: lighten(@color_success--brdr, @headlt);
-@color_info--bg: lighten(@color_info--brdr, @headlt);
-@color_help--bg: lighten(@color_help--brdr, @headlt);
-@color_special--bg: lighten(@color_special--brdr, @headlt);
-
-.message {
-	&:extend(.row all);
-	.box-block();
-	.width--sml();
-	.fontsize(small);
-	margin-top: @vru;
-	font-style: normal;
-	font-weight: normal;
-	font-family: @fontfam--accent;
-	line-height: 1;
-	&::before {
-		font-family: @fontfam--code;
-//		&:extend(.cell all);
-//		&:extend(.dropcap::first-letter all);
-//		padding-top: 0;
-//		margin-top: -12px;
-//		float: left;
-	}
-}
-.message-mx(@color_txt; @color_bg; @color_brdr; @content) {
-	color: @color_txt;
-	background-color: @color_bg;
-	border-color: @color_brdr;
-	&::before {
-		color: @color_txt;
-		content: @content;
-	}
-}
-.warning {
-	&:extend(.message all);
-	.message-mx(@color_warning--txt; @color_warning--bg; @color_warning--brdr; '!');
-}
-.caution {
-	&:extend(.message all);
-	.message-mx(@color_caution--txt; @color_caution--bg; @color_caution--brdr; '\2026'); // &hellip;
-}
-.success {
-	&:extend(.message all);
-	.message-mx(@color_success--txt; @color_success--bg; @color_success--brdr; '\263A'); // smiley
-}
-.info {
-	&:extend(.message all);
-	.message-mx(@color_info--txt; @color_info--bg; @color_info--brdr; '?');
-}
-.help {
-	&:extend(.message all);
-	.message-mx(@color_help--txt; @color_help--bg; @color_help--brdr; '\2665'); // &hearts;
-}
-.special {
-	&:extend(.message all);
-	.message-mx(@color_special--txt; @color_special--bg; @color_special--brdr; '\2605'); // star
-}
-//++++ @end MESSAGES ++++//
-
-
-//+++++++++//
-/*@MASTHEAD*/
-//+++++++++//
-//.masthead {
-//	@iconsize: 96px; // 1in
-//	.p4--right;
-//	position: fixed;
-//	top: (@iconsize / 2);
-//	nav {
-//		.p1--midleft;
-//		.mylogo {
-//			display: block;
-//			.border-vert--one(bottom; 0);
-//			font-weight: bold;
-//			font-size: @iconsize;
-//			font-family: @fontfam--math;
-//		}
-//	}
-//}
-//++++ @end MASTHEAD ++++//
-
-
-//++++++++++++//
-/*@BREADCRUMBS*/
-//++++++++++++//
-.bc {
-	.gutter--major;
-	position: fixed;
-	top: 2 * @vru;
-	z-index: 1;
-}
-.bc__anc,
-.bc__sib,
-.bc__child {
-	&:extend(.list--bare all);
-	margin-top: 0;
-	padding-bottom: @vru;
-	li {
-	}
-}
-.bc__link {
-	&:extend(.button all);
-	.box-block();
-	padding: (0.125 * @vru) 15px;
-	border-radius: 15px;
-	margin-top: 0.75 * @vru;
-	text-align: left;
-	&[rel~="this"] {
-		font-weight: bold;
-	}
-}
-.bc__anc {
-//	a::before {content: '\22a5';} // `\bot` or 'up tack'
-//	a::before {content: '\22b7';} // 'image of'
-//	a::before {content: '<';}
-}
-.bc__sib {
-//	a::before {content: '\22a2';} // `\vdash` or 'turnstile'
-//	a::before {content: '\29df';} // 'double-ended multimap'
-//	a::before {content: '+';}
-}
-.bc__child {
-//	a::before {content: '\22a4';} // `\top` or 'down tack'
-//	a::before {content: '\22b6';} // 'original of'
-//	a::before {content: '>';}
-}
-//++++ @end BREADCRUMBS ++++//
-
-
-//++++++++++++++++++//
-/*@DOCUMENT METADATA*/
-//++++++++++++++++++//
-.docmeta {
-	&:extend(.dl--table--sml all);
-//	&::before {
-//		&:extend(.h-zeta all);
-//		content: 'Document Information';
-//		display: block;
-//		text-indent: 0;
-//	}
-	> dt {
-		font-weight: bold;
-		&::after {content: ':';}
-	}
-	time:not(.submit):not(.recent) {
-		.hm {display: none;}
-	}
-	.hm::before {content: '@\0020';}
-}
-//++++ @end DOCUMENT METADATA ++++//
-
-
-//++++++++++//
-/*@FOOTNOTES*/
-//++++++++++//
-@fn-width: 1.5em;
-.footnotes {
-	// * an unordered list containing footnotes
-	&:extend(.list--bare);
-	.vru-phi--top(1px; solid; @color_accent);
-	.fontsize(small);
-	> li {
-		padding-left: @fn-width;
-		text-indent: -@fn-width;
-	}
-}
-/*sup*/.fn {
-	// * the superscript containing a link
-	&:extend(sup all);
-	width: @fn-width;
-	> a {
-		&::before {content: '[';}
-		&::after {content: ']';}
-	}
-}
-//++++ @end FOOTNOTES ++++//
-
-@media print {
-	.masthead {display: none;}
-	.warning,
-	.caution,
-	.success,
-	.info,
-	.help,
-	.special {
-		&::before {display: none;}
+/**
+  * A general Button Object.
+@extends
+: .fontsize-sml-inline
+@mixesin
+: .box-inline()
+@tags
+: #button
+@author
+: Chris Harvey
+@updated
+: 2014-06-06
+  */
+.Button {
+	&:extend(.fontsize-sml-inline);
+	.box-inline(@btn_brdr_radius);
+	border-width: @btn_brdr_width;
+	border-style: outset;
+	border-color: @color_btn_up_brdr;
+	margin-bottom: (-2 * @btn_brdr_width);
+	color: @color_btn_up_txt;
+	background-color: @color_btn_up_bg;
+	cursor: pointer;
+	&:active {
+		border-style: inset;
+		border-color: @color_btn_dn_brdr;
+		color: @color_btn_dn_txt;
+		background-color: @color_btn_dn_bg;
 	}
 }

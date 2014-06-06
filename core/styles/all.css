@@ -319,6 +319,16 @@ a {
 mark {
   background-color: transparent;
 }
+button {
+  display: inline;
+  padding: 0;
+  border: none;
+  margin: 0;
+  font-size: inherit;
+  font-family: inherit;
+  line-height: inherit;
+  background-color: transparent;
+}
 /*--------------------*\
     _interfaces.less
 \*--------------------*/
@@ -346,7 +356,6 @@ mark {
 @implements
 : .cellpaddingdefault
 @mixesin
-: .border-vert-both()
 @tags
 : #box
 : #verticalrhythm
@@ -824,6 +833,7 @@ q {
 .Key,
 sup,
 sub,
+.Button,
 code {
   font-size: 12px;
   font-size: 0.75rem;
@@ -847,9 +857,10 @@ code {
 .Key,
 sup,
 sub,
+.Button,
 code {
   display: inline;
-  line-height: 1.5;
+  line-height: inherit;
 }
 /**
   * This Interface sets [large|small] font size for inline elements. They do not affect vertical rhythm.
@@ -2484,6 +2495,44 @@ sub {
   top: 6px;
 }
 /*@FORMS*/
+/*--------------*\
+	_mods.less
+\*--------------*/
+/** The default border for button-like Objects. */
+/**
+  * A general Button Object.
+@extends
+: .fontsize-sml-inline
+@mixesin
+: .box-inline()
+@tags
+: #button
+@author
+: Chris Harvey
+@updated
+: 2014-06-06
+  */
+.Button {
+  display: inline;
+  padding: 1px 2px;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 6px;
+  white-space: nowrap;
+  border-width: 2px;
+  border-style: outset;
+  border-color: #0062ff;
+  margin-bottom: -4px;
+  color: #0062ff;
+  background-color: #c3daff;
+  cursor: pointer;
+}
+.Button:active {
+  border-style: inset;
+  border-color: #ff9d00;
+  color: #ff9d00;
+  background-color: #ffe8c3;
+}
 /*@QUASI-ELEMENTS*/
 [data-status="nonnormative"] {
   font-style: italic;
