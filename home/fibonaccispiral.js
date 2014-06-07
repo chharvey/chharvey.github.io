@@ -24,7 +24,7 @@ function positionSquares(mainwidth) {
 	var P10 = p(10, mainwidth);
 	var P11 = p(11, mainwidth);
 	var P12 = p(12, mainwidth);
-	$('.phispiral-button').css('position', 'absolute'); // this is in JS and not in CSS: in case users have JS disabled but CSS not disabled, the position should be static
+	$('.Square').css('position', 'absolute'); // this is in JS and not in CSS: in case users have JS disabled but CSS not disabled, the position should be static
 	$('.a1').css('left', P2);
 	$('.c1').css('top', P2);
 	$('.d1').css('left', P3).css('top', P2 + P5);
@@ -39,17 +39,17 @@ function positionSquares(mainwidth) {
 }
 function bigtext() {
 	// * sets a proportional font size for each button
-	$('.phispiral-button-text').css('font-size', function() {
+	$('.Text').css('font-size', function() {
 		return $(this).parents('a').height() / 4 + 'px';
 	});
 	// * vertically aligns the text in each button
-	$('.phispiral-button-text').css('top', function() {
+	$('.Text').css('top', function() {
 		return ($(this).parents('a').height() - $(this).height()) / 2 + 'px';
 	});
 }
 function positionSpiral(mw) {
 	// * centers the group of buttons on the page
-	$('.phispiral').css('top', function() {
+	$('.Spiral').css('top', function() {
 		return ($(window).height() - p(1, mw)) * p(2, 1) + 'px';
 	});
 }
@@ -57,7 +57,7 @@ function makepretty() {
 	// * brings it all together
 	$('main').css('margin-bottom','0');
 	var mainwidth = $('main').width();
-	squareheight('.phispiral-button');
+	squareheight('.Square');
 	positionSquares(mainwidth);
 	bigtext();
 	positionSpiral(mainwidth);
