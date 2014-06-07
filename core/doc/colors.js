@@ -11,20 +11,20 @@ function table(degree) {
 	return newElem('table').addClass('Table colortable hue-' + degree).append([
 		newElem('thead').append(
 			newElem('tr').append([
-				newElem('th').addClass('Cell Hc').html(degree + '&deg; hue'),
-				newElem('th').addClass('Cell Hc').html('100% val'),
-				newElem('th').addClass('Cell Hc').html( '75% val'),
-				newElem('th').addClass('Cell Hc').html( '50% val'),
-				newElem('th').addClass('Cell Hc').html( '25% val')
+				newElem('th').addClass('Cell Hc huetitle'),
+				newElem('th').addClass('Cell Hc val-full'),
+				newElem('th').addClass('Cell Hc val-lite'),
+				newElem('th').addClass('Cell Hc val-medi'),
+				newElem('th').addClass('Cell Hc val-dark')
 			])
 		),
 		newElem('tbody').append([
-			newElem('tr').addClass('sat-alph').append(newElem('th').addClass('Cell Hc').html( '100% sat')).append(tdArray()),
-			newElem('tr').addClass('sat-beta').append(newElem('th').addClass('Cell Hc').html('83.3% sat')).append(tdArray()),
-			newElem('tr').addClass('sat-gamm').append(newElem('th').addClass('Cell Hc').html('66.6% sat')).append(tdArray()),
-			newElem('tr').addClass('sat-delt').append(newElem('th').addClass('Cell Hc').html(  '50% sat')).append(tdArray()),
-			newElem('tr').addClass('sat-epsi').append(newElem('th').addClass('Cell Hc').html('33.3% sat')).append(tdArray()),
-			newElem('tr').addClass('sat-zeta').append(newElem('th').addClass('Cell Hc').html('16.6% sat')).append(tdArray())
+			newElem('tr').addClass('sat-alph').append(newElem('th').addClass('Cell Hc')).append(tdArray()),
+			newElem('tr').addClass('sat-beta').append(newElem('th').addClass('Cell Hc')).append(tdArray()),
+			newElem('tr').addClass('sat-gamm').append(newElem('th').addClass('Cell Hc')).append(tdArray()),
+			newElem('tr').addClass('sat-delt').append(newElem('th').addClass('Cell Hc')).append(tdArray()),
+			newElem('tr').addClass('sat-epsi').append(newElem('th').addClass('Cell Hc')).append(tdArray()),
+			newElem('tr').addClass('sat-zeta').append(newElem('th').addClass('Cell Hc')).append(tdArray())
 		])
 	]);
 }

@@ -15,25 +15,53 @@
 #palettes {
 	.undo-main;
 }
-.colortable {
+
+@sat-alph: 100.000%;
+@sat-beta:  83.333%;
+@sat-gamm:  66.666%;
+@sat-delt:  50.000%;
+@sat-epsi:  33.333%;
+@sat-zeta:  16.666%;
+@val-full: 100%;
+@val-lite:  75%;
+@val-medi:  50%;
+@val-dark:  25%;
+
+.Table.colortable {
 	width: 100%;
 	white-space: nowrap;
 	th, td {border: 1px solid #808080;}
-	tbody {
-		th {width: 11.11%;}
-		td {width: 22.22%;}
+	thead {
+		.huetitle {width: 11.11%;}
+		th {width: 22.22%;}
 	}
 }
-.colorname,
-.colorcode {
-	display: block;
+
+th.val-full::after {content: '@{val-full} val';}
+th.val-lite::after {content: '@{val-lite} val';}
+th.val-medi::after {content: '@{val-medi} val';}
+th.val-dark::after {content: '@{val-dark} val';}
+.sat-alph th::after {content: '@{sat-alph} sat';}
+.sat-beta th::after {content: '@{sat-beta} sat';}
+.sat-gamm th::after {content: '@{sat-gamm} sat';}
+.sat-delt th::after {content: '@{sat-delt} sat';}
+.sat-epsi th::after {content: '@{sat-epsi} sat';}
+.sat-zeta th::after {content: '@{sat-zeta} sat';}
+
+tbody {
+	.val-full {color: #000;}
+	.val-lite,
+	.val-medi,
+	.val-dark {color: #fff;}
 }
-.colorname {
+.Link.colorname {
+	display: block;
 	font-weight: bold;
 	color: inherit !important;
-	&:hover {text-decoration: underline;}
+	// &:hover {text-decoration: underline;}
 }
 .colorcode {
+	display: block;
 	border: 0;
 	color: inherit;
 	background-color: transparent;
@@ -41,6 +69,7 @@
 
 .hue-generator(@degree) {
 	.hue-@{degree} {
+		.huetitle::after {content: '@{degree}\00b0\ hue';} // `\00b0` = `&deg;`
 		.saturations(@degree);
 	}
 }
@@ -74,25 +103,20 @@
 .hue-generator(91);
 
 .saturations(@hue) {
-	.sat-alph {@sat: 100.000%; .values(@hue; @sat);}
-	.sat-beta {@sat:  83.333%; .values(@hue; @sat);}
-	.sat-gamm {@sat:  66.666%; .values(@hue; @sat);}
-	.sat-delt {@sat:  50.000%; .values(@hue; @sat);}
-	.sat-epsi {@sat:  33.333%; .values(@hue; @sat);}
-	.sat-zeta {@sat:  16.666%; .values(@hue; @sat);}
+	.sat-alph {.values(@hue; @sat-alph);}
+	.sat-beta {.values(@hue; @sat-beta);}
+	.sat-gamm {.values(@hue; @sat-gamm);}
+	.sat-delt {.values(@hue; @sat-delt);}
+	.sat-epsi {.values(@hue; @sat-epsi);}
+	.sat-zeta {.values(@hue; @sat-zeta);}
 }
 
 .values(@hue; @sat) {
-	.val-full {@val: 100%; background-color: hsv(@hue, @sat, @val);}
-	.val-lite {@val:  75%; background-color: hsv(@hue, @sat, @val);}
-	.val-medi {@val:  50%; background-color: hsv(@hue, @sat, @val);}
-	.val-dark {@val:  25%; background-color: hsv(@hue, @sat, @val);}
+	.val-full {background-color: hsv(@hue, @sat, @val-full);}
+	.val-lite {background-color: hsv(@hue, @sat, @val-lite);}
+	.val-medi {background-color: hsv(@hue, @sat, @val-medi);}
+	.val-dark {background-color: hsv(@hue, @sat, @val-dark);}
 }
-
-.val-full {color: #000;}
-.val-lite,
-.val-medi,
-.val-dark {color: #fff;}
 //++++ @end COLOR PALETTES ++++//
 
 //++++++++++++++//
