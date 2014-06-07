@@ -683,7 +683,8 @@ q {
 }
 .fontsize-med,
 .Qblock.Long,
-.Qblock.Long .Src {
+.Qblock.Long .Src,
+.Button.Crumb {
   font-size: 16px;
   font-size: 1rem;
   line-height: 1.5;
@@ -761,6 +762,7 @@ code {
 .Fig,
 .Qblock,
 .List > .Item,
+.Enum > .Item,
 .Map > .Term,
 .Map > .Desc,
 .Cell,
@@ -785,7 +787,10 @@ code {
 .Qblock > :first-child,
 .List > .Item > .List,
 .Map > .Term > .Map,
-.Map > .Desc > .Map {
+.Map > .Desc > .Map,
+.Bc > .Anc,
+.Bc > .Sib,
+.Bc > .Child {
   margin-top: 0;
 }
 .vru-bottom-0 {
@@ -801,7 +806,10 @@ code {
   margin-top: 1.5rem;
 }
 .vru-bottom-1,
-.P.Intro {
+.P.Intro,
+.Bc > .Anc,
+.Bc > .Sib,
+.Bc > .Child {
   padding-bottom: 24px;
   padding-bottom: 1.5rem;
 }
@@ -1036,6 +1044,24 @@ main {
   padding-bottom: 0rem;
   font-style: italic;
   font-variant: small-caps;
+}
+.H.Folio {
+  font-size: 48px;
+  font-size: 3rem;
+  line-height: 0.5;
+  margin-top: 96px;
+  margin-top: 6rem;
+  font-weight: normal;
+  font-variant: normal;
+  font-family: 'Zapfino', script;
+  white-space: nowrap;
+}
+.H.Folio .cap,
+.H.Folio::first-letter {
+  font-size: 96px;
+  font-size: 6rem;
+  line-height: 0.25;
+  font-family: 'Snell Roundhand', 'Zapfino', script;
 }
 @media print {
   .H {
@@ -1491,7 +1517,7 @@ main {
 }
 /*@ENUMS*/
 /**
-* This Object represents a inline listing of items, typically words. The order of items may or may not be relevant.
+  * This Object represents a inline listing of items, typically words. The order of items may or may not be relevant.
 @tags
 : #typography
 : #list
@@ -1499,7 +1525,7 @@ main {
 : Chris Harvey
 @updated
 : 2014-05-26
-*/
+  */
 .Enum {
   display: inline;
 }
@@ -2405,6 +2431,9 @@ sub {
   color: #ff9d00;
   background-color: #ffe8c3;
 }
+.Button.Block {
+  display: block;
+}
 /*@MESSAGES*/
 /**
   * A general Message Object.
@@ -2474,6 +2503,38 @@ sub {
 }
 .Msg.Help::before {
   content: 'Help \2665\ ';
+}
+/*@BREADCRUMBS*/
+.Bc {
+  width: 14.58980338%;
+  margin-left: 3.44418537%;
+  margin-right: 5.572809%;
+  position: fixed;
+  left: 0;
+  top: 48px;
+  top: 3rem;
+}
+.Bc > .Anc,
+.Bc > .Sib,
+.Bc > .Child {
+  z-index: 1;
+}
+.Button.Crumb {
+  margin-top: 18px;
+  margin-top: 1.125rem;
+  display: block;
+  padding: 3px 15px;
+  padding: 0.1875rem 15px;
+  border-radius: 15px;
+  white-space: normal;
+}
+.Crumb[rel~="this"] {
+  font-weight: bold;
+}
+@media print {
+  .Bc {
+    display: none;
+  }
 }
 /*@QUASI-ELEMENTS*/
 [data-status="nonnormative"] {

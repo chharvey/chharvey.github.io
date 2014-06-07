@@ -1,8 +1,8 @@
-/*----------*\
-	all.js
-\*----------*/
 
-//var t_ani = 200;
+/*-------------*\
+    global.js
+\*-------------*/
+
 /** Creates a new HTML element and returns it as a jQuery object. */
 function newElem(elemname) {
 	return $(document.createElement(elemname));
@@ -141,6 +141,14 @@ $(document).ready(function () {
 	});
 
 
+	/* adds delimiters to math shit. inline uses parens and block uses brackets */
+	$('.Math.I').prepend('\\(').append('\\)');
+	$('.Math.B').prepend('\\[').append('\\]');
+	/** puts the LaTeX source in the 'title' attribute */
+	// $('.Math').attr('title',function () {
+	// 	return $(this).text();
+	// });
+
 
 	/*
 	Adds classes to necessary elements.
@@ -158,66 +166,10 @@ $(document).ready(function () {
 //	$('.js-disabled-remove, .wff').css('display','inline-block');
 
 	/** JavaScript 'grabber' classes --- only here for jQuery selectors */
-});
-
-$(document).ready(function () {
-	/* BLOCK ELEMENTS */
-
-	/** Colors tables' rows and columns alternating colors.
-	remember, jQuery's :even and :odd selectors are 0-based (0 is first),
-	so the first row (row 0) should be given class 'row-odd' */
-// 	$('.table-list tbody').each(function () {
-// 		$(this).children('tr:even').addClass('row-odd');
-// 		$(this).children('tr:odd').addClass('row-even');
-// 	});
-// 	$('.table-bars tbody tr').each(function () {
-// 		$(this).children('td:even').addClass('column-odd');
-// 		$(this).children('td:odd').addClass('column-even');
-// 	});
-//	$('.table-grid tbody').each(function () {
-//		$(this).children('tr:even').addClass('row-odd');
-//		$(this).children('tr:odd').addClass('row-even');
-//		$(this).children('tr').each(function () {
-//			$(this).children('td:even').addClass('column-odd');
-//			$(this).children('td:odd').addClass('column-even');
-//		});
-//	});
-
-	/* INLINE ELEMENTS */
-
-	/* MODS */
-	/* code */
-//	$('.lang-html').attr('title','HTML');
-//	$('.lang-css').attr('title','CSS');
-//	$('.lang-less').attr('title','LESS');
-//	$('.lang-js').attr('title','JavaScript');
-//	$('.lang-jq').attr('title','jQuery');
-
-	/* math */
-	/** puts the LaTeX source in the 'title' attribute */
-// 	$('.latex').attr('title',function () {
-// 		return $(this).text();
-// 	});
 
 	/** an attempt to fix the cursive headings of the folio pages
 	EDIT: Temporary fix available at the bottom of each hub page. */
 //	while($('.folio .h-folio').width > $('.folio').width) {
 //		$('.folio .h-folio').css('font-size', (parseInt($('.folio .h-folio').css('font-size')) - 1) + "px" );
 //	}
-});
-
-
-$(document).ready(function () {
-	//broken links - really only meant for inline links, buggy on block links
-//	var oldHTML;
-//	var oldHref;
-//	$('.a-broken').hover(function () {
-//		oldHTML = $(this).html();
-//		oldHref = $(this).attr('href');
-//		$(this).html('coming soon...');
-//		$(this).removeAttr('href');
-//	}, function () {
-//		$(this).html(oldHTML);
-//		$(this).attr('href', oldHref);
-//	});
 });

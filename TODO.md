@@ -12,16 +12,16 @@ Specs for all TODO lists:
 ### semantics ###
 - [x] 2013-08-24 `img alt` attributes should be semantic
 - [x] 2013-08-24 all self-closing tags should end in `/>`, not ` />`. (remove the space before the slash)
-- [ ] 2013-12-14 see which `b.ref`s you can change to `cite`s (titles of works) and `a`s (links to documents, sections, etc.)
-- [ ] 2014-03-02 see which `<b>` tags you can remove; which ones do you REALLY need?
+- [x] 2013-12-14 see which `b.ref`s you can change to `cite`s (titles of works) and `a`s (links to documents, sections, etc.)
+- [x] 2014-03-02 see which `<b>` tags you can remove; which ones do you REALLY need?
 - [ ] 2014-02-18 use `title` attribute on all `a` elements to describe the **Title of the linked document** unless the text content in the link is already the title.
 - [ ] 2014-03-27 `<a>` links should contain more textual content for SEO
 - [ ] 2014-03-06 change all apostrophes (`'`) to right single quotes `&rsquo;` on the following pages... (Leave the apostrophes alone in regular pages. The typographical precision is not worth the effort.)
 	- 'portal' pages (`/home/edu.html`, `/home/math.html`, etc.)
-	- **formal** documents such as articles or blog posts (maybe in `/docs/`?)
+	- **formal** documents such as articles or blog posts (maybe in `/blog/`?)
 - [ ] 2014-03-30 instead of using classes (`span.hsub`, etc.) for QUASI-ELEMENTS, use the `data-*` attribute. For example, `<span data-qe="subh">`. Then style these with `span[data-qe="subh"]`. The selector is equally as specific as `span.subh` but may be less efficient; though this is a minor cost to pay for semantic benefit.
 - [ ] 2014-04-01 separate pure-style classes (e.g. `.list-basic`, `.dl-table-sml`, `.table-list`, etc.) from semantic classes (e.g. `.dl-ordered`, `.hsub`, `.postal`, etc.). Maybe use the HTML `data-*` attribute?
-- [ ] 2014-04-04 given an element, when deciding to add a link to that element, always wrap the link *around* the other element. E.g. always do `a > code` or `a > dfn`, not `code > a` or `dfn > a`. (style) Any changes of color inside links should be made `inherit` so the hovering capability will still be visible.
+- [ ] 2014-04-04, 2014-06-07 given an element, when deciding to add a link to that element, always put the link *inside* the other element. E.g. always do `code > a` or `dfn > a`, not `a > code` or `a > dfn`.
 
 #### metadata and micro-semantics (very low priority) ####
 - [ ] 2014-03-03 `rel` attributes on `link` and `a` elements, see [http://dev.w3.org/html5/spec/links.html#linkTypes]()
@@ -48,13 +48,12 @@ Specs for all TODO lists:
 - 2014-04-08 add `[data-status~="normative"]`, `[data-status~="nonnormative"]`, `[data-status~="draft"]`, etc to stylesheets, get rid of class `.draft`, `.nonnormative`, etc.
 
 #### boxes ####
-- [ ] 2013-08-18 code scheme
+- [x] 2013-08-18 code scheme
 - [ ] 2014-02-16 do labels/tooltips/whatever hint: [http://kushagragour.in/lab/hint/]()
-- [ ] 2014-03-01 use `<small>` for labels---they really are disclamers/caveats/etc.
+- [x] 2014-03-01 use `<small>` for labels---they really are disclamers/caveats/etc.
 
 ### scripts ###
 - [ ] 2013-12-14 investigate the use of templates (`<template>`)
-- [ ] 2014-03-01 move table row-counting functionality (`all.js:39`) from JS to CSS with counters
 - [ ] 2014-03-01 use JS to change the line-height of blockquotes to 1.5 times the usual amount (currently (2014-03-01), from 1.2 to 1.8), and then adjust margin-bottom to keep vertical rhythm.
 
 
@@ -62,10 +61,10 @@ Specs for all TODO lists:
 - [ ] 2013-08-18 make popping text on index page fade in and out easier
 
 ## Resume ##
-- [ ] 2014-03-26 remove `!important` from `.res-spacetime {font-size}` and `.res-spacetime {color}` and somehow fix quasi-element `span.hsub`.
+- [x] 2014-03-26 remove `!important` from `.res-spacetime {font-size}` and `.res-spacetime {color}` and somehow fix quasi-element `span.hsub`.
 - [x] 2014-03-26 add web-dev exp
 - [ ] 2014-04-07 find a way to use JS to add `.res-footer`s (pagecount, etc.)
-- [ ] 2014-04-08 fix `list-style-type: none;` in definition of `.res-tech-apps {}`
+- [x] 2014-04-08 fix `list-style-type: none;` in definition of `.res-tech-apps {}`
 
 ## Site Design ##
 
@@ -73,14 +72,17 @@ Specs for all TODO lists:
 - [ ] FIX IT. the whole thing.
 
 ### grid.html ###
-- [ ] 2014-01-21 finish last section (Phi demonstration)
+- [x] 2014-01-21 finish last section (Phi demonstration)
 - [ ] 2014-03-05 add Gutter section below all Grid stuff
 - [x] 2014-04-22 rewrite all table-cell functionality
 - [x] 2014-04-22 update content with styles
 - [x] 2014-04-22 use SVG for background grid images
 
 ### typo.html ###
-- [ ] 2013-08-18 inline elements: highlighting
+- [x] 2013-08-18 inline elements: highlighting
+
+### colors.html ###
+- [ ] 2014-06-07 fix new color palettes
 
 ### punct.html (under typography) ###
 - [ ] 2014-02-24 line break violations:
