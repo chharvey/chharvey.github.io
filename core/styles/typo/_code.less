@@ -6,10 +6,10 @@
 /**
   * A Mixin used for both inline and block code.
 @params
+: @color_txt  : the value of the `color` property
+: @color_comm : the value of the `color` property for code comments
 : @color_bg   : the value of the `background-color` property
 : @color_brdr : the value of the `border-color` property
-: @color_comm : the value of the `color` property for code comments
-: @color_txt  : the value of the `color` property
 @tags
 : #code
 @author
@@ -17,7 +17,7 @@
 @updated
 : 2014-05-25
   */
-.codecolors(@color_bg; @color_brdr; @color_comm; @color_txt) {
+.codecolors(@color_txt; @color_comm; @color_bg; @color_brdr) {
 	border-color: @color_brdr;
 	color: @color_txt;
 	background-color: @color_bg; // fallback
@@ -37,10 +37,10 @@
 @author
 : Chris Harvey
 @updated
-: 2014-05-25
+: 2014-06-06
   */
-.codecolors-sol-lite {.codecolors(@color_code_bg; @color_code_brdr; @color_code_comm; @color_code_txt);}
-.codecolors-sol-dark {.codecolors(@color_codeblock_bg; @color_codeblock_brdr; @color_codeblock_comm; @color_codeblock_txt);}
+.codecolors-sol-lite {.codecolors(@color_code_txt; @color_code_comm; @color_code_bg; @color_code_brdr);}
+.codecolors-sol-dark {.codecolors(@color_codeblock_txt; @color_codeblock_comm; @color_codeblock_bg; @color_codeblock_brdr);}
 /** The default border radius for code-like Objects. */
 @code_brdr_radius: 3px;
 /**
@@ -254,9 +254,9 @@ code {&:extend(.Code);}
   * This Object represents an individual key on a keyboard, calculator, or other device.
 @implements
 : .fontsize-sml-inline
+: .codecolors-sol-dark
 @mixesin
 : .box-inline()
-: .codecolors()
 @tags
 : #code
 @author

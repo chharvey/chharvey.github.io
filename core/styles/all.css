@@ -395,7 +395,8 @@ button {
   */
 .cellpaddingdefault,
 .Cell,
-.Code.Block {
+.Code.Block,
+.Msg {
   padding: 12px 7.41640786px;
   padding: 0.75rem 7.41640786px;
 }
@@ -828,6 +829,7 @@ q {
 .Qblock .Src,
 .Table,
 .Code.Block,
+.Msg,
 .Code,
 .Dir,
 .Key,
@@ -897,7 +899,8 @@ code {
 .Map > .Term,
 .Map > .Desc,
 .Cell,
-.Code.Block {
+.Code.Block,
+.Msg {
   min-height: 24px;
   min-height: 1.5rem;
 }
@@ -2032,10 +2035,10 @@ table tr {
 /**
   * A Mixin used for both inline and block code.
 @params
+: @color_txt  : the value of the `color` property
+: @color_comm : the value of the `color` property for code comments
 : @color_bg   : the value of the `background-color` property
 : @color_brdr : the value of the `border-color` property
-: @color_comm : the value of the `color` property for code comments
-: @color_txt  : the value of the `color` property
 @tags
 : #code
 @author
@@ -2056,7 +2059,7 @@ table tr {
 @author
 : Chris Harvey
 @updated
-: 2014-05-25
+: 2014-06-06
   */
 .codecolors-sol-lite,
 .Code,
@@ -2310,9 +2313,9 @@ code {
   * This Object represents an individual key on a keyboard, calculator, or other device.
 @implements
 : .fontsize-sml-inline
+: .codecolors-sol-dark
 @mixesin
 : .box-inline()
-: .codecolors()
 @tags
 : #code
 @author
@@ -2498,10 +2501,11 @@ sub {
 /*--------------*\
 	_mods.less
 \*--------------*/
+/*@BUTTONS*/
 /** The default border for button-like Objects. */
 /**
   * A general Button Object.
-@extends
+@implements
 : .fontsize-sml-inline
 @mixesin
 : .box-inline()
@@ -2523,6 +2527,7 @@ sub {
   border-style: outset;
   border-color: #0062ff;
   margin-bottom: -4px;
+  font-family: 'Century Gothic', 'Gill Sans', 'Avenir', sans-serif;
   color: #0062ff;
   background-color: #c3daff;
   cursor: pointer;
@@ -2532,6 +2537,84 @@ sub {
   border-color: #ff9d00;
   color: #ff9d00;
   background-color: #ffe8c3;
+}
+/*@MESSAGES*/
+/**
+  * A general Message Object.
+@implements
+: .fontsize-sml
+// : .vru-top-1
+@mixesin
+: .box-block()
+@tags
+: #message
+@author
+: Chris Harvey
+@updated
+: 2014-06-06
+  */
+.Msg {
+  display: block;
+  position: relative;
+  top: -1px;
+  margin-bottom: -2px;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 6px;
+  font-style: normal;
+  font-weight: normal;
+  font-family: 'Century Gothic', 'Gill Sans', 'Avenir', sans-serif;
+}
+.Msg::before {
+  font-weight: bold;
+}
+.Msg.Warn {
+  border-color: #ff2a2a;
+  color: #660000;
+  background-color: #ffeded;
+}
+.Msg.Warn::before {
+  content: 'Warning ! ';
+}
+.Msg.Cshn {
+  border-color: #ffff2a;
+  color: #666600;
+  background-color: #ffffed;
+}
+.Msg.Cshn::before {
+  content: 'Caution \2026\ ';
+}
+.Msg.Skss {
+  border-color: #2aff2a;
+  color: #006600;
+  background-color: #edffed;
+}
+.Msg.Skss::before {
+  content: 'Success \263A\ ';
+}
+.Msg.Info {
+  border-color: #2a2aff;
+  color: #000066;
+  background-color: #ededff;
+}
+.Msg.Info::before {
+  content: 'Info ? ';
+}
+.Msg.Help {
+  border-color: #ff2aff;
+  color: #660066;
+  background-color: #ffedff;
+}
+.Msg.Help::before {
+  content: 'Help \2665\ ';
+}
+.Msg.Spsl {
+  border-color: #2affff;
+  color: #006666;
+  background-color: #edffff;
+}
+.Msg.Spsl::before {
+  content: 'Special \2605\ ';
 }
 /*@QUASI-ELEMENTS*/
 [data-status="nonnormative"] {
