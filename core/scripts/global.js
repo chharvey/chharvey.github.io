@@ -121,7 +121,7 @@ $(document).ready(function () {
 	if g(x) <= 0, then margin-bottom that number
 	else, padding-bottom that number.
 	*/
-	$('table').each(function () {
+	$('.Table').each(function () {
 		var n_rowgroups = 0;
 		$(this).find('thead, tbody, tfoot').each(function () {
 			n_rowgroups++;

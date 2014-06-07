@@ -2,29 +2,29 @@
 function table(degree) {
 	function tdArray() {
 		return [
-			newElem('td').addClass('val-full'),
-			newElem('td').addClass('val-lite'),
-			newElem('td').addClass('val-medi'),
-			newElem('td').addClass('val-dark')
+			newElem('td').addClass('Cell val-full'),
+			newElem('td').addClass('Cell val-lite'),
+			newElem('td').addClass('Cell val-medi'),
+			newElem('td').addClass('Cell val-dark')
 		];
 	}
-	return newElem('table').addClass('colortable hue-' + degree).append([
+	return newElem('table').addClass('Table colortable hue-' + degree).append([
 		newElem('thead').append(
 			newElem('tr').append([
-				newElem('th').html(degree + '&deg; hue'),
-				newElem('th').html('100% val'),
-				newElem('th').html( '75% val'),
-				newElem('th').html( '50% val'),
-				newElem('th').html( '25% val')
+				newElem('th').addClass('Cell Hc').html(degree + '&deg; hue'),
+				newElem('th').addClass('Cell Hc').html('100% val'),
+				newElem('th').addClass('Cell Hc').html( '75% val'),
+				newElem('th').addClass('Cell Hc').html( '50% val'),
+				newElem('th').addClass('Cell Hc').html( '25% val')
 			])
 		),
 		newElem('tbody').append([
-			newElem('tr').addClass('sat-alph').append(newElem('th').html( '100% sat')).append(tdArray()),
-			newElem('tr').addClass('sat-beta').append(newElem('th').html('83.3% sat')).append(tdArray()),
-			newElem('tr').addClass('sat-gamm').append(newElem('th').html('66.6% sat')).append(tdArray()),
-			newElem('tr').addClass('sat-delt').append(newElem('th').html(  '50% sat')).append(tdArray()),
-			newElem('tr').addClass('sat-epsi').append(newElem('th').html('33.3% sat')).append(tdArray()),
-			newElem('tr').addClass('sat-zeta').append(newElem('th').html('16.6% sat')).append(tdArray())
+			newElem('tr').addClass('sat-alph').append(newElem('th').addClass('Cell Hc').html( '100% sat')).append(tdArray()),
+			newElem('tr').addClass('sat-beta').append(newElem('th').addClass('Cell Hc').html('83.3% sat')).append(tdArray()),
+			newElem('tr').addClass('sat-gamm').append(newElem('th').addClass('Cell Hc').html('66.6% sat')).append(tdArray()),
+			newElem('tr').addClass('sat-delt').append(newElem('th').addClass('Cell Hc').html(  '50% sat')).append(tdArray()),
+			newElem('tr').addClass('sat-epsi').append(newElem('th').addClass('Cell Hc').html('33.3% sat')).append(tdArray()),
+			newElem('tr').addClass('sat-zeta').append(newElem('th').addClass('Cell Hc').html('16.6% sat')).append(tdArray())
 		])
 	]);
 }
@@ -46,7 +46,7 @@ function tables(start, stop) {
 /** Fills the empty cells with codes for its background color. (Remember, CSS will give the cells their background color.) */
 function insertColorCodes() {
 	$('.colortable td').append(
-		newElem('code').addClass('lang-css colorcode').html('?')
+		newElem('code').addClass('colorcode').html('?')
 	);
 	$('.colorcode').html(function () {
 		return rgbToHex($(this).parent().css('background-color'));
@@ -54,17 +54,17 @@ function insertColorCodes() {
 }
 /** The colors used in the site. Each entry of this array is another array: [hue, sat, val, id]. */
 var colorArray = [
-	[217, 2.13,   100, 'aperture-white'],
-	[ 37,  100,  2.13, 'aperture-black'],
+	[217, 2.13,   100, 'aperture_white'],
+	[ 37,  100,  2.13, 'aperture_black'],
 	[217,  100, 100, 'atlas'],
 	[ 37,  100, 100, 'pbody'],
 	[208, 83.3, 100, 'repulsion'],
 	[ 28, 83.3, 100, 'propulsion'],
 	[  5,  100, 100, 'deploying'],
-	[ 55, 66.6, 100, 'her-eye'],
-	[226,  100,  50, 'lake-superior'],
-	[ 28, 66.6,  50, 'caves-caves'],
-	[199,   50,  50, 'facility-abyss'],
+	[ 55, 66.6, 100, 'hereye'],
+	[226,  100,  50, 'lakesuperior'],
+	[ 28, 66.6,  50, 'cavescaves'],
+	[199,   50,  50, 'facilityabyss'],
 	[ 46,  100,  75, 'asbestos'],
 	[ 69, 83.3,  75, 'neurotoxin'],
 	[271,  100,  75, 'vilify'],
@@ -85,11 +85,11 @@ function insertColorNames() {
 		var sat = colorArray[i][1];
 		var val = colorArray[i][2];
 		var id  = colorArray[i][3];
-		
+
 		var satClass = 0;
 		var valClass = 0;
 		var idId = '#' + id;
-		
+
 		     if (sat ===  100) {satClass = 'tr.sat-alph';}
 		else if (sat === 83.3) {satClass = 'tr.sat-beta';}
 		else if (sat === 66.6) {satClass = 'tr.sat-gamm';}
@@ -97,15 +97,15 @@ function insertColorNames() {
 		else if (sat === 33.3) {satClass = 'tr.sat-epsi';}
 		else if (sat === 16.6) {satClass = 'tr.sat-zeta';}
 		else                   {}
-		
+
 		     if (val === 100) {valClass = 'td.val-full';}
 		else if (val ===  75) {valClass = 'td.val-lite';}
 		else if (val ===  50) {valClass = 'td.val-medi';}
 		else if (val ===  25) {valClass = 'td.val-dark';}
 		else                  {}
-		
+
 		$('table.hue-' + hue + ' ' + satClass + ' ' + valClass).prepend(
-			newElem('a').addClass('colorname').attr('href', idId).html($(idId + ' h1').html())
+			newElem('a').addClass('Link colorname').attr('href', idId).html($(idId + ' h1').html())
 		);
 	}
 }
@@ -119,9 +119,9 @@ function insertColorNames() {
 //	}
 //}
 $(document).ready(function () {
-	$('.palettes').append([
-		newElem('div').addClass('group-cold').append(tables( 0, 11)),
-		newElem('div').addClass('group-warm').append(tables(12, 23))
+	$('#palettes').append([
+		newElem('div').addClass('Gcol w-f1o2').append(tables( 0, 11)),
+		newElem('div').addClass('Gcol w-f1o2').append(tables(12, 23))
 	]);
 	insertColorCodes();
 	insertColorNames();
