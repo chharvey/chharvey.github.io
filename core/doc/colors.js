@@ -1,3 +1,50 @@
+var colorArrayNames = [
+	'hue-base',
+	'hue-comp',
+	'hue-tria-warm',
+	'hue-tria-cool',
+	'hue-tetr-warm',
+	'hue-tetr-cool',
+	'hue-anal-warm',
+	'hue-anal-cool'
+];
+/** Creates a table containing empty cells corresponding to different levels of saturation and value for a particular hue. */
+function createTable(name) {
+	function tdArray() {
+		return [
+			newElem('td').addClass('Cell val-full'),
+			newElem('td').addClass('Cell val-lite'),
+			newElem('td').addClass('Cell val-medi'),
+			newElem('td').addClass('Cell val-dark')
+		];
+	}
+	return newElem('table').addClass('Table colortable ' + name).append([
+		newElem('thead').append(
+			newElem('tr').append([
+				newElem('th').addClass('Cell Hc huetitle'),
+				newElem('th').addClass('Cell Hc val-full'),
+				newElem('th').addClass('Cell Hc val-lite'),
+				newElem('th').addClass('Cell Hc val-medi'),
+				newElem('th').addClass('Cell Hc val-dark')
+			])
+		),
+		newElem('tbody').append([
+			newElem('tr').addClass('sat-alph').append(newElem('th').addClass('Cell Hc')).append(tdArray()),
+			newElem('tr').addClass('sat-beta').append(newElem('th').addClass('Cell Hc')).append(tdArray()),
+			newElem('tr').addClass('sat-gamm').append(newElem('th').addClass('Cell Hc')).append(tdArray()),
+			newElem('tr').addClass('sat-delt').append(newElem('th').addClass('Cell Hc')).append(tdArray()),
+			newElem('tr').addClass('sat-epsi').append(newElem('th').addClass('Cell Hc')).append(tdArray()),
+			newElem('tr').addClass('sat-zeta').append(newElem('th').addClass('Cell Hc')).append(tdArray())
+		])
+	]);
+}
+function allTables() {
+	var tableArray = [];
+	for (var i = 0; i < colorArrayNames.length; i++) {
+		tableArray[i] = createTable(colorArrayNames[i]);
+	}
+	return tableArray;
+}
 /** Creates a table containing empty cells corresponding to different levels of saturation and value for a particular hue. */
 function table(degree) {
 	function tdArray() {
@@ -52,34 +99,28 @@ function insertColorCodes() {
 		return rgbToHex($(this).parent().css('background-color'));
 	});
 }
-/** The colors used in the site. Each entry of this array is another array: [hue, sat, val, id]. */
-var colorArray = [
-	[217, 2.13,   100, 'aperture_white'],
-	[ 37,  100,  2.13, 'aperture_black'],
-	[217,  100, 100, 'atlas'],
-	[ 37,  100, 100, 'pbody'],
-	[208, 83.3, 100, 'repulsion'],
-	[ 28, 83.3, 100, 'propulsion'],
-	[  5,  100, 100, 'deploying'],
-	[ 55, 66.6, 100, 'hereye'],
-	[226,  100,  50, 'lakesuperior'],
-	[ 28, 66.6,  50, 'cavescaves'],
-	[199,   50,  50, 'facilityabyss'],
-	[ 46,  100,  75, 'asbestos'],
-	[ 69, 83.3,  75, 'neurotoxin'],
-	[271,  100,  75, 'vilify'],
-	[185, 16.6, 100, 'bridges'],
-	[343, 33.3, 100, 'companion']
-//
-//	Hard Light Bridge
-//	setupColors(217,   100, 100, '#bridges-of-light');
-//	@bridges-of-light:     hsv(207, 33.33%, 100%);
-//	@light-bridge-edge:    hsv(185, 66.66%, 100%);
-//
-//	@vilify:               hsv(277, 66.66%,  75%);
-];
+
 /** Adds a color name to corresponding cell in the palette. Each color name is a link to its description. */
 function insertColorNames() {
+	/** The colors used in the site. Each entry of this array is another array: [hue, sat, val, id]. */
+	var colorArray = [
+		[217, 2.13,   100, 'aperture_white'],
+		[ 37,  100,  2.13, 'aperture_black'],
+		[217,  100, 100, 'atlas'],
+		[ 37,  100, 100, 'pbody'],
+		[208, 83.3, 100, 'repulsion'],
+		[ 28, 83.3, 100, 'propulsion'],
+		[  5,  100, 100, 'deploying'],
+		[ 55, 66.6, 100, 'hereye'],
+		[226,  100,  50, 'lakesuperior'],
+		[ 28, 66.6,  50, 'cavescaves'],
+		[199,   50,  50, 'facilityabyss'],
+		[ 46,  100,  75, 'asbestos'],
+		[ 69, 83.3,  75, 'neurotoxin'],
+		[271,  100,  75, 'vilify'],
+		[185, 16.6, 100, 'bridges'],
+		[343, 33.3, 100, 'companion']
+	];
 	for (var i = 0; i < colorArray.length; i++) {
 		var hue = colorArray[i][0];
 		var sat = colorArray[i][1];
@@ -110,6 +151,7 @@ function insertColorNames() {
 	}
 }
 /** Automatically styles CSS id selectors with background colors. */
+/* this functionality has moved to CSS; all color variables should be in Less, not JS */
 //function setupColors() {
 //	for (var i = 0; i < colorArray.length; i++) {
 //		var theColor = colorArray[i];
@@ -123,6 +165,21 @@ $(document).ready(function () {
 		newElem('div').addClass('Gcol w-f1o2').append(tables( 0, 11)),
 		newElem('div').addClass('Gcol w-f1o2').append(tables(12, 23))
 	]);
+	$('#palettes2').append(function () {
+		var k = 0;
+		var gRowArray = [];
+		for (var i = 0; i < 4; i++) {
+			gRowArray[i] = newElem('div').addClass('Grow').append(function() {
+				gColArray = [];
+				for (var j = 0; j < 2; j++) {
+					gColArray[j] = newElem('div').addClass('Gcol w-f1o2').append(createTable(colorArrayNames[k]));
+					k++;
+				}
+				return gColArray;
+			});
+		}
+		return gRowArray;
+	});
 	insertColorCodes();
 	insertColorNames();
 });
