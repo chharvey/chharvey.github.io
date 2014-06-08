@@ -1,4 +1,4 @@
-var colorArrayNames = [
+var colorNameArray = [
 	'hue-base',
 	'hue-comp',
 	'hue-tria-warm',
@@ -8,7 +8,11 @@ var colorArrayNames = [
 	'hue-anal-warm',
 	'hue-anal-cool'
 ];
-/** Creates a table containing empty cells corresponding to different levels of saturation and value for a particular hue. */
+/**
+  * Creates a table containing empty cells corresponding to different levels of
+  * saturation and value for a particular hue.
+  * This function takes the hue name as a parameter. See `colorNameArray` above.
+  */
 function createTable(name) {
 	function tdArray() {
 		return [
@@ -40,12 +44,16 @@ function createTable(name) {
 }
 function allTables() {
 	var tableArray = [];
-	for (var i = 0; i < colorArrayNames.length; i++) {
-		tableArray[i] = createTable(colorArrayNames[i]);
+	for (var i = 0; i < colorNameArray.length; i++) {
+		tableArray[i] = createTable(colorNameArray[i]);
 	}
 	return tableArray;
 }
-/** Creates a table containing empty cells corresponding to different levels of saturation and value for a particular hue. */
+/**
+  * Creates a table containing empty cells corresponding to different levels of
+  * saturation and value for a particular hue.
+  * This function takes a numeric degree as a parameter. See `degreeArray` below.
+  */
 function table(degree) {
 	function tdArray() {
 		return [
@@ -90,7 +98,10 @@ function tables(start, stop) {
 	}
 	return tableArray;
 }
-/** Fills the empty cells with codes for its background color. (Remember, CSS will give the cells their background color.) */
+/**
+  * Fills the empty cells with codes for its background color.
+  * (Remember, CSS will give the cells their background color.)
+  */
 function insertColorCodes() {
 	$('.colortable td').append(
 		newElem('code').addClass('colorcode').html('?')
@@ -100,9 +111,14 @@ function insertColorCodes() {
 	});
 }
 
-/** Adds a color name to corresponding cell in the palette. Each color name is a link to its description. */
+/**
+  * Adds a color name to corresponding cell in the palette.
+  * Each color name is a link to its description.
+  */
 function insertColorNames() {
-	/** The colors used in the site. Each entry of this array is another array: [hue, sat, val, id]. */
+	/**
+	  * The colors used in the site. Each entry of this array is another array: [hue, sat, val, id].
+	  */
 	var colorArray = [
 		[217, 2.13,   100, 'aperture_white'],
 		[ 37,  100,  2.13, 'aperture_black'],
@@ -150,8 +166,10 @@ function insertColorNames() {
 		);
 	}
 }
-/** Automatically styles CSS id selectors with background colors. */
-/* this functionality has moved to CSS; all color variables should be in Less, not JS */
+/**
+  * Automatically styles CSS id selectors with background colors.
+  * This functionality has moved to CSS; all color variables should be in Less, not JS.
+  */
 //function setupColors() {
 //	for (var i = 0; i < colorArray.length; i++) {
 //		var theColor = colorArray[i];
@@ -172,7 +190,7 @@ $(document).ready(function () {
 			gRowArray[i] = newElem('div').addClass('Grow').append(function() {
 				gColArray = [];
 				for (var j = 0; j < 2; j++) {
-					gColArray[j] = newElem('div').addClass('Gcol w-f1o2').append(createTable(colorArrayNames[k]));
+					gColArray[j] = newElem('div').addClass('Gcol w-f1o2').append(createTable(colorNameArray[k]));
 					k++;
 				}
 				return gColArray;
