@@ -44,9 +44,10 @@ Specs for all TODO lists:
 - [ ] 2014-02-24 remove all "scoped" Less and make use of "namespaces"
 	- in `reals.less` lines 120–149, and 157–183
 	- in `secondary-ed.less` lines 154–234
-- 2014-04-04 in `mods.less` eventually find a way to abstract the `.message` blocks
-- 2014-04-08 change all `[data-e=""]` selectors to `[data-e~=""]`
-- 2014-04-08 add `[data-status~="normative"]`, `[data-status~="nonnormative"]`, `[data-status~="draft"]`, etc to stylesheets, get rid of class `.draft`, `.nonnormative`, etc.
+- [x] 2014-04-04 in `mods.less` eventually find a way to abstract the `.message` blocks
+- [ ] 2014-04-08 change all `[data-e=""]` selectors to `[data-e~=""]`
+- [x] 2014-04-08 add `[data-status~="normative"]`, `[data-status~="nonnormative"]`, `[data-status~="draft"]`, etc to stylesheets, get rid of class `.draft`, `.nonnormative`, etc.
+- [ ] 2013-06-07 write comment documentation for selectors in `/core/styles/typo/_text.less`
 
 #### boxes ####
 - [x] 2013-08-18 code scheme
