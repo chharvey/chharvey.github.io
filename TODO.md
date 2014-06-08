@@ -17,32 +17,29 @@ Specs for all TODO lists:
 
 ## Site-wide TODO list ##
 
-### semantics ###
+### Semantics ###
 - [x] 2013-08-24 `img alt` attributes should be semantic
 - [x] 2013-08-24 all self-closing tags should end in `/>`, not ` />`. (remove the space before
 	the slash)
-- [x] 2013-12-14 see which `b.ref`s you can change to `cite`s (titles of works) and `a`s (links to
-	documents, sections, etc.)
-- [ ] 2014-02-18 use `title` attribute on all `a` elements to describe the **Title of the linked
-	document** unless the text content in the link is already the title.
-- [x] 2014-03-01 use `<small>` for labels---they really are disclamers/caveats/etc.
-- [x] 2014-03-02 see which `<b>` tags you can remove; which ones do you *really* need?
 - [ ] 2014-03-06 change all apostrophes (`'`) to right single quotes `&rsquo;` on the following
 	pages... (Leave the apostrophes alone in regular pages. The typographical precision is not
 	worth the effort.)
 	- 'portal' pages (`/home/edu.html`, `/home/math.html`, etc.)
 	- **formal** documents such as articles or blog posts (maybe in `/blog/`?)
+
+#### links ####
+- [ ] 2014-02-18 use `title` attribute on all `a` elements to describe the **Title of the linked
+	document** unless the text content in the link is already the title.
 - [ ] 2014-03-27 `<a>` links should contain more textual content for SEO
-- [ ] 2014-03-30 instead of using classes (`span.hsub`, etc.) for QUASI-ELEMENTS, use the `data-*`
-	attribute. For example, `<span data-qe="subh">`. Then style these with `[data-qe="subh"]`. The
-	selector is equally as specific as `.subh` but may be less efficient; though this is a minor
-	cost to pay for semantic benefit.
-- [x] 2014-04-01 separate pure-style classes (e.g. `.list-basic`, `.dl-table-sml`, `.table-list`,
-	etc.) from semantic classes (e.g. `.dl-ordered`, `.hsub`, `.postal`, etc.). Maybe use the HTML
-	`data-*` attribute?
 - [ ] 2014-04-04, 2014-06-07 given an element, when deciding to add a link to that element, always
 	put the link *inside* the other element. E.g. always do `code > a` or `dfn > a`, not `a > code`
 	or `a > dfn`.
+
+#### highlights ####
+- [x] 2013-12-14 see which `b.ref`s you can change to `cite`s (titles of works) and `a`s (links to
+	documents, sections, etc.)
+- [x] 2014-03-01 use `<small>` for labels---they really are disclamers/caveats/etc.
+- [x] 2014-03-02 see which `<b>` tags you can remove; which ones do you *really* need?
 
 #### metadata and micro-semantics (very low priority) ####
 - [ ] 2014-03-03 `rel` attributes on `link` and `a` elements, see
@@ -61,7 +58,7 @@ Specs for all TODO lists:
 	- microdata (`itemscope` and `itemprop`, via [schema.org]())
 - [ ] 2013-03-03 ARIA roles
 
-### styles ###
+### Styles ###
 - [ ] 2014-02-24 remove all "scoped" Less and make use of "namespaces"
 	- in `reals.less` lines 120–149, and 157–183
 	- in `secondary-ed.less` lines 154–234
@@ -93,6 +90,23 @@ Specs for all TODO lists:
 - [x] 2014-04-08 fix `list-style-type: none;` in definition of `.res-tech-apps {}`
 
 ## Site Design ##
+
+### General ###
+This is all gonna go in a spec somewhere...
+- [ ] 2014-03-30 instead of using classes (`span.hsub`, etc.) for QUASI-ELEMENTS, use the `data-*`
+	attribute. For example, `<span data-qe="subh">`. Then style these with `[data-qe="subh"]`. The
+	selector is equally as specific as `.subh` but may be less efficient; though this is a minor
+	cost to pay for semantic benefit.
+- [ ] 2014-04-01 separate pure-style classes (e.g. `.list-basic`, `.dl-table-sml`, `.table-list`,
+	etc.) from semantic classes (e.g. `.dl-ordered`, `.hsub`, `.postal`, etc.). Maybe use the HTML
+	`data-*` attribute?
+- [ ] 2014-06-08 **REMINDER**: CSS Objects should be *named* semantically, for the
+	"theoretical redesign future", but should not *convey* semantics, i.e. provide any semantic
+	meaning. To "extend" an Element semantically, use HTML like `data-*`, or microdata
+	(`itemscope` and `itemprop`), or ARIA roles. CSS Interfaces, on the other hand, are permitted
+	to be named "unsemantically", i.e. their names may describe their definitions. This is because
+	Interface names are visible in CSS, so Objects can implement them, but they're not visible in
+	HTML, so Elements cannot. Elements can only instantiate CSS Classes ("Objects").
 
 ### phi.html ###
 - [ ] FIX IT. the whole thing.
