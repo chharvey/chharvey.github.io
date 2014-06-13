@@ -37,19 +37,22 @@ Specs for all TODO lists:
 #### highlights ####
 - [x] 2013-12-14 see which `b.ref`s you can change to `cite`s (titles of works) and `a`s (links to
 	documents, sections, etc.)
-- [x] 2014-03-01 use `<small>` for labels---they really are disclamers/caveats/etc.
 - [x] 2014-03-02 see which `<b>` tags you can remove; which ones do you *really* need?
 
 #### metadata and micro-semantics (very low priority) ####
 - [ ] 2014-03-03 `rel` attributes on `link` and `a` elements, see
-	[http://dev.w3.org/html5/spec/links.html#linkTypes]()
-	- `next`: current doc is part of a series, and that the `a`, for example in breadcrumbs, links to the next document in the series. May be used with `sibling`
-	- `prev`: current doc is part of a series, and that the `a`, for example in breadcrumbs, links to the previous document in the series. May be used with `sibling`
+	[http://dev.w3.org/html5/spec/links.html#linkTypes](http://dev.w3.org/html5/spec/links.html#linkTypes)
+	- `next`: current doc is part of a series, and that the `a`, for example in breadcrumbs,
+		links to the next document in the series. May be used with `sibling`
+	- `prev`: current doc is part of a series, and that the `a`, for example in breadcrumbs,
+		links to the previous document in the series. May be used with `sibling`
 	- `top`: links to the "logical top level" document. implies `ancestor`
 	- `parent`: links to the "logical parent" of this page
-	- `ancestor`: links to the "logical parent" of this page, or the "logical parent" of an `ancestor` of this page (recursively defined)
+	- `ancestor`: links to the "logical parent" of this page, or the "logical parent" of
+		an `ancestor` of this page (recursively defined)
 	- `child`: links to a "logical child" of this page
-	- `descendent`: links to a "logical child" of this page, or a "logical child" of a `descendent` of this page (recursively defined)
+	- `descendent`: links to a "logical child" of this page, or a "logical child" of
+		a `descendent` of this page (recursively defined)
 	- `sibling`: links to a page that has the same "logical parent" as this page
 	- `external`: the linked page is not part of the same site
 - [x] 2013-03-03 choose between:
@@ -69,8 +72,8 @@ Specs for all TODO lists:
 
 #### boxes ####
 - [x] 2013-08-18 code scheme
-- [ ] 2014-02-16 do labels/tooltips/whatever hint: [http://kushagragour.in/lab/hint/]()
-- [x] 2014-03-01 use `<small>` for labels---they really are disclamers/caveats/etc.
+- [ ] 2014-02-16 do labels/tooltips/whatever hint: [http://kushagragour.in/lab/hint/](http://kushagragour.in/lab/hint/)
+- [x] 2014-03-01 use `<small>` for labels&mdash;they really are disclamers/caveats/etc.
 
 ### scripts ###
 - [ ] 2013-12-14 investigate the use of templates (`<template>`)
