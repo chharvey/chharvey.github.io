@@ -70,4 +70,4 @@
 - [ ] convert `SIOPLessonPlan.docx` from GDrive
 
 ### math7/prob-stats/ ###
-- [ ] add objectives for compound events, histograms to unit overview
+- [x] add objectives for compound events, histograms to unit overview
