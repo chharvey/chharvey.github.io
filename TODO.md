@@ -28,9 +28,8 @@ Specs for all TODO lists:
 	- **formal** documents such as articles or blog posts (maybe in `/blog/`?)
 
 #### links ####
-- [ ] 2014-02-18 use `title` attribute on all `a` elements to describe the **Title of the linked
-	document** unless the text content in the link is already the title.
-- [ ] 2014-03-27 `<a>` links should contain more textual content for SEO
+- [ ] 2014-03-27 `<a>` links should contain more textual content for SEO. the `title` attribute may
+	contain a description of the linked document.
 - [ ] 2014-04-04, 2014-06-07 given an element, when deciding to add a link to that element, always
 	put the link *inside* the other element. E.g. always do `code > a` or `dfn > a`, not `a > code`
 	or `a > dfn`.
