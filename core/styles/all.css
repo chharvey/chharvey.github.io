@@ -237,22 +237,6 @@ button {
     _interfaces.less
 \*--------------------*/
 /*@MIXINS*/
-/**
-  * These Mixins set the padding, border, and margin on the left or right side, such that
-  * the border:padding ratio and the (border+padding):margin ratio are Golden.
-@params
-: @side:  either "left" or "right"
-: @brdrw : value of the `border-[left|right]-width` property
-: @brdrs : value of the `border-[left|right]-style` property
-: @brdrc : value of the `border-[left|right]-color` property
-@tags
-: #golden
-@author
-: Chris Harvey
-@updated
-: 2014-05-10
-  */
-/** negate the effects of `.spacing-phi(@side; @brdrw; @brdrs; @brdrc)`  on the [left|right] side */
 /*@Abstract Boxes*/
 /**
   * This Mixin creates an abstract inline structure, boxed with a border.
@@ -351,7 +335,7 @@ button {
 : 2014-06-07
   */
 .help-otln {
-  outline: 1px solid #ffaac2;
+  outline: 1px solid #cc004e;
 }
 /*@Delimiters*/
 /**
@@ -881,8 +865,8 @@ html {
   line-height: 1.5;
 }
 body {
-  color: #050300;
-  background-color: #fafcff;
+  color: #0e0900;
+  background-color: #f1f6ff;
 }
 main {
   margin-left: 23.60679775%;
@@ -997,7 +981,7 @@ main {
   font-size: 80%;
   padding-left: 24px;
   font-weight: normal;
-  color: rgba(5, 3, 0, 0.61803399);
+  color: rgba(14, 9, 0, 0.61803399);
 }
 /**
   * The six Objects below represent different levels of headings, starting from top-level to level 6.
@@ -1024,10 +1008,10 @@ main {
   font-variant: small-caps;
   font-weight: bold;
   text-align: center;
-  color: #001e80;
+  color: #1800cc;
 }
 .H.Alpha > .Hsub {
-  color: #406b80;
+  color: #1800cc;
 }
 .H.Beta {
   font-size: 35px;
@@ -1038,10 +1022,10 @@ main {
   padding-bottom: 24px;
   padding-bottom: 1.5rem;
   font-weight: bold;
-  color: #80522b;
+  color: #2d1f99;
 }
 .H.Beta > .Hsub {
-  color: #bf9300;
+  color: #2d1f99;
 }
 .H.Gamma {
   font-size: 26px;
@@ -1074,10 +1058,10 @@ main {
   padding-bottom: 0px;
   padding-bottom: 0rem;
   font-style: italic;
-  color: #80522b;
+  color: #2d1f99;
 }
 .H.Epsilon > .Hsub {
-  color: #bf9300;
+  color: #2d1f99;
 }
 .H.Zeta {
   font-size: 16px;
@@ -1118,6 +1102,22 @@ main {
 /*--------------------*\
     _paragraphs.less
 \*--------------------*/
+/**
+  * These Mixins set the padding, border, and margin on the left or right side of an Object,
+  * such that the border:padding ratio and the (border+padding):margin ratio are Golden.
+@params
+: @side:  either "left" or "right"
+: @brdrw : value of the `border-[left|right]-width` property
+: @brdrs : value of the `border-[left|right]-style` property
+: @brdrc : value of the `border-[left|right]-color` property
+@tags
+: #golden
+@author
+: Chris Harvey
+@updated
+: 2014-05-10
+  */
+/** negate the effects of `.spacing-phi(@side; @brdrw; @brdrs; @brdrc)`  on the [left|right] side */
 /**
   * This Object represents a generic paragraph in a section, article, or document. A paragraph
   * Object is a small grouping of textual ideas. In the written media, paragraphs can span
@@ -1198,7 +1198,7 @@ main {
   font-style: normal;
   font-weight: normal;
   font-family: 'Avenir', 'Calibri', 'Century Gothic', sans-serif;
-  color: #001e80;
+  color: #1800cc;
 }
 /*@QUASI-PARAGRAPHS*/
 /**
@@ -1254,7 +1254,6 @@ main {
   margin-bottom: -1px;
   border-bottom-width: 1px;
   border-bottom-style: dotted;
-  border-color: #ff1500;
 }
 .Capt.After {
   display: block;
@@ -1263,7 +1262,6 @@ main {
   margin-bottom: -1px;
   border-top-width: 1px;
   border-top-style: dotted;
-  border-color: #ff1500;
 }
 /**
   * This Object represents a generic postal address. It may be the contact address of the document
@@ -1285,7 +1283,8 @@ main {
 : 2014-04-30
   */
 .Addy {
-  border-right: 3px solid #ff1500;
+  border-right-width: 3px;
+  border-right-style: solid;
   padding-right: 4.85410197px;
   margin-right: 12.70820393px;
   display: block;
@@ -1315,10 +1314,12 @@ main {
 : 2014-05-10
   */
 .Fig {
-  border-left: 4px solid #ff1500;
+  border-left-width: 4px;
+  border-left-style: solid;
   padding-left: 6.47213595px;
   margin-left: 16.94427191px;
-  border-right: 4px solid #ff1500;
+  border-right-width: 4px;
+  border-right-style: solid;
   padding-right: 6.47213595px;
   margin-right: 16.94427191px;
   display: block;
@@ -1345,7 +1346,8 @@ main {
 : 2014-05-10
   */
 .Qblock {
-  border-left: 7px double #ff1500;
+  border-left-width: 7px;
+  border-left-style: double;
   padding-left: 11.32623792px;
   margin-left: 29.65247584px;
   display: block;
@@ -1395,6 +1397,12 @@ main {
 .Qblock.Long .Src {
   padding-right: 0;
 }
+.Capt,
+.Addy,
+.Fig,
+.Qblock {
+  border-color: #9acc7a;
+}
 @media print {
   .Fig,
   .Addy,
@@ -1402,12 +1410,16 @@ main {
     font-size: 16px;
     font-size: 1rem;
     line-height: 1.5;
-    border-left: 0 solid #000000;
+    border-left-width: 0;
+    border-left-style: solid;
     padding-left: 0;
     margin-left: 0;
-    border-right: 0 solid #000000;
+    border-left-color: #000000;
+    border-right-width: 0;
+    border-right-style: solid;
     padding-right: 0;
     margin-right: 0;
+    border-right-color: #000000;
   }
 }
 /*---------------*\
@@ -1849,12 +1861,12 @@ main {
 .Rowgroup {
   border-width: 1px 0;
   border-style: solid;
-  border-color: #ff1500;
+  border-color: #9acc7a;
 }
 .Rowgroup.Head,
 .Rowgroup.Foot {
   vertical-align: bottom;
-  background-color: #a7bf20;
+  background-color: transparent;
 }
 .Rowgroup.Head .Row,
 .Rowgroup.Foot .Row {
@@ -1884,10 +1896,10 @@ main {
   display: table-row;
 }
 .Row:nth-child(odd) {
-  background-color: #b1bf60;
+  background-color: transparent;
 }
 .Row:nth-child(even) {
-  background-color: #babf9f;
+  background-color: transparent;
 }
 /**
   * This Object represents a single data entry in a `.Table`.
@@ -1921,10 +1933,10 @@ main {
   font-weight: bold;
 }
 .Table.Vert .Row .Cell:nth-child(odd) {
-  background-color: #b1bf60;
+  background-color: transparent;
 }
 .Table.Vert .Row .Cell:nth-child(even) {
-  background-color: #babf9f;
+  background-color: transparent;
 }
 table {
   counter-reset: nrows;
@@ -1964,13 +1976,10 @@ table tr {
   color: #ff9d00;
 }
 .Link:active {
-  color: #fff155;
+  color: #cc004e;
 }
 .Link[rel~="external"] {
   font-style: italic;
-}
-a:hover {
-  text-decoration: underline;
 }
 /**
   * This Object represents a special link. It may refer to an external link, or some other type.
@@ -2401,8 +2410,8 @@ strong {
 : 2014-05-30
   */
 mark {
-  background-color: #ffaac2;
-  background-color: rgba(255, 170, 194, 0.61803399);
+  background-color: #cc004e;
+  background-color: rgba(204, 0, 78, 0.61803399);
 }
 /**
   * A keyword, technical or specific term, or a vocabulary term.
@@ -2704,14 +2713,12 @@ sub {
   display: none !important;
 }
 [data-bool="0"] {
-  color: #fafcff;
-  background-color: #2b9cff;
-  background-color: #0062ff;
+  color: #f1f6ff;
+  background-color: #4d91ff;
 }
 [data-bool="1"] {
-  color: #050300;
-  background-color: #ff8e2b;
-  background-color: #ff9d00;
+  color: #0e0900;
+  background-color: #ffbb4d;
 }
 /*dl*/
 .dl--ordered > dt:first-child,

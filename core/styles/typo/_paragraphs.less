@@ -94,15 +94,18 @@
 //+++++++++++++++++//
 /*@QUASI-PARAGRAPHS*/
 //+++++++++++++++++//
+@capt_brdr_width: 1px;
+@capt_brdr_style: dotted;
+@capt_brdr_color: @color_brdr;
 @addy_brdr_width: 3px;
 @addy_brdr_style: solid;
-@addy_brdr_color: @color_accent;
+@addy_brdr_color: @color_brdr;
 @fig_brdr_width: 4px;
 @fig_brdr_style: solid;
-@fig_brdr_color: @color_accent;
+@fig_brdr_color: @color_brdr;
 @qblock_brdr_width: 7px;
 @qblock_brdr_style: double;
-@qblock_brdr_color: @color_accent;
+@qblock_brdr_color: @color_brdr;
 /**
   * This Object represents a generic caption of any sort. A caption is usually a short summary or
   * description of some content ("the described content"). The described content may be in a
@@ -151,11 +154,8 @@
 @updated
 : 2014-05-10
   */
-@capt_brdr_width: 1px;
-@capt_brdr_style: dotted;
-@capt_brdr_color: @color_accent;
-.Capt.Before {.border-vert-one(bottom; @capt_brdr_width; @capt_brdr_style; @capt_brdr_color);}
-.Capt.After  {.border-vert-one(top;    @capt_brdr_width; @capt_brdr_style; @capt_brdr_color);}
+.Capt.Before {.border-vert-one(bottom; @capt_brdr_width; @capt_brdr_style);}
+.Capt.After  {.border-vert-one(top;    @capt_brdr_width; @capt_brdr_style);}
 /**
   * This Object represents a generic postal address. It may be the contact address of the document
   * author(s) (contained in an `address` element), or it may be any arbitrary postal mailing address.
@@ -178,7 +178,7 @@
 .Addy {
 	&:extend(.vru-content);
 	&:extend(.vru-top-phi);
-	.spacing-phi(right; @addy_brdr_width; @addy_brdr_style; @addy_brdr_color);
+	.spacing-phi(right; @addy_brdr_width; @addy_brdr_style);
 	display: block;
 	border-radius: 6px;
 	text-align: right;
@@ -208,8 +208,8 @@
 .Fig {
 	&:extend(.vru-content);
 	&:extend(.vru-top-phi);
-	.spacing-phi(left;  @fig_brdr_width; @fig_brdr_style; @fig_brdr_color);
-	.spacing-phi(right; @fig_brdr_width; @fig_brdr_style; @fig_brdr_color);
+	.spacing-phi(left;  @fig_brdr_width; @fig_brdr_style);
+	.spacing-phi(right; @fig_brdr_width; @fig_brdr_style);
 	display: block;
 	> :first-child {&:extend(.vru-top-0);}
 }
@@ -238,7 +238,7 @@
 	&:extend(.vru-content);
 	&:extend(.vru-top-phi);
 	&:extend(.fontsize-lrg);
-	.spacing-phi(left; @qblock_brdr_width; @qblock_brdr_style; @qblock_brdr_color);
+	.spacing-phi(left; @qblock_brdr_width; @qblock_brdr_style);
 	// .fontsize-scale-double(5/4);
 	display: block;
 	font-family: @fontfam_accent;
@@ -293,6 +293,11 @@
 		padding-right: 0;
 	}
 }
+
+.Capt,
+.Addy,
+.Fig,
+.Qblock {border-color: @color_brdr;}
 //++++ @end QUASI-PARAGRAPHS ++++//
 
 @media print {
