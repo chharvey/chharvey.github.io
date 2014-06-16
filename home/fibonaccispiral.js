@@ -55,7 +55,6 @@ function positionSpiral(mw) {
 }
 function makepretty() {
 	// * brings it all together
-	$('main').css('margin-bottom','0');
 	var mainwidth = $('main').width();
 	squareheight('.Square');
 	positionSquares(mainwidth);

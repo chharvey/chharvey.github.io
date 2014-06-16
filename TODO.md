@@ -80,11 +80,12 @@ Specs for all TODO lists:
 - [ ] 2014-03-01 use JS to change the line-height of blockquotes to 1.5 times the usual amount
 	(currently (2014-03-01), from 1.2 to 1.8), and then adjust margin-bottom to keep vertical rhythm.
 
+## Home Pages ##
 
-## Index ##
+### Index ###
 - [ ] 2013-08-18 make popping text on index page fade in and out easier
 
-## Resume ##
+### Resume ###
 - [x] 2014-03-26 remove `!important` from `.res-spacetime {font-size}` and `.res-spacetime {color}`
 	and somehow fix quasi-element `span.hsub`.
 - [x] 2014-03-26 add web-dev exp
