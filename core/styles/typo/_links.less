@@ -3,7 +3,14 @@
 /*---------------*\
     _links.less
 \*---------------*/
+// Table of Contents
+// - INLINE LINKS
+// - BUTTONS
 
+
+//+++++++++++++//
+/*@INLINE LINKS*/
+//+++++++++++++//
 /**
   * This Object represents the abstract concept of a span of text that links to another file.
   * It does not represent an inactive placeholder (equivalent to an empty `a` Element). It also
@@ -72,3 +79,48 @@
 	font-style: italic;
 	text-transform: capitalize;
 }
+//++++ @end INLINE LINKS ++++//
+
+
+//++++++++//
+/*@BUTTONS*/
+//++++++++//
+/** The default border for button-like Objects. */
+@btn_brdr_width: 2px;
+@btn_brdr_radius: 6px;
+
+/**
+  * A general Button Object.
+@implements
+: .fontsize-sml-inline
+@mixesin
+: .box-inline()
+@tags
+: #button
+@author
+: Chris Harvey
+@updated
+: 2014-06-06
+  */
+.Button {
+	&:extend(.fontsize-sml-inline);
+	.box-inline(@btn_brdr_radius);
+	border-width: @btn_brdr_width;
+	border-style: outset;
+	border-color: @color_btn_up_brdr;
+	margin-bottom: (-2 * @btn_brdr_width);
+	font-family: @fontfam_accent;
+	color: @color_btn_up_txt;
+	background-color: @color_btn_up_bg;
+	cursor: pointer;
+	&:hover {
+		border-color: @color_btn_dn_brdr;
+		color: @color_btn_dn_txt;
+		background-color: @color_btn_dn_bg;
+	}
+	&:active {
+		border-style: inset;
+	}
+}
+.Button.Block {display: block;}
+//++++ @end BUTTONS ++++//
