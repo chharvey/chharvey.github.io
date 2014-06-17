@@ -1,43 +1,48 @@
-//
+// out: secondaryed.css
+@import (reference) url('../core/styles/all.less');
 
-/** --SECONDARY-ED.LESS-- **/
-.cat-exam {
-	background-color: @color-caution-icon-bg;
-}
-.cat-proj {
-	background-color: @color-warning-icon-bg;
-}
-.cat-test {
-	background-color: @color-success-icon-bg;
-}
-.cat-quiz {
-	background-color: @color-info-icon-bg;
-}
-.cat-hw {
-	background-color: @color-help-icon-bg;
-}
+/*--------------------*\
+    secondaryed.less
+\*--------------------*/
 
-/* @group index */
-.course-testlist {
-	&:extend(.list-action all);
-	&:extend(.cat-test);
-	margin-top: 0;
-	background-color: transparent;
-}
-/* @end */
 
-/* @group State Standards */
+// Table of Contents
+// - INDEX
+// - STATE STANDARDS
+// - SYLLABUS
+// - PACING
+// - WARM-UPS
+// - UNIT OVERVIEWS
+// - LESSON PLANS
+// - ASSESSMENTS
+// - MISC
+
+
+.cat-exam {background-color: @color_msg_cshn_bg;}
+.cat-proj {background-color: @color_msg_warn_bg;}
+.cat-test {background-color: @color_msg_skss_bg;}
+.cat-quiz {background-color: @color_msg_info_bg;}
+.cat-hw   {background-color: @color_msg_help_bg;}
+
+
+//++++++//
+/*@INDEX*/
+//++++++//
+//++++ @end INDEX ++++//
+
+
+//++++++++++++++++//
+/*@STATE STANDARDS*/
+//++++++++++++++++//
 .standard-id {
-	&:extend(.lede);
-	padding-right: 1em;
+	&:extend(.Lede);
 }
-.standard-txt {
-	margin-left: 0;
+.Standard-txt {
+	&:extend(.Qblock all);
 	font-size: inherit;
 	line-height: inherit;
-	ol {
-		margin-top: 0;
-		list-style-type: lower-alpha;
+	.List.O {
+		&:extend(.List.O.Delta);
 	}
 }
 .standard-pa(@year, @color) {
@@ -56,31 +61,33 @@
 }
 .standard-pa-generator(2012, #6c12f6);
 .standard-pa-generator(2013, #1972bb);
-/* @end */
+//++++ @end STATE STANDARDS ++++//
 
-/* @group syllabusdothtml */
-.syll-categories,
-.syll-testgrades {
-	.width-sml();
-	&:extend(.dl-table-sml);
-	dt {
+
+//+++++++++//
+/*@SYLLABUS*/
+//+++++++++//
+.syll-cats,
+.syll-tsts {
+	.Term {
+		direction: rtl;
 		font-weight: bold;
-		font-family: @fontfam--math;
-		text-align: center;
+		font-family: @fontfam_math;
+		text-align: right;
+		text-indent: @spacer;
 	}
 }
 #signature {
-	.border-vert--one(top; 1px; dashed; #000);
+	.border-vert-one(top; 1px; dashed; #000);
 }
-/* @end */
+//++++ @end SYLLABUS ++++//
 
-/* @group pacingdothtml */
-.rotate(@rotation) {
-	-webkit-transform: rotate(@rotation);
-	   -moz-transform: rotate(@rotation);
-	    -ms-transform: rotate(@rotation);
-	     -o-transform: rotate(@rotation);
-	        transform: rotate(@rotation);
+
+//+++++++//
+/*@PACING*/
+//+++++++//
+.pacing-table {
+	text-align: left;
 }
 .pacing-qnum {
 	width: 100px;
@@ -88,58 +95,58 @@
 	left: (-1.5em);
 	.rotate(270deg);
 }
-
-/* @end */
-
-/* @group warmupsdothtml */
-.wu-star {background-color: #ff9;}
-.wu-hsub {
-	&:extend(.standard-id all);
-	.parens();
+.pacing-qhead {
+	max-width: 3em;
+	text-align: center;
+	vertical-align: middle;
 }
-.wu-answerchoices {list-style-type: upper-alpha;}
+
+//++++ @end PACING ++++//
+
+
+//+++++++++//
+/*@WARM-UPS*/
+//+++++++++//
 .wu-answer {
-	.fontsize(small; inline);
+	&:extend(.fontsize-sml);
 	font-style: italic;
 	font-weight: bold;
 	&::before {
 		content: 'answer: ';
 	}
-	div&,
-	p& {
-		.fontsize(small);
-	}
 }
+//++++ @end WARM-UPS ++++//
 
-/* @end */
 
-/* @group unit overviews */
-.ov-deletional,
-.ov-insertional {
-	text-decoration: none;
-}
+//+++++++++++++++//
+/*@UNIT OVERVIEWS*/
+//+++++++++++++++//
 .ov-deletional {
-	color: @color-sp-dn-txt;
-	background-color: @color-link-dn-bg;
+	color: @color_msg_warn_txt;
+	background-color: @color_msg_warn_bg;
+	text-decoration: line-through;
 }
 .ov-insertional {
-	color: @color-sp-up-txt;
-	background-color: @color-link-up-bg;
+	color: @color_msg_skss_txt;
+	background-color: @color_msg_skss_bg;
+	text-decoration: underline;
 }
 .ov-optional {
-	.parens();
-	color: @color_base--faded;
+	&:extend(.parens all);
+	color: @color_base_faded;
 }
 .ov-teachernote {
-	background-color: @color-help-bg;
+	background-color: @color_msg_info_bg;
 }
-dl.list-vocab {}
-/* @end */
+// dl.list-vocab {}
+//++++ @end UNIT OVERVIEWS ++++//
 
-/* @group lesson plans */
-ul.list-vocab {
-	&:extend(.list-action all);
-}
+//+++++++++++++//
+/*@LESSON PLANS*/
+//+++++++++++++//
+// ul.list-vocab {
+// 	&:extend(.list-action all);
+// }
 //blockquote.lsn-show {
 //	//* for strictly quoted material to present to students
 //	font-size: inherit;
@@ -149,10 +156,12 @@ ul.list-vocab {
 //ol.practiceproblems {
 //	line-height: 3em;
 //}
-/* @end */
+//++++ @end LESSON PLANS ++++//
 
 
-/* @group assessments */
+//++++++++++++//
+/*@ASSESSMENTS*/
+//++++++++++++//
 //body.assessment {
 //	main {
 //		margin-top: 0.25in;
@@ -234,25 +243,28 @@ ul.list-vocab {
 //		}
 //	}
 //}
-/* @end */
+//++++ @end ASSESSMENTS ++++//
 
-/* @group misc */
-.column-left,
-.column-right {&:extend(.unit-1to2);}
-.column-left {}
-.column-right {
-	border-left: 1px solid #000;
-}
-.model-chip,
-.model-block {
-	width: 250px;
-	height: 150px;
-}
-.model-numberline {
-	width: 500px;
-	height: 150px;
-}
-/* @end */
+
+//+++++//
+/*@MISC*/
+//+++++//
+// .column-left,
+// .column-right {&:extend(.unit-1to2);}
+// .column-left {}
+// .column-right {
+// 	border-left: 1px solid #000;
+// }
+// .model-chip,
+// .model-block {
+// 	width: 250px;
+// 	height: 150px;
+// }
+// .model-numberline {
+// 	width: 500px;
+// 	height: 150px;
+// }
+//++++ @end MISC ++++//
 
 @media print {
 	.cat-exam,
@@ -266,21 +278,21 @@ ul.list-vocab {
 	.ov-teachernote {background-color: transparent;}
 	.ov-teachernote {display: none;}
 
-	ol.practiceproblems {line-height: inherit;}
-//	form {
-//		font-family: 'Helvetica','Arial',sans-serif;
-//		input[type='text'],
-//		input[type='number'],
-//		input[type='date'],
-//		input[type='submit'],
-//		textarea {
-//			display: none;
-//		}
-//		input#name,
-//		input#date,
-//		input#period {
-//			display: inline-block;
-//			visibility: hidden;
-//		}
-//	}
+	// ol.practiceproblems {line-height: inherit;}
+	// form {
+	// 	font-family: 'Helvetica','Arial',sans-serif;
+	// 	input[type='text'],
+	// 	input[type='number'],
+	// 	input[type='date'],
+	// 	input[type='submit'],
+	// 	textarea {
+	// 		display: none;
+	// 	}
+	// 	input#name,
+	// 	input#date,
+	// 	input#period {
+	// 		display: inline-block;
+	// 		visibility: hidden;
+	// 	}
+	// }
 }

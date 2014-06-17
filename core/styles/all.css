@@ -82,8 +82,6 @@ cite,
 time,
 dfn,
 abbr,
-del,
-ins,
 small,
 sup,
 sub {
@@ -237,6 +235,16 @@ button {
     _interfaces.less
 \*--------------------*/
 /*@MIXINS*/
+/**
+  * Use this Mixin to apply a rotation transformation to an Element.
+@tags
+: #transformation
+: #vendorspecific
+@author
+: Chris Harvey
+@updated
+: 2014-05-10
+  */
 /*@Abstract Boxes*/
 /**
   * This Mixin creates an abstract inline structure, boxed with a border.
@@ -508,6 +516,20 @@ q {
 @updated
 : 2014-05-18
   */
+/**
+  * This Interface is like the `.margin-even()` Mixin except it can be used when the width of the
+  * block is unknown. It is sets the left and right margins to `auto`.
+@tags
+@author
+: Chris Harvey
+@updated
+: 2014-06-16
+  */
+.margin-even,
+.List.I.Iconlist {
+  margin-left: auto;
+  margin-right: auto;
+}
 /**
   * This Object represents a block of content that has horizontal margins. It's not technically
   * part of the "grid" system, but it's here because it's used for layout.
@@ -1590,7 +1612,7 @@ main {
   display: inline;
 }
 /**
-* This Object represents an action list, which typically contains hyperlinks.
+  * This Object represents an action list, which typically contains hyperlinks.
 @extends
 : .List
 @tags
@@ -1601,7 +1623,7 @@ main {
 : Chris Harvey
 @updated
 : 2014-05-11
-*/
+  */
 .List.A > .Item {
   color: #0062ff;
 }
@@ -1610,6 +1632,22 @@ main {
 }
 .List.A > .Item::before {
   content: '\2713\0020';
+}
+/**
+  * This Object represents a list of images, for example, contact icons.
+@extends
+: .List.I
+@tags
+: #typography
+: #list
+@author
+: Chris Harvey
+@updated
+: 2014-06-16
+  */
+.List.I.Iconlist {
+  width: 400px;
+  text-align: center;
 }
 /*@ENUMS*/
 /**
@@ -1968,7 +2006,7 @@ table tr {
 : Chris Harvey
 @updated
 : 2014-05-17
-*/
+  */
 .Link {
   text-decoration: none;
   color: #0062ff;
@@ -1994,7 +2032,7 @@ table tr {
 : Chris Harvey
 @updated
 : 2014-04-21
-*/
+  */
 /**
   * This Object represents a placeholder reference to a name or title of a heading, section, figure,
   * table (or column in a table), or creative work.
@@ -2422,6 +2460,7 @@ mark {
   * Every `dfn` must have an `id` attribute, thus there must only be one `dfn` per page that
   * contains a given term in question. Furthermore, hyperlinks can point to the defining instance
   * of the term.
+  * A `b` Element is any generic keyword or term, whose definition may or may not be present.
 @tags
 : #typography
 : #span
@@ -2431,8 +2470,8 @@ mark {
 @updated
 : 2014-05-25
 	*/
-dfn[id],
-b {
+b,
+dfn[id] {
   font-weight: bold;
   font-family: 'Baskerville', 'Palatino', 'Book Antiqua', serif;
 }
@@ -2482,7 +2521,17 @@ i[lang] {
 : 2014-05-25
   */
 /**
+  * An abbreviation.
+@tags
+: #typography
+@author
+: Chris Harvey
+@updated
+: 2014-06-16
   */
+abbr[title] {
+  cursor: help;
+}
 /**
   * A span or block of text that has been deleted from a document.
   * This is used to explicitly indicate that the text has been intentionally deleted.
@@ -2536,6 +2585,17 @@ sub {
 /*--------------*\
 	_mods.less
 \*--------------*/
+/*@MEDIA*/
+/**
+  * The Media Object is a module that has an image with a body.
+  * See `http://www.stubbornella.org/content/2010/06/25/the-media-object-saves-hundreds-of-lines-of-code/`
+  * for details.
+@author
+: Nicole Sullivan
+: Chris Harvey
+@updated
+: 2014-06-16
+  */
 /*@BUTTONS*/
 /** The default border for button-like Objects. */
 /**
