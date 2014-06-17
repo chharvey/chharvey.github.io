@@ -16,6 +16,8 @@
 //+++++++//
 /**
   * Use this Mixin to apply a rotation transformation to an Element.
+@params
+: @rotation : the angle, in degrees, to rotate the element
 @tags
 : #transformation
 : #vendorspecific
@@ -30,6 +32,42 @@
 	    -ms-transform: rotate(@rotation);
 	     -o-transform: rotate(@rotation);
 	        transform: rotate(@rotation);
+}
+/**
+  * Use this Mixin to apply a transition timing effect on an Element.
+@params
+: @props : the CSS property name(s). If more than one, they must be comma-separated
+: @dura  : the length in time, in seconds, the transition is to be in effect
+: @func  : the timing-function. See `https://developer.mozilla.org/en-US/docs/Web/CSS/timing-function`
+: @delay : the length in time, in seconds, the transition will wait before starting
+@tags
+: #transition
+: #vendorspecific
+@author
+: Chris Harvey
+@updated
+: 2014-06-17
+  */
+.transition(@props; @dura; @func; @delay) {
+	-webkit-transition-property: @props;
+	   -moz-transition-property: @props;
+	    -ms-transition-property: @props;
+	     -o-transition-property: @props;
+	-webkit-transition-duration: @dura;
+	   -moz-transition-duration: @dura;
+	    -ms-transition-duration: @dura;
+	     -o-transition-duration: @dura;
+	-webkit-transition-timing-function: @func;
+	   -moz-transition-timing-function: @func;
+	    -ms-transition-timing-function: @func;
+	     -o-transition-timing-function: @func;
+	-webkit-transition-delay: @delay;
+	   -moz-transition-delay: @delay;
+	    -ms-transition-delay: @delay;
+	     -o-transition-delay: @delay;
+}
+.transition(@props; @duration) {
+	.transition(@props; @duration; ease; 0s);
 }
 //---------------//
 /*@Abstract Boxes*/

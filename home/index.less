@@ -11,6 +11,7 @@ main {margin-bottom: 0;}
 	position: relative;
 }
 .Square {
+	.transition(background-color; @t_ani);
 	display: block;
 	height: 3em; // will be changed proportionally in JS
 	padding: 0;
@@ -20,27 +21,21 @@ main {margin-bottom: 0;}
 	position: static; // will be changed to `absolute` in JS
 	font-family: @fontfam_heading;
 	text-align: center;
-	color: @color_btn_up_txt;
 	background-color: @color_btn_up_bg;
 }
-.Square:hover {
-	color: @color_btn_dn_txt;
-	background-color: @color_btn_dn_bg;
-	.Text {visibility: visible;}
+.Text {
+	&:extend(.h-alpha);
+	.transition(color; @t_ani);
+	padding: 0;
+	margin: 0;
+	position: relative;
+	top: 0.5em; // will be changed proportionally in JS
+	color: transparent;
 }
-
-// .a1 {width: @golden1;}
-// .b1 {width: @golden2;}
-// .c1 {width: @golden3;}
-// .d1 {width: @golden4;}
-// .e1 {width: @golden5;}
-// .f1 {width: @golden6;}
-// .g1 {width: @golden7;}
-// .h1 {width: @golden8;}
-// .i1 {width: @golden9;}
-// .j1 {width: @golden10;}
-// .k1 {width: @golden11;}
-// .l1 {width: @golden12;}
+.Square:hover {
+	background-color: @color_btn_dn_bg;
+	.Text {color: @color_btn_dn_txt;}
+}
 
 .Spiral > li:nth-child( 1) > .Square {width: @golden1;}
 .Spiral > li:nth-child( 2) > .Square {width: @golden2;}
@@ -54,12 +49,3 @@ main {margin-bottom: 0;}
 .Spiral > li:nth-child(10) > .Square {width: @golden10;}
 .Spiral > li:nth-child(11) > .Square {width: @golden11;}
 .Spiral > li:nth-child(12) > .Square {width: @golden12;}
-
-.Text {
-	&:extend(.h-alpha);
-	padding: 0;
-	margin: 0;
-	position: relative;
-	top: 0.5em; // will be changed proportionally in JS
-	visibility: hidden;
-}

@@ -83,7 +83,7 @@ Specs for all TODO lists:
 ## Home Pages ##
 
 ### Index ###
-- [ ] 2013-08-18 make popping text on index page fade in and out easier
+- [x] 2013-08-18 make popping text on index page fade in and out easier
 
 ### Resume ###
 - [x] 2014-03-26 remove `!important` from `.res-spacetime {font-size}` and `.res-spacetime {color}`
