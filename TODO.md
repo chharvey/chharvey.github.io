@@ -63,7 +63,7 @@ Specs for all TODO lists:
 ### Styles ###
 - [ ] 2014-02-24 remove all "scoped" Less and make use of "namespaces"
 	- in `reals.less` lines 120–149, and 157–183
-	- in `secondary-ed.less` lines 154–234
+	- in `secondary-ed.less` lines 183&ndash;263
 - [x] 2014-04-04 in `mods.less` eventually find a way to abstract the `.message` blocks
 - [ ] 2014-04-08 change all `[data-e=""]` selectors to `[data-e~=""]`
 - [x] 2014-04-08 add `[data-status~="normative"]`, `[data-status~="nonnormative"]`,
