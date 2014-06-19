@@ -87,7 +87,7 @@ Specs for all TODO lists:
 - [ ] 2014-06-18 add golden spiral background images (SVG) to squares
 
 ### About ###
-- [ ] 2014-06-17 compile bio, contact, and links pages into one 'about' page.
+- [x] 2014-06-17 compile bio, contact, and links pages into one 'about' page.
 
 ### Resume ###
 - [x] 2014-03-26 remove `!important` from `.res-spacetime {font-size}` and `.res-spacetime {color}`
