@@ -330,9 +330,9 @@ button {
 .clearfix::after,
 .Map.Vert::after,
 .CSS .Ruleset::after {
+  display: table;
   content: ' ';
   clear: both;
-  display: table;
 }
 /**
   * This Interface makes an object slightly transparent, but it becomes opaque upon `:hover`.
@@ -815,14 +815,7 @@ code {
 : 2014-05-10
   */
 .vru-top-0,
-.Fig > :first-child,
-.Qblock > :first-child,
-.List > .Item > .List,
-.Map > .Term > .Map,
-.Map > .Desc > .Map,
-.Bc > .Anc,
-.Bc > .Sib,
-.Bc > .Child {
+.List > .Item > .List {
   margin-top: 0;
 }
 .vru-bottom-0 {
@@ -1160,7 +1153,6 @@ main {
 @implements
 : .vru-content
 : .vru-top-1
-//: .fontsize-med
 @tags
 : #typography
 : #paragraph
@@ -1191,7 +1183,8 @@ main {
 }
 /**
   * This Object represents an introduction paragraph, typically referred to as a "standfirst"
-  * (in the U.K.). It may also serve as an abstract of a scholarly article.
+  * (in the U.K.). It may also serve as an abstract of a scholarly article. This Object almost
+  * always follows a `.H` Object (a heading).
 @extends
 : .P
 @implements
@@ -1493,16 +1486,18 @@ main {
 \*---------------*/
 /*@LISTS*/
 /**
-* This Interface adds a left padding to a `.List` Object. The padding-left is set to 48px, which is
+  * This Interface adds a left padding to a `.List` Object. The padding-left is set to 48px, which is
   * equal to 0.5in, the standard indent for APA style.
 @tags
+: #typography
+: #list
 : #indent
 : #padding
 @author
 : Chris Harvey
 @updated
 : 2014-05-11
-*/
+  */
 .listindent,
 .List > .Item > .List,
 .List.O,
@@ -1547,7 +1542,7 @@ main {
   display: list-item;
 }
 /**
-  * This Object represents a List Object within a List Item Object.
+  * This Object represents a nested List Object nested within a List Item Object.
 @implements
 : .vru-top-0
 : .listindent
@@ -1654,6 +1649,22 @@ main {
   display: inline;
 }
 /**
+  * This Object represents a list of images, for example, contact icons.
+@extends
+: .List.I
+@tags
+: #typography
+: #list
+@author
+: Chris Harvey
+@updated
+: 2014-06-16
+  */
+.List.I.Iconlist {
+  width: 400px;
+  text-align: center;
+}
+/**
   * This Object represents an action list, which typically contains hyperlinks.
 @extends
 : .List
@@ -1674,22 +1685,6 @@ main {
 }
 .List.A > .Item::before {
   content: '\2713\0020';
-}
-/**
-  * This Object represents a list of images, for example, contact icons.
-@extends
-: .List.I
-@tags
-: #typography
-: #list
-@author
-: Chris Harvey
-@updated
-: 2014-06-16
-  */
-.List.I.Iconlist {
-  width: 400px;
-  text-align: center;
 }
 /*@ENUMS*/
 /**
@@ -1817,7 +1812,7 @@ main {
   padding-left: 48px;
 }
 /**
-  * This Object represents a Map Object within a `.Term` Object or `.Desc` Object.
+  * This Object represents a Map Object nested within a `.Term` Object or `.Desc` Object.
 @implements
 : .vru-top-0
 @tags
@@ -1929,6 +1924,10 @@ main {
 .Table {
   display: table;
   text-align: center;
+}
+.Table > .Capt {
+  border-top-width: 1px;
+  border-top-style: solid;
 }
 /**
   * This Object represents a group of rows in a `.Table`.
@@ -2686,7 +2685,6 @@ sub {
   * A general Message Object.
 @implements
 : .fontsize-sml
-// : .vru-top-1
 @mixesin
 : .box-block()
 @tags
@@ -2775,6 +2773,16 @@ sub {
   content: '\2665' ' ';
 }
 /*@BREADCRUMBS*/
+/**
+  * A Breadcrumb module.
+@tags
+: #breadcrumbs
+: #golden
+@author
+: Chris Harvey
+@updated
+: 2014-06-18
+  */
 .Bc {
   width: 14.58980338%;
   margin-left: 3.44418537%;
@@ -2785,6 +2793,32 @@ sub {
   top: 3rem;
   z-index: 1;
 }
+/**
+  * A list of breadcrumbs inside the module.
+  * The list either contains ancestor pages (including parent),
+  * sibling pages (including the same page), or children pages.
+@implements
+: .vru-bottom-1;
+@tags
+: #breadcrumbs
+@author
+: Chris Harvey
+@updated
+: 2014-06-18
+  */
+/**
+  * An actual breadcrumb link.
+@implements
+: .fontsize-med;
+@mixesin
+: .vru-top()
+@tags
+: #breadcrumbs
+@author
+: Chris Harvey
+@updated
+: 2014-06-18
+  */
 .Button.Crumb {
   margin-top: 18px;
   margin-top: 1.125rem;

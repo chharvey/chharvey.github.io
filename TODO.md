@@ -80,7 +80,7 @@ Specs for all TODO lists:
 - [ ] 2014-03-01 use JS to change the line-height of blockquotes to 1.5 times the usual amount
 	(currently (2014-03-01), from 1.2 to 1.8), and then adjust margin-bottom to keep vertical rhythm.
 
-## Home Pages ##
+## Home Pages TODO list ##
 
 ### Index ###
 - [x] 2013-08-18 make popping text on index page fade in and out easier
@@ -96,7 +96,13 @@ Specs for all TODO lists:
 - [ ] 2014-04-07 find a way to use JS to add `.res-footer`s (pagecount, etc.)
 - [x] 2014-04-08 fix `list-style-type: none;` in definition of `.res-tech-apps {}`
 
-## Site Design ##
+### Folio ###
+
+#### math.html ####
+- [ ] 2014-06-18 find course number for student teaching and add `id` to last section
+- [ ] 2014-06-18 add content to student teaching section (PHHS Algebra II)
+
+## Site Design TODO list ##
 
 ### General ###
 This is all gonna go in a spec somewhere...
@@ -130,15 +136,3 @@ This is all gonna go in a spec somewhere...
 
 ### colors.html ###
 - [x] 2014-06-07 fix new color palettes
-
-## Blog ##
-
-### semantic-punctuation.html ###
-- [ ] 2014-02-24 line break violations:
-	- right after a preposition (to, for, with, over, by, etc.)
-	- after a small word (2- or 3-letter words)
-	- in the middle of a highlighted phrase 3 words or fewer (`em`, `strong`, etc.)
-- [ ] 2014-06-08 section on The Comma
-- [ ] 2014-06-08 section on The Ellipsis
-- [ ] 2014-06-08 section on The Semicolon
-- [ ] 2014-06-08 remove table at bottom
