@@ -74,6 +74,7 @@ Specs for all TODO lists:
 - [x] 2013-08-18 code scheme
 - [ ] 2014-02-16 do labels/tooltips/whatever hint: [http://kushagragour.in/lab/hint/](http://kushagragour.in/lab/hint/)
 - [x] 2014-03-01 use `<small>` for labels&mdash;they really are disclamers/caveats/etc.
+- [ ] 2014-06-19 split messages (`.Msg`) from tags (`.Tag`)
 
 ### scripts ###
 - [ ] 2013-12-14 investigate the use of templates (`<template>`)
@@ -88,6 +89,9 @@ Specs for all TODO lists:
 
 ### About ###
 - [x] 2014-06-17 compile bio, contact, and links pages into one 'about' page.
+- [ ] 2014-06-19 move "My Blogs" and "Copyright" sections, add acknowledgements section (high priority)
+- [ ] 2014-06-19 find picture with Axel (medium priority)
+- [ ] 2014-06-19 contact / software images into sprites (low priority)
 
 ### Resume ###
 - [x] 2014-03-26 remove `!important` from `.res-spacetime {font-size}` and `.res-spacetime {color}`
