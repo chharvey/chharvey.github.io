@@ -74,16 +74,24 @@ Specs for all TODO lists:
 - [x] 2013-08-18 code scheme
 - [ ] 2014-02-16 do labels/tooltips/whatever hint: [http://kushagragour.in/lab/hint/](http://kushagragour.in/lab/hint/)
 - [x] 2014-03-01 use `<small>` for labels&mdash;they really are disclamers/caveats/etc.
+- [ ] 2014-06-19 split messages (`.Msg`) from tags (`.Tag`)
 
 ### scripts ###
 - [ ] 2013-12-14 investigate the use of templates (`<template>`)
 - [ ] 2014-03-01 use JS to change the line-height of blockquotes to 1.5 times the usual amount
 	(currently (2014-03-01), from 1.2 to 1.8), and then adjust margin-bottom to keep vertical rhythm.
 
-## Home Pages ##
+## Home Pages TODO list ##
 
 ### Index ###
-- [ ] 2013-08-18 make popping text on index page fade in and out easier
+- [x] 2013-08-18 make popping text on index page fade in and out easier
+- [ ] 2014-06-18 add golden spiral background images (SVG) to squares
+
+### About ###
+- [x] 2014-06-17 compile bio, contact, and links pages into one 'about' page.
+- [ ] 2014-06-19 move "My Blogs" and "Copyright" sections, add acknowledgements section (high priority)
+- [ ] 2014-06-19 find picture with Axel (medium priority)
+- [ ] 2014-06-19 contact / software images into sprites (low priority)
 
 ### Resume ###
 - [x] 2014-03-26 remove `!important` from `.res-spacetime {font-size}` and `.res-spacetime {color}`
@@ -92,7 +100,13 @@ Specs for all TODO lists:
 - [ ] 2014-04-07 find a way to use JS to add `.res-footer`s (pagecount, etc.)
 - [x] 2014-04-08 fix `list-style-type: none;` in definition of `.res-tech-apps {}`
 
-## Site Design ##
+### Folio ###
+
+#### math.html ####
+- [ ] 2014-06-18 find course number for student teaching and add `id` to last section
+- [ ] 2014-06-18 add content to student teaching section (PHHS Algebra II)
+
+## Site Design TODO list ##
 
 ### General ###
 This is all gonna go in a spec somewhere...
@@ -126,15 +140,3 @@ This is all gonna go in a spec somewhere...
 
 ### colors.html ###
 - [x] 2014-06-07 fix new color palettes
-
-## Blog ##
-
-### semantic-punctuation.html ###
-- [ ] 2014-02-24 line break violations:
-	- right after a preposition (to, for, with, over, by, etc.)
-	- after a small word (2- or 3-letter words)
-	- in the middle of a highlighted phrase 3 words or fewer (`em`, `strong`, etc.)
-- [ ] 2014-06-08 section on The Comma
-- [ ] 2014-06-08 section on The Ellipsis
-- [ ] 2014-06-08 section on The Semicolon
-- [ ] 2014-06-08 remove table at bottom

@@ -48,6 +48,24 @@
 //+++++++++//
 /*@MESSAGES*/
 //+++++++++//
+@color_msg_warn_brdr: hsv(  0, 100%, 100%); // #f00
+@color_msg_cshn_brdr: hsv( 72, 100%, 100%); // #cf0
+@color_msg_skss_brdr: hsv(144, 100%, 100%); // #0f6
+@color_msg_info_brdr: hsv(216, 100%, 100%); // #06f
+@color_msg_help_brdr: hsv(288, 100%, 100%); // #c0f
+
+@color_msg_warn_txt: darken(@color_msg_warn_brdr, (@golden1 / 2)); // #610000
+@color_msg_cshn_txt: darken(@color_msg_cshn_brdr, (@golden1 / 2)); // #4e6100
+@color_msg_skss_txt: darken(@color_msg_skss_brdr, (@golden1 / 2)); // #006127
+@color_msg_info_txt: darken(@color_msg_info_brdr, (@golden1 / 2)); // #002761
+@color_msg_help_txt: darken(@color_msg_help_brdr, (@golden1 / 2)); // #4e0061
+
+@color_msg_warn_bg: lighten(@color_msg_warn_brdr, (@golden1 / 2)); // #ff9e9e
+@color_msg_cshn_bg: lighten(@color_msg_cshn_brdr, (@golden1 / 2)); // #ecff9e
+@color_msg_skss_bg: lighten(@color_msg_skss_brdr, (@golden1 / 2)); // #9effc5
+@color_msg_info_bg: lighten(@color_msg_info_brdr, (@golden1 / 2)); // #9ec5ff
+@color_msg_help_bg: lighten(@color_msg_help_brdr, (@golden1 / 2)); // #ec9eff
+
 /**
   * A general Message Object.
 @implements
@@ -70,10 +88,7 @@
 	font-weight: normal;
 	font-family: @fontfam_accent;
 	&::before {
-		// display: block;
 		font-weight: bold;
-		// font-family: @fontfam_code;
-		// text-align: center;
 	}
 }
 .message-mx(@color_txt; @color_bg; @color_brdr; @content) {
@@ -143,8 +158,18 @@
 //++++++++++++//
 /*@BREADCRUMBS*/
 //++++++++++++//
+@bc_brdr_radius: 15px;
+/**
+  * A Breadcrumb module.
+@tags
+: #breadcrumbs
+: #golden
+@author
+: Chris Harvey
+@updated
+: 2014-06-18
+  */
 .Bc {
-	// .gutter--major;
 	width: @golden4;
 	margin-left: @golden7;
 	margin-right: @golden6;
@@ -154,10 +179,22 @@
 	top: 2 * @vru_rem;
 	z-index: 1;
 }
+/**
+  * A list of breadcrumbs inside the module.
+  * The list either contains ancestor pages (including parent),
+  * sibling pages (including the same page), or children pages.
+@implements
+: .vru-bottom-1;
+@tags
+: #breadcrumbs
+@author
+: Chris Harvey
+@updated
+: 2014-06-18
+  */
 .Bc > .Anc,
 .Bc > .Sib,
 .Bc > .Child {
-	&:extend(.vru-top-0);
 	&:extend(.vru-bottom-1);
 }
 .Bc > .Anc {
@@ -175,17 +212,31 @@
 //	a::before {content: '\22b6';} // 'original of'
 //	a::before {content: '>';}
 }
+/**
+  * An actual breadcrumb link.
+@implements
+: .fontsize-med;
+@mixesin
+: .vru-top()
+@tags
+: #breadcrumbs
+@author
+: Chris Harvey
+@updated
+: 2014-06-18
+  */
 .Button.Crumb {
 	@topspace: 0.75;
 	&:extend(.fontsize-med);
 	.vru-top(@topspace);
 	display: block;
-	padding: ((1 - @topspace) / 2 * @vru_px)  15px; // fallback
-	padding: ((1 - @topspace) / 2 * @vru_rem) 15px;
-	border-radius: 15px;
+	padding: ((1 - @topspace) / 2 * @vru_px)  @bc_brdr_radius; // fallback
+	padding: ((1 - @topspace) / 2 * @vru_rem) @bc_brdr_radius;
+	border-radius: @bc_brdr_radius;
 	white-space: normal;
 }
 .Crumb[rel~="this"] {font-weight: bold;}
+
 @media print {
 	.Bc {display: none;}
 }
