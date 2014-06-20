@@ -89,7 +89,7 @@ Specs for all TODO lists:
 
 ### About ###
 - [x] 2014-06-17 compile bio, contact, and links pages into one 'about' page.
-- [ ] 2014-06-19 move "My Blogs" and "Copyright" sections, add acknowledgements section (high priority)
+- [x] 2014-06-19 move "My Blogs" and "Copyright" sections, add acknowledgements section (high priority)
 - [ ] 2014-06-19 find picture with Axel (medium priority)
 - [ ] 2014-06-19 contact / software images into sprites (low priority)
 
