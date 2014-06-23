@@ -1,16 +1,16 @@
 # TO DO - /secondary-ed/ #
 
 - [x] 2013-09-21 **find a way to write SVG images!**
-- [ ] 2014-01-12 clean up `@group assessments` in `secondary-ed.less`
+- [ ] 2014-01-12 clean up `@group assessments` in `secondaryed.less`
+- [ ] 2014-03-04 fix Assessment styles
 
 ## math7/ ##
 - [x] 2013-11-05 on all course overview, unit overviews, and lessons: include breadcrumbs!
-- [ ] 2014-03-04 fix Assessment styles
 
 ### math7/index.html ###
 
 ### math7/syllabus.html ###
-- [ ] 2014-01-15 fix `dl`s to look like: 'dt — dd — dd'
+- [x] 2014-01-15 fix `dl`s to look like: 'dt — dd — dd'
 - [ ] last page: use `form`s for student and parent input
 
 ### math7/standards/ ###
