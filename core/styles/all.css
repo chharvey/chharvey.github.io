@@ -313,7 +313,7 @@ button {
 .cellpaddingdefault,
 .Cell,
 .Code.Block,
-.Msg {
+.Label.Msg {
   padding: 12px 7.41640786px;
   padding: 0.75rem 7.41640786px;
 }
@@ -726,7 +726,7 @@ q {
 .Qblock .Src,
 .Table,
 .Code.Block,
-.Msg,
+.Label,
 .Button,
 .Code,
 .Dir,
@@ -799,7 +799,7 @@ code {
 .Map > .Desc,
 .Cell,
 .Code.Block,
-.Msg {
+.Label.Msg {
   min-height: 24px;
   min-height: 1.5rem;
 }
@@ -826,7 +826,8 @@ code {
 .Qblock.Long .Src,
 .List,
 .Map,
-.Table {
+.Table,
+.Label.Msg {
   margin-top: 24px;
   margin-top: 1.5rem;
 }
@@ -2703,21 +2704,89 @@ sub {
 @updated
 : 2014-06-16
   */
-/*@MESSAGES*/
+/*@LABELS*/
 /**
-  * A general Message Object.
+  * A Label Object is used for displaying little indications to the user. There are two subclasses
+  * of Labels: Messages and Tags. Each subclass may be of the following types:
+  * - A **Warning Label** is used to indicate a negative consequence, such as an action that cannot
+  * 	be undone or that will cause something to break.
+  * - A **Caution Label** is used to indicate that the user must proceed with care.
+  * - A **Success Label** is used to indicate that something was done right.
+  * - An **Info Label** is used to indicate extra information about something.
+  * - A **Help Label** is used to indicate tips and hints for the user.
 @implements
 : .fontsize-sml
+@tags
+: #label
+: #message
+: #tag
+@author
+: Chris Harvey
+@updated
+: 2014-06-22
+  */
+.Label {
+  font-style: normal;
+  font-weight: normal;
+  font-family: 'Century Gothic', 'Gill Sans', 'Avenir', sans-serif;
+}
+.Label::before {
+  font-weight: bold;
+}
+/**
+  * This Mixin is used for all `.Label` Objects. It sets the proper colors for the Object based on
+  * its type.
+@tags
+: #label
+: #message
+: #tag
+@author
+: Chris Harvey
+@updated
+: 2014-06-22
+  */
+.Label.Warn {
+  border-color: #ff0000;
+  color: #610000;
+  background-color: #ff9e9e;
+}
+.Label.Cshn {
+  border-color: #ccff00;
+  color: #4e6100;
+  background-color: #ecff9e;
+}
+.Label.Skss {
+  border-color: #00ff66;
+  color: #006127;
+  background-color: #9effc5;
+}
+.Label.Info {
+  border-color: #0066ff;
+  color: #002761;
+  background-color: #9ec5ff;
+}
+.Label.Help {
+  border-color: #cc00ff;
+  color: #4e0061;
+  background-color: #ec9eff;
+}
+/**
+  * A Message Object is a Label with complete sentences or a longer span of information.
+@extends
+: .Label
+@implements
+: .vru-top-1
 @mixesin
 : .box-block()
 @tags
+: #label
 : #message
 @author
 : Chris Harvey
 @updated
-: 2014-06-06
+: 2014-06-22
   */
-.Msg {
+.Label.Msg {
   display: block;
   position: relative;
   top: -1px;
@@ -2725,54 +2794,38 @@ sub {
   border-width: 1px;
   border-style: solid;
   border-radius: 6px;
-  font-style: normal;
-  font-weight: normal;
-  font-family: 'Century Gothic', 'Gill Sans', 'Avenir', sans-serif;
 }
-.Msg::before {
-  font-weight: bold;
-}
-.Msg.Warn {
-  border-color: #ff0000;
-  color: #610000;
-  background-color: #ff9e9e;
-}
-.Msg.Warn::before {
+.Label.Msg.Warn::before {
   content: 'Warning ' '!' ' ';
 }
-.Msg.Cshn {
-  border-color: #ccff00;
-  color: #4e6100;
-  background-color: #ecff9e;
-}
-.Msg.Cshn::before {
+.Label.Msg.Cshn::before {
   content: 'Caution ' '\2026' ' ';
 }
-.Msg.Skss {
-  border-color: #00ff66;
-  color: #006127;
-  background-color: #9effc5;
-}
-.Msg.Skss::before {
+.Label.Msg.Skss::before {
   content: 'Success ' '\263a' ' ';
 }
-.Msg.Info {
-  border-color: #0066ff;
-  color: #002761;
-  background-color: #9ec5ff;
-}
-.Msg.Info::before {
+.Label.Msg.Info::before {
   content: 'Info ' '?' ' ';
 }
-.Msg.Help {
-  border-color: #cc00ff;
-  color: #4e0061;
-  background-color: #ec9eff;
-}
-.Msg.Help::before {
+.Label.Msg.Help::before {
   content: 'Help ' '\2665' ' ';
 }
-.Msg.Tag {
+/**
+  * A Tag Object is a Label with a short bit of content, or perhaps no content at all. It can be
+  * added to the inside of an Element.
+@extends
+: .Label
+@mixesin
+: .box-inline()
+@tags
+: #label
+: #tag
+@author
+: Chris Harvey
+@updated
+: 2014-06-22
+  */
+.Label.Tag {
   display: inline;
   padding: 1px 2px;
   border-width: 1px;
@@ -2780,19 +2833,19 @@ sub {
   border-radius: 6px;
   white-space: nowrap;
 }
-.Msg.Tag.Warn::before {
+.Label.Tag.Warn::before {
   content: '!' ' ';
 }
-.Msg.Tag.Cshn::before {
+.Label.Tag.Cshn::before {
   content: '\2026' ' ';
 }
-.Msg.Tag.Skss::before {
+.Label.Tag.Skss::before {
   content: '\263a' ' ';
 }
-.Msg.Tag.Info::before {
+.Label.Tag.Info::before {
   content: '?' ' ';
 }
-.Msg.Tag.Help::before {
+.Label.Tag.Help::before {
   content: '\2665' ' ';
 }
 /*@BREADCRUMBS*/

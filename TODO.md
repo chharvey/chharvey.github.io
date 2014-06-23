@@ -74,7 +74,7 @@ Specs for all TODO lists:
 - [x] 2013-08-18 code scheme
 - [ ] 2014-02-16 do labels/tooltips/whatever hint: [http://kushagragour.in/lab/hint/](http://kushagragour.in/lab/hint/)
 - [x] 2014-03-01 use `<small>` for labels&mdash;they really are disclamers/caveats/etc.
-- [ ] 2014-06-19 split messages (`.Msg`) from tags (`.Tag`)
+- [x] 2014-06-19 split messages (`.Msg`) from tags (`.Tag`)
 
 ### scripts ###
 - [ ] 2013-12-14 investigate the use of templates (`<template>`)

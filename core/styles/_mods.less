@@ -6,7 +6,7 @@
 
 // Table of Contents
 // - MEDIA
-// - MESSAGES
+// - LABELS
 // - BREADCRUMBS
 
 
@@ -45,43 +45,55 @@
 //++++ @end MEDIA ++++//
 
 
-//+++++++++//
-/*@MESSAGES*/
-//+++++++++//
-@color_msg_warn_brdr: hsv(  0, 100%, 100%); // #f00
-@color_msg_cshn_brdr: hsv( 72, 100%, 100%); // #cf0
-@color_msg_skss_brdr: hsv(144, 100%, 100%); // #0f6
-@color_msg_info_brdr: hsv(216, 100%, 100%); // #06f
-@color_msg_help_brdr: hsv(288, 100%, 100%); // #c0f
+//+++++++//
+/*@LABELS*/
+//+++++++//
+@warn_glyph: '!';
+@cshn_glyph: '\2026'; // &hellip;
+@skss_glyph: '\263a'; // smiley
+@info_glyph: '?';
+@help_glyph: '\2665'; // &hearts;
 
-@color_msg_warn_txt: darken(@color_msg_warn_brdr, (@golden1 / 2)); // #610000
-@color_msg_cshn_txt: darken(@color_msg_cshn_brdr, (@golden1 / 2)); // #4e6100
-@color_msg_skss_txt: darken(@color_msg_skss_brdr, (@golden1 / 2)); // #006127
-@color_msg_info_txt: darken(@color_msg_info_brdr, (@golden1 / 2)); // #002761
-@color_msg_help_txt: darken(@color_msg_help_brdr, (@golden1 / 2)); // #4e0061
+@color_warn_brdr: hsv(  0, 100%, 100%); // #f00
+@color_cshn_brdr: hsv( 72, 100%, 100%); // #cf0
+@color_skss_brdr: hsv(144, 100%, 100%); // #0f6
+@color_info_brdr: hsv(216, 100%, 100%); // #06f
+@color_help_brdr: hsv(288, 100%, 100%); // #c0f
 
-@color_msg_warn_bg: lighten(@color_msg_warn_brdr, (@golden1 / 2)); // #ff9e9e
-@color_msg_cshn_bg: lighten(@color_msg_cshn_brdr, (@golden1 / 2)); // #ecff9e
-@color_msg_skss_bg: lighten(@color_msg_skss_brdr, (@golden1 / 2)); // #9effc5
-@color_msg_info_bg: lighten(@color_msg_info_brdr, (@golden1 / 2)); // #9ec5ff
-@color_msg_help_bg: lighten(@color_msg_help_brdr, (@golden1 / 2)); // #ec9eff
+@color_warn_txt: darken(@color_warn_brdr, (@golden1 / 2)); // #610000
+@color_cshn_txt: darken(@color_cshn_brdr, (@golden1 / 2)); // #4e6100
+@color_skss_txt: darken(@color_skss_brdr, (@golden1 / 2)); // #006127
+@color_info_txt: darken(@color_info_brdr, (@golden1 / 2)); // #002761
+@color_help_txt: darken(@color_help_brdr, (@golden1 / 2)); // #4e0061
+
+@color_warn_bg: lighten(@color_warn_brdr, (@golden1 / 2)); // #ff9e9e
+@color_cshn_bg: lighten(@color_cshn_brdr, (@golden1 / 2)); // #ecff9e
+@color_skss_bg: lighten(@color_skss_brdr, (@golden1 / 2)); // #9effc5
+@color_info_bg: lighten(@color_info_brdr, (@golden1 / 2)); // #9ec5ff
+@color_help_bg: lighten(@color_help_brdr, (@golden1 / 2)); // #ec9eff
 
 /**
-  * A general Message Object.
+  * A Label Object is used for displaying little indications to the user. There are two subclasses
+  * of Labels: Messages and Tags. Each subclass may be of the following types:
+  * - A **Warning Label** is used to indicate a negative consequence, such as an action that cannot
+  * 	be undone or that will cause something to break.
+  * - A **Caution Label** is used to indicate that the user must proceed with care.
+  * - A **Success Label** is used to indicate that something was done right.
+  * - An **Info Label** is used to indicate extra information about something.
+  * - A **Help Label** is used to indicate tips and hints for the user.
 @implements
 : .fontsize-sml
-@mixesin
-: .box-block()
 @tags
+: #label
 : #message
+: #tag
 @author
 : Chris Harvey
 @updated
-: 2014-06-06
+: 2014-06-22
   */
-.Msg {
+.Label {
 	&:extend(.fontsize-sml);
-	.box-block(@btn_brdr_radius);
 	font-style: normal;
 	font-weight: normal;
 	font-family: @fontfam_accent;
@@ -89,68 +101,79 @@
 		font-weight: bold;
 	}
 }
-.message-mx(@color_txt; @color_bg; @color_brdr; @content) {
+/**
+  * This Mixin is used for all `.Label` Objects. It sets the proper colors for the Object based on
+  * its type.
+@tags
+: #label
+: #message
+: #tag
+@author
+: Chris Harvey
+@updated
+: 2014-06-22
+  */
+.label-mx(@color_txt; @color_bg; @color_brdr) {
 	border-color: @color_brdr;
 	color: @color_txt;
 	background-color: @color_bg;
-	&::before {
-		content: @content;
-	}
 }
-@warn_glyph: '!';
-@cshn_glyph: '\2026'; // &hellip;
-@skss_glyph: '\263a'; // smiley
-@info_glyph: '?';
-@help_glyph: '\2665'; // &hearts;
-.Msg.Warn {
-	.message-mx(
-		@color_msg_warn_txt;
-		@color_msg_warn_bg;
-		@color_msg_warn_brdr;
-		'Warning ' @warn_glyph ' '
-	);
+.Label.Warn {.label-mx(@color_warn_txt; @color_warn_bg; @color_warn_brdr);}
+.Label.Cshn {.label-mx(@color_cshn_txt; @color_cshn_bg; @color_cshn_brdr);}
+.Label.Skss {.label-mx(@color_skss_txt; @color_skss_bg; @color_skss_brdr);}
+.Label.Info {.label-mx(@color_info_txt; @color_info_bg; @color_info_brdr);}
+.Label.Help {.label-mx(@color_help_txt; @color_help_bg; @color_help_brdr);}
+
+/**
+  * A Message Object is a Label with complete sentences or a longer span of information.
+@extends
+: .Label
+@implements
+: .vru-top-1
+@mixesin
+: .box-block()
+@tags
+: #label
+: #message
+@author
+: Chris Harvey
+@updated
+: 2014-06-22
+  */
+.Label.Msg {
+	&:extend(.vru-top-1);
+	.box-block(@btn_brdr_radius);
 }
-.Msg.Cshn {
-	.message-mx(
-		@color_msg_cshn_txt;
-		@color_msg_cshn_bg;
-		@color_msg_cshn_brdr;
-		'Caution ' @cshn_glyph ' '
-	);
-}
-.Msg.Skss {
-	.message-mx(
-		@color_msg_skss_txt;
-		@color_msg_skss_bg;
-		@color_msg_skss_brdr;
-		'Success ' @skss_glyph ' '
-	);
-}
-.Msg.Info {
-	.message-mx(
-		@color_msg_info_txt;
-		@color_msg_info_bg;
-		@color_msg_info_brdr;
-		'Info ' @info_glyph ' '
-		);
-}
-.Msg.Help {
-	.message-mx(
-		@color_msg_help_txt;
-		@color_msg_help_bg;
-		@color_msg_help_brdr;
-		'Help ' @help_glyph ' '
-	);
-}
-.Msg.Tag {
+.Label.Msg.Warn::before {content: 'Warning ' @warn_glyph ' ';}
+.Label.Msg.Cshn::before {content: 'Caution ' @cshn_glyph ' ';}
+.Label.Msg.Skss::before {content: 'Success ' @skss_glyph ' ';}
+.Label.Msg.Info::before {content: 'Info '    @info_glyph ' ';}
+.Label.Msg.Help::before {content: 'Help '    @help_glyph ' ';}
+
+/**
+  * A Tag Object is a Label with a short bit of content, or perhaps no content at all. It can be
+  * added to the inside of an Element.
+@extends
+: .Label
+@mixesin
+: .box-inline()
+@tags
+: #label
+: #tag
+@author
+: Chris Harvey
+@updated
+: 2014-06-22
+  */
+.Label.Tag {
 	.box-inline(@btn_brdr_radius);
 }
-.Msg.Tag.Warn::before {content: @warn_glyph ' ';}
-.Msg.Tag.Cshn::before {content: @cshn_glyph ' ';}
-.Msg.Tag.Skss::before {content: @skss_glyph ' ';}
-.Msg.Tag.Info::before {content: @info_glyph ' ';}
-.Msg.Tag.Help::before {content: @help_glyph ' ';}
-//++++ @end MESSAGES ++++//
+.Label.Tag.Warn::before {content: @warn_glyph ' ';}
+.Label.Tag.Cshn::before {content: @cshn_glyph ' ';}
+.Label.Tag.Skss::before {content: @skss_glyph ' ';}
+.Label.Tag.Info::before {content: @info_glyph ' ';}
+.Label.Tag.Help::before {content: @help_glyph ' ';}
+//++++ @end LABELS ++++//
 
 
 //++++++++++++//
