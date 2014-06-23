@@ -92,6 +92,8 @@ Specs for all TODO lists:
 - [x] 2014-06-19 move "My Blogs" and "Copyright" sections, add acknowledgements section (high priority)
 - [ ] 2014-06-19 find picture with Axel (medium priority)
 - [ ] 2014-06-19 contact / software images into sprites (low priority)
+- [ ] 2014-06-22 "Acknowledgements" section: add more detail, give credit to everyone
+- [ ] 2014-06-22 Find a page for "Copyright" section
 
 ### Resume ###
 - [x] 2014-03-26 remove `!important` from `.res-spacetime {font-size}` and `.res-spacetime {color}`
