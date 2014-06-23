@@ -48,29 +48,31 @@
 //+++++++//
 /*@LABELS*/
 //+++++++//
+@lbl_brdr_radius: 6px;
+
 @warn_glyph: '!';
 @cshn_glyph: '\2026'; // &hellip;
 @skss_glyph: '\263a'; // smiley
 @info_glyph: '?';
 @help_glyph: '\2665'; // &hearts;
 
-@color_warn_brdr: hsv(  0, 100%, 100%); // #f00
-@color_cshn_brdr: hsv( 72, 100%, 100%); // #cf0
-@color_skss_brdr: hsv(144, 100%, 100%); // #0f6
-@color_info_brdr: hsv(216, 100%, 100%); // #06f
-@color_help_brdr: hsv(288, 100%, 100%); // #c0f
+@color_lbl_warn_brdr: hsv(  0, 100%, 100%); // #f00
+@color_lbl_cshn_brdr: hsv( 72, 100%, 100%); // #cf0
+@color_lbl_skss_brdr: hsv(144, 100%, 100%); // #0f6
+@color_lbl_info_brdr: hsv(216, 100%, 100%); // #06f
+@color_lbl_help_brdr: hsv(288, 100%, 100%); // #c0f
 
-@color_warn_txt: darken(@color_warn_brdr, (@golden1 / 2)); // #610000
-@color_cshn_txt: darken(@color_cshn_brdr, (@golden1 / 2)); // #4e6100
-@color_skss_txt: darken(@color_skss_brdr, (@golden1 / 2)); // #006127
-@color_info_txt: darken(@color_info_brdr, (@golden1 / 2)); // #002761
-@color_help_txt: darken(@color_help_brdr, (@golden1 / 2)); // #4e0061
+@color_lbl_warn_txt: darken(@color_lbl_warn_brdr, (@golden1 / 2)); // #610000
+@color_lbl_cshn_txt: darken(@color_lbl_cshn_brdr, (@golden1 / 2)); // #4e6100
+@color_lbl_skss_txt: darken(@color_lbl_skss_brdr, (@golden1 / 2)); // #006127
+@color_lbl_info_txt: darken(@color_lbl_info_brdr, (@golden1 / 2)); // #002761
+@color_lbl_help_txt: darken(@color_lbl_help_brdr, (@golden1 / 2)); // #4e0061
 
-@color_warn_bg: lighten(@color_warn_brdr, (@golden1 / 2)); // #ff9e9e
-@color_cshn_bg: lighten(@color_cshn_brdr, (@golden1 / 2)); // #ecff9e
-@color_skss_bg: lighten(@color_skss_brdr, (@golden1 / 2)); // #9effc5
-@color_info_bg: lighten(@color_info_brdr, (@golden1 / 2)); // #9ec5ff
-@color_help_bg: lighten(@color_help_brdr, (@golden1 / 2)); // #ec9eff
+@color_lbl_warn_bg: lighten(@color_lbl_warn_brdr, (@golden1 / 2)); // #ff9e9e
+@color_lbl_cshn_bg: lighten(@color_lbl_cshn_brdr, (@golden1 / 2)); // #ecff9e
+@color_lbl_skss_bg: lighten(@color_lbl_skss_brdr, (@golden1 / 2)); // #9effc5
+@color_lbl_info_bg: lighten(@color_lbl_info_brdr, (@golden1 / 2)); // #9ec5ff
+@color_lbl_help_bg: lighten(@color_lbl_help_brdr, (@golden1 / 2)); // #ec9eff
 
 /**
   * A Label Object is used for displaying little indications to the user. There are two subclasses
@@ -97,7 +99,8 @@
 	font-style: normal;
 	font-weight: normal;
 	font-family: @fontfam_accent;
-	&::before {
+	&::before,
+	&::after {
 		font-weight: bold;
 	}
 }
@@ -113,16 +116,16 @@
 @updated
 : 2014-06-22
   */
-.label-mx(@color_txt; @color_bg; @color_brdr) {
+.lbl-mx(@color_txt; @color_bg; @color_brdr) {
 	border-color: @color_brdr;
 	color: @color_txt;
 	background-color: @color_bg;
 }
-.Label.Warn {.label-mx(@color_warn_txt; @color_warn_bg; @color_warn_brdr);}
-.Label.Cshn {.label-mx(@color_cshn_txt; @color_cshn_bg; @color_cshn_brdr);}
-.Label.Skss {.label-mx(@color_skss_txt; @color_skss_bg; @color_skss_brdr);}
-.Label.Info {.label-mx(@color_info_txt; @color_info_bg; @color_info_brdr);}
-.Label.Help {.label-mx(@color_help_txt; @color_help_bg; @color_help_brdr);}
+.Label.Warn {.lbl-mx(@color_lbl_warn_txt; @color_lbl_warn_bg; @color_lbl_warn_brdr);}
+.Label.Cshn {.lbl-mx(@color_lbl_cshn_txt; @color_lbl_cshn_bg; @color_lbl_cshn_brdr);}
+.Label.Skss {.lbl-mx(@color_lbl_skss_txt; @color_lbl_skss_bg; @color_lbl_skss_brdr);}
+.Label.Info {.lbl-mx(@color_lbl_info_txt; @color_lbl_info_bg; @color_lbl_info_brdr);}
+.Label.Help {.lbl-mx(@color_lbl_help_txt; @color_lbl_help_bg; @color_lbl_help_brdr);}
 
 /**
   * A Message Object is a Label with complete sentences or a longer span of information.
@@ -142,7 +145,7 @@
   */
 .Label.Msg {
 	&:extend(.vru-top-1);
-	.box-block(@btn_brdr_radius);
+	.box-block(@lbl_brdr_radius);
 }
 .Label.Msg.Warn::before {content: 'Warning ' @warn_glyph ' ';}
 .Label.Msg.Cshn::before {content: 'Caution ' @cshn_glyph ' ';}
@@ -155,8 +158,6 @@
   * added to the inside of an Element.
 @extends
 : .Label
-@mixesin
-: .box-inline()
 @tags
 : #label
 : #tag
@@ -166,13 +167,33 @@
 : 2014-06-22
   */
 .Label.Tag {
-	.box-inline(@btn_brdr_radius);
+	&:extend(.vru-content);
+	padding: 3px 5px;
+	padding-bottom: 2px;
+	border-width: 0;
+	margin-left: @spacer;
+	position: relative;
 }
-.Label.Tag.Warn::before {content: @warn_glyph ' ';}
-.Label.Tag.Cshn::before {content: @cshn_glyph ' ';}
-.Label.Tag.Skss::before {content: @skss_glyph ' ';}
-.Label.Tag.Info::before {content: @info_glyph ' ';}
-.Label.Tag.Help::before {content: @help_glyph ' ';}
+.Label.Tag::before {
+	@x: 6px;
+	// @y: (@vru_px * (3/4) / 2);
+	@y: 10px;
+	content: "";
+	display: block;
+	width: 0;
+	border-width: @y @x @y 0;
+	border-style: solid;
+	border-color: transparent;
+	position: absolute;
+	left: -@x;
+	top: 0;
+	z-index: 1;
+}
+.Label.Tag.Warn {&::before {border-right-color: @color_lbl_warn_bg;} &::after {content: ' ' @warn_glyph;}}
+.Label.Tag.Cshn {&::before {border-right-color: @color_lbl_cshn_bg;} &::after {content: ' ' @cshn_glyph;}}
+.Label.Tag.Skss {&::before {border-right-color: @color_lbl_skss_bg;} &::after {content: ' ' @skss_glyph;}}
+.Label.Tag.Info {&::before {border-right-color: @color_lbl_info_bg;} &::after {content: ' ' @info_glyph;}}
+.Label.Tag.Help {&::before {border-right-color: @color_lbl_help_bg;} &::after {content: ' ' @help_glyph;}}
 //++++ @end LABELS ++++//
 
 

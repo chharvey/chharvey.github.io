@@ -799,7 +799,8 @@ code {
 .Map > .Desc,
 .Cell,
 .Code.Block,
-.Label.Msg {
+.Label.Msg,
+.Label.Tag {
   min-height: 24px;
   min-height: 1.5rem;
 }
@@ -2730,7 +2731,8 @@ sub {
   font-weight: normal;
   font-family: 'Century Gothic', 'Gill Sans', 'Avenir', sans-serif;
 }
-.Label::before {
+.Label::before,
+.Label::after {
   font-weight: bold;
 }
 /**
@@ -2815,8 +2817,6 @@ sub {
   * added to the inside of an Element.
 @extends
 : .Label
-@mixesin
-: .box-inline()
 @tags
 : #label
 : #tag
@@ -2826,27 +2826,53 @@ sub {
 : 2014-06-22
   */
 .Label.Tag {
-  display: inline;
-  padding: 1px 2px;
-  border-width: 1px;
+  padding: 3px 5px;
+  padding-bottom: 2px;
+  border-width: 0;
+  margin-left: 24px;
+  position: relative;
+}
+.Label.Tag::before {
+  content: "";
+  display: block;
+  width: 0;
+  border-width: 10px 6px 10px 0;
   border-style: solid;
-  border-radius: 6px;
-  white-space: nowrap;
+  border-color: transparent;
+  position: absolute;
+  left: -6px;
+  top: 0;
+  z-index: 1;
 }
 .Label.Tag.Warn::before {
-  content: '!' ' ';
+  border-right-color: #ff9e9e;
+}
+.Label.Tag.Warn::after {
+  content: ' ' '!';
 }
 .Label.Tag.Cshn::before {
-  content: '\2026' ' ';
+  border-right-color: #ecff9e;
+}
+.Label.Tag.Cshn::after {
+  content: ' ' '\2026';
 }
 .Label.Tag.Skss::before {
-  content: '\263a' ' ';
+  border-right-color: #9effc5;
+}
+.Label.Tag.Skss::after {
+  content: ' ' '\263a';
 }
 .Label.Tag.Info::before {
-  content: '?' ' ';
+  border-right-color: #9ec5ff;
+}
+.Label.Tag.Info::after {
+  content: ' ' '?';
 }
 .Label.Tag.Help::before {
-  content: '\2665' ' ';
+  border-right-color: #ec9eff;
+}
+.Label.Tag.Help::after {
+  content: ' ' '\2665';
 }
 /*@BREADCRUMBS*/
 /**
