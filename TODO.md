@@ -72,7 +72,7 @@ Specs for all TODO lists:
 - [ ] 2014-02-16 do labels/tooltips/whatever hint: [http://kushagragour.in/lab/hint/](http://kushagragour.in/lab/hint/)
 - [x] 2014-03-01 use `<small>` for labels&mdash;they really are disclamers/caveats/etc.
 - [x] 2014-06-19 split messages (`.Msg`) from tags (`.Tag`)
-- [ ] 2014-06-23 background gradients for buttons and labels
+- [x] 2014-06-23 background gradients for buttons and labels
 
 ### scripts ###
 - [ ] 2013-12-14 investigate the use of templates (`<template>`)

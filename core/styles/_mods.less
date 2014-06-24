@@ -147,11 +147,14 @@
 	&:extend(.vru-top-1);
 	.box-block(@lbl_brdr_radius);
 }
-.Label.Msg.Warn::before {content: 'Warning ' @warn_glyph ' ';}
-.Label.Msg.Cshn::before {content: 'Caution ' @cshn_glyph ' ';}
-.Label.Msg.Skss::before {content: 'Success ' @skss_glyph ' ';}
-.Label.Msg.Info::before {content: 'Info '    @info_glyph ' ';}
-.Label.Msg.Help::before {content: 'Help '    @help_glyph ' ';}
+.lbl-msg-mx(@color_bg) {
+	.gradient(to bottom; @color_bg; darken(@color_bg, 10%));
+}
+.Label.Msg.Warn {.lbl-msg-mx(@color_lbl_warn_bg); &::before{content: 'Warning ' @warn_glyph ' ';}}
+.Label.Msg.Cshn {.lbl-msg-mx(@color_lbl_cshn_bg); &::before{content: 'Caution ' @cshn_glyph ' ';}}
+.Label.Msg.Skss {.lbl-msg-mx(@color_lbl_skss_bg); &::before{content: 'Success ' @skss_glyph ' ';}}
+.Label.Msg.Info {.lbl-msg-mx(@color_lbl_info_bg); &::before{content: 'Info '    @info_glyph ' ';}}
+.Label.Msg.Help {.lbl-msg-mx(@color_lbl_help_bg); &::before{content: 'Help '    @help_glyph ' ';}}
 
 /**
   * A Tag Object is a Label with a short bit of content, or perhaps no content at all. It can be
@@ -168,16 +171,15 @@
   */
 .Label.Tag {
 	&:extend(.vru-content);
+	display: inline;
 	padding: 3px 5px;
 	padding-bottom: 2px;
-	border-width: 0;
 	margin-left: @spacer;
 	position: relative;
 	white-space: nowrap;
 }
 .Label.Tag::before {
 	@x: 6px;
-	// @y: (@vru_px * (3/4) / 2);
 	@y: 10px;
 	content: "";
 	display: block;
@@ -190,11 +192,20 @@
 	top: 0;
 	z-index: 1;
 }
-.Label.Tag.Warn {&::before {border-right-color: @color_lbl_warn_bg;} &::after {content: ' ' @warn_glyph;}}
-.Label.Tag.Cshn {&::before {border-right-color: @color_lbl_cshn_bg;} &::after {content: ' ' @cshn_glyph;}}
-.Label.Tag.Skss {&::before {border-right-color: @color_lbl_skss_bg;} &::after {content: ' ' @skss_glyph;}}
-.Label.Tag.Info {&::before {border-right-color: @color_lbl_info_bg;} &::after {content: ' ' @info_glyph;}}
-.Label.Tag.Help {&::before {border-right-color: @color_lbl_help_bg;} &::after {content: ' ' @help_glyph;}}
+.lbl-tag-mx(@color_bg; @glyph) {
+	.gradient(to right; @color_bg; darken(@color_bg, 15%));
+	&::before {
+		border-right-color: @color_bg;
+	}
+	&::after {
+		content: ' ' @glyph;
+	}
+}
+.Label.Tag.Warn {.lbl-tag-mx(@color_lbl_warn_bg; @warn_glyph);}
+.Label.Tag.Cshn {.lbl-tag-mx(@color_lbl_cshn_bg; @cshn_glyph);}
+.Label.Tag.Skss {.lbl-tag-mx(@color_lbl_skss_bg; @skss_glyph);}
+.Label.Tag.Info {.lbl-tag-mx(@color_lbl_info_bg; @info_glyph);}
+.Label.Tag.Help {.lbl-tag-mx(@color_lbl_help_bg; @help_glyph);}
 //++++ @end LABELS ++++//
 
 
