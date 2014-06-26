@@ -26,6 +26,8 @@ Specs for all TODO lists:
 	worth the effort.)
 	- 'portal' pages (`/home/edu.html`, `/home/math.html`, etc.)
 	- **formal** documents such as articles or blog posts (maybe in `/blog/`?)
+- [ ] 2014-06-26 consistent time stamps and document/post metadata
+- [ ] 2014-06-26 use `i[lang]>abbr` for all instances of "etc", "i.e." and "e.g." on **formal** pages
 
 #### links ####
 - [ ] 2014-03-27 `<a>` links should contain more textual content for SEO. the `title` attribute may
@@ -88,10 +90,10 @@ Specs for all TODO lists:
 ### About ###
 - [x] 2014-06-17 compile bio, contact, and links pages into one 'about' page.
 - [x] 2014-06-19 move "My Blogs" and "Copyright" sections, add acknowledgements section (high priority)
-- [ ] 2014-06-19 find picture with Axel (medium priority)
-- [ ] 2014-06-19 contact / software images into sprites (low priority)
-- [ ] 2014-06-22 "Acknowledgements" section: add more detail, give credit to everyone
-- [ ] 2014-06-22 Find a page for "Copyright" section
+- [ ] 2014-06-19 get picture with Axel (medium priority)
+- [ ] 2014-06-19 contact images into sprites (low priority)
+- [x] 2014-06-22 "Acknowledgements" section: add more detail, give credit to everyone
+- [x] 2014-06-22 Find a page for "Copyright" section
 
 ### Resume ###
 - [x] 2014-03-26 remove `!important` from `.res-spacetime {font-size}` and `.res-spacetime {color}`
