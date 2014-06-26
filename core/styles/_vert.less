@@ -193,12 +193,30 @@
 //+++++++++++++++++//
 /*@VERTICAL BORDERS*/
 //+++++++++++++++++//
-//
+// Below are helper mixins only (private). Do not mix these into other Objects or Interfaces.
+#_ {
+	.border-vert(@width) {
+		display: block;
+		position: relative;
+		top: (-1 * @width);
+	}
+	.border-vert-one(@width) {
+		.border-vert(@width);
+		margin-bottom: (-1 * @width);
+	}
+	.border-vert-both(@width) {
+		.border-vert(@width);
+		margin-bottom: (-2 * @width);
+	}
+}
 /**
   * The following Mixins adjust borders for **BLOCK** Objects only! They will keep the
   * vertical rhythm intact when adding borders (by slightly adjusting position and margins).
   * Do *not* use these mixins on INLINE Objects!
   * Note: Methods with same # of params cannot be overloaded; thus mixin names have modifiers.
+  * Use the `.border-vert-one(@side; ...)`   set of Mixins to adjust either the top or bottom border.
+  * Use the `.border-vert-both(topbot; ...)` set of Mixins to adjust both the top and bottom borders.
+  * Use the `.border-vert-both(all; ...)`    set of Mixins to adjust all four borders.
 @params
 : @width: the width of the top or bottom border
 : @side:  either `top` or `bottom`
@@ -212,18 +230,8 @@
 @updated
 : 2014-04-26
   */
-.border-vert(@width) {
-	display: block;
-	position: relative;
-	top: (-1 * @width);
-}
-/** Adjust only the top or bottom border. */
-.border-vert-one(@width) {
-	.border-vert(@width);
-	margin-bottom: (-1 * @width);
-}
 .border-vert-one(@side; @width) {
-	.border-vert-one(@width);
+	#_ .border-vert-one(@width);
 	border-@{side}-width: @width;
 }
 .border-vert-one(@side; @width; @style) {
@@ -234,13 +242,9 @@
 	.border-vert-one(@side; @width; @style);
 	border-color: @color;
 }
-/** Adjust both the top and bottom borders. */
-.border-vert-both(@width) {
-	.border-vert(@width);
-	margin-bottom: (-2 * @width);
-}
+
 .border-vert-both(topbot; @width) {
-	.border-vert-both(@width);
+	#_ .border-vert-both(@width);
 	border-width: @width;
 	border-left: 0;
 	border-right: 0;
@@ -253,9 +257,9 @@
 	.border-vert-both(topbot; @width; @style);
 	border-color: @color;
 }
-/** Adjust all four borders. */
+
 .border-vert-both(all; @width) {
-	.border-vert-both(@width);
+	#_ .border-vert-both(@width);
 	border-width: @width;
 }
 .border-vert-both(all; @width; @style) {
