@@ -264,6 +264,19 @@ button {
 : 2014-06-17
   */
 /**
+  * This Mixin sets the background color to a certain opacity.
+@params
+: @color   : the base color of the background color
+: @fadeout : the fade-out factor as a percentage. 100% is completely transparent, 0% is completely opaque.
+@tags
+: #background
+: #opacity
+@author
+: Chris Harvey
+@updated
+: 2014-06-26
+  */
+/**
   * Use this Mixin to apply a linear gradient background on an Element.
   * See [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/linear-gradient) for more info.
   *
@@ -1251,6 +1264,8 @@ main {
 /**
   * This Object refers to the first ("lede"/"lead") sentence in a paragraph or caption, which may
   * act as a "heading" for that paragraph or caption.
+  * It may also contain the title of a `table` or `figure` inside the `table > caption` or
+  * `figure > figcaption`, respectively.
   * This Object is typically a child of a `.P` Object, or any paragraph-like Objects such as `.Capt`.
   * This can also be useful in a list of prose ("LOP"), whose list items consist of long prose text.
 @tags
@@ -2642,6 +2657,8 @@ strong {
   * to do with the **Law of Conservation of Information** in one way, and mark up any phrases
   * involving **String Theory** in another way. Using classes, the reviewer could style different
   * contexts accordingly.
+@mixesin
+: .fade-background
 @tags
 : #typography
 : #span
@@ -2649,13 +2666,39 @@ strong {
 @author
 : Chris Harvey
 @updated
-: 2014-05-30
+: 2014-06-26
   */
+.Mark,
 mark {
-  padding: 2px 3px;
   background-color: #cc004e;
   background-color: rgba(204, 0, 78, 0.61803399);
+  padding: 2px 3px;
   color: #f1f6ff;
+}
+.Mark.Warn {
+  background-color: #ff0000;
+  background-color: rgba(255, 0, 0, 0.61803399);
+  color: #0e0900;
+}
+.Mark.Cshn {
+  background-color: #ccff00;
+  background-color: rgba(204, 255, 0, 0.61803399);
+  color: #0e0900;
+}
+.Mark.Skss {
+  background-color: #00ff66;
+  background-color: rgba(0, 255, 102, 0.61803399);
+  color: #0e0900;
+}
+.Mark.Info {
+  background-color: #0066ff;
+  background-color: rgba(0, 102, 255, 0.61803399);
+  color: #0e0900;
+}
+.Mark.Help {
+  background-color: #cc00ff;
+  background-color: rgba(204, 0, 255, 0.61803399);
+  color: #0e0900;
 }
 /**
   * A keyword, technical or specific term, or a vocabulary term.
@@ -2679,7 +2722,6 @@ dfn[id] {
 }
 /**
   * A phrase in a foreign language, such as the taxonomic classification (in Latin) of an organism.
-  * Recommended to be instantiated by i[lang] Elements.
 @tags
 : #typography
 : #span
