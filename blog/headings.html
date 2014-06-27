@@ -1,10 +1,9 @@
----
----
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>The Structure and Style of Nested Headings in Webkit</title>
 <meta charset="UTF-8"/>
+<link rel="stylesheet" href="../core/styles/all.css"/>
 <style>
 	body {font-family: 'Helvetica',sans-serif;}
 	h1, h2, h3, h4, h5, h6 {font-weight: normal; font-family: 'Times',serif;}
@@ -12,11 +11,14 @@
 	.expl {font-weight: bold;}
 	.impl {color: gray;}
 	.sect-name {font-family: serif; font-style: italic;}
-	code {font-weight: bold;}
+	.lang-html,
+	.lang-css {font-weight: bold;}
 	.lang-html {color: red;}
 	.lang-css  {color: blue;}
 </style>
-{% include all-js.html %}
+<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML,http://chharvey.github.io/core/scripts/mathjax-localconfig.js"></script>
+<script src="http://chharvey.github.io/core/scripts/global.js"></script>
 <script>
 $(document).ready(function() {
 	$('.expl').attr('title', 'explicit section');
@@ -25,11 +27,12 @@ $(document).ready(function() {
 </script>
 </head>
 <body>
+<main>
 <header>
-	<div class="title">
-		<h1>What kind of heading is it?</h1>
-		<p>The semantics and style of nested headings in Webkit</p>
-		<p class="timestamp">Updated <time datetime="2013-06-12T01:15">June 12, 2013</time>.</p>
+	<div>
+		<h1 class="H Alpha">What kind of heading is it?<br/>
+			<span class="Hsub">The semantics and style of nested headings in Webkit</span></h1>
+		<p>Updated <time datetime="2013-06-12T01:15">June 12, 2013</time>.</p>
 	</div>
 </header>
 <div style="border: 1px solid #000; background-color: #eff;">
@@ -43,7 +46,13 @@ $(document).ready(function() {
 		<dt>appears:</dt>
 		<dd><code>h1</code></dd>
 	</dl>
-	<p>Although the HTML5 spec does not state that the <code>body</code> element is a sectioning content element, it really is. <small>I have learned from experience not to use the <code>article</code> section (because it <em>is</em> sectioning content) as the only direct descendent (<abbr title="also known as">a.k.a.</abbr> child) of the <code>body</code> element. It creates an unnecessary subsection. The <code>article</code> element is meant for use when multiple sub-sections (namely, articles) of the <code>body</code> are present.</small></p>
+	<p class="P">Although the HTML5 spec does not state that the <code>body</code> Element is a
+		sectioning content Element, it really is. I have learned from experience
+		not to use the <code>article</code> section (because it <em>is</em> sectioning content)
+		as the only direct descendent (<abbr title="also known as">a.k.a.</abbr> child)
+		of the <code>body</code> Element. It creates an unnecessary subsection. The
+		<code>article</code> Element is meant for use when multiple sub-sections (namely,
+		articles) of the <code>body</code> are present.</p>
 	<div class="i1" style="background-color: #eef">
 		<h2><span class="expl">BODY</span>.<span class="impl">I</span> heading</h2>
 		<dl>
@@ -138,9 +147,14 @@ $(document).ready(function() {
 	</section>
 	<p><code class="lang-html">&lt;/body&gt;</code></p>
 </div>
-<h1>Conclusion</h1>
-<p>Based on explicit and implicit sections, Webkit browsers will style <code>h1</code> elements &ldquo;properly&rdquo;. For example, an <code>h1</code> in a <code>section</code> in the <code>body</code> semantically acts as a level-2 heading. Therefore the Webkit browser will style it as if it were an <code>h2</code>.</p>
-<p>However, all other headings, <code>h2</code>&ndash;<code>h6</code>, have constant styles. That is, an <code>h2</code>, no matter want it <strong>means</strong> (semantically, based on explicit/implicit sectioning), will always appear as an <code>h2</code>.
+<h1 class="H Alpha">Conclusion</h1>
+<p class="P">Based on explicit and implicit sections, Webkit browsers will style <code>h1</code>
+	Elements &ldquo;properly&rdquo;. For example, an <code>h1</code> in a <code>section</code> in
+	the <code>body</code> semantically acts as a level-2 heading. Therefore the Webkit browser will
+	style it as if it were an <code>h2</code>.</p>
+<p class="P">However, all other headings, <code>h2</code>&ndash;<code>h6</code>, have constant
+	styles. That is, an <code>h2</code>, no matter want it <strong>means</strong> (semantically,
+	based on explicit/implicit sectioning), will always appear as an <code>h2</code>.
 <footer>
 	<address>
 		<!--
@@ -149,5 +163,6 @@ $(document).ready(function() {
 -->
 	</address>
 </footer>
+</main>
 </body>
 </html>

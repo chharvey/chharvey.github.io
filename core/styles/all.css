@@ -237,9 +237,9 @@ button {
 \*--------------------*/
 /*@MIXINS*/
 /**
-  * Use this Mixin to apply a rotation transformation to an Element.
+  * Use this Mixin to apply a rotation transformation to an Object.
 @params
-: @rotation : the angle, in degrees, to rotate the element
+: @rotation : the angle, in degrees, to rotate the Object
 @tags
 : #transformation
 : #vendorspecific
@@ -262,6 +262,27 @@ button {
 : Chris Harvey
 @updated
 : 2014-06-17
+  */
+/**
+  * Use this Mixin to apply a linear gradient background on an Element.
+  * See [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/linear-gradient) for more info.
+  *
+  * The number of possibilities for the list of paramaters of the CSS function `linear-gradient()`
+  * is so great that it would be inefficient to designate each parameter. Therefore, functions are
+  * overloaded to handle up to five paramaters.
+@params
+: @param1 : the first paramater
+: @param2 : the second paramater
+: @param3 : the third paramater
+: @param4 : the fourth paramater
+: @param5 : the fifth paramater
+@tags
+: #gradient
+: #vendorspecific
+@author
+: Chris Harvey
+@updated
+: 2014-06-24
   */
 /*@Abstract Boxes*/
 /**
@@ -313,7 +334,7 @@ button {
 .cellpaddingdefault,
 .Cell,
 .Code.Block,
-.Msg {
+.Label.Msg {
   padding: 12px 7.41640786px;
   padding: 0.75rem 7.41640786px;
 }
@@ -351,7 +372,7 @@ button {
   opacity: 1;
 }
 /**
-  * This Interface puts an outline around an element to show its structure. It is used for
+  * This Interface puts an outline around an Object to show its structure. It is used for
   * deomonstration purposes.
 @tags
 : #structural
@@ -365,7 +386,7 @@ button {
 }
 /*@Delimiters*/
 /**
-  * This Interface adds opening and closing punctuation marks surrounding an element. The
+  * This Interface adds opening and closing punctuation marks surrounding an Object. The
   * punctuation marks are given by the `quotes` property.
 @tags
 : #typography
@@ -724,9 +745,10 @@ q {
 .fontsize-sml-inline,
 .Capt,
 .Qblock .Src,
+.Fineprint,
 .Table,
 .Code.Block,
-.Msg,
+.Label,
 .Button,
 .Code,
 .Dir,
@@ -740,7 +762,7 @@ code {
   line-height: 2;
 }
 /**
-  * This Interface sets an element to inline and does not affect vertical rhythm.
+  * This Interface sets an Object to inline and does not affect vertical rhythm.
 @tags
 : #verticalrhythm
 : #fontsize
@@ -764,7 +786,7 @@ code {
   line-height: inherit;
 }
 /**
-  * This Interface sets [large|small] font size for inline elements. They do not affect
+  * This Interface sets [large|small] font size for inline Objects. They do not affect
   * vertical rhythm.
 @implements
 : .fontsize-[lrg|sml]
@@ -780,8 +802,8 @@ code {
 /*@VERTICAL SPACING*/
 /**
   * This Interface provides a minimum height of one vertical rhythm unit.
-  * It is Meant for text-containing block elements, such as p, blockquote, li, dt, dd, th, td.
-  * If these elements have shorter contents, the vertical rhythm won't break.
+  * It is Meant for text-containing block Elements, such as p, blockquote, li, dt, dd, th, td.
+  * If these Elements have shorter contents, the vertical rhythm won't break.
 @tags
 : #verticalrhythm
 @author
@@ -801,7 +823,8 @@ code {
 .Map > .Desc,
 .Cell,
 .Code.Block,
-.Msg {
+.Label.Msg,
+.Label.Tag {
   min-height: 24px;
   min-height: 1.5rem;
 }
@@ -817,7 +840,14 @@ code {
 : 2014-05-10
   */
 .vru-top-0,
-.List > .Item > .List {
+.vru-top-1.first,
+.P.Intro,
+.List > .Item > .List,
+.P.first,
+.List.first,
+.Map.first,
+.Code.Block.first,
+.Label.Msg.first {
   margin-top: 0;
 }
 .vru-bottom-0 {
@@ -829,7 +859,8 @@ code {
 .List,
 .Map,
 .Table,
-.Msg {
+.Code.Block,
+.Label.Msg {
   margin-top: 24px;
   margin-top: 1.5rem;
 }
@@ -869,10 +900,14 @@ code {
 }
 /*@VERTICAL BORDERS*/
 /**
-  * The following Mixins adjust borders for **BLOCK** elements only! They will keep the
+  * The following Mixins adjust borders for **BLOCK** Objects only! They will keep the
   * vertical rhythm intact when adding borders (by slightly adjusting position and margins).
-  * Do *not* use these mixins on INLINE elements!
+  * Do *not* use these mixins on INLINE Objects!
   * Note: Methods with same # of params cannot be overloaded; thus mixin names have modifiers.
+  * Use the `.border-vert-one(@side; ...)`   set of Mixins to adjust either the top or bottom border.
+  * Use the `.border-vert-both(topbot; ...)` set of Mixins to adjust both the top and bottom borders.
+  * Use the `.border-vert-both(all; ...)`    set of Mixins to adjust all four borders.
+  * Use the `.border-vert-clear()` Mixin to negate all the effects of the above Mixins.
 @params
 : @width: the width of the top or bottom border
 : @side:  either `top` or `bottom`
@@ -884,11 +919,8 @@ code {
 @author
 : Chris Harvey
 @updated
-: 2014-04-26
+: 2014-06-26
   */
-/** Adjust only the top or bottom border. */
-/** Adjust both the top and bottom borders. */
-/** Adjust all four borders. */
 /*--------------*\
     _body.less
 \*--------------*/
@@ -1023,6 +1055,24 @@ main {
   color: rgba(14, 9, 0, 0.61803399);
 }
 /**
+  * This Interface is used on any Object that "visually" follows a heading (an `.H` Object).
+  * Keyword "visually" because it may not directly follow the heading in the Document Outline
+  * (it may be in a sub-section, etc.)
+@extends
+: .vru-top-1
+@tags
+: #verticalrhythm
+: #typography
+: #paragraph
+: #list
+: #map
+: #table
+@author
+: Chris Harvey
+@updated
+: 2014-06-26
+  */
+/**
   * The six Objects below represent different levels of headings, starting from top-level to level 6.
 @extends
 : .H
@@ -1060,6 +1110,13 @@ main {
   margin-top: 1.5rem;
   padding-bottom: 24px;
   padding-bottom: 1.5rem;
+  display: block;
+  position: relative;
+  top: -1px;
+  margin-bottom: -1px;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-color: #2d1f99;
   font-weight: bold;
   color: #2d1f99;
 }
@@ -1172,6 +1229,7 @@ main {
 : 2014-05-10
   */
 /** negate the effects of `.spacing-phi(@side; @brdrw; @brdrs; @brdrc)`  on the [left|right] side */
+/*@PARAGRAPHS*/
 /**
   * This Object represents a generic paragraph in a section, article, or document. A paragraph
   * Object is a small grouping of textual ideas. In the written media, paragraphs can span
@@ -1214,6 +1272,7 @@ main {
 @extends
 : .P
 @implements
+: .vru-top-0
 : .vru-bottom-1
 @tags
 : #typography
@@ -1221,7 +1280,7 @@ main {
 @author
 : Chris Harvey
 @updated
-: 2014-05-29
+: 2014-06-26
   */
 .P.Intro {
   font-weight: bold;
@@ -1258,11 +1317,11 @@ main {
 /**
   * This Object represents a generic caption of any sort. A caption is usually a short summary or
   * description of some content ("the described content"). The described content may be in a
-  * literal `figure` element, `table` element, or it may be any generic content. Since captions are
+  * literal `figure` Element, `table` Element, or it may be any generic content. Since captions are
   * usually too short to be a paragraph, it may *not* contain `.P` Objects. If the described content
   * is text only, the caption should be shorter and more concise than the content's text.
-  * If this `.Capt` is a child of a `figure` element, it should be a `figcaption` element.
-  * If this `.Capt` is a child of a `table` element, it should be a `caption` element.
+  * If this `.Capt` is a child of a `figure` Element, it should be a `figcaption` Element.
+  * If this `.Capt` is a child of a `table` Element, it should be a `caption` Element.
 @implements
 : .vru-content
 : .fontsize-small
@@ -1319,7 +1378,7 @@ main {
 }
 /**
   * This Object represents a generic postal address. It may be the contact address of the document
-  * author(s) (contained in an `address` element), or it may be any arbitrary postal mailing address.
+  * author(s) (contained in an `address` Element), or it may be any arbitrary postal mailing address.
 @extends
 : .P
 @implements
@@ -1348,9 +1407,9 @@ main {
 /**
   * This Object represents a generic figure in a document. A figure contains excerpts of text,
   * examples, or images that are used to illustrate a concept. This may or may not be a
-  * literal `figure` element.
+  * literal `figure` Element.
   * Inside this `.Fig` there may exist a `.Capt` (a generic caption), either at the beginning or at
-  * the end. The `.Capt` may or may not be a `figcaption` or `caption` element.
+  * the end. The `.Capt` may or may not be a `figcaption` or `caption` Element.
   * Content in this `.Fig`---including its caption---is permissible to be extracted from the
   * document and presented on its own.
 @implements
@@ -1380,7 +1439,7 @@ main {
 }
 /**
   * This Object represents any Block Quotation, representing material taken directly from another
-  * source. It may or may not take the form of a literal `blockquote` element.
+  * source. It may or may not take the form of a literal `blockquote` Element.
   * If the original source is less than 40 words and does not have paragraph breaks (for example,
   * extracted inline text from an article), this `.Qblock` should not contain Paragraphs; it should
   * directly contain the source's text.
@@ -1408,8 +1467,8 @@ main {
   font-family: 'Century Gothic', 'Gill Sans', 'Avenir', sans-serif;
 }
 /**
-  * The `.Src` Object represents the citation of a source inside a `.Qblock` element. It is
-  * recommended to apply this Class to a `cite` element.
+  * The `.Src` Object represents the citation of a source inside a `.Qblock` Object. It is
+  * recommended to apply this class to a `cite` Element.
 @belongsto
 : .Qblock
 @implements
@@ -1457,10 +1516,11 @@ main {
 .Qblock {
   border-color: #9acc7a;
 }
+/*@SECTIONS*/
 /**
   * This Object represents a generic article, technical document, blog post, etc. This Object may
-  * or may not take the form of a literal `article` element or `main` element of a page. This
-  * Object is designed to contain other block-level Objects such as Headings and Paragraphs.
+  * or may not take the form of a literal `article` Element or `main` Element of a page. This
+  * Object is designed to contain other block-level Objects such as `.H`s and `.P`s.
 @tags
 : #typography
 : #article
@@ -1474,7 +1534,7 @@ main {
   text-align: justify;
 }
 /**
-  * This Object represents text in an article that is not to displayed like .Article text.
+  * This Object represents text in an article that is not to displayed like `.Article` text.
   * Essentially it reverts back to the body copy styles.
 @tags
 : #typography
@@ -1488,6 +1548,17 @@ main {
   font-family: 'Optima', 'Candara', 'Helvetica', sans-serif;
   text-align: left;
 }
+/**
+  * This Object represents a section of text that represents "fine print": disclaimers, etc.
+  * It should be instantiated by an entire `section`, `aside`, `div`, or `p` Element, which
+  * may or may not contain `small` Element children.
+@tags
+: #typography
+@author
+: Chris Harvey
+@updated
+: 2014-06-26
+  */
 @media print {
   .Fig,
   .Addy,
@@ -1514,6 +1585,7 @@ main {
 /**
   * This Interface adds a left padding to a `.List` Object. The padding-left is set to 48px, which is
   * equal to 0.5in, the standard indent for APA style.
+  * The `.listindent-half` Interface adds half the padding (24px).
 @tags
 : #typography
 : #list
@@ -1522,7 +1594,7 @@ main {
 @author
 : Chris Harvey
 @updated
-: 2014-05-11
+: 2014-06-26
   */
 .listindent,
 .List > .Item > .List,
@@ -1530,8 +1602,11 @@ main {
 .List.U {
   padding-left: 48px;
 }
+.listindent-half {
+  padding-left: 24px;
+}
 /**
-  * This Object represents a block list. It may be a literal `ol` or `ul` element containing
+  * This Object represents a block list. It may be a literal `ol` or `ul` Element containing
   * `li` Elements, or it may be the abstract notion of a list of other block Objects. The order of
   * list items may be releveant or irrelevant.
   * This `.List` Object is  displayed as a block Object containing other block Objects. See the
@@ -1582,7 +1657,7 @@ main {
   */
 /**
   * This Object represents an ordered list, or a list used for an outline. This does *not*
-  * correspond directly to a literal `ol` element; this Object is simply to be displayed with
+  * correspond directly to a literal `ol` Element; this Object is simply to be displayed with
   * block list items, with markers that indicate order. This class does *not* indicate that the
   * list is semantically ordered. Typical uses include table of contents, etc. Outlines are by
   * definition, ordered.
@@ -1639,7 +1714,7 @@ main {
 }
 /**
   * This Object represents a generic list whose items are to be displayed as blocks with the same
-  * markers. It does *not* necessarily correspond directly to a literal `ul` element. This class
+  * markers. It does *not* necessarily correspond directly to a literal `ul` Element. This class
   * does *not* indicate that the list is semantically unordered.
 @extends
 : .List
@@ -2160,15 +2235,27 @@ table tr {
   font-family: 'Century Gothic', 'Gill Sans', 'Avenir', sans-serif;
   color: #0062ff;
   background-color: #c3daff;
+  background-image: -webkit-linear-gradient(to bottom right, #dbe9ff, #92bcff);
+  background-image: -moz-linear-gradient(to bottom right, #dbe9ff, #92bcff);
+  background-image: -o-linear-gradient(to bottom right, #dbe9ff, #92bcff);
+  background-image: linear-gradient(to bottom right, #dbe9ff, #92bcff);
   cursor: pointer;
 }
 .Button:hover {
   border-color: #ff9d00;
   color: #ff9d00;
   background-color: #ffe8c3;
+  background-image: -webkit-linear-gradient(to bottom right, #fff1db, #ffd592);
+  background-image: -moz-linear-gradient(to bottom right, #fff1db, #ffd592);
+  background-image: -o-linear-gradient(to bottom right, #fff1db, #ffd592);
+  background-image: linear-gradient(to bottom right, #fff1db, #ffd592);
 }
 .Button:active {
   border-style: inset;
+  background-image: -webkit-linear-gradient(to top left, #fff1db, #ffd592);
+  background-image: -moz-linear-gradient(to top left, #fff1db, #ffd592);
+  background-image: -o-linear-gradient(to top left, #fff1db, #ffd592);
+  background-image: linear-gradient(to top left, #fff1db, #ffd592);
 }
 .Button.Block {
   display: block;
@@ -2176,6 +2263,7 @@ table tr {
 /*--------------*\
     _code.less
 \*--------------*/
+/** The default border radius for code-like Objects. */
 /**
   * A Mixin used for both inline and block code.
 @params
@@ -2191,7 +2279,7 @@ table tr {
 : 2014-05-25
   */
 /**
-  * These Interfaces automate the coloring of code elements.
+  * These Interfaces automate the coloring of code Elements.
   * `.codecolors-sol-lite` sets a Solarized Light theme, while
   * `.codecolors-sol-dark` sets a Solarized Dark theme.
 @mixesin
@@ -2231,7 +2319,6 @@ code .Comm {
 .Key .Comm {
   color: #586e75;
 }
-/** The default border radius for code-like Objects. */
 /**
   * A span of text that a computer program would recognize.
 @implements
@@ -2263,6 +2350,7 @@ code {
 : .Code
 @implements
 : .fontsize-sml
+: .vru-top-1
 : .codecolors-sol-dark
 @mixesin
 : .box-block()
@@ -2502,7 +2590,7 @@ var {
 \*--------------*/
 /**
   * This Object represents a generic span of text in a paragraph, figure, caption, quote, list item,
-  * table cell, or any container of text. It may or may not be a literal `span` element.
+  * table cell, or any container of text. It may or may not be a literal `span` Element.
   * This can be useful when writing lists in prose ("LIP"), for example.
 @tags
 : #typography
@@ -2605,6 +2693,20 @@ i[lang] {
   font-style: italic;
   font-family: 'Times', 'Times New Roman', serif;
 }
+/**
+  * A span of text that is to be hidden, for styling purposes only. To hide text (or blocks)
+  * for SEO purposes, use the `hidden=""` attribute.
+@tags
+: #span
+: #highlight
+@author
+: Chris Harvey
+@updated
+: 2014-06-26
+  */
+.Noshow {
+  display: none;
+}
 /*@DOCUMENTATION*/
 /**
   * An inline quotation: a span of text that is taken directly from another source
@@ -2698,6 +2800,36 @@ sup {
 sub {
   top: 6px;
 }
+/**
+  * A time element. See the W3C HTML5 standards for details.
+@tags
+: #typography
+@author
+: Chris Harvey
+@updated
+: 2014-06-26
+  */
+/**
+  * A geographical location on Earth.
+  *
+  * This Element must have the `data-lon=""` and `data-lat=""` attributes (corresponding to
+  * longitude and latitude, respectively), whose values are decimal numbers representing angles,
+  * measures in decimal degrees. To find these values, simply go to [maps.google.com](),
+  * enter the city/town name, and then look at the URL.
+  *
+  * This Element may also optionally have the `data-alt=""` attribute (corresponding to
+  * altuitude or elevation), whose value is text representing a physical length,
+  * measured in any unit (feet/meters most common).
+@tags
+: #typography
+@author
+: Chris Harvey
+@updated
+: 2014-06-26
+  */
+[data-element="geo"] {
+  white-space: nowrap;
+}
 /*@FORMS*/
 /*--------------*\
 	_mods.less
@@ -2713,22 +2845,90 @@ sub {
 @updated
 : 2014-06-16
   */
-/*@MESSAGES*/
+/*@LABELS*/
 /**
-  * A general Message Object.
+  * A Label Object is used for displaying little indications to the user. There are two subclasses
+  * of Labels: Messages and Tags. Each subclass may be of the following types:
+  * - A **Warning Label** is used to indicate a negative consequence, such as an action that cannot
+  * 	be undone or that will cause something to break.
+  * - A **Caution Label** is used to indicate that the user must proceed with care.
+  * - A **Success Label** is used to indicate that something was done right.
+  * - An **Info Label** is used to indicate extra information about something.
+  * - A **Help Label** is used to indicate tips and hints for the user.
 @implements
 : .fontsize-sml
+@tags
+: #label
+: #message
+: #tag
+@author
+: Chris Harvey
+@updated
+: 2014-06-22
+  */
+.Label {
+  font-style: normal;
+  font-weight: normal;
+  font-family: 'Century Gothic', 'Gill Sans', 'Avenir', sans-serif;
+}
+.Label::before,
+.Label::after {
+  font-weight: bold;
+}
+/**
+  * This Mixin is used for all `.Label` Objects. It sets the proper colors for the Object based on
+  * its type.
+@tags
+: #label
+: #message
+: #tag
+@author
+: Chris Harvey
+@updated
+: 2014-06-22
+  */
+.Label.Warn {
+  border-color: #ff0000;
+  color: #610000;
+  background-color: #ff9e9e;
+}
+.Label.Cshn {
+  border-color: #ccff00;
+  color: #4e6100;
+  background-color: #ecff9e;
+}
+.Label.Skss {
+  border-color: #00ff66;
+  color: #006127;
+  background-color: #9effc5;
+}
+.Label.Info {
+  border-color: #0066ff;
+  color: #002761;
+  background-color: #9ec5ff;
+}
+.Label.Help {
+  border-color: #cc00ff;
+  color: #4e0061;
+  background-color: #ec9eff;
+}
+/**
+  * A Message Object is a Label with complete sentences or a longer span of information.
+@extends
+: .Label
+@implements
 : .vru-top-1
 @mixesin
 : .box-block()
 @tags
+: #label
 : #message
 @author
 : Chris Harvey
 @updated
-: 2014-06-06
+: 2014-06-22
   */
-.Msg {
+.Label.Msg {
   display: block;
   position: relative;
   top: -1px;
@@ -2736,75 +2936,144 @@ sub {
   border-width: 1px;
   border-style: solid;
   border-radius: 6px;
-  font-style: normal;
-  font-weight: normal;
-  font-family: 'Century Gothic', 'Gill Sans', 'Avenir', sans-serif;
 }
-.Msg::before {
-  font-weight: bold;
+.Label.Msg.Warn {
+  background-image: -webkit-linear-gradient(to bottom, #ff9e9e, #ff6b6b);
+  background-image: -moz-linear-gradient(to bottom, #ff9e9e, #ff6b6b);
+  background-image: -o-linear-gradient(to bottom, #ff9e9e, #ff6b6b);
+  background-image: linear-gradient(to bottom, #ff9e9e, #ff6b6b);
 }
-.Msg.Warn {
-  border-color: #ff0000;
-  color: #610000;
-  background-color: #ff9e9e;
-}
-.Msg.Warn::before {
+.Label.Msg.Warn::before {
   content: 'Warning ' '!' ' ';
 }
-.Msg.Cshn {
-  border-color: #ccff00;
-  color: #4e6100;
-  background-color: #ecff9e;
+.Label.Msg.Cshn {
+  background-image: -webkit-linear-gradient(to bottom, #ecff9e, #e1ff6b);
+  background-image: -moz-linear-gradient(to bottom, #ecff9e, #e1ff6b);
+  background-image: -o-linear-gradient(to bottom, #ecff9e, #e1ff6b);
+  background-image: linear-gradient(to bottom, #ecff9e, #e1ff6b);
 }
-.Msg.Cshn::before {
+.Label.Msg.Cshn::before {
   content: 'Caution ' '\2026' ' ';
 }
-.Msg.Skss {
-  border-color: #00ff66;
-  color: #006127;
-  background-color: #9effc5;
+.Label.Msg.Skss {
+  background-image: -webkit-linear-gradient(to bottom, #9effc5, #6bffa6);
+  background-image: -moz-linear-gradient(to bottom, #9effc5, #6bffa6);
+  background-image: -o-linear-gradient(to bottom, #9effc5, #6bffa6);
+  background-image: linear-gradient(to bottom, #9effc5, #6bffa6);
 }
-.Msg.Skss::before {
+.Label.Msg.Skss::before {
   content: 'Success ' '\263a' ' ';
 }
-.Msg.Info {
-  border-color: #0066ff;
-  color: #002761;
-  background-color: #9ec5ff;
+.Label.Msg.Info {
+  background-image: -webkit-linear-gradient(to bottom, #9ec5ff, #6ba6ff);
+  background-image: -moz-linear-gradient(to bottom, #9ec5ff, #6ba6ff);
+  background-image: -o-linear-gradient(to bottom, #9ec5ff, #6ba6ff);
+  background-image: linear-gradient(to bottom, #9ec5ff, #6ba6ff);
 }
-.Msg.Info::before {
+.Label.Msg.Info::before {
   content: 'Info ' '?' ' ';
 }
-.Msg.Help {
-  border-color: #cc00ff;
-  color: #4e0061;
-  background-color: #ec9eff;
+.Label.Msg.Help {
+  background-image: -webkit-linear-gradient(to bottom, #ec9eff, #e16bff);
+  background-image: -moz-linear-gradient(to bottom, #ec9eff, #e16bff);
+  background-image: -o-linear-gradient(to bottom, #ec9eff, #e16bff);
+  background-image: linear-gradient(to bottom, #ec9eff, #e16bff);
 }
-.Msg.Help::before {
+.Label.Msg.Help::before {
   content: 'Help ' '\2665' ' ';
 }
-.Msg.Tag {
+/**
+  * A Tag Object is a Label with a short bit of content, or perhaps no content at all. It can be
+  * added to the inside of an Element.
+@extends
+: .Label
+@tags
+: #label
+: #tag
+@author
+: Chris Harvey
+@updated
+: 2014-06-22
+  */
+.Label.Tag {
   display: inline;
-  padding: 1px 2px;
-  border-width: 1px;
-  border-style: solid;
-  border-radius: 6px;
+  padding: 3px 5px;
+  padding-bottom: 2px;
+  margin-left: 24px;
+  position: relative;
   white-space: nowrap;
 }
-.Msg.Tag.Warn::before {
-  content: '!' ' ';
+.Label.Tag::before {
+  content: "";
+  display: block;
+  width: 0;
+  border-width: 10px 6px 10px 0;
+  border-style: solid;
+  border-color: transparent;
+  position: absolute;
+  left: -6px;
+  top: 0;
+  z-index: 1;
 }
-.Msg.Tag.Cshn::before {
-  content: '\2026' ' ';
+.Label.Tag.Warn {
+  background-image: -webkit-linear-gradient(to right, #ff9e9e, #ff5151);
+  background-image: -moz-linear-gradient(to right, #ff9e9e, #ff5151);
+  background-image: -o-linear-gradient(to right, #ff9e9e, #ff5151);
+  background-image: linear-gradient(to right, #ff9e9e, #ff5151);
 }
-.Msg.Tag.Skss::before {
-  content: '\263a' ' ';
+.Label.Tag.Warn::before {
+  border-right-color: #ff9e9e;
 }
-.Msg.Tag.Info::before {
-  content: '?' ' ';
+.Label.Tag.Warn::after {
+  content: ' ' '!';
 }
-.Msg.Tag.Help::before {
-  content: '\2665' ' ';
+.Label.Tag.Cshn {
+  background-image: -webkit-linear-gradient(to right, #ecff9e, #dcff51);
+  background-image: -moz-linear-gradient(to right, #ecff9e, #dcff51);
+  background-image: -o-linear-gradient(to right, #ecff9e, #dcff51);
+  background-image: linear-gradient(to right, #ecff9e, #dcff51);
+}
+.Label.Tag.Cshn::before {
+  border-right-color: #ecff9e;
+}
+.Label.Tag.Cshn::after {
+  content: ' ' '\2026';
+}
+.Label.Tag.Skss {
+  background-image: -webkit-linear-gradient(to right, #9effc5, #51ff97);
+  background-image: -moz-linear-gradient(to right, #9effc5, #51ff97);
+  background-image: -o-linear-gradient(to right, #9effc5, #51ff97);
+  background-image: linear-gradient(to right, #9effc5, #51ff97);
+}
+.Label.Tag.Skss::before {
+  border-right-color: #9effc5;
+}
+.Label.Tag.Skss::after {
+  content: ' ' '\263a';
+}
+.Label.Tag.Info {
+  background-image: -webkit-linear-gradient(to right, #9ec5ff, #5197ff);
+  background-image: -moz-linear-gradient(to right, #9ec5ff, #5197ff);
+  background-image: -o-linear-gradient(to right, #9ec5ff, #5197ff);
+  background-image: linear-gradient(to right, #9ec5ff, #5197ff);
+}
+.Label.Tag.Info::before {
+  border-right-color: #9ec5ff;
+}
+.Label.Tag.Info::after {
+  content: ' ' '?';
+}
+.Label.Tag.Help {
+  background-image: -webkit-linear-gradient(to right, #ec9eff, #dc51ff);
+  background-image: -moz-linear-gradient(to right, #ec9eff, #dc51ff);
+  background-image: -o-linear-gradient(to right, #ec9eff, #dc51ff);
+  background-image: linear-gradient(to right, #ec9eff, #dc51ff);
+}
+.Label.Tag.Help::before {
+  border-right-color: #ec9eff;
+}
+.Label.Tag.Help::after {
+  content: ' ' '\2665';
 }
 /*@BREADCRUMBS*/
 /**

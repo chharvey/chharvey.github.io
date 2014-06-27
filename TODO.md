@@ -21,16 +21,19 @@ Specs for all TODO lists:
 - [x] 2013-08-24 `img alt` attributes should be semantic
 - [x] 2013-08-24 all self-closing tags should end in `/>`, not ` />`. (remove the space before
 	the slash)
-- [ ] 2014-03-06 change all apostrophes (`'`) to right single quotes `&rsquo;` on the following
+- [x] 2014-03-06 change all apostrophes (`'`) to right single quotes `&rsquo;` on the following
 	pages... (Leave the apostrophes alone in regular pages. The typographical precision is not
 	worth the effort.)
 	- 'portal' pages (`/home/edu.html`, `/home/math.html`, etc.)
 	- **formal** documents such as articles or blog posts (maybe in `/blog/`?)
+- [ ] 2014-06-26 consistent time stamps and document/post metadata
+- [ ] 2014-06-26 use `i[lang]>abbr` for all instances of "etc", "i.e." and "e.g." on **formal** pages
+- [ ] 2014-06-26 add `geo` custom-elements to locations in `resume.html`
 
 #### links ####
 - [ ] 2014-03-27 `<a>` links should contain more textual content for SEO. the `title` attribute may
 	contain a description of the linked document.
-- [ ] 2014-04-04, 2014-06-07 given an element, when deciding to add a link to that element, always
+- [x] 2014-04-04, 2014-06-07 REMINDER: given an element, when deciding to add a link to that element, always
 	put the link *inside* the other element. E.g. always do `code > a` or `dfn > a`, not `a > code`
 	or `a > dfn`.
 
@@ -61,20 +64,18 @@ Specs for all TODO lists:
 - [ ] 2013-03-03 ARIA roles
 
 ### Styles ###
-- [ ] 2014-02-24 remove all "scoped" Less and make use of "namespaces"
-	- in `reals.less` lines 120–149, and 157–183
-	- in `secondary-ed.less` lines 183&ndash;263
 - [x] 2014-04-04 in `mods.less` eventually find a way to abstract the `.message` blocks
 - [ ] 2014-04-08 change all `[data-e=""]` selectors to `[data-e~=""]`
 - [x] 2014-04-08 add `[data-status~="normative"]`, `[data-status~="nonnormative"]`,
 	`[data-status~="draft"]`, etc to stylesheets, get rid of class `.draft`, `.nonnormative`, etc.
-- [ ] 2013-06-07 write comment documentation for selectors in `/core/styles/typo/_text.less`
+- [x] 2013-06-07 write comment documentation for selectors in `/core/styles/typo/_text.less`
 
 #### boxes ####
 - [x] 2013-08-18 code scheme
 - [ ] 2014-02-16 do labels/tooltips/whatever hint: [http://kushagragour.in/lab/hint/](http://kushagragour.in/lab/hint/)
 - [x] 2014-03-01 use `<small>` for labels&mdash;they really are disclamers/caveats/etc.
-- [ ] 2014-06-19 split messages (`.Msg`) from tags (`.Tag`)
+- [x] 2014-06-19 split messages (`.Msg`) from tags (`.Tag`)
+- [x] 2014-06-23 background gradients for buttons and labels
 
 ### scripts ###
 - [ ] 2013-12-14 investigate the use of templates (`<template>`)
@@ -90,8 +91,10 @@ Specs for all TODO lists:
 ### About ###
 - [x] 2014-06-17 compile bio, contact, and links pages into one 'about' page.
 - [x] 2014-06-19 move "My Blogs" and "Copyright" sections, add acknowledgements section (high priority)
-- [ ] 2014-06-19 find picture with Axel (medium priority)
-- [ ] 2014-06-19 contact / software images into sprites (low priority)
+- [ ] 2014-06-19 get picture with Axel (medium priority)
+- [ ] 2014-06-19 contact images into sprites (low priority)
+- [x] 2014-06-22 "Acknowledgements" section: add more detail, give credit to everyone
+- [x] 2014-06-22 Find a page for "Copyright" section
 
 ### Resume ###
 - [x] 2014-03-26 remove `!important` from `.res-spacetime {font-size}` and `.res-spacetime {color}`

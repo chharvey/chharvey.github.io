@@ -3,6 +3,9 @@
 /*--------------*\
     _code.less
 \*--------------*/
+/** The default border radius for code-like Objects. */
+@code_brdr_radius: 3px;
+
 // colors for inline code
 @color_code_bg:   @solarized_base3;
 @color_code_brdr: @solarized_base2;
@@ -17,6 +20,7 @@
 @color_codeblock_txt:  @solarized_base0;
 @color_codeblock_emph: @solarized_base1;
 
+// colors for syntax highlighting
 @color_code_tag: @solarized_blue;
 @color_code_atr: @solarized_orange;
 @color_code_val: @solarized_green;
@@ -47,7 +51,7 @@
 	.Comm {color: @color_comm;}
 }
 /**
-  * These Interfaces automate the coloring of code elements.
+  * These Interfaces automate the coloring of code Elements.
   * `.codecolors-sol-lite` sets a Solarized Light theme, while
   * `.codecolors-sol-dark` sets a Solarized Dark theme.
 @mixesin
@@ -63,8 +67,6 @@
   */
 .codecolors-sol-lite {.codecolors(@color_code_txt;      @color_code_comm;      @color_code_bg;      @color_code_brdr);}
 .codecolors-sol-dark {.codecolors(@color_codeblock_txt; @color_codeblock_comm; @color_codeblock_bg; @color_codeblock_brdr);}
-/** The default border radius for code-like Objects. */
-@code_brdr_radius: 3px;
 /**
   * A span of text that a computer program would recognize.
 @implements
@@ -94,6 +96,7 @@ code {&:extend(.Code);}
 : .Code
 @implements
 : .fontsize-sml
+: .vru-top-1
 : .codecolors-sol-dark
 @mixesin
 : .box-block()
@@ -107,6 +110,7 @@ code {&:extend(.Code);}
   */
 .Code.Block {
 	&:extend(.fontsize-sml);
+	&:extend(.vru-top-1 all);
 	&:extend(.codecolors-sol-dark all);
 	.box-block(@code_brdr_radius);
 	.border-vert-both(all; 2px; solid); // overrides `.border-vert-both()` mixedin `.box-block()`

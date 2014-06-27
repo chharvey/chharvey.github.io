@@ -1,5 +1,8 @@
 # TO DO - /reals/ #
 
+- [ ] 2014-02-24 remove all "scoped" Less and make use of "namespaces"
+	- in `reals.less` lines 120–149, and 157–183
+
 ## topic: set theory ##
 
 (prove using “=” relation) for all x in S, if there exists a y such that x = y, then y is in S.
