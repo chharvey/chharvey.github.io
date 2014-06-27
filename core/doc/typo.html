@@ -781,28 +781,40 @@ on a page are styled using the site-wide CSS stylesheets.</p>
 		<dl class="Map Vert Sml first">
 			<dt class="Term"><code>em</code></dt>      <dd class="Desc"><em>emphasized text</em></dd>
 			<dt class="Term"><code>strong</code></dt>  <dd class="Desc"><strong>important text</strong></dd>
-			<dt class="Term"><code>mark</code></dt>    <dd class="Desc"><mark>text relevant in a context</mark></dd>
-			<dt class="Term"><code>b</code></dt>       <dd class="Desc"><b>keyword or technical term</b></dd>
-			<dt class="Term"><code>dfn[id]</code></dt> <dd class="Desc"><dfn id="">definining instance of a term</dfn></dd>
 			<dt class="Term"><code>i[lang]</code></dt> <dd class="Desc"><i lang="en">foreign language</i></dd>
 		</dl>
-		<p class="P">The following relevancies are specific to variable contexts. They are not
-			<code>.Label</code> Objects. Use (or extend) these subclasses on <code>mark</code>
-			Elements to create your own semantics.
-			For example, <code>.Mark.Warn</code> could be used to mark up text relevant to
-			volcanoes, while <code>.Mark.Info</code> could be used to mark up text relevant
+		<dl class="Map Vert Sml">
+		</dl>
+		<p class="P">The following highlights can be specific to different contexts. They are not
+			<code>.Label</code> Objects: they are spans of text that appear highlighted. Use
+			(or extend) these subclasses on any Element
+			(<i lang="la"><abbr title="id est">i.e.</abbr></i>, <code>mark</code> or <code>u</code>)
+			to create your own semantics.
+			For example, <code>mark.Hi.Warn</code> could be used to highlight text relevant to
+			volcanoes, while <code>mark.Hi.Info</code> could be used to highlight text relevant
 			to oceans. The classname need not indicate the context in which the information is relevant.</p>
 		<dl class="Map Vert Sml">
-			<dt class="Term"><code>.Mark.Warn</code></dt> <dd class="Desc"><mark class="Mark Warn">text relevant in another context</mark></dd>
-			<dt class="Term"><code>.Mark.Cshn</code></dt> <dd class="Desc"><mark class="Mark Cshn">text relevant in another context</mark></dd>
-			<dt class="Term"><code>.Mark.Skss</code></dt> <dd class="Desc"><mark class="Mark Skss">text relevant in another context</mark></dd>
-			<dt class="Term"><code>.Mark.Info</code></dt> <dd class="Desc"><mark class="Mark Info">text relevant in another context</mark></dd>
-			<dt class="Term"><code>.Mark.Help</code></dt> <dd class="Desc"><mark class="Mark Help">text relevant in another context</mark></dd>
+			<dt class="Term"><code>.Hi</code></dt>      <dd class="Desc"><span class="Hi">     highlighted text (default style)</span></dd>
+			<dt class="Term"><code>.Hi.Warn</code></dt> <dd class="Desc"><span class="Hi Warn">highlighted text (style 1)</span></dd>
+			<dt class="Term"><code>.Hi.Cshn</code></dt> <dd class="Desc"><span class="Hi Cshn">highlighted text (style 2)</span></dd>
+			<dt class="Term"><code>.Hi.Skss</code></dt> <dd class="Desc"><span class="Hi Skss">highlighted text (style 3)</span></dd>
+			<dt class="Term"><code>.Hi.Info</code></dt> <dd class="Desc"><span class="Hi Info">highlighted text (style 4)</span></dd>
+			<dt class="Term"><code>.Hi.Help</code></dt> <dd class="Desc"><span class="Hi Help">highlighted text (style 5)</span></dd>
 		</dl>
+		<p class="P">To hide a span of text for styling purposes only, instantiate the
+			<code>.Noshow</code> Class. An example would be to hide semantic markup due to a
+			background image taking precidence. The markup needs to be hidden so the background
+			image can be displayed propertly. If CSS were turned off, the markup would need to
+			be present. To hide markup for
+			<abbr class="Acro" title="search engine optimization">SEO</abbr> purposes however,
+			do <em>not</em> use <code>.Noshow</code>; use the HTML <code>hidden=&quot;&quot;</code>
+			attribute instead.</p>
 	</section>
 	<section id="scheme-doc">
 		<h1 class="H Gamma">Documentation Scheme</h1>
 		<dl class="Map Vert Sml first">
+			<dt class="Term"><code>b</code></dt>       <dd class="Desc"><b>keyword or technical term</b></dd>
+			<dt class="Term"><code>dfn[id]</code></dt> <dd class="Desc"><dfn id="">definining instance of a term (special case of <code>b</code>)</dfn></dd>
 			<dt class="Term"><code>q</code></dt>             <dd class="Desc"><q>quoted material</q></dd>
 			<dt class="Term"><code>abbr[title]</code></dt>   <dd class="Desc"><abbr title="">abbreviation</abbr></dd>
 			<dt class="Term"><code>del[datetime]</code></dt> <dd class="Desc"><del datetime="">text deleted from a document</del></dd>
