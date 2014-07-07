@@ -93,10 +93,11 @@ Specs for all TODO lists:
 ### About ###
 - [x] 2014-06-17 compile bio, contact, and links pages into one 'about' page.
 - [x] 2014-06-19 move "My Blogs" and "Copyright" sections, add acknowledgements section (high priority)
-- [ ] 2014-06-19 get picture with Axel (medium priority)
+- [x] 2014-06-19 get picture with Axel (medium priority)
 - [ ] 2014-06-19 contact images into sprites (low priority)
 - [x] 2014-06-22 "Acknowledgements" section: add more detail, give credit to everyone
 - [x] 2014-06-22 Find a page for "Copyright" section
+- [x] 2014-07-06 add `<address>`` element to about page around contact links
 
 ### Resume ###
 - [x] 2014-03-26 remove `!important` from `.res-spacetime {font-size}` and `.res-spacetime {color}`
