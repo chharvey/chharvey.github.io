@@ -69,6 +69,7 @@ Specs for all TODO lists:
 - [x] 2014-04-08 add `[data-status~="normative"]`, `[data-status~="nonnormative"]`,
 	`[data-status~="draft"]`, etc to stylesheets, get rid of class `.draft`, `.nonnormative`, etc.
 - [x] 2014-06-07 write comment documentation for selectors in `/core/styles/typo/_text.less`
+- [ ] 2014-07-07 change font (headings, body, prose, etc.) scheme ? (optional)
 - [ ] 2014-07-07 find a way to do `.vru-top-0` and `.vru-top-1` cleanly
 
 #### boxes ####
