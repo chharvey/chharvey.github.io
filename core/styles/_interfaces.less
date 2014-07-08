@@ -73,84 +73,68 @@
   * Use this Mixin to apply a linear gradient background on an Element.
   * See [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/linear-gradient) for more info.
   * See [WPD](http://docs.webplatform.org/wiki/css/functions/linear-gradient) for more info.
-  *
-  * The number of possibilities for the list of paramaters of the CSS function `linear-gradient()`
-  * is so great that it would be inefficient to designate each parameter. Therefore, functions are
-  * overloaded to handle up to five paramaters.
 @params
-: @param1 : the first paramater
-: @param2 : the second paramater
-: @param3 : the third paramater
-: @param4 : the fourth paramater
-: @param5 : the fifth paramater
+: ... : any number of parameters
 @tags
 : #gradient
 : #vendorspecific
 @author
 : Chris Harvey
 @updated
-: 2014-06-24
+: 2014-07-08
   */
-.gradient(@param1) {
-	background-image: -webkit-linear-gradient(@param1);
-	background-image:    -moz-linear-gradient(@param1);
-	background-image:      -o-linear-gradient(@param1);
-	background-image:         linear-gradient(@param1);
-}
-.gradient(@param1; @param2) {
-	background-image: -webkit-linear-gradient(@param1, @param2);
-	background-image:    -moz-linear-gradient(@param1, @param2);
-	background-image:      -o-linear-gradient(@param1, @param2);
-	background-image:         linear-gradient(@param1, @param2);
-}
-.gradient(@param1; @param2; @param3) {
-	background-image: -webkit-linear-gradient(@param1, @param2, @param3);
-	background-image:    -moz-linear-gradient(@param1, @param2, @param3);
-	background-image:      -o-linear-gradient(@param1, @param2, @param3);
-	background-image:         linear-gradient(@param1, @param2, @param3);
-}
-.gradient(@param1; @param2; @param3; @param4) {
-	background-image: -webkit-linear-gradient(@param1, @param2, @param3, @param4);
-	background-image:    -moz-linear-gradient(@param1, @param2, @param3, @param4);
-	background-image:      -o-linear-gradient(@param1, @param2, @param3, @param4);
-	background-image:         linear-gradient(@param1, @param2, @param3, @param4);
-}
-.gradient(@param1; @param2; @param3; @param4; @param5) {
-	background-image: -webkit-linear-gradient(@param1, @param2, @param3, @param4, @param5);
-	background-image:    -moz-linear-gradient(@param1, @param2, @param3, @param4, @param5);
-	background-image:      -o-linear-gradient(@param1, @param2, @param3, @param4, @param5);
-	background-image:         linear-gradient(@param1, @param2, @param3, @param4, @param5);
+.gradient(...) {
+	background-image: -webkit-linear-gradient(@arguments);
+	background-image:    -moz-linear-gradient(@arguments);
+	background-image:      -o-linear-gradient(@arguments);
+	background-image:         linear-gradient(@arguments);
 }
 //---------------//
 /*@Abstract Boxes*/
 //---------------//
 /**
-  * This Mixin creates an abstract inline structure, boxed with a border.
+  * These Mixins create abstract inline structures, boxed with a solid border.
+  * `.box-inline(@brdrw; @brdrc; @brdrr)` is an extension of `.box-inline(@brdrw; @brdrr)`
+  * 	(it's not the case that `.box-inline(@brdrw; @brdrr)` is a restriction of
+  * 	`.box-inline(@brdrw; @brdrc; @brdrr)`) because the border color, if not specified,
+  * 	should not be a preset color; rather, it should be the value of the `color` property.
 @params
-: @border_radius : the value of `border-radius` property
-@implements
-: .cellpaddingdefault
-@mixesin
+: @brdrw : the value of `border-width` property (if not specified, default to 1px)
+: @brdrc : the value of `border-color` property (if not specified, default to value of `color` property)
+: @brdrr : the value of `border-radius` property
 @tags
 : #box
 : #verticalrhythm
 @author
 : Chris Harvey
 @updated
-: 2014-05-25
+: 2014-07-07
   */
-.box-inline(@border_radius) {
+.box-inline(@brdrw; @brdrr) {
 	display: inline;
 	padding: 1px 2px; // why these numbers?
-	border-width: 1px;
+	border-width: @brdrw;
 	border-style: solid;
-	border-radius: @border_radius;
+	border-radius: @brdrr;
 	white-space: nowrap;
+}
+.box-inline(@brdrw; @brdrc; @brdrr) {
+	.box-inline(@brdrw; @brdrr);
+	border-color: @brdrc;
+}
+.box-inline(@brdrr) {
+	.box-inline(1px; @brdrr);
 }
 /**
   * This Mixin creates an abstract block structure, boxed with a border.
+  * `.box-block(@brdrw; @brdrc; @brdrr)` is an extension of `.box-block(@brdrw; @brdrr)`
+  * 	(it's not the case that `.box-block(@brdrw; @brdrr)` is a restriction of
+  * 	`.box-block(@brdrw; @brdrc; @brdrr)`) because the border color, if not specified,
+  * 	should not be a preset color; rather, it should be the value of the `color` property.
 @params
-: @border_radius : the value of `border-radius` property
+: @brdrw : the value of `border-width` property (if not specified, default to 1px)
+: @brdrc : the value of `border-color` property (if not specified, default to value of `color` property)
+: @brdrr : the value of `border-radius` property
 @implements
 : .cellpaddingdefault
 : .vru-content
@@ -162,13 +146,20 @@
 @author
 : Chris Harvey
 @updated
-: 2014-05-25
+: 2014-07-07
   */
-.box-block(@border_radius) {
+.box-block(@brdrw; @brdrr) {
 	&:extend(.cellpaddingdefault);
 	&:extend(.vru-content);
-	.border-vert-both(all; 1px; solid);
-	border-radius: @border_radius;
+	.border-vert-both(all; @brdrw; solid);
+	border-radius: @brdrr;
+}
+.box-block(@brdrw; @brdrc; @brdrr) {
+	.box-block(@brdrw; @brdrr);
+	border-color: @brdrc;
+}
+.box-block(@brdrr) {
+	.box-block(1px; @brdrr);
 }
 //---- @end Abstract Boxes ----//
 //++++ @end MIXINS ++++//

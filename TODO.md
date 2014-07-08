@@ -71,6 +71,8 @@ Specs for all TODO lists:
 - [x] 2014-06-07 write comment documentation for selectors in `/core/styles/typo/_text.less`
 - [ ] 2014-07-07 change font (headings, body, prose, etc.) scheme ? (optional)
 - [ ] 2014-07-07 find a way to do `.vru-top-0` and `.vru-top-1` cleanly
+- [ ] 2014-07-08 remove units from `0px` and `0rem` on `.H.Epsilon` and `.H.Zeta` in `_headings.less`
+
 
 #### boxes ####
 - [x] 2013-08-18 code scheme
@@ -78,6 +80,8 @@ Specs for all TODO lists:
 - [x] 2014-03-01 use `<small>` for labels&mdash;they really are disclamers/caveats/etc.
 - [x] 2014-06-19 split messages (`.Msg`) from tags (`.Tag`)
 - [x] 2014-06-23 background gradients for buttons and labels
+- [ ] 2014-07-08 remove `margin-bottom:` from `.Button` Objects because margin doesn't go
+	with `display: inline`
 
 ### scripts ###
 - [ ] 2013-12-14 investigate the use of templates (`<template>`)

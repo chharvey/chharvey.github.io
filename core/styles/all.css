@@ -102,7 +102,8 @@ dfn,
 abbr,
 small,
 sup,
-sub {
+sub,
+button {
   display: inline;
 }
 hr {
@@ -139,7 +140,8 @@ dd,
 table,
 th,
 td,
-pre {
+pre,
+button {
   padding: 0;
   border: 0;
   outline: 0;
@@ -208,17 +210,22 @@ h5,
 h6,
 small,
 sup,
-sub {
+sub,
+button {
   font-size: inherit;
 }
 pre,
 code,
 kbd,
-samp {
+samp,
+button {
   font-family: inherit;
 }
 caption {
   text-align: inherit;
+}
+button {
+  line-height: inherit;
 }
 sup,
 sub {
@@ -236,17 +243,8 @@ a {
 a {
   color: inherit;
 }
-mark {
-  background-color: transparent;
-}
+mark,
 button {
-  display: inline;
-  padding: 0;
-  border: 0;
-  margin: 0;
-  font-size: inherit;
-  font-family: inherit;
-  line-height: inherit;
   background-color: transparent;
 }
 /*--------------------*\
@@ -284,44 +282,45 @@ button {
   * Use this Mixin to apply a linear gradient background on an Element.
   * See [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/linear-gradient) for more info.
   * See [WPD](http://docs.webplatform.org/wiki/css/functions/linear-gradient) for more info.
-  *
-  * The number of possibilities for the list of paramaters of the CSS function `linear-gradient()`
-  * is so great that it would be inefficient to designate each parameter. Therefore, functions are
-  * overloaded to handle up to five paramaters.
 @params
-: @param1 : the first paramater
-: @param2 : the second paramater
-: @param3 : the third paramater
-: @param4 : the fourth paramater
-: @param5 : the fifth paramater
+: ... : any number of parameters
 @tags
 : #gradient
 : #vendorspecific
 @author
 : Chris Harvey
 @updated
-: 2014-06-24
+: 2014-07-08
   */
 /*@Abstract Boxes*/
 /**
-  * This Mixin creates an abstract inline structure, boxed with a border.
+  * These Mixins create abstract inline structures, boxed with a solid border.
+  * `.box-inline(@brdrw; @brdrc; @brdrr)` is an extension of `.box-inline(@brdrw; @brdrr)`
+  * 	(it's not the case that `.box-inline(@brdrw; @brdrr)` is a restriction of
+  * 	`.box-inline(@brdrw; @brdrc; @brdrr)`) because the border color, if not specified,
+  * 	should not be a preset color; rather, it should be the value of the `color` property.
 @params
-: @border_radius : the value of `border-radius` property
-@implements
-: .cellpaddingdefault
-@mixesin
+: @brdrw : the value of `border-width` property (if not specified, default to 1px)
+: @brdrc : the value of `border-color` property (if not specified, default to value of `color` property)
+: @brdrr : the value of `border-radius` property
 @tags
 : #box
 : #verticalrhythm
 @author
 : Chris Harvey
 @updated
-: 2014-05-25
+: 2014-07-07
   */
 /**
   * This Mixin creates an abstract block structure, boxed with a border.
+  * `.box-block(@brdrw; @brdrc; @brdrr)` is an extension of `.box-block(@brdrw; @brdrr)`
+  * 	(it's not the case that `.box-block(@brdrw; @brdrr)` is a restriction of
+  * 	`.box-block(@brdrw; @brdrc; @brdrr)`) because the border color, if not specified,
+  * 	should not be a preset color; rather, it should be the value of the `color` property.
 @params
-: @border_radius : the value of `border-radius` property
+: @brdrw : the value of `border-width` property (if not specified, default to 1px)
+: @brdrc : the value of `border-color` property (if not specified, default to value of `color` property)
+: @brdrr : the value of `border-radius` property
 @implements
 : .cellpaddingdefault
 : .vru-content
@@ -333,7 +332,7 @@ button {
 @author
 : Chris Harvey
 @updated
-: 2014-05-25
+: 2014-07-07
   */
 /*@INTERFACES*/
 /**
@@ -1040,21 +1039,6 @@ main {
   background-size: 20% 24px;
   background-repeat: repeat;
 }
-@media print {
-  body {
-    font-size: 16px;
-    font-size: 1rem;
-    line-height: 1.5;
-    color: #000;
-    background-color: #fff;
-    background-image: none;
-  }
-  main {
-    width: auto;
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
 /*------------------*\
     _headings.less
 \*------------------*/
@@ -1093,6 +1077,7 @@ main {
   font-size: 80%;
   font-size: 61.80339887%;
   font-weight: normal;
+  color: #704500;
   color: rgba(14, 9, 0, 0.61803399);
 }
 /**
@@ -1142,6 +1127,7 @@ main {
   color: #120099;
 }
 .H.Alpha > .Hsub {
+  color: #120099;
   color: rgba(18, 0, 153, 0.61803399);
 }
 .H.Beta {
@@ -1164,6 +1150,7 @@ main {
   color: #3d6166;
 }
 .H.Beta > .Hsub {
+  color: #3d6166;
   color: rgba(61, 97, 102, 0.61803399);
 }
 .H.Gamma {
@@ -1192,24 +1179,21 @@ main {
   font-size: 18px;
   font-size: 1.125rem;
   line-height: 1.33333333;
-  margin-top: 0px;
-  margin-top: 0rem;
-  padding-bottom: 0px;
-  padding-bottom: 0rem;
+  margin-top: 0;
+  padding-bottom: 0;
   font-style: italic;
   color: #3d6166;
 }
 .H.Epsilon > .Hsub {
+  color: #3d6166;
   color: rgba(61, 97, 102, 0.61803399);
 }
 .H.Zeta {
   font-size: 16px;
   font-size: 1rem;
   line-height: 1.5;
-  margin-top: 0px;
-  margin-top: 0rem;
-  padding-bottom: 0px;
-  padding-bottom: 0rem;
+  margin-top: 0;
+  padding-bottom: 0;
   font-style: italic;
   font-variant: small-caps;
 }
@@ -1245,13 +1229,6 @@ main {
   font-size: 6rem;
   line-height: 0.25;
   font-family: 'Snell Roundhand', 'Zapfino', script;
-}
-@media print {
-  .H {
-    font-size: 16px;
-    font-size: 1rem;
-    line-height: 1.5;
-  }
 }
 /*--------------------*\
     _paragraphs.less
@@ -1603,25 +1580,6 @@ main {
 @updated
 : 2014-06-26
   */
-@media print {
-  .Fig,
-  .Addy,
-  .Qblock {
-    font-size: 16px;
-    font-size: 1rem;
-    line-height: 1.5;
-    border-left-width: 0;
-    border-left-style: solid;
-    padding-left: 0;
-    margin-left: 0;
-    border-left-color: #000000;
-    border-right-width: 0;
-    border-right-style: solid;
-    padding-right: 0;
-    margin-right: 0;
-    border-right-color: #000000;
-  }
-}
 /*---------------*\
     _lists.less
 \*---------------*/
@@ -2172,13 +2130,6 @@ table {
 table tr {
   counter-increment: nrows;
 }
-@media print {
-  .Table {
-    font-size: 16px;
-    font-size: 1rem;
-    line-height: 1.5;
-  }
-}
 /*---------------*\
     _links.less
 \*---------------*/
@@ -2206,7 +2157,7 @@ table tr {
 .Link:active {
   color: #cc004e;
 }
-.Link[rel~="external"] {
+a[rel~="external"] {
   font-style: italic;
 }
 /**
@@ -2269,13 +2220,12 @@ table tr {
 .Button {
   display: inline;
   padding: 1px 2px;
-  border-width: 1px;
+  border-width: 2px;
   border-style: solid;
   border-radius: 6px;
   white-space: nowrap;
-  border-width: 2px;
-  border-style: outset;
   border-color: #0062ff;
+  border-style: outset;
   margin-bottom: -4px;
   font-family: 'Century Gothic', 'Gill Sans', 'Avenir', sans-serif;
   color: #0062ff;
@@ -2403,16 +2353,13 @@ code {
 : 2014-05-25
   */
 .Codeblock {
-  top: -1px;
-  margin-bottom: -2px;
-  border-width: 1px;
-  border-radius: 3px;
   display: block;
   position: relative;
   top: -2px;
   margin-bottom: -4px;
   border-width: 2px;
   border-style: solid;
+  border-radius: 3px;
   font-family: 'Menlo', 'Lucida Sans Typewriter', 'Monaco', monospace;
   white-space: pre-wrap;
 }
@@ -2565,7 +2512,6 @@ code {
 : 2014-05-31
   */
 .Codeblock.CSS.I .Sel {
-  display: inline;
   float: left;
   clear: both;
 }
@@ -2623,12 +2569,6 @@ code {
   overflow: auto;
   font-family: 'Times', 'Times New Roman', serif;
   white-space: pre-wrap;
-}
-@media print {
-  code {
-    color: #000;
-    background-color: #fff;
-  }
 }
 /*--------------*\
     _text.less
@@ -3173,7 +3113,7 @@ sub {
   border-radius: 15px;
   white-space: normal;
 }
-.Crumb[rel~="this"] {
+.Bc a[rel~="this"] {
   font-weight: bold;
 }
 @media print {
@@ -3210,4 +3150,46 @@ sub {
   display: list-item;
   list-style-type: decimal;
   list-style-position: outside;
+}
+@media print {
+  body,
+  .H,
+  .Fig,
+  .Addy,
+  .Qblock,
+  .Table {
+    font-size: 16px;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+  body,
+  code {
+    color: #000;
+  }
+  body,
+  code {
+    background-color: #fff;
+  }
+  body {
+    background-image: none;
+  }
+  main {
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .Fig,
+  .Addy,
+  .Qblock {
+    border-left-width: 0;
+    border-left-style: solid;
+    padding-left: 0;
+    margin-left: 0;
+    border-left-color: #000000;
+    border-right-width: 0;
+    border-right-style: solid;
+    padding-right: 0;
+    margin-right: 0;
+    border-right-color: #000000;
+  }
 }
