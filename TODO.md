@@ -28,7 +28,6 @@ Specs for all TODO lists:
 	- **formal** documents such as articles or blog posts (maybe in `/blog/`?)
 - [ ] 2014-06-26 consistent time stamps and document/post metadata
 - [ ] 2014-06-26 use `i[lang]>abbr` for all instances of "etc", "i.e." and "e.g." on **formal** pages
-- [ ] 2014-06-26 add `geo` custom-elements to locations in `resume.html`
 
 #### links ####
 - [ ] 2014-03-27 `<a>` links should contain more textual content for SEO. the `title` attribute may
@@ -102,6 +101,7 @@ Specs for all TODO lists:
 - [x] 2014-03-26 add web-dev exp
 - [ ] 2014-04-07 find a way to use JS to add `.res-footer`s (pagecount, etc.)
 - [x] 2014-04-08 fix `list-style-type: none;` in definition of `.res-tech-apps {}`
+- [ ] 2014-06-26 add `geo` custom-elements to locations in `resume.html`
 
 ### Folio ###
 

@@ -85,89 +85,8 @@
 		<p class="P">Each <code>a</code> Element on a page&rsquo;s breadcrumbs list must have
 			exactly 1 <code>rel</code> attribute, whose value must be at least 1 of the following
 			(space-separated) tokens.</p>
-		<dl class="Map">
-			<dt class="Term"><code>rel=&quot;top&quot;</code></dt>
-			<dd class="Desc">if the link corresponds to the root of the &ldquo;semantic tree,&rdquo;
-				that is, the common <a class="Link" href="#d-logical-ancestor">logical ancestor</a>
-				of all pages in the site (this value implies <code>rel=&quot;ancestor&quot;</code>)</dd>
-			<dt class="Term"><code>rel=&quot;ancestor&quot;</code></dt>
-			<dd class="Desc">if the link corresponds to a
-				<em>non-<a class="Link" href="#d-logical-parent">parent</a></em>
-				<a class="Link" href="#d-logical-ancestor">logical ancestor</a> of the page</dd>
-			<dt class="Term"><code>rel=&quot;parent&quot;</code></dt>
-			<dd class="Desc">if the link corresponds to the unique
-				<a class="Link" href="#d-logical-parent">logical parent</a> of the page (this
-				value implies <code>rel=&quot;ancestor&quot;</code>)</dd>
-			<dt class="Term"><code>rel=&quot;sibling&quot;</code></dt>
-			<dd class="Desc">if the link corresponds to a
-				<a class="Link" href="#d-logical-sibling">logical sibling</a> to a page but is
-				<em>not</em> that page</dd>
-			<dt class="Term"><code>rel=&quot;this&quot;</code></dt>
-			<dd class="Desc">if the link corresponds to the same page (this value implies
-				<code>rel=&quot;sibling&quot;</code>)</dd>
-			<dt class="Term"><code>rel=&quot;child&quot;</code></dt>
-			<dd class="Desc">if the link corresponds to a <a class="Link" href="#d-logical-child">logical child</a> of the page</dd>
-		</dl>
-		<p class="P">Hyperlinks (<code>a</code> Elements) on a page, including links in the
-			breadcrumbs list, whose <code>href</code> attribute value begins with <code>#</code>,
-			are links to the same document. If there is no <code>rel</code> attribute, or if the
-			<code>rel</code> attribute exists but does not have a corresponding value, the said link
-			implies <code>rel=&quot;this&quot;</code>.</p>
-		<p class="P">The value of the <code>rel</code> attribute may also contain other tokens
-			as well. In the case of conflicting tokens (e.g., <code>parent</code> and
-			<code>child</code>), the latter must be considered and the former must be disregarded.</p>
 		<aside style="background-color: #eee;">
 			<h1 class="H Delta">Page Relationships</h1>
-			<p class="P">For simplicity, we will use the examples <code class="Dir">page-a.html</code>
-				and <code class="Dir">page-b.html</code> in this section for an illustration. We
-				will use <var>A</var> to refer to <code class="Dir">page-a.html</code>, and
-				<var>B</var> to refer to <code class="Dir">page-b.html</code>.</p>
-			<p class="P">A <dfn id="d-logical-relative">logical relative</dfn> to a page <var>A</var>,
-				is another page <var>B</var> that is related in content to <var>A</var>. The logical
-				relation between <var>A</var> and <var>B</var> has nothing to do with their locations
-				in the file directory, but rather a &ldquo;semantic filetree&rdquo; that describes
-				how the pages are related.</p>
-			<p class="P">Page <var>B</var> can be logically related to page <var>A</var> in different ways:</p>
-			<ol class="List O">
-				<li class="Item"><var>B</var> may be a <dfn id="d-logical-child">logical child</dfn>
-					of <var>A</var>, indicating that the content of <var>B</var> is a subset or
-					tangential extension of the content of <var>A</var>.</li>
-				<li class="Item"><var>B</var> may be a <dfn id="d-logical-sibling">logical sibling</dfn>
-					of <var>A</var>, only if <var>A</var> and <var>B</var> are both
-					<a class="Link" href="#d-logical-child">children</a> of the same page. This
-					implication is unidirectional. That is, if <var>A</var> and <var>B</var> are
-					children of the same parent <var>C</var>, they may not be logical siblings:
-					they may be in separate groups of children of <var>C</var>. In that case,
-					<var>A</var> and <var>B</var> can be thought of as &ldquo;step-siblings.&rdquo;</li>
-				<li class="Item"><var>B</var> may be <em>the unique</em>
-					<dfn id="d-logical-parent">logical parent</dfn> of <var>A</var>, in other words,
-					<var>A</var> is a <a class="Link" href="#d-logical-child">child</a> of <var>B</var>.</li>
-			</ol>
-			<p class="P">There are also &ldquo;extended relationships&rdquo; between pages:</p>
-			<ol class="List O">
-				<li class="Item"><var>B</var> may be a <dfn id="d-logical-descendant">logical descendant</dfn>
-					of <var>A</var>, which means exactly 1 of the following is true:
-					<ul class="List U">
-						<li class="Item">either <var>B</var> is a <a class="Link"
-							href="#d-logical-child">child</a> of <var>A</var> (in which case we say
-							<var>B</var> is a &ldquo;direct descendant&rdquo; of <var>A</var>),</li>
-						<li class="Item">or <var>B</var> is a child of a <a class="Link"
-							href="#d-logical-descendant">descendant</a> of <var>A</var>.
-							(This term is recursively defined.)</li>
-					</ul>
-				</li>
-				<li class="Item"><var>B</var> may be a <dfn id="d-logical-ancestor">logical ancestor</dfn>
-					of <var>A</var>, meaning exactly 1 is true:
-					<ul class="List U">
-						<li class="Item">either <var>B</var> is the unique <a class="Link"
-							href="#d-logical-parent">parent</a> of <var>A</var> (we say <var>B</var>
-							is the &ldquo;direct ancestor&rdquo; of <var>A</var>),</li>
-						<li class="Item">or <var>B</var> is the unique parent of an <a class="Link"
-							href="#d-logical-ancestor">ancestor</a> of <var>A</var>.
-							(This term is recursively defined.)</li>
-					</ul>
-				</li>
-			</ol>
 			<table class="Table">
 				<thead class="Rowgroup Head">
 					<tr class="Row">
@@ -244,8 +163,6 @@
 					</tr>
 				</tbody>
 			</table>
-			<p class="P">In addition to hierarchical relationships, there are other
-				<code>rel</code> attribute values that this specification uses to denote page relationships.</p>
 		</aside>
 	</section>
 </section>
