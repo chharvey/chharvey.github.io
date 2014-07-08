@@ -17,43 +17,13 @@
 @vru_px:  (@fontsize_base * @lineheight_base); // 16px * 1.5 = 24px
 @vru_rem: (1rem           * @lineheight_base); // 1rem * 1.5 = 1.5rem
 
-@fontsize_ratio_alpha:   (48/16); // 3.0000rem
-@fontsize_ratio_beta:    (35/16); // 2.1875rem
-@fontsize_ratio_gamma:   (26/16); // 1.6250rem
-@fontsize_ratio_delta:   (21/16); // 1.3125rem
-@fontsize_ratio_epsilon: (18/16); // 1.1250rem
-@fontsize_ratio_zeta:    (16/16); // 1.0000rem
-
-@fontsize_ratio_hexa:    (96/16); // 6.0000rem
-@fontsize_ratio_tetra:   (64/16); // 4.0000rem
-@fontsize_ratio_phi:     (@phi1); // 0.618033988749894848rem
-@fontsize_ratio_hemi:    (08/16); // 0.5000rem
-
 /**
   * These Mixins multiply `font-size` by `@ratio` and adjusts `line-height` such that
   * `font-size` * `line-height` = one vertical rhythm unit.
   * The `.fontsize-scale-double()` Mixin adjusts `line-height` such that
-  * `font-size` * `line-height` = two vertical rhythm units
+  * `font-size` * `line-height` = two vertical rhythm units.
 @params
-: @ratio : the ratio of the new font size to `fontsize_base`
-@tags
-: #verticalrhythm
-: #fontsize
-@author
-: Chris Harvey
-@updated
-: 2014-04-26
-  */
-.fontsize-scale(@ratio) {
-	font-size: (@fontsize_base * @ratio); // in px // fallback
-	font-size: (1rem           * @ratio); // in rem
-	line-height: (@lineheight_base / @ratio);
-}
-/**
-  * Same as `.fontsize-scale()` Mixins except adjusts `line-height` such that
-  * 	`font-size` * `line-height` = two vertical rhythm units.
-@params
-: @ratio : the ratio of the new font size to `fontsize_base`
+: @ratio : the ratio of the new font size to `@fontsize_base`
 @tags
 : #verticalrhythm
 : #fontsize
@@ -62,6 +32,11 @@
 @updated
 : 2014-05-03
   */
+.fontsize-scale(@ratio) {
+	font-size: (@fontsize_base * @ratio); // in px // fallback
+	font-size: (1rem           * @ratio); // in rem
+	line-height: (@lineheight_base / @ratio);
+}
 .fontsize-scale-double(@ratio) {
 	.fontsize-scale(@ratio);
 	line-height: (2 * (@lineheight_base / @ratio));
@@ -193,12 +168,31 @@
 //+++++++++++++++++//
 /*@VERTICAL BORDERS*/
 //+++++++++++++++++//
-//
+// Below are helper mixins only (private). Do not mix these into other Objects or Interfaces.
+#_ {
+	.border-vert(@width) {
+		display: block;
+		position: relative;
+		top: (-1 * @width);
+	}
+	.border-vert-one(@width) {
+		.border-vert(@width);
+		margin-bottom: (-1 * @width);
+	}
+	.border-vert-both(@width) {
+		.border-vert(@width);
+		margin-bottom: (-2 * @width);
+	}
+}
 /**
   * The following Mixins adjust borders for **BLOCK** Objects only! They will keep the
   * vertical rhythm intact when adding borders (by slightly adjusting position and margins).
   * Do *not* use these mixins on INLINE Objects!
   * Note: Methods with same # of params cannot be overloaded; thus mixin names have modifiers.
+  * Use the `.border-vert-one(@side; ...)`   set of Mixins to adjust either the top or bottom border.
+  * Use the `.border-vert-both(topbot; ...)` set of Mixins to adjust both the top and bottom borders.
+  * Use the `.border-vert-both(all; ...)`    set of Mixins to adjust all four borders.
+  * Use the `.border-vert-clear()` Mixin to negate all the effects of the above Mixins.
 @params
 : @width: the width of the top or bottom border
 : @side:  either `top` or `bottom`
@@ -210,20 +204,10 @@
 @author
 : Chris Harvey
 @updated
-: 2014-04-26
+: 2014-06-26
   */
-.border-vert(@width) {
-	display: block;
-	position: relative;
-	top: (-1 * @width);
-}
-/** Adjust only the top or bottom border. */
-.border-vert-one(@width) {
-	.border-vert(@width);
-	margin-bottom: (-1 * @width);
-}
 .border-vert-one(@side; @width) {
-	.border-vert-one(@width);
+	#_ .border-vert-one(@width);
 	border-@{side}-width: @width;
 }
 .border-vert-one(@side; @width; @style) {
@@ -234,13 +218,9 @@
 	.border-vert-one(@side; @width; @style);
 	border-color: @color;
 }
-/** Adjust both the top and bottom borders. */
-.border-vert-both(@width) {
-	.border-vert(@width);
-	margin-bottom: (-2 * @width);
-}
+
 .border-vert-both(topbot; @width) {
-	.border-vert-both(@width);
+	#_ .border-vert-both(@width);
 	border-width: @width;
 	border-left: 0;
 	border-right: 0;
@@ -253,9 +233,9 @@
 	.border-vert-both(topbot; @width; @style);
 	border-color: @color;
 }
-/** Adjust all four borders. */
+
 .border-vert-both(all; @width) {
-	.border-vert-both(@width);
+	#_ .border-vert-both(@width);
 	border-width: @width;
 }
 .border-vert-both(all; @width; @style) {
@@ -266,4 +246,11 @@
 	.border-vert-both(all; @width; @style);
 	border-color: @color;
 }
+
+// .border-vert-clear() {
+// 	display: block;
+// 	position: static;
+// 	top: auto;
+// 	border: 0;
+// }
 //++++ @end VERTICAL BORDERS ++++//

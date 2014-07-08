@@ -1,15 +1,15 @@
 .Cell,
-.Code.Block,
-.Msg,
+.Codeblock,
+.Label.Msg,
 #color-schemes .Gcol {
   padding: 12px 7.41640786px;
   padding: 0.75rem 7.41640786px;
 }
 .Map.Vert::after,
 .CSS .Ruleset::after {
+  display: table;
   content: ' ';
   clear: both;
-  display: table;
 }
 .parens::before,
 .quotes-double::before,
@@ -44,7 +44,8 @@ q {
 .w-f4o4,
 .w-f5o5,
 .w-f6o6,
-.center-ful {
+.center-ful,
+.normal-main {
   width: 100%;
 }
 .center-sml {
@@ -64,6 +65,10 @@ q {
 .center-lrg {
   width: 75%;
 }
+.List.I.Iconlist {
+  margin-left: auto;
+  margin-right: auto;
+}
 .fontsize-lrg-inline,
 .Qblock {
   font-size: 20px;
@@ -80,32 +85,32 @@ q {
 .fontsize-sml-inline,
 .Capt,
 .Qblock .Src,
+.Fineprint,
 .Table,
-.Code.Block,
-.Msg,
-.Code,
+.Codeblock,
+.Label,
+.Button,
+code,
 .Dir,
 .Key,
 sup,
-sub,
-.Button,
-code {
+sub {
   font-size: 12px;
   font-size: 0.75rem;
   line-height: 2;
 }
 .fontsize-lrg-inline,
 .fontsize-sml-inline,
-.Code,
+.Button,
+code,
 .Dir,
 .Key,
 sup,
-sub,
-.Button,
-code {
+sub {
   display: inline;
   line-height: inherit;
 }
+.H,
 .P,
 .Capt,
 .Addy,
@@ -116,26 +121,29 @@ code {
 .Map > .Term,
 .Map > .Desc,
 .Cell,
-.Code.Block,
-.Msg {
+.Codeblock,
+.Label.Msg,
+.Label.Tag {
   min-height: 24px;
   min-height: 1.5rem;
 }
-.Fig > :first-child,
-.Qblock > :first-child,
+.vru-top-1.first,
+.P.Intro,
 .List > .Item > .List,
-.Map > .Term > .Map,
-.Map > .Desc > .Map,
-.Bc > .Anc,
-.Bc > .Sib,
-.Bc > .Child {
+.P.first,
+.List.first,
+.Map.first,
+.Codeblock.first,
+.Label.Msg.first {
   margin-top: 0;
 }
 .P,
 .Qblock.Long .Src,
 .List,
 .Map,
-.Table {
+.Table,
+.Codeblock,
+.Label.Msg {
   margin-top: 24px;
   margin-top: 1.5rem;
 }
@@ -150,44 +158,42 @@ code {
 .Fig,
 .Qblock {
   padding-top: 9.16718427px;
-  border-top: 0 solid #000000;
   margin-top: 14.83281573px;
+  border-top-width: 0;
+  border-top-style: solid;
+  border-top-color: #000000;
+}
+.Qblock {
+  background-image: url('http://chharvey.github.io/core/images/crossgrid-lined_1x24.svg');
+  background-size: 1px 24px;
+  background-repeat: repeat;
+  background-position: left bottom;
+  background-position-y: bottom;
 }
 .List > .Item > .List,
 .List.O,
 .List.U {
   padding-left: 48px;
 }
-.Code,
-.Code.Block.CSS.Invert,
-code {
+code,
+.Codeblock.CSS.Invert {
   border-color: #eee8d5;
   color: #657b83;
   background-color: #fdf6e3;
 }
-.Code .Comm,
-.Code.Block.CSS.Invert .Comm,
-code .Comm {
+code .Comm,
+.Codeblock.CSS.Invert .Comm {
   color: #93a1a1;
 }
-.Code.Block,
+.Codeblock,
 .Key {
   border-color: #073642;
   color: #839496;
   background-color: #002b36;
 }
-.Code.Block .Comm,
+.Codeblock .Comm,
 .Key .Comm {
   color: #586e75;
-}
-code {
-  display: inline;
-  padding: 1px 2px;
-  border-width: 1px;
-  border-style: solid;
-  border-radius: 3px;
-  font-family: 'Menlo', 'Lucida Sans Typewriter', 'Monaco', monospace;
-  white-space: nowrap;
 }
 /*---------------*\
     colors.less
@@ -200,6 +206,8 @@ body {
 tbody .val-lite,
 tbody .val-medi,
 tbody .val-dark,
+#h-sub-maj,
+#h-sub-min,
 #body-txt,
 #h-maj,
 #h-min,
@@ -2685,10 +2693,16 @@ th.val-dark::after {
   background-color: #0e0900;
 }
 #h-maj {
-  background-color: #1800cc;
+  background-color: #120099;
 }
 #h-min {
-  background-color: #2d1f99;
+  background-color: #3d6166;
+}
+#h-sub-maj {
+  background-color: rgba(18, 0, 153, 0.61803399);
+}
+#h-sub-min {
+  background-color: rgba(61, 97, 102, 0.61803399);
 }
 #link-up {
   background-color: #0062ff;
@@ -2750,48 +2764,48 @@ th.val-dark::after {
 #solarized_green {
   background-color: #859900;
 }
-#color_msg_warn_brdr {
+#color_lbl_warn_brdr {
   background-color: #ff0000;
 }
-#color_msg_cshn_brdr {
+#color_lbl_cshn_brdr {
   background-color: #ccff00;
 }
-#color_msg_skss_brdr {
+#color_lbl_skss_brdr {
   background-color: #00ff66;
 }
-#color_msg_info_brdr {
+#color_lbl_info_brdr {
   background-color: #0066ff;
 }
-#color_msg_help_brdr {
+#color_lbl_help_brdr {
   background-color: #cc00ff;
 }
-#color_msg_warn_txt {
+#color_lbl_warn_txt {
   background-color: #610000;
 }
-#color_msg_cshn_txt {
+#color_lbl_cshn_txt {
   background-color: #4e6100;
 }
-#color_msg_skss_txt {
+#color_lbl_skss_txt {
   background-color: #006127;
 }
-#color_msg_info_txt {
+#color_lbl_info_txt {
   background-color: #002761;
 }
-#color_msg_help_txt {
+#color_lbl_help_txt {
   background-color: #4e0061;
 }
-#color_msg_warn_bg {
+#color_lbl_warn_bg {
   background-color: #ff9e9e;
 }
-#color_msg_cshn_bg {
+#color_lbl_cshn_bg {
   background-color: #ecff9e;
 }
-#color_msg_skss_bg {
+#color_lbl_skss_bg {
   background-color: #9effc5;
 }
-#color_msg_info_bg {
+#color_lbl_info_bg {
   background-color: #9ec5ff;
 }
-#color_msg_help_bg {
+#color_lbl_help_bg {
   background-color: #ec9eff;
 }

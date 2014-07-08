@@ -3,6 +3,14 @@
 /*--------------------*\
     _paragraphs.less
 \*--------------------*/
+
+
+// Table of Contents
+// - PARAGRAPHS
+// - QUASI-PARAGRAPHS
+// - SECTIONS
+
+
 /**
   * These Mixins set the padding, border, and margin on the left or right side of an Object,
   * such that the border:padding ratio and the (border+padding):margin ratio are Golden.
@@ -35,6 +43,10 @@
 // .spacing-phi-left  {.spacing-phi(left);}
 // .spacing-phi-right {.spacing-phi(right);}
 
+
+//+++++++++++//
+/*@PARAGRAPHS*/
+//+++++++++++//
 /**
   * This Object represents a generic paragraph in a section, article, or document. A paragraph
   * Object is a small grouping of textual ideas. In the written media, paragraphs can span
@@ -52,7 +64,7 @@
   */
 .P {
 	&:extend(.vru-content);
-	&:extend(.vru-top-1);
+	&:extend(.vru-top-1 all);
 	display: block;
 }
 /**
@@ -69,8 +81,9 @@
 : 2014-05-29
   */
 .Lede {
-	font-weight: bold;
 	padding-right: @spacer;
+	font-weight: bold;
+	font-family: @fontfam_intro;
 }
 /**
   * This Object represents an introduction paragraph, typically referred to as a "standfirst"
@@ -79,6 +92,7 @@
 @extends
 : .P
 @implements
+: .vru-top-0
 : .vru-bottom-1
 @tags
 : #typography
@@ -86,12 +100,13 @@
 @author
 : Chris Harvey
 @updated
-: 2014-05-29
+: 2014-06-26
   */
 .P.Intro {
+	&:extend(.vru-top-0);
 	&:extend(.vru-bottom-1);
 	font-weight: bold;
-	font-family: @fontfam_heading;
+	font-family: @fontfam_intro;
 	text-align: justify;
 }
 /**
@@ -120,6 +135,8 @@
 		color: @color_h_major;
 	}
 }
+//++++ @end PARAGRAPHS ++++//
+
 
 //+++++++++++++++++//
 /*@QUASI-PARAGRAPHS*/
@@ -331,6 +348,10 @@
 .Qblock {border-color: @color_brdr;}
 //++++ @end QUASI-PARAGRAPHS ++++//
 
+
+//+++++++++//
+/*@SECTIONS*/
+//+++++++++//
 /**
   * This Object represents a generic article, technical document, blog post, etc. This Object may
   * or may not take the form of a literal `article` Element or `main` Element of a page. This
@@ -362,14 +383,18 @@
 	font-family: @fontfam_base;
 	text-align: left;
 }
-
-
-@media print {
-	.Fig, .Addy, .Qblock {
-		.fontsize-med;
-		// .spacing-phi-left;
-		// .spacing-phi-right;
-		.spacing-phi(left;  0; solid; #000);
-		.spacing-phi(right; 0; solid; #000);
-	}
+/**
+  * This Object represents a section of text that represents "fine print": disclaimers, etc.
+  * It should be instantiated by an entire `section`, `aside`, `div`, or `p` Element, which
+  * may or may not contain `small` Element children.
+@tags
+: #typography
+@author
+: Chris Harvey
+@updated
+: 2014-06-26
+  */
+.Fineprint {
+	&:extend(.fontsize-sml);
 }
+//++++ @end SECTIONS ++++//
