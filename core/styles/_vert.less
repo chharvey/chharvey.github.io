@@ -17,43 +17,13 @@
 @vru_px:  (@fontsize_base * @lineheight_base); // 16px * 1.5 = 24px
 @vru_rem: (1rem           * @lineheight_base); // 1rem * 1.5 = 1.5rem
 
-@fontsize_ratio_alpha:   (48/16); // 3.0000rem
-@fontsize_ratio_beta:    (35/16); // 2.1875rem
-@fontsize_ratio_gamma:   (26/16); // 1.6250rem
-@fontsize_ratio_delta:   (21/16); // 1.3125rem
-@fontsize_ratio_epsilon: (18/16); // 1.1250rem
-@fontsize_ratio_zeta:    (16/16); // 1.0000rem
-
-@fontsize_ratio_hexa:    (96/16); // 6.0000rem
-@fontsize_ratio_tetra:   (64/16); // 4.0000rem
-@fontsize_ratio_phi:     (@phi1); // 0.618033988749894848rem
-@fontsize_ratio_hemi:    (08/16); // 0.5000rem
-
 /**
   * These Mixins multiply `font-size` by `@ratio` and adjusts `line-height` such that
   * `font-size` * `line-height` = one vertical rhythm unit.
   * The `.fontsize-scale-double()` Mixin adjusts `line-height` such that
-  * `font-size` * `line-height` = two vertical rhythm units
+  * `font-size` * `line-height` = two vertical rhythm units.
 @params
-: @ratio : the ratio of the new font size to `fontsize_base`
-@tags
-: #verticalrhythm
-: #fontsize
-@author
-: Chris Harvey
-@updated
-: 2014-04-26
-  */
-.fontsize-scale(@ratio) {
-	font-size: (@fontsize_base * @ratio); // in px // fallback
-	font-size: (1rem           * @ratio); // in rem
-	line-height: (@lineheight_base / @ratio);
-}
-/**
-  * Same as `.fontsize-scale()` Mixins except adjusts `line-height` such that
-  * 	`font-size` * `line-height` = two vertical rhythm units.
-@params
-: @ratio : the ratio of the new font size to `fontsize_base`
+: @ratio : the ratio of the new font size to `@fontsize_base`
 @tags
 : #verticalrhythm
 : #fontsize
@@ -62,9 +32,28 @@
 @updated
 : 2014-05-03
   */
+.fontsize-scale(@ratio) {
+	font-size: (@fontsize_base * @ratio); // in px // fallback
+	font-size: (1rem           * @ratio); // in rem
+	line-height: (@lineheight_base / @ratio);
+}
 .fontsize-scale-double(@ratio) {
 	.fontsize-scale(@ratio);
 	line-height: (2 * (@lineheight_base / @ratio));
+}
+/**
+  * This Interface sets an Object to inline and does not affect vertical rhythm.
+@tags
+: #verticalrhythm
+: #fontsize
+@author
+: Chris Harvey
+@updated
+: 2014-05-20
+  */
+.fontsize-inline {
+	display: inline;
+	line-height: inherit;
 }
 /**
   * This Interface sets a [large|medium|small] font size and corresponding line height.
@@ -81,20 +70,6 @@
 .fontsize-lrg {.fontsize-scale(5/4);} // 1.25rem
 .fontsize-med {.fontsize-scale(1/1);} // 1.00rem
 .fontsize-sml {.fontsize-scale(3/4);} // 0.75rem
-/**
-  * This Interface sets an Object to inline and does not affect vertical rhythm.
-@tags
-: #verticalrhythm
-: #fontsize
-@author
-: Chris Harvey
-@updated
-: 2014-05-20
-  */
-.fontsize-inline {
-	display: inline;
-	line-height: inherit;
-}
 /**
   * This Interface sets [large|small] font size for inline Objects. They do not affect
   * vertical rhythm.
