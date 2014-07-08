@@ -18,12 +18,48 @@
 @vru_rem: (1rem           * @lineheight_base); // 1rem * 1.5 = 1.5rem
 
 /**
-  * These Mixins multiply `font-size` by `@ratio` and adjusts `line-height` such that
+  * This Mixin sets the `font-size` of an Object to a given scale.
+  * For example, to set the font size scale to 3, instead of using `font-size: 3rem;` (which may  be
+  * unsupported in some browsers), use this Mixin, which includes a fallback.
+@params
+: @ratio : the ratio of the new font size to `@fontsize_base`, in other words, the number of `rem`s
+@tags
+: #fontsize
+: #fallback
+@author
+: Chris Harvey
+@updated
+: 2014-07-08
+  */
+.fontsize(@ratio) {
+	font-size: (@fontsize_base * @ratio); // in px  // fallback
+	font-size: (1rem           * @ratio); // in rem
+}
+
+/**
+  * These Interfaces set a [large|medium|small] preset font size.
+@implements
+: .fontsize()
+@tags
+: #fontsize
+@author
+: Chris Harvey
+@updated
+: 2014-07-08
+  */
+.fontsize-lrg {.fontsize(@fontsize_ratio_lrg);}
+.fontsize-med {.fontsize(@fontsize_ratio_med);}
+.fontsize-sml {.fontsize(@fontsize_ratio_sml);}
+
+/**
+  * These Mixins adjust `line-height` such that
   * `font-size` * `line-height` = one vertical rhythm unit.
-  * The `.fontsize-scale-double()` Mixin adjusts `line-height` such that
+  * The `.fontsize-block-double()` Mixin adjusts `line-height` such that
   * `font-size` * `line-height` = two vertical rhythm units.
 @params
 : @ratio : the ratio of the new font size to `@fontsize_base`
+@implements
+: .fontsize()
 @tags
 : #verticalrhythm
 : #fontsize
@@ -32,68 +68,30 @@
 @updated
 : 2014-05-03
   */
-.fontsize-scale(@ratio) {
-	font-size: (@fontsize_base * @ratio); // in px // fallback
-	font-size: (1rem           * @ratio); // in rem
+.fontsize-block(@ratio) {
+	.fontsize(@ratio);
 	line-height: (@lineheight_base / @ratio);
 }
-.fontsize-scale-double(@ratio) {
-	.fontsize-scale(@ratio);
+.fontsize-doubleblock(@ratio) {
+	.fontsize(@ratio);
 	line-height: (2 * (@lineheight_base / @ratio));
 }
+
 /**
-  * This Interface sets an Object to inline and does not affect vertical rhythm.
-@tags
-: #verticalrhythm
-: #fontsize
-@author
-: Chris Harvey
-@updated
-: 2014-05-20
-  */
-.fontsize-inline {
-	display: inline;
-	line-height: inherit;
-}
-/**
-  * This Interface sets a [large|medium|small] font size and corresponding line height.
+  * This Interface sets a [large|medium|small] preset font size and adjusts corresponding line height.
 @implements
-: .fontsize-scale()
+: .fontsize-block()
 @tags
 : #verticalrhythm
 : #fontsize
 @author
 : Chris Harvey
 @updated
-: 2014-05-20
+: 2014-07-08
   */
-.fontsize-lrg {.fontsize-scale(5/4);} // 1.25rem
-.fontsize-med {.fontsize-scale(1/1);} // 1.00rem
-.fontsize-sml {.fontsize-scale(3/4);} // 0.75rem
-/**
-  * This Interface sets [large|small] font size for inline Objects. They do not affect
-  * vertical rhythm.
-@implements
-: .fontsize-[lrg|sml]
-: .fontsize-inline
-@tags
-: #verticalrhythm
-: #fontsize
-@author
-: Chris Harvey
-@updated
-: 2014-05-03
-  */
-.fontsize-lrg-inline,
-.fontsize-sml-inline {
-	&:extend(.fontsize-inline);
-}
-.fontsize-lrg-inline {
-	&:extend(.fontsize-lrg);
-}
-.fontsize-sml-inline {
-	&:extend(.fontsize-sml);
-}
+.fontsize-block-lrg {.fontsize-block(@fontsize_ratio_lrg);}
+.fontsize-block-med {.fontsize-block(@fontsize_ratio_med);}
+.fontsize-block-sml {.fontsize-block(@fontsize_ratio_sml);}
 //++++ @end FONT SIZES ++++//
 
 

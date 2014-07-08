@@ -742,77 +742,39 @@ q {
 /*@FONT SIZES*/
 /** One vertical rhythm unit. This is the 'magic number'. */
 /**
-  * These Mixins multiply `font-size` by `@ratio` and adjusts `line-height` such that
-  * `font-size` * `line-height` = one vertical rhythm unit.
-  * The `.fontsize-scale-double()` Mixin adjusts `line-height` such that
-  * `font-size` * `line-height` = two vertical rhythm units.
+  * This Mixin sets the `font-size` of an Object to a given scale.
+  * For example, to set the font size scale to 3, instead of using `font-size: 3rem;` (which may  be
+  * unsupported in some browsers), use this Mixin, which includes a fallback.
 @params
-: @ratio : the ratio of the new font size to `@fontsize_base`
+: @ratio : the ratio of the new font size to `@fontsize_base`, in other words, the number of `rem`s
 @tags
-: #verticalrhythm
 : #fontsize
+: #fallback
 @author
 : Chris Harvey
 @updated
-: 2014-05-03
+: 2014-07-08
   */
 /**
-  * This Interface sets an Object to inline and does not affect vertical rhythm.
-@tags
-: #verticalrhythm
-: #fontsize
-@author
-: Chris Harvey
-@updated
-: 2014-05-20
-  */
-.fontsize-inline,
-.fontsize-lrg-inline,
-.fontsize-sml-inline,
-.Button,
-code,
-.Dir,
-.Key,
-sup,
-sub {
-  display: inline;
-  line-height: inherit;
-}
-/**
-  * This Interface sets a [large|medium|small] font size and corresponding line height.
+  * These Interfaces set a [large|medium|small] preset font size.
 @implements
-: .fontsize-scale()
+: .fontsize()
 @tags
-: #verticalrhythm
 : #fontsize
 @author
 : Chris Harvey
 @updated
-: 2014-05-20
+: 2014-07-08
   */
-.fontsize-lrg,
-.fontsize-lrg-inline,
-.Qblock {
+.fontsize-lrg {
   font-size: 20px;
   font-size: 1.25rem;
-  line-height: 1.2;
 }
-.fontsize-med,
-.Qblock.Long,
-.Qblock.Long .Src,
-.Button.Crumb {
+.fontsize-med {
   font-size: 16px;
   font-size: 1rem;
-  line-height: 1.5;
 }
 .fontsize-sml,
-.fontsize-sml-inline,
-.Capt,
-.Qblock .Src,
-.Fineprint,
-.Table,
-.Codeblock,
-.Label,
 .Button,
 code,
 .Dir,
@@ -821,14 +783,16 @@ sup,
 sub {
   font-size: 12px;
   font-size: 0.75rem;
-  line-height: 2;
 }
 /**
-  * This Interface sets [large|small] font size for inline Objects. They do not affect
-  * vertical rhythm.
+  * These Mixins adjust `line-height` such that
+  * `font-size` * `line-height` = one vertical rhythm unit.
+  * The `.fontsize-block-double()` Mixin adjusts `line-height` such that
+  * `font-size` * `line-height` = two vertical rhythm units.
+@params
+: @ratio : the ratio of the new font size to `@fontsize_base`
 @implements
-: .fontsize-[lrg|sml]
-: .fontsize-inline
+: .fontsize()
 @tags
 : #verticalrhythm
 : #fontsize
@@ -837,6 +801,43 @@ sub {
 @updated
 : 2014-05-03
   */
+/**
+  * This Interface sets a [large|medium|small] preset font size and adjusts corresponding line height.
+@implements
+: .fontsize-block()
+@tags
+: #verticalrhythm
+: #fontsize
+@author
+: Chris Harvey
+@updated
+: 2014-07-08
+  */
+.fontsize-block-lrg,
+.Qblock {
+  font-size: 20px;
+  font-size: 1.25rem;
+  line-height: 1.2;
+}
+.fontsize-block-med,
+.Qblock.Long,
+.Qblock.Long .Src,
+.Button.Crumb {
+  font-size: 16px;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+.fontsize-block-sml,
+.Capt,
+.Qblock .Src,
+.Fineprint,
+.Table,
+.Codeblock,
+.Label {
+  font-size: 12px;
+  font-size: 0.75rem;
+  line-height: 2;
+}
 /*@VERTICAL SPACING*/
 /**
   * This Interface provides a minimum height of one vertical rhythm unit.
@@ -1115,7 +1116,6 @@ main {
 .H.Alpha {
   font-size: 48px;
   font-size: 3rem;
-  line-height: 0.5;
   line-height: 1;
   margin-top: 29.66563146px;
   margin-top: 1.85410197rem;
@@ -1133,7 +1133,6 @@ main {
 .H.Beta {
   font-size: 35px;
   font-size: 2.1875rem;
-  line-height: 0.68571429;
   line-height: 1.37142857;
   margin-top: 34.728px;
   margin-top: 2.1705rem;
@@ -1212,7 +1211,6 @@ main {
 .H.Alpha.Folio {
   font-size: 48px;
   font-size: 3rem;
-  line-height: 0.5;
   line-height: 1;
   margin-top: 96px;
   margin-top: 6rem;
