@@ -71,7 +71,9 @@ Specs for all TODO lists:
 - [x] 2014-06-07 write comment documentation for selectors in `/core/styles/typo/_text.less`
 - [ ] 2014-07-07 change font (headings, body, prose, etc.) scheme ? (optional)
 - [ ] 2014-07-07 find a way to do `.vru-top-0` and `.vru-top-1` cleanly
-- [ ] 2014-07-08 remove units from `0px` and `0rem` on `.H.Epsilon` and `.H.Zeta` in `_headings.less`
+- [x] 2014-07-08 remove units from `0px` and `0rem` on `.H.Epsilon` and `.H.Zeta` in `_headings.less`
+- [x] 2014-07-08 change up the `.fontsize-` Interfaces so that `-inline` is default and
+	`-block` overrides
 
 
 #### boxes ####
