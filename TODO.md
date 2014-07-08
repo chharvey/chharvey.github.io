@@ -75,6 +75,25 @@ Specs for all TODO lists:
 - [x] 2014-07-08 change up the `.fontsize-` Interfaces so that `-inline` is default and
 	`-block` overrides
 
+instances of `font-size:` :
+
+subheadings: 61.8%;
+.fontsize-sml and children: 0.75rem;
+html reset: 16px;
+html base size: 16px; (sets the rem)
+.fontsize-med and children: 1rem;
+H Zeta: 1rem;
+@print most typo block elements: 1rem;
+H Epsilon: 1.125rem;
+.fontsize-lrg and children: 1.25rem;
+H Delta: 1.31rem;
+H Gamma: 1.6rem;
+Dropcap::first-letter: 2rem;
+H Beta: 2.1rem;
+H Alpha: 3rem;
+H Folio: 3rem;
+H Folio::first-letter: 6rem;
+other elements reset: inherit;
 
 #### boxes ####
 - [x] 2013-08-18 code scheme
