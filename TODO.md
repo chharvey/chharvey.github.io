@@ -74,7 +74,7 @@ Specs for all TODO lists:
 - [x] 2014-07-08 remove units from `0px` and `0rem` on `.H.Epsilon` and `.H.Zeta` in `_headings.less`
 - [x] 2014-07-08 change up the `.fontsize-` Interfaces so that `-inline` is default and
 	`-block` overrides
-
+- [ ] 2014-07-08 break down `/core/styles/_interfaces.less` and move into `/core/styles/tools/`
 
 #### boxes ####
 - [x] 2013-08-18 code scheme

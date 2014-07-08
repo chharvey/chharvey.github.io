@@ -6,7 +6,6 @@
 
 //Table of Contents
 // - MIXINS
-// 	- Abstract Boxes
 // - INTERFACES
 // 	- Delimiters
 
@@ -89,79 +88,6 @@
 	background-image:      -o-linear-gradient(@arguments);
 	background-image:         linear-gradient(@arguments);
 }
-//---------------//
-/*@Abstract Boxes*/
-//---------------//
-/**
-  * These Mixins create abstract inline structures, boxed with a solid border.
-  * `.box-inline(@brdrw; @brdrc; @brdrr)` is an extension of `.box-inline(@brdrw; @brdrr)`
-  * 	(it's not the case that `.box-inline(@brdrw; @brdrr)` is a restriction of
-  * 	`.box-inline(@brdrw; @brdrc; @brdrr)`) because the border color, if not specified,
-  * 	should not be a preset color; rather, it should be the value of the `color` property.
-@params
-: @brdrw : the value of `border-width` property (if not specified, default to 1px)
-: @brdrc : the value of `border-color` property (if not specified, default to value of `color` property)
-: @brdrr : the value of `border-radius` property
-@tags
-: #box
-: #verticalrhythm
-@author
-: Chris Harvey
-@updated
-: 2014-07-07
-  */
-.box-inline(@brdrw; @brdrr) {
-	display: inline;
-	padding: 1px 2px; // why these numbers?
-	border-width: @brdrw;
-	border-style: solid;
-	border-radius: @brdrr;
-	white-space: nowrap;
-}
-.box-inline(@brdrw; @brdrc; @brdrr) {
-	.box-inline(@brdrw; @brdrr);
-	border-color: @brdrc;
-}
-.box-inline(@brdrr) {
-	.box-inline(1px; @brdrr);
-}
-/**
-  * This Mixin creates an abstract block structure, boxed with a border.
-  * `.box-block(@brdrw; @brdrc; @brdrr)` is an extension of `.box-block(@brdrw; @brdrr)`
-  * 	(it's not the case that `.box-block(@brdrw; @brdrr)` is a restriction of
-  * 	`.box-block(@brdrw; @brdrc; @brdrr)`) because the border color, if not specified,
-  * 	should not be a preset color; rather, it should be the value of the `color` property.
-@params
-: @brdrw : the value of `border-width` property (if not specified, default to 1px)
-: @brdrc : the value of `border-color` property (if not specified, default to value of `color` property)
-: @brdrr : the value of `border-radius` property
-@implements
-: .cellpaddingdefault
-: .vru-content
-@mixesin
-: .border-vert-both()
-@tags
-: #box
-: #verticalrhythm
-@author
-: Chris Harvey
-@updated
-: 2014-07-07
-  */
-.box-block(@brdrw; @brdrr) {
-	&:extend(.cellpaddingdefault);
-	&:extend(.vru-content);
-	.border-vert-both(all; @brdrw; solid);
-	border-radius: @brdrr;
-}
-.box-block(@brdrw; @brdrc; @brdrr) {
-	.box-block(@brdrw; @brdrr);
-	border-color: @brdrc;
-}
-.box-block(@brdrr) {
-	.box-block(1px; @brdrr);
-}
-//---- @end Abstract Boxes ----//
 //++++ @end MIXINS ++++//
 
 
@@ -229,28 +155,6 @@
 .help-otln {
 	outline: 1px solid @color_accent;
 }
-/**
-  * These Interfaces add a solid horizontal line above the Object, separating it from its
-  * previous sibling.
-  * The `.separated()` Mixin lets you choose the line color.
-  * The `-h` suffix colors the line with the main heaing color (blueish).
-  * The `-brdr` suffix colors the line with the border accent color (greenish).
-  * The `-accent` suffix colors the line with the accent color (redish).
-@tags
-: #golden
-: #heading
-: #border
-: #accent
-@author
-: Chris Harvey
-@updated
-: 2014-07-07
-  */
-.separated(@brdrc) {.vru-top-phi(1px; solid; @brdrc);}
-.separated-h       {.vru-top-phi(1px; solid; @color_h_major);}
-.separated-brdr    {.vru-top-phi(1px; solid; @color_brdr);}
-.separated-accent  {.vru-top-phi(1px; solid; @color_accent);}
-
 //-----------//
 /*@Delimiters*/
 //-----------//
