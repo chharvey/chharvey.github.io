@@ -61,30 +61,6 @@
 		<h1 class="H Gamma">Masthead</h1>
 	</section>
 	<section id="sem-bc">
-		<h1 class="H Gamma">Breadcrumbs</h1>
-		<p class="P">Each page must contain exactly 1 breadcrumb tree. This will take the form
-			of a <code>nav.Bc</code> <strong><em>outside</em> the
-			<code><a class="Link" href="#scheme-main">main</a></code> Element</strong>. This
-			<code>nav.Bc</code> must contain only and exactly 3 Elements, in the following order:</p>
-		<ol class="List O">
-			<li class="Item">1 <code>ol.Anc</code>, which contains all the
-				<a class="Link" href="#d-logical-ancestor">logical ancestors</a> (including the
-				<a class="Link" href="#d-logical-parent">logical parent</a>) of the page, in order
-				of the &ldquo;semantic filetree&rdquo; from top to bottom;</li>
-			<li class="Item">1 <code>ul.Sib</code>, which contains all the
-				<a class="Link" href="#d-logical-sibling">logical siblings</a> of the page
-				(including the same page itself), in any order; and</li>
-			<li class="Item">1 <code>ul.Child</code>, which contains all the
-				<a class="Link" href="#d-logical-child">logical children</a> of the page, in any
-				order. There will be no links to non-child
-				<a class="Link" href="#d-logical-descendant">descendants</a> in the breadcrumb tree.</li>
-		</ol>
-		<p class="P">Each of the 3 lists above must contain only and at least 0 list items, with
-			each list item containing only and exactly 1 link. The links in the each list
-			correspond to the logical relatives of the current page.</p>
-		<p class="P">Each <code>a</code> Element on a page&rsquo;s breadcrumbs list must have
-			exactly 1 <code>rel</code> attribute, whose value must be at least 1 of the following
-			(space-separated) tokens.</p>
 		<aside style="background-color: #eee;">
 			<h1 class="H Delta">Page Relationships</h1>
 			<table class="Table">
@@ -168,136 +144,7 @@
 </section>
 <section id="sem-document-specific">
 	<h1 class="H Beta">Document-Specific Elements</h1>
-	<section id="sem-outline">
-		<h1 class="H Gamma">The Document Outline</h1>
-		<p class="P">An outline exists for every document. On a Web page, the <code>body</code>
-			represents the document and we refer to its outline as the <a class="Link" rel="external"
-			href="http://www.w3.org/html/wg/drafts/html/master/sections.html#outline">Document Outline</a>.</p>
-		<p class="P"><dfn id="d-sectioning-content">Sectioning content</dfn> is <a class="Link" rel="external"
-			href="http://www.w3.org/html/wg/drafts/html/master/dom.html#sectioning-content-0">content
-			that contributes to the Document Outline</a>. Each sectioning content potentially has
-			a heading and its own outline, which contributes to the outline of its ancestors. Only
-			and all the following Elements mark up sectioning content and introduce new levels in
-			the Document Outline:</p>
-		<ul class="List U">
-			<li class="Item"><code>section</code></li>
-			<li class="Item"><code><a class="Link" href="#scheme-aside">aside</a></code></li>
-			<li class="Item"><code>nav</code></li>
-			<li class="Item"><code>article</code></li>
-		</ul>
-		<p class="P">A <dfn id="d-sectioning-root">sectioning root</dfn> is like sectioning content
-			in that it may have its own heading and outline, however, the outline of a sectioning
-			root <a class="Link" rel="external"
-			href="http://www.w3.org/html/wg/drafts/html/master/sections.html#sectioning-root">does not
-			affect the Document Outline</a> (unless of course, the sectioning root in question is
-			the <code>body</code> Element, in which case its outline <em>is</em> the Document Outline).
-			This means sectioning roots may include sectioning content but their outlines are
-			isolated and do not add levels to the outlines of their ancestors. The following
-			Elements are sectioning roots:</p>
-		<ul class="List U">
-			<li class="Item"><code>body</code></li>
-			<li class="Item"><code><a href="#scheme-figure-blockquote">figure</a></code></li>
-			<li class="Item"><code><a href="#scheme-figure-blockquote">blockquote</a></code></li>
-			<li class="Item"><code><a href="#scheme-table">td</a></code></li>
-			<li class="Item"><code>fieldset</code></li>
-			<li class="Item"><code>details</code></li>
-			<li class="Item"><code>dialog</code></li>
-		</ul>
-		<small class="Msg Cshn" datetime="2014-02-26"><a class="Link" href="#sem-list">The
-			<code>li</code> Element</a> seems like it should be a sectioning root but it is not!
-			Do not contain sectioning content inside an <code>li</code> unless you want to change
-			the Document Outline!</small>
-		<section id="sem-section">
-			<h1 class="H Delta">Sections</h1>
-			<p class="P">A <dfn id="d-section">section</dfn> is a thematic grouping of content.
-				Each section has its own <a class="Link" href="#sem-heading">heading</a>
-					(<abbr class="Acro" title="also known as">AKA</abbr> title) and outline, which
-					is added to the outline of the nearest ancestor <a class="Link"
-					href="#d-sectioning-root">sectioning root</a>. If the nearest ancestor
-					sectioning root is the <code>body</code>, then its level will be added to the
-					Document Outline. If its nearest ancestor sectioning root is <em>not</em> the
-					<code>body</code>, then the level will be added to that sectioning root&rsquo;s
-					outline without affecting the Document Outline.</p>
-			<p class="P">Each thematic grouping of content must be contained within a
-				<code>section</code> Element. This <code>section</code> must contain
-				at least 0 <code>header</code> Elements,
-				followed by optional flow content,
-				followed by at least 0 <code>header</code> Elements.
-				The <code>header</code>s, if present, must adhere to
-				<a class="Link" href="#sem-header">these specifications</a>.</p>
-		</section>
-		<section id="sem-aside">
-			<h1 class="H Delta">Asides</h1>
-			<p class="P">An <dfn id="d-aside">aside</dfn> contains content that is tangentially
-				related to the main content of the document, but is not big enough to be its own
-				document. An example of an aside could be a pull quote in a magazine article, or
-				a definition in the margin of a textbook that has been extracted from the glossary.</p>
-			<p class="P">The <code>aside</code> Element is sectioning content, so its
-				<a class="Link" href="#scheme-heading">heading</a> and outline are added to the
-				Document Outline. The actual content in an <code>aside</code>s must not affect the
-				normal flow of the document content, however, which means it may be taken out of
-				context and placed in a margin, appendix, or other perihperal part of the document.</p>
-			<p class="P">To that end, there are two rules to an <code>aside</code>.
-				First, the normal flow of the document must not be disturbed if it were removed,
-				so the reader should be able to completely skip the aside without missing a beat.
-				Second, the aside itself must make sense isolated and out of context, so
-				reading the aside all by itself should make sense.</p>
-		</section>
-	</section>
-	<section id="sem-main">
-		<h1 class="H Gamma">Main</h1>
-		<p class="P">Each document must contain at most 1 <code>main</code> Element. This Element
-			must contain all content specific to the individual document, including any side text,
-			footers, or other extraneous information. It must not include any site-wide
-			navigational aids, breadcrumbs, headers, footers, or other content that repeats across
-			pages. <code>main</code> is not <a class="Link" href="#d-sectioning-content">sectioning
-			content</a>, so it does not add a level to the Document Outline.</p>
-	</section>
 	<section id="sem-header">
-		<h1 class="H Gamma">Headers and Footers</h1>
-		<p>A <dfn id="d-header">header</dfn> is the big bold statement at the top of the page that
-			indicates what the web site is, and who it belongs to. A header of a section is similar,
-			except not quite as bold. Headers contain introductory content.</p>
-		<p>A <dfn id="d-footer">footer</dfn> typically goes across the bottom of the site and
-			contains secondary information such as copyright information and contact details.</p>
-		<p class="P">Headers and footers are not <a class="Link" href="#d-sectioning-content">sectioning
-			content</a>, so they do not add levels to the Document Outline. Headers of a section
-			should contain data about the section <em>itself</em>, including, but not limited to,
-			<a class="Link" href="#sem-heading">headings</a>, a <a class="Link" href="#sem-toc">table
-			of contents</a>, a list of authors/editors, time written/published/updated, and related
-			tags. Footers of a section should contain data about the <em>content</em> in the section,
-			such as copyright information, contact information (possibly in an <code><a class="Link"
-			href="#scheme-address">address</a></code> Element), related links or references, and
-			<a class="Link" href="#sem-footnotes">footnotes</a>.</p>
-		<p class="P">In each case, both header and footer information must be contained in
-			<code>header</code> Elements. The distinction between <code>header</code> and
-			<code>footer</code> is so small that this specification chooses to drop the
-			<code>footer</code> Element altogether. Any number of <code>header</code> Elements may
-			be contained in a <code>section</code>, in any order. It is recommended to put header
-			content (including the heading) in the <code>section &gt; header:first-child</code>, and
-			footer content in the <code>section &gt; header:last-child</code>.</p>
-		<section id="sem-hn">
-			<h1 class="H Delta">Headings</h1>
-			<p class="P"><dfn id="d-heading">Headings</dfn> describe sections of a document and
-				they title the levels in the Document Outline. Each <code>section</code> may be
-				titled with at most 1 <code>h1</code> Element (the heading). The title of a section
-				is described by its <code>section &gt; header:first-child &gt; h1:first-child</code>,
-				or if a header is not present, the <code>section &gt; h1:first-child</code>. If
-				neither of these Elements exist, the section is untitled in the Document Outline.
-				(There may be descendant <code>h1</code>s present, but only if they are children
-				of&mdash;and thus headings of&mdash;any existing descendant <code>section</code>s.)</p>
-			<p class="P">Some headings may have a subheading, or tagline. This text must be contained
-				in a <code>h1 &gt; span.Hsub</code>. A <code>h1</code> must contain at most
-				1 <code>span.Hsub</code>.</p>
-			<small class="Msg Info" datetime="2014-02-23">The correct Element used for subheadings has been
-				controversial. Some developors support the use of <code>small</code>, while others
-				believe this Element is best used only for side comments, small print, legal information,
-				<i lang="la"><abbr title="et cetera">etc</abbr></i>. For now, stick with a
-				<code>span</code> and stay tuned for updates.<br/>
-				<ins datetime="2014-06-17"><span class="Lede">Update:</span> Do not use
-				<code>small</code> for subheadings. Use <code>span</code> instaed. <code>small</code>
-				is used for messages such as warnings and info messages.</ins></small>
-		</section>
 		<section id="sem-toc" data-status="draft">
 			<h1 class="H Delta">Tables of Contents</h1>
 			<p class="P">Since each document has a Document Outline, it has a corresponding
@@ -390,24 +237,6 @@
 			</div>
 		</section>
 -->
-		<section id="sem-figure-blockquote">
-			<h1 class="H Delta">Figures, Block Quotes</h1>
-			<p class="P"><code>figure</code>s and <code>blockquote</code>s are
-				<a class="Link" href="#d-sectioning-root">sectioning roots</a>.</p>
-		</section>
-	</section>
-	<section id="sem-list">
-		<h1 class="H Gamma">Ordered and Unordered Lists</h1>
-		<p class="P">An ordered list lists items in which the order is <a class="Link"
-			href="#d-order-relevant">relevant</a>, that is, changing the order of the items would
-			change the outcome or semantics of the list. An <code>ol</code> must contain
-			at least 0 list items (<code>li</code>).</p>
-		<p class="P">An unordered list lists items of which the order is <a class="Link"
-			href="#d-order-irrelevant">irrelevant</a>, that is, changing the order of the items would
-			<em>not</em> change the outcome or semantics of the list. A <code>ul</code> must contain
-			at least 0 list items (<code>li</code>).</p>
-		<p class="P">Nested lists must contain an <code>ol</code> or <code>ul</code> inside an
-			<code>li</code> of the parent list.</p>
 	</section>
 	<section id="sem-dl">
 		<h1 class="H Gamma">Association Lists</h1>
@@ -614,23 +443,7 @@
 		<p class="P" data-status="draft">The table was originally intended to mark up tabular data. That&rsquo;s obvious right? Well, the fact that tables provide a natural grid system was too tempting for early designers to ignore. They used tables to organize content and display it in a non-linear manner, which was a great way to override the normal flow of a page. Early tables would serve as an excellent tool to form the layout of a page.</p>
 		<p class="P" data-status="draft">With the recent development of CSS and styles, the use of tables to form layout became considered outdated and, in some cases, amateur. It is recommended to use <code>div</code>s and styles for layout strategies. I urge designers to remember the original purpose of tables, which is to display hard data in a row-and-column format.</p>
 		<p class="P">The <code>table</code> Element is used to mark up data represented in more than
-			one dimension. A <code>table</code> must contain only and exactly the following, in
-			the following order:</p>
-		<ol class="List O">
-			<li class="Item">at most 1 <code>caption</code> Element</li>
-			<li class="Item">at most 1 <code>thead</code> Element</li>
-			<li class="Item">at least 0 <code>tbody</code> Elements</li>
-			<li class="Item">at most 1 <code>tfoot</code> Element</li>
-		</ol>
-		<p class="P">The <code>caption</code> Element should describe the contents of the table
-			in more detail. It may also include the title of the table at the beginning of the
-			<code>caption</code>. Captions
-			must not contain any <code>p</code>s, and they must not be styled in prose.</p>
-		<p class="P">The <code>thead</code>, <code>tbody</code>, and <code>tfoot</code> Elements all
-			represent row-groups and they must contain at least 0 <code>tr</code> Elements, which
-			represent rows. Each <code>tr</code> Element must contain only and exactly 0 or more
-			<code>th</code> Elements (table headings) and 0 or more <code>td</code> Elements
-			(table cells), in any order.</p>
+			one dimension.</p>
 		<p class="P" data-status="draft">In a list-style table, if a <code>thead</code> is present
 			and contains <code>th</code> Elements, the <code>th</code> Elements
 			should have the
@@ -644,26 +457,6 @@
 			<code>scope=&quot;row&quot;</code> or <code>scope=&quot;rowgroup&quot;</code> attribute.
 			For thoroughness, these headings may be targeted by all the cells in their scoped rows,
 			via the <code>headers=&quot;&quot;</code> attribute.</p>
-	</section>
-</section>
-<section id="text-level">
-	<h1 class="H Beta">Text-Level Semantics</h1>
-	<section id="sem-code">
-		<h1 class="H Gamma">Code Semantics</h1>
-		<div data-status="draft">
-there are many different "coding" (for lack of better term) Elements.
-To start off with the easiest, the `code` Element represents a span or string of text that a computer program would recognize. For example, it could be an Element or class name, an object, function, or property name, a declaration, or even a whole block of code. Anything that is recognizable by a program.
-
-The `pre` Element represents preformatted text. I put this Element under the <b>coding</b> category because it&rsquo;s really only used for code, but was meant for marking up that the meaning of the contents is conveyed through its typographical presentation. For example, indents in an email may convey quote levels, the presentation and organization of the text in a poem might have been meant for preserving, and ASC-II art.
-
-Blocks of code are meant to preserve their formatting and that in some languages if the formatting changes, the program changes. A `code` Element nested in a `pre` Element represents a block of code.
-
-Then there is the `kbd` Element. It *per se* represents user input. This could be in the form of typing, choosing a menu item, or even speaking. Any kind of information the user is expected to, or could possibly do, give to the interface should be marked down with `kbd`.
-
-Sometimes, user input calls for specific actions. For example, the interface might direct the user to calculate the sum of 5 and 6. If the interface told the user explicitly which buttons to press, these would each be marked down with a `kbd` Element within a `kbd` Element. The outer `kbd` Element represents the user input, the action of adding 5 and 6. But then there would be three nested `kbd` Elements, each corresponding to a key (one for the 5, one for the plus, and one for the 6).
-
-Lastly, the `samp` Element represents sample output from a computer. These Elements are mainly used for demonstrations, for example if a block of code is presented, then the sample rendering is presented alongside the code to show the reader the relationship.
-		</div>
 	</section>
 </section>
 </main>
