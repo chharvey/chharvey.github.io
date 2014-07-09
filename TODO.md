@@ -168,8 +168,8 @@ This is all gonna go in a spec somewhere...
 
 ### typo.html ###
 - [x] 2013-08-18 inline elements: highlighting
-- [ ] 2014-07-08 add schemes for `.Dir` and `.Key` Objects
-- [ ] 2014-07-08 remove 'TAVX' table
+- [x] 2014-07-08 add schemes for `.Dir` and `.Key` Objects
+- [x] 2014-07-08 remove 'TAVX' table
 
 ### colors.html ###
 - [x] 2014-06-07 fix new color palettes
