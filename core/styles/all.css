@@ -8,12 +8,29 @@
 /** Determines the duration for transition animation effects. */
 /*@Fonts*/
 /** These determine 1rem and the 'magic number'. Change these if you wish. */
+/**
+  * The following font families are used site-wide.
+  * - The 'base' font-family is used for the main body copy. It is a sans-serif type with a
+  * 	moderate thick-thin transition.
+  * - The 'heading' font-family is used only for headings of body copy (not table headings, etc.).
+  * 	It is a sans-serif geometric type. It should not be used for extensive amounts of text.
+  * - The 'intro' font-family is used for other headings, such as table headings or intro (Lede)
+  * 	paragraphs. Like the 'heading' font-family, it is a geometric sans-serif. However it is
+  *  	more acceptable for extensive amounts of text.
+  * - The 'prose' font-family is used for formal documents or sections. It is a serif oldstyle type
+  * 	easy on the eyes that can be read at extensive length.
+  * - The 'code' font-family is a monospace type used for... well, code.
+  * - The 'math' font-family is another serif oldstyle type use for mathematical spans.
+  * - The 'accent' font-family is used for labels, block quotes, buttons/keys,
+  * 	and other special elements.
+  */
 /*@Color Scheme*/
 /*@FUNCTIONS*/
 /*@CONSTANTS*/
 /*@Golden Values*/
 /*@Even Values*/
 /*@Color Values*/
+/*@Font Sizes*/
 /*---------------*\
     _reset.less
 \*---------------*/
@@ -85,7 +102,8 @@ dfn,
 abbr,
 small,
 sup,
-sub {
+sub,
+button {
   display: inline;
 }
 hr {
@@ -122,7 +140,8 @@ dd,
 table,
 th,
 td,
-pre {
+pre,
+button {
   padding: 0;
   border: 0;
   outline: 0;
@@ -143,27 +162,6 @@ body {
   color: #000;
   background-color: #fff;
 }
-/*
-h1, h2, h3, h4, h5, h6,
-p, address, figure, blockquote,
-ol, ul, li,
-th,
-a,
-pre, code, kbd, samp, var,
-em, strong, mark, i, b,
-q, cite, dfn, abbr, del, ins, small, sup, sub {
-	font-style:     inherit;
-	font-variant:   inherit;
-	font-weight:    inherit;
-	font-size:      inherit;
-	font-family:    inherit;
-	text-align:     inherit;
-	line-height:    inherit;
-	vertical-align: inherit;
-	color:          inherit;
-	background-color: transparent;
-}
-*/
 address,
 em,
 i,
@@ -191,17 +189,22 @@ h5,
 h6,
 small,
 sup,
-sub {
+sub,
+button {
   font-size: inherit;
 }
 pre,
 code,
 kbd,
-samp {
+samp,
+button {
   font-family: inherit;
 }
 caption {
   text-align: inherit;
+}
+button {
+  line-height: inherit;
 }
 sup,
 sub {
@@ -221,17 +224,8 @@ mark,
 a {
   color: inherit;
 }
-mark {
-  background-color: transparent;
-}
+mark,
 button {
-  display: inline;
-  padding: 0;
-  border: 0;
-  margin: 0;
-  font-size: inherit;
-  font-family: inherit;
-  line-height: inherit;
   background-color: transparent;
 }
 /*--------------------*\
@@ -281,44 +275,46 @@ button {
 /**
   * Use this Mixin to apply a linear gradient background on an Element.
   * See [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/linear-gradient) for more info.
-  *
-  * The number of possibilities for the list of paramaters of the CSS function `linear-gradient()`
-  * is so great that it would be inefficient to designate each parameter. Therefore, functions are
-  * overloaded to handle up to five paramaters.
+  * See [WPD](http://docs.webplatform.org/wiki/css/functions/linear-gradient) for more info.
 @params
-: @param1 : the first paramater
-: @param2 : the second paramater
-: @param3 : the third paramater
-: @param4 : the fourth paramater
-: @param5 : the fifth paramater
+: ... : any number of parameters
 @tags
 : #gradient
 : #vendorspecific
 @author
 : Chris Harvey
 @updated
-: 2014-06-24
+: 2014-07-08
   */
 /*@Abstract Boxes*/
 /**
-  * This Mixin creates an abstract inline structure, boxed with a border.
+  * These Mixins create abstract inline structures, boxed with a solid border.
+  * `.box-inline(@brdrw; @brdrc; @brdrr)` is an extension of `.box-inline(@brdrw; @brdrr)`
+  * 	(it's not the case that `.box-inline(@brdrw; @brdrr)` is a restriction of
+  * 	`.box-inline(@brdrw; @brdrc; @brdrr)`) because the border color, if not specified,
+  * 	should not be a preset color; rather, it should be the value of the `color` property.
 @params
-: @border_radius : the value of `border-radius` property
-@implements
-: .cellpaddingdefault
-@mixesin
+: @brdrw : the value of `border-width` property (if not specified, default to 1px)
+: @brdrc : the value of `border-color` property (if not specified, default to value of `color` property)
+: @brdrr : the value of `border-radius` property
 @tags
 : #box
 : #verticalrhythm
 @author
 : Chris Harvey
 @updated
-: 2014-05-25
+: 2014-07-07
   */
 /**
   * This Mixin creates an abstract block structure, boxed with a border.
+  * `.box-block(@brdrw; @brdrc; @brdrr)` is an extension of `.box-block(@brdrw; @brdrr)`
+  * 	(it's not the case that `.box-block(@brdrw; @brdrr)` is a restriction of
+  * 	`.box-block(@brdrw; @brdrc; @brdrr)`) because the border color, if not specified,
+  * 	should not be a preset color; rather, it should be the value of the `color` property.
 @params
-: @border_radius : the value of `border-radius` property
+: @brdrw : the value of `border-width` property (if not specified, default to 1px)
+: @brdrc : the value of `border-color` property (if not specified, default to value of `color` property)
+: @brdrr : the value of `border-radius` property
 @implements
 : .cellpaddingdefault
 : .vru-content
@@ -330,7 +326,7 @@ button {
 @author
 : Chris Harvey
 @updated
-: 2014-05-25
+: 2014-07-07
   */
 /*@INTERFACES*/
 /**
@@ -348,7 +344,7 @@ button {
   */
 .cellpaddingdefault,
 .Cell,
-.Code.Block,
+.Codeblock,
 .Label.Msg {
   padding: 12px 7.41640786px;
   padding: 0.75rem 7.41640786px;
@@ -398,6 +394,44 @@ button {
   */
 .help-otln {
   outline: 1px solid #cc004e;
+}
+/**
+  * These Interfaces add a solid horizontal line above the Object, separating it from its
+  * previous sibling.
+  * The `.separated()` Mixin lets you choose the line color.
+  * The `-h` suffix colors the line with the main heaing color (blueish).
+  * The `-brdr` suffix colors the line with the border accent color (greenish).
+  * The `-accent` suffix colors the line with the accent color (redish).
+@tags
+: #golden
+: #heading
+: #border
+: #accent
+@author
+: Chris Harvey
+@updated
+: 2014-07-07
+  */
+.separated-h {
+  padding-top: 8.78521826px;
+  margin-top: 14.21478174px;
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-top-color: #120099;
+}
+.separated-brdr {
+  padding-top: 8.78521826px;
+  margin-top: 14.21478174px;
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-top-color: #9acc7a;
+}
+.separated-accent {
+  padding-top: 8.78521826px;
+  margin-top: 14.21478174px;
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-top-color: #cc004e;
 }
 /*@Delimiters*/
 /**
@@ -702,25 +736,57 @@ q {
 /*@FONT SIZES*/
 /** One vertical rhythm unit. This is the 'magic number'. */
 /**
-  * These Mixins multiply `font-size` by `@ratio` and adjusts `line-height` such that
-  * `font-size` * `line-height` = one vertical rhythm unit.
-  * The `.fontsize-scale-double()` Mixin adjusts `line-height` such that
-  * `font-size` * `line-height` = two vertical rhythm units
+  * This Mixin sets the `font-size` of an Object to a given scale.
+  * For example, to set the font size scale to 3, instead of using `font-size: 3rem;` (which may  be
+  * unsupported in some browsers), use this Mixin, which includes a fallback.
 @params
-: @ratio : the ratio of the new font size to `fontsize_base`
+: @ratio : the ratio of the new font size to `@fontsize_base`, in other words, the number of `rem`s
 @tags
-: #verticalrhythm
+: #fontsize
+: #fallback
+@author
+: Chris Harvey
+@updated
+: 2014-07-08
+  */
+/**
+  * These Interfaces set a [large|medium|small] preset font size.
+@implements
+: .fontsize()
+@tags
 : #fontsize
 @author
 : Chris Harvey
 @updated
-: 2014-04-26
+: 2014-07-08
   */
+.fontsize-lrg {
+  font-size: 20px;
+  font-size: 1.25rem;
+}
+.fontsize-med {
+  font-size: 16px;
+  font-size: 1rem;
+}
+.fontsize-sml,
+.Button,
+code,
+.Dir,
+.Key,
+sup,
+sub {
+  font-size: 12px;
+  font-size: 0.75rem;
+}
 /**
-  * Same as `.fontsize-scale()` Mixins except adjusts `line-height` such that
-  * 	`font-size` * `line-height` = two vertical rhythm units.
+  * These Mixins adjust `line-height` such that
+  * `font-size` * `line-height` = one vertical rhythm unit.
+  * The `.fontsize-block-double()` Mixin adjusts `line-height` such that
+  * `font-size` * `line-height` = two vertical rhythm units.
 @params
-: @ratio : the ratio of the new font size to `fontsize_base`
+: @ratio : the ratio of the new font size to `@fontsize_base`
+@implements
+: .fontsize()
 @tags
 : #verticalrhythm
 : #fontsize
@@ -730,25 +796,24 @@ q {
 : 2014-05-03
   */
 /**
-  * This Interface sets a [large|medium|small] font size and corresponding line height.
+  * This Interface sets a [large|medium|small] preset font size and adjusts corresponding line height.
 @implements
-: .fontsize-scale()
+: .fontsize-block()
 @tags
 : #verticalrhythm
 : #fontsize
 @author
 : Chris Harvey
 @updated
-: 2014-05-20
+: 2014-07-08
   */
-.fontsize-lrg,
-.fontsize-lrg-inline,
+.fontsize-block-lrg,
 .Qblock {
   font-size: 20px;
   font-size: 1.25rem;
   line-height: 1.2;
 }
-.fontsize-med,
+.fontsize-block-med,
 .Qblock.Long,
 .Qblock.Long .Src,
 .Button.Crumb {
@@ -756,64 +821,17 @@ q {
   font-size: 1rem;
   line-height: 1.5;
 }
-.fontsize-sml,
-.fontsize-sml-inline,
+.fontsize-block-sml,
 .Capt,
 .Qblock .Src,
 .Fineprint,
 .Table,
-.Code.Block,
-.Label,
-.Button,
-.Code,
-.Dir,
-.Key,
-.Acro,
-sup,
-sub,
-code {
+.Codeblock,
+.Label {
   font-size: 12px;
   font-size: 0.75rem;
   line-height: 2;
 }
-/**
-  * This Interface sets an Object to inline and does not affect vertical rhythm.
-@tags
-: #verticalrhythm
-: #fontsize
-@author
-: Chris Harvey
-@updated
-: 2014-05-20
-  */
-.fontsize-inline,
-.fontsize-lrg-inline,
-.fontsize-sml-inline,
-.Button,
-.Code,
-.Dir,
-.Key,
-.Acro,
-sup,
-sub,
-code {
-  display: inline;
-  line-height: inherit;
-}
-/**
-  * This Interface sets [large|small] font size for inline Objects. They do not affect
-  * vertical rhythm.
-@implements
-: .fontsize-[lrg|sml]
-: .fontsize-inline
-@tags
-: #verticalrhythm
-: #fontsize
-@author
-: Chris Harvey
-@updated
-: 2014-05-03
-  */
 /*@VERTICAL SPACING*/
 /**
   * This Interface provides a minimum height of one vertical rhythm unit.
@@ -827,6 +845,7 @@ code {
 : 2014-05-10
   */
 .vru-content,
+.H,
 .P,
 .Capt,
 .Addy,
@@ -837,7 +856,7 @@ code {
 .Map > .Term,
 .Map > .Desc,
 .Cell,
-.Code.Block,
+.Codeblock,
 .Label.Msg,
 .Label.Tag {
   min-height: 24px;
@@ -861,7 +880,7 @@ code {
 .P.first,
 .List.first,
 .Map.first,
-.Code.Block.first,
+.Codeblock.first,
 .Label.Msg.first {
   margin-top: 0;
 }
@@ -874,7 +893,7 @@ code {
 .List,
 .Map,
 .Table,
-.Code.Block,
+.Codeblock,
 .Label.Msg {
   margin-top: 24px;
   margin-top: 1.5rem;
@@ -1015,21 +1034,6 @@ main {
   background-size: 20% 24px;
   background-repeat: repeat;
 }
-@media print {
-  body {
-    font-size: 16px;
-    font-size: 1rem;
-    line-height: 1.5;
-    color: #000;
-    background-color: #fff;
-    background-image: none;
-  }
-  main {
-    width: auto;
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
 /*------------------*\
     _headings.less
 \*------------------*/
@@ -1064,9 +1068,10 @@ main {
 : 2014-04-30
   */
 .H > .Hsub {
-  font-size: 80%;
   padding-left: 24px;
+  font-size: 61.80339887%;
   font-weight: normal;
+  color: #704500;
   color: rgba(14, 9, 0, 0.61803399);
 }
 /**
@@ -1095,15 +1100,15 @@ main {
 : #typography
 : #heading
 : #section
+: #golden
 @author
 : Chris Harvey
 @updated
-: 2014-04-14
+: 2014-07-07
   */
 .H.Alpha {
   font-size: 48px;
   font-size: 3rem;
-  line-height: 0.5;
   line-height: 1;
   margin-top: 29.66563146px;
   margin-top: 1.85410197rem;
@@ -1112,40 +1117,42 @@ main {
   font-variant: small-caps;
   font-weight: bold;
   text-align: center;
-  color: #1800cc;
+  color: #120099;
 }
 .H.Alpha > .Hsub {
-  color: #1800cc;
+  color: #120099;
+  color: rgba(18, 0, 153, 0.61803399);
 }
 .H.Beta {
   font-size: 35px;
   font-size: 2.1875rem;
-  line-height: 0.68571429;
-  margin-top: 24px;
-  margin-top: 1.5rem;
-  padding-bottom: 24px;
-  padding-bottom: 1.5rem;
+  line-height: 1.37142857;
+  margin-top: 34.728px;
+  margin-top: 2.1705rem;
+  padding-bottom: 13.272px;
+  padding-bottom: 0.8295rem;
   display: block;
   position: relative;
   top: -1px;
   margin-bottom: -1px;
   border-bottom-width: 1px;
   border-bottom-style: solid;
-  border-color: #2d1f99;
+  border-color: #3d6166;
   font-weight: bold;
-  color: #2d1f99;
+  color: #3d6166;
 }
 .H.Beta > .Hsub {
-  color: #2d1f99;
+  color: #3d6166;
+  color: rgba(61, 97, 102, 0.61803399);
 }
 .H.Gamma {
   font-size: 26px;
   font-size: 1.625rem;
   line-height: 0.92307692;
-  margin-top: 31.992px;
-  margin-top: 1.9995rem;
-  padding-bottom: 16.008px;
-  padding-bottom: 1.0005rem;
+  margin-top: 14.83281573px;
+  margin-top: 0.92705098rem;
+  padding-bottom: 9.16718427px;
+  padding-bottom: 0.57294902rem;
   font-variant: small-caps;
   font-weight: bold;
 }
@@ -1153,10 +1160,10 @@ main {
   font-size: 21px;
   font-size: 1.3125rem;
   line-height: 1.14285714;
-  margin-top: 18px;
-  margin-top: 1.125rem;
-  padding-bottom: 6px;
-  padding-bottom: 0.375rem;
+  margin-top: 17.376px;
+  margin-top: 1.086rem;
+  padding-bottom: 6.624px;
+  padding-bottom: 0.414rem;
   font-style: italic;
   font-weight: bold;
 }
@@ -1164,29 +1171,26 @@ main {
   font-size: 18px;
   font-size: 1.125rem;
   line-height: 1.33333333;
-  margin-top: 0px;
-  margin-top: 0rem;
-  padding-bottom: 0px;
-  padding-bottom: 0rem;
+  margin-top: 0;
+  padding-bottom: 0;
   font-style: italic;
-  color: #2d1f99;
+  color: #3d6166;
 }
 .H.Epsilon > .Hsub {
-  color: #2d1f99;
+  color: #3d6166;
+  color: rgba(61, 97, 102, 0.61803399);
 }
 .H.Zeta {
   font-size: 16px;
   font-size: 1rem;
   line-height: 1.5;
-  margin-top: 0px;
-  margin-top: 0rem;
-  padding-bottom: 0px;
-  padding-bottom: 0rem;
+  margin-top: 0;
+  padding-bottom: 0;
   font-style: italic;
   font-variant: small-caps;
 }
 /**
-  * A fancy heading for the portfolio pages
+  * A fancy heading for the portfolio pages.
 @extends
 : .H.Alpha
 @tags
@@ -1200,7 +1204,6 @@ main {
 .H.Alpha.Folio {
   font-size: 48px;
   font-size: 3rem;
-  line-height: 0.5;
   line-height: 1;
   margin-top: 96px;
   margin-top: 6rem;
@@ -1217,13 +1220,6 @@ main {
   font-size: 6rem;
   line-height: 0.25;
   font-family: 'Snell Roundhand', 'Zapfino', script;
-}
-@media print {
-  .H {
-    font-size: 16px;
-    font-size: 1rem;
-    line-height: 1.5;
-  }
 }
 /*--------------------*\
     _paragraphs.less
@@ -1279,8 +1275,9 @@ main {
 : 2014-05-29
   */
 .Lede {
-  font-weight: bold;
   padding-right: 24px;
+  font-weight: bold;
+  font-family: 'Avenir', 'Calibri', 'Century Gothic', sans-serif;
 }
 /**
   * This Object represents an introduction paragraph, typically referred to as a "standfirst"
@@ -1328,7 +1325,7 @@ main {
   font-style: normal;
   font-weight: normal;
   font-family: 'Zapfino', script;
-  color: #1800cc;
+  color: #120099;
 }
 /*@QUASI-PARAGRAPHS*/
 /**
@@ -1576,25 +1573,6 @@ main {
 @updated
 : 2014-06-26
   */
-@media print {
-  .Fig,
-  .Addy,
-  .Qblock {
-    font-size: 16px;
-    font-size: 1rem;
-    line-height: 1.5;
-    border-left-width: 0;
-    border-left-style: solid;
-    padding-left: 0;
-    margin-left: 0;
-    border-left-color: #000000;
-    border-right-width: 0;
-    border-right-style: solid;
-    padding-right: 0;
-    margin-right: 0;
-    border-right-color: #000000;
-  }
-}
 /*---------------*\
     _lists.less
 \*---------------*/
@@ -2130,6 +2108,7 @@ main {
   */
 .Cell.Hc {
   font-weight: bold;
+  font-family: 'Avenir', 'Calibri', 'Century Gothic', sans-serif;
 }
 .Table.Vert .Row .Cell:nth-child(odd) {
   background-color: #f1f6ff;
@@ -2143,13 +2122,6 @@ table {
 }
 table tr {
   counter-increment: nrows;
-}
-@media print {
-  .Table {
-    font-size: 16px;
-    font-size: 1rem;
-    line-height: 1.5;
-  }
 }
 /*---------------*\
     _links.less
@@ -2178,7 +2150,7 @@ table tr {
 .Link:active {
   color: #cc004e;
 }
-.Link[rel~="external"] {
+a[rel~="external"] {
   font-style: italic;
 }
 /**
@@ -2241,21 +2213,22 @@ table tr {
 .Button {
   display: inline;
   padding: 1px 2px;
-  border-width: 1px;
+  border-width: 2px;
   border-style: solid;
   border-radius: 6px;
   white-space: nowrap;
-  border-width: 2px;
-  border-style: outset;
   border-color: #0062ff;
+  border-style: outset;
   margin-bottom: -4px;
   font-family: 'Century Gothic', 'Gill Sans', 'Avenir', sans-serif;
   color: #0062ff;
   background-color: #c3daff;
   background-image: -webkit-linear-gradient(to bottom right, #dbe9ff, #92bcff);
   background-image: -moz-linear-gradient(to bottom right, #dbe9ff, #92bcff);
+  background-image: -ms-linear-gradient(to bottom right, #dbe9ff, #92bcff);
   background-image: -o-linear-gradient(to bottom right, #dbe9ff, #92bcff);
   background-image: linear-gradient(to bottom right, #dbe9ff, #92bcff);
+  background-image: -webkit-gradient(to bottom right, #dbe9ff, #92bcff);
   cursor: pointer;
 }
 .Button:hover {
@@ -2264,15 +2237,19 @@ table tr {
   background-color: #ffe8c3;
   background-image: -webkit-linear-gradient(to bottom right, #fff1db, #ffd592);
   background-image: -moz-linear-gradient(to bottom right, #fff1db, #ffd592);
+  background-image: -ms-linear-gradient(to bottom right, #fff1db, #ffd592);
   background-image: -o-linear-gradient(to bottom right, #fff1db, #ffd592);
   background-image: linear-gradient(to bottom right, #fff1db, #ffd592);
+  background-image: -webkit-gradient(to bottom right, #fff1db, #ffd592);
 }
 .Button:active {
   border-style: inset;
   background-image: -webkit-linear-gradient(to top left, #fff1db, #ffd592);
   background-image: -moz-linear-gradient(to top left, #fff1db, #ffd592);
+  background-image: -ms-linear-gradient(to top left, #fff1db, #ffd592);
   background-image: -o-linear-gradient(to top left, #fff1db, #ffd592);
   background-image: linear-gradient(to top left, #fff1db, #ffd592);
+  background-image: -webkit-gradient(to top left, #fff1db, #ffd592);
 }
 .Button.Block {
   display: block;
@@ -2311,28 +2288,26 @@ table tr {
 : 2014-06-06
   */
 .codecolors-sol-lite,
-.Code,
-.Code.Block.CSS.Invert,
-code {
+code,
+.Codeblock.CSS.Invert {
   border-color: #eee8d5;
   color: #657b83;
   background-color: #fdf6e3;
 }
 .codecolors-sol-lite .Comm,
-.Code .Comm,
-.Code.Block.CSS.Invert .Comm,
-code .Comm {
+code .Comm,
+.Codeblock.CSS.Invert .Comm {
   color: #93a1a1;
 }
 .codecolors-sol-dark,
-.Code.Block,
+.Codeblock,
 .Key {
   border-color: #073642;
   color: #839496;
   background-color: #002b36;
 }
 .codecolors-sol-dark .Comm,
-.Code.Block .Comm,
+.Codeblock .Comm,
 .Key .Comm {
   color: #586e75;
 }
@@ -2350,7 +2325,6 @@ code .Comm {
 @updated
 : 2014-05-25
   */
-.Code,
 code {
   display: inline;
   padding: 1px 2px;
@@ -2363,8 +2337,6 @@ code {
 /**
   * A block of code. Its semantics are derived from the formatting (line breaks, indenting, etc) of
   * the text content. This Object does *not* extend the `.Code` Object.
-@extends
-: .Code
 @implements
 : .fontsize-sml
 : .vru-top-1
@@ -2379,17 +2351,15 @@ code {
 @updated
 : 2014-05-25
   */
-.Code.Block {
-  top: -1px;
-  margin-bottom: -2px;
-  border-width: 1px;
-  border-radius: 3px;
+.Codeblock {
   display: block;
   position: relative;
   top: -2px;
   margin-bottom: -4px;
   border-width: 2px;
   border-style: solid;
+  border-radius: 3px;
+  font-family: 'Menlo', 'Lucida Sans Typewriter', 'Monaco', monospace;
   white-space: pre-wrap;
 }
 /**
@@ -2402,7 +2372,7 @@ code {
   * `.Cmd` : a Less, LaTeX, or JS command
   * `.Arg` : a Less, LaTeX, or JS argument
 @childof
-: .Code.Block
+: .Codeblock
 @tags
 : #code
 @author
@@ -2410,32 +2380,32 @@ code {
 @updated
 : 2014-05-25
   */
-.Code .Tag {
+.Codeblock .Tag {
   color: #268bd2;
 }
-.Code .Atr {
+.Codeblock .Atr {
   color: #cb4b16;
 }
-.Code .Val {
+.Codeblock .Val {
   color: #859900;
 }
-.Code .Sel {
+.Codeblock .Sel {
   color: #2aa198;
 }
-.Code .Prp {
+.Codeblock .Prp {
   color: #b58900;
 }
-.Code .Cmd {
+.Codeblock .Cmd {
   color: #6c71c4;
 }
-.Code .Arg {
+.Codeblock .Arg {
   color: #d33682;
 }
 /**
   * This Object represents a block of CSS code. Its semantics are derived not from the formatting
   * of the text, but rather the elements inside.
 @extends
-: .Code.Block
+: .Codeblock
 @tags
 : #code
 @author
@@ -2443,11 +2413,13 @@ code {
 @updated
 : 2014-05-25
   */
-.Code.Block.CSS {
+.Codeblock.CSS {
   white-space: nowrap;
 }
 /**
   * This Object represents a CSS selector.
+@childof
+: .Codeblock.CSS
 @tags
 : #code
 @author
@@ -2473,6 +2445,8 @@ code {
 }
 /**
   * This Object represents a ruleset for a CSS selector.
+@childof
+: .Codeblock.CSS
 @implements
 : .clearfix
 : .vru-top-0
@@ -2487,11 +2461,13 @@ code {
   content: '}';
   color: #2aa198;
 }
-.Ruleset > .Comm {
+.CSS .Ruleset > .Comm {
   padding-left: 48px;
 }
 /**
   * This Object represents the property in a CSS property-value pair.
+@childof
+: .Codeblock.CSS .Ruleset
 @tags
 : #code
 @author
@@ -2509,6 +2485,8 @@ code {
 }
 /**
   * This Object represents the value in a CSS property-value pair.
+@childof
+: .Codeblock.CSS .Ruleset
 @tags
 : #code
 @author
@@ -2524,7 +2502,7 @@ code {
   * A block of CSS code whose selectors are inline. This is really useful for selectors with one
   * property-value pair each.
 @extends
-: .Code.Block.CSS
+: .Codeblock.CSS
 @tags
 : #code
 @author
@@ -2532,20 +2510,19 @@ code {
 @updated
 : 2014-05-31
   */
-.Code.Block.CSS.I .Sel {
-  display: inline;
+.Codeblock.CSS.I .Sel {
   float: left;
   clear: both;
 }
-.Code.Block.CSS.I .Ruleset::after {
+.Codeblock.CSS.I .Ruleset::after {
   display: inline;
 }
-.Code.Block.CSS.I .Ruleset > .Prp {
+.Codeblock.CSS.I .Ruleset > .Prp {
   display: inline;
   padding-left: 6px;
   float: none;
 }
-.Code.Block.CSS.I .Ruleset > .Val {
+.Codeblock.CSS.I .Ruleset > .Val {
   display: inline;
 }
 /**
@@ -2564,7 +2541,7 @@ code {
   font-family: 'Optima', 'Candara', 'Helvetica', sans-serif;
 }
 /**
-  * This Object represents an individual key on a keyboard, calculator, or other device.
+  * This Object represents an individual key (a button) on a keyboard, calculator, or other device.
 @implements
 : .fontsize-sml-inline
 : .codecolors-sol-dark
@@ -2591,16 +2568,6 @@ code {
   overflow: auto;
   font-family: 'Times', 'Times New Roman', serif;
   white-space: pre-wrap;
-}
-var {
-  font-style: italic;
-  font-family: 'Times', 'Times New Roman', serif;
-}
-@media print {
-  code {
-    color: #000;
-    background-color: #fff;
-  }
 }
 /*--------------*\
     _text.less
@@ -2974,8 +2941,10 @@ sub {
 .Label.Msg.Warn {
   background-image: -webkit-linear-gradient(to bottom, #ff9e9e, #ff6b6b);
   background-image: -moz-linear-gradient(to bottom, #ff9e9e, #ff6b6b);
+  background-image: -ms-linear-gradient(to bottom, #ff9e9e, #ff6b6b);
   background-image: -o-linear-gradient(to bottom, #ff9e9e, #ff6b6b);
   background-image: linear-gradient(to bottom, #ff9e9e, #ff6b6b);
+  background-image: -webkit-gradient(to bottom, #ff9e9e, #ff6b6b);
 }
 .Label.Msg.Warn::before {
   content: 'Warning ' '!' ' ';
@@ -2983,8 +2952,10 @@ sub {
 .Label.Msg.Cshn {
   background-image: -webkit-linear-gradient(to bottom, #ecff9e, #e1ff6b);
   background-image: -moz-linear-gradient(to bottom, #ecff9e, #e1ff6b);
+  background-image: -ms-linear-gradient(to bottom, #ecff9e, #e1ff6b);
   background-image: -o-linear-gradient(to bottom, #ecff9e, #e1ff6b);
   background-image: linear-gradient(to bottom, #ecff9e, #e1ff6b);
+  background-image: -webkit-gradient(to bottom, #ecff9e, #e1ff6b);
 }
 .Label.Msg.Cshn::before {
   content: 'Caution ' '\2026' ' ';
@@ -2992,8 +2963,10 @@ sub {
 .Label.Msg.Skss {
   background-image: -webkit-linear-gradient(to bottom, #9effc5, #6bffa6);
   background-image: -moz-linear-gradient(to bottom, #9effc5, #6bffa6);
+  background-image: -ms-linear-gradient(to bottom, #9effc5, #6bffa6);
   background-image: -o-linear-gradient(to bottom, #9effc5, #6bffa6);
   background-image: linear-gradient(to bottom, #9effc5, #6bffa6);
+  background-image: -webkit-gradient(to bottom, #9effc5, #6bffa6);
 }
 .Label.Msg.Skss::before {
   content: 'Success ' '\263a' ' ';
@@ -3001,8 +2974,10 @@ sub {
 .Label.Msg.Info {
   background-image: -webkit-linear-gradient(to bottom, #9ec5ff, #6ba6ff);
   background-image: -moz-linear-gradient(to bottom, #9ec5ff, #6ba6ff);
+  background-image: -ms-linear-gradient(to bottom, #9ec5ff, #6ba6ff);
   background-image: -o-linear-gradient(to bottom, #9ec5ff, #6ba6ff);
   background-image: linear-gradient(to bottom, #9ec5ff, #6ba6ff);
+  background-image: -webkit-gradient(to bottom, #9ec5ff, #6ba6ff);
 }
 .Label.Msg.Info::before {
   content: 'Info ' '?' ' ';
@@ -3010,8 +2985,10 @@ sub {
 .Label.Msg.Help {
   background-image: -webkit-linear-gradient(to bottom, #ec9eff, #e16bff);
   background-image: -moz-linear-gradient(to bottom, #ec9eff, #e16bff);
+  background-image: -ms-linear-gradient(to bottom, #ec9eff, #e16bff);
   background-image: -o-linear-gradient(to bottom, #ec9eff, #e16bff);
   background-image: linear-gradient(to bottom, #ec9eff, #e16bff);
+  background-image: -webkit-gradient(to bottom, #ec9eff, #e16bff);
 }
 .Label.Msg.Help::before {
   content: 'Help ' '\2665' ' ';
@@ -3052,8 +3029,10 @@ sub {
 .Label.Tag.Warn {
   background-image: -webkit-linear-gradient(to right, #ff9e9e, #ff5151);
   background-image: -moz-linear-gradient(to right, #ff9e9e, #ff5151);
+  background-image: -ms-linear-gradient(to right, #ff9e9e, #ff5151);
   background-image: -o-linear-gradient(to right, #ff9e9e, #ff5151);
   background-image: linear-gradient(to right, #ff9e9e, #ff5151);
+  background-image: -webkit-gradient(to right, #ff9e9e, #ff5151);
 }
 .Label.Tag.Warn::before {
   border-right-color: #ff9e9e;
@@ -3064,8 +3043,10 @@ sub {
 .Label.Tag.Cshn {
   background-image: -webkit-linear-gradient(to right, #ecff9e, #dcff51);
   background-image: -moz-linear-gradient(to right, #ecff9e, #dcff51);
+  background-image: -ms-linear-gradient(to right, #ecff9e, #dcff51);
   background-image: -o-linear-gradient(to right, #ecff9e, #dcff51);
   background-image: linear-gradient(to right, #ecff9e, #dcff51);
+  background-image: -webkit-gradient(to right, #ecff9e, #dcff51);
 }
 .Label.Tag.Cshn::before {
   border-right-color: #ecff9e;
@@ -3076,8 +3057,10 @@ sub {
 .Label.Tag.Skss {
   background-image: -webkit-linear-gradient(to right, #9effc5, #51ff97);
   background-image: -moz-linear-gradient(to right, #9effc5, #51ff97);
+  background-image: -ms-linear-gradient(to right, #9effc5, #51ff97);
   background-image: -o-linear-gradient(to right, #9effc5, #51ff97);
   background-image: linear-gradient(to right, #9effc5, #51ff97);
+  background-image: -webkit-gradient(to right, #9effc5, #51ff97);
 }
 .Label.Tag.Skss::before {
   border-right-color: #9effc5;
@@ -3088,8 +3071,10 @@ sub {
 .Label.Tag.Info {
   background-image: -webkit-linear-gradient(to right, #9ec5ff, #5197ff);
   background-image: -moz-linear-gradient(to right, #9ec5ff, #5197ff);
+  background-image: -ms-linear-gradient(to right, #9ec5ff, #5197ff);
   background-image: -o-linear-gradient(to right, #9ec5ff, #5197ff);
   background-image: linear-gradient(to right, #9ec5ff, #5197ff);
+  background-image: -webkit-gradient(to right, #9ec5ff, #5197ff);
 }
 .Label.Tag.Info::before {
   border-right-color: #9ec5ff;
@@ -3100,8 +3085,10 @@ sub {
 .Label.Tag.Help {
   background-image: -webkit-linear-gradient(to right, #ec9eff, #dc51ff);
   background-image: -moz-linear-gradient(to right, #ec9eff, #dc51ff);
+  background-image: -ms-linear-gradient(to right, #ec9eff, #dc51ff);
   background-image: -o-linear-gradient(to right, #ec9eff, #dc51ff);
   background-image: linear-gradient(to right, #ec9eff, #dc51ff);
+  background-image: -webkit-gradient(to right, #ec9eff, #dc51ff);
 }
 .Label.Tag.Help::before {
   border-right-color: #ec9eff;
@@ -3165,7 +3152,7 @@ sub {
   border-radius: 15px;
   white-space: normal;
 }
-.Crumb[rel~="this"] {
+.Bc a[rel~="this"] {
   font-weight: bold;
 }
 @media print {
@@ -3202,4 +3189,46 @@ sub {
   display: list-item;
   list-style-type: decimal;
   list-style-position: outside;
+}
+@media print {
+  body,
+  .H,
+  .Fig,
+  .Addy,
+  .Qblock,
+  .Table {
+    font-size: 16px;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+  body,
+  code {
+    color: #000;
+  }
+  body,
+  code {
+    background-color: #fff;
+  }
+  body {
+    background-image: none;
+  }
+  main {
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .Fig,
+  .Addy,
+  .Qblock {
+    border-left-width: 0;
+    border-left-style: solid;
+    padding-left: 0;
+    margin-left: 0;
+    border-left-color: #000000;
+    border-right-width: 0;
+    border-right-style: solid;
+    padding-right: 0;
+    margin-right: 0;
+    border-right-color: #000000;
+  }
 }

@@ -126,7 +126,7 @@ $(document).ready(function () {
 		$(this).find('thead, tbody, tfoot').each(function () {
 			n_rowgroups++;
 		});
-		n_rowgroups++; // once more for the last border
+		n_rowgroups += 2; // twice more for the first and last borders
 		var btm = -(((n_rowgroups + 12) % 24) - 12);
 		if (btm <= 0) {$(this).css('margin-bottom',btm);}
 		else          {$(this).css('padding-bottom',btm);}

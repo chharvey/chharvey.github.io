@@ -67,7 +67,32 @@ Specs for all TODO lists:
 - [ ] 2014-04-08 change all `[data-e=""]` selectors to `[data-e~=""]`
 - [x] 2014-04-08 add `[data-status~="normative"]`, `[data-status~="nonnormative"]`,
 	`[data-status~="draft"]`, etc to stylesheets, get rid of class `.draft`, `.nonnormative`, etc.
-- [x] 2013-06-07 write comment documentation for selectors in `/core/styles/typo/_text.less`
+- [x] 2014-06-07 write comment documentation for selectors in `/core/styles/typo/_text.less`
+- [ ] 2014-07-07 change font (headings, body, prose, etc.) scheme ? (optional)
+- [ ] 2014-07-07 find a way to do `.vru-top-0` and `.vru-top-1` cleanly
+- [x] 2014-07-08 remove units from `0px` and `0rem` on `.H.Epsilon` and `.H.Zeta` in `_headings.less`
+- [x] 2014-07-08 change up the `.fontsize-` Interfaces so that `-inline` is default and
+	`-block` overrides
+
+instances of `font-size:` :
+
+subheadings: 61.8%;
+.fontsize-sml and children: 0.75rem;
+html reset: 16px;
+html base size: 16px; (sets the rem)
+.fontsize-med and children: 1rem;
+H Zeta: 1rem;
+@print most typo block elements: 1rem;
+H Epsilon: 1.125rem;
+.fontsize-lrg and children: 1.25rem;
+H Delta: 1.31rem;
+H Gamma: 1.6rem;
+Dropcap::first-letter: 2rem;
+H Beta: 2.1rem;
+H Alpha: 3rem;
+H Folio: 3rem;
+H Folio::first-letter: 6rem;
+other elements reset: inherit;
 
 #### boxes ####
 - [x] 2013-08-18 code scheme
@@ -75,6 +100,8 @@ Specs for all TODO lists:
 - [x] 2014-03-01 use `<small>` for labels&mdash;they really are disclamers/caveats/etc.
 - [x] 2014-06-19 split messages (`.Msg`) from tags (`.Tag`)
 - [x] 2014-06-23 background gradients for buttons and labels
+- [ ] 2014-07-08 remove `margin-bottom:` from `.Button` Objects because margin doesn't go
+	with `display: inline`
 
 ### scripts ###
 - [ ] 2013-12-14 investigate the use of templates (`<template>`)
@@ -90,10 +117,11 @@ Specs for all TODO lists:
 ### About ###
 - [x] 2014-06-17 compile bio, contact, and links pages into one 'about' page.
 - [x] 2014-06-19 move "My Blogs" and "Copyright" sections, add acknowledgements section (high priority)
-- [ ] 2014-06-19 get picture with Axel (medium priority)
+- [x] 2014-06-19 get picture with Axel (medium priority)
 - [ ] 2014-06-19 contact images into sprites (low priority)
 - [x] 2014-06-22 "Acknowledgements" section: add more detail, give credit to everyone
 - [x] 2014-06-22 Find a page for "Copyright" section
+- [x] 2014-07-06 add `<address>`` element to about page around contact links
 
 ### Resume ###
 - [x] 2014-03-26 remove `!important` from `.res-spacetime {font-size}` and `.res-spacetime {color}`
@@ -140,6 +168,8 @@ This is all gonna go in a spec somewhere...
 
 ### typo.html ###
 - [x] 2013-08-18 inline elements: highlighting
+- [ ] 2014-07-08 add schemes for `.Dir` and `.Key` Objects
+- [ ] 2014-07-08 remove 'TAVX' table
 
 ### colors.html ###
 - [x] 2014-06-07 fix new color palettes

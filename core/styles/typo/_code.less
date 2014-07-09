@@ -81,19 +81,16 @@
 @updated
 : 2014-05-25
   */
-.Code {
-	&:extend(.fontsize-sml-inline);
+code {
+	&:extend(.fontsize-sml);
 	&:extend(.codecolors-sol-lite all);
 	.box-inline(@code_brdr_radius);
 	font-family: @fontfam_code;
 	white-space: nowrap;
 }
-code {&:extend(.Code);}
 /**
   * A block of code. Its semantics are derived from the formatting (line breaks, indenting, etc) of
   * the text content. This Object does *not* extend the `.Code` Object.
-@extends
-: .Code
 @implements
 : .fontsize-sml
 : .vru-top-1
@@ -108,12 +105,12 @@ code {&:extend(.Code);}
 @updated
 : 2014-05-25
   */
-.Code.Block {
-	&:extend(.fontsize-sml);
+.Codeblock {
+	&:extend(.fontsize-block-sml);
 	&:extend(.vru-top-1 all);
 	&:extend(.codecolors-sol-dark all);
-	.box-block(@code_brdr_radius);
-	.border-vert-both(all; 2px; solid); // overrides `.border-vert-both()` mixedin `.box-block()`
+	.box-block(2px; @code_brdr_radius);
+	font-family: @fontfam_code;
 	white-space: pre-wrap;
 }
 /**
@@ -126,7 +123,7 @@ code {&:extend(.Code);}
   * `.Cmd` : a Less, LaTeX, or JS command
   * `.Arg` : a Less, LaTeX, or JS argument
 @childof
-: .Code.Block
+: .Codeblock
 @tags
 : #code
 @author
@@ -134,19 +131,19 @@ code {&:extend(.Code);}
 @updated
 : 2014-05-25
   */
-.Code .Tag  {color: @color_code_tag;}
-.Code .Atr  {color: @color_code_atr;}
-.Code .Val  {color: @color_code_val;}
-.Code .Sel  {color: @color_code_sel;}
-.Code .Prp  {color: @color_code_prp;}
-.Code .Cmd  {color: @color_code_cmd;}
-.Code .Arg  {color: @color_code_arg;}
+.Codeblock .Tag  {color: @color_code_tag;}
+.Codeblock .Atr  {color: @color_code_atr;}
+.Codeblock .Val  {color: @color_code_val;}
+.Codeblock .Sel  {color: @color_code_sel;}
+.Codeblock .Prp  {color: @color_code_prp;}
+.Codeblock .Cmd  {color: @color_code_cmd;}
+.Codeblock .Arg  {color: @color_code_arg;}
 
 /**
   * This Object represents a block of CSS code. Its semantics are derived not from the formatting
   * of the text, but rather the elements inside.
 @extends
-: .Code.Block
+: .Codeblock
 @tags
 : #code
 @author
@@ -154,14 +151,14 @@ code {&:extend(.Code);}
 @updated
 : 2014-05-25
   */
-.Code.Block.CSS {
+.Codeblock.CSS {
 	white-space: nowrap;
-}
-.Code.Block.CSS.Invert {
-	&:extend(.codecolors-sol-lite all);
+	&.Invert {&:extend(.codecolors-sol-lite all);}
 }
 /**
   * This Object represents a CSS selector.
+@childof
+: .Codeblock.CSS
 @tags
 : #code
 @author
@@ -183,6 +180,8 @@ code {&:extend(.Code);}
 }
 /**
   * This Object represents a ruleset for a CSS selector.
+@childof
+: .Codeblock.CSS
 @implements
 : .clearfix
 : .vru-top-0
@@ -199,12 +198,12 @@ code {&:extend(.Code);}
 		content: '}';
 		color: @color_code_sel;
 	}
-}
-.Ruleset > .Comm {
-	padding-left: @tab;
+	> .Comm {padding-left: @tab;}
 }
 /**
   * This Object represents the property in a CSS property-value pair.
+@childof
+: .Codeblock.CSS .Ruleset
 @tags
 : #code
 @author
@@ -220,6 +219,8 @@ code {&:extend(.Code);}
 }
 /**
   * This Object represents the value in a CSS property-value pair.
+@childof
+: .Codeblock.CSS .Ruleset
 @tags
 : #code
 @author
@@ -237,7 +238,7 @@ code {&:extend(.Code);}
   * A block of CSS code whose selectors are inline. This is really useful for selectors with one
   * property-value pair each.
 @extends
-: .Code.Block.CSS
+: .Codeblock.CSS
 @tags
 : #code
 @author
@@ -245,9 +246,8 @@ code {&:extend(.Code);}
 @updated
 : 2014-05-31
   */
-.Code.Block.CSS.I {
+.Codeblock.CSS.I {
 	.Sel {
-		display: inline;
 		float: left;
 		clear: both;
 	}
@@ -278,12 +278,12 @@ code {&:extend(.Code);}
 : 2014-05-25
   */
 .Dir {
-	&:extend(.fontsize-sml-inline);
+	&:extend(.fontsize-sml);
 	font-style: italic;
 	font-family: @fontfam_base;
 }
 /**
-  * This Object represents an individual key on a keyboard, calculator, or other device.
+  * This Object represents an individual key (a button) on a keyboard, calculator, or other device.
 @implements
 : .fontsize-sml-inline
 : .codecolors-sol-dark
@@ -297,7 +297,7 @@ code {&:extend(.Code);}
 : 2014-06-06
   */
 .Key {
-	&:extend(.fontsize-sml-inline);
+	&:extend(.fontsize-sml);
 	&:extend(.codecolors-sol-dark all);
 	.box-inline(@code_brdr_radius);
 	font-family: @fontfam_accent;
@@ -307,15 +307,4 @@ code {&:extend(.Code);}
 	overflow: auto;
 	font-family: @fontfam_math;
 	white-space: pre-wrap;
-}
-var {
-	font-style: italic;
-	font-family: @fontfam_math;
-}
-
-@media print {
-	code {
-		color: #000;
-		background-color: #fff;
-	}
 }
