@@ -130,11 +130,12 @@ other elements reset: inherit;
 - [x] 2014-03-26 add web-dev exp
 - [ ] 2014-04-07 find a way to use JS to add `.res-footer`s (pagecount, etc.)
 - [x] 2014-04-08 fix `list-style-type: none;` in definition of `.res-tech-apps {}`
+- [x] 2014-07-10 wrap locations with geographical data
 
 ### Folio ###
 
 #### math.html ####
-- [ ] 2014-06-18 find course number for student teaching and add `id` to last section
+- [x] 2014-06-18 find course number for student teaching and add `id` to last section
 - [ ] 2014-06-18 add content to student teaching section (PHHS Algebra II)
 
 ## Site Design TODO list ##
