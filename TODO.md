@@ -134,7 +134,7 @@ other elements reset: inherit;
 ### Folio ###
 
 #### math.html ####
-- [ ] 2014-06-18 find course number for student teaching and add `id` to last section
+- [x] 2014-06-18 find course number for student teaching and add `id` to last section
 - [ ] 2014-06-18 add content to student teaching section (PHHS Algebra II)
 
 ## Site Design TODO list ##
