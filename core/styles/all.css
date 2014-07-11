@@ -850,40 +850,30 @@ sub {
 /**
   * These Mixins provide [top|bottom] spacing of a multiple of a vertical rhythm unit.
 @params
-: @ratio : the multliplier, i.e. how many `rem`s
+: @ratio : the multliplier, i.e. how many `rem`s. For good vertical rhythm, use a whole number.
 @tags
 : #verticalrhythm
+: #structure
+: #fallback
 @author
 : Chris Harvey
 @updated
-: 2014-05-10
+: 2014-07-10
   */
-.vru-top-0,
-.vru-top-1.first,
-.P.Intro,
-.List > .Item > .List,
-.P.first,
-.List.first,
-.Map.first,
-.Codeblock.first,
-.Label.Msg.first {
-  margin-top: 0;
-}
-.vru-bottom-0 {
-  padding-bottom: 0;
-}
 .vru-top-1,
-.P,
-.Qblock.Long .Src,
-.List,
-.Map,
-.Table,
+:not(.H) + .P,
+.P + .List,
+.P + .Map,
+.P + .Table,
 .Codeblock,
 .Label.Msg {
   margin-top: 24px;
   margin-top: 1.5rem;
 }
 .vru-bottom-1,
+.P + .List,
+.P + .Map,
+.P + .Table,
 .P.Intro,
 .Bc > .Anc,
 .Bc > .Sib,
@@ -1060,24 +1050,6 @@ main {
   color: rgba(14, 9, 0, 0.61803399);
 }
 /**
-  * This Interface is used on any Object that "visually" follows a heading (an `.H` Object).
-  * Keyword "visually" because it may not directly follow the heading in the Document Outline
-  * (it may be in a sub-section, etc.)
-@extends
-: .vru-top-1
-@tags
-: #verticalrhythm
-: #typography
-: #paragraph
-: #list
-: #map
-: #table
-@author
-: Chris Harvey
-@updated
-: 2014-06-26
-  */
-/**
   * The six Objects below represent different levels of headings, starting from top-level to level 6.
 @extends
 : .H
@@ -1089,7 +1061,7 @@ main {
 @author
 : Chris Harvey
 @updated
-: 2014-07-07
+: 2014-07-10
   */
 .H.Alpha {
   font-size: 48px;
@@ -1156,8 +1128,6 @@ main {
   font-size: 18px;
   font-size: 1.125rem;
   line-height: 1.33333333;
-  margin-top: 0;
-  padding-bottom: 0;
   font-style: italic;
   color: #3d6166;
 }
@@ -1169,8 +1139,6 @@ main {
   font-size: 16px;
   font-size: 1rem;
   line-height: 1.5;
-  margin-top: 0;
-  padding-bottom: 0;
   font-style: italic;
   font-variant: small-caps;
 }
@@ -1232,14 +1200,13 @@ main {
   * anywhere from 3 to 8 sentences. However on the Web, they can be much, much shorter.
 @implements
 : .vru-content
-: .vru-top-1
 @tags
 : #typography
 : #paragraph
 @author
 : Chris Harvey
 @updated
-: 2014-04-26
+: 2014-07-10
   */
 .P {
   display: block;
@@ -1269,7 +1236,6 @@ main {
 @extends
 : .P
 @implements
-: .vru-top-0
 : .vru-bottom-1
 @tags
 : #typography
@@ -1277,7 +1243,7 @@ main {
 @author
 : Chris Harvey
 @updated
-: 2014-06-26
+: 2014-07-10
   */
 .P.Intro {
   font-weight: bold;
@@ -1289,7 +1255,7 @@ main {
 @extends
 : .P
 @mixesin
-: .fontsize-scale()
+: .fontsize-block()
 @tags
 : #typography
 : #paragraph
@@ -1321,7 +1287,7 @@ main {
   * If this `.Capt` is a child of a `table` Element, it should be a `caption` Element.
 @implements
 : .vru-content
-: .fontsize-small
+: .fontsize-block-small
 @tags
 : #typography
 : #caption
@@ -1421,7 +1387,7 @@ main {
 @author
 : Chris Harvey
 @updated
-: 2014-05-10
+: 2014-07-10
   */
 .Fig {
   border-left-width: 4px;
@@ -1443,17 +1409,17 @@ main {
 @implements
 : .vru-content
 : .vru-top-phi
-: .fontsize-lrg
+: .fontsize-block-lrg
+: .crossgrid-lined
 @mixesin
 : .spacing-phi()
-: .fontsize-scale-double()
 @tags
 : #typography
 : #quote
 @author
 : Chris Harvey
 @updated
-: 2014-05-10
+: 2014-07-10
   */
 .Qblock {
   border-left-width: 7px;
@@ -1469,14 +1435,14 @@ main {
 @belongsto
 : .Qblock
 @implements
-: .fontsize-sml
+: .fontsize-block-sml
 @tags
 : #typography
 : #quote
 @author
 : Chris Harvey
 @updated
-: 2014-05-10
+: 2014-07-10
   */
 .Qblock .Src {
   display: block;
@@ -1495,14 +1461,14 @@ main {
 @extends
 : .Qblock
 @implements
-: .fontsize-med
+: .fontsize-block-med
 @tags
 : #typography
 : #quote
 @author
 : Chris Harvey
 @updated
-: 2014-05-10
+: 2014-07-10
   */
 .Qblock.Long .Src {
   padding-right: 0;
@@ -1590,14 +1556,13 @@ main {
   * This `.List` Object is  displayed as a block Object containing other block Objects. See the
   * `.Enum` Object for a short listing of inline Objects (e.g., a list of keywords).
 @implements
-: .vru-top-1
 @tags
 : #typography
 : #list
 @author
 : Chris Harvey
 @updated
-: 2014-05-03
+: 2014-07-10
   */
 .List {
   display: block;
@@ -1623,7 +1588,6 @@ main {
 /**
   * This Object represents a nested List Object nested within a List Item Object.
 @implements
-: .vru-top-0
 : .listindent
 @tags
 : #typography
@@ -1631,7 +1595,7 @@ main {
 @author
 : Chris Harvey
 @updated
-: 2014-05-10
+: 2014-07-10
   */
 /**
   * This Object represents an ordered list, or a list used for an outline. This does *not*
@@ -1847,14 +1811,13 @@ main {
   * This Object represents an association list, which contains term-description pairs. Each pair
   * consists of exactly one `.Term` and exactly one `.Desc`.
 @implements
-: .vru-top-1
 @tags
 : #typography
 : #map
 @author
 : Chris Harvey
 @updated
-: 2014-05-12
+: 2014-07-10
   */
 .Map {
   display: block;
@@ -1890,18 +1853,6 @@ main {
 .Map > .Desc {
   padding-left: 48px;
 }
-/**
-  * This Object represents a Map Object nested within a `.Term` Object or `.Desc` Object.
-@implements
-: .vru-top-0
-@tags
-: #typography
-: #map
-@author
-: Chris Harvey
-@updated
-: 2014-05-25
-  */
 /**
   * This Object represents an association list in which terms are grouped together in one column
   * and descriptions are grouped together in one column.
@@ -1990,15 +1941,14 @@ main {
   * would be a multivariable map: given multiple (e.g., two) independent inputs there exists one
   * dependent output.
 @implements
-: .vru-top-1
-: .fontsize-sml
+: .fontsize-block-sml
 @tags
 : #typography
 : #table
 @author
 : Chris Harvey
 @updated
-: 2014-05-18
+: 2014-07-10
   */
 .Table {
   display: table;
@@ -2322,7 +2272,6 @@ code {
   * the text content. This Object does *not* extend the `.Code` Object.
 @implements
 : .fontsize-sml
-: .vru-top-1
 : .codecolors-sol-dark
 @mixesin
 : .box-block()
@@ -2332,7 +2281,7 @@ code {
 @author
 : Chris Harvey
 @updated
-: 2014-05-25
+: 2014-07-10
   */
 .Codeblock {
   display: block;
@@ -2432,7 +2381,6 @@ code {
 : .Codeblock.CSS
 @implements
 : .clearfix
-: .vru-top-0
 @tags
 : #code
 @author
@@ -2567,9 +2515,6 @@ code {
 @updated
 : 2014-05-10
   */
-.S {
-  display: inline;
-}
 /*@HIGHLIGHTED TEXT*/
 /**
   * Emphasized text represents words or phrases that are stressed, as if the tone of voice would be
@@ -2881,7 +2826,6 @@ sub {
 @extends
 : .Label
 @implements
-: .vru-top-1
 @mixesin
 : .box-block()
 @tags
@@ -2890,7 +2834,7 @@ sub {
 @author
 : Chris Harvey
 @updated
-: 2014-06-22
+: 2014-07-10
   */
 .Label.Msg {
   display: block;
