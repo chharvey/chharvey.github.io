@@ -130,6 +130,7 @@ other elements reset: inherit;
 - [x] 2014-03-26 add web-dev exp
 - [ ] 2014-04-07 find a way to use JS to add `.res-footer`s (pagecount, etc.)
 - [x] 2014-04-08 fix `list-style-type: none;` in definition of `.res-tech-apps {}`
+- [x] 2014-07-10 wrap locations with geographical data
 
 ### Folio ###
 
