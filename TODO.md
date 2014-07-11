@@ -70,11 +70,31 @@ Specs for all TODO lists:
 	`[data-status~="draft"]`, etc to stylesheets, get rid of class `.draft`, `.nonnormative`, etc.
 - [x] 2014-06-07 write comment documentation for selectors in `/core/styles/typo/_text.less`
 - [ ] 2014-07-07 change font (headings, body, prose, etc.) scheme ? (optional)
-- [ ] 2014-07-07 find a way to do `.vru-top-0` and `.vru-top-1` cleanly
+- [x] 2014-07-07 find a way to do `.vru-top-0` and `.vru-top-1` cleanly
 - [x] 2014-07-08 remove units from `0px` and `0rem` on `.H.Epsilon` and `.H.Zeta` in `_headings.less`
 - [x] 2014-07-08 change up the `.fontsize-` Interfaces so that `-inline` is default and
 	`-block` overrides
 - [ ] 2014-07-08 break down `/core/styles/_interfaces.less` and move into `/core/styles/tools/`
+
+instances of `font-size:` :
+
+subheadings: 61.8%;
+.fontsize-sml and children: 0.75rem;
+html reset: 16px;
+html base size: 16px; (sets the rem)
+.fontsize-med and children: 1rem;
+H Zeta: 1rem;
+@print most typo block elements: 1rem;
+H Epsilon: 1.125rem;
+.fontsize-lrg and children: 1.25rem;
+H Delta: 1.31rem;
+H Gamma: 1.6rem;
+Dropcap::first-letter: 2rem;
+H Beta: 2.1rem;
+H Alpha: 3rem;
+H Folio: 3rem;
+H Folio::first-letter: 6rem;
+other elements reset: inherit;
 
 #### boxes ####
 - [x] 2013-08-18 code scheme
@@ -111,11 +131,12 @@ Specs for all TODO lists:
 - [x] 2014-03-26 add web-dev exp
 - [ ] 2014-04-07 find a way to use JS to add `.res-footer`s (pagecount, etc.)
 - [x] 2014-04-08 fix `list-style-type: none;` in definition of `.res-tech-apps {}`
+- [x] 2014-07-10 wrap locations with geographical data
 
 ### Folio ###
 
 #### math.html ####
-- [ ] 2014-06-18 find course number for student teaching and add `id` to last section
+- [x] 2014-06-18 find course number for student teaching and add `id` to last section
 - [ ] 2014-06-18 add content to student teaching section (PHHS Algebra II)
 
 ## Site Design TODO list ##
