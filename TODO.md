@@ -27,7 +27,7 @@ Specs for all TODO lists:
 	- 'portal' pages (`/home/edu.html`, `/home/math.html`, etc.)
 	- **formal** documents such as articles or blog posts (maybe in `/blog/`?)
 - [ ] 2014-06-26 consistent time stamps and document/post metadata
-- [ ] 2014-06-26 use `i[lang]>abbr` for all instances of "etc", "i.e." and "e.g." on **formal** pages
+- [x] 2014-06-26 use `i[lang]>abbr` for all instances of "etc.", "i.e." and "e.g." on **formal** pages
 - [ ] 2014-06-26 add `geo` custom-elements to locations in `resume.html`
 
 #### links ####
