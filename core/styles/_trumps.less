@@ -1,0 +1,82 @@
+// main: all.less
+
+/*----------------*\
+    _trumps.less
+\*----------------*/
+
+
+[data-status="normative"] {}
+[data-status="informative"] {}
+[data-status="nonnormative"] {
+	font-style: italic;
+	font-family: @fontfam_base;
+}
+/**
+  * Elements still in testing mode but still not yet ready for implementation.
+  */
+[data-status="draft"] {
+	background-color: #fffcfa; // @aperture_white rotated by [] degrees
+	opacity: @phi1;
+}
+[hidden] {
+	display: none !important;
+}
+[data-bool="0"] {
+	color: @color_base_bg;
+	background-color: lighten(@color_link_up, 15%);
+}
+[data-bool="1"] {
+	color: @color_base_txt;
+	background-color: lighten(@color_link_dn, 15%);
+}
+
+@media print {
+	body,
+	.H,
+	.Fig, .Addy, .Qblock,
+	.Table {.fontsize-block-med;}
+	body,
+	code {color: #000;}
+	body,
+	code {background-color: #fff;}
+	body {
+		background-image: none;
+	}
+	main {
+		width: auto;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.Fig, .Addy, .Qblock {
+		// .spacing-phi-left;
+		// .spacing-phi-right;
+		.spacing-phi(left;  0; solid; #000);
+		.spacing-phi(right; 0; solid; #000);
+	}
+
+	/**
+	  * This Interface displays an Object on screen but does not print it.
+	@tags
+	: #schematic
+	@author
+	: Chris Harvey
+	@updated
+	: 2014-04-30
+	  */
+	.noprint {
+		display: none;
+	}
+	/**
+	  * This Interface starts a new page in the print media.
+	@tags
+	: #schematic
+	@author
+	: Chris Harvey
+	@updated
+	: 2014-04-30
+	  */
+	.pagebreak {
+		page-break-before: always;
+		padding-top: 0.25in;
+	}
+}
