@@ -4,7 +4,6 @@
     _paragraphs.less
 \*--------------------*/
 
-
 // Table of Contents
 // - PARAGRAPHS
 // - QUASI-PARAGRAPHS
@@ -53,20 +52,32 @@
   * anywhere from 3 to 8 sentences. However on the Web, they can be much, much shorter.
 @implements
 : .vru-content
-: .vru-top-1
 @tags
 : #typography
 : #paragraph
 @author
 : Chris Harvey
 @updated
-: 2014-04-26
+: 2014-07-10
   */
 .P {
 	&:extend(.vru-content);
-	&:extend(.vru-top-1 all);
 	display: block;
 }
+:not(.H) + .P {
+	&:extend(.vru-top-1);
+}
+.P + .List,
+.P + .Map,
+.P + .Table {
+	&:extend(.vru-top-1);
+	&:extend(.vru-bottom-1);
+}
+.Codeblock,
+.Label.Msg {
+	&:extend(.vru-top-1);
+}
+
 /**
   * This Object refers to the first ("lede"/"lead") sentence in a paragraph or caption, which may
   * act as a "heading" for that paragraph or caption.
@@ -94,7 +105,6 @@
 @extends
 : .P
 @implements
-: .vru-top-0
 : .vru-bottom-1
 @tags
 : #typography
@@ -102,10 +112,9 @@
 @author
 : Chris Harvey
 @updated
-: 2014-06-26
+: 2014-07-10
   */
 .P.Intro {
-	&:extend(.vru-top-0);
 	&:extend(.vru-bottom-1);
 	font-weight: bold;
 	font-family: @fontfam_intro;
@@ -116,7 +125,7 @@
 @extends
 : .P
 @mixesin
-: .fontsize-scale()
+: .fontsize-block()
 @tags
 : #typography
 : #paragraph
@@ -165,7 +174,7 @@
   * If this `.Capt` is a child of a `table` Element, it should be a `caption` Element.
 @implements
 : .vru-content
-: .fontsize-small
+: .fontsize-block-small
 @tags
 : #typography
 : #caption
@@ -252,7 +261,7 @@
 @author
 : Chris Harvey
 @updated
-: 2014-05-10
+: 2014-07-10
   */
 .Fig {
 	&:extend(.vru-content);
@@ -260,7 +269,6 @@
 	.spacing-phi(left;  @fig_brdr_width; @fig_brdr_style);
 	.spacing-phi(right; @fig_brdr_width; @fig_brdr_style);
 	display: block;
-	// > :first-child {&:extend(.vru-top-0);}
 }
 /**
   * This Object represents any Block Quotation, representing material taken directly from another
@@ -271,28 +279,27 @@
 @implements
 : .vru-content
 : .vru-top-phi
-: .fontsize-lrg
+: .fontsize-block-lrg
+: .crossgrid-lined
 @mixesin
 : .spacing-phi()
-: .fontsize-scale-double()
 @tags
 : #typography
 : #quote
 @author
 : Chris Harvey
 @updated
-: 2014-05-10
+: 2014-07-10
   */
 .Qblock {
 	&:extend(.vru-content);
 	&:extend(.vru-top-phi);
 	&:extend(.fontsize-block-lrg);
-	.spacing-phi(left; @qblock_brdr_width; @qblock_brdr_style);
 	&:extend(.crossgrid-lined);
-	// .fontsize-scale-double(5/4);
+	.spacing-phi(left; @qblock_brdr_width; @qblock_brdr_style);
+	// .fontsize-doubleblock(5/4);
 	display: block;
 	font-family: @fontfam_accent;
-	// > :first-child {&:extend(.vru-top-0);}
 }
 /**
   * The `.Src` Object represents the citation of a source inside a `.Qblock` Object. It is
@@ -300,14 +307,14 @@
 @belongsto
 : .Qblock
 @implements
-: .fontsize-sml
+: .fontsize-block-sml
 @tags
 : #typography
 : #quote
 @author
 : Chris Harvey
 @updated
-: 2014-05-10
+: 2014-07-10
   */
 .Qblock .Src {
 	&:extend(.fontsize-block-sml);
@@ -325,20 +332,19 @@
 @extends
 : .Qblock
 @implements
-: .fontsize-med
+: .fontsize-block-med
 @tags
 : #typography
 : #quote
 @author
 : Chris Harvey
 @updated
-: 2014-05-10
+: 2014-07-10
   */
 .Qblock.Long {
 	&:extend(.fontsize-block-med);
 	.Src {
 		&:extend(.parens all);
-		&:extend(.vru-top-1);
 		&:extend(.fontsize-block-med);
 		padding-right: 0;
 	}
