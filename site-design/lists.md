@@ -1,6 +1,6 @@
 # Lists #
-## Unordered lists vs. Ordered lists ##
-If the order matters (a.k.a. changing the order changes the meaning of the list or changes the result), then it should be an ordered list. If not, unordered.
+## Unordered lists <abbr title="versus">vs.</abbr> Ordered lists ##
+If the order matters (<i lang="la"><abbr title="id est">i.e.</abbr></i>, changing the order changes the meaning of the list or changes the result), then it should be an ordered list. If not, unordered.
 
 ### Examples: ###
 A grocery list should be unordered, UNLESS it is written in order of priority. A recipe is my favorite example of an ordered list because changing the order of steps could result in one fucked up cake.
