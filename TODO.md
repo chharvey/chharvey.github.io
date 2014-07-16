@@ -151,10 +151,10 @@ This is all gonna go in a spec somewhere...
 	etc.) from semantic classes (e.g. `.dl-ordered`, `.hsub`, `.postal`, etc.). Maybe use the HTML
 	`data-*` attribute?
 - [ ] 2014-06-08 **REMINDER**: CSS Objects should be *named* semantically, for the
-	"theoretical redesign future", but should not *convey* semantics, i.e. provide any semantic
+	"theoretical redesign future", but should not *convey* semantics, <i lang="la"><abbr title="id est">i.e.</abbr></i>, provide any semantic
 	meaning. To "extend" an Element semantically, use HTML like `data-*`, or microdata
 	(`itemscope` and `itemprop`), or ARIA roles. CSS Interfaces, on the other hand, are permitted
-	to be named "unsemantically", i.e. their names may describe their definitions. This is because
+	to be named "unsemantically", <i lang="la"><abbr title="id est">i.e.</abbr></i>, their names may describe their definitions. This is because
 	Interface names are visible in CSS, so Objects can implement them, but they're not visible in
 	HTML, so Elements cannot. Elements can only instantiate CSS Classes ("Objects").
 
