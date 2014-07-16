@@ -168,27 +168,6 @@ The adjacent sibling of an element *is* a general sibling, but it is a &ldquo;sp
 
 The bottom line is that authors must define `.foo ~ .bar {}` *before* `.foo + .bar {}` in the stylesheet in order to get the results they expect. The same method applies to `.baz .qux {}` and `.baz > .qux {}`: the former must be defined before the latter because the latter is a special case of the former, even though they have the same specificity.
 	</section>
-	<section id="stylesheet-order">
-		<h1 class="h--gamma">Stylesheet Order</h1>
-		<p>Stylesheets should be imported in order from most generic to least generic. It is recommended to split stylesheets into the following categories:</p>
-		<ol>
-			<li>global settings, such as variables and functions (for preprocessors)</li>
-			<li>reset (unclassed element selectors only)</li>
-			<li>global interfaces and mixins</li>
-			<li>layout and containers: grids, vertical rhythm systems</li>
-			<li>typographical objects (headings, paragraphs, etc.)</li>
-			<li>modules (components like lists, buttons, breadcrumbs)</li>
-			<li>style trumps (states, anomalies, etc.)</li>
-		</ol>
-		<p>A <dfn>global stylesheet</dfn> contains all the variables and functions that you want to be accessible throughout the entire site. Common varaibles include font size, line height, and theme colors. It's a good idea to  include common maths helpers here as well. This file doesn't actually produce any CSS. Since this file is imported first, every other CSS (or Less) file has access to it.</p>
-		<p>A <dfn>reset stylesheet</dfn> removes all styles, e.g. gets rid of all margins, padding, bold, italics, etc. It strips the elements down to nothing. The use of a CSS reset is controversial. Authors against the use of a reset would say there's no point in removing a margin if you're going to add it back in later; this is just more work for the browser. Proponents might say that there's no predicting how a browser might one day change the default presentation of an element (all of a sudden it might decide to just go ahead and italicize all paragraphs), so you might as well reset everything just in case.</p>
-		<p>It's best to use a mix of both philosophies. This means resetting things that need to be reset, such as margin and padding if you are implementing a <a>vertical rhythm system</a>, and other browser-specific resets (such as non-HTML5-compliant browsers), but leaving other things alone that don't need to be reset, such as font weight and font style. This process can be done on an element-by-element basis, which may take long to write. The properties that are left alone can always be defined in particular elements or classes, later on in more targeted stylesheets (such as typography or modules). The reset stylesheet should be very broad and general, because it comes early in the Cascade and is likely to be overridden later.</p>
-		<p>An <dfn>interface stylesheet</dfn> contains all abstract Interfaces and Mixins that your Objects will want to implement later on. These Interfaces aren't actual things on a site (no HTML element should instantiate them); they're just helper classes and design patterns that appear many times throughout the site. An example might be <code>.transp {}</code>, which sets a certain opacity.</p>
-		<p>The <dfn>layout stylesheet(s)</dfn> will define the <a>grid system</a> and/or <a>vertical rhythm system</a> of the site. These stylesheets will define only Classes that are meant for <a>containers, not content</a>. Thus it is acceptable that these classnames be presentational.</p>
-		<p>The <dfn>typography stylesheet</dfn> defines Objects for typographical content including headings, paragraphs, block quotes, lists, figures, tables, and text-level semantics (highlighting, etc.). Some authors choose to split even these categories into separate stylesheets. This stylesheet does not use element selectors as you would expect, but rather conceptual Objects that correspond to features of a document. For example, the Heading Object in this stylesheet will not have the selector <code>h1 {}</code>, but rather an abstract Object selector such as <code>.H {}</code>. <a>HTML elements on a page must instantiate the CSS Objects</a> for proper styling. Elements that do not instantiate an Object will be styled via <a>reset</a> or browser-default.</p>
-		<p><dfn>Modules</dfn></p>
-		<p><dfn>Style trumps</dfn></p>
-	</section>
 </section>
 <section id="classname-syntax" data-status="draft">
 	<h1 class="h--beta">Classname Syntax</h1>
