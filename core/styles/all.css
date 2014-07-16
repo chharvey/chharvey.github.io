@@ -226,272 +226,6 @@ mark,
 button {
   background-color: transparent;
 }
-/*--------------------*\
-    _interfaces.less
-\*--------------------*/
-/*@MIXINS*/
-/**
-  * Use this Mixin to apply a rotation transformation to an Object.
-@params
-: @rotation : the angle, in degrees, to rotate the Object
-@tags
-: #transformation
-: #vendorspecific
-@author
-: Chris Harvey
-@updated
-: 2014-05-10
-  */
-/**
-  * Use this Mixin to apply a transition timing effect on an Element.
-@params
-: @props : the CSS property name(s). If more than one, they must be comma-separated
-: @dura  : the length in time, in seconds, the transition is to be in effect
-: @func  : the timing-function. See `https://developer.mozilla.org/en-US/docs/Web/CSS/timing-function`
-: @delay : the length in time, in seconds, the transition will wait before starting
-@tags
-: #transition
-: #vendorspecific
-@author
-: Chris Harvey
-@updated
-: 2014-06-17
-  */
-/**
-  * Use this Mixin to apply a linear gradient background on an Element.
-  * See [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/linear-gradient) for more info.
-  * See [WPD](http://docs.webplatform.org/wiki/css/functions/linear-gradient) for more info.
-@params
-: ... : any number of parameters
-@tags
-: #gradient
-: #vendorspecific
-@author
-: Chris Harvey
-@updated
-: 2014-07-08
-  */
-/*@Abstract Boxes*/
-/**
-  * These Mixins create abstract inline structures, boxed with a solid border.
-  * `.box-inline(@brdrw; @brdrc; @brdrr)` is an extension of `.box-inline(@brdrw; @brdrr)`
-  * 	(it's not the case that `.box-inline(@brdrw; @brdrr)` is a restriction of
-  * 	`.box-inline(@brdrw; @brdrc; @brdrr)`) because the border color, if not specified,
-  * 	should not be a preset color; rather, it should be the value of the `color` property.
-@params
-: @brdrw : the value of `border-width` property (if not specified, default to 1px)
-: @brdrc : the value of `border-color` property (if not specified, default to value of `color` property)
-: @brdrr : the value of `border-radius` property
-@tags
-: #box
-: #verticalrhythm
-@author
-: Chris Harvey
-@updated
-: 2014-07-07
-  */
-/**
-  * This Mixin creates an abstract block structure, boxed with a border.
-  * `.box-block(@brdrw; @brdrc; @brdrr)` is an extension of `.box-block(@brdrw; @brdrr)`
-  * 	(it's not the case that `.box-block(@brdrw; @brdrr)` is a restriction of
-  * 	`.box-block(@brdrw; @brdrc; @brdrr)`) because the border color, if not specified,
-  * 	should not be a preset color; rather, it should be the value of the `color` property.
-@params
-: @brdrw : the value of `border-width` property (if not specified, default to 1px)
-: @brdrc : the value of `border-color` property (if not specified, default to value of `color` property)
-: @brdrr : the value of `border-radius` property
-@implements
-: .cellpaddingdefault
-: .vru-content
-@mixesin
-: .border-vert-both()
-@tags
-: #box
-: #verticalrhythm
-@author
-: Chris Harvey
-@updated
-: 2014-07-07
-  */
-/*@INTERFACES*/
-/**
-  * This Interface creates default padding for cell-like structures (table cells, grid cells,
-  * boxes, etc.).
-  * The padding is based on the Vertical Rhythm Unit. The vertical padding is in rems, and
-  * the horizontal padding is in pixels.
-@tags
-: #verticalrhythm
-: #padding
-@author
-: Chris Harvey
-@updated
-: 2014-05-20
-  */
-.cellpaddingdefault,
-.Cell,
-.Codeblock,
-.Label.Msg {
-  padding: 12px 7.41640786px;
-  padding: 0.75rem 7.41640786px;
-}
-/**
-  * This Interface is used on containers of floats. It pushes subsequent content to the bottom
-  * of the container.
-@tags
-: #float
-@author
-: Chris Harevy
-@updated
-: 2014-05-12
-  */
-.clearfix::after,
-.Map.Vert::after,
-.CSS .Ruleset::after {
-  display: table;
-  content: ' ';
-  clear: both;
-}
-/**
-  * This Interface makes an object slightly transparent, but it becomes opaque upon `:hover`.
-@tags
-: #schematic
-: #golden
-@author
-: Chris Harvey
-@updated
-: 2014-04-30
-  */
-.transp {
-  opacity: 0.61803399;
-}
-.transp:hover {
-  opacity: 1;
-}
-/**
-  * This Interface puts an outline around an Object to show its structure. It is used for
-  * deomonstration purposes.
-@tags
-: #structural
-@author
-: Chris Harvey
-@updated
-: 2014-06-07
-  */
-.help-otln {
-  outline: 1px solid #cc004e;
-}
-/**
-  * These Interfaces add a solid horizontal line above the Object, separating it from its
-  * previous sibling.
-  * The `.separated()` Mixin lets you choose the line color.
-  * The `-h` suffix colors the line with the main heaing color (blueish).
-  * The `-brdr` suffix colors the line with the border accent color (greenish).
-  * The `-accent` suffix colors the line with the accent color (redish).
-@tags
-: #golden
-: #heading
-: #border
-: #accent
-@author
-: Chris Harvey
-@updated
-: 2014-07-07
-  */
-.separated-h {
-  padding-top: 8.78521826px;
-  margin-top: 14.21478174px;
-  border-top-width: 1px;
-  border-top-style: solid;
-  border-top-color: #120099;
-}
-.separated-brdr {
-  padding-top: 8.78521826px;
-  margin-top: 14.21478174px;
-  border-top-width: 1px;
-  border-top-style: solid;
-  border-top-color: #9acc7a;
-}
-.separated-accent {
-  padding-top: 8.78521826px;
-  margin-top: 14.21478174px;
-  border-top-width: 1px;
-  border-top-style: solid;
-  border-top-color: #cc004e;
-}
-/*@Delimiters*/
-/**
-  * This Interface adds opening and closing punctuation marks surrounding an Object. The
-  * punctuation marks are given by the `quotes` property.
-@tags
-: #typography
-: #quote
-@author
-: Chris Harvey
-@updated
-: 2014-05-26
-  */
-.delimiters::before,
-.parens::before,
-.quotes-double::before,
-.quotes-single::before,
-.guillemets::before,
-.Qblock.Long .Src::before,
-q::before,
-.Th::before {
-  content: open-quote;
-}
-.delimiters::after,
-.parens::after,
-.quotes-double::after,
-.quotes-single::after,
-.guillemets::after,
-.Qblock.Long .Src::after,
-q::after,
-.Th::after {
-  content: close-quote;
-}
-.parens,
-.Qblock.Long .Src {
-  quotes: '(' ')';
-}
-.quotes-double,
-q {
-  quotes: '\201c' '\201d';
-}
-.quotes-single {
-  quotes: '\2018' '\2019';
-}
-.guillemets,
-.Th {
-  quotes: '\00ab' '\00bb';
-}
-@media print {
-  /**
-	  * This Interface displays an Object on screen but does not print it.
-	@tags
-	: #schematic
-	@author
-	: Chris Harvey
-	@updated
-	: 2014-04-30
-	  */
-  .noprint {
-    display: none;
-  }
-  /**
-	  * This Interface starts a new page in the print media.
-	@tags
-	: #schematic
-	@author
-	: Chris Harvey
-	@updated
-	: 2014-04-30
-	  */
-  .pagebreak {
-    page-break-before: always;
-    padding-top: 0.25in;
-  }
-}
 /*--------------*\
     _grid.less
 \*--------------*/
@@ -715,11 +449,10 @@ q {
   overflow: visible;
 }
 /*@GUTTERS*/
-/*--------------*\
-    _vert.less
-\*--------------*/
-/*@FONT SIZES*/
-/** One vertical rhythm unit. This is the 'magic number'. */
+/*------------------*\
+    _fontsize.less
+\*------------------*/
+/** One vertical rhythm unit. This is the so-called "magic number." */
 /**
   * This Mixin sets the `font-size` of an Object to a given scale.
   * For example, to set the font size scale to 3, instead of using `font-size: 3rem;` (which may  be
@@ -754,12 +487,12 @@ q {
   font-size: 1rem;
 }
 .fontsize-sml,
-.Button,
 code,
 .Dir,
 .Key,
 sup,
-sub {
+sub,
+.Button {
   font-size: 12px;
   font-size: 0.75rem;
 }
@@ -778,7 +511,7 @@ sub {
 @author
 : Chris Harvey
 @updated
-: 2014-05-03
+: 2014-07-08
   */
 /**
   * This Interface sets a [large|medium|small] preset font size and adjusts corresponding line height.
@@ -817,7 +550,47 @@ sub {
   font-size: 0.75rem;
   line-height: 2;
 }
-/*@VERTICAL SPACING*/
+/*-----------------*\
+    _borders.less
+\*-----------------*/
+/**
+  * The following Mixins adjust borders for **BLOCK** Objects only! They will keep the
+  * vertical rhythm intact when adding borders (by slightly adjusting position and margins).
+  * Do *not* use these mixins on INLINE Objects!
+  * Note: Methods with same # of params cannot be overloaded; thus mixin names have modifiers.
+  * Use the `.border-vert-one(@side; ...)`   set of Mixins to adjust either the top or bottom border.
+  * Use the `.border-vert-both(topbot; ...)` set of Mixins to adjust both the top and bottom borders.
+  * Use the `.border-vert-both(all; ...)`    set of Mixins to adjust all four borders.
+  * Use the `.border-vert-clear()` Mixin to negate all the effects of the above Mixins.
+@params
+: @width: the width of the top or bottom border
+: @side:  either `top` or `bottom`
+: @style: a `border-style` value
+: @color: a `border-color` value
+@tags
+: #verticalrhythm
+: #border
+@author
+: Chris Harvey
+@updated
+: 2014-06-26
+  */
+/**
+  * This Interface puts an outline around an Object to show its structure. It is used for
+  * deomonstration purposes.
+@tags
+: #structural
+@author
+: Chris Harvey
+@updated
+: 2014-06-07
+  */
+.help-otln {
+  outline: 1px solid #cc004e;
+}
+/*-----------------*\
+    _spacing.less
+\*-----------------*/
 /**
   * This Interface provides a minimum height of one vertical rhythm unit.
   * It is Meant for text-containing block Elements, such as p, blockquote, li, dt, dd, th, td.
@@ -850,11 +623,9 @@ sub {
 /**
   * These Mixins provide [top|bottom] spacing of a multiple of a vertical rhythm unit.
 @params
-: @ratio : the multliplier, i.e. how many `rem`s. For good vertical rhythm, use a whole number.
+: @ratio : the multliplier, i.e. how many `rem`s
 @tags
 : #verticalrhythm
-: #structure
-: #fallback
 @author
 : Chris Harvey
 @updated
@@ -907,29 +678,243 @@ sub {
   border-top-style: solid;
   border-top-color: #000000;
 }
-/*@VERTICAL BORDERS*/
+/*-----------------*\
+    _bground.less
+\*-----------------*/
 /**
-  * The following Mixins adjust borders for **BLOCK** Objects only! They will keep the
-  * vertical rhythm intact when adding borders (by slightly adjusting position and margins).
-  * Do *not* use these mixins on INLINE Objects!
-  * Note: Methods with same # of params cannot be overloaded; thus mixin names have modifiers.
-  * Use the `.border-vert-one(@side; ...)`   set of Mixins to adjust either the top or bottom border.
-  * Use the `.border-vert-both(topbot; ...)` set of Mixins to adjust both the top and bottom borders.
-  * Use the `.border-vert-both(all; ...)`    set of Mixins to adjust all four borders.
-  * Use the `.border-vert-clear()` Mixin to negate all the effects of the above Mixins.
+  * Use this Mixin to apply a linear gradient background on an Element.
+  * See [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/linear-gradient) for more info.
+  * See [WPD](http://docs.webplatform.org/wiki/css/functions/linear-gradient) for more info.
 @params
-: @width: the width of the top or bottom border
-: @side:  either `top` or `bottom`
-: @style: a `border-style` value
-: @color: a `border-color` value
+: ... : any number of parameters
 @tags
-: #verticalrhythm
-: #border
+: #gradient
+: #vendorspecific
 @author
 : Chris Harvey
 @updated
-: 2014-06-26
+: 2014-07-08
   */
+/**
+  * This Interface makes an object slightly transparent, but it becomes opaque upon `:hover`.
+@tags
+: #schematic
+: #golden
+@author
+: Chris Harvey
+@updated
+: 2014-04-30
+  */
+.transp {
+  opacity: 0.61803399;
+}
+.transp:hover {
+  opacity: 1;
+}
+/*----------------*\
+    _floats.less
+\*----------------*/
+/**
+  * This Interface is used on containers of floats. It pushes subsequent content to the bottom
+  * of the container.
+@tags
+: #float
+@author
+: Chris Harevy
+@updated
+: 2014-05-12
+  */
+.clearfix::after,
+.Map.Vert::after,
+.CSS .Ruleset::after {
+  display: table;
+  content: ' ';
+  clear: both;
+}
+/*---------------*\
+    _trans.less
+\*---------------*/
+/**
+  * Use this Mixin to apply a rotation transformation to an Object.
+@params
+: @rotation : the angle, in degrees, to rotate the Object
+@tags
+: #transformation
+: #vendorspecific
+@author
+: Chris Harvey
+@updated
+: 2014-05-10
+  */
+/**
+  * Use this Mixin to apply a transition timing effect on an Element.
+@params
+: @props : the CSS property name(s). If more than one, they must be comma-separated
+: @dura  : the length in time, in seconds, the transition is to be in effect
+: @func  : the timing-function. See `https://developer.mozilla.org/en-US/docs/Web/CSS/timing-function`
+: @delay : the length in time, in seconds, the transition will wait before starting
+@tags
+: #transition
+: #vendorspecific
+@author
+: Chris Harvey
+@updated
+: 2014-06-17
+  */
+/*----------------*\
+    _delims.less
+\*----------------*/
+/**
+  * This Interface adds opening and closing punctuation marks surrounding an Object. The
+  * punctuation marks are given by the `quotes` property.
+@tags
+: #typography
+: #quote
+@author
+: Chris Harvey
+@updated
+: 2014-05-26
+  */
+.delimiters::before,
+.parens::before,
+.quotes-double::before,
+.quotes-single::before,
+.guillemets::before,
+.Qblock.Long .Src::before,
+q::before,
+.Th::before {
+  content: open-quote;
+}
+.delimiters::after,
+.parens::after,
+.quotes-double::after,
+.quotes-single::after,
+.guillemets::after,
+.Qblock.Long .Src::after,
+q::after,
+.Th::after {
+  content: close-quote;
+}
+.parens,
+.Qblock.Long .Src {
+  quotes: '(' ')';
+}
+.quotes-double,
+q {
+  quotes: '\201c' '\201d';
+}
+.quotes-single {
+  quotes: '\2018' '\2019';
+}
+.guillemets,
+.Th {
+  quotes: '\00ab' '\00bb';
+}
+/*---------------*\
+    _boxes.less
+\*---------------*/
+/**
+  * This Interface creates default padding for cell-like structures (table cells, grid cells,
+  * boxes, etc.).
+  * The padding is based on the Vertical Rhythm Unit. The vertical padding is in rems, and
+  * the horizontal padding is in pixels.
+@tags
+: #verticalrhythm
+: #padding
+@author
+: Chris Harvey
+@updated
+: 2014-05-20
+  */
+.cellpaddingdefault,
+.Cell,
+.Codeblock,
+.Label.Msg {
+  padding: 12px 7.41640786px;
+  padding: 0.75rem 7.41640786px;
+}
+/**
+  * These Mixins create abstract inline structures, boxed with a solid border.
+  * `.box-inline(@brdrw; @brdrc; @brdrr)` is an extension of `.box-inline(@brdrw; @brdrr)`
+  * 	(it's not the case that `.box-inline(@brdrw; @brdrr)` is a restriction of
+  * 	`.box-inline(@brdrw; @brdrc; @brdrr)`) because the border color, if not specified,
+  * 	should not be a preset color; rather, it should be the value of the `color` property.
+@params
+: @brdrw : the value of `border-width` property (if not specified, default to 1px)
+: @brdrc : the value of `border-color` property (if not specified, default to value of `color` property)
+: @brdrr : the value of `border-radius` property
+@tags
+: #box
+: #verticalrhythm
+@author
+: Chris Harvey
+@updated
+: 2014-07-07
+  */
+/**
+  * These Mixins create abstract block structures, boxed with a solid border.
+  * `.box-block(@brdrw; @brdrc; @brdrr)` is an extension of `.box-block(@brdrw; @brdrr)`
+  * 	(it's not the case that `.box-block(@brdrw; @brdrr)` is a restriction of
+  * 	`.box-block(@brdrw; @brdrc; @brdrr)`) because the border color, if not specified,
+  * 	should not be a preset color; rather, it should be the value of the `color` property.
+@params
+: @brdrw : the value of `border-width` property (if not specified, default to 1px)
+: @brdrc : the value of `border-color` property (if not specified, default to value of `color` property)
+: @brdrr : the value of `border-radius` property
+@implements
+: .cellpaddingdefault
+: .vru-content
+@mixesin
+: .border-vert-both()
+@tags
+: #box
+: #verticalrhythm
+@author
+: Chris Harvey
+@updated
+: 2014-07-07
+  */
+/*------------*\
+    _hr.less
+\*------------*/
+/**
+  * These Interfaces add a solid horizontal line above the Object, separating it from its
+  * previous sibling. **Use these Interfaces instead of the `hr` Element.**
+  * The `.separated()` Mixin lets you choose the line color.
+  * The `-h` suffix colors the line with the main heaing color (blueish).
+  * The `-brdr` suffix colors the line with the border accent color (greenish).
+  * The `-accent` suffix colors the line with the accent color (redish).
+@tags
+: #golden
+: #heading
+: #border
+: #accent
+@author
+: Chris Harvey
+@updated
+: 2014-07-07
+  */
+.separated-h {
+  padding-top: 8.78521826px;
+  margin-top: 14.21478174px;
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-top-color: #120099;
+}
+.separated-brdr {
+  padding-top: 8.78521826px;
+  margin-top: 14.21478174px;
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-top-color: #9acc7a;
+}
+.separated-accent {
+  padding-top: 8.78521826px;
+  margin-top: 14.21478174px;
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-top-color: #cc004e;
+}
 /*--------------*\
     _body.less
 \*--------------*/
@@ -1932,6 +1917,13 @@ main {
 .Map.Vert.Lrg > .Desc {
   width: 23.60679775%;
 }
+/*dl*/
+.dl--ordered > dt:first-child,
+.dl--ordered > dd + dt {
+  display: list-item;
+  list-style-type: decimal;
+  list-style-position: outside;
+}
 /*----------------*\
     _tables.less
 \*----------------*/
@@ -2127,65 +2119,6 @@ a[rel~="external"] {
 .Proper {
   font-style: italic;
   text-transform: capitalize;
-}
-/*@BUTTONS*/
-/** The default border for button-like Objects. */
-/**
-  * A general Button Object.
-@implements
-: .fontsize-sml-inline
-@mixesin
-: .box-inline()
-@tags
-: #button
-@author
-: Chris Harvey
-@updated
-: 2014-06-06
-  */
-.Button {
-  display: inline;
-  padding: 1px 2px;
-  border-width: 2px;
-  border-style: solid;
-  border-radius: 6px;
-  white-space: nowrap;
-  border-color: #0062ff;
-  border-style: outset;
-  margin-bottom: -4px;
-  font-family: 'Century Gothic', 'Gill Sans', 'Avenir', sans-serif;
-  color: #0062ff;
-  background-color: #c3daff;
-  background-image: -webkit-linear-gradient(to bottom right, #dbe9ff, #92bcff);
-  background-image: -moz-linear-gradient(to bottom right, #dbe9ff, #92bcff);
-  background-image: -ms-linear-gradient(to bottom right, #dbe9ff, #92bcff);
-  background-image: -o-linear-gradient(to bottom right, #dbe9ff, #92bcff);
-  background-image: linear-gradient(to bottom right, #dbe9ff, #92bcff);
-  background-image: -webkit-gradient(to bottom right, #dbe9ff, #92bcff);
-  cursor: pointer;
-}
-.Button:hover {
-  border-color: #ff9d00;
-  color: #ff9d00;
-  background-color: #ffe8c3;
-  background-image: -webkit-linear-gradient(to bottom right, #fff1db, #ffd592);
-  background-image: -moz-linear-gradient(to bottom right, #fff1db, #ffd592);
-  background-image: -ms-linear-gradient(to bottom right, #fff1db, #ffd592);
-  background-image: -o-linear-gradient(to bottom right, #fff1db, #ffd592);
-  background-image: linear-gradient(to bottom right, #fff1db, #ffd592);
-  background-image: -webkit-gradient(to bottom right, #fff1db, #ffd592);
-}
-.Button:active {
-  border-style: inset;
-  background-image: -webkit-linear-gradient(to top left, #fff1db, #ffd592);
-  background-image: -moz-linear-gradient(to top left, #fff1db, #ffd592);
-  background-image: -ms-linear-gradient(to top left, #fff1db, #ffd592);
-  background-image: -o-linear-gradient(to top left, #fff1db, #ffd592);
-  background-image: linear-gradient(to top left, #fff1db, #ffd592);
-  background-image: -webkit-gradient(to top left, #fff1db, #ffd592);
-}
-.Button.Block {
-  display: block;
 }
 /*--------------*\
     _code.less
@@ -2763,21 +2696,71 @@ sub {
   white-space: nowrap;
 }
 /*@FORMS*/
-/*--------------*\
-	_mods.less
-\*--------------*/
-/*@MEDIA*/
+/*-----------------*\
+    _buttons.less
+\*-----------------*/
+/*@BUTTONS*/
+/** The default border for button-like Objects. */
 /**
-  * The Media Object is a module that has an image with a body.
-  * See `http://www.stubbornella.org/content/2010/06/25/the-media-object-saves-hundreds-of-lines-of-code/`
-  * for details.
+  * A general Button Object.
+@implements
+: .fontsize-sml-inline
+@mixesin
+: .box-inline()
+@tags
+: #button
 @author
-: Nicole Sullivan
 : Chris Harvey
 @updated
-: 2014-06-16
+: 2014-06-06
   */
-/*@LABELS*/
+.Button {
+  display: inline;
+  padding: 1px 2px;
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 6px;
+  white-space: nowrap;
+  border-color: #0062ff;
+  border-style: outset;
+  margin-bottom: -4px;
+  font-family: 'Century Gothic', 'Gill Sans', 'Avenir', sans-serif;
+  color: #0062ff;
+  background-color: #c3daff;
+  background-image: -webkit-linear-gradient(to bottom right, #dbe9ff, #92bcff);
+  background-image: -moz-linear-gradient(to bottom right, #dbe9ff, #92bcff);
+  background-image: -ms-linear-gradient(to bottom right, #dbe9ff, #92bcff);
+  background-image: -o-linear-gradient(to bottom right, #dbe9ff, #92bcff);
+  background-image: linear-gradient(to bottom right, #dbe9ff, #92bcff);
+  background-image: -webkit-gradient(to bottom right, #dbe9ff, #92bcff);
+  cursor: pointer;
+}
+.Button:hover {
+  border-color: #ff9d00;
+  color: #ff9d00;
+  background-color: #ffe8c3;
+  background-image: -webkit-linear-gradient(to bottom right, #fff1db, #ffd592);
+  background-image: -moz-linear-gradient(to bottom right, #fff1db, #ffd592);
+  background-image: -ms-linear-gradient(to bottom right, #fff1db, #ffd592);
+  background-image: -o-linear-gradient(to bottom right, #fff1db, #ffd592);
+  background-image: linear-gradient(to bottom right, #fff1db, #ffd592);
+  background-image: -webkit-gradient(to bottom right, #fff1db, #ffd592);
+}
+.Button:active {
+  border-style: inset;
+  background-image: -webkit-linear-gradient(to top left, #fff1db, #ffd592);
+  background-image: -moz-linear-gradient(to top left, #fff1db, #ffd592);
+  background-image: -ms-linear-gradient(to top left, #fff1db, #ffd592);
+  background-image: -o-linear-gradient(to top left, #fff1db, #ffd592);
+  background-image: linear-gradient(to top left, #fff1db, #ffd592);
+  background-image: -webkit-gradient(to top left, #fff1db, #ffd592);
+}
+.Button.Block {
+  display: block;
+}
+/*----------------*\
+	_labels.less
+\*----------------*/
 /**
   * A Label Object is used for displaying little indications to the user. There are two subclasses
   * of Labels: Messages and Tags. Each subclass may be of the following types:
@@ -3026,7 +3009,9 @@ sub {
 .Label.Tag.Help::after {
   content: ' ' '\2665';
 }
-/*@BREADCRUMBS*/
+/*---------------------*\
+	_breadcrumbs.less
+\*---------------------*/
 /**
   * A Breadcrumb module.
 @tags
@@ -3090,7 +3075,22 @@ sub {
     display: none;
   }
 }
-/*@QUASI-ELEMENTS*/
+/*---------------*\
+	_media.less
+\*---------------*/
+/**
+  * The Media Object is a module that has an image with a body.
+  * See `http://www.stubbornella.org/content/2010/06/25/the-media-object-saves-hundreds-of-lines-of-code/`
+  * for details.
+@author
+: Nicole Sullivan
+: Chris Harvey
+@updated
+: 2014-06-16
+  */
+/*----------------*\
+    _trumps.less
+\*----------------*/
 [data-status="nonnormative"] {
   font-style: italic;
   font-family: 'Optima', 'Candara', 'Helvetica', sans-serif;
@@ -3112,13 +3112,6 @@ sub {
 [data-bool="1"] {
   color: #0e0900;
   background-color: #ffbb4d;
-}
-/*dl*/
-.dl--ordered > dt:first-child,
-.dl--ordered > dd + dt {
-  display: list-item;
-  list-style-type: decimal;
-  list-style-position: outside;
 }
 @media print {
   body,
@@ -3160,5 +3153,30 @@ sub {
     padding-right: 0;
     margin-right: 0;
     border-right-color: #000000;
+  }
+  /**
+	  * This Interface displays an Object on screen but does not print it.
+	@tags
+	: #schematic
+	@author
+	: Chris Harvey
+	@updated
+	: 2014-04-30
+	  */
+  .noprint {
+    display: none;
+  }
+  /**
+	  * This Interface starts a new page in the print media.
+	@tags
+	: #schematic
+	@author
+	: Chris Harvey
+	@updated
+	: 2014-04-30
+	  */
+  .pagebreak {
+    page-break-before: always;
+    padding-top: 0.25in;
   }
 }
