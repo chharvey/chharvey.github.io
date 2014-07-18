@@ -4,6 +4,7 @@
     _headings.less
 \*------------------*/
 
+
 /**
   * This Object represents a generic textual heading of a section, post, article, or document.
   * It does not represent a heading in a table. See the `.Cell.Hc` Object.
@@ -44,25 +45,6 @@
 	color: @color_base_faded;
 }
 /**
-  * This Interface is used on any Object that "visually" follows a heading (an `.H` Object).
-  * Keyword "visually" because it may not directly follow the heading in the Document Outline
-  * (it may be in a sub-section, etc.)
-@extends
-: .vru-top-1
-@tags
-: #verticalrhythm
-: #typography
-: #paragraph
-: #list
-: #map
-: #table
-@author
-: Chris Harvey
-@updated
-: 2014-06-26
-  */
-.vru-top-1.first {&:extend(.vru-top-0);}
-/**
   * The six Objects below represent different levels of headings, starting from top-level to level 6.
 @extends
 : .H
@@ -74,10 +56,10 @@
 @author
 : Chris Harvey
 @updated
-: 2014-07-07
+: 2014-07-10
   */
 .H.Alpha {
-	.fontsize-scale-double(@fontsize_ratio_alpha);
+	.fontsize-doubleblock(@fontsize_ratio_alpha);
 	.vru-top(   2 * @phi1); // 1.236
 	.vru-bottom(2 * @phi2); // 0.764
 	// 1.236 + 0.764 == 2
@@ -92,7 +74,7 @@
 	}
 }
 .H.Beta {
-	.fontsize-scale-double(@fontsize_ratio_beta);
+	.fontsize-doubleblock(@fontsize_ratio_beta);
 	.vru-top(   1.447); // find a formula to express this number
 	.vru-bottom(0.553); // find a formula to express this number
 	// 1.447 + 0.553 == 2
@@ -106,7 +88,7 @@
 	}
 }
 .H.Gamma {
-	.fontsize-scale(@fontsize_ratio_gamma);
+	.fontsize-block(@fontsize_ratio_gamma);
 	.vru-top(   1 * @phi1); // 0.618
 	.vru-bottom(1 * @phi2); // 0.382
 	// 0.618 + 0.382 == 1
@@ -115,7 +97,7 @@
 	font-weight: bold;
 }
 .H.Delta {
-	.fontsize-scale(@fontsize_ratio_delta);
+	.fontsize-block(@fontsize_ratio_delta);
 	.vru-top(   0.724); // find a formula to express this number
 	.vru-bottom(0.276); // find a formula to express this number
 	// 0.724 + 0.276 == 1
@@ -124,9 +106,9 @@
 	font-weight: bold;
 }
 .H.Epsilon {
-	.fontsize-scale(@fontsize_ratio_epsilon);
-	.vru-top-0;
-	.vru-bottom-0;
+	.fontsize-block(@fontsize_ratio_epsilon);
+	// .vru-top(   0);
+	// .vru-bottom(0);
 	font-style: italic;
 	color: @color_h_minor;
 	> .Hsub {
@@ -135,9 +117,9 @@
 	}
 }
 .H.Zeta {
-	.fontsize-scale(@fontsize_ratio_zeta);
-	.vru-top-0;
-	.vru-bottom-0;
+	.fontsize-block(@fontsize_ratio_zeta);
+	// .vru-top(   0);
+	// .vru-bottom(0);
 	font-style: italic;
 	font-variant: small-caps;
 }
@@ -156,7 +138,7 @@
   */
 .H.Alpha.Folio {
 	@this_font_size: @fontsize_ratio_alpha;
-	.fontsize-scale-double(@this_font_size);
+	.fontsize-doubleblock(@this_font_size);
 	.vru-top(4);
 	.vru-bottom(2);
 	font-weight: normal;
@@ -165,7 +147,7 @@
 	white-space: nowrap;
 	.cap,
 	&::first-letter {
-		.fontsize-scale(2 * @this_font_size);
+		.fontsize-block(2 * @this_font_size);
 		font-family: @fontfam_script2;
 	}
 }

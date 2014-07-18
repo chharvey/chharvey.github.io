@@ -126,7 +126,8 @@ $(document).ready(function () {
 		$(this).find('thead, tbody, tfoot').each(function () {
 			n_rowgroups++;
 		});
-		n_rowgroups += 2; // twice more for the first and last borders
+		n_rowgroups++; // once more for the last border
+		if ($(this).find('caption').hasClass('Capt')) {n_rowgroups++;} // once more again for a caption if it exists
 		var btm = -(((n_rowgroups + 12) % 24) - 12);
 		if (btm <= 0) {$(this).css('margin-bottom',btm);}
 		else          {$(this).css('padding-bottom',btm);}

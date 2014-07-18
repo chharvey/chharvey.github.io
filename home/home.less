@@ -21,41 +21,43 @@
 	.transition(background-color; @t_ani);
 	display: block;
 	height: 3em; // will be changed proportionally in JS
-	padding: 0;
-	border-width: 0;
-	border-radius: 0;
-	margin: 0;
 	position: static; // will be changed to `absolute` in JS
-	font-family: @fontfam_heading;
-	text-align: center;
 	background-color: @color_btn_up_bg;
-}
-.Text {
-	&:extend(.h-alpha);
-	.transition(color; @t_ani);
-	padding: 0;
-	margin: 0;
-	position: relative;
-	top: 0.5em; // will be changed proportionally in JS
-	color: transparent;
+	background-image: url('images/circle.svg');
+	background-size: 200%;
+	.Text {
+		.transition(color, text-shadow; @t_ani);
+		display: block;
+		position: relative;
+		top: 0.5em; // will be changed proportionally in JS
+		font-family: @fontfam_heading;
+		text-align: center;
+		color: transparent;
+		text-shadow: 2px 2px 10px;
+	}
 }
 .Square:hover {
 	background-color: @color_btn_dn_bg;
 	.Text {color: @color_btn_dn_txt;}
 }
 
-.Spiral > li:nth-child( 1) > .Square {width: @golden1;}
-.Spiral > li:nth-child( 2) > .Square {width: @golden2;}
-.Spiral > li:nth-child( 3) > .Square {width: @golden3;}
-.Spiral > li:nth-child( 4) > .Square {width: @golden4;}
-.Spiral > li:nth-child( 5) > .Square {width: @golden5;}
-.Spiral > li:nth-child( 6) > .Square {width: @golden6;}
-.Spiral > li:nth-child( 7) > .Square {width: @golden7;}
-.Spiral > li:nth-child( 8) > .Square {width: @golden8;}
-.Spiral > li:nth-child( 9) > .Square {width: @golden9;}
-.Spiral > li:nth-child(10) > .Square {width: @golden10;}
-.Spiral > li:nth-child(11) > .Square {width: @golden11;}
-.Spiral > li:nth-child(12) > .Square {width: @golden12;}
+.q1 {background-position: 100%   0%;}
+.q2 {background-position:   0%   0%;}
+.q3 {background-position:   0% 100%;}
+.q4 {background-position: 100% 100%;}
+
+.Spiral > :nth-child( 1) > .Square {&:extend(.q1); width: @golden1; }
+.Spiral > :nth-child( 2) > .Square {&:extend(.q2); width: @golden2; }
+.Spiral > :nth-child( 3) > .Square {&:extend(.q3); width: @golden3; }
+.Spiral > :nth-child( 4) > .Square {&:extend(.q4); width: @golden4; }
+.Spiral > :nth-child( 5) > .Square {&:extend(.q1); width: @golden5; }
+.Spiral > :nth-child( 6) > .Square {&:extend(.q2); width: @golden6; }
+.Spiral > :nth-child( 7) > .Square {&:extend(.q3); width: @golden7; }
+.Spiral > :nth-child( 8) > .Square {&:extend(.q4); width: @golden8; }
+.Spiral > :nth-child( 9) > .Square {&:extend(.q1); width: @golden9; }
+.Spiral > :nth-child(10) > .Square {&:extend(.q2); width: @golden10;}
+.Spiral > :nth-child(11) > .Square {&:extend(.q3); width: @golden11;}
+.Spiral > :nth-child(12) > .Square {&:extend(.q4); width: @golden12;}
 //++++ @end INDEX PAGE ++++//
 
 
@@ -92,9 +94,11 @@
 	display: inline-block;
 	width:  @iconsize;
 	height: @iconsize;
+	color: transparent;
 	background-size: contain;
 	background-position: center center;
 	background-repeat: no-repeat;
+	overflow: hidden;
 }
 .Icon-ct.Mapss {background-image: url('images/logos-banners/logo-maps.png');}
 .Icon-ct.Phone {background-image: url('images/logos-banners/logo-phone.png');}
@@ -115,15 +119,13 @@
 /**
   * List of acknowledgements on about page.
 @implements
-: .vru-top-1.first
 : .listindent-half
 @author
 : Chris Harvey
 @updated
-: 2014-06-26
+: 2014-07-10
   */
 .List.U.Ack {
-	&:extend(.vru-top-1.first);
 	&:extend(.listindent-half);
 }
 
@@ -140,12 +142,12 @@
 	background-repeat: no-repeat;
 	background-size: 72px auto;
 }
-.Capt.Capt-logo.Nctm {background-image: url(images/logos-banners/logo-NCTM.png);}
-.Capt.Capt-logo.Vctm {background-image: url(images/logos-banners/logo-VCTM.png);}
-.Capt.Capt-logo.Txin {background-image: url(images/logos-banners/logo-TI.png);}
-.Capt.Capt-logo.Vdoe {background-image: url(images/logos-banners/logo-VA-DOE.png);}
-.Capt.Capt-logo.Amsy {background-image: url(images/logos-banners/logo-AMS.png);}
-.Capt.Capt-logo.Vmta {background-image: url(images/logos-banners/logo-VMTA.png);}
+.Capt.Capt-logo.Nctm {background-image: url('images/logos-banners/logo-NCTM.png');}
+.Capt.Capt-logo.Vctm {background-image: url('images/logos-banners/logo-VCTM.png');}
+.Capt.Capt-logo.Txin {background-image: url('images/logos-banners/logo-TI.png');}
+.Capt.Capt-logo.Vdoe {background-image: url('images/logos-banners/logo-VA-DOE.png');}
+.Capt.Capt-logo.Amsy {background-image: url('images/logos-banners/logo-AMS.png');}
+.Capt.Capt-logo.Vmta {background-image: url('images/logos-banners/logo-VMTA.png');}
 
 /**
   * An application icon.
@@ -159,9 +161,11 @@
 	display: inline-block;
 	width: 72px;
 	height: 72px;
+	color: transparent;
 	background-size: contain;
 	background-position: center center;
 	background-repeat: no-repeat;
+	overflow: hidden;
 }
 .Icon-app.Apple {background-image: url('images/logos-banners/logo-Apple-gray.jpg');}
 .Icon-app.Chrom {background-image: url('images/logos-banners/logo-Chrome.png');}

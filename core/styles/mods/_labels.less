@@ -1,53 +1,10 @@
-// main: all.less
+// main: ../all.less
 
-/*--------------*\
-	_mods.less
-\*--------------*/
-
-// Table of Contents
-// - MEDIA
-// - LABELS
-// - BREADCRUMBS
+/*----------------*\
+	_labels.less
+\*----------------*/
 
 
-//++++++//
-/*@MEDIA*/
-//++++++//
-/**
-  * The Media Object is a module that has an image with a body.
-  * See `http://www.stubbornella.org/content/2010/06/25/the-media-object-saves-hundreds-of-lines-of-code/`
-  * for details.
-@author
-: Nicole Sullivan
-: Chris Harvey
-@updated
-: 2014-06-16
-  */
-.Media {
-	// &:extend(.clearfix all);
-	// &:extend(.Grow all);
-}
-.Media > .Img {
-	// &:extend(.clearfix all);
-	// display: block;
-	// margin: 0 @spacer 0 0;
-	// float: left;
-	&.Rev {
-		// margin: 0 0 0 @spacer;
-		// float: right;
-	}
-}
-.Media > .Img,
-.Media > .Bd {
-	// &:extend(.Grow > .Gcol all);
-}
-// .Media > .Bd {&:extend(.clearfix all);}
-//++++ @end MEDIA ++++//
-
-
-//+++++++//
-/*@LABELS*/
-//+++++++//
 @lbl_brdr_radius: 6px;
 
 @warn_glyph: '!';
@@ -95,7 +52,7 @@
 : 2014-06-22
   */
 .Label {
-	&:extend(.fontsize-sml);
+	&:extend(.fontsize-block-sml);
 	font-style: normal;
 	font-weight: normal;
 	font-family: @fontfam_accent;
@@ -132,7 +89,6 @@
 @extends
 : .Label
 @implements
-: .vru-top-1
 @mixesin
 : .box-block()
 @tags
@@ -141,10 +97,9 @@
 @author
 : Chris Harvey
 @updated
-: 2014-06-22
+: 2014-07-10
   */
 .Label.Msg {
-	&:extend(.vru-top-1 all);
 	.box-block(@lbl_brdr_radius);
 }
 .lbl-msg-mx(@color_bg) {
@@ -206,92 +161,3 @@
 .Label.Tag.Skss {.lbl-tag-mx(@color_lbl_skss_bg; @skss_glyph);}
 .Label.Tag.Info {.lbl-tag-mx(@color_lbl_info_bg; @info_glyph);}
 .Label.Tag.Help {.lbl-tag-mx(@color_lbl_help_bg; @help_glyph);}
-//++++ @end LABELS ++++//
-
-
-//++++++++++++//
-/*@BREADCRUMBS*/
-//++++++++++++//
-@bc_brdr_radius: 15px;
-/**
-  * A Breadcrumb module.
-@tags
-: #breadcrumbs
-: #golden
-@author
-: Chris Harvey
-@updated
-: 2014-06-18
-  */
-.Bc {
-	width: @golden4;
-	margin-left: @golden7;
-	margin-right: @golden6;
-	position: fixed;
-	left: 0;
-	top: 2 * @vru_px; // fallback
-	top: 2 * @vru_rem;
-	z-index: 1;
-}
-/**
-  * A list of breadcrumbs inside the module.
-  * The list either contains ancestor pages (including parent),
-  * sibling pages (including the same page), or children pages.
-@implements
-: .vru-bottom-1;
-@tags
-: #breadcrumbs
-@author
-: Chris Harvey
-@updated
-: 2014-06-18
-  */
-.Bc > .Anc,
-.Bc > .Sib,
-.Bc > .Child {
-	&:extend(.vru-bottom-1);
-}
-.Bc > .Anc {
-//	a::before {content: '\22a5';} // `\bot` or 'up tack'
-//	a::before {content: '\22b7';} // 'image of'
-//	a::before {content: '<';}
-}
-.Bc > .Sib {
-//	a::before {content: '\22a2';} // `\vdash` or 'turnstile'
-//	a::before {content: '\29df';} // 'double-ended multimap'
-//	a::before {content: '+';}
-}
-.Bc > .Child {
-//	a::before {content: '\22a4';} // `\top` or 'down tack'
-//	a::before {content: '\22b6';} // 'original of'
-//	a::before {content: '>';}
-}
-/**
-  * An actual breadcrumb link.
-@implements
-: .fontsize-med;
-@mixesin
-: .vru-top()
-@tags
-: #breadcrumbs
-@author
-: Chris Harvey
-@updated
-: 2014-06-18
-  */
-.Button.Crumb {
-	@topspace: 0.75;
-	&:extend(.fontsize-med);
-	.vru-top(@topspace);
-	display: block;
-	padding: ((1 - @topspace) / 2 * @vru_px)  @bc_brdr_radius; // fallback
-	padding: ((1 - @topspace) / 2 * @vru_rem) @bc_brdr_radius;
-	border-radius: @bc_brdr_radius;
-	white-space: normal;
-}
-.Bc a[rel~="this"] {font-weight: bold;}
-
-@media print {
-	.Bc {display: none;}
-}
-//++++ @end BREADCRUMBS ++++//
