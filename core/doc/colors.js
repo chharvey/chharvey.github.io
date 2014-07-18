@@ -147,37 +147,25 @@ function insertColorNames() {
 		var valClass = 0;
 		var idId = '#' + id;
 
-		     if (sat ===  100) {satClass = 'tr.sat-alph';}
+		if      (sat ===  100) {satClass = 'tr.sat-alph';}
 		else if (sat === 83.3) {satClass = 'tr.sat-beta';}
 		else if (sat === 66.6) {satClass = 'tr.sat-gamm';}
 		else if (sat ===   50) {satClass = 'tr.sat-delt';}
 		else if (sat === 33.3) {satClass = 'tr.sat-epsi';}
 		else if (sat === 16.6) {satClass = 'tr.sat-zeta';}
-		else                   {}
+		else {}
 
-		     if (val === 100) {valClass = 'td.val-full';}
+		if      (val === 100) {valClass = 'td.val-full';}
 		else if (val ===  75) {valClass = 'td.val-lite';}
 		else if (val ===  50) {valClass = 'td.val-medi';}
 		else if (val ===  25) {valClass = 'td.val-dark';}
-		else                  {}
+		else {}
 
 		$('table.hue-' + hue + ' ' + satClass + ' ' + valClass).prepend(
 			newElem('a').addClass('Link colorname').attr('href', idId).html($(idId + ' h1').html())
 		);
 	}
 }
-/**
-  * Automatically styles CSS id selectors with background colors.
-  * This functionality has moved to CSS; all color variables should be in Less, not JS.
-  */
-//function setupColors() {
-//	for (var i = 0; i < colorArray.length; i++) {
-//		var theColor = colorArray[i];
-//		var rgb = hsvToRgb(theColor[0], theColor[1], theColor[2]);
-//		var hex = rgbToHex('rgb(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ')');
-//		$('#' + theColor[3]).css('background-color', hex);
-//	}
-//}
 $(document).ready(function () {
 	$('#palettes').append([
 		newElem('div').addClass('Gcol w-f1o2').append(tables( 0, 11)),
