@@ -549,44 +549,74 @@ sub,
   font-size: 0.75rem;
   line-height: 2;
 }
-/*-----------------*\
-    _borders.less
-\*-----------------*/
+/*----------------*\
+    _floats.less
+\*----------------*/
 /**
-  * The following Mixins adjust borders for **BLOCK** Objects only! They will keep the
-  * vertical rhythm intact when adding borders (by slightly adjusting position and margins).
-  * Do *not* use these mixins on INLINE Objects!
-  * Note: Methods with same # of params cannot be overloaded; thus mixin names have modifiers.
-  * Use the `.border-vert-one(@side; ...)`   set of Mixins to adjust either the top or bottom border.
-  * Use the `.border-vert-both(topbot; ...)` set of Mixins to adjust both the top and bottom borders.
-  * Use the `.border-vert-both(all; ...)`    set of Mixins to adjust all four borders.
-  * Use the `.border-vert-clear()` Mixin to negate all the effects of the above Mixins.
-@params
-: @width: the width of the top or bottom border
-: @side:  either `top` or `bottom`
-: @style: a `border-style` value
-: @color: a `border-color` value
+  * This Interface is used on containers of floats. It pushes subsequent content to the bottom
+  * of the container.
 @tags
-: #verticalrhythm
-: #border
+: #float
 @author
-: Chris Harvey
+: Chris Harevy
 @updated
-: 2014-06-26
+: 2014-05-12
   */
-/**
-  * This Interface puts an outline around an Object to show its structure. It is used for
-  * deomonstration purposes.
-@tags
-: #structural
-@author
-: Chris Harvey
-@updated
-: 2014-06-07
-  */
-.help-otln {
-  outline: 1px solid #cc004e;
+.clearfix::after,
+.Map.Vert::after,
+.CSS .Ruleset::after {
+  display: table;
+  content: ' ';
+  clear: both;
 }
+/*---------------*\
+    _trans.less
+\*---------------*/
+/**
+  * Use this Mixin to apply a rotation transformation to an Object.
+@params
+: @rotation : the angle, in degrees, to rotate the Object
+@tags
+: #transformation
+: #vendorspecific
+@author
+: Chris Harvey
+@updated
+: 2014-05-10
+  */
+/**
+  * Use this Mixin to apply a transition timing effect on an Element.
+@params
+: @props : the CSS property name(s). If more than one, they must be comma-separated
+: @dura  : the length in time, in seconds, the transition is to be in effect
+: @func  : the timing-function. See `https://developer.mozilla.org/en-US/docs/Web/CSS/timing-function`
+: @delay : the length in time, in seconds, the transition will wait before starting
+@tags
+: #transition
+: #vendorspecific
+@author
+: Chris Harvey
+@updated
+: 2014-06-17
+  */
+/*--------------*\
+    _grad.less
+\*--------------*/
+/**
+  * Use this Mixin to apply a linear gradient background on an Element.
+  * See [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/linear-gradient) for more info.
+  * See [WPD](http://docs.webplatform.org/wiki/css/functions/linear-gradient) for more info.
+@params
+: ... : any number of parameters
+@tags
+: #background-image
+: #gradient
+: #vendorspecific
+@author
+: Chris Harvey
+@updated
+: 2014-07-08
+  */
 /*-----------------*\
     _spacing.less
 \*-----------------*/
@@ -677,151 +707,81 @@ sub,
   border-top-style: solid;
   border-top-color: #000000;
 }
+/**
+  * These Interfaces add a solid horizontal line above the Object, separating it from its
+  * previous sibling. **Use these Interfaces instead of the `hr` Element.**
+  * The `.separated()` Mixin lets you choose the line color.
+  * The `-h` suffix colors the line with the main heaing color (blueish).
+  * The `-brdr` suffix colors the line with the border accent color (greenish).
+  * The `-accent` suffix colors the line with the accent color (redish).
+@tags
+: #golden
+: #heading
+: #border
+: #accent
+@author
+: Chris Harvey
+@updated
+: 2014-07-07
+  */
+.separated-h {
+  padding-top: 8.78521826px;
+  margin-top: 14.21478174px;
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-top-color: #120099;
+}
+.separated-brdr {
+  padding-top: 8.78521826px;
+  margin-top: 14.21478174px;
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-top-color: #9acc7a;
+}
+.separated-accent {
+  padding-top: 8.78521826px;
+  margin-top: 14.21478174px;
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-top-color: #cc004e;
+}
 /*-----------------*\
-    _bground.less
+    _borders.less
 \*-----------------*/
 /**
-  * This Mixin sets the background position of an Object's background sprite image.
-  * This assumes the sprite's images are linearly horizontally ordered.
+  * The following Mixins adjust borders for **BLOCK** Objects only! They will keep the
+  * vertical rhythm intact when adding borders (by slightly adjusting position and margins).
+  * Do *not* use these mixins on INLINE Objects!
+  * Note: Methods with same # of params cannot be overloaded; thus mixin names have modifiers.
+  * Use the `.border-vert-one(@side; ...)`   set of Mixins to adjust either the top or bottom border.
+  * Use the `.border-vert-both(topbot; ...)` set of Mixins to adjust both the top and bottom borders.
+  * Use the `.border-vert-both(all; ...)`    set of Mixins to adjust all four borders.
+  * Use the `.border-vert-clear()` Mixin to negate all the effects of the above Mixins.
 @params
-: @position : the position of the sprite's image to be used. must be a positive integer.
-: @iconsize : the horizontal (x) size of the sprite's image. in pixels.
-: @iconpadd : the padding between images in the sprite. in pixels.
+: @width: the width of the top or bottom border
+: @side:  either `top` or `bottom`
+: @style: a `border-style` value
+: @color: a `border-color` value
 @tags
-: #background-image
+: #verticalrhythm
+: #border
 @author
 : Chris Harvey
 @updated
-: 2014-07-18
+: 2014-06-26
   */
 /**
-  * Use this Mixin to apply a linear gradient background on an Element.
-  * See [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/linear-gradient) for more info.
-  * See [WPD](http://docs.webplatform.org/wiki/css/functions/linear-gradient) for more info.
-@params
-: ... : any number of parameters
+  * This Interface puts an outline around an Object to show its structure. It is used for
+  * deomonstration purposes.
 @tags
-: #gradient
-: #vendorspecific
+: #structural
 @author
 : Chris Harvey
 @updated
-: 2014-07-08
+: 2014-06-07
   */
-/**
-  * This Interface makes an object slightly transparent, but it becomes opaque upon `:hover`.
-@tags
-: #schematic
-: #golden
-@author
-: Chris Harvey
-@updated
-: 2014-04-30
-  */
-.transp {
-  opacity: 0.61803399;
-}
-.transp:hover {
-  opacity: 1;
-}
-/*----------------*\
-    _floats.less
-\*----------------*/
-/**
-  * This Interface is used on containers of floats. It pushes subsequent content to the bottom
-  * of the container.
-@tags
-: #float
-@author
-: Chris Harevy
-@updated
-: 2014-05-12
-  */
-.clearfix::after,
-.Map.Vert::after,
-.CSS .Ruleset::after {
-  display: table;
-  content: ' ';
-  clear: both;
-}
-/*---------------*\
-    _trans.less
-\*---------------*/
-/**
-  * Use this Mixin to apply a rotation transformation to an Object.
-@params
-: @rotation : the angle, in degrees, to rotate the Object
-@tags
-: #transformation
-: #vendorspecific
-@author
-: Chris Harvey
-@updated
-: 2014-05-10
-  */
-/**
-  * Use this Mixin to apply a transition timing effect on an Element.
-@params
-: @props : the CSS property name(s). If more than one, they must be comma-separated
-: @dura  : the length in time, in seconds, the transition is to be in effect
-: @func  : the timing-function. See `https://developer.mozilla.org/en-US/docs/Web/CSS/timing-function`
-: @delay : the length in time, in seconds, the transition will wait before starting
-@tags
-: #transition
-: #vendorspecific
-@author
-: Chris Harvey
-@updated
-: 2014-06-17
-  */
-/*----------------*\
-    _delims.less
-\*----------------*/
-/**
-  * This Interface adds opening and closing punctuation marks surrounding an Object. The
-  * punctuation marks are given by the `quotes` property.
-@tags
-: #typography
-: #quote
-@author
-: Chris Harvey
-@updated
-: 2014-05-26
-  */
-.delimiters::before,
-.parens::before,
-.quotes-double::before,
-.quotes-single::before,
-.guillemets::before,
-.Qblock.Long .Src::before,
-q::before,
-.Th::before {
-  content: open-quote;
-}
-.delimiters::after,
-.parens::after,
-.quotes-double::after,
-.quotes-single::after,
-.guillemets::after,
-.Qblock.Long .Src::after,
-q::after,
-.Th::after {
-  content: close-quote;
-}
-.parens,
-.Qblock.Long .Src {
-  quotes: '(' ')';
-}
-.quotes-double,
-q {
-  quotes: '\201c' '\201d';
-}
-.quotes-single {
-  quotes: '\2018' '\2019';
-}
-.guillemets,
-.Th {
-  quotes: '\00ab' '\00bb';
+.help-otln {
+  outline: 1px solid #cc004e;
 }
 /*---------------*\
     _boxes.less
@@ -887,46 +847,87 @@ q {
 @updated
 : 2014-07-07
   */
-/*------------*\
-    _hr.less
-\*------------*/
+/*----------------*\
+    _delims.less
+\*----------------*/
 /**
-  * These Interfaces add a solid horizontal line above the Object, separating it from its
-  * previous sibling. **Use these Interfaces instead of the `hr` Element.**
-  * The `.separated()` Mixin lets you choose the line color.
-  * The `-h` suffix colors the line with the main heaing color (blueish).
-  * The `-brdr` suffix colors the line with the border accent color (greenish).
-  * The `-accent` suffix colors the line with the accent color (redish).
+  * This Interface adds opening and closing punctuation marks surrounding an Object. The
+  * punctuation marks are given by the `quotes` property.
 @tags
-: #golden
-: #heading
-: #border
-: #accent
+: #typography
+: #quote
 @author
 : Chris Harvey
 @updated
-: 2014-07-07
+: 2014-05-26
   */
-.separated-h {
-  padding-top: 8.78521826px;
-  margin-top: 14.21478174px;
-  border-top-width: 1px;
-  border-top-style: solid;
-  border-top-color: #120099;
+.delimiters::before,
+.parens::before,
+.quotes-double::before,
+.quotes-single::before,
+.guillemets::before,
+.Qblock.Long .Src::before,
+q::before,
+.Th::before {
+  content: open-quote;
 }
-.separated-brdr {
-  padding-top: 8.78521826px;
-  margin-top: 14.21478174px;
-  border-top-width: 1px;
-  border-top-style: solid;
-  border-top-color: #9acc7a;
+.delimiters::after,
+.parens::after,
+.quotes-double::after,
+.quotes-single::after,
+.guillemets::after,
+.Qblock.Long .Src::after,
+q::after,
+.Th::after {
+  content: close-quote;
 }
-.separated-accent {
-  padding-top: 8.78521826px;
-  margin-top: 14.21478174px;
-  border-top-width: 1px;
-  border-top-style: solid;
-  border-top-color: #cc004e;
+.parens,
+.Qblock.Long .Src {
+  quotes: '(' ')';
+}
+.quotes-double,
+q {
+  quotes: '\201c' '\201d';
+}
+.quotes-single {
+  quotes: '\2018' '\2019';
+}
+.guillemets,
+.Th {
+  quotes: '\00ab' '\00bb';
+}
+/*-----------------*\
+    _bground.less
+\*-----------------*/
+/**
+  * This Mixin sets the background position of an Object's background sprite image.
+  * This assumes the sprite's images are linearly horizontally ordered.
+@params
+: @position : the position of the sprite's image to be used. must be a positive integer.
+: @iconsize : the horizontal (x) size of the sprite's image. in pixels.
+: @iconpadd : the padding between images in the sprite. in pixels.
+@tags
+: #background-image
+@author
+: Chris Harvey
+@updated
+: 2014-07-18
+  */
+/**
+  * This Interface makes an object slightly transparent, but it becomes opaque upon `:hover`.
+@tags
+: #schematic
+: #golden
+@author
+: Chris Harvey
+@updated
+: 2014-04-30
+  */
+.transp {
+  opacity: 0.61803399;
+}
+.transp:hover {
+  opacity: 1;
 }
 /*--------------*\
     _body.less
