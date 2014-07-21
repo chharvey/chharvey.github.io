@@ -18,13 +18,16 @@
 	position: relative;
 }
 .Square {
-	.transition(background-color; @t_ani);
+	@animate: (@t_ani * 2);
+	.transition(background-color; @animate);
 	display: block;
 	height: 3em; // will be changed proportionally in JS
 	position: static; // will be changed to `absolute` in JS
 	background-color: @color_btn_up_bg;
+	background-image: url('images/circle.svg');
+	background-size: 200%;
 	.Text {
-		.transition(color, text-shadow; @t_ani);
+		.transition(color, text-shadow; @animate);
 		display: block;
 		position: relative;
 		top: 0.5em; // will be changed proportionally in JS
@@ -39,18 +42,23 @@
 	.Text {color: @color_btn_dn_txt;}
 }
 
-.Spiral > :nth-child( 1) > .Square {width: @golden1;}
-.Spiral > :nth-child( 2) > .Square {width: @golden2;}
-.Spiral > :nth-child( 3) > .Square {width: @golden3;}
-.Spiral > :nth-child( 4) > .Square {width: @golden4;}
-.Spiral > :nth-child( 5) > .Square {width: @golden5;}
-.Spiral > :nth-child( 6) > .Square {width: @golden6;}
-.Spiral > :nth-child( 7) > .Square {width: @golden7;}
-.Spiral > :nth-child( 8) > .Square {width: @golden8;}
-.Spiral > :nth-child( 9) > .Square {width: @golden9;}
-.Spiral > :nth-child(10) > .Square {width: @golden10;}
-.Spiral > :nth-child(11) > .Square {width: @golden11;}
-.Spiral > :nth-child(12) > .Square {width: @golden12;}
+.q1 {background-position: 100%   0%;}
+.q2 {background-position:   0%   0%;}
+.q3 {background-position:   0% 100%;}
+.q4 {background-position: 100% 100%;}
+
+.Spiral > :nth-child( 1) > .Square {&:extend(.q1); width: @golden1; }
+.Spiral > :nth-child( 2) > .Square {&:extend(.q2); width: @golden2; }
+.Spiral > :nth-child( 3) > .Square {&:extend(.q3); width: @golden3; }
+.Spiral > :nth-child( 4) > .Square {&:extend(.q4); width: @golden4; }
+.Spiral > :nth-child( 5) > .Square {&:extend(.q1); width: @golden5; }
+.Spiral > :nth-child( 6) > .Square {&:extend(.q2); width: @golden6; }
+.Spiral > :nth-child( 7) > .Square {&:extend(.q3); width: @golden7; }
+.Spiral > :nth-child( 8) > .Square {&:extend(.q4); width: @golden8; }
+.Spiral > :nth-child( 9) > .Square {&:extend(.q1); width: @golden9; }
+.Spiral > :nth-child(10) > .Square {&:extend(.q2); width: @golden10;}
+.Spiral > :nth-child(11) > .Square {&:extend(.q3); width: @golden11;}
+.Spiral > :nth-child(12) > .Square {&:extend(.q4); width: @golden12;}
 //++++ @end INDEX PAGE ++++//
 
 
@@ -64,32 +72,43 @@
 @updated
 : 2014-06-16
   */
+/**
+  * This Object represents a list of images, for example, contact icons.
+@extends
+: .List.I
+@tags
+: #typography
+: #list
+@author
+: Chris Harvey
+@updated
+: 2014-07-18
+  */
+@iconsize: 64px;
+@iconpadd: 10px;
+.List.I.Iconlist {
+	&:extend(.margin-even);
+	&:extend(.vru-top-1);
+	text-align: center;
+}
 .Icon-ct {
 	&:extend(.transp all);
 	display: inline-block;
-	width: 72px;
-	height: 72px;
+	width:  @iconsize;
+	height: @iconsize;
 	color: transparent;
-	background-size: contain;
-	background-position: center center;
+	background-image: url('images/contact-sprite.png');
 	background-repeat: no-repeat;
 	overflow: hidden;
 }
-.Icon-ct.Mapss {background-image: url('images/logos-banners/logo-maps.png');}
-.Icon-ct.Phone {background-image: url('images/logos-banners/logo-phone.png');}
-.Icon-ct.Email {background-image: url('images/logos-banners/logo-Gmail.png');}
-.Icon-ct.Githb {background-image: url('images/logos-banners/logo-GitHub.png');}
-.Icon-ct.Stack {background-image: url('images/logos-banners/logo-StackExchange.png');}
-.Icon-ct.Googl {background-image: url('images/logos-banners/logo-Google+.png');}
-.Icon-ct.Fbook {background-image: url('images/logos-banners/logo-Facebook.png');}
-.Icon-ct.Twitr {background-image: url('images/logos-banners/logo-Twitter.png');}
-.Icon-ct.Blogs {background-image: url('images/logos-banners/logo-Blogger.png');}
-.Icon-ct.Steam {background-image: url('images/logos-banners/logo-Steam.png');}
-.Icon-ct.Stackexchange {
-	width: auto;
-	height: 64px;
-	background-image: url('http://stackexchange.com/users/flair/470475.png');
-}
+.Icon-ct.Mapss {.sprite(1; @iconsize; @iconpadd);}
+.Icon-ct.Phone {.sprite(2; @iconsize; @iconpadd);}
+.Icon-ct.Email {.sprite(3; @iconsize; @iconpadd);}
+.Icon-ct.Linkd {.sprite(4; @iconsize; @iconpadd);}
+.Icon-ct.Stack {.sprite(5; @iconsize; @iconpadd);}
+.Icon-ct.Githb {.sprite(6; @iconsize; @iconpadd);}
+.Icon-ct.Googl {.sprite(7; @iconsize; @iconpadd);}
+.Icon-ct.Twitr {.sprite(8; @iconsize; @iconpadd);}
 
 /**
   * List of acknowledgements on about page.
@@ -117,12 +136,12 @@
 	background-repeat: no-repeat;
 	background-size: 72px auto;
 }
-.Capt.Capt-logo.Nctm {background-image: url(images/logos-banners/logo-NCTM.png);}
-.Capt.Capt-logo.Vctm {background-image: url(images/logos-banners/logo-VCTM.png);}
-.Capt.Capt-logo.Txin {background-image: url(images/logos-banners/logo-TI.png);}
-.Capt.Capt-logo.Vdoe {background-image: url(images/logos-banners/logo-VA-DOE.png);}
-.Capt.Capt-logo.Amsy {background-image: url(images/logos-banners/logo-AMS.png);}
-.Capt.Capt-logo.Vmta {background-image: url(images/logos-banners/logo-VMTA.png);}
+.Capt.Capt-logo.Nctm {background-image: url('images/logos-banners/logo-NCTM.png');}
+.Capt.Capt-logo.Vctm {background-image: url('images/logos-banners/logo-VCTM.png');}
+.Capt.Capt-logo.Txin {background-image: url('images/logos-banners/logo-TI.png');}
+.Capt.Capt-logo.Vdoe {background-image: url('images/logos-banners/logo-VA-DOE.png');}
+.Capt.Capt-logo.Amsy {background-image: url('images/logos-banners/logo-AMS.png');}
+.Capt.Capt-logo.Vmta {background-image: url('images/logos-banners/logo-VMTA.png');}
 
 /**
   * An application icon.
