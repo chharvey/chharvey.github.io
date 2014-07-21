@@ -3,6 +3,8 @@
 /*--------------*\
     _code.less
 \*--------------*/
+
+
 /** The default border radius for code-like Objects. */
 @code_brdr_radius: 3px;
 
@@ -82,7 +84,7 @@
 : 2014-05-25
   */
 code {
-	&:extend(.fontsize-sml-inline);
+	&:extend(.fontsize-sml);
 	&:extend(.codecolors-sol-lite all);
 	.box-inline(@code_brdr_radius);
 	font-family: @fontfam_code;
@@ -93,7 +95,6 @@ code {
   * the text content. This Object does *not* extend the `.Code` Object.
 @implements
 : .fontsize-sml
-: .vru-top-1
 : .codecolors-sol-dark
 @mixesin
 : .box-block()
@@ -103,14 +104,12 @@ code {
 @author
 : Chris Harvey
 @updated
-: 2014-05-25
+: 2014-07-10
   */
 .Codeblock {
-	&:extend(.fontsize-sml);
-	&:extend(.vru-top-1 all);
+	&:extend(.fontsize-block-sml);
 	&:extend(.codecolors-sol-dark all);
-	.box-block(@code_brdr_radius);
-	.border-vert-both(all; 2px; solid); // overrides `.border-vert-both()` mixedin `.box-block()`
+	.box-block(2px; @code_brdr_radius);
 	font-family: @fontfam_code;
 	white-space: pre-wrap;
 }
@@ -185,7 +184,6 @@ code {
 : .Codeblock.CSS
 @implements
 : .clearfix
-: .vru-top-0
 @tags
 : #code
 @author
@@ -249,7 +247,6 @@ code {
   */
 .Codeblock.CSS.I {
 	.Sel {
-		display: inline;
 		float: left;
 		clear: both;
 	}
@@ -280,7 +277,7 @@ code {
 : 2014-05-25
   */
 .Dir {
-	&:extend(.fontsize-sml-inline);
+	&:extend(.fontsize-sml);
 	font-style: italic;
 	font-family: @fontfam_base;
 }
@@ -318,7 +315,7 @@ var {
 : 2014-06-06
   */
 .Key {
-	&:extend(.fontsize-sml-inline);
+	&:extend(.fontsize-sml);
 	&:extend(.codecolors-sol-dark all);
 	.box-inline(@code_brdr_radius);
 	font-family: @fontfam_accent;
@@ -328,11 +325,4 @@ var {
 	overflow: auto;
 	font-family: @fontfam_math;
 	white-space: pre-wrap;
-}
-
-@media print {
-	code {
-		color: #000;
-		background-color: #fff;
-	}
 }

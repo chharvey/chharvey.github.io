@@ -30,6 +30,7 @@
 /*@Golden Values*/
 /*@Even Values*/
 /*@Color Values*/
+/*@Font Sizes*/
 /*---------------*\
     _reset.less
 \*---------------*/
@@ -101,7 +102,8 @@ dfn,
 abbr,
 small,
 sup,
-sub {
+sub,
+button {
   display: inline;
 }
 hr {
@@ -138,7 +140,8 @@ dd,
 table,
 th,
 td,
-pre {
+pre,
+button {
   padding: 0;
   border: 0;
   outline: 0;
@@ -159,27 +162,6 @@ body {
   color: #000;
   background-color: #fff;
 }
-/*
-h1, h2, h3, h4, h5, h6,
-p, address, figure, blockquote,
-ol, ul, li,
-th,
-a,
-pre, code, kbd, samp, var,
-em, strong, mark, i, b,
-q, cite, dfn, abbr, del, ins, small, sup, sub {
-	font-style:     inherit;
-	font-variant:   inherit;
-	font-weight:    inherit;
-	font-size:      inherit;
-	font-family:    inherit;
-	text-align:     inherit;
-	line-height:    inherit;
-	vertical-align: inherit;
-	color:          inherit;
-	background-color: transparent;
-}
-*/
 address,
 em,
 i,
@@ -207,17 +189,22 @@ h5,
 h6,
 small,
 sup,
-sub {
+sub,
+button {
   font-size: inherit;
 }
 pre,
 code,
 kbd,
-samp {
+samp,
+button {
   font-family: inherit;
 }
 caption {
   text-align: inherit;
+}
+button {
+  line-height: inherit;
 }
 sup,
 sub {
@@ -235,283 +222,9 @@ a {
 a {
   color: inherit;
 }
-mark {
-  background-color: transparent;
-}
+mark,
 button {
-  display: inline;
-  padding: 0;
-  border: 0;
-  margin: 0;
-  font-size: inherit;
-  font-family: inherit;
-  line-height: inherit;
   background-color: transparent;
-}
-/*--------------------*\
-    _interfaces.less
-\*--------------------*/
-/*@MIXINS*/
-/**
-  * Use this Mixin to apply a rotation transformation to an Object.
-@params
-: @rotation : the angle, in degrees, to rotate the Object
-@tags
-: #transformation
-: #vendorspecific
-@author
-: Chris Harvey
-@updated
-: 2014-05-10
-  */
-/**
-  * Use this Mixin to apply a transition timing effect on an Element.
-@params
-: @props : the CSS property name(s). If more than one, they must be comma-separated
-: @dura  : the length in time, in seconds, the transition is to be in effect
-: @func  : the timing-function. See `https://developer.mozilla.org/en-US/docs/Web/CSS/timing-function`
-: @delay : the length in time, in seconds, the transition will wait before starting
-@tags
-: #transition
-: #vendorspecific
-@author
-: Chris Harvey
-@updated
-: 2014-06-17
-  */
-/**
-  * Use this Mixin to apply a linear gradient background on an Element.
-  * See [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/linear-gradient) for more info.
-  * See [WPD](http://docs.webplatform.org/wiki/css/functions/linear-gradient) for more info.
-  *
-  * The number of possibilities for the list of paramaters of the CSS function `linear-gradient()`
-  * is so great that it would be inefficient to designate each parameter. Therefore, functions are
-  * overloaded to handle up to five paramaters.
-@params
-: @param1 : the first paramater
-: @param2 : the second paramater
-: @param3 : the third paramater
-: @param4 : the fourth paramater
-: @param5 : the fifth paramater
-@tags
-: #gradient
-: #vendorspecific
-@author
-: Chris Harvey
-@updated
-: 2014-06-24
-  */
-/*@Abstract Boxes*/
-/**
-  * This Mixin creates an abstract inline structure, boxed with a border.
-@params
-: @border_radius : the value of `border-radius` property
-@implements
-: .cellpaddingdefault
-@mixesin
-@tags
-: #box
-: #verticalrhythm
-@author
-: Chris Harvey
-@updated
-: 2014-05-25
-  */
-/**
-  * This Mixin creates an abstract block structure, boxed with a border.
-@params
-: @border_radius : the value of `border-radius` property
-@implements
-: .cellpaddingdefault
-: .vru-content
-@mixesin
-: .border-vert-both()
-@tags
-: #box
-: #verticalrhythm
-@author
-: Chris Harvey
-@updated
-: 2014-05-25
-  */
-/*@INTERFACES*/
-/**
-  * This Interface creates default padding for cell-like structures (table cells, grid cells,
-  * boxes, etc.).
-  * The padding is based on the Vertical Rhythm Unit. The vertical padding is in rems, and
-  * the horizontal padding is in pixels.
-@tags
-: #verticalrhythm
-: #padding
-@author
-: Chris Harvey
-@updated
-: 2014-05-20
-  */
-.cellpaddingdefault,
-.Cell,
-.Codeblock,
-.Label.Msg {
-  padding: 12px 7.41640786px;
-  padding: 0.75rem 7.41640786px;
-}
-/**
-  * This Interface is used on containers of floats. It pushes subsequent content to the bottom
-  * of the container.
-@tags
-: #float
-@author
-: Chris Harevy
-@updated
-: 2014-05-12
-  */
-.clearfix::after,
-.Map.Vert::after,
-.CSS .Ruleset::after {
-  display: table;
-  content: ' ';
-  clear: both;
-}
-/**
-  * This Interface makes an object slightly transparent, but it becomes opaque upon `:hover`.
-@tags
-: #schematic
-: #golden
-@author
-: Chris Harvey
-@updated
-: 2014-04-30
-  */
-.transp {
-  opacity: 0.61803399;
-}
-.transp:hover {
-  opacity: 1;
-}
-/**
-  * This Interface puts an outline around an Object to show its structure. It is used for
-  * deomonstration purposes.
-@tags
-: #structural
-@author
-: Chris Harvey
-@updated
-: 2014-06-07
-  */
-.help-otln {
-  outline: 1px solid #cc004e;
-}
-/**
-  * These Interfaces add a solid horizontal line above the Object, separating it from its
-  * previous sibling.
-  * The `.separated()` Mixin lets you choose the line color.
-  * The `-h` suffix colors the line with the main heaing color (blueish).
-  * The `-brdr` suffix colors the line with the border accent color (greenish).
-  * The `-accent` suffix colors the line with the accent color (redish).
-@tags
-: #golden
-: #heading
-: #border
-: #accent
-@author
-: Chris Harvey
-@updated
-: 2014-07-07
-  */
-.separated-h {
-  padding-top: 8.78521826px;
-  margin-top: 14.21478174px;
-  border-top-width: 1px;
-  border-top-style: solid;
-  border-top-color: #120099;
-}
-.separated-brdr {
-  padding-top: 8.78521826px;
-  margin-top: 14.21478174px;
-  border-top-width: 1px;
-  border-top-style: solid;
-  border-top-color: #9acc7a;
-}
-.separated-accent {
-  padding-top: 8.78521826px;
-  margin-top: 14.21478174px;
-  border-top-width: 1px;
-  border-top-style: solid;
-  border-top-color: #cc004e;
-}
-/*@Delimiters*/
-/**
-  * This Interface adds opening and closing punctuation marks surrounding an Object. The
-  * punctuation marks are given by the `quotes` property.
-@tags
-: #typography
-: #quote
-@author
-: Chris Harvey
-@updated
-: 2014-05-26
-  */
-.delimiters::before,
-.parens::before,
-.quotes-double::before,
-.quotes-single::before,
-.guillemets::before,
-.Qblock.Long .Src::before,
-q::before,
-.Th::before {
-  content: open-quote;
-}
-.delimiters::after,
-.parens::after,
-.quotes-double::after,
-.quotes-single::after,
-.guillemets::after,
-.Qblock.Long .Src::after,
-q::after,
-.Th::after {
-  content: close-quote;
-}
-.parens,
-.Qblock.Long .Src {
-  quotes: '(' ')';
-}
-.quotes-double,
-q {
-  quotes: '\201c' '\201d';
-}
-.quotes-single {
-  quotes: '\2018' '\2019';
-}
-.guillemets,
-.Th {
-  quotes: '\00ab' '\00bb';
-}
-@media print {
-  /**
-	  * This Interface displays an Object on screen but does not print it.
-	@tags
-	: #schematic
-	@author
-	: Chris Harvey
-	@updated
-	: 2014-04-30
-	  */
-  .noprint {
-    display: none;
-  }
-  /**
-	  * This Interface starts a new page in the print media.
-	@tags
-	: #schematic
-	@author
-	: Chris Harvey
-	@updated
-	: 2014-04-30
-	  */
-  .pagebreak {
-    page-break-before: always;
-    padding-top: 0.25in;
-  }
 }
 /*--------------*\
     _grid.less
@@ -620,8 +333,7 @@ q {
 @updated
 : 2014-06-16
   */
-.margin-even,
-.List.I.Iconlist {
+.margin-even {
   margin-left: auto;
   margin-right: auto;
 }
@@ -736,59 +448,89 @@ q {
   overflow: visible;
 }
 /*@GUTTERS*/
-/*--------------*\
-    _vert.less
-\*--------------*/
-/*@FONT SIZES*/
-/** One vertical rhythm unit. This is the 'magic number'. */
+/*------------------*\
+    _fontsize.less
+\*------------------*/
+/** One vertical rhythm unit. This is the so-called "magic number." */
 /**
-  * These Mixins multiply `font-size` by `@ratio` and adjusts `line-height` such that
-  * `font-size` * `line-height` = one vertical rhythm unit.
-  * The `.fontsize-scale-double()` Mixin adjusts `line-height` such that
-  * `font-size` * `line-height` = two vertical rhythm units
+  * This Mixin sets the `font-size` of an Object to a given scale.
+  * For example, to set the font size scale to 3, instead of using `font-size: 3rem;` (which may  be
+  * unsupported in some browsers), use this Mixin, which includes a fallback.
 @params
-: @ratio : the ratio of the new font size to `fontsize_base`
+: @ratio : the ratio of the new font size to `@fontsize_base`, in other words, the number of `rem`s
 @tags
-: #verticalrhythm
 : #fontsize
+: #fallback
 @author
 : Chris Harvey
 @updated
-: 2014-04-26
+: 2014-07-08
   */
 /**
-  * Same as `.fontsize-scale()` Mixins except adjusts `line-height` such that
-  * 	`font-size` * `line-height` = two vertical rhythm units.
-@params
-: @ratio : the ratio of the new font size to `fontsize_base`
-@tags
-: #verticalrhythm
-: #fontsize
-@author
-: Chris Harvey
-@updated
-: 2014-05-03
-  */
-/**
-  * This Interface sets a [large|medium|small] font size and corresponding line height.
+  * These Interfaces set a [large|medium|small] preset font size.
 @implements
-: .fontsize-scale()
+: .fontsize()
+@tags
+: #fontsize
+@author
+: Chris Harvey
+@updated
+: 2014-07-08
+  */
+.fontsize-lrg {
+  font-size: 20px;
+  font-size: 1.25rem;
+}
+.fontsize-med {
+  font-size: 16px;
+  font-size: 1rem;
+}
+.fontsize-sml,
+code,
+.Dir,
+.Key,
+sup,
+sub,
+.Button {
+  font-size: 12px;
+  font-size: 0.75rem;
+}
+/**
+  * These Mixins adjust `line-height` such that
+  * `font-size` * `line-height` = one vertical rhythm unit.
+  * The `.fontsize-block-double()` Mixin adjusts `line-height` such that
+  * `font-size` * `line-height` = two vertical rhythm units.
+@params
+: @ratio : the ratio of the new font size to `@fontsize_base`
+@implements
+: .fontsize()
 @tags
 : #verticalrhythm
 : #fontsize
 @author
 : Chris Harvey
 @updated
-: 2014-05-20
+: 2014-07-08
   */
-.fontsize-lrg,
-.fontsize-lrg-inline,
+/**
+  * This Interface sets a [large|medium|small] preset font size and adjusts corresponding line height.
+@implements
+: .fontsize-block()
+@tags
+: #verticalrhythm
+: #fontsize
+@author
+: Chris Harvey
+@updated
+: 2014-07-08
+  */
+.fontsize-block-lrg,
 .Qblock {
   font-size: 20px;
   font-size: 1.25rem;
   line-height: 1.2;
 }
-.fontsize-med,
+.fontsize-block-med,
 .Qblock.Long,
 .Qblock.Long .Src,
 .Button.Crumb {
@@ -796,61 +538,88 @@ q {
   font-size: 1rem;
   line-height: 1.5;
 }
-.fontsize-sml,
-.fontsize-sml-inline,
+.fontsize-block-sml,
 .Capt,
 .Qblock .Src,
 .Fineprint,
 .Table,
 .Codeblock,
-.Label,
-.Button,
-code,
-.Dir,
-.Key,
-sup,
-sub {
+.Label {
   font-size: 12px;
   font-size: 0.75rem;
   line-height: 2;
 }
+/*----------------*\
+    _floats.less
+\*----------------*/
 /**
-  * This Interface sets an Object to inline and does not affect vertical rhythm.
+  * This Interface is used on containers of floats. It pushes subsequent content to the bottom
+  * of the container.
 @tags
-: #verticalrhythm
-: #fontsize
+: #float
 @author
-: Chris Harvey
+: Chris Harevy
 @updated
-: 2014-05-20
+: 2014-05-12
   */
-.fontsize-inline,
-.fontsize-lrg-inline,
-.fontsize-sml-inline,
-.Button,
-code,
-.Dir,
-.Key,
-sup,
-sub {
-  display: inline;
-  line-height: inherit;
+.clearfix::after,
+.Map.Vert::after,
+.CSS .Ruleset::after {
+  display: table;
+  content: ' ';
+  clear: both;
 }
+/*---------------*\
+    _trans.less
+\*---------------*/
 /**
-  * This Interface sets [large|small] font size for inline Objects. They do not affect
-  * vertical rhythm.
-@implements
-: .fontsize-[lrg|sml]
-: .fontsize-inline
+  * Use this Mixin to apply a rotation transformation to an Object.
+@params
+: @rotation : the angle, in degrees, to rotate the Object
 @tags
-: #verticalrhythm
-: #fontsize
+: #transformation
+: #vendorspecific
 @author
 : Chris Harvey
 @updated
-: 2014-05-03
+: 2014-05-10
   */
-/*@VERTICAL SPACING*/
+/**
+  * Use this Mixin to apply a transition timing effect on an Element.
+@params
+: @props : the CSS property name(s). If more than one, they must be comma-separated
+: @dura  : the length in time, in seconds, the transition is to be in effect
+: @func  : the timing-function. See `https://developer.mozilla.org/en-US/docs/Web/CSS/timing-function`
+: @delay : the length in time, in seconds, the transition will wait before starting
+@tags
+: #transition
+: #vendorspecific
+@author
+: Chris Harvey
+@updated
+: 2014-06-17
+  */
+/*--------------*\
+    _grad.less
+\*--------------*/
+/**
+  * Use this Mixin to apply a linear gradient background on an Element.
+  * See [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/linear-gradient) for more info.
+  * See [WPD](http://docs.webplatform.org/wiki/css/functions/linear-gradient) for more info.
+@params
+: ... : any number of parameters
+@tags
+: #background-image
+: #gradient
+: #vendorspecific
+@author
+: Chris Harvey
+@updated
+: 2014-07-08
+  */
+/*-----------------*\
+    _spacing.less
+\*-----------------*/
 /**
   * This Interface provides a minimum height of one vertical rhythm unit.
   * It is Meant for text-containing block Elements, such as p, blockquote, li, dt, dd, th, td.
@@ -889,34 +658,22 @@ sub {
 @author
 : Chris Harvey
 @updated
-: 2014-05-10
+: 2014-07-10
   */
-.vru-top-0,
-.vru-top-1.first,
-.P.Intro,
-.List > .Item > .List,
-.P.first,
-.List.first,
-.Map.first,
-.Codeblock.first,
-.Label.Msg.first {
-  margin-top: 0;
-}
-.vru-bottom-0 {
-  padding-bottom: 0;
-}
 .vru-top-1,
-.P,
-.Qblock.Long .Src,
-.List,
-.Map,
-.Table,
+:not(.H) + .P,
+.P + .List,
+.P + .Map,
+.P + .Table,
 .Codeblock,
 .Label.Msg {
   margin-top: 24px;
   margin-top: 1.5rem;
 }
 .vru-bottom-1,
+.P + .List,
+.P + .Map,
+.P + .Table,
 .P.Intro,
 .Bc > .Anc,
 .Bc > .Sib,
@@ -950,7 +707,47 @@ sub {
   border-top-style: solid;
   border-top-color: #000000;
 }
-/*@VERTICAL BORDERS*/
+/**
+  * These Interfaces add a solid horizontal line above the Object, separating it from its
+  * previous sibling. **Use these Interfaces instead of the `hr` Element.**
+  * The `.hr()` Mixin lets you choose the line color.
+  * The `-head` suffix colors the line with the main heaing color (blueish).
+  * The `-brdr` suffix colors the line with the border accent color (greenish).
+  * The `-acnt` suffix colors the line with the accent color (redish).
+@tags
+: #golden
+: #heading
+: #border
+: #accent
+@author
+: Chris Harvey
+@updated
+: 2014-07-07
+  */
+.hr-head {
+  padding-top: 8.78521826px;
+  margin-top: 14.21478174px;
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-top-color: #120099;
+}
+.hr-brdr {
+  padding-top: 8.78521826px;
+  margin-top: 14.21478174px;
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-top-color: #9acc7a;
+}
+.hr-acnt {
+  padding-top: 8.78521826px;
+  margin-top: 14.21478174px;
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-top-color: #cc004e;
+}
+/*-----------------*\
+    _borders.less
+\*-----------------*/
 /**
   * The following Mixins adjust borders for **BLOCK** Objects only! They will keep the
   * vertical rhythm intact when adding borders (by slightly adjusting position and margins).
@@ -973,6 +770,170 @@ sub {
 @updated
 : 2014-06-26
   */
+/**
+  * This Interface puts an outline around an Object to show its structure. It is used for
+  * deomonstration purposes.
+@tags
+: #structural
+@author
+: Chris Harvey
+@updated
+: 2014-06-07
+  */
+.help-otln {
+  outline: 1px solid #cc004e;
+}
+/*---------------*\
+    _boxes.less
+\*---------------*/
+/**
+  * This Interface creates default padding for cell-like structures (table cells, grid cells,
+  * boxes, etc.).
+  * The padding is based on the Vertical Rhythm Unit. The vertical padding is in rems, and
+  * the horizontal padding is in pixels.
+@tags
+: #verticalrhythm
+: #padding
+@author
+: Chris Harvey
+@updated
+: 2014-05-20
+  */
+.cellpaddingdefault,
+.Cell,
+.Codeblock,
+.Label.Msg {
+  padding: 12px 7.41640786px;
+  padding: 0.75rem 7.41640786px;
+}
+/**
+  * These Mixins create abstract inline structures, boxed with a solid border.
+  * `.box-inline(@brdrw; @brdrc; @brdrr)` is an extension of `.box-inline(@brdrw; @brdrr)`
+  * 	(it's not the case that `.box-inline(@brdrw; @brdrr)` is a restriction of
+  * 	`.box-inline(@brdrw; @brdrc; @brdrr)`) because the border color, if not specified,
+  * 	should not be a preset color; rather, it should be the value of the `color` property.
+@params
+: @brdrw : the value of `border-width` property (if not specified, default to 1px)
+: @brdrc : the value of `border-color` property (if not specified, default to value of `color` property)
+: @brdrr : the value of `border-radius` property
+@tags
+: #box
+: #verticalrhythm
+@author
+: Chris Harvey
+@updated
+: 2014-07-07
+  */
+/**
+  * These Mixins create abstract block structures, boxed with a solid border.
+  * `.box-block(@brdrw; @brdrc; @brdrr)` is an extension of `.box-block(@brdrw; @brdrr)`
+  * 	(it's not the case that `.box-block(@brdrw; @brdrr)` is a restriction of
+  * 	`.box-block(@brdrw; @brdrc; @brdrr)`) because the border color, if not specified,
+  * 	should not be a preset color; rather, it should be the value of the `color` property.
+@params
+: @brdrw : the value of `border-width` property (if not specified, default to 1px)
+: @brdrc : the value of `border-color` property (if not specified, default to value of `color` property)
+: @brdrr : the value of `border-radius` property
+@implements
+: .cellpaddingdefault
+: .vru-content
+@mixesin
+: .border-vert-both()
+@tags
+: #box
+: #verticalrhythm
+@author
+: Chris Harvey
+@updated
+: 2014-07-07
+  */
+/*----------------*\
+    _delims.less
+\*----------------*/
+/**
+  * This Interface adds opening and closing punctuation marks surrounding an Object. The
+  * punctuation marks are given by the `quotes` property.
+@tags
+: #typography
+: #quote
+@author
+: Chris Harvey
+@updated
+: 2014-05-26
+  */
+.delimiters::before,
+.parens::before,
+.quotes-single::before,
+.quotes-double::before,
+.guillemets-single::before,
+.guillemets-double::before,
+.Qblock.Long .Src::before,
+q::before,
+.Th::before {
+  content: open-quote;
+}
+.delimiters::after,
+.parens::after,
+.quotes-single::after,
+.quotes-double::after,
+.guillemets-single::after,
+.guillemets-double::after,
+.Qblock.Long .Src::after,
+q::after,
+.Th::after {
+  content: close-quote;
+}
+.parens,
+.Qblock.Long .Src {
+  quotes: '(' ')';
+}
+.quotes-single {
+  quotes: '\2018' '\2019';
+}
+.quotes-double,
+q {
+  quotes: '\201c' '\201d';
+}
+.guillemets-single {
+  quotes: '\2039' '\203a';
+}
+.guillemets-double,
+.Th {
+  quotes: '\00ab' '\00bb';
+}
+/*-----------------*\
+    _bground.less
+\*-----------------*/
+/**
+  * This Mixin sets the background position of an Object's background sprite image.
+  * This assumes the sprite's images are linearly horizontally ordered.
+@params
+: @position : the position of the sprite's image to be used. must be a positive integer.
+: @iconsize : the horizontal (x) size of the sprite's image. in pixels.
+: @iconpadd : the padding between images in the sprite. in pixels.
+@tags
+: #background-image
+@author
+: Chris Harvey
+@updated
+: 2014-07-18
+  */
+/**
+  * This Interface makes an object slightly transparent, but it becomes opaque upon `:hover`.
+@tags
+: #schematic
+: #golden
+@author
+: Chris Harvey
+@updated
+: 2014-04-30
+  */
+.transp {
+  opacity: 0.61803399;
+}
+.transp:hover {
+  opacity: 1;
+}
 /*--------------*\
     _body.less
 \*--------------*/
@@ -1035,7 +996,6 @@ main {
   background-size: 1px 24px;
   background-repeat: repeat;
   background-position: left bottom;
-  background-position-y: bottom;
 }
 .crossgrid-phi {
   background-image: url('http://chharvey.github.io/core/images/crossgrid-phi_1440x24.svg');
@@ -1051,21 +1011,6 @@ main {
   background-image: url('http://chharvey.github.io/core/images/crossgrid-even-lcm_288x24.svg');
   background-size: 20% 24px;
   background-repeat: repeat;
-}
-@media print {
-  body {
-    font-size: 16px;
-    font-size: 1rem;
-    line-height: 1.5;
-    color: #000;
-    background-color: #fff;
-    background-image: none;
-  }
-  main {
-    width: auto;
-    margin-left: auto;
-    margin-right: auto;
-  }
 }
 /*------------------*\
     _headings.less
@@ -1102,28 +1047,11 @@ main {
   */
 .H > .Hsub {
   padding-left: 24px;
-  font-size: 80%;
+  font-size: 61.80339887%;
   font-weight: normal;
+  color: #704500;
   color: rgba(14, 9, 0, 0.61803399);
 }
-/**
-  * This Interface is used on any Object that "visually" follows a heading (an `.H` Object).
-  * Keyword "visually" because it may not directly follow the heading in the Document Outline
-  * (it may be in a sub-section, etc.)
-@extends
-: .vru-top-1
-@tags
-: #verticalrhythm
-: #typography
-: #paragraph
-: #list
-: #map
-: #table
-@author
-: Chris Harvey
-@updated
-: 2014-06-26
-  */
 /**
   * The six Objects below represent different levels of headings, starting from top-level to level 6.
 @extends
@@ -1132,15 +1060,15 @@ main {
 : #typography
 : #heading
 : #section
+: #golden
 @author
 : Chris Harvey
 @updated
-: 2014-04-14
+: 2014-07-10
   */
 .H.Alpha {
   font-size: 48px;
   font-size: 3rem;
-  line-height: 0.5;
   line-height: 1;
   margin-top: 29.66563146px;
   margin-top: 1.85410197rem;
@@ -1152,16 +1080,17 @@ main {
   color: #120099;
 }
 .H.Alpha > .Hsub {
+  color: #120099;
   color: rgba(18, 0, 153, 0.61803399);
 }
 .H.Beta {
   font-size: 35px;
   font-size: 2.1875rem;
-  line-height: 0.68571429;
-  margin-top: 24px;
-  margin-top: 1.5rem;
-  padding-bottom: 24px;
-  padding-bottom: 1.5rem;
+  line-height: 1.37142857;
+  margin-top: 34.728px;
+  margin-top: 2.1705rem;
+  padding-bottom: 13.272px;
+  padding-bottom: 0.8295rem;
   display: block;
   position: relative;
   top: -1px;
@@ -1173,16 +1102,17 @@ main {
   color: #3d6166;
 }
 .H.Beta > .Hsub {
+  color: #3d6166;
   color: rgba(61, 97, 102, 0.61803399);
 }
 .H.Gamma {
   font-size: 26px;
   font-size: 1.625rem;
   line-height: 0.92307692;
-  margin-top: 31.992px;
-  margin-top: 1.9995rem;
-  padding-bottom: 16.008px;
-  padding-bottom: 1.0005rem;
+  margin-top: 14.83281573px;
+  margin-top: 0.92705098rem;
+  padding-bottom: 9.16718427px;
+  padding-bottom: 0.57294902rem;
   font-variant: small-caps;
   font-weight: bold;
 }
@@ -1190,10 +1120,10 @@ main {
   font-size: 21px;
   font-size: 1.3125rem;
   line-height: 1.14285714;
-  margin-top: 18px;
-  margin-top: 1.125rem;
-  padding-bottom: 6px;
-  padding-bottom: 0.375rem;
+  margin-top: 17.376px;
+  margin-top: 1.086rem;
+  padding-bottom: 6.624px;
+  padding-bottom: 0.414rem;
   font-style: italic;
   font-weight: bold;
 }
@@ -1201,29 +1131,22 @@ main {
   font-size: 18px;
   font-size: 1.125rem;
   line-height: 1.33333333;
-  margin-top: 0px;
-  margin-top: 0rem;
-  padding-bottom: 0px;
-  padding-bottom: 0rem;
   font-style: italic;
   color: #3d6166;
 }
 .H.Epsilon > .Hsub {
+  color: #3d6166;
   color: rgba(61, 97, 102, 0.61803399);
 }
 .H.Zeta {
   font-size: 16px;
   font-size: 1rem;
   line-height: 1.5;
-  margin-top: 0px;
-  margin-top: 0rem;
-  padding-bottom: 0px;
-  padding-bottom: 0rem;
   font-style: italic;
   font-variant: small-caps;
 }
 /**
-  * A fancy heading for the portfolio pages
+  * A fancy heading for the portfolio pages.
 @extends
 : .H.Alpha
 @tags
@@ -1237,7 +1160,6 @@ main {
 .H.Alpha.Folio {
   font-size: 48px;
   font-size: 3rem;
-  line-height: 0.5;
   line-height: 1;
   margin-top: 96px;
   margin-top: 6rem;
@@ -1254,13 +1176,6 @@ main {
   font-size: 6rem;
   line-height: 0.25;
   font-family: 'Snell Roundhand', 'Zapfino', script;
-}
-@media print {
-  .H {
-    font-size: 16px;
-    font-size: 1rem;
-    line-height: 1.5;
-  }
 }
 /*--------------------*\
     _paragraphs.less
@@ -1288,14 +1203,13 @@ main {
   * anywhere from 3 to 8 sentences. However on the Web, they can be much, much shorter.
 @implements
 : .vru-content
-: .vru-top-1
 @tags
 : #typography
 : #paragraph
 @author
 : Chris Harvey
 @updated
-: 2014-04-26
+: 2014-07-10
   */
 .P {
   display: block;
@@ -1325,7 +1239,6 @@ main {
 @extends
 : .P
 @implements
-: .vru-top-0
 : .vru-bottom-1
 @tags
 : #typography
@@ -1333,7 +1246,7 @@ main {
 @author
 : Chris Harvey
 @updated
-: 2014-06-26
+: 2014-07-10
   */
 .P.Intro {
   font-weight: bold;
@@ -1345,7 +1258,7 @@ main {
 @extends
 : .P
 @mixesin
-: .fontsize-scale()
+: .fontsize-block()
 @tags
 : #typography
 : #paragraph
@@ -1377,7 +1290,7 @@ main {
   * If this `.Capt` is a child of a `table` Element, it should be a `caption` Element.
 @implements
 : .vru-content
-: .fontsize-small
+: .fontsize-block-small
 @tags
 : #typography
 : #caption
@@ -1477,7 +1390,7 @@ main {
 @author
 : Chris Harvey
 @updated
-: 2014-05-10
+: 2014-07-10
   */
 .Fig {
   border-left-width: 4px;
@@ -1499,17 +1412,17 @@ main {
 @implements
 : .vru-content
 : .vru-top-phi
-: .fontsize-lrg
+: .fontsize-block-lrg
+: .crossgrid-lined
 @mixesin
 : .spacing-phi()
-: .fontsize-scale-double()
 @tags
 : #typography
 : #quote
 @author
 : Chris Harvey
 @updated
-: 2014-05-10
+: 2014-07-10
   */
 .Qblock {
   border-left-width: 7px;
@@ -1525,14 +1438,14 @@ main {
 @belongsto
 : .Qblock
 @implements
-: .fontsize-sml
+: .fontsize-block-sml
 @tags
 : #typography
 : #quote
 @author
 : Chris Harvey
 @updated
-: 2014-05-10
+: 2014-07-10
   */
 .Qblock .Src {
   display: block;
@@ -1551,14 +1464,14 @@ main {
 @extends
 : .Qblock
 @implements
-: .fontsize-med
+: .fontsize-block-med
 @tags
 : #typography
 : #quote
 @author
 : Chris Harvey
 @updated
-: 2014-05-10
+: 2014-07-10
   */
 .Qblock.Long .Src {
   padding-right: 0;
@@ -1612,25 +1525,6 @@ main {
 @updated
 : 2014-06-26
   */
-@media print {
-  .Fig,
-  .Addy,
-  .Qblock {
-    font-size: 16px;
-    font-size: 1rem;
-    line-height: 1.5;
-    border-left-width: 0;
-    border-left-style: solid;
-    padding-left: 0;
-    margin-left: 0;
-    border-left-color: #000000;
-    border-right-width: 0;
-    border-right-style: solid;
-    padding-right: 0;
-    margin-right: 0;
-    border-right-color: #000000;
-  }
-}
 /*---------------*\
     _lists.less
 \*---------------*/
@@ -1665,14 +1559,13 @@ main {
   * This `.List` Object is  displayed as a block Object containing other block Objects. See the
   * `.Enum` Object for a short listing of inline Objects (e.g., a list of keywords).
 @implements
-: .vru-top-1
 @tags
 : #typography
 : #list
 @author
 : Chris Harvey
 @updated
-: 2014-05-03
+: 2014-07-10
   */
 .List {
   display: block;
@@ -1698,7 +1591,6 @@ main {
 /**
   * This Object represents a nested List Object nested within a List Item Object.
 @implements
-: .vru-top-0
 : .listindent
 @tags
 : #typography
@@ -1706,7 +1598,7 @@ main {
 @author
 : Chris Harvey
 @updated
-: 2014-05-10
+: 2014-07-10
   */
 /**
   * This Object represents an ordered list, or a list used for an outline. This does *not*
@@ -1801,22 +1693,6 @@ main {
   */
 .List.I > .Item {
   display: inline;
-}
-/**
-  * This Object represents a list of images, for example, contact icons.
-@extends
-: .List.I
-@tags
-: #typography
-: #list
-@author
-: Chris Harvey
-@updated
-: 2014-06-16
-  */
-.List.I.Iconlist {
-  width: 400px;
-  text-align: center;
 }
 /**
   * This Object represents an action list, which typically contains hyperlinks.
@@ -1922,14 +1798,13 @@ main {
   * This Object represents an association list, which contains term-description pairs. Each pair
   * consists of exactly one `.Term` and exactly one `.Desc`.
 @implements
-: .vru-top-1
 @tags
 : #typography
 : #map
 @author
 : Chris Harvey
 @updated
-: 2014-05-12
+: 2014-07-10
   */
 .Map {
   display: block;
@@ -1965,18 +1840,6 @@ main {
 .Map > .Desc {
   padding-left: 48px;
 }
-/**
-  * This Object represents a Map Object nested within a `.Term` Object or `.Desc` Object.
-@implements
-: .vru-top-0
-@tags
-: #typography
-: #map
-@author
-: Chris Harvey
-@updated
-: 2014-05-25
-  */
 /**
   * This Object represents an association list in which terms are grouped together in one column
   * and descriptions are grouped together in one column.
@@ -2056,6 +1919,13 @@ main {
 .Map.Vert.Lrg > .Desc {
   width: 23.60679775%;
 }
+/*dl*/
+.dl--ordered > dt:first-child,
+.dl--ordered > dd + dt {
+  display: list-item;
+  list-style-type: decimal;
+  list-style-position: outside;
+}
 /*----------------*\
     _tables.less
 \*----------------*/
@@ -2065,15 +1935,14 @@ main {
   * would be a multivariable map: given multiple (e.g., two) independent inputs there exists one
   * dependent output.
 @implements
-: .vru-top-1
-: .fontsize-sml
+: .fontsize-block-sml
 @tags
 : #typography
 : #table
 @author
 : Chris Harvey
 @updated
-: 2014-05-18
+: 2014-07-10
   */
 .Table {
   display: table;
@@ -2181,13 +2050,6 @@ table {
 table tr {
   counter-increment: nrows;
 }
-@media print {
-  .Table {
-    font-size: 16px;
-    font-size: 1rem;
-    line-height: 1.5;
-  }
-}
 /*---------------*\
     _links.less
 \*---------------*/
@@ -2215,7 +2077,7 @@ table tr {
 .Link:active {
   color: #cc004e;
 }
-.Link[rel~="external"] {
+a[rel~="external"] {
   font-style: italic;
 }
 /**
@@ -2259,60 +2121,6 @@ table tr {
 .Proper {
   font-style: italic;
   text-transform: capitalize;
-}
-/*@BUTTONS*/
-/** The default border for button-like Objects. */
-/**
-  * A general Button Object.
-@implements
-: .fontsize-sml-inline
-@mixesin
-: .box-inline()
-@tags
-: #button
-@author
-: Chris Harvey
-@updated
-: 2014-06-06
-  */
-.Button {
-  display: inline;
-  padding: 1px 2px;
-  border-width: 1px;
-  border-style: solid;
-  border-radius: 6px;
-  white-space: nowrap;
-  border-width: 2px;
-  border-style: outset;
-  border-color: #0062ff;
-  margin-bottom: -4px;
-  font-family: 'Century Gothic', 'Gill Sans', 'Avenir', sans-serif;
-  color: #0062ff;
-  background-color: #c3daff;
-  background-image: -webkit-linear-gradient(to bottom right, #dbe9ff, #92bcff);
-  background-image: -moz-linear-gradient(to bottom right, #dbe9ff, #92bcff);
-  background-image: -o-linear-gradient(to bottom right, #dbe9ff, #92bcff);
-  background-image: linear-gradient(to bottom right, #dbe9ff, #92bcff);
-  cursor: pointer;
-}
-.Button:hover {
-  border-color: #ff9d00;
-  color: #ff9d00;
-  background-color: #ffe8c3;
-  background-image: -webkit-linear-gradient(to bottom right, #fff1db, #ffd592);
-  background-image: -moz-linear-gradient(to bottom right, #fff1db, #ffd592);
-  background-image: -o-linear-gradient(to bottom right, #fff1db, #ffd592);
-  background-image: linear-gradient(to bottom right, #fff1db, #ffd592);
-}
-.Button:active {
-  border-style: inset;
-  background-image: -webkit-linear-gradient(to top left, #fff1db, #ffd592);
-  background-image: -moz-linear-gradient(to top left, #fff1db, #ffd592);
-  background-image: -o-linear-gradient(to top left, #fff1db, #ffd592);
-  background-image: linear-gradient(to top left, #fff1db, #ffd592);
-}
-.Button.Block {
-  display: block;
 }
 /*--------------*\
     _code.less
@@ -2399,7 +2207,6 @@ code {
   * the text content. This Object does *not* extend the `.Code` Object.
 @implements
 : .fontsize-sml
-: .vru-top-1
 : .codecolors-sol-dark
 @mixesin
 : .box-block()
@@ -2409,19 +2216,16 @@ code {
 @author
 : Chris Harvey
 @updated
-: 2014-05-25
+: 2014-07-10
   */
 .Codeblock {
-  top: -1px;
-  margin-bottom: -2px;
-  border-width: 1px;
-  border-radius: 3px;
   display: block;
   position: relative;
   top: -2px;
   margin-bottom: -4px;
   border-width: 2px;
   border-style: solid;
+  border-radius: 3px;
   font-family: 'Menlo', 'Lucida Sans Typewriter', 'Monaco', monospace;
   white-space: pre-wrap;
 }
@@ -2512,7 +2316,6 @@ code {
 : .Codeblock.CSS
 @implements
 : .clearfix
-: .vru-top-0
 @tags
 : #code
 @author
@@ -2574,7 +2377,6 @@ code {
 : 2014-05-31
   */
 .Codeblock.CSS.I .Sel {
-  display: inline;
   float: left;
   clear: both;
 }
@@ -2656,12 +2458,6 @@ var::after {
   font-family: 'Times', 'Times New Roman', serif;
   white-space: pre-wrap;
 }
-@media print {
-  code {
-    color: #000;
-    background-color: #fff;
-  }
-}
 /*--------------*\
     _text.less
 \*--------------*/
@@ -2677,9 +2473,6 @@ var::after {
 @updated
 : 2014-05-10
   */
-.S {
-  display: inline;
-}
 /*@HIGHLIGHTED TEXT*/
 /**
   * Emphasized text represents words or phrases that are stressed, as if the tone of voice would be
@@ -2888,12 +2681,35 @@ sub {
   *
   * This Element must have the `data-lon=""` and `data-lat=""` attributes (corresponding to
   * longitude and latitude, respectively), whose values are decimal numbers representing angles,
-  * measures in decimal degrees. To find these values, simply go to [maps.google.com](),
+  * measured in decimal degrees. To find these values, simply go to [maps.google.com](),
   * enter the city/town name, and then look at the URL.
   *
   * This Element may also optionally have the `data-alt=""` attribute (corresponding to
-  * altuitude or elevation), whose value is text representing a physical length,
+  * altitude or elevation), whose value is text representing a physical length,
   * measured in any unit (feet/meters most common).
+  *
+  * My Locations:
+  * Fairfax, VA
+  * : data-element="geo" data-lon="-77.2888239" data-lat="38.864158"
+  * Vienna, VA
+  * : data-element="geo" data-lon="-77.263014" data-lat="38.900159"
+  * Blacksburg, VA
+  * : data-element="geo" data-lon="-80.4294548" data-lat="37.2304516"
+  * Riner, VA
+  * : data-element="geo" data-lon="-80.4406068" data-lat="37.0665176"
+  * Roanoke, VA
+  * : data-element="geo" data-lon="-79.9575425" data-lat="37.2743219"
+  * Charlottesville, VA
+  * : data-element="geo" data-lon="-78.4849739" data-lat="38.0400874"
+  * Stanardsville, VA
+  * : data-element="geo" data-lon="-78.4368073" data-lat="38.2982581"
+  * Harrisonburg, VA
+  * : data-element="geo" data-lon="-78.8711824" data-lat="38.4393105"
+  * Virginia Beach, VA
+  * : data-element="geo" data-lon="-76.0476647" data-lat="36.7674971"
+  * Richmond, VA
+  * : data-element="geo" data-lon="-77.4932615" data-lat="37.5246609"
+  *
 @tags
 : #typography
 @author
@@ -2905,21 +2721,71 @@ sub {
   white-space: nowrap;
 }
 /*@FORMS*/
-/*--------------*\
-	_mods.less
-\*--------------*/
-/*@MEDIA*/
+/*-----------------*\
+    _buttons.less
+\*-----------------*/
+/*@BUTTONS*/
+/** The default border for button-like Objects. */
 /**
-  * The Media Object is a module that has an image with a body.
-  * See `http://www.stubbornella.org/content/2010/06/25/the-media-object-saves-hundreds-of-lines-of-code/`
-  * for details.
+  * A general Button Object.
+@implements
+: .fontsize-sml-inline
+@mixesin
+: .box-inline()
+@tags
+: #button
 @author
-: Nicole Sullivan
 : Chris Harvey
 @updated
-: 2014-06-16
+: 2014-06-06
   */
-/*@LABELS*/
+.Button {
+  display: inline;
+  padding: 1px 2px;
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 6px;
+  white-space: nowrap;
+  border-color: #0062ff;
+  border-style: outset;
+  margin-bottom: -4px;
+  font-family: 'Century Gothic', 'Gill Sans', 'Avenir', sans-serif;
+  color: #0062ff;
+  background-color: #c3daff;
+  background-image: -webkit-linear-gradient(to bottom right, #dbe9ff, #92bcff);
+  background-image: -moz-linear-gradient(to bottom right, #dbe9ff, #92bcff);
+  background-image: -ms-linear-gradient(to bottom right, #dbe9ff, #92bcff);
+  background-image: -o-linear-gradient(to bottom right, #dbe9ff, #92bcff);
+  background-image: linear-gradient(to bottom right, #dbe9ff, #92bcff);
+  background-image: -webkit-gradient(to bottom right, #dbe9ff, #92bcff);
+  cursor: pointer;
+}
+.Button:hover {
+  border-color: #ff9d00;
+  color: #ff9d00;
+  background-color: #ffe8c3;
+  background-image: -webkit-linear-gradient(to bottom right, #fff1db, #ffd592);
+  background-image: -moz-linear-gradient(to bottom right, #fff1db, #ffd592);
+  background-image: -ms-linear-gradient(to bottom right, #fff1db, #ffd592);
+  background-image: -o-linear-gradient(to bottom right, #fff1db, #ffd592);
+  background-image: linear-gradient(to bottom right, #fff1db, #ffd592);
+  background-image: -webkit-gradient(to bottom right, #fff1db, #ffd592);
+}
+.Button:active {
+  border-style: inset;
+  background-image: -webkit-linear-gradient(to top left, #fff1db, #ffd592);
+  background-image: -moz-linear-gradient(to top left, #fff1db, #ffd592);
+  background-image: -ms-linear-gradient(to top left, #fff1db, #ffd592);
+  background-image: -o-linear-gradient(to top left, #fff1db, #ffd592);
+  background-image: linear-gradient(to top left, #fff1db, #ffd592);
+  background-image: -webkit-gradient(to top left, #fff1db, #ffd592);
+}
+.Button.Block {
+  display: block;
+}
+/*----------------*\
+	_labels.less
+\*----------------*/
 /**
   * A Label Object is used for displaying little indications to the user. There are two subclasses
   * of Labels: Messages and Tags. Each subclass may be of the following types:
@@ -2991,7 +2857,6 @@ sub {
 @extends
 : .Label
 @implements
-: .vru-top-1
 @mixesin
 : .box-block()
 @tags
@@ -3000,7 +2865,7 @@ sub {
 @author
 : Chris Harvey
 @updated
-: 2014-06-22
+: 2014-07-10
   */
 .Label.Msg {
   display: block;
@@ -3014,8 +2879,10 @@ sub {
 .Label.Msg.Warn {
   background-image: -webkit-linear-gradient(to bottom, #ff9e9e, #ff6b6b);
   background-image: -moz-linear-gradient(to bottom, #ff9e9e, #ff6b6b);
+  background-image: -ms-linear-gradient(to bottom, #ff9e9e, #ff6b6b);
   background-image: -o-linear-gradient(to bottom, #ff9e9e, #ff6b6b);
   background-image: linear-gradient(to bottom, #ff9e9e, #ff6b6b);
+  background-image: -webkit-gradient(to bottom, #ff9e9e, #ff6b6b);
 }
 .Label.Msg.Warn::before {
   content: 'Warning ' '!' ' ';
@@ -3023,8 +2890,10 @@ sub {
 .Label.Msg.Cshn {
   background-image: -webkit-linear-gradient(to bottom, #ecff9e, #e1ff6b);
   background-image: -moz-linear-gradient(to bottom, #ecff9e, #e1ff6b);
+  background-image: -ms-linear-gradient(to bottom, #ecff9e, #e1ff6b);
   background-image: -o-linear-gradient(to bottom, #ecff9e, #e1ff6b);
   background-image: linear-gradient(to bottom, #ecff9e, #e1ff6b);
+  background-image: -webkit-gradient(to bottom, #ecff9e, #e1ff6b);
 }
 .Label.Msg.Cshn::before {
   content: 'Caution ' '\2026' ' ';
@@ -3032,8 +2901,10 @@ sub {
 .Label.Msg.Skss {
   background-image: -webkit-linear-gradient(to bottom, #9effc5, #6bffa6);
   background-image: -moz-linear-gradient(to bottom, #9effc5, #6bffa6);
+  background-image: -ms-linear-gradient(to bottom, #9effc5, #6bffa6);
   background-image: -o-linear-gradient(to bottom, #9effc5, #6bffa6);
   background-image: linear-gradient(to bottom, #9effc5, #6bffa6);
+  background-image: -webkit-gradient(to bottom, #9effc5, #6bffa6);
 }
 .Label.Msg.Skss::before {
   content: 'Success ' '\263a' ' ';
@@ -3041,8 +2912,10 @@ sub {
 .Label.Msg.Info {
   background-image: -webkit-linear-gradient(to bottom, #9ec5ff, #6ba6ff);
   background-image: -moz-linear-gradient(to bottom, #9ec5ff, #6ba6ff);
+  background-image: -ms-linear-gradient(to bottom, #9ec5ff, #6ba6ff);
   background-image: -o-linear-gradient(to bottom, #9ec5ff, #6ba6ff);
   background-image: linear-gradient(to bottom, #9ec5ff, #6ba6ff);
+  background-image: -webkit-gradient(to bottom, #9ec5ff, #6ba6ff);
 }
 .Label.Msg.Info::before {
   content: 'Info ' '?' ' ';
@@ -3050,8 +2923,10 @@ sub {
 .Label.Msg.Help {
   background-image: -webkit-linear-gradient(to bottom, #ec9eff, #e16bff);
   background-image: -moz-linear-gradient(to bottom, #ec9eff, #e16bff);
+  background-image: -ms-linear-gradient(to bottom, #ec9eff, #e16bff);
   background-image: -o-linear-gradient(to bottom, #ec9eff, #e16bff);
   background-image: linear-gradient(to bottom, #ec9eff, #e16bff);
+  background-image: -webkit-gradient(to bottom, #ec9eff, #e16bff);
 }
 .Label.Msg.Help::before {
   content: 'Help ' '\2665' ' ';
@@ -3092,8 +2967,10 @@ sub {
 .Label.Tag.Warn {
   background-image: -webkit-linear-gradient(to right, #ff9e9e, #ff5151);
   background-image: -moz-linear-gradient(to right, #ff9e9e, #ff5151);
+  background-image: -ms-linear-gradient(to right, #ff9e9e, #ff5151);
   background-image: -o-linear-gradient(to right, #ff9e9e, #ff5151);
   background-image: linear-gradient(to right, #ff9e9e, #ff5151);
+  background-image: -webkit-gradient(to right, #ff9e9e, #ff5151);
 }
 .Label.Tag.Warn::before {
   border-right-color: #ff9e9e;
@@ -3104,8 +2981,10 @@ sub {
 .Label.Tag.Cshn {
   background-image: -webkit-linear-gradient(to right, #ecff9e, #dcff51);
   background-image: -moz-linear-gradient(to right, #ecff9e, #dcff51);
+  background-image: -ms-linear-gradient(to right, #ecff9e, #dcff51);
   background-image: -o-linear-gradient(to right, #ecff9e, #dcff51);
   background-image: linear-gradient(to right, #ecff9e, #dcff51);
+  background-image: -webkit-gradient(to right, #ecff9e, #dcff51);
 }
 .Label.Tag.Cshn::before {
   border-right-color: #ecff9e;
@@ -3116,8 +2995,10 @@ sub {
 .Label.Tag.Skss {
   background-image: -webkit-linear-gradient(to right, #9effc5, #51ff97);
   background-image: -moz-linear-gradient(to right, #9effc5, #51ff97);
+  background-image: -ms-linear-gradient(to right, #9effc5, #51ff97);
   background-image: -o-linear-gradient(to right, #9effc5, #51ff97);
   background-image: linear-gradient(to right, #9effc5, #51ff97);
+  background-image: -webkit-gradient(to right, #9effc5, #51ff97);
 }
 .Label.Tag.Skss::before {
   border-right-color: #9effc5;
@@ -3128,8 +3009,10 @@ sub {
 .Label.Tag.Info {
   background-image: -webkit-linear-gradient(to right, #9ec5ff, #5197ff);
   background-image: -moz-linear-gradient(to right, #9ec5ff, #5197ff);
+  background-image: -ms-linear-gradient(to right, #9ec5ff, #5197ff);
   background-image: -o-linear-gradient(to right, #9ec5ff, #5197ff);
   background-image: linear-gradient(to right, #9ec5ff, #5197ff);
+  background-image: -webkit-gradient(to right, #9ec5ff, #5197ff);
 }
 .Label.Tag.Info::before {
   border-right-color: #9ec5ff;
@@ -3140,8 +3023,10 @@ sub {
 .Label.Tag.Help {
   background-image: -webkit-linear-gradient(to right, #ec9eff, #dc51ff);
   background-image: -moz-linear-gradient(to right, #ec9eff, #dc51ff);
+  background-image: -ms-linear-gradient(to right, #ec9eff, #dc51ff);
   background-image: -o-linear-gradient(to right, #ec9eff, #dc51ff);
   background-image: linear-gradient(to right, #ec9eff, #dc51ff);
+  background-image: -webkit-gradient(to right, #ec9eff, #dc51ff);
 }
 .Label.Tag.Help::before {
   border-right-color: #ec9eff;
@@ -3149,7 +3034,9 @@ sub {
 .Label.Tag.Help::after {
   content: ' ' '\2665';
 }
-/*@BREADCRUMBS*/
+/*---------------------*\
+	_breadcrumbs.less
+\*---------------------*/
 /**
   * A Breadcrumb module.
 @tags
@@ -3205,7 +3092,7 @@ sub {
   border-radius: 15px;
   white-space: normal;
 }
-.Crumb[rel~="this"] {
+.Bc a[rel~="this"] {
   font-weight: bold;
 }
 @media print {
@@ -3213,7 +3100,22 @@ sub {
     display: none;
   }
 }
-/*@QUASI-ELEMENTS*/
+/*---------------*\
+	_media.less
+\*---------------*/
+/**
+  * The Media Object is a module that has an image with a body.
+  * See `http://www.stubbornella.org/content/2010/06/25/the-media-object-saves-hundreds-of-lines-of-code/`
+  * for details.
+@author
+: Nicole Sullivan
+: Chris Harvey
+@updated
+: 2014-06-16
+  */
+/*----------------*\
+    _trumps.less
+\*----------------*/
 [data-status="nonnormative"] {
   font-style: italic;
   font-family: 'Optima', 'Candara', 'Helvetica', sans-serif;
@@ -3236,10 +3138,70 @@ sub {
   color: #0e0900;
   background-color: #ffbb4d;
 }
-/*dl*/
-.dl--ordered > dt:first-child,
-.dl--ordered > dd + dt {
-  display: list-item;
-  list-style-type: decimal;
-  list-style-position: outside;
+@media print {
+  body,
+  .H,
+  .Fig,
+  .Addy,
+  .Qblock,
+  .Table {
+    font-size: 16px;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+  body,
+  code {
+    color: #000;
+  }
+  body,
+  code {
+    background-color: #fff;
+  }
+  body {
+    background-image: none;
+  }
+  main {
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .Fig,
+  .Addy,
+  .Qblock {
+    border-left-width: 0;
+    border-left-style: solid;
+    padding-left: 0;
+    margin-left: 0;
+    border-left-color: #000000;
+    border-right-width: 0;
+    border-right-style: solid;
+    padding-right: 0;
+    margin-right: 0;
+    border-right-color: #000000;
+  }
+  /**
+	  * This Interface displays an Object on screen but does not print it.
+	@tags
+	: #schematic
+	@author
+	: Chris Harvey
+	@updated
+	: 2014-04-30
+	  */
+  .noprint {
+    display: none;
+  }
+  /**
+	  * This Interface starts a new page in the print media.
+	@tags
+	: #schematic
+	@author
+	: Chris Harvey
+	@updated
+	: 2014-04-30
+	  */
+  .pagebreak {
+    page-break-before: always;
+    padding-top: 0.25in;
+  }
 }
