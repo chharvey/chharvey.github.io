@@ -493,7 +493,8 @@ code,
 .Dir,
 sup,
 sub,
-.Button {
+.Button,
+.List.U.Footnotes {
   font-size: 12px;
   font-size: 0.75rem;
 }
@@ -746,7 +747,8 @@ sub,
   border-top-style: solid;
   border-top-color: #120099;
 }
-.hr-brdr {
+.hr-brdr,
+.List.U.Footnotes {
   padding-top: 8.78521826px;
   margin-top: 14.21478174px;
   border-top-width: 1px;
@@ -889,7 +891,9 @@ sub,
 .Qblock.Long .Src::before,
 var::before,
 q::before,
-.Th::before {
+.Th::before,
+.Rf > a::before,
+.Fn > a::before {
   content: open-quote;
 }
 .delimiters::after,
@@ -905,14 +909,18 @@ q::before,
 .Qblock.Long .Src::after,
 var::after,
 q::after,
-.Th::after {
+.Th::after,
+.Rf > a::after,
+.Fn > a::after {
   content: close-quote;
 }
 .parens,
 .Qblock.Long .Src {
   quotes: '(' ')';
 }
-.brackets {
+.brackets,
+.Rf > a,
+.Fn > a {
   quotes: '[' ']';
 }
 .braces {
@@ -2423,15 +2431,21 @@ code {
 @updated
 : 2014-05-17
   */
-.Link {
+.Link,
+.Rf > a,
+.Fn > a {
   text-decoration: none;
   color: #0062ff;
 }
-.Link:hover {
+.Link:hover,
+.Rf > a:hover,
+.Fn > a:hover {
   text-decoration: underline;
   color: #ff9d00;
 }
-.Link:active {
+.Link:active,
+.Rf > a:active,
+.Fn > a:active {
   color: #cc004e;
 }
 a[rel~="external"] {
@@ -2809,6 +2823,113 @@ del + ins {
 .Button.Block {
   display: block;
 }
+/*---------------------*\
+	_breadcrumbs.less
+\*---------------------*/
+/**
+  * A Breadcrumb module.
+@tags
+: #breadcrumbs
+: #golden
+@author
+: Chris Harvey
+@updated
+: 2014-06-18
+  */
+.Bc {
+  width: 14.58980338%;
+  margin-left: 3.44418537%;
+  margin-right: 5.572809%;
+  position: fixed;
+  left: 0;
+  top: 48px;
+  top: 3rem;
+  z-index: 1;
+}
+/**
+  * A list of breadcrumbs inside the module.
+  * The list either contains ancestor pages (including parent),
+  * sibling pages (including the same page), or children pages.
+@implements
+: .vru-bottom-1;
+@tags
+: #breadcrumbs
+@author
+: Chris Harvey
+@updated
+: 2014-06-18
+  */
+/**
+  * An actual breadcrumb link.
+@implements
+: .fontsize-med;
+@mixesin
+: .vru-top()
+@tags
+: #breadcrumbs
+@author
+: Chris Harvey
+@updated
+: 2014-06-18
+  */
+.Button.Crumb {
+  margin-top: 18px;
+  margin-top: 1.125rem;
+  display: block;
+  padding: 3px 15px;
+  padding: 0.1875rem 15px;
+  border-radius: 15px;
+  white-space: normal;
+}
+.Bc a[rel~="this"] {
+  font-weight: bold;
+}
+@media print {
+  .Bc {
+    display: none;
+  }
+}
+/*-------------------*\
+	_footnotes.less
+\*-------------------*/
+/**
+  * This Object represents a list whose items each contain a footnote. Typically, the order of
+  * footnotes is irrelevant, so this Object should be instantiated by a `ul` Element.
+@extends
+: .List.U
+@implements
+: .hr-brdr
+@tags
+: #footnotes
+: #lists
+@author
+: Chris Harvey
+@updated
+: 2014-07-22
+  */
+.List.U.Footnotes > .Item {
+  padding-left: 24px;
+  text-indent: -24px;
+}
+/**
+  * The `.Rf` Object represents a reference to a footnote. The reference exists in the document prose,
+  * and it links to a footnote, which is contained in the `.List.U.Footnotes`.
+  * The `.Fn` Object represents the footnote that is referenced.
+@implements
+: .brackets
+: .Link
+@tags
+: #footnotes
+: #lists
+@author
+: Chris Harvey
+@updated
+: 2014-07-22
+  */
+.Rf,
+.Fn {
+  width: 24px;
+}
 /*----------------*\
 	_labels.less
 \*----------------*/
@@ -3059,72 +3180,6 @@ del + ins {
 }
 .Label.Tag.Help::after {
   content: ' ' '\2665';
-}
-/*---------------------*\
-	_breadcrumbs.less
-\*---------------------*/
-/**
-  * A Breadcrumb module.
-@tags
-: #breadcrumbs
-: #golden
-@author
-: Chris Harvey
-@updated
-: 2014-06-18
-  */
-.Bc {
-  width: 14.58980338%;
-  margin-left: 3.44418537%;
-  margin-right: 5.572809%;
-  position: fixed;
-  left: 0;
-  top: 48px;
-  top: 3rem;
-  z-index: 1;
-}
-/**
-  * A list of breadcrumbs inside the module.
-  * The list either contains ancestor pages (including parent),
-  * sibling pages (including the same page), or children pages.
-@implements
-: .vru-bottom-1;
-@tags
-: #breadcrumbs
-@author
-: Chris Harvey
-@updated
-: 2014-06-18
-  */
-/**
-  * An actual breadcrumb link.
-@implements
-: .fontsize-med;
-@mixesin
-: .vru-top()
-@tags
-: #breadcrumbs
-@author
-: Chris Harvey
-@updated
-: 2014-06-18
-  */
-.Button.Crumb {
-  margin-top: 18px;
-  margin-top: 1.125rem;
-  display: block;
-  padding: 3px 15px;
-  padding: 0.1875rem 15px;
-  border-radius: 15px;
-  white-space: normal;
-}
-.Bc a[rel~="this"] {
-  font-weight: bold;
-}
-@media print {
-  .Bc {
-    display: none;
-  }
 }
 /*---------------*\
 	_media.less
