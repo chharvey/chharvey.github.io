@@ -493,8 +493,7 @@ code,
 .Dir,
 sup,
 sub,
-.Button,
-.List.U.Footnotes {
+.Button {
   font-size: 12px;
   font-size: 0.75rem;
 }
@@ -547,6 +546,7 @@ sub,
 .Fineprint,
 .Table,
 .Codeblock,
+.List.Footnotes,
 .Label {
   font-size: 12px;
   font-size: 0.75rem;
@@ -748,7 +748,7 @@ sub,
   border-top-color: #120099;
 }
 .hr-brdr,
-.List.U.Footnotes {
+.List.Footnotes {
   padding-top: 8.78521826px;
   margin-top: 14.21478174px;
   border-top-width: 1px;
@@ -1602,6 +1602,9 @@ main {
 }
 .listindent-half {
   padding-left: 24px;
+}
+.listindent-none {
+  padding-left: 0;
 }
 /**
   * This Object represents a block list. It may be a literal `ol` or `ul` Element containing
@@ -2896,7 +2899,7 @@ del + ins {
   * This Object represents a list whose items each contain a footnote. Typically, the order of
   * footnotes is irrelevant, so this Object should be instantiated by a `ul` Element.
 @extends
-: .List.U
+: .List
 @implements
 : .hr-brdr
 @tags
@@ -2907,7 +2910,7 @@ del + ins {
 @updated
 : 2014-07-22
   */
-.List.U.Footnotes > .Item {
+.List.Footnotes > .Item {
   padding-left: 24px;
   text-indent: -24px;
 }
@@ -2915,6 +2918,7 @@ del + ins {
   * The `.Rf` Object represents a reference to a footnote. The reference exists in the document prose,
   * and it links to a footnote, which is contained in the `.List.U.Footnotes`.
   * The `.Fn` Object represents the footnote that is referenced.
+  * Each Object contains an `a` Element.
 @implements
 : .brackets
 : .Link
