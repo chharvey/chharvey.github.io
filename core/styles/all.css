@@ -878,20 +878,32 @@ sub,
   */
 .delimiters::before,
 .parens::before,
-.quotes-double::before,
+.brackets::before,
+.braces::before,
+.angles::before,
+.angles::before,
 .quotes-single::before,
-.guillemets::before,
+.quotes-double::before,
+.guillemets-single::before,
+.guillemets-double::before,
 .Qblock.Long .Src::before,
+var::before,
 q::before,
 .Th::before {
   content: open-quote;
 }
 .delimiters::after,
 .parens::after,
-.quotes-double::after,
+.brackets::after,
+.braces::after,
+.angles::after,
+.angles::after,
 .quotes-single::after,
-.guillemets::after,
+.quotes-double::after,
+.guillemets-single::after,
+.guillemets-double::after,
 .Qblock.Long .Src::after,
+var::after,
 q::after,
 .Th::after {
   content: close-quote;
@@ -900,14 +912,30 @@ q::after,
 .Qblock.Long .Src {
   quotes: '(' ')';
 }
-.quotes-double,
-q {
-  quotes: '\201c' '\201d';
+.brackets {
+  quotes: '[' ']';
+}
+.braces {
+  quotes: '{' '}';
+}
+.angles {
+  quotes: '<' '>';
+}
+.angles {
+  quotes: '\003c' '\003e';
 }
 .quotes-single {
   quotes: '\2018' '\2019';
 }
-.guillemets,
+.quotes-double,
+q {
+  quotes: '\201c' '\201d';
+}
+.guillemets-single,
+var {
+  quotes: '\2039' '\203a';
+}
+.guillemets-double,
 .Th {
   quotes: '\00ab' '\00bb';
 }
@@ -2443,6 +2471,26 @@ code {
 .Dir {
   font-style: italic;
   font-family: 'Optima', 'Candara', 'Helvetica', sans-serif;
+}
+/**
+  * A placeholder for some textual element. Could be a filename, etc.
+  * This does *not* represent a variable in a `code`, e.g., the following HTML would be incorrect:
+<code>my <var>$welcome</var> = "Hello world!";</code>
+  * It would be better to use a `span` with a class. See 'Subcomponents of a Code Block' above.
+  *
+  * Rather, the `var` Element represents a placeholder of text. The following HTML is correct:
+<p>The following git commmand shows you diff:
+<code>$ git diff <var>filepath</var></code>
+where <var>filepath</var> is the path or name of the file you want to see the diff for.</p>
+@tags
+: #code
+@author
+: Chris Harvey
+@updated
+: 2014-07-07
+  */
+var {
+  font-style: italic;
 }
 .latex {
   overflow: auto;
