@@ -863,22 +863,32 @@ sub,
   */
 .delimiters::before,
 .parens::before,
+.brackets::before,
+.braces::before,
+.angles::before,
+.angles::before,
 .quotes-single::before,
 .quotes-double::before,
 .guillemets-single::before,
 .guillemets-double::before,
 .Qblock.Long .Src::before,
+var::before,
 q::before,
 .Th::before {
   content: open-quote;
 }
 .delimiters::after,
 .parens::after,
+.brackets::after,
+.braces::after,
+.angles::after,
+.angles::after,
 .quotes-single::after,
 .quotes-double::after,
 .guillemets-single::after,
 .guillemets-double::after,
 .Qblock.Long .Src::after,
+var::after,
 q::after,
 .Th::after {
   content: close-quote;
@@ -887,6 +897,18 @@ q::after,
 .Qblock.Long .Src {
   quotes: '(' ')';
 }
+.brackets {
+  quotes: '[' ']';
+}
+.braces {
+  quotes: '{' '}';
+}
+.angles {
+  quotes: '<' '>';
+}
+.angles {
+  quotes: '\003c' '\003e';
+}
 .quotes-single {
   quotes: '\2018' '\2019';
 }
@@ -894,7 +916,8 @@ q::after,
 q {
   quotes: '\201c' '\201d';
 }
-.guillemets-single {
+.guillemets-single,
+var {
   quotes: '\2039' '\203a';
 }
 .guillemets-double,
@@ -2409,10 +2432,13 @@ code {
 /**
   * A placeholder for some textual element. Could be a filename, etc.
   * This does *not* represent a variable in a `code`, e.g., the following HTML would be incorrect:
-  *
-  *     <code>my <var>$welcome</var> = "Hello world!";</code>
-  *
+<code>my <var>$welcome</var> = "Hello world!";</code>
   * It would be better to use a `span` with a class. See 'Subcomponents of a Code Block' above.
+  *
+  * Rather, the `var` Element represents a placeholder of text. The following HTML is correct:
+<p>The following git commmand shows you diff:
+<code>$ git diff <var>filepath</var></code>
+where <var>filepath</var> is the path or name of the file you want to see the diff for.</p>
 @tags
 : #code
 @author
@@ -2422,12 +2448,6 @@ code {
   */
 var {
   font-style: italic;
-}
-var::before {
-  content: '\003c';
-}
-var::after {
-  content: '\003e';
 }
 /**
   * This Object represents an individual key (a button) on a keyboard, calculator, or other device.
