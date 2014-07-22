@@ -2472,26 +2472,6 @@ code {
   font-style: italic;
   font-family: 'Optima', 'Candara', 'Helvetica', sans-serif;
 }
-/**
-  * A placeholder for some textual element. Could be a filename, etc.
-  * This does *not* represent a variable in a `code`, e.g., the following HTML would be incorrect:
-<code>my <var>$welcome</var> = "Hello world!";</code>
-  * It would be better to use a `span` with a class. See 'Subcomponents of a Code Block' above.
-  *
-  * Rather, the `var` Element represents a placeholder of text. The following HTML is correct:
-<p>The following git commmand shows you diff:
-<code>$ git diff <var>filepath</var></code>
-where <var>filepath</var> is the path or name of the file you want to see the diff for.</p>
-@tags
-: #code
-@author
-: Chris Harvey
-@updated
-: 2014-07-07
-  */
-var {
-  font-style: italic;
-}
 .latex {
   overflow: auto;
   font-family: 'Times', 'Times New Roman', serif;
@@ -2600,18 +2580,24 @@ i[lang] {
   background-color: rgba(204, 0, 255, 0.38196601);
 }
 /**
-  * A span of text that is to be hidden, for styling purposes only. To hide text (or blocks)
-  * for SEO purposes, use the `hidden=""` attribute.
+  * Superscripts and subscripts.
 @tags
-: #span
-: #highlight
+: #typography
 @author
 : Chris Harvey
 @updated
-: 2014-06-26
+: 2014-06-13
   */
-.Noshow {
-  display: none;
+sup,
+sub {
+  position: relative;
+  vertical-align: baseline;
+}
+sup {
+  bottom: 6px;
+}
+sub {
+  top: 6px;
 }
 /*@DOCUMENTATION*/
 /**
@@ -2628,11 +2614,46 @@ i[lang] {
 : Chris Harvey
 @updated
 : 2014-05-25
-	*/
+  */
 b,
 dfn[id] {
   font-weight: bold;
   font-family: 'Baskerville', 'Palatino', 'Book Antiqua', serif;
+}
+/**
+  * A placeholder for some textual element. Could be a filename, etc.
+  * This does *not* represent a variable in a `code`, e.g., the following HTML would be incorrect:
+<code>my <var>$welcome</var> = "Hello world!";</code>
+  * It would be better to use a `span` with a class. See 'Subcomponents of a Code Block' above.
+  *
+  * Rather, the `var` Element represents a placeholder of text. The following HTML is correct:
+<p>The following git commmand shows you diff:
+<code>$ git diff <var>filepath</var></code>
+where <var>filepath</var> is the path or name of the file you want to see the diff for.</p>
+@tags
+: #code
+@author
+: Chris Harvey
+@updated
+: 2014-07-07
+  */
+var {
+  font-style: italic;
+}
+/**
+  * An abbreviation.
+@tags
+: #typography
+@author
+: Chris Harvey
+@updated
+: 2014-06-16
+  */
+abbr[title] {
+  cursor: help;
+}
+.Acro {
+  text-transform: uppercase;
 }
 /**
   * An inline quotation: a span of text that is taken directly from another source
@@ -2663,21 +2684,6 @@ dfn[id] {
 : 2014-05-25
   */
 /**
-  * An abbreviation.
-@tags
-: #typography
-@author
-: Chris Harvey
-@updated
-: 2014-06-16
-  */
-abbr[title] {
-  cursor: help;
-}
-.Acro {
-  text-transform: uppercase;
-}
-/**
   * A span or block of text that has been deleted from a document.
   * This is used to explicitly indicate that the text has been intentionally deleted.
 @tags
@@ -2706,26 +2712,7 @@ ins[datetime] {
 del + ins {
   padding-left: 24px;
 }
-/**
-  * Superscripts and subscripts.
-@tags
-: #typography
-@author
-: Chris Harvey
-@updated
-: 2014-06-13
-  */
-sup,
-sub {
-  position: relative;
-  vertical-align: baseline;
-}
-sup {
-  bottom: 6px;
-}
-sub {
-  top: 6px;
-}
+/*@DATA*/
 /**
   * A time element. See the W3C HTML5 standards for details.
 @tags
@@ -2779,7 +2766,6 @@ sub {
 [data-element="geo"] {
   white-space: nowrap;
 }
-/*@FORMS*/
 /*-----------------*\
     _buttons.less
 \*-----------------*/

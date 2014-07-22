@@ -72,14 +72,6 @@ i[lang] {
 	font-style: italic;
 	font-family: @fontfam_math;
 }
-//.scare {
-//	// * scare quotes contain abuse of vocabulary or language
-//	&:extend(.quotes-double all);
-//}
-//.mention {
-//	// * mentions refer to phrases without referring to their meaning
-//	&:extend(.quotes-double all);
-//}
 /**
   * This Object is used to make text appear highlighted.
   * May be instantiated by the `mark` or `u` Elements.
@@ -104,19 +96,21 @@ i[lang] {
 .Hi.Info {.fade-background(@color_lbl_info_brdr; @golden1);}
 .Hi.Help {.fade-background(@color_lbl_help_brdr; @golden1);}
 /**
-  * A span of text that is to be hidden, for styling purposes only. To hide text (or blocks)
-  * for SEO purposes, use the `hidden=""` attribute.
+  * Superscripts and subscripts.
 @tags
-: #span
-: #highlight
+: #typography
 @author
 : Chris Harvey
 @updated
-: 2014-06-26
+: 2014-06-13
   */
-.Noshow {
-	display: none;
+sup, sub {
+	&:extend(.fontsize-sml);
+	position: relative;
+	vertical-align: baseline;
 }
+sup {bottom: (@spacer / 4);}
+sub {top:    (@spacer / 4);}
 //++++ @end HIGHLIGHTED TEXT ++++//
 
 
@@ -137,10 +131,46 @@ i[lang] {
 : Chris Harvey
 @updated
 : 2014-05-25
-	*/
-b, dfn[id] {
+  */
+b,
+dfn[id] {
 	font-weight: bold;
 	font-family: @fontfam_prose;
+}
+/**
+  * A placeholder for some textual element. Could be a filename, etc.
+  * This does *not* represent a variable in a `code`, e.g., the following HTML would be incorrect:
+<code>my <var>$welcome</var> = "Hello world!";</code>
+  * It would be better to use a `span` with a class. See 'Subcomponents of a Code Block' above.
+  *
+  * Rather, the `var` Element represents a placeholder of text. The following HTML is correct:
+<p>The following git commmand shows you diff:
+<code>$ git diff <var>filepath</var></code>
+where <var>filepath</var> is the path or name of the file you want to see the diff for.</p>
+@tags
+: #code
+@author
+: Chris Harvey
+@updated
+: 2014-07-07
+  */
+var {
+	&:extend(.guillemets-single all);
+	font-style: italic;
+}
+/**
+  * An abbreviation.
+@tags
+: #typography
+@author
+: Chris Harvey
+@updated
+: 2014-06-16
+  */
+abbr[title] {cursor: help;}
+.Acro {
+	&:extend(.fontsize-sml-inline);
+	text-transform: uppercase;
 }
 /**
   * An inline quotation: a span of text that is taken directly from another source
@@ -175,20 +205,6 @@ q:extend(.quotes-double all) {}
 	&:extend(.guillemets-double all);
 }
 
-/**
-  * An abbreviation.
-@tags
-: #typography
-@author
-: Chris Harvey
-@updated
-: 2014-06-16
-  */
-abbr[title] {cursor: help;}
-.Acro {
-	&:extend(.fontsize-sml-inline);
-	text-transform: uppercase;
-}
 /**
   * A span or block of text that has been deleted from a document.
   * This is used to explicitly indicate that the text has been intentionally deleted.
@@ -232,22 +248,12 @@ del + ins {padding-left: @spacer;}
 // abbr[title]::after   {content: attr(title);}
 // del[datetime]::after {content: 'deleted on ' attr(datetime);}
 // ins[datetime]::after {content: 'inserted on ' attr(datetime);}
-/**
-  * Superscripts and subscripts.
-@tags
-: #typography
-@author
-: Chris Harvey
-@updated
-: 2014-06-13
-  */
-sup, sub {
-	&:extend(.fontsize-sml);
-	position: relative;
-	vertical-align: baseline;
-}
-sup {bottom: (@spacer / 4);}
-sub {top:    (@spacer / 4);}
+//++++ @end DOCUMENTATION ++++//
+
+
+//+++++//
+/*@DATA*/
+//+++++//
 /**
   * A time element. See the W3C HTML5 standards for details.
 @tags
@@ -300,17 +306,4 @@ time {}
 : 2014-06-26
   */
 [data-element="geo"] {white-space: nowrap;}
-
-//++++ @end DOCUMENTATION ++++//
-
-
-
-
-//++++++//
-/*@FORMS*/
-//++++++//
-// fieldset {
-// 	padding: 0;
-// 	margin: 0;
-// }
-//++++ @end FORMS ++++//
+//++++ @end DATA ++++//
