@@ -22,16 +22,12 @@
 <body>
 <main>
 <h1 class="h--alpha">CSS Formatting Guidelines</h1>
-<p class="prose">This document describes formatting guidelines for <a href="http://www.w3.org/TR/CSS/" rel="external">Cascading Style Sheets</a> and <a href="http://lesscss.org" rel="external">Less Style Sheets</a>.</p>
 <section id="cascade">
 	<h1 class="h--beta">Honor the Cascade</h1>
-	<p>The &ldquo;C&rdquo; in CSS stands for &ldquo;Cascading.&rdquo; There are two aspects of the way that stylesheets Cascade: one, and most obviously, some properties of elements are inherited from their parent elements (&ldquo;parent&rdquo; here referring to the container in the DOM tree). These properties trickle down the tree, getting applied to each child unless it is overriden by that child's property. This has nothing to do with specificity; this has only to do with the fact that elements' properties override the inherited properties of their parents.</p>
-	<p>The second aspect of the Cascade is where the true beauty of CSS can be appreciated. In terms of <a>selector specificity</a>, more specific properties override less specific ones. This means that the least specific properties (those that apply to element selectors) get applied first, followed by class selectors, followed by combinator selectors, and so on. The order these selectors are defined doesn't matter: their specificity will take precidence. However, in the case that two selectors have the same specificity, the styles will cascade from top to bottom in the CSS file, so the latter selector's property will override the former's. It is for this reason that we want to define our properties, selectors, and stylsheets in order of increasing specificity.</p>
 	<section id="property-order">
 		<h1 class="h--gamma">Property Order</h1>
 		<p class="prose">Within a block, the properties must be written in order of decreasing structure definition. See the figure below for an illustration.</p>
 		<figure class="Fig">
-			<figcaption class="Capt Before">This inverted pyramid illustrates how CSS properties are related.</figcaption>
 			<svg xmlns="http://www.w3.org/2000/svg" width="600" height="260">
 				<style scoped="">
 					line {
@@ -77,63 +73,13 @@
 				<text x="300" y="130">content, font, text, decoration</text>
 				<text x="300" y="215">color, background, visibility</text>
 			</svg>
-			<p class="P">Authors are encouraged to define properties in order shown from top to bottom in the pyramid. The top base of the pyramid contains properties that set up foundation and structure, such as display and position. The middle contains font and text properties. Notice how <a>container is defined before content</a>. Then we finish with low-level schematic (&ldquo;scheme-like&rdquo;) properties, such as color, at the vertex on the bottom.</p>
 		</figure>
-
 		<p class="P">The properties and declarations within a block must appear in the following order. <span class="success">Note: This list applies to the Less language as well.</span></p>
 		<ol class="list--outline">
 			<li><span class="lede-sent">Extensions</span> An <a>extension</a> is a directive that indicates this <del datetime="2014-05-02T02:52">class is a subclass of a parent class</del> <ins datetime="2014-05-02T02:52">block shares common properties with another block</ins>. If multiple extensions are present, they must appear in the order they are defined in the stylesheet. This block must only use <code>:extend()</code> on blocks that have been previously defined.</li>
 			<li><span class="lede-sent">Class Includes</span> Included blocks must appear in the order they are defined in the stylesheet. This block must only include blocks that have been previously defined.</li>
 			<li><span class="lede-sent">Mixin Includes</span> Mixins must appear in the order they are defined in the stylesheet. This block must only include mixins that have been previously defined.</li>
 			<li><span class="lede-sent">Properties</span> After extensions and includes are set, CSS properties must appear in the following order.
-				<ol>
-					<li>Structural:
-						<ol>
-							<li>display</li>
-							<li>width</li>
-							<li>height</li>
-							<li>padding (-top, -right, -bottom, -left)</li>
-							<li>border (-top, -right, -bottom, -left) (-width, -style, -color, -radius)</li>
-							<li>outline</li>
-							<li>box-shadow</li>
-							<li>margin (-top, -right, -bottom, -left)</li>
-							<li>position</li>
-							<li>z-index</li>
-							<li>transformations</li>
-						</ol>
-					</li>
-					<li>Textual:
-						<ol>
-							<li>content and counter</li>
-							<li>font (-style, -variant, -weight, -size, -family)</li>
-							<li>letter-spacing</li>
-							<li>line-height</li>
-							<li>text-align</li>
-							<li>text-indent</li>
-							<li>text-transform</li>
-							<li>text-decoration</li>
-							<li>text-shadow</li>
-							<li>white-space</li>
-							<li>list-style (-type, -position, -image)</li>
-							<li>overflow</li>
-						</ol>
-					</li>
-					<li>Schematic:
-						<ol>
-							<li>color</li>
-							<li>background-color</li>
-							<li>background-image</li>
-							<li>background-size</li>
-							<li>background-position</li>
-							<li>background-repeat</li>
-							<li>background-attachment</li>
-							<li>background-origin</li>
-							<li>opacity</li>
-							<li>visibility</li>
-							<li>cursor</li>
-						</ol>
-					</li>
-				</ol>
 			</li>
 			<li><span class="lede-sent">Qualifiers</span> After the properties of this selector have been set, define properties of qualifying sub-selectors in the following order.
 				<ol>
@@ -152,22 +98,6 @@
 				</ol>
 			</li>
 		</ol>
-	</section>
-	<section id="selector-order">
-		<h1 class="h--gamma">Selector Order</h1>
-		<p class="prose">In general, selectors within a group of style blocks should be written in order of increasing specificity. This means elements first, then classes, then qualifiers/modifiers (pseudo-), and combinators last. The order of qualifiers is not too important, but the order of combinators is. This is because multiple selectors may have the same specificity when an author's belief might be that they do not.</p>
-### A note about selector order:
-
-    <style>
-    .foo + .bar {color: red;}  /* if .bar immediately follows .foo, it is colored red */
-    .foo ~ .bar {color: blue;} /* all .bar following .foo are colored blue */
-    </style>
-    <div class="foo"> Exercise: </div>
-    <div class="bar"> What color is this? Hint: it's not red.</div>
-
-The adjacent sibling of an element *is* a general sibling, but it is a &ldquo;specific&rdquo; type of sibling, namely, an adjacent one. Therefore it's a common misconception that the selector `.foo + .bar {}` has a higher **specificity** than `.foo ~ .bar {}`, and thus the former will override the latter (regardless of the order in which they are defined). After all, wouldn't you think that a `.foo + .bar {}` is a special case of `.foo ~ .bar {}`? Actually, these two selectors actually have equivalent **specificity**, so whichever one is written last in the stylesheet will take precedence. The `div.bar` in the exercise above is blue.
-
-The bottom line is that authors must define `.foo ~ .bar {}` *before* `.foo + .bar {}` in the stylesheet in order to get the results they expect. The same method applies to `.baz .qux {}` and `.baz > .qux {}`: the former must be defined before the latter because the latter is a special case of the former, even though they have the same specificity.
 	</section>
 </section>
 <section id="classname-syntax" data-status="draft">
