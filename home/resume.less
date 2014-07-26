@@ -6,34 +6,83 @@
 \*---------------*/
 
 //Table of Contents
+//- SECTIONS
 //- HEADINGS
-//- SKILLGROUPS
 
 
-.res-Postal {
-	font-family: @fontfam_intro;
-	text-align: center;
-	br {display: none;}
+//+++++++++//
+/*@SECTIONS*/
+//+++++++++//
+/**
+  * The `main` Element.
+  */
+.res-Main {}
+/**
+  * The Header contains my name and contact information.
+  */
+.res-Header {
+	.res-Postal {
+		br {display: none;}
+	}
 }
+.res-Skill,
+.res-Job {
+	.vru-top-1;
+}
+/**
+  * A Skill is a top-level section, e.g. Teaching Experience.
+  * The name of the Skill is a `.res-SkillTitle`.
+  */
+.res-Skill {
+	&#objective   {}
+	&#edu         {}
+	&#teach-exp   {}
+	&#work-exp    {}
+	&#prof-dev    {}
+	&#tech-skills {}
+	&#awards      {}
+	&#athletic    {}
+}
+/**
+  * A Job is an item in a Skill. It has an organization name and location.
+  * The name of the Job is a `.res-JobTitle`.
+  */
+.res-Job {}
+/**
+  * A Pos(ition) is an item in a Job. Usually, each Job will only have one position, but there
+  * could be multiple positions.
+  * The name of the Position is a `.res-PosTitle`.
+  * There may be a list of descriptors, which is called a `.res-PosDetail`.
+  */
+.res-Pos {}
+//++++ @end SECTIONS ++++//
 
 
 //+++++++++//
 /*@HEADINGS*/
 //+++++++++//
-.H.Beta.res-Skilltitle,
-.H.Gamma.res-Jobtitle,
-.H.Delta.res-Postitle,
-.H.Epsilon.res-Deg,
-.H.Zeta.res-Inst {
-	.vru-top(   0);
-	.vru-bottom(0);
+.res-Name,
+.res-SkillTitle,
+.res-JobTitle,
+.res-PosTitle,
+.res-Deg,
+.res-Inst {
+	.H;
 	letter-spacing: normal;
 }
-.H.Gamma.res-Jobtitle,
-.H.Delta.res-Postitle,
-.H.Epsilon.res-Deg,
-.H.Zeta.res-Inst {
-	&:extend(.fontsize-block-med);
+/**
+  * My name at the top of the resume.
+@extends
+: .H.Alpha
+@tags
+: #heading
+@author
+: Chris Harvey
+@updated
+: 2014-07-26
+*/
+.res-Name {
+	.H.Alpha;
 }
 /**
   * The title of each skillgroup, e.g. "Teaching Experience"
@@ -46,35 +95,46 @@
 @author
 : Chris Harvey
 @updated
-: 2014-07-10
-*/
-.H.Beta.res-Skilltitle {
+: 2014-07-26
+  */
+.res-SkillTitle {
+	.H.Beta;
 	.fontsize-block(1.5);
-	.border-vert-one(bottom; 0); // undo .H.Beta
-	position: absolute;
-	left: 0;
-	top: auto; // undo .H.Beta
-	width: @golden4;
-	margin-left: @golden7;
-	margin-right: @golden6;
-	text-align: right;
+	.border-vert-undo; // undo .border-vert-one() in .H.Beta
+}
+.res-JobTitle {
+	.H.Gamma;
+}
+.res-PosTitle {
+	.H.Delta;
+}
+.res-Deg {
+	.H.Epsilon;
+}
+.res-Inst {
+	.H.Zeta;
+}
+.res-SkillTitle,
+.res-JobTitle,
+.res-PosTitle,
+.res-Deg,
+.res-Inst {
+	.vru-top(   0);
+	.vru-bottom(0);
+}
+.res-JobTitle,
+.res-PosTitle,
+.res-Deg,
+.res-Inst {
+	.fontsize-block-inherit;
 }
 //++++ @end HEADINGS ++++//
 
 
-//++++++++++++//
-/*@SKILLGROUPS*/
-//++++++++++++//
-
-.res-Skillgroup,
-.res-Job {
-	&:extend(.vru-top-1);
-}
-
 /**
-  * A bullet list of job descriptions for each job.
+  * A bullet list of job descriptions for each Position.
 @extends
-: .List.U
+: .List
 @implements
 : .listindent-half
 @tags
@@ -87,88 +147,99 @@
 @updated
 : 2014-06-26
   */
-.List.res-Jobdetail {
-	&:extend(.listindent-half);
+.List.res-PosDetail {
+	.listindent-half;
 }
 
-
-
-
-
+/**
+  * date & location of job
+@author
+: Chris Harvey
+@updated
+: 2014-07-26
+  */
 .res-Spacetime {
-	//* date & location of job
 	float: right;
 	font-weight: normal;
 	font-variant: normal;
 	font-style: normal;
-	font-family: @fontfam_base;
-	letter-spacing: normal;
 }
-//++++ @end SKILLGROUPS ++++//
 
-
-.res-Skillgroup:first-of-type,
+.res-Skill:first-of-type,
 .res-Footer {
 	.hr(@color_h_minor);
 }
 
 .js-res-Footer > .Pagecount {text-align: right;}
 
-@media screen {
-	.js-res-Footer {display: none;}
-}
+a {font-style: inherit !important;}
 
+@media screen {
+	.res-Header {
+		text-align: center;
+	}
+	.res-Postal {
+		font-family: @fontfam_intro;
+	}
+	.res-SkillTitle {
+		width: @golden4;
+		margin-left: @golden7;
+		margin-right: @golden6;
+		text-align: right;
+		position: absolute;
+		left: 0;
+	}
+	.res-Spacetime {
+		font-family: @fontfam_base;
+	}
+	.js-res-Footer {
+		display: none;
+	}
+}
 
 @media print {
 	.res-Body {
-		.fontsize-med;
+		.fontsize-block-inherit;
 		font-family: @fontfam_math;
 	}
-	.res-Main {margin-bottom: 0;}
-	.res-Job {
-		// .vru-bottom-1;
+	.res-Main {
+		margin-bottom: 0;
 	}
-	.H.Alpha.res-Name,
-	.H.Beta.res-Skilltitle,
-	.H.Gamma.res-Jobtitle,
-	.H.Delta.res-Postitle,
-	.H.Epsilon.res-Deg,
-	.H.Zeta.res-Inst {
+	.res-Job {
+		.vru-top(0.5);
+	}
+	.res-Name,
+	.res-SkillTitle,
+	.res-JobTitle,
+	.res-PosTitle,
+	.res-Deg,
+	.res-Inst {
+		font-weight: inherit;
+		font-style: inherit;
+		font-variant: inherit;
 		font-family: inherit;
-		letter-spacing: normal;
+		text-align: inherit;
 		color: inherit;
 	}
-	.H.Alpha.res-Name,
-	.H.Beta.res-Skilltitle {
-		.fontsize-lrg;
-	}
-	.H.Alpha.res-Name {
-		font-variant: inherit;
-	}
-	.H.Beta.res-Skilltitle {
-		width: 100%;
-		padding: 0;
-		margin: 0;
-		font-variant: small-caps;
-		text-align: left;
-		position: static;
-	}
-	.H.Gamma.res-Jobtitle {
-		font-variant: inherit;
+	.res-Name,
+	.res-SkillTitle,
+	.res-JobTitle {
 		font-weight: bold;
 	}
-	.H.Delta.res-Postitle {
-		font-weight: inherit;
+	.res-Name,
+	.res-SkillTitle {
+		.fontsize-lrg;
 	}
-	.H.Epsilon.res-Deg {
-		font-style: inherit;
+	.res-Name {}
+	.res-SkillTitle {
+		font-variant: small-caps;
 	}
-	.H.Zeta.res-Inst {
-		font-variant: inherit;
+	.res-JobTitle {}
+	.res-PosTitle {
+		font-style: italic;
 	}
-
-	.res-Spacetime,
-	.res-Postal {
-		font-family: inherit;
+	.res-Deg {}
+	.res-Inst {
+		font-style: italic;
 	}
 }
