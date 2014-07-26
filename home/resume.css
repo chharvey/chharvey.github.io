@@ -84,11 +84,7 @@ sub {
 }
 .Qblock.Long,
 .Qblock.Long .Src,
-.Button.Crumb,
-.H.Gamma.res-Jobtitle,
-.H.Delta.res-Postitle,
-.H.Epsilon.res-Deg,
-.H.Zeta.res-Inst {
+.Button.Crumb {
   font-size: 16px;
   font-size: 1rem;
   line-height: 1.5;
@@ -116,7 +112,13 @@ sub {
 .Cell,
 .Codeblock,
 .Label.Msg,
-.Label.Tag {
+.Label.Tag,
+.res-Name,
+.res-SkillTitle,
+.res-JobTitle,
+.res-PosTitle,
+.res-Deg,
+.res-Inst {
   min-height: 24px;
   min-height: 1.5rem;
 }
@@ -125,9 +127,7 @@ sub {
 .P + .Map,
 .P + .Table,
 .Codeblock,
-.Label.Msg,
-.res-Skillgroup,
-.res-Job {
+.Label.Msg {
   margin-top: 24px;
   margin-top: 1.5rem;
 }
@@ -162,9 +162,6 @@ sub {
 .List.U {
   padding-left: 48px;
 }
-.List.res-Jobdetail {
-  padding-left: 24px;
-}
 code,
 .Codeblock.CSS.Invert {
   border-color: #eee8d5;
@@ -188,24 +185,74 @@ code .Comm,
 /*---------------*\
     resume.less
 \*---------------*/
-.res-Postal {
-  font-family: 'Avenir', 'Calibri', 'Century Gothic', sans-serif;
-  text-align: center;
-}
-.res-Postal br {
+/*@SECTIONS*/
+/**
+  * The `main` Element.
+  */
+/**
+  * The Header contains my name and contact information.
+  */
+.res-Header .res-Postal br {
   display: none;
 }
+.res-Skill,
+.res-Job {
+  margin-top: 24px;
+  margin-top: 1.5rem;
+}
+/**
+  * A Skill is a top-level section, e.g. Teaching Experience.
+  * The name of the Skill is a `.res-SkillTitle`.
+  */
+/**
+  * A Job is an item in a Skill. It has an organization name and location.
+  * The name of the Job is a `.res-JobTitle`.
+  */
+/**
+  * A Pos(ition) is an item in a Job. Usually, each Job will only have one position, but there
+  * could be multiple positions.
+  * The name of the Position is a `.res-PosTitle`.
+  * There may be a list of descriptors, which is called a `.res-PosDetail`.
+  */
 /*@HEADINGS*/
-.H.Beta.res-Skilltitle,
-.H.Gamma.res-Jobtitle,
-.H.Delta.res-Postitle,
-.H.Epsilon.res-Deg,
-.H.Zeta.res-Inst {
-  margin-top: 0px;
-  margin-top: 0rem;
-  padding-bottom: 0px;
-  padding-bottom: 0rem;
+.res-Name,
+.res-SkillTitle,
+.res-JobTitle,
+.res-PosTitle,
+.res-Deg,
+.res-Inst {
+  display: block;
+  font-family: 'Avenir', 'Calibri', 'Century Gothic', sans-serif;
+  letter-spacing: 1px;
   letter-spacing: normal;
+}
+/**
+  * My name at the top of the resume.
+@extends
+: .H.Alpha
+@tags
+: #heading
+@author
+: Chris Harvey
+@updated
+: 2014-07-26
+*/
+.res-Name {
+  font-size: 48px;
+  font-size: 3rem;
+  line-height: 1;
+  margin-top: 29.66563146px;
+  margin-top: 1.85410197rem;
+  padding-bottom: 18.33436854px;
+  padding-bottom: 1.14589803rem;
+  font-variant: small-caps;
+  font-weight: bold;
+  text-align: center;
+  color: #120099;
+}
+.res-Name > .Hsub {
+  color: #120099;
+  color: rgba(18, 0, 153, 0.61803399);
 }
 /**
   * The title of each skillgroup, e.g. "Teaching Experience"
@@ -218,30 +265,98 @@ code .Comm,
 @author
 : Chris Harvey
 @updated
-: 2014-07-10
-*/
-.H.Beta.res-Skilltitle {
+: 2014-07-26
+  */
+.res-SkillTitle {
+  font-size: 35px;
+  font-size: 2.1875rem;
+  line-height: 1.37142857;
+  margin-top: 34.728px;
+  margin-top: 2.1705rem;
+  padding-bottom: 13.272px;
+  padding-bottom: 0.8295rem;
+  display: block;
+  position: relative;
+  top: -1px;
+  margin-bottom: -1px;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-color: #3d6166;
+  font-weight: bold;
+  color: #3d6166;
   font-size: 24px;
   font-size: 1.5rem;
   line-height: 1;
-  display: block;
-  position: relative;
-  top: 0;
-  margin-bottom: 0;
-  border-bottom-width: 0;
-  position: absolute;
-  left: 0;
+  position: static;
   top: auto;
-  width: 14.58980338%;
-  margin-left: 3.44418537%;
-  margin-right: 5.572809%;
-  text-align: right;
+  border: 0;
+  margin-bottom: 0;
 }
-/*@SKILLGROUPS*/
+.res-SkillTitle > .Hsub {
+  color: #3d6166;
+  color: rgba(61, 97, 102, 0.61803399);
+}
+.res-JobTitle {
+  font-size: 26px;
+  font-size: 1.625rem;
+  line-height: 0.92307692;
+  margin-top: 14.83281573px;
+  margin-top: 0.92705098rem;
+  padding-bottom: 9.16718427px;
+  padding-bottom: 0.57294902rem;
+  font-variant: small-caps;
+  font-weight: bold;
+}
+.res-PosTitle {
+  font-size: 21px;
+  font-size: 1.3125rem;
+  line-height: 1.14285714;
+  margin-top: 17.376px;
+  margin-top: 1.086rem;
+  padding-bottom: 6.624px;
+  padding-bottom: 0.414rem;
+  font-style: italic;
+  font-weight: bold;
+}
+.res-Deg {
+  font-size: 18px;
+  font-size: 1.125rem;
+  line-height: 1.33333333;
+  font-style: italic;
+  color: #3d6166;
+}
+.res-Deg > .Hsub {
+  color: #3d6166;
+  color: rgba(61, 97, 102, 0.61803399);
+}
+.res-Inst {
+  font-size: 16px;
+  font-size: 1rem;
+  line-height: 1.5;
+  font-style: italic;
+  font-variant: small-caps;
+}
+.res-SkillTitle,
+.res-JobTitle,
+.res-PosTitle,
+.res-Deg,
+.res-Inst {
+  margin-top: 0px;
+  margin-top: 0rem;
+  padding-bottom: 0px;
+  padding-bottom: 0rem;
+}
+.res-JobTitle,
+.res-PosTitle,
+.res-Deg,
+.res-Inst {
+  font-size: inherit;
+  line-height: inherit;
+}
 /**
-  * A bullet list of job descriptions for each job.
+  * A bullet list of job descriptions for each Position.
 @extends
-: .List.U
+: .List
 @implements
 : .listindent-half
 @tags
@@ -254,15 +369,23 @@ code .Comm,
 @updated
 : 2014-06-26
   */
+.List.res-PosDetail {
+  padding-left: 24px;
+}
+/**
+  * date & location of job
+@author
+: Chris Harvey
+@updated
+: 2014-07-26
+  */
 .res-Spacetime {
   float: right;
   font-weight: normal;
   font-variant: normal;
   font-style: normal;
-  font-family: 'Optima', 'Candara', 'Helvetica', sans-serif;
-  letter-spacing: normal;
 }
-.res-Skillgroup:first-of-type,
+.res-Skill:first-of-type,
 .res-Footer {
   padding-top: 8.78521826px;
   margin-top: 14.21478174px;
@@ -277,60 +400,70 @@ a {
   font-style: inherit !important;
 }
 @media screen {
+  .res-Header {
+    text-align: center;
+  }
+  .res-Postal {
+    font-family: 'Avenir', 'Calibri', 'Century Gothic', sans-serif;
+  }
+  .res-SkillTitle {
+    width: 14.58980338%;
+    margin-left: 3.44418537%;
+    margin-right: 5.572809%;
+    text-align: right;
+    position: absolute;
+    left: 0;
+  }
+  .res-Spacetime {
+    font-family: 'Optima', 'Candara', 'Helvetica', sans-serif;
+  }
   .js-res-Footer {
     display: none;
   }
 }
 @media print {
   .res-Body {
-    font-size: 16px;
-    font-size: 1rem;
+    font-size: inherit;
+    line-height: inherit;
     font-family: 'Times', 'Times New Roman', serif;
   }
   .res-Main {
     margin-bottom: 0;
   }
-  .H.Alpha.res-Name,
-  .H.Beta.res-Skilltitle,
-  .H.Gamma.res-Jobtitle,
-  .H.Delta.res-Postitle,
-  .H.Epsilon.res-Deg,
-  .H.Zeta.res-Inst {
+  .res-Job {
+    margin-top: 12px;
+    margin-top: 0.75rem;
+  }
+  .res-Name,
+  .res-SkillTitle,
+  .res-JobTitle,
+  .res-PosTitle,
+  .res-Deg,
+  .res-Inst {
+    font-weight: inherit;
+    font-style: inherit;
+    font-variant: inherit;
     font-family: inherit;
-    letter-spacing: normal;
+    text-align: inherit;
     color: inherit;
   }
-  .H.Alpha.res-Name,
-  .H.Beta.res-Skilltitle {
+  .res-Name,
+  .res-SkillTitle,
+  .res-JobTitle {
+    font-weight: bold;
+  }
+  .res-Name,
+  .res-SkillTitle {
     font-size: 20px;
     font-size: 1.25rem;
   }
-  .H.Alpha.res-Name {
-    font-variant: inherit;
-  }
-  .H.Beta.res-Skilltitle {
-    width: 100%;
-    padding: 0;
-    margin: 0;
+  .res-SkillTitle {
     font-variant: small-caps;
-    text-align: left;
-    position: static;
   }
-  .H.Gamma.res-Jobtitle {
-    font-variant: inherit;
-    font-weight: bold;
+  .res-PosTitle {
+    font-style: italic;
   }
-  .H.Delta.res-Postitle {
-    font-weight: inherit;
-  }
-  .H.Epsilon.res-Deg {
-    font-style: inherit;
-  }
-  .H.Zeta.res-Inst {
-    font-variant: inherit;
-  }
-  .res-Spacetime,
-  .res-Postal {
-    font-family: inherit;
+  .res-Inst {
+    font-style: italic;
   }
 }
