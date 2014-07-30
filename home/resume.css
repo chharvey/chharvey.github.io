@@ -26,8 +26,8 @@
   width: 75%;
 }
 code,
-.Dir,
 .Key,
+.Dir,
 sup,
 sub,
 .Button {
@@ -51,6 +51,7 @@ sub,
 .Fineprint,
 .Table,
 .Codeblock,
+.List.Footnotes,
 .Label {
   font-size: 12px;
   font-size: 0.75rem;
@@ -113,6 +114,13 @@ sub,
   border-top-style: solid;
   border-top-color: #000000;
 }
+.List.Footnotes {
+  padding-top: 8.78521826px;
+  margin-top: 14.21478174px;
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-top-color: #9acc7a;
+}
 .Cell,
 .Codeblock,
 .Label.Msg {
@@ -120,28 +128,51 @@ sub,
   padding: 0.75rem 7.41640786px;
 }
 .parens::before,
-.quotes-double::before,
+.brackets::before,
+.braces::before,
+.angles::before,
+.angles::before,
 .quotes-single::before,
-.guillemets::before,
+.quotes-double::before,
+.guillemets-single::before,
+.guillemets-double::before,
 .Qblock.Long .Src::before,
+var::before,
 q::before,
-.Th::before {
+.Th::before,
+.Rf > .Link::before,
+.Fn > .Link::before {
   content: open-quote;
 }
 .parens::after,
-.quotes-double::after,
+.brackets::after,
+.braces::after,
+.angles::after,
+.angles::after,
 .quotes-single::after,
-.guillemets::after,
+.quotes-double::after,
+.guillemets-single::after,
+.guillemets-double::after,
 .Qblock.Long .Src::after,
+var::after,
 q::after,
-.Th::after {
+.Th::after,
+.Rf > .Link::after,
+.Fn > .Link::after {
   content: close-quote;
 }
 .Qblock.Long .Src {
   quotes: '(' ')';
 }
+.Rf > .Link,
+.Fn > .Link {
+  quotes: '[' ']';
+}
 q {
   quotes: '\201c' '\201d';
+}
+var {
+  quotes: '\2039' '\203a';
 }
 .Th {
   quotes: '\00ab' '\00bb';
@@ -154,7 +185,8 @@ q {
 }
 .List > .Item > .List,
 .List.O,
-.List.U {
+.List.U,
+.res-PosDetail {
   padding-left: 48px;
 }
 code,
@@ -180,6 +212,9 @@ code .Comm,
 /*---------------*\
     resume.less
 \*---------------*/
+.List.U {
+  padding-left: 24px;
+}
 /*@SECTIONS*/
 /**
   * The `main` Element.
@@ -199,6 +234,15 @@ code .Comm,
   * A Skill is a top-level section, e.g. Teaching Experience.
   * The name of the Skill is a `.res-SkillTitle`.
   */
+.res-Skill#tech-skills .Gcol.w-f1o2:nth-child(1) {
+  padding-right: 8px;
+}
+.res-Skill#tech-skills .Gcol.w-f1o2:nth-child(2) {
+  padding-left: 8px;
+}
+.res-Skill#tech-skills .res-Job:first-child {
+  margin-top: 0px;
+}
 /**
   * A Job is an item in a Skill. It has an organization name and location.
   * The name of the Job is a `.res-JobTitle`.
@@ -351,9 +395,7 @@ code .Comm,
 /**
   * A bullet list of job descriptions for each Position.
 @extends
-: .List
-@implements
-: .listindent-half
+: .List.U
 @tags
 : #typography
 : #list
@@ -364,7 +406,8 @@ code .Comm,
 @updated
 : 2014-06-26
   */
-.List.res-PosDetail {
+.res-PosDetail {
+  list-style-type: square;
   padding-left: 24px;
 }
 /**
