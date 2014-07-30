@@ -6,7 +6,7 @@ Charlottesville, VA 22901
 chrisharvey2pi@gmail.com
 http://chharvey.github.io/
 
-## ￼OBJECTIVE
+## OBJECTIVE
 
 - to obtain a full-time position as a front-end web developer
 
@@ -50,16 +50,7 @@ http://chharvey.github.io/
 - PHP
 - Java
 
-## EDUCATION & LICENS​URE
-
-- M.A. Ed. Curriculum and Instruction, 2012 (GPA: 3.950 / 4.0)
-- B.S. Mathematics (Education Option), 2011 (Cum Laude, GPA: 3.539 / 4.0)
-
-Virginia Polytechnic Institute and State University (Blacksburg, VA)
-
-- Virginia Postgraduate Professional License, 2012
-
-## ￼TEACHING EXPERIENCE
+## TEACHING EXPERIENCE
 
 ### William Monroe Middle School (Stanardsville, VA )
 #### Teacher. Math 7 (Aug 2013–Jun 2014)
@@ -83,7 +74,7 @@ Virginia Polytechnic Institute and State University (Blacksburg, VA)
 - attended after-school programs, clubs, parent-teacher conferences, team meetings
 - worked with colleagues to construct and peer-teach a lesson using manipulatives
 
-## ￼￼￼￼￼￼￼￼OTHER WORK EXPERIENCE
+## OTHER WORK EXPERIENCE
 
 ### Charlottesville High School Swimming (Charlottesville, VA)
 #### Assistant Swim Coach. Head Coach: Ron Price (Nov 2012–Feb 2013)
@@ -123,7 +114,16 @@ coached swim meets, select swimmers for competition, help organize, attend team 
 - tended to customers’ and patrons’ needs in a timely manner
 - obtained certification in CPR, first aid, lifeguarding, pool operations
 
-## ￼￼￼￼￼PROFESS​IONAL DEVE​LOPMENT
+## EDUCATION & LICENSURE
+
+- M.A. Ed. Curriculum and Instruction, 2012 (GPA: 3.950 / 4.0)
+- B.S. Mathematics (Education Option), 2011 (Cum Laude, GPA: 3.539 / 4.0)
+
+Virginia Polytechnic Institute and State University (Blacksburg, VA)
+
+- Virginia Postgraduate Professional License, 2012
+
+## PROFESSIONAL DEVELOPMENT
 
 - VCTM Conference, Harrisonburg, VA (10 hr) (Mar 14–15, 2014)
 - VCTM Conference, Virginia Beach, VA (10 hr) (Mar 8–9, 2013)
@@ -132,7 +132,7 @@ coached swim meets, select swimmers for competition, help organize, attend team 
 - VCTM Conference, Richmond, VA (10 hr) (Mar 11–12, 2011)
 - Preservice Teacher Education with TI-Nspire Technology (9 hr) (Mar 28, 2009)
 
-## AWARDS & ORGANIZAT​IONS
+## AWARDS & ORGANIZATIONS
 
 - Robert Noyce Scholarship (Fall 2011–Spring 2012)
 - Educational Testing Service Recognition of Excellence (Nov 13, 2010)
