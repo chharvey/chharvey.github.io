@@ -19,10 +19,7 @@
 /**
   * The `main` Element.
   */
-.res-Main {
-	display: flex;
-	flex-direction: column;
-}
+.res-Main {}
 /**
   * The Header contains my name and contact information.
   */
@@ -40,22 +37,6 @@
   * The name of the Skill is a `.res-SkillTitle`.
   */
 .res-Skill {}
-
-.res-Header  {order: 00;}
-#objective   {order: 10;}
-#teach-exp   {order: 20;}
-#work-exp    {order: 30;}
-#tech-skills {order: 40;}
-#edu         {order: 50;}
-#prof-dev    {order: 60;}
-#awards      {order: 70;}
-#athletic    {order: 80;}
-.res-Footer  {order: 90;}
-
-@media print {
-	#tech-skills {order: 11;}
-	#edu {order: 12;}
-}
 /**
   * A Job is an item in a Skill. It has an organization name and location.
   * The name of the Job is a `.res-JobTitle`.
@@ -192,9 +173,6 @@ a {font-style: inherit !important;}
 	.res-Postal {
 		font-family: @fontfam_intro;
 	}
-	// #tech-skills {
-	// 	.res-Job:first-child {margin-top: 0;}
-	// }
 	.res-SkillTitle {
 		width: @golden4;
 		margin-left: @golden7;
@@ -210,14 +188,73 @@ a {font-style: inherit !important;}
 		display: none;
 	}
 }
-
+.flexbox() {
+	display: -webkit-box;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+}
+.flexdirection(@direction) {
+	-webkit-flex-direction: @direction;
+	        flex-direction: @direction;
+}
+.flexwrap(@wrap) {
+	-webkit-flex-wrap: @wrap;
+	        flex-wrap: @wrap;
+}
+.flex(@values) {
+	-webkit-box-flex: @values;
+	   -moz-box-flex: @values;
+	    -webkit-flex: @values;
+	        -ms-flex: @values;
+	            flex: @values;
+}
+.flex-order(@number) {
+	-webkit-box-ordinal-group: @number;
+	-moz-box-ordinal-group: @number;
+	-ms-flex-order: @number;
+	-webkit-order: @number;
+	order: @number;
+}
 @media print {
 	.res-Body {
 		.fontsize-block-inherit;
 		font-family: @fontfam_math;
 	}
 	.res-Main {
+		.flexbox();
+		.flexdirection(column);
 		margin-bottom: 0;
+	}
+	.res-Header  {.flex-order(00);}
+	#objective   {.flex-order(10);}
+	#teach-exp   {.flex-order(20);}
+	#work-exp    {.flex-order(30);}
+	#tech-skills {.flex-order(11);}
+	#edu         {.flex-order(12);}
+	#prof-dev    {.flex-order(60);}
+	#awards      {.flex-order(70);}
+	#athletic    {.flex-order(80);}
+	.res-Footer  {.flex-order(90);}
+	// #tech-skills {
+	// 	color: #c00;
+	// 	background-color: #cff;
+	// 	.res-SkillTitle,
+	// 	.res-Job {
+	// 		background-color: #3cf;
+	// 		outline: 1px solid green;
+	// 	}
+	// }
+	#tech-skills {
+		.flexbox();
+		.flexwrap(wrap);
+		.res-SkillTitle {
+			width: 100%;
+		}
+		.Gcol {
+			width: 50%;
+		}
 	}
 	.res-Job {
 		.vru-top(0.5);
@@ -225,6 +262,7 @@ a {font-style: inherit !important;}
 	#teach-exp,
 	#VTSC {
 		.pagebreak;
+		padding-top: 0.5in;
 	}
 	.res-Name,
 	.res-SkillTitle,
