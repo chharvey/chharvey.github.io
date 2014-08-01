@@ -26,8 +26,8 @@
   width: 75%;
 }
 code,
-.Dir,
 .Key,
+.Dir,
 sup,
 sub,
 .Button {
@@ -51,6 +51,7 @@ sub,
 .Fineprint,
 .Table,
 .Codeblock,
+.List.Footnotes,
 .Label {
   font-size: 12px;
   font-size: 0.75rem;
@@ -113,6 +114,13 @@ sub,
   border-top-style: solid;
   border-top-color: #000000;
 }
+.List.Footnotes {
+  padding-top: 8.78521826px;
+  margin-top: 14.21478174px;
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-top-color: #9acc7a;
+}
 .Cell,
 .Codeblock,
 .Label.Msg {
@@ -120,28 +128,51 @@ sub,
   padding: 0.75rem 7.41640786px;
 }
 .parens::before,
-.quotes-double::before,
+.brackets::before,
+.braces::before,
+.angles::before,
+.angles::before,
 .quotes-single::before,
-.guillemets::before,
+.quotes-double::before,
+.guillemets-single::before,
+.guillemets-double::before,
 .Qblock.Long .Src::before,
+var::before,
 q::before,
-.Th::before {
+.Th::before,
+.Rf > .Link::before,
+.Fn > .Link::before {
   content: open-quote;
 }
 .parens::after,
-.quotes-double::after,
+.brackets::after,
+.braces::after,
+.angles::after,
+.angles::after,
 .quotes-single::after,
-.guillemets::after,
+.quotes-double::after,
+.guillemets-single::after,
+.guillemets-double::after,
 .Qblock.Long .Src::after,
+var::after,
 q::after,
-.Th::after {
+.Th::after,
+.Rf > .Link::after,
+.Fn > .Link::after {
   content: close-quote;
 }
 .Qblock.Long .Src {
   quotes: '(' ')';
 }
+.Rf > .Link,
+.Fn > .Link {
+  quotes: '[' ']';
+}
 q {
   quotes: '\201c' '\201d';
+}
+var {
+  quotes: '\2039' '\203a';
 }
 .Th {
   quotes: '\00ab' '\00bb';
@@ -154,7 +185,8 @@ q {
 }
 .List > .Item > .List,
 .List.O,
-.List.U {
+.List.U,
+.res-PosDetail {
   padding-left: 48px;
 }
 code,
@@ -180,6 +212,9 @@ code .Comm,
 /*---------------*\
     resume.less
 \*---------------*/
+.List.U {
+  padding-left: 24px;
+}
 /*@SECTIONS*/
 /**
   * The `main` Element.
@@ -351,9 +386,7 @@ code .Comm,
 /**
   * A bullet list of job descriptions for each Position.
 @extends
-: .List
-@implements
-: .listindent-half
+: .List.U
 @tags
 : #typography
 : #list
@@ -364,7 +397,8 @@ code .Comm,
 @updated
 : 2014-06-26
   */
-.List.res-PosDetail {
+.res-PosDetail {
+  list-style-type: square;
   padding-left: 24px;
 }
 /**
@@ -423,11 +457,109 @@ a {
     font-family: 'Times', 'Times New Roman', serif;
   }
   .res-Main {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: column;
+    flex-direction: column;
     margin-bottom: 0;
+  }
+  .res-Header {
+    -webkit-box-ordinal-group: 0;
+    -moz-box-ordinal-group: 0;
+    -ms-flex-order: 0;
+    -webkit-order: 0;
+    order: 0;
+  }
+  #objective {
+    -webkit-box-ordinal-group: 10;
+    -moz-box-ordinal-group: 10;
+    -ms-flex-order: 10;
+    -webkit-order: 10;
+    order: 10;
+  }
+  #teach-exp {
+    -webkit-box-ordinal-group: 20;
+    -moz-box-ordinal-group: 20;
+    -ms-flex-order: 20;
+    -webkit-order: 20;
+    order: 20;
+  }
+  #work-exp {
+    -webkit-box-ordinal-group: 30;
+    -moz-box-ordinal-group: 30;
+    -ms-flex-order: 30;
+    -webkit-order: 30;
+    order: 30;
+  }
+  #tech-skills {
+    -webkit-box-ordinal-group: 11;
+    -moz-box-ordinal-group: 11;
+    -ms-flex-order: 11;
+    -webkit-order: 11;
+    order: 11;
+  }
+  #edu {
+    -webkit-box-ordinal-group: 12;
+    -moz-box-ordinal-group: 12;
+    -ms-flex-order: 12;
+    -webkit-order: 12;
+    order: 12;
+  }
+  #prof-dev {
+    -webkit-box-ordinal-group: 60;
+    -moz-box-ordinal-group: 60;
+    -ms-flex-order: 60;
+    -webkit-order: 60;
+    order: 60;
+  }
+  #awards {
+    -webkit-box-ordinal-group: 70;
+    -moz-box-ordinal-group: 70;
+    -ms-flex-order: 70;
+    -webkit-order: 70;
+    order: 70;
+  }
+  #athletic {
+    -webkit-box-ordinal-group: 80;
+    -moz-box-ordinal-group: 80;
+    -ms-flex-order: 80;
+    -webkit-order: 80;
+    order: 80;
+  }
+  .res-Footer {
+    -webkit-box-ordinal-group: 90;
+    -moz-box-ordinal-group: 90;
+    -ms-flex-order: 90;
+    -webkit-order: 90;
+    order: 90;
+  }
+  #tech-skills {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+  }
+  #tech-skills .res-SkillTitle {
+    width: 100%;
+  }
+  #tech-skills .Gcol {
+    width: 50%;
   }
   .res-Job {
     margin-top: 12px;
     margin-top: 0.75rem;
+  }
+  #teach-exp,
+  #VTSC {
+    page-break-before: always;
+    padding-top: 0.25in;
+    padding-top: 0.5in;
   }
   .res-Name,
   .res-SkillTitle,
