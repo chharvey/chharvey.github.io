@@ -150,22 +150,31 @@ del + ins {padding-left: @spacer;}
 /*@DOCUMENT STATUS*/
 //++++++++++++++++//
 /**
-  * Elements ready for implementation.
-  * Once this is indicated, any edits made must be indicated with
-  * `ins[datetime]` and `del[datetime]`.
+  * This attribute indicates the status of a document or Element.
+  * "draft"    : a work in progress
+  * "complete" : finished but not yet ready for implementation
+  * "released" : ready for implementation
+  * See https://github.com/chharvey/chharvey.github.io/wiki/Document-Status/ for more info.
+@tags
+: #status
+@author
+: Chris Harvey
+@updated
+: 2014-08-01
   */
-[data-status="complete"] {}
-/**
-  * Elements still in testing mode but still not yet ready for implementation.
-  * The Elements (or document) is still a work in progress. Any edits may be made at any time
-  * without warning or indication.
-  */
+.draftlook,
+.compllook,
+.relealook {.spacing-phi(left; 1px; solid);}
+.draftlook {background-color: @aperture_white_tri1; border-left-color: @atlas_tri1;}
+.compllook {background-color: @aperture_white_tri2; border-left-color: @atlas_tri2;}
+.relealook {background-color: @aperture_white;      border-left-color: @atlas;}
 [data-status="draft"] {
-	background-color: #fffcfa; // @aperture_white rotated by 180 degrees
-	.transp;
-	[data-status="complete"] {
-		.spacing-phi(left; 5px; solid; #6f6);
-		opacity: 1;
-	}
+	[data-status="complete"] {.compllook;}
+	[data-status="released"] {.relealook;}
 }
+[data-status="complete"] {
+	[data-status="released"] {.relealook;}
+	[data-status="draft"]    {.draftlook; .transp;}
+}
+[data-status="released"] {}
 //++++ @end DOCUMENT STATUS ++++//

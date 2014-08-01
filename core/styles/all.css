@@ -810,6 +810,22 @@ sub,
 .help-otln {
   outline: 1px solid #cc004e;
 }
+/**
+  * These Mixins set the padding, border, and margin on the left or right side of an Object,
+  * such that the border:padding ratio and the (border+padding):margin ratio are Golden.
+@params
+: @side:  either "left" or "right"
+: @brdrw : value of the `border-[left|right]-width` property
+: @brdrs : value of the `border-[left|right]-style` property
+: @brdrc : value of the `border-[left|right]-color` property
+@tags
+: #golden
+@author
+: Chris Harvey
+@updated
+: 2014-05-10
+  */
+/** negate the effects of `.spacing-phi(@side; @brdrw; @brdrs; @brdrc)`  on the [left|right] side */
 /*---------------*\
     _boxes.less
 \*---------------*/
@@ -1233,22 +1249,6 @@ main {
 /*--------------------*\
     _paragraphs.less
 \*--------------------*/
-/**
-  * These Mixins set the padding, border, and margin on the left or right side of an Object,
-  * such that the border:padding ratio and the (border+padding):margin ratio are Golden.
-@params
-: @side:  either "left" or "right"
-: @brdrw : value of the `border-[left|right]-width` property
-: @brdrs : value of the `border-[left|right]-style` property
-: @brdrc : value of the `border-[left|right]-color` property
-@tags
-: #golden
-@author
-: Chris Harvey
-@updated
-: 2014-05-10
-  */
-/** negate the effects of `.spacing-phi(@side; @brdrw; @brdrs; @brdrc)`  on the [left|right] side */
 /*@PARAGRAPHS*/
 /**
   * This Object represents a generic paragraph in a section, article, or document. A paragraph
@@ -2711,28 +2711,72 @@ del + ins {
 }
 /*@DOCUMENT STATUS*/
 /**
-  * Elements ready for implementation.
-  * Once this is indicated, any edits made must be indicated with
-  * `ins[datetime]` and `del[datetime]`.
+  * This attribute indicates the status of a document or Element.
+  * "draft"    : a work in progress
+  * "complete" : finished but not yet ready for implementation
+  * "released" : ready for implementation
+  * See https://github.com/chharvey/chharvey.github.io/wiki/Document-Status/ for more info.
+@tags
+: #status
+@author
+: Chris Harvey
+@updated
+: 2014-08-01
   */
-/**
-  * Elements still in testing mode but still not yet ready for implementation.
-  * The Elements (or document) is still a work in progress. Any edits may be made at any time
-  * without warning or indication.
-  */
-[data-status="draft"] {
-  background-color: #fffcfa;
-  opacity: 0.61803399;
+.draftlook,
+.compllook,
+.relealook {
+  border-left-width: 1px;
+  border-left-style: solid;
+  padding-left: 1.61803399px;
+  margin-left: 4.23606798px;
 }
-[data-status="draft"]:hover {
-  opacity: 1;
+.draftlook {
+  background-color: #fff1f6;
+  border-left-color: #ff0062;
+}
+.compllook {
+  background-color: #f6fff1;
+  border-left-color: #62ff00;
+}
+.relealook {
+  background-color: #f1f6ff;
+  border-left-color: #0062ff;
 }
 [data-status="draft"] [data-status="complete"] {
-  border-left-width: 5px;
+  border-left-width: 1px;
   border-left-style: solid;
-  padding-left: 8.09016994px;
-  margin-left: 21.18033989px;
-  border-left-color: #66ff66;
+  padding-left: 1.61803399px;
+  margin-left: 4.23606798px;
+  background-color: #f6fff1;
+  border-left-color: #62ff00;
+}
+[data-status="draft"] [data-status="released"] {
+  border-left-width: 1px;
+  border-left-style: solid;
+  padding-left: 1.61803399px;
+  margin-left: 4.23606798px;
+  background-color: #f1f6ff;
+  border-left-color: #0062ff;
+}
+[data-status="complete"] [data-status="released"] {
+  border-left-width: 1px;
+  border-left-style: solid;
+  padding-left: 1.61803399px;
+  margin-left: 4.23606798px;
+  background-color: #f1f6ff;
+  border-left-color: #0062ff;
+}
+[data-status="complete"] [data-status="draft"] {
+  border-left-width: 1px;
+  border-left-style: solid;
+  padding-left: 1.61803399px;
+  margin-left: 4.23606798px;
+  background-color: #fff1f6;
+  border-left-color: #ff0062;
+  opacity: 0.61803399;
+}
+[data-status="complete"] [data-status="draft"]:hover {
   opacity: 1;
 }
 /*--------------*\
