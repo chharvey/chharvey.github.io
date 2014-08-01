@@ -2596,6 +2596,7 @@ sub {
 /*-------------*\
     _doc.less
 \*-------------*/
+/*@INLINE ELEMENTS*/
 /**
   * A keyword, technical or specific term, or a vocabulary term.
   * Every `dfn` must have an `id` attribute, thus there must only be one `dfn` per page that
@@ -2707,6 +2708,32 @@ ins[datetime] {
 }
 del + ins {
   padding-left: 24px;
+}
+/*@DOCUMENT STATUS*/
+/**
+  * Elements ready for implementation.
+  * Once this is indicated, any edits made must be indicated with
+  * `ins[datetime]` and `del[datetime]`.
+  */
+/**
+  * Elements still in testing mode but still not yet ready for implementation.
+  * The Elements (or document) is still a work in progress. Any edits may be made at any time
+  * without warning or indication.
+  */
+[data-status="draft"] {
+  background-color: #fffcfa;
+  opacity: 0.61803399;
+}
+[data-status="draft"]:hover {
+  opacity: 1;
+}
+[data-status="draft"] [data-status="complete"] {
+  border-left-width: 5px;
+  border-left-style: solid;
+  padding-left: 8.09016994px;
+  margin-left: 21.18033989px;
+  border-left-color: #66ff66;
+  opacity: 1;
 }
 /*--------------*\
     _data.less
@@ -3238,13 +3265,6 @@ its own figure or section, though, the indication should be in that Element's
 [data-status="nonnormative"] {
   font-style: italic;
   font-family: 'Optima', 'Candara', 'Helvetica', sans-serif;
-}
-/**
-  * Elements still in testing mode but still not yet ready for implementation.
-  */
-[data-status="draft"] {
-  background-color: #fffcfa;
-  opacity: 0.61803399;
 }
 [hidden] {
   display: none !important;
