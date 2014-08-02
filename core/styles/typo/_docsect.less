@@ -9,8 +9,6 @@
   * This Object represents a generic article, technical document, blog post, etc. This Object may
   * or may not take the form of a literal `article` Element or `main` Element of a page. This
   * Object is designed to contain other block-level Objects such as `.H`s and `.P`s.
-  * Article prose, being more formal and providing more detail than other web-based texts,
-  * usually requires more careful reading.
 @tags
 : #typography
 : #article
@@ -61,17 +59,20 @@
   * See https://github.com/chharvey/chharvey.github.io/wiki/Document-Status/ for more info.
 @tags
 : #status
+: #golden
+: #border
+: #background
 @author
 : Chris Harvey
 @updated
 : 2014-08-01
   */
-[data-status="draft"]    {background-color: @aperture_white_tri1;}
-[data-status="complete"] {background-color: @aperture_white_tri2;}
-[data-status="released"] {background-color: @aperture_white;}
+[data-status="draft"]    {background-color: spin(@color_base_bg,  120);}
+[data-status="complete"] {background-color: spin(@color_base_bg, -120);}
+[data-status="released"] {background-color: spin(@color_base_bg,    0);}
 .Article {
-	.statusborder {.spacing-phi(left; 1px; solid);}
-	[data-status="draft"]    {&:extend(.Article .statusborder); border-left-color: @atlas_tri1;}
-	[data-status="complete"] {&:extend(.Article .statusborder); border-left-color: @atlas_tri2;}
-	[data-status="released"] {&:extend(.Article .statusborder); border-left-color: @atlas;}
+	.statusborder {.spacing-phi(left; 4px; solid);}
+	[data-status="draft"]    {&:extend(.Article .statusborder); border-left-color: spin(@color_brdr, -120);}
+	[data-status="complete"] {&:extend(.Article .statusborder); border-left-color: spin(@color_brdr,    0);}
+	[data-status="released"] {&:extend(.Article .statusborder); border-left-color: spin(@color_brdr,  120);}
 }
