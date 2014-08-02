@@ -1,0 +1,77 @@
+// main: ../all.less
+
+/*=================*\
+    _docsect.less
+\*=================*/
+
+
+/**
+  * This Object represents a generic article, technical document, blog post, etc. This Object may
+  * or may not take the form of a literal `article` Element or `main` Element of a page. This
+  * Object is designed to contain other block-level Objects such as `.H`s and `.P`s.
+  * Article prose, being more formal and providing more detail than other web-based texts,
+  * usually requires more careful reading.
+@tags
+: #typography
+: #article
+@author
+: Chris Harvey
+@updated
+: 2014-05-03
+  */
+.Article {
+	font-family: @fontfam_prose;
+	text-align: justify;
+}
+/**
+  * This Object represents text in an article that is not to displayed like `.Article` text.
+  * Essentially it reverts back to the body copy styles.
+@tags
+: #typography
+: #article
+@author
+: Chris Harvey
+@updated
+: 2014-05-02
+  */
+.UndoArticle {
+	font-family: @fontfam_base;
+	text-align: left;
+}
+/**
+  * This Object represents a section of text that represents "fine print": disclaimers, etc.
+  * It should be instantiated by an entire `section`, `aside`, `div`, or `p` Element, which
+  * may or may not contain `small` Element children.
+@tags
+: #typography
+@author
+: Chris Harvey
+@updated
+: 2014-06-26
+  */
+.Fineprint {
+	&:extend(.fontsize-block-sml);
+}
+
+/**
+  * This attribute indicates the status of a document or Element.
+  * "draft"    : a work in progress
+  * "complete" : finished but not yet ready for implementation
+  * "released" : ready for implementation
+  * See https://github.com/chharvey/chharvey.github.io/wiki/Document-Status/ for more info.
+@tags
+: #status
+@author
+: Chris Harvey
+@updated
+: 2014-08-01
+  */
+[data-status="draft"]    {background-color: @aperture_white_tri1;}
+[data-status="complete"] {background-color: @aperture_white_tri2;}
+[data-status="released"] {background-color: @aperture_white;}
+.Article {
+	.statusborder {.spacing-phi(left; 1px; solid);}
+	[data-status="draft"]    {&:extend(.Article .statusborder); border-left-color: @atlas_tri1;}
+	[data-status="complete"] {&:extend(.Article .statusborder); border-left-color: @atlas_tri2;}
+	[data-status="released"] {&:extend(.Article .statusborder); border-left-color: @atlas;}
+}

@@ -541,9 +541,9 @@ sub,
   line-height: 1.5;
 }
 .fontsize-block-sml,
+.Fineprint,
 .Capt,
 .Qblock .Src,
-.Fineprint,
 .Table,
 .Codeblock,
 .List.Footnotes,
@@ -1084,6 +1084,93 @@ main {
   background-size: 20% 24px;
   background-repeat: repeat;
 }
+/*=================*\
+    _docsect.less
+\*=================*/
+/**
+  * This Object represents a generic article, technical document, blog post, etc. This Object may
+  * or may not take the form of a literal `article` Element or `main` Element of a page. This
+  * Object is designed to contain other block-level Objects such as `.H`s and `.P`s.
+  * Article prose, being more formal and providing more detail than other web-based texts,
+  * usually requires more careful reading.
+@tags
+: #typography
+: #article
+@author
+: Chris Harvey
+@updated
+: 2014-05-03
+  */
+.Article {
+  font-family: 'Baskerville', 'Palatino', 'Book Antiqua', serif;
+  text-align: justify;
+}
+/**
+  * This Object represents text in an article that is not to displayed like `.Article` text.
+  * Essentially it reverts back to the body copy styles.
+@tags
+: #typography
+: #article
+@author
+: Chris Harvey
+@updated
+: 2014-05-02
+  */
+.UndoArticle {
+  font-family: 'Optima', 'Candara', 'Helvetica', sans-serif;
+  text-align: left;
+}
+/**
+  * This Object represents a section of text that represents "fine print": disclaimers, etc.
+  * It should be instantiated by an entire `section`, `aside`, `div`, or `p` Element, which
+  * may or may not contain `small` Element children.
+@tags
+: #typography
+@author
+: Chris Harvey
+@updated
+: 2014-06-26
+  */
+/**
+  * This attribute indicates the status of a document or Element.
+  * "draft"    : a work in progress
+  * "complete" : finished but not yet ready for implementation
+  * "released" : ready for implementation
+  * See https://github.com/chharvey/chharvey.github.io/wiki/Document-Status/ for more info.
+@tags
+: #status
+@author
+: Chris Harvey
+@updated
+: 2014-08-01
+  */
+[data-status="draft"] {
+  background-color: #fff1f6;
+}
+[data-status="complete"] {
+  background-color: #f6fff1;
+}
+[data-status="released"] {
+  background-color: #f1f6ff;
+}
+.Article .statusborder,
+.Article [data-status="draft"],
+.Article [data-status="complete"],
+.Article [data-status="released"] {
+  border-left-width: 1px;
+  border-left-style: solid;
+  padding-left: 1.61803399px;
+  margin-left: 4.23606798px;
+}
+.Article [data-status="draft"] {
+  border-left-color: #ff0062;
+}
+.Article [data-status="complete"] {
+  border-left-color: #62ff00;
+}
+.Article [data-status="released"] {
+  border-left-color: #0062ff;
+}
 /*------------------*\
     _headings.less
 \*------------------*/
@@ -1540,51 +1627,6 @@ main {
 .Qblock {
   border-color: #9acc7a;
 }
-/*@SECTIONS*/
-/**
-  * This Object represents a generic article, technical document, blog post, etc. This Object may
-  * or may not take the form of a literal `article` Element or `main` Element of a page. This
-  * Object is designed to contain other block-level Objects such as `.H`s and `.P`s.
-  * Article prose, being more formal and providing more detail than other web-based texts,
-  * usually requires more careful reading.
-@tags
-: #typography
-: #article
-@author
-: Chris Harvey
-@updated
-: 2014-05-03
-  */
-.Article {
-  font-family: 'Baskerville', 'Palatino', 'Book Antiqua', serif;
-  text-align: justify;
-}
-/**
-  * This Object represents text in an article that is not to displayed like `.Article` text.
-  * Essentially it reverts back to the body copy styles.
-@tags
-: #typography
-: #article
-@author
-: Chris Harvey
-@updated
-: 2014-05-02
-  */
-.UndoArticle {
-  font-family: 'Optima', 'Candara', 'Helvetica', sans-serif;
-  text-align: left;
-}
-/**
-  * This Object represents a section of text that represents "fine print": disclaimers, etc.
-  * It should be instantiated by an entire `section`, `aside`, `div`, or `p` Element, which
-  * may or may not contain `small` Element children.
-@tags
-: #typography
-@author
-: Chris Harvey
-@updated
-: 2014-06-26
-  */
 /*---------------*\
     _lists.less
 \*---------------*/
@@ -2593,10 +2635,9 @@ sup {
 sub {
   top: 6px;
 }
-/*-------------*\
-    _doc.less
-\*-------------*/
-/*@INLINE ELEMENTS*/
+/*=================*\
+    _doctext.less
+\*=================*/
 /**
   * A keyword, technical or specific term, or a vocabulary term.
   * Every `dfn` must have an `id` attribute, thus there must only be one `dfn` per page that
@@ -2708,47 +2749,6 @@ ins[datetime] {
 }
 del + ins {
   padding-left: 24px;
-}
-/*@DOCUMENT STATUS*/
-/**
-  * This attribute indicates the status of a document or Element.
-  * "draft"    : a work in progress
-  * "complete" : finished but not yet ready for implementation
-  * "released" : ready for implementation
-  * See https://github.com/chharvey/chharvey.github.io/wiki/Document-Status/ for more info.
-@tags
-: #status
-@author
-: Chris Harvey
-@updated
-: 2014-08-01
-  */
-[data-status="draft"] {
-  background-color: #fff1f6;
-}
-[data-status="complete"] {
-  background-color: #f6fff1;
-}
-[data-status="released"] {
-  background-color: #f1f6ff;
-}
-.Article .statusborder,
-.Article [data-status="draft"],
-.Article [data-status="complete"],
-.Article [data-status="released"] {
-  border-left-width: 1px;
-  border-left-style: solid;
-  padding-left: 1.61803399px;
-  margin-left: 4.23606798px;
-}
-.Article [data-status="draft"] {
-  border-left-color: #ff0062;
-}
-.Article [data-status="complete"] {
-  border-left-color: #62ff00;
-}
-.Article [data-status="released"] {
-  border-left-color: #0062ff;
 }
 /*--------------*\
     _data.less
