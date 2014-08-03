@@ -1,6 +1,6 @@
-/*------------------*\
+/*##################*\
     _settings.less
-\*------------------*/
+\*##################*/
 /*@GLOBAL VARIABLES*/
 /*@General Variables*/
 /** Determines the amount to fade out. Change this if you wish. */
@@ -31,9 +31,9 @@
 /*@Even Values*/
 /*@Color Values*/
 /*@Font Sizes*/
-/*---------------*\
+/*###############*\
     _reset.less
-\*---------------*/
+\*###############*/
 body,
 section,
 article,
@@ -228,9 +228,9 @@ mark,
 button {
   background-color: transparent;
 }
-/*--------------*\
+/*##############*\
     _grid.less
-\*--------------*/
+\*##############*/
 /*@WIDTHS*/
 /**
   * The following Interfaces change the width of the Objects that implement them.
@@ -450,9 +450,9 @@ button {
   overflow: visible;
 }
 /*@GUTTERS*/
-/*------------------*\
+/*##################*\
     _fontsize.less
-\*------------------*/
+\*##################*/
 /** One vertical rhythm unit. This is the so-called "magic number." */
 /**
   * This Mixin sets the `font-size` of an Object to a given scale.
@@ -541,9 +541,9 @@ sub,
   line-height: 1.5;
 }
 .fontsize-block-sml,
+.Fineprint,
 .Capt,
 .Qblock .Src,
-.Fineprint,
 .Table,
 .Codeblock,
 .List.Footnotes,
@@ -556,9 +556,9 @@ sub,
   font-size: inherit;
   line-height: inherit;
 }
-/*----------------*\
+/*################*\
     _floats.less
-\*----------------*/
+\*################*/
 /**
   * This Interface is used on containers of floats. It pushes subsequent content to the bottom
   * of the container.
@@ -576,9 +576,9 @@ sub,
   content: ' ';
   clear: both;
 }
-/*---------------*\
+/*###############*\
     _trans.less
-\*---------------*/
+\*###############*/
 /**
   * Use this Mixin to apply a rotation transformation to an Object.
 @params
@@ -606,22 +606,9 @@ sub,
 @updated
 : 2014-06-17
   */
-/*--------------*\
+/*##############*\
     _grad.less
-\*--------------*/
-/**
-  * This Mixin sets the background color to a certain opacity.
-@params
-: @color   : the base color of the background color
-: @fadeout : the fade-out factor as a percentage. 100% is completely transparent, 0% is completely opaque.
-@tags
-: #background
-: #opacity
-@author
-: Chris Harvey
-@updated
-: 2014-06-26
-  */
+\*##############*/
 /**
   * Use this Mixin to apply a linear gradient background on an Element.
   * See [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/linear-gradient) for more info.
@@ -637,9 +624,9 @@ sub,
 @updated
 : 2014-07-08
   */
-/*-----------------*\
+/*#################*\
     _spacing.less
-\*-----------------*/
+\*#################*/
 /**
   * This Interface provides a minimum height of one vertical rhythm unit.
   * It is Meant for text-containing block Elements, such as p, blockquote, li, dt, dd, th, td.
@@ -766,9 +753,9 @@ sub,
   border-top-style: solid;
   border-top-color: #cc004e;
 }
-/*-----------------*\
+/*#################*\
     _borders.less
-\*-----------------*/
+\*#################*/
 /**
   * The following Mixins adjust borders for **BLOCK** Objects only! They will keep the
   * vertical rhythm intact when adding borders (by slightly adjusting position and margins).
@@ -810,9 +797,25 @@ sub,
 .help-otln {
   outline: 1px solid #cc004e;
 }
-/*---------------*\
+/**
+  * These Mixins set the padding, border, and margin on the left or right side of an Object,
+  * such that the border:padding ratio and the (border+padding):margin ratio are Golden.
+@params
+: @side:  either "left" or "right"
+: @brdrw : value of the `border-[left|right]-width` property
+: @brdrs : value of the `border-[left|right]-style` property
+: @brdrc : value of the `border-[left|right]-color` property
+@tags
+: #golden
+@author
+: Chris Harvey
+@updated
+: 2014-05-10
+  */
+/** negate the effects of `.spacing-phi(@side; @brdrw; @brdrs; @brdrc)`  on the [left|right] side */
+/*###############*\
     _boxes.less
-\*---------------*/
+\*###############*/
 /**
   * This Interface creates default padding for cell-like structures (table cells, grid cells,
   * boxes, etc.).
@@ -874,9 +877,9 @@ sub,
 @updated
 : 2014-07-07
   */
-/*----------------*\
+/*################*\
     _delims.less
-\*----------------*/
+\*################*/
 /**
   * This Interface adds opening and closing punctuation marks surrounding an Object. The
   * punctuation marks are given by the `quotes` property.
@@ -957,9 +960,22 @@ var {
 .Th {
   quotes: '\00ab' '\00bb';
 }
-/*-----------------*\
+/*#################*\
     _bground.less
-\*-----------------*/
+\*#################*/
+/**
+  * This Mixin sets the background color to a certain opacity.
+@params
+: @color   : the base color of the background color
+: @fadeout : the fade-out factor as a percentage. 100% is completely transparent, 0% is completely opaque.
+@tags
+: #background
+: #opacity
+@author
+: Chris Harvey
+@updated
+: 2014-06-26
+  */
 /**
   * This Mixin sets the background position of an Object's background sprite image.
   * This assumes the sprite's images are linearly horizontally ordered.
@@ -990,9 +1006,9 @@ var {
 .transp:hover {
   opacity: 1;
 }
-/*--------------*\
+/*##############*\
     _body.less
-\*--------------*/
+\*##############*/
 html {
   font-size: 16px;
   font-family: 'Optima', 'Candara', 'Helvetica', sans-serif;
@@ -1068,9 +1084,97 @@ main {
   background-size: 20% 24px;
   background-repeat: repeat;
 }
-/*------------------*\
+/*#################*\
+    _docsect.less
+\*#################*/
+/**
+  * This Object represents a generic article, technical document, blog post, etc. This Object may
+  * or may not take the form of a literal `article` Element or `main` Element of a page. This
+  * Object is designed to contain other block-level Objects such as `.H`s and `.P`s.
+@tags
+: #typography
+: #article
+@author
+: Chris Harvey
+@updated
+: 2014-05-03
+  */
+.Article {
+  font-family: 'Baskerville', 'Palatino', 'Book Antiqua', serif;
+  text-align: justify;
+}
+/**
+  * This Object represents text in an article that is not to displayed like `.Article` text.
+  * Essentially it reverts back to the body copy styles.
+@tags
+: #typography
+: #article
+@author
+: Chris Harvey
+@updated
+: 2014-05-02
+  */
+.UndoArticle {
+  font-family: 'Optima', 'Candara', 'Helvetica', sans-serif;
+  text-align: left;
+}
+/**
+  * This Object represents a section of text that represents "fine print": disclaimers, etc.
+  * It should be instantiated by an entire `section`, `aside`, `div`, or `p` Element, which
+  * may or may not contain `small` Element children.
+@tags
+: #typography
+@author
+: Chris Harvey
+@updated
+: 2014-06-26
+  */
+/**
+  * This attribute indicates the status of a document or Element.
+  * "draft"    : a work in progress
+  * "complete" : finished but not yet ready for implementation
+  * "released" : ready for implementation
+  * See https://github.com/chharvey/chharvey.github.io/wiki/Document-Status/ for more info.
+@tags
+: #status
+: #golden
+: #border
+: #background
+@author
+: Chris Harvey
+@updated
+: 2014-08-01
+  */
+[data-status="draft"] {
+  background-color: #fff1f6;
+}
+[data-status="complete"] {
+  background-color: #f6fff1;
+}
+[data-status="released"] {
+  background-color: #f1f6ff;
+}
+.Article .statusborder,
+.Article [data-status="draft"],
+.Article [data-status="complete"],
+.Article [data-status="released"] {
+  border-left-width: 4px;
+  border-left-style: solid;
+  padding-left: 6.47213595px;
+  margin-left: 16.94427191px;
+}
+.Article [data-status="draft"] {
+  border-left-color: #cc7a9a;
+}
+.Article [data-status="complete"] {
+  border-left-color: #9acc7a;
+}
+.Article [data-status="released"] {
+  border-left-color: #7a9acc;
+}
+/*##################*\
     _headings.less
-\*------------------*/
+\*##################*/
 /**
   * This Object represents a generic textual heading of a section, post, article, or document.
   * It does not represent a heading in a table. See the `.Cell.Hc` Object.
@@ -1230,25 +1334,9 @@ main {
   line-height: 0.25;
   font-family: 'Snell Roundhand', 'Zapfino', script;
 }
-/*--------------------*\
+/*####################*\
     _paragraphs.less
-\*--------------------*/
-/**
-  * These Mixins set the padding, border, and margin on the left or right side of an Object,
-  * such that the border:padding ratio and the (border+padding):margin ratio are Golden.
-@params
-: @side:  either "left" or "right"
-: @brdrw : value of the `border-[left|right]-width` property
-: @brdrs : value of the `border-[left|right]-style` property
-: @brdrc : value of the `border-[left|right]-color` property
-@tags
-: #golden
-@author
-: Chris Harvey
-@updated
-: 2014-05-10
-  */
-/** negate the effects of `.spacing-phi(@side; @brdrw; @brdrs; @brdrc)`  on the [left|right] side */
+\*####################*/
 /*@PARAGRAPHS*/
 /**
   * This Object represents a generic paragraph in a section, article, or document. A paragraph
@@ -1540,54 +1628,9 @@ main {
 .Qblock {
   border-color: #9acc7a;
 }
-/*@SECTIONS*/
-/**
-  * This Object represents a generic article, technical document, blog post, etc. This Object may
-  * or may not take the form of a literal `article` Element or `main` Element of a page. This
-  * Object is designed to contain other block-level Objects such as `.H`s and `.P`s.
-  * Article prose, being more formal and providing more detail than other web-based texts,
-  * usually requires more careful reading.
-@tags
-: #typography
-: #article
-@author
-: Chris Harvey
-@updated
-: 2014-05-03
-  */
-.Article {
-  font-family: 'Baskerville', 'Palatino', 'Book Antiqua', serif;
-  text-align: justify;
-}
-/**
-  * This Object represents text in an article that is not to displayed like `.Article` text.
-  * Essentially it reverts back to the body copy styles.
-@tags
-: #typography
-: #article
-@author
-: Chris Harvey
-@updated
-: 2014-05-02
-  */
-.UndoArticle {
-  font-family: 'Optima', 'Candara', 'Helvetica', sans-serif;
-  text-align: left;
-}
-/**
-  * This Object represents a section of text that represents "fine print": disclaimers, etc.
-  * It should be instantiated by an entire `section`, `aside`, `div`, or `p` Element, which
-  * may or may not contain `small` Element children.
-@tags
-: #typography
-@author
-: Chris Harvey
-@updated
-: 2014-06-26
-  */
-/*---------------*\
+/*###############*\
     _lists.less
-\*---------------*/
+\*###############*/
 /*@LISTS*/
 /**
   * This Interface adds a left padding to a `.List` Object. The padding-left is set to 48px, which is
@@ -1851,9 +1894,9 @@ main {
 @updated
 : 2014-05-11
   */
-/*--------------*\
+/*##############*\
     _maps.less
-\*--------------*/
+\*##############*/
 /**
   * This Object represents an association list, which contains term-description pairs. Each pair
   * consists of exactly one `.Term` and exactly one `.Desc`.
@@ -1986,9 +2029,9 @@ main {
   list-style-type: decimal;
   list-style-position: outside;
 }
-/*----------------*\
+/*################*\
     _tables.less
-\*----------------*/
+\*################*/
 /**
   * This Object represents a table-like structure. It may or may not be a literal `table` Element.
   * A `.Table` is defined as an collection of data in two or more dimensions. A common example
@@ -2110,9 +2153,9 @@ table {
 table tr {
   counter-increment: nrows;
 }
-/*--------------*\
+/*##############*\
     _code.less
-\*--------------*/
+\*##############*/
 /** The default border radius for code-like Objects. */
 /**
   * A Mixin used for both inline and block code.
@@ -2425,9 +2468,9 @@ code {
   font-family: 'Times', 'Times New Roman', serif;
   white-space: pre-wrap;
 }
-/*---------------*\
+/*###############*\
     _links.less
-\*---------------*/
+\*###############*/
 /**
   * This Object represents the abstract concept of a span of text that links to another file.
   * It does not represent an inactive placeholder (equivalent to an empty `a` Element). It also
@@ -2484,9 +2527,9 @@ a[rel~="external"] {
   font-style: italic;
   text-transform: capitalize;
 }
-/*----------------*\
+/*################*\
     _stress.less
-\*----------------*/
+\*################*/
 /**
   * Emphasized text represents words or phrases that are stressed, as if the tone of voice would be
   * affected. More importantly, **the placement of stress should affect the meaning of the passage**.
@@ -2593,9 +2636,9 @@ sup {
 sub {
   top: 6px;
 }
-/*-------------*\
-    _doc.less
-\*-------------*/
+/*#################*\
+    _doctext.less
+\*#################*/
 /**
   * A keyword, technical or specific term, or a vocabulary term.
   * Every `dfn` must have an `id` attribute, thus there must only be one `dfn` per page that
@@ -2708,9 +2751,9 @@ ins[datetime] {
 del + ins {
   padding-left: 24px;
 }
-/*--------------*\
+/*##############*\
     _data.less
-\*--------------*/
+\*##############*/
 /**
   * A time element. See the W3C HTML5 standards for details.
 @tags
@@ -2764,10 +2807,9 @@ del + ins {
 [data-element="geo"] {
   white-space: nowrap;
 }
-/*-----------------*\
+/*#################*\
     _buttons.less
-\*-----------------*/
-/*@BUTTONS*/
+\*#################*/
 /** The default border for button-like Objects. */
 /**
   * A general Button Object.
@@ -2826,9 +2868,9 @@ del + ins {
 .Button.Block {
   display: block;
 }
-/*---------------------*\
+/*#####################*\
 	_breadcrumbs.less
-\*---------------------*/
+\*#####################*/
 /**
   * A Breadcrumb module.
 @tags
@@ -2892,9 +2934,9 @@ del + ins {
     display: none;
   }
 }
-/*-------------------*\
+/*###################*\
 	_footnotes.less
-\*-------------------*/
+\*###################*/
 /**
   * This Object represents a list whose items each contain a footnote. Typically, the order of
   * footnotes is irrelevant, so this Object should be instantiated by a `ul` Element.
@@ -2933,9 +2975,9 @@ del + ins {
 .Fn {
   width: 24px;
 }
-/*----------------*\
+/*################*\
 	_labels.less
-\*----------------*/
+\*################*/
 /**
   * A Label Object is used for displaying little indications to the user. There are two subclasses
   * of Labels: Messages and Tags. Each subclass may be of the following types:
@@ -3184,9 +3226,9 @@ del + ins {
 .Label.Tag.Help::after {
   content: ' ' '\2665';
 }
-/*---------------*\
+/*###############*\
 	_media.less
-\*---------------*/
+\*###############*/
 /**
   * The Media Object is a module that has an image with a body.
   * See `http://www.stubbornella.org/content/2010/06/25/the-media-object-saves-hundreds-of-lines-of-code/`
@@ -3197,9 +3239,9 @@ del + ins {
 @updated
 : 2014-06-16
   */
-/*----------------*\
+/*################*\
     _trumps.less
-\*----------------*/
+\*################*/
 /**
 ===== DRAFT =====
 
@@ -3238,13 +3280,6 @@ its own figure or section, though, the indication should be in that Element's
 [data-status="nonnormative"] {
   font-style: italic;
   font-family: 'Optima', 'Candara', 'Helvetica', sans-serif;
-}
-/**
-  * Elements still in testing mode but still not yet ready for implementation.
-  */
-[data-status="draft"] {
-  background-color: #fffcfa;
-  opacity: 0.61803399;
 }
 [hidden] {
   display: none !important;
