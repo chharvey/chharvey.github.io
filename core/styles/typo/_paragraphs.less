@@ -7,40 +7,6 @@
 // Table of Contents
 // - PARAGRAPHS
 // - QUASI-PARAGRAPHS
-// - SECTIONS
-
-
-/**
-  * These Mixins set the padding, border, and margin on the left or right side of an Object,
-  * such that the border:padding ratio and the (border+padding):margin ratio are Golden.
-@params
-: @side:  either "left" or "right"
-: @brdrw : value of the `border-[left|right]-width` property
-: @brdrs : value of the `border-[left|right]-style` property
-: @brdrc : value of the `border-[left|right]-color` property
-@tags
-: #golden
-@author
-: Chris Harvey
-@updated
-: 2014-05-10
-  */
-.spacing-phi(@side; @brdrw; @brdrs) {
-	 border-@{side}-width: @brdrw;
-	 border-@{side}-style: @brdrs;
-	padding-@{side}: (@brdrw * @inv_phi1);
-	 margin-@{side}: (@brdrw * @inv_phi3);
-}
-.spacing-phi(@side; @brdrw; @brdrs; @brdrc) {
-	.spacing-phi(@side; @brdrw; @brdrs);
-	border-@{side}-color: @brdrc;
-}
-/** negate the effects of `.spacing-phi(@side; @brdrw; @brdrs; @brdrc)`  on the [left|right] side */
-// .spacing-phi(@side) {
-// 	.spacing-phi(@side; 0; solid; #000);
-// }
-// .spacing-phi-left  {.spacing-phi(left);}
-// .spacing-phi-right {.spacing-phi(right);}
 
 
 //+++++++++++//
@@ -356,56 +322,3 @@
 .Fig,
 .Qblock {border-color: @color_brdr;}
 //++++ @end QUASI-PARAGRAPHS ++++//
-
-
-//+++++++++//
-/*@SECTIONS*/
-//+++++++++//
-/**
-  * This Object represents a generic article, technical document, blog post, etc. This Object may
-  * or may not take the form of a literal `article` Element or `main` Element of a page. This
-  * Object is designed to contain other block-level Objects such as `.H`s and `.P`s.
-  * Article prose, being more formal and providing more detail than other web-based texts,
-  * usually requires more careful reading.
-@tags
-: #typography
-: #article
-@author
-: Chris Harvey
-@updated
-: 2014-05-03
-  */
-.Article {
-	font-family: @fontfam_prose;
-	text-align: justify;
-}
-/**
-  * This Object represents text in an article that is not to displayed like `.Article` text.
-  * Essentially it reverts back to the body copy styles.
-@tags
-: #typography
-: #article
-@author
-: Chris Harvey
-@updated
-: 2014-05-02
-  */
-.UndoArticle {
-	font-family: @fontfam_base;
-	text-align: left;
-}
-/**
-  * This Object represents a section of text that represents "fine print": disclaimers, etc.
-  * It should be instantiated by an entire `section`, `aside`, `div`, or `p` Element, which
-  * may or may not contain `small` Element children.
-@tags
-: #typography
-@author
-: Chris Harvey
-@updated
-: 2014-06-26
-  */
-.Fineprint {
-	&:extend(.fontsize-block-sml);
-}
-//++++ @end SECTIONS ++++//
