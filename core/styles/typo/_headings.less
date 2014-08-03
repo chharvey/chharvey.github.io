@@ -22,24 +22,6 @@
 	display: block;
 	font-family: @fontfam_heading;
 	letter-spacing: 1px;
-	// color: @color_base_txt;
-}
-/**
-  * This Object represents a generic tagline inside a heading, called a 'subheading'.
-@tags
-: #typography
-: #heading
-@author
-: Chris Harvey
-@updated
-: 2014-04-30
-  */
-.H > .Hsub {
-	padding-left: @spacer;
-	font-size: @golden1;
-	font-weight: normal;
-	color: @color_base_light; // fallback
-	color: @color_base_faded;
 }
 /**
   * The six Objects below represent different levels of headings, starting from top-level to level 6.
@@ -65,10 +47,6 @@
 	font-weight: bold;
 	text-align: center;
 	color: @color_h_major;
-	> .Hsub {
-		color: @color_h_major; // fallback
-		color: @color_hsub_major;
-	}
 }
 .H.Bet {
 	.fontsize-doubleblock(@fontsize_ratio_beta);
@@ -79,10 +57,6 @@
 	.border-vert-one(bottom; 1px; solid; @color_h_minor);
 	font-weight: bold;
 	color: @color_h_minor;
-	> .Hsub {
-		color: @color_h_minor; // fallback
-		color: @color_hsub_minor;
-	}
 }
 .H.Gam {
 	.fontsize-block(@fontsize_ratio_gamma);
@@ -104,21 +78,34 @@
 }
 .H.Eps {
 	.fontsize-block(@fontsize_ratio_epsilon);
-	// .vru-top(   0);
-	// .vru-bottom(0);
 	font-style: italic;
 	color: @color_h_minor;
-	> .Hsub {
-		color: @color_h_minor; // fallback
-		color: @color_hsub_minor;
-	}
 }
 .H.Zet {
 	.fontsize-block(@fontsize_ratio_zeta);
-	// .vru-top(   0);
-	// .vru-bottom(0);
 	font-style: italic;
 	font-variant: small-caps;
+}
+/**
+  * This Object represents a generic tagline for a top-level heading, called a 'subheading'.
+  * Do not include this object as a component of an `.H.Alp` Object. (It will become part of the
+  * document outline if you do.) Instead, this tagline should be the adjacent sibling to the
+  * corresponding `.H.Alp`.
+  * Use this Object to represent subtitles for top-level headings only (`.H.Alp`). There is no need
+  * to use it for minor headings (`.H.Bet`, `.H.Gam`, etc.).
+@tags
+: #typography
+: #heading
+@author
+: Chris Harvey
+@updated
+: 2014-08-02
+  */
+.H.Hsub {
+	.fontsize-block(2);
+	font-family: @fontfam_script;
+	text-align: center;
+	color: @color_accent;
 }
 
 /**
@@ -140,11 +127,11 @@
 	.vru-bottom(2);
 	font-weight: normal;
 	font-variant: normal;
-	font-family: @fontfam_script1;
+	font-family: @fontfam_script;
 	white-space: nowrap;
 	.cap,
 	&::first-letter {
 		.fontsize-block(2 * @this_font_size);
-		font-family: @fontfam_script2;
+		font-family: 'Snell Roundhand',@fontfam_script;
 	}
 }
