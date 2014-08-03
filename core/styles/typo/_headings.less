@@ -22,24 +22,6 @@
 	display: block;
 	font-family: @fontfam_heading;
 	letter-spacing: 1px;
-	// color: @color_base_txt;
-}
-/**
-  * This Object represents a generic tagline inside a heading, called a 'subheading'.
-@tags
-: #typography
-: #heading
-@author
-: Chris Harvey
-@updated
-: 2014-04-30
-  */
-.H > .Hsub {
-	padding-left: @spacer;
-	font-size: @golden1;
-	font-weight: normal;
-	color: @color_base_light; // fallback
-	color: @color_base_faded;
 }
 /**
   * The six Objects below represent different levels of headings, starting from top-level to level 6.
@@ -53,9 +35,9 @@
 @author
 : Chris Harvey
 @updated
-: 2014-07-10
+: 2014-08-02
   */
-.H.Alpha {
+.H.Alp {
 	.fontsize-doubleblock(@fontsize_ratio_alpha);
 	.vru-top(   2 * @phi1); // 1.236
 	.vru-bottom(2 * @phi2); // 0.764
@@ -65,12 +47,8 @@
 	font-weight: bold;
 	text-align: center;
 	color: @color_h_major;
-	> .Hsub {
-		color: @color_h_major; // fallback
-		color: @color_hsub_major;
-	}
 }
-.H.Beta {
+.H.Bet {
 	.fontsize-doubleblock(@fontsize_ratio_beta);
 	.vru-top(   1.447); // find a formula to express this number
 	.vru-bottom(0.553); // find a formula to express this number
@@ -79,12 +57,8 @@
 	.border-vert-one(bottom; 1px; solid; @color_h_minor);
 	font-weight: bold;
 	color: @color_h_minor;
-	> .Hsub {
-		color: @color_h_minor; // fallback
-		color: @color_hsub_minor;
-	}
 }
-.H.Gamma {
+.H.Gam {
 	.fontsize-block(@fontsize_ratio_gamma);
 	.vru-top(   1 * @phi1); // 0.618
 	.vru-bottom(1 * @phi2); // 0.382
@@ -93,7 +67,7 @@
 	font-variant: small-caps;
 	font-weight: bold;
 }
-.H.Delta {
+.H.Del {
 	.fontsize-block(@fontsize_ratio_delta);
 	.vru-top(   0.724); // find a formula to express this number
 	.vru-bottom(0.276); // find a formula to express this number
@@ -102,29 +76,42 @@
 	font-style: italic;
 	font-weight: bold;
 }
-.H.Epsilon {
+.H.Eps {
 	.fontsize-block(@fontsize_ratio_epsilon);
-	// .vru-top(   0);
-	// .vru-bottom(0);
 	font-style: italic;
 	color: @color_h_minor;
-	> .Hsub {
-		color: @color_h_minor; // fallback
-		color: @color_hsub_minor;
-	}
 }
-.H.Zeta {
+.H.Zet {
 	.fontsize-block(@fontsize_ratio_zeta);
-	// .vru-top(   0);
-	// .vru-bottom(0);
 	font-style: italic;
 	font-variant: small-caps;
+}
+/**
+  * This Object represents a generic tagline for a top-level heading, called a 'subheading'.
+  * Do not include this object as a component of an `.H.Alp` Object. (It will become part of the
+  * document outline if you do.) Instead, this tagline should be the adjacent sibling to the
+  * corresponding `.H.Alp`.
+  * Use this Object to represent subtitles for top-level headings only (`.H.Alp`). There is no need
+  * to use it for minor headings (`.H.Bet`, `.H.Gam`, etc.).
+@tags
+: #typography
+: #heading
+@author
+: Chris Harvey
+@updated
+: 2014-08-02
+  */
+.H.Hsub {
+	.fontsize-doubleblock(2);
+	font-family: @fontfam_script;
+	text-align: center;
+	color: @color_accent;
 }
 
 /**
   * A fancy heading for the portfolio pages.
 @extends
-: .H.Alpha
+: .H.Alp
 @tags
 : #typography
 : #heading
@@ -133,18 +120,18 @@
 @updated
 : 2014-06-19
   */
-.H.Alpha.Folio {
+.H.Alp.Folio {
 	@this_font_size: @fontsize_ratio_alpha;
 	.fontsize-doubleblock(@this_font_size);
 	.vru-top(4);
 	.vru-bottom(2);
 	font-weight: normal;
 	font-variant: normal;
-	font-family: @fontfam_script1;
+	font-family: @fontfam_script;
 	white-space: nowrap;
 	.cap,
 	&::first-letter {
 		.fontsize-block(2 * @this_font_size);
-		font-family: @fontfam_script2;
+		font-family: 'Snell Roundhand',@fontfam_script;
 	}
 }
