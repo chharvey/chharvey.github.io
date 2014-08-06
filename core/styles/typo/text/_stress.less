@@ -42,7 +42,7 @@ strong {font-weight: bold;}
 @updated
 : 2014-08-05
   */
-i {font-style: italic;}
+i {&:extend(.quotes-double all);}
 /**
   * A keyword, technical or specific term, or key phrase, or
   * a phrase in a foreign language, such as the taxonomic classification (in Latin) of an organism.
@@ -74,11 +74,11 @@ b[lang] {
 @updated
 : 2014-08-05
   */
-mark {color: @color_accent;}
+mark {}
 /**
-  * A span of text to which the reader's attention should be brought, for some reason, typically,
-  * for purposes of illustration. This may be indicated with non-textual annotation.
-  * Note: There may be a more appropriate element to use. Namely:
+  * A span of text to which the reader's attention should be brought for purposes of illustration.
+  * This span is typically in a figure or example.
+  * Note: There could be a more appropriate element to use. Namely:
   * - If the span of text has an emphasized meaning, use `em`.
   * - If the span of text relays an important concept, use `strong`.
   * - If the span of text is represented in an alternate voice/mood, use `i`.
@@ -92,7 +92,25 @@ mark {color: @color_accent;}
 @updated
 : 2014-08-05
   */
-u {}
+u {color: @color_accent;}
+
+/**
+  * Superscripts and subscripts.
+@tags
+: #typography
+@author
+: Chris Harvey
+@updated
+: 2014-06-13
+  */
+sup,
+sub {
+	&:extend(.fontsize-sml);
+	position: relative;
+	vertical-align: baseline;
+}
+sup {bottom: (@spacer / 4);}
+sub {top:    (@spacer / 4);}
 
 /**
   * This Object is used to make text appear highlighted.
@@ -111,25 +129,9 @@ u {}
 	.fade-background(@color_accent; @golden1);
 	padding: 2px 3px;
 }
-.Hi.Warn {.fade-background(@color_lbl_warn_brdr; @golden1);}
-.Hi.Cshn {.fade-background(@color_lbl_cshn_brdr; @golden1);}
-.Hi.Skss {.fade-background(@color_lbl_skss_brdr; @golden1);}
-.Hi.Info {.fade-background(@color_lbl_info_brdr; @golden1);}
-.Hi.Help {.fade-background(@color_lbl_help_brdr; @golden1);}
-/**
-  * Superscripts and subscripts.
-@tags
-: #typography
-@author
-: Chris Harvey
-@updated
-: 2014-06-13
-  */
-sup,
-sub {
-	&:extend(.fontsize-sml);
-	position: relative;
-	vertical-align: baseline;
-}
-sup {bottom: (@spacer / 4);}
-sub {top:    (@spacer / 4);}
+.Hi.Alp {.fade-background(@color_lbl_warn_brdr; @golden1);}
+.Hi.Bet {.fade-background(@color_lbl_cshn_brdr; @golden1);}
+.Hi.Gam {.fade-background(@color_lbl_skss_brdr; @golden1);}
+.Hi.Del {.fade-background(@color_lbl_info_brdr; @golden1);}
+.Hi.Eps {.fade-background(@color_lbl_help_brdr; @golden1);}
+.Hi.Zet {.fade-background(@color_base_txt;      @golden1);}
