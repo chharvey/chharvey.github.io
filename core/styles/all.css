@@ -651,8 +651,7 @@ sub,
 .Fig,
 .Qblock,
 .Item,
-.Map > .Term,
-.Map > .Desc,
+.Map,
 .Cell,
 .Codeblock,
 .Label.Msg,
@@ -706,7 +705,7 @@ sub,
 @author
 : Chris Harvey
 @updated
-: 2014-04-26
+: 2014-08-07
   */
 .vru-top-phi,
 .Addy,
@@ -715,7 +714,7 @@ sub,
   padding-top: 9.16718427px;
   margin-top: 14.83281573px;
   border-top-width: 0;
-  border-top-style: solid;
+  border-top-style: none;
   border-top-color: #000000;
 }
 /**
@@ -724,7 +723,7 @@ sub,
   * The `.hr()` Mixin lets you choose the line color.
   * The `-head` suffix colors the line with the main heaing color (blueish).
   * The `-brdr` suffix colors the line with the border accent color (greenish).
-  * The `-acnt` suffix colors the line with the accent color (redish).
+  * The `-acnt` suffix colors the line with the accent color (reddish).
 @tags
 : #golden
 : #heading
@@ -733,28 +732,29 @@ sub,
 @author
 : Chris Harvey
 @updated
-: 2014-07-07
+: 2014-08-07
   */
-.hr-head {
-  padding-top: 8.78521826px;
-  margin-top: 14.21478174px;
-  border-top-width: 1px;
-  border-top-style: solid;
-  border-top-color: #120099;
-}
+.Hr,
+.hr-head,
 .hr-brdr,
+.hr-acnt,
 .List.Footnotes {
   padding-top: 8.78521826px;
   margin-top: 14.21478174px;
   border-top-width: 1px;
   border-top-style: solid;
+}
+.Hr.Head,
+.hr-head {
+  border-top-color: #120099;
+}
+.Hr.Brdr,
+.hr-brdr,
+.List.Footnotes {
   border-top-color: #9acc7a;
 }
+.Hr.Acnt,
 .hr-acnt {
-  padding-top: 8.78521826px;
-  margin-top: 14.21478174px;
-  border-top-width: 1px;
-  border-top-style: solid;
   border-top-color: #cc004e;
 }
 /*#################*\
@@ -1903,13 +1903,14 @@ main {
   * This Object represents an association list, which contains term-description pairs. Each pair
   * consists of exactly one `.Term` and exactly one `.Desc`.
 @implements
+: .vru-content
 @tags
 : #typography
 : #map
 @author
 : Chris Harvey
 @updated
-: 2014-07-10
+: 2014-08-07
   */
 .Map {
   display: block;
@@ -1918,29 +1919,27 @@ main {
   * This Object represent the term in a term-description pair of a `.Map`.
 @belongsto
 : .Map
-@implements
-: .vru-content
 @tags
 : #typography
 : #map
 @author
 : Chris Harvey
 @updated
-: 2014-05-25
+: 2014-08-07
   */
 /**
   * This Object represent the description in a term-description pair of a `.Map`.
 @belongsto
 : .Map
 @implements
-: .vru-content
+: .listindent
 @tags
 : #typography
 : #map
 @author
 : Chris Harvey
 @updated
-: 2014-05-25
+: 2014-08-07
   */
 .Map > .Desc {
   padding-left: 48px;
