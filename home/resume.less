@@ -10,6 +10,9 @@
 //- HEADINGS
 
 
+.List.U {.listindent-half;}
+
+
 //+++++++++//
 /*@SECTIONS*/
 //+++++++++//
@@ -33,16 +36,7 @@
   * A Skill is a top-level section, e.g. Teaching Experience.
   * The name of the Skill is a `.res-SkillTitle`.
   */
-.res-Skill {
-	&#objective   {}
-	&#edu         {}
-	&#teach-exp   {}
-	&#work-exp    {}
-	&#prof-dev    {}
-	&#tech-skills {}
-	&#awards      {}
-	&#athletic    {}
-}
+.res-Skill {}
 /**
   * A Job is an item in a Skill. It has an organization name and location.
   * The name of the Job is a `.res-JobTitle`.
@@ -130,13 +124,30 @@
 }
 //++++ @end HEADINGS ++++//
 
+#tech-skills {
+	.res-Job {
+		box-sizing: border-box;
+		width: 50%;
+		padding: 0 5px;
+	}
+}
+.tech-skills-body { // element created in JS
+	.flexbox();
+	.flex-direction(column);
+	.flex-wrap(wrap);
+}
+#tech-gen  {.flex-order(00);}
+#tech-html {.flex-order(10);}
+#tech-css  {.flex-order(01);}
+#tech-git  {.flex-order(30);}
+#tech-misc {.flex-order(40);}
+#tech-apps {.flex-order(50);}
+
 
 /**
   * A bullet list of job descriptions for each Position.
 @extends
-: .List
-@implements
-: .listindent-half
+: .List.U
 @tags
 : #typography
 : #list
@@ -147,8 +158,8 @@
 @updated
 : 2014-06-26
   */
-.List.res-PosDetail {
-	.listindent-half;
+.res-PosDetail {
+	.List.U;
 }
 
 /**
@@ -195,19 +206,24 @@ a {font-style: inherit !important;}
 	.js-res-Footer {
 		display: none;
 	}
+	#tech-gen,
+	#tech-html {margin-top: 0;}
 }
-
 @media print {
 	.res-Body {
+		width: 768px; // 8in
 		.fontsize-block-inherit;
 		font-family: @fontfam_math;
 	}
 	.res-Main {
+		// .flexbox();
+		// .flex-direction(column);
 		margin-bottom: 0;
 	}
-	.res-Job {
-		.vru-top(0.5);
-	}
+	// .res-Job {
+	// 	.vru-top(0.5);
+	// }
+
 	.res-Name,
 	.res-SkillTitle,
 	.res-JobTitle,
@@ -228,7 +244,7 @@ a {font-style: inherit !important;}
 	}
 	.res-Name,
 	.res-SkillTitle {
-		.fontsize-lrg;
+		.fontsize-block-lrg;
 	}
 	.res-Name {}
 	.res-SkillTitle {
@@ -242,4 +258,21 @@ a {font-style: inherit !important;}
 	.res-Inst {
 		font-style: italic;
 	}
+
+	// .res-Header  {.flex-order(00);}
+	// #objective   {.flex-order(10);}
+	// #tech-skills {.flex-order(20);}
+	// #teach-exp   {.flex-order(30);}
+	// #work-exp    {.flex-order(40);}
+	// #edu         {.flex-order(50);}
+	// #prof-dev    {.flex-order(60);}
+	// #awards      {.flex-order(70);}
+	// #athletic    {.flex-order(80);}
+	// .res-Footer  {.flex-order(90);}
+
+	#tech-skills .res-PosDetail {
+		.fontsize-block-sml;
+	}
+	// #teach-exp {margin-top: 0.5in;}
+	// #VTSC      {margin-top: 0.5in;}
 }
