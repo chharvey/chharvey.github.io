@@ -59,14 +59,15 @@
 @author
 : Chris Harvey
 @updated
-: 2014-05-08
+: 2014-08-06
   */
-.List > .Item {
+.Item {
 	&:extend(.vru-content);
 	display: list-item;
 }
 /**
-  * This Object represents a nested List Object nested within a List Item Object.
+  * This Object represents a nested List Object as a descendant of another List Object.
+  * (It must be a child of a List Item Object.)
 @implements
 : .listindent
 @tags
@@ -75,9 +76,9 @@
 @author
 : Chris Harvey
 @updated
-: 2014-07-10
+: 2014-08-06
   */
-.List > .Item > .List {
+.List .List {
 	&:extend(.listindent);
 }
 /**
@@ -199,12 +200,11 @@
 @author
 : Chris Harvey
 @updated
-: 2014-05-26
+: 2014-08-06
   */
 .Enum {
 	display: inline;
 	> .Item {
-		&:extend(.vru-content);
 		display: inline;
 	}
 }
@@ -234,6 +234,7 @@
 }
 //++++ @end ENUMS ++++//
 
+
 /**
   * These Objects are `.Item`s in a `.List` or `.Enum`. They represent character-separated values.
 @tags
@@ -242,11 +243,11 @@
 @author
 : Chris Harvey
 @updated
-: 2014-06-07
+: 2014-08-06
   */
-.Item.Comma::after {content:          ',\0020';}
-.Item.Mdash::after {content: '\0020\2014\0020';} // ' — '
-.Item.Ndash::after {content: '\0020\2013\0020';} // ' – '
+.Comma > .Item:not(:last-child)::after {content:          ',\0020';} // ', '
+.Mdash > .Item:not(:last-child)::after {content: '\0020\2014\0020';} // ' — '
+.Ndash > .Item:not(:last-child)::after {content: '\0020\2013\0020';} // ' – '
 
 /**
   * This Object represents a generic list whose items are to be displayed as blocks that have
