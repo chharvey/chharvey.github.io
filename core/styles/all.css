@@ -495,7 +495,6 @@ code,
 .Dir,
 sup,
 sub,
-.Acro,
 .Button {
   font-size: 12px;
   font-size: 0.75rem;
@@ -559,6 +558,9 @@ sub,
   font-size: inherit;
   line-height: inherit;
 }
+/*#################*\
+    _flexbox.less
+\*#################*/
 /*################*\
     _floats.less
 \*################*/
@@ -648,10 +650,8 @@ sub,
 .Addy,
 .Fig,
 .Qblock,
-.List > .Item,
-.Enum > .Item,
-.Map > .Term,
-.Map > .Desc,
+.Item,
+.Map,
 .Cell,
 .Codeblock,
 .Label.Msg,
@@ -705,7 +705,7 @@ sub,
 @author
 : Chris Harvey
 @updated
-: 2014-04-26
+: 2014-08-07
   */
 .vru-top-phi,
 .Addy,
@@ -714,7 +714,7 @@ sub,
   padding-top: 9.16718427px;
   margin-top: 14.83281573px;
   border-top-width: 0;
-  border-top-style: solid;
+  border-top-style: none;
   border-top-color: #000000;
 }
 /**
@@ -723,7 +723,7 @@ sub,
   * The `.hr()` Mixin lets you choose the line color.
   * The `-head` suffix colors the line with the main heaing color (blueish).
   * The `-brdr` suffix colors the line with the border accent color (greenish).
-  * The `-acnt` suffix colors the line with the accent color (redish).
+  * The `-acnt` suffix colors the line with the accent color (reddish).
 @tags
 : #golden
 : #heading
@@ -732,28 +732,29 @@ sub,
 @author
 : Chris Harvey
 @updated
-: 2014-07-07
+: 2014-08-07
   */
-.hr-head {
-  padding-top: 8.78521826px;
-  margin-top: 14.21478174px;
-  border-top-width: 1px;
-  border-top-style: solid;
-  border-top-color: #120099;
-}
+.Hr,
+.hr-head,
 .hr-brdr,
+.hr-acnt,
 .List.Footnotes {
   padding-top: 8.78521826px;
   margin-top: 14.21478174px;
   border-top-width: 1px;
   border-top-style: solid;
+}
+.Hr.Head,
+.hr-head {
+  border-top-color: #120099;
+}
+.Hr.Brdr,
+.hr-brdr,
+.List.Footnotes {
   border-top-color: #9acc7a;
 }
+.Hr.Acnt,
 .hr-acnt {
-  padding-top: 8.78521826px;
-  margin-top: 14.21478174px;
-  border-top-width: 1px;
-  border-top-style: solid;
   border-top-color: #cc004e;
 }
 /*#################*\
@@ -1648,7 +1649,7 @@ main {
 : 2014-06-26
   */
 .listindent,
-.List > .Item > .List,
+.List .List,
 .List.O,
 .List.U {
   padding-left: 48px;
@@ -1687,13 +1688,14 @@ main {
 @author
 : Chris Harvey
 @updated
-: 2014-05-08
+: 2014-08-06
   */
-.List > .Item {
+.Item {
   display: list-item;
 }
 /**
-  * This Object represents a nested List Object nested within a List Item Object.
+  * This Object represents a nested List Object as a descendant of another List Object.
+  * (It must be a child of a List Item Object.)
 @implements
 : .listindent
 @tags
@@ -1702,7 +1704,7 @@ main {
 @author
 : Chris Harvey
 @updated
-: 2014-07-10
+: 2014-08-06
   */
 /**
   * This Object represents an ordered list, or a list used for an outline. This does *not*
@@ -1830,7 +1832,7 @@ main {
 @author
 : Chris Harvey
 @updated
-: 2014-05-26
+: 2014-08-06
   */
 .Enum {
   display: inline;
@@ -1870,15 +1872,15 @@ main {
 @author
 : Chris Harvey
 @updated
-: 2014-06-07
+: 2014-08-06
   */
-.Item.Comma::after {
+.Comma > .Item:not(:last-child)::after {
   content: ',\0020';
 }
-.Item.Mdash::after {
+.Mdash > .Item:not(:last-child)::after {
   content: '\0020\2014\0020';
 }
-.Item.Ndash::after {
+.Ndash > .Item:not(:last-child)::after {
   content: '\0020\2013\0020';
 }
 /**
@@ -1902,13 +1904,14 @@ main {
   * This Object represents an association list, which contains term-description pairs. Each pair
   * consists of exactly one `.Term` and exactly one `.Desc`.
 @implements
+: .vru-content
 @tags
 : #typography
 : #map
 @author
 : Chris Harvey
 @updated
-: 2014-07-10
+: 2014-08-07
   */
 .Map {
   display: block;
@@ -1917,29 +1920,27 @@ main {
   * This Object represent the term in a term-description pair of a `.Map`.
 @belongsto
 : .Map
-@implements
-: .vru-content
 @tags
 : #typography
 : #map
 @author
 : Chris Harvey
 @updated
-: 2014-05-25
+: 2014-08-07
   */
 /**
   * This Object represent the description in a term-description pair of a `.Map`.
 @belongsto
 : .Map
 @implements
-: .vru-content
+: .listindent
 @tags
 : #typography
 : #map
 @author
 : Chris Harvey
 @updated
-: 2014-05-25
+: 2014-08-07
   */
 .Map > .Desc {
   padding-left: 48px;
@@ -2564,6 +2565,7 @@ strong {
 /**
   * A phrase interpreted in an alternate voice or mood, without carrying extra emphasis,
   * such as scare quotes and mentions.
+  * Or a phrase in a foreign language, such as the taxonomic classification (in Latin) of an organism.
 @tags
 : #typography
 : #span
@@ -2572,9 +2574,14 @@ strong {
 @updated
 : 2014-08-05
   */
+i[lang] {
+  font-style: italic;
+  font-weight: normal;
+  font-family: 'Times', 'Times New Roman', serif;
+  quotes: '' '';
+}
 /**
-  * A keyword, technical or specific term, or key phrase, or
-  * a phrase in a foreign language, such as the taxonomic classification (in Latin) of an organism.
+  * A keyword, technical or specific term, or key phrase
   * (If a foreign language, be sure to add the `[lang]` attribute.)
   * A `b` Element is any generic keyword or term, whose definition is not present. If the term is
   * being defined, use the `dfn` Element.
@@ -2589,11 +2596,6 @@ strong {
 b {
   font-weight: bold;
 }
-b[lang] {
-  font-style: italic;
-  font-weight: normal;
-  font-family: 'Times', 'Times New Roman', serif;
-}
 /**
   * A span of text that is relevant in some context. It is advisable to use the `[class]` attribute
   * to indicate the context in which the span is relevant.
@@ -2605,6 +2607,11 @@ b[lang] {
 @updated
 : 2014-08-05
   */
+mark {
+  background-color: #cc004e;
+  background-color: rgba(204, 0, 78, 0.38196601);
+  padding: 2px 3px;
+}
 /**
   * A span of text to which the reader's attention should be brought for purposes of illustration.
   * This span is typically in a figure or example.
@@ -2742,7 +2749,7 @@ abbr[title] {
   cursor: help;
 }
 .Acro {
-  text-transform: uppercase;
+  font-size: 75%;
 }
 /**
   * An inline quotation: a span of text that is taken directly from another source
@@ -3303,7 +3310,7 @@ del + ins {
     _trumps.less
 \*################*/
 /**
-===== DRAFT =====
++++++ DRAFT +++++
 
 All informative content, including `p`s, `img`s, and `figure`s should be designated with
 an `informative` status. All non-normative text should be contained in flow, non-phrasing
@@ -3372,7 +3379,7 @@ its own figure or section, though, the indication should be in that Element's
     background-color: #fff;
   }
   body {
-    background-image: none;
+    background-image: none !important;
   }
   main {
     width: auto;
@@ -3405,7 +3412,8 @@ its own figure or section, though, the indication should be in that Element's
   .noprint {
     display: none;
   }
-  /**
+}
+/**
 	  * This Interface starts a new page in the print media.
 	@tags
 	: #schematic
@@ -3414,8 +3422,3 @@ its own figure or section, though, the indication should be in that Element's
 	@updated
 	: 2014-04-30
 	  */
-  .pagebreak {
-    page-break-before: always;
-    padding-top: 0.25in;
-  }
-}
