@@ -67,21 +67,36 @@
 @updated
 : 2014-08-10
   */
-[data-status="draft"]    {background-color: fadeout(@color_lbl_warn_bg, @golden4c);}
-[data-status="complete"] {background-color: fadeout(@color_lbl_cshn_bg, @golden4c);}
-.statusborder {
-	.spacing-phi(left; 4px; solid);
-	padding-right: 4px;
-	box-shadow: 4px 4px 4px #808080;
-}
 .Article {
+	&[data-status="draft"]::before,
+	&[data-status="complete"]::before,
+	&[data-status="released"]::before {
+		.Label;
+		.Label.Msg;
+		.border-vert-undo;
+		margin-top: 0;
+			box-sizing: border-box;
+			position: fixed;
+			width: @golden5;
+			margin-left: @golden7;
+			margin-right: @golden8;
+			right: 0;
+		top: 2 * @vru_rem;
+		font-weight: bold;
+		text-align: right;
+	}
+	&[data-status="draft"]::before    {.Label.Msg.Warn; content: 'This article is a work in progress. It has not been finalized.';}
+	&[data-status="complete"]::before {.Label.Msg.Cshn; content: 'This article is mostly complete and needs some edits before releasing.';}
+	&[data-status="released"]::before {.Label.Msg.Skss; content: 'This article is ready for implementation.';}
+
 	[data-status="draft"],
 	[data-status="complete"],
-	[data-status="released"] {&:extend(.statusborder);}
-
-	[data-status="draft"]    {border-color: @color_lbl_warn_brdr;}
-	[data-status="complete"] {border-color: @color_lbl_cshn_brdr;}
-	[data-status="released"] {border-color: @color_lbl_skss_brdr;}
-
-	[data-status="released"] {background-color: fadeout(@color_lbl_skss_bg, @golden4c);}
+	[data-status="released"] {
+		.spacing-phi(left; 4px; solid);
+		padding-right: 4px;
+		box-shadow: 4px 4px 4px #808080;
+	}
+	[data-status="draft"]    {border-color: @color_lbl_warn_brdr; background-color: fadeout(@color_lbl_warn_bg, @golden4c);}
+	[data-status="complete"] {border-color: @color_lbl_cshn_brdr; background-color: fadeout(@color_lbl_cshn_bg, @golden4c);}
+	[data-status="released"] {border-color: @color_lbl_skss_brdr; background-color: fadeout(@color_lbl_skss_bg, @golden4c);}
 }
