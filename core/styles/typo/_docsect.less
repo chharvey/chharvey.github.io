@@ -52,9 +52,9 @@
 }
 
 /**
-  * This attribute indicates the status of a document or Element.
+  * The `[data-status]` attribute indicates the status of a document or Element.
   * "draft"    : a work in progress
-  * "complete" : finished but not yet ready for implementation
+  * "complete" : finished but still needs edits before releasing
   * "released" : ready for implementation
   * See https://github.com/chharvey/chharvey.github.io/wiki/Document-Status/ for more info.
 @tags
@@ -65,29 +65,37 @@
 @author
 : Chris Harvey
 @updated
-: 2014-08-10
+: 2014-08-11
   */
 .Article {
 	&[data-status="draft"]::before,
 	&[data-status="complete"]::before,
 	&[data-status="released"]::before {
-		.Label;
-		.Label.Msg;
-		.border-vert-undo;
-		margin-top: 0;
-			box-sizing: border-box;
-			position: fixed;
-			width: @golden5;
-			margin-left: @golden7;
-			margin-right: @golden8;
-			right: 0;
-		top: 2 * @vru_rem;
+		// .Label;
+		// .Label.Msg;
+		// .border-vert-undo;
+		// margin-top: 0;
+		// .gutter--minor;
+		// top: 2 * @vru_rem;
 		font-weight: bold;
-		text-align: right;
+		.fontsize-block-sml;
+		// text-align: right;
 	}
-	&[data-status="draft"]::before    {.Label.Msg.Warn; content: 'This article is a work in progress.';}
-	&[data-status="complete"]::before {.Label.Msg.Cshn; content: 'This article is mostly complete.';}
-	&[data-status="released"]::before {.Label.Msg.Skss; content: 'This article is ready for implementation.';}
+	&[data-status="draft"]::before    {
+	// 	.Label.Msg.Warn;
+	// 	.lbl-warn-nf;
+		content: 'This article is a work in progress.';
+	}
+	&[data-status="complete"]::before {
+	// 	.Label.Msg.Cshn;
+	// 	.lbl-cshn-nf;
+		content: 'This article is mostly complete.';
+	}
+	&[data-status="released"]::before {
+	// 	.Label.Msg.Skss;
+	// 	.lbl-skss-nf;
+		content: 'This article is ready for implementation.';
+	}
 
 	[data-status="draft"],
 	[data-status="complete"],
