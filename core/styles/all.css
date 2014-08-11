@@ -529,14 +529,12 @@ sub,
 : 2014-07-08
   */
 .fontsize-block-lrg,
-.Qblock {
+.Qblock.Short {
   font-size: 20px;
   font-size: 1.25rem;
   line-height: 1.2;
 }
 .fontsize-block-med,
-.Qblock.Long,
-.Qblock.Long .Src,
 .Button.Crumb {
   font-size: 16px;
   font-size: 1rem;
@@ -545,7 +543,7 @@ sub,
 .fontsize-block-sml,
 .Fineprint,
 .Capt,
-.Qblock .Src,
+.Qblock.Short .Src,
 .Table,
 .Codeblock,
 .List.Footnotes,
@@ -943,7 +941,7 @@ sub,
 .quotes-double::before,
 .guillemets-single::before,
 .guillemets-double::before,
-.Qblock.Long .Src::before,
+.Qblock .Src.Formal::before,
 i::before,
 var::before,
 q::before,
@@ -962,7 +960,7 @@ q::before,
 .quotes-double::after,
 .guillemets-single::after,
 .guillemets-double::after,
-.Qblock.Long .Src::after,
+.Qblock .Src.Formal::after,
 i::after,
 var::after,
 q::after,
@@ -972,7 +970,7 @@ q::after,
   content: close-quote;
 }
 .parens,
-.Qblock.Long .Src {
+.Qblock .Src.Formal {
   quotes: '(' ')';
 }
 .brackets,
@@ -1108,8 +1106,7 @@ main {
 : 2014-06-08
   */
 .crossgrid-lined,
-.Fig,
-.Qblock {
+.Fig {
   background-image: url('http://chharvey.github.io/core/images/crossgrid-lined_1x24.svg');
   background-size: 1px 24px;
   background-repeat: repeat;
@@ -1592,9 +1589,17 @@ main {
 /**
   * This Object represents any Block Quotation, representing material taken directly from another
   * source. It may or may not take the form of a literal `blockquote` Element.
+  *
+  * If the original source has paragraph breaks, regardless of word count, use `.Qblock`.
+  * It should have paragraph breaks that correspond to the source.
+  *
+  * If the original source is more than 40 words and does not have paragraph breaks, use
+  * `.Qblock.Long`. It should not contain paragraphs (either `.P` Objects or `p` Elements);
+  * it should directly contain the source's text.
+  *
   * If the original source is less than 40 words and does not have paragraph breaks (for example,
-  * extracted inline text from an article), this `.Qblock` should not contain Paragraphs; it should
-  * directly contain the source's text.
+  * extracted inline text from an article), use the `.Qblock.Short` subclass. It should also not
+  * contain paragraphs.
 @implements
 : .vru-content
 : .vru-top-phi
@@ -1608,7 +1613,7 @@ main {
 @author
 : Chris Harvey
 @updated
-: 2014-07-10
+: 2014-08-11
   */
 .Qblock {
   border-left-width: 7px;
@@ -1620,52 +1625,35 @@ main {
 }
 /**
   * The `.Src` Object represents the citation of a source inside a `.Qblock` Object. It is
-  * recommended to apply this class to a `cite` Element.
+  * recommended to apply this class to a `cite` Element, possibly within a `footer` Element.
 @belongsto
 : .Qblock
-@implements
-: .fontsize-block-sml
 @tags
 : #typography
 : #quote
 @author
 : Chris Harvey
 @updated
-: 2014-07-10
+: 2014-08-11
   */
 .Qblock .Src {
   display: block;
-  padding-right: 24px;
   text-align: right;
 }
 .Qblock .Src::before {
   content: '~\0020';
 }
-/**
-  * This Object represents a "long" block quotation.
-  * If the original source is more than 40 words and does not have paragraph breaks, this
-  * `.Qblock.Long` should have exactly one `.P` object, which contains the text from the source.
-  * If the original source has paragraph breaks, regardless of word count, this `.Qblock.Long`
-  * should have paragraph breaks that correspond to the source.
-@extends
-: .Qblock
-@implements
-: .fontsize-block-med
-@tags
-: #typography
-: #quote
-@author
-: Chris Harvey
-@updated
-: 2014-07-10
-  */
-.Qblock.Long .Src {
-  padding-right: 0;
+.Qblock .Src:not(.Formal) {
+  border-right-width: 3px;
+  border-right-style: double;
+  padding-right: 4.85410197px;
+  margin-right: 12.70820393px;
 }
 .Capt,
 .Addy,
 .Fig,
-.Qblock {
+.Qblock,
+.Qblock .Src {
   border-color: #9acc7a;
 }
 /*###############*\
