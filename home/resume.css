@@ -34,13 +34,11 @@ sub,
   font-size: 12px;
   font-size: 0.75rem;
 }
-.Qblock {
+.Qblock.Short {
   font-size: 20px;
   font-size: 1.25rem;
   line-height: 1.2;
 }
-.Qblock.Long,
-.Qblock.Long .Src,
 .Button.Crumb {
   font-size: 16px;
   font-size: 1rem;
@@ -48,11 +46,10 @@ sub,
 }
 .Fineprint,
 .Capt,
-.Qblock .Src,
+.Qblock.Short .Src,
 .Table,
 .Codeblock,
-.List.Footnotes,
-.Label {
+.List.Footnotes {
   font-size: 12px;
   font-size: 0.75rem;
   line-height: 2;
@@ -70,18 +67,17 @@ sub,
 .Fig,
 .Qblock,
 .Item,
-.Map > .Term,
-.Map > .Desc,
+.Map,
 .Cell,
 .Codeblock,
-.Label.Msg,
-.Label.Tag,
+.Lbl,
 .res-Name,
 .res-SkillTitle,
 .res-JobTitle,
 .res-PosTitle,
 .res-Deg,
 .res-Inst {
+  display: block;
   min-height: 24px;
   min-height: 1.5rem;
 }
@@ -110,19 +106,31 @@ sub,
   padding-top: 9.16718427px;
   margin-top: 14.83281573px;
   border-top-width: 0;
-  border-top-style: solid;
+  border-top-style: none;
   border-top-color: #000000;
 }
+.hr-head,
+.hr-brdr,
+.hr-acnt,
 .List.Footnotes {
   padding-top: 8.78521826px;
   margin-top: 14.21478174px;
   border-top-width: 1px;
   border-top-style: solid;
+}
+.hr-head {
+  border-top-color: #120099;
+}
+.hr-brdr,
+.List.Footnotes {
   border-top-color: #9acc7a;
+}
+.hr-acnt {
+  border-top-color: #cc004e;
 }
 .Cell,
 .Codeblock,
-.Label.Msg {
+.Lbl {
   padding: 12px 7.41640786px;
   padding: 0.75rem 7.41640786px;
 }
@@ -135,7 +143,8 @@ sub,
 .quotes-double::before,
 .guillemets-single::before,
 .guillemets-double::before,
-.Qblock.Long .Src::before,
+.Qblock .Src.Formal::before,
+i::before,
 var::before,
 q::before,
 .Th::before,
@@ -152,7 +161,8 @@ q::before,
 .quotes-double::after,
 .guillemets-single::after,
 .guillemets-double::after,
-.Qblock.Long .Src::after,
+.Qblock .Src.Formal::after,
+i::after,
 var::after,
 q::after,
 .Th::after,
@@ -160,13 +170,14 @@ q::after,
 .Fn > .Link::after {
   content: close-quote;
 }
-.Qblock.Long .Src {
+.Qblock .Src.Formal {
   quotes: '(' ')';
 }
 .Rf > .Link,
 .Fn > .Link {
   quotes: '[' ']';
 }
+i,
 q {
   quotes: '\201c' '\201d';
 }
@@ -176,6 +187,7 @@ var {
 .Th {
   quotes: '\00ab' '\00bb';
 }
+.Fig,
 .Qblock {
   background-image: url('http://chharvey.github.io/core/images/crossgrid-lined_1x24.svg');
   background-size: 1px 24px;
@@ -215,36 +227,6 @@ code .Comm,
 .Codeblock .Comm,
 .Key .Comm {
   color: #586e75;
-}
-.Label.Msg.Warn,
-.Label.Tag.Warn {
-  border-color: #ff0000;
-  color: #610000;
-  background-color: #ff9e9e;
-}
-.Label.Msg.Cshn,
-.Label.Tag.Cshn {
-  border-color: #ccff00;
-  color: #4e6100;
-  background-color: #ecff9e;
-}
-.Label.Msg.Skss,
-.Label.Tag.Skss {
-  border-color: #00ff66;
-  color: #006127;
-  background-color: #9effc5;
-}
-.Label.Msg.Info,
-.Label.Tag.Info {
-  border-color: #0066ff;
-  color: #002761;
-  background-color: #9ec5ff;
-}
-.Label.Msg.Help,
-.Label.Tag.Help {
-  border-color: #cc00ff;
-  color: #4e0061;
-  background-color: #ec9eff;
 }
 /*---------------*\
     resume.less
@@ -317,10 +299,6 @@ code .Comm,
   text-align: center;
   color: #120099;
 }
-.res-Name > .Hsub {
-  color: #120099;
-  color: rgba(18, 0, 153, 0.61803399);
-}
 /**
   * The title of each skillgroup, e.g. "Teaching Experience"
 @extends
@@ -359,10 +337,6 @@ code .Comm,
   border: 0;
   margin-bottom: 0;
 }
-.res-SkillTitle > .Hsub {
-  color: #3d6166;
-  color: rgba(61, 97, 102, 0.61803399);
-}
 .res-JobTitle {
   font-size: 26px;
   font-size: 1.625rem;
@@ -391,10 +365,6 @@ code .Comm,
   line-height: 1.33333333;
   font-style: italic;
   color: #3d6166;
-}
-.res-Deg > .Hsub {
-  color: #3d6166;
-  color: rgba(61, 97, 102, 0.61803399);
 }
 .res-Inst {
   font-size: 16px;
