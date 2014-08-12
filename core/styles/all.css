@@ -546,8 +546,7 @@ sub,
 .Qblock.Short .Src,
 .Table,
 .Codeblock,
-.List.Footnotes,
-.Label {
+.List.Footnotes {
   font-size: 12px;
   font-size: 0.75rem;
   line-height: 2;
@@ -613,6 +612,20 @@ sub,
     _grad.less
 \*##############*/
 /**
+  * Use this Mixin as a tool to apply the color scheme to an Element.
+@params
+: @color_bd  : the border     color of the Element
+: @color_txt : the text       color of the Element
+: @color_bg  : the background color of the Element
+@tags
+: #border
+: #background
+@author
+: Chris Harvey
+@updated
+: 2014-08-11
+  */
+/**
   * Use this Mixin to apply a linear gradient background on an Element.
   * See [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/linear-gradient) for more info.
   * See [WPD](http://docs.webplatform.org/wiki/css/functions/linear-gradient) for more info.
@@ -652,8 +665,7 @@ sub,
 .Map,
 .Cell,
 .Codeblock,
-.Label.Msg,
-.Label.Tag {
+.Lbl {
   min-height: 24px;
   min-height: 1.5rem;
 }
@@ -844,7 +856,7 @@ sub,
 .cellpaddingdefault,
 .Cell,
 .Codeblock,
-.Label.Msg {
+.Lbl {
   padding: 12px 7.41640786px;
   padding: 0.75rem 7.41640786px;
 }
@@ -2338,6 +2350,7 @@ code {
   */
 .Codeblock .Tag {
   color: #268bd2;
+  font-family: inherit;
 }
 .Codeblock .Atr {
   color: #cb4b16;
@@ -2950,33 +2963,33 @@ del + ins {
   font-family: 'Century Gothic', 'Gill Sans', 'Avenir', sans-serif;
   color: #0062ff;
   background-color: #c3daff;
-  background-image: -webkit-linear-gradient(to bottom right, #dbe9ff, #92bcff);
-  background-image: -moz-linear-gradient(to bottom right, #dbe9ff, #92bcff);
-  background-image: -ms-linear-gradient(to bottom right, #dbe9ff, #92bcff);
-  background-image: -o-linear-gradient(to bottom right, #dbe9ff, #92bcff);
-  background-image: linear-gradient(to bottom right, #dbe9ff, #92bcff);
-  background-image: -webkit-gradient(to bottom right, #dbe9ff, #92bcff);
+  background-image: -webkit-linear-gradient(to bottom right, #dceaff, #90baff);
+  background-image: -moz-linear-gradient(to bottom right, #dceaff, #90baff);
+  background-image: -ms-linear-gradient(to bottom right, #dceaff, #90baff);
+  background-image: -o-linear-gradient(to bottom right, #dceaff, #90baff);
+  background-image: linear-gradient(to bottom right, #dceaff, #90baff);
+  background-image: -webkit-gradient(to bottom right, #dceaff, #90baff);
   cursor: pointer;
 }
 .Button:hover {
   border-color: #ff9d00;
   color: #ff9d00;
   background-color: #ffe8c3;
-  background-image: -webkit-linear-gradient(to bottom right, #fff1db, #ffd592);
-  background-image: -moz-linear-gradient(to bottom right, #fff1db, #ffd592);
-  background-image: -ms-linear-gradient(to bottom right, #fff1db, #ffd592);
-  background-image: -o-linear-gradient(to bottom right, #fff1db, #ffd592);
-  background-image: linear-gradient(to bottom right, #fff1db, #ffd592);
-  background-image: -webkit-gradient(to bottom right, #fff1db, #ffd592);
+  background-image: -webkit-linear-gradient(to bottom right, #fff2dc, #ffd490);
+  background-image: -moz-linear-gradient(to bottom right, #fff2dc, #ffd490);
+  background-image: -ms-linear-gradient(to bottom right, #fff2dc, #ffd490);
+  background-image: -o-linear-gradient(to bottom right, #fff2dc, #ffd490);
+  background-image: linear-gradient(to bottom right, #fff2dc, #ffd490);
+  background-image: -webkit-gradient(to bottom right, #fff2dc, #ffd490);
 }
 .Button:active {
   border-style: inset;
-  background-image: -webkit-linear-gradient(to top left, #fff1db, #ffd592);
-  background-image: -moz-linear-gradient(to top left, #fff1db, #ffd592);
-  background-image: -ms-linear-gradient(to top left, #fff1db, #ffd592);
-  background-image: -o-linear-gradient(to top left, #fff1db, #ffd592);
-  background-image: linear-gradient(to top left, #fff1db, #ffd592);
-  background-image: -webkit-gradient(to top left, #fff1db, #ffd592);
+  background-image: -webkit-linear-gradient(to top left, #fff2dc, #ffd490);
+  background-image: -moz-linear-gradient(to top left, #fff2dc, #ffd490);
+  background-image: -ms-linear-gradient(to top left, #fff2dc, #ffd490);
+  background-image: -o-linear-gradient(to top left, #fff2dc, #ffd490);
+  background-image: linear-gradient(to top left, #fff2dc, #ffd490);
+  background-image: -webkit-gradient(to top left, #fff2dc, #ffd490);
 }
 .Button.Block {
   display: block;
@@ -3093,97 +3106,53 @@ del + ins {
 	_labels.less
 \*################*/
 /**
-  * A Label Object is used for displaying little indications to the user. There are two subclasses
-  * of Labels: Messages and Tags. Each subclass may be of the following types:
-  * - A **Warning Label** is used to indicate a negative consequence, such as an action that cannot
+  * A message Interface is a component that displays little indications to the user.
+  * Each Object that implements this Interface may have one of the following subclasses:
+  * - **Warning** is used to indicate a negative consequence, such as an action that cannot
   * 	be undone or that will cause something to break.
-  * - A **Caution Label** is used to indicate that the user must proceed with care.
-  * - A **Success Label** is used to indicate that something was done right.
-  * - An **Info Label** is used to indicate extra information about something.
-  * - A **Help Label** is used to indicate tips and hints for the user.
+  * - **Caution** is used to indicate that the user must proceed with care.
+  * - **Success** is used to indicate that something was done right.
+  * - **Info** is used to indicate extra information about something.
+  * - **Help** is used to indicate tips and hints for the user.
 @implements
 : .fontsize-sml
 @tags
-: #label
 : #message
+: #label
 : #tag
 @author
 : Chris Harvey
 @updated
-: 2014-06-22
+: 2014-08-11
   */
-.Label {
-  font-style: normal;
-  font-weight: normal;
+.msg {
+  font-size: 12px;
+  font-size: 0.75rem;
+  line-height: 2;
   font-family: 'Century Gothic', 'Gill Sans', 'Avenir', sans-serif;
 }
-.Label::before,
-.Label::after {
+.msg::before,
+.msg::after {
   font-weight: bold;
 }
 /**
-  * This Mixin is used for all `.Label` Objects. It sets the proper colors for the Object based on
-  * its type.
-@tags
-: #label
-: #message
-: #tag
-@author
-: Chris Harvey
-@updated
-: 2014-06-22
-  */
-.lbl-warn-nf,
-.Label.Msg.Warn,
-.Label.Tag.Warn {
-  border-color: #ff0000;
-  color: #610000;
-  background-color: #ff9e9e;
-}
-.lbl-cshn-nf,
-.Label.Msg.Cshn,
-.Label.Tag.Cshn {
-  border-color: #ccff00;
-  color: #4e6100;
-  background-color: #ecff9e;
-}
-.lbl-skss-nf,
-.Label.Msg.Skss,
-.Label.Tag.Skss {
-  border-color: #00ff66;
-  color: #006127;
-  background-color: #9effc5;
-}
-.lbl-info-nf,
-.Label.Msg.Info,
-.Label.Tag.Info {
-  border-color: #0066ff;
-  color: #002761;
-  background-color: #9ec5ff;
-}
-.lbl-help-nf,
-.Label.Msg.Help,
-.Label.Tag.Help {
-  border-color: #cc00ff;
-  color: #4e0061;
-  background-color: #ec9eff;
-}
-/**
-  * A Message Object is a Label with complete sentences or a longer span of information.
-@extends
-: .Label
+  * This Object is a block of text with complete sentences or a longer span of information.
 @implements
-@mixesin
+: .msg
 : .box-block()
 @tags
-: #label
 : #message
+: #label
 @author
 : Chris Harvey
 @updated
-: 2014-07-10
+: 2014-08-11
   */
-.Label.Msg {
+.Lbl {
+  font-size: 12px;
+  font-size: 0.75rem;
+  line-height: 2;
+  font-family: 'Century Gothic', 'Gill Sans', 'Avenir', sans-serif;
   display: block;
   position: relative;
   top: -1px;
@@ -3191,8 +3160,19 @@ del + ins {
   border-width: 1px;
   border-style: solid;
   border-radius: 6px;
+  margin-left: 23.60679775%;
+  margin-right: 14.58980338%;
+  margin-top: 24px;
+  margin-top: 1.5rem;
 }
-.Label.Msg.Warn {
+.Lbl::before,
+.Lbl::after {
+  font-weight: bold;
+}
+.Lbl.Warn {
+  border-color: #ff0000;
+  color: #610000;
+  background-color: #ff9e9e;
   background-image: -webkit-linear-gradient(to bottom, #ff9e9e, #ff6b6b);
   background-image: -moz-linear-gradient(to bottom, #ff9e9e, #ff6b6b);
   background-image: -ms-linear-gradient(to bottom, #ff9e9e, #ff6b6b);
@@ -3200,10 +3180,13 @@ del + ins {
   background-image: linear-gradient(to bottom, #ff9e9e, #ff6b6b);
   background-image: -webkit-gradient(to bottom, #ff9e9e, #ff6b6b);
 }
-.Label.Msg.Warn::before {
-  content: 'Warning ' '\0021' ' ';
+.Lbl.Warn::before {
+  content: 'Warning' ' ' '\0021' ' ';
 }
-.Label.Msg.Cshn {
+.Lbl.Cshn {
+  border-color: #ccff00;
+  color: #4e6100;
+  background-color: #ecff9e;
   background-image: -webkit-linear-gradient(to bottom, #ecff9e, #e1ff6b);
   background-image: -moz-linear-gradient(to bottom, #ecff9e, #e1ff6b);
   background-image: -ms-linear-gradient(to bottom, #ecff9e, #e1ff6b);
@@ -3211,10 +3194,13 @@ del + ins {
   background-image: linear-gradient(to bottom, #ecff9e, #e1ff6b);
   background-image: -webkit-gradient(to bottom, #ecff9e, #e1ff6b);
 }
-.Label.Msg.Cshn::before {
-  content: 'Caution ' '\2026' ' ';
+.Lbl.Cshn::before {
+  content: 'Caution' ' ' '\2026' ' ';
 }
-.Label.Msg.Skss {
+.Lbl.Skss {
+  border-color: #00ff66;
+  color: #006127;
+  background-color: #9effc5;
   background-image: -webkit-linear-gradient(to bottom, #9effc5, #6bffa6);
   background-image: -moz-linear-gradient(to bottom, #9effc5, #6bffa6);
   background-image: -ms-linear-gradient(to bottom, #9effc5, #6bffa6);
@@ -3222,10 +3208,13 @@ del + ins {
   background-image: linear-gradient(to bottom, #9effc5, #6bffa6);
   background-image: -webkit-gradient(to bottom, #9effc5, #6bffa6);
 }
-.Label.Msg.Skss::before {
-  content: 'Success ' '\263a' ' ';
+.Lbl.Skss::before {
+  content: 'Success' ' ' '\263a' ' ';
 }
-.Label.Msg.Info {
+.Lbl.Info {
+  border-color: #0066ff;
+  color: #002761;
+  background-color: #9ec5ff;
   background-image: -webkit-linear-gradient(to bottom, #9ec5ff, #6ba6ff);
   background-image: -moz-linear-gradient(to bottom, #9ec5ff, #6ba6ff);
   background-image: -ms-linear-gradient(to bottom, #9ec5ff, #6ba6ff);
@@ -3233,10 +3222,13 @@ del + ins {
   background-image: linear-gradient(to bottom, #9ec5ff, #6ba6ff);
   background-image: -webkit-gradient(to bottom, #9ec5ff, #6ba6ff);
 }
-.Label.Msg.Info::before {
-  content: 'Info ' '\003f' ' ';
+.Lbl.Info::before {
+  content: 'Info' ' ' '\003f' ' ';
 }
-.Label.Msg.Help {
+.Lbl.Help {
+  border-color: #cc00ff;
+  color: #4e0061;
+  background-color: #ec9eff;
   background-image: -webkit-linear-gradient(to bottom, #ec9eff, #e16bff);
   background-image: -moz-linear-gradient(to bottom, #ec9eff, #e16bff);
   background-image: -ms-linear-gradient(to bottom, #ec9eff, #e16bff);
@@ -3244,43 +3236,52 @@ del + ins {
   background-image: linear-gradient(to bottom, #ec9eff, #e16bff);
   background-image: -webkit-gradient(to bottom, #ec9eff, #e16bff);
 }
-.Label.Msg.Help::before {
-  content: 'Help ' '\2665' ' ';
+.Lbl.Help::before {
+  content: 'Help' ' ' '\2665' ' ';
 }
 /**
-  * A Tag Object is a Label with a short bit of content, or perhaps no content at all. It can be
+  * This Object is a has a short bit of content, or perhaps no content at all. It can be
   * added to the inside of an Element.
-@extends
-: .Label
+@implements
+: .msg
 @tags
-: #label
+: #message
 : #tag
 @author
 : Chris Harvey
 @updated
-: 2014-06-22
+: 2014-08-11
   */
-.Label.Tag {
+.Tag {
+  font-size: 12px;
+  font-size: 0.75rem;
+  line-height: 2;
+  font-family: 'Century Gothic', 'Gill Sans', 'Avenir', sans-serif;
   display: inline;
-  padding: 3px 5px;
-  padding-bottom: 2px;
+  padding: 3px 5px 2px;
   margin-left: 24px;
   position: relative;
   white-space: nowrap;
 }
-.Label.Tag::before {
-  content: "";
+.Tag::before,
+.Tag::after {
+  font-weight: bold;
+}
+.Tag::before {
+  content: '';
   display: block;
   width: 0;
+  border: 0 solid transparent;
   border-width: 10px 6px 10px 0;
-  border-style: solid;
-  border-color: transparent;
   position: absolute;
   left: -6px;
   top: 0;
   z-index: 1;
 }
-.Label.Tag.Warn {
+.Tag.Warn {
+  border-color: #9acc7a;
+  color: #610000;
+  background-color: #ff9e9e;
   background-image: -webkit-linear-gradient(to right, #ff9e9e, #ff5151);
   background-image: -moz-linear-gradient(to right, #ff9e9e, #ff5151);
   background-image: -ms-linear-gradient(to right, #ff9e9e, #ff5151);
@@ -3288,13 +3289,16 @@ del + ins {
   background-image: linear-gradient(to right, #ff9e9e, #ff5151);
   background-image: -webkit-gradient(to right, #ff9e9e, #ff5151);
 }
-.Label.Tag.Warn::before {
+.Tag.Warn::before {
   border-right-color: #ff9e9e;
 }
-.Label.Tag.Warn::after {
+.Tag.Warn::after {
   content: ' ' '\0021';
 }
-.Label.Tag.Cshn {
+.Tag.Cshn {
+  border-color: #9acc7a;
+  color: #4e6100;
+  background-color: #ecff9e;
   background-image: -webkit-linear-gradient(to right, #ecff9e, #dcff51);
   background-image: -moz-linear-gradient(to right, #ecff9e, #dcff51);
   background-image: -ms-linear-gradient(to right, #ecff9e, #dcff51);
@@ -3302,13 +3306,16 @@ del + ins {
   background-image: linear-gradient(to right, #ecff9e, #dcff51);
   background-image: -webkit-gradient(to right, #ecff9e, #dcff51);
 }
-.Label.Tag.Cshn::before {
+.Tag.Cshn::before {
   border-right-color: #ecff9e;
 }
-.Label.Tag.Cshn::after {
+.Tag.Cshn::after {
   content: ' ' '\2026';
 }
-.Label.Tag.Skss {
+.Tag.Skss {
+  border-color: #9acc7a;
+  color: #006127;
+  background-color: #9effc5;
   background-image: -webkit-linear-gradient(to right, #9effc5, #51ff97);
   background-image: -moz-linear-gradient(to right, #9effc5, #51ff97);
   background-image: -ms-linear-gradient(to right, #9effc5, #51ff97);
@@ -3316,13 +3323,16 @@ del + ins {
   background-image: linear-gradient(to right, #9effc5, #51ff97);
   background-image: -webkit-gradient(to right, #9effc5, #51ff97);
 }
-.Label.Tag.Skss::before {
+.Tag.Skss::before {
   border-right-color: #9effc5;
 }
-.Label.Tag.Skss::after {
+.Tag.Skss::after {
   content: ' ' '\263a';
 }
-.Label.Tag.Info {
+.Tag.Info {
+  border-color: #9acc7a;
+  color: #002761;
+  background-color: #9ec5ff;
   background-image: -webkit-linear-gradient(to right, #9ec5ff, #5197ff);
   background-image: -moz-linear-gradient(to right, #9ec5ff, #5197ff);
   background-image: -ms-linear-gradient(to right, #9ec5ff, #5197ff);
@@ -3330,13 +3340,16 @@ del + ins {
   background-image: linear-gradient(to right, #9ec5ff, #5197ff);
   background-image: -webkit-gradient(to right, #9ec5ff, #5197ff);
 }
-.Label.Tag.Info::before {
+.Tag.Info::before {
   border-right-color: #9ec5ff;
 }
-.Label.Tag.Info::after {
+.Tag.Info::after {
   content: ' ' '\003f';
 }
-.Label.Tag.Help {
+.Tag.Help {
+  border-color: #9acc7a;
+  color: #4e0061;
+  background-color: #ec9eff;
   background-image: -webkit-linear-gradient(to right, #ec9eff, #dc51ff);
   background-image: -moz-linear-gradient(to right, #ec9eff, #dc51ff);
   background-image: -ms-linear-gradient(to right, #ec9eff, #dc51ff);
@@ -3344,10 +3357,10 @@ del + ins {
   background-image: linear-gradient(to right, #ec9eff, #dc51ff);
   background-image: -webkit-gradient(to right, #ec9eff, #dc51ff);
 }
-.Label.Tag.Help::before {
+.Tag.Help::before {
   border-right-color: #ec9eff;
 }
-.Label.Tag.Help::after {
+.Tag.Help::after {
   content: ' ' '\2665';
 }
 /*###############*\
