@@ -1,6 +1,6 @@
 function p(n, length) {
-	// * returns the product of phi^n and length
-	var Phi = ((-1 + Math.sqrt(5)) / 2);
+	// * returns the product of Phi^n and length
+	var Phi = ((-1 + Math.sqrt(5)) / 2); // 0.618034
 	return (length * Math.pow(Phi, n));
 }
 function positionSquares() {
