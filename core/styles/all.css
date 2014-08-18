@@ -666,7 +666,7 @@ sub,
 .Map,
 .Cell,
 .Codeblock,
-.Lbl {
+.Note {
   min-height: 24px;
   min-height: 1.5rem;
 }
@@ -849,7 +849,7 @@ sub,
 .Article[data-status]::before,
 .Cell,
 .Codeblock,
-.Lbl {
+.Note {
   padding: 12px 7.41640786px;
   padding: 0.75rem 7.41640786px;
 }
@@ -1511,7 +1511,7 @@ main {
 :not(.H) + .Map,
 :not(.H) + .Table,
 :not(.H) + .Codeblock,
-:not(.H) + .Lbl {
+:not(.H) + .Note {
   margin-top: 24px;
   margin-top: 1.5rem;
 }
@@ -3225,17 +3225,20 @@ del + ins {
 /**
   * This Object is a block of text with complete sentences or a longer span of information.
 @implements
+: .colors()
+: .gradient()
 : .msg
 : .box-block()
+: .w-p1.mr
 @tags
 : #message
 : #label
 @author
 : Chris Harvey
 @updated
-: 2014-08-11
+: 2014-08-17
   */
-.Lbl {
+.Note {
   font-size: 12px;
   font-size: 0.75rem;
   line-height: 2;
@@ -3250,11 +3253,11 @@ del + ins {
   margin-left: 23.60679775%;
   margin-right: 14.58980338%;
 }
-.Lbl::before,
-.Lbl::after {
+.Note::before,
+.Note::after {
   font-weight: bold;
 }
-.Lbl.Warn {
+.Note.Warn {
   border-color: #ff0000;
   color: #610000;
   background-color: #ff9e9e;
@@ -3265,10 +3268,10 @@ del + ins {
   background-image: linear-gradient(to bottom, #ff9e9e, #ff6b6b);
   background-image: -webkit-gradient(to bottom, #ff9e9e, #ff6b6b);
 }
-.Lbl.Warn::before {
+.Note.Warn::before {
   content: 'Warning' ' ' '\0021' ' ';
 }
-.Lbl.Cshn {
+.Note.Cshn {
   border-color: #ccff00;
   color: #4e6100;
   background-color: #ecff9e;
@@ -3279,10 +3282,10 @@ del + ins {
   background-image: linear-gradient(to bottom, #ecff9e, #e1ff6b);
   background-image: -webkit-gradient(to bottom, #ecff9e, #e1ff6b);
 }
-.Lbl.Cshn::before {
+.Note.Cshn::before {
   content: 'Caution' ' ' '\2026' ' ';
 }
-.Lbl.Skss {
+.Note.Skss {
   border-color: #00ff66;
   color: #006127;
   background-color: #9effc5;
@@ -3293,10 +3296,10 @@ del + ins {
   background-image: linear-gradient(to bottom, #9effc5, #6bffa6);
   background-image: -webkit-gradient(to bottom, #9effc5, #6bffa6);
 }
-.Lbl.Skss::before {
+.Note.Skss::before {
   content: 'Success' ' ' '\263a' ' ';
 }
-.Lbl.Info {
+.Note.Info {
   border-color: #0066ff;
   color: #002761;
   background-color: #9ec5ff;
@@ -3307,10 +3310,10 @@ del + ins {
   background-image: linear-gradient(to bottom, #9ec5ff, #6ba6ff);
   background-image: -webkit-gradient(to bottom, #9ec5ff, #6ba6ff);
 }
-.Lbl.Info::before {
+.Note.Info::before {
   content: 'Info' ' ' '\003f' ' ';
 }
-.Lbl.Help {
+.Note.Help {
   border-color: #cc00ff;
   color: #4e0061;
   background-color: #ec9eff;
@@ -3321,13 +3324,15 @@ del + ins {
   background-image: linear-gradient(to bottom, #ec9eff, #e16bff);
   background-image: -webkit-gradient(to bottom, #ec9eff, #e16bff);
 }
-.Lbl.Help::before {
+.Note.Help::before {
   content: 'Help' ' ' '\2665' ' ';
 }
 /**
   * This Object is a has a short bit of content, or perhaps no content at all. It can be
   * added to the inside of an Element.
 @implements
+: .colors()
+: .gradient()
 : .msg
 @tags
 : #message
@@ -3337,7 +3342,7 @@ del + ins {
 @updated
 : 2014-08-11
   */
-.Tag {
+.Label {
   font-size: 12px;
   font-size: 0.75rem;
   line-height: 2;
@@ -3348,11 +3353,11 @@ del + ins {
   position: relative;
   white-space: nowrap;
 }
-.Tag::before,
-.Tag::after {
+.Label::before,
+.Label::after {
   font-weight: bold;
 }
-.Tag::before {
+.Label::before {
   content: '';
   display: block;
   width: 0;
@@ -3363,7 +3368,7 @@ del + ins {
   top: 0;
   z-index: 1;
 }
-.Tag.Warn {
+.Label.Warn {
   border-color: #9acc7a;
   color: #610000;
   background-color: #ff9e9e;
@@ -3374,13 +3379,13 @@ del + ins {
   background-image: linear-gradient(to right, #ff9e9e, #ff5151);
   background-image: -webkit-gradient(to right, #ff9e9e, #ff5151);
 }
-.Tag.Warn::before {
+.Label.Warn::before {
   border-right-color: #ff9e9e;
 }
-.Tag.Warn::after {
+.Label.Warn::after {
   content: ' ' '\0021';
 }
-.Tag.Cshn {
+.Label.Cshn {
   border-color: #9acc7a;
   color: #4e6100;
   background-color: #ecff9e;
@@ -3391,13 +3396,13 @@ del + ins {
   background-image: linear-gradient(to right, #ecff9e, #dcff51);
   background-image: -webkit-gradient(to right, #ecff9e, #dcff51);
 }
-.Tag.Cshn::before {
+.Label.Cshn::before {
   border-right-color: #ecff9e;
 }
-.Tag.Cshn::after {
+.Label.Cshn::after {
   content: ' ' '\2026';
 }
-.Tag.Skss {
+.Label.Skss {
   border-color: #9acc7a;
   color: #006127;
   background-color: #9effc5;
@@ -3408,13 +3413,13 @@ del + ins {
   background-image: linear-gradient(to right, #9effc5, #51ff97);
   background-image: -webkit-gradient(to right, #9effc5, #51ff97);
 }
-.Tag.Skss::before {
+.Label.Skss::before {
   border-right-color: #9effc5;
 }
-.Tag.Skss::after {
+.Label.Skss::after {
   content: ' ' '\263a';
 }
-.Tag.Info {
+.Label.Info {
   border-color: #9acc7a;
   color: #002761;
   background-color: #9ec5ff;
@@ -3425,13 +3430,13 @@ del + ins {
   background-image: linear-gradient(to right, #9ec5ff, #5197ff);
   background-image: -webkit-gradient(to right, #9ec5ff, #5197ff);
 }
-.Tag.Info::before {
+.Label.Info::before {
   border-right-color: #9ec5ff;
 }
-.Tag.Info::after {
+.Label.Info::after {
   content: ' ' '\003f';
 }
-.Tag.Help {
+.Label.Help {
   border-color: #9acc7a;
   color: #4e0061;
   background-color: #ec9eff;
@@ -3442,10 +3447,10 @@ del + ins {
   background-image: linear-gradient(to right, #ec9eff, #dc51ff);
   background-image: -webkit-gradient(to right, #ec9eff, #dc51ff);
 }
-.Tag.Help::before {
+.Label.Help::before {
   border-right-color: #ec9eff;
 }
-.Tag.Help::after {
+.Label.Help::after {
   content: ' ' '\2665';
 }
 /*###############*\

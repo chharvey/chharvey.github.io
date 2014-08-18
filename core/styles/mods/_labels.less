@@ -61,40 +61,45 @@
 /**
   * This Object is a block of text with complete sentences or a longer span of information.
 @implements
+: .colors()
+: .gradient()
 : .msg
 : .box-block()
+: .w-p1.mr
 @tags
 : #message
 : #label
 @author
 : Chris Harvey
 @updated
-: 2014-08-11
+: 2014-08-17
   */
-@lbl_brdr_radius: 6px;
-.lbl-mx(@color_bd; @color_txt; @color_bg; @word; @glyph) {
+@note_brdr_radius: 6px;
+.note-mx(@color_bd; @color_txt; @color_bg; @word; @glyph) {
 	.colors(@color_bd; @color_txt; @color_bg);
 	.gradient(to bottom, @color_bg, darken(@color_bg, 10%););
 	&::before {
 		content: @word ' ' @glyph ' ';
 	}
 }
-.Lbl {
+.Note {
 	.msg;
-	.box-block(@lbl_brdr_radius);
+	.box-block(@note_brdr_radius);
 	.w-p1.mr;
-	// .lbl-mx(@color_border; @color_base_txt; @color_base_bg; ''; '');
+	// .note-mx(@color_border; @color_base_txt; @color_base_bg; ''; '');
 }
-.Lbl.Warn {.lbl-mx(@color_warn_brdr; @color_warn_txt; @color_warn_bg; 'Warning'; @warn_glyph);}
-.Lbl.Cshn {.lbl-mx(@color_cshn_brdr; @color_cshn_txt; @color_cshn_bg; 'Caution'; @cshn_glyph);}
-.Lbl.Skss {.lbl-mx(@color_skss_brdr; @color_skss_txt; @color_skss_bg; 'Success'; @skss_glyph);}
-.Lbl.Info {.lbl-mx(@color_info_brdr; @color_info_txt; @color_info_bg; 'Info';    @info_glyph);}
-.Lbl.Help {.lbl-mx(@color_help_brdr; @color_help_txt; @color_help_bg; 'Help';    @help_glyph);}
+.Note.Warn {.note-mx(@color_warn_brdr; @color_warn_txt; @color_warn_bg; 'Warning'; @warn_glyph);}
+.Note.Cshn {.note-mx(@color_cshn_brdr; @color_cshn_txt; @color_cshn_bg; 'Caution'; @cshn_glyph);}
+.Note.Skss {.note-mx(@color_skss_brdr; @color_skss_txt; @color_skss_bg; 'Success'; @skss_glyph);}
+.Note.Info {.note-mx(@color_info_brdr; @color_info_txt; @color_info_bg; 'Info';    @info_glyph);}
+.Note.Help {.note-mx(@color_help_brdr; @color_help_txt; @color_help_bg; 'Help';    @help_glyph);}
 
 /**
   * This Object is a has a short bit of content, or perhaps no content at all. It can be
   * added to the inside of an Element.
 @implements
+: .colors()
+: .gradient()
 : .msg
 @tags
 : #message
@@ -104,7 +109,7 @@
 @updated
 : 2014-08-11
   */
-.tag-mx(@color_txt; @color_bg; @glyph) {
+.label-mx(@color_txt; @color_bg; @glyph) {
 	.colors(@color_border; @color_txt; @color_bg);
 	.gradient(to right, @color_bg, darken(@color_bg, 15%););
 	&::before {
@@ -114,7 +119,7 @@
 		content: ' ' @glyph;
 	}
 }
-.Tag {
+.Label {
 	.msg;
 	display: inline;
 	padding: 3px 5px 2px;
@@ -134,10 +139,10 @@
 		top: 0;
 		z-index: 1;
 	}
-	// .tag-mx(@color_base_txt; darken(@color_base_bg, 15%); '');
+	// .label-mx(@color_base_txt; darken(@color_base_bg, 15%); '');
 }
-.Tag.Warn {.tag-mx(@color_warn_txt; @color_warn_bg; @warn_glyph);}
-.Tag.Cshn {.tag-mx(@color_cshn_txt; @color_cshn_bg; @cshn_glyph);}
-.Tag.Skss {.tag-mx(@color_skss_txt; @color_skss_bg; @skss_glyph);}
-.Tag.Info {.tag-mx(@color_info_txt; @color_info_bg; @info_glyph);}
-.Tag.Help {.tag-mx(@color_help_txt; @color_help_bg; @help_glyph);}
+.Label.Warn {.label-mx(@color_warn_txt; @color_warn_bg; @warn_glyph);}
+.Label.Cshn {.label-mx(@color_cshn_txt; @color_cshn_bg; @cshn_glyph);}
+.Label.Skss {.label-mx(@color_skss_txt; @color_skss_bg; @skss_glyph);}
+.Label.Info {.label-mx(@color_info_txt; @color_info_bg; @info_glyph);}
+.Label.Help {.label-mx(@color_help_txt; @color_help_bg; @help_glyph);}
