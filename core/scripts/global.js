@@ -101,7 +101,39 @@ function hsvToRgb(h, s, v) {
 //		$(this).find('.js-wrapper').toggleClass('invisible',t_ani);
 //	});
 //}
+function qblockLines() {
+	/**
+	Changes the line height of block quotes to 1.5 times the usual amount.
+
+	Currently (2014-03-01), the line-height is 1.2, because font-size is 1.25rem and
+	1.25rem × 1.2 = 1.5rem = 1vru, where 1vru = 1.5rem = 24px, one "line".
+
+	Change line-height to 1.8 to increase vertical spacing between lines. That way, each line
+	would be 1.25rem × 1.8 = 2.25rem = 1.5vru.
+
+	If the number of lines is even, the total would be a multiple of 1.5vru × 2 = 3vru, which is
+	a whole number, so vertical rhythm would be okay. No need to adjust margin-bottom.
+
+	However if the number of lines is odd, the total would always be a multiple of 3vru plus 1.5vru,
+	which would always be offset by 0.5vru = 0.75rem = 12px. So the margin-bottom must be set to -12px.
+
+	1. take the height of the blockquote in pixels (e.g. 72px)
+	2. divide height by vru (e.g. 72px / 24px = 3) this result is the number of lines
+	3. If the number of lines is odd, set margin-bottom: -12px;.
+
+	*/
+	$('.Qblock.Short').each(function() {
+		var lines = $(this).height() / 24;
+		lines = Math.round(lines / 1.5); // divide by 1.5 to account for new line height
+		if (lines % 2 === 1) {
+			$(this).css('margin-bottom','-12px');
+		} else {
+			$(this).css('margin-bottom','');
+		}
+	});
+}
 $(document).ready(function () {
+	qblockLines();
 	/**
 	Subtracts margin-bottom, or adds padding-bottom to tables to compensate for horizontal borders.
 	ONLY USE THIS FUNCTION ON TABLES WITH HORIZONTAL BORDERS.
@@ -173,4 +205,7 @@ $(document).ready(function () {
 //	while($('.folio .h-folio').width > $('.folio').width) {
 //		$('.folio .h-folio').css('font-size', (parseInt($('.folio .h-folio').css('font-size')) - 1) + "px" );
 //	}
+});
+$(window).resize(function () {
+	qblockLines();
 });

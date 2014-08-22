@@ -1,153 +1,116 @@
 // main: ../all.less
 
-/*================*\
+/*################*\
 	_labels.less
-\*================*/
+\*################*/
 
 
-@lbl_brdr_radius: 6px;
+@warn_glyph: '\0021';             // !
+@cshn_glyph: '\2026'; // &hellip; // …
+@skss_glyph: '\263a'; // smiley   // ☺
+@info_glyph: '\003f';             // ?
+@help_glyph: '\2665'; // &hearts; // ♥
 
-@warn_glyph: '!';
-@cshn_glyph: '\2026'; // &hellip;
-@skss_glyph: '\263a'; // smiley
-@info_glyph: '?';
-@help_glyph: '\2665'; // &hearts;
+@color_warn_brdr: hsv(  0, 100%, 100%); // #f00
+@color_cshn_brdr: hsv( 72, 100%, 100%); // #cf0
+@color_skss_brdr: hsv(144, 100%, 100%); // #0f6
+@color_info_brdr: hsv(216, 100%, 100%); // #06f
+@color_help_brdr: hsv(288, 100%, 100%); // #c0f
 
-@color_lbl_warn_brdr: hsv(  0, 100%, 100%); // #f00
-@color_lbl_cshn_brdr: hsv( 72, 100%, 100%); // #cf0
-@color_lbl_skss_brdr: hsv(144, 100%, 100%); // #0f6
-@color_lbl_info_brdr: hsv(216, 100%, 100%); // #06f
-@color_lbl_help_brdr: hsv(288, 100%, 100%); // #c0f
+@color_warn_txt: darken(@color_warn_brdr, (@golden1 / 2)); // #610000
+@color_cshn_txt: darken(@color_cshn_brdr, (@golden1 / 2)); // #4e6100
+@color_skss_txt: darken(@color_skss_brdr, (@golden1 / 2)); // #006127
+@color_info_txt: darken(@color_info_brdr, (@golden1 / 2)); // #002761
+@color_help_txt: darken(@color_help_brdr, (@golden1 / 2)); // #4e0061
 
-@color_lbl_warn_txt: darken(@color_lbl_warn_brdr, (@golden1 / 2)); // #610000
-@color_lbl_cshn_txt: darken(@color_lbl_cshn_brdr, (@golden1 / 2)); // #4e6100
-@color_lbl_skss_txt: darken(@color_lbl_skss_brdr, (@golden1 / 2)); // #006127
-@color_lbl_info_txt: darken(@color_lbl_info_brdr, (@golden1 / 2)); // #002761
-@color_lbl_help_txt: darken(@color_lbl_help_brdr, (@golden1 / 2)); // #4e0061
-
-@color_lbl_warn_bg: lighten(@color_lbl_warn_brdr, (@golden1 / 2)); // #ff9e9e
-@color_lbl_cshn_bg: lighten(@color_lbl_cshn_brdr, (@golden1 / 2)); // #ecff9e
-@color_lbl_skss_bg: lighten(@color_lbl_skss_brdr, (@golden1 / 2)); // #9effc5
-@color_lbl_info_bg: lighten(@color_lbl_info_brdr, (@golden1 / 2)); // #9ec5ff
-@color_lbl_help_bg: lighten(@color_lbl_help_brdr, (@golden1 / 2)); // #ec9eff
+@color_warn_bg: lighten(@color_warn_brdr, (@golden1 / 2)); // #ff9e9e
+@color_cshn_bg: lighten(@color_cshn_brdr, (@golden1 / 2)); // #ecff9e
+@color_skss_bg: lighten(@color_skss_brdr, (@golden1 / 2)); // #9effc5
+@color_info_bg: lighten(@color_info_brdr, (@golden1 / 2)); // #9ec5ff
+@color_help_bg: lighten(@color_help_brdr, (@golden1 / 2)); // #ec9eff
 
 /**
-  * A Label Object is used for displaying little indications to the user. There are two subclasses
-  * of Labels: Messages and Tags. Each subclass may be of the following types:
-  * - A **Warning Label** is used to indicate a negative consequence, such as an action that cannot
+  * A message Interface is a component that displays little indications to the user.
+  * Each Object that implements this Interface may have one of the following subclasses:
+  * - **Warning** is used to indicate a negative consequence, such as an action that cannot
   * 	be undone or that will cause something to break.
-  * - A **Caution Label** is used to indicate that the user must proceed with care.
-  * - A **Success Label** is used to indicate that something was done right.
-  * - An **Info Label** is used to indicate extra information about something.
-  * - A **Help Label** is used to indicate tips and hints for the user.
+  * - **Caution** is used to indicate that the user must proceed with care.
+  * - **Success** is used to indicate that something was done right.
+  * - **Info** is used to indicate extra information about something.
+  * - **Help** is used to indicate tips and hints for the user.
 @implements
 : .fontsize-sml
 @tags
-: #label
 : #message
+: #label
 : #tag
 @author
 : Chris Harvey
 @updated
-: 2014-06-22
+: 2014-08-11
   */
-.Label {
-	&:extend(.fontsize-block-sml);
-	font-style: normal;
-	font-weight: normal;
+.msg {
+	.fontsize-block-sml;
 	font-family: @fontfam_accent;
 	&::before,
 	&::after {
 		font-weight: bold;
 	}
 }
-/**
-  * This Mixin is used for all `.Label` Objects. It sets the proper colors for the Object based on
-  * its type.
-@tags
-: #label
-: #message
-: #tag
-@author
-: Chris Harvey
-@updated
-: 2014-06-22
-  */
-.lbl-mx(@color_txt; @color_bg; @color_brdr) {
-	border-color: @color_brdr;
-	color: @color_txt;
-	background-color: @color_bg;
-}
-.Label.Warn {.lbl-mx(@color_lbl_warn_txt; @color_lbl_warn_bg; @color_lbl_warn_brdr);}
-.Label.Cshn {.lbl-mx(@color_lbl_cshn_txt; @color_lbl_cshn_bg; @color_lbl_cshn_brdr);}
-.Label.Skss {.lbl-mx(@color_lbl_skss_txt; @color_lbl_skss_bg; @color_lbl_skss_brdr);}
-.Label.Info {.lbl-mx(@color_lbl_info_txt; @color_lbl_info_bg; @color_lbl_info_brdr);}
-.Label.Help {.lbl-mx(@color_lbl_help_txt; @color_lbl_help_bg; @color_lbl_help_brdr);}
 
 /**
-  * A Message Object is a Label with complete sentences or a longer span of information.
-@extends
-: .Label
+  * This Object is a block of text with complete sentences or a longer span of information.
 @implements
-@mixesin
+: .colors()
+: .gradient()
+: .msg
 : .box-block()
+: .w-p1.mr
 @tags
-: #label
 : #message
+: #label
 @author
 : Chris Harvey
 @updated
-: 2014-07-10
+: 2014-08-17
   */
-.Label.Msg {
-	.box-block(@lbl_brdr_radius);
-}
-.lbl-msg-mx(@color_bg) {
+@note_brdr_radius: 6px;
+.note-mx(@color_bd; @color_txt; @color_bg; @word; @glyph) {
+	.colors(@color_bd; @color_txt; @color_bg);
 	.gradient(to bottom, @color_bg, darken(@color_bg, 10%););
+	&::before {
+		content: @word ' ' @glyph ' ';
+	}
 }
-.Label.Msg.Warn {.lbl-msg-mx(@color_lbl_warn_bg); &::before{content: 'Warning ' @warn_glyph ' ';}}
-.Label.Msg.Cshn {.lbl-msg-mx(@color_lbl_cshn_bg); &::before{content: 'Caution ' @cshn_glyph ' ';}}
-.Label.Msg.Skss {.lbl-msg-mx(@color_lbl_skss_bg); &::before{content: 'Success ' @skss_glyph ' ';}}
-.Label.Msg.Info {.lbl-msg-mx(@color_lbl_info_bg); &::before{content: 'Info '    @info_glyph ' ';}}
-.Label.Msg.Help {.lbl-msg-mx(@color_lbl_help_bg); &::before{content: 'Help '    @help_glyph ' ';}}
+.Note {
+	.msg;
+	.box-block(@note_brdr_radius);
+	.w-p1.mr;
+	// .note-mx(@color_border; @color_base_txt; @color_base_bg; ''; '');
+}
+.Note.Warn {.note-mx(@color_warn_brdr; @color_warn_txt; @color_warn_bg; 'Warning'; @warn_glyph);}
+.Note.Cshn {.note-mx(@color_cshn_brdr; @color_cshn_txt; @color_cshn_bg; 'Caution'; @cshn_glyph);}
+.Note.Skss {.note-mx(@color_skss_brdr; @color_skss_txt; @color_skss_bg; 'Success'; @skss_glyph);}
+.Note.Info {.note-mx(@color_info_brdr; @color_info_txt; @color_info_bg; 'Info';    @info_glyph);}
+.Note.Help {.note-mx(@color_help_brdr; @color_help_txt; @color_help_bg; 'Help';    @help_glyph);}
 
 /**
-  * A Tag Object is a Label with a short bit of content, or perhaps no content at all. It can be
+  * This Object is a has a short bit of content, or perhaps no content at all. It can be
   * added to the inside of an Element.
-@extends
-: .Label
+@implements
+: .colors()
+: .gradient()
+: .msg
 @tags
-: #label
+: #message
 : #tag
 @author
 : Chris Harvey
 @updated
-: 2014-06-22
+: 2014-08-11
   */
-.Label.Tag {
-	&:extend(.vru-content);
-	display: inline;
-	padding: 3px 5px;
-	padding-bottom: 2px;
-	margin-left: @spacer;
-	position: relative;
-	white-space: nowrap;
-}
-.Label.Tag::before {
-	@x: 6px;
-	@y: 10px;
-	content: "";
-	display: block;
-	width: 0;
-	border-width: @y @x @y 0;
-	border-style: solid;
-	border-color: transparent;
-	position: absolute;
-	left: -@x;
-	top: 0;
-	z-index: 1;
-}
-.lbl-tag-mx(@color_bg; @glyph) {
+.label-mx(@color_txt; @color_bg; @glyph) {
+	.colors(@color_border; @color_txt; @color_bg);
 	.gradient(to right, @color_bg, darken(@color_bg, 15%););
 	&::before {
 		border-right-color: @color_bg;
@@ -156,8 +119,30 @@
 		content: ' ' @glyph;
 	}
 }
-.Label.Tag.Warn {.lbl-tag-mx(@color_lbl_warn_bg; @warn_glyph);}
-.Label.Tag.Cshn {.lbl-tag-mx(@color_lbl_cshn_bg; @cshn_glyph);}
-.Label.Tag.Skss {.lbl-tag-mx(@color_lbl_skss_bg; @skss_glyph);}
-.Label.Tag.Info {.lbl-tag-mx(@color_lbl_info_bg; @info_glyph);}
-.Label.Tag.Help {.lbl-tag-mx(@color_lbl_help_bg; @help_glyph);}
+.Label {
+	.msg;
+	display: inline;
+	padding: 3px 5px 2px;
+	margin-left: @spacer;
+	position: relative; // only because `::before` has `position: absolute;`
+	white-space: nowrap;
+	&::before {
+		@x: 6px;
+		@y: 10px;
+		content: '';
+		display: block;
+		width: 0;
+		border: 0 solid transparent;
+		border-width: @y @x @y 0;
+		position: absolute;
+		left: -@x;
+		top: 0;
+		z-index: 1;
+	}
+	// .label-mx(@color_base_txt; darken(@color_base_bg, 15%); '');
+}
+.Label.Warn {.label-mx(@color_warn_txt; @color_warn_bg; @warn_glyph);}
+.Label.Cshn {.label-mx(@color_cshn_txt; @color_cshn_bg; @cshn_glyph);}
+.Label.Skss {.label-mx(@color_skss_txt; @color_skss_bg; @skss_glyph);}
+.Label.Info {.label-mx(@color_info_txt; @color_info_bg; @info_glyph);}
+.Label.Help {.label-mx(@color_help_txt; @color_help_bg; @help_glyph);}

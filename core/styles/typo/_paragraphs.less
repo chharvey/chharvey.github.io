@@ -1,46 +1,12 @@
 // main: ../all.less
 
-/*====================*\
+/*####################*\
     _paragraphs.less
-\*====================*/
+\*####################*/
 
 // Table of Contents
 // - PARAGRAPHS
 // - QUASI-PARAGRAPHS
-// - SECTIONS
-
-
-/**
-  * These Mixins set the padding, border, and margin on the left or right side of an Object,
-  * such that the border:padding ratio and the (border+padding):margin ratio are Golden.
-@params
-: @side:  either "left" or "right"
-: @brdrw : value of the `border-[left|right]-width` property
-: @brdrs : value of the `border-[left|right]-style` property
-: @brdrc : value of the `border-[left|right]-color` property
-@tags
-: #golden
-@author
-: Chris Harvey
-@updated
-: 2014-05-10
-  */
-.spacing-phi(@side; @brdrw; @brdrs) {
-	 border-@{side}-width: @brdrw;
-	 border-@{side}-style: @brdrs;
-	padding-@{side}: (@brdrw * @inv_phi1);
-	 margin-@{side}: (@brdrw * @inv_phi3);
-}
-.spacing-phi(@side; @brdrw; @brdrs; @brdrc) {
-	.spacing-phi(@side; @brdrw; @brdrs);
-	border-@{side}-color: @brdrc;
-}
-/** negate the effects of `.spacing-phi(@side; @brdrw; @brdrs; @brdrc)`  on the [left|right] side */
-// .spacing-phi(@side) {
-// 	.spacing-phi(@side; 0; solid; #000);
-// }
-// .spacing-phi-left  {.spacing-phi(left);}
-// .spacing-phi-right {.spacing-phi(right);}
 
 
 //+++++++++++//
@@ -65,18 +31,14 @@
 	display: block;
 	p {display: inline;} // lists in prose ("LIP"), for example
 }
-:not(.H) + .P {
-	&:extend(.vru-top-1);
-}
-.P + .List,
-.P + .Map,
-.P + .Table {
-	&:extend(.vru-top-1);
-	&:extend(.vru-bottom-1);
-}
-.Codeblock,
-.Label.Msg {
-	&:extend(.vru-top-1);
+:not(.H) + .Article,
+:not(.H) + .P,
+:not(.H) + .List,
+:not(.H) + .Map,
+:not(.H) + .Table,
+:not(.H) + .Codeblock,
+:not(.H) + .Note {
+	.vru-top-1;
 }
 
 /**
@@ -143,7 +105,7 @@
 		padding-right: (@spacer / 2);
 		font-style:  normal;
 		font-weight: normal;
-		font-family: @fontfam_script1;
+		font-family: @fontfam_script;
 		color: @color_h_major;
 	}
 }
@@ -262,11 +224,12 @@
 @author
 : Chris Harvey
 @updated
-: 2014-07-10
+: 2014-08-11
   */
 .Fig {
 	&:extend(.vru-content);
 	&:extend(.vru-top-phi);
+	&:extend(.crossgrid-lined);
 	.spacing-phi(left;  @fig_brdr_width; @fig_brdr_style);
 	.spacing-phi(right; @fig_brdr_width; @fig_brdr_style);
 	display: block;
@@ -274,9 +237,17 @@
 /**
   * This Object represents any Block Quotation, representing material taken directly from another
   * source. It may or may not take the form of a literal `blockquote` Element.
+  *
+  * If the original source has paragraph breaks, regardless of word count, use `.Qblock`.
+  * It should have paragraph breaks that correspond to the source.
+  *
+  * If the original source is more than 40 words and does not have paragraph breaks, use
+  * `.Qblock.Long`. It should not contain paragraphs (either `.P` Objects or `p` Elements);
+  * it should directly contain the source's text.
+  *
   * If the original source is less than 40 words and does not have paragraph breaks (for example,
-  * extracted inline text from an article), this `.Qblock` should not contain Paragraphs; it should
-  * directly contain the source's text.
+  * extracted inline text from an article), use the `.Qblock.Short` subclass. It should also not
+  * contain paragraphs.
 @implements
 : .vru-content
 : .vru-top-phi
@@ -290,122 +261,54 @@
 @author
 : Chris Harvey
 @updated
-: 2014-07-10
+: 2014-08-11
   */
 .Qblock {
 	&:extend(.vru-content);
 	&:extend(.vru-top-phi);
-	&:extend(.fontsize-block-lrg);
 	&:extend(.crossgrid-lined);
 	.spacing-phi(left; @qblock_brdr_width; @qblock_brdr_style);
-	// .fontsize-doubleblock(5/4);
 	display: block;
 	font-family: @fontfam_accent;
 }
 /**
   * The `.Src` Object represents the citation of a source inside a `.Qblock` Object. It is
-  * recommended to apply this class to a `cite` Element.
+  * recommended to apply this class to a `cite` Element, possibly within a `footer` Element.
 @belongsto
 : .Qblock
-@implements
-: .fontsize-block-sml
 @tags
 : #typography
 : #quote
 @author
 : Chris Harvey
 @updated
-: 2014-07-10
+: 2014-08-11
   */
 .Qblock .Src {
-	&:extend(.fontsize-block-sml);
-	&::before {content: '~\0020';}
 	display: block;
-	padding-right: @spacer;
 	text-align: right;
-}
-/**
-  * This Object represents a "long" block quotation.
-  * If the original source is more than 40 words and does not have paragraph breaks, this
-  * `.Qblock.Long` should have exactly one `.P` object, which contains the text from the source.
-  * If the original source has paragraph breaks, regardless of word count, this `.Qblock.Long`
-  * should have paragraph breaks that correspond to the source.
-@extends
-: .Qblock
-@implements
-: .fontsize-block-med
-@tags
-: #typography
-: #quote
-@author
-: Chris Harvey
-@updated
-: 2014-07-10
-  */
-.Qblock.Long {
-	&:extend(.fontsize-block-med);
-	.Src {
+	&::before {content: '~\0020';}
+	&.Formal {
 		&:extend(.parens all);
-		&:extend(.fontsize-block-med);
-		padding-right: 0;
+	}
+	&:not(.Formal) {
+		.spacing-phi(right; 3px; @qblock_brdr_style);
+	}
+}
+
+.Qblock.Short {
+	&:extend(.fontsize-block-lrg);
+	line-height: 1.5 * (@lineheight_base / @fontsize_ratio_lrg); // 1.8
+	background-image: none;
+	.Src {
+		&:extend(.fontsize-block-sml);
+		line-height: 1.5 * (@lineheight_base / @fontsize_ratio_sml); // 3
 	}
 }
 
 .Capt,
 .Addy,
 .Fig,
-.Qblock {border-color: @color_brdr;}
+.Qblock,
+.Qblock .Src {border-color: @color_brdr;}
 //++++ @end QUASI-PARAGRAPHS ++++//
-
-
-//+++++++++//
-/*@SECTIONS*/
-//+++++++++//
-/**
-  * This Object represents a generic article, technical document, blog post, etc. This Object may
-  * or may not take the form of a literal `article` Element or `main` Element of a page. This
-  * Object is designed to contain other block-level Objects such as `.H`s and `.P`s.
-  * Article prose, being more formal and providing more detail than other web-based texts,
-  * usually requires more careful reading.
-@tags
-: #typography
-: #article
-@author
-: Chris Harvey
-@updated
-: 2014-05-03
-  */
-.Article {
-	font-family: @fontfam_prose;
-	text-align: justify;
-}
-/**
-  * This Object represents text in an article that is not to displayed like `.Article` text.
-  * Essentially it reverts back to the body copy styles.
-@tags
-: #typography
-: #article
-@author
-: Chris Harvey
-@updated
-: 2014-05-02
-  */
-.UndoArticle {
-	font-family: @fontfam_base;
-	text-align: left;
-}
-/**
-  * This Object represents a section of text that represents "fine print": disclaimers, etc.
-  * It should be instantiated by an entire `section`, `aside`, `div`, or `p` Element, which
-  * may or may not contain `small` Element children.
-@tags
-: #typography
-@author
-: Chris Harvey
-@updated
-: 2014-06-26
-  */
-.Fineprint {
-	&:extend(.fontsize-block-sml);
-}
-//++++ @end SECTIONS ++++//

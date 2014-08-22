@@ -1,7 +1,7 @@
 # TO DO - /blog/ #
 
 - [x] 2014-06-21 hard-wrap all blog pages to approx 100 chars
-- [ ] 2014-06-21 update dog-training.html content
+- [x] 2014-06-21 update dog-training.html content
 
 ### semantic-punctuation.html ###
 - [ ] 2014-02-24 line break violations:
@@ -11,4 +11,4 @@
 - [ ] 2014-06-08 section on The Comma
 - [ ] 2014-06-08 section on The Ellipsis
 - [ ] 2014-06-08 section on The Semicolon
-- [ ] 2014-06-08 remove table at bottom
+- [x] 2014-06-08 remove table at bottom
