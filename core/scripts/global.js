@@ -175,8 +175,10 @@ $(document).ready(function () {
 
 
 	/* adds delimiters to math shit. inline uses parens and block uses brackets */
-	$('span.Math').prepend('\\(').append('\\)');
-	 $('div.Math').prepend('\\[').append('\\]');
+	// $('span.Math').prepend('\\(').append('\\)');
+	//  $('div.Math').prepend('\\[').append('\\]');
+	$('.M.I').prepend('\\(').append('\\)');
+	$('.M.B').prepend('\\[').append('\\]');
 	/** puts the LaTeX source in the 'title' attribute */
 	// $('.Math').attr('title',function () {
 	// 	return $(this).text();
