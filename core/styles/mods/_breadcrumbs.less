@@ -5,7 +5,6 @@
 \*#####################*/
 
 
-@bc_brdr_radius: 15px;
 /**
   * A Breadcrumb module.
 @tags
@@ -18,8 +17,8 @@
   */
 .Bc {
 	.gutter--major;
-	top: 2 * @vru_px; // fallback
-	top: 2 * @vru_rem;
+	top: @vru_px; // fallback
+	top: @vru_rem;
 	z-index: 1;
 }
 /**
@@ -38,23 +37,23 @@
 .Anc,
 .Sib,
 .Child {
-	&:extend(.vru-bottom-1);
+	.vru-top-1;
 }
-.Anc {
-//	a::before {content: '\22a5';} // `\bot` or 'up tack'
-//	a::before {content: '\22b7';} // 'image of'
-//	a::before {content: '<';}
-}
-.Sib {
-//	a::before {content: '\22a2';} // `\vdash` or 'turnstile'
-//	a::before {content: '\29df';} // 'double-ended multimap'
-//	a::before {content: '+';}
-}
-.Child {
-//	a::before {content: '\22a4';} // `\top` or 'down tack'
-//	a::before {content: '\22b6';} // 'original of'
-//	a::before {content: '>';}
-}
+// .Anc {
+// 	a::before {content: '\22a5';} // `\bot` or 'up tack'
+// 	a::before {content: '\22b7';} // 'image of'
+// 	a::before {content: '<';}
+// }
+// .Sib {
+// 	a::before {content: '\22a2';} // `\vdash` or 'turnstile'
+// 	a::before {content: '\29df';} // 'double-ended multimap'
+// 	a::before {content: '+';}
+// }
+// .Child {
+// 	a::before {content: '\22a4';} // `\top` or 'down tack'
+// 	a::before {content: '\22b6';} // 'original of'
+// 	a::before {content: '>';}
+// }
 /**
   * An actual breadcrumb link.
 @implements
@@ -69,16 +68,23 @@
 : 2014-08-17
   */
 .Crumb {
-	.Button;
-	@topspace: 0.75;
-	&:extend(.fontsize-block-med);
-	.vru-top(@topspace);
+	@bc_brdrr: 15px;
 	display: block;
-	padding: ((1 - @topspace) / 2 * @vru_px)  @bc_brdr_radius; // fallback
-	padding: ((1 - @topspace) / 2 * @vru_rem) @bc_brdr_radius;
-	border-radius: @bc_brdr_radius;
-	white-space: normal;
-	&[rel~="this"] {font-weight: bold;}
+	padding-left: @bc_brdrr;
+	border-radius: @bc_brdrr;
+	color: @color_link_up;
+	.transition(background-color; @t_ani * 0.5);
+	@bgcolor:       lighten(@color_link_up, 40%);
+	@bgcolor_this:  lighten(@color_link_up, 35%);
+	@bgcolor_hover: lighten(@color_link_up, 30%);
+	background-color: @bgcolor;
+	&:hover {background-color: @bgcolor_hover !important;}
+	&[rel~="this"] {
+		position: relative;
+		left: @bc_brdrr;
+		font-weight: bold;
+		background-color: @bgcolor_this;
+	}
 }
 
 @media print {
