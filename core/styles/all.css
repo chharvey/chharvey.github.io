@@ -23,6 +23,8 @@
   * - The 'math' font-family is another serif oldstyle type use for mathematical spans.
   * - The 'accent' font-family is used for labels, block quotes, buttons/keys,
   * 	and other special elements.
+  * - The 'script' font-family is used for even more fancy elements such as
+  * 	drop-caps and subheadings.
   */
 /*@Color Scheme*/
 /*@FUNCTIONS*/
@@ -527,14 +529,12 @@ sub,
 : 2014-07-08
   */
 .fontsize-block-lrg,
-.Qblock {
+.Qblock.Short {
   font-size: 20px;
   font-size: 1.25rem;
   line-height: 1.2;
 }
 .fontsize-block-med,
-.Qblock.Long,
-.Qblock.Long .Src,
 .Button.Crumb {
   font-size: 16px;
   font-size: 1rem;
@@ -543,11 +543,10 @@ sub,
 .fontsize-block-sml,
 .Fineprint,
 .Capt,
-.Qblock .Src,
+.Qblock.Short .Src,
 .Table,
 .Codeblock,
-.List.Footnotes,
-.Label {
+.List.Footnotes {
   font-size: 12px;
   font-size: 0.75rem;
   line-height: 2;
@@ -613,6 +612,20 @@ sub,
     _grad.less
 \*##############*/
 /**
+  * Use this Mixin as a tool to apply the color scheme to an Element.
+@params
+: @color_bd  : the border     color of the Element
+: @color_txt : the text       color of the Element
+: @color_bg  : the background color of the Element
+@tags
+: #border
+: #background
+@author
+: Chris Harvey
+@updated
+: 2014-08-11
+  */
+/**
   * Use this Mixin to apply a linear gradient background on an Element.
   * See [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/linear-gradient) for more info.
   * See [WPD](http://docs.webplatform.org/wiki/css/functions/linear-gradient) for more info.
@@ -642,6 +655,7 @@ sub,
 : 2014-05-10
   */
 .vru-content,
+.Article[data-status]::before,
 .H,
 .P,
 .Capt,
@@ -649,12 +663,10 @@ sub,
 .Fig,
 .Qblock,
 .Item,
-.Map > .Term,
-.Map > .Desc,
+.Map,
 .Cell,
 .Codeblock,
-.Label.Msg,
-.Label.Tag {
+.Alert {
   min-height: 24px;
   min-height: 1.5rem;
 }
@@ -669,20 +681,11 @@ sub,
 @updated
 : 2014-07-10
   */
-.vru-top-1,
-:not(.H) + .P,
-.P + .List,
-.P + .Map,
-.P + .Table,
-.Codeblock,
-.Label.Msg {
+.vru-top-1 {
   margin-top: 24px;
   margin-top: 1.5rem;
 }
 .vru-bottom-1,
-.P + .List,
-.P + .Map,
-.P + .Table,
 .P.Intro,
 .Bc > .Anc,
 .Bc > .Sib,
@@ -704,7 +707,7 @@ sub,
 @author
 : Chris Harvey
 @updated
-: 2014-04-26
+: 2014-08-07
   */
 .vru-top-phi,
 .Addy,
@@ -713,7 +716,7 @@ sub,
   padding-top: 9.16718427px;
   margin-top: 14.83281573px;
   border-top-width: 0;
-  border-top-style: solid;
+  border-top-style: none;
   border-top-color: #000000;
 }
 /**
@@ -722,7 +725,7 @@ sub,
   * The `.hr()` Mixin lets you choose the line color.
   * The `-head` suffix colors the line with the main heaing color (blueish).
   * The `-brdr` suffix colors the line with the border accent color (greenish).
-  * The `-acnt` suffix colors the line with the accent color (redish).
+  * The `-acnt` suffix colors the line with the accent color (reddish).
 @tags
 : #golden
 : #heading
@@ -731,28 +734,29 @@ sub,
 @author
 : Chris Harvey
 @updated
-: 2014-07-07
+: 2014-08-07
   */
-.hr-head {
-  padding-top: 8.78521826px;
-  margin-top: 14.21478174px;
-  border-top-width: 1px;
-  border-top-style: solid;
-  border-top-color: #120099;
-}
+.Hr,
+.hr-head,
 .hr-brdr,
+.hr-acnt,
 .List.Footnotes {
   padding-top: 8.78521826px;
   margin-top: 14.21478174px;
   border-top-width: 1px;
   border-top-style: solid;
+}
+.Hr.Head,
+.hr-head {
+  border-top-color: #120099;
+}
+.Hr.Brdr,
+.hr-brdr,
+.List.Footnotes {
   border-top-color: #9acc7a;
 }
+.Hr.Acnt,
 .hr-acnt {
-  padding-top: 8.78521826px;
-  margin-top: 14.21478174px;
-  border-top-width: 1px;
-  border-top-style: solid;
   border-top-color: #cc004e;
 }
 /*#################*\
@@ -780,10 +784,20 @@ sub,
 @updated
 : 2014-06-26
   */
+/**
+  * The following Interface undoes any work done by the `.border-vert-*` Mixins above.
+  * It should only be used in the case of trumps.
+@tags
+: #verticalrhythm
+: #border
+@author
+: Chris Harvey
+@updated
+: 2014-08-10
+  */
 .border-vert-undo {
   position: static;
   top: auto;
-  border: 0;
   margin-bottom: 0;
 }
 /**
@@ -832,9 +846,10 @@ sub,
 : 2014-05-20
   */
 .cellpaddingdefault,
+.Article[data-status]::before,
 .Cell,
 .Codeblock,
-.Label.Msg {
+.Alert {
   padding: 12px 7.41640786px;
   padding: 0.75rem 7.41640786px;
 }
@@ -879,6 +894,44 @@ sub,
 @updated
 : 2014-07-07
   */
+/**
+  * This Interface allows for the appearance of Elements in the left and right "gutters":
+  * The margins of the `main` Element.
+  * Depending on the layout, the `--major` gutter falls in the "wider" margin, and
+  * the `--minor` gutter falls in the "narrower" margin.
+  * Currently, the winder margin is on the left while the narrower margin is on the right.
+  *
+  * `.gutter--major` acts like a `.w-p1.ml` within a `.w-p3.left`
+  * `.gutter--minor` acts like a `.w-p1.mr` within a `.w-p4.right`
+@tags
+: #golden
+: #margin
+: #positioning
+@author
+: Chris Harvey
+@updated
+: 2014-08-11
+  */
+.gutter {
+  box-sizing: border-box;
+  position: fixed;
+}
+.gutter--major {
+  box-sizing: border-box;
+  position: fixed;
+  width: 14.58980338%;
+  margin-left: 3.44418537%;
+  margin-right: 5.572809%;
+  left: 0;
+}
+.gutter--minor {
+  box-sizing: border-box;
+  position: fixed;
+  width: 9.01699437%;
+  margin-left: 3.44418537%;
+  margin-right: 2.12862363%;
+  right: 0;
+}
 /*################*\
     _delims.less
 \*################*/
@@ -899,11 +952,17 @@ sub,
 .braces::before,
 .angles::before,
 .angles::before,
+.apos::before,
+.quot::before,
 .quotes-single::before,
 .quotes-double::before,
 .guillemets-single::before,
 .guillemets-double::before,
-.Qblock.Long .Src::before,
+.Qblock .Src.Formal::before,
+.Codeblock .Tag::before,
+.Codeblock .Tag::before,
+.Codeblock .Tag .Val::before,
+i::before,
 var::before,
 q::before,
 .Th::before,
@@ -917,11 +976,17 @@ q::before,
 .braces::after,
 .angles::after,
 .angles::after,
+.apos::after,
+.quot::after,
 .quotes-single::after,
 .quotes-double::after,
 .guillemets-single::after,
 .guillemets-double::after,
-.Qblock.Long .Src::after,
+.Qblock .Src.Formal::after,
+.Codeblock .Tag::after,
+.Codeblock .Tag::after,
+.Codeblock .Tag .Val::after,
+i::after,
 var::after,
 q::after,
 .Th::after,
@@ -930,7 +995,7 @@ q::after,
   content: close-quote;
 }
 .parens,
-.Qblock.Long .Src {
+.Qblock .Src.Formal {
   quotes: '(' ')';
 }
 .brackets,
@@ -941,16 +1006,26 @@ q::after,
 .braces {
   quotes: '{' '}';
 }
-.angles {
+.angles,
+.Codeblock .Tag {
   quotes: '<' '>';
 }
-.angles {
+.angles,
+.Codeblock .Tag {
   quotes: '\003c' '\003e';
+}
+.apos {
+  quotes: '\0027' '\0027';
+}
+.quot,
+.Codeblock .Tag .Val {
+  quotes: '\0022' '\0022';
 }
 .quotes-single {
   quotes: '\2018' '\2019';
 }
 .quotes-double,
+i,
 q {
   quotes: '\201c' '\201d';
 }
@@ -1065,6 +1140,7 @@ main {
 : 2014-06-08
   */
 .crossgrid-lined,
+.Fig,
 .Qblock {
   background-image: url('http://chharvey.github.io/core/images/crossgrid-lined_1x24.svg');
   background-size: 1px 24px;
@@ -1132,9 +1208,9 @@ main {
 : 2014-06-26
   */
 /**
-  * This attribute indicates the status of a document or Element.
+  * The `[data-status]` attribute indicates the status of a document or Element.
   * "draft"    : a work in progress
-  * "complete" : finished but not yet ready for implementation
+  * "complete" : finished but still needs edits before releasing
   * "released" : ready for implementation
   * See https://github.com/chharvey/chharvey.github.io/wiki/Document-Status/ for more info.
 @tags
@@ -1145,34 +1221,151 @@ main {
 @author
 : Chris Harvey
 @updated
-: 2014-08-01
+: 2014-08-11
   */
-[data-status="draft"] {
-  background-color: #fff1f6;
+.Article[data-status]::before {
+  font-family: 'Century Gothic', 'Gill Sans', 'Avenir', sans-serif;
+  display: block;
+  position: relative;
+  top: -1px;
+  margin-bottom: -2px;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 6px;
+  margin-left: 23.60679775%;
+  margin-right: 14.58980338%;
+  position: static;
+  top: auto;
+  margin-bottom: 0;
+  box-sizing: border-box;
+  position: fixed;
+  width: 9.01699437%;
+  margin-left: 3.44418537%;
+  margin-right: 2.12862363%;
+  right: 0;
+  position: absolute;
+  font-weight: bold;
+  font-size: 12px;
+  font-size: 0.75rem;
+  line-height: 2;
+  text-align: left;
 }
-[data-status="complete"] {
-  background-color: #f6fff1;
+.Article[data-status]::before::before,
+.Article[data-status]::before::after {
+  font-weight: bold;
 }
-[data-status="released"] {
-  background-color: #f1f6ff;
+.Article[data-status="draft"]::before {
+  border-color: #ff0000;
+  color: #610000;
+  background-color: #ff9e9e;
+  background-image: -webkit-linear-gradient(to bottom, #ff9e9e, #ff6b6b);
+  background-image: -moz-linear-gradient(to bottom, #ff9e9e, #ff6b6b);
+  background-image: -ms-linear-gradient(to bottom, #ff9e9e, #ff6b6b);
+  background-image: -o-linear-gradient(to bottom, #ff9e9e, #ff6b6b);
+  background-image: linear-gradient(to bottom, #ff9e9e, #ff6b6b);
+  background-image: -webkit-gradient(to bottom, #ff9e9e, #ff6b6b);
+  content: 'This article is a work in progress.';
 }
-.Article .statusborder,
-.Article [data-status="draft"],
-.Article [data-status="complete"],
-.Article [data-status="released"] {
+.Article[data-status="draft"]::before::before {
+  content: 'Warning' ' ' '\0021' ' ';
+}
+.Article[data-status="complete"]::before {
+  border-color: #ccff00;
+  color: #4e6100;
+  background-color: #ecff9e;
+  background-image: -webkit-linear-gradient(to bottom, #ecff9e, #e1ff6b);
+  background-image: -moz-linear-gradient(to bottom, #ecff9e, #e1ff6b);
+  background-image: -ms-linear-gradient(to bottom, #ecff9e, #e1ff6b);
+  background-image: -o-linear-gradient(to bottom, #ecff9e, #e1ff6b);
+  background-image: linear-gradient(to bottom, #ecff9e, #e1ff6b);
+  background-image: -webkit-gradient(to bottom, #ecff9e, #e1ff6b);
+  content: 'This article is mostly complete.';
+}
+.Article[data-status="complete"]::before::before {
+  content: 'Caution' ' ' '\2026' ' ';
+}
+.Article[data-status="released"]::before {
+  border-color: #00ff66;
+  color: #006127;
+  background-color: #9effc5;
+  background-image: -webkit-linear-gradient(to bottom, #9effc5, #6bffa6);
+  background-image: -moz-linear-gradient(to bottom, #9effc5, #6bffa6);
+  background-image: -ms-linear-gradient(to bottom, #9effc5, #6bffa6);
+  background-image: -o-linear-gradient(to bottom, #9effc5, #6bffa6);
+  background-image: linear-gradient(to bottom, #9effc5, #6bffa6);
+  background-image: -webkit-gradient(to bottom, #9effc5, #6bffa6);
+  content: 'This article is ready for implemen' '\00ad' 'tation.';
+}
+.Article[data-status="released"]::before::before {
+  content: 'Success' ' ' '\263a' ' ';
+}
+.Article [data-status] {
   border-left-width: 4px;
   border-left-style: solid;
   padding-left: 6.47213595px;
   margin-left: 16.94427191px;
+  padding-right: 4px;
+  box-shadow: 4px 4px 8px #808080;
 }
 .Article [data-status="draft"] {
-  border-left-color: #cc7a9a;
+  border-color: #ff0000;
+  background-color: rgba(255, 158, 158, 0.14589803);
 }
 .Article [data-status="complete"] {
-  border-left-color: #9acc7a;
+  border-color: #ccff00;
+  background-color: rgba(236, 255, 158, 0.14589803);
 }
 .Article [data-status="released"] {
-  border-left-color: #7a9acc;
+  border-color: #00ff66;
+  background-color: rgba(158, 255, 197, 0.14589803);
+}
+/**
+  * The `[data-informative]` attribute on an Element in an `.Article` indicates that
+  * the content is nonessential to the article.
+  * See https://github.com/chharvey/chharvey.github.io/wiki/Document-Status/ for more info.
+@tags
+: #status
+@author
+: Chris Harvey
+@updated
+: 2014-08-12
+  */
+.Article [data-informative] {
+  border-left-width: 2px;
+  border-left-style: solid;
+  padding-left: 3.23606798px;
+  margin-left: 8.47213595px;
+  border-right-width: 2px;
+  border-right-style: solid;
+  padding-right: 3.23606798px;
+  margin-right: 8.47213595px;
+  box-shadow: 2px 2px 4px #c0c0c0;
+  border-color: #0066ff;
+  background-color: rgba(158, 197, 255, 0.14589803);
+}
+/*#################*\
+    _docmeta.less
+\*#################*/
+/**
+  * An association list describing the author, update timestamps, and tags/keywords for an `.Article`.
+@tags
+: #article
+@author
+: Chris Harvey
+@updated
+: 2014-08-25
+*/
+.Docmeta > dt {
+  font-weight: bold;
+}
+.Docmeta > dt::after {
+  content: ':';
+}
+.Docmeta dd:not(.submit):not(.release):not(.recent) .hm {
+  display: none;
+}
+.Docmeta .hm::before {
+  content: '@\0020';
 }
 /*##################*\
     _headings.less
@@ -1193,23 +1386,7 @@ main {
   display: block;
   font-family: 'Avenir', 'Calibri', 'Century Gothic', sans-serif;
   letter-spacing: 1px;
-}
-/**
-  * This Object represents a generic tagline inside a heading, called a 'subheading'.
-@tags
-: #typography
-: #heading
-@author
-: Chris Harvey
-@updated
-: 2014-04-30
-  */
-.H > .Hsub {
-  padding-left: 24px;
-  font-size: 61.80339887%;
-  font-weight: normal;
-  color: #704500;
-  color: rgba(14, 9, 0, 0.61803399);
+  text-align: left;
 }
 /**
   * The six Objects below represent different levels of headings, starting from top-level to level 6.
@@ -1223,9 +1400,9 @@ main {
 @author
 : Chris Harvey
 @updated
-: 2014-07-10
+: 2014-08-02
   */
-.H.Alpha {
+.H.Alp {
   font-size: 48px;
   font-size: 3rem;
   line-height: 1;
@@ -1238,11 +1415,7 @@ main {
   text-align: center;
   color: #120099;
 }
-.H.Alpha > .Hsub {
-  color: #120099;
-  color: rgba(18, 0, 153, 0.61803399);
-}
-.H.Beta {
+.H.Bet {
   font-size: 35px;
   font-size: 2.1875rem;
   line-height: 1.37142857;
@@ -1260,11 +1433,7 @@ main {
   font-weight: bold;
   color: #3d6166;
 }
-.H.Beta > .Hsub {
-  color: #3d6166;
-  color: rgba(61, 97, 102, 0.61803399);
-}
-.H.Gamma {
+.H.Gam {
   font-size: 26px;
   font-size: 1.625rem;
   line-height: 0.92307692;
@@ -1275,7 +1444,7 @@ main {
   font-variant: small-caps;
   font-weight: bold;
 }
-.H.Delta {
+.H.Del {
   font-size: 21px;
   font-size: 1.3125rem;
   line-height: 1.14285714;
@@ -1286,18 +1455,14 @@ main {
   font-style: italic;
   font-weight: bold;
 }
-.H.Epsilon {
+.H.Eps {
   font-size: 18px;
   font-size: 1.125rem;
   line-height: 1.33333333;
   font-style: italic;
   color: #3d6166;
 }
-.H.Epsilon > .Hsub {
-  color: #3d6166;
-  color: rgba(61, 97, 102, 0.61803399);
-}
-.H.Zeta {
+.H.Zet {
   font-size: 16px;
   font-size: 1rem;
   line-height: 1.5;
@@ -1305,9 +1470,32 @@ main {
   font-variant: small-caps;
 }
 /**
+  * This Object represents a generic tagline for a top-level heading, called a 'subheading'.
+  * Do not include this object as a component of an `.H.Alp` Object. (It will become part of the
+  * document outline if you do.) Instead, this tagline should be the adjacent sibling to the
+  * corresponding `.H.Alp`.
+  * Use this Object to represent subtitles for top-level headings only (`.H.Alp`). There is no need
+  * to use it for minor headings (`.H.Bet`, `.H.Gam`, etc.).
+@tags
+: #typography
+: #heading
+@author
+: Chris Harvey
+@updated
+: 2014-08-02
+  */
+.H.Hsub {
+  font-size: 32px;
+  font-size: 2rem;
+  line-height: 1.5;
+  font-family: 'Zapfino', script;
+  text-align: center;
+  color: #cc004e;
+}
+/**
   * A fancy heading for the portfolio pages.
 @extends
-: .H.Alpha
+: .H.Alp
 @tags
 : #typography
 : #heading
@@ -1316,7 +1504,7 @@ main {
 @updated
 : 2014-06-19
   */
-.H.Alpha.Folio {
+.H.Alp.Folio {
   font-size: 48px;
   font-size: 3rem;
   line-height: 1;
@@ -1329,8 +1517,8 @@ main {
   font-family: 'Zapfino', script;
   white-space: nowrap;
 }
-.H.Alpha.Folio .cap,
-.H.Alpha.Folio::first-letter {
+.H.Alp.Folio .cap,
+.H.Alp.Folio::first-letter {
   font-size: 96px;
   font-size: 6rem;
   line-height: 0.25;
@@ -1359,6 +1547,16 @@ main {
 }
 .P p {
   display: inline;
+}
+:not(.H) + .Article,
+:not(.H) + .P,
+:not(.H) + .List,
+:not(.H) + .Map,
+:not(.H) + .Table,
+:not(.H) + .Codeblock,
+:not(.H) + .Alert {
+  margin-top: 24px;
+  margin-top: 1.5rem;
 }
 /**
   * This Object refers to the first ("lede"/"lead") sentence in a paragraph or caption, which may
@@ -1538,7 +1736,7 @@ main {
 @author
 : Chris Harvey
 @updated
-: 2014-07-10
+: 2014-08-11
   */
 .Fig {
   border-left-width: 4px;
@@ -1554,9 +1752,17 @@ main {
 /**
   * This Object represents any Block Quotation, representing material taken directly from another
   * source. It may or may not take the form of a literal `blockquote` Element.
+  *
+  * If the original source has paragraph breaks, regardless of word count, use `.Qblock`.
+  * It should have paragraph breaks that correspond to the source.
+  *
+  * If the original source is more than 40 words and does not have paragraph breaks, use
+  * `.Qblock.Long`. It should not contain paragraphs (either `.P` Objects or `p` Elements);
+  * it should directly contain the source's text.
+  *
   * If the original source is less than 40 words and does not have paragraph breaks (for example,
-  * extracted inline text from an article), this `.Qblock` should not contain Paragraphs; it should
-  * directly contain the source's text.
+  * extracted inline text from an article), use the `.Qblock.Short` subclass. It should also not
+  * contain paragraphs.
 @implements
 : .vru-content
 : .vru-top-phi
@@ -1570,7 +1776,7 @@ main {
 @author
 : Chris Harvey
 @updated
-: 2014-07-10
+: 2014-08-11
   */
 .Qblock {
   border-left-width: 7px;
@@ -1582,52 +1788,42 @@ main {
 }
 /**
   * The `.Src` Object represents the citation of a source inside a `.Qblock` Object. It is
-  * recommended to apply this class to a `cite` Element.
+  * recommended to apply this class to a `cite` Element, possibly within a `footer` Element.
 @belongsto
 : .Qblock
-@implements
-: .fontsize-block-sml
 @tags
 : #typography
 : #quote
 @author
 : Chris Harvey
 @updated
-: 2014-07-10
+: 2014-08-11
   */
 .Qblock .Src {
   display: block;
-  padding-right: 24px;
   text-align: right;
 }
 .Qblock .Src::before {
   content: '~\0020';
 }
-/**
-  * This Object represents a "long" block quotation.
-  * If the original source is more than 40 words and does not have paragraph breaks, this
-  * `.Qblock.Long` should have exactly one `.P` object, which contains the text from the source.
-  * If the original source has paragraph breaks, regardless of word count, this `.Qblock.Long`
-  * should have paragraph breaks that correspond to the source.
-@extends
-: .Qblock
-@implements
-: .fontsize-block-med
-@tags
-: #typography
-: #quote
-@author
-: Chris Harvey
-@updated
-: 2014-07-10
-  */
-.Qblock.Long .Src {
-  padding-right: 0;
+.Qblock .Src:not(.Formal) {
+  border-right-width: 3px;
+  border-right-style: double;
+  padding-right: 4.85410197px;
+  margin-right: 12.70820393px;
+}
+.Qblock.Short {
+  line-height: 1.8;
+  background-image: none;
+}
+.Qblock.Short .Src {
+  line-height: 3;
 }
 .Capt,
 .Addy,
 .Fig,
-.Qblock {
+.Qblock,
+.Qblock .Src {
   border-color: #9acc7a;
 }
 /*###############*\
@@ -1742,25 +1938,25 @@ main {
 @updated
 : 2014-05-03
   */
-.List.O.Omega {
+.List.O.Ome {
   list-style-type: decimal-leading-zero;
 }
-.List.O.Alpha {
+.List.O.Alp {
   list-style-type: upper-roman;
 }
-.List.O.Beta {
+.List.O.Bet {
   list-style-type: upper-alpha;
 }
-.List.O.Gamma {
+.List.O.Gam {
   list-style-type: decimal;
 }
-.List.O.Delta {
+.List.O.Del {
   list-style-type: lower-alpha;
 }
-.List.O.Epsilon {
+.List.O.Eps {
   list-style-type: lower-roman;
 }
-.List.O.Zeta {
+.List.O.Zet {
   list-style-type: lower-greek;
 }
 /**
@@ -1784,8 +1980,8 @@ main {
   list-style-type: square;
 }
 /**
-  * This Object represents a generic list whose items are to be displayed inline. The list itself
-  * appears as a block.
+  * This Object represents a generic list whose items are to be displayed inline.
+  * The list itself appears as a block.
 @extends
 : .List
 @tags
@@ -1904,13 +2100,14 @@ main {
   * This Object represents an association list, which contains term-description pairs. Each pair
   * consists of exactly one `.Term` and exactly one `.Desc`.
 @implements
+: .vru-content
 @tags
 : #typography
 : #map
 @author
 : Chris Harvey
 @updated
-: 2014-07-10
+: 2014-08-07
   */
 .Map {
   display: block;
@@ -1919,29 +2116,27 @@ main {
   * This Object represent the term in a term-description pair of a `.Map`.
 @belongsto
 : .Map
-@implements
-: .vru-content
 @tags
 : #typography
 : #map
 @author
 : Chris Harvey
 @updated
-: 2014-05-25
+: 2014-08-07
   */
 /**
   * This Object represent the description in a term-description pair of a `.Map`.
 @belongsto
 : .Map
 @implements
-: .vru-content
+: .listindent
 @tags
 : #typography
 : #map
 @author
 : Chris Harvey
 @updated
-: 2014-05-25
+: 2014-08-07
   */
 .Map > .Desc {
   padding-left: 48px;
@@ -2261,7 +2456,8 @@ code {
   border-style: solid;
   border-radius: 3px;
   font-family: 'Menlo', 'Lucida Sans Typewriter', 'Monaco', monospace;
-  white-space: pre-wrap;
+  white-space: pre;
+  overflow: auto;
 }
 /**
   * Subcomponents of a code block.
@@ -2450,6 +2646,9 @@ code {
   font-family: 'Century Gothic', 'Gill Sans', 'Avenir', sans-serif;
   color: #93a1a1;
 }
+kbd {
+  white-space: nowrap;
+}
 /**
   * This Object represents a path in a directory system (for folders and files).
   * Recommended instantiated by a `code` or `samp` Element.
@@ -2466,10 +2665,29 @@ code {
   font-style: italic;
   font-family: 'Optima', 'Candara', 'Helvetica', sans-serif;
 }
-.latex {
+/**
+  * This Object represents a mathematical expression or statement.
+  * Its input is the LaTeX syntax.
+@author
+: Chris Harvey
+@updated
+: 2014-08-22
+  */
+.Math,
+.M {
   overflow: auto;
   font-family: 'Times', 'Times New Roman', serif;
-  white-space: pre-wrap;
+  white-space: pre;
+}
+/**
+  * These Objects are subclasses of `.M`.
+@author
+: Chris Harvey
+@updated
+: 2014-08-22
+  */
+.M.B {
+  display: block;
 }
 /*###############*\
     _links.less
@@ -2540,7 +2758,6 @@ a[rel~="external"] {
 @tags
 : #typography
 : #span
-: #highlight
 @author
 : Chris Harvey
 @updated
@@ -2556,7 +2773,6 @@ em {
 @tags
 : #typography
 : #span
-: #highlight
 @author
 : Chris Harvey
 @updated
@@ -2566,58 +2782,74 @@ strong {
   font-weight: bold;
 }
 /**
-  * A phrase in a foreign language, such as the taxonomic classification (in Latin) of an organism.
+  * A phrase interpreted in an alternate voice or mood, without carrying extra emphasis,
+  * such as scare quotes and mentions.
+  * Or a phrase in a foreign language, such as the taxonomic classification (in Latin) of an organism.
 @tags
 : #typography
 : #span
-: #highlight
 @author
 : Chris Harvey
 @updated
-: 2014-05-25
+: 2014-08-05
   */
 i[lang] {
   font-style: italic;
+  font-weight: normal;
   font-family: 'Times', 'Times New Roman', serif;
+  quotes: '' '';
 }
 /**
-  * This Object is used to make text appear highlighted.
-  * May be instantiated by the `mark` or `u` Elements.
-@mixesin
-: .fade-background
+  * A keyword, technical or specific term, or key phrase
+  * (If a foreign language, be sure to add the `[lang]` attribute.)
+  * A `b` Element is any generic keyword or term, whose definition is not present. If the term is
+  * being defined, use the `dfn` Element.
 @tags
 : #typography
 : #span
-: #highlight
 @author
 : Chris Harvey
 @updated
-: 2014-06-26
+: 2014-08-05
   */
-.Hi {
+b {
+  font-weight: bold;
+}
+/**
+  * A span of text that is relevant in some context. It is advisable to use the `[class]` attribute
+  * to indicate the context in which the span is relevant.
+@tags
+: #typography
+: #span
+@author
+: Chris Harvey
+@updated
+: 2014-08-05
+  */
+mark {
   background-color: #cc004e;
   background-color: rgba(204, 0, 78, 0.38196601);
   padding: 2px 3px;
 }
-.Hi.Warn {
-  background-color: #ff0000;
-  background-color: rgba(255, 0, 0, 0.38196601);
-}
-.Hi.Cshn {
-  background-color: #ccff00;
-  background-color: rgba(204, 255, 0, 0.38196601);
-}
-.Hi.Skss {
-  background-color: #00ff66;
-  background-color: rgba(0, 255, 102, 0.38196601);
-}
-.Hi.Info {
-  background-color: #0066ff;
-  background-color: rgba(0, 102, 255, 0.38196601);
-}
-.Hi.Help {
-  background-color: #cc00ff;
-  background-color: rgba(204, 0, 255, 0.38196601);
+/**
+  * A span of text to which the reader's attention should be brought for purposes of illustration.
+  * This span is typically in a figure or example.
+  * Note: There could be a more appropriate element to use. Namely:
+  * - If the span of text has an emphasized meaning, use `em`.
+  * - If the span of text relays an important concept, use `strong`.
+  * - If the span of text is represented in an alternate voice/mood, use `i`.
+  * - If the span of text is a key word, key phrase, or common expression, use `b`.
+  * - If the span of text is relevant in a certain context, use `mark`.
+@tags
+: #typography
+: #span
+@author
+: Chris Harvey
+@updated
+: 2014-08-05
+  */
+u {
+  color: #cc004e;
 }
 /**
   * Superscripts and subscripts.
@@ -2639,25 +2871,64 @@ sup {
 sub {
   top: 6px;
 }
+/**
+  * This Object is used to make text appear highlighted.
+  * May be instantiated by the `mark` or `u` Elements.
+@mixesin
+: .fade-background
+@tags
+: #typography
+: #span
+@author
+: Chris Harvey
+@updated
+: 2014-06-26
+  */
+.Hi {
+  background-color: #cc004e;
+  background-color: rgba(204, 0, 78, 0.38196601);
+  padding: 2px 3px;
+}
+.Hi.Alp {
+  background-color: #ff0000;
+  background-color: rgba(255, 0, 0, 0.38196601);
+}
+.Hi.Bet {
+  background-color: #ccff00;
+  background-color: rgba(204, 255, 0, 0.38196601);
+}
+.Hi.Gam {
+  background-color: #00ff66;
+  background-color: rgba(0, 255, 102, 0.38196601);
+}
+.Hi.Del {
+  background-color: #0066ff;
+  background-color: rgba(0, 102, 255, 0.38196601);
+}
+.Hi.Eps {
+  background-color: #cc00ff;
+  background-color: rgba(204, 0, 255, 0.38196601);
+}
+.Hi.Zet {
+  background-color: #0e0900;
+  background-color: rgba(14, 9, 0, 0.38196601);
+}
 /*#################*\
     _doctext.less
 \*#################*/
 /**
-  * A keyword, technical or specific term, or a vocabulary term.
+  * A vocabulary term.
   * Every `dfn` must have an `id` attribute, thus there must only be one `dfn` per page that
   * contains a given term in question. Furthermore, hyperlinks can point to the defining instance
   * of the term.
-  * A `b` Element is any generic keyword or term, whose definition may or may not be present.
 @tags
 : #typography
 : #span
-: #highlight
 @author
 : Chris Harvey
 @updated
-: 2014-05-25
+: 2014-08-05
   */
-b,
 dfn[id] {
   font-weight: bold;
   font-family: 'Baskerville', 'Palatino', 'Book Antiqua', serif;
@@ -2842,33 +3113,33 @@ del + ins {
   font-family: 'Century Gothic', 'Gill Sans', 'Avenir', sans-serif;
   color: #0062ff;
   background-color: #c3daff;
-  background-image: -webkit-linear-gradient(to bottom right, #dbe9ff, #92bcff);
-  background-image: -moz-linear-gradient(to bottom right, #dbe9ff, #92bcff);
-  background-image: -ms-linear-gradient(to bottom right, #dbe9ff, #92bcff);
-  background-image: -o-linear-gradient(to bottom right, #dbe9ff, #92bcff);
-  background-image: linear-gradient(to bottom right, #dbe9ff, #92bcff);
-  background-image: -webkit-gradient(to bottom right, #dbe9ff, #92bcff);
+  background-image: -webkit-linear-gradient(to bottom right, #dceaff, #90baff);
+  background-image: -moz-linear-gradient(to bottom right, #dceaff, #90baff);
+  background-image: -ms-linear-gradient(to bottom right, #dceaff, #90baff);
+  background-image: -o-linear-gradient(to bottom right, #dceaff, #90baff);
+  background-image: linear-gradient(to bottom right, #dceaff, #90baff);
+  background-image: -webkit-gradient(to bottom right, #dceaff, #90baff);
   cursor: pointer;
 }
 .Button:hover {
   border-color: #ff9d00;
   color: #ff9d00;
   background-color: #ffe8c3;
-  background-image: -webkit-linear-gradient(to bottom right, #fff1db, #ffd592);
-  background-image: -moz-linear-gradient(to bottom right, #fff1db, #ffd592);
-  background-image: -ms-linear-gradient(to bottom right, #fff1db, #ffd592);
-  background-image: -o-linear-gradient(to bottom right, #fff1db, #ffd592);
-  background-image: linear-gradient(to bottom right, #fff1db, #ffd592);
-  background-image: -webkit-gradient(to bottom right, #fff1db, #ffd592);
+  background-image: -webkit-linear-gradient(to bottom right, #fff2dc, #ffd490);
+  background-image: -moz-linear-gradient(to bottom right, #fff2dc, #ffd490);
+  background-image: -ms-linear-gradient(to bottom right, #fff2dc, #ffd490);
+  background-image: -o-linear-gradient(to bottom right, #fff2dc, #ffd490);
+  background-image: linear-gradient(to bottom right, #fff2dc, #ffd490);
+  background-image: -webkit-gradient(to bottom right, #fff2dc, #ffd490);
 }
 .Button:active {
   border-style: inset;
-  background-image: -webkit-linear-gradient(to top left, #fff1db, #ffd592);
-  background-image: -moz-linear-gradient(to top left, #fff1db, #ffd592);
-  background-image: -ms-linear-gradient(to top left, #fff1db, #ffd592);
-  background-image: -o-linear-gradient(to top left, #fff1db, #ffd592);
-  background-image: linear-gradient(to top left, #fff1db, #ffd592);
-  background-image: -webkit-gradient(to top left, #fff1db, #ffd592);
+  background-image: -webkit-linear-gradient(to top left, #fff2dc, #ffd490);
+  background-image: -moz-linear-gradient(to top left, #fff2dc, #ffd490);
+  background-image: -ms-linear-gradient(to top left, #fff2dc, #ffd490);
+  background-image: -o-linear-gradient(to top left, #fff2dc, #ffd490);
+  background-image: linear-gradient(to top left, #fff2dc, #ffd490);
+  background-image: -webkit-gradient(to top left, #fff2dc, #ffd490);
 }
 .Button.Block {
   display: block;
@@ -2887,10 +3158,11 @@ del + ins {
 : 2014-06-18
   */
 .Bc {
+  box-sizing: border-box;
+  position: fixed;
   width: 14.58980338%;
   margin-left: 3.44418537%;
   margin-right: 5.572809%;
-  position: fixed;
   left: 0;
   top: 48px;
   top: 3rem;
@@ -2984,97 +3256,56 @@ del + ins {
 	_labels.less
 \*################*/
 /**
-  * A Label Object is used for displaying little indications to the user. There are two subclasses
-  * of Labels: Messages and Tags. Each subclass may be of the following types:
-  * - A **Warning Label** is used to indicate a negative consequence, such as an action that cannot
+  * A message Interface is a component that displays little indications to the user.
+  * Each Object that implements this Interface may have one of the following subclasses:
+  * - **Warning** is used to indicate a negative consequence, such as an action that cannot
   * 	be undone or that will cause something to break.
-  * - A **Caution Label** is used to indicate that the user must proceed with care.
-  * - A **Success Label** is used to indicate that something was done right.
-  * - An **Info Label** is used to indicate extra information about something.
-  * - A **Help Label** is used to indicate tips and hints for the user.
+  * - **Caution** is used to indicate that the user must proceed with care.
+  * - **Success** is used to indicate that something was done right.
+  * - **Info** is used to indicate extra information about something.
+  * - **Help** is used to indicate tips and hints for the user.
 @implements
 : .fontsize-sml
 @tags
-: #label
 : #message
+: #label
 : #tag
 @author
 : Chris Harvey
 @updated
-: 2014-06-22
+: 2014-08-11
   */
-.Label {
-  font-style: normal;
-  font-weight: normal;
+.msg {
+  font-size: 12px;
+  font-size: 0.75rem;
+  line-height: 2;
   font-family: 'Century Gothic', 'Gill Sans', 'Avenir', sans-serif;
 }
-.Label::before,
-.Label::after {
+.msg::before,
+.msg::after {
   font-weight: bold;
 }
 /**
-  * This Mixin is used for all `.Label` Objects. It sets the proper colors for the Object based on
-  * its type.
-@tags
-: #label
-: #message
-: #tag
-@author
-: Chris Harvey
-@updated
-: 2014-06-22
-  */
-.lbl-warn-nf,
-.Label.Msg.Warn,
-.Label.Tag.Warn {
-  border-color: #ff0000;
-  color: #610000;
-  background-color: #ff9e9e;
-}
-.lbl-cshn-nf,
-.Label.Msg.Cshn,
-.Label.Tag.Cshn {
-  border-color: #ccff00;
-  color: #4e6100;
-  background-color: #ecff9e;
-}
-.lbl-skss-nf,
-.Label.Msg.Skss,
-.Label.Tag.Skss {
-  border-color: #00ff66;
-  color: #006127;
-  background-color: #9effc5;
-}
-.lbl-info-nf,
-.Label.Msg.Info,
-.Label.Tag.Info {
-  border-color: #0066ff;
-  color: #002761;
-  background-color: #9ec5ff;
-}
-.lbl-help-nf,
-.Label.Msg.Help,
-.Label.Tag.Help {
-  border-color: #cc00ff;
-  color: #4e0061;
-  background-color: #ec9eff;
-}
-/**
-  * A Message Object is a Label with complete sentences or a longer span of information.
-@extends
-: .Label
+  * This Object is a block of text with complete sentences or a longer span of information.
 @implements
-@mixesin
+: .colors()
+: .gradient()
+: .msg
 : .box-block()
+: .w-p1.mr
 @tags
-: #label
 : #message
+: #label
 @author
 : Chris Harvey
 @updated
-: 2014-07-10
+: 2014-08-17
   */
-.Label.Msg {
+.Alert {
+  font-size: 12px;
+  font-size: 0.75rem;
+  line-height: 2;
+  font-family: 'Century Gothic', 'Gill Sans', 'Avenir', sans-serif;
   display: block;
   position: relative;
   top: -1px;
@@ -3082,8 +3313,17 @@ del + ins {
   border-width: 1px;
   border-style: solid;
   border-radius: 6px;
+  margin-left: 23.60679775%;
+  margin-right: 14.58980338%;
 }
-.Label.Msg.Warn {
+.Alert::before,
+.Alert::after {
+  font-weight: bold;
+}
+.Alert.Warn {
+  border-color: #ff0000;
+  color: #610000;
+  background-color: #ff9e9e;
   background-image: -webkit-linear-gradient(to bottom, #ff9e9e, #ff6b6b);
   background-image: -moz-linear-gradient(to bottom, #ff9e9e, #ff6b6b);
   background-image: -ms-linear-gradient(to bottom, #ff9e9e, #ff6b6b);
@@ -3091,10 +3331,13 @@ del + ins {
   background-image: linear-gradient(to bottom, #ff9e9e, #ff6b6b);
   background-image: -webkit-gradient(to bottom, #ff9e9e, #ff6b6b);
 }
-.Label.Msg.Warn::before {
-  content: 'Warning ' '!' ' ';
+.Alert.Warn::before {
+  content: 'Warning' ' ' '\0021' ' ';
 }
-.Label.Msg.Cshn {
+.Alert.Cshn {
+  border-color: #ccff00;
+  color: #4e6100;
+  background-color: #ecff9e;
   background-image: -webkit-linear-gradient(to bottom, #ecff9e, #e1ff6b);
   background-image: -moz-linear-gradient(to bottom, #ecff9e, #e1ff6b);
   background-image: -ms-linear-gradient(to bottom, #ecff9e, #e1ff6b);
@@ -3102,10 +3345,13 @@ del + ins {
   background-image: linear-gradient(to bottom, #ecff9e, #e1ff6b);
   background-image: -webkit-gradient(to bottom, #ecff9e, #e1ff6b);
 }
-.Label.Msg.Cshn::before {
-  content: 'Caution ' '\2026' ' ';
+.Alert.Cshn::before {
+  content: 'Caution' ' ' '\2026' ' ';
 }
-.Label.Msg.Skss {
+.Alert.Skss {
+  border-color: #00ff66;
+  color: #006127;
+  background-color: #9effc5;
   background-image: -webkit-linear-gradient(to bottom, #9effc5, #6bffa6);
   background-image: -moz-linear-gradient(to bottom, #9effc5, #6bffa6);
   background-image: -ms-linear-gradient(to bottom, #9effc5, #6bffa6);
@@ -3113,10 +3359,13 @@ del + ins {
   background-image: linear-gradient(to bottom, #9effc5, #6bffa6);
   background-image: -webkit-gradient(to bottom, #9effc5, #6bffa6);
 }
-.Label.Msg.Skss::before {
-  content: 'Success ' '\263a' ' ';
+.Alert.Skss::before {
+  content: 'Success' ' ' '\263a' ' ';
 }
-.Label.Msg.Info {
+.Alert.Info {
+  border-color: #0066ff;
+  color: #002761;
+  background-color: #9ec5ff;
   background-image: -webkit-linear-gradient(to bottom, #9ec5ff, #6ba6ff);
   background-image: -moz-linear-gradient(to bottom, #9ec5ff, #6ba6ff);
   background-image: -ms-linear-gradient(to bottom, #9ec5ff, #6ba6ff);
@@ -3124,10 +3373,13 @@ del + ins {
   background-image: linear-gradient(to bottom, #9ec5ff, #6ba6ff);
   background-image: -webkit-gradient(to bottom, #9ec5ff, #6ba6ff);
 }
-.Label.Msg.Info::before {
-  content: 'Info ' '?' ' ';
+.Alert.Info::before {
+  content: 'Info' ' ' '\003f' ' ';
 }
-.Label.Msg.Help {
+.Alert.Help {
+  border-color: #cc00ff;
+  color: #4e0061;
+  background-color: #ec9eff;
   background-image: -webkit-linear-gradient(to bottom, #ec9eff, #e16bff);
   background-image: -moz-linear-gradient(to bottom, #ec9eff, #e16bff);
   background-image: -ms-linear-gradient(to bottom, #ec9eff, #e16bff);
@@ -3135,43 +3387,54 @@ del + ins {
   background-image: linear-gradient(to bottom, #ec9eff, #e16bff);
   background-image: -webkit-gradient(to bottom, #ec9eff, #e16bff);
 }
-.Label.Msg.Help::before {
-  content: 'Help ' '\2665' ' ';
+.Alert.Help::before {
+  content: 'Help' ' ' '\2665' ' ';
 }
 /**
-  * A Tag Object is a Label with a short bit of content, or perhaps no content at all. It can be
+  * This Object is a has a short bit of content, or perhaps no content at all. It can be
   * added to the inside of an Element.
-@extends
-: .Label
+@implements
+: .colors()
+: .gradient()
+: .msg
 @tags
-: #label
+: #message
 : #tag
 @author
 : Chris Harvey
 @updated
-: 2014-06-22
+: 2014-08-11
   */
-.Label.Tag {
+.Label {
+  font-size: 12px;
+  font-size: 0.75rem;
+  line-height: 2;
+  font-family: 'Century Gothic', 'Gill Sans', 'Avenir', sans-serif;
   display: inline;
-  padding: 3px 5px;
-  padding-bottom: 2px;
+  padding: 3px 5px 2px;
   margin-left: 24px;
   position: relative;
   white-space: nowrap;
 }
-.Label.Tag::before {
-  content: "";
+.Label::before,
+.Label::after {
+  font-weight: bold;
+}
+.Label::before {
+  content: '';
   display: block;
   width: 0;
+  border: 0 solid transparent;
   border-width: 10px 6px 10px 0;
-  border-style: solid;
-  border-color: transparent;
   position: absolute;
   left: -6px;
   top: 0;
   z-index: 1;
 }
-.Label.Tag.Warn {
+.Label.Warn {
+  border-color: #9acc7a;
+  color: #610000;
+  background-color: #ff9e9e;
   background-image: -webkit-linear-gradient(to right, #ff9e9e, #ff5151);
   background-image: -moz-linear-gradient(to right, #ff9e9e, #ff5151);
   background-image: -ms-linear-gradient(to right, #ff9e9e, #ff5151);
@@ -3179,13 +3442,16 @@ del + ins {
   background-image: linear-gradient(to right, #ff9e9e, #ff5151);
   background-image: -webkit-gradient(to right, #ff9e9e, #ff5151);
 }
-.Label.Tag.Warn::before {
+.Label.Warn::before {
   border-right-color: #ff9e9e;
 }
-.Label.Tag.Warn::after {
-  content: ' ' '!';
+.Label.Warn::after {
+  content: ' ' '\0021';
 }
-.Label.Tag.Cshn {
+.Label.Cshn {
+  border-color: #9acc7a;
+  color: #4e6100;
+  background-color: #ecff9e;
   background-image: -webkit-linear-gradient(to right, #ecff9e, #dcff51);
   background-image: -moz-linear-gradient(to right, #ecff9e, #dcff51);
   background-image: -ms-linear-gradient(to right, #ecff9e, #dcff51);
@@ -3193,13 +3459,16 @@ del + ins {
   background-image: linear-gradient(to right, #ecff9e, #dcff51);
   background-image: -webkit-gradient(to right, #ecff9e, #dcff51);
 }
-.Label.Tag.Cshn::before {
+.Label.Cshn::before {
   border-right-color: #ecff9e;
 }
-.Label.Tag.Cshn::after {
+.Label.Cshn::after {
   content: ' ' '\2026';
 }
-.Label.Tag.Skss {
+.Label.Skss {
+  border-color: #9acc7a;
+  color: #006127;
+  background-color: #9effc5;
   background-image: -webkit-linear-gradient(to right, #9effc5, #51ff97);
   background-image: -moz-linear-gradient(to right, #9effc5, #51ff97);
   background-image: -ms-linear-gradient(to right, #9effc5, #51ff97);
@@ -3207,13 +3476,16 @@ del + ins {
   background-image: linear-gradient(to right, #9effc5, #51ff97);
   background-image: -webkit-gradient(to right, #9effc5, #51ff97);
 }
-.Label.Tag.Skss::before {
+.Label.Skss::before {
   border-right-color: #9effc5;
 }
-.Label.Tag.Skss::after {
+.Label.Skss::after {
   content: ' ' '\263a';
 }
-.Label.Tag.Info {
+.Label.Info {
+  border-color: #9acc7a;
+  color: #002761;
+  background-color: #9ec5ff;
   background-image: -webkit-linear-gradient(to right, #9ec5ff, #5197ff);
   background-image: -moz-linear-gradient(to right, #9ec5ff, #5197ff);
   background-image: -ms-linear-gradient(to right, #9ec5ff, #5197ff);
@@ -3221,13 +3493,16 @@ del + ins {
   background-image: linear-gradient(to right, #9ec5ff, #5197ff);
   background-image: -webkit-gradient(to right, #9ec5ff, #5197ff);
 }
-.Label.Tag.Info::before {
+.Label.Info::before {
   border-right-color: #9ec5ff;
 }
-.Label.Tag.Info::after {
-  content: ' ' '?';
+.Label.Info::after {
+  content: ' ' '\003f';
 }
-.Label.Tag.Help {
+.Label.Help {
+  border-color: #9acc7a;
+  color: #4e0061;
+  background-color: #ec9eff;
   background-image: -webkit-linear-gradient(to right, #ec9eff, #dc51ff);
   background-image: -moz-linear-gradient(to right, #ec9eff, #dc51ff);
   background-image: -ms-linear-gradient(to right, #ec9eff, #dc51ff);
@@ -3235,10 +3510,10 @@ del + ins {
   background-image: linear-gradient(to right, #ec9eff, #dc51ff);
   background-image: -webkit-gradient(to right, #ec9eff, #dc51ff);
 }
-.Label.Tag.Help::before {
+.Label.Help::before {
   border-right-color: #ec9eff;
 }
-.Label.Tag.Help::after {
+.Label.Help::after {
   content: ' ' '\2665';
 }
 /*###############*\
@@ -3258,7 +3533,7 @@ del + ins {
     _trumps.less
 \*################*/
 /**
-===== DRAFT =====
++++++ DRAFT +++++
 
 All informative content, including `p`s, `img`s, and `figure`s should be designated with
 an `informative` status. All non-normative text should be contained in flow, non-phrasing

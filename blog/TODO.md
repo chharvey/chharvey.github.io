@@ -11,4 +11,4 @@
 - [ ] 2014-06-08 section on The Comma
 - [ ] 2014-06-08 section on The Ellipsis
 - [ ] 2014-06-08 section on The Semicolon
-- [ ] 2014-06-08 remove table at bottom
+- [x] 2014-06-08 remove table at bottom
