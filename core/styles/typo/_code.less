@@ -111,7 +111,8 @@ code {
 	&:extend(.codecolors-sol-dark all);
 	.box-block(2px; @code_brdr_radius);
 	font-family: @fontfam_code;
-	white-space: pre-wrap;
+	white-space: pre;
+	overflow: auto;
 }
 /**
   * Subcomponents of a code block.
@@ -138,6 +139,11 @@ code {
 .Codeblock .Prp  {color: @color_code_prp;}
 .Codeblock .Cmd  {color: @color_code_cmd;}
 .Codeblock .Arg  {color: @color_code_arg;}
+
+.Codeblock .Tag {
+	&:extend(.angles all);
+	.Val {&:extend(.quot all);}
+}
 
 /**
   * This Object represents a block of CSS code. Its semantics are derived not from the formatting
@@ -305,8 +311,26 @@ kbd {white-space: nowrap;}
 	font-style: italic;
 	font-family: @fontfam_base;
 }
-.latex {
+/**
+  * This Object represents a mathematical expression or statement.
+  * Its input is the LaTeX syntax.
+@author
+: Chris Harvey
+@updated
+: 2014-08-22
+  */
+.Math,
+.M {
 	overflow: auto;
 	font-family: @fontfam_math;
-	white-space: pre-wrap;
+	white-space: pre;
 }
+/**
+  * These Objects are subclasses of `.M`.
+@author
+: Chris Harvey
+@updated
+: 2014-08-22
+  */
+// .M.I {display: inline;}
+.M.B {display: block;}
