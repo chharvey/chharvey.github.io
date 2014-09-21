@@ -58,31 +58,47 @@
   * An actual breadcrumb link.
 @implements
 @mixesin
+: .fontsize-doubleblock
+: .transition()
+@params
+: @bc_brdrr : the border-radius of the `.Crumb` Object.
 @tags
 : #breadcrumbs
+: #link
+: #button
 @author
 : Chris Harvey
 @updated
-: 2014-09-11
+: 2014-09-21
   */
-.Crumb {
-	@bc_brdrr: 15px;
-	display: block;
+.crumb-mx(@bc_brdrr) {
 	padding-left: @bc_brdrr;
 	border-radius: @bc_brdrr;
-	color: @color_link_up;
-	.transition(background-color; @t_ani * 0.5);
-	@bgcolor:       lighten(@color_link_up, 40%);
-	@bgcolor_this:  lighten(@color_link_up, 35%);
-	@bgcolor_hover: lighten(@color_link_up, 30%);
-	background-color: @bgcolor;
-	&:hover {background-color: @bgcolor_hover !important;}
+	&[rel~="this"] {
+		left: @bc_brdrr;
+	}
+}
+.Crumb {
+	.crumb-mx(@vru_px);
+	.fontsize-doubleblock(@fontsize_ratio_epsilon);
+	.transition(background-color, color; @t_ani * 0.5);
+	display: block;
+	color:            greyscale(@color_link_up);
+	background-color: greyscale(@color_btn_up_bg);
+	&:not([rel~="this"]):hover {
+		color:            @color_link_up;
+		background-color: @color_btn_up_bg;
+	}
 	&[rel~="this"] {
 		position: relative;
-		left: @bc_brdrr;
 		font-weight: bold;
-		background-color: @bgcolor_this;
+		color: @color_base_bg;
+		background-color: @color_link_up;
 	}
+}
+.Crumb.Sml {
+	.crumb-mx(@vru_px / 2);
+	.fontsize-block(@fontsize_ratio_zeta);
 }
 
 @media print {
