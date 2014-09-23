@@ -5,7 +5,6 @@
 \*#####################*/
 
 
-@bc_brdr_radius: 15px;
 /**
   * A Breadcrumb module.
 @tags
@@ -18,8 +17,8 @@
   */
 .Bc {
 	.gutter--major;
-	top: 2 * @vru_px; // fallback
-	top: 2 * @vru_rem;
+	top: @vru_px; // fallback
+	top: @vru_rem;
 	z-index: 1;
 }
 /**
@@ -33,52 +32,65 @@
 @author
 : Chris Harvey
 @updated
-: 2014-06-18
+: 2014-08-17
   */
-.Bc > .Anc,
-.Bc > .Sib,
-.Bc > .Child {
-	&:extend(.vru-bottom-1);
+.Anc,
+.Sib,
+.Child {
+	.vru-top-1;
 }
-.Bc > .Anc {
-//	a::before {content: '\22a5';} // `\bot` or 'up tack'
-//	a::before {content: '\22b7';} // 'image of'
-//	a::before {content: '<';}
-}
-.Bc > .Sib {
-//	a::before {content: '\22a2';} // `\vdash` or 'turnstile'
-//	a::before {content: '\29df';} // 'double-ended multimap'
-//	a::before {content: '+';}
-}
-.Bc > .Child {
-//	a::before {content: '\22a4';} // `\top` or 'down tack'
-//	a::before {content: '\22b6';} // 'original of'
-//	a::before {content: '>';}
-}
+// .Anc {
+// 	a::before {content: '\22a5';} // `\bot` or 'up tack'
+// 	a::before {content: '\22b7';} // 'image of'
+// 	a::before {content: '<';}
+// }
+// .Sib {
+// 	a::before {content: '\22a2';} // `\vdash` or 'turnstile'
+// 	a::before {content: '\29df';} // 'double-ended multimap'
+// 	a::before {content: '+';}
+// }
+// .Child {
+// 	a::before {content: '\22a4';} // `\top` or 'down tack'
+// 	a::before {content: '\22b6';} // 'original of'
+// 	a::before {content: '>';}
+// }
 /**
   * An actual breadcrumb link.
 @implements
-: .fontsize-med;
 @mixesin
-: .vru-top()
+: .fontsize-doubleblock
+: .transition()
+@params
+: @bc_brdrr : the border-radius of the `.Crumb` Object.
 @tags
 : #breadcrumbs
+: #link
+: #button
 @author
 : Chris Harvey
 @updated
-: 2014-06-18
+: 2014-09-21
   */
-.Button.Crumb {
-	@topspace: 0.75;
-	&:extend(.fontsize-block-med);
-	.vru-top(@topspace);
+.Crumb {
+	@bc_brdrr: @vru_px / 2;
+	.transition(background-color, color; @t_ani * 0.5);
 	display: block;
-	padding: ((1 - @topspace) / 2 * @vru_px)  @bc_brdr_radius; // fallback
-	padding: ((1 - @topspace) / 2 * @vru_rem) @bc_brdr_radius;
-	border-radius: @bc_brdr_radius;
-	white-space: normal;
+	padding-left: @bc_brdrr;
+	border-radius: @bc_brdrr;
+	color:            greyscale(@color_link_up);
+	background-color: greyscale(@color_btn_up_bg);
+	&:not([rel~="this"]):hover {
+		color:            @color_link_up;
+		background-color: @color_btn_up_bg;
+	}
+	&[rel~="this"] {
+		position: relative;
+		left: @bc_brdrr;
+		font-weight: bold;
+		color: @color_base_bg;
+		background-color: @color_link_up;
+	}
 }
-.Bc a[rel~="this"] {font-weight: bold;}
 
 @media print {
 	.Bc {display: none;}
