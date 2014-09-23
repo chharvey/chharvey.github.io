@@ -455,6 +455,59 @@ button {
   overflow: visible;
 }
 /*@GUTTERS*/
+/*#################*\
+    _flexbox.less
+\*#################*/
+/*################*\
+    _floats.less
+\*################*/
+/**
+  * This Interface is used on containers of floats. It pushes subsequent content to the bottom
+  * of the container.
+@tags
+: #float
+@author
+: Chris Harevy
+@updated
+: 2014-05-12
+  */
+.clearfix::after,
+.Map.Vert::after,
+.CSS .Ruleset::after {
+  display: table;
+  content: ' ';
+  clear: both;
+}
+/*###############*\
+    _trans.less
+\*###############*/
+/**
+  * Use this Mixin to apply a rotation transformation to an Object.
+@params
+: @rotation : the angle, in degrees, to rotate the Object
+@tags
+: #transformation
+: #vendorspecific
+@author
+: Chris Harvey
+@updated
+: 2014-05-10
+  */
+/**
+  * Use this Mixin to apply a transition timing effect on an Element.
+@params
+: @props : the CSS property name(s). If more than one, they must be comma-separated
+: @dura  : the length in time, in seconds, the transition is to be in effect
+: @func  : the timing-function. See `https://developer.mozilla.org/en-US/docs/Web/CSS/timing-function`
+: @delay : the length in time, in seconds, the transition will wait before starting
+@tags
+: #transition
+: #vendorspecific
+@author
+: Chris Harvey
+@updated
+: 2014-06-17
+  */
 /*##################*\
     _fontsize.less
 \*##################*/
@@ -544,11 +597,11 @@ sub,
 }
 .fontsize-block-sml,
 .Fineprint,
+.List.Footnotes,
 .Capt,
 .Qblock.Short .Src,
 .Table,
-.Codeblock,
-.List.Footnotes {
+.Codeblock {
   font-size: 12px;
   font-size: 0.75rem;
   line-height: 2;
@@ -557,59 +610,6 @@ sub,
   font-size: inherit;
   line-height: inherit;
 }
-/*#################*\
-    _flexbox.less
-\*#################*/
-/*################*\
-    _floats.less
-\*################*/
-/**
-  * This Interface is used on containers of floats. It pushes subsequent content to the bottom
-  * of the container.
-@tags
-: #float
-@author
-: Chris Harevy
-@updated
-: 2014-05-12
-  */
-.clearfix::after,
-.Map.Vert::after,
-.CSS .Ruleset::after {
-  display: table;
-  content: ' ';
-  clear: both;
-}
-/*###############*\
-    _trans.less
-\*###############*/
-/**
-  * Use this Mixin to apply a rotation transformation to an Object.
-@params
-: @rotation : the angle, in degrees, to rotate the Object
-@tags
-: #transformation
-: #vendorspecific
-@author
-: Chris Harvey
-@updated
-: 2014-05-10
-  */
-/**
-  * Use this Mixin to apply a transition timing effect on an Element.
-@params
-: @props : the CSS property name(s). If more than one, they must be comma-separated
-: @dura  : the length in time, in seconds, the transition is to be in effect
-: @func  : the timing-function. See `https://developer.mozilla.org/en-US/docs/Web/CSS/timing-function`
-: @delay : the length in time, in seconds, the transition will wait before starting
-@tags
-: #transition
-: #vendorspecific
-@author
-: Chris Harvey
-@updated
-: 2014-06-17
-  */
 /*##############*\
     _grad.less
 \*##############*/
@@ -928,6 +928,8 @@ sub,
 .quotes-double::before,
 .guillemets-single::before,
 .guillemets-double::before,
+.Rf > .Link::before,
+.Fn > .Link::before,
 .Qblock .Src.Formal::before,
 .Codeblock .Tag::before,
 .Codeblock .Tag::before,
@@ -935,9 +937,7 @@ sub,
 i::before,
 var::before,
 q::before,
-.Th::before,
-.Rf > .Link::before,
-.Fn > .Link::before {
+.Th::before {
   content: open-quote;
 }
 .delimiters::after,
@@ -952,6 +952,8 @@ q::before,
 .quotes-double::after,
 .guillemets-single::after,
 .guillemets-double::after,
+.Rf > .Link::after,
+.Fn > .Link::after,
 .Qblock .Src.Formal::after,
 .Codeblock .Tag::after,
 .Codeblock .Tag::after,
@@ -959,9 +961,7 @@ q::before,
 i::after,
 var::after,
 q::after,
-.Th::after,
-.Rf > .Link::after,
-.Fn > .Link::after {
+.Th::after {
   content: close-quote;
 }
 .parens,
@@ -1149,6 +1149,109 @@ main {
   background-image: url('http://chharvey.github.io/core/images/crossgrid-even-lcm_288x24.svg');
   background-size: 20% 24px;
   background-repeat: repeat;
+}
+/*#####################*\
+	_breadcrumbs.less
+\*#####################*/
+/**
+  * A Breadcrumb module.
+@tags
+: #breadcrumbs
+: #golden
+@author
+: Chris Harvey
+@updated
+: 2014-06-18
+  */
+.Bc {
+  box-sizing: border-box;
+  position: fixed;
+  width: 14.58980338%;
+  margin-left: 3.44418537%;
+  margin-right: 5.572809%;
+  left: 0;
+  top: 24px;
+  top: 1.5rem;
+  z-index: 1;
+}
+/**
+  * A list of breadcrumbs inside the module.
+  * The list either contains ancestor pages (including parent),
+  * sibling pages (including the same page), or children pages.
+@implements
+: .vru-bottom-1;
+@tags
+: #breadcrumbs
+@author
+: Chris Harvey
+@updated
+: 2014-08-17
+  */
+.Anc,
+.Sib,
+.Child {
+  margin-top: 24px;
+  margin-top: 1.5rem;
+}
+/**
+  * An actual breadcrumb link.
+@implements
+@mixesin
+: .fontsize-doubleblock
+: .transition()
+@params
+: @bc_brdrr : the border-radius of the `.Crumb` Object.
+@tags
+: #breadcrumbs
+: #link
+: #button
+@author
+: Chris Harvey
+@updated
+: 2014-09-21
+  */
+.Crumb {
+  -webkit-transition-property: background-color, color;
+  -moz-transition-property: background-color, color;
+  -ms-transition-property: background-color, color;
+  -o-transition-property: background-color, color;
+  transition-property: background-color, color;
+  -webkit-transition-duration: 0.125s;
+  -moz-transition-duration: 0.125s;
+  -ms-transition-duration: 0.125s;
+  -o-transition-duration: 0.125s;
+  transition-duration: 0.125s;
+  -webkit-transition-timing-function: ease;
+  -moz-transition-timing-function: ease;
+  -ms-transition-timing-function: ease;
+  -o-transition-timing-function: ease;
+  transition-timing-function: ease;
+  -webkit-transition-delay: 0s;
+  -moz-transition-delay: 0s;
+  -ms-transition-delay: 0s;
+  -o-transition-delay: 0s;
+  transition-delay: 0s;
+  display: block;
+  padding-left: 12px;
+  border-radius: 12px;
+  color: #808080;
+  background-color: #e1e1e1;
+}
+.Crumb:not([rel~="this"]):hover {
+  color: #0062ff;
+  background-color: #c3daff;
+}
+.Crumb[rel~="this"] {
+  position: relative;
+  left: 12px;
+  font-weight: bold;
+  color: #f1f6ff;
+  background-color: #0062ff;
+}
+@media print {
+  .Bc {
+    display: none;
+  }
 }
 /*#################*\
     _docsect.less
@@ -1354,6 +1457,54 @@ main {
 }
 .Docmeta .hm::before {
   content: '@\0020';
+}
+/*###################*\
+	_footnotes.less
+\*###################*/
+/**
+  * This Object represents a list whose items each contain a footnote. Typically, the order of
+  * footnotes is irrelevant, so this Object should be instantiated by a `ul` Element.
+@extends
+: .List
+@implements
+: .hr-brdr
+@tags
+: #footnotes
+: #lists
+@author
+: Chris Harvey
+@updated
+: 2014-07-22
+  */
+.List.Footnotes {
+  padding-top: 8.78521826px;
+  margin-top: 14.21478174px;
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-top-color: #9acc7a;
+}
+.List.Footnotes > .Item {
+  padding-left: 24px;
+  text-indent: -24px;
+}
+/**
+  * The `.Rf` Object represents a reference to a footnote. The reference exists in the document prose,
+  * and it links to a footnote, which is contained in the `.List.U.Footnotes`.
+  * The `.Fn` Object represents the footnote that is referenced.
+  * Each Object contains an `a` Element.
+@implements
+: .brackets
+@tags
+: #footnotes
+: #lists
+@author
+: Chris Harvey
+@updated
+: 2014-07-22
+  */
+.Rf,
+.Fn {
+  width: 24px;
 }
 /*##################*\
     _headings.less
@@ -3131,157 +3282,6 @@ del + ins {
 .Button.Block {
   display: block;
 }
-/*#####################*\
-	_breadcrumbs.less
-\*#####################*/
-/**
-  * A Breadcrumb module.
-@tags
-: #breadcrumbs
-: #golden
-@author
-: Chris Harvey
-@updated
-: 2014-06-18
-  */
-.Bc {
-  box-sizing: border-box;
-  position: fixed;
-  width: 14.58980338%;
-  margin-left: 3.44418537%;
-  margin-right: 5.572809%;
-  left: 0;
-  top: 24px;
-  top: 1.5rem;
-  z-index: 1;
-}
-/**
-  * A list of breadcrumbs inside the module.
-  * The list either contains ancestor pages (including parent),
-  * sibling pages (including the same page), or children pages.
-@implements
-: .vru-bottom-1;
-@tags
-: #breadcrumbs
-@author
-: Chris Harvey
-@updated
-: 2014-08-17
-  */
-.Anc,
-.Sib,
-.Child {
-  margin-top: 24px;
-  margin-top: 1.5rem;
-}
-/**
-  * An actual breadcrumb link.
-@implements
-@mixesin
-: .fontsize-doubleblock
-: .transition()
-@params
-: @bc_brdrr : the border-radius of the `.Crumb` Object.
-@tags
-: #breadcrumbs
-: #link
-: #button
-@author
-: Chris Harvey
-@updated
-: 2014-09-21
-  */
-.Crumb {
-  -webkit-transition-property: background-color, color;
-  -moz-transition-property: background-color, color;
-  -ms-transition-property: background-color, color;
-  -o-transition-property: background-color, color;
-  transition-property: background-color, color;
-  -webkit-transition-duration: 0.125s;
-  -moz-transition-duration: 0.125s;
-  -ms-transition-duration: 0.125s;
-  -o-transition-duration: 0.125s;
-  transition-duration: 0.125s;
-  -webkit-transition-timing-function: ease;
-  -moz-transition-timing-function: ease;
-  -ms-transition-timing-function: ease;
-  -o-transition-timing-function: ease;
-  transition-timing-function: ease;
-  -webkit-transition-delay: 0s;
-  -moz-transition-delay: 0s;
-  -ms-transition-delay: 0s;
-  -o-transition-delay: 0s;
-  transition-delay: 0s;
-  display: block;
-  padding-left: 12px;
-  border-radius: 12px;
-  color: #808080;
-  background-color: #e1e1e1;
-}
-.Crumb:not([rel~="this"]):hover {
-  color: #0062ff;
-  background-color: #c3daff;
-}
-.Crumb[rel~="this"] {
-  position: relative;
-  left: 12px;
-  font-weight: bold;
-  color: #f1f6ff;
-  background-color: #0062ff;
-}
-@media print {
-  .Bc {
-    display: none;
-  }
-}
-/*###################*\
-	_footnotes.less
-\*###################*/
-/**
-  * This Object represents a list whose items each contain a footnote. Typically, the order of
-  * footnotes is irrelevant, so this Object should be instantiated by a `ul` Element.
-@extends
-: .List
-@implements
-: .hr-brdr
-@tags
-: #footnotes
-: #lists
-@author
-: Chris Harvey
-@updated
-: 2014-07-22
-  */
-.List.Footnotes {
-  padding-top: 8.78521826px;
-  margin-top: 14.21478174px;
-  border-top-width: 1px;
-  border-top-style: solid;
-  border-top-color: #9acc7a;
-}
-.List.Footnotes > .Item {
-  padding-left: 24px;
-  text-indent: -24px;
-}
-/**
-  * The `.Rf` Object represents a reference to a footnote. The reference exists in the document prose,
-  * and it links to a footnote, which is contained in the `.List.U.Footnotes`.
-  * The `.Fn` Object represents the footnote that is referenced.
-  * Each Object contains an `a` Element.
-@implements
-: .brackets
-@tags
-: #footnotes
-: #lists
-@author
-: Chris Harvey
-@updated
-: 2014-07-22
-  */
-.Rf,
-.Fn {
-  width: 24px;
-}
 /*################*\
 	_labels.less
 \*################*/
@@ -3562,45 +3562,6 @@ del + ins {
 /*################*\
     _trumps.less
 \*################*/
-/**
-+++++ DRAFT +++++
-
-All informative content, including `p`s, `img`s, and `figure`s should be designated with
-an `informative` status. All non-normative text should be contained in flow, non-phrasing
-content, which will separate it from the normative document.
-If there is a non-normative span of text present in a normative paragraph, move the span to
-its own separate, non-normative division.
-
-non-normative text in a normative document or article.
-This text is informative or "unofficial," for example, supplemental remarks
-or a summary of normative information provided for the reader's convenience.
-Another common example of non-normative text is duplicating normative text on another
-part of the page.
-
-
-Non-normative text is still part of the normal flow of the document, so it
-would not makes sense out of context as a `figure` or `aside`
-would, however it is presented differently than formal text
-to indicate that it is not official.
-
-...At the same time, the `i` Element is not appropriate either, because the non-normative
-span of text does not represent a change of voice or mood. Could it be considered a
-change in mood, though?...
-
-`[data-status="nonnormative"]` text
-should be a single paragraph, a container such as a `div` or `figure`,
-but should not be a span of text
-
-The author may also indicate verbally (in writing preceding the text) that
-the text is non-normative. If the non-normative text is one paragraph, the author may
-simply place the indication in the previous paragraph. If the text is large enough for
-its own figure or section, though, the indication should be in that Element's
-`header`.
-  */
-[data-status="nonnormative"] {
-  font-style: italic;
-  font-family: 'Optima', 'Candara', 'Helvetica', sans-serif;
-}
 [hidden] {
   display: none !important;
 }
