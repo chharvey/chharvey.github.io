@@ -25,6 +25,12 @@
 .center-lrg {
   width: 75%;
 }
+.Map.Vert::after,
+.CSS .Ruleset::after {
+  display: table;
+  content: ' ';
+  clear: both;
+}
 code,
 .Key,
 .Dir,
@@ -39,27 +45,17 @@ sub,
   font-size: 1.25rem;
   line-height: 1.2;
 }
-.Button.Crumb {
-  font-size: 16px;
-  font-size: 1rem;
-  line-height: 1.5;
-}
 .Fineprint,
+.List.Footnotes,
 .Capt,
 .Qblock.Short .Src,
 .Table,
-.Codeblock,
-.List.Footnotes {
+.Codeblock {
   font-size: 12px;
   font-size: 0.75rem;
   line-height: 2;
 }
-.Map.Vert::after,
-.CSS .Ruleset::after {
-  display: table;
-  content: ' ';
-  clear: both;
-}
+.Article[data-status]::before,
 .H,
 .P,
 .Capt,
@@ -70,7 +66,7 @@ sub,
 .Map,
 .Cell,
 .Codeblock,
-.Lbl,
+.Alert,
 .res-Name,
 .res-SkillTitle,
 .res-JobTitle,
@@ -80,22 +76,7 @@ sub,
   min-height: 24px;
   min-height: 1.5rem;
 }
-:not(.H) + .P,
-.P + .List,
-.P + .Map,
-.P + .Table,
-.Codeblock,
-.Label.Msg {
-  margin-top: 24px;
-  margin-top: 1.5rem;
-}
-.P + .List,
-.P + .Map,
-.P + .Table,
-.P.Intro,
-.Bc > .Anc,
-.Bc > .Sib,
-.Bc > .Child {
+.P.Intro {
   padding-bottom: 24px;
   padding-bottom: 1.5rem;
 }
@@ -108,28 +89,10 @@ sub,
   border-top-style: none;
   border-top-color: #000000;
 }
-.hr-head,
-.hr-brdr,
-.hr-acnt,
-.List.Footnotes {
-  padding-top: 8.78521826px;
-  margin-top: 14.21478174px;
-  border-top-width: 1px;
-  border-top-style: solid;
-}
-.hr-head {
-  border-top-color: #120099;
-}
-.hr-brdr,
-.List.Footnotes {
-  border-top-color: #9acc7a;
-}
-.hr-acnt {
-  border-top-color: #cc004e;
-}
+.Article[data-status]::before,
 .Cell,
 .Codeblock,
-.Lbl {
+.Alert {
   padding: 12px 7.41640786px;
   padding: 0.75rem 7.41640786px;
 }
@@ -138,17 +101,22 @@ sub,
 .braces::before,
 .angles::before,
 .angles::before,
+.apos::before,
+.quot::before,
 .quotes-single::before,
 .quotes-double::before,
 .guillemets-single::before,
 .guillemets-double::before,
+.Rf > .Link::before,
+.Fn > .Link::before,
 .Qblock .Src.Formal::before,
+.Codeblock .Tag::before,
+.Codeblock .Tag::before,
+.Codeblock .Tag .Val::before,
 i::before,
 var::before,
 q::before,
-.Th::before,
-.Rf > .Link::before,
-.Fn > .Link::before {
+.Th::before {
   content: open-quote;
 }
 .parens::after,
@@ -156,17 +124,22 @@ q::before,
 .braces::after,
 .angles::after,
 .angles::after,
+.apos::after,
+.quot::after,
 .quotes-single::after,
 .quotes-double::after,
 .guillemets-single::after,
 .guillemets-double::after,
+.Rf > .Link::after,
+.Fn > .Link::after,
 .Qblock .Src.Formal::after,
+.Codeblock .Tag::after,
+.Codeblock .Tag::after,
+.Codeblock .Tag .Val::after,
 i::after,
 var::after,
 q::after,
-.Th::after,
-.Rf > .Link::after,
-.Fn > .Link::after {
+.Th::after {
   content: close-quote;
 }
 .Qblock .Src.Formal {
@@ -175,6 +148,15 @@ q::after,
 .Rf > .Link,
 .Fn > .Link {
   quotes: '[' ']';
+}
+.Codeblock .Tag {
+  quotes: '<' '>';
+}
+.Codeblock .Tag {
+  quotes: '\003c' '\003e';
+}
+.Codeblock .Tag .Val {
+  quotes: '\0022' '\0022';
 }
 i,
 q {
@@ -192,14 +174,6 @@ var {
   background-size: 1px 24px;
   background-repeat: repeat;
   background-position: left bottom;
-}
-.Article [data-status="draft"],
-.Article [data-status="complete"],
-.Article [data-status="released"] {
-  border-left-width: 4px;
-  border-left-style: solid;
-  padding-left: 6.47213595px;
-  margin-left: 16.94427191px;
 }
 .List .List,
 .List.O,
@@ -272,6 +246,7 @@ code .Comm,
   display: block;
   font-family: 'Avenir', 'Calibri', 'Century Gothic', sans-serif;
   letter-spacing: 1px;
+  text-align: left;
   letter-spacing: normal;
 }
 /**
@@ -333,8 +308,8 @@ code .Comm,
   line-height: 1;
   position: static;
   top: auto;
-  border: 0;
   margin-bottom: 0;
+  border: 0;
 }
 .res-JobTitle {
   font-size: 26px;
