@@ -72,14 +72,35 @@
 /*@OTHER PAGES*/
 //++++++++++++//
 /**
-  * A contact icon.
+  * A regular icon.
+@tags
+: #background-image
+: #sprite
 @author
 : Chris Harvey
 @updated
-: 2014-06-16
+: 2014-09-25
   */
+.Icon {
+	.translucent();
+	display: inline-block;
+	width:  (3 * @vru_px); //fallback
+	width:  (3 * @vru_rem);
+	height: (3 * @vru_px); //fallback
+	height: (3 * @vru_rem);
+	color: transparent; // color of text
+	background-image: url();
+	background-repeat: no-repeat;
+	overflow: hidden;
+}
+.icon-mx(@iconsize, @bgurl) {
+	.Icon;
+	width:  @iconsize;
+	height: @iconsize;
+	background-image: @bgurl;
+}
 /**
-  * This Object represents a list of images, for example, contact icons.
+  * This Object represents a list of icons.
 @extends
 : .List.I
 @tags
@@ -90,31 +111,32 @@
 @updated
 : 2014-07-18
   */
-@iconsize: 64px;
-@iconpadd: 10px;
 .List.I.Iconlist {
 	&:extend(.margin-even);
 	&:extend(.vru-top-1);
 	text-align: center;
 }
+
+/**
+  * A contact icon.
+@author
+: Chris Harvey
+@updated
+: 2014-09-25
+  */
+@contacticonsize: 64px;
+@contacticonpadd: 10px;
 .Icon-ct {
-	&:extend(.transp all);
-	display: inline-block;
-	width:  @iconsize;
-	height: @iconsize;
-	color: transparent;
-	background-image: url('images/contact-sprite.png');
-	background-repeat: no-repeat;
-	overflow: hidden;
+	.icon-mx(@contacticonsize; url('images/contact-sprite.png'));
 }
-.Icon-ct.Mapss {.sprite(1; @iconsize; @iconpadd);}
-.Icon-ct.Phone {.sprite(2; @iconsize; @iconpadd);}
-.Icon-ct.Email {.sprite(3; @iconsize; @iconpadd);}
-.Icon-ct.Linkd {.sprite(4; @iconsize; @iconpadd);}
-.Icon-ct.Stack {.sprite(5; @iconsize; @iconpadd);}
-.Icon-ct.Githb {.sprite(6; @iconsize; @iconpadd);}
-.Icon-ct.Googl {.sprite(7; @iconsize; @iconpadd);}
-.Icon-ct.Twitr {.sprite(8; @iconsize; @iconpadd);}
+.Icon-ct.Mapss {.sprite(1; @contacticonsize; @contacticonpadd);}
+.Icon-ct.Phone {.sprite(2; @contacticonsize; @contacticonpadd);}
+.Icon-ct.Email {.sprite(3; @contacticonsize; @contacticonpadd);}
+.Icon-ct.Linkd {.sprite(4; @contacticonsize; @contacticonpadd);}
+.Icon-ct.Stack {.sprite(5; @contacticonsize; @contacticonpadd);}
+.Icon-ct.Githb {.sprite(6; @contacticonsize; @contacticonpadd);}
+.Icon-ct.Googl {.sprite(7; @contacticonsize; @contacticonpadd);}
+.Icon-ct.Twitr {.sprite(8; @contacticonsize; @contacticonpadd);}
 
 /**
   * List of acknowledgements on about page.
@@ -130,7 +152,7 @@
 }
 
 /**
-  * An logo for an organization.
+  * A logo for an organization.
 @author
 : Chris Harvey
 @updated
@@ -154,18 +176,13 @@
 @author
 : Chris Harvey
 @updated
-: 2014-06-16
+: 2014-09-25
   */
+@appiconsize: 72px;
 .Icon-app {
-	&:extend(.transp all);
-	display: inline-block;
-	width: 72px;
-	height: 72px;
-	color: transparent;
+	.icon-mx(@appiconsize; url());
 	background-size: contain;
 	background-position: center center;
-	background-repeat: no-repeat;
-	overflow: hidden;
 }
 .Icon-app.Apple {background-image: url('images/logos-banners/logo-Apple-gray.jpg');}
 .Icon-app.Chrom {background-image: url('images/logos-banners/logo-Chrome.png');}
