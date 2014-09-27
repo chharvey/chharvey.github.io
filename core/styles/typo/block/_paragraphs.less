@@ -205,13 +205,14 @@
 	text-align: right;
 }
 /**
-  * This Object represents a generic figure in a document. A figure contains excerpts of text,
+  * This Object represents a generic figure-looking thing in a document. A figure contains excerpts of text,
   * examples, or images that are used to illustrate a concept. This may or may not be a
   * literal `figure` Element.
   * Inside this `.Fig` there may exist a `.Capt` (a generic caption), either at the beginning or at
   * the end. The `.Capt` may or may not be a `figcaption` or `caption` Element.
-  * Content in this `.Fig`---including its caption---is permissible to be extracted from the
-  * document and presented on its own.
+  * If and only if the content in this `.Fig`---including its caption---is permissible to be extracted from the
+  * document and presented on its own, the `.Fig` Object should be wrapped with an `aside` Element.
+  * The `.Fig.Text` subclass is a figure whose contents are only text.
 @implements
 : .vru-content
 : .vru-top-phi
@@ -224,15 +225,17 @@
 @author
 : Chris Harvey
 @updated
-: 2014-08-11
+: 2014-09-27
   */
 .Fig {
 	&:extend(.vru-content);
 	&:extend(.vru-top-phi);
-	&:extend(.crossgrid-lined);
 	.spacing-phi(left;  @fig_brdr_width; @fig_brdr_style);
 	.spacing-phi(right; @fig_brdr_width; @fig_brdr_style);
 	display: block;
+}
+.Fig.Text {
+	&:extend(.crossgrid-lined);
 }
 /**
   * This Object represents any Block Quotation, representing material taken directly from another
