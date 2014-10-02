@@ -578,7 +578,7 @@ sub,
 }
 .fontsize-block-sml,
 .Fineprint,
-.List.Footnotes,
+.Footnotes,
 .Capt,
 .Qblock.Short .Src,
 .Table,
@@ -1452,6 +1452,7 @@ main {
 : .List
 @implements
 : .fontsize-block-sml
+: .list-block
 : .hr()
 @tags
 : #footnotes
@@ -1461,27 +1462,26 @@ main {
 @updated
 : 2014-09-23
   */
-.List.Footnotes {
+.Footnotes {
   padding-top: 8.78521826px;
   margin-top: 14.21478174px;
   border-top-width: 1px;
   border-top-style: solid;
   border-top-color: #9acc7a;
 }
-.List.Footnotes > .Item {
+.Footnotes > .Item {
   padding-left: 24px;
   text-indent: -24px;
 }
 /**
   * The `.Rf` Object represents a reference to a footnote. The reference exists in the document prose,
-  * and it links to a footnote, which is contained in the `.List.U.Footnotes`.
+  * and it links to a footnote, which is contained in the `.Footnotes`.
   * The `.Fn` Object represents the footnote that is referenced.
   * Each Object contains an `a` Element.
 @implements
 : .brackets
 @tags
 : #footnotes
-: #lists
 @author
 : Chris Harvey
 @updated
@@ -1680,7 +1680,9 @@ main {
 }
 :not(.H) + .Article,
 :not(.H) + .P,
-:not(.H) + .List,
+:not(.H) + .Olist,
+:not(.H) + .Ulist,
+:not(.H) + .Alist,
 :not(.H) + .Map,
 :not(.H) + .Table,
 :not(.H) + .Codeblock,
@@ -1980,11 +1982,9 @@ main {
 : 2014-06-26
   */
 /**
-  * This Object represents a block list. It may be a literal `ol` or `ul` Element containing
+  * This Interface is used on block lists. It may be a literal `ol` or `ul` Element containing
   * `li` Elements, or it may be the abstract notion of a list of other block Objects. The order of
   * list items may be releveant or irrelevant.
-  * This `.List` Object is  displayed as a block Object containing other block Objects. See the
-  * `.Enum` Object for a short listing of inline Objects (e.g., a list of keywords).
 @implements
 : .vru-content
 @tags
@@ -1993,9 +1993,13 @@ main {
 @author
 : Chris Harvey
 @updated
-: 2014-07-10
+: 2014-10-01
   */
-.List {
+.list-block,
+.Footnotes,
+.Olist,
+.Ulist,
+.Alist {
   min-height: 24px;
   min-height: 1.5rem;
   display: block;
@@ -2013,28 +2017,14 @@ main {
 @updated
 : 2014-08-06
   */
-.Item {
-  display: list-item;
-}
-/**
-  * This Object represents a nested List Object as a descendant of another List Object.
-  * (It must be a child of a List Item Object.)
-@tags
-: #typography
-: #list
-@author
-: Chris Harvey
-@updated
-: 2014-08-06
-  */
 /**
   * This Object represents an ordered list, or a list used for an outline. This does *not*
   * correspond directly to a literal `ol` Element; this Object is simply to be displayed with
   * block list items, with markers that indicate order. This class does *not* indicate that the
   * list is semantically ordered. Typical uses include table of contents, etc. Outlines are by
   * definition, ordered.
-@extends
-: .List
+@implements
+: .list-block
 @tags
 : #typography
 : #list
@@ -2044,7 +2034,7 @@ main {
 @updated
 : 2014-05-11
   */
-.List.O {
+.Olist {
   padding-left: 0.5in;
   list-style-type: decimal-leading-zero;
   list-style-type: decimal;
@@ -2052,7 +2042,7 @@ main {
 /**
   * These Objects represent outlined lists with different enumeration types.
 @extends
-: .List.O
+: .Olist
 @tags
 : #typography
 : #list
@@ -2062,33 +2052,33 @@ main {
 @updated
 : 2014-05-03
   */
-.List.O.Ome {
+.Olist.Ome {
   list-style-type: decimal-leading-zero;
 }
-.List.O.Alp {
+.Olist.Alp {
   list-style-type: upper-roman;
 }
-.List.O.Bet {
+.Olist.Bet {
   list-style-type: upper-alpha;
 }
-.List.O.Gam {
+.Olist.Gam {
   list-style-type: decimal;
 }
-.List.O.Del {
+.Olist.Del {
   list-style-type: lower-alpha;
 }
-.List.O.Eps {
+.Olist.Eps {
   list-style-type: lower-roman;
 }
-.List.O.Zet {
+.Olist.Zet {
   list-style-type: lower-greek;
 }
 /**
   * This Object represents a generic list whose items are to be displayed as blocks with the same
   * markers. It does *not* necessarily correspond directly to a literal `ul` Element. This class
   * does *not* indicate that the list is semantically unordered.
-@extends
-: .List
+@implements
+: .list-block
 @tags
 : #typography
 : #list
@@ -2098,14 +2088,14 @@ main {
 @updated
 : 2014-05-11
   */
-.List.U {
+.Ulist {
   padding-left: 0.5in;
   list-style-type: square;
 }
 /**
   * This Object represents an action list, which typically contains hyperlinks.
-@extends
-: .List
+@implements
+: .list-block
 @tags
 : #typography
 : #list
@@ -2115,13 +2105,13 @@ main {
 @updated
 : 2014-05-11
   */
-.List.A > .Item {
+.Alist > .Item {
   color: #0062ff;
 }
-.List.A > .Item:hover {
+.Alist > .Item:hover {
   color: #ff9d00;
 }
-.List.A > .Item::before {
+.Alist > .Item::before {
   content: '\2713\0020';
 }
 /**
@@ -2141,17 +2131,17 @@ main {
 @updated
 : 2014-10-01
   */
-.List.I {
+.Ilist {
   display: inline;
 }
-.List.I > .Item {
+.Ilist > .Item {
   display: inline;
 }
 /**
-  * These Objects are `.Item`s in a `.List.I`. They represent character-separated values.
+  * These Objects are `.Item`s in a `.Ilist`. They represent character-separated values.
   * The `.endline` interface creates a visual appearance of a line break.
 @extends
-: .List.I
+: .Ilist
 @tags
 : #typography
 : #list
@@ -2160,16 +2150,16 @@ main {
 @updated
 : 2014-08-06
   */
-.List.I.Comma > .Item:not(:last-child)::after {
+.Ilist.Comma > .Item:not(:last-child)::after {
   content: ',\0020';
 }
-.List.I.Mdash > .Item:not(:last-child)::after {
+.Ilist.Mdash > .Item:not(:last-child)::after {
   content: '\0020\2014\0020';
 }
-.List.I.Ndash > .Item:not(:last-child)::after {
+.Ilist.Ndash > .Item:not(:last-child)::after {
   content: '\0020\2013\0020';
 }
-.List.I > .Item.endline::after {
+.Ilist > .Item.endline::after {
   display: block;
   content: '' !important;
 }
@@ -2188,13 +2178,13 @@ main {
 @updated
 : 2014-05-25
   */
-.List.I.LIP {
+.Ilist.LIP {
   counter-reset: count;
 }
-.List.I.LIP > .Item {
+.Ilist.LIP > .Item {
   counter-increment: count;
 }
-.List.I.LIP > .Item::before {
+.Ilist.LIP > .Item::before {
   content: '(' counter(count) ') ';
 }
 /*##############*\

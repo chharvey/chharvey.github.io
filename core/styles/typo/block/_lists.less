@@ -29,11 +29,9 @@
 // .listindent      {padding-left:  @tab;}
 // .listindent-half {padding-left: (@tab / 2);}
 /**
-  * This Object represents a block list. It may be a literal `ol` or `ul` Element containing
+  * This Interface is used on block lists. It may be a literal `ol` or `ul` Element containing
   * `li` Elements, or it may be the abstract notion of a list of other block Objects. The order of
   * list items may be releveant or irrelevant.
-  * This `.List` Object is  displayed as a block Object containing other block Objects. See the
-  * `.Enum` Object for a short listing of inline Objects (e.g., a list of keywords).
 @implements
 : .vru-content
 @tags
@@ -42,9 +40,9 @@
 @author
 : Chris Harvey
 @updated
-: 2014-07-10
+: 2014-10-01
   */
-.List {
+.list-block {
 	.vru-content;
 	display: block;
 }
@@ -61,22 +59,8 @@
 @updated
 : 2014-08-06
   */
-.Item {
-	display: list-item;
-}
-/**
-  * This Object represents a nested List Object as a descendant of another List Object.
-  * (It must be a child of a List Item Object.)
-@tags
-: #typography
-: #list
-@author
-: Chris Harvey
-@updated
-: 2014-08-06
-  */
-// .List .List {
-// 	&:extend(.listindent);
+// .Item {
+// 	display: list-item;
 // }
 /**
   * This Object represents an ordered list, or a list used for an outline. This does *not*
@@ -84,8 +68,8 @@
   * block list items, with markers that indicate order. This class does *not* indicate that the
   * list is semantically ordered. Typical uses include table of contents, etc. Outlines are by
   * definition, ordered.
-@extends
-: .List
+@implements
+: .list-block
 @tags
 : #typography
 : #list
@@ -95,7 +79,8 @@
 @updated
 : 2014-05-11
   */
-.List.O {
+.Olist {
+	&:extend(.list-block);
 	padding-left: @listindent;
 	list-style-type: decimal-leading-zero; //  01.  02.  03.
 	list-style-type: decimal;              //   1.   2.   3.
@@ -103,7 +88,7 @@
 /**
   * These Objects represent outlined lists with different enumeration types.
 @extends
-: .List.O
+: .Olist
 @tags
 : #typography
 : #list
@@ -113,19 +98,19 @@
 @updated
 : 2014-05-03
   */
-.List.O.Ome {list-style-type: decimal-leading-zero;} //  01.  02.  03.
-.List.O.Alp {list-style-type: upper-roman;}          //   I.  II. III.
-.List.O.Bet {list-style-type: upper-alpha;}          //   A.   B.   C.
-.List.O.Gam {list-style-type: decimal;}              //   1.   2.   3.
-.List.O.Del {list-style-type: lower-alpha;}          //   a.   b.   c.
-.List.O.Eps {list-style-type: lower-roman;}          //   i.  ii. iii.
-.List.O.Zet {list-style-type: lower-greek;}          //   α.   β.   γ.
+.Olist.Ome {list-style-type: decimal-leading-zero;} //  01.  02.  03.
+.Olist.Alp {list-style-type: upper-roman;}          //   I.  II. III.
+.Olist.Bet {list-style-type: upper-alpha;}          //   A.   B.   C.
+.Olist.Gam {list-style-type: decimal;}              //   1.   2.   3.
+.Olist.Del {list-style-type: lower-alpha;}          //   a.   b.   c.
+.Olist.Eps {list-style-type: lower-roman;}          //   i.  ii. iii.
+.Olist.Zet {list-style-type: lower-greek;}          //   α.   β.   γ.
 /**
   * This Object represents a generic list whose items are to be displayed as blocks with the same
   * markers. It does *not* necessarily correspond directly to a literal `ul` Element. This class
   * does *not* indicate that the list is semantically unordered.
-@extends
-: .List
+@implements
+: .list-block
 @tags
 : #typography
 : #list
@@ -135,14 +120,15 @@
 @updated
 : 2014-05-11
   */
-.List.U {
+.Ulist {
+	&:extend(.list-block);
 	padding-left: @listindent;
 	list-style-type: square;
 }
 /**
   * This Object represents an action list, which typically contains hyperlinks.
-@extends
-: .List
+@implements
+: .list-block
 @tags
 : #typography
 : #list
@@ -152,7 +138,8 @@
 @updated
 : 2014-05-11
   */
-.List.A {
+.Alist {
+	&:extend(.list-block);
 	> .Item {
 		color: @color_link_up;
 		&:hover {color: @color_link_dn;}
@@ -177,17 +164,17 @@
 @updated
 : 2014-10-01
   */
-.List.I {
+.Ilist {
 	display: inline;
 	> .Item {
 		display: inline;
 	}
 }
 /**
-  * These Objects are `.Item`s in a `.List.I`. They represent character-separated values.
+  * These Objects are `.Item`s in a `.Ilist`. They represent character-separated values.
   * The `.endline` interface creates a visual appearance of a line break.
 @extends
-: .List.I
+: .Ilist
 @tags
 : #typography
 : #list
@@ -196,11 +183,11 @@
 @updated
 : 2014-08-06
   */
-.List.I.Comma > .Item:not(:last-child)::after {content:          ',\0020';} // ', '
-.List.I.Mdash > .Item:not(:last-child)::after {content: '\0020\2014\0020';} // ' — '
-.List.I.Ndash > .Item:not(:last-child)::after {content: '\0020\2013\0020';} // ' – '
+.Ilist.Comma > .Item:not(:last-child)::after {content:          ',\0020';} // ', '
+.Ilist.Mdash > .Item:not(:last-child)::after {content: '\0020\2014\0020';} // ' — '
+.Ilist.Ndash > .Item:not(:last-child)::after {content: '\0020\2013\0020';} // ' – '
 
-.List.I > .Item.endline::after  {display: block; content: '' !important;}
+.Ilist > .Item.endline::after  {display: block; content: '' !important;}
 /**
   * This Object represents a 'List in Prose', a list that is contained within prose paragraphs.
   * The list items contain spans of text, but not whole paragraphs. It is displayed inline, and has
@@ -216,7 +203,7 @@
 @updated
 : 2014-05-25
   */
-.List.I.LIP {
+.Ilist.LIP {
 	counter-reset: count;
 	> .Item {
 		counter-increment: count;
