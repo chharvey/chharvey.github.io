@@ -128,6 +128,25 @@
 @qblock_brdr_style: double;
 @qblock_brdr_color: @color_border;
 /**
+  * This interface is used on some quasi-paragraphs (paragraph-looking Objects).
+@implements
+: .vru-content
+: .vru-top-phi()
+@tags
+: #typography
+: #address
+: #figure
+: #quote
+@author
+: Chris Harvey
+@updated
+: 2014-10-01
+  */
+.quasi-p {
+	.vru-content;
+	.vru-top-phi();
+}
+/**
   * This Object represents a generic caption of any sort. A caption is usually a short summary or
   * description of some content ("the described content"). The described content may be in a
   * literal `figure` Element, `table` Element, or it may be any generic content. Since captions are
@@ -183,9 +202,7 @@
 @extends
 : .P
 @implements
-: .vru-content
-: .vru-top-phi
-@mixesin
+: .quasi-p
 : .spacing-phi()
 @tags
 : #typography
@@ -194,11 +211,10 @@
 @author
 : Chris Harvey
 @updated
-: 2014-04-30
+: 2014-10-01
   */
 .Addy {
-	&:extend(.vru-content);
-	&:extend(.vru-top-phi);
+	&:extend(.quasi-p);
 	.spacing-phi(right; @addy_brdr_width; @addy_brdr_style);
 	display: block;
 	border-radius: 6px;
@@ -213,9 +229,8 @@
   * Content in this `.Fig`---including its caption---is permissible to be extracted from the
   * document and presented on its own.
 @implements
-: .vru-content
-: .vru-top-phi
-@mixesin
+: .crossgrid-lined
+: .quasi-p
 : .spacing-phi()
 @tags
 : #typography
@@ -224,12 +239,11 @@
 @author
 : Chris Harvey
 @updated
-: 2014-08-11
+: 2014-10-01
   */
 .Fig {
-	&:extend(.vru-content);
-	&:extend(.vru-top-phi);
 	&:extend(.crossgrid-lined);
+	&:extend(.quasi-p);
 	.spacing-phi(left;  @fig_brdr_width; @fig_brdr_style);
 	.spacing-phi(right; @fig_brdr_width; @fig_brdr_style);
 	display: block;
@@ -242,18 +256,17 @@
   * It should have paragraph breaks that correspond to the source.
   *
   * If the original source is more than 40 words and does not have paragraph breaks, use
-  * `.Qblock.Long`. It should not contain paragraphs (either `.P` Objects or `p` Elements);
+  * `.Qblock`. It should not contain paragraphs (either `.P` Objects or `p` Elements);
   * it should directly contain the source's text.
+  * Optionally contain the citation in a `.Src.Formal`.
   *
   * If the original source is less than 40 words and does not have paragraph breaks (for example,
   * extracted inline text from an article), use the `.Qblock.Short` subclass. It should also not
   * contain paragraphs.
 @implements
-: .vru-content
-: .vru-top-phi
 : .fontsize-block-lrg
 : .crossgrid-lined
-@mixesin
+: .quasi-p
 : .spacing-phi()
 @tags
 : #typography
@@ -261,11 +274,10 @@
 @author
 : Chris Harvey
 @updated
-: 2014-08-11
+: 2014-10-01
   */
 .Qblock {
-	&:extend(.vru-content);
-	&:extend(.vru-top-phi);
+	&:extend(.quasi-p);
 	&:extend(.crossgrid-lined);
 	.spacing-phi(left; @qblock_brdr_width; @qblock_brdr_style);
 	display: block;
