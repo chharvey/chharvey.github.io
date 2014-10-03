@@ -195,6 +195,7 @@ sub {
 ol,
 ul {
   list-style-type: none;
+  list-style-position: outside;
 }
 u,
 del,
@@ -577,7 +578,7 @@ sub,
 }
 .fontsize-block-sml,
 .Fineprint,
-.List.Footnotes,
+.Footnotes,
 .Capt,
 .Qblock.Short .Src,
 .Table,
@@ -687,7 +688,6 @@ sub,
 .H,
 .P,
 .Capt,
-.Item,
 .Map,
 .Cell,
 .Codeblock,
@@ -1086,7 +1086,7 @@ main {
 : 2014-06-08
   */
 .crossgrid-lined,
-.Fig,
+.Fig.Text,
 .Qblock {
   background-image: url('http://chharvey.github.io/core/images/crossgrid-lined_1x24.svg');
   background-size: 1px 24px;
@@ -1427,6 +1427,7 @@ main {
 : .List
 @implements
 : .fontsize-block-sml
+: .list-block
 : .vru-top-phi()
 @tags
 : #footnotes
@@ -1436,27 +1437,26 @@ main {
 @updated
 : 2014-09-23
   */
-.List.Footnotes {
+.Footnotes {
   padding-top: 8.78521826px;
   margin-top: 14.21478174px;
   border-top-width: 1px;
   border-top-style: solid;
   border-top-color: #9acc7a;
 }
-.List.Footnotes > .Item {
+.Footnotes > .Item {
   padding-left: 24px;
   text-indent: -24px;
 }
 /**
   * The `.Rf` Object represents a reference to a footnote. The reference exists in the document prose,
-  * and it links to a footnote, which is contained in the `.List.U.Footnotes`.
+  * and it links to a footnote, which is contained in the `.Footnotes`.
   * The `.Fn` Object represents the footnote that is referenced.
   * Each Object contains an `a` Element.
 @implements
 : .brackets
 @tags
 : #footnotes
-: #lists
 @author
 : Chris Harvey
 @updated
@@ -1655,7 +1655,9 @@ main {
 }
 :not(.H) + .Article,
 :not(.H) + .P,
-:not(.H) + .List,
+:not(.H) + .Olist,
+:not(.H) + .Ulist,
+:not(.H) + .Alist,
 :not(.H) + .Map,
 :not(.H) + .Table,
 :not(.H) + .Codeblock,
@@ -1845,13 +1847,14 @@ main {
   text-align: right;
 }
 /**
-  * This Object represents a generic figure in a document. A figure contains excerpts of text,
+  * This Object represents a generic figure-looking thing in a document. A figure contains excerpts of text,
   * examples, or images that are used to illustrate a concept. This may or may not be a
   * literal `figure` Element.
   * Inside this `.Fig` there may exist a `.Capt` (a generic caption), either at the beginning or at
   * the end. The `.Capt` may or may not be a `figcaption` or `caption` Element.
-  * Content in this `.Fig`---including its caption---is permissible to be extracted from the
-  * document and presented on its own.
+  * If and only if the content in this `.Fig`---including its caption---is permissible to be extracted from the
+  * document and presented on its own, the `.Fig` Object should be wrapped with an `aside` Element.
+  * The `.Fig.Text` subclass is a figure whose contents are only text.
 @implements
 : .crossgrid-lined
 : .quasi-p
@@ -1955,7 +1958,12 @@ main {
 /*###############*\
     _lists.less
 \*###############*/
-/*@LISTS*/
+/**
+  * The left indent of a `.List` Object (or similar Object).
+  * The indent should be 0.5in, the standard indent for APA style.
+  * Use this value on `padding-left` or `margin-left`, whichever is more appropriate.
+  * Use operations on `@listindent`, such as `(@listindent / 2)` for variants.
+  */
 /**
   * This Interface adds a left padding to a `.List` Object. The padding-left is set to 48px, which is
   * equal to 0.5in, the standard indent for APA style.
@@ -1970,34 +1978,28 @@ main {
 @updated
 : 2014-06-26
   */
-.listindent,
-.List .List,
-.List.O,
-.List.U {
-  padding-left: 48px;
-}
-.listindent-half {
-  padding-left: 24px;
-}
 /**
-  * This Object represents a block list. It may be a literal `ol` or `ul` Element containing
+  * This Interface is used on block lists. It may be a literal `ol` or `ul` Element containing
   * `li` Elements, or it may be the abstract notion of a list of other block Objects. The order of
   * list items may be releveant or irrelevant.
-  * This `.List` Object is  displayed as a block Object containing other block Objects. See the
-  * `.Enum` Object for a short listing of inline Objects (e.g., a list of keywords).
 @implements
+: .vru-content
 @tags
 : #typography
 : #list
 @author
 : Chris Harvey
 @updated
-: 2014-07-10
+: 2014-10-01
   */
-.List {
+.list-block,
+.Footnotes,
+.Olist,
+.Ulist,
+.Alist {
+  min-height: 24px;
+  min-height: 1.5rem;
   display: block;
-  list-style-type: none;
-  list-style-position: outside;
 }
 /**
   * This Object represents a block item in a `.List` Object. It may be a literal `li` Element
@@ -2012,32 +2014,14 @@ main {
 @updated
 : 2014-08-06
   */
-.Item {
-  display: list-item;
-}
-/**
-  * This Object represents a nested List Object as a descendant of another List Object.
-  * (It must be a child of a List Item Object.)
-@implements
-: .listindent
-@tags
-: #typography
-: #list
-@author
-: Chris Harvey
-@updated
-: 2014-08-06
-  */
 /**
   * This Object represents an ordered list, or a list used for an outline. This does *not*
   * correspond directly to a literal `ol` Element; this Object is simply to be displayed with
   * block list items, with markers that indicate order. This class does *not* indicate that the
   * list is semantically ordered. Typical uses include table of contents, etc. Outlines are by
   * definition, ordered.
-@extends
-: .List
 @implements
-: .listindent
+: .list-block
 @tags
 : #typography
 : #list
@@ -2047,14 +2031,15 @@ main {
 @updated
 : 2014-05-11
   */
-.List.O {
+.Olist {
+  padding-left: 0.5in;
   list-style-type: decimal-leading-zero;
   list-style-type: decimal;
 }
 /**
   * These Objects represent outlined lists with different enumeration types.
 @extends
-: .List.O
+: .Olist
 @tags
 : #typography
 : #list
@@ -2064,35 +2049,33 @@ main {
 @updated
 : 2014-05-03
   */
-.List.O.Ome {
+.Olist.Ome {
   list-style-type: decimal-leading-zero;
 }
-.List.O.Alp {
+.Olist.Alp {
   list-style-type: upper-roman;
 }
-.List.O.Bet {
+.Olist.Bet {
   list-style-type: upper-alpha;
 }
-.List.O.Gam {
+.Olist.Gam {
   list-style-type: decimal;
 }
-.List.O.Del {
+.Olist.Del {
   list-style-type: lower-alpha;
 }
-.List.O.Eps {
+.Olist.Eps {
   list-style-type: lower-roman;
 }
-.List.O.Zet {
+.Olist.Zet {
   list-style-type: lower-greek;
 }
 /**
   * This Object represents a generic list whose items are to be displayed as blocks with the same
   * markers. It does *not* necessarily correspond directly to a literal `ul` Element. This class
   * does *not* indicate that the list is semantically unordered.
-@extends
-: .List
 @implements
-: .listindent
+: .list-block
 @tags
 : #typography
 : #list
@@ -2102,30 +2085,14 @@ main {
 @updated
 : 2014-05-11
   */
-.List.U {
+.Ulist {
+  padding-left: 0.5in;
   list-style-type: square;
 }
 /**
-  * This Object represents a generic list whose items are to be displayed inline.
-  * The list itself appears as a block.
-@extends
-: .List
-@tags
-: #typography
-: #list
-: #inline
-@author
-: Chris Harvey
-@updated
-: 2014-05-11
-  */
-.List.I > .Item {
-  display: inline;
-}
-/**
   * This Object represents an action list, which typically contains hyperlinks.
-@extends
-: .List
+@implements
+: .list-block
 @tags
 : #typography
 : #list
@@ -2135,19 +2102,43 @@ main {
 @updated
 : 2014-05-11
   */
-.List.A > .Item {
+.Alist > .Item {
   color: #0062ff;
 }
-.List.A > .Item:hover {
+.Alist > .Item:hover {
   color: #ff9d00;
 }
-.List.A > .Item::before {
+.Alist > .Item::before {
   content: '\2713\0020';
 }
-/*@ENUMS*/
 /**
-  * This Object represents a inline listing of items, typically words. The order of items may or
-  * may not be relevant.
+  * This Object represents a generic inline list. It, along with its items, are displayed inline.
+  * It may be used for a listing of items, typically words. The order of items may or
+  * may not be relevant (both `ol` and `ul` Elements can instantiate this Class).
+  *
+  * Authors may wish to contain this Object within a block, such as a Paragraph Object.
+@extends
+: .List
+@tags
+: #typography
+: #list
+: #inline
+@author
+: Chris Harvey
+@updated
+: 2014-10-01
+  */
+.Ilist {
+  display: inline;
+}
+.Ilist > .Item {
+  display: inline;
+}
+/**
+  * These Objects are `.Item`s in a `.Ilist`. They represent character-separated values.
+  * The `.endline` interface creates a visual appearance of a line break.
+@extends
+: .Ilist
 @tags
 : #typography
 : #list
@@ -2156,11 +2147,18 @@ main {
 @updated
 : 2014-08-06
   */
-.Enum {
-  display: inline;
+.Ilist.Comma > .Item:not(:last-child)::after {
+  content: ',\0020';
 }
-.Enum > .Item {
-  display: inline;
+.Ilist.Mdash > .Item:not(:last-child)::after {
+  content: '\0020\2014\0020';
+}
+.Ilist.Ndash > .Item:not(:last-child)::after {
+  content: '\0020\2013\0020';
+}
+.Ilist > .Item.endline::after {
+  display: block;
+  content: '' !important;
 }
 /**
   * This Object represents a 'List in Prose', a list that is contained within prose paragraphs.
@@ -2177,48 +2175,15 @@ main {
 @updated
 : 2014-05-25
   */
-.Enum.LIP {
+.Ilist.LIP {
   counter-reset: count;
 }
-.Enum.LIP > .Item {
+.Ilist.LIP > .Item {
   counter-increment: count;
 }
-.Enum.LIP > .Item::before {
+.Ilist.LIP > .Item::before {
   content: '(' counter(count) ') ';
 }
-/**
-  * These Objects are `.Item`s in a `.List` or `.Enum`. They represent character-separated values.
-@tags
-: #typography
-: #list
-@author
-: Chris Harvey
-@updated
-: 2014-08-06
-  */
-.Comma > .Item:not(:last-child)::after {
-  content: ',\0020';
-}
-.Mdash > .Item:not(:last-child)::after {
-  content: '\0020\2014\0020';
-}
-.Ndash > .Item:not(:last-child)::after {
-  content: '\0020\2013\0020';
-}
-/**
-  * This Object represents a generic list whose items are to be displayed as blocks that have
-  * `float: left;`.
-@implements
-: .clearfix
-@tags
-: #typography
-: #list
-: #float
-@author
-: Chris Harvey
-@updated
-: 2014-05-11
-  */
 /*##############*\
     _maps.less
 \*##############*/
@@ -2254,8 +2219,6 @@ main {
   * This Object represent the description in a term-description pair of a `.Map`.
 @belongsto
 : .Map
-@implements
-: .listindent
 @tags
 : #typography
 : #map
@@ -2265,7 +2228,7 @@ main {
 : 2014-08-07
   */
 .Map > .Desc {
-  padding-left: 48px;
+  padding-left: 0.5in;
 }
 /**
   * This Object represents an association list in which terms are grouped together in one column
@@ -2831,6 +2794,7 @@ kbd {
   */
 .Link {
   color: #0062ff;
+  cursor: pointer;
 }
 .Link:hover {
   text-decoration: underline;
@@ -2915,7 +2879,7 @@ strong {
 @author
 : Chris Harvey
 @updated
-: 2014-08-05
+: 2014-09-27
   */
 i[lang] {
   font-style: italic;

@@ -4,14 +4,14 @@
     _lists.less
 \*###############*/
 
-// Table of Contents
-// - LISTS
-// - ENUMS
 
-
-//++++++//
-/*@LISTS*/
-//++++++//
+/**
+  * The left indent of a `.List` Object (or similar Object).
+  * The indent should be 0.5in, the standard indent for APA style.
+  * Use this value on `padding-left` or `margin-left`, whichever is more appropriate.
+  * Use operations on `@listindent`, such as `(@listindent / 2)` for variants.
+  */
+@listindent: 0.5in;
 /**
   * This Interface adds a left padding to a `.List` Object. The padding-left is set to 48px, which is
   * equal to 0.5in, the standard indent for APA style.
@@ -26,27 +26,25 @@
 @updated
 : 2014-06-26
   */
-.listindent      {padding-left:  @tab;}
-.listindent-half {padding-left: (@tab / 2);}
+// .listindent      {padding-left:  @tab;}
+// .listindent-half {padding-left: (@tab / 2);}
 /**
-  * This Object represents a block list. It may be a literal `ol` or `ul` Element containing
+  * This Interface is used on block lists. It may be a literal `ol` or `ul` Element containing
   * `li` Elements, or it may be the abstract notion of a list of other block Objects. The order of
   * list items may be releveant or irrelevant.
-  * This `.List` Object is  displayed as a block Object containing other block Objects. See the
-  * `.Enum` Object for a short listing of inline Objects (e.g., a list of keywords).
 @implements
+: .vru-content
 @tags
 : #typography
 : #list
 @author
 : Chris Harvey
 @updated
-: 2014-07-10
+: 2014-10-01
   */
-.List {
+.list-block {
+	.vru-content;
 	display: block;
-	list-style-type: none;
-	list-style-position: outside;
 }
 /**
   * This Object represents a block item in a `.List` Object. It may be a literal `li` Element
@@ -61,36 +59,17 @@
 @updated
 : 2014-08-06
   */
-.Item {
-	&:extend(.vru-content);
-	display: list-item;
-}
-/**
-  * This Object represents a nested List Object as a descendant of another List Object.
-  * (It must be a child of a List Item Object.)
-@implements
-: .listindent
-@tags
-: #typography
-: #list
-@author
-: Chris Harvey
-@updated
-: 2014-08-06
-  */
-.List .List {
-	&:extend(.listindent);
-}
+// .Item {
+// 	display: list-item;
+// }
 /**
   * This Object represents an ordered list, or a list used for an outline. This does *not*
   * correspond directly to a literal `ol` Element; this Object is simply to be displayed with
   * block list items, with markers that indicate order. This class does *not* indicate that the
   * list is semantically ordered. Typical uses include table of contents, etc. Outlines are by
   * definition, ordered.
-@extends
-: .List
 @implements
-: .listindent
+: .list-block
 @tags
 : #typography
 : #list
@@ -100,15 +79,16 @@
 @updated
 : 2014-05-11
   */
-.List.O {
-	&:extend(.listindent);
+.Olist {
+	&:extend(.list-block);
+	padding-left: @listindent;
 	list-style-type: decimal-leading-zero; //  01.  02.  03.
 	list-style-type: decimal;              //   1.   2.   3.
 }
 /**
   * These Objects represent outlined lists with different enumeration types.
 @extends
-: .List.O
+: .Olist
 @tags
 : #typography
 : #list
@@ -118,21 +98,19 @@
 @updated
 : 2014-05-03
   */
-.List.O.Ome {list-style-type: decimal-leading-zero;} //  01.  02.  03.
-.List.O.Alp {list-style-type: upper-roman;}          //   I.  II. III.
-.List.O.Bet {list-style-type: upper-alpha;}          //   A.   B.   C.
-.List.O.Gam {list-style-type: decimal;}              //   1.   2.   3.
-.List.O.Del {list-style-type: lower-alpha;}          //   a.   b.   c.
-.List.O.Eps {list-style-type: lower-roman;}          //   i.  ii. iii.
-.List.O.Zet {list-style-type: lower-greek;}          //   α.   β.   γ.
+.Olist.Ome {list-style-type: decimal-leading-zero;} //  01.  02.  03.
+.Olist.Alp {list-style-type: upper-roman;}          //   I.  II. III.
+.Olist.Bet {list-style-type: upper-alpha;}          //   A.   B.   C.
+.Olist.Gam {list-style-type: decimal;}              //   1.   2.   3.
+.Olist.Del {list-style-type: lower-alpha;}          //   a.   b.   c.
+.Olist.Eps {list-style-type: lower-roman;}          //   i.  ii. iii.
+.Olist.Zet {list-style-type: lower-greek;}          //   α.   β.   γ.
 /**
   * This Object represents a generic list whose items are to be displayed as blocks with the same
   * markers. It does *not* necessarily correspond directly to a literal `ul` Element. This class
   * does *not* indicate that the list is semantically unordered.
-@extends
-: .List
 @implements
-: .listindent
+: .list-block
 @tags
 : #typography
 : #list
@@ -142,33 +120,15 @@
 @updated
 : 2014-05-11
   */
-.List.U {
-	&:extend(.listindent);
+.Ulist {
+	&:extend(.list-block);
+	padding-left: @listindent;
 	list-style-type: square;
 }
 /**
-  * This Object represents a generic list whose items are to be displayed inline.
-  * The list itself appears as a block.
-@extends
-: .List
-@tags
-: #typography
-: #list
-: #inline
-@author
-: Chris Harvey
-@updated
-: 2014-05-11
-  */
-.List.I {
-	> .Item {
-		display: inline;
-	}
-}
-/**
   * This Object represents an action list, which typically contains hyperlinks.
-@extends
-: .List
+@implements
+: .list-block
 @tags
 : #typography
 : #list
@@ -178,22 +138,43 @@
 @updated
 : 2014-05-11
   */
-.List.A {
+.Alist {
+	&:extend(.list-block);
 	> .Item {
 		color: @color_link_up;
 		&:hover {color: @color_link_dn;}
 		&::before {content: '\2713\0020';} // check mark, space
 	}
 }
-//++++ @end LISTS ++++//
 
-
-//++++++//
-/*@ENUMS*/
-//++++++//
 /**
-  * This Object represents a inline listing of items, typically words. The order of items may or
-  * may not be relevant.
+  * This Object represents a generic inline list. It, along with its items, are displayed inline.
+  * It may be used for a listing of items, typically words. The order of items may or
+  * may not be relevant (both `ol` and `ul` Elements can instantiate this Class).
+  *
+  * Authors may wish to contain this Object within a block, such as a Paragraph Object.
+@extends
+: .List
+@tags
+: #typography
+: #list
+: #inline
+@author
+: Chris Harvey
+@updated
+: 2014-10-01
+  */
+.Ilist {
+	display: inline;
+	> .Item {
+		display: inline;
+	}
+}
+/**
+  * These Objects are `.Item`s in a `.Ilist`. They represent character-separated values.
+  * The `.endline` interface creates a visual appearance of a line break.
+@extends
+: .Ilist
 @tags
 : #typography
 : #list
@@ -202,12 +183,11 @@
 @updated
 : 2014-08-06
   */
-.Enum {
-	display: inline;
-	> .Item {
-		display: inline;
-	}
-}
+.Ilist.Comma > .Item:not(:last-child)::after {content:          ',\0020';} // ', '
+.Ilist.Mdash > .Item:not(:last-child)::after {content: '\0020\2014\0020';} // ' — '
+.Ilist.Ndash > .Item:not(:last-child)::after {content: '\0020\2013\0020';} // ' – '
+
+.Ilist > .Item.endline::after  {display: block; content: '' !important;}
 /**
   * This Object represents a 'List in Prose', a list that is contained within prose paragraphs.
   * The list items contain spans of text, but not whole paragraphs. It is displayed inline, and has
@@ -223,7 +203,7 @@
 @updated
 : 2014-05-25
   */
-.Enum.LIP {
+.Ilist.LIP {
 	counter-reset: count;
 	> .Item {
 		counter-increment: count;
@@ -232,47 +212,3 @@
 		}
 	}
 }
-//++++ @end ENUMS ++++//
-
-
-/**
-  * These Objects are `.Item`s in a `.List` or `.Enum`. They represent character-separated values.
-@tags
-: #typography
-: #list
-@author
-: Chris Harvey
-@updated
-: 2014-08-06
-  */
-.Comma > .Item:not(:last-child)::after {content:          ',\0020';} // ', '
-.Mdash > .Item:not(:last-child)::after {content: '\0020\2014\0020';} // ' — '
-.Ndash > .Item:not(:last-child)::after {content: '\0020\2013\0020';} // ' – '
-
-/**
-  * This Object represents a generic list whose items are to be displayed as blocks that have
-  * `float: left;`.
-@implements
-: .clearfix
-@tags
-: #typography
-: #list
-: #float
-@author
-: Chris Harvey
-@updated
-: 2014-05-11
-  */
-//.List.F {
-//	&:extend(.clearfix all);
-//	> .Item {
-//		display: block;
-//		float: left;
-//	}
-//	> .Item.F1o1:extend(#_ .width-f1o1) {}
-//	> .Item.F1o2:extend(#_ .width-f1o2) {}
-//	> .Item.F1o3:extend(#_ .width-f1o3) {}
-//	> .Item.F1o4:extend(#_ .width-f1o4) {}
-//	> .Item.F1o5:extend(#_ .width-f1o5) {}
-//	> .Item.F1o6:extend(#_ .width-f1o6) {}
-//}

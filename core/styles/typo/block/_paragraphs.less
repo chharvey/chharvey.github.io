@@ -33,7 +33,9 @@
 }
 :not(.H) + .Article,
 :not(.H) + .P,
-:not(.H) + .List,
+:not(.H) + .Olist,
+:not(.H) + .Ulist,
+:not(.H) + .Alist,
 :not(.H) + .Map,
 :not(.H) + .Table,
 :not(.H) + .Codeblock,
@@ -221,13 +223,14 @@
 	text-align: right;
 }
 /**
-  * This Object represents a generic figure in a document. A figure contains excerpts of text,
+  * This Object represents a generic figure-looking thing in a document. A figure contains excerpts of text,
   * examples, or images that are used to illustrate a concept. This may or may not be a
   * literal `figure` Element.
   * Inside this `.Fig` there may exist a `.Capt` (a generic caption), either at the beginning or at
   * the end. The `.Capt` may or may not be a `figcaption` or `caption` Element.
-  * Content in this `.Fig`---including its caption---is permissible to be extracted from the
-  * document and presented on its own.
+  * If and only if the content in this `.Fig`---including its caption---is permissible to be extracted from the
+  * document and presented on its own, the `.Fig` Object should be wrapped with an `aside` Element.
+  * The `.Fig.Text` subclass is a figure whose contents are only text.
 @implements
 : .crossgrid-lined
 : .quasi-p
@@ -242,11 +245,13 @@
 : 2014-10-01
   */
 .Fig {
-	&:extend(.crossgrid-lined);
 	&:extend(.quasi-p);
 	.sidebrdr-phi(left;  @fig_brdr_width; @fig_brdr_style);
 	.sidebrdr-phi(right; @fig_brdr_width; @fig_brdr_style);
 	display: block;
+}
+.Fig.Text {
+	&:extend(.crossgrid-lined);
 }
 /**
   * This Object represents any Block Quotation, representing material taken directly from another
