@@ -62,28 +62,30 @@
 //++++++++//
 /**
   * The following Mixins define horizontal margins on `.Block`s of content.
+  *
+  * `.margin-even(@width)` splits the margins equally, depending on `@width`. The `.margin-even()`
+  * interface is used when the width is unknown
+  *
+  * `.margin-all-[left|right]()` moves all horizontal margins to the [left|right] side.
+  *
   * `.margin-phi-[left|right]()` splits the margins so that the ratio of [left|right] margin
   * to [right|left] margin is Golden.
-  * `.margin-even()` splits the margins equally.
-  * `.margin-all-[left|right]()` moves all horizontal margins to the [left|right] side.
+@params
+: @width : the width of the block
 @tags
 : #golden
 @author
 : Chris Harvey
 @updated
-: 2014-05-18
+: 2014-10-03
   */
-.margin-phi-left(@width) {
-	margin-left:  ((100% - @width) * @phi1);
-	margin-right: ((100% - @width) * @phi2);
-}
-.margin-phi-right(@width) {
-	margin-left:  ((100% - @width) * @phi2);
-	margin-right: ((100% - @width) * @phi1);
-}
 .margin-even(@width) {
 	margin-left:  ((100% - @width) * 0.5);
 	margin-right: ((100% - @width) * 0.5);
+}
+.margin-even {
+	margin-left:  auto;
+	margin-right: auto;
 }
 .margin-all-left(@width) {
 	margin-left: (100% - @width);
@@ -93,18 +95,13 @@
 	// margin-left: 0;
 	margin-right: (100% - @width);
 }
-/**
-  * This Interface is like the `.margin-even()` Mixin except it can be used when the width of the
-  * block is unknown. It is sets the left and right margins to `auto`.
-@tags
-@author
-: Chris Harvey
-@updated
-: 2014-06-16
-  */
-.margin-even {
-	margin-left:  auto;
-	margin-right: auto;
+.margin-phi-left(@width) {
+	margin-left:  ((100% - @width) * @phi1);
+	margin-right: ((100% - @width) * @phi2);
+}
+.margin-phi-right(@width) {
+	margin-left:  ((100% - @width) * @phi2);
+	margin-right: ((100% - @width) * @phi1);
 }
 
 /**
@@ -136,14 +133,18 @@
 .w-p4c.right {.margin-all-left(@golden4c);}
 
 .w-p1.ml {.margin-phi-right(@golden1);}
-.w-p1.mr {.margin-phi-left(@golden1);}
 .w-p2.ml {.margin-phi-right(@golden2);}
+.w-p1.mr {.margin-phi-left(@golden1);}
 .w-p2.mr {.margin-phi-left(@golden2);}
 
-.center-sml {
-	&:extend(.w-p1); // Golden: 61.80%
-	.margin-even(@golden1);
-}
+// .w-p1.even   {.margin-even(@golden1);} // Golden:     61.80%
+.w-f2o3.even {.margin-even(@2o3);}     // arithmetic: 66.66%
+.w-f3o4.even {.margin-even(@3o4);}     // geometric:  75.00%
+
+// .center-sml {
+// 	&:extend(.w-p1); // Golden: 61.80%
+// 	.margin-even(@golden1);
+// }
 .center-med {
 	&:extend(.w-f2o3); // arithmetic: 66.66%
 	.margin-even(@2o3);
