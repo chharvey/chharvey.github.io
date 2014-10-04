@@ -706,14 +706,17 @@ sub,
 @updated
 : 2014-07-10
   */
-.vru-top-1 {
+:not(.H) + .Article,
+:not(.H) + .P,
+:not(.H) + .Olist,
+:not(.H) + .Ulist,
+:not(.H) + .Alist,
+:not(.H) + .Map,
+:not(.H) + .Table,
+:not(.H) + .Codeblock,
+:not(.H) + .Alert {
   margin-top: 24px;
   margin-top: 1.5rem;
-}
-.vru-bottom-1,
-.P.Intro {
-  padding-bottom: 24px;
-  padding-bottom: 1.5rem;
 }
 /**
   * This Mixin sets the padding-top, border-top, and margin-top such that the padding:margin ratio
@@ -808,7 +811,6 @@ sub,
 @updated
 : 2014-10-03
   */
-/** negate the effects of `.sidebrdr-phi(@side; @brdrw; @brdrs; @brdrc)`  on the [left|right] side */
 /*###############*\
     _boxes.less
 \*###############*/
@@ -1143,7 +1145,7 @@ main {
   * The list either contains ancestor pages (including parent),
   * sibling pages (including the same page), or children pages.
 @implements
-: .vru-top-1;
+: .vru-top()
 @tags
 : #breadcrumbs
 @author
@@ -1659,18 +1661,6 @@ main {
 .P p {
   display: inline;
 }
-:not(.H) + .Article,
-:not(.H) + .P,
-:not(.H) + .Olist,
-:not(.H) + .Ulist,
-:not(.H) + .Alist,
-:not(.H) + .Map,
-:not(.H) + .Table,
-:not(.H) + .Codeblock,
-:not(.H) + .Alert {
-  margin-top: 24px;
-  margin-top: 1.5rem;
-}
 /**
   * This Object refers to the first ("lede"/"lead") sentence in a paragraph or caption, which may
   * act as a "heading" for that paragraph or caption.
@@ -2170,6 +2160,8 @@ main {
   * This Object represents a 'List of Prose', a list whose items consist of only paragraphs.
 @extends
 : .Olist
+@implements
+: .vru-top()
 @tags
 : #typography
 : #list
