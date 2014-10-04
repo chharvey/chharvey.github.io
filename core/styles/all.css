@@ -3,30 +3,10 @@
 \*##################*/
 /*@GLOBAL VARIABLES*/
 /*@General Variables*/
-/** Determines the amount to fade out. Change this if you wish. */
 /** Used for horizontal spacing, e.g., inserting a space between a heading and subheading. */
 /** Determines the duration for transition animation effects. */
 /*@Fonts*/
 /** These determine 1rem and the 'magic number'. Change these if you wish. */
-/**
-  * The following font families are used site-wide.
-  * - The 'base' font-family is used for the main body copy. It is a sans-serif type with a
-  * 	moderate thick-thin transition.
-  * - The 'heading' font-family is used only for headings of body copy (not table headings, etc.).
-  * 	It is a sans-serif geometric type. It should not be used for extensive amounts of text.
-  * - The 'intro' font-family is used for other headings, such as table headings or intro (Lede)
-  * 	paragraphs. Like the 'heading' font-family, it is a geometric sans-serif. However it is
-  *  	more acceptable for extensive amounts of text.
-  * - The 'prose' font-family is used for formal documents or sections. It is a serif oldstyle type
-  * 	easy on the eyes that can be read at extensive length.
-  * - The 'code' font-family is a monospace type used for... well, code.
-  * - The 'math' font-family is another serif oldstyle type use for mathematical spans.
-  * - The 'accent' font-family is used for labels, block quotes, buttons/keys,
-  * 	and other special elements.
-  * - The 'script' font-family is used for even more fancy elements such as
-  * 	drop-caps and subheadings.
-  */
-/*@Color Scheme*/
 /*@FUNCTIONS*/
 /*@CONSTANTS*/
 /*@Golden Values*/
@@ -215,6 +195,7 @@ sub {
 ol,
 ul {
   list-style-type: none;
+  list-style-position: outside;
 }
 u,
 del,
@@ -451,7 +432,62 @@ button {
   vertical-align: top;
   overflow: visible;
 }
-/*@GUTTERS*/
+/*####################*\
+    _transition.less
+\*####################*/
+/**
+  * Use this Mixin to apply a transition timing effect on an Element.
+@params
+: @props : the CSS property name(s). If more than one, they must be comma-separated
+: @dura  : the length in time, in seconds, the transition is to be in effect
+: @func  : the timing-function. See `https://developer.mozilla.org/en-US/docs/Web/CSS/timing-function`
+: @delay : the length in time, in seconds, the transition will wait before starting
+@tags
+: #transition
+: #vendorspecific
+@author
+: Chris Harvey
+@updated
+: 2014-06-17
+  */
+/*#################*\
+    _flexbox.less
+\*#################*/
+/*################*\
+    _floats.less
+\*################*/
+/**
+  * This Interface is used on containers of floats. It pushes subsequent content to the bottom
+  * of the container.
+@tags
+: #float
+@author
+: Chris Harevy
+@updated
+: 2014-05-12
+  */
+.clearfix::after,
+.Map.Vert::after,
+.CSS .Ruleset::after {
+  display: table;
+  content: ' ';
+  clear: both;
+}
+/*###################*\
+    _transform.less
+\*###################*/
+/**
+  * Use this Mixin to apply a rotation transformation to an Object.
+@params
+: @rotation : the angle, in degrees, to rotate the Object
+@tags
+: #transformation
+: #vendorspecific
+@author
+: Chris Harvey
+@updated
+: 2014-05-10
+  */
 /*##################*\
     _fontsize.less
 \*##################*/
@@ -534,19 +570,18 @@ sub,
   font-size: 1.25rem;
   line-height: 1.2;
 }
-.fontsize-block-med,
-.Button.Crumb {
+.fontsize-block-med {
   font-size: 16px;
   font-size: 1rem;
   line-height: 1.5;
 }
 .fontsize-block-sml,
 .Fineprint,
+.Footnotes,
 .Capt,
 .Qblock.Short .Src,
 .Table,
-.Codeblock,
-.List.Footnotes {
+.Codeblock {
   font-size: 12px;
   font-size: 0.75rem;
   line-height: 2;
@@ -555,62 +590,28 @@ sub,
   font-size: inherit;
   line-height: inherit;
 }
-/*#################*\
-    _flexbox.less
-\*#################*/
-/*################*\
-    _floats.less
-\*################*/
-/**
-  * This Interface is used on containers of floats. It pushes subsequent content to the bottom
-  * of the container.
-@tags
-: #float
-@author
-: Chris Harevy
-@updated
-: 2014-05-12
-  */
-.clearfix::after,
-.Map.Vert::after,
-.CSS .Ruleset::after {
-  display: table;
-  content: ' ';
-  clear: both;
-}
-/*###############*\
-    _trans.less
-\*###############*/
-/**
-  * Use this Mixin to apply a rotation transformation to an Object.
-@params
-: @rotation : the angle, in degrees, to rotate the Object
-@tags
-: #transformation
-: #vendorspecific
-@author
-: Chris Harvey
-@updated
-: 2014-05-10
-  */
-/**
-  * Use this Mixin to apply a transition timing effect on an Element.
-@params
-: @props : the CSS property name(s). If more than one, they must be comma-separated
-: @dura  : the length in time, in seconds, the transition is to be in effect
-: @func  : the timing-function. See `https://developer.mozilla.org/en-US/docs/Web/CSS/timing-function`
-: @delay : the length in time, in seconds, the transition will wait before starting
-@tags
-: #transition
-: #vendorspecific
-@author
-: Chris Harvey
-@updated
-: 2014-06-17
-  */
 /*##############*\
     _grad.less
 \*##############*/
+/**
+  * This Interface makes an object slightly transparent, but it becomes opaque upon `:hover`.
+@tags
+: #schematic
+: #golden
+@author
+: Chris Harvey
+@updated
+: 2014-04-30
+  */
+.transp {
+  opacity: 0.61803399;
+}
+.transp:hover {
+  opacity: 1;
+}
+/*#################*\
+    _bground.less
+\*#################*/
 /**
   * Use this Mixin as a tool to apply the color scheme to an Element.
 @params
@@ -626,6 +627,19 @@ sub,
 : 2014-08-11
   */
 /**
+  * This Mixin sets the background color to a certain opacity.
+@params
+: @color   : the base color of the background color
+: @fadeout : the fade-out factor as a percentage. 100% is completely transparent, 0% is completely opaque.
+@tags
+: #background
+: #opacity
+@author
+: Chris Harvey
+@updated
+: 2014-06-26
+  */
+/**
   * Use this Mixin to apply a linear gradient background on an Element.
   * See [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/linear-gradient) for more info.
   * See [WPD](http://docs.webplatform.org/wiki/css/functions/linear-gradient) for more info.
@@ -639,6 +653,20 @@ sub,
 : Chris Harvey
 @updated
 : 2014-07-08
+  */
+/**
+  * This Mixin sets the background position of an Object's background sprite image.
+  * This assumes the sprite's images are linearly horizontally ordered.
+@params
+: @position : the position of the sprite's image to be used. must be a positive integer.
+: @iconsize : the horizontal (x) size of the sprite's image. in pixels.
+: @iconpadd : the padding between images in the sprite. in pixels.
+@tags
+: #background-image
+@author
+: Chris Harvey
+@updated
+: 2014-07-18
   */
 /*#################*\
     _spacing.less
@@ -662,7 +690,6 @@ sub,
 .Addy,
 .Fig,
 .Qblock,
-.Item,
 .Map,
 .Cell,
 .Codeblock,
@@ -686,10 +713,7 @@ sub,
   margin-top: 1.5rem;
 }
 .vru-bottom-1,
-.P.Intro,
-.Bc > .Anc,
-.Bc > .Sib,
-.Bc > .Child {
+.P.Intro {
   padding-bottom: 24px;
   padding-bottom: 1.5rem;
 }
@@ -720,45 +744,18 @@ sub,
   border-top-color: #000000;
 }
 /**
-  * These Interfaces add a solid horizontal line above the Object, separating it from its
-  * previous sibling. **Use these Interfaces instead of the `hr` Element.**
-  * The `.hr()` Mixin lets you choose the line color.
-  * The `-head` suffix colors the line with the main heaing color (blueish).
-  * The `-brdr` suffix colors the line with the border accent color (greenish).
-  * The `-acnt` suffix colors the line with the accent color (reddish).
+  * This Mixin add a solid horizontal line above the Object, separating it from its
+  * previous sibling. **Use this Mixin instead of the `hr` Element.**
+@params
+: @brdrc : the color of the horizontal line
 @tags
 : #golden
-: #heading
 : #border
-: #accent
 @author
 : Chris Harvey
 @updated
-: 2014-08-07
+: 2014-09-23
   */
-.Hr,
-.hr-head,
-.hr-brdr,
-.hr-acnt,
-.List.Footnotes {
-  padding-top: 8.78521826px;
-  margin-top: 14.21478174px;
-  border-top-width: 1px;
-  border-top-style: solid;
-}
-.Hr.Head,
-.hr-head {
-  border-top-color: #120099;
-}
-.Hr.Brdr,
-.hr-brdr,
-.List.Footnotes {
-  border-top-color: #9acc7a;
-}
-.Hr.Acnt,
-.hr-acnt {
-  border-top-color: #cc004e;
-}
 /*#################*\
     _borders.less
 \*#################*/
@@ -793,12 +790,13 @@ sub,
 @author
 : Chris Harvey
 @updated
-: 2014-08-10
+: 2014-09-23
   */
 .border-vert-undo {
   position: static;
   top: auto;
   margin-bottom: 0;
+  border: 0;
 }
 /**
   * This Interface puts an outline around an Object to show its structure. It is used for
@@ -958,6 +956,8 @@ sub,
 .quotes-double::before,
 .guillemets-single::before,
 .guillemets-double::before,
+.Rf > .Link::before,
+.Fn > .Link::before,
 .Qblock .Src.Formal::before,
 .Codeblock .Tag::before,
 .Codeblock .Tag::before,
@@ -965,9 +965,7 @@ sub,
 i::before,
 var::before,
 q::before,
-.Th::before,
-.Rf > .Link::before,
-.Fn > .Link::before {
+.Th::before {
   content: open-quote;
 }
 .delimiters::after,
@@ -982,6 +980,8 @@ q::before,
 .quotes-double::after,
 .guillemets-single::after,
 .guillemets-double::after,
+.Rf > .Link::after,
+.Fn > .Link::after,
 .Qblock .Src.Formal::after,
 .Codeblock .Tag::after,
 .Codeblock .Tag::after,
@@ -989,9 +989,7 @@ q::before,
 i::after,
 var::after,
 q::after,
-.Th::after,
-.Rf > .Link::after,
-.Fn > .Link::after {
+.Th::after {
   content: close-quote;
 }
 .parens,
@@ -1037,55 +1035,27 @@ var {
 .Th {
   quotes: '\00ab' '\00bb';
 }
-/*#################*\
-    _bground.less
-\*#################*/
-/**
-  * This Mixin sets the background color to a certain opacity.
-@params
-: @color   : the base color of the background color
-: @fadeout : the fade-out factor as a percentage. 100% is completely transparent, 0% is completely opaque.
-@tags
-: #background
-: #opacity
-@author
-: Chris Harvey
-@updated
-: 2014-06-26
-  */
-/**
-  * This Mixin sets the background position of an Object's background sprite image.
-  * This assumes the sprite's images are linearly horizontally ordered.
-@params
-: @position : the position of the sprite's image to be used. must be a positive integer.
-: @iconsize : the horizontal (x) size of the sprite's image. in pixels.
-: @iconpadd : the padding between images in the sprite. in pixels.
-@tags
-: #background-image
-@author
-: Chris Harvey
-@updated
-: 2014-07-18
-  */
-/**
-  * This Interface makes an object slightly transparent, but it becomes opaque upon `:hover`.
-@tags
-: #schematic
-: #golden
-@author
-: Chris Harvey
-@updated
-: 2014-04-30
-  */
-.transp {
-  opacity: 0.61803399;
-}
-.transp:hover {
-  opacity: 1;
-}
 /*##############*\
     _body.less
 \*##############*/
+/**
+  * The following font families are used site-wide.
+  * - The 'base' font-family is used for the main body copy. It is a sans-serif type with a
+  * 	moderate thick-thin transition.
+  * - The 'heading' font-family is used only for headings of body copy (not table headings, etc.).
+  * 	It is a sans-serif geometric type. It should not be used for extensive amounts of text.
+  * - The 'intro' font-family is used for other headings, such as table headings or intro (Lede)
+  * 	paragraphs. Like the 'heading' font-family, it is a geometric sans-serif. However it is
+  *  	more acceptable for extensive amounts of text.
+  * - The 'prose' font-family is used for formal documents or sections. It is a serif oldstyle type
+  * 	easy on the eyes that can be read at extensive length.
+  * - The 'code' font-family is a monospace type used for... well, code.
+  * - The 'math' font-family is another serif oldstyle type use for mathematical spans.
+  * - The 'accent' font-family is used for labels, block quotes, buttons/keys,
+  * 	and other special elements.
+  * - The 'script' font-family is used for even more fancy elements such as
+  * 	drop-caps and subheadings.
+  */
 html {
   font-size: 16px;
   font-family: 'Optima', 'Candara', 'Helvetica', sans-serif;
@@ -1162,6 +1132,110 @@ main {
   background-size: 20% 24px;
   background-repeat: repeat;
 }
+/*#####################*\
+	_breadcrumbs.less
+\*#####################*/
+/**
+  * A Breadcrumb module.
+@tags
+: #breadcrumbs
+: #golden
+@author
+: Chris Harvey
+@updated
+: 2014-06-18
+  */
+.Bc {
+  box-sizing: border-box;
+  position: fixed;
+  width: 14.58980338%;
+  margin-left: 3.44418537%;
+  margin-right: 5.572809%;
+  left: 0;
+  top: 24px;
+  top: 1.5rem;
+  z-index: 1;
+}
+/**
+  * A list of breadcrumbs inside the module.
+  * The list either contains ancestor pages (including parent),
+  * sibling pages (including the same page), or children pages.
+@implements
+: .vru-top-1;
+@tags
+: #breadcrumbs
+@author
+: Chris Harvey
+@updated
+: 2014-08-17
+  */
+.Bc > .Anc,
+.Bc > .Sib,
+.Bc > .Child {
+  margin-top: 24px;
+  margin-top: 1.5rem;
+}
+/**
+  * An actual breadcrumb link.
+@implements
+@mixesin
+: .fontsize-doubleblock
+: .transition()
+@params
+: @bc_brdrr : the border-radius of the `.Crumb` Object.
+@tags
+: #breadcrumbs
+: #link
+: #button
+@author
+: Chris Harvey
+@updated
+: 2014-09-21
+  */
+.Crumb {
+  -webkit-transition-property: background-color, color;
+  -moz-transition-property: background-color, color;
+  -ms-transition-property: background-color, color;
+  -o-transition-property: background-color, color;
+  transition-property: background-color, color;
+  -webkit-transition-duration: 0.125s;
+  -moz-transition-duration: 0.125s;
+  -ms-transition-duration: 0.125s;
+  -o-transition-duration: 0.125s;
+  transition-duration: 0.125s;
+  -webkit-transition-timing-function: ease;
+  -moz-transition-timing-function: ease;
+  -ms-transition-timing-function: ease;
+  -o-transition-timing-function: ease;
+  transition-timing-function: ease;
+  -webkit-transition-delay: 0s;
+  -moz-transition-delay: 0s;
+  -ms-transition-delay: 0s;
+  -o-transition-delay: 0s;
+  transition-delay: 0s;
+  display: block;
+  padding-left: 12px;
+  border-radius: 12px;
+  color: #0062ff;
+  background-color: #c3daff;
+  cursor: pointer;
+}
+.Crumb:not([rel~="this"]):hover {
+  color: #ff9d00;
+  background-color: #ffe8c3;
+}
+.Crumb[rel~="this"] {
+  position: relative;
+  left: 12px;
+  font-weight: bold;
+  color: #f1f6ff;
+  background-color: #0062ff;
+}
+@media print {
+  .Bc {
+    display: none;
+  }
+}
 /*#################*\
     _docsect.less
 \*#################*/
@@ -1237,6 +1311,7 @@ main {
   position: static;
   top: auto;
   margin-bottom: 0;
+  border: 0;
   box-sizing: border-box;
   position: fixed;
   width: 9.01699437%;
@@ -1367,6 +1442,55 @@ main {
 .Docmeta .hm::before {
   content: '@\0020';
 }
+/*###################*\
+	_footnotes.less
+\*###################*/
+/**
+  * This Object represents a list whose items each contain a footnote. Typically, the order of
+  * footnotes is irrelevant, so this Object should be instantiated by a `ul` Element.
+@extends
+: .List
+@implements
+: .fontsize-block-sml
+: .list-block
+: .hr()
+@tags
+: #footnotes
+: #lists
+@author
+: Chris Harvey
+@updated
+: 2014-09-23
+  */
+.Footnotes {
+  padding-top: 8.78521826px;
+  margin-top: 14.21478174px;
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-top-color: #9acc7a;
+}
+.Footnotes > .Item {
+  padding-left: 24px;
+  text-indent: -24px;
+}
+/**
+  * The `.Rf` Object represents a reference to a footnote. The reference exists in the document prose,
+  * and it links to a footnote, which is contained in the `.Footnotes`.
+  * The `.Fn` Object represents the footnote that is referenced.
+  * Each Object contains an `a` Element.
+@implements
+: .brackets
+@tags
+: #footnotes
+@author
+: Chris Harvey
+@updated
+: 2014-07-22
+  */
+.Rf,
+.Fn {
+  width: 24px;
+}
 /*##################*\
     _headings.less
 \*##################*/
@@ -1429,7 +1553,7 @@ main {
   margin-bottom: -1px;
   border-bottom-width: 1px;
   border-bottom-style: solid;
-  border-color: #3d6166;
+  border-bottom-color: #3d6166;
   font-weight: bold;
   color: #3d6166;
 }
@@ -1494,6 +1618,9 @@ main {
 }
 /**
   * A fancy heading for the portfolio pages.
+  * The `.Normal` subclass adds a hidden
+  * U+0001 = "start of heading" character
+  * so that the `::first-letter` selector does not apply to any visual characters
 @extends
 : .H.Alp
 @tags
@@ -1502,7 +1629,7 @@ main {
 @author
 : Chris Harvey
 @updated
-: 2014-06-19
+: 2014-09-25
   */
 .H.Alp.Folio {
   font-size: 48px;
@@ -1523,6 +1650,9 @@ main {
   font-size: 6rem;
   line-height: 0.25;
   font-family: 'Snell Roundhand', 'Zapfino', script;
+}
+.H.Alp.Folio.Normal::before {
+  content: '\0001';
 }
 /*####################*\
     _paragraphs.less
@@ -1550,7 +1680,9 @@ main {
 }
 :not(.H) + .Article,
 :not(.H) + .P,
-:not(.H) + .List,
+:not(.H) + .Olist,
+:not(.H) + .Ulist,
+:not(.H) + .Alist,
 :not(.H) + .Map,
 :not(.H) + .Table,
 :not(.H) + .Codeblock,
@@ -1829,7 +1961,12 @@ main {
 /*###############*\
     _lists.less
 \*###############*/
-/*@LISTS*/
+/**
+  * The left indent of a `.List` Object (or similar Object).
+  * The indent should be 0.5in, the standard indent for APA style.
+  * Use this value on `padding-left` or `margin-left`, whichever is more appropriate.
+  * Use operations on `@listindent`, such as `(@listindent / 2)` for variants.
+  */
 /**
   * This Interface adds a left padding to a `.List` Object. The padding-left is set to 48px, which is
   * equal to 0.5in, the standard indent for APA style.
@@ -1844,34 +1981,28 @@ main {
 @updated
 : 2014-06-26
   */
-.listindent,
-.List .List,
-.List.O,
-.List.U {
-  padding-left: 48px;
-}
-.listindent-half {
-  padding-left: 24px;
-}
 /**
-  * This Object represents a block list. It may be a literal `ol` or `ul` Element containing
+  * This Interface is used on block lists. It may be a literal `ol` or `ul` Element containing
   * `li` Elements, or it may be the abstract notion of a list of other block Objects. The order of
   * list items may be releveant or irrelevant.
-  * This `.List` Object is  displayed as a block Object containing other block Objects. See the
-  * `.Enum` Object for a short listing of inline Objects (e.g., a list of keywords).
 @implements
+: .vru-content
 @tags
 : #typography
 : #list
 @author
 : Chris Harvey
 @updated
-: 2014-07-10
+: 2014-10-01
   */
-.List {
+.list-block,
+.Footnotes,
+.Olist,
+.Ulist,
+.Alist {
+  min-height: 24px;
+  min-height: 1.5rem;
   display: block;
-  list-style-type: none;
-  list-style-position: outside;
 }
 /**
   * This Object represents a block item in a `.List` Object. It may be a literal `li` Element
@@ -1886,32 +2017,14 @@ main {
 @updated
 : 2014-08-06
   */
-.Item {
-  display: list-item;
-}
-/**
-  * This Object represents a nested List Object as a descendant of another List Object.
-  * (It must be a child of a List Item Object.)
-@implements
-: .listindent
-@tags
-: #typography
-: #list
-@author
-: Chris Harvey
-@updated
-: 2014-08-06
-  */
 /**
   * This Object represents an ordered list, or a list used for an outline. This does *not*
   * correspond directly to a literal `ol` Element; this Object is simply to be displayed with
   * block list items, with markers that indicate order. This class does *not* indicate that the
   * list is semantically ordered. Typical uses include table of contents, etc. Outlines are by
   * definition, ordered.
-@extends
-: .List
 @implements
-: .listindent
+: .list-block
 @tags
 : #typography
 : #list
@@ -1921,14 +2034,15 @@ main {
 @updated
 : 2014-05-11
   */
-.List.O {
+.Olist {
+  padding-left: 0.5in;
   list-style-type: decimal-leading-zero;
   list-style-type: decimal;
 }
 /**
   * These Objects represent outlined lists with different enumeration types.
 @extends
-: .List.O
+: .Olist
 @tags
 : #typography
 : #list
@@ -1938,35 +2052,33 @@ main {
 @updated
 : 2014-05-03
   */
-.List.O.Ome {
+.Olist.Ome {
   list-style-type: decimal-leading-zero;
 }
-.List.O.Alp {
+.Olist.Alp {
   list-style-type: upper-roman;
 }
-.List.O.Bet {
+.Olist.Bet {
   list-style-type: upper-alpha;
 }
-.List.O.Gam {
+.Olist.Gam {
   list-style-type: decimal;
 }
-.List.O.Del {
+.Olist.Del {
   list-style-type: lower-alpha;
 }
-.List.O.Eps {
+.Olist.Eps {
   list-style-type: lower-roman;
 }
-.List.O.Zet {
+.Olist.Zet {
   list-style-type: lower-greek;
 }
 /**
   * This Object represents a generic list whose items are to be displayed as blocks with the same
   * markers. It does *not* necessarily correspond directly to a literal `ul` Element. This class
   * does *not* indicate that the list is semantically unordered.
-@extends
-: .List
 @implements
-: .listindent
+: .list-block
 @tags
 : #typography
 : #list
@@ -1976,30 +2088,14 @@ main {
 @updated
 : 2014-05-11
   */
-.List.U {
+.Ulist {
+  padding-left: 0.5in;
   list-style-type: square;
 }
 /**
-  * This Object represents a generic list whose items are to be displayed inline.
-  * The list itself appears as a block.
-@extends
-: .List
-@tags
-: #typography
-: #list
-: #inline
-@author
-: Chris Harvey
-@updated
-: 2014-05-11
-  */
-.List.I > .Item {
-  display: inline;
-}
-/**
   * This Object represents an action list, which typically contains hyperlinks.
-@extends
-: .List
+@implements
+: .list-block
 @tags
 : #typography
 : #list
@@ -2009,19 +2105,43 @@ main {
 @updated
 : 2014-05-11
   */
-.List.A > .Item {
+.Alist > .Item {
   color: #0062ff;
 }
-.List.A > .Item:hover {
+.Alist > .Item:hover {
   color: #ff9d00;
 }
-.List.A > .Item::before {
+.Alist > .Item::before {
   content: '\2713\0020';
 }
-/*@ENUMS*/
 /**
-  * This Object represents a inline listing of items, typically words. The order of items may or
-  * may not be relevant.
+  * This Object represents a generic inline list. It, along with its items, are displayed inline.
+  * It may be used for a listing of items, typically words. The order of items may or
+  * may not be relevant (both `ol` and `ul` Elements can instantiate this Class).
+  *
+  * Authors may wish to contain this Object within a block, such as a Paragraph Object.
+@extends
+: .List
+@tags
+: #typography
+: #list
+: #inline
+@author
+: Chris Harvey
+@updated
+: 2014-10-01
+  */
+.Ilist {
+  display: inline;
+}
+.Ilist > .Item {
+  display: inline;
+}
+/**
+  * These Objects are `.Item`s in a `.Ilist`. They represent character-separated values.
+  * The `.endline` interface creates a visual appearance of a line break.
+@extends
+: .Ilist
 @tags
 : #typography
 : #list
@@ -2030,18 +2150,41 @@ main {
 @updated
 : 2014-08-06
   */
-.Enum {
-  display: inline;
+.Ilist.Comma > .Item:not(:last-child)::after {
+  content: ',\0020';
 }
-.Enum > .Item {
-  display: inline;
+.Ilist.Mdash > .Item:not(:last-child)::after {
+  content: '\0020\2014\0020';
+}
+.Ilist.Ndash > .Item:not(:last-child)::after {
+  content: '\0020\2013\0020';
+}
+.Ilist > .Item.endline::after {
+  display: block;
+  content: '' !important;
+}
+/**
+  * This Object represents a 'List of Prose', a list whose items consist of only paragraphs.
+@extends
+: .Olist
+@tags
+: #typography
+: #list
+@author
+: Chris Harvey
+@updated
+: 2014-10-03
+  */
+.Olist.LOP > .Item:not(:first-child) {
+  margin-top: 24px;
+  margin-top: 1.5rem;
 }
 /**
   * This Object represents a 'List in Prose', a list that is contained within prose paragraphs.
   * The list items contain spans of text, but not whole paragraphs. It is displayed inline, and has
   * inline items as well. The items are preceded with counters.
 @extends
-: .Enum
+: .Ilist
 @tags
 : #typography
 : #list
@@ -2051,48 +2194,15 @@ main {
 @updated
 : 2014-05-25
   */
-.Enum.LIP {
+.Ilist.LIP {
   counter-reset: count;
 }
-.Enum.LIP > .Item {
+.Ilist.LIP > .Item {
   counter-increment: count;
 }
-.Enum.LIP > .Item::before {
+.Ilist.LIP > .Item::before {
   content: '(' counter(count) ') ';
 }
-/**
-  * These Objects are `.Item`s in a `.List` or `.Enum`. They represent character-separated values.
-@tags
-: #typography
-: #list
-@author
-: Chris Harvey
-@updated
-: 2014-08-06
-  */
-.Comma > .Item:not(:last-child)::after {
-  content: ',\0020';
-}
-.Mdash > .Item:not(:last-child)::after {
-  content: '\0020\2014\0020';
-}
-.Ndash > .Item:not(:last-child)::after {
-  content: '\0020\2013\0020';
-}
-/**
-  * This Object represents a generic list whose items are to be displayed as blocks that have
-  * `float: left;`.
-@implements
-: .clearfix
-@tags
-: #typography
-: #list
-: #float
-@author
-: Chris Harvey
-@updated
-: 2014-05-11
-  */
 /*##############*\
     _maps.less
 \*##############*/
@@ -2128,8 +2238,6 @@ main {
   * This Object represent the description in a term-description pair of a `.Map`.
 @belongsto
 : .Map
-@implements
-: .listindent
 @tags
 : #typography
 : #map
@@ -2139,7 +2247,7 @@ main {
 : 2014-08-07
   */
 .Map > .Desc {
-  padding-left: 48px;
+  padding-left: 0.5in;
 }
 /**
   * This Object represents an association list in which terms are grouped together in one column
@@ -2354,7 +2462,6 @@ table tr {
 /*##############*\
     _code.less
 \*##############*/
-/** The default border radius for code-like Objects. */
 /**
   * A Mixin used for both inline and block code.
 @params
@@ -2705,8 +2812,8 @@ kbd {
 : 2014-09-23
   */
 .Link {
-  text-decoration: none;
   color: #0062ff;
+  cursor: pointer;
 }
 .Link:hover {
   text-decoration: underline;
@@ -2791,7 +2898,7 @@ strong {
 @author
 : Chris Harvey
 @updated
-: 2014-08-05
+: 2014-09-27
   */
 i[lang] {
   font-style: italic;
@@ -3143,114 +3250,6 @@ del + ins {
 .Button.Block {
   display: block;
 }
-/*#####################*\
-	_breadcrumbs.less
-\*#####################*/
-/**
-  * A Breadcrumb module.
-@tags
-: #breadcrumbs
-: #golden
-@author
-: Chris Harvey
-@updated
-: 2014-06-18
-  */
-.Bc {
-  box-sizing: border-box;
-  position: fixed;
-  width: 14.58980338%;
-  margin-left: 3.44418537%;
-  margin-right: 5.572809%;
-  left: 0;
-  top: 48px;
-  top: 3rem;
-  z-index: 1;
-}
-/**
-  * A list of breadcrumbs inside the module.
-  * The list either contains ancestor pages (including parent),
-  * sibling pages (including the same page), or children pages.
-@implements
-: .vru-bottom-1;
-@tags
-: #breadcrumbs
-@author
-: Chris Harvey
-@updated
-: 2014-06-18
-  */
-/**
-  * An actual breadcrumb link.
-@implements
-: .fontsize-med;
-@mixesin
-: .vru-top()
-@tags
-: #breadcrumbs
-@author
-: Chris Harvey
-@updated
-: 2014-06-18
-  */
-.Button.Crumb {
-  margin-top: 18px;
-  margin-top: 1.125rem;
-  display: block;
-  padding: 3px 15px;
-  padding: 0.1875rem 15px;
-  border-radius: 15px;
-  white-space: normal;
-}
-.Bc a[rel~="this"] {
-  font-weight: bold;
-}
-@media print {
-  .Bc {
-    display: none;
-  }
-}
-/*###################*\
-	_footnotes.less
-\*###################*/
-/**
-  * This Object represents a list whose items each contain a footnote. Typically, the order of
-  * footnotes is irrelevant, so this Object should be instantiated by a `ul` Element.
-@extends
-: .List
-@implements
-: .hr-brdr
-@tags
-: #footnotes
-: #lists
-@author
-: Chris Harvey
-@updated
-: 2014-07-22
-  */
-.List.Footnotes > .Item {
-  padding-left: 24px;
-  text-indent: -24px;
-}
-/**
-  * The `.Rf` Object represents a reference to a footnote. The reference exists in the document prose,
-  * and it links to a footnote, which is contained in the `.List.U.Footnotes`.
-  * The `.Fn` Object represents the footnote that is referenced.
-  * Each Object contains an `a` Element.
-@implements
-: .brackets
-@tags
-: #footnotes
-: #lists
-@author
-: Chris Harvey
-@updated
-: 2014-07-22
-  */
-.Rf,
-.Fn {
-  width: 24px;
-}
 /*################*\
 	_labels.less
 \*################*/
@@ -3531,45 +3530,6 @@ del + ins {
 /*################*\
     _trumps.less
 \*################*/
-/**
-+++++ DRAFT +++++
-
-All informative content, including `p`s, `img`s, and `figure`s should be designated with
-an `informative` status. All non-normative text should be contained in flow, non-phrasing
-content, which will separate it from the normative document.
-If there is a non-normative span of text present in a normative paragraph, move the span to
-its own separate, non-normative division.
-
-non-normative text in a normative document or article.
-This text is informative or "unofficial," for example, supplemental remarks
-or a summary of normative information provided for the reader's convenience.
-Another common example of non-normative text is duplicating normative text on another
-part of the page.
-
-
-Non-normative text is still part of the normal flow of the document, so it
-would not makes sense out of context as a `figure` or `aside`
-would, however it is presented differently than formal text
-to indicate that it is not official.
-
-...At the same time, the `i` Element is not appropriate either, because the non-normative
-span of text does not represent a change of voice or mood. Could it be considered a
-change in mood, though?...
-
-`[data-status="nonnormative"]` text
-should be a single paragraph, a container such as a `div` or `figure`,
-but should not be a span of text
-
-The author may also indicate verbally (in writing preceding the text) that
-the text is non-normative. If the non-normative text is one paragraph, the author may
-simply place the indication in the previous paragraph. If the text is large enough for
-its own figure or section, though, the indication should be in that Element's
-`header`.
-  */
-[data-status="nonnormative"] {
-  font-style: italic;
-  font-family: 'Optima', 'Candara', 'Helvetica', sans-serif;
-}
 [hidden] {
   display: none !important;
 }
