@@ -565,8 +565,7 @@ sub,
 @updated
 : 2014-07-08
   */
-.fontsize-block-lrg,
-.Qblock.Short {
+.fontsize-block-lrg {
   font-size: 20px;
   font-size: 1.25rem;
   line-height: 1.2;
@@ -579,8 +578,6 @@ sub,
 .fontsize-block-sml,
 .Fineprint,
 .Footnotes,
-.Capt,
-.Qblock.Short .Src,
 .Table,
 .Codeblock {
   font-size: 12px;
@@ -676,6 +673,7 @@ sub,
   * This Interface provides a minimum height of one vertical rhythm unit.
   * It is Meant for text-containing block Elements, such as p, blockquote, li, dt, dd, th, td.
   * If these Elements have shorter contents, the vertical rhythm won't break.
+  * Do not include `display: block;` in the case of list-item, table-caption, or other exceptions.
 @tags
 : #verticalrhythm
 @author
@@ -687,7 +685,6 @@ sub,
 .Article[data-status]::before,
 .H,
 .P,
-.Capt,
 .Map,
 .Cell,
 .Codeblock,
@@ -1742,7 +1739,7 @@ main {
 @author
 : Chris Harvey
 @updated
-: 2014-10-01
+: 2014-10-03
   */
 .quasi-p,
 .Addy,
@@ -1753,6 +1750,7 @@ main {
   padding-top: 9.16718427px;
   margin-top: 14.83281573px;
   border-top-width: 0;
+  display: block;
 }
 /**
   * This Object represents a generic caption of any sort. A caption is usually a short summary or
@@ -1773,9 +1771,14 @@ main {
 @author
 : Chris Harvey
 @updated
-: 2014-05-11
+: 2014-10-03
   */
 .Capt {
+  min-height: 24px;
+  min-height: 1.5rem;
+  font-size: 12px;
+  font-size: 0.75rem;
+  line-height: 2;
   text-align: right;
 }
 /**
@@ -1831,14 +1834,13 @@ main {
 @author
 : Chris Harvey
 @updated
-: 2014-10-01
+: 2014-10-03
   */
 .Addy {
   border-right-width: 3px;
   border-right-style: solid;
   padding-right: 4.85410197px;
   margin-right: 12.70820393px;
-  display: block;
   border-radius: 6px;
   text-align: right;
 }
@@ -1862,7 +1864,7 @@ main {
 @author
 : Chris Harvey
 @updated
-: 2014-10-01
+: 2014-10-03
   */
 .Fig {
   border-left-width: 4px;
@@ -1873,7 +1875,7 @@ main {
   border-right-style: solid;
   padding-right: 6.47213595px;
   margin-right: 16.94427191px;
-  display: block;
+  text-align: center;
 }
 /**
   * This Object represents any Block Quotation, representing material taken directly from another
@@ -1901,15 +1903,27 @@ main {
 @author
 : Chris Harvey
 @updated
-: 2014-10-01
+: 2014-10-03
   */
 .Qblock {
   border-left-width: 7px;
   border-left-style: double;
   padding-left: 11.32623792px;
   margin-left: 29.65247584px;
-  display: block;
   font-family: 'Century Gothic', 'Gill Sans', 'Avenir', sans-serif;
+}
+.Qblock.Short {
+  font-size: 20px;
+  font-size: 1.25rem;
+  line-height: 1.2;
+  line-height: 1.8;
+  background-image: none;
+}
+.Qblock.Short .Src {
+  font-size: 12px;
+  font-size: 0.75rem;
+  line-height: 2;
+  line-height: 3;
 }
 /**
   * The `.Src` Object represents the citation of a source inside a `.Qblock` Object. It is
@@ -1936,13 +1950,6 @@ main {
   border-right-style: double;
   padding-right: 4.85410197px;
   margin-right: 12.70820393px;
-}
-.Qblock.Short {
-  line-height: 1.8;
-  background-image: none;
-}
-.Qblock.Short .Src {
-  line-height: 3;
 }
 .Capt,
 .Addy,
