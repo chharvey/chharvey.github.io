@@ -54,6 +54,7 @@
 // 	a::before {content: '\22b6';} // 'original of'
 // 	a::before {content: '>';}
 // }
+
 /**
   * An actual breadcrumb link.
 @implements
@@ -71,24 +72,29 @@
 @updated
 : 2014-09-21
   */
+@color_crumb_up_txt:  @color_link_up;
+@color_crumb_dn_txt:  @color_link_dn;
+@color_crumb_up_bg:   lighten(@color_btn_up_txt, @golden2); // #c3daff
+@color_crumb_dn_bg:   lighten(@color_btn_dn_txt, @golden2); // #ffe8c3
 .Crumb {
 	@bc_brdrr: @vru_px / 2;
 	.transition(background-color, color; @t_ani * 0.5);
 	display: block;
 	padding-left: @bc_brdrr;
 	border-radius: @bc_brdrr;
-	color:            greyscale(@color_link_up);
-	background-color: greyscale(@color_btn_up_bg);
+	color:            @color_crumb_up_txt;
+	background-color: @color_crumb_up_bg;
+	cursor: pointer;
 	&:not([rel~="this"]):hover {
-		color:            @color_link_up;
-		background-color: @color_btn_up_bg;
+		color:            @color_crumb_dn_txt;
+		background-color: @color_crumb_dn_bg;
 	}
 	&[rel~="this"] {
 		position: relative;
 		left: @bc_brdrr;
 		font-weight: bold;
 		color: @color_base_bg;
-		background-color: @color_link_up;
+		background-color: @color_crumb_up_txt;
 	}
 }
 
