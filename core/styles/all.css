@@ -739,23 +739,28 @@ sub,
   * The following Mixins adjust borders for **BLOCK** Objects only! They will keep the
   * vertical rhythm intact when adding borders (by slightly adjusting position and margins).
   * Do *not* use these mixins on INLINE Objects!
-  * Note: Methods with same # of params cannot be overloaded; thus mixin names have modifiers.
+  *
+  * Methods with same # of params cannot be overloaded; thus mixin names have modifiers.
   * Use the `.border-vert-one(@side; ...)`   set of Mixins to adjust either the top or bottom border.
   * Use the `.border-vert-both(topbot; ...)` set of Mixins to adjust both the top and bottom borders.
   * Use the `.border-vert-both(all; ...)`    set of Mixins to adjust all four borders.
-  * Use the `.border-vert-clear()` Mixin to negate all the effects of the above Mixins.
+  *
+  * Use the `.border-vert-undo()` Mixin to negate all the effects of the above Mixins.
+  *
+  * Note: `.border-vert-***(@side; @width)` is not defined because the default `style` is set to
+  * `none`. Thus `@width` and `@style` must be defined, but `@color` is optional.
 @params
-: @width: the width of the top or bottom border
-: @side:  either `top` or `bottom`
-: @style: a `border-style` value
-: @color: a `border-color` value
+: @side  : either `top` or `bottom`
+: @width : value of `border-width`
+: @style : value of `border-style`
+: @color : value of `border-color`
 @tags
 : #verticalrhythm
 : #border
 @author
 : Chris Harvey
 @updated
-: 2014-06-26
+: 2014-10-03
   */
 /**
   * The following Interface undoes any work done by the `.border-vert-*` Mixins above.
@@ -779,6 +784,7 @@ sub,
   * deomonstration purposes.
 @tags
 : #structural
+: #demo
 @author
 : Chris Harvey
 @updated
@@ -791,16 +797,16 @@ sub,
   * These Mixins set the padding, border, and margin on the left or right side of an Object,
   * such that the border:padding ratio and the (border+padding):margin ratio are Golden.
 @params
-: @side:  either "left" or "right"
-: @brdrw : value of the `border-[left|right]-width` property
-: @brdrs : value of the `border-[left|right]-style` property
-: @brdrc : value of the `border-[left|right]-color` property
+: @side  : either `left` or `right`
+: @width : value of `border-[left|right]-width`
+: @style : value of `border-[left|right]-style`
+: @color : value of `border-[left|right]-color`
 @tags
 : #golden
 @author
 : Chris Harvey
 @updated
-: 2014-05-10
+: 2014-10-03
   */
 /** negate the effects of `.sidebrdr-phi(@side; @brdrw; @brdrs; @brdrc)`  on the [left|right] side */
 /*###############*\
