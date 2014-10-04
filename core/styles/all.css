@@ -564,8 +564,7 @@ sub,
 @updated
 : 2014-07-08
   */
-.fontsize-block-lrg,
-.Qblock.Short {
+.fontsize-block-lrg {
   font-size: 20px;
   font-size: 1.25rem;
   line-height: 1.2;
@@ -578,8 +577,6 @@ sub,
 .fontsize-block-sml,
 .Fineprint,
 .Footnotes,
-.Capt,
-.Qblock.Short .Src,
 .Table,
 .Codeblock {
   font-size: 12px;
@@ -675,6 +672,7 @@ sub,
   * This Interface provides a minimum height of one vertical rhythm unit.
   * It is Meant for text-containing block Elements, such as p, blockquote, li, dt, dd, th, td.
   * If these Elements have shorter contents, the vertical rhythm won't break.
+  * Do not include `display: block;` in the case of list-item, table-caption, or other exceptions.
 @tags
 : #verticalrhythm
 @author
@@ -686,10 +684,6 @@ sub,
 .Article[data-status]::before,
 .H,
 .P,
-.Capt,
-.Addy,
-.Fig,
-.Qblock,
 .Map,
 .Cell,
 .Codeblock,
@@ -708,14 +702,17 @@ sub,
 @updated
 : 2014-07-10
   */
-.vru-top-1 {
+:not(.H) + .Article,
+:not(.H) + .P,
+:not(.H) + .Olist,
+:not(.H) + .Ulist,
+:not(.H) + .Alist,
+:not(.H) + .Map,
+:not(.H) + .Table,
+:not(.H) + .Codeblock,
+:not(.H) + .Alert {
   margin-top: 24px;
   margin-top: 1.5rem;
-}
-.vru-bottom-1,
-.P.Intro {
-  padding-bottom: 24px;
-  padding-bottom: 1.5rem;
 }
 /**
   * This Mixin sets the padding-top, border-top, and margin-top such that the padding:margin ratio
@@ -728,33 +725,11 @@ sub,
 @tags
 : #verticalrhythm
 : #golden
-@author
-: Chris Harvey
-@updated
-: 2014-08-07
-  */
-.vru-top-phi,
-.Addy,
-.Fig,
-.Qblock {
-  padding-top: 9.16718427px;
-  margin-top: 14.83281573px;
-  border-top-width: 0;
-  border-top-style: none;
-  border-top-color: #000000;
-}
-/**
-  * This Mixin add a solid horizontal line above the Object, separating it from its
-  * previous sibling. **Use this Mixin instead of the `hr` Element.**
-@params
-: @brdrc : the color of the horizontal line
-@tags
-: #golden
 : #border
 @author
 : Chris Harvey
 @updated
-: 2014-09-23
+: 2014-08-07
   */
 /*#################*\
     _borders.less
@@ -763,23 +738,28 @@ sub,
   * The following Mixins adjust borders for **BLOCK** Objects only! They will keep the
   * vertical rhythm intact when adding borders (by slightly adjusting position and margins).
   * Do *not* use these mixins on INLINE Objects!
-  * Note: Methods with same # of params cannot be overloaded; thus mixin names have modifiers.
+  *
+  * Methods with same # of params cannot be overloaded; thus mixin names have modifiers.
   * Use the `.border-vert-one(@side; ...)`   set of Mixins to adjust either the top or bottom border.
   * Use the `.border-vert-both(topbot; ...)` set of Mixins to adjust both the top and bottom borders.
   * Use the `.border-vert-both(all; ...)`    set of Mixins to adjust all four borders.
-  * Use the `.border-vert-clear()` Mixin to negate all the effects of the above Mixins.
+  *
+  * Use the `.border-vert-undo()` Mixin to negate all the effects of the above Mixins.
+  *
+  * Note: `.border-vert-***(@side; @width)` is not defined because the default `style` is set to
+  * `none`. Thus `@width` and `@style` must be defined, but `@color` is optional.
 @params
-: @width: the width of the top or bottom border
-: @side:  either `top` or `bottom`
-: @style: a `border-style` value
-: @color: a `border-color` value
+: @side  : either `top` or `bottom`
+: @width : value of `border-width`
+: @style : value of `border-style`
+: @color : value of `border-color`
 @tags
 : #verticalrhythm
 : #border
 @author
 : Chris Harvey
 @updated
-: 2014-06-26
+: 2014-10-03
   */
 /**
   * The following Interface undoes any work done by the `.border-vert-*` Mixins above.
@@ -803,6 +783,7 @@ sub,
   * deomonstration purposes.
 @tags
 : #structural
+: #demo
 @author
 : Chris Harvey
 @updated
@@ -815,18 +796,17 @@ sub,
   * These Mixins set the padding, border, and margin on the left or right side of an Object,
   * such that the border:padding ratio and the (border+padding):margin ratio are Golden.
 @params
-: @side:  either "left" or "right"
-: @brdrw : value of the `border-[left|right]-width` property
-: @brdrs : value of the `border-[left|right]-style` property
-: @brdrc : value of the `border-[left|right]-color` property
+: @side  : either `left` or `right`
+: @width : value of `border-[left|right]-width`
+: @style : value of `border-[left|right]-style`
+: @color : value of `border-[left|right]-color`
 @tags
 : #golden
 @author
 : Chris Harvey
 @updated
-: 2014-05-10
+: 2014-10-03
   */
-/** negate the effects of `.spacing-phi(@side; @brdrw; @brdrs; @brdrc)`  on the [left|right] side */
 /*###############*\
     _boxes.less
 \*###############*/
@@ -1161,7 +1141,7 @@ main {
   * The list either contains ancestor pages (including parent),
   * sibling pages (including the same page), or children pages.
 @implements
-: .vru-top-1;
+: .vru-top()
 @tags
 : #breadcrumbs
 @author
@@ -1452,7 +1432,7 @@ main {
 @implements
 : .fontsize-block-sml
 : .list-block
-: .hr()
+: .vru-top-phi()
 @tags
 : #footnotes
 : #lists
@@ -1677,18 +1657,6 @@ main {
 .P p {
   display: inline;
 }
-:not(.H) + .Article,
-:not(.H) + .P,
-:not(.H) + .Olist,
-:not(.H) + .Ulist,
-:not(.H) + .Alist,
-:not(.H) + .Map,
-:not(.H) + .Table,
-:not(.H) + .Codeblock,
-:not(.H) + .Alert {
-  margin-top: 24px;
-  margin-top: 1.5rem;
-}
 /**
   * This Object refers to the first ("lede"/"lead") sentence in a paragraph or caption, which may
   * act as a "heading" for that paragraph or caption.
@@ -1758,6 +1726,32 @@ main {
 }
 /*@QUASI-PARAGRAPHS*/
 /**
+  * This interface is used on some quasi-paragraphs (paragraph-looking Objects).
+@implements
+: .vru-content
+: .vru-top-phi()
+@tags
+: #typography
+: #address
+: #figure
+: #quote
+@author
+: Chris Harvey
+@updated
+: 2014-10-03
+  */
+.quasi-p,
+.Addy,
+.Fig,
+.Qblock {
+  min-height: 24px;
+  min-height: 1.5rem;
+  padding-top: 9.16718427px;
+  margin-top: 14.83281573px;
+  border-top-width: 0;
+  display: block;
+}
+/**
   * This Object represents a generic caption of any sort. A caption is usually a short summary or
   * description of some content ("the described content"). The described content may be in a
   * literal `figure` Element, `table` Element, or it may be any generic content. Since captions are
@@ -1776,9 +1770,14 @@ main {
 @author
 : Chris Harvey
 @updated
-: 2014-05-11
+: 2014-10-03
   */
 .Capt {
+  min-height: 24px;
+  min-height: 1.5rem;
+  font-size: 12px;
+  font-size: 0.75rem;
+  line-height: 2;
   text-align: right;
 }
 /**
@@ -1825,10 +1824,8 @@ main {
 @extends
 : .P
 @implements
-: .vru-content
-: .vru-top-phi
-@mixesin
-: .spacing-phi()
+: .quasi-p
+: .sidebrdr-phi()
 @tags
 : #typography
 : #paragraph
@@ -1836,14 +1833,13 @@ main {
 @author
 : Chris Harvey
 @updated
-: 2014-04-30
+: 2014-10-03
   */
 .Addy {
   border-right-width: 3px;
   border-right-style: solid;
   padding-right: 4.85410197px;
   margin-right: 12.70820393px;
-  display: block;
   border-radius: 6px;
   text-align: right;
 }
@@ -1857,10 +1853,9 @@ main {
   * document and presented on its own, the `.Fig` Object should be wrapped with an `aside` Element.
   * The `.Fig.Text` subclass is a figure whose contents are only text.
 @implements
-: .vru-content
-: .vru-top-phi
-@mixesin
-: .spacing-phi()
+: .crossgrid-lined
+: .quasi-p
+: .sidebrdr-phi()
 @tags
 : #typography
 : #figure
@@ -1868,7 +1863,7 @@ main {
 @author
 : Chris Harvey
 @updated
-: 2014-09-27
+: 2014-10-03
   */
 .Fig {
   border-left-width: 4px;
@@ -1879,7 +1874,7 @@ main {
   border-right-style: solid;
   padding-right: 6.47213595px;
   margin-right: 16.94427191px;
-  display: block;
+  text-align: center;
 }
 /**
   * This Object represents any Block Quotation, representing material taken directly from another
@@ -1889,34 +1884,45 @@ main {
   * It should have paragraph breaks that correspond to the source.
   *
   * If the original source is more than 40 words and does not have paragraph breaks, use
-  * `.Qblock.Long`. It should not contain paragraphs (either `.P` Objects or `p` Elements);
+  * `.Qblock`. It should not contain paragraphs (either `.P` Objects or `p` Elements);
   * it should directly contain the source's text.
+  * Optionally contain the citation in a `.Src.Formal`.
   *
   * If the original source is less than 40 words and does not have paragraph breaks (for example,
   * extracted inline text from an article), use the `.Qblock.Short` subclass. It should also not
   * contain paragraphs.
 @implements
-: .vru-content
-: .vru-top-phi
 : .fontsize-block-lrg
 : .crossgrid-lined
-@mixesin
-: .spacing-phi()
+: .quasi-p
+: .sidebrdr-phi()
 @tags
 : #typography
 : #quote
 @author
 : Chris Harvey
 @updated
-: 2014-08-11
+: 2014-10-03
   */
 .Qblock {
   border-left-width: 7px;
   border-left-style: double;
   padding-left: 11.32623792px;
   margin-left: 29.65247584px;
-  display: block;
   font-family: 'Century Gothic', 'Gill Sans', 'Avenir', sans-serif;
+}
+.Qblock.Short {
+  font-size: 20px;
+  font-size: 1.25rem;
+  line-height: 1.2;
+  line-height: 1.8;
+  background-image: none;
+}
+.Qblock.Short .Src {
+  font-size: 12px;
+  font-size: 0.75rem;
+  line-height: 2;
+  line-height: 3;
 }
 /**
   * The `.Src` Object represents the citation of a source inside a `.Qblock` Object. It is
@@ -1943,13 +1949,6 @@ main {
   border-right-style: double;
   padding-right: 4.85410197px;
   margin-right: 12.70820393px;
-}
-.Qblock.Short {
-  line-height: 1.8;
-  background-image: none;
-}
-.Qblock.Short .Src {
-  line-height: 3;
 }
 .Capt,
 .Addy,
@@ -2167,6 +2166,8 @@ main {
   * This Object represents a 'List of Prose', a list whose items consist of only paragraphs.
 @extends
 : .Olist
+@implements
+: .vru-top()
 @tags
 : #typography
 : #list

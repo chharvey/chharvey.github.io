@@ -31,17 +31,6 @@
 	display: block;
 	p {display: inline;} // lists in prose ("LIP"), for example
 }
-:not(.H) + .Article,
-:not(.H) + .P,
-:not(.H) + .Olist,
-:not(.H) + .Ulist,
-:not(.H) + .Alist,
-:not(.H) + .Map,
-:not(.H) + .Table,
-:not(.H) + .Codeblock,
-:not(.H) + .Alert {
-	.vru-top-1;
-}
 
 /**
   * This Object refers to the first ("lede"/"lead") sentence in a paragraph or caption, which may
@@ -130,6 +119,26 @@
 @qblock_brdr_style: double;
 @qblock_brdr_color: @color_border;
 /**
+  * This interface is used on some quasi-paragraphs (paragraph-looking Objects).
+@implements
+: .vru-content
+: .vru-top-phi()
+@tags
+: #typography
+: #address
+: #figure
+: #quote
+@author
+: Chris Harvey
+@updated
+: 2014-10-03
+  */
+.quasi-p {
+	.vru-content;
+	.vru-top-phi();
+	display: block;
+}
+/**
   * This Object represents a generic caption of any sort. A caption is usually a short summary or
   * description of some content ("the described content"). The described content may be in a
   * literal `figure` Element, `table` Element, or it may be any generic content. Since captions are
@@ -148,11 +157,11 @@
 @author
 : Chris Harvey
 @updated
-: 2014-05-11
+: 2014-10-03
   */
 .Capt {
-	&:extend(.vru-content);
-	&:extend(.fontsize-block-sml);
+	.vru-content;
+	.fontsize-block-sml;
 	text-align: right;
 }
 /**
@@ -185,10 +194,8 @@
 @extends
 : .P
 @implements
-: .vru-content
-: .vru-top-phi
-@mixesin
-: .spacing-phi()
+: .quasi-p
+: .sidebrdr-phi()
 @tags
 : #typography
 : #paragraph
@@ -196,13 +203,11 @@
 @author
 : Chris Harvey
 @updated
-: 2014-04-30
+: 2014-10-03
   */
 .Addy {
-	&:extend(.vru-content);
-	&:extend(.vru-top-phi);
-	.spacing-phi(right; @addy_brdr_width; @addy_brdr_style);
-	display: block;
+	&:extend(.quasi-p);
+	.sidebrdr-phi(right; @addy_brdr_width; @addy_brdr_style);
 	border-radius: 6px;
 	text-align: right;
 }
@@ -216,10 +221,9 @@
   * document and presented on its own, the `.Fig` Object should be wrapped with an `aside` Element.
   * The `.Fig.Text` subclass is a figure whose contents are only text.
 @implements
-: .vru-content
-: .vru-top-phi
-@mixesin
-: .spacing-phi()
+: .crossgrid-lined
+: .quasi-p
+: .sidebrdr-phi()
 @tags
 : #typography
 : #figure
@@ -227,14 +231,13 @@
 @author
 : Chris Harvey
 @updated
-: 2014-09-27
+: 2014-10-03
   */
 .Fig {
-	&:extend(.vru-content);
-	&:extend(.vru-top-phi);
-	.spacing-phi(left;  @fig_brdr_width; @fig_brdr_style);
-	.spacing-phi(right; @fig_brdr_width; @fig_brdr_style);
-	display: block;
+	&:extend(.quasi-p);
+	.sidebrdr-phi(left;  @fig_brdr_width; @fig_brdr_style);
+	.sidebrdr-phi(right; @fig_brdr_width; @fig_brdr_style);
+	text-align: center;
 }
 .Fig.Text {
 	&:extend(.crossgrid-lined);
@@ -247,35 +250,42 @@
   * It should have paragraph breaks that correspond to the source.
   *
   * If the original source is more than 40 words and does not have paragraph breaks, use
-  * `.Qblock.Long`. It should not contain paragraphs (either `.P` Objects or `p` Elements);
+  * `.Qblock`. It should not contain paragraphs (either `.P` Objects or `p` Elements);
   * it should directly contain the source's text.
+  * Optionally contain the citation in a `.Src.Formal`.
   *
   * If the original source is less than 40 words and does not have paragraph breaks (for example,
   * extracted inline text from an article), use the `.Qblock.Short` subclass. It should also not
   * contain paragraphs.
 @implements
-: .vru-content
-: .vru-top-phi
 : .fontsize-block-lrg
 : .crossgrid-lined
-@mixesin
-: .spacing-phi()
+: .quasi-p
+: .sidebrdr-phi()
 @tags
 : #typography
 : #quote
 @author
 : Chris Harvey
 @updated
-: 2014-08-11
+: 2014-10-03
   */
 .Qblock {
-	&:extend(.vru-content);
-	&:extend(.vru-top-phi);
+	&:extend(.quasi-p);
 	&:extend(.crossgrid-lined);
-	.spacing-phi(left; @qblock_brdr_width; @qblock_brdr_style);
-	display: block;
+	.sidebrdr-phi(left; @qblock_brdr_width; @qblock_brdr_style);
 	font-family: @fontfam_accent;
 }
+.Qblock.Short {
+	.fontsize-block-lrg;
+	line-height: 1.5 * (@lineheight_base / @fontsize_ratio_lrg); // 1.8
+	background-image: none;
+	.Src {
+		.fontsize-block-sml;
+		line-height: 1.5 * (@lineheight_base / @fontsize_ratio_sml); // 3
+	}
+}
+
 /**
   * The `.Src` Object represents the citation of a source inside a `.Qblock` Object. It is
   * recommended to apply this class to a `cite` Element, possibly within a `footer` Element.
@@ -297,17 +307,7 @@
 		&:extend(.parens all);
 	}
 	&:not(.Formal) {
-		.spacing-phi(right; 3px; @qblock_brdr_style);
-	}
-}
-
-.Qblock.Short {
-	&:extend(.fontsize-block-lrg);
-	line-height: 1.5 * (@lineheight_base / @fontsize_ratio_lrg); // 1.8
-	background-image: none;
-	.Src {
-		&:extend(.fontsize-block-sml);
-		line-height: 1.5 * (@lineheight_base / @fontsize_ratio_sml); // 3
+		.sidebrdr-phi(right; 3px; @qblock_brdr_style);
 	}
 }
 
