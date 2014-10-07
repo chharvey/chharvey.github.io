@@ -38,8 +38,6 @@
   * - **Success** is used to indicate that something was done right.
   * - **Info** is used to indicate extra information about something.
   * - **Help** is used to indicate tips and hints for the user.
-@implements
-: .fontsize-sml
 @tags
 : #message
 : #label
@@ -49,8 +47,7 @@
 @updated
 : 2014-08-11
   */
-.msg {
-	.fontsize-block-sml;
+.msg() {
 	font-family: @fontfam_accent;
 	&::before,
 	&::after {
@@ -61,11 +58,12 @@
 /**
   * This Object is a block of text with complete sentences or a longer span of information.
 @implements
-: .colors()
-: .gradient()
-: .msg
+: .msg()
 : .box-block()
 : .w-p1.mr
+: .fontsize-block-sml()
+: .colors()
+: .gradient()
 @tags
 : #message
 : #label
@@ -83,11 +81,10 @@
 	}
 }
 .Alert {
-	.msg;
+	.msg();
 	.box-block(@alert_brdr_radius);
-	.w-p1;
-	.w-p1.mr;
-	// .alert-mx(@color_border; @color_base_txt; @color_base_bg; ''; '');
+	.w-p1; .w-p1.mr;
+	.fontsize-block-sml();
 	box-sizing: border-box;
 }
 .Alert.Warn {.alert-mx(@color_warn_brdr; @color_warn_txt; @color_warn_bg; 'Warning'; @warn_glyph);}
@@ -100,9 +97,10 @@
   * This Object is a has a short bit of content, or perhaps no content at all. It can be
   * added to the inside of an Element.
 @implements
+: .msg()
+: .fontsize-sml()
 : .colors()
 : .gradient()
-: .msg
 @tags
 : #message
 : #tag
@@ -122,7 +120,8 @@
 	}
 }
 .Label {
-	.msg;
+	.msg();
+	.fontsize-sml();
 	display: inline;
 	padding: 3px 5px 2px;
 	margin-left: @spacer;
@@ -141,7 +140,6 @@
 		top: 0;
 		z-index: 1;
 	}
-	// .label-mx(@color_base_txt; darken(@color_base_bg, 15%); '');
 }
 .Label.Warn {.label-mx(@color_warn_txt; @color_warn_bg; @warn_glyph);}
 .Label.Cshn {.label-mx(@color_cshn_txt; @color_cshn_bg; @cshn_glyph);}

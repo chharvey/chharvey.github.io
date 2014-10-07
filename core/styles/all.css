@@ -508,26 +508,8 @@ button {
 @author
 : Chris Harvey
 @updated
-: 2014-07-08
+: 2014-10-07
   */
-.fontsize-lrg {
-  font-size: 20px;
-  font-size: 1.25rem;
-}
-.fontsize-med {
-  font-size: 16px;
-  font-size: 1rem;
-}
-.fontsize-sml,
-code,
-.Key,
-.Dir,
-sup,
-sub,
-.Button {
-  font-size: 12px;
-  font-size: 0.75rem;
-}
 /**
   * These Mixins adjust `line-height` such that
   * `font-size` * `line-height` = one vertical rhythm unit.
@@ -555,31 +537,8 @@ sub,
 @author
 : Chris Harvey
 @updated
-: 2014-07-08
+: 2014-10-07
   */
-.fontsize-block-lrg {
-  font-size: 20px;
-  font-size: 1.25rem;
-  line-height: 1.2;
-}
-.fontsize-block-med {
-  font-size: 16px;
-  font-size: 1rem;
-  line-height: 1.5;
-}
-.fontsize-block-sml,
-.Fineprint,
-.Footnotes,
-.Table,
-.Codeblock {
-  font-size: 12px;
-  font-size: 0.75rem;
-  line-height: 2;
-}
-.fontsize-block-inherit {
-  font-size: inherit;
-  line-height: inherit;
-}
 /*##############*\
     _grad.less
 \*##############*/
@@ -1246,6 +1205,8 @@ main {
   * This Object represents a section of text that represents "fine print": disclaimers, etc.
   * It should be instantiated by an entire `section`, `aside`, `div`, or `p` Element, which
   * may or may not contain `small` Element children.
+@implements
+: .fontsize-block-sml()
 @tags
 : #typography
 @author
@@ -1253,6 +1214,11 @@ main {
 @updated
 : 2014-06-26
   */
+.Fineprint {
+  font-size: 12px;
+  font-size: 0.75rem;
+  line-height: 2;
+}
 /**
   * The `[data-status]` attribute indicates the status of a document or Element.
   * "draft"    : a work in progress
@@ -1424,7 +1390,7 @@ main {
 @extends
 : .List
 @implements
-: .fontsize-block-sml
+: .fontsize-block-sml()
 : .list-block
 : .vru-top-phi()
 @tags
@@ -1439,6 +1405,9 @@ main {
   display: block;
   min-height: 24px;
   min-height: 1.5rem;
+  font-size: 12px;
+  font-size: 0.75rem;
+  line-height: 2;
   padding-top: 8.78521826px;
   margin-top: 14.21478174px;
   border-top-width: 1px;
@@ -1893,10 +1862,11 @@ main {
   * extracted inline text from an article), use the `.Qblock.Short` subclass. It should also not
   * contain paragraphs.
 @implements
-: .fontsize-block-lrg
-: .crossgrid-lined
 : .quasi-p
+: .crossgrid-lined
 : .sidebrdr-phi()
+: .fontsize-block-lrg()
+: .fontsize-block-sml()
 @tags
 : #typography
 : #quote
@@ -2335,7 +2305,7 @@ main {
   * would be a multivariable map: given multiple (e.g., two) independent inputs there exists one
   * dependent output.
 @implements
-: .fontsize-block-sml
+: .fontsize-block-sml()
 @tags
 : #typography
 : #table
@@ -2345,6 +2315,9 @@ main {
 : 2014-07-10
   */
 .Table {
+  font-size: 12px;
+  font-size: 0.75rem;
+  line-height: 2;
   display: table;
   text-align: center;
 }
@@ -2509,7 +2482,7 @@ code .Comm,
 /**
   * A span of text that a computer program would recognize.
 @implements
-: .fontsize-sml-inline
+: .fontsize-sml()
 : .codecolors-sol-lite
 @mixesin
 : .box-inline()
@@ -2521,6 +2494,8 @@ code .Comm,
 : 2014-05-25
   */
 code {
+  font-size: 12px;
+  font-size: 0.75rem;
   display: inline;
   padding: 1px 2px;
   border-width: 1px;
@@ -2534,7 +2509,7 @@ code {
   * A block of code. Its semantics are derived from the formatting (line breaks, indenting, etc) of
   * the text content. This Object does *not* extend the `.Code` Object.
 @implements
-: .fontsize-sml
+: .fontsize-block-sml()
 : .codecolors-sol-dark
 @mixesin
 : .box-block()
@@ -2547,6 +2522,9 @@ code {
 : 2014-07-10
   */
 .Codeblock {
+  font-size: 12px;
+  font-size: 0.75rem;
+  line-height: 2;
   display: block;
   position: relative;
   top: -2px;
@@ -2730,7 +2708,7 @@ code {
   * This Object represents an individual key (a button) on a keyboard, calculator, or other device.
   * Recommended instantiated by a `kbd > kbd` Element.
 @implements
-: .fontsize-sml-inline
+: .fontsize-sml()
 : .codecolors-sol-dark
 @mixesin
 : .box-inline()
@@ -2742,6 +2720,8 @@ code {
 : 2014-06-06
   */
 .Key {
+  font-size: 12px;
+  font-size: 0.75rem;
   display: inline;
   padding: 1px 2px;
   border-width: 1px;
@@ -2758,7 +2738,7 @@ kbd {
   * This Object represents a path in a directory system (for folders and files).
   * Recommended instantiated by a `code` or `samp` Element.
 @implements
-: .fontsize-sml-inline
+: .fontsize-sml()
 @tags
 : #code
 @author
@@ -2767,6 +2747,8 @@ kbd {
 : 2014-05-25
   */
 .Dir {
+  font-size: 12px;
+  font-size: 0.75rem;
   font-style: italic;
   font-family: 'Optima', 'Candara', 'Helvetica', sans-serif;
 }
@@ -2957,6 +2939,8 @@ u {
 }
 /**
   * Superscripts and subscripts.
+@implements
+: .fontsize-sml()
 @tags
 : #typography
 @author
@@ -2966,6 +2950,8 @@ u {
   */
 sup,
 sub {
+  font-size: 12px;
+  font-size: 0.75rem;
   position: relative;
   vertical-align: baseline;
 }
@@ -3060,8 +3046,6 @@ var {
 }
 /**
   * An abbreviation.
-@implements
-: .fontsize-sml
 @tags
 : #typography
 @author
@@ -3195,7 +3179,7 @@ del + ins {
 /**
   * A general Button Object.
 @implements
-: .fontsize-sml-inline
+: .fontsize-sml()
 @mixesin
 : .box-inline()
 @tags
@@ -3206,6 +3190,8 @@ del + ins {
 : 2014-06-06
   */
 .Button {
+  font-size: 12px;
+  font-size: 0.75rem;
   display: inline;
   padding: 1px 2px;
   border-width: 2px;
@@ -3261,8 +3247,6 @@ del + ins {
   * - **Success** is used to indicate that something was done right.
   * - **Info** is used to indicate extra information about something.
   * - **Help** is used to indicate tips and hints for the user.
-@implements
-: .fontsize-sml
 @tags
 : #message
 : #label
@@ -3272,24 +3256,15 @@ del + ins {
 @updated
 : 2014-08-11
   */
-.msg {
-  font-size: 12px;
-  font-size: 0.75rem;
-  line-height: 2;
-  font-family: 'Century Gothic', 'Gill Sans', 'Avenir', sans-serif;
-}
-.msg::before,
-.msg::after {
-  font-weight: bold;
-}
 /**
   * This Object is a block of text with complete sentences or a longer span of information.
 @implements
-: .colors()
-: .gradient()
-: .msg
+: .msg()
 : .box-block()
 : .w-p1.mr
+: .fontsize-block-sml()
+: .colors()
+: .gradient()
 @tags
 : #message
 : #label
@@ -3299,9 +3274,6 @@ del + ins {
 : 2014-08-17
   */
 .Alert {
-  font-size: 12px;
-  font-size: 0.75rem;
-  line-height: 2;
   font-family: 'Century Gothic', 'Gill Sans', 'Avenir', sans-serif;
   display: block;
   position: relative;
@@ -3313,6 +3285,9 @@ del + ins {
   width: 61.80339887%;
   margin-left: 23.60679775%;
   margin-right: 14.58980338%;
+  font-size: 12px;
+  font-size: 0.75rem;
+  line-height: 2;
   box-sizing: border-box;
 }
 .Alert::before,
@@ -3393,9 +3368,10 @@ del + ins {
   * This Object is a has a short bit of content, or perhaps no content at all. It can be
   * added to the inside of an Element.
 @implements
+: .msg()
+: .fontsize-sml()
 : .colors()
 : .gradient()
-: .msg
 @tags
 : #message
 : #tag
@@ -3405,10 +3381,9 @@ del + ins {
 : 2014-08-11
   */
 .Label {
+  font-family: 'Century Gothic', 'Gill Sans', 'Avenir', sans-serif;
   font-size: 12px;
   font-size: 0.75rem;
-  line-height: 2;
-  font-family: 'Century Gothic', 'Gill Sans', 'Avenir', sans-serif;
   display: inline;
   padding: 3px 5px 2px;
   margin-left: 24px;
