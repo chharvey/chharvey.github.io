@@ -759,8 +759,6 @@ button {
 : .vru-content()
 : .border-vert-both(all)
 : .cellpaddingdefault()
-@mixesin
-: .border-vert-both()
 @tags
 : #box
 : #verticalrhythm
@@ -1018,8 +1016,6 @@ main {
 /**
   * An actual breadcrumb link.
 @implements
-@mixesin
-: .fontsize-doubleblock
 : .transition()
 @params
 : @bc_brdrr : the border-radius of the `.Crumb` Object.
@@ -1300,8 +1296,9 @@ main {
 /**
   * This Object represents a list whose items each contain a footnote. Typically, the order of
   * footnotes is irrelevant, so this Object should be instantiated by a `ul` Element.
-@implements
+@extends
 : .list-block
+@implements
 : .fontsize-block-sml()
 : .vru-top-phi()
 @tags
@@ -1584,7 +1581,7 @@ main {
   * This Object represents a paragraph whose first letter is a dropped capital ("drop cap").
 @extends
 : .P
-@mixesin
+@implements
 : .fontsize-block()
 @tags
 : #typography
@@ -1672,8 +1669,9 @@ main {
   * `display: table-caption;`. Just don't apply `.Capt.Before` or `.Capt.After` to `table > caption`s.
 @extends
 : .Capt
-@mixesin
-: .border-vert-one()
+@implements
+: .border-vert-one(bottom)
+: .border-vert-one(top)
 @tags
 : #typography
 : #caption
@@ -1706,9 +1704,8 @@ main {
   * This Object represents a generic postal address. It may be the contact address of the document
   * author(s) (contained in an `address` Element), or it may be any arbitrary postal mailing address.
 @extends
-: .P
-@implements
 : .quasi-p
+@implements
 : .sidebrdr-phi()
 @tags
 : #typography
@@ -1737,9 +1734,11 @@ main {
   * If and only if the content in this `.Fig`---including its caption---is permissible to be extracted from the
   * document and presented on its own, the `.Fig` Object should be wrapped with an `aside` Element.
   * The `.Fig.Text` subclass is a figure whose contents are only text.
-@implements
+@extends
 : .quasi-p
-: .sidebrdr-phi()
+@implements
+: .sidebrdr-phi(left)
+: .sidebrdr-phi(right)
 : .crossgrid-lined()
 @tags
 : #typography
@@ -1784,8 +1783,9 @@ main {
   * If the original source is less than 40 words and does not have paragraph breaks (for example,
   * extracted inline text from an article), use the `.Qblock.Short` subclass. It should also not
   * contain paragraphs.
-@implements
+@extends
 : .quasi-p
+@implements
 : .crossgrid-lined()
 : .sidebrdr-phi()
 : .fontsize-block-lrg()
@@ -1821,9 +1821,10 @@ main {
   * recommended to apply this class to a `cite` Element, possibly within a `footer` Element.
 @belongsto
 : .Qblock
-@implements
+@extends
 : .parens
-: .sidebrdr-phi()
+@implements
+: .sidebrdr-phi(right)
 : .fontsize-block-sml()
 @tags
 : #typography
@@ -1918,7 +1919,7 @@ main {
   * block list items, with markers that indicate order. This class does *not* indicate that the
   * list is semantically ordered. Typical uses include table of contents, etc. Outlines are by
   * definition, ordered.
-@implements
+@extends
 : .list-block
 @tags
 : #typography
@@ -1972,7 +1973,7 @@ main {
   * This Object represents a generic list whose items are to be displayed as blocks with the same
   * markers. It does *not* necessarily correspond directly to a literal `ul` Element. This class
   * does *not* indicate that the list is semantically unordered.
-@implements
+@extends
 : .list-block
 @tags
 : #typography
@@ -1989,7 +1990,7 @@ main {
 }
 /**
   * This Object represents an action list, which typically contains hyperlinks.
-@implements
+@extends
 : .list-block
 @tags
 : #typography
@@ -2125,16 +2126,22 @@ main {
   * This Object represent the term in a term-description pair of a `.Map`.
 @belongsto
 : .Map
+@implements
+: .vru-top() only when following a `.Desc`
 @tags
 : #typography
 : #map
 @author
 : Chris Harvey
 @updated
-: 2014-10-05
+: 2014-10-07
   */
 .Map > .Term {
   font-weight: bold;
+}
+.Map > .Desc + .Term {
+  margin-top: 24px;
+  margin-top: 1.5rem;
 }
 /**
   * This Object represent the description in a term-description pair of a `.Map`.
@@ -2148,10 +2155,6 @@ main {
 @updated
 : 2014-10-05
   */
-.Map > .Desc + .Term {
-  margin-top: 24px;
-  margin-top: 1.5rem;
-}
 /**
   * This Object represents an association list in which corresponding terms and descriptions are
   * grouped together in rows.
@@ -2160,7 +2163,7 @@ main {
 @extends
 : .Map
 @implements
-: .clearfix
+: .clearfix()
 @tags
 : #typography
 : #map
@@ -2339,10 +2342,10 @@ main {
   font-weight: bold;
   font-family: 'Avenir', 'Calibri', 'Century Gothic', sans-serif;
 }
-.Table.Vert .Row .Cell:nth-child(odd) {
+.Table.Vert .Cell:nth-child(odd) {
   background-color: #f1f6ff;
 }
-.Table.Vert .Row .Cell:nth-child(even) {
+.Table.Vert .Cell:nth-child(even) {
   background-color: #f1f6ff;
 }
 table {
@@ -2357,8 +2360,8 @@ table tr {
 \*##############*/
 /**
   * An Interface used for both inline and block code. Automate the coloring of code Elements.
-  * `.codecolors-sol-lite` sets a Solarized Light theme, while
-  * `.codecolors-sol-dark` sets a Solarized Dark theme.
+  * `.codecolors-sol-lite()` sets a Solarized Light theme, while
+  * `.codecolors-sol-dark()` sets a Solarized Dark theme.
 @params
 : @color_txt  : the value of the `color` property
 : @color_comm : the value of the `color` property for code comments
@@ -2379,8 +2382,6 @@ table tr {
 : .box-inline()
 : .fontsize-sml()
 : .codecolors-sol-lite()
-@mixesin
-: .box-inline()
 @tags
 : #code
 @author
@@ -2413,9 +2414,6 @@ code .Comm {
 : .box-block()
 : .fontsize-block-sml()
 : .codecolors-sol-dark()
-@mixesin
-: .box-block()
-:. border-vert-both()
 @tags
 : #code
 @author
@@ -2797,6 +2795,8 @@ strong {
   * A phrase interpreted in an alternate voice or mood, without carrying extra emphasis,
   * such as scare quotes and mentions.
   * Or a phrase in a foreign language, such as the taxonomic classification (in Latin) of an organism.
+@extends
+: .quotes-double
 @tags
 : #typography
 : #span
@@ -2829,6 +2829,8 @@ b {
 /**
   * A span of text that is relevant in some context. It is advisable to use the `[class]` attribute
   * to indicate the context in which the span is relevant.
+@extends
+: .Hi
 @tags
 : #typography
 : #span
@@ -2889,8 +2891,8 @@ sub {
 /**
   * This Object is used to make text appear highlighted.
   * May be instantiated by the `mark` or `u` Elements.
-@mixesin
-: .fade-background
+@implements
+: .fade-background()
 @tags
 : #typography
 : #span
@@ -2959,6 +2961,8 @@ dfn[id] {
 <p>The following git commmand shows you diff:
 <code>$ git diff <var>filepath</var></code>
 where <var>filepath</var> is the path or name of the file you want to see the diff for.</p>
+@extends
+: .guillemets-single
 @tags
 : #code
 @author
@@ -2987,7 +2991,7 @@ abbr[title] {
 /**
   * An inline quotation: a span of text that is taken directly from another source
   * (real or fictional).
-@implements
+@extends
 : .quotes-double
 @tags
 : #typography
@@ -3001,7 +3005,7 @@ abbr[title] {
 /**
   * This Object represents an altered voice in the form of a thought. Like a quote but silent.
   * May be applied to the `q` Element.
-@implements
+@extends
 : .guillemets
 @tags
 : #typography
@@ -3104,9 +3108,9 @@ del + ins {
 /**
   * A general Button Object.
 @implements
-: .fontsize-sml()
-@mixesin
 : .box-inline()
+: .fontsize-sml()
+: .gradient()
 @tags
 : #button
 @author
@@ -3115,8 +3119,6 @@ del + ins {
 : 2014-06-06
   */
 .Button {
-  font-size: 12px;
-  font-size: 0.75rem;
   display: inline;
   padding: 1px 2px;
   border-width: 2px;
@@ -3124,6 +3126,8 @@ del + ins {
   border-radius: 6px;
   white-space: nowrap;
   border-color: #0062ff;
+  font-size: 12px;
+  font-size: 0.75rem;
   border-style: outset;
   margin-bottom: -4px;
   font-family: 'Century Gothic', 'Gill Sans', 'Avenir', sans-serif;

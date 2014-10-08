@@ -78,7 +78,7 @@
   * This Object represents a paragraph whose first letter is a dropped capital ("drop cap").
 @extends
 : .P
-@mixesin
+@implements
 : .fontsize-block()
 @tags
 : #typography
@@ -174,8 +174,9 @@
   * `display: table-caption;`. Just don't apply `.Capt.Before` or `.Capt.After` to `table > caption`s.
 @extends
 : .Capt
-@mixesin
-: .border-vert-one()
+@implements
+: .border-vert-one(bottom)
+: .border-vert-one(top)
 @tags
 : #typography
 : #caption
@@ -192,9 +193,8 @@
   * This Object represents a generic postal address. It may be the contact address of the document
   * author(s) (contained in an `address` Element), or it may be any arbitrary postal mailing address.
 @extends
-: .P
-@implements
 : .quasi-p
+@implements
 : .sidebrdr-phi()
 @tags
 : #typography
@@ -220,9 +220,11 @@
   * If and only if the content in this `.Fig`---including its caption---is permissible to be extracted from the
   * document and presented on its own, the `.Fig` Object should be wrapped with an `aside` Element.
   * The `.Fig.Text` subclass is a figure whose contents are only text.
-@implements
+@extends
 : .quasi-p
-: .sidebrdr-phi()
+@implements
+: .sidebrdr-phi(left)
+: .sidebrdr-phi(right)
 : .crossgrid-lined()
 @tags
 : #typography
@@ -257,8 +259,9 @@
   * If the original source is less than 40 words and does not have paragraph breaks (for example,
   * extracted inline text from an article), use the `.Qblock.Short` subclass. It should also not
   * contain paragraphs.
-@implements
+@extends
 : .quasi-p
+@implements
 : .crossgrid-lined()
 : .sidebrdr-phi()
 : .fontsize-block-lrg()
@@ -287,9 +290,10 @@
   * recommended to apply this class to a `cite` Element, possibly within a `footer` Element.
 @belongsto
 : .Qblock
-@implements
+@extends
 : .parens
-: .sidebrdr-phi()
+@implements
+: .sidebrdr-phi(right)
 : .fontsize-block-sml()
 @tags
 : #typography
