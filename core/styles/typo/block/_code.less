@@ -32,7 +32,9 @@
 @color_code_arg: @solarized_magenta;
 
 /**
-  * A Mixin used for both inline and block code.
+  * An Interface used for both inline and block code. Automate the coloring of code Elements.
+  * `.codecolors-sol-lite` sets a Solarized Light theme, while
+  * `.codecolors-sol-dark` sets a Solarized Dark theme.
 @params
 : @color_txt  : the value of the `color` property
 : @color_comm : the value of the `color` property for code comments
@@ -40,10 +42,12 @@
 : @color_brdr : the value of the `border-color` property
 @tags
 : #code
+: #schematic
+: #Solarized
 @author
 : Chris Harvey
 @updated
-: 2014-05-25
+: 2014-10-07
   */
 .codecolors(@color_txt; @color_comm; @color_bg; @color_brdr) {
 	border-color: @color_brdr;
@@ -52,28 +56,15 @@
 	// background-color: fadeout(@color_bg, @golden4);
 	.Comm {color: @color_comm;}
 }
-/**
-  * These Interfaces automate the coloring of code Elements.
-  * `.codecolors-sol-lite` sets a Solarized Light theme, while
-  * `.codecolors-sol-dark` sets a Solarized Dark theme.
-@mixesin
-: .codecolors()
-@tags
-: #code
-: #schematic
-: #Solarized
-@author
-: Chris Harvey
-@updated
-: 2014-06-06
-  */
-.codecolors-sol-lite {.codecolors(@color_code_txt;      @color_code_comm;      @color_code_bg;      @color_code_brdr);}
-.codecolors-sol-dark {.codecolors(@color_codeblock_txt; @color_codeblock_comm; @color_codeblock_bg; @color_codeblock_brdr);}
+.codecolors-sol-lite() {.codecolors(@color_code_txt;      @color_code_comm;      @color_code_bg;      @color_code_brdr);}
+.codecolors-sol-dark() {.codecolors(@color_codeblock_txt; @color_codeblock_comm; @color_codeblock_bg; @color_codeblock_brdr);}
+
 /**
   * A span of text that a computer program would recognize.
 @implements
+: .box-inline()
 : .fontsize-sml()
-: .codecolors-sol-lite
+: .codecolors-sol-lite()
 @mixesin
 : .box-inline()
 @tags
@@ -84,9 +75,9 @@
 : 2014-05-25
   */
 code {
-	.fontsize-sml();
-	&:extend(.codecolors-sol-lite all);
 	.box-inline(@code_brdr_radius);
+	.fontsize-sml();
+	.codecolors-sol-lite();
 	font-family: @fontfam_code;
 	text-align: left; // to undo text-align:center in a .Fig
 	white-space: nowrap;
@@ -95,8 +86,9 @@ code {
   * A block of code. Its semantics are derived from the formatting (line breaks, indenting, etc) of
   * the text content. This Object does *not* extend the `.Code` Object.
 @implements
+: .box-block()
 : .fontsize-block-sml()
-: .codecolors-sol-dark
+: .codecolors-sol-dark()
 @mixesin
 : .box-block()
 :. border-vert-both()
@@ -108,9 +100,9 @@ code {
 : 2014-07-10
   */
 .Codeblock {
-	.fontsize-block-sml();
-	&:extend(.codecolors-sol-dark all);
 	.box-block(2px; @code_brdr_radius);
+	.fontsize-block-sml();
+	.codecolors-sol-dark();
 	font-family: @fontfam_code;
 	text-align: left; // to undo text-align:center in a .Fig
 	white-space: pre;
@@ -161,7 +153,9 @@ code {
   */
 .Codeblock.CSS {
 	white-space: nowrap;
-	&.Invert {&:extend(.codecolors-sol-lite all);}
+	&.Invert {
+		.codecolors-sol-lite();
+	}
 }
 /**
   * This Object represents a CSS selector.
@@ -277,10 +271,9 @@ code {
   * This Object represents an individual key (a button) on a keyboard, calculator, or other device.
   * Recommended instantiated by a `kbd > kbd` Element.
 @implements
-: .fontsize-sml()
-: .codecolors-sol-dark
-@mixesin
 : .box-inline()
+: .fontsize-sml()
+: .codecolors-sol-dark()
 @tags
 : #code
 @author
@@ -289,9 +282,9 @@ code {
 : 2014-06-06
   */
 .Key {
-	.fontsize-sml();
-	&:extend(.codecolors-sol-dark all);
 	.box-inline(@code_brdr_radius);
+	.fontsize-sml();
+	.codecolors-sol-dark();
 	font-family: @fontfam_accent;
 	color: @color_codeblock_emph;
 }
