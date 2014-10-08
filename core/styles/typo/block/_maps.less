@@ -71,11 +71,16 @@
 @updated
 : 2014-10-05
   */
-@descpadding: @golden8;
+@descpadding: @golden9;
+.map-horiz-mx(@namewidth) {
+	> .Term {width: (@namewidth - @descpadding);}
+	> .Desc {width: (100% - @namewidth);}
+	> .Desc + .Desc {margin-left: @namewidth;}
+}
 .Map.Horiz {
 	&:extend(.clearfix all);
 	> .Term {
-		width: @golden2;
+		padding-right: @descpadding;
 		margin-top: 0; // undo .vru-top(1); from .Map > .Term
 		float: left;
 		clear: both;
@@ -83,15 +88,9 @@
 		white-space: nowrap;
 	}
 	> .Desc {
-		width: (@golden1 - @descpadding);
-		padding-left: @descpadding;
 		float: left;
 	}
-	> .Desc + .Desc {margin-left: @golden2;}
-}
-.map-horiz-mx(@namewidth) {
-	> .Term {width: @namewidth;}
-	> .Desc {width: ((100% - @namewidth) - @descpadding);}
+	.map-horiz-mx(@golden2);
 }
 .Map.Horiz.Sml {.map-horiz-mx(@golden3);}   // 23.6067977499789696%
 .Map.Horiz.Msm {.map-horiz-mx(@golden2);}   // 38.1966011250105152% // default
