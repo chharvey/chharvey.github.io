@@ -221,9 +221,9 @@
   * document and presented on its own, the `.Fig` Object should be wrapped with an `aside` Element.
   * The `.Fig.Text` subclass is a figure whose contents are only text.
 @implements
-: .crossgrid-lined
 : .quasi-p
 : .sidebrdr-phi()
+: .crossgrid-lined()
 @tags
 : #typography
 : #figure
@@ -240,7 +240,7 @@
 	text-align: center;
 }
 .Fig.Text {
-	&:extend(.crossgrid-lined);
+	.crossgrid-lined();
 }
 /**
   * This Object represents any Block Quotation, representing material taken directly from another
@@ -259,10 +259,9 @@
   * contain paragraphs.
 @implements
 : .quasi-p
-: .crossgrid-lined
+: .crossgrid-lined()
 : .sidebrdr-phi()
 : .fontsize-block-lrg()
-: .fontsize-block-sml()
 @tags
 : #typography
 : #quote
@@ -273,7 +272,7 @@
   */
 .Qblock {
 	&:extend(.quasi-p);
-	&:extend(.crossgrid-lined);
+	.crossgrid-lined();
 	.sidebrdr-phi(left; @qblock_brdr_width; @qblock_brdr_style);
 	font-family: @fontfam_accent;
 }
@@ -281,10 +280,6 @@
 	.fontsize-block-lrg();
 	line-height: 1.5 * (@lineheight_base / @fontsize_ratio_lrg); // 1.8
 	background-image: none;
-	.Src {
-		.fontsize-block-sml();
-		line-height: 1.5 * (@lineheight_base / @fontsize_ratio_sml); // 3
-	}
 }
 
 /**
@@ -292,13 +287,17 @@
   * recommended to apply this class to a `cite` Element, possibly within a `footer` Element.
 @belongsto
 : .Qblock
+@implements
+: .parens
+: .sidebrdr-phi()
+: .fontsize-block-sml()
 @tags
 : #typography
 : #quote
 @author
 : Chris Harvey
 @updated
-: 2014-08-11
+: 2014-10-07
   */
 .Qblock .Src {
 	display: block;
@@ -310,6 +309,10 @@
 	&:not(.Formal) {
 		.sidebrdr-phi(right; 3px; @qblock_brdr_style);
 	}
+}
+.Qblock.Short .Src {
+	.fontsize-block-sml();
+	line-height: 1.5 * (@lineheight_base / @fontsize_ratio_sml); // 3
 }
 
 .Capt,
