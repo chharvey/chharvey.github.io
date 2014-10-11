@@ -40,6 +40,8 @@
   * This Object represents a section of text that represents "fine print": disclaimers, etc.
   * It should be instantiated by an entire `section`, `aside`, `div`, or `p` Element, which
   * may or may not contain `small` Element children.
+@implements
+: .fontsize-block-sml()
 @tags
 : #typography
 @author
@@ -48,7 +50,7 @@
 : 2014-06-26
   */
 .Fineprint {
-	&:extend(.fontsize-block-sml);
+	.fontsize-block-sml();
 }
 
 /**
@@ -67,23 +69,22 @@
 @updated
 : 2014-08-11
   */
+.article-before-mx(@content) {
+	.gutter--minor;
+	.border-vert-undo();
+	position: absolute;
+	content: @content;
+	font-weight: bold;
+	.fontsize-block-sml();
+	text-align: left;
+}
 .Article {
-	&[data-status]::before {
-		.Alert;
-		.border-vert-undo;
-		box-sizing: border-box;
-		.gutter--minor;
-		position: absolute;
-		font-weight: bold;
-		.fontsize-block-sml;
-		text-align: left;
-	}
-	&[data-status="draft"]::before    {.Alert.Warn; content: 'This article is a work in progress.';}
-	&[data-status="complete"]::before {.Alert.Cshn; content: 'This article is mostly complete.';}
-	&[data-status="released"]::before {.Alert.Skss; content: 'This article is ready for implemen' '\00ad' 'tation.';}
+	&[data-status="draft"]::before    {.Alert--Warn; .article-before-mx('This article is a work in progress.');}
+	&[data-status="complete"]::before {.Alert--Cshn; .article-before-mx('This article is mostly complete.');}
+	&[data-status="released"]::before {.Alert--Skss; .article-before-mx('This article is ready for implemen' '\00ad' 'tation.');}
 
 	[data-status] {
-		.spacing-phi(left; 4px; solid);
+		.sidebrdr-phi(left; 4px; solid);
 		padding-right: 4px;
 		box-shadow: 4px 4px 8px #808080;
 	}
@@ -103,9 +104,8 @@
 : 2014-08-12
   */
 .Article [data-informative] {
-	.spacing-phi(left;  2px; solid);
-	.spacing-phi(right; 2px; solid);
+	.sidebrdr-phi(left;  2px; solid; @color_info_brdr);
+	.sidebrdr-phi(right; 2px; solid; @color_info_brdr);
 	box-shadow: 2px 2px 4px #c0c0c0;
-	border-color: @color_info_brdr;
 	background-color: fadeout(@color_info_bg, @golden4c);
 }

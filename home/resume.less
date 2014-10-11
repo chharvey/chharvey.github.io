@@ -10,16 +10,12 @@
 //- HEADINGS
 
 
-.List.U {.listindent-half;}
+.Ulist {padding-left: (@listindent / 2);}
 
 
 //+++++++++//
 /*@SECTIONS*/
 //+++++++++//
-/**
-  * The `main` Element.
-  */
-.res-Main {}
 /**
   * The Header contains my name and contact information.
   */
@@ -30,7 +26,7 @@
 }
 .res-Skill,
 .res-Job {
-	.vru-top-1;
+	.vru-top(1);
 }
 /**
   * A Skill is a top-level section, e.g. Teaching Experience.
@@ -82,8 +78,9 @@
   * The title of each skillgroup, e.g. "Teaching Experience"
 @extends
 : .H.Bet
-@mixesin
+@implements
 : .fontsize-scale()
+: .border-vert-undo()
 @tags
 : #golden
 @author
@@ -94,7 +91,7 @@
 .res-SkillTitle {
 	.H.Bet;
 	.fontsize-block(1.5);
-	.border-vert-undo; // undo .border-vert-one() in .H.Bet
+	.border-vert-undo(); // undo .border-vert-one() in .H.Bet
 }
 .res-JobTitle {
 	.H.Gam;
@@ -120,7 +117,8 @@
 .res-PosTitle,
 .res-Deg,
 .res-Inst {
-	.fontsize-block-inherit;
+	font-size: inherit;
+	line-height: inherit;
 }
 //++++ @end HEADINGS ++++//
 
@@ -147,7 +145,7 @@
 /**
   * A bullet list of job descriptions for each Position.
 @extends
-: .List.U
+: .Ulist
 @tags
 : #typography
 : #list
@@ -159,7 +157,7 @@
 : 2014-06-26
   */
 .res-PosDetail {
-	.List.U;
+	.Ulist;
 }
 
 /**
@@ -179,7 +177,7 @@
 
 .res-Skill:first-of-type,
 .res-Footer {
-	.hr(@color_h_minor);
+	.vru-top-phi(1px; solid; @color_h_minor);
 }
 
 .js-res-Footer > .Pagecount {text-align: right;}
@@ -211,12 +209,13 @@ a {font-style: inherit !important;}
 	#tech-html {margin-top: 0;}
 }
 @media print {
-	.res-Body {
+	body {
 		width: 768px; // 8in
-		.fontsize-block-inherit;
+		font-size: inherit;
 		font-family: @fontfam_math;
+		line-height: inherit;
 	}
-	.res-Main {
+	main {
 		// .flexbox();
 		// .flex-direction(column);
 		margin-bottom: 0;
@@ -272,7 +271,7 @@ a {font-style: inherit !important;}
 	// .res-Footer  {.flex-order(90);}
 
 	#tech-skills .res-PosDetail {
-		.fontsize-block-sml;
+		.fontsize-block-sml();
 	}
 	#prof-dev {margin-top: 48px;}
 }

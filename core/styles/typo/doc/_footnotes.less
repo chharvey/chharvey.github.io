@@ -5,14 +5,15 @@
 \*###################*/
 
 
+// See [http://www.w3.org/TR/html5/common-idioms.html#footnotes] for more information.
+
 /**
   * This Object represents a list whose items each contain a footnote. Typically, the order of
   * footnotes is irrelevant, so this Object should be instantiated by a `ul` Element.
-@extends
-: .List
 @implements
-: .fontsize-block-sml
-: .hr()
+: .list-block()
+: .fontsize-block-sml()
+: .vru-top-phi()
 @tags
 : #footnotes
 : #lists
@@ -21,9 +22,10 @@
 @updated
 : 2014-09-23
   */
-.List.Footnotes {
-	&:extend(.fontsize-block-sml);
-	.hr(@color_border);
+.Footnotes {
+	.list-block();
+	.fontsize-block-sml();
+	.vru-top-phi(1px; solid; @color_border);
 	> .Item {
 		padding-left: @spacer;
 		text-indent: -@spacer;
@@ -31,14 +33,13 @@
 }
 /**
   * The `.Rf` Object represents a reference to a footnote. The reference exists in the document prose,
-  * and it links to a footnote, which is contained in the `.List.U.Footnotes`.
+  * and it links to a footnote, which is contained in the `.Footnotes`.
   * The `.Fn` Object represents the footnote that is referenced.
   * Each Object contains an `a` Element.
 @implements
 : .brackets
 @tags
 : #footnotes
-: #lists
 @author
 : Chris Harvey
 @updated
@@ -48,6 +49,6 @@
 .Fn {
 	width: @spacer;
 	> .Link {
-		&:extend(.brackets all);
+		.brackets();
 	}
 }
