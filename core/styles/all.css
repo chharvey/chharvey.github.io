@@ -815,105 +815,17 @@ button {
 /**
   * This Interface adds opening and closing punctuation marks surrounding an Object. The
   * punctuation marks are given by the `quotes` property.
+@params
+: @left  : the character for the left delimiter
+: @right : the character for the right delimiter
 @tags
 : #typography
 : #quote
 @author
 : Chris Harvey
 @updated
-: 2014-05-26
+: 2014-10-11
   */
-.delimiters::before,
-.parens::before,
-.brackets::before,
-.braces::before,
-.angles::before,
-.angles::before,
-.apos::before,
-.quot::before,
-.quotes-single::before,
-.quotes-double::before,
-.guillemets-single::before,
-.guillemets-double::before,
-.Rf > .Link::before,
-.Fn > .Link::before,
-.Qblock .Src.Formal::before,
-.Codeblock .Tag::before,
-.Codeblock .Tag::before,
-.Codeblock .Tag .Val::before,
-i::before,
-var::before,
-q::before,
-.Th::before {
-  content: open-quote;
-}
-.delimiters::after,
-.parens::after,
-.brackets::after,
-.braces::after,
-.angles::after,
-.angles::after,
-.apos::after,
-.quot::after,
-.quotes-single::after,
-.quotes-double::after,
-.guillemets-single::after,
-.guillemets-double::after,
-.Rf > .Link::after,
-.Fn > .Link::after,
-.Qblock .Src.Formal::after,
-.Codeblock .Tag::after,
-.Codeblock .Tag::after,
-.Codeblock .Tag .Val::after,
-i::after,
-var::after,
-q::after,
-.Th::after {
-  content: close-quote;
-}
-.parens,
-.Qblock .Src.Formal {
-  quotes: '(' ')';
-}
-.brackets,
-.Rf > .Link,
-.Fn > .Link {
-  quotes: '[' ']';
-}
-.braces {
-  quotes: '{' '}';
-}
-.angles,
-.Codeblock .Tag {
-  quotes: '<' '>';
-}
-.angles,
-.Codeblock .Tag {
-  quotes: '\003c' '\003e';
-}
-.apos {
-  quotes: '\0027' '\0027';
-}
-.quot,
-.Codeblock .Tag .Val {
-  quotes: '\0022' '\0022';
-}
-.quotes-single {
-  quotes: '\2018' '\2019';
-}
-.quotes-double,
-i,
-q {
-  quotes: '\201c' '\201d';
-}
-.guillemets-single,
-var {
-  quotes: '\2039' '\203a';
-}
-.guillemets-double,
-.Th {
-  quotes: '\00ab' '\00bb';
-}
 /*##############*\
     _body.less
 \*##############*/
@@ -1406,6 +1318,18 @@ main {
 .Rf,
 .Fn {
   width: 24px;
+}
+.Rf > .Link,
+.Fn > .Link {
+  quotes: '[' ']';
+}
+.Rf > .Link::before,
+.Fn > .Link::before {
+  content: open-quote;
+}
+.Rf > .Link::after,
+.Fn > .Link::after {
+  content: close-quote;
 }
 /*##################*\
     _headings.less
@@ -1914,6 +1838,15 @@ main {
 }
 .Qblock .Src::before {
   content: '~\0020';
+}
+.Qblock .Src.Formal {
+  quotes: '(' ')';
+}
+.Qblock .Src.Formal::before {
+  content: open-quote;
+}
+.Qblock .Src.Formal::after {
+  content: close-quote;
 }
 .Qblock .Src:not(.Formal) {
   border-right-width: 3px;
@@ -2563,6 +2496,24 @@ code .Comm {
 .Codeblock .Arg {
   color: #d33682;
 }
+.Codeblock .Tag {
+  quotes: '<' '>';
+}
+.Codeblock .Tag::before {
+  content: open-quote;
+}
+.Codeblock .Tag::after {
+  content: close-quote;
+}
+.Codeblock .Tag .Val {
+  quotes: '\0022' '\0022';
+}
+.Codeblock .Tag .Val::before {
+  content: open-quote;
+}
+.Codeblock .Tag .Val::after {
+  content: close-quote;
+}
 /**
   * This Object represents a block of CSS code. Its semantics are derived not from the formatting
   * of the text, but rather the elements inside.
@@ -3048,7 +2999,14 @@ where <var>filepath</var> is the path or name of the file you want to see the di
 : 2014-07-21
   */
 var {
+  quotes: '\2039' '\203a';
   font-style: italic;
+}
+var::before {
+  content: open-quote;
+}
+var::after {
+  content: close-quote;
 }
 /**
   * An abbreviation.
@@ -3079,6 +3037,15 @@ abbr[title] {
 @updated
 : 2014-05-30
   */
+q {
+  quotes: '\201c' '\201d';
+}
+q::before {
+  content: open-quote;
+}
+q::after {
+  content: close-quote;
+}
 /**
   * This Object represents an altered voice in the form of a thought. Like a quote but silent.
   * May be applied to the `q` Element.
@@ -3093,6 +3060,15 @@ abbr[title] {
 @updated
 : 2014-05-25
   */
+.Th {
+  quotes: '\00ab' '\00bb';
+}
+.Th::before {
+  content: open-quote;
+}
+.Th::after {
+  content: close-quote;
+}
 /**
   * A span or block of text that has been deleted from a document.
   * This is used to explicitly indicate that the text has been intentionally deleted.
