@@ -4,8 +4,7 @@
 .w-f4o4,
 .w-f5o5,
 .w-f6o6,
-.center-ful,
-.normal-main {
+.center-ful {
   width: 100%;
 }
 .center-sml {
@@ -24,60 +23,6 @@
 }
 .center-lrg {
   width: 75%;
-}
-.Map.Vert::after,
-.CSS .Ruleset::after {
-  display: table;
-  content: ' ';
-  clear: both;
-}
-code,
-.Key,
-.Dir,
-sup,
-sub,
-.Button {
-  font-size: 12px;
-  font-size: 0.75rem;
-}
-.Qblock.Short {
-  font-size: 20px;
-  font-size: 1.25rem;
-  line-height: 1.2;
-}
-.Fineprint,
-.Footnotes,
-.Capt,
-.Qblock.Short .Src,
-.Table,
-.Codeblock {
-  font-size: 12px;
-  font-size: 0.75rem;
-  line-height: 2;
-}
-.Article[data-status]::before,
-.H,
-.P,
-.Capt,
-.Map,
-.Cell,
-.Codeblock,
-.Alert,
-.res-Name,
-.res-SkillTitle,
-.res-JobTitle,
-.res-PosTitle,
-.res-Deg,
-.res-Inst {
-  min-height: 24px;
-  min-height: 1.5rem;
-}
-.Article[data-status]::before,
-.Cell,
-.Codeblock,
-.Alert {
-  padding: 12px 7.41640786px;
-  padding: 0.75rem 7.41640786px;
 }
 .parens::before,
 .brackets::before,
@@ -151,16 +96,10 @@ var {
 .Th {
   quotes: '\00ab' '\00bb';
 }
-.Fig.Text,
-.Qblock {
-  background-image: url('http://chharvey.github.io/core/images/crossgrid-lined_1x24.svg');
-  background-size: 1px 24px;
-  background-repeat: repeat;
-  background-position: left bottom;
-}
 .Addy,
 .Fig,
 .Qblock {
+  display: block;
   min-height: 24px;
   min-height: 1.5rem;
   padding-top: 9.16718427px;
@@ -172,29 +111,9 @@ var {
 .Ulist,
 .Alist,
 .res-PosDetail {
+  display: block;
   min-height: 24px;
   min-height: 1.5rem;
-  display: block;
-}
-code,
-.Codeblock.CSS.Invert {
-  border-color: #eee8d5;
-  color: #657b83;
-  background-color: #fdf6e3;
-}
-code .Comm,
-.Codeblock.CSS.Invert .Comm {
-  color: #93a1a1;
-}
-.Codeblock,
-.Key {
-  border-color: #073642;
-  color: #839496;
-  background-color: #002b36;
-}
-.Codeblock .Comm,
-.Key .Comm {
-  color: #586e75;
 }
 /*---------------*\
     resume.less
@@ -203,9 +122,6 @@ code .Comm,
   padding-left: 0.25in;
 }
 /*@SECTIONS*/
-/**
-  * The `main` Element.
-  */
 /**
   * The Header contains my name and contact information.
   */
@@ -238,6 +154,8 @@ code .Comm,
 .res-PosTitle,
 .res-Deg,
 .res-Inst {
+  min-height: 24px;
+  min-height: 1.5rem;
   display: block;
   font-family: 'Avenir', 'Calibri', 'Century Gothic', sans-serif;
   letter-spacing: 1px;
@@ -272,8 +190,9 @@ code .Comm,
   * The title of each skillgroup, e.g. "Teaching Experience"
 @extends
 : .H.Bet
-@mixesin
+@implements
 : .fontsize-scale()
+: .border-vert-undo()
 @tags
 : #golden
 @author
@@ -490,13 +409,13 @@ a {
   }
 }
 @media print {
-  .res-Body {
+  body {
     width: 768px;
     font-size: inherit;
-    line-height: inherit;
     font-family: 'Times', 'Times New Roman', serif;
+    line-height: inherit;
   }
-  .res-Main {
+  main {
     margin-bottom: 0;
   }
   .res-Name,

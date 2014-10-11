@@ -17,10 +17,6 @@
 /*@SECTIONS*/
 //+++++++++//
 /**
-  * The `main` Element.
-  */
-.res-Main {}
-/**
   * The Header contains my name and contact information.
   */
 .res-Header {
@@ -82,8 +78,9 @@
   * The title of each skillgroup, e.g. "Teaching Experience"
 @extends
 : .H.Bet
-@mixesin
+@implements
 : .fontsize-scale()
+: .border-vert-undo()
 @tags
 : #golden
 @author
@@ -94,7 +91,7 @@
 .res-SkillTitle {
 	.H.Bet;
 	.fontsize-block(1.5);
-	.border-vert-undo; // undo .border-vert-one() in .H.Bet
+	.border-vert-undo(); // undo .border-vert-one() in .H.Bet
 }
 .res-JobTitle {
 	.H.Gam;
@@ -120,7 +117,8 @@
 .res-PosTitle,
 .res-Deg,
 .res-Inst {
-	.fontsize-block-inherit;
+	font-size: inherit;
+	line-height: inherit;
 }
 //++++ @end HEADINGS ++++//
 
@@ -211,12 +209,13 @@ a {font-style: inherit !important;}
 	#tech-html {margin-top: 0;}
 }
 @media print {
-	.res-Body {
+	body {
 		width: 768px; // 8in
-		.fontsize-block-inherit;
+		font-size: inherit;
 		font-family: @fontfam_math;
+		line-height: inherit;
 	}
-	.res-Main {
+	main {
 		// .flexbox();
 		// .flex-direction(column);
 		margin-bottom: 0;
@@ -272,7 +271,7 @@ a {font-style: inherit !important;}
 	// .res-Footer  {.flex-order(90);}
 
 	#tech-skills .res-PosDetail {
-		.fontsize-block-sml;
+		.fontsize-block-sml();
 	}
 	#prof-dev {margin-top: 48px;}
 }
