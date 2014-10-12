@@ -10,6 +10,8 @@
   * It is Meant for text-containing block Elements, such as p, blockquote, li, dt, dd, th, td.
   * If these Elements have shorter contents, the vertical rhythm won't break.
   * Do not include `display: block;` in the case of list-item, table-caption, or other exceptions.
+@params
+: @n : (an integer) the number of vertical rhythm units specified for the height
 @tags
 : #verticalrhythm
 @author
@@ -17,9 +19,14 @@
 @updated
 : 2014-10-07
   */
+.vru-content(@n) {
+	min-height: (@n * @vru_px ); // fallback
+	min-height: (@n * @vru_rem);
+}
 .vru-content() {
-	min-height: @vru_px; // fallback
-	min-height: @vru_rem;
+	.vru-content(1);
+	// min-height: @vru_px; // fallback
+	// min-height: @vru_rem;
 }
 /**
   * These Interfaces provide [top|bottom] spacing of a multiple of a vertical rhythm unit.
