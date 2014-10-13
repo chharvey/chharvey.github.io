@@ -7,48 +7,32 @@
 
 /**
   * The left indent of a `.List` Object (or similar Object).
-  * The indent should be 0.5in, the standard indent for APA style.
+  * The indent should be 0.5in (48px), the standard indent for APA style.
   * Use this value on `padding-left` or `margin-left`, whichever is more appropriate.
   * Use operations on `@listindent`, such as `(@listindent / 2)` for variants.
   */
 @listindent: 0.5in;
 /**
-  * This Interface adds a left padding to a `.List` Object. The padding-left is set to 48px, which is
-  * equal to 0.5in, the standard indent for APA style.
-  * The `.listindent-half` Interface adds half the padding (24px).
-@tags
-: #typography
-: #list
-: #indent
-: #padding
-@author
-: Chris Harvey
-@updated
-: 2014-06-26
-  */
-// .listindent      {padding-left:  @tab;}
-// .listindent-half {padding-left: (@tab / 2);}
-/**
   * This Interface is used on block lists. It may be a literal `ol` or `ul` Element containing
   * `li` Elements, or it may be the abstract notion of a list of other block Objects. The order of
   * list items may be releveant or irrelevant.
 @implements
-: .vru-content
+: .vru-content()
 @tags
 : #typography
 : #list
 @author
 : Chris Harvey
 @updated
-: 2014-10-01
+: 2014-10-07
   */
-.list-block {
-	.vru-content;
+.list-block() {
 	display: block;
+	.vru-content();
 }
 /**
-  * This Object represents a block item in a `.List` Object. It may be a literal `li` Element
-  * inside an `ol` or `ul` Element, or it may be any Element in a `.List` Object.
+  * This Object represents a block item in a list. It may be a literal `li` Element
+  * inside an `ol` or `ul` Element, or it may be any Element in any "List" class.
 @implements
 : .vru-content
 @tags
@@ -57,11 +41,10 @@
 @author
 : Chris Harvey
 @updated
-: 2014-08-06
+: 2014-10-11
   */
-// .Item {
-// 	display: list-item;
-// }
+.Item {
+}
 /**
   * This Object represents an ordered list, or a list used for an outline. This does *not*
   * correspond directly to a literal `ol` Element; this Object is simply to be displayed with
@@ -69,7 +52,7 @@
   * list is semantically ordered. Typical uses include table of contents, etc. Outlines are by
   * definition, ordered.
 @implements
-: .list-block
+: .list-block()
 @tags
 : #typography
 : #list
@@ -80,7 +63,7 @@
 : 2014-05-11
   */
 .Olist {
-	&:extend(.list-block);
+	.list-block();
 	padding-left: @listindent;
 	list-style-type: decimal-leading-zero; //  01.  02.  03.
 	list-style-type: decimal;              //   1.   2.   3.
@@ -110,7 +93,7 @@
   * markers. It does *not* necessarily correspond directly to a literal `ul` Element. This class
   * does *not* indicate that the list is semantically unordered.
 @implements
-: .list-block
+: .list-block()
 @tags
 : #typography
 : #list
@@ -121,14 +104,14 @@
 : 2014-05-11
   */
 .Ulist {
-	&:extend(.list-block);
+	.list-block();
 	padding-left: @listindent;
 	list-style-type: square;
 }
 /**
   * This Object represents an action list, which typically contains hyperlinks.
 @implements
-: .list-block
+: .list-block()
 @tags
 : #typography
 : #list
@@ -139,7 +122,7 @@
 : 2014-05-11
   */
 .Alist {
-	&:extend(.list-block);
+	.list-block();
 	> .Item {
 		color: @color_link_up;
 		&:hover {color: @color_link_dn;}
@@ -193,6 +176,8 @@
   * This Object represents a 'List of Prose', a list whose items consist of only paragraphs.
 @extends
 : .Olist
+@implements
+: .vru-top()
 @tags
 : #typography
 : #list
@@ -201,8 +186,10 @@
 @updated
 : 2014-10-03
   */
-.Olist.LOP > .Item:not(:first-child) {
-	.vru-top-1;
+.Olist.LOP {
+	> .Item:not(:first-child) {
+		.vru-top(1);
+	}
 }
 /**
   * This Object represents a 'List in Prose', a list that is contained within prose paragraphs.

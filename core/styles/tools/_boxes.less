@@ -13,14 +13,15 @@
 @tags
 : #verticalrhythm
 : #padding
+: #fallback
 @author
 : Chris Harvey
 @updated
-: 2014-05-20
+: 2014-10-07
   */
-.cellpaddingdefault {
-	padding: (@vru_px  / 2) (@vru_px / 2 * @phi1); // fallback
-	padding: (@vru_rem / 2) (@vru_px / 2 * @phi1);
+.cellpaddingdefault() {
+	padding: (@vru_px  / 2) (@vru_px  / 2 * @phi1); // fallback
+	padding: (@vru_rem / 2) (@vru_rem / 2 * @phi1);
 }
 
 /**
@@ -67,10 +68,9 @@
 : @brdrc : the value of `border-color` property (if not specified, default to value of `color` property)
 : @brdrr : the value of `border-radius` property
 @implements
-: .cellpaddingdefault
-: .vru-content
-@mixesin
-: .border-vert-both()
+: .vru-content()
+: .border-vert-both(all)
+: .cellpaddingdefault()
 @tags
 : #box
 : #verticalrhythm
@@ -80,9 +80,10 @@
 : 2014-07-07
   */
 .box-block(@brdrw; @brdrr) {
-	&:extend(.cellpaddingdefault);
-	&:extend(.vru-content);
+	.vru-content();
 	.border-vert-both(all; @brdrw; solid);
+	.cellpaddingdefault();
+	box-sizing: border-box;
 	border-radius: @brdrr;
 }
 .box-block(@brdrw; @brdrc; @brdrr) {
