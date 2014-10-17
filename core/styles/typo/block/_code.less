@@ -52,8 +52,7 @@
 .codecolors(@color_txt; @color_comm; @color_bg; @color_brdr) {
 	border-color: @color_brdr;
 	color: @color_txt;
-	background-color: @color_bg; // fallback
-	// background-color: fadeout(@color_bg, @golden4);
+	background-color: @color_bg;
 	.Comm {color: @color_comm;}
 }
 .codecolors-sol-lite() {.codecolors(@color_code_txt;      @color_code_comm;      @color_code_bg;      @color_code_brdr);}
@@ -75,10 +74,10 @@
 code {
 	.box-inline(@code_brdr_radius);
 	.fontsize-sml();
-	.codecolors-sol-lite();
 	font-family: @fontfam_code;
 	text-align: left; // to undo text-align:center in a .Fig
 	white-space: nowrap;
+	.codecolors-sol-lite();
 }
 /**
   * A block of code. Its semantics are derived from the formatting (line breaks, indenting, etc) of
@@ -97,11 +96,11 @@ code {
 .Codeblock {
 	.box-block(2px; @code_brdr_radius);
 	.fontsize-block-sml();
-	.codecolors-sol-dark();
 	font-family: @fontfam_code;
 	text-align: left; // to undo text-align:center in a .Fig
 	white-space: pre;
 	overflow: auto;
+	.codecolors-sol-dark();
 }
 /**
   * Subcomponents of a code block.
@@ -167,13 +166,11 @@ code {
 	&::after {content: ' {';}
 }
 .CSS .Comm {
-	&::before {content: '/* ';}
-	&::after  {content: ' */';}
+	.delimiters('/* '; ' */');
 }
 .CSS .String {
+	.apos();
 	color: @color_code_arg;
-	&::before,
-	&::after  {content: '\0027';} // &apos;
 }
 /**
   * This Object represents a ruleset for a CSS selector.
