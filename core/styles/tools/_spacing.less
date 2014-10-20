@@ -32,12 +32,12 @@
   * These Interfaces provide [top|bottom] spacing of a multiple of a vertical rhythm unit.
 @params
 : @ratio : the multliplier, i.e. how many `rem`s
-@tags
-: #verticalrhythm
 @author
 : Chris Harvey
 @updated
 : 2014-07-10
+@tags
+: #verticalrhythm
   */
 .vru-top(@ratio) {
 	margin-top: (@ratio * @vru_px); // fallback
@@ -48,20 +48,38 @@
 	padding-bottom: (@ratio * @vru_rem);
 }
 
-:not(.H) + .Article,
-:not(.H) + .P,
-:not(.H) + .Olist,
-:not(.H) + .Ulist,
-:not(.H) + .Alist,
-:not(.H) + .Map,
-:not(.H) + .Table,
-:not(.H) + .Codeblock,
-:not(.H) + .Alert--Warn,
-:not(.H) + .Alert--Cshn,
-:not(.H) + .Alert--Skss,
-:not(.H) + .Alert--Info,
-:not(.H) + .Alert--Help {
-	.vru-top(1);
+// :not(.H) + .Article,
+// :not(.H) + .P,
+// :not(.H) + .Olist,
+// :not(.H) + .Ulist,
+// :not(.H) + .Alist,
+// :not(.H) + .Map,
+// :not(.H) + .Table,
+// :not(.H) + .Codeblock,
+// :not(.H) + .Alert--Warn,
+// :not(.H) + .Alert--Cshn,
+// :not(.H) + .Alert--Skss,
+// :not(.H) + .Alert--Info,
+// :not(.H) + .Alert--Help {
+// 	.vru-top(1);
+// }
+
+/**
+  * This Interface adds a vru-top to an element if it is an
+  * immediate sibling after an Element that is not some type of heading.
+@params
+: @n : the number of vrus for the top spacing
+@author
+: Chris Harvey
+@updated
+: 2014-10-19
+@tags
+: #verticalrhythm
+  */
+.follows-heading(@n) {
+  :not(h1):not(.H) + & {.vru-top(@n);}
+	// same as :not(h1, .H) + & {.vru-top(@n);}
+	// NOT the same as :not(h1.H) + & {.vru-top(@n);}
 }
 
 /**

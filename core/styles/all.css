@@ -553,6 +553,66 @@ button {
 @updated
 : 2014-07-07
   */
+/*#################*\
+    _spacing.less
+\*#################*/
+/**
+  * This Interface provides a minimum height of one vertical rhythm unit.
+  * It is Meant for text-containing block Elements, such as p, blockquote, li, dt, dd, th, td.
+  * If these Elements have shorter contents, the vertical rhythm won't break.
+  * Do not include `display: block;` in the case of list-item, table-caption, or other exceptions.
+@params
+: @n : (an integer) the number of vertical rhythm units specified for the height
+@tags
+: #verticalrhythm
+@author
+: Chris Harvey
+@updated
+: 2014-10-07
+  */
+/**
+  * These Interfaces provide [top|bottom] spacing of a multiple of a vertical rhythm unit.
+@params
+: @ratio : the multliplier, i.e. how many `rem`s
+@author
+: Chris Harvey
+@updated
+: 2014-07-10
+@tags
+: #verticalrhythm
+  */
+/**
+  * This Interface adds a vru-top to an element if it is an
+  * immediate sibling after an Element that is not some type of heading.
+@params
+: @n : the number of vrus for the top spacing
+@author
+: Chris Harvey
+@updated
+: 2014-10-19
+@tags
+: #verticalrhythm
+  */
+/**
+  * This Interface sets the padding-top, border-top, and margin-top such that the padding:margin ratio
+  * is Golden, while keeping the border-top-width. The sum of the padding, border, and margin is
+  * one vertical rhythm unit.
+@params
+: @brdrw : value of the border-top-width property. Must be in pixels and less than `@vru_px`.
+: @brdrs : value of the border-top-style property
+: @brdrc : value of the border-top-color property
+@tags
+: #verticalrhythm
+: #golden
+: #border
+@author
+: Chris Harvey
+@updated
+: 2014-08-07
+  */
+/*#################*\
+    _gutters.less
+\*#################*/
 /**
   * This Interface allows for the appearance of Elements in the left and right "gutters":
   * The margins of the `main` Element.
@@ -591,67 +651,6 @@ button {
   margin-right: 2.12862363%;
   right: 0;
 }
-/*#################*\
-    _spacing.less
-\*#################*/
-/**
-  * This Interface provides a minimum height of one vertical rhythm unit.
-  * It is Meant for text-containing block Elements, such as p, blockquote, li, dt, dd, th, td.
-  * If these Elements have shorter contents, the vertical rhythm won't break.
-  * Do not include `display: block;` in the case of list-item, table-caption, or other exceptions.
-@params
-: @n : (an integer) the number of vertical rhythm units specified for the height
-@tags
-: #verticalrhythm
-@author
-: Chris Harvey
-@updated
-: 2014-10-07
-  */
-/**
-  * These Interfaces provide [top|bottom] spacing of a multiple of a vertical rhythm unit.
-@params
-: @ratio : the multliplier, i.e. how many `rem`s
-@tags
-: #verticalrhythm
-@author
-: Chris Harvey
-@updated
-: 2014-07-10
-  */
-:not(.H) + .Article,
-:not(.H) + .P,
-:not(.H) + .Olist,
-:not(.H) + .Ulist,
-:not(.H) + .Alist,
-:not(.H) + .Map,
-:not(.H) + .Table,
-:not(.H) + .Codeblock,
-:not(.H) + .Alert--Warn,
-:not(.H) + .Alert--Cshn,
-:not(.H) + .Alert--Skss,
-:not(.H) + .Alert--Info,
-:not(.H) + .Alert--Help {
-  margin-top: 24px;
-  margin-top: 1.5rem;
-}
-/**
-  * This Interface sets the padding-top, border-top, and margin-top such that the padding:margin ratio
-  * is Golden, while keeping the border-top-width. The sum of the padding, border, and margin is
-  * one vertical rhythm unit.
-@params
-: @brdrw : value of the border-top-width property. Must be in pixels and less than `@vru_px`.
-: @brdrs : value of the border-top-style property
-: @brdrc : value of the border-top-color property
-@tags
-: #verticalrhythm
-: #golden
-: #border
-@author
-: Chris Harvey
-@updated
-: 2014-08-07
-  */
 /*################*\
     _floats.less
 \*################*/
@@ -997,17 +996,23 @@ main {
   * This Object represents a generic article, technical document, blog post, etc. This Object may
   * or may not take the form of a literal `article` Element or `main` Element of a page. This
   * Object is designed to contain other block-level Objects such as `.H`s and `.P`s.
+@implements
+: .follows-heading()
 @tags
 : #typography
 : #article
 @author
 : Chris Harvey
 @updated
-: 2014-05-03
+: 2014-10-19
   */
 .Article {
   font-family: 'Baskerville', 'Palatino', 'Book Antiqua', serif;
   text-align: justify;
+}
+:not(h1):not(.H) + .Article {
+  margin-top: 24px;
+  margin-top: 1.5rem;
 }
 /**
   * This Object represents text in an article that is not to displayed like `.Article` text.
@@ -1093,13 +1098,17 @@ main {
   top: auto;
   margin-bottom: 0;
   border: 0;
-  position: absolute;
-  content: 'This article is a work in progress.';
-  font-weight: bold;
   font-size: 12px;
   font-size: 0.75rem;
   line-height: 2;
+  position: absolute;
+  content: 'This article is a work in progress.';
+  font-weight: bold;
   text-align: left;
+}
+:not(h1):not(.H) + .Article[data-status="draft"]::before {
+  margin-top: 24px;
+  margin-top: 1.5rem;
 }
 .Article[data-status="draft"]::before::before {
   content: 'Warning' ' ' '\0021' ' ';
@@ -1140,13 +1149,17 @@ main {
   top: auto;
   margin-bottom: 0;
   border: 0;
-  position: absolute;
-  content: 'This article is mostly complete.';
-  font-weight: bold;
   font-size: 12px;
   font-size: 0.75rem;
   line-height: 2;
+  position: absolute;
+  content: 'This article is mostly complete.';
+  font-weight: bold;
   text-align: left;
+}
+:not(h1):not(.H) + .Article[data-status="complete"]::before {
+  margin-top: 24px;
+  margin-top: 1.5rem;
 }
 .Article[data-status="complete"]::before::before {
   content: 'Caution' ' ' '\2026' ' ';
@@ -1187,13 +1200,17 @@ main {
   top: auto;
   margin-bottom: 0;
   border: 0;
-  position: absolute;
-  content: 'This article is ready for implemen' '\00ad' 'tation.';
-  font-weight: bold;
   font-size: 12px;
   font-size: 0.75rem;
   line-height: 2;
+  position: absolute;
+  content: 'This article is ready for implemen' '\00ad' 'tation.';
+  font-weight: bold;
   text-align: left;
+}
+:not(h1):not(.H) + .Article[data-status="released"]::before {
+  margin-top: 24px;
+  margin-top: 1.5rem;
 }
 .Article[data-status="released"]::before::before {
   content: 'Success' ' ' '\263a' ' ';
@@ -1295,6 +1312,10 @@ main {
   border-top-width: 1px;
   border-top-style: solid;
   border-top-color: #9acc7a;
+}
+:not(h1):not(.H) + .Footnotes {
+  margin-top: 24px;
+  margin-top: 1.5rem;
 }
 .Footnotes > .Item {
   padding-left: 24px;
@@ -1507,18 +1528,23 @@ main {
   * anywhere from 3 to 8 sentences. However on the Web, they can be much, much shorter.
 @implements
 : .vru-content()
+: .follows-heading()
 @tags
 : #typography
 : #paragraph
 @author
 : Chris Harvey
 @updated
-: 2014-07-10
+: 2014-10-19
   */
 .P {
   min-height: 24px;
   min-height: 1.5rem;
   display: block;
+}
+:not(h1):not(.H) + .P {
+  margin-top: 24px;
+  margin-top: 1.5rem;
 }
 .P p {
   display: inline;
@@ -1696,12 +1722,12 @@ main {
 : 2014-10-03
   */
 .Addy {
-  display: block;
   min-height: 24px;
   min-height: 1.5rem;
   padding-top: 9.16718427px;
   margin-top: 14.83281573px;
   border-top-width: 0;
+  display: block;
   border-right-width: 3px;
   border-right-style: solid;
   padding-right: 4.85410197px;
@@ -1735,12 +1761,12 @@ main {
 : 2014-10-03
   */
 .Fig {
-  display: block;
   min-height: 24px;
   min-height: 1.5rem;
   padding-top: 9.16718427px;
   margin-top: 14.83281573px;
   border-top-width: 0;
+  display: block;
   border-left-width: 4px;
   border-left-style: solid;
   padding-left: 6.47213595px;
@@ -1789,12 +1815,12 @@ main {
 : 2014-10-03
   */
 .Qblock {
-  display: block;
   min-height: 24px;
   min-height: 1.5rem;
   padding-top: 9.16718427px;
   margin-top: 14.83281573px;
   border-top-width: 0;
+  display: block;
   background-image: url('http://chharvey.github.io/core/images/crossgrid-lined_1x24.svg');
   background-size: 1px 24px;
   background-repeat: repeat;
@@ -1875,13 +1901,14 @@ main {
   * list items may be releveant or irrelevant.
 @implements
 : .vru-content()
+: .follows-heading()
 @tags
 : #typography
 : #list
 @author
 : Chris Harvey
 @updated
-: 2014-10-07
+: 2014-10-19
   */
 /**
   * This Object represents a block item in a list. It may be a literal `li` Element
@@ -1920,6 +1947,10 @@ main {
   padding-left: 0.5in;
   list-style-type: decimal-leading-zero;
   list-style-type: decimal;
+}
+:not(h1):not(.H) + .Olist {
+  margin-top: 24px;
+  margin-top: 1.5rem;
 }
 /**
   * These Objects represent outlined lists with different enumeration types.
@@ -1977,6 +2008,10 @@ main {
   padding-left: 0.5in;
   list-style-type: square;
 }
+:not(h1):not(.H) + .Ulist {
+  margin-top: 24px;
+  margin-top: 1.5rem;
+}
 /**
   * This Object represents an action list, which typically contains hyperlinks.
 @implements
@@ -1994,6 +2029,10 @@ main {
   display: block;
   min-height: 24px;
   min-height: 1.5rem;
+}
+:not(h1):not(.H) + .Alist {
+  margin-top: 24px;
+  margin-top: 1.5rem;
 }
 .Alist > .Item {
   color: #0062ff;
@@ -2103,18 +2142,23 @@ main {
   * consists of exactly one `.Term` and exactly one `.Desc`.
 @implements
 : .vru-content()
+: .follows-heading()
 @tags
 : #typography
 : #map
 @author
 : Chris Harvey
 @updated
-: 2014-08-07
+: 2014-10-19
   */
 .Map {
+  display: block;
   min-height: 24px;
   min-height: 1.5rem;
-  display: block;
+}
+:not(h1):not(.H) + .Map {
+  margin-top: 24px;
+  margin-top: 1.5rem;
 }
 /**
   * This Object represent the term in a term-description pair of a `.Map`.
@@ -2246,6 +2290,7 @@ main {
   * would be a multivariable map: given multiple (e.g., two) independent inputs there exists one
   * dependent output.
 @implements
+: .follows-heading()
 : .fontsize-block-sml()
 @tags
 : #typography
@@ -2253,7 +2298,7 @@ main {
 @author
 : Chris Harvey
 @updated
-: 2014-07-10
+: 2014-10-19
   */
 .Table {
   font-size: 12px;
@@ -2261,6 +2306,10 @@ main {
   line-height: 2;
   display: table;
   text-align: center;
+}
+:not(h1):not(.H) + .Table {
+  margin-top: 24px;
+  margin-top: 1.5rem;
 }
 .Table > .Capt {
   border-top-width: 1px;
@@ -2426,6 +2475,7 @@ code .Comm {
   * the text content. This Object does *not* extend the `.Code` Object.
 @implements
 : .box-block()
+: .follows-heading()
 : .fontsize-block-sml()
 : .codecolors-sol-dark()
 @tags
@@ -2433,7 +2483,7 @@ code .Comm {
 @author
 : Chris Harvey
 @updated
-: 2014-07-10
+: 2014-10-19
   */
 .Codeblock {
   min-height: 24px;
@@ -2458,6 +2508,10 @@ code .Comm {
   border-color: #073642;
   color: #839496;
   background-color: #002b36;
+}
+:not(h1):not(.H) + .Codeblock {
+  margin-top: 24px;
+  margin-top: 1.5rem;
 }
 .Codeblock .Comm {
   color: #586e75;
@@ -2724,9 +2778,9 @@ kbd {
   */
 .Math,
 .M {
-  overflow: auto;
   font-family: 'Times', 'Times New Roman', serif;
   white-space: pre;
+  overflow: auto;
 }
 /**
   * These Objects are subclasses of `.M`.
@@ -3223,38 +3277,38 @@ del + ins {
   border-color: #0062ff;
   font-size: 12px;
   font-size: 0.75rem;
-  border-style: outset;
-  margin-bottom: -4px;
-  font-family: 'Century Gothic', 'Gill Sans', 'Avenir', sans-serif;
-  color: #0062ff;
-  background-color: #c3daff;
   background-image: -webkit-linear-gradient(to bottom right, #dceaff, #90baff);
   background-image: -moz-linear-gradient(to bottom right, #dceaff, #90baff);
   background-image: -ms-linear-gradient(to bottom right, #dceaff, #90baff);
   background-image: -o-linear-gradient(to bottom right, #dceaff, #90baff);
   background-image: linear-gradient(to bottom right, #dceaff, #90baff);
   background-image: -webkit-gradient(to bottom right, #dceaff, #90baff);
+  border-style: outset;
+  margin-bottom: -4px;
+  font-family: 'Century Gothic', 'Gill Sans', 'Avenir', sans-serif;
+  color: #0062ff;
+  background-color: #c3daff;
   cursor: pointer;
 }
 .Button:hover {
-  border-color: #ff9d00;
-  color: #ff9d00;
-  background-color: #ffe8c3;
   background-image: -webkit-linear-gradient(to bottom right, #fff2dc, #ffd490);
   background-image: -moz-linear-gradient(to bottom right, #fff2dc, #ffd490);
   background-image: -ms-linear-gradient(to bottom right, #fff2dc, #ffd490);
   background-image: -o-linear-gradient(to bottom right, #fff2dc, #ffd490);
   background-image: linear-gradient(to bottom right, #fff2dc, #ffd490);
   background-image: -webkit-gradient(to bottom right, #fff2dc, #ffd490);
+  border-color: #ff9d00;
+  color: #ff9d00;
+  background-color: #ffe8c3;
 }
 .Button:active {
-  border-style: inset;
   background-image: -webkit-linear-gradient(to top left, #fff2dc, #ffd490);
   background-image: -moz-linear-gradient(to top left, #fff2dc, #ffd490);
   background-image: -ms-linear-gradient(to top left, #fff2dc, #ffd490);
   background-image: -o-linear-gradient(to top left, #fff2dc, #ffd490);
   background-image: linear-gradient(to top left, #fff2dc, #ffd490);
   background-image: -webkit-gradient(to top left, #fff2dc, #ffd490);
+  border-style: inset;
 }
 .Button.Block {
   display: block;
@@ -3284,6 +3338,7 @@ del + ins {
   * This Object is a block of text with complete sentences or a longer span of information.
 @implements
 : .box-block()
+: .follows-heading()
 : .w-p1.mr
 : .fontsize-block-sml()
 : .colors()
@@ -3294,7 +3349,7 @@ del + ins {
 @author
 : Chris Harvey
 @updated
-: 2014-10-08
+: 2014-10-19
   */
 .Alert--Warn {
   min-height: 24px;
@@ -3325,6 +3380,10 @@ del + ins {
   background-image: -o-linear-gradient(to bottom, #ff9e9e, #ff6b6b);
   background-image: linear-gradient(to bottom, #ff9e9e, #ff6b6b);
   background-image: -webkit-gradient(to bottom, #ff9e9e, #ff6b6b);
+}
+:not(h1):not(.H) + .Alert--Warn {
+  margin-top: 24px;
+  margin-top: 1.5rem;
 }
 .Alert--Warn::before {
   content: 'Warning' ' ' '\0021' ' ';
@@ -3360,6 +3419,10 @@ del + ins {
   background-image: linear-gradient(to bottom, #ecff9e, #e1ff6b);
   background-image: -webkit-gradient(to bottom, #ecff9e, #e1ff6b);
 }
+:not(h1):not(.H) + .Alert--Cshn {
+  margin-top: 24px;
+  margin-top: 1.5rem;
+}
 .Alert--Cshn::before {
   content: 'Caution' ' ' '\2026' ' ';
   font-weight: bold;
@@ -3393,6 +3456,10 @@ del + ins {
   background-image: -o-linear-gradient(to bottom, #9effc5, #6bffa6);
   background-image: linear-gradient(to bottom, #9effc5, #6bffa6);
   background-image: -webkit-gradient(to bottom, #9effc5, #6bffa6);
+}
+:not(h1):not(.H) + .Alert--Skss {
+  margin-top: 24px;
+  margin-top: 1.5rem;
 }
 .Alert--Skss::before {
   content: 'Success' ' ' '\263a' ' ';
@@ -3428,6 +3495,10 @@ del + ins {
   background-image: linear-gradient(to bottom, #9ec5ff, #6ba6ff);
   background-image: -webkit-gradient(to bottom, #9ec5ff, #6ba6ff);
 }
+:not(h1):not(.H) + .Alert--Info {
+  margin-top: 24px;
+  margin-top: 1.5rem;
+}
 .Alert--Info::before {
   content: 'Info' ' ' '\003f' ' ';
   font-weight: bold;
@@ -3461,6 +3532,10 @@ del + ins {
   background-image: -o-linear-gradient(to bottom, #ec9eff, #e16bff);
   background-image: linear-gradient(to bottom, #ec9eff, #e16bff);
   background-image: -webkit-gradient(to bottom, #ec9eff, #e16bff);
+}
+:not(h1):not(.H) + .Alert--Help {
+  margin-top: 24px;
+  margin-top: 1.5rem;
 }
 .Alert--Help::before {
   content: 'Help' ' ' '\2665' ' ';
