@@ -66,7 +66,7 @@
 
 /**
   * This Interface adds a vru-top to an element if it is an
-  * immediate sibling after an Element that is not an `.H` Object.
+  * immediate sibling after an Element that is not some type of heading.
 @params
 : @n : the number of vrus for the top spacing
 @author
@@ -77,7 +77,9 @@
 : #verticalrhythm
   */
 .follows-heading(@n) {
-  :not(.H) + & { .vru-top(@n); }
+  :not(h1):not(.H) + & {.vru-top(@n);}
+	// same as :not(h1, .H) + & {.vru-top(@n);}
+	// NOT the same as :not(h1.H) + & {.vru-top(@n);}
 }
 
 /**
