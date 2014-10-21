@@ -1,10 +1,17 @@
+/**
+  * Returns the product of phi^n and length
+  * @param  : n      : the power of phi
+  * @param  : length : the multiplier
+  * @return : phi^n * length
+  */
 function p(n, length) {
-	// * returns the product of phi^n and length
 	var Phi = ((-1 + Math.sqrt(5)) / 2);
 	return (length * Math.pow(Phi, n));
 }
+/**
+  * Positions the squares in a Fibonacci spiral.
+  */
 function positionSquares() {
-	// * positions the squares in a Fibonacci spiral
 	var mainwidth = $('main').width();
 	var P1  = p(1,  mainwidth);
 	var P2  = p(2,  mainwidth);
@@ -18,10 +25,10 @@ function positionSquares() {
 	var P10 = p(10, mainwidth);
 	var P11 = p(11, mainwidth);
 	var P12 = p(12, mainwidth);
-	$('.Square').css('position', 'absolute'); // this is in JS and not in CSS: in case users have
-	                                          // JS disabled but CSS not disabled, the position
-	                                          // should be static
-
+	$('.Square').css('position', 'absolute');
+	/* this is in JS and not in CSS: in case users have
+	JS disabled but CSS not disabled, the position
+	should be static (as specified in css file) */
 	$('.Spiral > li:nth-child( 1) > .Square').css('left', P2);
 	$('.Spiral > li:nth-child( 3) > .Square').css('top', P2);
 	$('.Spiral > li:nth-child( 4) > .Square').css('left', P3).css('top', P2 + P5);
@@ -37,25 +44,25 @@ function positionSquares() {
 function makepretty() {
 	var user_has_CSS_enabled = true;
 	if (user_has_CSS_enabled) {
+		/** sets the height of the given rectangle to its width */
 		$('.Square').css('height', function() {
-			// * sets the height of the given rectangle to its width
 			return $(this).width();
 		});
+		/** sets a proportional font size for each square (dependent on square height) */
 		$('.Text').css('font-size', function () {
-			// * sets a proportional font size for each square (dependent on square height)
 			return $(this).parents('.Square').height() / 4 + 'px';
 		});
+		/** vertically aligns the textbox in each square (depenedent on font-size) */
 		$('.Text').css('top', function () {;
-			// * vertically aligns the textbox in each square (depenedent on font-size)
 			return ($(this).parents('.Square').height() - $(this).height()) / 2 + 'px';
 		});
+		/** adjust the border-radius of the textbox proportionally */
 		$('.Text').css('border-radius', function () {
-			// * adjust the border-radius of the textbox proportionally
 			return $(this).height() / 2 + 'px';
 		});
 		positionSquares();
+		/** centers the group of buttons on the page */
 		$('.Spiral').css('top', function () {
-			// * centers the group of buttons on the page
 			return ($(window).height() - p(1, $('main').width())) * p(2, 1) + 'px';
 		});
 	}
