@@ -8,66 +8,66 @@
 <script type="text/javascript">
 <!--
 /*
-	The following JavaScript code can detect whether the jar applet file is located in the same
-	directory as this file and, if not, display an error. This error can be useful for helping 
-	first-time JavaSketch authors troubleshoot a JavaSketch that is not working correctly. 
-	However, if the default location or name of the jar file is altered by changing the 
-	parameters in the <APPLET> tag, this JavaScript code will continue to look next to this 
-	file for the jar file, which may result in an error message even though the JavaSketch
-	is otherwise functioning correctly. Additionally, future browser updates may cause this code
-	to display errors incorrectly.
+  The following JavaScript code can detect whether the jar applet file is located in the same
+  directory as this file and, if not, display an error. This error can be useful for helping 
+  first-time JavaSketch authors troubleshoot a JavaSketch that is not working correctly. 
+  However, if the default location or name of the jar file is altered by changing the 
+  parameters in the <APPLET> tag, this JavaScript code will continue to look next to this 
+  file for the jar file, which may result in an error message even though the JavaSketch
+  is otherwise functioning correctly. Additionally, future browser updates may cause this code
+  to display errors incorrectly.
 
-	This code is completely optional--the entire contents of this <SCRIPT> tag can be deleted and
-	the JavaSketch will continue to function normally.
+  This code is completely optional--the entire contents of this <SCRIPT> tag can be deleted and
+  the JavaSketch will continue to function normally.
 */
 
 if( IsFileMissing( "./jsp5.jar"))
 {
-	document.write("<p>This JavaSketch may be unusable because the applet file (jsp5.jar) appears to be missing from its proper location. (It should be located in the same directory as this web page on the web server.)</p>");
+  document.write("<p>This JavaSketch may be unusable because the applet file (jsp5.jar) appears to be missing from its proper location. (It should be located in the same directory as this web page on the web server.)</p>");
 }
 
 function IsFileMissing( iFileName)
 {
-	var tFileIsMissing = false;
-	var xmlhttp = null;
-	/* If the user is viewing this page with an Opera browser, we return false
-		 as we cannot rely on the detection to work correctly and avoid showing the error altogether */
-	if (window.opera)
-		return false;
-	if (window.ActiveXObject)
-	{
-		try
-		{
-			xmlhttp=new ActiveXObject("MSXML2.XMLHTTP.6.0");
-		}
-		catch(e)
-		{
-			try
-			{
-				xmlhttp=new ActiveXObject("MSXML2.XMLHTTP.3.0");
-			}
-			catch(e)
-			{
-				return false;
-			}
-		}
- 	}
-	else if (window.XMLHttpRequest)
-	{
-		xmlhttp=new XMLHttpRequest();
-	}
-	if( xmlhttp != null)
-	{
-		try{
-			xmlhttp.open("HEAD", iFileName += (iFileName.match(/\?/) == null ? "?" : "&") + (new Date()).getTime(), false);
-			xmlhttp.send(null);
-			tFileIsMissing = !((xmlhttp.status==200) || (xmlhttp.status == 0));
-		}
-		catch(er){
-			tFileIsMissing = true;
-		}
-	}
-	return tFileIsMissing;
+  var tFileIsMissing = false;
+  var xmlhttp = null;
+  /* If the user is viewing this page with an Opera browser, we return false
+     as we cannot rely on the detection to work correctly and avoid showing the error altogether */
+  if (window.opera)
+    return false;
+  if (window.ActiveXObject)
+  {
+    try
+    {
+      xmlhttp=new ActiveXObject("MSXML2.XMLHTTP.6.0");
+    }
+    catch(e)
+    {
+      try
+      {
+        xmlhttp=new ActiveXObject("MSXML2.XMLHTTP.3.0");
+      }
+      catch(e)
+      {
+        return false;
+      }
+    }
+   }
+  else if (window.XMLHttpRequest)
+  {
+    xmlhttp=new XMLHttpRequest();
+  }
+  if( xmlhttp != null)
+  {
+    try{
+      xmlhttp.open("HEAD", iFileName += (iFileName.match(/\?/) == null ? "?" : "&") + (new Date()).getTime(), false);
+      xmlhttp.send(null);
+      tFileIsMissing = !((xmlhttp.status==200) || (xmlhttp.status == 0));
+    }
+    catch(er){
+      tFileIsMissing = true;
+    }
+  }
+  return tFileIsMissing;
 }
 //-->
 </script>
