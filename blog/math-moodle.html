@@ -1,13 +1,11 @@
----
----
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>Typsetting Math in Moodle</title>
 <meta charset="UTF-8"/>
 <meta name="author" content="Christopher H. Harvey"/>
-<meta name="description" content="How to put mathematical expressions and equations into the Moodle system."/>
-<link rel="stylesheet" href=""/>
+<meta name="description" content="How to input mathematical expressions into the Moodle system."/>
+<link rel="stylesheet" href="../core/styles/all.css"/>
 <style>
 .lang-latex {
   border: 0;
@@ -26,51 +24,63 @@ figure img {
   border: 1px solid #000;
 }
 </style>
-{% include all-js.html %}
 </head>
 <body>
-{% include banner.html %}
-<main>
+<main class="Article" data-status="draft">
 <header>
-  <h1 class="h-alpha">Typesetting Math in Moodle</h1>
-  <p class="timestamp">Created by Chris Harvey on <time datetime="2013-02-18">Feb 18, 2013</time>. Last updated on <time datetime="2013-08-25T21:56">Aug 25, 2013</time>.</p>
-  <p class="lede">You may already know how to use <b>MathType</b> (or <b>Equation Editor</b>) to put equations in Moodle. But if you don't have those programs installed on your personal computer, or if you don't feel like switching applications often, this short tutorial is just for you. You will learn the basics of entering Math into test questions on Moodle&mdash;by hand!</p>
-  <p class="prose">This tutorial will teach you the basics of <span class="M">\LaTeX</span> (pronounced <i>LAH-tech</i>), which is sort of like a programming language. Learning <span class="M">\LaTeX</span> may take some time, but it will save you much more time in the long run. Once you are fluent with it, you'll be able to enter math equations without ever having to leave the Moodle page.</p>
+  <h1 class="H--Alp">Typesetting Math in Moodle</h1>
+  <dl class="Docmeta">
+    <dt>Author</dt>
+    <dd>Christopher H. Harvey</dd>
+    <dt>Description</dt>
+    <dd>How to input mathematical expressions into the Moodle system.</dd>
+    <dt>Completed</dt>
+    <!-- <dd class="complete"><time>2009</time></dd> -->
+    <dt>Released</dt>
+    <dd class="release"><time datetime="2013-02-18">Feb 18, 2013</time></dd>
+    <dt>Updated</dt>
+    <dd class="update recent"><time datetime="2013-08-25 21:56">Aug 25, 2013 <span class="hm">9:56 PM</span></time></dd>
+    <dt>Tags</dt>
+    <dd>math expressions</dd>
+    <dd>math equations</dd>
+  </dl>
+  <nav>
+    <h1 class="h-beta">Table of Contents</h1>
+    <ol class="list-action">
+      <li><a href="#intro">Introduction: Your First Equation by Hand</a></li>
+      <li><a href="#modes">Equation Modes</a></li>
+      <li><a href="#placement">Placement of Symbols</a>
+        <ol>
+          <li><a href="#supsub">Superscripts and Subscripts</a></li>
+          <li><a href="#frac">Fraction Bars</a></li>
+          <li><a href="#sqrt">Square Roots</a></li>
+          <li><a href="#delimeters">Parentheses and other Delimiters</a>
+            <ol>
+              <li><a href="#parens">Parentheses</a></li>
+              <li><a href="#brackets">Absolute Value, Square Brackets</a></li>
+              <li><a href="#braces">Curly Braces</a></li>
+            </ol>
+          </li>
+        </ol>
+      </li>
+      <li><a href="#special-chars">Special Characters</a>
+        <ol>
+          <li><a href="#vars">Values and Variables</a></li>
+          <li><a href="#operations">Binary Operations</a></li>
+          <li><a href="#relations">Binary Relations</a></li>
+        </ol>
+      </li>
+      <li><a href="#more-oper">More Operators</a></li>
+      <li><a href="#conclusion">Conclusion</a>
+        <ol>
+          <li><a href="#more-info">More Information</a></li>
+        </ol>
+      </li>
+    </ol>
+  </nav>
 </header>
-<nav>
-  <h1 class="h-beta">Table of Contents</h1>
-  <ol class="list-action">
-    <li><a href="#intro">Introduction: Your First Equation by Hand</a></li>
-    <li><a href="#modes">Equation Modes</a></li>
-    <li><a href="#placement">Placement of Symbols</a>
-      <ol>
-        <li><a href="#supsub">Superscripts and Subscripts</a></li>
-        <li><a href="#frac">Fraction Bars</a></li>
-        <li><a href="#sqrt">Square Roots</a></li>
-        <li><a href="#delimeters">Parentheses and other Delimiters</a>
-          <ol>
-            <li><a href="#parens">Parentheses</a></li>
-            <li><a href="#brackets">Absolute Value, Square Brackets</a></li>
-            <li><a href="#braces">Curly Braces</a></li>
-          </ol>
-        </li>
-      </ol>
-    </li>
-    <li><a href="#special-chars">Special Characters</a>
-      <ol>
-        <li><a href="#vars">Values and Variables</a></li>
-        <li><a href="#operations">Binary Operations</a></li>
-        <li><a href="#relations">Binary Relations</a></li>
-      </ol>
-    </li>
-    <li><a href="#more-oper">More Operators</a></li>
-    <li><a href="#conclusion">Conclusion</a>
-      <ol>
-        <li><a href="#more-info">More Information</a></li>
-      </ol>
-    </li>
-  </ol>
-</nav>
+<p class="lede">You may already know how to use <b>MathType</b> (or <b>Equation Editor</b>) to put equations in Moodle. But if you don't have those programs installed on your personal computer, or if you don't feel like switching applications often, this short tutorial is just for you. You will learn the basics of entering Math into test questions on Moodle&mdash;by hand!</p>
+<p class="prose">This tutorial will teach you the basics of <span class="M">\LaTeX</span> (pronounced <i>LAH-tech</i>), which is sort of like a programming language. Learning <span class="M">\LaTeX</span> may take some time, but it will save you much more time in the long run. Once you are fluent with it, you'll be able to enter math equations without ever having to leave the Moodle page.</p>
 <section id="intro">
   <h1 class="h-beta">Introduction: Your First Equation by Hand</h1>
   <p class="prose">To enter a math equation into Moodle, you need to surround the math with double dollar signs on each side. For example, to display <span class="M demo">2x+3=7</span>, you would need to type <code class="lang-latex">$$2x+3=7$$</code> anywhere in the text box on Moodle. Try it for yourself:</p>
