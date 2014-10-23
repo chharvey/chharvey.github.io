@@ -1,9 +1,9 @@
 // out: home.css
 @import (reference) url('../core/styles/all.less');
 
-/*-------------*\
+/*#############*\
     home.less
-\*-------------*/
+\*#############*/
 
 
 // Table of Contents
@@ -15,56 +15,56 @@
 /*@INDEX PAGE*/
 //+++++++++++//
 .Spiral {
-	position: relative;
+  position: relative;
 }
 .Square {
-	@animate: (@t_ani * 2);
-	.transition(background-color; @animate);
-	display: block;
-	height: 3em; // will be changed proportionally in JS
-	position: static; // will be changed to `absolute` in JS
-	color: transparent;
-	background-color: @color_btn_up_bg;
-	background-image: url('images/circle.svg');
-	background-size: 200%;
-	.Text {
-		.transition(box-shadow,text-shadow,color,background-color; @animate);
-		display: block;
-		position: relative;
-		top: 0.5em; // will be changed proportionally in JS
-		border-radius: 0; // will be changed proportionally in JS
-		font-family: @fontfam_heading;
-		text-align: center;
-		text-shadow: 2px 2px 10px;
-	}
+  @trans_square: @t_ani_long;
+  .transition(background-color; @trans_square);
+  display: block;
+  height: 3em; // will be changed proportionally in JS
+  position: static; // will be changed to `absolute` in JS
+  color: transparent;
+  background-color: @color_crumb_up_bg;
+  background-image: url('images/circle.svg');
+  background-size: 200%;
+  .Text {
+    .transition(box-shadow,text-shadow,color,background-color; @trans_square);
+    display: block;
+    position: relative;
+    top: 0.5em; // will be changed proportionally in JS
+    border-radius: 0; // will be changed proportionally in JS
+    font-family: @fontfam_heading;
+    text-align: center;
+    text-shadow: 2px 2px 10px;
+  }
 }
 .Square:hover {
-	color: @color_btn_dn_txt;
-	background-color: @color_btn_dn_bg;
-	.Text {
-		@bgcolor: fadeout(@color_base_bg,@golden1);
-		box-shadow: 0px 0px 20px 20px @bgcolor;
-		background-color: @bgcolor;
-	}
+  color: @color_crumb_dn_txt;
+  background-color: @color_crumb_dn_bg;
+  .Text {
+    @bgcolor: fadeout(@color_base_bg, @golden1);
+    box-shadow: 0px 0px 20px 20px @bgcolor;
+    background-color: @bgcolor;
+  }
 }
 
-.q1 {background-position: 100%   0%;}
-.q2 {background-position:   0%   0%;}
-.q3 {background-position:   0% 100%;}
-.q4 {background-position: 100% 100%;}
+.q1() {background-position: 100%   0%;}
+.q2() {background-position:   0%   0%;}
+.q3() {background-position:   0% 100%;}
+.q4() {background-position: 100% 100%;}
 
-.Spiral > :nth-child( 1) > .Square {&:extend(.q1); width: @golden1; }
-.Spiral > :nth-child( 2) > .Square {&:extend(.q2); width: @golden2; }
-.Spiral > :nth-child( 3) > .Square {&:extend(.q3); width: @golden3; }
-.Spiral > :nth-child( 4) > .Square {&:extend(.q4); width: @golden4; }
-.Spiral > :nth-child( 5) > .Square {&:extend(.q1); width: @golden5; }
-.Spiral > :nth-child( 6) > .Square {&:extend(.q2); width: @golden6; }
-.Spiral > :nth-child( 7) > .Square {&:extend(.q3); width: @golden7; }
-.Spiral > :nth-child( 8) > .Square {&:extend(.q4); width: @golden8; }
-.Spiral > :nth-child( 9) > .Square {&:extend(.q1); width: @golden9; }
-.Spiral > :nth-child(10) > .Square {&:extend(.q2); width: @golden10;}
-.Spiral > :nth-child(11) > .Square {&:extend(.q3); width: @golden11;}
-.Spiral > :nth-child(12) > .Square {&:extend(.q4); width: @golden12;}
+.Spiral > :nth-child(1)  > .Square {.q1(); width: @golden1;}
+.Spiral > :nth-child(2)  > .Square {.q2(); width: @golden2;}
+.Spiral > :nth-child(3)  > .Square {.q3(); width: @golden3;}
+.Spiral > :nth-child(4)  > .Square {.q4(); width: @golden4;}
+.Spiral > :nth-child(5)  > .Square {.q1(); width: @golden5;}
+.Spiral > :nth-child(6)  > .Square {.q2(); width: @golden6;}
+.Spiral > :nth-child(7)  > .Square {.q3(); width: @golden7;}
+.Spiral > :nth-child(8)  > .Square {.q4(); width: @golden8;}
+.Spiral > :nth-child(9)  > .Square {.q1(); width: @golden9;}
+.Spiral > :nth-child(10) > .Square {.q2(); width: @golden10;}
+.Spiral > :nth-child(11) > .Square {.q3(); width: @golden11;}
+.Spiral > :nth-child(12) > .Square {.q4(); width: @golden12;}
 //++++ @end INDEX PAGE ++++//
 
 
@@ -80,8 +80,10 @@
   */
 /**
   * This Object represents a list of images, for example, contact icons.
-@extends
-: .List.I
+@implements
+: .list-block()
+: .margin-even
+: .vru-top()
 @tags
 : #typography
 : #list
@@ -92,20 +94,22 @@
   */
 @iconsize: 64px;
 @iconpadd: 10px;
-.List.I.Iconlist {
-	&:extend(.margin-even);
-	&:extend(.vru-top-1);
-	text-align: center;
+.Iconlist {
+  .list-block();
+  .margin-even;
+  .vru-top(1);
+  text-align: center;
+  .Item {display: inline;}
 }
 .Icon-ct {
-	&:extend(.transp all);
-	display: inline-block;
-	width:  @iconsize;
-	height: @iconsize;
-	color: transparent;
-	background-image: url('images/contact-sprite.png');
-	background-repeat: no-repeat;
-	overflow: hidden;
+  .transp();
+  display: inline-block;
+  width:  @iconsize;
+  height: @iconsize;
+  color: transparent;
+  background-image: url('images/contact-sprite.png');
+  background-repeat: no-repeat;
+  overflow: hidden;
 }
 .Icon-ct.Mapss {.sprite(1; @iconsize; @iconpadd);}
 .Icon-ct.Phone {.sprite(2; @iconsize; @iconpadd);}
@@ -118,15 +122,13 @@
 
 /**
   * List of acknowledgements on about page.
-@implements
-: .listindent-half
 @author
 : Chris Harvey
 @updated
 : 2014-07-10
   */
-.List.U.Ack {
-	&:extend(.listindent-half);
+.Ulist.Ack {
+  padding-left: (@listindent / 2);
 }
 
 /**
@@ -137,10 +139,10 @@
 : 2014-06-16
   */
 .Capt.Capt-logo {
-	padding-right: 96px;
-	background-position: right center;
-	background-repeat: no-repeat;
-	background-size: 72px auto;
+  padding-right: 96px;
+  background-position: right center;
+  background-repeat: no-repeat;
+  background-size: 72px auto;
 }
 .Capt.Capt-logo.Nctm {background-image: url('images/logos-banners/logo-NCTM.png');}
 .Capt.Capt-logo.Vctm {background-image: url('images/logos-banners/logo-VCTM.png');}
@@ -151,21 +153,23 @@
 
 /**
   * An application icon.
+@implements
+: .transp()
 @author
 : Chris Harvey
 @updated
 : 2014-06-16
   */
 .Icon-app {
-	&:extend(.transp all);
-	display: inline-block;
-	width: 72px;
-	height: 72px;
-	color: transparent;
-	background-size: contain;
-	background-position: center center;
-	background-repeat: no-repeat;
-	overflow: hidden;
+  .transp();
+  display: inline-block;
+  width: 72px;
+  height: 72px;
+  color: transparent;
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
+  overflow: hidden;
 }
 .Icon-app.Apple {background-image: url('images/logos-banners/logo-Apple-gray.jpg');}
 .Icon-app.Chrom {background-image: url('images/logos-banners/logo-Chrome.png');}

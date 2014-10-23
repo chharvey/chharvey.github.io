@@ -5,6 +5,14 @@
 \*###############*/
 
 
+// colors for inline hyperlinks
+@color_link_up: @atlas;
+@color_link_dn: @pbody;
+@color_link_active_txt: @color_accent;
+
+// animation effects for links
+@trans_link: @t_ani_short;
+
 /**
   * This Object represents the abstract concept of a span of text that links to another file.
   * It does not represent an inactive placeholder (equivalent to an empty `a` Element). It also
@@ -15,16 +23,17 @@
 @author
 : Chris Harvey
 @updated
-: 2014-05-17
+: 2014-09-23
   */
 .Link {
-	text-decoration: none;
-	color: @color_link_up;
-	&:hover {
-		text-decoration: underline;
-		color: @color_link_dn;
-	}
-	&:active {color: @color_link_active_txt;}
+  .transition(color; @trans_link);
+  color: @color_link_up;
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+    color: @color_link_dn;
+  }
+  &:active {color: @color_link_active_txt;}
 }
 a[rel~="external"] {font-style: italic;}
 /**
@@ -40,7 +49,7 @@ a[rel~="external"] {font-style: italic;}
 : 2014-05-25
   */
 .Ref {
-	font-weight: bold;
+  font-weight: bold;
 }
 /**
   * This Object represents a proper noun traditionally italicized, e.g. periodical name or ship name.
@@ -54,6 +63,6 @@ a[rel~="external"] {font-style: italic;}
 : 2014-05-25
   */
 .Proper {
-	font-style: italic;
-	text-transform: capitalize;
+  font-style: italic;
+  text-transform: capitalize;
 }

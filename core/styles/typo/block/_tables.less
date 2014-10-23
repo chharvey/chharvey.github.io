@@ -1,0 +1,167 @@
+// main: ../../all.less
+
+/*################*\
+    _tables.less
+\*################*/
+
+
+@table_brdr_w: 1px;
+@table_brdr_s: solid;
+@table_brdr_c: @color_border;
+
+// @color_table_bg_hi: @bridges; // hsv(185, 16.6%, 100%); // #d4fbff
+// @color_table_bg_md:              hsv(185, 11.1%, 100%); // #e2fcff // 11.1 = (2/3) * 16.6
+// @color_table_bg_lo:              hsv(185,  5.5%, 100%); // #f0fdff //  5.5 = (1/3) * 16.6
+//
+// @color_table_bg_hi: @neurotoxin; // hsv( 69, 83.3%, 75%); // #a7bf20
+// @color_table_bg_md:                 hsv( 69, 50.0%, 75%); // #b1bf60
+// @color_table_bg_lo:                 hsv( 69, 16.7%, 75%); // #babf9f
+
+@color_table_bg_hi: @color_base_bg;
+@color_table_bg_md: @color_base_bg;
+@color_table_bg_lo: @color_base_bg;
+
+/**
+  * This Object represents a table-like structure. It may or may not be a literal `table` Element.
+  * A `.Table` is defined as an collection of data in two or more dimensions. A common example
+  * would be a multivariable map: given multiple (e.g., two) independent inputs there exists one
+  * dependent output.
+@implements
+: .follows-heading()
+: .fontsize-block-sml()
+@tags
+: #typography
+: #table
+@author
+: Chris Harvey
+@updated
+: 2014-10-19
+  */
+.Table {
+  .follows-heading(1);
+  .fontsize-block-sml();
+  display: table;
+  text-align: center;
+  > .Capt {
+    border-top-width: @table_brdr_w;
+    border-top-style: @table_brdr_s;
+    border-top-color: @table_brdr_c;
+  }
+}
+/**
+  * This Object represents a group of rows in a `.Table`.
+@tags
+: #typography
+: #table
+@author
+: Chris Harvey
+@updated
+: 2014-05-18
+  */
+.Rowgroup {
+  border-width: @table_brdr_w 0;
+  border-style: solid;
+  border-color: @table_brdr_c;
+}
+.Rowgroup.Head,
+.Rowgroup.Foot {
+  vertical-align: bottom;
+  background-color: @color_table_bg_hi;
+  .Row {background-color: transparent;}
+}
+.Rowgroup.Head {
+  display: table-header-group;
+}
+.Rowgroup.Body {
+  display: table-row-group;
+  vertical-align: top;
+}
+.Rowgroup.Foot {
+  display: table-footer-group;
+}
+/**
+  * This Object represents a single row in a `.Table`.
+@tags
+: #typography
+: #table
+@author
+: Chris Harvey
+@updated
+: 2014-05-18
+  */
+.Row {
+  display: table-row;
+  &:nth-child(odd)  {background-color: @color_table_bg_md;}
+  &:nth-child(even) {background-color: @color_table_bg_lo;}
+}
+/**
+  * This Object represents a single data entry in a `.Table`.
+@implements
+: .vru-content()
+: .cellpaddingdefault()
+@tags
+: #typography
+: #table
+@author
+: Chris Harvey
+@updated
+: 2014-05-18
+  */
+.Cell {
+  .vru-content();
+  .cellpaddingdefault();
+  display: table-cell;
+}
+/**
+  * This Object represents a heading in a `.Table`. A table heading may apply to a single row,
+  * a single column, a group of rows, or a group of columns.
+@tags
+: #typography
+: #table
+: #heading
+@author
+: Chris Harvey
+@updated
+: 2014-05-18
+  */
+.Cell.Hc {
+  font-weight: bold;
+  font-family: @fontfam_intro;
+}
+
+.Table.Vert .Cell {
+  &:nth-child(odd)  {background-color: @color_table_bg_md;}
+  &:nth-child(even) {background-color: @color_table_bg_lo;}
+}
+// .Table.Grid {
+//   > .Rowgroup.Head,
+//   > .Rowgroup > .Row > .Cell.Hc {background-color: @color_table_bg_hi;}
+//   > .Rowgroup {
+//     > .Row {
+//       > .Cell {border: 1px solid @color_table_brdr;}
+//     }
+//     > .Row:nth-child(odd) {
+//       > .Cell:nth-child(odd)  {background-color: @color_table_bg_lo;}
+//       > .Cell:nth-child(even) {background-color: @color_table_bg_md;}
+//     }
+//     > .Row:nth-child(even) {
+//       > .Cell:nth-child(odd)  {background-color: @color_table_bg_md;}
+//       > .Cell:nth-child(even) {background-color: @color_table_bg_hi;}
+//     }
+//   }
+// }
+table {
+  counter-reset: nrows;
+  tr {
+    counter-increment: nrows;
+  }
+  // twice more for the first and last borders
+  counter-increment: nrows;
+  counter-increment: nrows;
+//    @btm: -(((nrows + 12) % 24) - 12);
+//    if (btm <= 0) {
+//      margin-bottom: @btm;
+//    } else {
+//      padding-bottom: @btm;
+//    }
+}
