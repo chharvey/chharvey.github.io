@@ -18,17 +18,19 @@
   * list items may be releveant or irrelevant.
 @implements
 : .vru-content()
+: .follows-heading()
 @tags
 : #typography
 : #list
 @author
 : Chris Harvey
 @updated
-: 2014-10-07
+: 2014-10-19
   */
 .list-block() {
-	display: block;
-	.vru-content();
+  display: block;
+  .vru-content();
+  .follows-heading(1);
 }
 /**
   * This Object represents a block item in a list. It may be a literal `li` Element
@@ -63,10 +65,10 @@
 : 2014-05-11
   */
 .Olist {
-	.list-block();
-	padding-left: @listindent;
-	list-style-type: decimal-leading-zero; //  01.  02.  03.
-	list-style-type: decimal;              //   1.   2.   3.
+  .list-block();
+  padding-left: @listindent;
+  list-style-type: decimal-leading-zero; //  01.  02.  03.
+  list-style-type: decimal;              //   1.   2.   3.
 }
 /**
   * These Objects represent outlined lists with different enumeration types.
@@ -104,9 +106,9 @@
 : 2014-05-11
   */
 .Ulist {
-	.list-block();
-	padding-left: @listindent;
-	list-style-type: square;
+  .list-block();
+  padding-left: @listindent;
+  list-style-type: square;
 }
 /**
   * This Object represents an action list, which typically contains hyperlinks.
@@ -122,12 +124,12 @@
 : 2014-05-11
   */
 .Alist {
-	.list-block();
-	> .Item {
-		color: @color_link_up;
-		&:hover {color: @color_link_dn;}
-		&::before {content: '\2713\0020';} // check mark, space
-	}
+  .list-block();
+  > .Item {
+    color: @color_link_up;
+    &:hover {color: @color_link_dn;}
+    &::before {content: '\2713\0020';} // check mark, space
+  }
 }
 
 /**
@@ -148,10 +150,10 @@
 : 2014-10-01
   */
 .Ilist {
-	display: inline;
-	> .Item {
-		display: inline;
-	}
+  display: inline;
+  > .Item {
+    display: inline;
+  }
 }
 /**
   * These Objects are `.Item`s in a `.Ilist`. They represent character-separated values.
@@ -187,9 +189,9 @@
 : 2014-10-03
   */
 .Olist.LOP {
-	> .Item:not(:first-child) {
-		.vru-top(1);
-	}
+  > .Item:not(:first-child) {
+    .vru-top(1);
+  }
 }
 /**
   * This Object represents a 'List in Prose', a list that is contained within prose paragraphs.
@@ -207,11 +209,11 @@
 : 2014-05-25
   */
 .Ilist.LIP {
-	counter-reset: count;
-	> .Item {
-		counter-increment: count;
-		&::before {
-			content: '(' counter(count) ') ';
-		}
-	}
+  counter-reset: count;
+  > .Item {
+    counter-increment: count;
+    &::before {
+      content: '(' counter(count) ') ';
+    }
+  }
 }

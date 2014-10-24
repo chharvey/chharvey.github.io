@@ -18,7 +18,7 @@
 - [ ] fix and convert TEST 7.13a versions (verbal math)
 - [x] 2013-10-25 create SBG 7.16 versions (properties)
 - [ ] 2013-10-25 add problems requiring identifying properties to solve equations on SBG 7.16
-	(to both versions)
+  (to both versions)
 - [x] create SBG 7.14 versions (equations)
 
 ### math7/integers/ ###
@@ -37,14 +37,14 @@
 - [ ] 2013-09-21 create `fieldprops-lesson.html`
 - [x] 2013-09-21 convert Unit 1 Test to `wholenumbersintegers-test.html`
 - [ ] 2013-09-21 Test 1
-	- add images from Unit 1 Test (on Drive)
-	- remove verbal mathematics and add to **Test 2**
+  - add images from Unit 1 Test (on Drive)
+  - remove verbal mathematics and add to **Test 2**
 
 ### math7/equations/ ###
 - [ ] 2013-11-05 create `verbals-lesson.html`
 - [ ] create `eqns-onestep-lesson.html`
 - [ ] 2013-08-23 move links to `eqns-onestep-prequiz.html` and `eqns-onestep-quiz.html` from
-	`eqns-twostep-lesson.html` to `eqns-onestep-lesson.html`
+  `eqns-twostep-lesson.html` to `eqns-onestep-lesson.html`
 - [x] 2013-10-25 convert Pre-Quiz 1.2 (`eqns-twostep-prequiz.html`) from GDrive
 - [ ] fix `eqns-twostep-lesson.html`
 - [x] 2013-10-25 create `eqns-twostep-quiz.html` (mini-quiz on only math part of solving equations)
@@ -54,13 +54,13 @@
 - [ ] update `ineq-solve-lesson.html`
 - [ ] 2013-10-25 add **Inequalities Part 3** from Pages on GDrive to `ineq-solve-lesson.html`
 - [ ] add material from `ModifiedLessonWriteup.pdf` on GDrive to `ineq-writegraph-lesson.html` and
-	`ineq-solve-lesson.html`
+  `ineq-solve-lesson.html`
 - [ ] Test 2
-	- add verbal mathematics
-	- more on one-step equations
-	- less on two-step equations
-	- add inequalities
-	- (in 2013, gave test along with SBG 7.15)
+  - add verbal mathematics
+  - more on one-step equations
+  - less on two-step equations
+  - add inequalities
+  - (in 2013, gave test along with SBG 7.15)
 
 ### math7/functions/ ###
 - [ ] convert **Modified Lesson #2: Relations** from GDrive
