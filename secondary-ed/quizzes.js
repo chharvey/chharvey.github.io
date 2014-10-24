@@ -12,10 +12,10 @@
  * var answer;
  * var distractors = new AnswerChoice[3];
  * method addAnswer(text) {
- *	answer = new AnswerChoice(text, 1);
+ *  answer = new AnswerChoice(text, 1);
  * }
- * method addDistractor(n, text) {	
- *	distractors[n].answertext = text;
+ * method addDistractor(n, text) {  
+ *  distractors[n].answertext = text;
  * }
  * 
  * new class Question-SelAll
@@ -27,5 +27,5 @@
  */
 
 function addAnswer(text) {
-	answer = new AnswerChoice(text, 1);
+  answer = new AnswerChoice(text, 1);
 }
