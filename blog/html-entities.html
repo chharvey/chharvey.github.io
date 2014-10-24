@@ -7,6 +7,11 @@
 <meta name="description" content="A table of special characters."/>
 <link rel="stylesheet" href="../core/styles/all.css"/>
 <style>
+main {
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+}
 table {width: 100%;}
 tbody td:nth-child(2) {
   font-size: 1.25rem;
@@ -15,12 +20,17 @@ tbody td:nth-child(2) {
 tbody td:nth-child(4),
 tbody td:nth-child(5) {font-family: monospace;}
 
+tbody td:nth-child(1) {text-transform: uppercase;}
+
 /* undo default .Table styles */
 .Table tr:nth-child(n) {background-color: transparent;}
 .Table tr:hover {background-color: #c1c5cc;} /* darken(@aperture_white; 20%); */
 .Table th,
 .Table td {padding: 0;}
 </style>
+<script src="http://code.jquery.com/jquery-2.0.2.min.js"></script>
+<script src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML,http://chharvey.github.io/chhlib/mathjax-localconfig.js"></script>
+<script src="http://chharvey.github.io/core/scripts/global.js"></script>
 </head>
 <body>
 <main>
@@ -37,621 +47,176 @@ tbody td:nth-child(5) {font-family: monospace;}
       <th class="Cell Hc" scope="col">Comments</th>
     </tr>
   </thead>
-  <tbody class="Rowgroup Body" id="delimiters">
-    <tr class="Row"><th class="Cell Hc" scope="rowgroup" colspan="7">Delimiters</th></tr>
+  <tbody class="Rowgroup Body" id="text-delims">
+    <tr class="Row"><th class="Cell Hc" scope="rowgroup" colspan="7">Text Delimiters</th></tr>
     <tr class="Row">
-      <td class="Cell">left single quote</td>
-      <td class="Cell">&#x0091;</td>
-      <td class="Cell">0091</td>
+      <td class="Cell">apostrophe</td>
+      <td class="Cell">&#x0027;</td>
+      <td class="Cell">0027</td>
+      <td class="Cell">&amp;apos;</td>
+      <td class="Cell"></td>
+      <td class="Cell">'</td>
+      <td class="Cell"><code>&amp;apos;</code> only in XML</td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">quotation mark</td>
+      <td class="Cell">&#x0022;</td>
+      <td class="Cell">0022</td>
+      <td class="Cell">&amp;qot;</td>
+      <td class="Cell"></td>
+      <td class="Cell">shift '</td>
+      <td class="Cell"></td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">left parenthesis</td>
+      <td class="Cell">&#x0028;</td>
+      <td class="Cell">0028</td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+      <td class="Cell">shift 9</td>
+      <td class="Cell"></td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">right parenthesis</td>
+      <td class="Cell">&#x0029;</td>
+      <td class="Cell">0029</td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+      <td class="Cell">shift 0</td>
+      <td class="Cell"></td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">left square bracket</td>
+      <td class="Cell">&#x005b;</td>
+      <td class="Cell">005b</td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+      <td class="Cell">[</td>
+      <td class="Cell"></td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">right square bracket</td>
+      <td class="Cell">&#x005d;</td>
+      <td class="Cell">005d</td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+      <td class="Cell">]</td>
+      <td class="Cell"></td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">left curly bracket</td>
+      <td class="Cell">&#x007b;</td>
+      <td class="Cell">007b</td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+      <td class="Cell">shift [</td>
+      <td class="Cell"></td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">right curly bracket</td>
+      <td class="Cell">&#x007d;</td>
+      <td class="Cell">007d</td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+      <td class="Cell">shift ]</td>
+      <td class="Cell"></td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">left-pointing angle bracket</td>
+      <td class="Cell">&#x2329;</td>
+      <td class="Cell">2329</td>
+      <td class="Cell">&amp;lang;</td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+      <td class="Cell">see U+003c for HTML delimiter</td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">right-pointing angle bracket</td>
+      <td class="Cell">&#x232a;</td>
+      <td class="Cell">232a</td>
+      <td class="Cell">&amp;rang;</td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+      <td class="Cell">see U+003e for HTML delimiter</td>
+    </tr>
+  </tbody>
+  <tbody class="Rowgroup Body" id="quotes">
+    <tr class="Row"><th class="Cell Hc" scope="rowgroup" colspan="7">Quotation Marks</th></tr>
+    <tr class="Row">
+      <td class="Cell">left single quotation mark</td>
+      <td class="Cell">&#x2018;</td>
+      <td class="Cell">2018</td>
       <td class="Cell">&amp;lsquo;</td>
       <td class="Cell"></td>
       <td class="Cell">option ]</td>
       <td class="Cell"></td>
     </tr>
     <tr class="Row">
-      <td class="Cell">right single quote</td>
-      <td class="Cell">&#x0092;</td>
-      <td class="Cell">0092</td>
+      <td class="Cell">right single quotation mark</td>
+      <td class="Cell">&#x2019;</td>
+      <td class="Cell">2019</td>
       <td class="Cell">&amp;rsquo;</td>
       <td class="Cell"></td>
       <td class="Cell">option shift ]</td>
       <td class="Cell"></td>
     </tr>
     <tr class="Row">
-      <td class="Cell">left double quote</td>
-      <td class="Cell">&#x0093;</td>
-      <td class="Cell">0093</td>
+      <td class="Cell">left double quotation mark</td>
+      <td class="Cell">&#x201c;</td>
+      <td class="Cell">201c</td>
       <td class="Cell">&amp;ldquo;</td>
       <td class="Cell"></td>
       <td class="Cell">option [</td>
       <td class="Cell"></td>
     </tr>
     <tr class="Row">
-      <td class="Cell">right double quote</td>
-      <td class="Cell">&#x0094;</td>
-      <td class="Cell">0094</td>
+      <td class="Cell">right double quotation mark</td>
+      <td class="Cell">&#x201d;</td>
+      <td class="Cell">201d</td>
       <td class="Cell">&amp;rdquo;</td>
       <td class="Cell"></td>
       <td class="Cell">option shift [</td>
       <td class="Cell"></td>
     </tr>
     <tr class="Row">
-      <td class="Cell">left single angle quote</td>
-      <td class="Cell">&#x008b;</td>
-      <td class="Cell">008b</td>
+      <td class="Cell">single left-pointing angle quotation mark</td>
+      <td class="Cell">&#x2039;</td>
+      <td class="Cell">2039</td>
       <td class="Cell">&amp;lsaquo;</td>
       <td class="Cell"></td>
       <td class="Cell">option shift 3</td>
-      <td class="Cell"></td>
+      <td class="Cell">single guillemet</td>
     </tr>
     <tr class="Row">
-      <td class="Cell">right single angle quote</td>
-      <td class="Cell">&#x009b;</td>
-      <td class="Cell">009b</td>
+      <td class="Cell">single right-pointing angle quotation mark</td>
+      <td class="Cell">&#x203a;</td>
+      <td class="Cell">203a</td>
       <td class="Cell">&amp;rsaquo;</td>
       <td class="Cell"></td>
       <td class="Cell">option shift 4</td>
-      <td class="Cell"></td>
+      <td class="Cell">single guillemet</td>
     </tr>
     <tr class="Row">
-      <td class="Cell">left double angle quote</td>
+      <td class="Cell">left-pointing double angle quotation mark</td>
       <td class="Cell">&#x00ab;</td>
       <td class="Cell">00ab</td>
       <td class="Cell">&amp;laquo;</td>
       <td class="Cell"></td>
       <td class="Cell">option \</td>
-      <td class="Cell"></td>
+      <td class="Cell">guillemet</td>
     </tr>
     <tr class="Row">
-      <td class="Cell">right double angle quote</td>
+      <td class="Cell">right-pointing double angle quotation mark</td>
       <td class="Cell">&#x00bb;</td>
       <td class="Cell">00bb</td>
       <td class="Cell">&amp;raquo;</td>
       <td class="Cell"></td>
       <td class="Cell">option shift \</td>
-      <td class="Cell"></td>
-    </tr>
-    <tr class="Row">
-      <td class="Cell">bra</td>
-      <td class="Cell">&#x2329;</td>
-      <td class="Cell">2329</td>
-      <td class="Cell">&amp;lang;</td>
-      <td class="Cell">\langle</td>
-      <td class="Cell"></td>
-      <td class="Cell"></td>
-    </tr>
-    <tr class="Row">
-      <td class="Cell">ket</td>
-      <td class="Cell">&#x232a;</td>
-      <td class="Cell">232a</td>
-      <td class="Cell">&amp;rang;</td>
-      <td class="Cell">\rangle</td>
-      <td class="Cell"></td>
-      <td class="Cell"></td>
-    </tr>
-    <tr class="Row">
-      <td class="Cell">left ceiling</td>
-      <td class="Cell">&#x2308;</td>
-      <td class="Cell">2308</td>
-      <td class="Cell">&amp;lceil;</td>
-      <td class="Cell">\lceil</td>
-      <td class="Cell"></td>
-      <td class="Cell"></td>
-    </tr>
-    <tr class="Row">
-      <td class="Cell">right ceiling</td>
-      <td class="Cell">&#x2309;</td>
-      <td class="Cell">2309</td>
-      <td class="Cell">&amp;rceil;</td>
-      <td class="Cell">\rceil</td>
-      <td class="Cell"></td>
-      <td class="Cell"></td>
-    </tr>
-    <tr class="Row">
-      <td class="Cell">left floor</td>
-      <td class="Cell">&#x230a;</td>
-      <td class="Cell">230a</td>
-      <td class="Cell">&amp;lfloor;</td>
-      <td class="Cell">\lfloor</td>
-      <td class="Cell"></td>
-      <td class="Cell"></td>
-    </tr>
-    <tr class="Row">
-      <td class="Cell">right floor</td>
-      <td class="Cell">&#x230b;</td>
-      <td class="Cell">230b</td>
-      <td class="Cell">&amp;rfloor;</td>
-      <td class="Cell">\rfloor</td>
-      <td class="Cell"></td>
-      <td class="Cell"></td>
+      <td class="Cell">guillemet</td>
     </tr>
   </tbody>
-  <tbody class="Rowgroup Body" id="logic">
-    <tr class="Row"><th class="Cell Hc" scope="rowgroup" colspan="7">Logic &amp; Set Theory</th></tr>
-    <tr class="Row">
-      <td class="Cell">logical not</td>
-      <td class="Cell">&#x00ac;</td>
-      <td class="Cell">00ac</td>
-      <td class="Cell">&amp;not;</td>
-      <td class="Cell">\lnot</td>
-      <td class="Cell">option 1</td>
-      <td class="Cell"></td>
-    </tr>
-    <tr class="Row">
-      <td class="Cell">logical or</td>
-      <td class="Cell">&#x2228;</td>
-      <td class="Cell">2228</td>
-      <td class="Cell">&amp;or;</td>
-      <td class="Cell">\lor</td>
-      <td class="Cell"></td>
-      <td class="Cell"></td>
-    </tr>
-    <tr class="Row">
-      <td class="Cell">logical and</td>
-      <td class="Cell">&#x2227;</td>
-      <td class="Cell">2227</td>
-      <td class="Cell">&amp;and;</td>
-      <td class="Cell">\land</td>
-      <td class="Cell"></td>
-      <td class="Cell"></td>
-    </tr>
-    <tr class="Row">
-      <td class="Cell">there exists</td>
-      <td class="Cell">&#x2203;</td>
-      <td class="Cell">2203</td>
-      <td class="Cell">&amp;exist;</td>
-      <td class="Cell">\exists</td>
-      <td class="Cell"></td>
-      <td class="Cell"></td>
-    </tr>
-    <tr class="Row">
-      <td class="Cell">for all</td>
-      <td class="Cell">&#x2200;</td>
-      <td class="Cell">2200</td>
-      <td class="Cell">&amp;forall;</td>
-      <td class="Cell">\forall</td>
-      <td class="Cell"></td>
-      <td class="Cell"></td>
-    </tr>
-    <tr class="Row">
-      <td class="Cell">element of</td>
-      <td class="Cell">&#x2208;</td>
-      <td class="Cell">2208</td>
-      <td class="Cell">&amp;isin;</td>
-      <td class="Cell">\in</td>
-      <td class="Cell"></td>
-      <td class="Cell"></td>
-    </tr>
-    <tr class="Row">
-      <td class="Cell">not element of</td>
-      <td class="Cell">&#x2209;</td>
-      <td class="Cell">2209</td>
-      <td class="Cell">&amp;notin;</td>
-      <td class="Cell">\notin or \not\in</td>
-      <td class="Cell"></td>
-      <td class="Cell"></td>
-    </tr>
-    <tr class="Row">
-      <td class="Cell">has element</td>
-      <td class="Cell">&#x220b;</td>
-      <td class="Cell">220b</td>
-      <td class="Cell">&amp;ni;</td>
-      <td class="Cell">\owns</td>
-      <td class="Cell"></td>
-      <td class="Cell"></td>
-    </tr>
-    <tr class="Row">
-      <td class="Cell">therefore</td>
-      <td class="Cell">&#x2234;</td>
-      <td class="Cell">2234</td>
-      <td class="Cell">&amp;there4;</td>
-      <td class="Cell">\therefore</td>
-      <td class="Cell"></td>
-      <td class="Cell"></td>
-    </tr>
-    <tr class="Row">
-      <td class="Cell">equivalent</td>
-      <td class="Cell">&#x2261;</td>
-      <td class="Cell">2261</td>
-      <td class="Cell">&amp;equiv;</td>
-      <td class="Cell">\equiv</td>
-      <td class="Cell"></td>
-      <td class="Cell"></td>
-    </tr>
-    <tr class="Row">
-      <td class="Cell">proper subset</td>
-      <td class="Cell">&#x2282;</td>
-      <td class="Cell">2282</td>
-      <td class="Cell">&amp;sub;</td>
-      <td class="Cell">\subset</td>
-      <td class="Cell"></td>
-      <td class="Cell"></td>
-    </tr>
-    <tr class="Row">
-      <td class="Cell">proper superset</td>
-      <td class="Cell">&#x2283;</td>
-      <td class="Cell">2283</td>
-      <td class="Cell">&amp;sup;</td>
-      <td class="Cell">\superset</td>
-      <td class="Cell"></td>
-      <td class="Cell"></td>
-    </tr>
-    <tr class="Row">
-      <td class="Cell">subset</td>
-      <td class="Cell">&#x2286;</td>
-      <td class="Cell">2286</td>
-      <td class="Cell">&amp;sube;</td>
-      <td class="Cell">\subseteq</td>
-      <td class="Cell"></td>
-      <td class="Cell"></td>
-    </tr>
-    <tr class="Row">
-      <td class="Cell">superset</td>
-      <td class="Cell">&#x2287;</td>
-      <td class="Cell">2287</td>
-      <td class="Cell">&amp;supe;</td>
-      <td class="Cell">\superseteq</td>
-      <td class="Cell"></td>
-      <td class="Cell"></td>
-    </tr>
-    <tr class="Row">
-      <td class="Cell">not proper subset</td>
-      <td class="Cell">&#x2284;</td>
-      <td class="Cell">2284</td>
-      <td class="Cell">&amp;nsub;</td>
-      <td class="Cell">\notsubset</td>
-      <td class="Cell"></td>
-      <td class="Cell"></td>
-    </tr>
-    <tr class="Row">
-      <td class="Cell">not proper superset</td>
-      <td class="Cell">&#x2285;</td>
-      <td class="Cell">2285</td>
-      <td class="Cell">&amp;nsup;</td>
-      <td class="Cell">\notsuperset</td>
-      <td class="Cell"></td>
-      <td class="Cell"></td>
-    </tr>
-    <tr class="Row">
-      <td class="Cell">union</td>
-      <td class="Cell">&#x222a;</td>
-      <td class="Cell">222a</td>
-      <td class="Cell">&amp;cup;</td>
-      <td class="Cell">\cup</td>
-      <td class="Cell"></td>
-      <td class="Cell"></td>
-    </tr>
-    <tr class="Row">
-      <td class="Cell">intersection</td>
-      <td class="Cell">&#x2229;</td>
-      <td class="Cell">2229</td>
-      <td class="Cell">&amp;cap;</td>
-      <td class="Cell">\cap</td>
-      <td class="Cell"></td>
-      <td class="Cell"></td>
-    </tr>
-    <tr class="Row">
-      <td class="Cell">empty set</td>
-      <td class="Cell">&#x2205;</td>
-      <td class="Cell">2205</td>
-      <td class="Cell">&amp;empty;</td>
-      <td class="Cell">\varnothing</td>
-      <td class="Cell"></td>
-      <td class="Cell"></td>
-    </tr>
-  </tbody>
-  <tbody class="Rowgroup Body" id="relations">
-    <tr class="Row"><th class="Cell Hc" scope="rowgroup" colspan="7">Binary Relations</th></tr>
-    <tr class="Row">
-      <td class="Cell">not equal</td>
-      <td class="Cell">&#x2260;</td>
-      <td class="Cell">2260</td>
-      <td class="Cell">&amp;ne;</td>
-      <td class="Cell">\ne</td>
-      <td class="Cell">option =</td>
-      <td class="Cell"></td>
-    </tr>
-    <tr class="Row">
-      <td class="Cell">approximate</td>
-      <td class="Cell">&#x2248;</td>
-      <td class="Cell">2248</td>
-      <td class="Cell">&amp;asymp;</td>
-      <td class="Cell">\approx</td>
-      <td class="Cell">option x</td>
-      <td class="Cell"></td>
-    </tr>
-
-    <tr class="Row">
-      <td class="Cell">less than</td>
-      <td class="Cell">&#x003c;</td>
-      <td class="Cell">003c</td>
-      <td class="Cell">&amp;lt;</td>
-      <td class="Cell">\lt</td>
-      <td class="Cell">shift ,</td>
-      <td class="Cell"></td>
-    </tr>
-    <tr class="Row">
-      <td class="Cell">greater than</td>
-      <td class="Cell">&#x003e;</td>
-      <td class="Cell">003e</td>
-      <td class="Cell">&amp;gt;</td>
-      <td class="Cell">\gt</td>
-      <td class="Cell">shift .</td>
-      <td class="Cell"></td>
-    </tr>
-    <tr class="Row">
-      <td class="Cell">less than or equal</td>
-      <td class="Cell">&#x2264;</td>
-      <td class="Cell">2264</td>
-      <td class="Cell">&amp;le;</td>
-      <td class="Cell">\le</td>
-      <td class="Cell">option ,</td>
-      <td class="Cell"></td>
-    </tr>
-    <tr class="Row">
-      <td class="Cell">greater than or equal</td>
-      <td class="Cell">&#x2265;</td>
-      <td class="Cell">2265</td>
-      <td class="Cell">&amp;ge;</td>
-      <td class="Cell">\ge</td>
-      <td class="Cell">option .</td>
-      <td class="Cell"></td>
-    </tr>
-    <tr class="Row">
-      <td class="Cell">proportional</td>
-      <td class="Cell">&#x221d;</td>
-      <td class="Cell">221d</td>
-      <td class="Cell">&amp;prop;</td>
-      <td class="Cell">\varpropto</td>
-      <td class="Cell"></td>
-      <td class="Cell"></td>
-    </tr>
-    <tr class="Row">
-      <td class="Cell">similar</td>
-      <td class="Cell">&#x223c;</td>
-      <td class="Cell">223c</td>
-      <td class="Cell">&amp;sim;</td>
-      <td class="Cell">\sim</td>
-      <td class="Cell"></td>
-      <td class="Cell"></td>
-    </tr>
-    <tr class="Row">
-      <td class="Cell">congruent</td>
-      <td class="Cell">&#x2245;</td>
-      <td class="Cell">2245</td>
-      <td class="Cell">&amp;cong;</td>
-      <td class="Cell">\cong</td>
-      <td class="Cell"></td>
-      <td class="Cell"></td>
-    </tr>
-    <tr class="Row">
-      <td class="Cell">perpendicular</td>
-      <td class="Cell">&#x22a5;</td>
-      <td class="Cell">22a5</td>
-      <td class="Cell">&amp;perp;</td>
-      <td class="Cell">\perp</td>
-      <td class="Cell"></td>
-      <td class="Cell"></td>
-    </tr>
-  </tbody>
-  <tbody class="Rowgroup Body" id="operations">
-    <tr class="Row"><th class="Cell Hc" scope="rowgroup" colspan="7">Binary Operations</th></tr>
-    <tr class="Row">
-      <td class="Cell">minus</td>
-      <td class="Cell"></td>
-      <td class="Cell"></td>
-      <td class="Cell">&amp;minus;</td>
-      <td class="Cell">-</td>
-      <td class="Cell"></td>
-      <td class="Cell"></td>
-    </tr>
-    <tr class="Row">
-      <td class="Cell">plus or minus</td>
-      <td class="Cell">&#x00b1;</td>
-      <td class="Cell">00b1</td>
-      <td class="Cell">&amp;plusmn;</td>
-      <td class="Cell">\pm</td>
-      <td class="Cell">option shift =</td>
-      <td class="Cell"></td>
-    </tr>
-    <tr class="Row">
-      <td class="Cell">dot product</td>
-      <td class="Cell">&#x22c5;</td>
-      <td class="Cell">22c5</td>
-      <td class="Cell">&amp;sdot;</td>
-      <td class="Cell">\cdot</td>
-      <td class="Cell"></td>
-      <td class="Cell"></td>
-    </tr>
-    <tr class="Row">
-      <td class="Cell">cross product</td>
-      <td class="Cell">&#x00d7;</td>
-      <td class="Cell">00d7</td>
-      <td class="Cell">&amp;times;</td>
-      <td class="Cell">\times</td>
-      <td class="Cell"></td>
-      <td class="Cell"></td>
-    </tr>
-    <tr class="Row">
-      <td class="Cell">divide</td>
-      <td class="Cell">&#x00f7;</td>
-      <td class="Cell">00f7</td>
-      <td class="Cell">&amp;divide;</td>
-      <td class="Cell">\div</td>
-      <td class="Cell">option /</td>
-      <td class="Cell"></td>
-    </tr>
-    <tr class="Row">
-      <td class="Cell">low asterisk</td>
-      <td class="Cell">&#x2217;</td>
-      <td class="Cell">2217</td>
-      <td class="Cell">&amp;lowast;</td>
-      <td class="Cell">\ast</td>
-      <td class="Cell"></td>
-      <td class="Cell"></td>
-    </tr>
-    <tr class="Row">
-      <td class="Cell">pound</td>
-      <td class="Cell">&#x0023;</td>
-      <td class="Cell">0023</td>
-      <td class="Cell">#</td>
-      <td class="Cell">\#</td>
-      <td class="Cell">shift 3</td>
-      <td class="Cell"></td>
-    </tr>
-    <tr class="Row">
-      <td class="Cell">circle plus</td>
-      <td class="Cell">&#x2295;</td>
-      <td class="Cell">2295</td>
-      <td class="Cell">&amp;oplus;</td>
-      <td class="Cell">\oplus</td>
-      <td class="Cell"></td>
-      <td class="Cell"></td>
-    </tr>
-    <tr class="Row">
-      <td class="Cell">circle times</td>
-      <td class="Cell">&#x2297;</td>
-      <td class="Cell">2297</td>
-      <td class="Cell">&amp;otimes;</td>
-      <td class="Cell">\otimes</td>
-      <td class="Cell"></td>
-      <td class="Cell"></td>
-    </tr>
-  </tbody>
-  <tbody class="Rowgroup Body" id="functions">
-    <tr class="Row"><th class="Cell Hc" scope="rowgroup" colspan="7">Functions</th></tr>
-    <tr class="Row">
-      <td class="Cell">function of</td>
-      <td class="Cell">&#x0083;</td>
-      <td class="Cell">0083</td>
-      <td class="Cell">&amp;fnof;</td>
-      <td class="Cell"></td>
-      <td class="Cell">option f</td>
-      <td class="Cell"></td>
-    </tr>
-    <tr class="Row">
-      <td class="Cell">square root</td>
-      <td class="Cell">&#x221a;</td>
-      <td class="Cell">221a</td>
-      <td class="Cell">&amp;radic;</td>
-      <td class="Cell">\sqrt</td>
-      <td class="Cell">option v</td>
-      <td class="Cell"></td>
-    </tr>
-    <tr class="Row">
-      <td class="Cell">summation</td>
-      <td class="Cell">&#x2211;</td>
-      <td class="Cell">2211</td>
-      <td class="Cell">&amp;sum;</td>
-      <td class="Cell">\sum</td>
-      <td class="Cell">option w</td>
-      <td class="Cell"></td>
-    </tr>
-    <tr class="Row">
-      <td class="Cell">product</td>
-      <td class="Cell">&#x220f;</td>
-      <td class="Cell">220f</td>
-      <td class="Cell">&amp;prod;</td>
-      <td class="Cell">\prod</td>
-      <td class="Cell">option shift p</td>
-      <td class="Cell"></td>
-    </tr>
-    <tr class="Row">
-      <td class="Cell">partial</td>
-      <td class="Cell">&#x2202;</td>
-      <td class="Cell">2202</td>
-      <td class="Cell">&amp;part;</td>
-      <td class="Cell">\partial</td>
-      <td class="Cell">option d</td>
-      <td class="Cell"></td>
-    </tr>
-    <tr class="Row">
-      <td class="Cell">integral</td>
-      <td class="Cell">&#x222b;</td>
-      <td class="Cell">222b</td>
-      <td class="Cell">&amp;int;</td>
-      <td class="Cell">\int</td>
-      <td class="Cell">option b</td>
-      <td class="Cell"></td>
-    </tr>
-    <tr class="Row">
-      <td class="Cell">nabla</td>
-      <td class="Cell">&#x2207;</td>
-      <td class="Cell">2207</td>
-      <td class="Cell">&amp;nabla;</td>
-      <td class="Cell"></td>
-      <td class="Cell"></td>
-      <td class="Cell"></td>
-    </tr>
-  </tbody>
-  <!-- <tbody class="Rowgroup Body" id="letter-like">
-    <tr class="Row"><th class="Cell Hc" scope="rowgroup" colspan="7">Letter-Like Symbols</th></tr>
-    <tr class="Row">
-      <td class="Cell">double-struck capital n</td>
-      <td class="Cell">&#x2115;</td>
-      <td class="Cell">2115</td>
-      <td class="Cell"></td>
-      <td class="Cell"></td>
-      <td class="Cell"></td>
-      <td class="Cell"></td>
-    </tr>
-    <tr class="Row">
-      <td class="Cell">double-struck capital p</td>
-      <td class="Cell">&#x2119;</td>
-      <td class="Cell">2119</td>
-      <td class="Cell"></td>
-      <td class="Cell"></td>
-      <td class="Cell"></td>
-      <td class="Cell"></td>
-    </tr>
-    <tr class="Row">
-      <td class="Cell">double-struck capital q</td>
-      <td class="Cell">&#x211a;</td>
-      <td class="Cell">211a</td>
-      <td class="Cell"></td>
-      <td class="Cell"></td>
-      <td class="Cell"></td>
-      <td class="Cell"></td>
-    </tr>
-    <tr class="Row">
-      <td class="Cell">double-struck capital r</td>
-      <td class="Cell">&#x211d;</td>
-      <td class="Cell">211d</td>
-      <td class="Cell"></td>
-      <td class="Cell"></td>
-      <td class="Cell"></td>
-      <td class="Cell"></td>
-    </tr>
-    <tr class="Row">
-      <td class="Cell">double-struck capital z</td>
-      <td class="Cell">&#x2124;</td>
-      <td class="Cell">2124</td>
-      <td class="Cell"></td>
-      <td class="Cell"></td>
-      <td class="Cell"></td>
-      <td class="Cell"></td>
-    </tr>
-  </tbody> -->
-  <tbody class="Rowgroup Body" id="misc-math">
-    <tr class="Row"><th class="Cell Hc" scope="rowgroup" colspan="7">Miscellaneous Mathematical Symbols</th></tr>
-    <tr class="Row">
-      <td class="Cell">infinity</td>
-      <td class="Cell">&#x221e;</td>
-      <td class="Cell">221e</td>
-      <td class="Cell">&amp;infin;</td>
-      <td class="Cell">\infty</td>
-      <td class="Cell">option 5</td>
-      <td class="Cell"></td>
-    </tr>
-    <tr class="Row">
-      <td class="Cell">angle</td>
-      <td class="Cell">&#x2220;</td>
-      <td class="Cell">2220</td>
-      <td class="Cell">&amp;ang;</td>
-      <td class="Cell">\angle</td>
-      <td class="Cell"></td>
-      <td class="Cell"></td>
-    </tr>
+  <tbody class="Rowgroup Body" id="misc-text">
+    <tr class="Row"><th class="Cell Hc" scope="rowgroup" colspan="7">Miscellaneous Textual Symbols</th></tr>
     <tr class="Row">
       <td class="Cell">ampersand</td>
       <td class="Cell">&#x0026;</td>
@@ -662,60 +227,12 @@ tbody td:nth-child(5) {font-family: monospace;}
       <td class="Cell"></td>
     </tr>
     <tr class="Row">
-      <td class="Cell">degree</td>
-      <td class="Cell">&#x00b0;</td>
-      <td class="Cell">00b0</td>
-      <td class="Cell">&amp;deg;</td>
-      <td class="Cell"></td>
-      <td class="Cell">option k</td>
-      <td class="Cell"></td>
-    </tr>
-    <tr class="Row">
-      <td class="Cell">prime</td>
-      <td class="Cell">&#x2032;</td>
-      <td class="Cell">2032</td>
-      <td class="Cell">&amp;prime;</td>
-      <td class="Cell">\prime</td>
-      <td class="Cell"></td>
-      <td class="Cell"></td>
-    </tr>
-    <tr class="Row">
-      <td class="Cell">double prime</td>
-      <td class="Cell">&#x2033;</td>
-      <td class="Cell">2033</td>
-      <td class="Cell">&amp;Prime;</td>
-      <td class="Cell"></td>
-      <td class="Cell"></td>
-      <td class="Cell"></td>
-    </tr>
-    <tr class="Row">
-      <td class="Cell">script capital p</td>
-      <td class="Cell">&#x2118;</td>
-      <td class="Cell">2118</td>
-      <td class="Cell">&amp;weierp;</td>
-      <td class="Cell">\wp</td>
-      <td class="Cell"></td>
-      <td class="Cell">Weierstrass p</td>
-    </tr>
-  </tbody>
-  <tbody class="Rowgroup Body" id="misc-text">
-    <tr class="Row"><th class="Cell Hc" scope="rowgroup" colspan="7">Miscellaneous Textual Symbols</th></tr>
-    <tr class="Row">
       <td class="Cell">horizontal ellipsis</td>
-      <td class="Cell">&#x0085;</td>
-      <td class="Cell">0085</td>
+      <td class="Cell">&#x2026;</td>
+      <td class="Cell">2026</td>
       <td class="Cell">&amp;hellip;</td>
       <td class="Cell">\dots</td>
       <td class="Cell">option ;</td>
-      <td class="Cell"></td>
-    </tr>
-    <tr class="Row">
-      <td class="Cell">another horizontal ellipsis</td>
-      <td class="Cell">&#x2026;</td>
-      <td class="Cell">2026</td>
-      <td class="Cell"></td>
-      <td class="Cell"></td>
-      <td class="Cell"></td>
       <td class="Cell"></td>
     </tr>
     <tr class="Row">
@@ -791,6 +308,768 @@ tbody td:nth-child(5) {font-family: monospace;}
       <td class="Cell"></td>
     </tr>
   </tbody>
+  <tbody class="Rowgroup Body" id="math-delims">
+    <tr class="Row"><th class="Cell Hc" scope="rowgroup" colspan="7">Mathematical Delimiters</th></tr>
+    <tr class="Row">
+      <td class="Cell">mathematical left angle bracket</td>
+      <td class="Cell">&#x27e8;</td>
+      <td class="Cell">27e8</td>
+      <td class="Cell"></td>
+      <td class="Cell">\langle</td>
+      <td class="Cell"></td>
+      <td class="Cell">bra</td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">mathematical right angle bracket</td>
+      <td class="Cell">&#x27e9;</td>
+      <td class="Cell">27e9</td>
+      <td class="Cell"></td>
+      <td class="Cell">\rangle</td>
+      <td class="Cell"></td>
+      <td class="Cell">ket</td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">mathematical left double angle bracket</td>
+      <td class="Cell">&#x27ea;</td>
+      <td class="Cell">27ea</td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">mathematical right double angle bracket</td>
+      <td class="Cell">&#x27eb;</td>
+      <td class="Cell">27eb</td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">left ceiling</td>
+      <td class="Cell">&#x2308;</td>
+      <td class="Cell">2308</td>
+      <td class="Cell">&amp;lceil;</td>
+      <td class="Cell">\lceil</td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">right ceiling</td>
+      <td class="Cell">&#x2309;</td>
+      <td class="Cell">2309</td>
+      <td class="Cell">&amp;rceil;</td>
+      <td class="Cell">\rceil</td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">left floor</td>
+      <td class="Cell">&#x230a;</td>
+      <td class="Cell">230a</td>
+      <td class="Cell">&amp;lfloor;</td>
+      <td class="Cell">\lfloor</td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">right floor</td>
+      <td class="Cell">&#x230b;</td>
+      <td class="Cell">230b</td>
+      <td class="Cell">&amp;rfloor;</td>
+      <td class="Cell">\rfloor</td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+    </tr>
+  </tbody>
+  <tbody class="Rowgroup Body" id="relation-logic">
+    <tr class="Row"><th class="Cell Hc" scope="rowgroup" colspan="7">Binary Relations&mdash;Logic</th></tr>
+    <tr class="Row">
+      <td class="Cell">logical or</td>
+      <td class="Cell">&#x2228;</td>
+      <td class="Cell">2228</td>
+      <td class="Cell">&amp;or;</td>
+      <td class="Cell">\lor</td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">logical and</td>
+      <td class="Cell">&#x2227;</td>
+      <td class="Cell">2227</td>
+      <td class="Cell">&amp;and;</td>
+      <td class="Cell">\land</td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">right tack</td>
+      <td class="Cell">&#x22a2;</td>
+      <td class="Cell">22a2</td>
+      <td class="Cell"></td>
+      <td class="Cell">\vdash</td>
+      <td class="Cell"></td>
+      <td class="Cell">forward syntactic consequence</td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">left tack</td>
+      <td class="Cell">&#x22a3;</td>
+      <td class="Cell">22a3</td>
+      <td class="Cell"></td>
+      <td class="Cell">\dashv</td>
+      <td class="Cell"></td>
+      <td class="Cell">backward syntactic consequence</td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">left and right tack</td>
+      <td class="Cell">&#x27db;</td>
+      <td class="Cell">27db</td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+      <td class="Cell">logical equivalence, <code>\dashv\vdash</code></td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">models</td>
+      <td class="Cell">&#x22a7;</td>
+      <td class="Cell">22a7</td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+      <td class="Cell">forward semantic consequence (1)</td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">true</td>
+      <td class="Cell">&#x22a8;</td>
+      <td class="Cell">22a8</td>
+      <td class="Cell"></td>
+      <td class="Cell">\models or \vDash</td>
+      <td class="Cell"></td>
+      <td class="Cell">forward semantic consequence (2)</td>
+    </tr>
+  </tbody>
+  <tbody class="Rowgroup Body" id="relation-set">
+    <tr class="Row"><th class="Cell Hc" scope="rowgroup" colspan="7">Binary Relations&mdash;Set Theory</th></tr>
+    <tr class="Row">
+      <td class="Cell">element of</td>
+      <td class="Cell">&#x2208;</td>
+      <td class="Cell">2208</td>
+      <td class="Cell">&amp;isin;</td>
+      <td class="Cell">\in</td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">not element of</td>
+      <td class="Cell">&#x2209;</td>
+      <td class="Cell">2209</td>
+      <td class="Cell">&amp;notin;</td>
+      <td class="Cell">\notin or \not\in</td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">has element</td>
+      <td class="Cell">&#x220b;</td>
+      <td class="Cell">220b</td>
+      <td class="Cell">&amp;ni;</td>
+      <td class="Cell">\owns</td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">proper subset</td>
+      <td class="Cell">&#x2282;</td>
+      <td class="Cell">2282</td>
+      <td class="Cell">&amp;sub;</td>
+      <td class="Cell">\subset</td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">proper superset</td>
+      <td class="Cell">&#x2283;</td>
+      <td class="Cell">2283</td>
+      <td class="Cell">&amp;sup;</td>
+      <td class="Cell">\superset</td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">subset</td>
+      <td class="Cell">&#x2286;</td>
+      <td class="Cell">2286</td>
+      <td class="Cell">&amp;sube;</td>
+      <td class="Cell">\subseteq</td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">superset</td>
+      <td class="Cell">&#x2287;</td>
+      <td class="Cell">2287</td>
+      <td class="Cell">&amp;supe;</td>
+      <td class="Cell">\superseteq</td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">not proper subset</td>
+      <td class="Cell">&#x2284;</td>
+      <td class="Cell">2284</td>
+      <td class="Cell">&amp;nsub;</td>
+      <td class="Cell">\notsubset</td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">not proper superset</td>
+      <td class="Cell">&#x2285;</td>
+      <td class="Cell">2285</td>
+      <td class="Cell">&amp;nsup;</td>
+      <td class="Cell">\notsuperset</td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">union</td>
+      <td class="Cell">&#x222a;</td>
+      <td class="Cell">222a</td>
+      <td class="Cell">&amp;cup;</td>
+      <td class="Cell">\cup</td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">intersection</td>
+      <td class="Cell">&#x2229;</td>
+      <td class="Cell">2229</td>
+      <td class="Cell">&amp;cap;</td>
+      <td class="Cell">\cap</td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+    </tr>
+  </tbody>
+  <tbody class="Rowgroup Body" id="relation-arithmetic">
+    <tr class="Row"><th class="Cell Hc" scope="rowgroup" colspan="7">Binary Relations&mdash;Arithmetic</th></tr>
+    <tr class="Row">
+      <td class="Cell">not equal to</td>
+      <td class="Cell">&#x2260;</td>
+      <td class="Cell">2260</td>
+      <td class="Cell">&amp;ne;</td>
+      <td class="Cell">\ne</td>
+      <td class="Cell">option =</td>
+      <td class="Cell"></td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">approximate</td>
+      <td class="Cell">&#x2248;</td>
+      <td class="Cell">2248</td>
+      <td class="Cell">&amp;asymp;</td>
+      <td class="Cell">\approx</td>
+      <td class="Cell">option x</td>
+      <td class="Cell"></td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">less-than sign</td>
+      <td class="Cell">&#x003c;</td>
+      <td class="Cell">003c</td>
+      <td class="Cell">&amp;lt;</td>
+      <td class="Cell">\lt</td>
+      <td class="Cell">shift ,</td>
+      <td class="Cell">also used in HTML source</td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">greater-than sign</td>
+      <td class="Cell">&#x003e;</td>
+      <td class="Cell">003e</td>
+      <td class="Cell">&amp;gt;</td>
+      <td class="Cell">\gt</td>
+      <td class="Cell">shift .</td>
+      <td class="Cell">also used in HTML source</td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">less than or equal to</td>
+      <td class="Cell">&#x2264;</td>
+      <td class="Cell">2264</td>
+      <td class="Cell">&amp;le;</td>
+      <td class="Cell">\le</td>
+      <td class="Cell">option ,</td>
+      <td class="Cell"></td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">greater than or equal to</td>
+      <td class="Cell">&#x2265;</td>
+      <td class="Cell">2265</td>
+      <td class="Cell">&amp;ge;</td>
+      <td class="Cell">\ge</td>
+      <td class="Cell">option .</td>
+      <td class="Cell"></td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">precedes</td>
+      <td class="Cell">&#x227a;</td>
+      <td class="Cell">227a</td>
+      <td class="Cell"></td>
+      <td class="Cell">\prec</td>
+      <td class="Cell"></td>
+      <td class="Cell">injection into</td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">succeeds</td>
+      <td class="Cell">&#x227b;</td>
+      <td class="Cell">227b</td>
+      <td class="Cell"></td>
+      <td class="Cell">\succ</td>
+      <td class="Cell"></td>
+      <td class="Cell">surjection onto</td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">precedes above single-line equals sign</td>
+      <td class="Cell">&#x2aaf;</td>
+      <td class="Cell">2aaf</td>
+      <td class="Cell"></td>
+      <td class="Cell">\preceq</td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">succedes above single-line equals sign</td>
+      <td class="Cell">&#x2ab0;</td>
+      <td class="Cell">2ab0</td>
+      <td class="Cell"></td>
+      <td class="Cell">\succeq</td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">precedes or equal to</td>
+      <td class="Cell">&#x227c;</td>
+      <td class="Cell">227c</td>
+      <td class="Cell"></td>
+      <td class="Cell">\preccurlyeq</td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">succeeds or equal to</td>
+      <td class="Cell">&#x227d;</td>
+      <td class="Cell">227d</td>
+      <td class="Cell"></td>
+      <td class="Cell">\succcurlyeq</td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">minus</td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+      <td class="Cell">&amp;minus;</td>
+      <td class="Cell">-</td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">plus-minus sign</td>
+      <td class="Cell">&#x00b1;</td>
+      <td class="Cell">00b1</td>
+      <td class="Cell">&amp;plusmn;</td>
+      <td class="Cell">\pm</td>
+      <td class="Cell">option shift =</td>
+      <td class="Cell"></td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">minus-or-plus sign</td>
+      <td class="Cell">&#x2213;</td>
+      <td class="Cell">2213</td>
+      <td class="Cell"></td>
+      <td class="Cell">\mp</td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">dot operator</td>
+      <td class="Cell">&#x22c5;</td>
+      <td class="Cell">22c5</td>
+      <td class="Cell">&amp;sdot;</td>
+      <td class="Cell">\cdot</td>
+      <td class="Cell"></td>
+      <td class="Cell">dot product</td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">cross product</td>
+      <td class="Cell">&#x00d7;</td>
+      <td class="Cell">00d7</td>
+      <td class="Cell">&amp;times;</td>
+      <td class="Cell">\times</td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">divide</td>
+      <td class="Cell">&#x00f7;</td>
+      <td class="Cell">00f7</td>
+      <td class="Cell">&amp;divide;</td>
+      <td class="Cell">\div</td>
+      <td class="Cell">option /</td>
+      <td class="Cell"></td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">low asterisk</td>
+      <td class="Cell">&#x2217;</td>
+      <td class="Cell">2217</td>
+      <td class="Cell">&amp;lowast;</td>
+      <td class="Cell">\ast</td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">pound</td>
+      <td class="Cell">&#x0023;</td>
+      <td class="Cell">0023</td>
+      <td class="Cell">#</td>
+      <td class="Cell">\#</td>
+      <td class="Cell">shift 3</td>
+      <td class="Cell"></td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">circled plus</td>
+      <td class="Cell">&#x2295;</td>
+      <td class="Cell">2295</td>
+      <td class="Cell">&amp;oplus;</td>
+      <td class="Cell">\oplus</td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">circled times</td>
+      <td class="Cell">&#x2297;</td>
+      <td class="Cell">2297</td>
+      <td class="Cell">&amp;otimes;</td>
+      <td class="Cell">\otimes</td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+    </tr>
+  </tbody>
+  <tbody class="Rowgroup Body" id="relation-geometry">
+    <tr class="Row"><th class="Cell Hc" scope="rowgroup" colspan="7">Binary Relations&mdash;Geometry</th></tr>
+    <tr class="Row">
+      <td class="Cell">identical to</td>
+      <td class="Cell">&#x2261;</td>
+      <td class="Cell">2261</td>
+      <td class="Cell">&amp;equiv;</td>
+      <td class="Cell">\equiv</td>
+      <td class="Cell"></td>
+      <td class="Cell">general equivalnce</td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">approximately equal to</td>
+      <td class="Cell">&#x2245;</td>
+      <td class="Cell">2245</td>
+      <td class="Cell">&amp;cong;</td>
+      <td class="Cell">\cong</td>
+      <td class="Cell"></td>
+      <td class="Cell">congruent</td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">tilde operator</td>
+      <td class="Cell">&#x223c;</td>
+      <td class="Cell">223c</td>
+      <td class="Cell">&amp;sim;</td>
+      <td class="Cell">\sim</td>
+      <td class="Cell"></td>
+      <td class="Cell">similar</td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">proportional to</td>
+      <td class="Cell">&#x221d;</td>
+      <td class="Cell">221d</td>
+      <td class="Cell">&amp;prop;</td>
+      <td class="Cell">\varpropto</td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">parallel to</td>
+      <td class="Cell">&#x2225;</td>
+      <td class="Cell">2225</td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">perpendicular</td>
+      <td class="Cell">&#x27c2;</td>
+      <td class="Cell">27c2</td>
+      <td class="Cell"></td>
+      <td class="Cell">\perp</td>
+      <td class="Cell"></td>
+      <td class="Cell">see U+22a5 for <code>&amp;perp;</code></td>
+    </tr>
+  </tbody>
+  <tbody class="Rowgroup Body" id="functions">
+    <tr class="Row"><th class="Cell Hc" scope="rowgroup" colspan="7">Functions</th></tr>
+    <tr class="Row">
+      <td class="Cell">logical not</td>
+      <td class="Cell">&#x00ac;</td>
+      <td class="Cell">00ac</td>
+      <td class="Cell">&amp;not;</td>
+      <td class="Cell">\lnot</td>
+      <td class="Cell">option 1</td>
+      <td class="Cell"></td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">there exists</td>
+      <td class="Cell">&#x2203;</td>
+      <td class="Cell">2203</td>
+      <td class="Cell">&amp;exist;</td>
+      <td class="Cell">\exists</td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">for all</td>
+      <td class="Cell">&#x2200;</td>
+      <td class="Cell">2200</td>
+      <td class="Cell">&amp;forall;</td>
+      <td class="Cell">\forall</td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">complement</td>
+      <td class="Cell">&#x2201;</td>
+      <td class="Cell">2201</td>
+      <td class="Cell"></td>
+      <td class="Cell">\complement</td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">function of</td>
+      <td class="Cell">&#x0083;</td>
+      <td class="Cell">0083</td>
+      <td class="Cell">&amp;fnof;</td>
+      <td class="Cell"></td>
+      <td class="Cell">option f</td>
+      <td class="Cell"></td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">square root</td>
+      <td class="Cell">&#x221a;</td>
+      <td class="Cell">221a</td>
+      <td class="Cell">&amp;radic;</td>
+      <td class="Cell">\sqrt</td>
+      <td class="Cell">option v</td>
+      <td class="Cell"></td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">summation</td>
+      <td class="Cell">&#x2211;</td>
+      <td class="Cell">2211</td>
+      <td class="Cell">&amp;sum;</td>
+      <td class="Cell">\sum</td>
+      <td class="Cell">option w</td>
+      <td class="Cell"></td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">product</td>
+      <td class="Cell">&#x220f;</td>
+      <td class="Cell">220f</td>
+      <td class="Cell">&amp;prod;</td>
+      <td class="Cell">\prod</td>
+      <td class="Cell">option shift p</td>
+      <td class="Cell"></td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">partial</td>
+      <td class="Cell">&#x2202;</td>
+      <td class="Cell">2202</td>
+      <td class="Cell">&amp;part;</td>
+      <td class="Cell">\partial</td>
+      <td class="Cell">option d</td>
+      <td class="Cell"></td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">integral</td>
+      <td class="Cell">&#x222b;</td>
+      <td class="Cell">222b</td>
+      <td class="Cell">&amp;int;</td>
+      <td class="Cell">\int</td>
+      <td class="Cell">option b</td>
+      <td class="Cell"></td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">nabla</td>
+      <td class="Cell">&#x2207;</td>
+      <td class="Cell">2207</td>
+      <td class="Cell">&amp;nabla;</td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+    </tr>
+  </tbody>
+  <tbody class="Rowgroup Body" id="misc-math">
+    <tr class="Row"><th class="Cell Hc" scope="rowgroup" colspan="7">Miscellaneous Mathematical Symbols</th></tr>
+    <tr class="Row">
+      <td class="Cell">down tack</td>
+      <td class="Cell">&#x22a4;</td>
+      <td class="Cell">22a4</td>
+      <td class="Cell"></td>
+      <td class="Cell">\top</td>
+      <td class="Cell"></td>
+      <td class="Cell">tautology</td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">up tack</td>
+      <td class="Cell">&#x22a5;</td>
+      <td class="Cell">22a5</td>
+      <td class="Cell">&amp;perp;</td>
+      <td class="Cell">\bot</td>
+      <td class="Cell"></td>
+      <td class="Cell">contradiction; see U+27c2 for perpendicular</td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">therefore</td>
+      <td class="Cell">&#x2234;</td>
+      <td class="Cell">2234</td>
+      <td class="Cell">&amp;there4;</td>
+      <td class="Cell">\therefore</td>
+      <td class="Cell"></td>
+      <td class="Cell">punctuation (not relation)</td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">because</td>
+      <td class="Cell">&#x2235;</td>
+      <td class="Cell">2235</td>
+      <td class="Cell"></td>
+      <td class="Cell">\because</td>
+      <td class="Cell"></td>
+      <td class="Cell">punctuation (not relation)</td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">empty set</td>
+      <td class="Cell">&#x2205;</td>
+      <td class="Cell">2205</td>
+      <td class="Cell">&amp;empty;</td>
+      <td class="Cell">\varnothing</td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">infinity</td>
+      <td class="Cell">&#x221e;</td>
+      <td class="Cell">221e</td>
+      <td class="Cell">&amp;infin;</td>
+      <td class="Cell">\infty</td>
+      <td class="Cell">option 5</td>
+      <td class="Cell"></td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">angle</td>
+      <td class="Cell">&#x2220;</td>
+      <td class="Cell">2220</td>
+      <td class="Cell">&amp;ang;</td>
+      <td class="Cell">\angle</td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">degree</td>
+      <td class="Cell">&#x00b0;</td>
+      <td class="Cell">00b0</td>
+      <td class="Cell">&amp;deg;</td>
+      <td class="Cell"></td>
+      <td class="Cell">option k</td>
+      <td class="Cell"></td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">prime</td>
+      <td class="Cell">&#x2032;</td>
+      <td class="Cell">2032</td>
+      <td class="Cell">&amp;prime;</td>
+      <td class="Cell">\prime</td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">double prime</td>
+      <td class="Cell">&#x2033;</td>
+      <td class="Cell">2033</td>
+      <td class="Cell">&amp;Prime;</td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">triple prime</td>
+      <td class="Cell">&#x2034;</td>
+      <td class="Cell">2034</td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">script capital p</td>
+      <td class="Cell">&#x2118;</td>
+      <td class="Cell">2118</td>
+      <td class="Cell">&amp;weierp;</td>
+      <td class="Cell">\wp</td>
+      <td class="Cell"></td>
+      <td class="Cell">Weierstrass p</td>
+    </tr>
+  </tbody>
+  <!-- <tbody class="Rowgroup Body" id="letter-like">
+    <tr class="Row"><th class="Cell Hc" scope="rowgroup" colspan="7">Letter-Like Symbols</th></tr>
+    <tr class="Row">
+      <td class="Cell">double-struck capital n</td>
+      <td class="Cell">&#x2115;</td>
+      <td class="Cell">2115</td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">double-struck capital p</td>
+      <td class="Cell">&#x2119;</td>
+      <td class="Cell">2119</td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">double-struck capital q</td>
+      <td class="Cell">&#x211a;</td>
+      <td class="Cell">211a</td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">double-struck capital r</td>
+      <td class="Cell">&#x211d;</td>
+      <td class="Cell">211d</td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">double-struck capital z</td>
+      <td class="Cell">&#x2124;</td>
+      <td class="Cell">2124</td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+    </tr>
+  </tbody> -->
   <tbody class="Rowgroup Body" id="greek">
     <tr class="Row"><th class="Cell Hc" scope="rowgroup" colspan="7">Greek Letters</th></tr>
     <tr class="Row">
@@ -1247,7 +1526,7 @@ tbody td:nth-child(5) {font-family: monospace;}
   <tbody class="Rowgroup Body" id="arrows">
     <tr class="Row"><th class="Cell Hc" scope="rowgroup" colspan="7">Arrows</th></tr>
     <tr class="Row">
-      <td class="Cell">left arrow</td>
+      <td class="Cell">leftwards arrow</td>
       <td class="Cell">&#x2190;</td>
       <td class="Cell">2190</td>
       <td class="Cell">&amp;larr;</td>
@@ -1256,16 +1535,16 @@ tbody td:nth-child(5) {font-family: monospace;}
       <td class="Cell"></td>
     </tr>
     <tr class="Row">
-      <td class="Cell">right arrow</td>
+      <td class="Cell">rightwards arrow</td>
       <td class="Cell">&#x2192;</td>
       <td class="Cell">2192</td>
       <td class="Cell">&amp;rarr;</td>
       <td class="Cell">\rightarrow or \to</td>
       <td class="Cell"></td>
-      <td class="Cell"></td>
+      <td class="Cell">approaches</td>
     </tr>
     <tr class="Row">
-      <td class="Cell">horizontal arrow</td>
+      <td class="Cell">left right arrow</td>
       <td class="Cell">&#x2194;</td>
       <td class="Cell">2194</td>
       <td class="Cell">&amp;harr;</td>
@@ -1274,7 +1553,7 @@ tbody td:nth-child(5) {font-family: monospace;}
       <td class="Cell"></td>
     </tr>
     <tr class="Row">
-      <td class="Cell">up arrow</td>
+      <td class="Cell">upwards arrow</td>
       <td class="Cell">&#x2191;</td>
       <td class="Cell">2191</td>
       <td class="Cell">&amp;uarr;</td>
@@ -1283,7 +1562,7 @@ tbody td:nth-child(5) {font-family: monospace;}
       <td class="Cell"></td>
     </tr>
     <tr class="Row">
-      <td class="Cell">down arrow</td>
+      <td class="Cell">downwards arrow</td>
       <td class="Cell">&#x2193;</td>
       <td class="Cell">2193</td>
       <td class="Cell">&amp;darr;</td>
@@ -1292,7 +1571,16 @@ tbody td:nth-child(5) {font-family: monospace;}
       <td class="Cell"></td>
     </tr>
     <tr class="Row">
-      <td class="Cell">left double arrow</td>
+      <td class="Cell">up down arrow</td>
+      <td class="Cell">&#x2195;</td>
+      <td class="Cell">2195</td>
+      <td class="Cell"></td>
+      <td class="Cell">\updownarrow</td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">leftwards double arrow</td>
       <td class="Cell">&#x21d0;</td>
       <td class="Cell">21d0</td>
       <td class="Cell">&amp;lArr;</td>
@@ -1301,40 +1589,85 @@ tbody td:nth-child(5) {font-family: monospace;}
       <td class="Cell"></td>
     </tr>
     <tr class="Row">
-      <td class="Cell">right double arrow</td>
+      <td class="Cell">rightwards double arrow</td>
       <td class="Cell">&#x21d2;</td>
       <td class="Cell">21d2</td>
       <td class="Cell">&amp;rArr;</td>
       <td class="Cell">\Rightarrow or \implies</td>
       <td class="Cell"></td>
-      <td class="Cell"></td>
+      <td class="Cell">material implication</td>
     </tr>
     <tr class="Row">
-      <td class="Cell">horizontal double arrow</td>
+      <td class="Cell">left right double arrow</td>
       <td class="Cell">&#x21d4;</td>
       <td class="Cell">21d4</td>
       <td class="Cell">&amp;hArr;</td>
       <td class="Cell">\Leftrightarrow or \iff</td>
       <td class="Cell"></td>
-      <td class="Cell"></td>
+      <td class="Cell">material equivalence</td>
     </tr>
     <tr class="Row">
-      <td class="Cell">up double arrow</td>
+      <td class="Cell">upwards double arrow</td>
       <td class="Cell">&#x21d1;</td>
       <td class="Cell">21d1</td>
       <td class="Cell">&amp;uArr;</td>
       <td class="Cell">\Uparrow</td>
       <td class="Cell"></td>
-      <td class="Cell"></td>
+      <td class="Cell">alternative denial</td>
     </tr>
     <tr class="Row">
-      <td class="Cell">down double arrow</td>
+      <td class="Cell">downwards double arrow</td>
       <td class="Cell">&#x21d3;</td>
       <td class="Cell">21d3</td>
       <td class="Cell">&amp;dArr;</td>
       <td class="Cell">\Downarrow</td>
       <td class="Cell"></td>
+      <td class="Cell">joint denial</td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">up down double arrow</td>
+      <td class="Cell">&#x21d5;</td>
+      <td class="Cell">21d5</td>
       <td class="Cell"></td>
+      <td class="Cell">\Updownarrow</td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">rightwards arrow from bar</td>
+      <td class="Cell">&#x21a6;</td>
+      <td class="Cell">21a6</td>
+      <td class="Cell"></td>
+      <td class="Cell">\mapsto</td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">rightwards two headed arrow</td>
+      <td class="Cell">&#x21a0;</td>
+      <td class="Cell">21a0</td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+      <td class="Cell">injection</td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">rightwards arrow with tail</td>
+      <td class="Cell">&#x21a3;</td>
+      <td class="Cell">21a3</td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+      <td class="Cell">surjection</td>
+    </tr>
+    <tr class="Row">
+      <td class="Cell">left right arrow with vertical stroke</td>
+      <td class="Cell">&#x21f9;</td>
+      <td class="Cell">21f9</td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+      <td class="Cell"></td>
+      <td class="Cell">bijection</td>
     </tr>
   </tbody>
 </table>
