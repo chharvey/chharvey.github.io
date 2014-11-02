@@ -170,7 +170,12 @@ code {
     .delimiters('';';');
     color: @color_code_prp;
   }
-  .Val  { color: @color_code_val; }
+  .Val  {
+    .delimiters(': ';'');
+    &::before,
+    &::after { color: @color_code_prp; }
+    color: @color_code_val;
+  }
   .Cmd  {
     .delimiters('';';');
     color: @color_code_cmd;
@@ -181,8 +186,10 @@ code {
     &::before,
     &::after { color: @color_code_cmd; }
   }
-  .Comm.I { .delimiters('// ';''); }
-  .Comm.B { .delimiters('/* ';' */'); }
+  .Comm   {
+    .delimiters('/* ';' */');
+    &.I { quotes: '// ' ''; }
+  }
   .String {
     .Codeblock.HTML.Val;
     .apos();
@@ -203,109 +210,58 @@ code {
 : 2014-11-02
   */
 .CSSmap {
+  .Codeblock;
   .Codeblock.CSS;
   white-space: nowrap;
-  .Comm { .delimiters('/* '; ' */'); }
   .String {
     .apos();
     color: @color_code_arg;
   }
-  /**
-    * This Object represents a CSS selector.
-  @childof
-  : .Codeblock.CSS
-  @tags
-  : #code
-  @author
-  : Chris Harvey
-  @updated
-  : 2014-05-25
-    */
-  .Sel { &::after { content: ' {'; } }
-  /**
-    * This Object represents a ruleset for a CSS selector.
-  @childof
-  : .Codeblock.CSS
-  @implements
-  : .clearfix
-  @tags
-  : #code
-  @author
-  : Chris Harvey
-  @updated
-  : 2014-05-25
-  */
+  .Sel { quotes: '' ' {'; }
   .Ruleset {
     .clearfix();
     &::after {
       content: '}';
       color: @color_code_sel;
     }
-    > .Comm {padding-left: @tab;}
-    /**
-      * This Object represents the property in a CSS property-value pair.
-    @childof
-    : .Codeblock.CSS .Ruleset
-    @tags
-    : #code
-    @author
-    : Chris Harvey
-    @updated
-    : 2014-05-25
-      */
     > .Prp {
-      padding-left: @tab;
       float: left;
       clear: both;
-      &::after {content: ':\00A0';} // `&nbsp;` because a normal (`\0020`) will not work on a float
+      quotes: '' ':\00A0'; // `&nbsp;` because a normal (`\0020`) will not work on a float
     }
-    /**
-      * This Object represents the value in a CSS property-value pair.
-    @childof
-    : .Codeblock.CSS .Ruleset
-    @tags
-    : #code
-    @author
-    : Chris Harvey
-    @updated
-    : 2014-05-25
-    */
-    > .Val {
-      &::after {
-        content: ';';
-        color: @color_code_prp;
-      }
-    }
+    > .Val { quotes: '' ';'; }
+    > .Prp,
+    > .Comm { padding-left: @tab; }
   }
-  /**
-    * A block of CSS code whose selectors are inline. This is really useful for selectors with one
-    * property-value pair each.
-  @extends
-  : .Codeblock.CSS
-  @tags
-  : #code
-  @author
-  : Chris Harvey
-  @updated
-  : 2014-05-31
-    */
-  &.I {
-    .Sel {
-      float: left;
-      clear: both;
+}
+/**
+  * A block of CSS code whose selectors are inline. This is really useful for selectors with one
+  * property-value pair each.
+@extends
+: .Codeblock.CSS
+@tags
+: #code
+@author
+: Chris Harvey
+@updated
+: 2014-05-31
+  */
+&.I {
+  .Sel {
+    float: left;
+    clear: both;
+  }
+  .Ruleset {
+    &::after {
+      display: inline;
     }
-    .Ruleset {
-      &::after {
-        display: inline;
-      }
-      > .Prp {
-        display: inline;
-        padding-left: @en;
-        float: none;
-      }
-      > .Val {
-        display: inline;
-      }
+    > .Prp {
+      display: inline;
+      padding-left: @en;
+      float: none;
+    }
+    > .Val {
+      display: inline;
     }
   }
 }
