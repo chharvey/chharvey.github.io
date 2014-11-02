@@ -124,6 +124,10 @@ code {
       color: #808080;
     }
   }
+  .Endtag {
+    .Tag;
+    .delimiters('</';'>');
+  }
   .Atr {
     color: @color_code_atr;
   }
@@ -133,15 +137,14 @@ code {
     &::before,
     &::after {color: @solarized_magenta;}
   }
-  .Comm {
-    .delimiters('<!-- ';' -->');
-  }
+  .Comm { .delimiters('<!-- ';' -->'); }
 }
 
 /**
   * This Object represents a block of CSS or LESS code.
   * `.Sel` : a CSS selector
   * `.Prop`: a CSS property
+  * `.Val` : a CSS value
   * `.Cmd` : a Less, LaTeX, or JS command
   * `.Arg` : a Less, LaTeX, or JS argument
 @extends
@@ -159,11 +162,32 @@ code {
   @color_code_val: @solarized_cyan;
   @color_code_cmd: @solarized_blue;
   @color_code_arg: @solarized_violet;
-  .Sel  {color: @color_code_sel;}
-  .Prp  {color: @color_code_prp;}
-  .Val  {color: @color_code_val;}
-  .Cmd  {color: @color_code_cmd;}
-  .Arg  {color: @color_code_arg;}
+  .Sel  {
+    .delimiters('';'}');
+    color: @color_code_sel;
+  }
+  .Prp  {
+    .delimiters('';';');
+    color: @color_code_prp;
+  }
+  .Val  { color: @color_code_val; }
+  .Cmd  {
+    .delimiters('';';');
+    color: @color_code_cmd;
+  }
+  .Arg  {
+    .parens();
+    color: @color_code_arg;
+    &::before,
+    &::after { color: @color_code_cmd; }
+  }
+  .Comm.I { .delimiters('// ';''); }
+  .Comm.B { .delimiters('/* ';' */'); }
+  .String {
+    .Codeblock.HTML.Val;
+    .apos();
+    color: @solarized_yellow;
+  }
 }
 
 /**
