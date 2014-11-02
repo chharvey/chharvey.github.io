@@ -27,6 +27,7 @@
   * would be a multivariable map: given multiple (e.g., two) independent inputs there exists one
   * dependent output.
 @implements
+: .follows-heading()
 : .fontsize-block-sml()
 @tags
 : #typography
@@ -34,16 +35,18 @@
 @author
 : Chris Harvey
 @updated
-: 2014-07-10
+: 2014-10-19
   */
 .Table {
-	.fontsize-block-sml();
-	display: table;
-	text-align: center;
-	> .Capt {
-		border-top-width: @table_brdr_w;
-		border-top-style: solid;
-	}
+  .follows-heading(1);
+  .fontsize-block-sml();
+  display: table;
+  text-align: center;
+  > .Capt {
+    border-top-width: @table_brdr_w;
+    border-top-style: @table_brdr_s;
+    border-top-color: @table_brdr_c;
+  }
 }
 /**
   * This Object represents a group of rows in a `.Table`.
@@ -56,25 +59,25 @@
 : 2014-05-18
   */
 .Rowgroup {
-	border-width: @table_brdr_w 0;
-	border-style: solid;
-	border-color: @table_brdr_c;
+  border-width: @table_brdr_w 0;
+  border-style: solid;
+  border-color: @table_brdr_c;
 }
 .Rowgroup.Head,
 .Rowgroup.Foot {
-	vertical-align: bottom;
-	background-color: @color_table_bg_hi;
-	.Row {background-color: transparent;}
+  vertical-align: bottom;
+  background-color: @color_table_bg_hi;
+  .Row {background-color: transparent;}
 }
 .Rowgroup.Head {
-	display: table-header-group;
+  display: table-header-group;
 }
 .Rowgroup.Body {
-	display: table-row-group;
-	vertical-align: top;
+  display: table-row-group;
+  vertical-align: top;
 }
 .Rowgroup.Foot {
-	display: table-footer-group;
+  display: table-footer-group;
 }
 /**
   * This Object represents a single row in a `.Table`.
@@ -87,9 +90,9 @@
 : 2014-05-18
   */
 .Row {
-	display: table-row;
-	&:nth-child(odd)  {background-color: @color_table_bg_md;}
-	&:nth-child(even) {background-color: @color_table_bg_lo;}
+  display: table-row;
+  &:nth-child(odd)  {background-color: @color_table_bg_md;}
+  &:nth-child(even) {background-color: @color_table_bg_lo;}
 }
 /**
   * This Object represents a single data entry in a `.Table`.
@@ -105,9 +108,9 @@
 : 2014-05-18
   */
 .Cell {
-	.vru-content();
-	.cellpaddingdefault();
-	display: table-cell;
+  .vru-content();
+  .cellpaddingdefault();
+  display: table-cell;
 }
 /**
   * This Object represents a heading in a `.Table`. A table heading may apply to a single row,
@@ -122,43 +125,43 @@
 : 2014-05-18
   */
 .Cell.Hc {
-	font-weight: bold;
-	font-family: @fontfam_intro;
+  font-weight: bold;
+  font-family: @fontfam_intro;
 }
 
 .Table.Vert .Cell {
-	&:nth-child(odd)  {background-color: @color_table_bg_md;}
-	&:nth-child(even) {background-color: @color_table_bg_lo;}
+  &:nth-child(odd)  {background-color: @color_table_bg_md;}
+  &:nth-child(even) {background-color: @color_table_bg_lo;}
 }
 // .Table.Grid {
-// 	> .Rowgroup.Head,
-// 	> .Rowgroup > .Row > .Cell.Hc {background-color: @color_table_bg_hi;}
-// 	> .Rowgroup {
-// 		> .Row {
-// 			> .Cell {border: 1px solid @color_table_brdr;}
-// 		}
-// 		> .Row:nth-child(odd) {
-// 			> .Cell:nth-child(odd)  {background-color: @color_table_bg_lo;}
-// 			> .Cell:nth-child(even) {background-color: @color_table_bg_md;}
-// 		}
-// 		> .Row:nth-child(even) {
-// 			> .Cell:nth-child(odd)  {background-color: @color_table_bg_md;}
-// 			> .Cell:nth-child(even) {background-color: @color_table_bg_hi;}
-// 		}
-// 	}
+//   > .Rowgroup.Head,
+//   > .Rowgroup > .Row > .Cell.Hc {background-color: @color_table_bg_hi;}
+//   > .Rowgroup {
+//     > .Row {
+//       > .Cell {border: 1px solid @color_table_brdr;}
+//     }
+//     > .Row:nth-child(odd) {
+//       > .Cell:nth-child(odd)  {background-color: @color_table_bg_lo;}
+//       > .Cell:nth-child(even) {background-color: @color_table_bg_md;}
+//     }
+//     > .Row:nth-child(even) {
+//       > .Cell:nth-child(odd)  {background-color: @color_table_bg_md;}
+//       > .Cell:nth-child(even) {background-color: @color_table_bg_hi;}
+//     }
+//   }
 // }
 table {
-	counter-reset: nrows;
-	tr {
-		counter-increment: nrows;
-	}
-	// twice more for the first and last borders
-	counter-increment: nrows;
-	counter-increment: nrows;
-//		@btm: -(((nrows + 12) % 24) - 12);
-//		if (btm <= 0) {
-//			margin-bottom: @btm;
-//		} else {
-//			padding-bottom: @btm;
-//		}
+  counter-reset: nrows;
+  tr {
+    counter-increment: nrows;
+  }
+  // twice more for the first and last borders
+  counter-increment: nrows;
+  counter-increment: nrows;
+//    @btm: -(((nrows + 12) % 24) - 12);
+//    if (btm <= 0) {
+//      margin-bottom: @btm;
+//    } else {
+//      padding-bottom: @btm;
+//    }
 }

@@ -10,6 +10,8 @@
   * It is Meant for text-containing block Elements, such as p, blockquote, li, dt, dd, th, td.
   * If these Elements have shorter contents, the vertical rhythm won't break.
   * Do not include `display: block;` in the case of list-item, table-caption, or other exceptions.
+@params
+: @n : (an integer) the number of vertical rhythm units specified for the height
 @tags
 : #verticalrhythm
 @author
@@ -17,44 +19,67 @@
 @updated
 : 2014-10-07
   */
+.vru-content(@n) {
+  min-height: (@n * @vru_px ); // fallback
+  min-height: (@n * @vru_rem);
+}
 .vru-content() {
-	min-height: @vru_px; // fallback
-	min-height: @vru_rem;
+  .vru-content(1);
+  // min-height: @vru_px; // fallback
+  // min-height: @vru_rem;
 }
 /**
   * These Interfaces provide [top|bottom] spacing of a multiple of a vertical rhythm unit.
 @params
 : @ratio : the multliplier, i.e. how many `rem`s
-@tags
-: #verticalrhythm
 @author
 : Chris Harvey
 @updated
 : 2014-07-10
+@tags
+: #verticalrhythm
   */
 .vru-top(@ratio) {
-	margin-top: (@ratio * @vru_px); // fallback
-	margin-top: (@ratio * @vru_rem);
+  margin-top: (@ratio * @vru_px); // fallback
+  margin-top: (@ratio * @vru_rem);
 }
 .vru-bottom(@ratio) {
-	padding-bottom: (@ratio * @vru_px); // fallback
-	padding-bottom: (@ratio * @vru_rem);
+  padding-bottom: (@ratio * @vru_px); // fallback
+  padding-bottom: (@ratio * @vru_rem);
 }
 
-:not(.H) + .Article,
-:not(.H) + .P,
-:not(.H) + .Olist,
-:not(.H) + .Ulist,
-:not(.H) + .Alist,
-:not(.H) + .Map,
-:not(.H) + .Table,
-:not(.H) + .Codeblock,
-:not(.H) + .Alert--Warn,
-:not(.H) + .Alert--Cshn,
-:not(.H) + .Alert--Skss,
-:not(.H) + .Alert--Info,
-:not(.H) + .Alert--Help {
-	.vru-top(1);
+// :not(.H) + .Article,
+// :not(.H) + .P,
+// :not(.H) + .Olist,
+// :not(.H) + .Ulist,
+// :not(.H) + .Alist,
+// :not(.H) + .Map,
+// :not(.H) + .Table,
+// :not(.H) + .Codeblock,
+// :not(.H) + .Alert--Warn,
+// :not(.H) + .Alert--Cshn,
+// :not(.H) + .Alert--Skss,
+// :not(.H) + .Alert--Info,
+// :not(.H) + .Alert--Help {
+//   .vru-top(1);
+// }
+
+/**
+  * This Interface adds a vru-top to an element if it is an
+  * immediate sibling after an Element that is not some type of heading.
+@params
+: @n : the number of vrus for the top spacing
+@author
+: Chris Harvey
+@updated
+: 2014-10-19
+@tags
+: #verticalrhythm
+  */
+.follows-heading(@n) {
+  :not(h1):not(.H) + & {.vru-top(@n);}
+  // same as :not(h1, .H) + & {.vru-top(@n);}
+  // NOT the same as :not(h1.H) + & {.vru-top(@n);}
 }
 
 /**
@@ -75,17 +100,17 @@
 : 2014-08-07
   */
 .vru-top-phi(@brdrw) {
-	padding-top: ((@vru_px - @brdrw) * @phi2);
-	margin-top:  ((@vru_px - @brdrw) * @phi1);
-	border-top-width: @brdrw;
+  padding-top: ((@vru_px - @brdrw) * @phi2);
+  margin-top:  ((@vru_px - @brdrw) * @phi1);
+  border-top-width: @brdrw;
 }
 .vru-top-phi(@brdrw; @brdrs) {
-	.vru-top-phi(@brdrw);
-	border-top-style: @brdrs;
+  .vru-top-phi(@brdrw);
+  border-top-style: @brdrs;
 }
 .vru-top-phi(@brdrw; @brdrs; @brdrc) {
-	.vru-top-phi(@brdrw; @brdrs);
-	border-top-color: @brdrc;
+  .vru-top-phi(@brdrw; @brdrs);
+  border-top-color: @brdrc;
 }
 // .vru-top-phi {.vru-top-phi(0; none; #000);}
 .vru-top-phi() {.vru-top-phi(0);}

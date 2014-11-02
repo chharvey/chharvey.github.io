@@ -1,153 +1,153 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema
-	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	xmlns="http://chharvey.net16.net/ProofML/material.xsd"
-	targetNamespace="http://chharvey.net16.net/ProofML/material.xsd"
-	elementFormDefault="qualified"
-	attributeFormDefault="unqualified"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns="http://chharvey.net16.net/ProofML/material.xsd"
+  targetNamespace="http://chharvey.net16.net/ProofML/material.xsd"
+  elementFormDefault="qualified"
+  attributeFormDefault="unqualified"
 >
-	<xsd:annotation>
-		<xsd:documentation xml:lang="en">
-			THIS SCHEMA DEFINITION HAS BEEN VALIDATED!
-			
-			insert more info here...
-			
-			TODO:
-			- ProofType
-		</xsd:documentation>
-	</xsd:annotation>
-	
-	<!-- ROOT ELEMENT -->
-	<xsd:element name="theorem" type="TheoremType"/>
-	
-	<xsd:complexType name="TheoremType">
-		<xsd:sequence>
-			<!-- must be 'sequence' (not 'all') because 'proof' is unbounded -->
-			<xsd:element name="name" type="xsd:string" minOccurs="0"/>
-			<xsd:element name="summary" type="SummaryType"/>
-			<xsd:element name="statement" type="StatementType"/>
-			<xsd:element name="proof" type="ProofType" minOccurs="0" maxOccurs="unbounded"/>
-		</xsd:sequence>
-		<xsd:attribute name="id" type="xsd:ID" use="required"/>
-	</xsd:complexType>
-	
-	<xsd:complexType name="SummaryType" mixed="true">
-		<xsd:choice minOccurs="0" maxOccurs="unbounded">
-			<xsd:element name="latex" type="xsd:string"/>
-		</xsd:choice>
-	</xsd:complexType>
-	
-	<xsd:complexType name="StatementType">
-		<xsd:all>
-			<xsd:element name="quantifier" type="QuantifierType"/>
-		</xsd:all>
-		<xsd:attribute name="model" type="ModelType" use="required"/>
-		<xsd:attribute name="isAxiom" type="xsd:boolean" default="false"/>
-	</xsd:complexType>
-	
-	<xsd:simpleType name="ModelType">
-		<xsd:restriction base="xsd:string">
-			<xsd:enumeration value="logical"/>
-			<xsd:enumeration value="material"/>
-		</xsd:restriction>
-	</xsd:simpleType>
-	
-	<xsd:complexType name="QuantifierType">
-		<xsd:all>
-			<xsd:element name="setdef" type="SetDefType"/>
-			<!-- a material variable (set) definition.
-			All material variables are scoped, not global like logical variables -->
-			<xsd:element name="predicate" type="FormType"/>
-		</xsd:all>
-		<xsd:attribute name="type" type="QuantifierTypeType" use="required"/>
-	</xsd:complexType>
-	
-	<xsd:simpleType name="QuantifierTypeType">
-		<!-- the name of the quantifier -->
-		<xsd:restriction base="xsd:string">
-			<xsd:enumeration value="existential"/>
-			<xsd:enumeration value="universal"/>
-		</xsd:restriction>
-	</xsd:simpleType>
-	
-	<xsd:complexType name="SetDefType">
-		<!-- a material variable (set) definition as an element -->
-		<xsd:attribute name="id" type="xsd:ID" use="required"/>
-	</xsd:complexType>
-	
-	<xsd:complexType name="FormType">
-		<xsd:sequence>
-			<xsd:element name="summary" type="SummaryType"/>
-			<xsd:choice>
-				<xsd:element name="relation" type="RelationType"/>
-				<xsd:element name="negation" type="NegationType"/>
-				<xsd:element name="disjunction" type="DisjunctionType"/>
-				<xsd:element name="conjunction" type="ConjunctionType"/>
-				<xsd:element name="implication" type="ImplicationType"/>
-				<xsd:element name="biconditional" type="BiconditionalType"/>
-				<xsd:element name="quantifier" type="QuantifierType"/>
-			</xsd:choice>
-		</xsd:sequence>
-	</xsd:complexType>
-	
-	<xsd:complexType name="RelationType">
-		<!-- a relation between two material variables (sets) : the assertion that one is an element of the other-->
-		<xsd:all>
-			<xsd:element name="childset" type="SetReferenceType"/>
-			<xsd:element name="parentset" type="SetReferenceType"/>
-		</xsd:all>
-	</xsd:complexType>
-	
-	<xsd:complexType name="SetReferenceType">
-		<!-- a reference to a set definition -->
-		<xsd:attribute name="ref" type="xsd:string" use="required"/>
-	</xsd:complexType>
-	
-	<xsd:complexType name="NegationType">
-		<xsd:complexContent>
-			<xsd:extension base="FormType"/>
-		</xsd:complexContent>
-	</xsd:complexType>
-	
-	<xsd:complexType name="DisjunctionType">
-		<xsd:sequence>
-			<xsd:element name="operand" type="FormType" minOccurs="2" maxOccurs="2"/>
-		</xsd:sequence>
-	</xsd:complexType>
-	
-	<xsd:complexType name="ConjunctionType">
-		<xsd:sequence>
-			<xsd:element name="operand" type="FormType" minOccurs="2" maxOccurs="2"/>
-		</xsd:sequence>
-	</xsd:complexType>
-	
-	<xsd:complexType name="ImplicationType">
-		<xsd:all>
-			<xsd:element name="antecedent" type="FormType"/>
-			<xsd:element name="consequent" type="FormType"/>
-		</xsd:all>
-	</xsd:complexType>
-	
-	<xsd:complexType name="BiconditionalType">
-		<xsd:all>
-			<xsd:element name="antecedent" type="FormType"/>
-			<xsd:element name="consequent" type="FormType"/>
-		</xsd:all>
-	</xsd:complexType>
-	
-	
-	
-	
-	<xsd:complexType name="ProofType">
-		<!-- a proof of the theorem's statement -->
-		<xsd:simpleContent>
-			<xsd:extension base="xsd:string"/>
-			
-		</xsd:simpleContent>
-	</xsd:complexType>
-	
-	
-	
-	
-	
+  <xsd:annotation>
+    <xsd:documentation xml:lang="en">
+      THIS SCHEMA DEFINITION HAS BEEN VALIDATED!
+      
+      insert more info here...
+      
+      TODO:
+      - ProofType
+    </xsd:documentation>
+  </xsd:annotation>
+  
+  <!-- ROOT ELEMENT -->
+  <xsd:element name="theorem" type="TheoremType"/>
+  
+  <xsd:complexType name="TheoremType">
+    <xsd:sequence>
+      <!-- must be 'sequence' (not 'all') because 'proof' is unbounded -->
+      <xsd:element name="name" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="summary" type="SummaryType"/>
+      <xsd:element name="statement" type="StatementType"/>
+      <xsd:element name="proof" type="ProofType" minOccurs="0" maxOccurs="unbounded"/>
+    </xsd:sequence>
+    <xsd:attribute name="id" type="xsd:ID" use="required"/>
+  </xsd:complexType>
+  
+  <xsd:complexType name="SummaryType" mixed="true">
+    <xsd:choice minOccurs="0" maxOccurs="unbounded">
+      <xsd:element name="latex" type="xsd:string"/>
+    </xsd:choice>
+  </xsd:complexType>
+  
+  <xsd:complexType name="StatementType">
+    <xsd:all>
+      <xsd:element name="quantifier" type="QuantifierType"/>
+    </xsd:all>
+    <xsd:attribute name="model" type="ModelType" use="required"/>
+    <xsd:attribute name="isAxiom" type="xsd:boolean" default="false"/>
+  </xsd:complexType>
+  
+  <xsd:simpleType name="ModelType">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="logical"/>
+      <xsd:enumeration value="material"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  
+  <xsd:complexType name="QuantifierType">
+    <xsd:all>
+      <xsd:element name="setdef" type="SetDefType"/>
+      <!-- a material variable (set) definition.
+      All material variables are scoped, not global like logical variables -->
+      <xsd:element name="predicate" type="FormType"/>
+    </xsd:all>
+    <xsd:attribute name="type" type="QuantifierTypeType" use="required"/>
+  </xsd:complexType>
+  
+  <xsd:simpleType name="QuantifierTypeType">
+    <!-- the name of the quantifier -->
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="existential"/>
+      <xsd:enumeration value="universal"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  
+  <xsd:complexType name="SetDefType">
+    <!-- a material variable (set) definition as an element -->
+    <xsd:attribute name="id" type="xsd:ID" use="required"/>
+  </xsd:complexType>
+  
+  <xsd:complexType name="FormType">
+    <xsd:sequence>
+      <xsd:element name="summary" type="SummaryType"/>
+      <xsd:choice>
+        <xsd:element name="relation" type="RelationType"/>
+        <xsd:element name="negation" type="NegationType"/>
+        <xsd:element name="disjunction" type="DisjunctionType"/>
+        <xsd:element name="conjunction" type="ConjunctionType"/>
+        <xsd:element name="implication" type="ImplicationType"/>
+        <xsd:element name="biconditional" type="BiconditionalType"/>
+        <xsd:element name="quantifier" type="QuantifierType"/>
+      </xsd:choice>
+    </xsd:sequence>
+  </xsd:complexType>
+  
+  <xsd:complexType name="RelationType">
+    <!-- a relation between two material variables (sets) : the assertion that one is an element of the other-->
+    <xsd:all>
+      <xsd:element name="childset" type="SetReferenceType"/>
+      <xsd:element name="parentset" type="SetReferenceType"/>
+    </xsd:all>
+  </xsd:complexType>
+  
+  <xsd:complexType name="SetReferenceType">
+    <!-- a reference to a set definition -->
+    <xsd:attribute name="ref" type="xsd:string" use="required"/>
+  </xsd:complexType>
+  
+  <xsd:complexType name="NegationType">
+    <xsd:complexContent>
+      <xsd:extension base="FormType"/>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <xsd:complexType name="DisjunctionType">
+    <xsd:sequence>
+      <xsd:element name="operand" type="FormType" minOccurs="2" maxOccurs="2"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  
+  <xsd:complexType name="ConjunctionType">
+    <xsd:sequence>
+      <xsd:element name="operand" type="FormType" minOccurs="2" maxOccurs="2"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  
+  <xsd:complexType name="ImplicationType">
+    <xsd:all>
+      <xsd:element name="antecedent" type="FormType"/>
+      <xsd:element name="consequent" type="FormType"/>
+    </xsd:all>
+  </xsd:complexType>
+  
+  <xsd:complexType name="BiconditionalType">
+    <xsd:all>
+      <xsd:element name="antecedent" type="FormType"/>
+      <xsd:element name="consequent" type="FormType"/>
+    </xsd:all>
+  </xsd:complexType>
+  
+  
+  
+  
+  <xsd:complexType name="ProofType">
+    <!-- a proof of the theorem's statement -->
+    <xsd:simpleContent>
+      <xsd:extension base="xsd:string"/>
+      
+    </xsd:simpleContent>
+  </xsd:complexType>
+  
+  
+  
+  
+  
 </xsd:schema>
