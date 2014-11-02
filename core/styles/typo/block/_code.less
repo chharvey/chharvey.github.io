@@ -92,7 +92,7 @@ code {
 @author
 : Chris Harvey
 @updated
-: 2014-10-19
+: 2014-11-02
   */
 .Codeblock {
   .box-block(2px; @code_brdr_radius);
@@ -103,6 +103,7 @@ code {
   white-space: pre;
   overflow: auto;
   .codecolors-sol-dark();
+  &.Invert { .codecolors-sol-lite(); }
 }
 /**
   * Subcomponents of a code block.
@@ -145,118 +146,112 @@ code {
 @author
 : Chris Harvey
 @updated
-: 2014-05-25
+: 2014-11-02
   */
 .Codeblock.CSS {
   white-space: nowrap;
-  &.Invert {
-    .codecolors-sol-lite();
+  .Comm { .delimiters('/* '; ' */'); }
+  .String {
+    .apos();
+    color: @color_code_arg;
   }
-}
-/**
-  * This Object represents a CSS selector.
-@childof
-: .Codeblock.CSS
-@tags
-: #code
-@author
-: Chris Harvey
-@updated
-: 2014-05-25
+
+  /**
+    * This Object represents a CSS selector.
+  @childof
+  : .Codeblock.CSS
+  @tags
+  : #code
+  @author
+  : Chris Harvey
+  @updated
+  : 2014-05-25
+    */
+  .Sel { &::after { content: ' {'; } }
+  /**
+    * This Object represents a ruleset for a CSS selector.
+  @childof
+  : .Codeblock.CSS
+  @implements
+  : .clearfix
+  @tags
+  : #code
+  @author
+  : Chris Harvey
+  @updated
+  : 2014-05-25
   */
-.CSS .Sel {
-  &::after {content: ' {';}
-}
-.CSS .Comm {
-  .delimiters('/* '; ' */');
-}
-.CSS .String {
-  .apos();
-  color: @color_code_arg;
-}
-/**
-  * This Object represents a ruleset for a CSS selector.
-@childof
-: .Codeblock.CSS
-@implements
-: .clearfix
-@tags
-: #code
-@author
-: Chris Harvey
-@updated
-: 2014-05-25
-*/
-.CSS .Ruleset {
-  .clearfix();
-  &::after {
-    content: '}';
-    color: @color_code_sel;
-  }
-  > .Comm {padding-left: @tab;}
-}
-/**
-  * This Object represents the property in a CSS property-value pair.
-@childof
-: .Codeblock.CSS .Ruleset
-@tags
-: #code
-@author
-: Chris Harvey
-@updated
-: 2014-05-25
-  */
-.Ruleset > .Prp {
-  padding-left: @tab;
-  float: left;
-  clear: both;
-  &::after {content: ':\00A0';} // `&nbsp;` because a normal (`\0020`) will not work on a float
-}
-/**
-  * This Object represents the value in a CSS property-value pair.
-@childof
-: .Codeblock.CSS .Ruleset
-@tags
-: #code
-@author
-: Chris Harvey
-@updated
-: 2014-05-25
-*/
-.Ruleset > .Val {
-  &::after {
-    content: ';';
-    color: @color_code_prp;
-  }
-}
-/**
-  * A block of CSS code whose selectors are inline. This is really useful for selectors with one
-  * property-value pair each.
-@extends
-: .Codeblock.CSS
-@tags
-: #code
-@author
-: Chris Harvey
-@updated
-: 2014-05-31
-  */
-.Codeblock.CSS.I {
-  .Sel {
-    float: left;
-    clear: both;
-  }
   .Ruleset {
+    .clearfix();
     &::after {
-      display: inline;
+      content: '}';
+      color: @color_code_sel;
     }
+    > .Comm {padding-left: @tab;}
+    /**
+      * This Object represents the property in a CSS property-value pair.
+    @childof
+    : .Codeblock.CSS .Ruleset
+    @tags
+    : #code
+    @author
+    : Chris Harvey
+    @updated
+    : 2014-05-25
+      */
     > .Prp {
-      display: inline;
-      padding-left: @en;
-      float: none;
+      padding-left: @tab;
+      float: left;
+      clear: both;
+      &::after {content: ':\00A0';} // `&nbsp;` because a normal (`\0020`) will not work on a float
     }
+    /**
+      * This Object represents the value in a CSS property-value pair.
+    @childof
+    : .Codeblock.CSS .Ruleset
+    @tags
+    : #code
+    @author
+    : Chris Harvey
+    @updated
+    : 2014-05-25
+    */
     > .Val {
-      display: inline;
+      &::after {
+        content: ';';
+        color: @color_code_prp;
+      }
+    }
+  }
+  /**
+    * A block of CSS code whose selectors are inline. This is really useful for selectors with one
+    * property-value pair each.
+  @extends
+  : .Codeblock.CSS
+  @tags
+  : #code
+  @author
+  : Chris Harvey
+  @updated
+  : 2014-05-31
+    */
+  &.I {
+    .Sel {
+      float: left;
+      clear: both;
+    }
+    .Ruleset {
+      &::after {
+        display: inline;
+      }
+      > .Prp {
+        display: inline;
+        padding-left: @en;
+        float: none;
+      }
+      > .Val {
+        display: inline;
+      }
     }
   }
 }
