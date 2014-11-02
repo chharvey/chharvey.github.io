@@ -38,11 +38,14 @@
 @color_codeblock_comm: @solarized_base01;
 @color_codeblock_txt:  @solarized_base0;
 @color_codeblock_emph: @solarized_base1;
+
 .codecolors(@color_txt; @color_comm; @color_bg; @color_brdr) {
+  @textcolor: @color_txt;
+  @commentcolor: @color_comm;
   border-color: @color_brdr;
-  color: @color_txt;
+  color: @textcolor;
   background-color: @color_bg;
-  .Comm {color: @color_comm;}
+  .Comm { color: @commentcolor; }
 }
 .codecolors-sol-lite() {.codecolors(@color_code_txt;      @color_code_comm;      @color_code_bg;      @color_code_brdr);}
 .codecolors-sol-dark() {.codecolors(@color_codeblock_txt; @color_codeblock_comm; @color_codeblock_bg; @color_codeblock_brdr);}
@@ -63,10 +66,10 @@
 code {
   .box-inline(@code_brdr_radius);
   .fontsize-sml();
+  .codecolors-sol-lite();
   font-family: @fontfam_code;
   text-align: left; // to undo text-align:center in a .Fig
   white-space: nowrap;
-  .codecolors-sol-lite();
 }
 /**
   * A block of code. Its semantics are derived from the formatting (line breaks, indenting, etc) of
@@ -87,11 +90,11 @@ code {
   .box-block(2px; @code_brdr_radius);
   .follows-heading(1);
   .fontsize-block-sml();
+  .codecolors-sol-dark();
   font-family: @fontfam_code;
   text-align: left; // to undo text-align:center in a .Fig
   white-space: pre;
   overflow: auto;
-  .codecolors-sol-dark();
   &.Invert { .codecolors-sol-lite(); }
 }
 
@@ -117,7 +120,9 @@ code {
     .angles();
     color: @color_code_tag;
     &::before,
-    &::after {color: @color_code_txt;}
+    &::after {
+      color: #808080;
+    }
   }
   .Atr {
     color: @color_code_atr;
@@ -127,6 +132,9 @@ code {
     color: @color_code_val;
     &::before,
     &::after {color: @solarized_magenta;}
+  }
+  .Comm {
+    .delimiters('<!-- ';' -->');
   }
 }
 
@@ -146,12 +154,14 @@ code {
 : 2014-11-02
   */
 .Codeblock.CSS {
-  @color_code_sel: @solarized_cyan;
-  @color_code_prp: @solarized_yellow;
-  @color_code_cmd: @solarized_violet;
-  @color_code_arg: @solarized_magenta;
+  @color_code_sel: @solarized_blue;
+  @color_code_prp: @solarized_green;
+  @color_code_val: @solarized_cyan;
+  @color_code_cmd: @solarized_blue;
+  @color_code_arg: @solarized_violet;
   .Sel  {color: @color_code_sel;}
   .Prp  {color: @color_code_prp;}
+  .Val  {color: @color_code_val;}
   .Cmd  {color: @color_code_cmd;}
   .Arg  {color: @color_code_arg;}
 }
