@@ -2669,65 +2669,10 @@ code .Comm {
   color: #93a1a1;
 }
 /**
-  * Subcomponents of a code block.
+  * This Object represents a block of HTML code.
   * `.Tag` : an HTML tag
   * `.Attr`: an HTML attribute
   * `.Val` : an HTML or CSS value
-  * `.Sel` : a CSS selector
-  * `.Prop`: a CSS property
-  * `.Cmd` : a Less, LaTeX, or JS command
-  * `.Arg` : a Less, LaTeX, or JS argument
-@childof
-: .Codeblock
-@tags
-: #code
-@author
-: Chris Harvey
-@updated
-: 2014-05-25
-  */
-.Codeblock .Tag {
-  color: #268bd2;
-}
-.Codeblock .Atr {
-  color: #cb4b16;
-}
-.Codeblock .Val {
-  color: #859900;
-}
-.Codeblock .Sel {
-  color: #2aa198;
-}
-.Codeblock .Prp {
-  color: #b58900;
-}
-.Codeblock .Cmd {
-  color: #6c71c4;
-}
-.Codeblock .Arg {
-  color: #d33682;
-}
-.Codeblock .Tag {
-  quotes: '<' '>';
-}
-.Codeblock .Tag::before {
-  content: open-quote;
-}
-.Codeblock .Tag::after {
-  content: close-quote;
-}
-.Codeblock .Tag .Val {
-  quotes: '\0022' '\0022';
-}
-.Codeblock .Tag .Val::before {
-  content: open-quote;
-}
-.Codeblock .Tag .Val::after {
-  content: close-quote;
-}
-/**
-  * This Object represents a block of CSS code. Its semantics are derived not from the formatting
-  * of the text, but rather the elements inside.
 @extends
 : .Codeblock
 @tags
@@ -2737,7 +2682,77 @@ code .Comm {
 @updated
 : 2014-11-02
   */
-.Codeblock.CSS {
+.Codeblock.HTML .Tag {
+  quotes: '<' '>';
+  color: #268bd2;
+}
+.Codeblock.HTML .Tag::before {
+  content: open-quote;
+}
+.Codeblock.HTML .Tag::after {
+  content: close-quote;
+}
+.Codeblock.HTML .Tag::before,
+.Codeblock.HTML .Tag::after {
+  color: #657b83;
+}
+.Codeblock.HTML .Atr {
+  color: #859900;
+}
+.Codeblock.HTML .Val {
+  quotes: '\0022' '\0022';
+  color: #2aa198;
+}
+.Codeblock.HTML .Val::before {
+  content: open-quote;
+}
+.Codeblock.HTML .Val::after {
+  content: close-quote;
+}
+.Codeblock.HTML .Val::before,
+.Codeblock.HTML .Val::after {
+  color: #d33682;
+}
+/**
+  * This Object represents a block of CSS or LESS code.
+  * `.Sel` : a CSS selector
+  * `.Prop`: a CSS property
+  * `.Cmd` : a Less, LaTeX, or JS command
+  * `.Arg` : a Less, LaTeX, or JS argument
+@extends
+: .Codeblock
+@tags
+: #code
+@author
+: Chris Harvey
+@updated
+: 2014-11-02
+  */
+.Codeblock.CSS .Sel {
+  color: #2aa198;
+}
+.Codeblock.CSS .Prp {
+  color: #b58900;
+}
+.Codeblock.CSS .Cmd {
+  color: #6c71c4;
+}
+.Codeblock.CSS .Arg {
+  color: #d33682;
+}
+/**
+  * This Object represents a block of CSS code organized as a map.
+  * Its semantics are derived not from the formatting of the text, but rather the elements inside.
+@extends
+: .Codeblock.CSS
+@tags
+: #code
+@author
+: Chris Harvey
+@updated
+: 2014-11-02
+  */
+.CSSmap {
   white-space: nowrap;
   /**
     * This Object represents a CSS selector.
@@ -2776,29 +2791,41 @@ code .Comm {
   : 2014-05-31
     */
 }
-.Codeblock.CSS .Comm {
+.CSSmap .Sel {
+  color: #2aa198;
+}
+.CSSmap .Prp {
+  color: #b58900;
+}
+.CSSmap .Cmd {
+  color: #6c71c4;
+}
+.CSSmap .Arg {
+  color: #d33682;
+}
+.CSSmap .Comm {
   quotes: '/* ' ' */';
 }
-.Codeblock.CSS .Comm::before {
+.CSSmap .Comm::before {
   content: open-quote;
 }
-.Codeblock.CSS .Comm::after {
+.CSSmap .Comm::after {
   content: close-quote;
 }
-.Codeblock.CSS .String {
+.CSSmap .String {
   quotes: '\0027' '\0027';
   color: #d33682;
 }
-.Codeblock.CSS .String::before {
+.CSSmap .String::before {
   content: open-quote;
 }
-.Codeblock.CSS .String::after {
+.CSSmap .String::after {
   content: close-quote;
 }
-.Codeblock.CSS .Sel::after {
+.CSSmap .Sel::after {
   content: ' {';
 }
-.Codeblock.CSS .Ruleset {
+.CSSmap .Ruleset {
   /**
       * This Object represents the property in a CSS property-value pair.
     @childof
@@ -2822,43 +2849,43 @@ code .Comm {
     : 2014-05-25
     */
 }
-.Codeblock.CSS .Ruleset::after {
+.CSSmap .Ruleset::after {
   display: table;
   content: ' ';
   clear: both;
 }
-.Codeblock.CSS .Ruleset::after {
+.CSSmap .Ruleset::after {
   content: '}';
   color: #2aa198;
 }
-.Codeblock.CSS .Ruleset > .Comm {
+.CSSmap .Ruleset > .Comm {
   padding-left: 48px;
 }
-.Codeblock.CSS .Ruleset > .Prp {
+.CSSmap .Ruleset > .Prp {
   padding-left: 48px;
   float: left;
   clear: both;
 }
-.Codeblock.CSS .Ruleset > .Prp::after {
+.CSSmap .Ruleset > .Prp::after {
   content: ':\00A0';
 }
-.Codeblock.CSS .Ruleset > .Val::after {
+.CSSmap .Ruleset > .Val::after {
   content: ';';
   color: #b58900;
 }
-.Codeblock.CSS.I .Sel {
+.CSSmap.I .Sel {
   float: left;
   clear: both;
 }
-.Codeblock.CSS.I .Ruleset::after {
+.CSSmap.I .Ruleset::after {
   display: inline;
 }
-.Codeblock.CSS.I .Ruleset > .Prp {
+.CSSmap.I .Ruleset > .Prp {
   display: inline;
   padding-left: 6px;
   float: none;
 }
-.Codeblock.CSS.I .Ruleset > .Val {
+.CSSmap.I .Ruleset > .Val {
   display: inline;
 }
 /**

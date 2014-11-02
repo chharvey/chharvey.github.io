@@ -8,29 +8,6 @@
 // default border radius for code-like Objects
 @code_brdr_radius: 3px;
 
-// colors for inline code
-@color_code_bg:   @solarized_base3;
-@color_code_brdr: @solarized_base2;
-@color_code_comm: @solarized_base1;
-@color_code_txt:  @solarized_base00;
-@color_code_emph: @solarized_base01;
-
-// colors for block code
-@color_codeblock_bg:   @solarized_base03;
-@color_codeblock_brdr: @solarized_base02;
-@color_codeblock_comm: @solarized_base01;
-@color_codeblock_txt:  @solarized_base0;
-@color_codeblock_emph: @solarized_base1;
-
-// colors for syntax highlighting
-@color_code_tag: @solarized_blue;
-@color_code_atr: @solarized_orange;
-@color_code_val: @solarized_green;
-@color_code_sel: @solarized_cyan;
-@color_code_prp: @solarized_yellow;
-@color_code_cmd: @solarized_violet;
-@color_code_arg: @solarized_magenta;
-
 /**
   * An Interface used for both inline and block code. Automate the coloring of code Elements.
   * `.codecolors-sol-lite()` sets a Solarized Light theme, while
@@ -49,6 +26,18 @@
 @updated
 : 2014-10-07
   */
+// colors for inline code
+@color_code_bg:   @solarized_base3;
+@color_code_brdr: @solarized_base2;
+@color_code_comm: @solarized_base1;
+@color_code_txt:  @solarized_base00;
+@color_code_emph: @solarized_base01;
+// colors for block code
+@color_codeblock_bg:   @solarized_base03;
+@color_codeblock_brdr: @solarized_base02;
+@color_codeblock_comm: @solarized_base01;
+@color_codeblock_txt:  @solarized_base0;
+@color_codeblock_emph: @solarized_base1;
 .codecolors(@color_txt; @color_comm; @color_bg; @color_brdr) {
   border-color: @color_brdr;
   color: @color_txt;
@@ -105,40 +94,48 @@ code {
   .codecolors-sol-dark();
   &.Invert { .codecolors-sol-lite(); }
 }
+
 /**
-  * Subcomponents of a code block.
+  * This Object represents a block of HTML code.
   * `.Tag` : an HTML tag
   * `.Attr`: an HTML attribute
   * `.Val` : an HTML or CSS value
-  * `.Sel` : a CSS selector
-  * `.Prop`: a CSS property
-  * `.Cmd` : a Less, LaTeX, or JS command
-  * `.Arg` : a Less, LaTeX, or JS argument
-@childof
+@extends
 : .Codeblock
 @tags
 : #code
 @author
 : Chris Harvey
 @updated
-: 2014-05-25
+: 2014-11-02
   */
-.Codeblock .Tag  {color: @color_code_tag;}
-.Codeblock .Atr  {color: @color_code_atr;}
-.Codeblock .Val  {color: @color_code_val;}
-.Codeblock .Sel  {color: @color_code_sel;}
-.Codeblock .Prp  {color: @color_code_prp;}
-.Codeblock .Cmd  {color: @color_code_cmd;}
-.Codeblock .Arg  {color: @color_code_arg;}
-
-.Codeblock .Tag {
-  .angles();
-  .Val {.quot();}
+.Codeblock.HTML {
+  @color_code_tag: @solarized_blue;
+  @color_code_atr: @solarized_green;
+  @color_code_val: @solarized_cyan;
+  .Tag {
+    .angles();
+    color: @color_code_tag;
+    &::before,
+    &::after {color: @color_code_txt;}
+  }
+  .Atr {
+    color: @color_code_atr;
+  }
+  .Val {
+    .quot();
+    color: @color_code_val;
+    &::before,
+    &::after {color: @solarized_magenta;}
+  }
 }
 
 /**
-  * This Object represents a block of CSS code. Its semantics are derived not from the formatting
-  * of the text, but rather the elements inside.
+  * This Object represents a block of CSS or LESS code.
+  * `.Sel` : a CSS selector
+  * `.Prop`: a CSS property
+  * `.Cmd` : a Less, LaTeX, or JS command
+  * `.Arg` : a Less, LaTeX, or JS argument
 @extends
 : .Codeblock
 @tags
@@ -149,13 +146,36 @@ code {
 : 2014-11-02
   */
 .Codeblock.CSS {
+  @color_code_sel: @solarized_cyan;
+  @color_code_prp: @solarized_yellow;
+  @color_code_cmd: @solarized_violet;
+  @color_code_arg: @solarized_magenta;
+  .Sel  {color: @color_code_sel;}
+  .Prp  {color: @color_code_prp;}
+  .Cmd  {color: @color_code_cmd;}
+  .Arg  {color: @color_code_arg;}
+}
+
+/**
+  * This Object represents a block of CSS code organized as a map.
+  * Its semantics are derived not from the formatting of the text, but rather the elements inside.
+@extends
+: .Codeblock.CSS
+@tags
+: #code
+@author
+: Chris Harvey
+@updated
+: 2014-11-02
+  */
+.CSSmap {
+  .Codeblock.CSS;
   white-space: nowrap;
   .Comm { .delimiters('/* '; ' */'); }
   .String {
     .apos();
     color: @color_code_arg;
   }
-
   /**
     * This Object represents a CSS selector.
   @childof
