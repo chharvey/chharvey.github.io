@@ -155,10 +155,10 @@ $(document).ready(function () {
   */
   $('.Table').each(function () {
     var n_rowgroups = 0;
-    $(this).find('thead, tbody, tfoot').each(function () {
+    $(this).find('.Rowgroup').each(function () {
       n_rowgroups++;
     });
-    n_rowgroups++; // once more for the last border
+    if ($(this).find('.Rowgroup')[0] != null) n_rowgroups++; // once more for the last border, if there is one
     if ($(this).find('caption').hasClass('Capt')) {n_rowgroups++;} // once more again for a caption if it exists
     var btm = -(((n_rowgroups + 12) % 24) - 12);
     if (btm <= 0) {$(this).css('margin-bottom',btm);}
