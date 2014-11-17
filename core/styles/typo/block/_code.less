@@ -8,29 +8,6 @@
 // default border radius for code-like Objects
 @code_brdr_radius: 3px;
 
-// colors for inline code
-@color_code_bg:   @solarized_base3;
-@color_code_brdr: @solarized_base2;
-@color_code_comm: @solarized_base1;
-@color_code_txt:  @solarized_base00;
-@color_code_emph: @solarized_base01;
-
-// colors for block code
-@color_codeblock_bg:   @solarized_base03;
-@color_codeblock_brdr: @solarized_base02;
-@color_codeblock_comm: @solarized_base01;
-@color_codeblock_txt:  @solarized_base0;
-@color_codeblock_emph: @solarized_base1;
-
-// colors for syntax highlighting
-@color_code_tag: @solarized_blue;
-@color_code_atr: @solarized_orange;
-@color_code_val: @solarized_green;
-@color_code_sel: @solarized_cyan;
-@color_code_prp: @solarized_yellow;
-@color_code_cmd: @solarized_violet;
-@color_code_arg: @solarized_magenta;
-
 /**
   * An Interface used for both inline and block code. Automate the coloring of code Elements.
   * `.codecolors-sol-lite()` sets a Solarized Light theme, while
@@ -49,11 +26,26 @@
 @updated
 : 2014-10-07
   */
+// colors for inline code
+@color_code_bg:   @solarized_base3;
+@color_code_brdr: @solarized_base2;
+@color_code_comm: @solarized_base1;
+@color_code_txt:  @solarized_base00;
+@color_code_emph: @solarized_base01;
+// colors for block code
+@color_codeblock_bg:   @solarized_base03;
+@color_codeblock_brdr: @solarized_base02;
+@color_codeblock_comm: @solarized_base01;
+@color_codeblock_txt:  @solarized_base0;
+@color_codeblock_emph: @solarized_base1;
+
 .codecolors(@color_txt; @color_comm; @color_bg; @color_brdr) {
-	border-color: @color_brdr;
-	color: @color_txt;
-	background-color: @color_bg;
-	.Comm {color: @color_comm;}
+  @textcolor: @color_txt;
+  @commentcolor: @color_comm;
+  border-color: @color_brdr;
+  color: @textcolor;
+  background-color: @color_bg;
+  .Comm { color: @commentcolor; }
 }
 .codecolors-sol-lite() {.codecolors(@color_code_txt;      @color_code_comm;      @color_code_bg;      @color_code_brdr);}
 .codecolors-sol-dark() {.codecolors(@color_codeblock_txt; @color_codeblock_comm; @color_codeblock_bg; @color_codeblock_brdr);}
@@ -72,12 +64,12 @@
 : 2014-05-25
   */
 code {
-	.box-inline(@code_brdr_radius);
-	.fontsize-sml();
-	font-family: @fontfam_code;
-	text-align: left; // to undo text-align:center in a .Fig
-	white-space: nowrap;
-	.codecolors-sol-lite();
+  .box-inline(@code_brdr_radius);
+  .fontsize-sml();
+  .codecolors-sol-lite();
+  font-family: @fontfam_code;
+  text-align: left; // to undo text-align:center in a .Fig
+  white-space: nowrap;
 }
 /**
   * A block of code. Its semantics are derived from the formatting (line breaks, indenting, etc) of
@@ -92,52 +84,69 @@ code {
 @author
 : Chris Harvey
 @updated
-: 2014-10-19
+: 2014-11-02
   */
 .Codeblock {
-	.box-block(2px; @code_brdr_radius);
-	.follows-heading(1);
-	.fontsize-block-sml();
-	font-family: @fontfam_code;
-	text-align: left; // to undo text-align:center in a .Fig
-	white-space: pre;
-	overflow: auto;
-	.codecolors-sol-dark();
+  .box-block(2px; @code_brdr_radius);
+  .follows-heading(1);
+  .fontsize-block-sml();
+  .codecolors-sol-dark();
+  font-family: @fontfam_code;
+  text-align: left; // to undo text-align:center in a .Fig
+  white-space: pre;
+  overflow: auto;
+  &.Invert { .codecolors-sol-lite(); }
 }
+
 /**
-  * Subcomponents of a code block.
+  * This Object represents a block of HTML code.
   * `.Tag` : an HTML tag
   * `.Attr`: an HTML attribute
   * `.Val` : an HTML or CSS value
+@extends
+: .Codeblock
+@tags
+: #code
+@author
+: Chris Harvey
+@updated
+: 2014-11-02
+  */
+.Codeblock.HTML {
+  @color_code_tag: @solarized_blue;
+  @color_code_atr: @solarized_green;
+  @color_code_val: @solarized_cyan;
+  .Tag {
+    .angles();
+    color: @color_code_tag;
+    &::before,
+    &::after {
+      color: #808080;
+    }
+  }
+  .Endtag {
+    .Tag;
+    .delimiters('</'  ;  '>');
+  }
+  .Atr {
+    color: @color_code_atr;
+  }
+  .Val {
+    .quot();
+    color: @color_code_val;
+    &::before,
+    &::after {color: @solarized_magenta;}
+  }
+  .Comm { .delimiters('<!-- '  ;  ' -->'); }
+}
+
+/**
+  * This Object represents a block of CSS or LESS code.
   * `.Sel` : a CSS selector
   * `.Prop`: a CSS property
+  * `.Val` : a CSS value
   * `.Cmd` : a Less, LaTeX, or JS command
   * `.Arg` : a Less, LaTeX, or JS argument
-@childof
-: .Codeblock
-@tags
-: #code
-@author
-: Chris Harvey
-@updated
-: 2014-05-25
-  */
-.Codeblock .Tag  {color: @color_code_tag;}
-.Codeblock .Atr  {color: @color_code_atr;}
-.Codeblock .Val  {color: @color_code_val;}
-.Codeblock .Sel  {color: @color_code_sel;}
-.Codeblock .Prp  {color: @color_code_prp;}
-.Codeblock .Cmd  {color: @color_code_cmd;}
-.Codeblock .Arg  {color: @color_code_arg;}
-
-.Codeblock .Tag {
-	.angles();
-	.Val {.quot();}
-}
-
-/**
-  * This Object represents a block of CSS code. Its semantics are derived not from the formatting
-  * of the text, but rather the elements inside.
 @extends
 : .Codeblock
 @tags
@@ -145,93 +154,51 @@ code {
 @author
 : Chris Harvey
 @updated
-: 2014-05-25
+: 2014-11-02
   */
 .Codeblock.CSS {
-	white-space: nowrap;
-	&.Invert {
-		.codecolors-sol-lite();
-	}
+  @color_code_sel: @solarized_blue;
+  @color_code_prp: @solarized_green;
+  @color_code_val: @solarized_yellow;
+  @color_code_cmd: @solarized_blue;
+  @color_code_arg: @solarized_violet;
+  .Sel  {
+    .delimiters(''  ;  '}');
+    color: @color_code_sel;
+  }
+  .Prp  {
+    .delimiters(''  ;  ';');
+    color: @color_code_prp;
+  }
+  .Val  {
+    .delimiters(': '  ;  '');
+    &::before,
+    &::after { color: @color_code_prp; }
+    color: @color_code_val;
+  }
+  .Cmd  {
+    .delimiters(''  ;  ';');
+    color: @color_code_cmd;
+  }
+  .Arg  {
+    .parens();
+    color: @color_code_arg;
+    &::before,
+    &::after { color: @color_code_cmd; }
+  }
+  .Comm   {
+    .delimiters('/* '  ;  ' */');
+    &.I { quotes: '// '   ''; }
+  }
+  .String {
+    .Codeblock.HTML.Val;
+    .apos();
+  }
 }
+
 /**
-  * This Object represents a CSS selector.
-@childof
-: .Codeblock.CSS
-@tags
-: #code
-@author
-: Chris Harvey
-@updated
-: 2014-05-25
-  */
-.CSS .Sel {
-	&::after {content: ' {';}
-}
-.CSS .Comm {
-	.delimiters('/* '; ' */');
-}
-.CSS .String {
-	.apos();
-	color: @color_code_arg;
-}
-/**
-  * This Object represents a ruleset for a CSS selector.
-@childof
-: .Codeblock.CSS
-@implements
-: .clearfix
-@tags
-: #code
-@author
-: Chris Harvey
-@updated
-: 2014-05-25
-*/
-.CSS .Ruleset {
-	.clearfix();
-	&::after {
-		content: '}';
-		color: @color_code_sel;
-	}
-	> .Comm {padding-left: @tab;}
-}
-/**
-  * This Object represents the property in a CSS property-value pair.
-@childof
-: .Codeblock.CSS .Ruleset
-@tags
-: #code
-@author
-: Chris Harvey
-@updated
-: 2014-05-25
-  */
-.Ruleset > .Prp {
-	padding-left: @tab;
-	float: left;
-	clear: both;
-	&::after {content: ':\00A0';} // `&nbsp;` because a normal (`\0020`) will not work on a float
-}
-/**
-  * This Object represents the value in a CSS property-value pair.
-@childof
-: .Codeblock.CSS .Ruleset
-@tags
-: #code
-@author
-: Chris Harvey
-@updated
-: 2014-05-25
-*/
-.Ruleset > .Val {
-	&::after {
-		content: ';';
-		color: @color_code_prp;
-	}
-}
-/**
-  * A block of CSS code whose selectors are inline. This is really useful for selectors with one
-  * property-value pair each.
+  * This Object represents a block of CSS code organized as a map.
+  * Its semantics are derived not from the formatting of the text, but rather the elements inside.
 @extends
 : .Codeblock.CSS
 @tags
@@ -239,31 +206,75 @@ code {
 @author
 : Chris Harvey
 @updated
-: 2014-05-31
+: 2014-11-02
   */
-.Codeblock.CSS.I {
-	.Sel {
-		float: left;
-		clear: both;
-	}
-	.Ruleset {
-		&::after {
-			display: inline;
-		}
-		> .Prp {
-			display: inline;
-			padding-left: @en;
-			float: none;
-		}
-		> .Val {
-			display: inline;
-		}
-	}
+.CSSmap {
+  .Codeblock;
+  .Codeblock.CSS;
+  white-space: nowrap;
+  .String {
+    .apos();
+    color: @color_code_arg;
+  }
+  .Sel { quotes: ''   ' {'; }
+  .Ruleset {
+    .clearfix();
+    &::after {
+      content: '}';
+      color: @color_code_sel;
+    }
+    > .Prp {
+      float: left;
+      clear: both;
+      quotes: ''   ':\00A0'; // `&nbsp;` because a normal (`\0020`) will not work on a float
+    }
+    > .Val { quotes: ''   ';'; }
+    > .Prp,
+    > .Comm { padding-left: @tab; }
+  }
+  /**
+    * A block of CSS code whose selectors are inline. This is really useful for selectors with one
+    * property-value pair each.
+  @extends
+  : .Codeblock.CSS
+  @tags
+  : #code
+  @author
+  : Chris Harvey
+  @updated
+  : 2014-05-31
+    */
+  &.I {
+    .Sel {
+      float: left;
+      clear: both;
+    }
+    .Ruleset {
+      &::after {
+        display: inline;
+      }
+      > .Prp {
+        display: inline;
+        padding-left: @en;
+        float: none;
+      }
+      > .Val {
+        display: inline;
+      }
+    }
+  }
 }
 
 /**
   * This Object represents an individual key (a button) on a keyboard, calculator, or other device.
-  * Recommended instantiated by a `kbd > kbd` Element.
+  *
+  * The `kbd` Element represents general user input. The `kbd > kbd` Element represents an actual
+  * key or button that the user should input. Use `kbd > kbd.Key` in this case.
+  * To *name* a key, without commanding use of it, best use `i.Key`, as this is a "mention".
+  *
+<p>Use <kbd><kbd class="Key">cmd</kbd>+<kbd class="Key">S</kbd></kbd> to save, where
+  the <i class="Key">cmd</i> key is depicted with the <i>&#x2318;</i> symbol.</p>
+  <!-- U+2318 "PLACE OF INTEREST SIGN" ⌘ -->
 @implements
 : .box-inline()
 : .fontsize-sml()
@@ -276,11 +287,12 @@ code {
 : 2014-06-06
   */
 .Key {
-	.box-inline(@code_brdr_radius);
-	.fontsize-sml();
-	.codecolors-sol-dark();
-	font-family: @fontfam_accent;
-	color: @color_codeblock_emph;
+  .box-inline(@code_brdr_radius);
+  .fontsize-sml();
+  .codecolors-sol-dark();
+  quotes: none;
+  font-family: @fontfam_accent;
+  color: @color_codeblock_emph;
 }
 kbd {white-space: nowrap;}
 /**
@@ -296,9 +308,9 @@ kbd {white-space: nowrap;}
 : 2014-05-25
   */
 .Dir {
-	.fontsize-sml();
-	font-style: italic;
-	font-family: @fontfam_base;
+  .fontsize-sml();
+  font-style: italic;
+  font-family: @fontfam_base;
 }
 /**
   * This Object represents a mathematical expression or statement.
@@ -310,9 +322,9 @@ kbd {white-space: nowrap;}
   */
 .Math,
 .M {
-	font-family: @fontfam_math;
-	white-space: pre;
-	overflow: auto;
+  font-family: @fontfam_math;
+  white-space: pre;
+  overflow: auto;
 }
 /**
   * These Objects are subclasses of `.M`.
@@ -322,6 +334,6 @@ kbd {white-space: nowrap;}
 : 2014-10-11
   */
 .M.B {
-	display: block;
-	.vru-content(3);
+  display: block;
+  .vru-content(3);
 }
