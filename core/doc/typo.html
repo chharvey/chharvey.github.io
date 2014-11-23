@@ -473,7 +473,7 @@ using site-wide styles.</p>
             of the <code>.Item</code>.</p>
           <small class="Alert--Cshn">Though literal <code>h1</code> Elements are
             <a class="Link" rel="external"
-            href="http://www.w3.org/html/wg/drafts/html/master/grouping-content.html#the-li-element">technically
+            href="http://www.w3.org/TR/html5/grouping-content.html#the-li-element">technically
             permissible</a> inside <code>li</code> Elements, they usually make the Document Outline
             look icky, so we don&rsquo;t use them.</small>
         </li>
@@ -506,26 +506,46 @@ using site-wide styles.</p>
     <small class="Alert--Help">On all maps below, outlines have been added to each
       <code>.Term</code> and <code>.Desc</code> to show structure.</small>
     <p class="P">Association lists, or Maps, are objects that group terms and descriptions
-      together. A Map can contain multiple groups. Each group must have at least 1 term
-      and 1 description.</p>
-    <p class="P">The example below has three groups: the first has 1 term and
-      1 description; the second group has 3 terms and 1 description; and the last group
-      has 1 term and 3 descriptions.</p>
+      together. A Map can contain multiple groups, each with a term and description.</p>
+    <p class="P">A <code>.Map</code> Object is similar to a <code>dl</code> Element in that each
+      contains groups of name-value pairs. In fact, the <code>dl</code> Element is best suited as
+      an instance of the <code>.Map</code> class. However a <code>.Map</code> is slighlty stricter than
+      a <code>dl</code>. Though <a class="Link" rel="external"
+      href="http://www.w3.org/TR/html5/grouping-content.html#the-dl-element">the HTML5 specification</a>
+      allows for multiple <code>dt</code>s and/or <code>dd</code>s in any group of a <code>dl</code>,
+      we will not be using that convention here. Each group of a <code>.Map</code> must have
+      exactly 1 <code>.Term</code> and exactly 1 <code>.Desc</code>. Thus a <code>.Map</code> can
+      be easily converted into a <a class="Link" rel="external"
+      href="http://www.json.org/">JSON object</a>.</p>
+    <p class="P">The Map below has three groups, each with one term and one description (hereafter
+      referred to as <i>components</i>). The first group&rsquo;s components simply contain plain text.
+      The term in the second group contains a list with 3 items, and the description in the third group
+      also contains a list with 3 items. Using an <code>ol</code> or <code>ul</code>
+      <em>inside</em> a <code>dt</code> or <code>dd</code> allows for including multiple components
+      inside a group. The items are not taken as alternatives, but rather they are <em>all</em> applicable.</p>
     <dl class="Map">
       <dt class="Term help-otln">.Map &gt; .Term</dt>
       <dd class="Desc help-otln">.Map &gt; .Desc</dd>
-      <dt class="Term help-otln">.Map &gt; .Term</dt>
-      <dt class="Term help-otln">.Map &gt; .Term</dt>
-      <dt class="Term help-otln">.Map &gt; .Term</dt>
-      <dd class="Desc help-otln">.Map &gt; .Desc</dd>
-      <dt class="Term help-otln">.Map &gt; .Term</dt>
-      <dd class="Desc help-otln">.Map &gt; .Desc</dd>
-      <dd class="Desc help-otln">.Map &gt; .Desc</dd>
-      <dd class="Desc help-otln">.Map &gt; .Desc</dd>
+      <dt class="Term help-otln">
+        <ul>
+          <li>.Map &gt; .Term &gt; ul &gt; li#group1-item1</li>
+          <li>.Map &gt; .Term &gt; ul &gt; li#group1-item2</li>
+          <li>.Map &gt; .Term &gt; ul &gt; li#group1-item3</li>
+        </ul>
+      </dt>
+      <dd class="Desc help-otln">.Map &gt; .Desc#group1-onlydesc</dd>
+      <dt class="Term help-otln">.Map &gt; .Desc#group2-onlyterm</dt>
+      <dd class="Desc help-otln">
+        <ul>
+          <li>.Map &gt; .Desc &gt; ul &gt; li#group2-item1</li>
+          <li>.Map &gt; .Desc &gt; ul &gt; li#group2-item2</li>
+          <li>.Map &gt; .Desc &gt; ul &gt; li#group2-item3</li>
+        </ul>
+      </dd>
     </dl>
     <p class="P">A Horizontal Map groups corresponding terms and descriptions into rows. Use the
-      <code>.Map.Horiz--</code>-prefixed subclasses below for predefined widths of <code>.Term</code>s.
-      <a class="Link" href="phi.html">Notice the associated <code>@namewidth</code> values.</a></p>
+      <code>.Map.Horiz--</code>-prefixed subclasses below for
+      <a class="Link" href="phi.html">predefined widths</a> of <code>.Term</code>s.</p>
     <dl class="Map Horiz--Sml">
       <dt class="Term help-otln">.Map.Horiz--Sml &gt; .Term<br/>(&asymp; 23.607%)</dt>
       <dd class="Desc help-otln">.Map.Horiz--Sml &gt; .Desc</dd>
@@ -546,27 +566,13 @@ using site-wide styles.</p>
       <dt class="Term help-otln">.Map.Horiz--Lrg &gt; .Term (&asymp; 76.393%)</dt>
       <dd class="Desc help-otln">.Map.Horiz--Lrg &gt; .Desc</dd>
     </dl>
-    <p class="P">The example below has three groups: the first has 1 term and
-      1 description; the second group has 3 terms and 1 description; and the last group
-      has 1 term and 3 descriptions.</p>
-    <dl class="Map Horiz--Msm">
-      <dt class="Term help-otln">.Map.Horiz--Msm &gt; .Term</dt>
-      <dd class="Desc help-otln">.Map.Horiz--Msm &gt; .Desc</dd>
-      <dt class="Term help-otln">.Map.Horiz--Msm &gt; .Term</dt>
-      <dt class="Term help-otln">.Map.Horiz--Msm &gt; .Term</dt>
-      <dt class="Term help-otln">.Map.Horiz--Msm &gt; .Term</dt>
-      <dd class="Desc help-otln">.Map.Horiz--Msm &gt; .Desc</dd>
-      <dt class="Term help-otln">.Map.Horiz--Msm &gt; .Term</dt>
-      <dd class="Desc help-otln">.Map.Horiz--Msm &gt; .Desc</dd>
-      <dd class="Desc help-otln">.Map.Horiz--Msm &gt; .Desc</dd>
-      <dd class="Desc help-otln">.Map.Horiz--Msm &gt; .Desc</dd>
-    </dl>
-    <p class="P">The Map below has two groups, each with one term and one description. The term
-      in the first group contains a list with 3 items, and the description in the second group
-      also contains a list with 3 items. Using an <code>ol</code> or <code>ul</code>
-      <em>inside</em> a <code>dt</code> or <code>dd</code> means that the items are not
-      taken as alternatives, but rather they are all applicable.</p>
-    <dl class="Map Horiz--Msm">
+    <p class="P">You may also create custom widths for more variety. Just include the
+      <code>.map-horiz(@termwidth)</code> mixin in your Less, and specify the term width as the
+      argument. For example, <code>.NewMap { .map-horiz(60%); }</code>.</p>
+    <p class="P">The Horizontal Map below is the same Map as in the first example.</p>
+    <dl class="Map Horiz--Med">
+      <dt class="Term help-otln">.Map.Horiz--Med &gt; .Term</dt>
+      <dd class="Desc help-otln">.Map.Horiz--Med &gt; .Desc</dd>
       <dt class="Term help-otln">
         <ul>
           <li>.Map.Horiz--Med &gt; .Term &gt; ul &gt; li#group1-item1</li>
@@ -584,7 +590,7 @@ using site-wide styles.</p>
         </ul>
       </dd>
     </dl>
-  </section>
+    </section>
   <section id="tables">
     <h1 class="H--Gam">Tables</h1>
     <p class="P"><span class="Lede"><abbr title="too long, didn't read">tl;dr</abbr></span>
