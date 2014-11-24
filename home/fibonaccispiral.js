@@ -25,10 +25,12 @@ function positionSquares() {
   var P10 = p(10, mainwidth);
   var P11 = p(11, mainwidth);
   var P12 = p(12, mainwidth);
-  $('.Square').css('position', 'absolute');
+
   /* this is in JS and not in CSS: in case users have
   JS disabled but CSS not disabled, the position
   should be static (as specified in css file) */
+  $('.Square').css('position', 'absolute');
+
   $('.Spiral > li:nth-child( 1) > .Square').css('left', P2);
   $('.Spiral > li:nth-child( 3) > .Square').css('top', P2);
   $('.Spiral > li:nth-child( 4) > .Square').css('left', P3).css('top', P2 + P5);
@@ -42,7 +44,7 @@ function positionSquares() {
   $('.Spiral > li:nth-child(12) > .Square').css('left', P3 + P7 + P11).css('top', P2 + P6 + P10);
 }
 function makepretty() {
-  var user_has_CSS_enabled = true;
+  var user_has_CSS_enabled = true; // it is most likely the case that if users have JS enabled then they also have CSS enabled
   if (user_has_CSS_enabled) {
     /** sets the height of the given rectangle to its width */
     $('.Square').css('height', function() {
