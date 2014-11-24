@@ -75,12 +75,11 @@
 : 2014-11-23
   */
 @termpadding: @golden9; // 1.31556175%
-.map-horiz(@termwidth) {
+.Map.Horiz {
   .clearfix();
   > .Term,
   > .Desc {box-sizing: border-box;}
   > .Term {
-    width: @termwidth;
     padding-right: @termpadding;
     float: left;
     clear: both;
@@ -88,27 +87,29 @@
     white-space: nowrap;
   }
   > .Desc {
-    width: (100% - @termwidth);
     float: left;
   }
   > .Desc + .Term {margin-top: 0;} // undo `.vru-top(1);` from `.Map > .Desc + .Term`
   // > .Desc + .Desc {margin-left: @termwidth;}
 }
-.Map.Horiz--Sml {.map-horiz(@golden3);}  // 23.6067977499789696%
-.Map.Horiz--Msm {.map-horiz(@golden2);}  // 38.1966011250105152%
-.Map.Horiz--Med {.map-horiz(@1o2);}      // 50%
-.Map.Horiz--Mlg {.map-horiz(@golden1);}  // 61.8033988749894848%
-.Map.Horiz--Lrg {.map-horiz(@golden3c);} // 76.3932022500210304%
+.map-horiz-mx(@termwidth) {
+  > .Term {
+    width: @termwidth;
+  }
+  > .Desc {
+    width: (100% - @termwidth);
+  }
+}
+.Map.Horiz.Sml {.map-horiz-mx(@golden3);}  // 23.6067977499789696%
+.Map.Horiz.Msm {.map-horiz-mx(@golden2);}  // 38.1966011250105152%
+.Map.Horiz.Med {.map-horiz-mx(@1o2);}      // 50%
+.Map.Horiz.Mlg {.map-horiz-mx(@golden1);}  // 61.8033988749894848%
+.Map.Horiz.Lrg {.map-horiz-mx(@golden3c);} // 76.3932022500210304%
 
 /**
-  * This Object represents an association list that appears as a Table Object.
-  * It *must* be used on one of the `.Horiz--` prefixed subclasses above.
+  * This Object represents a Horizontal Map that appears as a Table Object.
 @extends
-: .Map.Horiz--Sml
-: .Map.Horiz--Msm
-: .Map.Horiz--Med
-: .Map.Horiz--Mlg
-: .Map.Horiz--Lrg
+: .Map.Horiz
 @implements
 : .cellpaddingdefault()
 @tags
@@ -120,15 +121,10 @@
 @updated
 : 2014-11-23
   */
-.Map.Horiz--Sml.Tbl,
-.Map.Horiz--Msm.Tbl,
-.Map.Horiz--Med.Tbl,
-.Map.Horiz--Mlg.Tbl,
-.Map.Horiz--Lrg.Tbl {
+.Map.Horiz.Tbl {
   > .Term,
   > .Desc {
     .cellpaddingdefault();
-
   }
   > .Term:nth-child(4n+1),
   > .Desc:nth-child(4n+2) {background-color: @color_table_bg_md;}

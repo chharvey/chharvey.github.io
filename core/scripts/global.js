@@ -138,7 +138,7 @@ function qblockLines() {
   * the each pair of terms and descriptions share the same height.
   */
 function mapHeights () {
-  $('.Map.Horiz--Sml, .Map.Horiz--Msm, .Map.Horiz--Med, .Map.Horiz--Mlg, .Map.Horiz--Lrg').each(function () {
+  $('.Map.Horiz').each(function () {
     $(this).children('.Term').each(function () {
       var h1 = parseInt($(this).css('height'));
       var h2 = parseInt($(this).next().css('height'));
