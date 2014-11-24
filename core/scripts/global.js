@@ -138,7 +138,7 @@ function qblockLines() {
   * the each pair of terms and descriptions share the same height.
   */
 function mapHeights () {
-  $('.Map.Horiz').each(function () {
+  $('.Map.Horiz, .FuncTabl').each(function () {
     $(this).children('.Term').each(function () {
       var h1 = parseInt($(this).css('height'));
       var h2 = parseInt($(this).next().css('height'));

@@ -271,17 +271,3 @@ Util.extend = function (child, parent) {
   child.__super__ = parent.prototype; // Chrome uses this to get the right `typeof`
   child.prototype.constructor = child;
 }
-$(document).ready(function () {
-  $('.FuncTabl').each(function () {
-    $(this).children('.Term').each(function () {
-      var h1 = parseInt($(this).css('height'));
-      var h2 = parseInt($(this).next().css('height'));
-      $(this).next().css('height', Math.max(h1, h2) + 'px');
-    });
-    $(this).children('.Desc').each(function () {
-      var h1 = parseInt($(this).prev().css('height'));
-      var h2 = parseInt($(this).css('height'));
-      $(this).prev().css('height', Math.max(h1, h2) + 'px');
-    });
-  });
-});
