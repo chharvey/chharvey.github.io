@@ -77,8 +77,10 @@
 @termpadding: @golden9; // 1.31556175%
 .map-horiz(@termwidth) {
   .clearfix();
+  > .Term,
+  > .Desc {box-sizing: border-box;}
   > .Term {
-    width: (@termwidth - @termpadding);
+    width: @termwidth;
     padding-right: @termpadding;
     float: left;
     clear: both;
@@ -91,16 +93,48 @@
   }
   > .Desc + .Term {margin-top: 0;} // undo `.vru-top(1);` from `.Map > .Desc + .Term`
   // > .Desc + .Desc {margin-left: @termwidth;}
-  > .Term:nth-child(4n+1),
-  > .Desc:nth-child(4n+2) {background-color: @color_table_bg_md;}
-  > .Term:nth-child(4n+3),
-  > .Desc:nth-child(4n)   {background-color: @color_table_bg_lo;}
 }
 .Map.Horiz--Sml {.map-horiz(@golden3);}  // 23.6067977499789696%
 .Map.Horiz--Msm {.map-horiz(@golden2);}  // 38.1966011250105152%
 .Map.Horiz--Med {.map-horiz(@1o2);}      // 50%
 .Map.Horiz--Mlg {.map-horiz(@golden1);}  // 61.8033988749894848%
 .Map.Horiz--Lrg {.map-horiz(@golden3c);} // 76.3932022500210304%
+
+/**
+  * This Object represents an association list that appears as a Table Object.
+  * It *must* be used on one of the `.Horiz--` prefixed subclasses above.
+@extends
+: .Map.Horiz--Sml
+: .Map.Horiz--Msm
+: .Map.Horiz--Med
+: .Map.Horiz--Mlg
+: .Map.Horiz--Lrg
+@implements
+: .cellpaddingdefault()
+@tags
+: #typography
+: #map
+: #table
+@author
+: Chris Harvey
+@updated
+: 2014-11-23
+  */
+.Map.Horiz--Sml.Tbl,
+.Map.Horiz--Msm.Tbl,
+.Map.Horiz--Med.Tbl,
+.Map.Horiz--Mlg.Tbl,
+.Map.Horiz--Lrg.Tbl {
+  > .Term,
+  > .Desc {
+    .cellpaddingdefault();
+
+  }
+  > .Term:nth-child(4n+1),
+  > .Desc:nth-child(4n+2) {background-color: @color_table_bg_md;}
+  > .Term:nth-child(4n+3),
+  > .Desc:nth-child(4n)   {background-color: @color_table_bg_lo;}
+}
 
 // /*dl*/.dl--ordered {
 //   > dt:first-child,
