@@ -455,6 +455,20 @@ button {
     _borders.less
 \*#################*/
 /**
+  * Below are helper mixins only (private to this file).
+  * Do not mix these into other Objects or Interfaces.
+  * They may only be used for mixins in this file.
+@params
+: @width : value of `border-width`
+@tags
+: #verticalrhythm
+: #border
+@author
+: Chris Harvey
+@updated
+: 2014-11-24
+  */
+/**
   * The following Interfaces adjust borders for **BLOCK** Objects only! They will keep the
   * vertical rhythm intact when adding borders (by slightly adjusting position and margins).
   * Do *not* use these mixins on INLINE Objects!
@@ -516,9 +530,9 @@ button {
 /**
   * These Mixins create abstract inline structures, boxed with a solid border.
   * `.box-inline(@brdrw; @brdrc; @brdrr)` is an extension of `.box-inline(@brdrw; @brdrr)`
-  * 	(it's not the case that `.box-inline(@brdrw; @brdrr)` is a restriction of
-  * 	`.box-inline(@brdrw; @brdrc; @brdrr)`) because the border color, if not specified,
-  * 	should not be a preset color; rather, it should be the value of the `color` property.
+  *   (it's not the case that `.box-inline(@brdrw; @brdrr)` is a restriction of
+  *   `.box-inline(@brdrw; @brdrc; @brdrr)`) because the border color, if not specified,
+  *   should not be a preset color; rather, it should be the value of the `color` property.
 @params
 : @brdrw : the value of `border-width` property (if not specified, default to 1px)
 : @brdrc : the value of `border-color` property (if not specified, default to value of `color` property)
@@ -534,9 +548,9 @@ button {
 /**
   * These Mixins create abstract block structures, boxed with a solid border.
   * `.box-block(@brdrw; @brdrc; @brdrr)` is an extension of `.box-block(@brdrw; @brdrr)`
-  * 	(it's not the case that `.box-block(@brdrw; @brdrr)` is a restriction of
-  * 	`.box-block(@brdrw; @brdrc; @brdrr)`) because the border color, if not specified,
-  * 	should not be a preset color; rather, it should be the value of the `color` property.
+  *   (it's not the case that `.box-block(@brdrw; @brdrr)` is a restriction of
+  *   `.box-block(@brdrw; @brdrc; @brdrr)`) because the border color, if not specified,
+  *   should not be a preset color; rather, it should be the value of the `color` property.
 @params
 : @brdrw : the value of `border-width` property (if not specified, default to 1px)
 : @brdrc : the value of `border-color` property (if not specified, default to value of `color` property)
@@ -819,7 +833,7 @@ button {
 @params
 : @position : the position of the sprite's image to be used. must be a positive integer.
 : @iconsize : the horizontal (x) size of the sprite's image. in pixels.
-: @iconpadd : the padding between images in the sprite. in pixels.
+: @iconpadd : the padding between images in the sprite's image. in pixels.
 @tags
 : #background-image
 @author
@@ -827,26 +841,40 @@ button {
 @updated
 : 2014-07-18
   */
+/**
+  * The following Interfaces add background images to an Element, typically the `body` Element.
+  * `.crossgrid-lined()`    : simple lined paper
+  * `.crossgrid-phi()`      : lined paper with vertical lines at phi-like intervals
+  * `.crossgrid-even()`     : lined paper with vertical lines at fractions n/m where 1 ≤ m ≤ 6
+  * `.crossgrid-even-lcm()` : lined paper with vertical lines at n/60
+@tags
+: #schematic
+: #golden
+@author
+: Chris Harvey
+@updated
+: 2014-10-07
+  */
 /*##############*\
     _body.less
 \*##############*/
 /**
   * The following font families are used site-wide.
   * - The 'base' font-family is used for the main body copy. It is a sans-serif type with a
-  * 	moderate thick-thin transition.
+  *   moderate thick-thin transition.
   * - The 'heading' font-family is used only for headings of body copy (not table headings, etc.).
-  * 	It is a sans-serif geometric type. It should not be used for extensive amounts of text.
+  *   It is a sans-serif geometric type. It should not be used for extensive amounts of text.
   * - The 'intro' font-family is used for other headings, such as table headings or intro (Lede)
-  * 	paragraphs. Like the 'heading' font-family, it is a geometric sans-serif. However it is
-  *  	more acceptable for extensive amounts of text.
+  *   paragraphs. Like the 'heading' font-family, it is a geometric sans-serif. However it is
+  *   more acceptable for extensive amounts of text.
   * - The 'prose' font-family is used for formal documents or sections. It is a serif oldstyle type
-  * 	easy on the eyes that can be read at extensive length.
+  *   easy on the eyes that can be read at extensive length.
   * - The 'code' font-family is a monospace type used for... well, code.
   * - The 'math' font-family is another serif oldstyle type use for mathematical spans.
   * - The 'accent' font-family is used for labels, block quotes, buttons/keys,
-  * 	and other special elements.
+  *   and other special elements.
   * - The 'script' font-family is used for even more fancy elements such as
-  * 	drop-caps and subheadings.
+  *   drop-caps and subheadings.
   */
 html {
   font-size: 16px;
@@ -864,7 +892,20 @@ main {
   margin-bottom: 192px;
 }
 /**
-  * This Interface undoes the effects of the `main` Element to a component inside.
+  * This Interface undoes the default style of the `main` Element.
+@tags
+@author
+: Chris Harvey
+@updated
+: 2014-11-22
+  */
+main.undo {
+  width: auto;
+  margin-left: 24px;
+  margin-right: 24px;
+}
+/**
+  * This Interface undoes the effects of the normal `main` Element (not `main.undo`) to a component inside.
   * Essentially, it treats the component as if it were not inside the `main` Element.
 @tags
 : #golden
@@ -873,22 +914,8 @@ main {
 @updated
 : 2014-10-07
   */
-/**
-  * The following Interfaces add background images to an Element, typically the `body` Element.
-  * `.crossgrid-lined()`    : simple lined paper
-  * `.crossgrid-phi()`      : lined paper with vertical lines at phi-like intervals
-  * `.crossgrid-even()`     : lined paper with vertical lines at fractions n/m where 1 ≤ m ≤ 6
-  * `.crossgrid-even-lcm()` : lined paper with vertical lines at n/60
-@tags
-: #schematic
-: #golden
-@author
-: Chris Harvey
-@updated
-: 2014-10-07
-  */
 /*#####################*\
-	_breadcrumbs.less
+    _breadcrumbs.less
 \*#####################*/
 /**
   * A Breadcrumb module.
@@ -990,7 +1017,7 @@ main {
   }
 }
 /*#################*\
-    _docsect.less
+    _article.less
 \*#################*/
 /**
   * This Object represents a generic article, technical document, blog post, etc. This Object may
@@ -1061,7 +1088,7 @@ main {
 @author
 : Chris Harvey
 @updated
-: 2014-08-11
+: 2014-10-26
   */
 .Article[data-status="draft"]::before {
   min-height: 24px;
@@ -1078,7 +1105,6 @@ main {
   width: 61.80339887%;
   margin-left: 23.60679775%;
   margin-right: 14.58980338%;
-  font-family: 'Century Gothic', 'Gill Sans', 'Avenir', sans-serif;
   border-color: #ff0000;
   color: #610000;
   background-color: #ff9e9e;
@@ -1088,6 +1114,7 @@ main {
   background-image: -o-linear-gradient(to bottom, #ff9e9e, #ff6b6b);
   background-image: linear-gradient(to bottom, #ff9e9e, #ff6b6b);
   background-image: -webkit-gradient(to bottom, #ff9e9e, #ff6b6b);
+  font-family: 'Century Gothic', 'Gill Sans', 'Avenir', sans-serif;
   box-sizing: border-box;
   position: fixed;
   width: 9.01699437%;
@@ -1129,7 +1156,6 @@ main {
   width: 61.80339887%;
   margin-left: 23.60679775%;
   margin-right: 14.58980338%;
-  font-family: 'Century Gothic', 'Gill Sans', 'Avenir', sans-serif;
   border-color: #ccff00;
   color: #4e6100;
   background-color: #ecff9e;
@@ -1139,6 +1165,7 @@ main {
   background-image: -o-linear-gradient(to bottom, #ecff9e, #e1ff6b);
   background-image: linear-gradient(to bottom, #ecff9e, #e1ff6b);
   background-image: -webkit-gradient(to bottom, #ecff9e, #e1ff6b);
+  font-family: 'Century Gothic', 'Gill Sans', 'Avenir', sans-serif;
   box-sizing: border-box;
   position: fixed;
   width: 9.01699437%;
@@ -1180,7 +1207,6 @@ main {
   width: 61.80339887%;
   margin-left: 23.60679775%;
   margin-right: 14.58980338%;
-  font-family: 'Century Gothic', 'Gill Sans', 'Avenir', sans-serif;
   border-color: #00ff66;
   color: #006127;
   background-color: #9effc5;
@@ -1190,6 +1216,7 @@ main {
   background-image: -o-linear-gradient(to bottom, #9effc5, #6bffa6);
   background-image: linear-gradient(to bottom, #9effc5, #6bffa6);
   background-image: -webkit-gradient(to bottom, #9effc5, #6bffa6);
+  font-family: 'Century Gothic', 'Gill Sans', 'Avenir', sans-serif;
   box-sizing: border-box;
   position: fixed;
   width: 9.01699437%;
@@ -1216,24 +1243,34 @@ main {
   content: 'Success' ' ' '\263a' ' ';
   font-weight: bold;
 }
-.Article [data-status] {
+.Article [data-status="draft"] {
   border-left-width: 4px;
   border-left-style: solid;
   padding-left: 6.47213595px;
   margin-left: 16.94427191px;
+  border-left-color: #ff0000;
   padding-right: 4px;
   box-shadow: 4px 4px 8px #808080;
-}
-.Article [data-status="draft"] {
-  border-color: #ff0000;
   background-color: rgba(255, 158, 158, 0.14589803);
 }
 .Article [data-status="complete"] {
-  border-color: #ccff00;
+  border-left-width: 4px;
+  border-left-style: solid;
+  padding-left: 6.47213595px;
+  margin-left: 16.94427191px;
+  border-left-color: #ccff00;
+  padding-right: 4px;
+  box-shadow: 4px 4px 8px #808080;
   background-color: rgba(236, 255, 158, 0.14589803);
 }
 .Article [data-status="released"] {
-  border-color: #00ff66;
+  border-left-width: 4px;
+  border-left-style: solid;
+  padding-left: 6.47213595px;
+  margin-left: 16.94427191px;
+  border-left-color: #00ff66;
+  padding-right: 4px;
+  box-shadow: 4px 4px 8px #808080;
   background-color: rgba(158, 255, 197, 0.14589803);
 }
 /**
@@ -1271,7 +1308,7 @@ main {
 @author
 : Chris Harvey
 @updated
-: 2014-08-25
+: 2014-10-26
 */
 .Docmeta > dt {
   font-weight: bold;
@@ -1279,11 +1316,122 @@ main {
 .Docmeta > dt::after {
   content: ':';
 }
+.Docmeta > dd.complete > time::after {
+  font-size: 12px;
+  font-size: 0.75rem;
+  border-color: #9acc7a;
+  color: #4e6100;
+  background-color: #ecff9e;
+  background-image: -webkit-linear-gradient(to right, #ecff9e, #dcff51);
+  background-image: -moz-linear-gradient(to right, #ecff9e, #dcff51);
+  background-image: -ms-linear-gradient(to right, #ecff9e, #dcff51);
+  background-image: -o-linear-gradient(to right, #ecff9e, #dcff51);
+  background-image: linear-gradient(to right, #ecff9e, #dcff51);
+  background-image: -webkit-gradient(to right, #ecff9e, #dcff51);
+  display: inline;
+  padding: 3px 5px 2px;
+  margin-left: 24px;
+  position: relative;
+  font-weight: bold;
+  font-family: 'Century Gothic', 'Gill Sans', 'Avenir', sans-serif;
+  white-space: nowrap;
+  content: 'Completed';
+}
+.Docmeta > dd.complete > time::after::before {
+  content: '';
+  display: block;
+  width: 0;
+  border: 0 solid transparent;
+  border-width: 10px 6px 10px 0;
+  border-right-color: #ecff9e;
+  position: absolute;
+  left: -6px;
+  top: 0;
+  z-index: 1;
+}
+.Docmeta > dd.complete > time::after::after {
+  content: ' ' '\2026';
+  font-weight: bold;
+}
+.Docmeta > dd.release > time::after {
+  font-size: 12px;
+  font-size: 0.75rem;
+  border-color: #9acc7a;
+  color: #006127;
+  background-color: #9effc5;
+  background-image: -webkit-linear-gradient(to right, #9effc5, #51ff97);
+  background-image: -moz-linear-gradient(to right, #9effc5, #51ff97);
+  background-image: -ms-linear-gradient(to right, #9effc5, #51ff97);
+  background-image: -o-linear-gradient(to right, #9effc5, #51ff97);
+  background-image: linear-gradient(to right, #9effc5, #51ff97);
+  background-image: -webkit-gradient(to right, #9effc5, #51ff97);
+  display: inline;
+  padding: 3px 5px 2px;
+  margin-left: 24px;
+  position: relative;
+  font-weight: bold;
+  font-family: 'Century Gothic', 'Gill Sans', 'Avenir', sans-serif;
+  white-space: nowrap;
+  content: 'Released';
+}
+.Docmeta > dd.release > time::after::before {
+  content: '';
+  display: block;
+  width: 0;
+  border: 0 solid transparent;
+  border-width: 10px 6px 10px 0;
+  border-right-color: #9effc5;
+  position: absolute;
+  left: -6px;
+  top: 0;
+  z-index: 1;
+}
+.Docmeta > dd.release > time::after::after {
+  content: ' ' '\263a';
+  font-weight: bold;
+}
+.Docmeta > dd.latest::after {
+  font-size: 12px;
+  font-size: 0.75rem;
+  border-color: #9acc7a;
+  color: #610000;
+  background-color: #ff9e9e;
+  background-image: -webkit-linear-gradient(to right, #ff9e9e, #ff5151);
+  background-image: -moz-linear-gradient(to right, #ff9e9e, #ff5151);
+  background-image: -ms-linear-gradient(to right, #ff9e9e, #ff5151);
+  background-image: -o-linear-gradient(to right, #ff9e9e, #ff5151);
+  background-image: linear-gradient(to right, #ff9e9e, #ff5151);
+  background-image: -webkit-gradient(to right, #ff9e9e, #ff5151);
+  display: inline;
+  padding: 3px 5px 2px;
+  margin-left: 24px;
+  position: relative;
+  font-weight: bold;
+  font-family: 'Century Gothic', 'Gill Sans', 'Avenir', sans-serif;
+  white-space: nowrap;
+  content: 'Latest';
+}
+.Docmeta > dd.latest::after::before {
+  content: '';
+  display: block;
+  width: 0;
+  border: 0 solid transparent;
+  border-width: 10px 6px 10px 0;
+  border-right-color: #ff9e9e;
+  position: absolute;
+  left: -6px;
+  top: 0;
+  z-index: 1;
+}
+.Docmeta > dd.latest::after::after {
+  content: ' ' '\0021';
+  font-weight: bold;
+}
 .Docmeta .hm::before {
   content: '@\0020';
 }
 /*###################*\
-	_footnotes.less
+    _footnotes.less
 \*###################*/
 /**
   * This Object represents a list whose items each contain a footnote. Typically, the order of
@@ -1355,7 +1503,7 @@ main {
     _headings.less
 \*##################*/
 /**
-  * This Object represents a generic textual heading of a section, post, article, or document.
+  * This Interface represents a generic textual heading of a section, post, article, or document.
   * It does not represent a heading in a table. See the `.Cell.Hc` Object.
 @implements
 : .vru-content()
@@ -1366,20 +1514,12 @@ main {
 @author
 : Chris Harvey
 @updated
-: 2014-04-14
+: 2014-10-21
   */
-.H {
-  min-height: 24px;
-  min-height: 1.5rem;
-  display: block;
-  font-family: 'Avenir', 'Calibri', 'Century Gothic', sans-serif;
-  letter-spacing: 1px;
-  text-align: left;
-}
 /**
   * The six Objects below represent different levels of headings, starting from top-level to level 6.
-@extends
-: .H
+@implements
+: .heading()
 @tags
 : #typography
 : #heading
@@ -1388,9 +1528,15 @@ main {
 @author
 : Chris Harvey
 @updated
-: 2014-08-02
+: 2014-10-21
   */
-.H.Alp {
+.H--Alp {
+  min-height: 24px;
+  min-height: 1.5rem;
+  display: block;
+  font-family: 'Avenir', 'Calibri', 'Century Gothic', sans-serif;
+  letter-spacing: 1px;
+  text-align: left;
   font-size: 48px;
   font-size: 3rem;
   line-height: 1;
@@ -1403,7 +1549,12 @@ main {
   text-align: center;
   color: #120099;
 }
-.H.Bet {
+.H--Bet {
+  min-height: 24px;
+  min-height: 1.5rem;
+  font-family: 'Avenir', 'Calibri', 'Century Gothic', sans-serif;
+  letter-spacing: 1px;
+  text-align: left;
   font-size: 35px;
   font-size: 2.1875rem;
   line-height: 1.37142857;
@@ -1421,7 +1572,13 @@ main {
   font-weight: bold;
   color: #3d6166;
 }
-.H.Gam {
+.H--Gam {
+  min-height: 24px;
+  min-height: 1.5rem;
+  display: block;
+  font-family: 'Avenir', 'Calibri', 'Century Gothic', sans-serif;
+  letter-spacing: 1px;
+  text-align: left;
   font-size: 26px;
   font-size: 1.625rem;
   line-height: 0.92307692;
@@ -1432,7 +1589,13 @@ main {
   font-variant: small-caps;
   font-weight: bold;
 }
-.H.Del {
+.H--Del {
+  min-height: 24px;
+  min-height: 1.5rem;
+  display: block;
+  font-family: 'Avenir', 'Calibri', 'Century Gothic', sans-serif;
+  letter-spacing: 1px;
+  text-align: left;
   font-size: 21px;
   font-size: 1.3125rem;
   line-height: 1.14285714;
@@ -1443,14 +1606,26 @@ main {
   font-style: italic;
   font-weight: bold;
 }
-.H.Eps {
+.H--Eps {
+  min-height: 24px;
+  min-height: 1.5rem;
+  display: block;
+  font-family: 'Avenir', 'Calibri', 'Century Gothic', sans-serif;
+  letter-spacing: 1px;
+  text-align: left;
   font-size: 18px;
   font-size: 1.125rem;
   line-height: 1.33333333;
   font-style: italic;
   color: #3d6166;
 }
-.H.Zet {
+.H--Zet {
+  min-height: 24px;
+  min-height: 1.5rem;
+  display: block;
+  font-family: 'Avenir', 'Calibri', 'Century Gothic', sans-serif;
+  letter-spacing: 1px;
+  text-align: left;
   font-size: 16px;
   font-size: 1rem;
   line-height: 1.5;
@@ -1459,20 +1634,20 @@ main {
 }
 /**
   * This Object represents a generic tagline for a top-level heading, called a 'subheading'.
-  * Do not include this object as a component of an `.H.Alp` Object. (It will become part of the
+  * Do not include this object as a component of an `.H--Alp` Object. (It will become part of the
   * document outline if you do.) Instead, this tagline should be the adjacent sibling to the
-  * corresponding `.H.Alp`.
-  * Use this Object to represent subtitles for top-level headings only (`.H.Alp`). There is no need
-  * to use it for minor headings (`.H.Bet`, `.H.Gam`, etc.).
+  * corresponding `.H--Alp`.
+  * Use this Object to represent subtitles for top-level headings only (`.H--Alp`). There is no need
+  * to use it for minor headings (`.H--Bet`, `.H--Gam`, etc.).
 @tags
 : #typography
 : #heading
 @author
 : Chris Harvey
 @updated
-: 2014-08-02
+: 2014-10-21
   */
-.H.Hsub {
+.H--Sub {
   font-size: 32px;
   font-size: 2rem;
   line-height: 1.5;
@@ -1486,16 +1661,16 @@ main {
   * U+0001 = "start of heading" character
   * so that the `::first-letter` selector does not apply to any visual characters
 @extends
-: .H.Alp
+: .H--Alp
 @tags
 : #typography
 : #heading
 @author
 : Chris Harvey
 @updated
-: 2014-09-25
+: 2014-11-13
   */
-.H.Alp.Folio {
+.H--Alp.Folio {
   font-size: 48px;
   font-size: 3rem;
   line-height: 1;
@@ -1508,15 +1683,15 @@ main {
   font-family: 'Zapfino', script;
   white-space: nowrap;
 }
-.H.Alp.Folio .cap,
-.H.Alp.Folio::first-letter {
+.H--Alp.Folio.Normal::before {
+  content: '\0001';
+}
+.H--Alp.Folio .Cap,
+.H--Alp.Folio::first-letter {
   font-size: 96px;
   font-size: 6rem;
   line-height: 0.25;
   font-family: 'Snell Roundhand', 'Zapfino', script;
-}
-.H.Alp.Folio.Normal::before {
-  content: '\0001';
 }
 /*####################*\
     _paragraphs.less
@@ -2088,10 +2263,6 @@ main {
 .Ilist.Ndash > .Item:not(:last-child)::after {
   content: '\0020\2013\0020';
 }
-.Ilist > .Item.endline::after {
-  display: block;
-  content: '' !important;
-}
 /**
   * This Object represents a 'List of Prose', a list whose items consist of only paragraphs.
 @extends
@@ -2155,25 +2326,35 @@ main {
   display: block;
   min-height: 24px;
   min-height: 1.5rem;
+  /**
+    * This Object represent the term in a term-description pair of a `.Map`.
+  @implements
+  : .vru-top() only when following a `.Desc`
+  @tags
+  : #typography
+  : #map
+  @author
+  : Chris Harvey
+  @updated
+  : 2014-10-07
+    */
+  /**
+    * This Object represent the description in a term-description pair of a `.Map`.
+  @belongsto
+  : .Map
+  @tags
+  : #typography
+  : #map
+  @author
+  : Chris Harvey
+  @updated
+  : 2014-10-05
+    */
 }
 :not(h1):not(.H) + .Map {
   margin-top: 24px;
   margin-top: 1.5rem;
 }
-/**
-  * This Object represent the term in a term-description pair of a `.Map`.
-@belongsto
-: .Map
-@implements
-: .vru-top() only when following a `.Desc`
-@tags
-: #typography
-: #map
-@author
-: Chris Harvey
-@updated
-: 2014-10-07
-  */
 .Map > .Term {
   font-weight: bold;
 }
@@ -2181,18 +2362,6 @@ main {
   margin-top: 24px;
   margin-top: 1.5rem;
 }
-/**
-  * This Object represent the description in a term-description pair of a `.Map`.
-@belongsto
-: .Map
-@tags
-: #typography
-: #map
-@author
-: Chris Harvey
-@updated
-: 2014-10-05
-  */
 /**
   * This Object represents an association list in which corresponding terms and descriptions are
   * grouped together in rows.
@@ -2209,16 +2378,19 @@ main {
 @author
 : Chris Harvey
 @updated
-: 2014-10-05
+: 2014-11-23
   */
 .Map.Horiz::after {
   display: table;
   content: ' ';
   clear: both;
 }
+.Map.Horiz > .Term,
+.Map.Horiz > .Desc {
+  box-sizing: border-box;
+}
 .Map.Horiz > .Term {
   padding-right: 1.31556175%;
-  margin-top: 0;
   float: left;
   clear: both;
   overflow: auto;
@@ -2227,59 +2399,66 @@ main {
 .Map.Horiz > .Desc {
   float: left;
 }
-.Map.Horiz > .Term {
-  width: 36.88103938%;
-}
-.Map.Horiz > .Desc {
-  width: 61.80339887%;
-}
-.Map.Horiz > .Desc + .Desc {
-  margin-left: 38.19660113%;
+.Map.Horiz > .Desc + .Term {
+  margin-top: 0;
 }
 .Map.Horiz.Sml > .Term {
-  width: 22.291236%;
+  width: 23.60679775%;
 }
 .Map.Horiz.Sml > .Desc {
   width: 76.39320225%;
 }
-.Map.Horiz.Sml > .Desc + .Desc {
-  margin-left: 23.60679775%;
-}
 .Map.Horiz.Msm > .Term {
-  width: 36.88103938%;
+  width: 38.19660113%;
 }
 .Map.Horiz.Msm > .Desc {
   width: 61.80339887%;
 }
-.Map.Horiz.Msm > .Desc + .Desc {
-  margin-left: 38.19660113%;
-}
 .Map.Horiz.Med > .Term {
-  width: 48.68443825%;
+  width: 50%;
 }
 .Map.Horiz.Med > .Desc {
   width: 50%;
 }
-.Map.Horiz.Med > .Desc + .Desc {
-  margin-left: 50%;
-}
 .Map.Horiz.Mlg > .Term {
-  width: 60.48783713%;
+  width: 61.80339887%;
 }
 .Map.Horiz.Mlg > .Desc {
   width: 38.19660113%;
 }
-.Map.Horiz.Mlg > .Desc + .Desc {
-  margin-left: 61.80339887%;
-}
 .Map.Horiz.Lrg > .Term {
-  width: 75.0776405%;
+  width: 76.39320225%;
 }
 .Map.Horiz.Lrg > .Desc {
   width: 23.60679775%;
 }
-.Map.Horiz.Lrg > .Desc + .Desc {
-  margin-left: 76.39320225%;
+/**
+  * This Object represents a Horizontal Map that appears as a Table Object.
+@extends
+: .Map.Horiz
+@implements
+: .cellpaddingdefault()
+@tags
+: #typography
+: #map
+: #table
+@author
+: Chris Harvey
+@updated
+: 2014-11-23
+  */
+.Map.Horiz.Tbl > .Term,
+.Map.Horiz.Tbl > .Desc {
+  padding: 12px 7.41640786px;
+  padding: 0.75rem 0.46352549rem;
+}
+.Map.Horiz.Tbl > .Term:nth-child(4n+1),
+.Map.Horiz.Tbl > .Desc:nth-child(4n+2) {
+  background-color: #cfe0e2;
+}
+.Map.Horiz.Tbl > .Term:nth-child(4n+3),
+.Map.Horiz.Tbl > .Desc:nth-child(4n) {
+  background-color: #b6d0d3;
 }
 /*################*\
     _tables.less
@@ -2334,7 +2513,7 @@ main {
 .Rowgroup.Head,
 .Rowgroup.Foot {
   vertical-align: bottom;
-  background-color: #f1f6ff;
+  background-color: #ebf2f3;
 }
 .Rowgroup.Head .Row,
 .Rowgroup.Foot .Row {
@@ -2364,10 +2543,13 @@ main {
   display: table-row;
 }
 .Row:nth-child(odd) {
-  background-color: #f1f6ff;
+  background-color: #cfe0e2;
 }
 .Row:nth-child(even) {
-  background-color: #f1f6ff;
+  background-color: #b6d0d3;
+}
+.Row:hover {
+  background-color: #a1c2c7;
 }
 /**
   * This Object represents a single data entry in a `.Table`.
@@ -2406,10 +2588,10 @@ main {
   font-family: 'Avenir', 'Calibri', 'Century Gothic', sans-serif;
 }
 .Table.Vert .Cell:nth-child(odd) {
-  background-color: #f1f6ff;
+  background-color: #cfe0e2;
 }
 .Table.Vert .Cell:nth-child(even) {
-  background-color: #f1f6ff;
+  background-color: #b6d0d3;
 }
 table {
   counter-reset: nrows;
@@ -2460,12 +2642,12 @@ code {
   border-radius: 3px;
   font-size: 12px;
   font-size: 0.75rem;
-  font-family: 'Menlo', 'Lucida Sans Typewriter', 'Monaco', monospace;
-  text-align: left;
-  white-space: nowrap;
   border-color: #eee8d5;
   color: #657b83;
   background-color: #fdf6e3;
+  font-family: 'Menlo', 'Lucida Sans Typewriter', 'Monaco', monospace;
+  text-align: left;
+  white-space: nowrap;
 }
 code .Comm {
   color: #93a1a1;
@@ -2483,7 +2665,7 @@ code .Comm {
 @author
 : Chris Harvey
 @updated
-: 2014-10-19
+: 2014-11-02
   */
 .Codeblock {
   min-height: 24px;
@@ -2501,13 +2683,13 @@ code .Comm {
   font-size: 12px;
   font-size: 0.75rem;
   line-height: 2;
+  border-color: #073642;
+  color: #839496;
+  background-color: #002b36;
   font-family: 'Menlo', 'Lucida Sans Typewriter', 'Monaco', monospace;
   text-align: left;
   white-space: pre;
   overflow: auto;
-  border-color: #073642;
-  color: #839496;
-  background-color: #002b36;
 }
 :not(h1):not(.H) + .Codeblock {
   margin-top: 24px;
@@ -2516,181 +2698,199 @@ code .Comm {
 .Codeblock .Comm {
   color: #586e75;
 }
-/**
-  * Subcomponents of a code block.
-  * `.Tag` : an HTML tag
-  * `.Attr`: an HTML attribute
-  * `.Val` : an HTML or CSS value
-  * `.Sel` : a CSS selector
-  * `.Prop`: a CSS property
-  * `.Cmd` : a Less, LaTeX, or JS command
-  * `.Arg` : a Less, LaTeX, or JS argument
-@childof
-: .Codeblock
-@tags
-: #code
-@author
-: Chris Harvey
-@updated
-: 2014-05-25
-  */
-.Codeblock .Tag {
-  color: #268bd2;
-}
-.Codeblock .Atr {
-  color: #cb4b16;
-}
-.Codeblock .Val {
-  color: #859900;
-}
-.Codeblock .Sel {
-  color: #2aa198;
-}
-.Codeblock .Prp {
-  color: #b58900;
-}
-.Codeblock .Cmd {
-  color: #6c71c4;
-}
-.Codeblock .Arg {
-  color: #d33682;
-}
-.Codeblock .Tag {
-  quotes: '<' '>';
-}
-.Codeblock .Tag::before {
-  content: open-quote;
-}
-.Codeblock .Tag::after {
-  content: close-quote;
-}
-.Codeblock .Tag .Val {
-  quotes: '\0022' '\0022';
-}
-.Codeblock .Tag .Val::before {
-  content: open-quote;
-}
-.Codeblock .Tag .Val::after {
-  content: close-quote;
-}
-/**
-  * This Object represents a block of CSS code. Its semantics are derived not from the formatting
-  * of the text, but rather the elements inside.
-@extends
-: .Codeblock
-@tags
-: #code
-@author
-: Chris Harvey
-@updated
-: 2014-05-25
-  */
-.Codeblock.CSS {
-  white-space: nowrap;
-}
-.Codeblock.CSS.Invert {
+.Codeblock.Invert {
   border-color: #eee8d5;
   color: #657b83;
   background-color: #fdf6e3;
 }
-.Codeblock.CSS.Invert .Comm {
+.Codeblock.Invert .Comm {
   color: #93a1a1;
 }
 /**
-  * This Object represents a CSS selector.
-@childof
-: .Codeblock.CSS
+  * This Object represents a block of HTML code.
+  * `.Tag` : an HTML tag
+  * `.Attr`: an HTML attribute
+  * `.Val` : an HTML or CSS value
+@extends
+: .Codeblock
 @tags
 : #code
 @author
 : Chris Harvey
 @updated
-: 2014-05-25
+: 2014-11-02
   */
-.CSS .Sel::after {
-  content: ' {';
+.Codeblock.HTML .Tag {
+  quotes: '<' '>';
+  color: #268bd2;
 }
-.CSS .Comm {
-  quotes: '/* ' ' */';
-}
-.CSS .Comm::before {
+.Codeblock.HTML .Tag::before {
   content: open-quote;
 }
-.CSS .Comm::after {
+.Codeblock.HTML .Tag::after {
   content: close-quote;
 }
-.CSS .String {
-  quotes: '\0027' '\0027';
-  color: #d33682;
+.Codeblock.HTML .Tag::before,
+.Codeblock.HTML .Tag::after {
+  color: #808080;
 }
-.CSS .String::before {
+.Codeblock.HTML .Endtag {
+  quotes: '<' '>';
+  color: #268bd2;
+  quotes: '</' '>';
+}
+.Codeblock.HTML .Endtag::before {
   content: open-quote;
 }
-.CSS .String::after {
+.Codeblock.HTML .Endtag::after {
   content: close-quote;
 }
-/**
-  * This Object represents a ruleset for a CSS selector.
-@childof
-: .Codeblock.CSS
-@implements
-: .clearfix
-@tags
-: #code
-@author
-: Chris Harvey
-@updated
-: 2014-05-25
-*/
-.CSS .Ruleset::after {
-  display: table;
-  content: ' ';
-  clear: both;
+.Codeblock.HTML .Endtag::before,
+.Codeblock.HTML .Endtag::after {
+  color: #808080;
 }
-.CSS .Ruleset::after {
-  content: '}';
+.Codeblock.HTML .Endtag::before {
+  content: open-quote;
+}
+.Codeblock.HTML .Endtag::after {
+  content: close-quote;
+}
+.Codeblock.HTML .Atr {
+  color: #859900;
+}
+.Codeblock.HTML .Val {
+  quotes: '\0022' '\0022';
   color: #2aa198;
 }
-.CSS .Ruleset > .Comm {
-  padding-left: 48px;
+.Codeblock.HTML .Val::before {
+  content: open-quote;
+}
+.Codeblock.HTML .Val::after {
+  content: close-quote;
+}
+.Codeblock.HTML .Val::before,
+.Codeblock.HTML .Val::after {
+  color: #d33682;
+}
+.Codeblock.HTML .Comm {
+  quotes: '<!-- ' ' -->';
+}
+.Codeblock.HTML .Comm::before {
+  content: open-quote;
+}
+.Codeblock.HTML .Comm::after {
+  content: close-quote;
 }
 /**
-  * This Object represents the property in a CSS property-value pair.
-@childof
-: .Codeblock.CSS .Ruleset
+  * This Object represents a block of CSS or LESS code.
+  * `.Sel` : a CSS selector
+  * `.Prop`: a CSS property
+  * `.Val` : a CSS value
+  * `.Cmd` : a Less, LaTeX, or JS command
+  * `.Arg` : a Less, LaTeX, or JS argument
+@extends
+: .Codeblock
 @tags
 : #code
 @author
 : Chris Harvey
 @updated
-: 2014-05-25
+: 2014-11-02
   */
-.Ruleset > .Prp {
-  padding-left: 48px;
-  float: left;
-  clear: both;
+.Codeblock.CSS .Sel {
+  quotes: '' '}';
+  color: #268bd2;
 }
-.Ruleset > .Prp::after {
-  content: ':\00A0';
+.Codeblock.CSS .Sel::before {
+  content: open-quote;
 }
-/**
-  * This Object represents the value in a CSS property-value pair.
-@childof
-: .Codeblock.CSS .Ruleset
-@tags
-: #code
-@author
-: Chris Harvey
-@updated
-: 2014-05-25
-*/
-.Ruleset > .Val::after {
-  content: ';';
+.Codeblock.CSS .Sel::after {
+  content: close-quote;
+}
+.Codeblock.CSS .Prp {
+  quotes: '' ';';
+  color: #859900;
+}
+.Codeblock.CSS .Prp::before {
+  content: open-quote;
+}
+.Codeblock.CSS .Prp::after {
+  content: close-quote;
+}
+.Codeblock.CSS .Val {
+  quotes: ': ' '';
   color: #b58900;
 }
+.Codeblock.CSS .Val::before {
+  content: open-quote;
+}
+.Codeblock.CSS .Val::after {
+  content: close-quote;
+}
+.Codeblock.CSS .Val::before,
+.Codeblock.CSS .Val::after {
+  color: #859900;
+}
+.Codeblock.CSS .Cmd {
+  quotes: '' ';';
+  color: #268bd2;
+}
+.Codeblock.CSS .Cmd::before {
+  content: open-quote;
+}
+.Codeblock.CSS .Cmd::after {
+  content: close-quote;
+}
+.Codeblock.CSS .Arg {
+  quotes: '(' ')';
+  color: #6c71c4;
+}
+.Codeblock.CSS .Arg::before {
+  content: open-quote;
+}
+.Codeblock.CSS .Arg::after {
+  content: close-quote;
+}
+.Codeblock.CSS .Arg::before,
+.Codeblock.CSS .Arg::after {
+  color: #268bd2;
+}
+.Codeblock.CSS .Comm {
+  quotes: '/* ' ' */';
+}
+.Codeblock.CSS .Comm::before {
+  content: open-quote;
+}
+.Codeblock.CSS .Comm::after {
+  content: close-quote;
+}
+.Codeblock.CSS .Comm.I {
+  quotes: '// ' '';
+}
+.Codeblock.CSS .String {
+  quotes: '\0022' '\0022';
+  color: #2aa198;
+  quotes: '\0027' '\0027';
+}
+.Codeblock.CSS .String::before {
+  content: open-quote;
+}
+.Codeblock.CSS .String::after {
+  content: close-quote;
+}
+.Codeblock.CSS .String::before,
+.Codeblock.CSS .String::after {
+  color: #d33682;
+}
+.Codeblock.CSS .String::before {
+  content: open-quote;
+}
+.Codeblock.CSS .String::after {
+  content: close-quote;
+}
 /**
-  * A block of CSS code whose selectors are inline. This is really useful for selectors with one
-  * property-value pair each.
+  * This Object represents a block of CSS code organized as a map.
+  * Its semantics are derived not from the formatting of the text, but rather the elements inside.
 @extends
 : .Codeblock.CSS
 @tags
@@ -2698,26 +2898,210 @@ code .Comm {
 @author
 : Chris Harvey
 @updated
-: 2014-05-31
+: 2014-11-02
   */
-.Codeblock.CSS.I .Sel {
+.CSSmap {
+  min-height: 24px;
+  min-height: 1.5rem;
+  display: block;
+  position: relative;
+  top: -2px;
+  margin-bottom: -4px;
+  border-width: 2px;
+  border-style: solid;
+  padding: 12px 7.41640786px;
+  padding: 0.75rem 0.46352549rem;
+  box-sizing: border-box;
+  border-radius: 3px;
+  font-size: 12px;
+  font-size: 0.75rem;
+  line-height: 2;
+  border-color: #073642;
+  color: #839496;
+  background-color: #002b36;
+  font-family: 'Menlo', 'Lucida Sans Typewriter', 'Monaco', monospace;
+  text-align: left;
+  white-space: pre;
+  overflow: auto;
+  white-space: nowrap;
+  /**
+    * A block of CSS code whose selectors are inline. This is really useful for selectors with one
+    * property-value pair each.
+  @extends
+  : .Codeblock.CSS
+  @tags
+  : #code
+  @author
+  : Chris Harvey
+  @updated
+  : 2014-05-31
+    */
+}
+:not(h1):not(.H) + .CSSmap {
+  margin-top: 24px;
+  margin-top: 1.5rem;
+}
+.CSSmap .Comm {
+  color: #586e75;
+}
+.CSSmap.Invert {
+  border-color: #eee8d5;
+  color: #657b83;
+  background-color: #fdf6e3;
+}
+.CSSmap.Invert .Comm {
+  color: #93a1a1;
+}
+.CSSmap .Sel {
+  quotes: '' '}';
+  color: #268bd2;
+}
+.CSSmap .Sel::before {
+  content: open-quote;
+}
+.CSSmap .Sel::after {
+  content: close-quote;
+}
+.CSSmap .Prp {
+  quotes: '' ';';
+  color: #859900;
+}
+.CSSmap .Prp::before {
+  content: open-quote;
+}
+.CSSmap .Prp::after {
+  content: close-quote;
+}
+.CSSmap .Val {
+  quotes: ': ' '';
+  color: #b58900;
+}
+.CSSmap .Val::before {
+  content: open-quote;
+}
+.CSSmap .Val::after {
+  content: close-quote;
+}
+.CSSmap .Val::before,
+.CSSmap .Val::after {
+  color: #859900;
+}
+.CSSmap .Cmd {
+  quotes: '' ';';
+  color: #268bd2;
+}
+.CSSmap .Cmd::before {
+  content: open-quote;
+}
+.CSSmap .Cmd::after {
+  content: close-quote;
+}
+.CSSmap .Arg {
+  quotes: '(' ')';
+  color: #6c71c4;
+}
+.CSSmap .Arg::before {
+  content: open-quote;
+}
+.CSSmap .Arg::after {
+  content: close-quote;
+}
+.CSSmap .Arg::before,
+.CSSmap .Arg::after {
+  color: #268bd2;
+}
+.CSSmap .Comm {
+  quotes: '/* ' ' */';
+}
+.CSSmap .Comm::before {
+  content: open-quote;
+}
+.CSSmap .Comm::after {
+  content: close-quote;
+}
+.CSSmap .Comm.I {
+  quotes: '// ' '';
+}
+.CSSmap .String {
+  quotes: '\0022' '\0022';
+  color: #2aa198;
+  quotes: '\0027' '\0027';
+}
+.CSSmap .String::before {
+  content: open-quote;
+}
+.CSSmap .String::after {
+  content: close-quote;
+}
+.CSSmap .String::before,
+.CSSmap .String::after {
+  color: #d33682;
+}
+.CSSmap .String::before {
+  content: open-quote;
+}
+.CSSmap .String::after {
+  content: close-quote;
+}
+.CSSmap .String {
+  quotes: '\0027' '\0027';
+  color: #6c71c4;
+}
+.CSSmap .String::before {
+  content: open-quote;
+}
+.CSSmap .String::after {
+  content: close-quote;
+}
+.CSSmap .Sel {
+  quotes: '' ' {';
+}
+.CSSmap .Ruleset::after {
+  display: table;
+  content: ' ';
+  clear: both;
+}
+.CSSmap .Ruleset::after {
+  content: '}';
+  color: #268bd2;
+}
+.CSSmap .Ruleset > .Prp {
+  float: left;
+  clear: both;
+  quotes: '' ':\00A0';
+}
+.CSSmap .Ruleset > .Val {
+  quotes: '' ';';
+}
+.CSSmap .Ruleset > .Prp,
+.CSSmap .Ruleset > .Comm {
+  padding-left: 48px;
+}
+.CSSmap.I .Sel {
   float: left;
   clear: both;
 }
-.Codeblock.CSS.I .Ruleset::after {
+.CSSmap.I .Ruleset::after {
   display: inline;
 }
-.Codeblock.CSS.I .Ruleset > .Prp {
+.CSSmap.I .Ruleset > .Prp {
   display: inline;
   padding-left: 6px;
   float: none;
 }
-.Codeblock.CSS.I .Ruleset > .Val {
+.CSSmap.I .Ruleset > .Val {
   display: inline;
 }
 /**
   * This Object represents an individual key (a button) on a keyboard, calculator, or other device.
-  * Recommended instantiated by a `kbd > kbd` Element.
+  *
+  * The `kbd` Element represents general user input. The `kbd > kbd` Element represents an actual
+  * key or button that the user should input. Use `kbd > kbd.Key` in this case.
+  * To *name* a key, without commanding use of it, best use `i.Key`, as this is a "mention".
+  *
+<p>Use <kbd><kbd class="Key">cmd</kbd>+<kbd class="Key">S</kbd></kbd> to save, where
+  the <i class="Key">cmd</i> key is depicted with the <i>&#x2318;</i> symbol.</p>
+  <!-- U+2318 "PLACE OF INTEREST SIGN" ⌘ -->
 @implements
 : .box-inline()
 : .fontsize-sml()
@@ -2741,6 +3125,7 @@ code .Comm {
   border-color: #073642;
   color: #839496;
   background-color: #002b36;
+  quotes: none;
   font-family: 'Century Gothic', 'Gill Sans', 'Avenir', sans-serif;
   color: #93a1a1;
 }
@@ -3314,13 +3699,13 @@ del + ins {
   display: block;
 }
 /*################*\
-	_labels.less
+    _labels.less
 \*################*/
 /**
   * A message Interface is a component that displays little indications to the user.
   * Each Object that implements this Interface may have one of the following subclasses:
   * - **Warning** is used to indicate a negative consequence, such as an action that cannot
-  * 	be undone or that will cause something to break.
+  *   be undone or that will cause something to break.
   * - **Caution** is used to indicate that the user must proceed with care.
   * - **Success** is used to indicate that something was done right.
   * - **Info** is used to indicate extra information about something.
@@ -3349,7 +3734,7 @@ del + ins {
 @author
 : Chris Harvey
 @updated
-: 2014-10-19
+: 2014-10-26
   */
 .Alert--Warn {
   min-height: 24px;
@@ -3370,7 +3755,6 @@ del + ins {
   font-size: 12px;
   font-size: 0.75rem;
   line-height: 2;
-  font-family: 'Century Gothic', 'Gill Sans', 'Avenir', sans-serif;
   border-color: #ff0000;
   color: #610000;
   background-color: #ff9e9e;
@@ -3380,6 +3764,7 @@ del + ins {
   background-image: -o-linear-gradient(to bottom, #ff9e9e, #ff6b6b);
   background-image: linear-gradient(to bottom, #ff9e9e, #ff6b6b);
   background-image: -webkit-gradient(to bottom, #ff9e9e, #ff6b6b);
+  font-family: 'Century Gothic', 'Gill Sans', 'Avenir', sans-serif;
 }
 :not(h1):not(.H) + .Alert--Warn {
   margin-top: 24px;
@@ -3408,7 +3793,6 @@ del + ins {
   font-size: 12px;
   font-size: 0.75rem;
   line-height: 2;
-  font-family: 'Century Gothic', 'Gill Sans', 'Avenir', sans-serif;
   border-color: #ccff00;
   color: #4e6100;
   background-color: #ecff9e;
@@ -3418,6 +3802,7 @@ del + ins {
   background-image: -o-linear-gradient(to bottom, #ecff9e, #e1ff6b);
   background-image: linear-gradient(to bottom, #ecff9e, #e1ff6b);
   background-image: -webkit-gradient(to bottom, #ecff9e, #e1ff6b);
+  font-family: 'Century Gothic', 'Gill Sans', 'Avenir', sans-serif;
 }
 :not(h1):not(.H) + .Alert--Cshn {
   margin-top: 24px;
@@ -3446,7 +3831,6 @@ del + ins {
   font-size: 12px;
   font-size: 0.75rem;
   line-height: 2;
-  font-family: 'Century Gothic', 'Gill Sans', 'Avenir', sans-serif;
   border-color: #00ff66;
   color: #006127;
   background-color: #9effc5;
@@ -3456,6 +3840,7 @@ del + ins {
   background-image: -o-linear-gradient(to bottom, #9effc5, #6bffa6);
   background-image: linear-gradient(to bottom, #9effc5, #6bffa6);
   background-image: -webkit-gradient(to bottom, #9effc5, #6bffa6);
+  font-family: 'Century Gothic', 'Gill Sans', 'Avenir', sans-serif;
 }
 :not(h1):not(.H) + .Alert--Skss {
   margin-top: 24px;
@@ -3484,7 +3869,6 @@ del + ins {
   font-size: 12px;
   font-size: 0.75rem;
   line-height: 2;
-  font-family: 'Century Gothic', 'Gill Sans', 'Avenir', sans-serif;
   border-color: #0066ff;
   color: #002761;
   background-color: #9ec5ff;
@@ -3494,6 +3878,7 @@ del + ins {
   background-image: -o-linear-gradient(to bottom, #9ec5ff, #6ba6ff);
   background-image: linear-gradient(to bottom, #9ec5ff, #6ba6ff);
   background-image: -webkit-gradient(to bottom, #9ec5ff, #6ba6ff);
+  font-family: 'Century Gothic', 'Gill Sans', 'Avenir', sans-serif;
 }
 :not(h1):not(.H) + .Alert--Info {
   margin-top: 24px;
@@ -3522,7 +3907,6 @@ del + ins {
   font-size: 12px;
   font-size: 0.75rem;
   line-height: 2;
-  font-family: 'Century Gothic', 'Gill Sans', 'Avenir', sans-serif;
   border-color: #cc00ff;
   color: #4e0061;
   background-color: #ec9eff;
@@ -3532,6 +3916,7 @@ del + ins {
   background-image: -o-linear-gradient(to bottom, #ec9eff, #e16bff);
   background-image: linear-gradient(to bottom, #ec9eff, #e16bff);
   background-image: -webkit-gradient(to bottom, #ec9eff, #e16bff);
+  font-family: 'Century Gothic', 'Gill Sans', 'Avenir', sans-serif;
 }
 :not(h1):not(.H) + .Alert--Help {
   margin-top: 24px;
@@ -3554,17 +3939,11 @@ del + ins {
 @author
 : Chris Harvey
 @updated
-: 2014-10-08
+: 2014-10-26
   */
 .Label--Warn {
-  display: inline;
-  padding: 3px 5px 2px;
-  margin-left: 24px;
-  position: relative;
   font-size: 12px;
   font-size: 0.75rem;
-  font-family: 'Century Gothic', 'Gill Sans', 'Avenir', sans-serif;
-  white-space: nowrap;
   border-color: #9acc7a;
   color: #610000;
   background-color: #ff9e9e;
@@ -3574,6 +3953,13 @@ del + ins {
   background-image: -o-linear-gradient(to right, #ff9e9e, #ff5151);
   background-image: linear-gradient(to right, #ff9e9e, #ff5151);
   background-image: -webkit-gradient(to right, #ff9e9e, #ff5151);
+  display: inline;
+  padding: 3px 5px 2px;
+  margin-left: 24px;
+  position: relative;
+  font-weight: bold;
+  font-family: 'Century Gothic', 'Gill Sans', 'Avenir', sans-serif;
+  white-space: nowrap;
 }
 .Label--Warn::before {
   content: '';
@@ -3592,14 +3978,8 @@ del + ins {
   font-weight: bold;
 }
 .Label--Cshn {
-  display: inline;
-  padding: 3px 5px 2px;
-  margin-left: 24px;
-  position: relative;
   font-size: 12px;
   font-size: 0.75rem;
-  font-family: 'Century Gothic', 'Gill Sans', 'Avenir', sans-serif;
-  white-space: nowrap;
   border-color: #9acc7a;
   color: #4e6100;
   background-color: #ecff9e;
@@ -3609,6 +3989,13 @@ del + ins {
   background-image: -o-linear-gradient(to right, #ecff9e, #dcff51);
   background-image: linear-gradient(to right, #ecff9e, #dcff51);
   background-image: -webkit-gradient(to right, #ecff9e, #dcff51);
+  display: inline;
+  padding: 3px 5px 2px;
+  margin-left: 24px;
+  position: relative;
+  font-weight: bold;
+  font-family: 'Century Gothic', 'Gill Sans', 'Avenir', sans-serif;
+  white-space: nowrap;
 }
 .Label--Cshn::before {
   content: '';
@@ -3627,14 +4014,8 @@ del + ins {
   font-weight: bold;
 }
 .Label--Skss {
-  display: inline;
-  padding: 3px 5px 2px;
-  margin-left: 24px;
-  position: relative;
   font-size: 12px;
   font-size: 0.75rem;
-  font-family: 'Century Gothic', 'Gill Sans', 'Avenir', sans-serif;
-  white-space: nowrap;
   border-color: #9acc7a;
   color: #006127;
   background-color: #9effc5;
@@ -3644,6 +4025,13 @@ del + ins {
   background-image: -o-linear-gradient(to right, #9effc5, #51ff97);
   background-image: linear-gradient(to right, #9effc5, #51ff97);
   background-image: -webkit-gradient(to right, #9effc5, #51ff97);
+  display: inline;
+  padding: 3px 5px 2px;
+  margin-left: 24px;
+  position: relative;
+  font-weight: bold;
+  font-family: 'Century Gothic', 'Gill Sans', 'Avenir', sans-serif;
+  white-space: nowrap;
 }
 .Label--Skss::before {
   content: '';
@@ -3662,14 +4050,8 @@ del + ins {
   font-weight: bold;
 }
 .Label--Info {
-  display: inline;
-  padding: 3px 5px 2px;
-  margin-left: 24px;
-  position: relative;
   font-size: 12px;
   font-size: 0.75rem;
-  font-family: 'Century Gothic', 'Gill Sans', 'Avenir', sans-serif;
-  white-space: nowrap;
   border-color: #9acc7a;
   color: #002761;
   background-color: #9ec5ff;
@@ -3679,6 +4061,13 @@ del + ins {
   background-image: -o-linear-gradient(to right, #9ec5ff, #5197ff);
   background-image: linear-gradient(to right, #9ec5ff, #5197ff);
   background-image: -webkit-gradient(to right, #9ec5ff, #5197ff);
+  display: inline;
+  padding: 3px 5px 2px;
+  margin-left: 24px;
+  position: relative;
+  font-weight: bold;
+  font-family: 'Century Gothic', 'Gill Sans', 'Avenir', sans-serif;
+  white-space: nowrap;
 }
 .Label--Info::before {
   content: '';
@@ -3697,14 +4086,8 @@ del + ins {
   font-weight: bold;
 }
 .Label--Help {
-  display: inline;
-  padding: 3px 5px 2px;
-  margin-left: 24px;
-  position: relative;
   font-size: 12px;
   font-size: 0.75rem;
-  font-family: 'Century Gothic', 'Gill Sans', 'Avenir', sans-serif;
-  white-space: nowrap;
   border-color: #9acc7a;
   color: #4e0061;
   background-color: #ec9eff;
@@ -3714,6 +4097,13 @@ del + ins {
   background-image: -o-linear-gradient(to right, #ec9eff, #dc51ff);
   background-image: linear-gradient(to right, #ec9eff, #dc51ff);
   background-image: -webkit-gradient(to right, #ec9eff, #dc51ff);
+  display: inline;
+  padding: 3px 5px 2px;
+  margin-left: 24px;
+  position: relative;
+  font-weight: bold;
+  font-family: 'Century Gothic', 'Gill Sans', 'Avenir', sans-serif;
+  white-space: nowrap;
 }
 .Label--Help::before {
   content: '';
@@ -3732,7 +4122,7 @@ del + ins {
   font-weight: bold;
 }
 /*###############*\
-	_media.less
+    _media.less
 \*###############*/
 /**
   * The Media Object is a module that has an image with a body.
@@ -3778,6 +4168,22 @@ del + ins {
   color: #0e0900;
   background-color: #ffbb4d;
 }
+/**
+  * `.endline` creates a visual appearance of a line break within an inline list.
+@childof
+: .Ilist
+@tags
+: #typography
+: #list
+@author
+: Chris Harvey
+@updated
+: 2014-10-25
+  */
+.Ilist > .Item.endline::after {
+  display: block;
+  content: '' !important;
+}
 @media print {
   body,
   .H,
@@ -3820,24 +4226,15 @@ del + ins {
     border-right-color: #000000;
   }
   /**
-	  * This Interface displays an Object on screen but does not print it.
-	@tags
-	: #schematic
-	@author
-	: Chris Harvey
-	@updated
-	: 2014-04-30
-	  */
+    * This Interface displays an Object on screen but does not print it.
+  @tags
+  : #schematic
+  @author
+  : Chris Harvey
+  @updated
+  : 2014-04-30
+    */
   .noprint {
     display: none;
   }
 }
-/**
-	  * This Interface starts a new page in the print media.
-	@tags
-	: #schematic
-	@author
-	: Chris Harvey
-	@updated
-	: 2014-04-30
-	  */
