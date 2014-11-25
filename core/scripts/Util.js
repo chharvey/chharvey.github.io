@@ -92,19 +92,21 @@ Util.factorize = function (n) {
   * @return  the greatest integer factor that `a` and `b` have in common
   */
 Util.gcf = function (a, b) {
-  if (a === b) return a;
+  if (a === 0 || b === 0) return Math.max(a,b);
   else {
-    var mod = Math.max(a,b) % Math.min(a,b);
-    return gcf(Math.min(a,b), mod);
+    var hi = Math.max(a,b);
+    var lo = Math.min(a,b);
+    var mod =  hi % lo;
+    return Util.gcf(lo, mod);
   }
 }
 
 /**
-* Gives the least common multiple of two numbers. DRAFT. Returns 0 for now.
-* @param a the first positive integer
-* @param b the second positive integer
-* @return  the least integer multiple that `a` and `b` have in common
-*/
+  * Gives the least common multiple of two numbers. DRAFT. Returns 0 for now.
+  * @param a the first positive integer
+  * @param b the second positive integer
+  * @return  the least integer multiple that `a` and `b` have in common
+  */
 Util.lcm = function (a, b) {
   return 0;
 }
