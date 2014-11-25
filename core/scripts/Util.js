@@ -72,6 +72,30 @@ Util.factorize = function (n) {
 }
 
 /**
+  * Gives the greatest common factor of two numbers. This is a recursive function.
+  * @param a the first positive integer
+  * @param b the second positive integer
+  * @return  the greatest integer factor that `a` and `b` have in common
+  */
+Util.gcf = function (a, b) {
+  if (a === b) return a;
+  else {
+    var mod = Math.max(a,b) % Math.min(a,b);
+    return gcf(Math.min(a,b), mod);
+  }
+}
+
+/**
+* Gives the least common multiple of two numbers. DRAFT. Returns 0 for now.
+* @param a the first positive integer
+* @param b the second positive integer
+* @return  the least integer multiple that `a` and `b` have in common
+*/
+Util.lcm = function (a, b) {
+  return 0;
+}
+
+/**
   * Computes the factorial of a given non-negative integer.
   * The factorial of a positive integer `n`, written in mathematical notation as `n!`, is the product
   * of all the positive integers less than or equal to `n`.
