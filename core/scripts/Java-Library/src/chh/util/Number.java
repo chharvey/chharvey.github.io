@@ -112,24 +112,6 @@ public final class Number {
     }
 
     /**
-      * Returns an ArrayList of all of the prime factors of the given number.
-      * @param n the given number to be factored
-      * @return an ArrayList containing Integer objects, which are prime factors of {@code n}, in increasing order
-      */
-    public static ArrayList<Integer> factor(int n) {
-        ArrayList<Integer> array = new ArrayList<>();
-        int i = 2;
-        while (i <= n) {
-            if (n % i == 0) {
-                array.add(i);
-                n /= i;
-                i = 2;
-            } else i++;
-        }
-        return array;
-    }
-
-    /**
       * Gives the greatest common factor of two numbers.
       * @param n the first integer
       * @param r the second integer

@@ -40,6 +40,38 @@ Util.isPrime = function (integer) {
 }
 
 /**
+  * Returns all the integer factors of the given integer.
+  * @param n a positive integer to be factored
+  * @return  an array containing integers, which are all factors of `n`, in increasing order
+  */
+Util.factors = function (n, prime) {
+  var factors = [];
+  for (var i = 2; i <= n; i++) if (n % i === 0) factors.push(i);
+  return factors;
+}
+
+/**
+  * Returns the prime factorization of the given integer.
+  * The prime factorization of a number is the set of prime numbers whose cumulative product equals
+  * that number. Prime factors may be repeated. The prime factorization of a prime number is that number.
+  * E.g., 60 == 2 * 2 * 3 * 5; 37 == 37;
+  * @param n a positive integer to be factored
+  * @return  an array containing integers, which are the prime factors of `n`, in increasing order
+  */
+Util.factorize = function (n) {
+  var factors = [];
+  var i = 2;
+  while (i <= n) {
+    if (n % i === 0) {
+      factors.push(i);
+      n /= i;
+      i = 2;
+    } else i++;
+  }
+  return factors;
+}
+
+/**
   * Computes the factorial of a given non-negative integer.
   * The factorial of a positive integer `n`, written in mathematical notation as `n!`, is the product
   * of all the positive integers less than or equal to `n`.
