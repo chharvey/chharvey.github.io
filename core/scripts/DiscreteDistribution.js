@@ -1,5 +1,5 @@
 /**
-  * Creates a general discrete probability distribution with a given number of outcomes.
+  * Constructs a general discrete probability distribution with a given number of outcomes.
   * Assumes the domain is the closed interval [0, outcomes - 1].
   * For example, if `outcomes = 6`, then the inputs consist of {0, 1, 2, 3, 4, 5}.
   * @param `outcomes` the number of total outcomes; defaults to 1

@@ -10,7 +10,6 @@ Util.TAU = 2 * Math.PI;
   * Returns the number closest to the given parameter within the closed interval [lower, upper].
   * If the parameter is in the interval, the method returns the number. If the parameter is outside,
   * the method returns the closest bound (either upper or lower).
-  * If lower >= upper, then this method will return NaN.
   * This method is NON-DESTRUCTIVE: it does not change the value of the given parameter.
   * @param x the number to be tested
   * @param lower the lower bound, inclusive

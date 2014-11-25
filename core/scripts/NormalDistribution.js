@@ -1,5 +1,5 @@
 /**
-  * Creates a normal (Gaussian) distribution with a given mean and standard deviation.
+  * Constructs a normal (Gaussian) distribution with a given mean and standard deviation.
   * @param `mean` the statistical average of all the data; defaults to 0
   * @param `stdev` the variation in all the data; defaults to 1
   */

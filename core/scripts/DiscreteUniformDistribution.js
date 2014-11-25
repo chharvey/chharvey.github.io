@@ -1,5 +1,5 @@
 /**
-  * Creates a discrete uniform (constant) distribution with a given number of outcomes.
+  * Constructs a discrete uniform (constant) distribution with a given number of outcomes.
   * @extends          DiscreteDistribution
   * @param `outcomes` the number of total outcomes; defaults to 1
   */

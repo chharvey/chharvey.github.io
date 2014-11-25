@@ -1,5 +1,5 @@
 /**
-  * Creates a continuous uniform (constant) distribution over a given domain.
+  * Constructs a continuous uniform (constant) distribution over a given domain.
   * @param `low`  the minimum of the domain [low, high]; defatults to 0
   * @param `high` the maximum of the domain [low, high]; defatults to 1
   */
