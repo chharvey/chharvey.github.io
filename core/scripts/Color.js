@@ -137,8 +137,8 @@ Color.newColorHSL = function (hue, sat, lum) {
   */
 Color.mix = function (color1, color2, w) {
   w = (typeof w === 'number') ? w : 0.5;
-  int r = (int) Math.round(Number.average(color1.red,   color2.red, w));
-  int g = (int) Math.round(Number.average(color1.green, color2.green, w));
-  int b = (int) Math.round(Number.average(color1.blue,  color2.blue, w));
+  int r = Math.round(Util.average(color1.red,   color2.red,   w));
+  int g = Math.round(Util.average(color1.green, color2.green, w));
+  int b = Math.round(Util.average(color1.blue,  color2.blue,  w));
   return new Color(r, g, b);
 }
