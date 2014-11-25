@@ -23,6 +23,20 @@ Util.bound = function (x, lower, upper) {
 }
 
 /**
+  * Averages two numbers, with a weight favoring the first number.
+  * For example, `Util.average(10, 20, 0.7)` will return 13, while
+  * `Util.average(20, 10, 0.7)` will return 17 (the same result as `Util.average(10, 20, 0.3)`).
+  * @param a the first number, to be weighted
+  * @param b the second number
+  * @param w optional number between 0 and 1 defaults to 0.5, the weight that favors `a`
+  * @return  the weighted average of `a` and `b`
+  */
+Util.average = function (a, b, w) {
+  w = (typeof w === 'number') ? w : 0.5;
+  return (a * w) + (b * (1 - w));
+}
+
+/**
   * Returns whether a given integer is prime.
   * An integer is mathematically prime if and only if its only positive integer divisors are itself and 1.
   * @param integer the given integer
