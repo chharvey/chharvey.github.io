@@ -102,13 +102,13 @@ Util.gcf = function (a, b) {
 }
 
 /**
-  * Gives the least common multiple of two numbers. DRAFT. Returns 0 for now.
+  * Gives the least common multiple of two numbers.
   * @param a the first positive integer
   * @param b the second positive integer
   * @return  the least integer multiple that `a` and `b` have in common
   */
 Util.lcm = function (a, b) {
-  return 0;
+  return (a * b) / Util.gcf(a, b);
 }
 
 /**
