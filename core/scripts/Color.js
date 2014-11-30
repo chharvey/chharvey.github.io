@@ -1,13 +1,13 @@
 /**
   * Constructs a 256-bit color that can be displayed in a pixel, given three primary color components.
-  * @param red optional non-negative integer ≤ 255, defaults to 0; the red   component of this color
-  * @param grn optional non-negative integer ≤ 255, defaults to 0; the green component of this color
-  * @param blu optional non-negative integer ≤ 255, defaults to 0; the blue  component of this color
+  * @param r optional non-negative integer ≤ 255, defaults to 0; the red   component of this color
+  * @param g optional non-negative integer ≤ 255, defaults to 0; the green component of this color
+  * @param b optional non-negative integer ≤ 255, defaults to 0; the blue  component of this color
   */
-function Color(red, grn, blu) {
-  this.red = (typeof red === 'number') red : 0;
-  this.grn = (typeof grn === 'number') grn : 0;
-  this.blu = (typeof blu === 'number') blu : 0;
+function Color(r, g, b) {
+  this.red   = (typeof r === 'number') r : 0;
+  this.green = (typeof g === 'number') g : 0;
+  this.blue  = (typeof b === 'number') b : 0;
 }
 
 /**
@@ -69,7 +69,7 @@ Color.prototype.getHSL_lum = function () {
   * The complement of a color is the difference between that color and white (#fff).
   * @return a new Color object that corresponds to this color's complement
   */
-Color.prototype.compliment = function () {
+Color.prototype.complement = function () {
   return new Color(255 - this.red, 255 - this.green, 255 - this.blue);
 }
 
