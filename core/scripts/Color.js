@@ -91,7 +91,7 @@ Color.prototype.invert = function () {
   * @return  a new Color object that corresponds to this color brightened by a percentage `p`
   */
 Color.prototype.brighten = function (p) {
-  return Color.newColorHSL(this.getHSL_hue(), this.getHSL_sat(), this.getHSL_val() + p);
+  // return Color.newColorHSL(this.getHSL_hue(), this.getHSL_sat(), this.getHSL_val() + p);
 }
 /**
   * Makes a new color that is a darker version of this color by a percentage.
@@ -102,7 +102,7 @@ Color.prototype.brighten = function (p) {
   */
 Color.prototype.darken = function (p) {
   // return Color.newColorHSL(this.getHSL_hue(), this.getHSL_sat(), this.getHSL_val() - p);
-  return this.brighten(-p);
+  // return this.brighten(-p);
 }
 
 /**
