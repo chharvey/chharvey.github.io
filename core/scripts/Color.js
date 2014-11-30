@@ -5,63 +5,54 @@
   * @param b optional non-negative integer ≤ 255, defaults to 0; the blue  component of this color
   */
 function Color(r, g, b) {
-  this.red   = (typeof r === 'number') r : 0;
-  this.green = (typeof g === 'number') g : 0;
-  this.blue  = (typeof b === 'number') b : 0;
-}
+  var self = this;
 
-/**
-  * Returns the Hue of this color, or what "color" this color is.
-  * @return the HSV-space hue
-  */
-Color.prototype.getHSV_hue = function () {
-  return 0;// FIX THIS
-}
-/**
-  * Returns the vividness of this color.
-  * A lower saturation means the color is closer to white, a higher saturation means the color is
-  * more true to its hue.
-  * @return the HSV-space saturation
-  */
-Color.prototype.getHSV_sat = function () {
-  return 0;// FIX THIS
-}
-/**
-  * Returns the brightness of this color.
-  * A lower value means the color is closer to black, a higher value means the color is
-  * more true to its hue.
-  * The HSV-space value ("brightness") of this color is equivalent to the ratio of the
-  * brightest RGB-component's value to 255, as a percentage.
-  * @return the HSV-space brightness
-  */
-Color.prototype.getHSV_val = function () {
-  return Math.max(this.red, this.green, this.blue) / 255;
-}
-/**
-  * Returns the Hue of this color.
-  * Same exact result as `this.getHSV_hue()`.
-  * @return this.getHSV_hue()
-  */
-Color.prototype.getHSL_hue = function () {
-  return this.getHSV_hue();
-}
-/**
-  * Returns the amount of "color" in the color.
-  * A lower saturation means the color is more grayer, a higher saturation means the color is
-  * more colorful.
-  * @return the HSL-space saturation
-  */
-Color.prototype.getHSL_sat = function () {
-  return 0;// FIX THIS
-}
-/**
-  * Returns how "white" or "black" the color is.
-  * A lower luminosity means the color is closer to black, a higher luminosity means the color is
-  * closer to white.
-  * @return the HSL-space luminosity
-  */
-Color.prototype.getHSL_lum = function () {
-  return 0;// FIX THIS
+  self.red   = (typeof r === 'number') ? r : 0;
+  self.green = (typeof g === 'number') ? g : 0;
+  self.blue  = (typeof b === 'number') ? b : 0;
+
+  /**
+    * The HSV-space hue of this color, or what "color" this color is.
+    */
+  self.hsv_hue = (function () {
+    return 0; // FIX THIS
+  })();
+  /**
+    * The vividness of this color. A lower saturation means the color is closer to white,
+    * a higher saturation means the color is more true to its hue.
+    */
+  self.hsv_sat = (function () {
+    return 0; // FIX THIS
+  })();
+  /**
+    * The brightness of this color. A lower value means the color is closer to black, a higher
+    * value means the color is more true to its hue.
+    * The HSV-space value ("brightness") of this color is equivalent to the ratio of the
+    * brightest RGB-component's value to 255, as a percentage.
+    */
+  self.hsv_val = (function () {
+    return Math.max(self.red, self.green, self.blue) / 255;
+  })();
+  /**
+    * The Hue of this color. Identical to `this.hsv_hue`.
+    */
+  self.hsl_hue = (function () {
+    return self.hsv_hue; // FIX THIS
+  })();
+  /**
+    * The amount of "color" in the color. A lower saturation means the color is more grayer,
+    * a higher saturation means the color is more colorful.
+    */
+  self.hsl_sat = (function () {
+    return 0; // FIX THIS
+  })();
+  /**
+    * How "white" or "black" the color is. A lower luminosity means the color is closer to black,
+    * a higher luminosity means the color is closer to white.
+    */
+  self.hsl_lum = (function () {
+    return 0; // FIX THIS
+  })();
 }
 
 /**
@@ -137,8 +128,8 @@ Color.newColorHSL = function (hue, sat, lum) {
   */
 Color.mix = function (color1, color2, w) {
   w = (typeof w === 'number') ? w : 0.5;
-  int r = Math.round(Util.average(color1.red,   color2.red,   w));
-  int g = Math.round(Util.average(color1.green, color2.green, w));
-  int b = Math.round(Util.average(color1.blue,  color2.blue,  w));
+  var r = Math.round(Util.average(color1.red,   color2.red,   w));
+  var g = Math.round(Util.average(color1.green, color2.green, w));
+  var b = Math.round(Util.average(color1.blue,  color2.blue,  w));
   return new Color(r, g, b);
 }
