@@ -32,19 +32,20 @@
   font-weight: bold;
   text-align: left;
 }
-.status(@brdrc) {
+.status(@brdrc; @bgc) {
   .sidebrdr-phi(left; 4px; solid; @brdrc);
   padding-right: 4px;
   box-shadow: 4px 4px 8px #808080;
+  background-color: fadeout(@bgc, @golden4c);
 }
 .Article {
   &[data-status="draft"]::before    {.Alert--Warn; .article-before-mx('This article is a work in progress.');}
   &[data-status="complete"]::before {.Alert--Cshn; .article-before-mx('This article is mostly complete.');}
   &[data-status="released"]::before {.Alert--Skss; .article-before-mx('This article is ready for implemen' '\00ad' 'tation.');}
 
-  [data-status="draft"]    {.status(@color_warn_brdr);}
-  [data-status="complete"] {.status(@color_cshn_brdr);}
-  [data-status="released"] {.status(@color_skss_brdr);}
+  [data-status="draft"]    {.status(@color_warn_brdr; @color_warn_bg);}
+  [data-status="complete"] {.status(@color_cshn_brdr; @color_cshn_bg);}
+  [data-status="released"] {.status(@color_skss_brdr; @color_skss_bg);}
 }
 
 /**
