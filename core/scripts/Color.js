@@ -97,7 +97,7 @@ Color.prototype.darken = function (p) {
 }
 
 /**
-  * Returns a new Color object, given hue, saturation, and value. The parameters correspond to HSV-space, <em>not</em> HSL-space (see {@code newColorHSL()}).
+  * Returns a new Color object, given hue, saturation, and value.
   * @param hue must be between 0 and 360; hue in HSV-space
   * @param sat must be between 0.0 and 1.0; saturation in HSV-space
   * @param val must be between 0.0 and 1.0; brightness in HSV-space
@@ -132,4 +132,67 @@ Color.mix = function (color1, color2, w) {
   var g = Math.round(Util.average(color1.green, color2.green, w));
   var b = Math.round(Util.average(color1.blue,  color2.blue,  w));
   return new Color(r, g, b);
+}
+
+/**
+  * Converts an rgb string, of the form `rgb(r, g, b)`, where `r`, `g`, and `b` are the
+  * decimal components (in base 10, out of 255), into a hex string, of the form `#RRGGBB`, where
+  * `RR`, `GG`, and `BB` are the hexadecimal components (base 16, out of FF). */
+Color.rgbToHex = function (rgb_string) {
+  var splitted = rgb_string.slice(4, -1).split(',');
+  function toHex(n) {
+    n = parseInt(n,10);
+    if (isNaN(n)) return '00';
+    n = Util.bound(n, 0, 255);
+    return '0123456789ABCDEF'.charAt((n - n % 16) / 16) + '0123456789ABCDEF'.charAt(n % 16);
+  }
+  return '#' + toHex(splitted[0]) + toHex(splitted[1]) + toHex(splitted[2]);
+}
+
+/**
+  * HSV to RGB color conversion. Takes h, s, and v as number arguments and returns
+  * an array [r, g, b], where each component is a base-10 number from 0 to 255.
+  * The inputs are hue, sat, and val in HSV-space.
+  *
+  * Ported from the excellent java algorithm by Eugene Vishnevsky at:
+  * http://www.cs.rit.edu/~ncs/color/t_convert.html
+  * @param h a number representing hue from 0 to 360 degrees
+  * @param s a number representing saturation from 0 to 100 percent
+  * @param v a number representing value from 0 to 100 percent
+  */
+Color.hsvToRgb = function (h, s, v) {
+  var r, g, b;
+  var i;
+  var f, p, q, t;
+  // Make sure our arguments stay in-range
+  h = Util.bound(h, 0, 360);
+  s = Util.bound(s, 0, 100);
+  v = Util.bound(v, 0, 100);
+  /*
+   * We accept saturation and value arguments from 0 to 100 because that's how Photoshop
+   * represents those values. Internally, however, the saturation and value are calculated from
+   * a range of 0 to 1. We make that conversion here.
+   */
+  s /= 100;
+  v /= 100;
+  if(s == 0) {
+    // Achromatic (grey)
+    r = g = b = v;
+    return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
+  }
+  h /= 60; // sector 0 to 5
+  i = Math.floor(h);
+  f = h - i; // factorial part of h
+  p = v * (1 - s);
+  q = v * (1 - s * f);
+  t = v * (1 - s * (1 - f));
+  switch(i) {
+    case 0:  r = v; g = t; b = p; break;
+    case 1:  r = q; g = v; b = p; break;
+    case 2:  r = p; g = v; b = t; break;
+    case 3:  r = p; g = q; b = v; break;
+    case 4:  r = t; g = p; b = v; break;
+    default: r = v; g = p; b = q; break; // case 5
+  }
+  return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
 }

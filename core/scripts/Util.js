@@ -20,6 +20,7 @@ Util.bound = function (x, lower, upper) {
   if      (x < lower) return lower;
   else if (x > upper) return upper;
   else                return x;
+  // return Math.max(lower, Math.min(x, upper)) or Math.min(upper, Math.max(x, lower));
 }
 
 /**
