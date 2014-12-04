@@ -26,18 +26,27 @@
 @updated
 : 2014-10-07
   */
-// colors for inline code
+// colors for inline code (Solarized Light Theme)
 @color_code_bg:   @solarized_base3;
 @color_code_brdr: @solarized_base2;
 @color_code_comm: @solarized_base1;
 @color_code_txt:  @solarized_base00;
 @color_code_emph: @solarized_base01;
-// colors for block code
+// colors for block code (Solarized Dark Theme)
 @color_codeblock_bg:   @solarized_base03;
 @color_codeblock_brdr: @solarized_base02;
 @color_codeblock_comm: @solarized_base01;
 @color_codeblock_txt:  @solarized_base0;
 @color_codeblock_emph: @solarized_base1;
+// colors for both (Accent Colors)
+// @color_code_ctl: @solarized_red;
+// @color_code_opr: @solarized_orange;
+// @color_code_kwd: @solarized_yellow;
+// @color_code_cns: @solarized_green;
+// @color_code_str: @solarized_cyan;
+// @color_code_cmd: @solarized_blue;
+// @color_code_arg: @solarized_violet;
+// @color_code_str_quo: @solarized_magenta;
 
 .codecolors(@color_txt; @color_comm; @color_bg; @color_brdr) {
   @textcolor: @color_txt;
@@ -113,12 +122,9 @@ code {
 : 2014-11-02
   */
 .Codeblock.HTML {
-  @color_code_tag: @solarized_blue;
-  @color_code_atr: @solarized_green;
-  @color_code_val: @solarized_cyan;
   .Tag {
     .angles();
-    color: @color_code_tag;
+    color: @solarized_blue;
     &::before,
     &::after {
       color: #808080;
@@ -129,11 +135,11 @@ code {
     .delimiters('</'  ;  '>');
   }
   .Atr {
-    color: @color_code_atr;
+    color: @solarized_yellow;
   }
   .Val {
     .quot();
-    color: @color_code_val;
+    color: @solarized_cyan;
     &::before,
     &::after {color: @solarized_magenta;}
   }
@@ -157,34 +163,29 @@ code {
 : 2014-11-02
   */
 .Codeblock.CSS {
-  @color_code_sel: @solarized_blue;
-  @color_code_prp: @solarized_green;
-  @color_code_val: @solarized_yellow;
-  @color_code_cmd: @solarized_blue;
-  @color_code_arg: @solarized_violet;
   .Sel  {
     .delimiters(''  ;  '}');
-    color: @color_code_sel;
+    color: @solarized_blue;
   }
   .Prp  {
     .delimiters(''  ;  ';');
-    color: @color_code_prp;
+    color: @solarized_yellow;
   }
   .Val  {
     .delimiters(': '  ;  '');
     &::before,
-    &::after { color: @color_code_prp; }
-    color: @color_code_val;
+    &::after { color: @solarized_yellow; }
+    color: @solarized_cyan;
   }
   .Cmd  {
     .delimiters(''  ;  ';');
-    color: @color_code_cmd;
+    color: @solarized_blue;
   }
   .Arg  {
     .parens();
-    color: @color_code_arg;
+    color: @solarized_violet;
     &::before,
-    &::after { color: @color_code_cmd; }
+    &::after { color: @solarized_blue; }
   }
   .Comm   {
     .delimiters('/* '  ;  ' */');
@@ -193,6 +194,7 @@ code {
   .String {
     .Codeblock.HTML.Val;
     .apos();
+    color: @solarized_magenta;
   }
 }
 
@@ -201,7 +203,7 @@ code {
   * `.Ctl` : programming control (if, for, switch, return)
   * `.Opr` : delimiter or operator (+, ==, ., new, this)
   * `.Kwd` : predefined keywords (var, function)
-  * `.Cls` : a JavaScript class or object reference
+  * `.Cls` : a class or object reference
   * `.Cmd` : a function name, function call, or constructor call
   * `.Arg` : argument to a function or constructor call
   * `.String` : a string
@@ -215,19 +217,12 @@ code {
 : 2014-12-04
   */
 .Codeblock.JS {
-  @color_code_ctl: @solarized_red;
-  @color_code_opr: @solarized_orange;
-  @color_code_kwd: @solarized_yellow;
-  @color_code_cns: @solarized_green;
-  @color_code_str: @solarized_cyan;
-  @color_code_cmd: @solarized_blue;
-  @color_code_arg: @solarized_violet;
-  .Ctl {color: @color_code_ctl;}
-  .Opr {color: @color_code_opr;}
-  .Kwd {color: @color_code_kwd;}
-  .Cls {color: @color_code_cns;}
-  .Cmd {color: @color_code_cmd;}
-  .Arg {color: @color_code_arg;}
+  .Ctl {color: @solarized_red;}
+  .Opr {color: @solarized_orange;}
+  .Kwd {color: @solarized_yellow;}
+  .Cls {color: @solarized_magenta;}
+  .Cmd {color: @solarized_blue;}
+  .Arg {color: @solarized_violet;}
   .String {
     .Codeblock.HTML.Val;
     .apos();
@@ -252,14 +247,13 @@ code {
   white-space: nowrap;
   .String {
     .apos();
-    color: @color_code_arg;
   }
   .Sel { quotes: ''   ' {'; }
   .Ruleset {
     .clearfix();
     &::after {
       content: '}';
-      color: @color_code_sel;
+      // color: @solarized_blue;
     }
     > .Prp {
       float: left;
