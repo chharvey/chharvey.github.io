@@ -286,12 +286,7 @@ Util.randBetween = function (low, high) {
 
 /**
   * Selects a Boolean value with a probability `p` of being `true`.
-  * `p` must be within the interval (0.0, 1.0) to have any
-  * random significance.
-  * If `p <= 0` then this method will return `false`,
-  * and if `p >= 1` then this method will return `true`.
-  * If `p` is not given, it defaults to 0.5 (even probability).
-  * @param `p` the probability that this method will return `true`
+  * @param `p` optional number within [0.0, 1.0] (default 0.5); the probability that this method will return `true`
   * @return    `true` if a randomly selected number between 0 and 1 is less than `p`
   */
 Util.randBoolean = function (p) {
