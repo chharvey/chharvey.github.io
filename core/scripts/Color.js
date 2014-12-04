@@ -176,7 +176,8 @@ Color.mix = function (color1, color2, w) {
 /**
   * Converts an rgb string, of the form `rgb(r, g, b)`, where `r`, `g`, and `b` are the
   * decimal components (in base 10, out of 255), into a hex string, of the form `#RRGGBB`, where
-  * `RR`, `GG`, and `BB` are the hexadecimal components (base 16, out of FF). */
+  * `RR`, `GG`, and `BB` are the hexadecimal components (base 16, out of FF).
+  */
 Color.rgbToHex = function (rgb_string) {
   var splitted = rgb_string.slice(4, -1).split(',');
   function toHex(n) {
