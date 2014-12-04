@@ -97,6 +97,20 @@ Color.prototype.darken = function (p) {
 }
 
 /**
+  * Returns a string representation of this color.
+  * @param space optional, a string representing the space in which this color exists
+  * @return      a string representing this color.
+  */
+Color.prototype.toString = function (space) {
+  function colorString(s, a, b, c) {
+    return s + '(' + a + ', ' + b + ', ' + c + ')';
+  }
+  if (space === 'hsv') return colorString('hsv', this.hsv_hue, this.hsv_sat, this.hsv_val);
+  if (space === 'hsl') return colorString('hsl', this.hsl_hue, this.hsl_sat, this.hsl_lum);
+                       return colorString('rgb', this.red,     this.green,   this.blue);
+}
+
+/**
   * Returns a new Color object, given hue, saturation, and value in HSV-space.
   *
   * Takes HSV-components as number arguments and returns a new Color object with
