@@ -49,11 +49,7 @@
 // @color_code_str_quo: @solarized_magenta;
 
 /**
-  * A mixin for including components of code.
-  * `.Comm` : any comment
-  * `.Str`  : any string
-  * `.Cmd` : a function name, function call, or constructor call
-  * `.Arg` : argument to a function or constructor call
+  * A mixin for coloring components of code.
 @tags
 : #code
 @author
@@ -65,17 +61,7 @@
   border-color: @color_brdr;
   color: @color_txt;
   background-color: @color_bg;
-  .Comm { color: @color_comm; }
-  .Str {
-    .apos();
-    color: @solarized_cyan;
-    &::before,
-    &::after  {color: @solarized_magenta;}
-    &::first-letter,
-    &::last-letter {color: @solarized_magenta;}
-  }
-  .Cmd {color: @solarized_blue;}
-  .Arg {color: @solarized_violet;}
+  .Comm {color: @color_comm;}
 }
 .codecolors-sol-lite() {.codecolors(@color_code_txt;      @color_code_comm;      @color_code_bg;      @color_code_brdr);}
 .codecolors-sol-dark() {.codecolors(@color_codeblock_txt; @color_codeblock_comm; @color_codeblock_bg; @color_codeblock_brdr);}
@@ -104,6 +90,11 @@ code {
 /**
   * A block of code. Its semantics are derived from the formatting (line breaks, indenting, etc) of
   * the text content. This Object does *not* extend the `.Code` Object.
+  * `.Comm` : any comment
+  * `.Str`  : any string
+  * `.Cmd` : a function name, function call, or constructor call
+  * `.Arg` : argument to a function or constructor call
+  * `&.Invert` : use Solarized Light instead of Solarized Dark
 @implements
 : .box-block()
 : .follows-heading()
@@ -126,6 +117,18 @@ code {
   white-space: pre;
   overflow: auto;
   &.Invert { .codecolors-sol-lite(); }
+  .Comm {
+    .delimiters('/* '  ;  ' */');
+    &.I {quotes: '// '   '';}
+  }
+  .Str {
+    .apos();
+    color: @solarized_cyan;
+    &::before,
+    &::after  {color: @solarized_magenta;}
+  }
+  .Cmd {color: @solarized_blue;}
+  .Arg {color: @solarized_violet;}
 }
 
 /**
@@ -162,7 +165,7 @@ code {
     .Codeblock .Str;
     .quot();
   }
-  .Comm { .delimiters('<!-- '  ;  ' -->'); }
+  .Comm {quotes: '<!-- '   ' -->';}
 }
 
 /**
@@ -204,37 +207,7 @@ code {
     &::before,
     &::after { color: @solarized_blue; }
   }
-  .Comm   {
-    .delimiters('/* '  ;  ' */');
-    &.I { quotes: '// '   ''; }
-  }
-  .String {
-    .Codeblock .Str;
-    color: @solarized_magenta;
-  }
   .Str {color: @solarized_magenta;}
-}
-
-/**
-  * This Object represents a block of JavaScript code.
-  * `.Ctl` : programming control (if, for, switch, return)
-  * `.Opr` : delimiter or operator (+, ==, ., new, this)
-  * `.Kwd` : predefined keywords (var, function)
-  * `.Cls` : a class or object reference
-@extends
-: .Codeblock
-@tags
-: #code
-@author
-: Chris Harvey
-@updated
-: 2014-12-04
-  */
-.Codeblock.JS {
-  .Ctl {color: @solarized_red;}
-  .Opr {color: @solarized_orange;}
-  .Kwd {color: @solarized_yellow;}
-  .Cls {color: @solarized_magenta;}
 }
 
 /**
@@ -253,16 +226,8 @@ code {
   .Codeblock;
   .Codeblock.CSS;
   white-space: nowrap;
-  .String {
-    .Codeblock .Str;
-    color: @solarized_magenta;
-  }
   .Str {color: @solarized_magenta;}
   .Sel {.delimiters(''  ;  ' {');}
-  .Comm {
-    .delimiters('/* '  ;  ' */');
-    &.I { quotes: '// '   ''; }
-  }
   .Ruleset {
     .clearfix();
     &::after {
@@ -309,6 +274,28 @@ code {
       }
     }
   }
+}
+
+/**
+  * This Object represents a block of JavaScript code.
+  * `.Ctl` : programming control (if, for, switch, return)
+  * `.Opr` : delimiter or operator (+, ==, ., new, this)
+  * `.Kwd` : predefined keywords (var, function)
+  * `.Cls` : a class or object reference
+@extends
+: .Codeblock
+@tags
+: #code
+@author
+: Chris Harvey
+@updated
+: 2014-12-04
+  */
+.Codeblock.JS {
+  .Ctl {color: @solarized_red;}
+  .Opr {color: @solarized_orange;}
+  .Kwd {color: @solarized_yellow;}
+  .Cls {color: @solarized_magenta;}
 }
 
 /**
