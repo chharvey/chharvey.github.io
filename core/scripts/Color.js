@@ -1,15 +1,15 @@
 /**
   * Constructs a 256-bit color that can be displayed in a pixel, given three primary color components.
-  * @param r optional non-negative integer ≤ 255, defaults to 0; the red   component of this color
-  * @param g optional non-negative integer ≤ 255, defaults to 0; the green component of this color
-  * @param b optional non-negative integer ≤ 255, defaults to 0; the blue  component of this color
+  * @param red optional non-negative integer ≤ 255, defaults to 0; the red   component of this color
+  * @param grn optional non-negative integer ≤ 255, defaults to 0; the green component of this color
+  * @param blu optional non-negative integer ≤ 255, defaults to 0; the blue  component of this color
   */
-function Color(r, g, b) {
+function Color(red, grn, blu) {
   var self = this;
 
-  self.red   = (typeof r === 'number') ? r : 0;
-  self.green = (typeof g === 'number') ? g : 0;
-  self.blue  = (typeof b === 'number') ? b : 0;
+  self.red   = (typeof red === 'number') ? red : 0;
+  self.green = (typeof grn === 'number') ? grn : 0;
+  self.blue  = (typeof blu === 'number') ? blu : 0;
 
   /**
     * The HSV-space hue of this color, or what "color" this color is.
@@ -37,7 +37,7 @@ function Color(r, g, b) {
     * The Hue of this color. Identical to `this.hsv_hue`.
     */
   self.hsl_hue = (function () {
-    return self.hsv_hue; // FIX THIS
+    return self.hsv_hue;
   })();
   /**
     * The amount of "color" in the color. A lower saturation means the color is more grayer,
@@ -97,14 +97,53 @@ Color.prototype.darken = function (p) {
 }
 
 /**
-  * Returns a new Color object, given hue, saturation, and value.
+  * Returns a new Color object, given hue, saturation, and value in HSV-space.
+  *
+  * Takes HSV-components as number arguments and returns a new Color object with
+  * RGB-components, each a base-10 number from 0 to 255.
+  *
+  * Photoshop, etc. represents the saturation and "brightness" (value) values from 0 to 100,
+  * however, the saturation and value are calculated from a range of 0 to 1. Make that conversion
+  * before calling this method.
+  *
+  * Ported from the excellent java algorithm by Eugene Vishnevsky at:
+  * http://www.cs.rit.edu/~ncs/color/t_convert.html
+  *
   * @param hue must be between 0 and 360; hue in HSV-space
   * @param sat must be between 0.0 and 1.0; saturation in HSV-space
   * @param val must be between 0.0 and 1.0; brightness in HSV-space
-  * @return    a new Color object with hsv(`hue`, `sat`, `val`)
+  * @return    a new Color object with hsv(`h`, `s`, `v`)
   */
 Color.newColorHSV = function (hue, sat, val) {
-  return new Color();// FIX THIS
+  var red, grn, blu;
+  if (sat === 0) {
+    // achromatic (grey)
+    red = grn = blu = val;
+  } else {
+    var h = hue / 60; // sector 0 to 5
+    var i = Math.floor(h);
+    var f = h - i; // factorial part of h
+    var p = val * (1 - sat),
+        q = val * (1 - sat * f),
+        t = val * (1 - sat * (1 - f));
+    switch(i) {
+      case 0:  red = val; grn = t;   blu = p;   break;
+      case 1:  red = q;   grn = val; blu = p;   break;
+      case 2:  red = p;   grn = val; blu = t;   break;
+      case 3:  red = p;   grn = q;   blu = val; break;
+      case 4:  red = t;   grn = p;   blu = val; break;
+      default: red = val; grn = p;   blu = q;   break; // case 5
+    }
+  }
+  red = Math.round(red * 255);
+  grn = Math.round(grn * 255);
+  blu = Math.round(blu * 255);
+
+  var returned = new Color(red, grn, blu);
+  returned.hsv_hue = hue;
+  returned.hsv_sat = sat;
+  returned.hsv_val = val;
+  return returned;
 }
 /**
   * Returns a new Color object, given hue, saturation, and luminosity.
@@ -147,52 +186,4 @@ Color.rgbToHex = function (rgb_string) {
     return '0123456789ABCDEF'.charAt((n - n % 16) / 16) + '0123456789ABCDEF'.charAt(n % 16);
   }
   return '#' + toHex(splitted[0]) + toHex(splitted[1]) + toHex(splitted[2]);
-}
-
-/**
-  * HSV to RGB color conversion. Takes h, s, and v as number arguments and returns
-  * an array [r, g, b], where each component is a base-10 number from 0 to 255.
-  * The inputs are hue, sat, and val in HSV-space.
-  *
-  * Ported from the excellent java algorithm by Eugene Vishnevsky at:
-  * http://www.cs.rit.edu/~ncs/color/t_convert.html
-  * @param h a number representing hue from 0 to 360 degrees
-  * @param s a number representing saturation from 0 to 100 percent
-  * @param v a number representing value from 0 to 100 percent
-  */
-Color.hsvToRgb = function (h, s, v) {
-  var r, g, b;
-  var i;
-  var f, p, q, t;
-  // Make sure our arguments stay in-range
-  h = Util.bound(h, 0, 360);
-  s = Util.bound(s, 0, 100);
-  v = Util.bound(v, 0, 100);
-  /*
-   * We accept saturation and value arguments from 0 to 100 because that's how Photoshop
-   * represents those values. Internally, however, the saturation and value are calculated from
-   * a range of 0 to 1. We make that conversion here.
-   */
-  s /= 100;
-  v /= 100;
-  if(s == 0) {
-    // Achromatic (grey)
-    r = g = b = v;
-    return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
-  }
-  h /= 60; // sector 0 to 5
-  i = Math.floor(h);
-  f = h - i; // factorial part of h
-  p = v * (1 - s);
-  q = v * (1 - s * f);
-  t = v * (1 - s * (1 - f));
-  switch(i) {
-    case 0:  r = v; g = t; b = p; break;
-    case 1:  r = q; g = v; b = p; break;
-    case 2:  r = p; g = v; b = t; break;
-    case 3:  r = p; g = q; b = v; break;
-    case 4:  r = t; g = p; b = v; break;
-    default: r = v; g = p; b = q; break; // case 5
-  }
-  return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
 }
