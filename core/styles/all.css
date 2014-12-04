@@ -2398,6 +2398,19 @@ table tr {
 : 2014-10-07
   */
 /**
+  * A mixin for including components of code.
+  * `.Comm` : any comment
+  * `.Str`  : any string
+  * `.Cmd` : a function name, function call, or constructor call
+  * `.Arg` : argument to a function or constructor call
+@tags
+: #code
+@author
+: Chris Harvey
+@updated
+: 2014-12-04
+  */
+/**
   * A span of text that a computer program would recognize.
 @implements
 : .box-inline()
@@ -2427,6 +2440,30 @@ code {
 }
 code .Comm {
   color: #93a1a1;
+}
+code .Str {
+  quotes: '\0027' '\0027';
+  color: #2aa198;
+}
+code .Str::before {
+  content: open-quote;
+}
+code .Str::after {
+  content: close-quote;
+}
+code .Str::before,
+code .Str::after {
+  color: #d33682;
+}
+code .Str::first-letter,
+code .Str::last-letter {
+  color: #d33682;
+}
+code .Cmd {
+  color: #268bd2;
+}
+code .Arg {
+  color: #6c71c4;
 }
 /**
   * A block of code. Its semantics are derived from the formatting (line breaks, indenting, etc) of
@@ -2474,6 +2511,30 @@ code .Comm {
 .Codeblock .Comm {
   color: #586e75;
 }
+.Codeblock .Str {
+  quotes: '\0027' '\0027';
+  color: #2aa198;
+}
+.Codeblock .Str::before {
+  content: open-quote;
+}
+.Codeblock .Str::after {
+  content: close-quote;
+}
+.Codeblock .Str::before,
+.Codeblock .Str::after {
+  color: #d33682;
+}
+.Codeblock .Str::first-letter,
+.Codeblock .Str::last-letter {
+  color: #d33682;
+}
+.Codeblock .Cmd {
+  color: #268bd2;
+}
+.Codeblock .Arg {
+  color: #6c71c4;
+}
 .Codeblock.Invert {
   border-color: #eee8d5;
   color: #657b83;
@@ -2482,10 +2543,34 @@ code .Comm {
 .Codeblock.Invert .Comm {
   color: #93a1a1;
 }
+.Codeblock.Invert .Str {
+  quotes: '\0027' '\0027';
+  color: #2aa198;
+}
+.Codeblock.Invert .Str::before {
+  content: open-quote;
+}
+.Codeblock.Invert .Str::after {
+  content: close-quote;
+}
+.Codeblock.Invert .Str::before,
+.Codeblock.Invert .Str::after {
+  color: #d33682;
+}
+.Codeblock.Invert .Str::first-letter,
+.Codeblock.Invert .Str::last-letter {
+  color: #d33682;
+}
+.Codeblock.Invert .Cmd {
+  color: #268bd2;
+}
+.Codeblock.Invert .Arg {
+  color: #6c71c4;
+}
 /**
   * This Object represents a block of HTML code.
   * `.Tag` : an HTML tag
-  * `.Attr`: an HTML attribute
+  * `.Atr`: an HTML attribute
   * `.Val` : an HTML or CSS value
 @extends
 : .Codeblock
@@ -2535,8 +2620,9 @@ code .Comm {
   color: #b58900;
 }
 .Codeblock.HTML .Val {
-  quotes: '\0022' '\0022';
+  quotes: '\0027' '\0027';
   color: #2aa198;
+  quotes: '\0022' '\0022';
 }
 .Codeblock.HTML .Val::before {
   content: open-quote;
@@ -2547,6 +2633,16 @@ code .Comm {
 .Codeblock.HTML .Val::before,
 .Codeblock.HTML .Val::after {
   color: #d33682;
+}
+.Codeblock.HTML .Val::first-letter,
+.Codeblock.HTML .Val::last-letter {
+  color: #d33682;
+}
+.Codeblock.HTML .Val::before {
+  content: open-quote;
+}
+.Codeblock.HTML .Val::after {
+  content: close-quote;
 }
 .Codeblock.HTML .Comm {
   quotes: '<!-- ' ' -->';
@@ -2609,7 +2705,6 @@ code .Comm {
 }
 .Codeblock.CSS .Cmd {
   quotes: '' ';';
-  color: #268bd2;
 }
 .Codeblock.CSS .Cmd::before {
   content: open-quote;
@@ -2619,7 +2714,6 @@ code .Comm {
 }
 .Codeblock.CSS .Arg {
   quotes: '(' ')';
-  color: #6c71c4;
 }
 .Codeblock.CSS .Arg::before {
   content: open-quote;
@@ -2644,9 +2738,8 @@ code .Comm {
   quotes: '// ' '';
 }
 .Codeblock.CSS .String {
-  quotes: '\0022' '\0022';
-  color: #2aa198;
   quotes: '\0027' '\0027';
+  color: #2aa198;
   color: #d33682;
 }
 .Codeblock.CSS .String::before {
@@ -2659,11 +2752,12 @@ code .Comm {
 .Codeblock.CSS .String::after {
   color: #d33682;
 }
-.Codeblock.CSS .String::before {
-  content: open-quote;
+.Codeblock.CSS .String::first-letter,
+.Codeblock.CSS .String::last-letter {
+  color: #d33682;
 }
-.Codeblock.CSS .String::after {
-  content: close-quote;
+.Codeblock.CSS .Str {
+  color: #d33682;
 }
 /**
   * This Object represents a block of JavaScript code.
@@ -2671,9 +2765,6 @@ code .Comm {
   * `.Opr` : delimiter or operator (+, ==, ., new, this)
   * `.Kwd` : predefined keywords (var, function)
   * `.Cls` : a class or object reference
-  * `.Cmd` : a function name, function call, or constructor call
-  * `.Arg` : argument to a function or constructor call
-  * `.String` : a string
 @extends
 : .Codeblock
 @tags
@@ -2694,33 +2785,6 @@ code .Comm {
 }
 .Codeblock.JS .Cls {
   color: #d33682;
-}
-.Codeblock.JS .Cmd {
-  color: #268bd2;
-}
-.Codeblock.JS .Arg {
-  color: #6c71c4;
-}
-.Codeblock.JS .String {
-  quotes: '\0022' '\0022';
-  color: #2aa198;
-  quotes: '\0027' '\0027';
-}
-.Codeblock.JS .String::before {
-  content: open-quote;
-}
-.Codeblock.JS .String::after {
-  content: close-quote;
-}
-.Codeblock.JS .String::before,
-.Codeblock.JS .String::after {
-  color: #d33682;
-}
-.Codeblock.JS .String::before {
-  content: open-quote;
-}
-.Codeblock.JS .String::after {
-  content: close-quote;
 }
 /**
   * This Object represents a block of CSS code organized as a map.
@@ -2778,6 +2842,30 @@ code .Comm {
 .CSSmap .Comm {
   color: #586e75;
 }
+.CSSmap .Str {
+  quotes: '\0027' '\0027';
+  color: #2aa198;
+}
+.CSSmap .Str::before {
+  content: open-quote;
+}
+.CSSmap .Str::after {
+  content: close-quote;
+}
+.CSSmap .Str::before,
+.CSSmap .Str::after {
+  color: #d33682;
+}
+.CSSmap .Str::first-letter,
+.CSSmap .Str::last-letter {
+  color: #d33682;
+}
+.CSSmap .Cmd {
+  color: #268bd2;
+}
+.CSSmap .Arg {
+  color: #6c71c4;
+}
 .CSSmap.Invert {
   border-color: #eee8d5;
   color: #657b83;
@@ -2785,6 +2873,30 @@ code .Comm {
 }
 .CSSmap.Invert .Comm {
   color: #93a1a1;
+}
+.CSSmap.Invert .Str {
+  quotes: '\0027' '\0027';
+  color: #2aa198;
+}
+.CSSmap.Invert .Str::before {
+  content: open-quote;
+}
+.CSSmap.Invert .Str::after {
+  content: close-quote;
+}
+.CSSmap.Invert .Str::before,
+.CSSmap.Invert .Str::after {
+  color: #d33682;
+}
+.CSSmap.Invert .Str::first-letter,
+.CSSmap.Invert .Str::last-letter {
+  color: #d33682;
+}
+.CSSmap.Invert .Cmd {
+  color: #268bd2;
+}
+.CSSmap.Invert .Arg {
+  color: #6c71c4;
 }
 .CSSmap .Sel {
   quotes: '' '}';
@@ -2822,7 +2934,6 @@ code .Comm {
 }
 .CSSmap .Cmd {
   quotes: '' ';';
-  color: #268bd2;
 }
 .CSSmap .Cmd::before {
   content: open-quote;
@@ -2832,7 +2943,6 @@ code .Comm {
 }
 .CSSmap .Arg {
   quotes: '(' ')';
-  color: #6c71c4;
 }
 .CSSmap .Arg::before {
   content: open-quote;
@@ -2857,9 +2967,8 @@ code .Comm {
   quotes: '// ' '';
 }
 .CSSmap .String {
-  quotes: '\0022' '\0022';
-  color: #2aa198;
   quotes: '\0027' '\0027';
+  color: #2aa198;
   color: #d33682;
 }
 .CSSmap .String::before {
@@ -2872,14 +2981,17 @@ code .Comm {
 .CSSmap .String::after {
   color: #d33682;
 }
-.CSSmap .String::before {
-  content: open-quote;
+.CSSmap .String::first-letter,
+.CSSmap .String::last-letter {
+  color: #d33682;
 }
-.CSSmap .String::after {
-  content: close-quote;
+.CSSmap .Str {
+  color: #d33682;
 }
 .CSSmap .String {
   quotes: '\0027' '\0027';
+  color: #2aa198;
+  color: #d33682;
 }
 .CSSmap .String::before {
   content: open-quote;
@@ -2887,8 +2999,37 @@ code .Comm {
 .CSSmap .String::after {
   content: close-quote;
 }
+.CSSmap .String::before,
+.CSSmap .String::after {
+  color: #d33682;
+}
+.CSSmap .String::first-letter,
+.CSSmap .String::last-letter {
+  color: #d33682;
+}
+.CSSmap .Str {
+  color: #d33682;
+}
 .CSSmap .Sel {
   quotes: '' ' {';
+}
+.CSSmap .Sel::before {
+  content: open-quote;
+}
+.CSSmap .Sel::after {
+  content: close-quote;
+}
+.CSSmap .Comm {
+  quotes: '/* ' ' */';
+}
+.CSSmap .Comm::before {
+  content: open-quote;
+}
+.CSSmap .Comm::after {
+  content: close-quote;
+}
+.CSSmap .Comm.I {
+  quotes: '// ' '';
 }
 .CSSmap .Ruleset::after {
   display: table;
@@ -2897,14 +3038,27 @@ code .Comm {
 }
 .CSSmap .Ruleset::after {
   content: '}';
+  color: #268bd2;
 }
 .CSSmap .Ruleset > .Prp {
+  quotes: '' ':\00A0';
   float: left;
   clear: both;
-  quotes: '' ':\00A0';
+}
+.CSSmap .Ruleset > .Prp::before {
+  content: open-quote;
+}
+.CSSmap .Ruleset > .Prp::after {
+  content: close-quote;
 }
 .CSSmap .Ruleset > .Val {
   quotes: '' ';';
+}
+.CSSmap .Ruleset > .Val::before {
+  content: open-quote;
+}
+.CSSmap .Ruleset > .Val::after {
+  content: close-quote;
 }
 .CSSmap .Ruleset > .Prp,
 .CSSmap .Ruleset > .Comm {
@@ -2964,6 +3118,30 @@ code .Comm {
 }
 .Key .Comm {
   color: #586e75;
+}
+.Key .Str {
+  quotes: '\0027' '\0027';
+  color: #2aa198;
+}
+.Key .Str::before {
+  content: open-quote;
+}
+.Key .Str::after {
+  content: close-quote;
+}
+.Key .Str::before,
+.Key .Str::after {
+  color: #d33682;
+}
+.Key .Str::first-letter,
+.Key .Str::last-letter {
+  color: #d33682;
+}
+.Key .Cmd {
+  color: #268bd2;
+}
+.Key .Arg {
+  color: #6c71c4;
 }
 kbd {
   white-space: nowrap;
