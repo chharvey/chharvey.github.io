@@ -26,26 +26,42 @@
 @updated
 : 2014-10-07
   */
-// colors for inline code
+// colors for inline code (Solarized Light Theme)
 @color_code_bg:   @solarized_base3;
 @color_code_brdr: @solarized_base2;
 @color_code_comm: @solarized_base1;
 @color_code_txt:  @solarized_base00;
 @color_code_emph: @solarized_base01;
-// colors for block code
+// colors for block code (Solarized Dark Theme)
 @color_codeblock_bg:   @solarized_base03;
 @color_codeblock_brdr: @solarized_base02;
 @color_codeblock_comm: @solarized_base01;
 @color_codeblock_txt:  @solarized_base0;
 @color_codeblock_emph: @solarized_base1;
+// colors for both (Accent Colors)
+// @color_code_ctl: @solarized_red;
+// @color_code_opr: @solarized_orange;
+// @color_code_kwd: @solarized_yellow;
+// @color_code_cns: @solarized_green;
+// @color_code_str: @solarized_cyan;
+// @color_code_cmd: @solarized_blue;
+// @color_code_arg: @solarized_violet;
+// @color_code_str_quo: @solarized_magenta;
 
+/**
+  * A mixin for coloring components of code.
+@tags
+: #code
+@author
+: Chris Harvey
+@updated
+: 2014-12-04
+  */
 .codecolors(@color_txt; @color_comm; @color_bg; @color_brdr) {
-  @textcolor: @color_txt;
-  @commentcolor: @color_comm;
   border-color: @color_brdr;
-  color: @textcolor;
+  color: @color_txt;
   background-color: @color_bg;
-  .Comm { color: @commentcolor; }
+  .Comm {color: @color_comm;}
 }
 .codecolors-sol-lite() {.codecolors(@color_code_txt;      @color_code_comm;      @color_code_bg;      @color_code_brdr);}
 .codecolors-sol-dark() {.codecolors(@color_codeblock_txt; @color_codeblock_comm; @color_codeblock_bg; @color_codeblock_brdr);}
@@ -74,6 +90,12 @@ code {
 /**
   * A block of code. Its semantics are derived from the formatting (line breaks, indenting, etc) of
   * the text content. This Object does *not* extend the `.Code` Object.
+  * `.Comm` : any comment
+  * `.Cst`  : a number, color, or character constant
+  * `.Str`  : any string
+  * `.Cmd`  : a function name, function call, or constructor call
+  * `.Arg`  : argument to a function or constructor call
+  * `&.Invert` : use Solarized Light instead of Solarized Dark
 @implements
 : .box-block()
 : .follows-heading()
@@ -96,12 +118,25 @@ code {
   white-space: pre;
   overflow: auto;
   &.Invert { .codecolors-sol-lite(); }
+  .Comm {
+    .delimiters('/* '  ;  ' */');
+    &.I {quotes: '// '   '';}
+  }
+  .Cst {color: @solarized_green;}
+  .Str {
+    .apos();
+    color: @solarized_cyan;
+    &::before,
+    &::after  {color: @solarized_magenta;}
+  }
+  .Cmd {color: @solarized_blue;}
+  .Arg {color: @solarized_violet;}
 }
 
 /**
   * This Object represents a block of HTML code.
   * `.Tag` : an HTML tag
-  * `.Attr`: an HTML attribute
+  * `.Atr`: an HTML attribute
   * `.Val` : an HTML or CSS value
 @extends
 : .Codeblock
@@ -113,31 +148,23 @@ code {
 : 2014-11-02
   */
 .Codeblock.HTML {
-  @color_code_tag: @solarized_blue;
-  @color_code_atr: @solarized_green;
-  @color_code_val: @solarized_cyan;
   .Tag {
     .angles();
-    color: @color_code_tag;
+    color: @solarized_blue;
     &::before,
     &::after {
       color: #808080;
     }
-  }
-  .Endtag {
-    .Tag;
-    .delimiters('</'  ;  '>');
+    &.End {quotes: '</'   '>';}
   }
   .Atr {
-    color: @color_code_atr;
+    color: @solarized_yellow;
   }
   .Val {
+    .Codeblock .Str;
     .quot();
-    color: @color_code_val;
-    &::before,
-    &::after {color: @solarized_magenta;}
   }
-  .Comm { .delimiters('<!-- '  ;  ' -->'); }
+  .Comm {quotes: '<!-- '   ' -->';}
 }
 
 /**
@@ -157,43 +184,29 @@ code {
 : 2014-11-02
   */
 .Codeblock.CSS {
-  @color_code_sel: @solarized_blue;
-  @color_code_prp: @solarized_green;
-  @color_code_val: @solarized_yellow;
-  @color_code_cmd: @solarized_blue;
-  @color_code_arg: @solarized_violet;
   .Sel  {
     .delimiters(''  ;  '}');
-    color: @color_code_sel;
+    color: @solarized_blue;
   }
   .Prp  {
     .delimiters(''  ;  ';');
-    color: @color_code_prp;
+    color: @solarized_yellow;
   }
   .Val  {
     .delimiters(': '  ;  '');
     &::before,
-    &::after { color: @color_code_prp; }
-    color: @color_code_val;
+    &::after { color: @solarized_yellow; }
+    color: @solarized_cyan;
   }
   .Cmd  {
     .delimiters(''  ;  ';');
-    color: @color_code_cmd;
   }
   .Arg  {
     .parens();
-    color: @color_code_arg;
     &::before,
-    &::after { color: @color_code_cmd; }
+    &::after { color: @solarized_blue; }
   }
-  .Comm   {
-    .delimiters('/* '  ;  ' */');
-    &.I { quotes: '// '   ''; }
-  }
-  .String {
-    .Codeblock.HTML.Val;
-    .apos();
-  }
+  .Str {color: @solarized_magenta;}
 }
 
 /**
@@ -212,25 +225,22 @@ code {
   .Codeblock;
   .Codeblock.CSS;
   white-space: nowrap;
-  .String {
-    .apos();
-    color: @color_code_arg;
-  }
-  .Sel { quotes: ''   ' {'; }
+  .Str {color: @solarized_magenta;}
+  .Sel {.delimiters(''  ;  ' {');}
   .Ruleset {
     .clearfix();
     &::after {
       content: '}';
-      color: @color_code_sel;
+      color: @solarized_blue;
     }
     > .Prp {
+      .delimiters(''  ;  ':\00A0'); // `&nbsp;` because a normal (`\0020`) will not work on a float
       float: left;
       clear: both;
-      quotes: ''   ':\00A0'; // `&nbsp;` because a normal (`\0020`) will not work on a float
     }
-    > .Val { quotes: ''   ';'; }
+    > .Val {.delimiters(''  ;  ';');}
     > .Prp,
-    > .Comm { padding-left: @tab; }
+    > .Comm {padding-left: @tab;}
   }
   /**
     * A block of CSS code whose selectors are inline. This is really useful for selectors with one
@@ -263,6 +273,28 @@ code {
       }
     }
   }
+}
+
+/**
+  * This Object represents a block of JavaScript code.
+  * `.Ctl` : programming control (if, for, switch, return)
+  * `.Opr` : delimiter or operator (+, ==, ., new, this)
+  * `.Kwd` : predefined keywords (var, function)
+  * `.Cls` : a class or object reference
+@extends
+: .Codeblock
+@tags
+: #code
+@author
+: Chris Harvey
+@updated
+: 2014-12-04
+  */
+.Codeblock.JS {
+  .Ctl {color: @solarized_red;}
+  .Opr {color: @solarized_orange;}
+  .Kwd {color: @solarized_yellow;}
+  .Cls {color: @solarized_magenta;}
 }
 
 /**
