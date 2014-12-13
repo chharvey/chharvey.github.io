@@ -455,6 +455,20 @@ button {
     _borders.less
 \*#################*/
 /**
+  * Below are helper mixins only (private to this file).
+  * Do not mix these into other Objects or Interfaces.
+  * They may only be used for mixins in this file.
+@params
+: @width : value of `border-width`
+@tags
+: #verticalrhythm
+: #border
+@author
+: Chris Harvey
+@updated
+: 2014-11-24
+  */
+/**
   * The following Interfaces adjust borders for **BLOCK** Objects only! They will keep the
   * vertical rhythm intact when adding borders (by slightly adjusting position and margins).
   * Do *not* use these mixins on INLINE Objects!
@@ -872,26 +886,30 @@ body {
   background-color: #f1f6ff;
 }
 main {
+  width: auto;
+  margin-left: 24px;
+  margin-right: 24px;
+}
+/**
+  * This Object represents the standard `main` Element on the main site.
+  * The following ratios are Golden (0.618):
+  * - main width to window width
+  * - main margin right to main margin left
+@tags
+: #golden
+@author
+: Chris Harvey
+@updated
+: 2014-11-29
+  */
+.MainGolden {
   width: 61.80339887%;
   margin-left: 23.60679775%;
   margin-right: 14.58980338%;
   margin-bottom: 192px;
 }
 /**
-  * This Interface undoes the default style of the `main` Element.
-@tags
-@author
-: Chris Harvey
-@updated
-: 2014-11-22
-  */
-main.undo {
-  width: auto;
-  margin-left: 24px;
-  margin-right: 24px;
-}
-/**
-  * This Interface undoes the effects of the normal `main` Element (not `main.undo`) to a component inside.
+  * This Interface undoes the effects of the `main.Main-Golden` Element to a component inside.
   * Essentially, it treats the component as if it were not inside the `main` Element.
 @tags
 : #golden
@@ -1038,10 +1056,6 @@ main.undo {
 @updated
 : 2014-05-02
   */
-.UndoArticle {
-  font-family: 'Optima', 'Candara', 'Helvetica', sans-serif;
-  text-align: left;
-}
 /**
   * This Object represents a section of text that represents "fine print": disclaimers, etc.
   * It should be instantiated by an entire `section`, `aside`, `div`, or `p` Element, which
@@ -1059,230 +1073,6 @@ main.undo {
   font-size: 12px;
   font-size: 0.75rem;
   line-height: 2;
-}
-/**
-  * The `[data-status]` attribute indicates the status of a document or Element.
-  * "draft"    : a work in progress
-  * "complete" : finished but still needs edits before releasing
-  * "released" : ready for implementation
-  * See https://github.com/chharvey/chharvey.github.io/wiki/Document-Status/ for more info.
-@tags
-: #status
-: #golden
-: #border
-: #background
-@author
-: Chris Harvey
-@updated
-: 2014-10-26
-  */
-.Article[data-status="draft"]::before {
-  min-height: 24px;
-  min-height: 1.5rem;
-  display: block;
-  position: relative;
-  top: -1px;
-  margin-bottom: -2px;
-  border-width: 1px;
-  border-style: solid;
-  padding: 12px 7.41640786px;
-  padding: 0.75rem 0.46352549rem;
-  border-radius: 6px;
-  width: 61.80339887%;
-  margin-left: 23.60679775%;
-  margin-right: 14.58980338%;
-  border-color: #ff0000;
-  color: #610000;
-  background-color: #ff9e9e;
-  background-image: -webkit-linear-gradient(to bottom, #ff9e9e, #ff6b6b);
-  background-image: -moz-linear-gradient(to bottom, #ff9e9e, #ff6b6b);
-  background-image: -ms-linear-gradient(to bottom, #ff9e9e, #ff6b6b);
-  background-image: -o-linear-gradient(to bottom, #ff9e9e, #ff6b6b);
-  background-image: linear-gradient(to bottom, #ff9e9e, #ff6b6b);
-  background-image: -webkit-gradient(to bottom, #ff9e9e, #ff6b6b);
-  font-family: 'Century Gothic', 'Gill Sans', 'Avenir', sans-serif;
-  box-sizing: border-box;
-  position: fixed;
-  width: 9.01699437%;
-  margin-left: 3.44418537%;
-  margin-right: 2.12862363%;
-  right: 0;
-  position: static;
-  top: auto;
-  margin-bottom: 0;
-  border: 0;
-  font-size: 12px;
-  font-size: 0.75rem;
-  line-height: 2;
-  position: absolute;
-  content: 'This article is a work in progress.';
-  font-weight: bold;
-  text-align: left;
-}
-:not(h1):not(.H) + .Article[data-status="draft"]::before {
-  margin-top: 24px;
-  margin-top: 1.5rem;
-}
-.Article[data-status="draft"]::before::before {
-  content: 'Warning' ' ' '\0021' ' ';
-  font-weight: bold;
-}
-.Article[data-status="complete"]::before {
-  min-height: 24px;
-  min-height: 1.5rem;
-  display: block;
-  position: relative;
-  top: -1px;
-  margin-bottom: -2px;
-  border-width: 1px;
-  border-style: solid;
-  padding: 12px 7.41640786px;
-  padding: 0.75rem 0.46352549rem;
-  border-radius: 6px;
-  width: 61.80339887%;
-  margin-left: 23.60679775%;
-  margin-right: 14.58980338%;
-  border-color: #ccff00;
-  color: #4e6100;
-  background-color: #ecff9e;
-  background-image: -webkit-linear-gradient(to bottom, #ecff9e, #e1ff6b);
-  background-image: -moz-linear-gradient(to bottom, #ecff9e, #e1ff6b);
-  background-image: -ms-linear-gradient(to bottom, #ecff9e, #e1ff6b);
-  background-image: -o-linear-gradient(to bottom, #ecff9e, #e1ff6b);
-  background-image: linear-gradient(to bottom, #ecff9e, #e1ff6b);
-  background-image: -webkit-gradient(to bottom, #ecff9e, #e1ff6b);
-  font-family: 'Century Gothic', 'Gill Sans', 'Avenir', sans-serif;
-  box-sizing: border-box;
-  position: fixed;
-  width: 9.01699437%;
-  margin-left: 3.44418537%;
-  margin-right: 2.12862363%;
-  right: 0;
-  position: static;
-  top: auto;
-  margin-bottom: 0;
-  border: 0;
-  font-size: 12px;
-  font-size: 0.75rem;
-  line-height: 2;
-  position: absolute;
-  content: 'This article is mostly complete.';
-  font-weight: bold;
-  text-align: left;
-}
-:not(h1):not(.H) + .Article[data-status="complete"]::before {
-  margin-top: 24px;
-  margin-top: 1.5rem;
-}
-.Article[data-status="complete"]::before::before {
-  content: 'Caution' ' ' '\2026' ' ';
-  font-weight: bold;
-}
-.Article[data-status="released"]::before {
-  min-height: 24px;
-  min-height: 1.5rem;
-  display: block;
-  position: relative;
-  top: -1px;
-  margin-bottom: -2px;
-  border-width: 1px;
-  border-style: solid;
-  padding: 12px 7.41640786px;
-  padding: 0.75rem 0.46352549rem;
-  border-radius: 6px;
-  width: 61.80339887%;
-  margin-left: 23.60679775%;
-  margin-right: 14.58980338%;
-  border-color: #00ff66;
-  color: #006127;
-  background-color: #9effc5;
-  background-image: -webkit-linear-gradient(to bottom, #9effc5, #6bffa6);
-  background-image: -moz-linear-gradient(to bottom, #9effc5, #6bffa6);
-  background-image: -ms-linear-gradient(to bottom, #9effc5, #6bffa6);
-  background-image: -o-linear-gradient(to bottom, #9effc5, #6bffa6);
-  background-image: linear-gradient(to bottom, #9effc5, #6bffa6);
-  background-image: -webkit-gradient(to bottom, #9effc5, #6bffa6);
-  font-family: 'Century Gothic', 'Gill Sans', 'Avenir', sans-serif;
-  box-sizing: border-box;
-  position: fixed;
-  width: 9.01699437%;
-  margin-left: 3.44418537%;
-  margin-right: 2.12862363%;
-  right: 0;
-  position: static;
-  top: auto;
-  margin-bottom: 0;
-  border: 0;
-  font-size: 12px;
-  font-size: 0.75rem;
-  line-height: 2;
-  position: absolute;
-  content: 'This article is ready for implemen' '\00ad' 'tation.';
-  font-weight: bold;
-  text-align: left;
-}
-:not(h1):not(.H) + .Article[data-status="released"]::before {
-  margin-top: 24px;
-  margin-top: 1.5rem;
-}
-.Article[data-status="released"]::before::before {
-  content: 'Success' ' ' '\263a' ' ';
-  font-weight: bold;
-}
-.Article [data-status="draft"] {
-  border-left-width: 4px;
-  border-left-style: solid;
-  padding-left: 6.47213595px;
-  margin-left: 16.94427191px;
-  border-left-color: #ff0000;
-  padding-right: 4px;
-  box-shadow: 4px 4px 8px #808080;
-  background-color: rgba(255, 158, 158, 0.14589803);
-}
-.Article [data-status="complete"] {
-  border-left-width: 4px;
-  border-left-style: solid;
-  padding-left: 6.47213595px;
-  margin-left: 16.94427191px;
-  border-left-color: #ccff00;
-  padding-right: 4px;
-  box-shadow: 4px 4px 8px #808080;
-  background-color: rgba(236, 255, 158, 0.14589803);
-}
-.Article [data-status="released"] {
-  border-left-width: 4px;
-  border-left-style: solid;
-  padding-left: 6.47213595px;
-  margin-left: 16.94427191px;
-  border-left-color: #00ff66;
-  padding-right: 4px;
-  box-shadow: 4px 4px 8px #808080;
-  background-color: rgba(158, 255, 197, 0.14589803);
-}
-/**
-  * The `[data-informative]` attribute on an Element in an `.Article` indicates that
-  * the content is nonessential to the article.
-  * See https://github.com/chharvey/chharvey.github.io/wiki/Document-Status/ for more info.
-@tags
-: #status
-@author
-: Chris Harvey
-@updated
-: 2014-08-12
-  */
-.Article [data-informative] {
-  border-left-width: 2px;
-  border-left-style: solid;
-  padding-left: 3.23606798px;
-  margin-left: 8.47213595px;
-  border-left-color: #0066ff;
-  border-right-width: 2px;
-  border-right-style: solid;
-  padding-right: 3.23606798px;
-  margin-right: 8.47213595px;
-  border-right-color: #0066ff;
-  box-shadow: 2px 2px 4px #c0c0c0;
-  background-color: rgba(158, 197, 255, 0.14589803);
 }
 /*#################*\
     _docmeta.less
@@ -2312,25 +2102,35 @@ main.undo {
   display: block;
   min-height: 24px;
   min-height: 1.5rem;
+  /**
+    * This Object represent the term in a term-description pair of a `.Map`.
+  @implements
+  : .vru-top() only when following a `.Desc`
+  @tags
+  : #typography
+  : #map
+  @author
+  : Chris Harvey
+  @updated
+  : 2014-10-07
+    */
+  /**
+    * This Object represent the description in a term-description pair of a `.Map`.
+  @belongsto
+  : .Map
+  @tags
+  : #typography
+  : #map
+  @author
+  : Chris Harvey
+  @updated
+  : 2014-10-05
+    */
 }
 :not(h1):not(.H) + .Map {
   margin-top: 24px;
   margin-top: 1.5rem;
 }
-/**
-  * This Object represent the term in a term-description pair of a `.Map`.
-@belongsto
-: .Map
-@implements
-: .vru-top() only when following a `.Desc`
-@tags
-: #typography
-: #map
-@author
-: Chris Harvey
-@updated
-: 2014-10-07
-  */
 .Map > .Term {
   font-weight: bold;
 }
@@ -2338,18 +2138,6 @@ main.undo {
   margin-top: 24px;
   margin-top: 1.5rem;
 }
-/**
-  * This Object represent the description in a term-description pair of a `.Map`.
-@belongsto
-: .Map
-@tags
-: #typography
-: #map
-@author
-: Chris Harvey
-@updated
-: 2014-10-05
-  */
 /**
   * This Object represents an association list in which corresponding terms and descriptions are
   * grouped together in rows.
@@ -2366,12 +2154,16 @@ main.undo {
 @author
 : Chris Harvey
 @updated
-: 2014-10-05
+: 2014-11-23
   */
 .Map.Horiz::after {
   display: table;
   content: ' ';
   clear: both;
+}
+.Map.Horiz > .Term,
+.Map.Horiz > .Desc {
+  box-sizing: border-box;
 }
 .Map.Horiz > .Term {
   padding-right: 1.31556175%;
@@ -2380,65 +2172,69 @@ main.undo {
   overflow: auto;
   white-space: nowrap;
 }
-.Map.Horiz > .Desc + .Term {
-  margin-top: 0;
-}
 .Map.Horiz > .Desc {
   float: left;
 }
-.Map.Horiz > .Term {
-  width: 36.88103938%;
-}
-.Map.Horiz > .Desc {
-  width: 61.80339887%;
-}
-.Map.Horiz > .Desc + .Desc {
-  margin-left: 38.19660113%;
+.Map.Horiz > .Desc + .Term {
+  margin-top: 0;
 }
 .Map.Horiz.Sml > .Term {
-  width: 22.291236%;
+  width: 23.60679775%;
 }
 .Map.Horiz.Sml > .Desc {
   width: 76.39320225%;
 }
-.Map.Horiz.Sml > .Desc + .Desc {
-  margin-left: 23.60679775%;
-}
 .Map.Horiz.Msm > .Term {
-  width: 36.88103938%;
+  width: 38.19660113%;
 }
 .Map.Horiz.Msm > .Desc {
   width: 61.80339887%;
 }
-.Map.Horiz.Msm > .Desc + .Desc {
-  margin-left: 38.19660113%;
-}
 .Map.Horiz.Med > .Term {
-  width: 48.68443825%;
+  width: 50%;
 }
 .Map.Horiz.Med > .Desc {
   width: 50%;
 }
-.Map.Horiz.Med > .Desc + .Desc {
-  margin-left: 50%;
-}
 .Map.Horiz.Mlg > .Term {
-  width: 60.48783713%;
+  width: 61.80339887%;
 }
 .Map.Horiz.Mlg > .Desc {
   width: 38.19660113%;
 }
-.Map.Horiz.Mlg > .Desc + .Desc {
-  margin-left: 61.80339887%;
-}
 .Map.Horiz.Lrg > .Term {
-  width: 75.0776405%;
+  width: 76.39320225%;
 }
 .Map.Horiz.Lrg > .Desc {
   width: 23.60679775%;
 }
-.Map.Horiz.Lrg > .Desc + .Desc {
-  margin-left: 76.39320225%;
+/**
+  * This Object represents a Horizontal Map that appears as a Table Object.
+@extends
+: .Map.Horiz
+@implements
+: .cellpaddingdefault()
+@tags
+: #typography
+: #map
+: #table
+@author
+: Chris Harvey
+@updated
+: 2014-11-23
+  */
+.Map.Horiz.Tbl > .Term,
+.Map.Horiz.Tbl > .Desc {
+  padding: 12px 7.41640786px;
+  padding: 0.75rem 0.46352549rem;
+}
+.Map.Horiz.Tbl > .Term:nth-child(4n+1),
+.Map.Horiz.Tbl > .Desc:nth-child(4n+2) {
+  background-color: #cfe0e2;
+}
+.Map.Horiz.Tbl > .Term:nth-child(4n+3),
+.Map.Horiz.Tbl > .Desc:nth-child(4n) {
+  background-color: #b6d0d3;
 }
 /*################*\
     _tables.less
@@ -2602,6 +2398,15 @@ table tr {
 : 2014-10-07
   */
 /**
+  * A mixin for coloring components of code.
+@tags
+: #code
+@author
+: Chris Harvey
+@updated
+: 2014-12-04
+  */
+/**
   * A span of text that a computer program would recognize.
 @implements
 : .box-inline()
@@ -2635,6 +2440,12 @@ code .Comm {
 /**
   * A block of code. Its semantics are derived from the formatting (line breaks, indenting, etc) of
   * the text content. This Object does *not* extend the `.Code` Object.
+  * `.Comm` : any comment
+  * `.Cst`  : a number, color, or character constant
+  * `.Str`  : any string
+  * `.Cmd`  : a function name, function call, or constructor call
+  * `.Arg`  : argument to a function or constructor call
+  * `&.Invert` : use Solarized Light instead of Solarized Dark
 @implements
 : .box-block()
 : .follows-heading()
@@ -2686,10 +2497,45 @@ code .Comm {
 .Codeblock.Invert .Comm {
   color: #93a1a1;
 }
+.Codeblock .Comm {
+  quotes: '/* ' ' */';
+}
+.Codeblock .Comm::before {
+  content: open-quote;
+}
+.Codeblock .Comm::after {
+  content: close-quote;
+}
+.Codeblock .Comm.I {
+  quotes: '// ' '';
+}
+.Codeblock .Cst {
+  color: #859900;
+}
+.Codeblock .Str {
+  quotes: '\0027' '\0027';
+  color: #2aa198;
+}
+.Codeblock .Str::before {
+  content: open-quote;
+}
+.Codeblock .Str::after {
+  content: close-quote;
+}
+.Codeblock .Str::before,
+.Codeblock .Str::after {
+  color: #d33682;
+}
+.Codeblock .Cmd {
+  color: #268bd2;
+}
+.Codeblock .Arg {
+  color: #6c71c4;
+}
 /**
   * This Object represents a block of HTML code.
   * `.Tag` : an HTML tag
-  * `.Attr`: an HTML attribute
+  * `.Atr`: an HTML attribute
   * `.Val` : an HTML or CSS value
 @extends
 : .Codeblock
@@ -2714,33 +2560,16 @@ code .Comm {
 .Codeblock.HTML .Tag::after {
   color: #808080;
 }
-.Codeblock.HTML .Endtag {
-  quotes: '<' '>';
-  color: #268bd2;
+.Codeblock.HTML .Tag.End {
   quotes: '</' '>';
 }
-.Codeblock.HTML .Endtag::before {
-  content: open-quote;
-}
-.Codeblock.HTML .Endtag::after {
-  content: close-quote;
-}
-.Codeblock.HTML .Endtag::before,
-.Codeblock.HTML .Endtag::after {
-  color: #808080;
-}
-.Codeblock.HTML .Endtag::before {
-  content: open-quote;
-}
-.Codeblock.HTML .Endtag::after {
-  content: close-quote;
-}
 .Codeblock.HTML .Atr {
-  color: #859900;
+  color: #b58900;
 }
 .Codeblock.HTML .Val {
-  quotes: '\0022' '\0022';
+  quotes: '\0027' '\0027';
   color: #2aa198;
+  quotes: '\0022' '\0022';
 }
 .Codeblock.HTML .Val::before {
   content: open-quote;
@@ -2752,14 +2581,14 @@ code .Comm {
 .Codeblock.HTML .Val::after {
   color: #d33682;
 }
-.Codeblock.HTML .Comm {
-  quotes: '<!-- ' ' -->';
-}
-.Codeblock.HTML .Comm::before {
+.Codeblock.HTML .Val::before {
   content: open-quote;
 }
-.Codeblock.HTML .Comm::after {
+.Codeblock.HTML .Val::after {
   content: close-quote;
+}
+.Codeblock.HTML .Comm {
+  quotes: '<!-- ' ' -->';
 }
 /**
   * This Object represents a block of CSS or LESS code.
@@ -2789,7 +2618,7 @@ code .Comm {
 }
 .Codeblock.CSS .Prp {
   quotes: '' ';';
-  color: #859900;
+  color: #b58900;
 }
 .Codeblock.CSS .Prp::before {
   content: open-quote;
@@ -2799,7 +2628,7 @@ code .Comm {
 }
 .Codeblock.CSS .Val {
   quotes: ': ' '';
-  color: #b58900;
+  color: #2aa198;
 }
 .Codeblock.CSS .Val::before {
   content: open-quote;
@@ -2809,11 +2638,10 @@ code .Comm {
 }
 .Codeblock.CSS .Val::before,
 .Codeblock.CSS .Val::after {
-  color: #859900;
+  color: #b58900;
 }
 .Codeblock.CSS .Cmd {
   quotes: '' ';';
-  color: #268bd2;
 }
 .Codeblock.CSS .Cmd::before {
   content: open-quote;
@@ -2823,7 +2651,6 @@ code .Comm {
 }
 .Codeblock.CSS .Arg {
   quotes: '(' ')';
-  color: #6c71c4;
 }
 .Codeblock.CSS .Arg::before {
   content: open-quote;
@@ -2835,38 +2662,8 @@ code .Comm {
 .Codeblock.CSS .Arg::after {
   color: #268bd2;
 }
-.Codeblock.CSS .Comm {
-  quotes: '/* ' ' */';
-}
-.Codeblock.CSS .Comm::before {
-  content: open-quote;
-}
-.Codeblock.CSS .Comm::after {
-  content: close-quote;
-}
-.Codeblock.CSS .Comm.I {
-  quotes: '// ' '';
-}
-.Codeblock.CSS .String {
-  quotes: '\0022' '\0022';
-  color: #2aa198;
-  quotes: '\0027' '\0027';
-}
-.Codeblock.CSS .String::before {
-  content: open-quote;
-}
-.Codeblock.CSS .String::after {
-  content: close-quote;
-}
-.Codeblock.CSS .String::before,
-.Codeblock.CSS .String::after {
+.Codeblock.CSS .Str {
   color: #d33682;
-}
-.Codeblock.CSS .String::before {
-  content: open-quote;
-}
-.Codeblock.CSS .String::after {
-  content: close-quote;
 }
 /**
   * This Object represents a block of CSS code organized as a map.
@@ -2932,64 +2729,6 @@ code .Comm {
 .CSSmap.Invert .Comm {
   color: #93a1a1;
 }
-.CSSmap .Sel {
-  quotes: '' '}';
-  color: #268bd2;
-}
-.CSSmap .Sel::before {
-  content: open-quote;
-}
-.CSSmap .Sel::after {
-  content: close-quote;
-}
-.CSSmap .Prp {
-  quotes: '' ';';
-  color: #859900;
-}
-.CSSmap .Prp::before {
-  content: open-quote;
-}
-.CSSmap .Prp::after {
-  content: close-quote;
-}
-.CSSmap .Val {
-  quotes: ': ' '';
-  color: #b58900;
-}
-.CSSmap .Val::before {
-  content: open-quote;
-}
-.CSSmap .Val::after {
-  content: close-quote;
-}
-.CSSmap .Val::before,
-.CSSmap .Val::after {
-  color: #859900;
-}
-.CSSmap .Cmd {
-  quotes: '' ';';
-  color: #268bd2;
-}
-.CSSmap .Cmd::before {
-  content: open-quote;
-}
-.CSSmap .Cmd::after {
-  content: close-quote;
-}
-.CSSmap .Arg {
-  quotes: '(' ')';
-  color: #6c71c4;
-}
-.CSSmap .Arg::before {
-  content: open-quote;
-}
-.CSSmap .Arg::after {
-  content: close-quote;
-}
-.CSSmap .Arg::before,
-.CSSmap .Arg::after {
-  color: #268bd2;
-}
 .CSSmap .Comm {
   quotes: '/* ' ' */';
 }
@@ -3002,39 +2741,99 @@ code .Comm {
 .CSSmap .Comm.I {
   quotes: '// ' '';
 }
-.CSSmap .String {
-  quotes: '\0022' '\0022';
-  color: #2aa198;
-  quotes: '\0027' '\0027';
+.CSSmap .Cst {
+  color: #859900;
 }
-.CSSmap .String::before {
+.CSSmap .Str {
+  quotes: '\0027' '\0027';
+  color: #2aa198;
+}
+.CSSmap .Str::before {
   content: open-quote;
 }
-.CSSmap .String::after {
+.CSSmap .Str::after {
   content: close-quote;
 }
-.CSSmap .String::before,
-.CSSmap .String::after {
+.CSSmap .Str::before,
+.CSSmap .Str::after {
   color: #d33682;
 }
-.CSSmap .String::before {
-  content: open-quote;
+.CSSmap .Cmd {
+  color: #268bd2;
 }
-.CSSmap .String::after {
-  content: close-quote;
-}
-.CSSmap .String {
-  quotes: '\0027' '\0027';
+.CSSmap .Arg {
   color: #6c71c4;
 }
-.CSSmap .String::before {
+.CSSmap .Sel {
+  quotes: '' '}';
+  color: #268bd2;
+}
+.CSSmap .Sel::before {
   content: open-quote;
 }
-.CSSmap .String::after {
+.CSSmap .Sel::after {
   content: close-quote;
+}
+.CSSmap .Prp {
+  quotes: '' ';';
+  color: #b58900;
+}
+.CSSmap .Prp::before {
+  content: open-quote;
+}
+.CSSmap .Prp::after {
+  content: close-quote;
+}
+.CSSmap .Val {
+  quotes: ': ' '';
+  color: #2aa198;
+}
+.CSSmap .Val::before {
+  content: open-quote;
+}
+.CSSmap .Val::after {
+  content: close-quote;
+}
+.CSSmap .Val::before,
+.CSSmap .Val::after {
+  color: #b58900;
+}
+.CSSmap .Cmd {
+  quotes: '' ';';
+}
+.CSSmap .Cmd::before {
+  content: open-quote;
+}
+.CSSmap .Cmd::after {
+  content: close-quote;
+}
+.CSSmap .Arg {
+  quotes: '(' ')';
+}
+.CSSmap .Arg::before {
+  content: open-quote;
+}
+.CSSmap .Arg::after {
+  content: close-quote;
+}
+.CSSmap .Arg::before,
+.CSSmap .Arg::after {
+  color: #268bd2;
+}
+.CSSmap .Str {
+  color: #d33682;
+}
+.CSSmap .Str {
+  color: #d33682;
 }
 .CSSmap .Sel {
   quotes: '' ' {';
+}
+.CSSmap .Sel::before {
+  content: open-quote;
+}
+.CSSmap .Sel::after {
+  content: close-quote;
 }
 .CSSmap .Ruleset::after {
   display: table;
@@ -3046,12 +2845,24 @@ code .Comm {
   color: #268bd2;
 }
 .CSSmap .Ruleset > .Prp {
+  quotes: '' ':\00A0';
   float: left;
   clear: both;
-  quotes: '' ':\00A0';
+}
+.CSSmap .Ruleset > .Prp::before {
+  content: open-quote;
+}
+.CSSmap .Ruleset > .Prp::after {
+  content: close-quote;
 }
 .CSSmap .Ruleset > .Val {
   quotes: '' ';';
+}
+.CSSmap .Ruleset > .Val::before {
+  content: open-quote;
+}
+.CSSmap .Ruleset > .Val::after {
+  content: close-quote;
 }
 .CSSmap .Ruleset > .Prp,
 .CSSmap .Ruleset > .Comm {
@@ -3071,6 +2882,33 @@ code .Comm {
 }
 .CSSmap.I .Ruleset > .Val {
   display: inline;
+}
+/**
+  * This Object represents a block of JavaScript code.
+  * `.Ctl` : programming control (if, for, switch, return)
+  * `.Opr` : delimiter or operator (+, ==, ., new, this)
+  * `.Kwd` : predefined keywords (var, function)
+  * `.Cls` : a class or object reference
+@extends
+: .Codeblock
+@tags
+: #code
+@author
+: Chris Harvey
+@updated
+: 2014-12-04
+  */
+.Codeblock.JS .Ctl {
+  color: #dc322f;
+}
+.Codeblock.JS .Opr {
+  color: #cb4b16;
+}
+.Codeblock.JS .Kwd {
+  color: #b58900;
+}
+.Codeblock.JS .Cls {
+  color: #d33682;
 }
 /**
   * This Object represents an individual key (a button) on a keyboard, calculator, or other device.
@@ -4118,6 +3956,230 @@ del + ins {
     _trumps.less
 \*################*/
 /** This stylesheet contains classes that are used in HTML. Not Objects per se, but helper classes. **/
+/**
+  * The `[data-status]` attribute indicates the status of a document or Element.
+  * "draft"    : a work in progress
+  * "complete" : finished but still needs edits before releasing
+  * "released" : ready for implementation
+  * See https://github.com/chharvey/chharvey.github.io/wiki/Document-Status/ for more info.
+@tags
+: #status
+: #golden
+: #border
+: #background
+@author
+: Chris Harvey
+@updated
+: 2014-10-26
+  */
+.Article[data-status="draft"]::before {
+  min-height: 24px;
+  min-height: 1.5rem;
+  display: block;
+  position: relative;
+  top: -1px;
+  margin-bottom: -2px;
+  border-width: 1px;
+  border-style: solid;
+  padding: 12px 7.41640786px;
+  padding: 0.75rem 0.46352549rem;
+  border-radius: 6px;
+  width: 61.80339887%;
+  margin-left: 23.60679775%;
+  margin-right: 14.58980338%;
+  border-color: #ff0000;
+  color: #610000;
+  background-color: #ff9e9e;
+  background-image: -webkit-linear-gradient(to bottom, #ff9e9e, #ff6b6b);
+  background-image: -moz-linear-gradient(to bottom, #ff9e9e, #ff6b6b);
+  background-image: -ms-linear-gradient(to bottom, #ff9e9e, #ff6b6b);
+  background-image: -o-linear-gradient(to bottom, #ff9e9e, #ff6b6b);
+  background-image: linear-gradient(to bottom, #ff9e9e, #ff6b6b);
+  background-image: -webkit-gradient(to bottom, #ff9e9e, #ff6b6b);
+  font-family: 'Century Gothic', 'Gill Sans', 'Avenir', sans-serif;
+  box-sizing: border-box;
+  position: fixed;
+  width: 9.01699437%;
+  margin-left: 3.44418537%;
+  margin-right: 2.12862363%;
+  right: 0;
+  position: static;
+  top: auto;
+  margin-bottom: 0;
+  border: 0;
+  font-size: 12px;
+  font-size: 0.75rem;
+  line-height: 2;
+  position: absolute;
+  content: 'This article is a work in progress.';
+  font-weight: bold;
+  text-align: left;
+}
+:not(h1):not(.H) + .Article[data-status="draft"]::before {
+  margin-top: 24px;
+  margin-top: 1.5rem;
+}
+.Article[data-status="draft"]::before::before {
+  content: 'Warning' ' ' '\0021' ' ';
+  font-weight: bold;
+}
+.Article[data-status="complete"]::before {
+  min-height: 24px;
+  min-height: 1.5rem;
+  display: block;
+  position: relative;
+  top: -1px;
+  margin-bottom: -2px;
+  border-width: 1px;
+  border-style: solid;
+  padding: 12px 7.41640786px;
+  padding: 0.75rem 0.46352549rem;
+  border-radius: 6px;
+  width: 61.80339887%;
+  margin-left: 23.60679775%;
+  margin-right: 14.58980338%;
+  border-color: #ccff00;
+  color: #4e6100;
+  background-color: #ecff9e;
+  background-image: -webkit-linear-gradient(to bottom, #ecff9e, #e1ff6b);
+  background-image: -moz-linear-gradient(to bottom, #ecff9e, #e1ff6b);
+  background-image: -ms-linear-gradient(to bottom, #ecff9e, #e1ff6b);
+  background-image: -o-linear-gradient(to bottom, #ecff9e, #e1ff6b);
+  background-image: linear-gradient(to bottom, #ecff9e, #e1ff6b);
+  background-image: -webkit-gradient(to bottom, #ecff9e, #e1ff6b);
+  font-family: 'Century Gothic', 'Gill Sans', 'Avenir', sans-serif;
+  box-sizing: border-box;
+  position: fixed;
+  width: 9.01699437%;
+  margin-left: 3.44418537%;
+  margin-right: 2.12862363%;
+  right: 0;
+  position: static;
+  top: auto;
+  margin-bottom: 0;
+  border: 0;
+  font-size: 12px;
+  font-size: 0.75rem;
+  line-height: 2;
+  position: absolute;
+  content: 'This article is mostly complete.';
+  font-weight: bold;
+  text-align: left;
+}
+:not(h1):not(.H) + .Article[data-status="complete"]::before {
+  margin-top: 24px;
+  margin-top: 1.5rem;
+}
+.Article[data-status="complete"]::before::before {
+  content: 'Caution' ' ' '\2026' ' ';
+  font-weight: bold;
+}
+.Article[data-status="released"]::before {
+  min-height: 24px;
+  min-height: 1.5rem;
+  display: block;
+  position: relative;
+  top: -1px;
+  margin-bottom: -2px;
+  border-width: 1px;
+  border-style: solid;
+  padding: 12px 7.41640786px;
+  padding: 0.75rem 0.46352549rem;
+  border-radius: 6px;
+  width: 61.80339887%;
+  margin-left: 23.60679775%;
+  margin-right: 14.58980338%;
+  border-color: #00ff66;
+  color: #006127;
+  background-color: #9effc5;
+  background-image: -webkit-linear-gradient(to bottom, #9effc5, #6bffa6);
+  background-image: -moz-linear-gradient(to bottom, #9effc5, #6bffa6);
+  background-image: -ms-linear-gradient(to bottom, #9effc5, #6bffa6);
+  background-image: -o-linear-gradient(to bottom, #9effc5, #6bffa6);
+  background-image: linear-gradient(to bottom, #9effc5, #6bffa6);
+  background-image: -webkit-gradient(to bottom, #9effc5, #6bffa6);
+  font-family: 'Century Gothic', 'Gill Sans', 'Avenir', sans-serif;
+  box-sizing: border-box;
+  position: fixed;
+  width: 9.01699437%;
+  margin-left: 3.44418537%;
+  margin-right: 2.12862363%;
+  right: 0;
+  position: static;
+  top: auto;
+  margin-bottom: 0;
+  border: 0;
+  font-size: 12px;
+  font-size: 0.75rem;
+  line-height: 2;
+  position: absolute;
+  content: 'This article is ready for implemen' '\00ad' 'tation.';
+  font-weight: bold;
+  text-align: left;
+}
+:not(h1):not(.H) + .Article[data-status="released"]::before {
+  margin-top: 24px;
+  margin-top: 1.5rem;
+}
+.Article[data-status="released"]::before::before {
+  content: 'Success' ' ' '\263a' ' ';
+  font-weight: bold;
+}
+.Article [data-status="draft"] {
+  border-left-width: 4px;
+  border-left-style: solid;
+  padding-left: 6.47213595px;
+  margin-left: 16.94427191px;
+  border-left-color: #ff0000;
+  padding-right: 4px;
+  box-shadow: 4px 4px 8px #808080;
+  background-color: rgba(255, 158, 158, 0.14589803);
+}
+.Article [data-status="complete"] {
+  border-left-width: 4px;
+  border-left-style: solid;
+  padding-left: 6.47213595px;
+  margin-left: 16.94427191px;
+  border-left-color: #ccff00;
+  padding-right: 4px;
+  box-shadow: 4px 4px 8px #808080;
+  background-color: rgba(236, 255, 158, 0.14589803);
+}
+.Article [data-status="released"] {
+  border-left-width: 4px;
+  border-left-style: solid;
+  padding-left: 6.47213595px;
+  margin-left: 16.94427191px;
+  border-left-color: #00ff66;
+  padding-right: 4px;
+  box-shadow: 4px 4px 8px #808080;
+  background-color: rgba(158, 255, 197, 0.14589803);
+}
+/**
+  * The `[data-informative]` attribute on an Element in an `.Article` indicates that
+  * the content is nonessential to the article.
+  * See https://github.com/chharvey/chharvey.github.io/wiki/Document-Status/ for more info.
+@tags
+: #status
+@author
+: Chris Harvey
+@updated
+: 2014-08-12
+  */
+.Article [data-informative] {
+  border-left-width: 2px;
+  border-left-style: solid;
+  padding-left: 3.23606798px;
+  margin-left: 8.47213595px;
+  border-left-color: #0066ff;
+  border-right-width: 2px;
+  border-right-style: solid;
+  padding-right: 3.23606798px;
+  margin-right: 8.47213595px;
+  border-right-color: #0066ff;
+  box-shadow: 2px 2px 4px #c0c0c0;
+  background-color: rgba(158, 197, 255, 0.14589803);
+}
 /**
   * This Interface puts an outline around an Object to show its structure. It is used for
   * deomonstration purposes.
