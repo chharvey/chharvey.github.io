@@ -61,9 +61,60 @@ function makepretty() {
   }
 }
 
+function jqcircles() {
+  $('main').append($('<svg>').attr('xmlns','http://www.w3.org/2000/svg')
+                             .attr('id', 'js-bubbles')
+                             .attr('viewBox', '0 0 960 960')
+                             );
+
+  $('svg#js-bubbles').append($('<g>').attr('id', 'js-main-links').attr('transform', 'translate(0, 100)'))
+                     .append($('<g>').attr('id', 'js-side-links').attr('transform', 'translate(200, 200)'));
+
+  $('g#js-main-links').append($('<g>').attr('id', 'js-mth').attr('transform', 'translate(0, 10)'))
+                      .append($('<g>').attr('id', 'js-web').attr('transform', 'translate(0, 20)'))
+                      .append($('<g>').attr('id', 'js-edu').attr('transform', 'translate(0, 30)'))
+                      .append($('<g>').attr('id', 'js-mus').attr('transform', 'translate(0, 40)'))
+                      .append($('<g>').attr('id', 'js-swm').attr('transform', 'translate(0, 50)'));
+
+  $('g#js-side-links').append($('<g>').attr('id', 'js-abt').attr('transform', 'translate(10, 0)'))
+                      .append($('<g>').attr('id', 'js-res').attr('transform', 'translate(20, 0)'))
+                      .append($('<g>').attr('id', 'js-cpr').attr('transform', 'translate(30, 0)'));
+
+  $('g#js-main-links g').append($('<circle>').attr('r', 100)).append($('<text>'));
+  $('g#js-side-links g').append($('<circle>').attr('r',  50)).append($('<text>'));
+}
+
+function d3circles() {
+  var svg = d3.select('main').append('svg').attr('xmlns','http://www.w3.org/2000/svg')
+                                           .attr('id', 'js-bubbles')
+                                           .attr('viewBox', '0 0 960 960');
+
+  var main_links = svg.append('g').attr('id', 'js-main-links').attr('transform', 'translate(0, 100)');
+  var side_links = svg.append('g').attr('id', 'js-side-links').attr('transform', 'translate(200, 200)');
+
+  main_links.append('g').attr('id', 'js-mth').attr('transform', 'translate(0, 10)');
+  main_links.append('g').attr('id', 'js-web').attr('transform', 'translate(0, 20)');
+  main_links.append('g').attr('id', 'js-edu').attr('transform', 'translate(0, 30)');
+  main_links.append('g').attr('id', 'js-mus').attr('transform', 'translate(0, 40)');
+  main_links.append('g').attr('id', 'js-swm').attr('transform', 'translate(0, 50)');
+
+  side_links.append('g').attr('id', 'js-abt').attr('transform', 'translate(10, 0)');
+  side_links.append('g').attr('id', 'js-res').attr('transform', 'translate(20, 0)');
+  side_links.append('g').attr('id', 'js-cpr').attr('transform', 'translate(30, 0)');
+
+  main_links.selectAll('g').append('circle').attr('r', 100);
+  side_links.selectAll('g').append('circle').attr('r', 50);
+  svg.selectAll('g').selectAll('g').append('text');
+}
+
+
+jqcircles();
+d3circles();
+
+
 $(document).ready(function () {
-  makepretty();
+  // makepretty();
 });
 $(window).resize(function () {
-  makepretty();
+  // makepretty();
 });
