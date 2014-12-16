@@ -1,4 +1,22 @@
 /**
+  * Resizes the .H--Alp.Folio headings on home site to keep them horizontally contained.
+  */
+function resizeFolioHeading() {
+  var scale = 1/16;
+  $('.Folio').css('font-size', function () {
+    var width_rem = $(this).parent().width() / 16;
+    return scale * width_rem + 'rem';
+  }).css('line-height', function () {
+    // var font_rem = parseInt($(this).css('font-size') / 16;
+    return 48 / parseInt($(this).css('font-size'));
+  });
+  $('.Folio .Cap').css('font-size', function () {
+    var width_rem = $(this).parent().width() / 16;
+    return 2 * scale * width_rem + 'rem';
+  });
+}
+
+/**
   * Changes the line height of block quotes to 1.5 times the usual amount.
   *
   * Currently (2014-03-01), the line-height is 1.2, because font-size is 1.25rem and
@@ -98,17 +116,13 @@ function mathJax() {
   $('.M.B').prepend('\\[').append('\\]');
 }
 $(document).ready(function () {
+  resizeFolioHeading();
   qblockLines();
   mapHeights();
   tableSpacing();
   mathJax();
-
-  /** an attempt to fix the cursive headings of the folio pages
-  EDIT: Temporary fix available at the bottom of each hub page. */
-//  while($('.folio .h-folio').width > $('.folio').width) {
-//    $('.folio .h-folio').css('font-size', (parseInt($('.folio .h-folio').css('font-size')) - 1) + "px" );
-//  }
 });
 $(window).resize(function () {
+  resizeFolioHeading();
   qblockLines();
 });
