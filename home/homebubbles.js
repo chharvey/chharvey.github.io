@@ -65,28 +65,41 @@ function makepretty() {
   var svg = d3.select('main').append('svg').attr('xmlns','http://www.w3.org/2000/svg')
                                            .attr('id', 'js-bubbles')
                                            .attr('viewBox', '0 0 960 960')
-                                          //  .attr('width', 960).attr('height', 960)
+                                           .attr('preserveAspectRatio', 'xMidYMid')
                                            ;
 
   var main_links = svg.append('g').attr('id', 'js-main-links').attr('transform', 'translate(480, 480)');
-  var side_links = svg.append('g').attr('id', 'js-side-links').attr('transform', 'translate(700, 700)');
-function deg(n) { return n * 180 / Math.PI; }
-var h = Math.cos(deg(30))*480;
-var v = Math.sin(deg(30))*480;
+  var side_links = svg.append('g').attr('id', 'js-side-links').attr('transform', 'translate(480, 480)');
 
-  main_links.append('g').attr('id', 'js-mth').attr('transform', 'translate(' + -h + ', ' + -v + ')');
-  main_links.append('g').attr('id', 'js-web').attr('transform', 'translate(0, -480)');
-  main_links.append('g').attr('id', 'js-edu').attr('transform', 'translate(' + -h + ', ' + v + ')');
-  main_links.append('g').attr('id', 'js-mus').attr('transform', 'translate(' + h + ', ' + -v + ')');
-  main_links.append('g').attr('id', 'js-swm').attr('transform', 'translate(' + h + ', ' + v + ')');
+  // herebelow, the ORDER of the `transform` attribute's values is RELEVANT!
+  // i.e. rotate before translate is different than translate before rotate.
+  var main_radius = 240;
+  var main_angle = 72;
+  main_links.append('g').attr('id', 'js-mth').attr('transform', 'rotate(' + main_angle * 4 + ') translate(0,' + -main_radius + ')');
+  main_links.append('g').attr('id', 'js-web').attr('transform', 'rotate(' + main_angle * 0 + ') translate(0,' + -main_radius + ')');
+  main_links.append('g').attr('id', 'js-edu').attr('transform', 'rotate(' + main_angle * 3 + ') translate(0,' + -main_radius + ')');
+  main_links.append('g').attr('id', 'js-mus').attr('transform', 'rotate(' + main_angle * 1 + ') translate(0,' + -main_radius + ')');
+  main_links.append('g').attr('id', 'js-swm').attr('transform', 'rotate(' + main_angle * 2 + ') translate(0,' + -main_radius + ')');
 
-  side_links.append('g').attr('id', 'js-abt').attr('transform', 'translate(10, 0)');
-  side_links.append('g').attr('id', 'js-res').attr('transform', 'translate(20, 0)');
-  side_links.append('g').attr('id', 'js-cpr').attr('transform', 'translate(30, 0)');
+  var side_radius = 100;
+  var side_angle = 120;
+  side_links.append('g').attr('id', 'js-abt').attr('transform', 'rotate(' + side_angle * 0 + ') translate(0,' + -side_radius + ')');
+  side_links.append('g').attr('id', 'js-res').attr('transform', 'rotate(' + side_angle * 2 + ') translate(0,' + -side_radius + ')');
+  side_links.append('g').attr('id', 'js-cpr').attr('transform', 'rotate(' + side_angle * 1 + ') translate(0,' + -side_radius + ')');
 
   main_links.selectAll('g').append('circle').attr('r', 100);
   side_links.selectAll('g').append('circle').attr('r', 50);
   svg.selectAll('g').selectAll('g').append('text');
+
+  main_links.select('#js-mth').select('text').attr('transform', 'rotate(' + main_angle * 1 + ')').attr('dy','0.5em').text('Math');
+  main_links.select('#js-web').select('text').attr('transform', 'rotate(' + main_angle * 0 + ')').attr('dy','0.5em').text('Web');
+  main_links.select('#js-edu').select('text').attr('transform', 'rotate(' + main_angle * 2 + ')').attr('dy','0.5em').text('Edu');
+  main_links.select('#js-mus').select('text').attr('transform', 'rotate(' + main_angle * 4 + ')').attr('dy','0.5em').text('Music');
+  main_links.select('#js-swm').select('text').attr('transform', 'rotate(' + main_angle * 3 + ')').attr('dy','0.5em').text('Swim');
+
+  side_links.select('#js-abt').select('text').attr('transform', 'rotate(' + side_angle * 0 + ')').attr('dy','0.5em').text('Chris Harvey');
+  side_links.select('#js-res').select('text').attr('transform', 'rotate(' + side_angle * 1 + ')').attr('dy','0.5em').text('Résumé');
+  side_links.select('#js-cpr').select('text').attr('transform', 'rotate(' + side_angle * 2 + ')').attr('dy','0.5em').text('©');
 })();
 
 
