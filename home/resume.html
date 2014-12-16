@@ -19,42 +19,6 @@
   background: transparent; /* reset */
 }
 </style>
-<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML,http://chharvey.github.io/chhlib/mathjax-localconfig.js"></script>
-<script src="../core/scripts/global.js"></script>
-<script>
-function marginTopToNumber(jqobj) {
-  a = jqobj.css('margin-top'); // a string representing the length of a top margin, e.g., '12px'
-  b = a.substring(0, a.length - 2); // a string without the 'px' at the end, e.g., '12'
-  return parseInt(b); // returns b converted to an integer, e.g., 12
-}
-function objHeight(jqobj) {
-  return jqobj.height() + marginTopToNumber(jqobj);
-}
-function workit() {
-  // must calculate the hights after the `.tech-skills-body` is inserted in... don't know why
-  col1 = objHeight($('#tech-gen')) + objHeight($('#tech-css'));
-  col2 = objHeight($('#tech-html')) + objHeight($('#tech-git')) + objHeight($('#tech-misc'));
-  $('.tech-skills-body').height(Math.max(col1, col2));
-};
-$(document).ready(function () {
-  // $('#tech-gen, #tech-css, #tech-html, #tech-git, #tech-misc, #tech-apps').wrapAll(newElem('div').addClass('tech-skills-body'));
-  // workit();
-  $('#obj1').click(function () {
-    $(this).hide();
-    $('#obj2').show();
-    $('#teach-exp').css('margin-top','0');
-  });
-  $('#obj2').click(function () {
-    $(this).hide();
-    $('#obj3').show();
-    $('#teach-exp').css('margin-top','');
-  });
-});
-$(window).resize(function () {
-  // workit();
-});
-</script>
 </head>
 <body>
 <main class="MainGolden">
@@ -84,8 +48,8 @@ $(window).resize(function () {
   <input id="obj3" type="text" value="Type a custom objective here. Reload to reset."/>
 </section>
 <section class="res-Skill" id="tech-skills">
-  <h1 class="res-SkillTitle">Tech Skills</h1>
-  <section class="res-Job">
+  <h1 class="res-SkillTitle">Techno&shy;logical Experience</h1>
+  <section class="res-Job" id="osmosis">
     <h1 class="res-JobTitle" itemscope="" itemtype="http://schema.org/LocalBusiness">
       <a rel="external" itemprop="name"
         href="http://www.osmosis.org/">Osmosis</a>
@@ -105,8 +69,12 @@ $(window).resize(function () {
         </span>
       </h1>
       <ul class="res-PosDetail">
-        <li class="Item">Implemented a feature that presented users their usage analytics using
-          <a rel="external" href="http://d3js.org/">d3.js</a>.</li>
+        <li class="Item">Implemented a feature that presented students their usage analytics using
+          <a rel="external" href="http://d3js.org/">D3.js</a>.</li>
+        <li class="Item">Automated construction of a dynamic, interactive graphical user interface
+          in <abbr class="Acro" title="Scalable Vector Graphics">SVG</abbr>.</li>
+        <li class="Item">Constructed and referenced common libraries and databases
+          (<a rel="external" href="http://jquery.com/">jQuery</a>).</li>
       </ul>
     </section>
   </section>
@@ -123,14 +91,14 @@ $(window).resize(function () {
         </ul>
       </section>
       <section class="res-Job" id="tech-css">
-        <h1 class="res-JobTitle"><abbr title="Cascading Stylesheets">CSS</abbr>/<a
-          rel="external" href="http://lesscss.org">Less</a></h1>
+        <h1 class="res-JobTitle"><abbr title="Cascading Stylesheets">CSS</abbr></h1>
         <ul class="res-PosDetail">
+          <li class="Item">Write using <a rel="external" href="http://lesscss.org">Less</a> preprocessor.</li>
           <li class="Item">Approach with object-oriented principles.</li>
           <li class="Item">Generalize and abstract reusable patterns.</li>
           <li class="Item">Maximize site performance.</li>
-          <li class="Item">Create mathematics-heavy, aesthetic layout systems,
-            vertical rhythm, color&nbsp;schemes.</li>
+          <li class="Item">Create mathematics-heavy aesthetic layout systems,
+            vertical rhythm, color schemes.</li>
         </ul>
       </section>
     </div>
@@ -160,15 +128,13 @@ $(window).resize(function () {
             to offer semantic math for the Web.</li>
           <li class="Item">
             <ul class="Ilist Comma">
-              <li class="Item">JavaScript/jQuery</li>
               <li class="Item">
                 <abbr
                 class="Acro" title="eXtendable Markup Language">XML</abbr>/<abbr
                 class="Acro" title="XML Stylesheet Language: Transformation">XSLT</abbr>/<abbr
                 class="Acro" title="XML Schema Definition">XSD</abbr></li>
-              <li class="Item"><abbr class="Acro" title="Scalable Vector Graphics">SVG</abbr></li>
-              <li class="Item"><abbr class="Acro" title="PHP: Hypertext Preprocessor">PHP</abbr></li>
               <li class="Item">Java</li>
+              <li class="Item"><abbr class="Acro" title="PHP: Hypertext Preprocessor">PHP</abbr></li>
             </ul>
           </li>
         </ul>
@@ -666,5 +632,40 @@ $(window).resize(function () {
   </ul>
   <ul class="Child"></ul>
 </nav>
+<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML,http://chharvey.github.io/chhlib/mathjax-localconfig.js"></script>
+<script src="../core/scripts/global.js"></script>
+<script>
+function workit() {
+  function objHeight(jqobj) {
+    return jqobj.height() + (function (jqobj) {
+      a = jqobj.css('margin-top'); // a string representing the length of a top margin, e.g., '12px'
+      b = a.substring(0, a.length - 2); // a string without the 'px' at the end, e.g., '12'
+      return parseInt(b); // returns b converted to an integer, e.g., 12
+    })(jqobj);
+  }
+  // must calculate the hights after the `.tech-skills-body` is inserted in... don't know why
+  col1 = objHeight($('#tech-gen')) + objHeight($('#tech-css'));
+  col2 = objHeight($('#tech-html')) + objHeight($('#tech-git')) + objHeight($('#tech-misc'));
+  $('.tech-skills-body').height(Math.max(col1, col2));
+};
+$(document).ready(function () {
+  // $('#tech-gen, #tech-css, #tech-html, #tech-git, #tech-misc, #tech-apps').wrapAll(newElem('div').addClass('tech-skills-body'));
+  // workit();
+  $('#obj1').click(function () {
+    $(this).hide();
+    $('#obj2').show();
+    $('#osmosis').css('margin-top','0');
+  });
+  $('#obj2').click(function () {
+    $(this).hide();
+    $('#obj3').show();
+    $('#osmosis').css('margin-top','');
+  });
+});
+$(window).resize(function () {
+  // workit();
+});
+</script>
 </body>
 </html>
