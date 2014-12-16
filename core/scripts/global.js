@@ -1,24 +1,3 @@
-/*#############*\
-    global.js
-\*#############*/
-
-/** Creates a new HTML element and returns it as a jQuery object. */
-function newElem(elemname) {
-  return $(document.createElement(elemname)); // same as $(<elementname>)
-}
-//function newElemFilled(elemname, classname, html) {
-//  return newElem(elemname).addClass(classname).html(html);
-//}
-//function addSomethingTo(jQobj, elemname, classname, html) {
-//  jQobj.prepend(newElemFilled(elemname, classname, html));
-//}
-//function showOnHover(container) {
-//  container.wrapInner(newElem('div').addClass('js-wrapper invisible'));
-//  container.hover(function () {
-//    $(this).find('.js-wrapper').toggleClass('invisible',t_ani);
-//  });
-//}
-
 /**
   * Changes the line height of block quotes to 1.5 times the usual amount.
   *
@@ -113,12 +92,10 @@ function tableSpacing() {
 /**
   * Adds delimiters to LaTeX expressions.
   * Inline uses parentheses and block uses brackets.
-  * // Puts the LaTeX source in the 'title' attribute.
   */
 function mathJax() {
   $('.M:not(.B)').prepend('\\(').append('\\)');
   $('.M.B').prepend('\\[').append('\\]');
-  // $('.M').attr('title', function () { return $(this).text(); });
 }
 $(document).ready(function () {
   qblockLines();
