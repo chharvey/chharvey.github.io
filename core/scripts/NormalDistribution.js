@@ -118,3 +118,26 @@ NormalDistribution.prototype.test = function (times, min, max) {
   console.log('failures:  ' +  failures);
   console.log('random sample: ' + x);
 }
+
+/**
+  * Gives the z-score of an observation in this normal distribution.
+  * The z-score represents the "number of standard deviations away from the mean."
+  * For example, given a normal distribution with mean 500 and standard deviation 100,
+  * the z-score of an observation 650 would be 1.5.
+  * @param x the data value of the observation
+  * @return  the z-score of the observed data value
+  */
+NormalDistribution.prototype.zScore = function (x) {
+  return (x - this.mean) / this.stdev;
+}
+
+/**
+  * Returns the raw value of the given z-score of this normal distribution.
+  * In other words, returns the observed data value that occurs at the given number of
+  * standard deviations away from the mean.
+  * @param z the given z-score
+  * @return  the raw data value corresponding to the z-score
+  */
+NormalDistribution.prototype.zScoreInv = function (x) {
+  return (z * this.stdev) + this.mean;
+}
