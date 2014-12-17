@@ -62,14 +62,16 @@ function makepretty() {
 }
 
 (function d3circles() {
+  var svg_width = 960;
   var svg = d3.select('main').append('svg').attr('xmlns','http://www.w3.org/2000/svg')
                                            .attr('id', 'js-bubbles')
-                                           .attr('viewBox', '0 0 960 960')
+                                           .classed('dark', true)
+                                           .attr('viewBox', '0 0 ' + svg_width + ' ' + svg_width)
                                            .attr('preserveAspectRatio', 'xMidYMid')
                                            ;
   (function mainCircles() {
     // adds a group for each main link
-    var main_links = svg.append('g').attr('id', 'js-main-links').attr('transform', 'translate(480, 480)');
+    var main_links = svg.append('g').attr('id', 'js-main-links').attr('transform', 'translate(' + svg_width/2 + ', ' + svg_width/2 + ')');
     // herebelow, the ORDER of the `transform` attribute's values is RELEVANT!
     // i.e. rotate before translate is different than translate before rotate.
     var main_rotate = {
@@ -80,11 +82,11 @@ function makepretty() {
       swm : 72 * 2,
     };
     var main_translate = {
-      mth : '0,-240',
-      web : '0,-240',
-      edu : '0,-240',
-      mus : '0,-240',
-      swm : '0,-240',
+      mth : '0,' + -svg_width/4,
+      web : '0,' + -svg_width/4,
+      edu : '0,' + -svg_width/4,
+      mus : '0,' + -svg_width/4,
+      swm : '0,' + -svg_width/4,
     };
     //transforms each main group
     main_links.append('g').attr('id', 'js-mth').attr('transform', 'rotate(' + main_rotate.mth + ') translate(' + main_translate.mth + ')');
@@ -93,7 +95,8 @@ function makepretty() {
     main_links.append('g').attr('id', 'js-mus').attr('transform', 'rotate(' + main_rotate.mus + ') translate(' + main_translate.mus + ')');
     main_links.append('g').attr('id', 'js-swm').attr('transform', 'rotate(' + main_rotate.swm + ') translate(' + main_translate.swm + ')');
     // adds a circle and text for each main group
-    main_links.selectAll('g').append('circle').attr('r', 100);
+    var main_link_radius = 100;
+    main_links.selectAll('g').append('circle').attr('r', main_link_radius);
     main_links.selectAll('g').append('text');
     // tranforms each main group text
     main_links.select('#js-mth').select('text').attr('transform', 'rotate(' + (360-main_rotate.mth) + ')').attr('dy','0.5em').text('Math');
@@ -105,23 +108,24 @@ function makepretty() {
   (function sideCircles() {
     // adds a group for each side link
     var PHI = (Math.sqrt(5)-1)/2;
-    var side_links = svg.append('g').attr('id', 'js-side-links').attr('transform', 'translate(480,' + (960-50-24) + ')');
+    var side_links = svg.append('g').attr('id', 'js-side-links').attr('transform', 'translate(' + svg_width/2 + ',' + (svg_width-50-24) + ')');
     var side_rotate = {
       abt : 0,
       res : 0,
       cpr : 0,
     };
     var side_translate = {
-      abt :          0 + ',0',
-      res : PHI * -480 + ',0',
-      cpr : PHI *  480 + ',0',
+      abt :                  0 + ',0',
+      res : PHI * -svg_width/2 + ',0',
+      cpr : PHI *  svg_width/2 + ',0',
     };
     // transforms each side group
     side_links.append('g').attr('id', 'js-abt').attr('transform', 'rotate(' + side_rotate.abt + ') translate(' + side_translate.abt + ')');
     side_links.append('g').attr('id', 'js-res').attr('transform', 'rotate(' + side_rotate.res + ') translate(' + side_translate.res + ')');
     side_links.append('g').attr('id', 'js-cpr').attr('transform', 'rotate(' + side_rotate.cpr + ') translate(' + side_translate.cpr + ')');
     // adds a circle and text for each side group
-    side_links.selectAll('g').append('circle').attr('r', 50);
+    var side_link_radius = 50;
+    side_links.selectAll('g').append('circle').attr('r', side_link_radius);
     side_links.selectAll('g').append('text');
     // tranforms each side group text
     side_links.select('#js-abt').select('text').attr('transform', 'rotate(' + (360-side_rotate.abt) + ')').attr('dy','0.5em').text('Chris Harvey');
