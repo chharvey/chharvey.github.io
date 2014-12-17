@@ -1,3 +1,7 @@
+/**
+  * A set of utility methods. Util cannot cannot be instantiated and contain only
+  * static fields and methods, commonly used.
+  */
 var Util = {}
 
 Util.PHI = (1 + Math.sqrt(5)) / 2;
@@ -35,6 +39,16 @@ Util.bound = function (x, lower, upper) {
 Util.average = function (a, b, w) {
   w = (typeof w === 'number') ? w : 0.5;
   return (a * w) + (b * (1 - w));
+}
+
+/**
+  * Returns the geometric mean of two numbers.
+  * @param a the first number
+  * @param b the second number
+  * @return  the square root of the product of `a` and `b`
+  */
+Util.gMean = function (a, b) {
+  return Math.sqrt(a * b);
 }
 
 /**

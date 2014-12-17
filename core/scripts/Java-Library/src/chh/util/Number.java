@@ -22,17 +22,6 @@ public final class Number {
     }
 
     /**
-      * Returns the geometric mean of two doubles.
-      * The geometric mean of 'a' and 'b' is the exact square root of the product of 'a' and 'b'.
-      * @param a the first double
-      * @param b the second double
-      * @return  the geometric mean of a and b
-      */
-    public static double gMean(double a, double b) {
-        return Math.sqrt(a * b);
-    }
-
-    /**
       * Returns the geometric mean of an array of doubles.
       * Mathematical note: if any entry in the given array is equal to 0, then this method will return {@code 0.0}.
       * @param doubles   the array of doubles, with undetermined length
