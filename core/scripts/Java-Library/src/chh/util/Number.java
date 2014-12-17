@@ -8,17 +8,6 @@ import java.util.ArrayList;
   */
 public final class Number {
     /**
-     * Returns the arithmetic mean of two doubles.
-     * The arithmetic mean of {@code a} and {@code b} is exactly half of the sum of {@code a} and {@code b}.
-     * @param a the first double
-     * @param b the second double
-     * @return  the arithmetic mean of {@code a} and {@code b}
-     */
-    public static double aMean(double a, double b) {
-        return (a + b) / 2.0;
-    }
-
-    /**
      * Returns the arithmetic mean of an array of doubles.
      * @param nums   the array of doubles, with undetermined length
      * @return          the arithmetic mean of all the doubles in the array
