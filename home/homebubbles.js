@@ -73,33 +73,53 @@ function makepretty() {
 
   // herebelow, the ORDER of the `transform` attribute's values is RELEVANT!
   // i.e. rotate before translate is different than translate before rotate.
-  var main_radius = 240;
-  var main_angle = 72;
-  main_links.append('g').attr('id', 'js-mth').attr('transform', 'rotate(' + main_angle * 4 + ') translate(0,' + -main_radius + ')');
-  main_links.append('g').attr('id', 'js-web').attr('transform', 'rotate(' + main_angle * 0 + ') translate(0,' + -main_radius + ')');
-  main_links.append('g').attr('id', 'js-edu').attr('transform', 'rotate(' + main_angle * 3 + ') translate(0,' + -main_radius + ')');
-  main_links.append('g').attr('id', 'js-mus').attr('transform', 'rotate(' + main_angle * 1 + ') translate(0,' + -main_radius + ')');
-  main_links.append('g').attr('id', 'js-swm').attr('transform', 'rotate(' + main_angle * 2 + ') translate(0,' + -main_radius + ')');
+  var main_rotate = {
+    mth : 72 * 4,
+    web : 72 * 0,
+    edu : 72 * 1,
+    mus : 72 * 3,
+    swm : 72 * 2,
+  };
+  var main_translate = {
+    mth : '0,' + -240,
+    web : '0,' + -240,
+    edu : '0,' + -240,
+    mus : '0,' + -240,
+    swm : '0,' + -240,
+  };
+  main_links.append('g').attr('id', 'js-mth').attr('transform', 'rotate(' + main_rotate.mth + ') translate(' + main_translate.mth + ')');
+  main_links.append('g').attr('id', 'js-web').attr('transform', 'rotate(' + main_rotate.web + ') translate(' + main_translate.web + ')');
+  main_links.append('g').attr('id', 'js-edu').attr('transform', 'rotate(' + main_rotate.edu + ') translate(' + main_translate.edu + ')');
+  main_links.append('g').attr('id', 'js-mus').attr('transform', 'rotate(' + main_rotate.mus + ') translate(' + main_translate.mus + ')');
+  main_links.append('g').attr('id', 'js-swm').attr('transform', 'rotate(' + main_rotate.swm + ') translate(' + main_translate.swm + ')');
 
-  var side_radius = 100;
-  var side_angle = 120;
-  side_links.append('g').attr('id', 'js-abt').attr('transform', 'rotate(' + side_angle * 0 + ') translate(0,' + -side_radius + ')');
-  side_links.append('g').attr('id', 'js-res').attr('transform', 'rotate(' + side_angle * 2 + ') translate(0,' + -side_radius + ')');
-  side_links.append('g').attr('id', 'js-cpr').attr('transform', 'rotate(' + side_angle * 1 + ') translate(0,' + -side_radius + ')');
+  var side_rotate = {
+    abt : 120 * 0,
+    res : 120 * 2,
+    cpr : 120 * 1,
+  };
+  var side_translate = {
+    abt : '0,' + -100,
+    res : '0,' + -100,
+    cpr : '0,' + -100,
+  };
+  side_links.append('g').attr('id', 'js-abt').attr('transform', 'rotate(' + side_rotate.abt + ') translate(' + side_translate.abt + ')');
+  side_links.append('g').attr('id', 'js-res').attr('transform', 'rotate(' + side_rotate.res + ') translate(' + side_translate.res + ')');
+  side_links.append('g').attr('id', 'js-cpr').attr('transform', 'rotate(' + side_rotate.cpr + ') translate(' + side_translate.cpr + ')');
 
   main_links.selectAll('g').append('circle').attr('r', 100);
   side_links.selectAll('g').append('circle').attr('r', 50);
   svg.selectAll('g').selectAll('g').append('text');
 
-  main_links.select('#js-mth').select('text').attr('transform', 'rotate(' + main_angle * 1 + ')').attr('dy','0.5em').text('Math');
-  main_links.select('#js-web').select('text').attr('transform', 'rotate(' + main_angle * 0 + ')').attr('dy','0.5em').text('Web');
-  main_links.select('#js-edu').select('text').attr('transform', 'rotate(' + main_angle * 2 + ')').attr('dy','0.5em').text('Edu');
-  main_links.select('#js-mus').select('text').attr('transform', 'rotate(' + main_angle * 4 + ')').attr('dy','0.5em').text('Music');
-  main_links.select('#js-swm').select('text').attr('transform', 'rotate(' + main_angle * 3 + ')').attr('dy','0.5em').text('Swim');
+  main_links.select('#js-mth').select('text').attr('transform', 'rotate(' + (360-main_rotate.mth) + ')').attr('dy','0.5em').text('Math');
+  main_links.select('#js-web').select('text').attr('transform', 'rotate(' + (360-main_rotate.web) + ')').attr('dy','0.5em').text('Web');
+  main_links.select('#js-edu').select('text').attr('transform', 'rotate(' + (360-main_rotate.edu) + ')').attr('dy','0.5em').text('Edu');
+  main_links.select('#js-mus').select('text').attr('transform', 'rotate(' + (360-main_rotate.mus) + ')').attr('dy','0.5em').text('Music');
+  main_links.select('#js-swm').select('text').attr('transform', 'rotate(' + (360-main_rotate.swm) + ')').attr('dy','0.5em').text('Swim');
 
-  side_links.select('#js-abt').select('text').attr('transform', 'rotate(' + side_angle * 0 + ')').attr('dy','0.5em').text('Chris Harvey');
-  side_links.select('#js-res').select('text').attr('transform', 'rotate(' + side_angle * 1 + ')').attr('dy','0.5em').text('Résumé');
-  side_links.select('#js-cpr').select('text').attr('transform', 'rotate(' + side_angle * 2 + ')').attr('dy','0.5em').text('©');
+  side_links.select('#js-abt').select('text').attr('transform', 'rotate(' + (360-side_rotate.abt) + ')').attr('dy','0.5em').text('Chris Harvey');
+  side_links.select('#js-res').select('text').attr('transform', 'rotate(' + (360-side_rotate.res) + ')').attr('dy','0.5em').text('Résumé');
+  side_links.select('#js-cpr').select('text').attr('transform', 'rotate(' + (360-side_rotate.cpr) + ')').attr('dy','0.5em').text('©');
 })();
 
 
