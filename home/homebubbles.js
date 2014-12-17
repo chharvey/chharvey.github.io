@@ -64,14 +64,13 @@ function makepretty() {
 (function d3circles() {
   var svg_width = 960;
   var svg = d3.select('main').append('svg').attr('xmlns','http://www.w3.org/2000/svg')
-                                           .attr('id', 'js-bubbles')
-                                           .classed('dark', true)
+                                           .classed('js-bubbles dark', true)
                                            .attr('viewBox', '0 0 ' + svg_width + ' ' + svg_width)
                                            .attr('preserveAspectRatio', 'xMidYMid')
                                            ;
   (function mainCircles() {
     // adds a group for each main link
-    var main_links = svg.append('g').attr('id', 'js-main-links').attr('transform', 'translate(' + svg_width/2 + ', ' + svg_width/2 + ')');
+    var main_links = svg.append('g').classed('js-main-links', true).attr('transform', 'translate(' + svg_width/2 + ', ' + svg_width/2 + ')');
     // herebelow, the ORDER of the `transform` attribute's values is RELEVANT!
     // i.e. rotate before translate is different than translate before rotate.
     var main_rotate = {
@@ -89,26 +88,26 @@ function makepretty() {
       swm : '0,' + -svg_width/4,
     };
     //transforms each main group
-    main_links.append('g').attr('id', 'js-mth').attr('transform', 'rotate(' + main_rotate.mth + ') translate(' + main_translate.mth + ')');
-    main_links.append('g').attr('id', 'js-web').attr('transform', 'rotate(' + main_rotate.web + ') translate(' + main_translate.web + ')');
-    main_links.append('g').attr('id', 'js-edu').attr('transform', 'rotate(' + main_rotate.edu + ') translate(' + main_translate.edu + ')');
-    main_links.append('g').attr('id', 'js-mus').attr('transform', 'rotate(' + main_rotate.mus + ') translate(' + main_translate.mus + ')');
-    main_links.append('g').attr('id', 'js-swm').attr('transform', 'rotate(' + main_rotate.swm + ') translate(' + main_translate.swm + ')');
+    main_links.append('g').classed('js-mth', true).attr('transform', 'rotate(' + main_rotate.mth + ') translate(' + main_translate.mth + ')');
+    main_links.append('g').classed('js-web', true).attr('transform', 'rotate(' + main_rotate.web + ') translate(' + main_translate.web + ')');
+    main_links.append('g').classed('js-edu', true).attr('transform', 'rotate(' + main_rotate.edu + ') translate(' + main_translate.edu + ')');
+    main_links.append('g').classed('js-mus', true).attr('transform', 'rotate(' + main_rotate.mus + ') translate(' + main_translate.mus + ')');
+    main_links.append('g').classed('js-swm', true).attr('transform', 'rotate(' + main_rotate.swm + ') translate(' + main_translate.swm + ')');
     // adds a circle and text for each main group
     var main_link_radius = 100;
     main_links.selectAll('g').append('circle').attr('r', main_link_radius);
     main_links.selectAll('g').append('text');
     // tranforms each main group text
-    main_links.select('#js-mth').select('text').attr('transform', 'rotate(' + (360-main_rotate.mth) + ')').attr('dy','0.5em').text('Math');
-    main_links.select('#js-web').select('text').attr('transform', 'rotate(' + (360-main_rotate.web) + ')').attr('dy','0.5em').text('Web');
-    main_links.select('#js-edu').select('text').attr('transform', 'rotate(' + (360-main_rotate.edu) + ')').attr('dy','0.5em').text('Edu');
-    main_links.select('#js-mus').select('text').attr('transform', 'rotate(' + (360-main_rotate.mus) + ')').attr('dy','0.5em').text('Music');
-    main_links.select('#js-swm').select('text').attr('transform', 'rotate(' + (360-main_rotate.swm) + ')').attr('dy','0.5em').text('Swim');
+    main_links.select('.js-mth').select('text').attr('transform', 'rotate(' + (360-main_rotate.mth) + ')').attr('dy','0.5em').text('Math');
+    main_links.select('.js-web').select('text').attr('transform', 'rotate(' + (360-main_rotate.web) + ')').attr('dy','0.5em').text('Web');
+    main_links.select('.js-edu').select('text').attr('transform', 'rotate(' + (360-main_rotate.edu) + ')').attr('dy','0.5em').text('Edu');
+    main_links.select('.js-mus').select('text').attr('transform', 'rotate(' + (360-main_rotate.mus) + ')').attr('dy','0.5em').text('Music');
+    main_links.select('.js-swm').select('text').attr('transform', 'rotate(' + (360-main_rotate.swm) + ')').attr('dy','0.5em').text('Swim');
   })();
   (function sideCircles() {
     // adds a group for each side link
     var PHI = (Math.sqrt(5)-1)/2;
-    var side_links = svg.append('g').attr('id', 'js-side-links').attr('transform', 'translate(' + svg_width/2 + ',' + (svg_width-50-24) + ')');
+    var side_links = svg.append('g').classed('js-side-links', true).attr('transform', 'translate(' + svg_width/2 + ',' + (svg_width-50-24) + ')');
     var side_rotate = {
       abt : 0,
       res : 0,
@@ -120,17 +119,17 @@ function makepretty() {
       cpr : PHI *  svg_width/2 + ',0',
     };
     // transforms each side group
-    side_links.append('g').attr('id', 'js-abt').attr('transform', 'rotate(' + side_rotate.abt + ') translate(' + side_translate.abt + ')');
-    side_links.append('g').attr('id', 'js-res').attr('transform', 'rotate(' + side_rotate.res + ') translate(' + side_translate.res + ')');
-    side_links.append('g').attr('id', 'js-cpr').attr('transform', 'rotate(' + side_rotate.cpr + ') translate(' + side_translate.cpr + ')');
+    side_links.append('g').classed('js-abt', true).attr('transform', 'rotate(' + side_rotate.abt + ') translate(' + side_translate.abt + ')');
+    side_links.append('g').classed('js-res', true).attr('transform', 'rotate(' + side_rotate.res + ') translate(' + side_translate.res + ')');
+    side_links.append('g').classed('js-cpr', true).attr('transform', 'rotate(' + side_rotate.cpr + ') translate(' + side_translate.cpr + ')');
     // adds a circle and text for each side group
     var side_link_radius = 50;
     side_links.selectAll('g').append('circle').attr('r', side_link_radius);
     side_links.selectAll('g').append('text');
     // tranforms each side group text
-    side_links.select('#js-abt').select('text').attr('transform', 'rotate(' + (360-side_rotate.abt) + ')').attr('dy','0.5em').text('Chris Harvey');
-    side_links.select('#js-res').select('text').attr('transform', 'rotate(' + (360-side_rotate.res) + ')').attr('dy','0.5em').text('Résumé');
-    side_links.select('#js-cpr').select('text').attr('transform', 'rotate(' + (360-side_rotate.cpr) + ')').attr('dy','0.5em').text('©');
+    side_links.select('.js-abt').select('text').attr('transform', 'rotate(' + (360-side_rotate.abt) + ')').attr('dy','0.5em').text('Chris Harvey');
+    side_links.select('.js-res').select('text').attr('transform', 'rotate(' + (360-side_rotate.res) + ')').attr('dy','0.5em').text('Résumé');
+    side_links.select('.js-cpr').select('text').attr('transform', 'rotate(' + (360-side_rotate.cpr) + ')').attr('dy','0.5em').text('©');
   })();
 })();
 
