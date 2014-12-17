@@ -80,11 +80,11 @@ function makepretty() {
       swm : 72 * 2,
     };
     var main_translate = {
-      mth : '0,' + -240,
-      web : '0,' + -240,
-      edu : '0,' + -240,
-      mus : '0,' + -240,
-      swm : '0,' + -240,
+      mth : '0,-240',
+      web : '0,-240',
+      edu : '0,-240',
+      mus : '0,-240',
+      swm : '0,-240',
     };
     //transforms each main group
     main_links.append('g').attr('id', 'js-mth').attr('transform', 'rotate(' + main_rotate.mth + ') translate(' + main_translate.mth + ')');
@@ -104,16 +104,17 @@ function makepretty() {
   })();
   (function sideCircles() {
     // adds a group for each side link
-    var side_links = svg.append('g').attr('id', 'js-side-links').attr('transform', 'translate(480, 480)');
+    var PHI = (Math.sqrt(5)-1)/2;
+    var side_links = svg.append('g').attr('id', 'js-side-links').attr('transform', 'translate(480,' + (960-50-24) + ')');
     var side_rotate = {
-      abt : 120 * 0,
-      res : 120 * 2,
-      cpr : 120 * 1,
+      abt : 0,
+      res : 0,
+      cpr : 0,
     };
     var side_translate = {
-      abt : '0,' + -100,
-      res : '0,' + -100,
-      cpr : '0,' + -100,
+      abt :          0 + ',0',
+      res : PHI * -480 + ',0',
+      cpr : PHI *  480 + ',0',
     };
     // transforms each side group
     side_links.append('g').attr('id', 'js-abt').attr('transform', 'rotate(' + side_rotate.abt + ') translate(' + side_translate.abt + ')');
