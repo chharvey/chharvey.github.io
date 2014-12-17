@@ -4,107 +4,158 @@
     _trumps.less
 \*################*/
 
+/** This stylesheet contains classes that are used in HTML. Not Objects per se, but helper classes. **/
+
 
 /**
-+++++ DRAFT +++++
-
-All informative content, including `p`s, `img`s, and `figure`s should be designated with
-an `informative` status. All non-normative text should be contained in flow, non-phrasing
-content, which will separate it from the normative document.
-If there is a non-normative span of text present in a normative paragraph, move the span to
-its own separate, non-normative division.
-
-non-normative text in a normative document or article.
-This text is informative or "unofficial," for example, supplemental remarks
-or a summary of normative information provided for the reader's convenience.
-Another common example of non-normative text is duplicating normative text on another
-part of the page.
-
-
-Non-normative text is still part of the normal flow of the document, so it
-would not makes sense out of context as a `figure` or `aside`
-would, however it is presented differently than formal text
-to indicate that it is not official.
-
-...At the same time, the `i` Element is not appropriate either, because the non-normative
-span of text does not represent a change of voice or mood. Could it be considered a
-change in mood, though?...
-
-`[data-status="nonnormative"]` text
-should be a single paragraph, a container such as a `div` or `figure`,
-but should not be a span of text
-
-The author may also indicate verbally (in writing preceding the text) that
-the text is non-normative. If the non-normative text is one paragraph, the author may
-simply place the indication in the previous paragraph. If the text is large enough for
-its own figure or section, though, the indication should be in that Element's
-`header`.
+  * The `[data-status]` attribute indicates the status of a document or Element.
+  * "draft"    : a work in progress
+  * "complete" : finished but still needs edits before releasing
+  * "released" : ready for implementation
+  * See https://github.com/chharvey/chharvey.github.io/wiki/Document-Status/ for more info.
+@tags
+: #status
+: #golden
+: #border
+: #background
+@author
+: Chris Harvey
+@updated
+: 2014-10-26
   */
-[data-status="normative"] {}
-[data-status="informative"] {}
-[data-status="nonnormative"] {
-	font-style: italic;
-	font-family: @fontfam_base;
+.article-before-mx(@content) {
+  .gutter--minor;
+  .border-vert-undo();
+  .fontsize-block-sml();
+  position: absolute;
+  content: @content;
+  font-weight: bold;
+  text-align: left;
 }
+.status(@brdrc; @bgc) {
+  .sidebrdr-phi(left; 4px; solid; @brdrc);
+  padding-right: 4px;
+  box-shadow: 4px 4px 8px #808080;
+  background-color: fadeout(@bgc, @golden4c);
+}
+.Article {
+  &[data-status="draft"]::before    {.Alert--Warn; .article-before-mx('This article is a work in progress.');}
+  &[data-status="complete"]::before {.Alert--Cshn; .article-before-mx('This article is mostly complete.');}
+  &[data-status="released"]::before {.Alert--Skss; .article-before-mx('This article is ready for implemen' '\00ad' 'tation.');}
+
+  [data-status="draft"]    {.status(@color_warn_brdr; @color_warn_bg);}
+  [data-status="complete"] {.status(@color_cshn_brdr; @color_cshn_bg);}
+  [data-status="released"] {.status(@color_skss_brdr; @color_skss_bg);}
+}
+
+/**
+  * The `[data-informative]` attribute on an Element in an `.Article` indicates that
+  * the content is nonessential to the article.
+  * See https://github.com/chharvey/chharvey.github.io/wiki/Document-Status/ for more info.
+@tags
+: #status
+@author
+: Chris Harvey
+@updated
+: 2014-08-12
+  */
+.Article [data-informative] {
+  .sidebrdr-phi(left;  2px; solid; @color_info_brdr);
+  .sidebrdr-phi(right; 2px; solid; @color_info_brdr);
+  box-shadow: 2px 2px 4px #c0c0c0;
+  background-color: fadeout(@color_info_bg, @golden4c);
+}
+
+/**
+  * This Interface puts an outline around an Object to show its structure. It is used for
+  * deomonstration purposes.
+@tags
+: #structural
+: #demo
+@author
+: Chris Harvey
+@updated
+: 2014-06-07
+  */
+.help-otln {
+  outline: 1px solid @color_accent;
+}
+.crossgridphi {.crossgrid-phi();}
+
 [hidden] {
-	display: none !important;
+  display: none !important;
 }
 [data-bool="0"] {
-	color: @color_base_bg;
-	background-color: lighten(@color_link_up, 15%);
+  color: @color_base_bg;
+  background-color: lighten(@color_link_up, 15%);
 }
 [data-bool="1"] {
-	color: @color_base_txt;
-	background-color: lighten(@color_link_dn, 15%);
+  color: @color_base_txt;
+  background-color: lighten(@color_link_dn, 15%);
 }
+
+/**
+  * `.endline` creates a visual appearance of a line break within an inline list.
+@childof
+: .Ilist
+@tags
+: #typography
+: #list
+@author
+: Chris Harvey
+@updated
+: 2014-10-25
+  */
+.Ilist > .Item.endline::after  {display: block; content: '' !important;}
+
 
 @media print {
-	body,
-	.H,
-	.Fig, .Addy, .Qblock,
-	.Table {.fontsize-block-med;}
-	body,
-	code {color: #000;}
-	body,
-	code {background-color: #fff;}
-	body {
-		background-image: none !important;
-	}
-	main {
-		width: auto;
-		margin-left: auto;
-		margin-right: auto;
-	}
-	.Fig, .Addy, .Qblock {
-		// .spacing-phi-left;
-		// .spacing-phi-right;
-		.spacing-phi(left;  0; solid; #000);
-		.spacing-phi(right; 0; solid; #000);
-	}
+  body,
+  .H,
+  .Fig, .Addy, .Qblock,
+  .Table {
+    .fontsize-block-med();
+  }
+  body,
+  code {color: #000;}
+  body,
+  code {background-color: #fff;}
+  body {
+    background-image: none !important;
+  }
+  main {
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .Fig, .Addy, .Qblock {
+    .sidebrdr-phi(left;  0; solid; #000);
+    .sidebrdr-phi(right; 0; solid; #000);
+  }
 
-	/**
-	  * This Interface displays an Object on screen but does not print it.
-	@tags
-	: #schematic
-	@author
-	: Chris Harvey
-	@updated
-	: 2014-04-30
-	  */
-	.noprint {
-		display: none;
-	}
+  /**
+    * This Interface displays an Object on screen but does not print it.
+  @tags
+  : #schematic
+  @author
+  : Chris Harvey
+  @updated
+  : 2014-04-30
+    */
+  .noprint {
+    display: none;
+  }
 }
-	/**
-	  * This Interface starts a new page in the print media.
-	@tags
-	: #schematic
-	@author
-	: Chris Harvey
-	@updated
-	: 2014-04-30
-	  */
-	// .pagebreak {
-	// 	page-break-before: always;
-	// 	padding-top: 0.25in;
-	// }
+// /**
+//   * This Interface starts a new page in the print media.
+// @tags
+// : #schematic
+// @author
+// : Chris Harvey
+// @updated
+// : 2014-04-30
+//   */
+// .pagebreak {
+//   page-break-before: always;
+//   padding-top: 0.25in;
+// }
