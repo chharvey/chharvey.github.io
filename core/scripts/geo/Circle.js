@@ -1,13 +1,10 @@
+/**
+  * A circle is the set of points equidistant from a point. That distance is called the radius
+  * @param r a Length: the radius of this circle
+  * @param u optional: a string representing the units of measurement
+  */
 function Circle(r) {
   this.radius = r;
-  this.circumference = 2 * Math.PI * r;
-}
-
-
-Circle.prototype.getRadius() {
-  return this.radius;
-}
-
-Circle.prototype.getCircumference() {
-  return 2 * Math.PI * this.radius;
+  this.circumference = this.radius.scale(2 * Math.PI);
+  this.area = this.radius.square().scale(Math.PI);
 }
