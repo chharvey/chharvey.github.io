@@ -43,6 +43,6 @@ Area.prototype.scale = function (k) {
   * @return       a Volume equal to the product of this Area and the given Length
   */
 Area.prototype.multiply = function (length) {
-  if (this.units === length.units) return new Area(this.value * length.value, this.units);
+  if (this.units === length.units) return new Volume(this.value * length.value, this.units);
   else                             return '' + this + ' × ' + length;
 }

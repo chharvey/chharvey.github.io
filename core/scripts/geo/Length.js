@@ -39,12 +39,32 @@ Length.prototype.scale = function (k) {
 
 /**
   * Multiplies another Length object by this Length object, returning Area.
+  * If needing to multiply this Length by another Area, use the `Area.prototype.multiply(length)`
+  * method on that Area object, using this object as the argument.
   * @param length the Length object to multiply by this object
   * @return       an Area equal to the product of both Lengths
   */
 Length.prototype.multiply = function (length) {
-  if (this.units === length.units) return new Volume(this.value * length.value, this.units);
+  if (this.units === length.units) return new Area(this.value * length.value, this.units);
   else                             return '' + this + ' × ' + length;
+}
+
+/**
+  * Returns the product of this Length with itself.
+  * Equivalent to `this.multiply(this)`
+  * @return       an Area equal to the square of this Length
+  */
+Length.prototype.square = function () {
+  return this.multiply(this);
+}
+
+/**
+  * Returns the product of the square of this Length, an Area, with itself.
+  * Equivalent to `this.square().multiply(this)`
+  * @return       an Area equal to the square of this Length
+  */
+Length.prototype.cube = function () {
+  return this.square().multiply(this);
 }
 
 /**
