@@ -3,7 +3,7 @@
   * @param r a Length: the radius of this cylinder
   * @param h a Length: the height of this cylinder
   */
-function Circle(r, h) {
+function Cylinder(r, h) {
   this.radius = r;
   this.height = h;
 
