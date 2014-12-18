@@ -2,6 +2,7 @@
   * A parallelogram is a quadrilateral whose opposite sides are parallel.
   * Theorem: the opposite sides of a parallelogram are congruent.
   * Theorem: the opposite angles of a parallelogram are congruent.
+  * @extends   Quadrilateral
   * @param a   a Length object: the base of this parallelogram
   * @param b   a Length object: the left side of this parallelogram
   * @param ang an Angle object: in degrees, between the base and the left side
