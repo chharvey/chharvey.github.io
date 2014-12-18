@@ -1,7 +1,7 @@
 /**
   * A cylinder is a prism whose base is a circle.
-  * @param r a Length: the radius of this cylinder
-  * @param h a Length: the height of this cylinder
+  * @param r a Length object: the radius of this cylinder
+  * @param h a Length object: the height of this cylinder
   */
 function Cylinder(r, h) {
   this.radius = r;
