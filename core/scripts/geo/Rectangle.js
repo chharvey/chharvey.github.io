@@ -7,7 +7,8 @@
   */
 function Rectangle(a, b) {
   Parallelogram.call(this, a, b, 90);
-  this.base = a;
+
+  /** The height of this rectangle. */
   this.height = b;
 }
 Util.extend(Rectangle, Parallelogram);
