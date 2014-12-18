@@ -15,3 +15,4 @@ function Quadrilateral(a, b, c, d) {
   /** The perimeter of this quadrilateral. */
   this.perimeter = this.a.add(this.b).add(this.c).add(this.d);
 }
+Util.extend(Quadrilateral, Polygon);
