@@ -31,12 +31,6 @@
   display: block;
   .vru-content();
   .follows-heading(1);
-
-  // attempt incomplete
-  .Item > & {
-    .vru-top(0);
-    padding-left: @listindent;
-  }
 }
 /**
   * This Object represents a block item in a list. It may be a literal `li` Element
@@ -128,7 +122,7 @@
 @author
 : Chris Harvey
 @updated
-: 2014-05-11
+: 2014-10-22
   */
 .Alist {
   .list-block();
@@ -178,6 +172,28 @@
 .Ilist.Comma > .Item:not(:last-child)::after {content:          ',\0020';} // ', '
 .Ilist.Mdash > .Item:not(:last-child)::after {content: '\0020\2014\0020';} // ' — '
 .Ilist.Ndash > .Item:not(:last-child)::after {content: '\0020\2013\0020';} // ' – '
+
+/**
+  * This Object represents an outlined list. It is used for nested `Olist` objects, for example,
+  * to display a table of contents or document outline.
+@extends
+: .Olist
+@implements
+: .vru-top()
+@tags
+: #typography
+: #list
+@author
+: Chris Harvey
+@updated
+: 2014-12-19
+*/
+.Olist.Outline {
+  padding-left: (@listindent / 2);
+  .Outline {
+    .vru-top(0);
+  }
+}
 
 /**
   * This Object represents a 'List of Prose', a list whose items consist of only paragraphs.
