@@ -9,7 +9,7 @@
 <script src="../scripts/global.js"></script>
 </head>
 <body class="crossgridphi">
-<main>
+<main class="MainGolden">
 <h1 class="H--Alp">Typography</h1>
 <p class="P Intro">This Style Guide demonstrates the appearance of CSS Objects
 using site-wide styles.</p>
@@ -473,7 +473,7 @@ using site-wide styles.</p>
             of the <code>.Item</code>.</p>
           <small class="Alert--Cshn">Though literal <code>h1</code> Elements are
             <a class="Link" rel="external"
-            href="http://www.w3.org/html/wg/drafts/html/master/grouping-content.html#the-li-element">technically
+            href="http://www.w3.org/TR/html5/grouping-content.html#the-li-element">technically
             permissible</a> inside <code>li</code> Elements, they usually make the Document Outline
             look icky, so we don&rsquo;t use them.</small>
         </li>
@@ -506,81 +506,123 @@ using site-wide styles.</p>
     <small class="Alert--Help">On all maps below, outlines have been added to each
       <code>.Term</code> and <code>.Desc</code> to show structure.</small>
     <p class="P">Association lists, or Maps, are objects that group terms and descriptions
-      together. A Map can contain multiple groups. Each group must have at least 1 term
-      and 1 description.</p>
-    <p class="P">The example below has three groups: the first has 1 term and
-      1 description; the second group has 3 terms and 1 description; and the last group
-      has 1 term and 3 descriptions.</p>
+      together. A Map can contain multiple groups, each with a term and description.</p>
+    <p class="P">A <code>.Map</code> Object is similar to a <code>dl</code> Element in that each
+      contains groups of name-value pairs. In fact, the <code>dl</code> Element is best suited as
+      an instance of the <code>.Map</code> class. However a <code>.Map</code> is slighlty stricter than
+      a <code>dl</code>. Though <a class="Link" rel="external"
+      href="http://www.w3.org/TR/html5/grouping-content.html#the-dl-element">the HTML5 specification</a>
+      allows for multiple <code>dt</code>s and/or <code>dd</code>s in any group of a <code>dl</code>,
+      we will not be using that convention here. Each group of a <code>.Map</code> must have
+      exactly 1 <code>.Term</code> and exactly 1 <code>.Desc</code>. Thus a <code>.Map</code> can
+      be easily converted into a <a class="Link" rel="external"
+      href="http://www.json.org/">JSON object</a>.</p>
+    <p class="P">The Map below has three groups, each with one term and one description (hereafter
+      referred to as <i>components</i>). The first group&rsquo;s components simply contain plain text.
+      The term in the second group contains a list with 3 items, and the description in the third group
+      also contains a list with 3 items. Using an <code>ol</code> or <code>ul</code>
+      <em>inside</em> a <code>dt</code> or <code>dd</code> allows for including multiple components
+      inside a group. The items are not taken as alternatives, but rather they are <em>all</em> applicable.</p>
     <dl class="Map">
       <dt class="Term help-otln">.Map &gt; .Term</dt>
       <dd class="Desc help-otln">.Map &gt; .Desc</dd>
-      <dt class="Term help-otln">.Map &gt; .Term</dt>
-      <dt class="Term help-otln">.Map &gt; .Term</dt>
-      <dt class="Term help-otln">.Map &gt; .Term</dt>
-      <dd class="Desc help-otln">.Map &gt; .Desc</dd>
-      <dt class="Term help-otln">.Map &gt; .Term</dt>
-      <dd class="Desc help-otln">.Map &gt; .Desc</dd>
-      <dd class="Desc help-otln">.Map &gt; .Desc</dd>
-      <dd class="Desc help-otln">.Map &gt; .Desc</dd>
-    </dl>
-    <p class="P">A horizontal map, <code>.Map.Horiz</code>, groups corresponding terms and
-      descriptions into rows.</p>
-    <dl class="Map Horiz">
-      <dt class="Term help-otln">.Map.Horiz &gt; .Term</dt>
-      <dd class="Desc help-otln">.Map.Horiz &gt; .Desc</dd>
-      <dt class="Term help-otln">.Map.Horiz &gt; .Term</dt>
-      <dt class="Term help-otln">.Map.Horiz &gt; .Term</dt>
-      <dt class="Term help-otln">.Map.Horiz &gt; .Term</dt>
-      <dd class="Desc help-otln">.Map.Horiz &gt; .Desc</dd>
-      <dt class="Term help-otln">.Map.Horiz &gt; .Term</dt>
-      <dd class="Desc help-otln">.Map.Horiz &gt; .Desc</dd>
-      <dd class="Desc help-otln">.Map.Horiz &gt; .Desc</dd>
-      <dd class="Desc help-otln">.Map.Horiz &gt; .Desc</dd>
-    </dl>
-    <p class="P">The Map below has two groups, each with one term and one description. The term
-      in the first group contains a list with 3 items, and the description in the second group
-      also contains a list with 3 items. Using an <code>ol</code> or <code>ul</code>
-      <em>inside</em> a <code>dt</code> or <code>dd</code> means that the items are not
-      taken as alternatives, but rather they are all applicable.</p>
-    <dl class="Map Horiz">
       <dt class="Term help-otln">
         <ul>
-          <li>.Map.Horiz &gt; .Term &gt; ul &gt; li#group4-item1</li>
-          <li>.Map.Horiz &gt; .Term &gt; ul &gt; li#group4-item2</li>
-          <li>.Map.Horiz &gt; .Term &gt; ul &gt; li#group4-item3</li>
+          <li>.Map &gt; .Term &gt; ul &gt; li#group1-item1</li>
+          <li>.Map &gt; .Term &gt; ul &gt; li#group1-item2</li>
+          <li>.Map &gt; .Term &gt; ul &gt; li#group1-item3</li>
         </ul>
       </dt>
-      <dd class="Desc help-otln">.Map.Horiz &gt; .Desc#group4-onlydesc</dd>
-      <dt class="Term help-otln">.Map.Horiz &gt; .Desc#group5-onlyterm</dt>
+      <dd class="Desc help-otln">.Map &gt; .Desc#group1-onlydesc</dd>
+      <dt class="Term help-otln">.Map &gt; .Term#group2-onlyterm</dt>
       <dd class="Desc help-otln">
         <ul>
-          <li>.Map.Horiz &gt; .Desc &gt; ul &gt; li#group5-item1</li>
-          <li>.Map.Horiz &gt; .Desc &gt; ul &gt; li#group5-item2</li>
-          <li>.Map.Horiz &gt; .Desc &gt; ul &gt; li#group5-item3</li>
+          <li>.Map &gt; .Desc &gt; ul &gt; li#group2-item1</li>
+          <li>.Map &gt; .Desc &gt; ul &gt; li#group2-item2</li>
+          <li>.Map &gt; .Desc &gt; ul &gt; li#group2-item3</li>
         </ul>
       </dd>
     </dl>
-    <p class="P">Use the subclasses below for predefined widths of <code>.Term</code>s.
-      <a class="Link" href="phi.html">Notice the associated <code>@namewidth</code> values.</a></p>
+    <p class="P">A Horizontal Map (<code>.Map.Horiz</code>) groups corresponding terms and descriptions
+      into rows. The widths of the <code>.Term</code>s and <code>.Desc</code>s are variable, but the
+      heights are consistent within each group.
+      The example below is similar to the <code>.Map</code> above.</p>
+    <dl class="Map Horiz">
+      <dt class="Term help-otln">.Map.Horiz &gt; .Term</dt>
+      <dd class="Desc help-otln">.Map.Horiz &gt; .Desc</dd>
+      <dt class="Term help-otln">
+        <ul>
+          <li>.Map.Horiz &gt; .Term &gt; ul &gt; li</li>
+          <li>.Map.Horiz &gt; .Term &gt; ul &gt; li</li>
+          <li>.Map.Horiz &gt; .Term &gt; ul &gt; li</li>
+        </ul>
+      </dt>
+      <dd class="Desc help-otln">.Map.Horiz &gt; .Desc</dd>
+      <dt class="Term help-otln">.Map.Horiz &gt; .Term</dt>
+      <dd class="Desc help-otln">
+        <ul>
+          <li>.Map.Horiz &gt; .Desc &gt; ul &gt; li</li>
+          <li>.Map.Horiz &gt; .Desc &gt; ul &gt; li</li>
+          <li>.Map.Horiz &gt; .Desc &gt; ul &gt; li</li>
+        </ul>
+      </dd>
+      <dt class="Term help-otln">.Map.Horiz &gt; .Term</dt>
+      <dd class="Desc help-otln">.Map.Horiz &gt; .Desc</dd>
+      <dt class="Term help-otln">.Map.Horiz &gt; .Term</dt>
+      <dd class="Desc help-otln">.Map.Horiz &gt; .Desc</dd>
+    </dl>
+    <p class="P">Use the subclasses shown below for <a class="Link" href="phi.html">predefined widths</a>
+      of <code>.Term</code>s. Each subclass of <code>.Map.Horiz</code> will take up 100% of its
+      container, unlike the generic one above.</p>
     <dl class="Map Horiz Sml">
-      <dt class="Term help-otln"><code>.Map.Horiz.Sml</code></dt>
-      <dd class="Desc help-otln">&asymp; 23.607%</dd>
+      <dt class="Term help-otln">.Map.Horiz.Sml &gt; .Term<br/>(&asymp; 23.607%)</dt>
+      <dd class="Desc help-otln">.Map.Horiz.Sml &gt; .Desc</dd>
     </dl>
     <dl class="Map Horiz Msm">
-      <dt class="Term help-otln"><code>.Map.Horiz.Msm</code></dt>
-      <dd class="Desc help-otln">&asymp; 38.197% (default)</dd>
+      <dt class="Term help-otln">.Map.Horiz.Msm &gt; .Term (&asymp; 38.197%)</dt>
+      <dd class="Desc help-otln">.Map.Horiz.Msm &gt; .Desc</dd>
     </dl>
     <dl class="Map Horiz Med">
-      <dt class="Term help-otln"><code>.Map.Horiz.Med</code></dt>
-      <dd class="Desc help-otln">= 50%</dd>
+      <dt class="Term help-otln">.Map.Horiz.Med &gt; .Term (= 50%)</dt>
+      <dd class="Desc help-otln">.Map.Horiz.Med &gt; .Desc</dd>
     </dl>
     <dl class="Map Horiz Mlg">
-      <dt class="Term help-otln"><code>.Map.Horiz.Mlg</code></dt>
-      <dd class="Desc help-otln">&asymp; 61.803%</dd>
+      <dt class="Term help-otln">.Map.Horiz.Mlg &gt; .Term (&asymp; 61.803%)</dt>
+      <dd class="Desc help-otln">.Map.Horiz.Mlg &gt; .Desc</dd>
     </dl>
     <dl class="Map Horiz Lrg">
-      <dt class="Term help-otln"><code>.Map.Horiz.Lrg</code></dt>
-      <dd class="Desc help-otln">&asymp; 76.393%</dd>
+      <dt class="Term help-otln">.Map.Horiz.Lrg &gt; .Term (&asymp; 76.393%)</dt>
+      <dd class="Desc help-otln">.Map.Horiz.Lrg &gt; .Desc</dd>
+    </dl>
+    <p class="P">You may also create custom widths for more variety. Just include the
+      <code>.map-horiz-mx(@termwidth)</code> mixin in your Less, and specify the term width as the
+      argument. For example, <code>.Map.Horiz.mywidth { .map-horiz-mx(60%); }</code>.</p>
+    <p class="P">The Horizontal Map below is similar to the Map in the first example, but
+      it has class <code>.Tbl</code> added to show color and padding,
+      like a <a class="Link" rel="this" href="#tables">Table Object</a>.</p>
+    <dl class="Map Horiz Msm Tbl">
+      <dt class="Term help-otln">.Map.Horiz.Msm.Tbl &gt; .Term</dt>
+      <dd class="Desc help-otln">.Map.Horiz.Msm.Tbl &gt; .Desc</dd>
+      <dt class="Term help-otln">
+        <ul>
+          <li>.Map.Horiz.Msm.Tbl &gt; .Term &gt; ul &gt; li</li>
+          <li>.Map.Horiz.Msm.Tbl &gt; .Term &gt; ul &gt; li</li>
+          <li>.Map.Horiz.Msm.Tbl &gt; .Term &gt; ul &gt; li</li>
+        </ul>
+      </dt>
+      <dd class="Desc help-otln">.Map.Horiz.Msm.Tbl &gt; .Desc</dd>
+      <dt class="Term help-otln">.Map.Horiz.Msm.Tbl &gt; .Term</dt>
+      <dd class="Desc help-otln">
+        <ul>
+          <li>.Map.Horiz.Msm.Tbl &gt; .Desc &gt; ul &gt; li</li>
+          <li>.Map.Horiz.Msm.Tbl &gt; .Desc &gt; ul &gt; li</li>
+          <li>.Map.Horiz.Msm.Tbl &gt; .Desc &gt; ul &gt; li</li>
+        </ul>
+      </dd>
+      <dt class="Term help-otln">.Map.Horiz.Msm.Tbl &gt; .Term</dt>
+      <dd class="Desc help-otln">.Map.Horiz.Msm.Tbl &gt; .Desc</dd>
+      <dt class="Term help-otln">.Map.Horiz.Msm.Tbl &gt; .Term</dt>
+      <dd class="Desc help-otln">.Map.Horiz.Msm.Tbl &gt; .Desc</dd>
     </dl>
   </section>
   <section id="tables">
@@ -591,9 +633,9 @@ using site-wide styles.</p>
       <code>.Rowgroup</code> on <code>thead</code>, <code>tfoot</code>, and <code>tbody</code> Elements
       to add the borders above and below. Use subclasses <code>.Head</code>, <code>.Foot</code>, and
       <code>.Body</code> for specific display properties. Use <code>.Row</code> on <code>tr</code>
-      Elements to add odd and even (or head) <a class="Link" rel="child" href="colors.less">coloring</a>.
+      Elements to add odd and even (or head) <a class="Link" rel="child" href="colors.html#colors-table">coloring</a>.
       Use <code>.Cell</code> on all <code>th</code> and <code>td</code> Elements to add padding and
-      font-size. Use subclass <code>.Hc</code> on <code>th</code> for a heading look (font-family and bold).</p>
+      min-height. Use subclass <code>.Hc</code> on <code>th</code> for a heading look (font-family and bold).</p>
     <table class="Table">
       <caption class="Capt"><span class="Lede">This is a <code>.Table &gt; .Capt &gt; .Lede</code>.</span>
         The lede usually contains the <code>.Table</code>&rsquo;s title
@@ -755,26 +797,26 @@ using site-wide styles.</p>
     <h1 class="H--Gam">Code</h1>
     <p class="P"><code>This is a fragment of code.</code> That fragment was just a
       <code>.P &gt; code</code> Element.</p>
-    <p class="P">The following is a <code>.Codeblock</code> Object, or a block of code.
+    <p class="P"><code>.Codeblock</code> Objects are blocks of computer code.
       Code blocks may have spans inside that represent different components of different
-      languages. The first block shows the syntax for an HTML tag.</p>
-    <code class="Codeblock HTML"><span class="Tag">tag <span class="Atr">atr=<span class="Val">val val</span></span></span>contents<span class="Endtag">tag</span>
+      languages. The first block, a <code>.Codeblock.HTML</code>, shows the syntax for an HTML tag.</p>
+    <code class="Codeblock HTML"><span class="Tag">tag <span class="Atr">atr=<span class="Val">val val</span></span></span>contents<span class="Tag End">tag</span>
 <span class="Comm">this is an HTML comment</span></code>
-    <p class="P">This <code>.Codeblock</code> shows the syntax for a Less declaration.</p>
+    <p class="P">This <code>.Codeblock.CSS</code> shows the syntax for a Less declaration.</p>
     <code class="Codeblock CSS"><span class="Sel">sel {
   <span class="Prp">prp<span class="Val">val</span></span>
-  <span class="Cmd">.cmd<span class="Arg">arg, <span class="String">string</span></span></span>
+  <span class="Cmd">.cmd<span class="Arg">arg, <span class="Str">string</span></span></span>
   <span class="Sel">&amp;:sel {<span class="Prp">prp<span class="Val">val</span></span></span>
   <span class="Comm I">This is an inline comment</span>
 </span>
 <span class="Comm">This is a normal comment</span></code>
     <p class="P">Use a <code>.Codeblock.Invert</code> for a light color theme. Its source code is exactly
-      the same as above, except for the class change.</p>
-    <code class="Codeblock HTML Invert"><span class="Tag">tag <span class="Atr">atr=<span class="Val">val val</span></span></span>contents<span class="Endtag">tag</span>
+      the same as above, except for the class addition.</p>
+    <code class="Codeblock HTML Invert"><span class="Tag">tag <span class="Atr">atr=<span class="Val">val val</span></span></span>contents<span class="Tag End">tag</span>
 <span class="Comm">this is an HTML comment</span></code>
     <code class="Codeblock CSS Invert"><span class="Sel">sel {
   <span class="Prp">prp<span class="Val">val</span></span>
-  <span class="Cmd">.cmd<span class="Arg">arg, <span class="String">string</span></span></span>
+  <span class="Cmd">.cmd<span class="Arg">arg, <span class="Str">string</span></span></span>
   <span class="Sel">&amp;:sel {<span class="Prp">prp<span class="Val">val</span></span></span>
   <span class="Comm I">This is an inline comment</span>
 </span>
@@ -799,7 +841,7 @@ using site-wide styles.</p>
         <dt class="Prp">prp</dt>
         <dd class="Val">val</dd>
         <dt class="Prp">prp</dt>
-        <dd class="Val"><span class="String">string</span></dd>
+        <dd class="Val"><span class="Str">string</span></dd>
         <dt class="Prp">prp</dt>
         <dd class="Val">
           <ol class="Ilist">
@@ -848,17 +890,17 @@ using site-wide styles.</p>
         <tr class="Row">
           <td class="Cell">
             <p class="P">Comma-separated or space-separated values must be marked up literally:</p>
-            <code class="Codeblock HTML"><span class="Tag">span <span class="Atr">class=<span class="Val">Val</span></span></span>a,b,c<span class="Endtag">span</span></code>
+            <code class="Codeblock HTML"><span class="Tag">span <span class="Atr">class=<span class="Val">Val</span></span></span>a,b,c<span class="Tag End">span</span></code>
           </td>
           <td class="Cell">
             <p class="P">Comma-separated or space-separated values may be marked up with lists:</p>
             <code class="Codeblock HTML"><span class="Tag">dd <span class="Atr">class=<span class="Val">Val</span></span></span>
   <span class="Tag">ol <span class="Atr">class=<span class="Val">Ilist Comma</span></span></span>
-    <span class="Tag">li <span class="Atr">class=<span class="Val">Item</span></span></span>a<span class="Endtag">li</span>
-    <span class="Tag">li <span class="Atr">class=<span class="Val">Item</span></span></span>b<span class="Endtag">li</span>
-    <span class="Tag">li <span class="Atr">class=<span class="Val">Item</span></span></span>c<span class="Endtag">li</span>
-  <span class="Endtag">ol</span>
-<span class="Endtag">dd</span></code>
+    <span class="Tag">li <span class="Atr">class=<span class="Val">Item</span></span></span>a<span class="Tag End">li</span>
+    <span class="Tag">li <span class="Atr">class=<span class="Val">Item</span></span></span>b<span class="Tag End">li</span>
+    <span class="Tag">li <span class="Atr">class=<span class="Val">Item</span></span></span>c<span class="Tag End">li</span>
+  <span class="Tag End">ol</span>
+<span class="Tag End">dd</span></code>
           </td>
         </tr>
       </tbody>
@@ -886,16 +928,26 @@ using site-wide styles.</p>
       disadvantage is that the markup cannot be contained in a <code>code</code> Element:
       by HTML standards, <code>code</code> can only contain phrasing-level content, however
       by these standards, a <code>.CSSmap</code> must contain <code>dl</code>(s).</p>
+    <p class="P">This <code>.Codeblock.JS</code> shows the syntax for a JS file.</p>
+    <code class="Codeblock JS"><span class="Kwd">function</span> <span class="Cmd">Person(<span class="Arg">name</span>)</span> { <span class="Comm I">constructor for class `Person`</span>
+  <span class="Obj">this.</span>greet = <span class="Str">hello!</span>;
+}
+<span class="Kwd">function</span> <span class="Cmd">Student(<span class="Arg">name, cred</span>)</span> { <span class="Comm I">constructor for class `Student`</span>
+  <span class="Obj">Person</span>.<span class="Cmd">call(<span class="Arg"><span class="Obj">this</span>, name, cred</span>)</span>; <span class="Comm I">calls the parent constructor</span>
+  <span class="Ctl">if (<span class="Arg">cred</span> <span class="Opr">&gt;=</span> <span class="Cst">0</span>)</span> { <span class="Obj">this.</span>credits = <span class="Arg">cred</span>; }
+}
+<span class="Obj">Util</span>.<span class="Cmd">extend(<span class="Arg"><span class="Obj">Student</span>, <span class="Obj">Person</span></span>)</span>; <span class="Comm I">extends `Student` from `Person`</span>
+<span class="Kwd">var</span> me = <span class="Opr">new</span> <span class="Cmd">Student(<span class="Arg"><span class="Str">Chris</span>, <span class="Cst">40</span></span>)</span>; <span class="Comm I">creates an instance of `Student`</span></code>
     <section>
       <h1 class="H--Del">Other Technical Text: Inputs and Outputs</h1>
       <p class="P first">A <code>.Key</code> object represents a physical key (or button) on a
         computer keyboard, calculator, or other electronic device. It may be instantiated
         by a <code>kbd &gt; kbd</code> Element.</p>
-      <small class="Alert--Info">The outer <code>kbd</code> represents a sequence of
+      <small class="Alert--Info">In a <code>kbd &gt; kbd</code>, the outer <code>kbd</code> represents a sequence of
         user input, while the inner <code>kbd</code> represents an actual key to be
         pressed.</small>
-      <figure class="Fig">
-        <figcaption class="Capt Before">The following steps describe an alternative method
+      <figure class="Fig Text">
+        <figcaption class="Capt Before">The following steps describe an iterative method
           for obtaining <a class="Link" href="phi.html">the number
           <span class="M">\phi</span></a> on a calculator.</figcaption>
         <ol class="Olist">
@@ -913,7 +965,7 @@ using site-wide styles.</p>
       <p class="P">A <code>.Dir</code> Object is used to represent a path in a file
         directory, or a URL or URI. It may be instantiated by a <code>code</code> Element
         or a <code>samp</code> Element.</p>
-      <figure class="Fig">
+      <figure class="Fig Text">
         <ul class="Grow">
           <li class="Gcol w-f1o2">This is a <code>code.Dir</code>:
             <code class="Dir">../example/folder/file.txt</code></li>
