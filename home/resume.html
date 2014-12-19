@@ -20,18 +20,17 @@
 }
 </style>
 <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML,http://chharvey.github.io/ChhLib/mathjax-localconfig.js"></script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML,http://chharvey.github.io/chhlib/mathjax-localconfig.js"></script>
 <script src="../core/scripts/global.js"></script>
 <script>
-function marginTopToNumber(jqobj) {
-  a = jqobj.css('margin-top'); // a string representing the length of a top margin, e.g., '12px'
-  b = a.substring(0, a.length - 2); // a string without the 'px' at the end, e.g., '12'
-  return parseInt(b); // returns b converted to an integer, e.g., 12
-}
-function objHeight(jqobj) {
-  return jqobj.height() + marginTopToNumber(jqobj);
-}
 function workit() {
+  function objHeight(jqobj) {
+    return jqobj.height() + (function (jqobj) {
+      a = jqobj.css('margin-top'); // a string representing the length of a top margin, e.g., '12px'
+      b = a.substring(0, a.length - 2); // a string without the 'px' at the end, e.g., '12'
+      return parseInt(b); // returns b converted to an integer, e.g., 12
+    })(jqobj);
+  }
   // must calculate the hights after the `.tech-skills-body` is inserted in... don't know why
   col1 = objHeight($('#tech-gen')) + objHeight($('#tech-css'));
   col2 = objHeight($('#tech-html')) + objHeight($('#tech-git')) + objHeight($('#tech-misc'));
@@ -43,12 +42,12 @@ $(document).ready(function () {
   $('#obj1').click(function () {
     $(this).hide();
     $('#obj2').show();
-    $('#teach-exp').css('margin-top','0');
+    $('#osmosis').css('margin-top','0');
   });
   $('#obj2').click(function () {
     $(this).hide();
     $('#obj3').show();
-    $('#teach-exp').css('margin-top','');
+    $('#osmosis').css('margin-top','');
   });
 });
 $(window).resize(function () {
@@ -57,7 +56,7 @@ $(window).resize(function () {
 </script>
 </head>
 <body>
-<main>
+<main class="MainGolden">
 <header class="res-Header">
   <h1 class="res-Name">Christopher <abbr title="Hewitt">H.</abbr> Harvey</h1>
   <section>
@@ -84,70 +83,97 @@ $(window).resize(function () {
   <input id="obj3" type="text" value="Type a custom objective here. Reload to reset."/>
 </section>
 <section class="res-Skill" id="tech-skills">
-  <h1 class="res-SkillTitle">Tech Skills</h1>
+  <h1 class="res-SkillTitle">Techno&shy;logical Experience</h1>
+  <section class="res-Job" id="osmosis">
+    <h1 class="res-JobTitle" itemscope="" itemtype="http://schema.org/LocalBusiness">
+      <a rel="external" itemprop="name"
+        href="http://www.osmosis.org/">Osmosis</a>
+      <span class="res-Spacetime" itemprop="location" itemscope="" itemtype="http://schema.org/Place">
+        <span itemprop="name">Charlottesville, VA</span>
+        <span itemprop="geo" itemscope="" itemtype="http://schema.org/GeoCoordinates">
+          <meta itemprop="latitude"  content="38.035974"/>
+          <meta itemprop="longitude" content="-78.500286"/>
+        </span>
+      </span>
+    </h1>
+    <section class="res-Pos">
+      <h1 class="res-PosTitle">
+        <span itemprop="jobTitle">Internship</span>
+        <span class="res-Spacetime">
+          <time datetime="2014-10">Oct 2014</time>&ndash;present
+        </span>
+      </h1>
+      <ul class="res-PosDetail">
+        <li class="Item">Implemented a feature that presented students their usage analytics using
+          <a rel="external" href="http://d3js.org/">D3.js</a>.</li>
+        <li class="Item">Automated construction of a dynamic, interactive graphical user interface
+          in <abbr class="Acro" title="Scalable Vector Graphics">SVG</abbr>.</li>
+        <li class="Item">Constructed and referenced common libraries and databases
+          (<a rel="external" href="http://jquery.com/">jQuery</a>).</li>
+      </ul>
+    </section>
+  </section>
   <div class="Grow">
     <div class="Gcol w-f1o2">
-  <section class="res-Job" id="tech-gen">
-    <h1 class="res-JobTitle">General</h1>
-    <ul class="res-PosDetail">
-      <li class="Item">Delegate separation of concerns.</li>
-      <li class="Item">Construct and reference common libraries and databases.</li>
-      <li class="Item">Develop and adhere to a set of technical standards and conventions.</li>
-      <li class="Item">Strike an elegant, efficient balance between
-        graceful degradation/progressive enhancement.</li>
-    </ul>
-  </section>
-  <section class="res-Job" id="tech-css">
-    <h1 class="res-JobTitle"><abbr title="Cascading Stylesheets">CSS</abbr>/<a
-      rel="external" href="http://lesscss.org">Less</a></h1>
-    <ul class="res-PosDetail">
-      <li class="Item">Approach with object-oriented principles.</li>
-      <li class="Item">Generalize and abstract reusable patterns.</li>
-      <li class="Item">Maximize site performance.</li>
-      <li class="Item">Create mathematics-heavy, aesthetic layout systems,
-        vertical rhythm, color&nbsp;schemes.</li>
-    </ul>
-  </section>
+      <section class="res-Job" id="tech-gen">
+        <h1 class="res-JobTitle">General</h1>
+        <ul class="res-PosDetail">
+          <li class="Item">Delegate separation of concerns.</li>
+          <li class="Item">Construct and reference common libraries and databases.</li>
+          <li class="Item">Develop and adhere to a set of technical standards and conventions.</li>
+          <li class="Item">Strike an elegant, efficient balance between
+            graceful degradation/progressive enhancement.</li>
+        </ul>
+      </section>
+      <section class="res-Job" id="tech-css">
+        <h1 class="res-JobTitle"><abbr title="Cascading Stylesheets">CSS</abbr></h1>
+        <ul class="res-PosDetail">
+          <li class="Item">Write using <a rel="external" href="http://lesscss.org">Less</a> preprocessor.</li>
+          <li class="Item">Approach with object-oriented principles.</li>
+          <li class="Item">Generalize and abstract reusable patterns.</li>
+          <li class="Item">Maximize site performance.</li>
+          <li class="Item">Create mathematics-heavy aesthetic layout systems,
+            vertical rhythm, color schemes.</li>
+        </ul>
+      </section>
     </div>
     <div class="Gcol w-f1o2">
-  <section class="res-Job" id="tech-html">
-    <h1 class="res-JobTitle"><abbr title="HyperText Markup Language">HTML</abbr></h1>
-    <ul class="res-PosDetail">
-      <li class="Item">Enforce new and upcoming features.</li>
-      <li class="Item">Utilize diverse, semantic data and metadata.</li>
-      <li class="Item">Implement future-proof accessible and assistive technologies.</li>
-    </ul>
-  </section>
-  <section class="res-Job" id="tech-git">
-    <h1 class="res-JobTitle"><a rel="external" href="http://git-scm.com/">Git</a></h1>
-    <ul class="res-PosDetail">
-      <li class="Item">Edit and traverse repositories via command line.</li>
-      <li class="Item">Use branching, merging, remotes effectively.</li>
-      <li class="Item">Apply semantic version numbering.</li>
-      <li class="Item">Collaborate with team members.</li>
-    </ul>
-  </section>
-  <section class="res-Job" id="tech-misc">
-    <h1 class="res-JobTitle">Miscellaneous</h1>
-    <ul class="res-PosDetail">
-      <li class="Item">Combine <a rel="external" href="http://mathjax.org/">MathJax</a> and
-        <a class="M" rel="external" href="http://www.latex-project.org/">\LaTeX</a>
-        to offer semantic math for the Web.</li>
-      <li class="Item">
-        <ul class="Ilist Comma">
-          <li class="Item">JavaScript/jQuery</li>
-          <li class="Item">
-            <abbr
-            class="Acro" title="eXtendable Markup Language">XML</abbr>/<abbr
-            class="Acro" title="XML Stylesheet Language: Transformation">XSLT</abbr>/<abbr
-            class="Acro" title="XML Schema Definition">XSD</abbr></li>
-          <li class="Item"><abbr class="Acro" title="Scalable Vector Graphics">SVG</abbr></li>
-          <li class="Item"><abbr class="Acro" title="PHP: Hypertext Preprocessor">PHP</abbr></li>
-          <li class="Item">Java</li>
+      <section class="res-Job" id="tech-html">
+        <h1 class="res-JobTitle"><abbr title="HyperText Markup Language">HTML</abbr></h1>
+        <ul class="res-PosDetail">
+          <li class="Item">Enforce new and upcoming features.</li>
+          <li class="Item">Utilize diverse, semantic data and metadata.</li>
+          <li class="Item">Implement future-proof accessible and assistive technologies.</li>
         </ul>
-      </li>
-    </ul>
-  </section>
+      </section>
+      <section class="res-Job" id="tech-git">
+        <h1 class="res-JobTitle"><a rel="external" href="http://git-scm.com/">Git</a></h1>
+        <ul class="res-PosDetail">
+          <li class="Item">Edit and traverse repositories via command line.</li>
+          <li class="Item">Use branching, merging, remotes effectively.</li>
+          <li class="Item">Apply semantic version numbering.</li>
+          <li class="Item">Collaborate with team members.</li>
+        </ul>
+      </section>
+      <section class="res-Job" id="tech-misc">
+        <h1 class="res-JobTitle">Miscellaneous</h1>
+        <ul class="res-PosDetail">
+          <li class="Item">Combine <a rel="external" href="http://mathjax.org/">MathJax</a> and
+            <a class="M" rel="external" href="http://www.latex-project.org/">\LaTeX</a>
+            to offer semantic math for the Web.</li>
+          <li class="Item">
+            <ul class="Ilist Comma">
+              <li class="Item">
+                <abbr
+                class="Acro" title="eXtendable Markup Language">XML</abbr>/<abbr
+                class="Acro" title="XML Stylesheet Language: Transformation">XSLT</abbr>/<abbr
+                class="Acro" title="XML Schema Definition">XSD</abbr></li>
+              <li class="Item">Java</li>
+              <li class="Item"><abbr class="Acro" title="PHP: Hypertext Preprocessor">PHP</abbr></li>
+            </ul>
+          </li>
+        </ul>
+      </section>
     </div>
   </div>
   <section class="res-Job" id="tech-apps" hidden="">
@@ -184,7 +210,7 @@ $(window).resize(function () {
       <ul class="res-PosDetail">
         <li class="Item">Organized learning objectives from the
           <abbr class="Acro" title="Virginia Standards of Learning">VA SOLs</abbr> into
-          subject-area-based curriculum.
+          subject-area-based curriculum.</li>
         <li class="Item">Identified similarities/differences between state standards and
           <a rel="external" href="http://www.corestandards.org/">Common Core</a>
           standards.</li>
@@ -637,7 +663,7 @@ $(window).resize(function () {
     <li><a class="Crumb" rel="top parent" href="../index.html">Home</a></li>
   </ol>
   <ul class="Sib">
-    <li><a class="Crumb" rel="sibling this" href="resume.html">Resume</a></li>
+    <li><a class="Crumb" rel="this" href="resume.html">Resume</a></li>
   </ul>
   <ul class="Child"></ul>
 </nav>

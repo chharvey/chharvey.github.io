@@ -11,23 +11,24 @@
 @info_glyph: '\003f';             // ?
 @help_glyph: '\2665'; // &hearts; // ♥
 
-@color_warn_brdr: hsv(  0, 100%, 100%); // #f00
-@color_cshn_brdr: hsv( 72, 100%, 100%); // #cf0
-@color_skss_brdr: hsv(144, 100%, 100%); // #0f6
-@color_info_brdr: hsv(216, 100%, 100%); // #06f
-@color_help_brdr: hsv(288, 100%, 100%); // #c0f
+// Label Color Theme
+@color_warn_brdr: #f00; @color_warn_brdr: hsv(  0, 100%, 100%);
+@color_cshn_brdr: #cf0; @color_cshn_brdr: hsv( 72, 100%, 100%);
+@color_skss_brdr: #0f6; @color_skss_brdr: hsv(144, 100%, 100%);
+@color_info_brdr: #06f; @color_info_brdr: hsv(216, 100%, 100%);
+@color_help_brdr: #c0f; @color_help_brdr: hsv(288, 100%, 100%);
 
-@color_warn_txt: darken(@color_warn_brdr, (@golden1 / 2)); // #610000
-@color_cshn_txt: darken(@color_cshn_brdr, (@golden1 / 2)); // #4e6100
-@color_skss_txt: darken(@color_skss_brdr, (@golden1 / 2)); // #006127
-@color_info_txt: darken(@color_info_brdr, (@golden1 / 2)); // #002761
-@color_help_txt: darken(@color_help_brdr, (@golden1 / 2)); // #4e0061
+@color_warn_txt: #610000; @color_warn_txt: darken(@color_warn_brdr, (@golden1 / 2));
+@color_cshn_txt: #4e6100; @color_cshn_txt: darken(@color_cshn_brdr, (@golden1 / 2));
+@color_skss_txt: #006127; @color_skss_txt: darken(@color_skss_brdr, (@golden1 / 2));
+@color_info_txt: #002761; @color_info_txt: darken(@color_info_brdr, (@golden1 / 2));
+@color_help_txt: #4e0061; @color_help_txt: darken(@color_help_brdr, (@golden1 / 2));
 
-@color_warn_bg: lighten(@color_warn_brdr, (@golden1 / 2)); // #ff9e9e
-@color_cshn_bg: lighten(@color_cshn_brdr, (@golden1 / 2)); // #ecff9e
-@color_skss_bg: lighten(@color_skss_brdr, (@golden1 / 2)); // #9effc5
-@color_info_bg: lighten(@color_info_brdr, (@golden1 / 2)); // #9ec5ff
-@color_help_bg: lighten(@color_help_brdr, (@golden1 / 2)); // #ec9eff
+@color_warn_bg: #ff9e9e; @color_warn_bg: lighten(@color_warn_brdr, (@golden1 / 2));
+@color_cshn_bg: #ecff9e; @color_cshn_bg: lighten(@color_cshn_brdr, (@golden1 / 2));
+@color_skss_bg: #9effc5; @color_skss_bg: lighten(@color_skss_brdr, (@golden1 / 2));
+@color_info_bg: #9ec5ff; @color_info_bg: lighten(@color_info_brdr, (@golden1 / 2));
+@color_help_bg: #ec9eff; @color_help_bg: lighten(@color_help_brdr, (@golden1 / 2));
 
 /**
   * A message Interface is a component that displays little indications to the user.
@@ -63,7 +64,7 @@
 @author
 : Chris Harvey
 @updated
-: 2014-10-19
+: 2014-10-26
   */
 @alert_brdr_radius: 6px;
 .alert(@color_bd; @color_txt; @color_bg; @word; @glyph) {
@@ -72,9 +73,9 @@
   .w-p1;
   .w-p1.mr;
   .fontsize-block-sml();
-  font-family: @fontfam_accent;
   .colors(@color_bd; @color_txt; @color_bg);
   .gradient(to bottom, @color_bg, darken(@color_bg, 10%););
+  font-family: @fontfam_accent;
   &::before {
     content: @word ' ' @glyph ' ';
     font-weight: bold;
@@ -99,18 +100,19 @@
 @author
 : Chris Harvey
 @updated
-: 2014-10-08
+: 2014-10-26
   */
 .label(@color_txt; @color_bg; @glyph) {
+  .fontsize-sml();
+  .colors(@color_border; @color_txt; @color_bg);
+  .gradient(to right, @color_bg, darken(@color_bg, 15%););
   display: inline;
   padding: 3px 5px 2px;
   margin-left: @spacer;
   position: relative; // only because `::before` has `position: absolute;`
-  .fontsize-sml();
+  font-weight: bold;
   font-family: @fontfam_accent;
   white-space: nowrap;
-  .colors(@color_border; @color_txt; @color_bg);
-  .gradient(to right, @color_bg, darken(@color_bg, 15%););
   &::before {
     @x: 6px;
     @y: 10px;

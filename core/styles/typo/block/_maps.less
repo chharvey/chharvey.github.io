@@ -23,40 +23,37 @@
   display: block;
   .vru-content();
   .follows-heading(1);
-}
-/**
-  * This Object represent the term in a term-description pair of a `.Map`.
-@belongsto
-: .Map
-@implements
-: .vru-top() only when following a `.Desc`
-@tags
-: #typography
-: #map
-@author
-: Chris Harvey
-@updated
-: 2014-10-07
-  */
-.Map > .Term {
-  font-weight: bold;
-}
-.Map {
+  /**
+    * This Object represent the term in a term-description pair of a `.Map`.
+  @implements
+  : .vru-top() only when following a `.Desc`
+  @tags
+  : #typography
+  : #map
+  @author
+  : Chris Harvey
+  @updated
+  : 2014-10-07
+    */
+  > .Term {
+    font-weight: bold;
+  }
+  /**
+    * This Object represent the description in a term-description pair of a `.Map`.
+  @belongsto
+  : .Map
+  @tags
+  : #typography
+  : #map
+  @author
+  : Chris Harvey
+  @updated
+  : 2014-10-05
+    */
+  > .Desc {}
   > .Desc + .Term {.vru-top(1);}
 }
-/**
-  * This Object represent the description in a term-description pair of a `.Map`.
-@belongsto
-: .Map
-@tags
-: #typography
-: #map
-@author
-: Chris Harvey
-@updated
-: 2014-10-05
-  */
-.Map > .Desc {}
+
 /**
   * This Object represents an association list in which corresponding terms and descriptions are
   * grouped together in rows.
@@ -73,19 +70,15 @@
 @author
 : Chris Harvey
 @updated
-: 2014-10-05
+: 2014-11-23
   */
-@descpadding: @golden9;
-.map-horiz-mx(@namewidth) {
-  > .Term {width: (@namewidth - @descpadding);}
-  > .Desc {width: (100% - @namewidth);}
-  > .Desc + .Desc {margin-left: @namewidth;}
-}
+@termpadding: @golden9; // 1.31556175%
 .Map.Horiz {
   .clearfix();
+  > .Term,
+  > .Desc {box-sizing: border-box;}
   > .Term {
-    padding-right: @descpadding;
-    margin-top: 0; // undo .vru-top(1); from .Map > .Term
+    padding-right: @termpadding;
     float: left;
     clear: both;
     overflow: auto;
@@ -94,13 +87,48 @@
   > .Desc {
     float: left;
   }
-  .map-horiz-mx(@golden2);
+  > .Desc + .Term {margin-top: 0;} // undo `.vru-top(1);` from `.Map > .Desc + .Term`
+  // > .Desc + .Desc {margin-left: @termwidth;}
 }
-.Map.Horiz.Sml {.map-horiz-mx(@golden3);}   // 23.6067977499789696%
-.Map.Horiz.Msm {.map-horiz-mx(@golden2);}   // 38.1966011250105152% // default
-.Map.Horiz.Med {.map-horiz-mx(@1o2);}       // 50%
-.Map.Horiz.Mlg {.map-horiz-mx(@golden1);}   // 61.8033988749894848%
-.Map.Horiz.Lrg {.map-horiz-mx(@golden3c);}  // 76.3932022500210304%
+.map-horiz-mx(@termwidth) {
+  > .Term {
+    width: @termwidth;
+  }
+  > .Desc {
+    width: (100% - @termwidth);
+  }
+}
+.Map.Horiz.Sml {.map-horiz-mx(@golden3);}  // 23.6067977499789696%
+.Map.Horiz.Msm {.map-horiz-mx(@golden2);}  // 38.1966011250105152%
+.Map.Horiz.Med {.map-horiz-mx(@1o2);}      // 50%
+.Map.Horiz.Mlg {.map-horiz-mx(@golden1);}  // 61.8033988749894848%
+.Map.Horiz.Lrg {.map-horiz-mx(@golden3c);} // 76.3932022500210304%
+
+/**
+  * This Object represents a Horizontal Map that appears as a Table Object.
+@extends
+: .Map.Horiz
+@implements
+: .cellpaddingdefault()
+@tags
+: #typography
+: #map
+: #table
+@author
+: Chris Harvey
+@updated
+: 2014-11-23
+  */
+.Map.Horiz.Tbl {
+  > .Term,
+  > .Desc {
+    .cellpaddingdefault();
+  }
+  > .Term:nth-child(4n+1),
+  > .Desc:nth-child(4n+2) {background-color: @color_table_bg_md;}
+  > .Term:nth-child(4n+3),
+  > .Desc:nth-child(4n)   {background-color: @color_table_bg_lo;}
+}
 
 // /*dl*/.dl--ordered {
 //   > dt:first-child,

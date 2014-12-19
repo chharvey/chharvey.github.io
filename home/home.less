@@ -72,14 +72,30 @@
 /*@OTHER PAGES*/
 //++++++++++++//
 /**
-  * A contact icon.
+  * This interface represents a regular icon.
+@params
+: @iconsize : the width and height of the icon
+: @bgurl    : the url for the background image
+@tags
+: #background-image
+: #sprite
 @author
 : Chris Harvey
 @updated
-: 2014-06-16
+: 2014-10-11
   */
+.icon(@iconsize, @bgurl) {
+  display: inline-block;
+  width:  @iconsize;
+  height: @iconsize;
+  color: transparent; // color of text
+  background-image: @bgurl;
+  background-repeat: no-repeat;
+  .translucent();
+  overflow: hidden;
+}
 /**
-  * This Object represents a list of images, for example, contact icons.
+  * This Object represents a list of icons.
 @implements
 : .list-block()
 : .margin-even
@@ -101,24 +117,50 @@
   text-align: center;
   .Item {display: inline;}
 }
-.Icon-ct {
-  .transp();
-  display: inline-block;
-  width:  @iconsize;
-  height: @iconsize;
-  color: transparent;
-  background-image: url('images/contact-sprite.png');
-  background-repeat: no-repeat;
-  overflow: hidden;
+
+/**
+  * A contact icon.
+@tags
+: #sprite
+@author
+: Chris Harvey
+@updated
+: 2014-09-25
+  */
+@contacticonsize: 64px;
+@contacticonpadd: 10px;
+.Icon--Ct {
+  .icon(@contacticonsize; url('images/contact-sprite.png'));
 }
-.Icon-ct.Mapss {.sprite(1; @iconsize; @iconpadd);}
-.Icon-ct.Phone {.sprite(2; @iconsize; @iconpadd);}
-.Icon-ct.Email {.sprite(3; @iconsize; @iconpadd);}
-.Icon-ct.Linkd {.sprite(4; @iconsize; @iconpadd);}
-.Icon-ct.Stack {.sprite(5; @iconsize; @iconpadd);}
-.Icon-ct.Githb {.sprite(6; @iconsize; @iconpadd);}
-.Icon-ct.Googl {.sprite(7; @iconsize; @iconpadd);}
-.Icon-ct.Twitr {.sprite(8; @iconsize; @iconpadd);}
+.Icon--Ct.Mapss {.sprite(1; @contacticonsize; @contacticonpadd);}
+.Icon--Ct.Phone {.sprite(2; @contacticonsize; @contacticonpadd);}
+.Icon--Ct.Email {.sprite(3; @contacticonsize; @contacticonpadd);}
+.Icon--Ct.Linkd {.sprite(4; @contacticonsize; @contacticonpadd);}
+.Icon--Ct.Stack {.sprite(5; @contacticonsize; @contacticonpadd);}
+.Icon--Ct.Githb {.sprite(6; @contacticonsize; @contacticonpadd);}
+.Icon--Ct.Googl {.sprite(7; @contacticonsize; @contacticonpadd);}
+.Icon--Ct.Twitr {.sprite(8; @contacticonsize; @contacticonpadd);}
+
+/**
+  * An application icon.
+@tags
+: #sprite
+@author
+: Chris Harvey
+@updated
+: 2014-09-25
+  */
+@appiconsize: 72px;
+.Icon--Ap {
+  .icon(@appiconsize; url());
+  background-size: contain;
+  background-position: center center;
+}
+.Icon--Ap.Apple {background-image: url('images/logos-banners/logo-Apple-gray.jpg');}
+.Icon--Ap.Chrom {background-image: url('images/logos-banners/logo-Chrome.png');}
+.Icon--Ap.Atomm {background-image: url('images/logos-banners/logo-Atom.ico');}
+.Icon--Ap.Latex {background-image: url('images/logos-banners/logo-TeXShop.png');}
+.Icon--Ap.Gittt {background-image: url('images/logos-banners/logo-Git.png');}
 
 /**
   * List of acknowledgements on about page.
@@ -132,7 +174,7 @@
 }
 
 /**
-  * An logo for an organization.
+  * A logo for an organization.
 @author
 : Chris Harvey
 @updated
@@ -150,30 +192,4 @@
 .Capt.Capt-logo.Vdoe {background-image: url('images/logos-banners/logo-VA-DOE.png');}
 .Capt.Capt-logo.Amsy {background-image: url('images/logos-banners/logo-AMS.png');}
 .Capt.Capt-logo.Vmta {background-image: url('images/logos-banners/logo-VMTA.png');}
-
-/**
-  * An application icon.
-@implements
-: .transp()
-@author
-: Chris Harvey
-@updated
-: 2014-06-16
-  */
-.Icon-app {
-  .transp();
-  display: inline-block;
-  width: 72px;
-  height: 72px;
-  color: transparent;
-  background-size: contain;
-  background-position: center center;
-  background-repeat: no-repeat;
-  overflow: hidden;
-}
-.Icon-app.Apple {background-image: url('images/logos-banners/logo-Apple-gray.jpg');}
-.Icon-app.Chrom {background-image: url('images/logos-banners/logo-Chrome.png');}
-.Icon-app.Atomm {background-image: url('images/logos-banners/logo-Atom.ico');}
-.Icon-app.Latex {background-image: url('images/logos-banners/logo-TeXShop.png');}
-.Icon-app.Githb {background-image: url('images/logos-banners/logo-GitHubforMac.jpg');}
 //++++ @end OTHER PAGES ++++//
