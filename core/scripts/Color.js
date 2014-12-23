@@ -98,16 +98,34 @@ Color.prototype.darken = function (p) {
 
 /**
   * Returns a string representation of this color.
-  * @param space optional, a string representing the space in which this color exists
+  * If `space === 'hsv'`, returns `hsv(h, s, v)`
+  * If `space === 'hsl'`, returns `hsl(h, s, l)`
+  * If `space === 'hex'`, returns `#RRGGBB`
+  * If `space === 'rgb'`, or if no param is given, returns `rgb(r, g, b)`
+  * @param space optional ('rgb'): a string representing the space in which this color exists
   * @return      a string representing this color.
   */
 Color.prototype.toString = function (space) {
-  function colorString(s, a, b, c) {
-    return s + '(' + a + ', ' + b + ', ' + c + ')';
+  function toHex(n) {
+    n = parseInt(n,10);
+    if (isNaN(n)) return '00';
+    n = Util.bound(n, 0, 255);
+    return '0123456789ABCDEF'.charAt((n - n % 16) / 16) + '0123456789ABCDEF'.charAt(n % 16);
   }
-  if (space === 'hsv') return colorString('hsv', this.hsv_hue, this.hsv_sat, this.hsv_val);
-  if (space === 'hsl') return colorString('hsl', this.hsl_hue, this.hsl_sat, this.hsl_lum);
-                       return colorString('rgb', this.red,     this.green,   this.blue);
+  if (space === 'hex') return '#' + toHex(this.red) + toHex(this.green) + toHex(this.blue);
+  if (space === 'hsv') return 'hsv(' + this.hsv_hue + ', ' + this.hsv_sat + ', ' + this.hsv_val + ')';
+  if (space === 'hsl') return 'hsl(' + this.hsl_hue + ', ' + this.hsl_sat + ', ' + this.hsl_lum + ')';
+                       return 'rgb(' + this.red     + ', ' + this.green   + ', ' + this.blue    + ')';
+}
+
+/**
+  * Returns a new Color object, given a string of the form `rgb(r,g,b)` or `rgb(r, g, b)`,
+  * where `r`, `g`, and `b` are decimal RGB components (in base 10, out of 255).
+  * @param rgb_string a string of the form `rgb(r,g,b)` or `rgb(r, g, b)`
+  */
+Color.newColorRGBstring = function (rgb_string) {
+  var splitted = rgb_string.slice(4, -1).split(',');
+  return new Color(+splitted[0], +splitted[1], +splitted[2]);
 }
 
 /**
@@ -185,20 +203,4 @@ Color.mix = function (color1, color2, w) {
   var g = Math.round(Util.average(color1.green, color2.green, w));
   var b = Math.round(Util.average(color1.blue,  color2.blue,  w));
   return new Color(r, g, b);
-}
-
-/**
-  * Converts an rgb string, of the form `rgb(r, g, b)`, where `r`, `g`, and `b` are the
-  * decimal components (in base 10, out of 255), into a hex string, of the form `#RRGGBB`, where
-  * `RR`, `GG`, and `BB` are the hexadecimal components (base 16, out of FF).
-  */
-Color.rgbToHex = function (rgb_string) {
-  var splitted = rgb_string.slice(4, -1).split(',');
-  function toHex(n) {
-    n = parseInt(n,10);
-    if (isNaN(n)) return '00';
-    n = Util.bound(n, 0, 255);
-    return '0123456789ABCDEF'.charAt((n - n % 16) / 16) + '0123456789ABCDEF'.charAt(n % 16);
-  }
-  return '#' + toHex(splitted[0]) + toHex(splitted[1]) + toHex(splitted[2]);
 }
