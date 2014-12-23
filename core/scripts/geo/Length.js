@@ -1,7 +1,7 @@
 /**
   * A wrapper class representing a one-dimensional measurement.
-  * @param x this object represented as a non-negative number
-  * @param u optional: a string representing the units of measurement
+  * @param `x` this object represented as a non-negative number
+  * @param `u` optional: a string representing the units of measurement
   */
 function Length(x, u) {
   this.value = +x || 0;
@@ -17,8 +17,8 @@ Length.prototype.toString = function () {
 
 /**
   * Adds another Length object to this Length object.
-  * @param length the Length object to add to this object
-  * @return       a Length equal to the sum of both Lengths
+  * @param `length` the Length object to add to this object
+  * @return         a Length equal to the sum of both Lengths
   */
 Length.prototype.add = function (length) {
   if (this.units === length.units) return new Length(this.value + length.value, this.units);
@@ -30,8 +30,8 @@ Length.prototype.add = function (length) {
   * If the scale factor is <1, returns a new Length "shorter" than this Length.
   * If the scale factor is >1, returns a new Length "longer" than  this Length.
   * If the scale factor is =1, returns a new Length equivalent to  this Length.
-  * @param k a non-negative number: the scale factor
-  * @return  the product of this Length and the scale factor
+  * @param `k` a non-negative number: the scale factor
+  * @return    the product of this Length and the scale factor
   */
 Length.prototype.scale = function (k) {
   return new Length(this.value * k, this.units);
@@ -41,8 +41,8 @@ Length.prototype.scale = function (k) {
   * Multiplies another Length object by this Length object, returning Area.
   * If needing to multiply this Length by another Area, use the `Area.prototype.multiply(length)`
   * method on that Area object, using this object as the argument.
-  * @param length the Length object to multiply by this object
-  * @return       an Area equal to the product of both Lengths
+  * @param `length` the Length object to multiply by this object
+  * @return         an Area equal to the product of both Lengths
   */
 Length.prototype.multiply = function (length) {
   if (this.units === length.units) return new Area(this.value * length.value, this.units);
@@ -52,7 +52,7 @@ Length.prototype.multiply = function (length) {
 /**
   * Returns the product of this Length with itself.
   * Equivalent to `this.multiply(this)`
-  * @return       an Area equal to the square of this Length
+  * @return an Area equal to the square of this Length
   */
 Length.prototype.square = function () {
   return this.multiply(this);
@@ -61,7 +61,7 @@ Length.prototype.square = function () {
 /**
   * Returns the product of the square of this Length, an Area, with itself.
   * Equivalent to `this.square().multiply(this)`
-  * @return       an Area equal to the square of this Length
+  * @return an Area equal to the cube of this Length
   */
 Length.prototype.cube = function () {
   return this.square().multiply(this);
@@ -86,10 +86,10 @@ Length.conversion = {
 /**
   * Converts from one unit to another.
   * Example: `Length.convert(9, 'cm', 'in')` returns 3.54.
-  * @param x        a number to convert
-  * @param fromunit string: the unit to convert from
-  * @param tounit   string: the unit to convert to
-  * @return         the number of ‹tounit›s that x ‹fromunit›s converts to
+  * @param `x`        a number to convert
+  * @param `fromunit` string: the unit to convert from
+  * @param `tounit`   string: the unit to convert to
+  * @return           the number of ‹tounit›s that x ‹fromunit›s converts to
   */
 Length.convert = function (x, fromunit, tounit) {
   return x * Length.conversion[fromunit][tounit];

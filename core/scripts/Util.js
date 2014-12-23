@@ -15,10 +15,10 @@ Util.TAU = 2 * Math.PI;
   * If the parameter is in the interval, the method returns the number. If the parameter is outside,
   * the method returns the closest bound (either upper or lower).
   * This method is NON-DESTRUCTIVE: it does not change the value of the given parameter.
-  * @param x the number to be tested
-  * @param lower the lower bound, inclusive
-  * @param upper the upper bound, inclusive. Must be >= `lower`.
-  * @return      the closest number to `x` within the interval [lower, upper]
+  * @param `x` the number to be tested
+  * @param `lower` the lower bound, inclusive
+  * @param `upper` the upper bound, inclusive. Must be >= `lower`.
+  * @return        the closest number to `x` within the interval [lower, upper]
   */
 Util.bound = function (x, lower, upper) {
   if      (x < lower) return lower;
@@ -31,10 +31,10 @@ Util.bound = function (x, lower, upper) {
   * Averages two numbers, with a weight favoring the first number.
   * For example, `Util.average(10, 20, 0.7)` will return 13, while
   * `Util.average(20, 10, 0.7)` will return 17 (the same result as `Util.average(10, 20, 0.3)`).
-  * @param a the first number, to be weighted
-  * @param b the second number
-  * @param w optional number between 0 and 1 defaults to 0.5, the weight that favors `a`
-  * @return  the weighted average of `a` and `b`
+  * @param `a` the first number, to be weighted
+  * @param `b` the second number
+  * @param `w` optional number between 0 and 1 defaults to 0.5, the weight that favors `a`
+  * @return    the weighted average of `a` and `b`
   */
 Util.average = function (a, b, w) {
   w = (typeof w === 'number') ? w : 0.5;
@@ -43,9 +43,9 @@ Util.average = function (a, b, w) {
 
 /**
   * Returns the geometric mean of two numbers.
-  * @param a the first number
-  * @param b the second number
-  * @return  the square root of the product of `a` and `b`
+  * @param `a` the first number
+  * @param `b` the second number
+  * @return    the square root of the product of `a` and `b`
   */
 Util.gMean = function (a, b) {
   return Math.sqrt(a * b);
@@ -54,8 +54,8 @@ Util.gMean = function (a, b) {
 /**
   * Returns whether a given integer is prime.
   * An integer is mathematically prime if and only if its only positive integer divisors are itself and 1.
-  * @param integer the given integer
-  * @return        `true` if `integer` is prime
+  * @param `integer` the given integer
+  * @return          `true` if `integer` is prime
   */
 Util.isPrime = function (integer) {
   var returned = true;
@@ -70,8 +70,8 @@ Util.isPrime = function (integer) {
 
 /**
   * Returns all the integer factors of the given integer.
-  * @param n a positive integer to be factored
-  * @return  an array containing integers, which are all factors of `n`, in increasing order
+  * @param `n` a positive integer to be factored
+  * @return    an array containing integers, which are all factors of `n`, in increasing order
   */
 Util.factors = function (n, prime) {
   var factors = [];
@@ -84,8 +84,8 @@ Util.factors = function (n, prime) {
   * The prime factorization of a number is the set of prime numbers whose cumulative product equals
   * that number. Prime factors may be repeated. The prime factorization of a prime number is that number.
   * E.g., 60 == 2 * 2 * 3 * 5; 37 == 37;
-  * @param n a positive integer to be factored
-  * @return  an array containing integers, which are the prime factors of `n`, in increasing order
+  * @param `n` a positive integer to be factored
+  * @return    an array containing integers, which are the prime factors of `n`, in increasing order
   */
 Util.factorize = function (n) {
   var factors = [];
@@ -102,9 +102,9 @@ Util.factorize = function (n) {
 
 /**
   * Gives the greatest common factor of two numbers. This is a recursive function.
-  * @param a the first positive integer
-  * @param b the second positive integer
-  * @return  the greatest integer factor that `a` and `b` have in common
+  * @param `a` the first positive integer
+  * @param `b` the second positive integer
+  * @return    the greatest integer factor that `a` and `b` have in common
   */
 Util.gcf = function (a, b) {
   if (a === 0 || b === 0) return Math.max(a,b);
@@ -118,9 +118,9 @@ Util.gcf = function (a, b) {
 
 /**
   * Gives the least common multiple of two numbers.
-  * @param a the first positive integer
-  * @param b the second positive integer
-  * @return  the least integer multiple that `a` and `b` have in common
+  * @param `a` the first positive integer
+  * @param `b` the second positive integer
+  * @return    the least integer multiple that `a` and `b` have in common
   */
 Util.lcm = function (a, b) {
   return (a * b) / Util.gcf(a, b);
@@ -236,9 +236,9 @@ Util.fibonacci = function (n, recursive) {
 
 /**
   * Calculates the number of permutations of n objects taken r at a time.
-  * @param n the number of total objects
-  * @param r the number of objects taken at a time; must be <= `n`
-  * @return  the number of permutations of `n` objects taken `r` at a time
+  * @param `n` the number of total objects
+  * @param `r` the number of objects taken at a time; must be <= `n`
+  * @return    the number of permutations of `n` objects taken `r` at a time
   */
 Util.permute = function (n, r) {
   var numerator = 0;
@@ -253,9 +253,9 @@ Util.permute = function (n, r) {
 
 /**
   * Calculates the number of combinations of n objects taken r at a time.
-  * @param n the number of total objects
-  * @param r the number of objects taken at a time; must be <= `n`
-  * @return  the number of combinations of `n` objects taken `r` at a time
+  * @param `n` the number of total objects
+  * @param `r` the number of objects taken at a time; must be <= `n`
+  * @return    the number of combinations of `n` objects taken `r` at a time
   */
 Util.combine = function (n, r) {
     var numerator   = Util.permute(n, r);
@@ -273,7 +273,7 @@ Util.rand = Math.random; // = function () { return Math.random(); }
 /**
   * Selects a uniformly distributed random non-negative decimal less than the given parameter.
   * @param `number` a positive decimal, the exclusive least upper bound of the interval
-  * @return       a randomly selected decimal within [0, number)
+  * @return         a randomly selected decimal within [0, number)
   */
 Util.randTo = function (number) {
   return Math.random() * number;
@@ -290,9 +290,9 @@ Util.randToInt = function (integer) {
 
 /**
   * Selects a uniformly distributed random non-negative decimal between the two given parameters.
-  * @param `low`    a positive decimal, the minimum of the interval
-  * @param `high`   a positive decimal, the exclusive least upper bound of the interval
-  * @return         a randomly selected nonnegative decimal within [low, high)
+  * @param `low`  a positive decimal, the minimum of the interval
+  * @param `high` a positive decimal, the exclusive least upper bound of the interval
+  * @return       a randomly selected nonnegative decimal within [low, high)
   */
 Util.randBetween = function (low, high) {
   return Util.randTo(high - low) + low;
@@ -335,8 +335,8 @@ function doublefactorialtest(times) {
 
 /**
   * Extends a class from a parent class. Call this method immediately after the child constructor.
-  * @param child  the subclass, which is a special case of the parent class
-  * @param parent the super class
+  * @param `child`  the subclass, which is a special case of the parent class
+  * @param `parent` the super class
   */
 // Util.extend = (function () {
 //   var F = function () {};

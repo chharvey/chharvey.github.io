@@ -1,7 +1,7 @@
 /**
   * A wrapper class representing a two-dimensional measurement.
-  * @param x this object represented as a non-negative number
-  * @param u optional: a string representing the units of measurement
+  * @param `x` this object represented as a non-negative number
+  * @param `u` optional: a string representing the units of measurement
   */
 function Area(x, u) {
   this.value = +x || 0;
@@ -17,8 +17,8 @@ Area.prototype.toString = function () {
 
 /**
   * Adds another Area object to this Area object.
-  * @param area the Area object to add to this object
-  * @return     an Area equal to the sum of both Areas
+  * @param `area` the Area object to add to this object
+  * @return       an Area equal to the sum of both Areas
   */
 Area.prototype.add = function (area) {
   if (this.units === area.units) return new Area(this.value + area.value, this.units);
@@ -30,8 +30,8 @@ Area.prototype.add = function (area) {
   * If the scale factor is <1, returns a new Area "smaller" than this Area.
   * If the scale factor is >1, returns a new Area "bigger"  than this Area.
   * If the scale factor is =1, returns a new Area equivalent to  this Area.
-  * @param k a non-negative number: the scale factor
-  * @return  the product of this Area and the scale factor
+  * @param `k` a non-negative number: the scale factor
+  * @return    the product of this Area and the scale factor
   */
 Area.prototype.scale = function (k) {
   return new Area(this.value * k, this.units);
@@ -39,8 +39,8 @@ Area.prototype.scale = function (k) {
 
 /**
   * Multiplies another Length object by this Area object, returning Volume.
-  * @param length the Length object to multiply by this object
-  * @return       a Volume equal to the product of this Area and the given Length
+  * @param `length` the Length object to multiply by this object
+  * @return         a Volume equal to the product of this Area and the given Length
   */
 Area.prototype.multiply = function (length) {
   if (this.units === length.units) return new Volume(this.value * length.value, this.units);

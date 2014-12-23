@@ -1,6 +1,6 @@
 /**
   * Constructs a normal (Gaussian) distribution with a given mean and standard deviation.
-  * @param `mean` the statistical average of all the data; defaults to 0
+  * @param `mean`  the statistical average of all the data; defaults to 0
   * @param `stdev` the variation in all the data; defaults to 1
   */
 function NormalDistribution(mean, stdev) {
@@ -54,7 +54,7 @@ NormalDistribution.prototype.evalCDF = function (x, accuracy) {
   * @param `min`      the lower bound of the input
   * @param `max`      the upper bound of the input
   * @param `accuracy` the number of terms in the series in the calculation of this function; defaults to 100
-  * @return this.evalCDF(max) - this.evalCDF(min)
+  * @return           this.evalCDF(max) - this.evalCDF(min)
   */
 NormalDistribution.prototype.area = function (min, max, accuracy) {
   return this.evalCDF(max, accuracy) - this.evalCDF(min, accuracy);
@@ -103,8 +103,8 @@ NormalDistribution.prototype.rand = function () {
   * a 'success'; if false, it is a 'failure'.
   * This method prints the number of successes and number of failures, and also prints the last output.
   * @param times the number of outputs to test; maximum of 10000
-  * @param min   the minimum of the interval of successes
-  * @param max   the maximum of the interval of successes
+  * @param `min` the minimum of the interval of successes
+  * @param `max` the maximum of the interval of successes
   */
 NormalDistribution.prototype.test = function (times, min, max) {
   var successes = 0;
@@ -124,8 +124,8 @@ NormalDistribution.prototype.test = function (times, min, max) {
   * The z-score represents the "number of standard deviations away from the mean."
   * For example, given a normal distribution with mean 500 and standard deviation 100,
   * the z-score of an observation 650 would be 1.5.
-  * @param x the data value of the observation
-  * @return  the z-score of the observed data value
+  * @param `x` the data value of the observation
+  * @return    the z-score of the observed data value
   */
 NormalDistribution.prototype.zScore = function (x) {
   return (x - this.mean) / this.stdev;
@@ -135,8 +135,8 @@ NormalDistribution.prototype.zScore = function (x) {
   * Returns the raw value of the given z-score of this normal distribution.
   * In other words, returns the observed data value that occurs at the given number of
   * standard deviations away from the mean.
-  * @param z the given z-score
-  * @return  the raw data value corresponding to the z-score
+  * @param `z` the given z-score
+  * @return    the raw data value corresponding to the z-score
   */
 NormalDistribution.prototype.zScoreInv = function (x) {
   return (z * this.stdev) + this.mean;

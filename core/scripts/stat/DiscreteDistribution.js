@@ -41,7 +41,7 @@ DiscreteDistribution.prototype.evalCDF = function (x) {
   * within the closed interval `[min, max]`.
   * @param `min` the lower bound of the input
   * @param `max` the upper bound of the input
-  * @return this.evalCDF(max) - this.evalCDF(min)
+  * @return      this.evalCDF(max) - this.evalCDF(min)
   */
 DiscreteDistribution.prototype.area = function (min, max) {
   return this.evalCDF(max) - this.evalCDF(min);

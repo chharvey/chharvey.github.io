@@ -1,9 +1,9 @@
 /**
   * A rectangular prism is a polyhedron that has 6 faces, each of which is a
   * rectangle and that intersect at right angles.
-  * @param l a Length object: the length of this prism
-  * @param w a Length object: the width of this prism
-  * @param h a Length object: the height of this prism
+  * @param `l` a Length object: the length of this prism
+  * @param `w` a Length object: the width of this prism
+  * @param `h` a Length object: the height of this prism
   */
 function RectPrism(l, w, h) {
   this.length = l;

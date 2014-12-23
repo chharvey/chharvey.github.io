@@ -1,6 +1,6 @@
 /**
   * A circle is the set of points equidistant from a point.
-  * @param r a Length object: the radius of this circle
+  * @param `r` a Length object: the radius of this circle
   */
 function Circle(r) {
   this.radius = r;
