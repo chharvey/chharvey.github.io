@@ -7,9 +7,9 @@
 function Color(red, grn, blu) {
   var self = this;
 
-  self.red   = (typeof red === 'number') ? red : 0;
-  self.green = (typeof grn === 'number') ? grn : 0;
-  self.blue  = (typeof blu === 'number') ? blu : 0;
+  self.red   = +red || 0;
+  self.green = +grn || 0;
+  self.blue  = +blu || 0;
 
   /**
     * The HSV-space hue of this color, or what "color" this color is.
@@ -71,7 +71,7 @@ Color.prototype.complement = function () {
   */
 Color.prototype.invert = function () {
   var newhue = (this.getHSV_hue() + 180) % 360;
-  return Color.newColorHSV(newhue, this.getHSV_sat(), this.getHSV_val());
+  return Color.newColorHSV(newhue, this.hsv_sat, this.hsv_val);
 }
 
 /**
@@ -82,7 +82,7 @@ Color.prototype.invert = function () {
   * @return  a new Color object that corresponds to this color brightened by a percentage `p`
   */
 Color.prototype.brighten = function (p) {
-  // return Color.newColorHSL(this.getHSL_hue(), this.getHSL_sat(), this.getHSL_val() + p);
+  // return Color.newColorHSL(this.hsl_hue, this.hsl_sat, this.hsl_val + p);
 }
 /**
   * Makes a new color that is a darker version of this color by a percentage.
@@ -92,7 +92,7 @@ Color.prototype.brighten = function (p) {
   * @return  a new Color object that corresponds to this color darkened by a percentage `p`
   */
 Color.prototype.darken = function (p) {
-  // return Color.newColorHSL(this.getHSL_hue(), this.getHSL_sat(), this.getHSL_val() - p);
+  // return Color.newColorHSL(this.hsl_hue, this.hsl_sat, this.hsl_val - p);
   // return this.brighten(-p);
 }
 
@@ -107,8 +107,7 @@ Color.prototype.darken = function (p) {
   */
 Color.prototype.toString = function (space) {
   function toHex(n) {
-    n = parseInt(n,10);
-    if (isNaN(n)) return '00';
+    n = +n || 0;
     n = Util.bound(n, 0, 255);
     return '0123456789ABCDEF'.charAt((n - n % 16) / 16) + '0123456789ABCDEF'.charAt(n % 16);
   }
