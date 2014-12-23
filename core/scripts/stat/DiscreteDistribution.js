@@ -1,4 +1,26 @@
 /**
+  * Constructs a general discrete probability distribution with a given set of outcomes and their
+  * probabilities.
+  * @param `domain` a number array: the set of possible outcomes in this distribution. each entry
+  *                 in this array must be unique.
+  * @param `range`  a number array: the set of probabilities of the elements in the domain. the sum
+  *                 of the elements in this array must equal 1.
+  */
+function DiscreteDistribution(domain, range) {
+}
+
+/**
+  * Constructs a general discrete probability distribution with a given set of outcomes and their
+  * probabilities.
+  * @param `fn` an array of two-valued number arrays: each inner array is of the form `[x,y]`,
+  *             where `x` is a possible outcome value and `y` is the probability of that outcome.
+  *             each entry of `fn` must have a unique `x`, and the sum of the values of each `y`
+  *             must be a total of 1.
+  */
+function DiscreteDistribution(fn) {
+}
+
+/**
   * Constructs a general discrete probability distribution with a given number of outcomes.
   * Assumes the domain is the closed interval [0, outcomes - 1].
   * For example, if `outcomes = 6`, then the inputs consist of {0, 1, 2, 3, 4, 5}.
