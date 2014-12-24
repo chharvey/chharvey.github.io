@@ -13,7 +13,7 @@ function Set() {}
   * @return    `true` if `elem` is a member of this set
   */
 Set.prototype.owns = function (x) {
-  return false;
+  // return false;
 }
 /**
   * Determines whether this set is a member of a particular set.
@@ -36,7 +36,7 @@ Set.prototype.owns = function (x) {
   * @return    `true` if this set owns at least all the elements in `set`
   */
 Set.prototype.includes = function (x) {
-  return x.isEmpty(); // every set includes the empty set
+  // return x.isEmpty(); // every set includes the empty set
 }
 /**
   * Determines whether this is a subset of a particular set.
@@ -123,12 +123,13 @@ Set.prototype.isPairOf = function (x, y) {
 }
 
 /**
-  * Returns whether this set is a powerset of the specified parameter.
+  * Returns whether this set is a power set of the specified parameter.
   * For a set x, the power set of x is the set that only contains all subsets of x.
-  * <p>Although there is a {@see PowerSet} class,
-  * some Set objects may have the <em>property</em> of being a power set without
-  * being an instance of the PowerSet class.</p>
-  * @param x the set of which this set may be a power set
-  * @return true if this set is a power set of x
+  *
+  * Although there is a `PowerSet` class, some Set objects may have the property of being
+  * a power set without being an instance of the `PowerSet` class.
+  *
+  * @param `x` the set of which this set may be a power set
+  * @return    `true` if this set owns only and all subsets of `x`
   */
-public abstract boolean isPowerSetOf(Set x);
+Set.prototype.isPowerSetOf = function (x) {}
