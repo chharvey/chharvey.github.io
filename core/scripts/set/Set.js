@@ -133,3 +133,21 @@ Set.prototype.isPairOf = function (x, y) {
   * @return    `true` if this set owns only and all subsets of `x`
   */
 Set.prototype.isPowerSetOf = function (x) {}
+
+/**
+  * Returns whether this Set is the successor of the specified Set.
+  * The `Successor` of a set is constructed by taking the `Union` of:
+  * - that set, and
+  * - the `Singleton` of that set
+  * Consequently, a set `y` is the successor of a set `x` if and only if
+  * `y` contains `x` (as an element), and `y` includes `x` (as a subset).
+  *
+  * Although there is a `Successor` class, some Set objects may have the property of being
+  * a successor without being an instance of the `Successor` class.
+  *
+  * @param `x` the Set of which this Set may or may not be the successor
+  * @return    `true` if this set is the successor of `x`
+  */
+Set.prototype.isSuccessorOf = function (x) {
+  return (this.contains(x) && this.includes(x));
+}

@@ -38,24 +38,6 @@ public abstract class Set {
         return newArray;
     }
 	/**
-	 * Returns whether this Set is the successor of the specified Set.
-	 * The {@see Successor} of a set is constructed by taking the {@see Union} of:
-	 * <ol>
-	 * <li>that set, and</li>
-	 * <li>the {@see Singleton} of that set</li>
-	 * </ol>
-	 * Consequently, this set is the successor of a set x if and only if:
-	 * this set contains x, and this set includes x.
-	 * <p>Although there is a {@see Successor} class,
-	 * some Set objects may have the <em>property</em> of being a successor without
-	 * being an instance of the Successor class.</p>
-	 * @param x the Set of which this Set is or is not the successor
-	 * @return true if this set is the successor of x
-	 */
-	public boolean isSuccessorOf(Set x) {
-		return (this.contains(x) && this.includes(x));
-	}
-	/**
 	 * Returns whether this set is inductive.
 	 * A set y is inductive iff:
 	 * <ol>
