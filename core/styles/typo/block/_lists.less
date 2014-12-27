@@ -114,6 +114,7 @@
   * This Object represents an action list, which typically contains hyperlinks.
 @implements
 : .list-block()
+: .Link
 @tags
 : #typography
 : #list
@@ -121,13 +122,12 @@
 @author
 : Chris Harvey
 @updated
-: 2014-05-11
+: 2014-10-22
   */
 .Alist {
   .list-block();
   > .Item {
-    color: @color_link_up;
-    &:hover {color: @color_link_dn;}
+    .Link;
     &::before {content: '\2713\0020';} // check mark, space
   }
 }
@@ -158,6 +158,7 @@
 /**
   * These Objects are `.Item`s in a `.Ilist`. They represent character-separated values.
   * The `.endline` interface creates a visual appearance of a line break.
+  * See `/core/styles/_trumps.less` for the `.endline` definition.
 @extends
 : .Ilist
 @tags
@@ -171,6 +172,28 @@
 .Ilist.Comma > .Item:not(:last-child)::after {content:          ',\0020';} // ', '
 .Ilist.Mdash > .Item:not(:last-child)::after {content: '\0020\2014\0020';} // ' — '
 .Ilist.Ndash > .Item:not(:last-child)::after {content: '\0020\2013\0020';} // ' – '
+
+/**
+  * This Object represents an outlined list. It is used for nested `Olist` objects, for example,
+  * to display a table of contents or document outline.
+@extends
+: .Olist
+@implements
+: .vru-top()
+@tags
+: #typography
+: #list
+@author
+: Chris Harvey
+@updated
+: 2014-12-19
+*/
+.Olist.Outline {
+  padding-left: (@listindent / 2);
+  .Outline {
+    .vru-top(0);
+  }
+}
 
 /**
   * This Object represents a 'List of Prose', a list whose items consist of only paragraphs.

@@ -1964,6 +1964,7 @@ main {
   * This Object represents an action list, which typically contains hyperlinks.
 @implements
 : .list-block()
+: .Link
 @tags
 : #typography
 : #list
@@ -1971,7 +1972,7 @@ main {
 @author
 : Chris Harvey
 @updated
-: 2014-05-11
+: 2014-10-22
   */
 .Alist {
   display: block;
@@ -1983,10 +1984,35 @@ main {
   margin-top: 1.5rem;
 }
 .Alist > .Item {
+  -webkit-transition-property: color;
+  -moz-transition-property: color;
+  -ms-transition-property: color;
+  -o-transition-property: color;
+  transition-property: color;
+  -webkit-transition-duration: 0.125s;
+  -moz-transition-duration: 0.125s;
+  -ms-transition-duration: 0.125s;
+  -o-transition-duration: 0.125s;
+  transition-duration: 0.125s;
+  -webkit-transition-timing-function: ease;
+  -moz-transition-timing-function: ease;
+  -ms-transition-timing-function: ease;
+  -o-transition-timing-function: ease;
+  transition-timing-function: ease;
+  -webkit-transition-delay: 0s;
+  -moz-transition-delay: 0s;
+  -ms-transition-delay: 0s;
+  -o-transition-delay: 0s;
+  transition-delay: 0s;
   color: #0062ff;
+  cursor: pointer;
 }
 .Alist > .Item:hover {
+  text-decoration: underline;
   color: #ff9d00;
+}
+.Alist > .Item:active {
+  color: #cc004e;
 }
 .Alist > .Item::before {
   content: '\2713\0020';
@@ -2017,6 +2043,7 @@ main {
 /**
   * These Objects are `.Item`s in a `.Ilist`. They represent character-separated values.
   * The `.endline` interface creates a visual appearance of a line break.
+  * See `/core/styles/_trumps.less` for the `.endline` definition.
 @extends
 : .Ilist
 @tags
@@ -2035,6 +2062,28 @@ main {
 }
 .Ilist.Ndash > .Item:not(:last-child)::after {
   content: '\0020\2013\0020';
+}
+/**
+  * This Object represents an outlined list. It is used for nested `Olist` objects, for example,
+  * to display a table of contents or document outline.
+@extends
+: .Olist
+@implements
+: .vru-top()
+@tags
+: #typography
+: #list
+@author
+: Chris Harvey
+@updated
+: 2014-12-19
+*/
+.Olist.Outline {
+  padding-left: 0.25in;
+}
+.Olist.Outline .Outline {
+  margin-top: 0px;
+  margin-top: 0rem;
 }
 /**
   * This Object represents a 'List of Prose', a list whose items consist of only paragraphs.
@@ -4245,7 +4294,8 @@ del + ins {
   body {
     background-image: none !important;
   }
-  main {
+  main,
+  .MainGolden {
     width: auto;
     margin-left: auto;
     margin-right: auto;
