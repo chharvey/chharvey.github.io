@@ -36,7 +36,7 @@ Set.prototype.owns = function (x) {
   * @return    `true` if this set owns at least all the elements in `set`
   */
 Set.prototype.includes = function (x) {
-  // return x.isEmpty(); // every set includes the empty set
+  return x.isEmpty(); // every set includes the empty set
 }
 /**
   * Determines whether this is a subset of a particular set.
@@ -101,7 +101,7 @@ Set.prototype.isSingleton = function () {}
   * @return    `true` if this set contains `x` and no other elements
   */
 Set.prototype.isSingletonOf = function (x) {
-  return this.isSingleton() && this.contains(x);
+  return this.isSingleton() && this.owns(x);
 }
 
 /**
@@ -125,7 +125,7 @@ Set.prototype.isPair = function () {}
   * @return    `true` if this contains `x` and `y` and no other elements
   */
 Set.prototype.isPairOf = function (x, y) {
-  return this.isPair() && this.contains(x) && this.contains(y);
+  return this.isPair() && this.owns(x) && this.owns(y);
 }
 
 /**
@@ -178,7 +178,6 @@ Set.prototype.isInductive = function () {}
   * @return `true` if this set is a cardinal number
   */
 Set.prototype.isCardinal = function () {}
-
 /**
   * Returns whether this set is an ordinal number.
   *
@@ -194,7 +193,6 @@ Set.prototype.isOrdinal = function () {}
   * @return a `Cardinal` object representing the size of this set
   */
 Set.prototype.cardinality = function () {}
-
 /**
 * Returns an Ordinal number representing this set's "order type" (referring to the ...).
 * @return an `Ordinal` object representing the order type of this set
@@ -212,7 +210,6 @@ Set.prototype.ordinality = function () {}
 Set.prototype.isEquinumerousTo = function (x) {
   return this.cardinality().equals(set.cardinality());
 }
-
 /**
   * Returns whether this set and the given set are order-isomorphis, that is,
   * there exists a bijection between them that preserves order.
