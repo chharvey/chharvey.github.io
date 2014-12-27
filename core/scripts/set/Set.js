@@ -151,3 +151,40 @@ Set.prototype.isPowerSetOf = function (x) {}
 Set.prototype.isSuccessorOf = function (x) {
   return (this.contains(x) && this.includes(x));
 }
+
+/**
+  * Returns whether this set is inductive.
+  * A set y is inductive iff:
+  * - `y.ownsEmpty()` and
+  * - for any Set `t`, if `y.owns(t)` then `y.owns(new SuccessorSet(t))`
+  *
+  * Although there is a `InductiveSet` class, some Set objects may have the property of being
+  * inductive without being an instance of the `InductiveSet` class.
+  * @return `true` if this set is inductive
+  */
+Set.prototype.isInductive = function () {}
+
+/**
+  * {@inheritDoc}
+  * @return the set-theoretic representation of this object
+  */
+Set.prototype.toString = function () {}
+
+/**
+  * Returns a Cardinal number representing this set's "size" (referring to the number of
+  * elements in this set).
+  * @return a `Cardinal` object representing the size of this set
+  */
+Set.prototype.cardinality = function () {}
+
+/**
+  * Returns whether this set and the given set are equinumerous, that is, they "have the same
+  * number of elements."
+  * Mathematical sets are equinumerous if and only if there exists a bijection between them.
+  * A consequence of that fact is that their cardinalities, or "set sizes" are equal.
+  * @param `x` the set to test equinumerosity with
+  * @return    `true` if `x` and this set have equal cardinalities
+  */
+Set.prototype.isEquinumerousTo = function (x) {
+  return this.cardinality().equals(set.cardinality());
+}
