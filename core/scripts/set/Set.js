@@ -62,6 +62,12 @@ Set.prototype.equals = function (x) {
 }
 
 /**
+  * Returns the set-theoretic representation of this object as a string.
+  */
+Set.prototype.toString = function () {}
+
+
+/**
   * Returns whether this Set has no elements.
   *
   * Although there is an `EmptySet` class, some `Set` objects may have the property of
@@ -165,10 +171,22 @@ Set.prototype.isSuccessorOf = function (x) {
 Set.prototype.isInductive = function () {}
 
 /**
-  * {@inheritDoc}
-  * @return the set-theoretic representation of this object
+  * Returns whether this set is a cardinal number.
+  *
+  * Although there is a `Cardinal` class, some Set objects may have the property of being
+  * a cardinal number without being an instance of the `Cardinal` class.
+  * @return `true` if this set is a cardinal number
   */
-Set.prototype.toString = function () {}
+Set.prototype.isCardinal = function () {}
+
+/**
+  * Returns whether this set is an ordinal number.
+  *
+  * Although there is an `Ordinal` class, some Set objects may have the property of being
+  * an ordinal number without being an instance of the `Ordinal` class.
+  * @return `true` if this set is an ordinal number
+  */
+Set.prototype.isOrdinal = function () {}
 
 /**
   * Returns a Cardinal number representing this set's "size" (referring to the number of
@@ -176,6 +194,12 @@ Set.prototype.toString = function () {}
   * @return a `Cardinal` object representing the size of this set
   */
 Set.prototype.cardinality = function () {}
+
+/**
+* Returns an Ordinal number representing this set's "order type" (referring to the ...).
+* @return an `Ordinal` object representing the order type of this set
+*/
+Set.prototype.ordinality = function () {}
 
 /**
   * Returns whether this set and the given set are equinumerous, that is, they "have the same
@@ -187,4 +211,15 @@ Set.prototype.cardinality = function () {}
   */
 Set.prototype.isEquinumerousTo = function (x) {
   return this.cardinality().equals(set.cardinality());
+}
+
+/**
+  * Returns whether this set and the given set are order-isomorphis, that is,
+  * there exists a bijection between them that preserves order.
+  * A consequence of that fact is that their ordinalities, or "order types" are equal.
+  * @param `x` the set to test order isomorphism with
+  * @return    `true` if `x` and this set have equal ordinalities
+  */
+Set.prototype.isOrderIsomorphicWith = function (x) {
+  return this.ordinality().equals(set.ordinality());
 }
