@@ -71,9 +71,9 @@ Set.prototype.includes = function (x) {}
   * @return    `true` if `this` and `x` include each other
   */
 Set.prototype.equals = function (x) {
-  boolean sameObject = (this === set); // a convenience statement: equal Objects are equal sets (but not vice versa)
-  boolean bothEmpty = this.isEmpty() && set.isEmpty(); // a convenience statement: all empty sets are equal
-  boolean includeEachOther = this.includes(set) && set.includes(this); // definition of set equality
+  boolean sameObject = (this === x); // a convenience statement: equal Objects are equal sets (but not vice versa)
+  boolean bothEmpty = this.isEmpty() && x.isEmpty(); // a convenience statement: all empty sets are equal
+  boolean includeEachOther = this.includes(x) && x.includes(this); // definition of set equality
   return sameObject || bothEmpty || includeEachOther;
 }
 
@@ -210,9 +210,9 @@ Set.prototype.isOrdinal = function () {}
   */
 Set.prototype.cardinality = function () {}
 /**
-* Returns an Ordinal number representing this set's "order type" (referring to the ...).
-* @return an `Ordinal` object representing the order type of this set
-*/
+  * Returns an Ordinal number representing this set's "order type" (referring to the ...).
+  * @return an `Ordinal` object representing the order type of this set
+  */
 Set.prototype.ordinality = function () {}
 
 /**
