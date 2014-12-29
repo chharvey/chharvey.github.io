@@ -9,12 +9,18 @@ function Set() {}
 /**
   * Determines whether this set "owns" a particular element.
   * Mathematical ownership indicates that the element is a member of this set.
+  *
+  * Ownership has the following relational properties for any Sets `a`, `b`, and `c`:
+  * - antireflxive:      `a.owns(a) === false` always
+  * - nowhere-symmetric: if `a.owns(b) === true` then `b.owns(a) === false`
+  * - "antisymmetric":   if `a.owns(b) === true` and `b.owns(a) === true`, then (vacuously) `a.owns(b) === true`
+  * - intransitive:      if `a.owns(b) === true` and `b.owns(c) === true`, then
+  *                        it might or might not be the case that `a.owns(c) === true`
+  *
   * @param `x` the element in question
   * @return    `true` if `elem` is a member of this set
   */
-Set.prototype.owns = function (x) {
-  // return false;
-}
+Set.prototype.owns = function (x) {}
 /**
   * Determines whether this set is a member of a particular set.
   * An inverse method for the `this.owns()` method.
@@ -32,12 +38,15 @@ Set.prototype.owns = function (x) {
   * Although there is a `Subset` class, some `Set` objects may have the property of being a subset
   * of this one without being an instance of the `Subset` class.
   *
+  * Inclusion has the following relational properties for any Sets `a`, `b`, and `c`:
+  * - reflxive:        `a.includes(a) === true`
+  * - "antisymmetric": if `a.includes(b) === true` and `b.includes(a) === true`, then `a.equals(b) === true`
+  * - transitive:      if `a.includes(b) === true` and `b.includes(c) === true`, then `a.includes(c) === true`
+  *
   * @param `x` the set in question
-  * @return    `true` if this set owns at least all the elements in `set`
+  * @return    `true` if this set owns at least all the elements in `x`
   */
-Set.prototype.includes = function (x) {
-  return x.isEmpty(); // every set includes the empty set
-}
+Set.prototype.includes = function (x) {}
 /**
   * Determines whether this is a subset of a particular set.
   * An inverse method for the `this.isSupersetOf()` method.
@@ -51,8 +60,15 @@ Set.prototype.includes = function (x) {
 /**
   * Returns whether the specified Set has the same elements as this Set.
   * Two sets are equal (have the same elements) exactly when they include each other.
+  *
+  * Equality has the following relational properties for any Sets `a`, `b`, and `c`:
+  * - reflxive:        `a.equals(a) === true`
+  * - symmetric:       if `a.equals(b) === true`, then `b.equals(a) === true`
+  * - "antisymmetric": if `a.equals(b) === true` and `b.equals(a) === true`, then `a.equals(b) === true`
+  * - transitive:      if `a.equals(b) === true` and `b.equals(c) === true`, then `a.equals(c) === true`
+  *
   * @param `x` the specified set
-  * @return    `true` if `x` and this set are both empty, or this and `x` include each other
+  * @return    `true` if `this` and `x` include each other
   */
 Set.prototype.equals = function (x) {
   boolean sameObject = (this === set); // a convenience statement: equal Objects are equal sets (but not vice versa)
@@ -208,7 +224,7 @@ Set.prototype.ordinality = function () {}
   * @return    `true` if `x` and this set have equal cardinalities
   */
 Set.prototype.isEquinumerousTo = function (x) {
-  return this.cardinality().equals(set.cardinality());
+  return this.cardinality().equals(x.cardinality());
 }
 /**
   * Returns whether this set and the given set are order-isomorphis, that is,
@@ -218,5 +234,5 @@ Set.prototype.isEquinumerousTo = function (x) {
   * @return    `true` if `x` and this set have equal ordinalities
   */
 Set.prototype.isOrderIsomorphicWith = function (x) {
-  return this.ordinality().equals(set.ordinality());
+  return this.ordinality().equals(x.ordinality());
 }

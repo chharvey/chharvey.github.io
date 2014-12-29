@@ -18,7 +18,7 @@ Pair.prototype.owns = function (x) {
 }
 
 Pair.prototype.includes = function (x) {
-  return Set.prototype.includes.call(this)
+  return x.isEmpty() // every set includes the empty set
          || x.isSingletonOf(this.element1)
          || x.isSingletonOf(this.element2)
          || x.equals(this);
@@ -39,6 +39,7 @@ Pair.prototype.isEmpty = function () {
 }
 
 Pair.prototype.ownsEmpty = function () {
+  // overrides Set.prototype.ownsEmpty() {return this.owns(new EmptySet());}
   return this.element1.isEmpty() || this.element2.isEmpty();
 }
 
@@ -54,12 +55,14 @@ Pair.prototype.isPairOf = function (x, y) {
 }
 
 Pair.prototype.isPowerSetOf = function (x) {
-  // The power set of `x` is a pair if `x` is a singleton or if `x` is empty.
-  // If so, this pair contains the empty set and `x`.
-  // @return `true` if x is a singleton or is empty, and this set contains x and the empty set
-  var p = this.containsEmpty() && this.contains(x); // a fact about all power sets
+  // The power set P(x) of any set x owns the empty set, x itself, and possibly more elements.
+  // If x is empty, then P(x) is exacly the set that owns x, which makes it a singleton, which is a pair.
+  // If x is a singleton, then P(x) owns the empty set and x, and nothing else, which makes it a pair.
+  // If x owns more than 1 element, then P(x) will own more than 2 elements, so it will not be a pair.
+  var p = this.ownsEmpty() && this.owns(x); // a fact about all power sets
   var e = x.isSingleton() || x.isEmpty();
   return p && e;
+  // PowerSet.prototype.isPowerSetOf.call(this, x)
 }
 
 Pair.prototype.isInductive = function () {
@@ -73,8 +76,8 @@ Pair.prototype.cardinality = function () {}
 Pair.prototype.ordinality = function () {}
 
 Pair.prototype.isEquinumerousTo = function (x) {
-  return this.cardinality().equals(set.cardinality());
+  return this.cardinality().equals(x.cardinality());
 }
 Pair.prototype.isOrderIsomorphicWith = function (x) {
-  return this.ordinality().equals(set.ordinality());
+  return this.ordinality().equals(x.ordinality());
 }
