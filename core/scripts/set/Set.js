@@ -21,15 +21,6 @@ function Set() {}
   * @return    `true` if `elem` is a member of this set
   */
 Set.prototype.owns = function (x) {}
-/**
-  * Determines whether this set is a member of a particular set.
-  * An inverse method for the `this.owns()` method.
-  * @param `set` the Set in question
-  * @return      `true` if `set` owns this set
-  */
-// Set.prototype.isElementOf = function (set) {
-//   return set.owns(this);
-// }
 
 /**
   * Returns whether this Set has the specified Set as a subset.
@@ -47,15 +38,6 @@ Set.prototype.owns = function (x) {}
   * @return    `true` if this set owns at least all the elements in `x`
   */
 Set.prototype.includes = function (x) {}
-/**
-  * Determines whether this is a subset of a particular set.
-  * An inverse method for the `this.isSupersetOf()` method.
-  * @param `set` the Set in question
-  * @return      `true` if `set` includes this set
-  */
-// Set.prototype.isSubsetOf = function(set) {
-//   return set.isSupersetOf(this);
-// }
 
 /**
   * Returns whether the specified Set has the same elements as this Set.
