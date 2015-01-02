@@ -12,7 +12,7 @@ function resizeFolioHeading() {
   });
   $('.Folio .Cap').css('font-size', function () {
     var width_rem = $(this).parent().width() / 16;
-    return 1.5 * scale * width_rem + 'rem';
+    return 2 * scale * width_rem + 'rem';
   });
 }
 
