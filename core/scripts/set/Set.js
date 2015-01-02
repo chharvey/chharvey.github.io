@@ -71,8 +71,8 @@ Set.prototype.includes = function (x) {}
   * @return    `true` if `this` and `x` include each other
   */
 Set.prototype.equals = function (x) {
-  boolean sameObject = (this === x); // a convenience statement: equal Objects are equal sets (but not vice versa)
-  boolean bothEmpty = this.isEmpty() && x.isEmpty(); // a convenience statement: all empty sets are equal
+  boolean sameObject = (this === x); // convenience statement: equal Objects are equal sets (but not vice versa)
+  boolean bothEmpty = this.isEmpty() && x.isEmpty(); // convenience statement: all empty sets are equal
   boolean includeEachOther = this.includes(x) && x.includes(this); // definition of set equality
   return sameObject || bothEmpty || includeEachOther;
 }

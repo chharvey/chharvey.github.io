@@ -14,7 +14,7 @@ function Pair(a, b) {
 Util.extend(Pair, Set);
 
 Pair.prototype.owns = function (x) {
-  return x.equals(this.element1) || x.equals(this.element2); // A pair owns exactly its elements.
+  return this.element1.equals(x) || this.element2.equals(x);
 }
 
 Pair.prototype.includes = function (x) {
@@ -25,17 +25,15 @@ Pair.prototype.includes = function (x) {
 }
 
 Pair.prototype.toString = function () {
-  var s = "{ " + this.element1;
-  if (!this.isSingleton()) {
-    s += ",  " + this.element2;
-  }
-  s += " }";
-  return s; // `{ element1, element2 }`
+  var s = '{ ' + this.element1;
+  if (!this.isSingleton()) s += ',  ' + this.element2;
+  s += ' }';
+  return s; // `{ element1,  element2 }`
 }
 
 
 Pair.prototype.isEmpty = function () {
-  return false; // A Pair is always nonempty.
+  return false;
 }
 
 Pair.prototype.ownsEmpty = function () {
@@ -44,11 +42,11 @@ Pair.prototype.ownsEmpty = function () {
 }
 
 Pair.prototype.isSingleton = function () {
-  return this.element1.equals(this.element2); // `true` if this Pair's elements are equal
+  return this.element1.equals(this.element2);
 }
 
 Pair.prototype.isPair = function () {
-  return true; // All Pair objects are pairs.
+  return true;
 }
 Pair.prototype.isPairOf = function (x, y) {
   return this.owns(x) && this.owns(y);
@@ -57,7 +55,7 @@ Pair.prototype.isPairOf = function (x, y) {
 Pair.prototype.isPowerSetOf = function (x) {
   // The power set P(x) of any set x owns the empty set, x itself, and possibly more elements.
   // If x is empty, then P(x) is exacly the set that owns x, which makes it a singleton, which is a pair.
-  // If x is a singleton, then P(x) owns the empty set and x, and nothing else, which makes it a pair.
+  // If x is a singleton, then P(x) owns the empty set and x, and nothing else, which makes it a non-singleton pair.
   // If x owns more than 1 element, then P(x) will own more than 2 elements, so it will not be a pair.
   var p = this.ownsEmpty() && this.owns(x); // a fact about all power sets
   var e = x.isSingleton() || x.isEmpty();
@@ -66,18 +64,5 @@ Pair.prototype.isPowerSetOf = function (x) {
 }
 
 Pair.prototype.isInductive = function () {
-  return false; // No Pair objects are inductive.
-}
-
-Pair.prototype.isCardinal = function () {}
-Pair.prototype.isOrdinal = function () {}
-
-Pair.prototype.cardinality = function () {}
-Pair.prototype.ordinality = function () {}
-
-Pair.prototype.isEquinumerousTo = function (x) {
-  return this.cardinality().equals(x.cardinality());
-}
-Pair.prototype.isOrderIsomorphicWith = function (x) {
-  return this.ordinality().equals(x.ordinality());
+  return false;
 }
