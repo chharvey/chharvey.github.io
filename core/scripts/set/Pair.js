@@ -19,9 +19,9 @@ Pair.prototype.owns = function (x) {
 
 Pair.prototype.includes = function (x) {
   return x.isEmpty() // every set includes the empty set
-         || x.isSingletonOf(this.element1)
-         || x.isSingletonOf(this.element2)
-         || x.equals(this); // WARNING: CYCLICAL DEFINITION
+    || x.isSingletonOf(this.element1)
+    || x.isSingletonOf(this.element2)
+    || x.isPairOf(this.element1, this.element2);
 }
 
 Pair.prototype.toString = function () {

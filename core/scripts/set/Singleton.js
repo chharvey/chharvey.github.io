@@ -18,7 +18,7 @@ Singleton.prototype.owns = function (x) {
 }
 
 Singleton.prototype.includes = function (x) {
-  return x.isEmpty() || x.equals(this);
+  return x.isEmpty() || x.isSingletonOf(this.element);
 }
 
 Singleton.prototype.toString = function () {
@@ -38,7 +38,7 @@ Singleton.prototype.isSingletonOf = function (x) {
   return this.owns(x);
 }
 
-Pair.prototype.isPairOf = function (x, y) {
+Singleton.prototype.isPairOf = function (x, y) {
   return this.owns(x) && x.equals(y);
 }
 
