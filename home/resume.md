@@ -28,24 +28,11 @@ http://chharvey.github.io/
 - Created, sent surveys and election polls to members.
 
 
-### General
-
-- Delegate separation of concerns.
-- Develop and adhere to a rigorous set of standards and conventions.
-- Strike an elegant, efficient balance between graceful degradation/progressive enhancement.
-
 ### HTML
 
 - Enforce new and upcoming features.
 - Utilize diverse, semantic data and metadata.
 - Implement future-proof accessible and assistive technologies.
-
-### CSS/Less
-
-- Approach with object-oriented principles.
-- Generalize and abstract reusable patterns.
-- Maximize site performance.
-- Create mathematics-heavy, aesthetic layout systems, vertical rhythm, color schemes.
 
 ### Git
 
