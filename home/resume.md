@@ -8,42 +8,28 @@ http://chharvey.github.io/
 
 ## OBJECTIVE
 
-- To obtain a full-time position as a front-end web developer.
+- To obtain an entry-level position as a front-end web developer.
 
-## TECHNOLOGICAL EXPERIENCE
+## TECHNICAL EXPERIENCE
 
-### Knowledge Diffusion (Charlottesville, VA)
-#### Internship (Oct 2014–present)
+### Languages & Systems
 
-- Implement a feature that presents students their usage analytics using D3.js.
-- Automate construction of a dynamic, interactive graphical user interface in SVG.
-- Construct and reference common libraries and databases (jQuery).
-- Edit and traverse repositories via command line.
-- Use branching and merging effectively.
+- HTML, CSS / Less, JavaScript, jQuery, D3.js, SVG, MathJax / LaTeX, XML / XSLT / XSD, Java, Git
+
+### Knowledge Diffusion, Inc. (Charlottesville, VA)
+#### Internship. Front-end developer (Oct 2014–present)
+
+- Implemented a feature that presented students their usage analytics using D3.js.
+- Automated construction of a dynamic, interactive graphical user interface with SVG and Less.
+- Constructed and referenced common libraries and databases (jQuery).
+- Edited and traversed Git repositories via command line.
+- Used branching, merging, remotes effectively.
 
 ### ￼Virginia Tech Swim Club (Blacksburg, VA)
 #### Webmaster (2009–2011)
 
 - Authored, administered, updated club’s PHP Web site.
 - Created, sent surveys and election polls to members.
-
-
-### HTML
-
-- Enforce new and upcoming features.
-- Utilize diverse, semantic data and metadata.
-- Implement future-proof accessible and assistive technologies.
-
-### Git
-
-- Apply semantic version numbering.
-- Collaborate with team members.
-
-### Miscellaneous
-
-- Combine MathJax and LaTeX to offer semantic, beautiful math for the Web.
-- XML/XSLT/XSD
-- Java
 
 ## TEACHING EXPERIENCE
 
