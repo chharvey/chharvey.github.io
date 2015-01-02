@@ -7,9 +7,9 @@
   * @param `b` another element in this set
   */
 function Pair(a, b) {
-  Set.call(this, a, b);
   this.element1 = a || new EmptySet();
   this.element2 = b || this.element1;
+  Set.call(this, this.element1, this.element2);
 }
 Util.extend(Pair, Set);
 
@@ -21,7 +21,14 @@ Pair.prototype.includes = function (x) {
   return x.isEmpty() // every set includes the empty set
          || x.isSingletonOf(this.element1)
          || x.isSingletonOf(this.element2)
-         || x.equals(this);
+         || x.equals(this); // WARNING: CYCLICAL DEFINITIONS
+}
+
+Pair.prototype.equals = function (x) {
+  boolean sameObject = (this === x); // convenience statement: equal Objects are equal sets (but not vice versa)
+  boolean bothEmpty = this.isEmpty() && x.isEmpty(); // convenience statement: all empty sets are equal
+  boolean includeEachOther = this.includes(x) && x.includes(this); // definition of set equality
+  return sameObject || bothEmpty || includeEachOther;
 }
 
 Pair.prototype.toString = function () {

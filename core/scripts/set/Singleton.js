@@ -7,9 +7,9 @@
   * @extends   Pair
   * @param `a` the element in this set
   */
-function Singleton(a, b) {
-  Pair.call(this, a, a);
+function Singleton(a) {
   this.element = a || new EmptySet();
+  Pair.call(this, this.element, this.element);
 }
 Util.extend(Singleton, Pair);
 
@@ -25,10 +25,6 @@ Singleton.prototype.toString = function () {
   return '{ ' + this.element + ' }';
 }
 
-
-Singleton.prototype.isEmpty = function () {
-  return false;
-}
 
 Singleton.prototype.ownsEmpty = function () {
   // overrides Set.prototype.ownsEmpty() {return this.owns(new EmptySet());}
