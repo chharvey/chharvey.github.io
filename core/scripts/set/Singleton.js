@@ -3,7 +3,7 @@
   * This class is not to be confused with a "singleton" class in Java,
   * which is a class that can only be instantiated once.
   * For every set x, there exists a set that contains exactly x.
-  * `new Singleton(x)` is defined as new Pair(x,x).
+  * `new Singleton(x)` is defined as `new Pair(x,x)`.
   * @extends   Pair
   * @param `a` the element in this set
   */

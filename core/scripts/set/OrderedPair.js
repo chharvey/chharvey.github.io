@@ -1,7 +1,17 @@
 /**
-  * Given two Sets, there exists a Set that owns exactly them both.
-  * The order of these elements is not relevant, that is,
-  * `(new OrderedPair(a,b)).equals(new OrderedPair(b,a)) === true`
+  * An OrderedPair is a set that encodes the order of its two coordinates.
+  * An ordered pair is written (a,b), where a and b are the coordinates.
+  *
+  * The order of these coordinates is relevant, that is,
+  * `(new OrderedPair(a,b)).equals(new OrderedPair(b,a)) === false` UNLESS
+  * `a.equals(b)`.
+  *
+  * An OrderedPair is similar to a {@see Tuple} with 2 components (a 2-tuple),
+  * however they are structurally different from a set-theoretic approach:
+  * The ordered pair (a,b) does not have the same elements as the 2-tuple ‹a,b›
+  * and thus they are not equal.
+  *
+  * `new OrderedPair(a,b)` is defined as `new Pair(new Singleton(a), new Pair(a,b))`
   * @extends   Pair
   * @param `a` the first coordinate (abscissa)
   * @param `b` the second coordinate (ordinate)
@@ -17,11 +27,8 @@ OrderedPair.prototype.owns = function (x) {
   return this.element1.equals(x) || this.element2.equals(x);
 }
 
-OrderedPair.prototype.includes = function (x) {
-  return x.isEmpty() // every set includes the empty set
-         || x.isSingletonOf(this.element1)
-         || x.isSingletonOf(this.element2)
-         || x.equals(this);
+OrderedPair.prototype.equals = function (x) {
+  return this.abscissa.equals(x.abscissa) && this.ordinate.equals(x.ordinate);
 }
 
 OrderedPair.prototype.toString = function () {
