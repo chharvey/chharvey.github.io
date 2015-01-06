@@ -122,7 +122,7 @@ function qblockLines() {
   3. If the number of lines is odd, set margin-bottom: -12px;.
 
   */
-  $('.Qblock.Short').each(function() {
+  $('.Qblock.Short').each(function () {
     var lines = $(this).height() / 24;
     lines = Math.round(lines / 1.5); // divide by 1.5 to account for new line height
     if (lines % 2 === 1) {
@@ -132,8 +132,28 @@ function qblockLines() {
     }
   });
 }
+
+/**
+  * Adjusts the height of the `.Term`s and `.Desc`s inside a `.Map` such that
+  * the each pair of terms and descriptions share the same height.
+  */
+function mapHeights () {
+  $('.Map.Horiz').each(function () {
+    $(this).children('.Term').each(function () {
+      var h1 = parseInt($(this).css('height'));
+      var h2 = parseInt($(this).next().css('height'));
+      $(this).next().css('height', Math.max(h1, h2) + 'px');
+    });
+    $(this).children('.Desc').each(function () {
+      var h1 = parseInt($(this).prev().css('height'));
+      var h2 = parseInt($(this).css('height'));
+      $(this).prev().css('height', Math.max(h1, h2) + 'px');
+    });
+  });
+}
 $(document).ready(function () {
   qblockLines();
+  mapHeights();
   /**
   Subtracts margin-bottom, or adds padding-bottom to tables to compensate for horizontal borders.
   ONLY USE THIS FUNCTION ON TABLES WITH HORIZONTAL BORDERS.
@@ -155,10 +175,10 @@ $(document).ready(function () {
   */
   $('.Table').each(function () {
     var n_rowgroups = 0;
-    $(this).find('thead, tbody, tfoot').each(function () {
+    $(this).find('.Rowgroup').each(function () {
       n_rowgroups++;
     });
-    n_rowgroups++; // once more for the last border
+    if ($(this).find('.Rowgroup')[0] != null) n_rowgroups++; // once more for the last border, if there is one
     if ($(this).find('caption').hasClass('Capt')) {n_rowgroups++;} // once more again for a caption if it exists
     var btm = -(((n_rowgroups + 12) % 24) - 12);
     if (btm <= 0) {$(this).css('margin-bottom',btm);}

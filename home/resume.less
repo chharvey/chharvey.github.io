@@ -9,9 +9,8 @@
 //- SECTIONS
 //- HEADINGS
 //  - Overriding
+//- OBJECTS
 
-
-.Ulist {padding-left: (@listindent / 2);}
 
 
 //+++++++++//
@@ -22,6 +21,8 @@
   */
 .res-Header {
   .res-Postal {
+    .Ilist;
+    .Ilist.Square;
     br {display: none;}
   }
 }
@@ -33,12 +34,26 @@
   * A Skill is a top-level section, e.g. Teaching Experience.
   * The name of the Skill is a `.res-SkillTitle`.
   */
-.res-Skill {}
+.res-Skill {
+  &:first-of-type {
+    .vru-top-phi(1px; solid; @color_h_minor);
+  }
+}
+
 /**
   * A Job is an item in a Skill. It has an organization name and location.
   * The name of the Job is a `.res-JobTitle`.
   */
 .res-Job {}
+/**
+  * Similar to a Job, an Institution (`Inst`) is an educational organization (college/university)
+  * with a name and location. It is also in a Skill, namely, the one corresponding to Education.
+  * The name of the Inst is a `.res-InstTitle`.
+  */
+.res-Inst {
+  display: flex;
+  flex-direction: column;
+}
 /**
   * A Pos(ition) is an item in a Job. Usually, each Job will only have one position, but there
   * could be multiple positions.
@@ -46,6 +61,11 @@
   * There may be a list of descriptors, which is called a `.res-PosDetail`.
   */
 .res-Pos {}
+
+.res-Footer {
+  .vru-top-phi(1px; solid; @color_h_minor);
+  .Fineprint;
+}
 //++++ @end SECTIONS ++++//
 
 
@@ -88,14 +108,13 @@
 .res-JobTitle {
   .H--Gam;
 }
+.res-InstTitle {
+  .H--Eps;
+  order: 1;
+}
 .res-PosTitle {
   .H--Del;
-}
-.res-Deg {
-  .H--Eps;
-}
-.res-Inst {
-  .H--Zet;
+  font-weight: normal;
 }
 
 //-----------//
@@ -104,46 +123,30 @@
 .res-Name,
 .res-SkillTitle,
 .res-JobTitle,
-.res-PosTitle,
-.res-Deg,
-.res-Inst {
+.res-InstTitle,
+.res-PosTitle {
   letter-spacing: normal;
 }
 .res-SkillTitle,
 .res-JobTitle,
-.res-PosTitle,
-.res-Deg,
-.res-Inst {
+.res-InstTitle,
+.res-PosTitle {
   .vru-top(   0);
   .vru-bottom(0);
 }
 .res-JobTitle,
-.res-PosTitle,
-.res-Deg,
-.res-Inst {
+.res-InstTitle,
+.res-PosTitle {
   font-size: inherit;
   line-height: inherit;
 }
 //---- @end Overriding ----//
 //++++ @end HEADINGS ++++//
 
-
-#tech-skills {
-  .Gcol:first-child {padding-right: 5px;}
-  .Gcol:last-child  {padding-left:  5px;}
-}
-.tech-skills-body { // element created in JS
-  .flexbox();
-  .flex-direction(column);
-  .flex-wrap(wrap);
-}
-#tech-gen  {.flex-order(00);}
-#tech-html {.flex-order(10);}
-#tech-css  {.flex-order(01);}
-#tech-git  {.flex-order(30);}
-#tech-misc {.flex-order(40);}
-#tech-apps {.flex-order(50);}
-
+//++++++++//
+/*@OBJECTS*/
+//++++++++//
+.Ulist {padding-left: (@listindent / 2);}
 
 /**
   * A bullet list of job descriptions for each Position.
@@ -178,21 +181,22 @@
   color: @color_base_txt;
 }
 
-.res-Skill:first-of-type,
-.res-Footer {
-  .vru-top-phi(1px; solid; @color_h_minor);
-}
+a[rel~="external"] {font-style: inherit;}
+i[lang] {font-family: inherit;}
 
-.js-res-Footer > .Pagecount {text-align: right;}
+//++++ @end OBJECTS ++++//
 
-a {font-style: inherit !important;}
 
 @media screen {
+  @font_text: @fontfam_prose;
+  html {
+    font-family: @font_text;
+  }
   .res-Header {
     text-align: center;
   }
   .res-Postal {
-    font-family: @fontfam_intro;
+    font-family: @fontfam_heading;
   }
   .res-SkillTitle {
     width: @golden4;
@@ -203,7 +207,7 @@ a {font-style: inherit !important;}
     left: 0;
   }
   .res-Spacetime {
-    font-family: @fontfam_base;
+    font-family: @font_text;
   }
   .js-res-Footer {
     display: none;
@@ -213,24 +217,15 @@ a {font-style: inherit !important;}
   body {
     width: 768px; // 8in
     font-size: inherit;
-    font-family: @fontfam_math;
+    font-family: 'Times','Times New Roman',serif;
     line-height: inherit;
   }
-  main {
-    // .flexbox();
-    // .flex-direction(column);
-    margin-bottom: 0;
-  }
-  // .res-Job {
-  //   .vru-top(0.5);
-  // }
 
   .res-Name,
   .res-SkillTitle,
   .res-JobTitle,
-  .res-PosTitle,
-  .res-Deg,
-  .res-Inst {
+  .res-InstTitle,
+  .res-PosTitle {
     font-weight: inherit;
     font-style: inherit;
     font-variant: inherit;
@@ -252,27 +247,12 @@ a {font-style: inherit !important;}
     font-variant: small-caps;
   }
   .res-JobTitle {}
+  .res-InstTitle {
+    font-style: italic;
+  }
   .res-PosTitle {
     font-style: italic;
   }
-  .res-Deg {}
-  .res-Inst {
-    font-style: italic;
-  }
 
-  // .res-Header  {.flex-order(00);}
-  // #objective   {.flex-order(10);}
-  // #tech-skills {.flex-order(20);}
-  // #teach-exp   {.flex-order(30);}
-  // #work-exp    {.flex-order(40);}
-  // #edu         {.flex-order(50);}
-  // #prof-dev    {.flex-order(60);}
-  // #awards      {.flex-order(70);}
-  // #athletic    {.flex-order(80);}
-  // .res-Footer  {.flex-order(90);}
-
-  #tech-skills .res-PosDetail {
-    .fontsize-block-sml();
-  }
-  #prof-dev {margin-top: 48px;}
+  .pagebreak {margin-top: 120px;}
 }
