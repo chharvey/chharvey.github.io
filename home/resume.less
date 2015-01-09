@@ -23,7 +23,7 @@
 }
 /**
   * My name at the top of the resume.
-@extends
+@implements
 : .H--Alp
 @tags
 : #heading
@@ -34,8 +34,17 @@
 */
 .res-Name {
   .H--Alp;
-  letter-spacing: normal;
+  letter-spacing: inherit;
 }
+/**
+  * My address at the top of the resume.
+@implements
+: .Ilist.Square
+@author
+: Chris Harvey
+@updated
+: 2015-01-08
+  */
 .res-Postal {
   .Ilist;
   .Ilist.Square;
@@ -44,6 +53,13 @@
 
 /**
   * A Skill is a top-level section, e.g. Teaching Experience.
+@implements
+: .vru-top()
+: .vru-top-phi()
+@author
+: Chris Harvey
+@updated
+: 2015-01-08
   */
 .res-Skill {
   .vru-top(1);
@@ -53,17 +69,16 @@
 }
 /**
   * The title of each skillgroup, e.g. "Teaching Experience"
-@extends
-: .H--Bet
 @implements
+: .H--Bet
+: .vru-top()
+: .vru-bottom()
 : .fontsize-block()
 : .border-vert-undo()
-@tags
-: #golden
 @author
 : Chris Harvey
 @updated
-: 2014-10-19
+: 2015-01-08
   */
 .res-SkillTitle {
   .H--Bet;
@@ -71,20 +86,43 @@
   .vru-bottom(0);
   .border-vert-undo();
   .fontsize-block(1.5);
-  letter-spacing: normal;
+  letter-spacing: inherit;
 }
 
 /**
   * A Org is an item in a Skill. It has an organization name and location.
   * The name of the Org is a `.res-OrgTitle`.
+@implements
+: .vru-top()
+@author
+: Chris Harvey
+@updated
+: 2015-01-08
   */
 .res-Org {
   .vru-top(1);
+  /**
+    * Similar to an Org, an Institution (`Inst`) is an educational organization (college/university)
+    * with a name and location. It is also in a Skill, namely, the one corresponding to Education.
+    * The name of the Inst is a `.res-InstTitle`.
+    @extends
+    : .res-Org
+    @author
+    : Chris Harvey
+    @updated
+    : 2015-01-08
+    */
+  &.Inst {
+    display: flex;
+    flex-direction: column;
+  }
 }
 /**
   * The title of an organization
-@extends
+@implements
 : .H--Gam
+: .vru-top()
+: .vru-bottom()
 @author
 : Chris Harvey
 @updated
@@ -96,47 +134,43 @@
   .vru-bottom(0);
   font-size: inherit;
   line-height: inherit;
-  letter-spacing: normal;
+  letter-spacing: inherit;
+  /**
+    * The title of an institution
+  @extends
+  : .res-OrgTitle
+  @implements
+  : .H--Zet
+  @author
+  : Chris Harvey
+  @updated
+  : 2015-01-08
+    */
+  &.InstTitle {
+    .res-JobTitle;
+    order: 1;
+    font-variant: inherit;
+  }
 }
-/**
-  * Similar to an Org, an Institution (`Inst`) is an educational organization (college/university)
-  * with a name and location. It is also in a Skill, namely, the one corresponding to Education.
-  * The name of the Inst is a `.res-InstTitle`.
-  */
-.res-Inst {
-  display: flex;
-  flex-direction: column;
-}
-/**
-  * The title of an institution
-@extends
-: .H--Gam
-@author
-: Chris Harvey
-@updated
-: 2015-01-08
-  */
-.res-InstTitle {
-  .H--Eps;
-  .vru-top(   0);
-  .vru-bottom(0);
-  order: 1;
-  font-size: inherit;
-  line-height: inherit;
-  letter-spacing: normal;
-}
+
 /**
   * A Job is an item in a Org. Usually, each Org will only have one Job, but there
   * could be multiple Job.
   * The name of the Job is a `.res-JobTitle`.
   * There may be a list of descriptors, which is called a `.res-JobDetail`.
+@author
+: Chris Harvey
+@updated
+: 2015-01-08
   */
 .res-Job {
 }
 /**
   * The title of a job, e.g. a position held at an organization
-@extends
+@implements
 : .H--Del
+: .vru-top()
+: .vru-bottom()
 @author
 : Chris Harvey
 @updated
@@ -146,14 +180,14 @@
   .H--Del;
   .vru-top(   0);
   .vru-bottom(0);
-  font-weight: normal;
+  font-weight: inherit;
   font-size: inherit;
   line-height: inherit;
-  letter-spacing: normal;
+  letter-spacing: inherit;
 }
 /**
   * A bullet list of job descriptions for each Job.
-@extends
+@implements
 : .Ulist
 @tags
 : #typography
@@ -222,9 +256,6 @@ i[lang] {font-family: inherit;}
   .res-Spacetime {
     font-family: @font_text;
   }
-  .js-res-Footer {
-    display: none;
-  }
 }
 @media print {
   body {
@@ -237,14 +268,13 @@ i[lang] {font-family: inherit;}
   .res-Name,
   .res-SkillTitle,
   .res-OrgTitle,
-  .res-InstTitle,
+  .res-OrgTitle.InstTitle,
   .res-JobTitle {
     // reset headings for print
     font-weight: inherit;
     font-style: inherit;
     font-variant: inherit;
     font-family: inherit;
-    text-align: inherit;
     color: inherit;
   }
   .res-Name {
@@ -258,9 +288,9 @@ i[lang] {font-family: inherit;}
   }
   .res-OrgTitle {
     font-weight: bold;
-  }
-  .res-InstTitle {
-    font-style: italic;
+    &.InstTitle {
+      font-style: italic;
+    }
   }
   .res-JobTitle {
     font-style: italic;
