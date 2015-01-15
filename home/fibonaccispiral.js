@@ -63,28 +63,31 @@ function makepretty() {
 
 (function d3circles() {
   var svg_width = 960;
+  var svg_padding = 24;
   var svg = d3.select('main').append('svg').attr('xmlns','http://www.w3.org/2000/svg')
                                            .classed('js-bubbles dark', true)
                                            .attr('viewBox', '0 0 ' + svg_width + ' ' + svg_width)
                                            .attr('preserveAspectRatio', 'xMidYMid');
+  var main_link_radius = svg_width/8;
+  var side_link_radius = main_link_radius/2;
   (function mainCircles() {
     // adds a group for each main link
-    var main_links = svg.append('g').classed('js-main-links', true).attr('transform', 'translate(' + svg_width/2 + ', ' + svg_width/2 + ')');
+    var main_links = svg.append('g').classed('js-main-links', true).attr('transform', 'translate(' + svg_width/2 + ', ' + (svg_width/2 + (side_link_radius+svg_padding)/2) + ')');
     // herebelow, the ORDER of the `transform` attribute's values is RELEVANT!
     // i.e. rotate before translate is different than translate before rotate.
     var main_rotate = {
-      mth : 72 * 4,
+      mth : 72 * 2,
       web : 72 * 0,
-      edu : 72 * 1,
+      edu : 72 * 4,
       mus : 72 * 3,
-      swm : 72 * 2,
+      swm : 72 * 1,
     };
     var main_translate = {
-      mth : '0,' + -svg_width/4,
-      web : '0,' + -svg_width/4,
-      edu : '0,' + -svg_width/4,
-      mus : '0,' + -svg_width/4,
-      swm : '0,' + -svg_width/4,
+      mth : '0,' + svg_width/4,
+      web : '0,' + svg_width/4,
+      edu : '0,' + svg_width/4,
+      mus : '0,' + svg_width/4,
+      swm : '0,' + svg_width/4,
     };
     //transforms each main group
     main_links.append('g').classed('js-mth', true).attr('transform', 'rotate(' + main_rotate.mth + ') translate(' + main_translate.mth + ')');
@@ -93,7 +96,6 @@ function makepretty() {
     main_links.append('g').classed('js-mus', true).attr('transform', 'rotate(' + main_rotate.mus + ') translate(' + main_translate.mus + ')');
     main_links.append('g').classed('js-swm', true).attr('transform', 'rotate(' + main_rotate.swm + ') translate(' + main_translate.swm + ')');
     // adds a circle and text for each main group
-    var main_link_radius = 100;
     main_links.selectAll('g').append('circle').attr('r', main_link_radius);
     main_links.selectAll('g').append('text');
     // tranforms each main group text
@@ -106,7 +108,7 @@ function makepretty() {
   (function sideCircles() {
     // adds a group for each side link
     var PHI = (Math.sqrt(5)-1)/2;
-    var side_links = svg.append('g').classed('js-side-links', true).attr('transform', 'translate(' + svg_width/2 + ',' + (svg_width-50-24) + ')');
+    var side_links = svg.append('g').classed('js-side-links', true).attr('transform', 'translate(' + svg_width/2 + ',' + (side_link_radius+svg_padding) + ')');
     var side_rotate = {
       abt : 0,
       res : 0,
@@ -122,7 +124,6 @@ function makepretty() {
     side_links.append('g').classed('js-res', true).attr('transform', 'rotate(' + side_rotate.res + ') translate(' + side_translate.res + ')');
     side_links.append('g').classed('js-cpr', true).attr('transform', 'rotate(' + side_rotate.cpr + ') translate(' + side_translate.cpr + ')');
     // adds a circle and text for each side group
-    var side_link_radius = 50;
     side_links.selectAll('g').append('circle').attr('r', side_link_radius);
     side_links.selectAll('g').append('text');
     // tranforms each side group text
