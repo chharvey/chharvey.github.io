@@ -27,13 +27,23 @@
 /*###############*\
     resume.less
 \*###############*/
-.Ulist {
-  padding-left: 0.25in;
-}
 /*@SECTIONS*/
 /**
   * The Header contains my name and contact information.
   */
+.res-Header .res-Postal {
+  display: inline;
+}
+.res-Header .res-Postal > .Item {
+  display: inline;
+}
+.res-Header .res-Postal > .Item.endline::after {
+  display: block;
+  content: '' !important;
+}
+.res-Header .res-Postal > .Item:not(:last-child)::after {
+  content: '\0020\25aa\0020';
+}
 .res-Header .res-Postal br {
   display: none;
 }
@@ -46,16 +56,42 @@
   * A Skill is a top-level section, e.g. Teaching Experience.
   * The name of the Skill is a `.res-SkillTitle`.
   */
+.res-Skill:first-of-type {
+  padding-top: 8.78521826px;
+  margin-top: 14.21478174px;
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-top-color: #3d6166;
+}
 /**
   * A Job is an item in a Skill. It has an organization name and location.
   * The name of the Job is a `.res-JobTitle`.
   */
+/**
+  * Similar to a Job, an Institution (`Inst`) is an educational organization (college/university)
+  * with a name and location. It is also in a Skill, namely, the one corresponding to Education.
+  * The name of the Inst is a `.res-InstTitle`.
+  */
+.res-Inst {
+  display: flex;
+  flex-direction: column;
+}
 /**
   * A Pos(ition) is an item in a Job. Usually, each Job will only have one position, but there
   * could be multiple positions.
   * The name of the Position is a `.res-PosTitle`.
   * There may be a list of descriptors, which is called a `.res-PosDetail`.
   */
+.res-Footer {
+  padding-top: 8.78521826px;
+  margin-top: 14.21478174px;
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-top-color: #3d6166;
+  font-size: 12px;
+  font-size: 0.75rem;
+  line-height: 2;
+}
 /*@HEADINGS*/
 /**
   * My name at the top of the resume.
@@ -72,7 +108,7 @@
   min-height: 24px;
   min-height: 1.5rem;
   display: block;
-  font-family: 'Avenir', 'Calibri', 'Century Gothic', sans-serif;
+  font-family: 'Avenir', 'Seravek', 'Gill Sans', sans-serif;
   letter-spacing: 1px;
   text-align: left;
   font-size: 48px;
@@ -104,7 +140,7 @@
 .res-SkillTitle {
   min-height: 24px;
   min-height: 1.5rem;
-  font-family: 'Avenir', 'Calibri', 'Century Gothic', sans-serif;
+  font-family: 'Avenir', 'Seravek', 'Gill Sans', sans-serif;
   letter-spacing: 1px;
   text-align: left;
   font-size: 35px;
@@ -135,7 +171,7 @@
   min-height: 24px;
   min-height: 1.5rem;
   display: block;
-  font-family: 'Avenir', 'Calibri', 'Century Gothic', sans-serif;
+  font-family: 'Avenir', 'Seravek', 'Gill Sans', sans-serif;
   letter-spacing: 1px;
   text-align: left;
   font-size: 26px;
@@ -148,11 +184,25 @@
   font-variant: small-caps;
   font-weight: bold;
 }
+.res-InstTitle {
+  min-height: 24px;
+  min-height: 1.5rem;
+  display: block;
+  font-family: 'Avenir', 'Seravek', 'Gill Sans', sans-serif;
+  letter-spacing: 1px;
+  text-align: left;
+  font-size: 18px;
+  font-size: 1.125rem;
+  line-height: 1.33333333;
+  font-style: italic;
+  color: #3d6166;
+  order: 1;
+}
 .res-PosTitle {
   min-height: 24px;
   min-height: 1.5rem;
   display: block;
-  font-family: 'Avenir', 'Calibri', 'Century Gothic', sans-serif;
+  font-family: 'Avenir', 'Seravek', 'Gill Sans', sans-serif;
   letter-spacing: 1px;
   text-align: left;
   font-size: 21px;
@@ -164,64 +214,34 @@
   padding-bottom: 0.414rem;
   font-style: italic;
   font-weight: bold;
-}
-.res-Deg {
-  min-height: 24px;
-  min-height: 1.5rem;
-  display: block;
-  font-family: 'Avenir', 'Calibri', 'Century Gothic', sans-serif;
-  letter-spacing: 1px;
-  text-align: left;
-  font-size: 18px;
-  font-size: 1.125rem;
-  line-height: 1.33333333;
-  font-style: italic;
-  color: #3d6166;
-}
-.res-Inst {
-  min-height: 24px;
-  min-height: 1.5rem;
-  display: block;
-  font-family: 'Avenir', 'Calibri', 'Century Gothic', sans-serif;
-  letter-spacing: 1px;
-  text-align: left;
-  font-size: 16px;
-  font-size: 1rem;
-  line-height: 1.5;
-  font-style: italic;
-  font-variant: small-caps;
+  font-weight: normal;
 }
 /*@Overriding*/
 .res-Name,
 .res-SkillTitle,
 .res-JobTitle,
-.res-PosTitle,
-.res-Deg,
-.res-Inst {
+.res-InstTitle,
+.res-PosTitle {
   letter-spacing: normal;
 }
 .res-SkillTitle,
 .res-JobTitle,
-.res-PosTitle,
-.res-Deg,
-.res-Inst {
+.res-InstTitle,
+.res-PosTitle {
   margin-top: 0px;
   margin-top: 0rem;
   padding-bottom: 0px;
   padding-bottom: 0rem;
 }
 .res-JobTitle,
-.res-PosTitle,
-.res-Deg,
-.res-Inst {
+.res-InstTitle,
+.res-PosTitle {
   font-size: inherit;
   line-height: inherit;
 }
-#tech-skills .Gcol:first-child {
-  padding-right: 5px;
-}
-#tech-skills .Gcol:last-child {
-  padding-left: 5px;
+/*@OBJECTS*/
+.Ulist {
+  padding-left: 0.25in;
 }
 /**
   * A bullet list of job descriptions for each Position.
@@ -263,26 +283,21 @@
   font-style: normal;
   color: #0e0900;
 }
-.res-Skill:first-of-type,
-.res-Footer {
-  padding-top: 8.78521826px;
-  margin-top: 14.21478174px;
-  border-top-width: 1px;
-  border-top-style: solid;
-  border-top-color: #3d6166;
+a[rel~="external"] {
+  font-style: inherit;
 }
-.js-res-Footer > .Pagecount {
-  text-align: right;
-}
-a {
-  font-style: inherit !important;
+i[lang] {
+  font-family: inherit;
 }
 @media screen {
+  html {
+    font-family: 'Baskerville', 'Palatino', 'Cochin', serif;
+  }
   .res-Header {
     text-align: center;
   }
   .res-Postal {
-    font-family: 'Avenir', 'Calibri', 'Century Gothic', sans-serif;
+    font-family: 'Avenir', 'Seravek', 'Gill Sans', sans-serif;
   }
   .res-SkillTitle {
     width: 14.58980338%;
@@ -293,7 +308,7 @@ a {
     left: 0;
   }
   .res-Spacetime {
-    font-family: 'Optima', 'Candara', 'Helvetica', sans-serif;
+    font-family: 'Baskerville', 'Palatino', 'Cochin', serif;
   }
   .js-res-Footer {
     display: none;
@@ -306,15 +321,11 @@ a {
     font-family: 'Times', 'Times New Roman', serif;
     line-height: inherit;
   }
-  main {
-    margin-bottom: 0;
-  }
   .res-Name,
   .res-SkillTitle,
   .res-JobTitle,
-  .res-PosTitle,
-  .res-Deg,
-  .res-Inst {
+  .res-InstTitle,
+  .res-PosTitle {
     font-weight: inherit;
     font-style: inherit;
     font-variant: inherit;
@@ -336,31 +347,13 @@ a {
   .res-SkillTitle {
     font-variant: small-caps;
   }
+  .res-InstTitle {
+    font-style: italic;
+  }
   .res-PosTitle {
     font-style: italic;
   }
-  .res-Inst {
-    font-style: italic;
-  }
-  #tech-gen,
-  #tech-html,
-  #tech-css,
-  #tech-git,
-  #tech-misc,
-  #tech-apps {
-    margin-top: 0;
-  }
-  #tech-gen .res-PosDetail,
-  #tech-html .res-PosDetail,
-  #tech-css .res-PosDetail,
-  #tech-git .res-PosDetail,
-  #tech-misc .res-PosDetail,
-  #tech-apps .res-PosDetail {
-    font-size: 12px;
-    font-size: 0.75rem;
-    line-height: 2;
-  }
-  #edu {
+  .pagebreak {
     margin-top: 120px;
   }
 }
