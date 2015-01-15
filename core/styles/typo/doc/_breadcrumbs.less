@@ -23,8 +23,15 @@
 }
 /**
   * A list of breadcrumbs inside the module.
-  * The list either contains ancestor pages (including parent),
-  * sibling pages (including the same page), or children pages.
+  * `.Anc` contains ancestor pages (including parent and this), and
+  * `.Child` contains children pages.
+  * Ideas for symbols:
+  * - '\22a5' : `\bot` or 'up tack'
+  * - '\22a4' : `\top` or 'down tack'
+  * - '\22a2' : `\vdash` or 'turnstile'
+  * - '\22b7' : 'image of'
+  * - '\22b6' : 'original of'
+  * - '\29df' : 'double-ended multimap'
 @implements
 : .vru-top()
 @tags
@@ -32,28 +39,18 @@
 @author
 : Chris Harvey
 @updated
-: 2014-08-17
+: 2015-01-15
   */
-.Bc > .Anc,
-.Bc > .Sib,
-.Bc > .Child {
+.Bc .Anc {
+  .vru-top(1);
+  > li:not(:first-child) > .Crumb::before {content: '>';}
+}
+.Bc .Sib {
   .vru-top(1);
 }
-// .Bc > .Anc {
-//   a::before {content: '\22a5';} // `\bot` or 'up tack'
-//   a::before {content: '\22b7';} // 'image of'
-//   a::before {content: '<';}
-// }
-// .Bc > .Sib {
-//   a::before {content: '\22a2';} // `\vdash` or 'turnstile'
-//   a::before {content: '\29df';} // 'double-ended multimap'
-//   a::before {content: '+';}
-// }
-// .Bc > .Child {
-//   a::before {content: '\22a4';} // `\top` or 'down tack'
-//   a::before {content: '\22b6';} // 'original of'
-//   a::before {content: '>';}
-// }
+.Bc .Child {
+  .vru-top(1);
+}
 
 /**
   * An actual breadcrumb link.

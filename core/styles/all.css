@@ -951,8 +951,15 @@ main {
 }
 /**
   * A list of breadcrumbs inside the module.
-  * The list either contains ancestor pages (including parent),
-  * sibling pages (including the same page), or children pages.
+  * `.Anc` contains ancestor pages (including parent and this), and
+  * `.Child` contains children pages.
+  * Ideas for symbols:
+  * - '\22a5' : `\bot` or 'up tack'
+  * - '\22a4' : `\top` or 'down tack'
+  * - '\22a2' : `\vdash` or 'turnstile'
+  * - '\22b7' : 'image of'
+  * - '\22b6' : 'original of'
+  * - '\29df' : 'double-ended multimap'
 @implements
 : .vru-top()
 @tags
@@ -960,11 +967,20 @@ main {
 @author
 : Chris Harvey
 @updated
-: 2014-08-17
+: 2015-01-15
   */
-.Bc > .Anc,
-.Bc > .Sib,
-.Bc > .Child {
+.Bc .Anc {
+  margin-top: 24px;
+  margin-top: 1.5rem;
+}
+.Bc .Anc > li:not(:first-child) > .Crumb::before {
+  content: '>';
+}
+.Bc .Sib {
+  margin-top: 24px;
+  margin-top: 1.5rem;
+}
+.Bc .Child {
   margin-top: 24px;
   margin-top: 1.5rem;
 }
