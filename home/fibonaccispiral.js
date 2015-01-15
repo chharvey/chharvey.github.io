@@ -83,11 +83,11 @@ function makepretty() {
       swm : 72 * 1,
     };
     var main_translate = {
-      mth : '0,' + svg_width/4,
-      web : '0,' + svg_width/4,
-      edu : '0,' + svg_width/4,
-      mus : '0,' + svg_width/4,
-      swm : '0,' + svg_width/4,
+      mth : '0,' + (main_link_radius*2),
+      web : '0,' + (main_link_radius*2),
+      edu : '0,' + (main_link_radius*2),
+      mus : '0,' + (main_link_radius*2),
+      swm : '0,' + (main_link_radius*2),
     };
     //transforms each main group
     main_links.append('g').classed('js-mth', true).attr('transform', 'rotate(' + main_rotate.mth + ') translate(' + main_translate.mth + ')');
@@ -95,6 +95,7 @@ function makepretty() {
     main_links.append('g').classed('js-edu', true).attr('transform', 'rotate(' + main_rotate.edu + ') translate(' + main_translate.edu + ')');
     main_links.append('g').classed('js-mus', true).attr('transform', 'rotate(' + main_rotate.mus + ') translate(' + main_translate.mus + ')');
     main_links.append('g').classed('js-swm', true).attr('transform', 'rotate(' + main_rotate.swm + ') translate(' + main_translate.swm + ')');
+    main_links.append('g').classed('center', true);
     // adds a circle and text for each main group
     main_links.selectAll('g').append('circle').attr('r', main_link_radius);
     main_links.selectAll('g').append('text');
