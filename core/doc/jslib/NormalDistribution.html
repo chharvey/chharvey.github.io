@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Class NormalDistribution &in; Chris Harvey&rsquo;s Library</title>
+<meta charset="UTF-8"/>
+<meta name="author" content="Christopher H. Harvey"/>
+<link rel="stylesheet" href="../../styles/all.css"/>
+<link rel="stylesheet" href="jslib.css"/>
+<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML,http://chharvey.github.io/chhlib/mathjax-localconfig.js"></script>
+<script src="../../scripts/Util.js"></script>
+<script src="../../scripts/global.js"></script>
+<script src="../../scripts/NormalDistribution.js"></script>
+</head>
+<body>
+<main class="Article" data-status="draft">
+<header>
+  <h1 class="H--Alp">Class <code>NormalDistribution</code></h1>
+  <p class="P Intro">A normal (Gaussian) distribution with a specified mean and standard deviation.
+    If the mean and/or standard deviation are not given, they default to 0 and 1 respectively.</p>
+</header>
+<section>
+  <h1 class="H--Bet">Constructor</h1>
+  <dl class="FuncTabl">
+    <dt class="Term" id="NormalDistribution"><code>new NormalDistribution(<var>m</var>, <var>s</var>)</code></dt>
+    <dd class="Desc">
+      <dl class="FuncDescMap">
+        <dt class="Term">Param <var>m</var></dt>
+        <dd class="Desc">optional number defaults to 0; the statistical center of the random variable</dd>
+        <dt class="Term">Param <var>s</var></dt>
+        <dd class="Desc">optional number defaults to 1; the statistical spread of the random variable</dd>
+      </dl>
+    </dd>
+  </dl>
+</section>
+<section>
+  <h1 class="H--Bet">Fields</h1>
+  <section>
+    <h1 class="H--Gam">Instance Variables</h1>
+    <dl class="FuncTabl">
+      <dt class="Term" id="mean"><code>this.mean</code></dt>
+      <dd class="Desc">the statistical center of the random variable. immutable</dd>
+      <dt class="Term" id="stdev"><code>this.stdev</code></dt>
+      <dd class="Desc">the statistical spread of the random variable. immutable</dd>
+    </dl>
+  </section>
+</section>
+<section>
+  <h1 class="H--Bet">Methods</h1>
+  <section>
+    <h1 class="H--Gam">Instance Methods</h1>
+    <dl class="FuncTabl">
+      <dt class="Term" id="evalPDF"><code>this.evalPDF(<var>x</var>)</code></dt>
+      <dd class="Desc">
+        <dl class="FuncDescMap">
+          <dt class="Term">Description</dt>
+          <dd class="Desc">Returns the output of the probability density function of this distribution.</dd>
+          <dt class="Term">Param <var>x</var></dt>
+          <dd class="Desc">required number; the input of the PDF to evaluate</dd>
+        </dl>
+      </dd>
+      <dt class="Term" id="evalCDF"><code>this.evalCDF(<var>x</var>, <var>n</var>)</code></dt>
+      <dd class="Desc">
+        <dl class="FuncDescMap">
+          <dt class="Term">Description</dt>
+          <dd class="Desc">Returns an <em>approximation</em> of the cumulative distribution function
+            of this distribution.</dd>
+          <dt class="Term">Param <var>x</var></dt>
+          <dd class="Desc">required number; the input of the CDF to evaluate. For large values
+            (larger than &pm;10), this method will return an inaccurate result. Specify a larger
+            argument for accuracy to compensate</dd>
+          <dt class="Term">Param <var>n</var></dt>
+          <dd class="Desc">optional integer <span class="M">0 \lt n \le 150</span> defaults to 100; the accuracy of this method</dd>
+        </dl>
+      </dd>
+      <dt class="Term" id="area"><code>this.area(<var>a</var>, <var>b</var>, <var>n</var>)</code></dt>
+      <dd class="Desc">
+        <dl class="FuncDescMap">
+          <dt class="Term">Description</dt>
+          <dd class="Desc">
+            Returns the area under the PDF in the closed interval
+            <span class="M">[a, b]</span>. The following approximations hold:
+            <ul class="Olist">
+              <li class="Item"><span class="M">[-1s + m, 1s + m]</span>: about 0.6827</li>
+              <li class="Item"><span class="M">[-2s + m, 2s + m]</span>: about 0.9545</li>
+              <li class="Item"><span class="M">[-3s + m, 3s + m]</span>: about 0.9973</li>
+            </ul>
+            For large values of <span class="M">a</span> or <span class="M">b</span>
+            (larger than &pm;10), this method will return an inaccurate result.
+            Specify a larger value of <span class="M">n</span> to compensate.
+          </dd>
+          <dt class="Term">Param <var>a</var></dt>
+          <dd class="Desc">required number; the minimum of the interval</dd>
+          <dt class="Term">Param <var>b</var></dt>
+          <dd class="Desc">required number; the maximum of the interval</dd>
+          <dt class="Term">Param <var>n</var></dt>
+          <dd class="Desc">optional integer <span class="M">0 \lt n \le 150</span> defaults to 100; the accuracy of this method</dd>
+        </dl>
+      </dd>
+      <dt class="Term" id="getMean"><code>this.getMean()</code></dt>
+      <dd class="Desc">
+        <dl class="FuncDescMap">
+          <dt class="Term">Description</dt>
+          <dd class="Desc">Returns the mean of this distribution.</dd>
+        </dl>
+      </dd>
+      <dt class="Term" id="getStdev"><code>this.getStdev()</code></dt>
+      <dd class="Desc">
+        <dl class="FuncDescMap">
+          <dt class="Term">Description</dt>
+          <dd class="Desc">Returns the standard deviation of this distribution.</dd>
+        </dl>
+      </dd>
+      <dt class="Term" id="rand"><code>this.rand()</code></dt>
+      <dd class="Desc">
+        <dl class="FuncDescMap">
+          <dt class="Term">Description</dt>
+          <dd class="Desc">Returns a random number within the open interval
+            <span class="M">(-\infty, \infty)</span> and with this distribution&rsquo;s mean and
+            standard deviation. Note: while the range of this method&rsquo;s output is technically
+            all of <span class="M">\RR</span>, the following probabilities hold:
+            <ul class="Olist">
+              <li class="Item">the output will be in <span class="M">(-1s + m, 1s + m)</span>: about 68.27%</li>
+              <li class="Item">the output will be in <span class="M">(-2s + m, 2s + m)</span>: about 95.45%</li>
+              <li class="Item">the output will be in <span class="M">(-3s + m, 3s + m)</span>: about 99.73%</li>
+            </ul>
+          </dd>
+        </dl>
+      </dd>
+      <dt class="Term" id="rand"><code>this.test(<var>n</var>, <var>a</var>, <var>b</var>)</code></dt>
+      <dd class="Desc">
+        <dl class="FuncDescMap">
+          <dt class="Term">Description</dt>
+          <dd class="Desc">Tests this normal distribution. Selects a number of outputs and checks
+            whether each one is inside the closed interval <span class="M">[a, b]</span>.
+            Prints the number of <i>successes</i> and <i>failures</i>, and also a random sample.</dd>
+          <dt class="Term">Param <var>n</var></dt>
+          <dd class="Desc">required integer <span class="M">n \le 10000</span>; the number of tests to run</dd>
+          <dt class="Term">Param <var>a</var></dt>
+          <dd class="Desc">required number; the minimum of the interval</dd>
+          <dt class="Term">Param <var>b</var></dt>
+          <dd class="Desc">required number; the maximum of the interval</dd>
+          </dl>
+      </dd>
+    </dl>
+  </section>
+</section>
+</main>
+</body>
+</html>
