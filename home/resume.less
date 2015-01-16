@@ -13,6 +13,7 @@
 
 
 
+@datewidth: (768px * @phi3); // 8in * phi3
 //+++++++++//
 /*@SECTIONS*/
 //+++++++++//
@@ -84,8 +85,6 @@
   .H--Bet;
   .vru-top(   0);
   .vru-bottom(0);
-  .border-vert-undo();
-  .fontsize-block(1.5);
   letter-spacing: inherit;
 }
 
@@ -179,9 +178,31 @@
     */
   &.InstTitle {
     .res-JobTitle;
+    margin-left: @datewidth;
     order: 1;
     font-variant: inherit;
   }
+}
+
+/**
+  * The title of a job, e.g. a position held at an organization
+@implements
+: .H--Del
+: .vru-top()
+: .vru-bottom()
+@author
+: Chris Harvey
+@updated
+: 2015-01-08
+  */
+.res-JobTitle {
+  .H--Del;
+  .vru-top(   0);
+  .vru-bottom(0);
+  font-weight: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
 }
 
 /**
@@ -204,39 +225,6 @@
 .res-Dates {
 }
 
-/**
-  * A Job is an item in a Org. Usually, each Org will only have one Job, but there
-  * could be multiple Job.
-  * The name of the Job is a `.res-JobTitle`.
-  * There may be a list of descriptors, which is called a `.res-JobDetail`.
-@author
-: Chris Harvey
-@updated
-: 2015-01-08
-  */
-// .res-Job {
-// }
-/**
-  * The title of a job, e.g. a position held at an organization
-@implements
-: .H--Del
-: .vru-top()
-: .vru-bottom()
-@author
-: Chris Harvey
-@updated
-: 2015-01-08
-  */
-.res-JobTitle {
-  .H--Del;
-  .vru-top(   0);
-  .vru-bottom(0);
-  font-weight: inherit;
-  font-size: inherit;
-  line-height: inherit;
-  letter-spacing: inherit;
-}
-
 
 /**
   * A bullet list of job descriptions for each job.
@@ -257,6 +245,10 @@
   padding-left: (@listindent / 2);
 }
 
+.res-InlineDate {
+  width: @datewidth;
+  float: left;
+}
 
 .res-Footer {
   .vru-top-phi(1px; solid; @color_h_minor);
@@ -287,14 +279,7 @@ i[lang] {font-family: inherit;}
   .res-Skill:first-of-type {
     .vru-top-phi(1px; solid; @color_h_minor);
   }
-  .res-SkillTitle {
-    width: @golden4;
-    margin-left: @golden7;
-    margin-right: @golden6;
-    text-align: right;
-    position: absolute;
-    left: 0;
-  }
+
   .res-Org header {
   }
   .res-JobDetail {
@@ -308,22 +293,31 @@ i[lang] {font-family: inherit;}
   }
   .res-JobTitle {
   }
-  .res-Place,
-  .res-Dates {
-    float: left;
-  }
   .res-Place {
     padding-right: @en;
+    float: left;
   }
   .res-Dates {
     .parens();
+    float: left;
+  }
+
+  .res-SkillTitle {
+    .border-vert-undo();
+    .fontsize-block(1.5);
+    width: @golden4;
+    margin-left: @golden7;
+    margin-right: @golden6;
+    text-align: right;
+    position: absolute;
+    left: 0;
   }
 }
 @media print {
   body {
     width: 768px; // 8in
     font-size: inherit;
-    font-family: 'Times','Times New Roman',serif;
+    font-family: 'Marion','Times','Times New Roman',serif;
     line-height: inherit;
   }
 
@@ -331,13 +325,13 @@ i[lang] {font-family: inherit;}
     display: flex;
   }
   .res-JobDetail {
-    margin-left: 20%;
+    margin-left: @datewidth;
   }
   .res-Titles {
     order: 1;
   }
   .res-Spacetime {
-    width: 20%;
+    width: @datewidth;
   }
   .res-OrgTitle {
   }
@@ -381,4 +375,13 @@ i[lang] {font-family: inherit;}
   }
 
   .pagebreak {margin-top: 120px;}
+
+  // PRINT STYLE TRUMPS
+  #tech-misc {
+    margin-left: @datewidth;
+    margin-right: @spacer;
+  }
+  #VT {
+    margin-top: 0;
+  }
 }
