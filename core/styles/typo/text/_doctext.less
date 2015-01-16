@@ -48,6 +48,8 @@ var {
 }
 /**
   * An abbreviation.
+  * Class `.Acro` represents an acronym.
+  * `.Acro.First` represents an acronym at the beginning of a sentence or heading.
 @tags
 : #typography
 @author
@@ -56,9 +58,16 @@ var {
 : 2014-06-16
   */
 abbr[title] {cursor: help;}
+@acro_fontsize_ratio: @fontsize_ratio_sml;
 .Acro {
   // text-transform: uppercase;
-  font-size: 75%;
+  .fontsize(@acro_fontsize_ratio);
+}
+.Acro.First {
+  display: inline-block; // a HACK (::first-letter only works on block or inline-block elements)
+  &::first-letter {
+    .fontsize-med();
+  }
 }
 /**
   * An inline quotation: a span of text that is taken directly from another source
