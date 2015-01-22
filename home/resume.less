@@ -6,21 +6,45 @@
 \*###############*/
 
 //Table of Contents
-//- SECTIONS
-//- HEADINGS
-//  - Overriding
-//- OBJECTS
+//- VARIABLES
 
 
-
+//++++++++++//
+/*@VARIABLES*/
+//++++++++++//
 @datewidth: (768px * @phi3); // 8in * phi3
-//+++++++++//
-/*@SECTIONS*/
-//+++++++++//
+//++++ @end VARIABLES ++++//
+
+
+
+@media screen {
+  html {
+    font-family: @fontfam_prose;
+  }
+}
+
+@media print {
+  body {
+    width: 768px; // 8in
+    font-size: inherit;
+    font-family: 'Marion','Times','Times New Roman',serif;
+    line-height: inherit;
+  }
+}
+
 /**
   * The Header contains my name and contact information.
   */
 .res-Header {
+}
+@media screen {
+  .res-Header {
+    text-align: center;
+  }
+}
+@media print {
+  .res-Header {
+  }
 }
 
 /**
@@ -35,8 +59,20 @@
 : 2014-10-19
 */
 .res-Name {
-  .H--Alp;
-  letter-spacing: inherit;
+}
+@media screen {
+  .res-Name {
+    .H--Alp;
+    letter-spacing: inherit;
+  }
+}
+@media print {
+  .res-Name {
+    .fontsize-block-lrg;
+    font-weight: bold;
+    text-align: inherit;
+    text-transform: uppercase;
+  }
 }
 
 /**
@@ -52,6 +88,30 @@
   .Ilist;
   .Ilist.Square;
 }
+@media screen {
+  .res-Postal {
+    font-family: @fontfam_heading;
+  }
+}
+
+
+@media print {
+  .res-Name,
+  .res-SkillTitle,
+  .res-OrgTitle,
+  .res-OrgTitle.InstTitle,
+  .res-JobTitle {
+    // reset headings for print
+    font-weight: inherit;
+    font-style: inherit;
+    font-variant: inherit;
+    font-family: inherit;
+    color: inherit;
+  }
+}
+
+
+
 
 /**
   * A Skill is a top-level section, e.g. Teaching Experience.
@@ -65,6 +125,11 @@
   */
 .res-Skill {
   .vru-top(1);
+}
+@media screen {
+  .res-Skill:first-of-type {
+    .vru-top-phi(1px; solid; @color_h_minor);
+  }
 }
 
 /**
@@ -85,6 +150,26 @@
   .vru-top(   0);
   .vru-bottom(0);
   letter-spacing: inherit;
+}
+@media screen {
+  .res-SkillTitle {
+    .border-vert-undo();
+    .fontsize-block(1.5);
+    width: @golden4;
+    margin-left: @golden7;
+    margin-right: @golden6;
+    text-align: right;
+    position: absolute;
+    left: 0;
+  }
+}
+@media print {
+  .res-SkillTitle {
+    .fontsize-block-lrg;
+    .border-vert-one(bottom; 1px; solid; #000);
+    font-weight: bold;
+    font-variant: small-caps;
+  }
 }
 
 /**
@@ -115,6 +200,8 @@
     .flex-direction(column);
   }
 }
+@media screen {
+}
 
 /**
   * contains `.res-Titles` and `.res-Spacetime`
@@ -124,6 +211,13 @@
 : 2015-01-15
   */
 .res-Org header {
+}
+@media screen {
+}
+@media print {
+  .res-Org header {
+    .flexbox();
+  }
 }
 
 /**
@@ -136,6 +230,13 @@
 .res-Titles {
   .flexbox();
 }
+@media screen {
+}
+@media print {
+  .res-Titles {
+    order: 1;
+  }
+}
 
 /**
   * contains .res-Dates and .res-Place
@@ -145,6 +246,16 @@
 : 2015-01-15
   */
 .res-Spacetime {
+}
+@media screen {
+  .res-Spacetime {
+    .flexbox();
+  }
+}
+@media print {
+  .res-Spacetime {
+    width: @datewidth;
+  }
 }
 
 /**
@@ -181,6 +292,17 @@
   &.InstTitle {
   }
 }
+@media screen {
+}
+@media print {
+  .res-OrgTitle {
+    font-style: italic;
+    &.InstTitle {
+      margin-left: @datewidth;
+      font-style: italic;
+    }
+  }
+}
 
 /**
   * The title of a job, e.g. a position held at an organization
@@ -203,6 +325,13 @@
   line-height: inherit;
   letter-spacing: inherit;
 }
+@media screen {
+}
+@media print {
+  .res-JobTitle {
+    font-weight: bold;
+  }
+}
 
 /**
   * dates worked at each organization
@@ -213,6 +342,11 @@
   */
 .res-Dates {
 }
+@media screen {
+  .res-Dates {
+    padding-right: @en;
+  }
+}
 
 /**
   * the city or location of an organization
@@ -222,6 +356,11 @@
 : 2015-01-15
   */
 .res-Place {
+}
+@media screen {
+  .res-Place [itemprop="name"] {
+    .parens();
+  }
 }
 
 
@@ -243,159 +382,53 @@
   .Ulist;
   padding-left: (@listindent / 2);
 }
-
-.res-Footer {
-  .vru-top-phi(1px; solid; @color_h_minor);
-  .fontsize-block-sml();
-}
-//++++ @end SECTIONS ++++//
-
-
-//++++++++//
-/*@OBJECTS*/
-//++++++++//
-a[rel~="external"] {font-style: inherit;}
-i[lang] {font-family: inherit;}
-//++++ @end OBJECTS ++++//
-
-
-//+++++++//
-/*@TRUMPS*/
-//+++++++//
-//++++ @end TRUMPS ++++//
-
-
-@media screen {
-  @font_text: @fontfam_prose;
-  html {
-    font-family: @font_text;
-  }
-  .res-Header {
-    text-align: center;
-  }
-  .res-Postal {
-    font-family: @fontfam_heading;
-  }
-  .res-Skill:first-of-type {
-    .vru-top-phi(1px; solid; @color_h_minor);
-  }
-
-  .res-Org header {
-  }
-  .res-JobDetail {
-  }
-  .res-Titles {
-
-  }
-  .res-Spacetime {
-    .flexbox();
-  }
-  .res-OrgTitle {
-  }
-  .res-JobTitle {
-  }
-  .res-Dates {
-    padding-right: @en;
-  }
-  .res-Place {
-    [itemprop="name"] {.parens();}
-  }
-
-  .res-SkillTitle {
-    .border-vert-undo();
-    .fontsize-block(1.5);
-    width: @golden4;
-    margin-left: @golden7;
-    margin-right: @golden6;
-    text-align: right;
-    position: absolute;
-    left: 0;
-  }
-  .res-InlineDate {
-    .parens();
-  }
-  // SCREEN STYLE TRUMPS
-}
 @media print {
-  body {
-    width: 768px; // 8in
-    font-size: inherit;
-    font-family: 'Marion','Times','Times New Roman',serif;
-    line-height: inherit;
+  .res-JobDetail {
+    margin-top: -@vru_px; // fallback
+    margin-top: -@vru_rem;
+    margin-left: @datewidth;
   }
+}
 
+@media print {
   .res-Obj {
     margin-top: -@vru_px; // fallback
     margin-top: -@vru_rem;
     margin-left: @datewidth;
   }
-
-  .res-Org header {
-    .flexbox();
+}
+@media screen {
+  .res-InlineDate {
+    .parens();
   }
-  .res-JobDetail {
-    margin-top: -@vru_px; // fallback
-    margin-top: -@vru_rem;
-    margin-left: @datewidth;
-  }
-  .res-Titles {
-    order: 1;
-  }
-  .res-Spacetime {
-    width: @datewidth;
-  }
-  .res-OrgTitle {
-  }
-  .res-JobTitle {
-  }
-  .res-Dates {
-  }
-  .res-Place {
-  }
-
+}
+@media print {
   .res-InlineDate {
     width: @datewidth;
     float: left;
   }
+}
 
-  .res-Name,
-  .res-SkillTitle,
-  .res-OrgTitle,
-  .res-OrgTitle.InstTitle,
-  .res-JobTitle {
-    // reset headings for print
-    font-weight: inherit;
-    font-style: inherit;
-    font-variant: inherit;
-    font-family: inherit;
-    color: inherit;
-  }
-  .res-Name {
-    .fontsize-block-lrg;
-    font-weight: bold;
-    text-align: inherit;
-    text-transform: uppercase;
-  }
-  .res-SkillTitle {
-    .fontsize-block-lrg;
-    .border-vert-one(bottom; 1px; solid; #000);
-    font-weight: bold;
-    font-variant: small-caps;
-  }
-  .res-OrgTitle {
-    font-style: italic;
-    &.InstTitle {
-      margin-left: @datewidth;
-      font-style: italic;
-    }
-  }
-  .res-JobTitle {
-    font-weight: bold;
-  }
 
-  .pagebreak {margin-top: 144px;}
 
+.res-Footer {
+  .vru-top-phi(1px; solid; @color_h_minor);
+  .fontsize-block-sml();
+}
+@media screen {
+}
+
+
+//+++++++//
+/*@TRUMPS*/
+//+++++++//
+a[rel~="external"] {font-style: inherit;}
+i[lang] {font-family: inherit;}
+@media print {
   // PRINT STYLE TRUMPS
+  .pagebreak {
+    margin-top: 144px;
+  }
   #tech-misc {
     margin-left: @datewidth;
   }
@@ -403,3 +436,4 @@ i[lang] {font-family: inherit;}
     margin-top: 0;
   }
 }
+//++++ @end TRUMPS ++++//
