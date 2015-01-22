@@ -27,10 +27,41 @@
 /*###############*\
     resume.less
 \*###############*/
-/*@SECTIONS*/
+/*@VARIABLES*/
+@media screen {
+  body {
+    font-family: 'Baskerville', 'Palatino', 'Cochin', serif;
+  }
+}
+@media print {
+  body {
+    width: 768px;
+    font-size: inherit;
+    font-family: 'Marion', 'Times', 'Times New Roman', serif;
+    line-height: inherit;
+  }
+}
 /**
   * The Header contains my name and contact information.
   */
+@media screen {
+  .res-Header {
+    text-align: center;
+  }
+}
+@media print {
+  .res-Name,
+  .res-SkillTitle,
+  .res-OrgTitle,
+  .res-OrgTitle.InstTitle,
+  .res-JobTitle {
+    font-weight: inherit;
+    font-style: inherit;
+    font-variant: inherit;
+    font-family: inherit;
+    color: inherit;
+  }
+}
 /**
   * My name at the top of the resume.
 @implements
@@ -42,27 +73,39 @@
 @updated
 : 2014-10-19
 */
-.res-Name {
-  min-height: 24px;
-  min-height: 1.5rem;
-  display: block;
-  font-family: 'Avenir', 'Seravek', 'Gill Sans', sans-serif;
-  letter-spacing: 1px;
-  font-size: 48px;
-  font-size: 3rem;
-  line-height: 1;
-  margin-top: 29.66563146px;
-  margin-top: 1.85410197rem;
-  padding-bottom: 18.33436854px;
-  padding-bottom: 1.14589803rem;
-  font-variant: small-caps;
-  font-weight: bold;
-  text-align: center;
-  color: #120099;
-  letter-spacing: inherit;
+@media screen {
+  .res-Name {
+    min-height: 24px;
+    min-height: 1.5rem;
+    display: block;
+    font-family: 'Avenir', 'Seravek', 'Gill Sans', sans-serif;
+    letter-spacing: 1px;
+    font-size: 48px;
+    font-size: 3rem;
+    line-height: 1;
+    margin-top: 29.66563146px;
+    margin-top: 1.85410197rem;
+    padding-bottom: 18.33436854px;
+    padding-bottom: 1.14589803rem;
+    font-variant: small-caps;
+    font-weight: bold;
+    text-align: center;
+    color: #120099;
+    letter-spacing: inherit;
+  }
+}
+@media print {
+  .res-Name {
+    font-size: 20px;
+    font-size: 1.25rem;
+    line-height: 1.2;
+    font-weight: bold;
+    text-align: inherit;
+    text-transform: uppercase;
+  }
 }
 /**
-  * My address at the top of the resume.
+  * My contact info at the top of the resume.
 @implements
 : .Ilist.Square
 @author
@@ -83,6 +126,11 @@
 .res-Postal > .Item:not(:last-child)::after {
   content: '\0020\25aa\0020';
 }
+@media screen {
+  .res-Postal {
+    font-family: 'Avenir', 'Seravek', 'Gill Sans', sans-serif;
+  }
+}
 /**
   * A Skill is a top-level section, e.g. Teaching Experience.
 @implements
@@ -96,6 +144,15 @@
 .res-Skill {
   margin-top: 24px;
   margin-top: 1.5rem;
+}
+@media screen {
+  .res-Skill:first-of-type {
+    padding-top: 8.78521826px;
+    margin-top: 14.21478174px;
+    border-top-width: 1px;
+    border-top-style: solid;
+    border-top-color: #3d6166;
+  }
 }
 /**
   * The title of each skillgroup, e.g. "Teaching Experience"
@@ -137,6 +194,39 @@
   padding-bottom: 0rem;
   letter-spacing: inherit;
 }
+@media screen {
+  .res-SkillTitle {
+    position: static;
+    top: auto;
+    margin-bottom: 0;
+    border: 0;
+    font-size: 24px;
+    font-size: 1.5rem;
+    line-height: 1;
+    width: 14.58980338%;
+    margin-left: 3.44418537%;
+    margin-right: 5.572809%;
+    text-align: right;
+    position: absolute;
+    left: 0;
+  }
+}
+@media print {
+  .res-SkillTitle {
+    font-size: 20px;
+    font-size: 1.25rem;
+    line-height: 1.2;
+    display: block;
+    position: relative;
+    top: -1px;
+    margin-bottom: -1px;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: #000000;
+    font-weight: bold;
+    font-variant: small-caps;
+  }
+}
 /**
   * A Org is an item in a Skill. It has an organization name and location.
   * The name of the Org is a `.res-OrgTitle`.
@@ -176,6 +266,13 @@
 @updated
 : 2015-01-15
   */
+@media print {
+  .res-Org header {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+  }
+}
 /**
   * contains .res-OrgTitle and .res-JobTitle
 @author
@@ -188,6 +285,11 @@
   display: -webkit-flex;
   display: flex;
 }
+@media print {
+  .res-Titles {
+    order: 1;
+  }
+}
 /**
   * contains .res-Dates and .res-Place
 @author
@@ -195,6 +297,18 @@
 @updated
 : 2015-01-15
   */
+@media screen {
+  .res-Spacetime {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+  }
+}
+@media print {
+  .res-Spacetime {
+    width: 23.60679775%;
+  }
+}
 /**
   * The title of an organization
 @implements
@@ -242,6 +356,15 @@
   : 2015-01-08
     */
 }
+@media print {
+  .res-OrgTitle {
+    font-style: italic;
+  }
+  .res-OrgTitle.InstTitle {
+    margin-left: 23.60679775%;
+    font-style: italic;
+  }
+}
 /**
   * The title of a job, e.g. a position held at an organization
 @implements
@@ -277,6 +400,11 @@
   line-height: inherit;
   letter-spacing: inherit;
 }
+@media print {
+  .res-JobTitle {
+    font-weight: bold;
+  }
+}
 /**
   * dates worked at each organization
 @author
@@ -284,6 +412,11 @@
 @updated
 : 2015-01-15
   */
+@media screen {
+  .res-Dates {
+    padding-right: 6px;
+  }
+}
 /**
   * the city or location of an organization
 @author
@@ -291,6 +424,17 @@
 @updated
 : 2015-01-15
   */
+@media screen {
+  .res-Place [itemprop="name"] {
+    quotes: '(' ')';
+  }
+  .res-Place [itemprop="name"]::before {
+    content: open-quote;
+  }
+  .res-Place [itemprop="name"]::after {
+    content: close-quote;
+  }
+}
 /**
   * A bullet list of job descriptions for each job.
 @implements
@@ -317,73 +461,21 @@
   margin-top: 24px;
   margin-top: 1.5rem;
 }
-.res-Footer {
-  padding-top: 8.78521826px;
-  margin-top: 14.21478174px;
-  border-top-width: 1px;
-  border-top-style: solid;
-  border-top-color: #3d6166;
-  font-size: 12px;
-  font-size: 0.75rem;
-  line-height: 2;
+@media print {
+  .res-JobDetail {
+    margin-top: -24px;
+    margin-top: -1.5rem;
+    margin-left: 23.60679775%;
+  }
 }
-/*@OBJECTS*/
-a[rel~="external"] {
-  font-style: inherit;
+@media print {
+  .res-Obj {
+    margin-top: -24px;
+    margin-top: -1.5rem;
+    margin-left: 23.60679775%;
+  }
 }
-i[lang] {
-  font-family: inherit;
-}
-/*@TRUMPS*/
 @media screen {
-  html {
-    font-family: 'Baskerville', 'Palatino', 'Cochin', serif;
-  }
-  .res-Header {
-    text-align: center;
-  }
-  .res-Postal {
-    font-family: 'Avenir', 'Seravek', 'Gill Sans', sans-serif;
-  }
-  .res-Skill:first-of-type {
-    padding-top: 8.78521826px;
-    margin-top: 14.21478174px;
-    border-top-width: 1px;
-    border-top-style: solid;
-    border-top-color: #3d6166;
-  }
-  .res-Spacetime {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: flex;
-  }
-  .res-Dates {
-    padding-right: 6px;
-  }
-  .res-Place [itemprop="name"] {
-    quotes: '(' ')';
-  }
-  .res-Place [itemprop="name"]::before {
-    content: open-quote;
-  }
-  .res-Place [itemprop="name"]::after {
-    content: close-quote;
-  }
-  .res-SkillTitle {
-    position: static;
-    top: auto;
-    margin-bottom: 0;
-    border: 0;
-    font-size: 24px;
-    font-size: 1.5rem;
-    line-height: 1;
-    width: 14.58980338%;
-    margin-left: 3.44418537%;
-    margin-right: 5.572809%;
-    text-align: right;
-    position: absolute;
-    left: 0;
-  }
   .res-InlineDate {
     quotes: '(' ')';
   }
@@ -395,85 +487,34 @@ i[lang] {
   }
 }
 @media print {
-  body {
-    width: 768px;
-    font-size: inherit;
-    font-family: 'Marion', 'Times', 'Times New Roman', serif;
-    line-height: inherit;
-  }
-  .res-Obj {
-    margin-top: -24px;
-    margin-top: -1.5rem;
-    margin-left: 181.30020672px;
-  }
-  .res-Org header {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: flex;
-  }
-  .res-JobDetail {
-    margin-top: -24px;
-    margin-top: -1.5rem;
-    margin-left: 181.30020672px;
-  }
-  .res-Titles {
-    order: 1;
-  }
-  .res-Spacetime {
-    width: 181.30020672px;
-  }
   .res-InlineDate {
-    width: 181.30020672px;
+    width: 23.60679775%;
     float: left;
   }
-  .res-Name,
-  .res-SkillTitle,
-  .res-OrgTitle,
-  .res-OrgTitle.InstTitle,
-  .res-JobTitle {
-    font-weight: inherit;
-    font-style: inherit;
-    font-variant: inherit;
-    font-family: inherit;
-    color: inherit;
-  }
-  .res-Name {
-    font-size: 20px;
-    font-size: 1.25rem;
-    line-height: 1.2;
-    font-weight: bold;
-    text-align: inherit;
-    text-transform: uppercase;
-  }
-  .res-SkillTitle {
-    font-size: 20px;
-    font-size: 1.25rem;
-    line-height: 1.2;
-    display: block;
-    position: relative;
-    top: -1px;
-    margin-bottom: -1px;
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
-    border-bottom-color: #000000;
-    font-weight: bold;
-    font-variant: small-caps;
-  }
-  .res-OrgTitle {
-    font-style: italic;
-  }
-  .res-OrgTitle.InstTitle {
-    margin-left: 181.30020672px;
-    font-style: italic;
-  }
-  .res-JobTitle {
-    font-weight: bold;
-  }
+}
+.res-Footer {
+  padding-top: 8.78521826px;
+  margin-top: 14.21478174px;
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-top-color: #3d6166;
+  font-size: 12px;
+  font-size: 0.75rem;
+  line-height: 2;
+}
+/*@TRUMPS*/
+a[rel~="external"] {
+  font-style: inherit;
+}
+i[lang] {
+  font-family: inherit;
+}
+@media print {
   .pagebreak {
     margin-top: 144px;
   }
   #tech-misc {
-    margin-left: 181.30020672px;
+    margin-left: 23.60679775%;
   }
   #VT {
     margin-top: 0;
