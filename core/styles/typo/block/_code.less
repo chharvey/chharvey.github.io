@@ -225,13 +225,17 @@ code {
       color: @solarized_blue;
     }
     > .Prp {
-      .delimiters(''  ;  ':\00A0'); // `&nbsp;` because a normal (`\0020`) will not work on a float
+      // .delimiters(''  ;  ':\00A0'); // `&nbsp;` because a normal (`\0020`) will not work on a float
+      .delimiters(''  ;  ':');
       float: left;
       clear: both;
     }
-    > .Val {.delimiters(''  ;  ';');}
+    > .Val {
+        .delimiters(''  ;  ';');
+        text-indent: 0.5rem;
+      }
     > .Prp,
-    > .Comm {padding-left: @tab;}
+    > .Comm {text-indent: 1rem;}
   }
   /**
     * A block of CSS code whose selectors are inline. This is really useful for selectors with one
@@ -256,8 +260,11 @@ code {
       }
       > .Prp {
         display: inline;
-        padding-left: @en;
         float: none;
+        &::before {
+          content: '\00A0';
+          // quotes: '\00A0'   ':';
+        }
       }
       > .Val {
         display: inline;
