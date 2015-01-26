@@ -5,32 +5,23 @@
 \*##############*/
 
 
-/**
-  * The following font families are used site-wide.
-  * - The 'base' font-family is used for the main body copy. It is a sans-serif type with a
-  * 	moderate thick-thin transition.
-  * - The 'heading' font-family is used only for headings of body copy (not table headings, etc.).
-  * 	It is a sans-serif geometric type. It should not be used for extensive amounts of text.
-  * - The 'intro' font-family is used for other headings, such as table headings or intro (Lede)
-  * 	paragraphs. Like the 'heading' font-family, it is a geometric sans-serif. However it is
-  *  	more acceptable for extensive amounts of text.
-  * - The 'prose' font-family is used for formal documents or sections. It is a serif oldstyle type
-  * 	easy on the eyes that can be read at extensive length.
-  * - The 'code' font-family is a monospace type used for... well, code.
-  * - The 'math' font-family is another serif oldstyle type use for mathematical spans.
-  * - The 'accent' font-family is used for labels, block quotes, buttons/keys,
-  * 	and other special elements.
-  * - The 'script' font-family is used for even more fancy elements such as
-  * 	drop-caps and subheadings.
-  */
-@fontfam_base:    'Optima','Candara','Helvetica',sans-serif;
-@fontfam_heading: 'Avenir','Calibri','Century Gothic',sans-serif;
-@fontfam_intro:   'Avenir','Calibri','Century Gothic',sans-serif;
-@fontfam_prose:   'Baskerville','Palatino','Book Antiqua',serif;
-@fontfam_code:    'Menlo','Lucida Sans Typewriter','Monaco',monospace;
-@fontfam_math:    'Times','Times New Roman',serif;
-@fontfam_accent:  'Century Gothic','Gill Sans','Avenir',sans-serif;
-@fontfam_script:  'Zapfino',script;
+@fontfam_base:    'Optima','Lucida Grande','Tahoma',sans-serif;
+@fontfam_prose:   'Baskerville','Palatino','Cochin',serif;
+@fontfam_heading: 'Avenir','Seravek','Gill Sans',sans-serif;
+@fontfam_intro:   'Seravek','Gill Sans','Avenir',sans-serif;
+@fontfam_accent:  'Gill Sans','Avenir','Seravek',sans-serif;
+@fontfam_code:    'Menlo','Monaco','Andale Mono',monospace;
+@fontfam_math:    'Didot','Times','Times New Roman',serif;
+@fontfam_script:  'Zapfino','Savoye LET',script,@fontfam_heading;
+
+.fontfam_base    {font-family: @fontfam_base;}
+.fontfam_prose   {font-family: @fontfam_prose;}
+.fontfam_heading {font-family: @fontfam_heading;}
+.fontfam_intro   {font-family: @fontfam_intro;}
+.fontfam_accent  {font-family: @fontfam_accent;}
+.fontfam_code    {font-family: @fontfam_code;}
+.fontfam_math    {font-family: @fontfam_math;}
+.fontfam_script  {font-family: @fontfam_script;}
 
 // colors for body copy
 @color_base_bg:    @aperture_white;
@@ -43,76 +34,49 @@
 @color_accent: @deploying;
 
 html {
-	font-size: @fontsize_base;
-	font-family: @fontfam_base;
-	line-height: @lineheight_base;
+  font-size: @fontsize_base;
+  font-family: @fontfam_base;
+  line-height: @lineheight_base;
 }
 body {
-	color: @color_base_txt;
-	background-color: @color_base_bg;
+  color: @color_base_txt;
+  background-color: @color_base_bg;
 }
 main {
-	.w-p1.mr;
-	margin-bottom: 192px; // 2in
+  width: auto;
+  margin-left:   @vru_rem;
+  margin-right:  @vru_rem;
+  margin-bottom: @vru_rem;
 }
 /**
-  * This Interface is to be used only on the `main` Element. It undoes the default style of `main`.
+  * This Object represents the standard `main` Element on the main site.
+  * The following ratios are Golden (0.618):
+  * - main width to window width
+  * - main margin right to main margin left
 @tags
 : #golden
 @author
 : Chris Harvey
 @updated
-: 2014-06-17
+: 2014-11-29
   */
-.normal-main {
-	.center-ful;
-	.margin-even;
+.MainGolden {
+  .w-p1;
+  .w-p1.mr;
+  margin-bottom: 192px; // 2in
 }
 /**
-  * This Interface undoes the effects of the `main` Element to a component inside.
+  * This Interface undoes the effects of the `main.Main-Golden` Element to a component inside.
   * Essentially, it treats the component as if it were not inside the `main` Element.
 @tags
 : #golden
 @author
 : Chris Harvey
 @updated
-: 2014-06-17
+: 2014-10-07
   */
-.undo-main {
-	width: @inv_golden1;
-	position: relative;
-	left: -@golden2;
-	background-color: #fffcfa;
-}
-/**
-  * The following Interfaces add background images to an Element, typically the `body` Element.
-@tags
-: #schematic
-: #golden
-@author
-: Chris Harvey
-@updated
-: 2014-06-08
-  */
-.crossgrid-lined {
-	background-image: url('http://chharvey.github.io/core/images/crossgrid-lined_1x24.svg');
-	background-size: 1px 24px;
-	background-repeat: repeat;
-	background-position: left bottom; // fallback
-	// background-position-y: bottom;
-}
-.crossgrid-phi {
-	background-image: url('http://chharvey.github.io/core/images/crossgrid-phi_1440x24.svg');
-	background-size: 100% 24px;
-	background-repeat: repeat-y;
-}
-.crossgrid-even {
-	background-image: url('http://chharvey.github.io/core/images/crossgrid-even_1440x24.svg');
-	background-size: 100% 24px;
-	background-repeat: repeat-y;
-}
-.crossgrid-even-lcm {
-	background-image: url('http://chharvey.github.io/core/images/crossgrid-even-lcm_288x24.svg');
-	background-size: 20% 24px;
-	background-repeat: repeat;
+.undo-MainGolden() {
+  width: @inv_golden1;
+  position: relative;
+  left: -@golden2;
 }

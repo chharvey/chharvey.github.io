@@ -1,7 +1,7 @@
 // main: ../../all.less
 
 /*#################*\
-    _docsect.less
+    _article.less
 \*#################*/
 
 
@@ -9,17 +9,20 @@
   * This Object represents a generic article, technical document, blog post, etc. This Object may
   * or may not take the form of a literal `article` Element or `main` Element of a page. This
   * Object is designed to contain other block-level Objects such as `.H`s and `.P`s.
+@implements
+: .follows-heading()
 @tags
 : #typography
 : #article
 @author
 : Chris Harvey
 @updated
-: 2014-05-03
+: 2014-10-19
   */
 .Article {
-	font-family: @fontfam_prose;
-	text-align: justify;
+  .follows-heading(1);
+  font-family: @fontfam_prose;
+  text-align: justify;
 }
 /**
   * This Object represents text in an article that is not to displayed like `.Article` text.
@@ -32,14 +35,17 @@
 @updated
 : 2014-05-02
   */
-.UndoArticle {
-	font-family: @fontfam_base;
-	text-align: left;
+.undo-Article() {
+  font-family: @fontfam_base;
+  text-align: left;
 }
+
 /**
   * This Object represents a section of text that represents "fine print": disclaimers, etc.
   * It should be instantiated by an entire `section`, `aside`, `div`, or `p` Element, which
   * may or may not contain `small` Element children.
+@implements
+: .fontsize-block-sml()
 @tags
 : #typography
 @author
@@ -47,65 +53,6 @@
 @updated
 : 2014-06-26
   */
-.Fineprint {
-	&:extend(.fontsize-block-sml);
-}
-
-/**
-  * The `[data-status]` attribute indicates the status of a document or Element.
-  * "draft"    : a work in progress
-  * "complete" : finished but still needs edits before releasing
-  * "released" : ready for implementation
-  * See https://github.com/chharvey/chharvey.github.io/wiki/Document-Status/ for more info.
-@tags
-: #status
-: #golden
-: #border
-: #background
-@author
-: Chris Harvey
-@updated
-: 2014-08-11
-  */
-.Article {
-	&[data-status]::before {
-		.Alert;
-		.border-vert-undo;
-		box-sizing: border-box;
-		.gutter--minor;
-		position: absolute;
-		font-weight: bold;
-		.fontsize-block-sml;
-		text-align: left;
-	}
-	&[data-status="draft"]::before    {.Alert.Warn; content: 'This article is a work in progress.';}
-	&[data-status="complete"]::before {.Alert.Cshn; content: 'This article is mostly complete.';}
-	&[data-status="released"]::before {.Alert.Skss; content: 'This article is ready for implemen' '\00ad' 'tation.';}
-
-	[data-status] {
-		.sidebrdr-phi(left; 4px; solid);
-		padding-right: 4px;
-		box-shadow: 4px 4px 8px #808080;
-	}
-	[data-status="draft"]    {border-color: @color_warn_brdr; background-color: fadeout(@color_warn_bg, @golden4c);}
-	[data-status="complete"] {border-color: @color_cshn_brdr; background-color: fadeout(@color_cshn_bg, @golden4c);}
-	[data-status="released"] {border-color: @color_skss_brdr; background-color: fadeout(@color_skss_bg, @golden4c);}
-}
-/**
-  * The `[data-informative]` attribute on an Element in an `.Article` indicates that
-  * the content is nonessential to the article.
-  * See https://github.com/chharvey/chharvey.github.io/wiki/Document-Status/ for more info.
-@tags
-: #status
-@author
-: Chris Harvey
-@updated
-: 2014-08-12
-  */
-.Article [data-informative] {
-	.sidebrdr-phi(left;  2px; solid);
-	.sidebrdr-phi(right; 2px; solid);
-	box-shadow: 2px 2px 4px #c0c0c0;
-	border-color: @color_info_brdr;
-	background-color: fadeout(@color_info_bg, @golden4c);
-}
+// .Fineprint {
+//   .fontsize-block-sml();
+// }

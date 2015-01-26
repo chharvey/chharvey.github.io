@@ -6,15 +6,14 @@
 
 // Table of Contents
 // - GLOBAL VARIABLES
-// 	- General Variables
-// 	- Fonts
-// 	- Color Scheme
+//   - General Variables
+//   - Fonts
+//   - Color Scheme
 // - FUNCTIONS
 // - CONSTANTS
-// 	- Golden Values
-// 	- Even Values
-// 	- Color Values
-// 	- Font Sizes
+//   - Golden Values
+//   - Even Values
+//   - Color Values
 
 
 //+++++++++++++++++//
@@ -25,12 +24,14 @@
 /*@General Variables*/
 //------------------//
 /** Used for horizontal spacing, e.g., inserting a space between a heading and subheading. */
-@spacer: 24px; // 1.000rem  // 0.250in
-@tab: 48px;    // 2.000rem  // 0.500in
-@en: 6px;      // 0.250rem  // 0.625in
-@em: 8px;      // 0.333rem  // 9.833in
+// @spacer: 24px;  // 0.2500in  // 1.500rem
+// @tab: 48px;     // 0.5000in  // 3.000rem
+// @en: 6px;       // 0.0625in  // 0.375rem
+// @em: 8px;       // 0.0833in  // 0.500rem
 /** Determines the duration for transition animation effects. */
-@t_ani: 0.25s;
+@t_ani_short:  0.125s;
+@t_ani_medium: 0.25s;
+@t_ani_long:   0.5s;
 //---- @end General Variables ----//
 
 //------//
@@ -39,6 +40,9 @@
 /** These determine 1rem and the 'magic number'. Change these if you wish. */
 @fontsize_base:  16px;
 @lineheight_base:  1.5;
+/** One vertical rhythm unit. This is the so-called "magic number." Do not change these calculations. */
+@vru_px:  (@fontsize_base * @lineheight_base); // 16px * 1.5 = 24px
+@vru_rem: (1rem           * @lineheight_base); // 1rem * 1.5 = 1.5rem
 //---- @end Fonts ----//
 //++++ @end GLOBAL VARIABLES ++++//
 
@@ -192,6 +196,24 @@
 //-------------//
 /*@Color Values*/
 //-------------//
+// Portal Theme
+@aperture_white: #f1f6ff; @aperture_white: hsv(217, @golden6, 100%);
+@aperture_black: #0e0900; @aperture_black: hsv( 37, 100%, @golden6);
+@lakesuperior:   #120099; @lakesuperior:   hsv(247, 100%,  60%);
+@facilityabyss:  #3d6166; @facilityabyss:  hsv(187,  40%,  40%);
+@atlas:          #0062ff; @atlas:          hsv(217, 100%, 100%);
+@pbody:          #ff9d00; @pbody:          hsv( 37, 100%, 100%);
+@neurotoxin:     #9acc7a; @neurotoxin:     hsv( 97,  40%,  80%);
+@deploying:      #cc004e; @deploying:      hsv(337, 100%,  80%);
+
+@aperture_grey_0o6: @aperture_black; @aperture_grey_0o6: mix(@aperture_white, @aperture_black,  00.000%);
+@aperture_grey_1o6: #34302a;         @aperture_grey_1o6: mix(@aperture_white, @aperture_black,  16.666%);
+@aperture_grey_2o6: #5a5855;         @aperture_grey_2o6: mix(@aperture_white, @aperture_black,  33.333%);
+@aperture_grey_3o6: #808080;         @aperture_grey_3o6: mix(@aperture_white, @aperture_black,  50.000%);
+@aperture_grey_4o6: #a5a7aa;         @aperture_grey_4o6: mix(@aperture_white, @aperture_black,  66.666%);
+@aperture_grey_5o6: #cbcfd4;         @aperture_grey_5o6: mix(@aperture_white, @aperture_black,  83.333%);
+@aperture_grey_6o6: @aperture_white; @aperture_grey_6o6: mix(@aperture_white, @aperture_black, 100.000%);
+
 // Solarized Theme
 @solarized_base03:  #002b36;
 @solarized_base02:  #073642;
@@ -209,49 +231,5 @@
 @solarized_blue:    #268bd2;
 @solarized_cyan:    #2aa198;
 @solarized_green:   #859900;
-
-// Portal Theme
-@aperture_white: #f1f6ff; @aperture_white: hsv(217, @golden6, 100%);
-@aperture_black: #0e0900; @aperture_black: hsv( 37, 100%, @golden6);
-@lakesuperior:   #120099; @lakesuperior:   hsv(247, 100%,  60%);
-@facilityabyss:  #3d6166; @facilityabyss:  hsv(187,  40%,  40%);
-@atlas:          #0062ff; @atlas:          hsv(217, 100%, 100%);
-@pbody:          #ff9d00; @pbody:          hsv( 37, 100%, 100%);
-@neurotoxin:     #9acc7a; @neurotoxin:     hsv( 97,  40%,  80%);
-@deploying:      #cc004e; @deploying:      hsv(337, 100%,  80%);
-// @aperture_white_tri1: #fff1f6; @aperture_white_tri1: spin(@aperture_white,  120);
-// @aperture_white_tri2: #f6fff1; @aperture_white_tri2: spin(@aperture_white, -120);
-// @aperture_white_comp: #fffaf1; @aperture_white_comp: spin(@aperture_white,  180);
-// @atlas_tri1: #ff0062; @atlas_tri1: spin(@atlas,  120);
-// @atlas_tri2: #62ff00; @atlas_tri2: spin(@atlas, -120);
-
-@aperture_grey_0o6: @aperture_black; @aperture_grey_0o6: mix(@aperture_white, @aperture_black,  00.000%);
-@aperture_grey_1o6: #34302a;         @aperture_grey_1o6: mix(@aperture_white, @aperture_black,  16.666%);
-@aperture_grey_2o6: #5a5855;         @aperture_grey_2o6: mix(@aperture_white, @aperture_black,  33.333%);
-@aperture_grey_3o6: #808080;         @aperture_grey_3o6: mix(@aperture_white, @aperture_black,  50.000%);
-@aperture_grey_4o6: #a5a7aa;         @aperture_grey_4o6: mix(@aperture_white, @aperture_black,  66.666%);
-@aperture_grey_5o6: #cbcfd4;         @aperture_grey_5o6: mix(@aperture_white, @aperture_black,  83.333%);
-@aperture_grey_6o6: @aperture_white; @aperture_grey_6o6: mix(@aperture_white, @aperture_black, 100.000%);
 //---- @end Color Values ----//
-
-//-----------//
-/*@Font Sizes*/
-//-----------//
-@fontsize_ratio_alpha:   (48/16); // 3.0000rem
-@fontsize_ratio_beta:    (35/16); // 2.1875rem
-@fontsize_ratio_gamma:   (26/16); // 1.6250rem
-@fontsize_ratio_delta:   (21/16); // 1.3125rem
-@fontsize_ratio_epsilon: (18/16); // 1.1250rem
-@fontsize_ratio_zeta:    (16/16); // 1.0000rem
-
-@fontsize_ratio_hexa:    (96/16); // 6.0000rem
-@fontsize_ratio_tetra:   (64/16); // 4.0000rem
-@fontsize_ratio_bi:      (32/16); // 2.0000rem
-@fontsize_ratio_phi:     (@phi1); // 0.618033988749894848rem
-@fontsize_ratio_hemi:    (08/16); // 0.5000rem
-
-@fontsize_ratio_lrg:     (20/16); // 1.2500rem
-@fontsize_ratio_med:     (16/16); // 1.0000rem
-@fontsize_ratio_sml:     (12/16); // 0.7500rem
-//---- @end Font Sizes ----//
 //++++ @end CONSTANTS ++++//

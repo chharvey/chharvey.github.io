@@ -1,18 +1,18 @@
 // main: ../../all.less
 
 /*###################*\
-	_footnotes.less
+    _footnotes.less
 \*###################*/
 
+
+// See [http://www.w3.org/TR/html5/common-idioms.html#footnotes] for more information.
 
 /**
   * This Object represents a list whose items each contain a footnote. Typically, the order of
   * footnotes is irrelevant, so this Object should be instantiated by a `ul` Element.
-@extends
-: .List
 @implements
-: .fontsize-block-sml
-: .list-block
+: .list-block()
+: .fontsize-block-sml()
 : .vru-top-phi()
 @tags
 : #footnotes
@@ -23,13 +23,13 @@
 : 2014-09-23
   */
 .Footnotes {
-	&:extend(.fontsize-block-sml);
-	&:extend(.list-block);
-	.vru-top-phi(1px; solid; @color_border);
-	> .Item {
-		padding-left: @spacer;
-		text-indent: -@spacer;
-	}
+  .list-block();
+  .fontsize-block-sml();
+  .vru-top-phi(1px; solid; @color_border);
+  > .Item {
+    padding-left: @vru_rem;
+    text-indent: -@vru_rem;
+  }
 }
 /**
   * The `.Rf` Object represents a reference to a footnote. The reference exists in the document prose,
@@ -47,8 +47,8 @@
   */
 .Rf,
 .Fn {
-	width: @spacer;
-	> .Link {
-		&:extend(.brackets all);
-	}
+  width: @vru_rem;
+  > .Link {
+    .brackets();
+  }
 }
