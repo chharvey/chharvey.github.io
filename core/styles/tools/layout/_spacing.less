@@ -17,15 +17,13 @@
 @author
 : Chris Harvey
 @updated
-: 2014-10-07
+: 2015-01-28
   */
-.vru-content(@n) {
-  min-height: (@n * @vru_px ); // fallback
-  min-height: (@n * @vru_rem);
+.vru-content(@ratio) {
+  min-height: (@ratio * @vru_rem);
 }
 .vru-content() {
   .vru-content(1);
-  // min-height: @vru_px; // fallback
   // min-height: @vru_rem;
 }
 /**
@@ -35,16 +33,14 @@
 @author
 : Chris Harvey
 @updated
-: 2014-07-10
+: 2015-01-28
 @tags
 : #verticalrhythm
   */
 .vru-top(@ratio) {
-  margin-top: (@ratio * @vru_px); // fallback
   margin-top: (@ratio * @vru_rem);
 }
 .vru-bottom(@ratio) {
-  padding-bottom: (@ratio * @vru_px); // fallback
   padding-bottom: (@ratio * @vru_rem);
 }
 
@@ -76,10 +72,10 @@
 @tags
 : #verticalrhythm
   */
-.follows-heading(@n) {
-  :not(h1):not(.H):not(header) + & {.vru-top(@n);}
-  // same as :not(h1, .H) + & {.vru-top(@n);}
-  // NOT the same as :not(h1.H) + & {.vru-top(@n);}
+.follows-heading(@ratio) {
+  :not(h1):not(.H):not(header) + & {.vru-top(@ratio);}
+  // same as :not(h1, .H) + & {.vru-top(@ratio);}
+  // NOT the same as :not(h1.H) + & {.vru-top(@ratio);}
   // TODO: account for no longer using .H subclasses; problems with `p.H--Sub > .P`
 }
 
@@ -88,7 +84,7 @@
   * is Golden, while keeping the border-top-width. The sum of the padding, border, and margin is
   * one vertical rhythm unit.
 @params
-: @brdrw : value of the border-top-width property. Must be in pixels and less than `@vru_px`.
+: @brdrw : value of the border-top-width property. Must be in pixels and less than 1 vru.
 : @brdrs : value of the border-top-style property
 : @brdrc : value of the border-top-color property
 @tags
@@ -101,6 +97,7 @@
 : 2014-08-07
   */
 .vru-top-phi(@brdrw) {
+  @vru_px:  (@fontsize_base * @lineheight_base); // 16px * 1.5 = 24px
   padding-top: ((@vru_px - @brdrw) * @phi2);
   margin-top:  ((@vru_px - @brdrw) * @phi1);
   border-top-width: @brdrw;
