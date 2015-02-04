@@ -450,7 +450,7 @@ button {
 @author
 : Chris Harvey
 @updated
-: 2014-10-07
+: 2015-01-28
   */
 /**
   * These Interfaces provide [top|bottom] spacing of a multiple of a vertical rhythm unit.
@@ -459,7 +459,7 @@ button {
 @author
 : Chris Harvey
 @updated
-: 2014-07-10
+: 2015-01-28
 @tags
 : #verticalrhythm
   */
@@ -480,7 +480,7 @@ button {
   * is Golden, while keeping the border-top-width. The sum of the padding, border, and margin is
   * one vertical rhythm unit.
 @params
-: @brdrw : value of the border-top-width property. Must be in pixels and less than `@vru_px`.
+: @brdrw : value of the border-top-width property. Must be in pixels and less than 1 vru.
 : @brdrs : value of the border-top-style property
 : @brdrc : value of the border-top-color property
 @tags
@@ -603,11 +603,10 @@ button {
 @tags
 : #verticalrhythm
 : #padding
-: #fallback
 @author
 : Chris Harvey
 @updated
-: 2014-10-07
+: 2015-01-28
   */
 /**
   * These Mixins create abstract inline structures, boxed with a solid border.
@@ -700,17 +699,14 @@ button {
 /*@Font Sizes*/
 /**
   * This Mixin sets the `font-size` of an Object to a given scale.
-  * For example, to set the font size scale to 3, instead of using `font-size: 3rem;` (which may  be
-  * unsupported in some browsers), use this Mixin, which includes a fallback.
 @params
 : @ratio : the ratio of the new font size to `@fontsize_base`, in other words, the number of `rem`s
 @tags
 : #fontsize
-: #fallback
 @author
 : Chris Harvey
 @updated
-: 2014-07-08
+: 2015-01-28
   */
 /**
   * These Interfaces set a [large|medium|small] preset font size.
@@ -866,22 +862,19 @@ button {
   font-family: 'Baskerville', 'Palatino', 'Cochin', serif;
 }
 .fontfam_heading {
-  font-family: 'Avenir', 'Seravek', 'Gill Sans', sans-serif;
-}
-.fontfam_intro {
-  font-family: 'Seravek', 'Gill Sans', 'Avenir', sans-serif;
+  font-family: 'Avenir', 'Seravek', sans-serif;
 }
 .fontfam_accent {
-  font-family: 'Gill Sans', 'Avenir', 'Seravek', sans-serif;
+  font-family: 'Geneva', 'Tahoma', sans-serif;
 }
 .fontfam_code {
   font-family: 'Menlo', 'Monaco', 'Andale Mono', monospace;
 }
 .fontfam_math {
-  font-family: 'Didot', 'Times', 'Times New Roman', serif;
+  font-family: 'Didot', 'Bodoni 72', 'Times', serif;
 }
 .fontfam_script {
-  font-family: 'Zapfino', 'Savoye LET', script, 'Avenir', 'Seravek', 'Gill Sans', sans-serif;
+  font-family: 'Zapfino', 'Savoye LET', script, 'Avenir', 'Seravek', sans-serif;
 }
 html {
   font-size: 16px;
@@ -946,7 +939,6 @@ main {
   margin-left: 3.44418537%;
   margin-right: 5.572809%;
   left: 0;
-  top: 24px;
   top: 1.5rem;
   z-index: 1;
 }
@@ -966,7 +958,6 @@ main {
 .Bc > .Anc,
 .Bc > .Sib,
 .Bc > .Child {
-  margin-top: 24px;
   margin-top: 1.5rem;
 }
 /**
@@ -1006,8 +997,8 @@ main {
   -o-transition-delay: 0s;
   transition-delay: 0s;
   display: block;
-  padding-left: 12px;
-  border-radius: 12px;
+  padding-left: 0.75rem;
+  border-radius: 0.75rem;
   color: #0062ff;
   background-color: #c3daff;
   cursor: pointer;
@@ -1018,7 +1009,7 @@ main {
 }
 .Crumb[rel~="this"] {
   position: relative;
-  left: 12px;
+  left: 0.75rem;
   font-weight: bold;
   color: #f1f6ff;
   background-color: #0062ff;
@@ -1050,7 +1041,6 @@ main {
   text-align: justify;
 }
 :not(h1):not(.H):not(header) + .Article {
-  margin-top: 24px;
   margin-top: 1.5rem;
 }
 /**
@@ -1063,6 +1053,19 @@ main {
 : Chris Harvey
 @updated
 : 2014-05-02
+  */
+/**
+  * This Object represents a section of text that represents "fine print": disclaimers, etc.
+  * It should be instantiated by an entire `section`, `aside`, `div`, or `p` Element, which
+  * may or may not contain `small` Element children.
+@implements
+: .fontsize-block-sml()
+@tags
+: #typography
+@author
+: Chris Harvey
+@updated
+: 2014-06-26
   */
 /*#################*\
     _docmeta.less
@@ -1083,7 +1086,6 @@ main {
   content: ':';
 }
 .Docmeta > dd.complete > time::after {
-  font-size: 12px;
   font-size: 0.75rem;
   border-color: #9acc7a;
   color: #4e6100;
@@ -1099,7 +1101,7 @@ main {
   margin-left: 1rem;
   position: relative;
   font-weight: bold;
-  font-family: 'Gill Sans', 'Avenir', 'Seravek', sans-serif;
+  font-family: 'Geneva', 'Tahoma', sans-serif;
   white-space: nowrap;
   content: 'Completed';
 }
@@ -1120,7 +1122,6 @@ main {
   font-weight: bold;
 }
 .Docmeta > dd.release > time::after {
-  font-size: 12px;
   font-size: 0.75rem;
   border-color: #9acc7a;
   color: #006127;
@@ -1136,7 +1137,7 @@ main {
   margin-left: 1rem;
   position: relative;
   font-weight: bold;
-  font-family: 'Gill Sans', 'Avenir', 'Seravek', sans-serif;
+  font-family: 'Geneva', 'Tahoma', sans-serif;
   white-space: nowrap;
   content: 'Released';
 }
@@ -1157,7 +1158,6 @@ main {
   font-weight: bold;
 }
 .Docmeta > dd.latest::after {
-  font-size: 12px;
   font-size: 0.75rem;
   border-color: #9acc7a;
   color: #610000;
@@ -1173,7 +1173,7 @@ main {
   margin-left: 1rem;
   position: relative;
   font-weight: bold;
-  font-family: 'Gill Sans', 'Avenir', 'Seravek', sans-serif;
+  font-family: 'Geneva', 'Tahoma', sans-serif;
   white-space: nowrap;
   content: 'Latest';
 }
@@ -1216,9 +1216,7 @@ main {
   */
 .Footnotes {
   display: block;
-  min-height: 24px;
   min-height: 1.5rem;
-  font-size: 12px;
   font-size: 0.75rem;
   line-height: 2;
   padding-top: 8.78521826px;
@@ -1228,7 +1226,6 @@ main {
   border-top-color: #9acc7a;
 }
 :not(h1):not(.H):not(header) + .Footnotes {
-  margin-top: 24px;
   margin-top: 1.5rem;
 }
 /**
@@ -1289,17 +1286,13 @@ main {
 : 2014-10-21
   */
 .H--Alp {
-  min-height: 24px;
   min-height: 1.5rem;
   display: block;
-  font-family: 'Avenir', 'Seravek', 'Gill Sans', sans-serif;
+  font-family: 'Avenir', 'Seravek', sans-serif;
   letter-spacing: 1px;
-  font-size: 48px;
   font-size: 3rem;
   line-height: 1;
-  margin-top: 29.66563146px;
   margin-top: 1.85410197rem;
-  padding-bottom: 18.33436854px;
   padding-bottom: 1.14589803rem;
   font-variant: small-caps;
   font-weight: bold;
@@ -1307,16 +1300,12 @@ main {
   color: #120099;
 }
 .H--Bet {
-  min-height: 24px;
   min-height: 1.5rem;
-  font-family: 'Avenir', 'Seravek', 'Gill Sans', sans-serif;
+  font-family: 'Avenir', 'Seravek', sans-serif;
   letter-spacing: 1px;
-  font-size: 35px;
   font-size: 2.1875rem;
   line-height: 1.37142857;
-  margin-top: 34.728px;
   margin-top: 2.1705rem;
-  padding-bottom: 13.272px;
   padding-bottom: 0.8295rem;
   display: block;
   position: relative;
@@ -1329,56 +1318,44 @@ main {
   color: #3d6166;
 }
 .H--Gam {
-  min-height: 24px;
   min-height: 1.5rem;
   display: block;
-  font-family: 'Avenir', 'Seravek', 'Gill Sans', sans-serif;
+  font-family: 'Avenir', 'Seravek', sans-serif;
   letter-spacing: 1px;
-  font-size: 26px;
   font-size: 1.625rem;
   line-height: 0.92307692;
-  margin-top: 14.83281573px;
   margin-top: 0.92705098rem;
-  padding-bottom: 9.16718427px;
   padding-bottom: 0.57294902rem;
   font-variant: small-caps;
   font-weight: bold;
 }
 .H--Del {
-  min-height: 24px;
   min-height: 1.5rem;
   display: block;
-  font-family: 'Avenir', 'Seravek', 'Gill Sans', sans-serif;
+  font-family: 'Avenir', 'Seravek', sans-serif;
   letter-spacing: 1px;
-  font-size: 21px;
   font-size: 1.3125rem;
   line-height: 1.14285714;
-  margin-top: 17.376px;
   margin-top: 1.086rem;
-  padding-bottom: 6.624px;
   padding-bottom: 0.414rem;
   font-style: italic;
   font-weight: bold;
 }
 .H--Eps {
-  min-height: 24px;
   min-height: 1.5rem;
   display: block;
-  font-family: 'Avenir', 'Seravek', 'Gill Sans', sans-serif;
+  font-family: 'Avenir', 'Seravek', sans-serif;
   letter-spacing: 1px;
-  font-size: 18px;
   font-size: 1.125rem;
   line-height: 1.33333333;
   font-style: italic;
   color: #3d6166;
 }
 .H--Zet {
-  min-height: 24px;
   min-height: 1.5rem;
   display: block;
-  font-family: 'Avenir', 'Seravek', 'Gill Sans', sans-serif;
+  font-family: 'Avenir', 'Seravek', sans-serif;
   letter-spacing: 1px;
-  font-size: 16px;
   font-size: 1rem;
   line-height: 1.5;
   font-style: italic;
@@ -1400,10 +1377,9 @@ main {
 : 2014-10-21
   */
 .H--Sub {
-  font-size: 32px;
   font-size: 2rem;
   line-height: 1.5;
-  font-family: 'Zapfino', 'Savoye LET', script, 'Avenir', 'Seravek', 'Gill Sans', sans-serif;
+  font-family: 'Zapfino', 'Savoye LET', script, 'Avenir', 'Seravek', sans-serif;
   text-align: center;
   color: #cc004e;
 }
@@ -1423,23 +1399,19 @@ main {
 : 2014-11-13
   */
 .H--Alp.Folio {
-  font-size: 48px;
   font-size: 3rem;
   line-height: 1;
-  margin-top: 96px;
   margin-top: 6rem;
-  padding-bottom: 48px;
   padding-bottom: 3rem;
   font-weight: normal;
   font-variant: normal;
-  font-family: 'Zapfino', 'Savoye LET', script, 'Avenir', 'Seravek', 'Gill Sans', sans-serif;
+  font-family: 'Zapfino', 'Savoye LET', script, 'Avenir', 'Seravek', sans-serif;
   white-space: nowrap;
 }
 .H--Alp.Folio .Cap {
-  font-size: 96px;
   font-size: 6rem;
   line-height: 0.25;
-  font-family: 'Snell Roundhand', 'Zapfino', 'Savoye LET', script, 'Avenir', 'Seravek', 'Gill Sans', sans-serif;
+  font-family: 'Snell Roundhand', 'Zapfino', 'Savoye LET', script, 'Avenir', 'Seravek', sans-serif;
 }
 /*####################*\
     _paragraphs.less
@@ -1461,12 +1433,10 @@ main {
 : 2014-10-19
   */
 .P {
-  min-height: 24px;
   min-height: 1.5rem;
   display: block;
 }
 :not(h1):not(.H):not(header) + .P {
-  margin-top: 24px;
   margin-top: 1.5rem;
 }
 .P p {
@@ -1490,7 +1460,6 @@ main {
 .Lede {
   padding-right: 1rem;
   font-weight: bold;
-  font-family: 'Seravek', 'Gill Sans', 'Avenir', sans-serif;
 }
 /**
   * This Object represents an introduction paragraph, typically referred to as a "standfirst"
@@ -1509,10 +1478,8 @@ main {
 : 2014-07-10
   */
 .P.Intro {
-  padding-bottom: 24px;
   padding-bottom: 1.5rem;
   font-weight: bold;
-  font-family: 'Seravek', 'Gill Sans', 'Avenir', sans-serif;
 }
 /**
   * This Object represents a paragraph whose first letter is a dropped capital ("drop cap").
@@ -1529,7 +1496,6 @@ main {
 : 2014-04-30
   */
 .P.Dropcap::first-letter {
-  font-size: 32px;
   font-size: 2rem;
   line-height: 0.75;
   float: left;
@@ -1537,7 +1503,7 @@ main {
   padding-right: 0.5rem;
   font-style: normal;
   font-weight: normal;
-  font-family: 'Zapfino', 'Savoye LET', script, 'Avenir', 'Seravek', 'Gill Sans', sans-serif;
+  font-family: 'Zapfino', 'Savoye LET', script, 'Avenir', 'Seravek', sans-serif;
   color: #120099;
 }
 /*@QUASI-PARAGRAPHS*/
@@ -1579,9 +1545,7 @@ main {
 : 2014-10-03
   */
 .Capt {
-  min-height: 24px;
   min-height: 1.5rem;
-  font-size: 12px;
   font-size: 0.75rem;
   line-height: 2;
   text-align: right;
@@ -1644,7 +1608,6 @@ main {
 : 2014-10-03
   */
 .Addy {
-  min-height: 24px;
   min-height: 1.5rem;
   padding-top: 9.16718427px;
   margin-top: 14.83281573px;
@@ -1683,7 +1646,6 @@ main {
 : 2014-10-03
   */
 .Fig {
-  min-height: 24px;
   min-height: 1.5rem;
   padding-top: 9.16718427px;
   margin-top: 14.83281573px;
@@ -1702,7 +1664,7 @@ main {
   text-align: center;
 }
 .Fig.Text {
-  background-image: url('http://chharvey.github.io/core/images/crossgrid-lined_1x24.svg');
+  background-image: url('https://chharvey.github.io/core/images/crossgrid-lined_1x24.svg');
   background-size: 1px 24px;
   background-repeat: repeat;
   background-position: left bottom;
@@ -1737,13 +1699,12 @@ main {
 : 2014-10-03
   */
 .Qblock {
-  min-height: 24px;
   min-height: 1.5rem;
   padding-top: 9.16718427px;
   margin-top: 14.83281573px;
   border-top-width: 0;
   display: block;
-  background-image: url('http://chharvey.github.io/core/images/crossgrid-lined_1x24.svg');
+  background-image: url('https://chharvey.github.io/core/images/crossgrid-lined_1x24.svg');
   background-size: 1px 24px;
   background-repeat: repeat;
   background-position: left bottom;
@@ -1752,10 +1713,9 @@ main {
   padding-left: 11.32623792px;
   margin-left: 29.65247584px;
   border-left-color: #9acc7a;
-  font-family: 'Gill Sans', 'Avenir', 'Seravek', sans-serif;
+  font-family: 'Geneva', 'Tahoma', sans-serif;
 }
 .Qblock.Short {
-  font-size: 20px;
   font-size: 1.25rem;
   line-height: 1.2;
   line-height: 1.8;
@@ -1803,7 +1763,6 @@ main {
   border-right-color: #9acc7a;
 }
 .Qblock.Short .Src {
-  font-size: 12px;
   font-size: 0.75rem;
   line-height: 2;
   line-height: 3;
@@ -1864,14 +1823,12 @@ main {
   */
 .Olist {
   display: block;
-  min-height: 24px;
   min-height: 1.5rem;
   padding-left: 0.5in;
   list-style-type: decimal-leading-zero;
   list-style-type: decimal;
 }
 :not(h1):not(.H):not(header) + .Olist {
-  margin-top: 24px;
   margin-top: 1.5rem;
 }
 /**
@@ -1925,13 +1882,11 @@ main {
   */
 .Ulist {
   display: block;
-  min-height: 24px;
   min-height: 1.5rem;
   padding-left: 0.5in;
   list-style-type: square;
 }
 :not(h1):not(.H):not(header) + .Ulist {
-  margin-top: 24px;
   margin-top: 1.5rem;
 }
 /**
@@ -1950,11 +1905,9 @@ main {
   */
 .Alist {
   display: block;
-  min-height: 24px;
   min-height: 1.5rem;
 }
 :not(h1):not(.H):not(header) + .Alist {
-  margin-top: 24px;
   margin-top: 1.5rem;
 }
 .Alist > .Item {
@@ -2066,7 +2019,6 @@ main {
   padding-left: 0.25in;
 }
 .Olist.Outline .Outline {
-  margin-top: 0px;
   margin-top: 0rem;
 }
 /**
@@ -2084,7 +2036,6 @@ main {
 : 2014-10-03
   */
 .Olist.LOP > .Item:not(:first-child) {
-  margin-top: 24px;
   margin-top: 1.5rem;
 }
 /**
@@ -2129,7 +2080,6 @@ main {
 : 2014-10-19
   */
 .Map {
-  min-height: 24px;
   min-height: 1.5rem;
   display: block;
   /**
@@ -2158,22 +2108,18 @@ main {
     */
 }
 :not(h1):not(.H):not(header) + .Map {
-  margin-top: 24px;
   margin-top: 1.5rem;
 }
 .Map > .Term {
-  min-height: 24px;
   min-height: 1.5rem;
   display: block;
   font-weight: bold;
 }
 .Map > .Desc {
-  min-height: 24px;
   min-height: 1.5rem;
   display: block;
 }
 .Map > .Desc + .Term {
-  margin-top: 24px;
   margin-top: 1.5rem;
 }
 /**
@@ -2263,7 +2209,6 @@ main {
   */
 .Map.Horiz.Tbl > .Term,
 .Map.Horiz.Tbl > .Desc {
-  padding: 12px 7.41640786px;
   padding: 0.75rem 0.46352549rem;
 }
 .Map.Horiz.Tbl > .Term:nth-child(4n+1),
@@ -2294,14 +2239,12 @@ main {
 : 2014-10-19
   */
 .Table {
-  font-size: 12px;
   font-size: 0.75rem;
   line-height: 2;
   display: table;
   text-align: center;
 }
 :not(h1):not(.H):not(header) + .Table {
-  margin-top: 24px;
   margin-top: 1.5rem;
 }
 .Table > .Capt {
@@ -2379,9 +2322,7 @@ main {
 : 2014-05-18
   */
 .Cell {
-  min-height: 24px;
   min-height: 1.5rem;
-  padding: 12px 7.41640786px;
   padding: 0.75rem 0.46352549rem;
   display: table-cell;
 }
@@ -2462,7 +2403,6 @@ code {
   border-width: 1px;
   border-style: solid;
   border-radius: 3px;
-  font-size: 12px;
   font-size: 0.75rem;
   border-color: #eee8d5;
   color: #657b83;
@@ -2496,7 +2436,6 @@ code .Comm {
 : 2014-11-02
   */
 .Codeblock {
-  min-height: 24px;
   min-height: 1.5rem;
   display: block;
   position: relative;
@@ -2504,11 +2443,9 @@ code .Comm {
   margin-bottom: -4px;
   border-width: 2px;
   border-style: solid;
-  padding: 12px 7.41640786px;
   padding: 0.75rem 0.46352549rem;
   box-sizing: border-box;
   border-radius: 3px;
-  font-size: 12px;
   font-size: 0.75rem;
   line-height: 2;
   border-color: #073642;
@@ -2520,7 +2457,6 @@ code .Comm {
   overflow: auto;
 }
 :not(h1):not(.H):not(header) + .Codeblock {
-  margin-top: 24px;
   margin-top: 1.5rem;
 }
 .Codeblock .Comm {
@@ -2715,7 +2651,6 @@ code .Comm {
 : 2014-11-02
   */
 .CSSmap {
-  min-height: 24px;
   min-height: 1.5rem;
   display: block;
   position: relative;
@@ -2723,11 +2658,9 @@ code .Comm {
   margin-bottom: -4px;
   border-width: 2px;
   border-style: solid;
-  padding: 12px 7.41640786px;
   padding: 0.75rem 0.46352549rem;
   box-sizing: border-box;
   border-radius: 3px;
-  font-size: 12px;
   font-size: 0.75rem;
   line-height: 2;
   border-color: #073642;
@@ -2752,7 +2685,6 @@ code .Comm {
     */
 }
 :not(h1):not(.H):not(header) + .CSSmap {
-  margin-top: 24px;
   margin-top: 1.5rem;
 }
 .CSSmap .Comm {
@@ -2978,13 +2910,12 @@ code .Comm {
   border-style: solid;
   border-radius: 3px;
   white-space: nowrap;
-  font-size: 12px;
   font-size: 0.75rem;
   border-color: #073642;
   color: #839496;
   background-color: #002b36;
   quotes: none;
-  font-family: 'Gill Sans', 'Avenir', 'Seravek', sans-serif;
+  font-family: 'Geneva', 'Tahoma', sans-serif;
   color: #93a1a1;
 }
 .Key .Comm {
@@ -3006,7 +2937,6 @@ kbd {
 : 2014-05-25
   */
 .Dir {
-  font-size: 12px;
   font-size: 0.75rem;
   font-style: italic;
   font-family: 'Optima', 'Lucida Grande', 'Tahoma', sans-serif;
@@ -3019,9 +2949,8 @@ kbd {
 @updated
 : 2014-08-22
   */
-.Math,
 .M {
-  font-family: 'Didot', 'Times', 'Times New Roman', serif;
+  font-family: 'Didot', 'Bodoni 72', 'Times', serif;
   white-space: pre;
   overflow: auto;
 }
@@ -3034,7 +2963,6 @@ kbd {
   */
 .M.B {
   display: block;
-  min-height: 72px;
   min-height: 4.5rem;
 }
 /*###############*\
@@ -3174,7 +3102,7 @@ i::after {
 }
 i[lang] {
   font-style: italic;
-  font-family: 'Didot', 'Times', 'Times New Roman', serif;
+  font-family: 'Didot', 'Bodoni 72', 'Times', serif;
   quotes: '' '';
 }
 /**
@@ -3244,7 +3172,6 @@ u {
   */
 sup,
 sub {
-  font-size: 12px;
   font-size: 0.75rem;
   position: relative;
   vertical-align: baseline;
@@ -3362,14 +3289,12 @@ abbr[title] {
   cursor: help;
 }
 .Acro {
-  font-size: 12px;
   font-size: 0.75rem;
 }
 .Acro.First {
   display: inline-block;
 }
 .Acro.First::first-letter {
-  font-size: 16px;
   font-size: 1rem;
 }
 /**
@@ -3528,7 +3453,6 @@ del + ins {
   border-radius: 6px;
   white-space: nowrap;
   border-color: #0062ff;
-  font-size: 12px;
   font-size: 0.75rem;
   background-image: -webkit-linear-gradient(to bottom right, #dceaff, #90baff);
   background-image: -moz-linear-gradient(to bottom right, #dceaff, #90baff);
@@ -3538,7 +3462,7 @@ del + ins {
   background-image: -webkit-gradient(to bottom right, #dceaff, #90baff);
   border-style: outset;
   margin-bottom: -4px;
-  font-family: 'Gill Sans', 'Avenir', 'Seravek', sans-serif;
+  font-family: 'Geneva', 'Tahoma', sans-serif;
   color: #0062ff;
   background-color: #c3daff;
   cursor: pointer;
@@ -3605,7 +3529,6 @@ del + ins {
 : 2014-10-26
   */
 .Alert--Warn {
-  min-height: 24px;
   min-height: 1.5rem;
   display: block;
   position: relative;
@@ -3613,14 +3536,12 @@ del + ins {
   margin-bottom: -2px;
   border-width: 1px;
   border-style: solid;
-  padding: 12px 7.41640786px;
   padding: 0.75rem 0.46352549rem;
   box-sizing: border-box;
   border-radius: 6px;
   width: 61.80339887%;
   margin-left: 23.60679775%;
   margin-right: 14.58980338%;
-  font-size: 12px;
   font-size: 0.75rem;
   line-height: 2;
   border-color: #ff0000;
@@ -3632,10 +3553,9 @@ del + ins {
   background-image: -o-linear-gradient(to bottom, #ff9e9e, #ff6b6b);
   background-image: linear-gradient(to bottom, #ff9e9e, #ff6b6b);
   background-image: -webkit-gradient(to bottom, #ff9e9e, #ff6b6b);
-  font-family: 'Gill Sans', 'Avenir', 'Seravek', sans-serif;
+  font-family: 'Geneva', 'Tahoma', sans-serif;
 }
 :not(h1):not(.H):not(header) + .Alert--Warn {
-  margin-top: 24px;
   margin-top: 1.5rem;
 }
 .Alert--Warn::before {
@@ -3643,7 +3563,6 @@ del + ins {
   font-weight: bold;
 }
 .Alert--Cshn {
-  min-height: 24px;
   min-height: 1.5rem;
   display: block;
   position: relative;
@@ -3651,14 +3570,12 @@ del + ins {
   margin-bottom: -2px;
   border-width: 1px;
   border-style: solid;
-  padding: 12px 7.41640786px;
   padding: 0.75rem 0.46352549rem;
   box-sizing: border-box;
   border-radius: 6px;
   width: 61.80339887%;
   margin-left: 23.60679775%;
   margin-right: 14.58980338%;
-  font-size: 12px;
   font-size: 0.75rem;
   line-height: 2;
   border-color: #ccff00;
@@ -3670,10 +3587,9 @@ del + ins {
   background-image: -o-linear-gradient(to bottom, #ecff9e, #e1ff6b);
   background-image: linear-gradient(to bottom, #ecff9e, #e1ff6b);
   background-image: -webkit-gradient(to bottom, #ecff9e, #e1ff6b);
-  font-family: 'Gill Sans', 'Avenir', 'Seravek', sans-serif;
+  font-family: 'Geneva', 'Tahoma', sans-serif;
 }
 :not(h1):not(.H):not(header) + .Alert--Cshn {
-  margin-top: 24px;
   margin-top: 1.5rem;
 }
 .Alert--Cshn::before {
@@ -3681,7 +3597,6 @@ del + ins {
   font-weight: bold;
 }
 .Alert--Skss {
-  min-height: 24px;
   min-height: 1.5rem;
   display: block;
   position: relative;
@@ -3689,14 +3604,12 @@ del + ins {
   margin-bottom: -2px;
   border-width: 1px;
   border-style: solid;
-  padding: 12px 7.41640786px;
   padding: 0.75rem 0.46352549rem;
   box-sizing: border-box;
   border-radius: 6px;
   width: 61.80339887%;
   margin-left: 23.60679775%;
   margin-right: 14.58980338%;
-  font-size: 12px;
   font-size: 0.75rem;
   line-height: 2;
   border-color: #00ff66;
@@ -3708,10 +3621,9 @@ del + ins {
   background-image: -o-linear-gradient(to bottom, #9effc5, #6bffa6);
   background-image: linear-gradient(to bottom, #9effc5, #6bffa6);
   background-image: -webkit-gradient(to bottom, #9effc5, #6bffa6);
-  font-family: 'Gill Sans', 'Avenir', 'Seravek', sans-serif;
+  font-family: 'Geneva', 'Tahoma', sans-serif;
 }
 :not(h1):not(.H):not(header) + .Alert--Skss {
-  margin-top: 24px;
   margin-top: 1.5rem;
 }
 .Alert--Skss::before {
@@ -3719,7 +3631,6 @@ del + ins {
   font-weight: bold;
 }
 .Alert--Info {
-  min-height: 24px;
   min-height: 1.5rem;
   display: block;
   position: relative;
@@ -3727,14 +3638,12 @@ del + ins {
   margin-bottom: -2px;
   border-width: 1px;
   border-style: solid;
-  padding: 12px 7.41640786px;
   padding: 0.75rem 0.46352549rem;
   box-sizing: border-box;
   border-radius: 6px;
   width: 61.80339887%;
   margin-left: 23.60679775%;
   margin-right: 14.58980338%;
-  font-size: 12px;
   font-size: 0.75rem;
   line-height: 2;
   border-color: #0066ff;
@@ -3746,10 +3655,9 @@ del + ins {
   background-image: -o-linear-gradient(to bottom, #9ec5ff, #6ba6ff);
   background-image: linear-gradient(to bottom, #9ec5ff, #6ba6ff);
   background-image: -webkit-gradient(to bottom, #9ec5ff, #6ba6ff);
-  font-family: 'Gill Sans', 'Avenir', 'Seravek', sans-serif;
+  font-family: 'Geneva', 'Tahoma', sans-serif;
 }
 :not(h1):not(.H):not(header) + .Alert--Info {
-  margin-top: 24px;
   margin-top: 1.5rem;
 }
 .Alert--Info::before {
@@ -3757,7 +3665,6 @@ del + ins {
   font-weight: bold;
 }
 .Alert--Help {
-  min-height: 24px;
   min-height: 1.5rem;
   display: block;
   position: relative;
@@ -3765,14 +3672,12 @@ del + ins {
   margin-bottom: -2px;
   border-width: 1px;
   border-style: solid;
-  padding: 12px 7.41640786px;
   padding: 0.75rem 0.46352549rem;
   box-sizing: border-box;
   border-radius: 6px;
   width: 61.80339887%;
   margin-left: 23.60679775%;
   margin-right: 14.58980338%;
-  font-size: 12px;
   font-size: 0.75rem;
   line-height: 2;
   border-color: #cc00ff;
@@ -3784,10 +3689,9 @@ del + ins {
   background-image: -o-linear-gradient(to bottom, #ec9eff, #e16bff);
   background-image: linear-gradient(to bottom, #ec9eff, #e16bff);
   background-image: -webkit-gradient(to bottom, #ec9eff, #e16bff);
-  font-family: 'Gill Sans', 'Avenir', 'Seravek', sans-serif;
+  font-family: 'Geneva', 'Tahoma', sans-serif;
 }
 :not(h1):not(.H):not(header) + .Alert--Help {
-  margin-top: 24px;
   margin-top: 1.5rem;
 }
 .Alert--Help::before {
@@ -3810,7 +3714,6 @@ del + ins {
 : 2014-10-26
   */
 .Label--Warn {
-  font-size: 12px;
   font-size: 0.75rem;
   border-color: #9acc7a;
   color: #610000;
@@ -3826,7 +3729,7 @@ del + ins {
   margin-left: 1rem;
   position: relative;
   font-weight: bold;
-  font-family: 'Gill Sans', 'Avenir', 'Seravek', sans-serif;
+  font-family: 'Geneva', 'Tahoma', sans-serif;
   white-space: nowrap;
 }
 .Label--Warn::before {
@@ -3846,7 +3749,6 @@ del + ins {
   font-weight: bold;
 }
 .Label--Cshn {
-  font-size: 12px;
   font-size: 0.75rem;
   border-color: #9acc7a;
   color: #4e6100;
@@ -3862,7 +3764,7 @@ del + ins {
   margin-left: 1rem;
   position: relative;
   font-weight: bold;
-  font-family: 'Gill Sans', 'Avenir', 'Seravek', sans-serif;
+  font-family: 'Geneva', 'Tahoma', sans-serif;
   white-space: nowrap;
 }
 .Label--Cshn::before {
@@ -3882,7 +3784,6 @@ del + ins {
   font-weight: bold;
 }
 .Label--Skss {
-  font-size: 12px;
   font-size: 0.75rem;
   border-color: #9acc7a;
   color: #006127;
@@ -3898,7 +3799,7 @@ del + ins {
   margin-left: 1rem;
   position: relative;
   font-weight: bold;
-  font-family: 'Gill Sans', 'Avenir', 'Seravek', sans-serif;
+  font-family: 'Geneva', 'Tahoma', sans-serif;
   white-space: nowrap;
 }
 .Label--Skss::before {
@@ -3918,7 +3819,6 @@ del + ins {
   font-weight: bold;
 }
 .Label--Info {
-  font-size: 12px;
   font-size: 0.75rem;
   border-color: #9acc7a;
   color: #002761;
@@ -3934,7 +3834,7 @@ del + ins {
   margin-left: 1rem;
   position: relative;
   font-weight: bold;
-  font-family: 'Gill Sans', 'Avenir', 'Seravek', sans-serif;
+  font-family: 'Geneva', 'Tahoma', sans-serif;
   white-space: nowrap;
 }
 .Label--Info::before {
@@ -3954,7 +3854,6 @@ del + ins {
   font-weight: bold;
 }
 .Label--Help {
-  font-size: 12px;
   font-size: 0.75rem;
   border-color: #9acc7a;
   color: #4e0061;
@@ -3970,7 +3869,7 @@ del + ins {
   margin-left: 1rem;
   position: relative;
   font-weight: bold;
-  font-family: 'Gill Sans', 'Avenir', 'Seravek', sans-serif;
+  font-family: 'Geneva', 'Tahoma', sans-serif;
   white-space: nowrap;
 }
 .Label--Help::before {
@@ -4023,7 +3922,6 @@ del + ins {
 : 2014-10-26
   */
 .Article[data-status="draft"]::before {
-  min-height: 24px;
   min-height: 1.5rem;
   display: block;
   position: relative;
@@ -4031,7 +3929,6 @@ del + ins {
   margin-bottom: -2px;
   border-width: 1px;
   border-style: solid;
-  padding: 12px 7.41640786px;
   padding: 0.75rem 0.46352549rem;
   border-radius: 6px;
   width: 61.80339887%;
@@ -4046,7 +3943,7 @@ del + ins {
   background-image: -o-linear-gradient(to bottom, #ff9e9e, #ff6b6b);
   background-image: linear-gradient(to bottom, #ff9e9e, #ff6b6b);
   background-image: -webkit-gradient(to bottom, #ff9e9e, #ff6b6b);
-  font-family: 'Gill Sans', 'Avenir', 'Seravek', sans-serif;
+  font-family: 'Geneva', 'Tahoma', sans-serif;
   box-sizing: border-box;
   position: fixed;
   width: 9.01699437%;
@@ -4057,7 +3954,6 @@ del + ins {
   top: auto;
   margin-bottom: 0;
   border: 0;
-  font-size: 12px;
   font-size: 0.75rem;
   line-height: 2;
   position: absolute;
@@ -4066,7 +3962,6 @@ del + ins {
   text-align: left;
 }
 :not(h1):not(.H):not(header) + .Article[data-status="draft"]::before {
-  margin-top: 24px;
   margin-top: 1.5rem;
 }
 .Article[data-status="draft"]::before::before {
@@ -4074,7 +3969,6 @@ del + ins {
   font-weight: bold;
 }
 .Article[data-status="complete"]::before {
-  min-height: 24px;
   min-height: 1.5rem;
   display: block;
   position: relative;
@@ -4082,7 +3976,6 @@ del + ins {
   margin-bottom: -2px;
   border-width: 1px;
   border-style: solid;
-  padding: 12px 7.41640786px;
   padding: 0.75rem 0.46352549rem;
   border-radius: 6px;
   width: 61.80339887%;
@@ -4097,7 +3990,7 @@ del + ins {
   background-image: -o-linear-gradient(to bottom, #ecff9e, #e1ff6b);
   background-image: linear-gradient(to bottom, #ecff9e, #e1ff6b);
   background-image: -webkit-gradient(to bottom, #ecff9e, #e1ff6b);
-  font-family: 'Gill Sans', 'Avenir', 'Seravek', sans-serif;
+  font-family: 'Geneva', 'Tahoma', sans-serif;
   box-sizing: border-box;
   position: fixed;
   width: 9.01699437%;
@@ -4108,7 +4001,6 @@ del + ins {
   top: auto;
   margin-bottom: 0;
   border: 0;
-  font-size: 12px;
   font-size: 0.75rem;
   line-height: 2;
   position: absolute;
@@ -4117,7 +4009,6 @@ del + ins {
   text-align: left;
 }
 :not(h1):not(.H):not(header) + .Article[data-status="complete"]::before {
-  margin-top: 24px;
   margin-top: 1.5rem;
 }
 .Article[data-status="complete"]::before::before {
@@ -4125,7 +4016,6 @@ del + ins {
   font-weight: bold;
 }
 .Article[data-status="released"]::before {
-  min-height: 24px;
   min-height: 1.5rem;
   display: block;
   position: relative;
@@ -4133,7 +4023,6 @@ del + ins {
   margin-bottom: -2px;
   border-width: 1px;
   border-style: solid;
-  padding: 12px 7.41640786px;
   padding: 0.75rem 0.46352549rem;
   border-radius: 6px;
   width: 61.80339887%;
@@ -4148,7 +4037,7 @@ del + ins {
   background-image: -o-linear-gradient(to bottom, #9effc5, #6bffa6);
   background-image: linear-gradient(to bottom, #9effc5, #6bffa6);
   background-image: -webkit-gradient(to bottom, #9effc5, #6bffa6);
-  font-family: 'Gill Sans', 'Avenir', 'Seravek', sans-serif;
+  font-family: 'Geneva', 'Tahoma', sans-serif;
   box-sizing: border-box;
   position: fixed;
   width: 9.01699437%;
@@ -4159,7 +4048,6 @@ del + ins {
   top: auto;
   margin-bottom: 0;
   border: 0;
-  font-size: 12px;
   font-size: 0.75rem;
   line-height: 2;
   position: absolute;
@@ -4168,7 +4056,6 @@ del + ins {
   text-align: left;
 }
 :not(h1):not(.H):not(header) + .Article[data-status="released"]::before {
-  margin-top: 24px;
   margin-top: 1.5rem;
 }
 .Article[data-status="released"]::before::before {
@@ -4245,7 +4132,7 @@ del + ins {
   outline: 1px solid #cc004e;
 }
 .crossgridphi {
-  background-image: url('http://chharvey.github.io/core/images/crossgrid-phi_1440x24.svg');
+  background-image: url('https://chharvey.github.io/core/images/crossgrid-phi_1440x24.svg');
   background-size: 100% 24px;
   background-repeat: repeat-y;
 }
@@ -4267,7 +4154,6 @@ del + ins {
   .Addy,
   .Qblock,
   .Table {
-    font-size: 16px;
     font-size: 1rem;
     line-height: 1.5;
   }

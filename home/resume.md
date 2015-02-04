@@ -4,7 +4,7 @@
 Charlottesville, VA 22901
 (703) 507-2467
 chrisharvey2pi@gmail.com
-http://chharvey.github.io/
+https://chharvey.github.io/
 
 ## OBJECTIVE
 
