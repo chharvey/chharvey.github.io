@@ -71,9 +71,8 @@ Note that only elements that can be styled are listed.
 
 - `em`,     emphasis
 - `strong`, importance
-- `i`,      alternate voice
-- `b`,      keywords
-- `mark`,   relevance
+- `i`,      alternate voice/mood
+- `mark`,   relevance in a certain context
 - `u`,      annotations
 - `small`,  side comments
 - `s`,      inaccurate text
@@ -83,16 +82,17 @@ Note that only elements that can be styled are listed.
 - `ins` (transparent content model)
 - `del` (transparent content model)
 - `dfn`
+- `b`, keyword
 - `var`
 - `q`
 - `cite`
-- `abbr`
 - `sup `
 - `sub`
 
 ### Machine-Readable Text
 
 - `data`
+- `abbr`
 - `time`
 - `code`
 - `kbd`
@@ -383,102 +383,130 @@ tr {
 th {
   // display: table-cell;
   // font-weight: inherit;
+  text-align: center; // not explicitly defined by browser default
 }
 td {
   // display: table-cell;
 }
+a, br,
+em, strong, i, mark, u, small, s,
+ins, del, dfn, b, var, q, cite, sup, sub,
+data, abbr, time, code, kbd, samp {
+  // inline element line-height not to affect vertical rhythm
+  line-height: 0;
+}
 a {
-  text-decoration: none;
-  color: inherit;
+  // text-decoration: none;
+  // color: inherit;
 }
 a[href] {
+  // color: #00e;    // default link
+  // color: #551a8b; // default visited
+  // color: #f00;    // default active
 }
 br {
   display: none;
 }
 em {
-  display: inline;
-  font-style: inherit;
+  // display: inline;
+  // font-style: inherit;
 }
 strong {
-  display: inline;
-  font-weight: inherit;
+  // display: inline;
+  // font-weight: inherit;
 }
 i {
-  display: inline;
-  font-style: inherit;
-}
-b {
-  display: inline;
-  font-weight: inherit;
+  // display: inline;
+  // font-style: inherit;
 }
 mark {
-  display: inline;
-  color: inherit;
-  background-color: transparent;
+  // display: inline;
+  // color: inherit;
+  // background-color: transparent;
 }
 u {
-  display: inline;
+  // display: inline;
   text-decoration: none;
+  color: #080;
 }
 small {
-  display: inline;
-  font-size: inherit;
+  // display: inline;
+  font-size: 0.75rem;
 }
 s {
-  display: inline;
+  // display: inline;
+  // text-decoration: none;
+  color: #e00;
 }
 ins {
   text-decoration: none;
+  background-color: #a6f3a6;
 }
 del {
   text-decoration: none;
+  background-color: #f8cbcb;
 }
 dfn {
-  display: inline;
+  // display: inline;
   font-style: inherit;
+  font-weight: bold;
+}
+b {
+  // display: inline;
+  // font-weight: inherit;
 }
 var {
-  display: inline;
-  font-style: inherit;
+  // display: inline;
+  // font-style: inherit;
 }
 q {
-  display: inline;
-  &::before,
-  &::after {content: none;}
+  // display: inline;
+  // &::before,
+  // &::after {content: none;}
 }
 cite {
-  display: inline;
-  font-style: inherit;
+  // display: inline;
+  // font-style: inherit;
 }
-abbr {
-  display: inline;
+sup, sub {
+  font-size: 0.75rem;
 }
 sup {
-  display: inline;
-  font-size: inherit;
-  vertical-align: inherit;
+  // display: inline;
+  // font-size: inherit;
+  // vertical-align: inherit;
 }
 sub {
-  display: inline;
-  font-size: inherit;
-  vertical-align: inherit;
+  // display: inline;
+  // font-size: inherit;
+  // vertical-align: inherit;
+}
+data[value],
+abbr[title],
+time[datetime] {
+  border-bottom: 1px dotted;
 }
 data {
-  display: inline;
+  // display: inline;
+}
+abbr {
+  // display: inline;
 }
 time {
-  display: inline;
+  // display: inline;
+}
+code, kbd, samp {
+  font-size: 0.75rem;
 }
 code {
-  display: inline;
-  font-family: inherit;
+  // display: inline;
+  // font-family: inherit;
 }
 kbd {
-  display: inline;
-  font-family: inherit;
+  // display: inline;
+  // font-family: inherit;
 }
 samp {
-  display: inline;
-  font-family: inherit;
+  // display: inline;
+  // font-family: inherit;
 }
