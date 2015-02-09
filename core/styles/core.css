@@ -1206,22 +1206,12 @@ body {
 @updated
 : 2014-10-19
   */
-.P {
-  min-height: 1.5rem;
-  display: block;
-}
-:not(h1):not(.H):not(header) + .P {
-  margin-top: 1.5rem;
-}
-.P p {
-  display: inline;
-}
 /**
   * This Object refers to the first ("lede"/"lead") sentence in a paragraph or caption, which may
   * act as a "heading" for that paragraph or caption.
   * It may also contain the title of a `table` or `figure` inside the `table > caption` or
   * `figure > figcaption`, respectively.
-  * This Object is typically a child of a `.P` Object, or any paragraph-like Objects such as `.Capt`.
+  * This Object is typically a child of a paragraph.
   * This can also be useful in a list of prose ("LOP"), whose list items consist of long prose text.
 @tags
 : #typography
@@ -1238,9 +1228,7 @@ body {
 /**
   * This Object represents an introduction paragraph, typically referred to as a "standfirst"
   * (in the U.K.). It may also serve as an abstract of a scholarly article. This Object almost
-  * always follows a `.H` Object (a heading).
-@extends
-: .P
+  * always follows a heading.
 @implements
 : .vru-bottom()
 @tags
@@ -1251,14 +1239,11 @@ body {
 @updated
 : 2014-07-10
   */
-.P.Intro {
-  padding-bottom: 1.5rem;
+p.Intro {
   font-weight: bold;
 }
 /**
   * This Object represents a paragraph whose first letter is a dropped capital ("drop cap").
-@extends
-: .P
 @implements
 : .fontsize-block()
 @tags
@@ -1269,7 +1254,7 @@ body {
 @updated
 : 2014-04-30
   */
-.P.Dropcap::first-letter {
+p.Dropcap::first-letter {
   font-size: 2rem;
   line-height: 0.75;
   float: left;
@@ -1298,74 +1283,6 @@ body {
 : 2014-10-10
   */
 /**
-  * This Object represents a generic caption of any sort. A caption is usually a short summary or
-  * description of some content ("the described content"). The described content may be in a
-  * literal `figure` Element, `table` Element, or it may be any generic content. Since captions are
-  * usually too short to be a paragraph, it may *not* contain `.P` Objects. If the described content
-  * is text only, the caption should be shorter and more concise than the content's text.
-  * If this `.Capt` is a child of a `figure` Element, it should be a `figcaption` Element.
-  * If this `.Capt` is a child of a `table` Element, it should be a `caption` Element.
-@implements
-: .vru-content()
-: .fontsize-block-small()
-@tags
-: #typography
-: #caption
-: #table
-: #figure
-@author
-: Chris Harvey
-@updated
-: 2014-10-03
-  */
-.Capt {
-  min-height: 1.5rem;
-  font-size: 0.75rem;
-  line-height: 2;
-  text-align: right;
-}
-/**
-  * A caption may appear before or after the described content, even if it and the content are
-  * children of the same Object (e.g., a `figure`). A `.P.Capt.Before` appears before the content;
-  * a `.P.Capt.After` appears after.
-  * Note: According to the HTML5 specs, a `table > caption`, if it exists, may *only* be the
-  * first child. However, applying `.Capt.Before` to the `table > caption:first-child` will make it
-  * look ugly, because the borders conflict and it will have `display: block;` rather than
-  * `display: table-caption;`. Just don't apply `.Capt.Before` or `.Capt.After` to `table > caption`s.
-@extends
-: .Capt
-@implements
-: .border-vert-one(bottom)
-: .border-vert-one(top)
-@tags
-: #typography
-: #caption
-: #table
-: #figure
-@author
-: Chris Harvey
-@updated
-: 2014-05-10
-  */
-.Capt.Before {
-  display: block;
-  position: relative;
-  top: -1px;
-  margin-bottom: -1px;
-  border-bottom-width: 1px;
-  border-bottom-style: dotted;
-  border-bottom-color: #9acc7a;
-}
-.Capt.After {
-  display: block;
-  position: relative;
-  top: -1px;
-  margin-bottom: -1px;
-  border-top-width: 1px;
-  border-top-style: dotted;
-  border-top-color: #9acc7a;
-}
-/**
   * This Object represents a generic postal address. It may be the contact address of the document
   * author(s) (contained in an `address` Element), or it may be any arbitrary postal mailing address.
 @extends
@@ -1381,20 +1298,6 @@ body {
 @updated
 : 2014-10-03
   */
-.Addy {
-  min-height: 1.5rem;
-  padding-top: 9.16718427px;
-  margin-top: 14.83281573px;
-  border-top-width: 0;
-  display: block;
-  border-right-width: 3px;
-  border-right-style: solid;
-  padding-right: 4.85410197px;
-  margin-right: 12.70820393px;
-  border-right-color: #9acc7a;
-  border-radius: 6px;
-  text-align: right;
-}
 /**
   * This Object represents a generic figure-looking thing in a document. A figure contains excerpts of text,
   * examples, or images that are used to illustrate a concept. This may or may not be a
@@ -1404,8 +1307,6 @@ body {
   * If and only if the content in this `.Fig`---including its caption---is permissible to be extracted from the
   * document and presented on its own, the `.Fig` Object should be wrapped with an `aside` Element.
   * The `.Fig.Text` subclass is a figure whose contents are only text.
-@extends
-: .quasi-p
 @implements
 : .sidebrdr-phi(left)
 : .sidebrdr-phi(right)
@@ -1419,12 +1320,10 @@ body {
 @updated
 : 2014-10-03
   */
-.Fig {
-  min-height: 1.5rem;
+figure {
   padding-top: 9.16718427px;
   margin-top: 14.83281573px;
   border-top-width: 0;
-  display: block;
   border-left-width: 4px;
   border-left-style: solid;
   padding-left: 6.47213595px;
@@ -1437,47 +1336,39 @@ body {
   border-right-color: #9acc7a;
   text-align: center;
 }
-.Fig.Text {
+figure.Text {
   background-image: url('https://chharvey.github.io/core/images/crossgrid-lined_1x24.svg');
   background-size: 1px 24px;
   background-repeat: repeat;
   background-position: left bottom;
 }
 /**
-  * This Object represents any Block Quotation, representing material taken directly from another
-  * source. It may or may not take the form of a literal `blockquote` Element.
+  * A `blockquote` represents material taken directly from another source. Typically,
+  * block quotations are used when the original source has more than 40 words and/or contains
+  * paragraph breaks. In either of these cases, the `blockquote` should contain child `p` Elements
+  * that correspond to the source (or not have any children `p` Elements if the source does not).
   *
-  * If the original source has paragraph breaks, regardless of word count, use `.Qblock`.
-  * It should have paragraph breaks that correspond to the source.
+  * Sometimes authors may use a block quotation to highlight extracted inline text from an article,
+  * for example. These are so-called "short" block quotations.
+  * If the original source is less than 40 words and does not have paragraph breaks,
+  * use the `blockquote.Short` class. It should *not* contain `p` Elements.
   *
-  * If the original source is more than 40 words and does not have paragraph breaks, use
-  * `.Qblock`. It should not contain paragraphs (either `.P` Objects or `p` Elements);
-  * it should directly contain the source's text.
-  * Optionally contain the citation in a `.Src.Formal`.
-  *
-  * If the original source is less than 40 words and does not have paragraph breaks (for example,
-  * extracted inline text from an article), use the `.Qblock.Short` subclass. It should also not
-  * contain paragraphs.
-@extends
-: .quasi-p
+  * In a normal block quote, the quoted work should be indicated by the `blockquote > footer > cite`.
+  * For `blockquote.Short`, do not use a `footer` (just use `blockquote > cite`).
 @implements
 : .crossgrid-lined()
 : .sidebrdr-phi()
 : .fontsize-block-lrg()
+: .fontsize-block-sml()
 @tags
 : #typography
 : #quote
 @author
 : Chris Harvey
 @updated
-: 2014-10-03
+: 2015-02-09
   */
-.Qblock {
-  min-height: 1.5rem;
-  padding-top: 9.16718427px;
-  margin-top: 14.83281573px;
-  border-top-width: 0;
-  display: block;
+blockquote {
   background-image: url('https://chharvey.github.io/core/images/crossgrid-lined_1x24.svg');
   background-size: 1px 24px;
   background-repeat: repeat;
@@ -1489,57 +1380,96 @@ body {
   border-left-color: #9acc7a;
   font-family: 'Geneva', 'Tahoma', sans-serif;
 }
-.Qblock.Short {
+blockquote > footer {
+  text-align: right;
+}
+blockquote > footer > cite {
+  quotes: '(' ')';
+}
+blockquote > footer > cite::before {
+  content: open-quote;
+}
+blockquote > footer > cite::after {
+  content: close-quote;
+}
+blockquote.Short {
   font-size: 1.25rem;
   line-height: 1.2;
   line-height: 1.8;
   background-image: none;
 }
-/**
-  * The `.Src` Object represents the citation of a source inside a `.Qblock` Object. It is
-  * recommended to apply this class to a `cite` Element, possibly within a `footer` Element.
-@belongsto
-: .Qblock
-@extends
-: .parens
-@implements
-: .sidebrdr-phi(right)
-: .fontsize-block-sml()
-@tags
-: #typography
-: #quote
-@author
-: Chris Harvey
-@updated
-: 2014-10-07
-  */
-.Qblock .Src {
+blockquote.Short > cite {
   display: block;
-  text-align: right;
-}
-.Qblock .Src::before {
-  content: '~\0020';
-}
-.Qblock .Src.Formal {
-  quotes: '(' ')';
-}
-.Qblock .Src.Formal::before {
-  content: open-quote;
-}
-.Qblock .Src.Formal::after {
-  content: close-quote;
-}
-.Qblock .Src:not(.Formal) {
-  border-right-width: 3px;
-  border-right-style: double;
-  padding-right: 4.85410197px;
-  margin-right: 12.70820393px;
-  border-right-color: #9acc7a;
-}
-.Qblock.Short .Src {
   font-size: 0.75rem;
   line-height: 2;
   line-height: 3;
+  text-align: right;
+}
+blockquote.Short > cite::before {
+  content: '~\0020';
+}
+/**
+  * `pre` Element
+@author
+: Chris Harvey
+@updated
+: 2015-02-09
+  */
+pre {
+  padding-top: 9.16718427px;
+  margin-top: 14.83281573px;
+  border-top-width: 0;
+  border-left-width: 3px;
+  border-left-style: solid;
+  padding-left: 4.85410197px;
+  margin-left: 12.70820393px;
+  border-left-color: #9acc7a;
+  border-right-width: 3px;
+  border-right-style: solid;
+  padding-right: 4.85410197px;
+  margin-right: 12.70820393px;
+  border-right-color: #9acc7a;
+  border-radius: 6px;
+}
+/**
+  * Table captions and figure captions.
+@implements
+: .fontsize-block-small()
+: .border-vert-one(bottom)
+: .border-vert-one(top)
+@tags
+: #typography
+: #table
+: #figure
+: #caption
+@author
+: Chris Harvey
+@updated
+: 2015-02-09
+  */
+caption,
+figcaption {
+  font-size: 0.75rem;
+  line-height: 2;
+}
+caption:first-child,
+figcaption:first-child {
+  display: block;
+  position: relative;
+  top: -1px;
+  margin-bottom: -1px;
+  border-bottom-width: 1px;
+  border-bottom-style: dotted;
+  border-bottom-color: #9acc7a;
+}
+figcaption:last-child {
+  display: block;
+  position: relative;
+  top: -1px;
+  margin-bottom: -1px;
+  border-top-width: 1px;
+  border-top-style: dotted;
+  border-top-color: #9acc7a;
 }
 /*###############*\
     _lists.less
@@ -3674,6 +3604,37 @@ del + ins {
 : Chris Harvey
 @updated
 : 2014-06-16
+  */
+/**
+  * This Object represents a generic caption of any sort. A caption is usually a short summary or
+  * description of some content ("the described content"). The described content may be in a
+  * literal `figure` Element, `table` Element, or it may be any generic content. Since captions are
+  * usually too short to be a paragraph, it may *not* contain `.P` Objects or `p` Elements. If the described content
+  * is text only, the caption should be shorter and more concise than the content's text.
+  * If this `.Capt` is a child of a `figure` Element, it should be a `figcaption` Element.
+  * If this `.Capt` is a child of a `table` Element, it should be a `caption` Element.
+  *
+  * A caption may appear before or after the described content, even if it and the content are
+  * children of the same Object (e.g., a `figure`). A `.P.Capt.Before` appears before the content;
+  * a `.P.Capt.After` appears after.
+  * Note: According to the HTML5 specs, a `table > caption`, if it exists, may *only* be the
+  * first child. However, applying `.Capt.Before` to the `table > caption:first-child` will make it
+  * look ugly, because the borders conflict and it will have `display: block;` rather than
+  * `display: table-caption;`. Just don't apply `.Capt.Before` or `.Capt.After` to `table > caption`s.
+@implements
+: .vru-content()
+: .fontsize-block-small()
+: .border-vert-one(bottom)
+: .border-vert-one(top)
+@tags
+: #typography
+: #caption
+: #table
+: #figure
+@author
+: Chris Harvey
+@updated
+: 2015-02-09
   */
 /*################*\
     _trumps.less

@@ -368,31 +368,32 @@ using site-wide styles.</p>
     </aside> -->
   <section id="paragraphs">
     <h1 class="H--Gam">Paragraphs</h1>
-    <p class="P">A <code>.P</code> Object represents a generic paragraph.</p>
-    <p class="P Intro">A <code>.P.Intro</code> Object represents a Lede paragraph. It may or may not
-      be part of an <code>.Article</code>.</p>
-    <p class="P"><span class="Lede">This is a <code>.Lede</code> sentence within a paragraph.</span>
+    <p>A <code>p</code> Element represents a generic paragraph.</p>
+    <p class="Intro">A <code>p.Intro</code> Object represents a Lede paragraph. It may or may not
+      be part of an <code>.Article</code>. If it is, it may be considered the abstract, description,
+      or summary.</p>
+    <p><span class="Lede">This is a <code>.Lede</code> sentence within a paragraph.</span>
       A <code>.Lede</code> sentence can be thought of as a mini-heading for just one paragraph.
-      This is the rest of the paragraph.</p>
-    <p class="P Dropcap">Dropped capitals (<i>drop caps</i>) can be beautiful, but it is
-      unusual to use one on a normal paragraph. This <code>.P.Dropcap</code> is here simply
+      The rest of the paragraph is text.</p>
+    <p class="Dropcap">Dropped capitals (<i>drop caps</i>) can be beautiful, but it is
+      unusual to use one on a normal paragraph. This <code>p.Dropcap</code> is here simply
       for visual comprehension.
       The rest of the paragraph is text.
       The rest of the paragraph is text.
       The rest of the paragraph is text.
       The rest of the paragraph is text.
       The rest of the paragraph is text.</p>
-    <p class="P Intro Dropcap">In an intro paragraph, drop caps can be used for pure aesthetics.
-      This is a <code>.P.Intro.Dropcap</code>. Notice how the drop cap font family complements
-      the lede paragraph font family.
+    <p class="Intro Dropcap">In an intro paragraph, drop caps can be used for pure aesthetics.
+      This is an <code>p.Intro.Dropcap</code>. Notice how the drop cap font complements
+      the intro paragraph font.
       The rest of the paragraph is text.
       The rest of the paragraph is text.
       The rest of the paragraph is text.
       The rest of the paragraph is text.
       The rest of the paragraph is text.</p>
     <div class="Article">
-      <p class="P Dropcap">The first , non-<code>.Intro</code>, paragraph of an article or in
-        a book chapter may also have a drop cap. This is an <code>.Article &gt; .P.Dropcap</code>.
+      <p class="Dropcap">The first , non-<code>.Intro</code>, paragraph of an article or in
+        a book chapter may also have a drop cap. This is an <code>.Article &gt; p.Dropcap</code>.
         The rest of the paragraph is text.
         The rest of the paragraph is text.
         The rest of the paragraph is text.
@@ -401,12 +402,12 @@ using site-wide styles.</p>
     </div>
     <section id="quasi-paragraphs" style="background: #f1f6ff;">
       <h1 class="H--Del">Quasi-Paragraphs</h1>
-      <p class="P Intro">This section describes Objects that are similar to paragraphs in concept
-        but do not extend the <code>.P</code> Object.</p>
-      <p class="Capt">This is a <code>.Capt</code>. It should be a sibling of the content it describes.</p>
+      <p class="Intro">This section describes Objects that are similar to paragraphs in concept
+        but are not instantiated by <code>p</code> Elements.</p>
+      <!-- <p class="Capt">This is a <code>.Capt</code>. It should be a sibling of the content it describes.</p>
       <p class="Capt Before">This is a <code>.Capt.Before</code>. It goes before the described content.</p>
       <p class="Capt After">This is a <code>.Capt.After</code>. It goes after the described content.</p>
-      <p class="P">The following is an <code>.Addy</code>. It represents an arbitrary postal
+      <p>The following is an <code>.Addy</code>. It represents an arbitrary postal
         mailing address. It may or may not be the postal mailing address of the document
         author(s); if it is, it should be contained in an <code>address</code> Element.
         The traditional method of displaying line breaks is with the <code>&lt;br/&gt;</code> Tag.</p>
@@ -417,45 +418,41 @@ using site-wide styles.</p>
         (555) 555-5555<br/>
         ch@example.com<br/>
         @ch12345
-      </p>
-      <figure class="Fig">
-        This is a <code>.Fig</code> Object.
-        <figcaption class="Capt After">
-          <span class="Lede">This is a <code>.Fig &gt; .Capt.After &gt; .Lede</code>.</span>
-          The lede usually contains the <code>.Fig</code>&rsquo;s title
+      </p> -->
+      <figure>
+        This is a <code>figure</code>. An image, diagram, or table might appear here.
+        <figcaption>
+          <span class="Lede">This is a <code>figure &gt; figcaption:last-child &gt; .Lede</code>.</span>
+          The lede usually contains the <code>figure</code>&rsquo;s title
           (<i lang="la"><abbr title="exampli gratia">e.g.</abbr></i>, <i>Figure&nbsp;1</i>).
-          This is the rest of the <code>.Fig &gt; .Capt.After</code>.</figcaption>
+          This is the rest of the <code>figure &gt; figcaption:last-child</code>.</figcaption>
       </figure>
-      <figure class="Fig Text">
-        <figcaption class="Capt Before">Some figures contain text and/or paragraphs.
-          This is the rest of the <code>.Fig.Text &gt; .Capt.Before</code>.</figcaption>
-        <p class="P">This <code>.Fig.Text</code> Object contains optional <code>.P</code> Objects.</p>
-        <p class="P">This is another <code>.Fig.Text &gt; .P</code>.</p>
+      <figure class="Text">
+        <figcaption>Some figures contain text and/or paragraphs.
+          This is the rest of the <code>figure.Text &gt; figcaption:first-child</code>.</figcaption>
+        <p>This <code>figure.Text</code> Object contains optional <code>p</code> Elements.</p>
+        <p>This is another <code>figure.Text &gt; p</code>.</p>
       </figure>
-      <blockquote class="Qblock">
-        This is a generic block quote (<code>.Qblock</code>).
-        <footer><cite class="Src">Source, a <code>.Qblock .Src</code></cite></footer>
+      <blockquote>
+        <p>This is a generic <code>blockquote</code>. Use this for material that is more than 40 words
+          and/or contains paragraph breaks.</p>
+        <p>Nest <code>p</code> Elements inside the block quotation that correspond directly
+          to the paragraphs of the quoted material. If there are no paragraphs in the quoted material,
+          do not use <code>p</code> Elements&mdash;just simply contain the text inside the
+          <code>blockquote</code>.</p>
+        <p>To cite the source of the quoted material in this block quote,
+          include a <code>footer &gt; cite</code> Element.</p>
+        <footer><cite>Source, <time>2000</time></cite></footer>
       </blockquote>
-      <blockquote class="Qblock Long" cite="">
-        Another <code>.Qblock</code>. Use a generic block quote when the original source
-        is more than 40 words and contains <em>no</em> paragraph breaks.
-        Optionally, the source may be contained in a <code>.Src.Formal</code> in more formal
-        documents. This is the rest of the quotation.
-        <footer><cite class="Src Formal">Source, <time>2000</time></cite></footer>
+      <p>A <code>blockquote.Short</code> tends to have a stronger effect.
+        Use it when the original source is less than 40 words and contains no paragraph breaks.
+        Do not include child <code>p</code> Elements. To cite the source, add a child
+        <code>cite</code> Element.</p>
+      <blockquote class="Short" cite="http://www.imdb.com/title/tt1648163/quotes">
+        Look at you, soaring through the air like an eagle&hellip; piloting a blimp.
+        <cite>GLaDOS</cite>
       </blockquote>
-      <blockquote class="Qblock" cite="">
-        <p class="P">.Qblock &gt; .P</p>
-        <p class="P">.Qblock &gt; .P</p>
-        <p class="P">Use <code>.P</code> Objects within a <code>.Qblock</code> when
-          the original source has paragraph breaks (regardless of word count).</p>
-        <footer><cite class="Src Formal">Source, <time>2000</time>, a
-          <code>.Qblock .Src.Formal</code></cite></footer>
-      </blockquote>
-      <blockquote class="Qblock Short" cite="">
-        This is a <code>.Qblock.Short</code>. It tends to have a stronger effect.
-        Use it when the original source is &le; 40 words and contains no paragraph breaks.
-        <footer><cite class="Src">Source</cite></footer>
-      </blockquote>
+      <pre>This is a <code>pre</code> Element.</pre>
     </section>
   </section>
   <section id="lists">
