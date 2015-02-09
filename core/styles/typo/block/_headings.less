@@ -12,12 +12,18 @@
 /**
   * This Interface represents a generic textual heading of a section, post, article, or document.
   * It does not represent a heading in a table. See the `.Cell.Hc` Object.
+@params
+: @font_size      : value of the font-size property. Must be in rems.
+: @line_height    : value of the line-height property. Must be unitless.
+: @spacing_top    : unitless number for the `.vru-top(@ratio)` mixin.
+: @spacing_bottom : unitless number for the `.vru-bottom(@ratio)` mixin.
 @implements
 : .vru-content()
 @tags
 : #typography
 : #heading
 : #section
+: #verticalrhythm
 @author
 : Chris Harvey
 @updated
@@ -68,42 +74,47 @@
 : 2014-10-21
   */
 .H--Alp {
-  .heading(@font_size_alpha, 2 * @line_height_alpha, 2 * @phi1, 2 * @phi2);
+  .heading(@font_size_alpha, (@line_height_alpha * 2), (2 * @phi1), (2 * @phi2));
   // 2 * @phi1 + 2 * @phi2 == 2
-  // 2 * @phi1 / 2 * @phi2 == 1.618
+  // 2 * @phi1 / 2 * @phi2 == @phi_inv1
   font-variant: small-caps;
   text-align: center;
   color: @color_h_major;
 }
 .H--Bet {
-  .heading(@font_size_beta, 2 * @line_height_beta, 1.447, 0.553);
+  .heading(@font_size_beta, (@line_height_beta * 2), 1.447, 0.553);
   // find formulas to express these numbers
   // 1.447 + 0.553 == 2
-  // 1.447 / 0.553 == 2.618 == (1.618)^2
+  // 1.447 / 0.553 == 2.618 == (@phi_inv1)^2
   .border-vert-one(bottom; 1px; solid; @color_h_minor);
   color: @color_h_minor;
 }
 .H--Gam {
-  .heading(@font_size_gamma, @line_height_gamma, 1 * @phi1, 1 * @phi2);
+  .heading(@font_size_gamma, @line_height_gamma, (1 * @phi1), (1 * @phi2));
   // 1 * @phi1 + 1 * @phi2 == 1
-  // 1 * @phi1 / 1 * @phi2 == 1.618
+  // 1 * @phi1 / 1 * @phi2 == @phi_inv1
   font-variant: small-caps;
 }
 .H--Del {
   .heading(@font_size_delta, @line_height_delta, 0.724, 0.276);
   // find formulas to express these numbers
   // 0.724 + 0.276 == 1
-  // 0.724 / 0.276 == 2.618 == (1.618)^2
+  // 0.724 / 0.276 == 2.618 == (@phi_inv1)^2
   font-style: italic;
 }
 .H--Eps {
-  .heading(@font_size_epsilon, @line_height_epsilon, 0, 0);
+  .heading(@font_size_epsilon, (@line_height_epsilon / 2), (0.5 * @phi1), (0.5 * @phi2));
+  // 0.5 * @phi1 + 0.5 * @phi2 == 0.5
+  // 0.5 * @phi1 / 0.5 * @phi2 == @phi_inv1
   font-style: italic;
   font-weight: normal;
   color: @color_h_minor;
 }
 .H--Zet {
-  .heading(@font_size_zeta, @line_height_zeta, 0, 0);
+  .heading(@font_size_zeta, (@line_height_zeta / 2), 0.362, 0.138);
+  // find formulas to express these numbers
+  // 0.362 + 0.138 == 0.5
+  // 0.362 / 0.138 == (@phi_inv1)^2
   font-style: italic;
   font-weight: normal;
   font-variant: small-caps;
