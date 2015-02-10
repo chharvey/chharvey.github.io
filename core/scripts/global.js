@@ -53,7 +53,7 @@ function qblockLines() {
   * NOTE: this assumes each term-description group contains exactly one `dt` and one `dd`.
   */
 function mapHeights() {
-  $('dl.Horiz, .FuncTabl').each(function () {
+  $('.dl--Horiz, .FuncTabl').each(function () {
     $(this).children('dt').each(function () {
       var height1 = parseInt($(this).css('height'));
       var height2 = parseInt($(this).next().css('height'));
