@@ -1595,7 +1595,7 @@ ul {
   padding-left: 0;
   list-style-type: none;
 }
-.Alist > .Item {
+.Alist > li {
   -webkit-transition-property: color;
   -moz-transition-property: color;
   -ms-transition-property: color;
@@ -1619,14 +1619,14 @@ ul {
   color: #0062ff;
   cursor: pointer;
 }
-.Alist > .Item:hover {
+.Alist > li:hover {
   text-decoration: underline;
   color: #ff9d00;
 }
-.Alist > .Item:active {
+.Alist > li:active {
   color: #cc004e;
 }
-.Alist > .Item::before {
+.Alist > li::before {
   content: '\2713\0020';
 }
 /**
@@ -1652,10 +1652,10 @@ ul {
   display: inline;
   padding-left: 0;
 }
-.Ilist > .Item {
+.Ilist > li {
   display: inline;
 }
-.Ilist > .Item.endline::after {
+.Ilist > li.endline::after {
   display: block;
   content: '' !important;
 }
@@ -1671,19 +1671,19 @@ ul {
 @updated
 : 2015-01-05
   */
-.Ilist.Comma > .Item:not(:last-child)::after {
+.Ilist.Comma > li:not(:last-child)::after {
   content: ',\0020';
 }
-.Ilist.Mdash > .Item:not(:last-child)::after {
+.Ilist.Mdash > li:not(:last-child)::after {
   content: '\0020\2014\0020';
 }
-.Ilist.Ndash > .Item:not(:last-child)::after {
+.Ilist.Ndash > li:not(:last-child)::after {
   content: '\0020\2013\0020';
 }
-.Ilist.Bull > .Item:not(:last-child)::after {
+.Ilist.Bull > li:not(:last-child)::after {
   content: '\0020\2022\0020';
 }
-.Ilist.Square > .Item:not(:last-child)::after {
+.Ilist.Square > li:not(:last-child)::after {
   content: '\0020\25aa\0020';
 }
 /**
@@ -1719,49 +1719,21 @@ ul {
     _maps.less
 \*##############*/
 /**
-  * This Object represents an association list, which contains term-description pairs. Each pair
-  * consists of exactly one `.Term` and exactly one `.Desc`.
-@implements
-: .vru-content()
-: .follows-heading()
+  * A `dl` Element, or Map, contains term-description pairs.
+  * Each pair consists of exactly one `dt` and exactly one `dd`, where
+  * the `dt` is the term (or name) and the `dd` is the description (or value).
 @tags
 : #typography
 : #map
 @author
 : Chris Harvey
 @updated
-: 2014-10-19
+: 2015-02-10
   */
-dl {
-  /**
-    * This Object represent the term in a term-description pair of a `.Map`.
-  @implements
-  : .vru-top() only when following a `.Desc`
-  @tags
-  : #typography
-  : #map
-  @author
-  : Chris Harvey
-  @updated
-  : 2015-01-22
-    */
-  /**
-    * This Object represent the description in a term-description pair of a `.Map`.
-  @belongsto
-  : .Map
-  @tags
-  : #typography
-  : #map
-  @author
-  : Chris Harvey
-  @updated
-  : 2015-01-22
-    */
-}
-dl > dt > ol,
-dl > dd > ol,
-dl > dt > ul,
-dl > dd > ul {
+dt > ol,
+dd > ol,
+dt > ul,
+dd > ul {
   margin-bottom: 0rem;
   padding-left: 2rem;
 }
@@ -1771,7 +1743,7 @@ dl > dd > ul {
   * This map acts like a table, with each row containing a single term-description group.
   * Multiple terms and multiple descriptions in the same group are in the same row.
 @extends
-: .Map
+: dl
 @implements
 : .clearfix()
 @tags
@@ -1836,9 +1808,10 @@ dl.Horiz.Lrg > dd {
   width: 23.60679775%;
 }
 /**
-  * This Object represents a Horizontal Map that appears as a Table Object.
+  * This Object represents a Horizontal Map that appears as a table.
+  * Use the subclasses .Sml, .Msm, etc for pre-defined `dt` widths.
 @extends
-: .Map.Horiz
+: dl.Horiz
 @implements
 : .cellpaddingdefault()
 @tags
