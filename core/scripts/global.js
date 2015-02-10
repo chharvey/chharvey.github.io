@@ -48,18 +48,18 @@ function qblockLines() {
 }
 
 /**
-  * Adjusts the height of the `.Term`s and `.Desc`s inside a `.Map` such that
+  * Adjusts the height of the `dt`s and `dd`s inside a `dl` such that
   * the each pair of terms and descriptions share the same height.
-  * NOTE: this assumes each term-description group contains exactly one `.Term` and one `.Desc`.
+  * NOTE: this assumes each term-description group contains exactly one `dt` and one `dd`.
   */
 function mapHeights() {
-  $('.Map.Horiz, .FuncTabl').each(function () {
-    $(this).children('.Term').each(function () {
+  $('dl.Horiz, .FuncTabl').each(function () {
+    $(this).children('dt').each(function () {
       var height1 = parseInt($(this).css('height'));
       var height2 = parseInt($(this).next().css('height'));
       $(this).next().css('height', Math.max(height1, height2) + 'px');
     });
-    $(this).children('.Desc').each(function () {
+    $(this).children('dd').each(function () {
       var height1 = parseInt($(this).prev().css('height'));
       var height2 = parseInt($(this).css('height'));
       $(this).prev().css('height', Math.max(height1, height2) + 'px');

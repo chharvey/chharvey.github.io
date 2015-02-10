@@ -19,10 +19,18 @@
 @updated
 : 2014-10-19
   */
-.Map {
-  .vru-content();
-  .follows-heading(1);
-  display: block;
+dl {
+  // .vru-content();
+  // .follows-heading(1);
+  // display: block;
+  > dt,
+  > dd {
+    > ol,
+    > ul {
+      .vru-bottom(0);
+      padding-left: 2rem;
+    }
+  }
   /**
     * This Object represent the term in a term-description pair of a `.Map`.
   @implements
@@ -35,10 +43,10 @@
   @updated
   : 2015-01-22
     */
-  > .Term {
-    .vru-content();
-    display: block;
-    font-weight: bold;
+  > dt {
+    // .vru-content();
+    // display: block;
+    // font-weight: bold;
   }
   /**
     * This Object represent the description in a term-description pair of a `.Map`.
@@ -52,11 +60,11 @@
   @updated
   : 2015-01-22
     */
-  > .Desc {
-    .vru-content();
-    display: block;
+  > dd {
+    // .vru-content();
+    // display: block;
   }
-  > .Desc + .Term {.vru-top(1);}
+  // > .Desc + .Term {.vru-top(1);}
 }
 
 /**
@@ -77,37 +85,31 @@
 @updated
 : 2014-11-23
   */
-@termpadding: 1rem;
-.Map.Horiz {
+dl.Horiz {
   .clearfix();
-  > .Term,
-  > .Desc {box-sizing: border-box;}
-  > .Term {
-    padding-right: @termpadding;
+  > dt,
+  > dd {box-sizing: border-box;}
+  > dt {
+    padding-right: 1rem;
     float: left;
     clear: both;
     overflow: auto;
     white-space: nowrap;
   }
-  > .Desc {
+  > dd {
     float: left;
   }
-  > .Desc + .Term {margin-top: 0;} // undo `.vru-top(1);` from `.Map > .Desc + .Term`
-  // > .Desc + .Desc {margin-left: @termwidth;}
+  > dd + dt {padding-top: 0;} // undo padding from reset
 }
 .map-horiz-mx(@termwidth) {
-  > .Term {
-    width: @termwidth;
-  }
-  > .Desc {
-    width: (100% - @termwidth);
-  }
+  > dt {width: @termwidth;}
+  > dd {width: (100% - @termwidth);}
 }
-.Map.Horiz.Sml {.map-horiz-mx(@golden3);}  // 23.6067977499789696%
-.Map.Horiz.Msm {.map-horiz-mx(@golden2);}  // 38.1966011250105152%
-.Map.Horiz.Med {.map-horiz-mx(@1o2);}      // 50%
-.Map.Horiz.Mlg {.map-horiz-mx(@golden1);}  // 61.8033988749894848%
-.Map.Horiz.Lrg {.map-horiz-mx(@golden3c);} // 76.3932022500210304%
+dl.Horiz.Sml {.map-horiz-mx(@golden3);}  // 23.6067977499789696%
+dl.Horiz.Msm {.map-horiz-mx(@golden2);}  // 38.1966011250105152%
+dl.Horiz.Med {.map-horiz-mx(@1o2);}      // 50%
+dl.Horiz.Mlg {.map-horiz-mx(@golden1);}  // 61.8033988749894848%
+dl.Horiz.Lrg {.map-horiz-mx(@golden3c);} // 76.3932022500210304%
 
 /**
   * This Object represents a Horizontal Map that appears as a Table Object.
@@ -124,15 +126,15 @@
 @updated
 : 2014-11-23
   */
-.Map.Horiz.Tbl {
-  > .Term,
-  > .Desc {
+dl.Horiz.Tbl {
+  > dt,
+  > dd {
     .cellpaddingdefault();
   }
-  > .Term:nth-child(4n+1),
-  > .Desc:nth-child(4n+2) {background-color: @color_table_bg_md;}
-  > .Term:nth-child(4n+3),
-  > .Desc:nth-child(4n)   {background-color: @color_table_bg_lo;}
+  > dt:nth-child(4n+1),
+  > dd:nth-child(4n+2) {background-color: @color_table_bg_md;}
+  > dt:nth-child(4n+3),
+  > dd:nth-child(4n)   {background-color: @color_table_bg_lo;}
 }
 
 // /*dl*/.dl--ordered {
