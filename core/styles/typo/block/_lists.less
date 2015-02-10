@@ -27,11 +27,11 @@
 @updated
 : 2014-10-19
   */
-.list-block() {
-  display: block;
-  .vru-content();
-  .follows-heading(1);
-}
+// .list-block() {
+//   display: block;
+//   .vru-content();
+//   .follows-heading(1);
+// }
 /**
   * This Object represents a block item in a list. It may be a literal `li` Element
   * inside an `ol` or `ul` Element, or it may be any Element in any "List" class.
@@ -45,8 +45,8 @@
 @updated
 : 2014-10-11
   */
-.Item {
-}
+// .Item {
+// }
 /**
   * This Object represents an ordered list, or a list used for an outline. This does *not*
   * correspond directly to a literal `ol` Element; this Object is simply to be displayed with
@@ -64,16 +64,14 @@
 @updated
 : 2014-05-11
   */
-.Olist {
-  .list-block();
-  padding-left: @listindent;
-  list-style-type: decimal-leading-zero; //  01.  02.  03.
-  list-style-type: decimal;              //   1.   2.   3.
+ol {
+  // .list-block();
+  // padding-left: @listindent;
+  // list-style-type: decimal-leading-zero; //  01.  02.  03.
+  // list-style-type: decimal;              //   1.   2.   3.
 }
 /**
   * These Objects represent outlined lists with different enumeration types.
-@extends
-: .Olist
 @tags
 : #typography
 : #list
@@ -83,13 +81,32 @@
 @updated
 : 2014-05-03
   */
-.Olist.Ome {list-style-type: decimal-leading-zero;} //  01.  02.  03.
-.Olist.Alp {list-style-type: upper-roman;}          //   I.  II. III.
-.Olist.Bet {list-style-type: upper-alpha;}          //   A.   B.   C.
-.Olist.Gam {list-style-type: decimal;}              //   1.   2.   3.
-.Olist.Del {list-style-type: lower-alpha;}          //   a.   b.   c.
-.Olist.Eps {list-style-type: lower-roman;}          //   i.  ii. iii.
-.Olist.Zet {list-style-type: lower-greek;}          //   α.   β.   γ.
+ol.Ome {list-style-type: decimal-leading-zero;} //  01.  02.  03.
+ol.Alp {list-style-type: upper-roman;}          //   I.  II. III.
+ol.Bet {list-style-type: upper-alpha;}          //   A.   B.   C.
+ol.Gam {list-style-type: decimal;}              //   1.   2.   3.
+ol.Del {list-style-type: lower-alpha;}          //   a.   b.   c.
+ol.Eps {list-style-type: lower-roman;}          //   i.  ii. iii.
+ol.Zet {list-style-type: lower-greek;}          //   α.   β.   γ.
+/**
+  * This Object represents an outlined list. It is used for nested `ol` objects, for example,
+  * to display a table of contents or document outline.
+@implements
+: .vru-top()
+@tags
+: #typography
+: #list
+@author
+: Chris Harvey
+@updated
+: 2014-12-19
+*/
+ol.Outline {
+  padding-left: 2rem;
+  .Outline {
+    .vru-bottom(0);
+  }
+}
 /**
   * This Object represents a generic list whose items are to be displayed as blocks with the same
   * markers. It does *not* necessarily correspond directly to a literal `ul` Element. This class
@@ -105,13 +122,15 @@
 @updated
 : 2014-05-11
   */
-.Ulist {
-  .list-block();
-  padding-left: @listindent;
+ul {
+  // .list-block();
+  // padding-left: @listindent;
   list-style-type: square;
 }
 /**
   * This Object represents an action list, which typically contains hyperlinks.
+  * Line items are made to look like hyperlinks, even if they are not. Each line item must have
+  * the class `.Item` for elements that aren’t `ul` or `ol`.
 @implements
 : .list-block()
 : .Link
@@ -125,13 +144,14 @@
 : 2014-10-22
   */
 .Alist {
-  .list-block();
+  // .list-block();
+  padding-left: 0;
+  list-style-type: none;
   > .Item {
     .Link;
     &::before {content: '\2713\0020';} // check mark, space
   }
 }
-
 /**
   * This Object represents a generic inline list. It, along with its items, are displayed inline.
   * It may be used for a listing of items, typically words. The order of items may or
@@ -153,6 +173,7 @@
   */
 .Ilist {
   display: inline;
+  padding-left: 0;
   > .Item {
     display: inline;
     &.endline::after  {display: block; content: '' !important;}
@@ -175,30 +196,6 @@
 .Ilist.Ndash  { > .Item:not(:last-child)::after {content: '\0020\2013\0020';} } // ' – '
 .Ilist.Bull   { > .Item:not(:last-child)::after {content: '\0020\2022\0020';} } // ' • '
 .Ilist.Square { > .Item:not(:last-child)::after {content: '\0020\25aa\0020';} } // ' ▪ '
-
-
-/**
-  * This Object represents an outlined list. It is used for nested `Olist` objects, for example,
-  * to display a table of contents or document outline.
-@extends
-: .Olist
-@implements
-: .vru-top()
-@tags
-: #typography
-: #list
-@author
-: Chris Harvey
-@updated
-: 2014-12-19
-*/
-.Olist.Outline {
-  padding-left: (@listindent / 2);
-  .Outline {
-    .vru-top(0);
-  }
-}
-
 /**
   * This Object represents a 'List of Prose', a list whose items consist of only paragraphs.
 @extends
@@ -213,11 +210,11 @@
 @updated
 : 2014-10-03
   */
-.Olist.LOP {
-  > .Item:not(:first-child) {
-    .vru-top(1);
-  }
-}
+// .Olist.LOP {
+//   > .Item:not(:first-child) {
+//     .vru-top(1);
+//   }
+// }
 /**
   * This Object represents a 'List in Prose', a list that is contained within prose paragraphs.
   * The list items contain spans of text, but not whole paragraphs. It is displayed inline, and has
@@ -233,12 +230,12 @@
 @updated
 : 2014-05-25
   */
-.Ilist.LIP {
-  counter-reset: count;
-  > .Item {
-    counter-increment: count;
-    &::before {
-      content: '(' counter(count) ') ';
-    }
-  }
-}
+// .Ilist.LIP {
+//   counter-reset: count;
+//   > .Item {
+//     counter-increment: count;
+//     &::before {
+//       content: '(' counter(count) ') ';
+//     }
+//   }
+// }

@@ -457,172 +457,174 @@ using site-wide styles.</p>
   </section>
   <section id="lists">
     <h1 class="H--Gam">Lists</h1>
-    <small class="Alert--Help">On all lists below, outlines have been added to each
-      <code>.Item</code> to show structure.</small>
-    <p class="P">The following is a <code>.Olist</code>. Its items are displayed as blocks
-      with markers that indicate order. An <code>.Olist</code> may be instantiated by a
-      <code>ol</code> or <code>ul</code> Element, whichever is approperiate.</p>
-    <ul class="Olist">
-      <li class="Item help-otln">.Olist &gt; .Item</li>
-      <li class="Item help-otln">.Olist &gt; .Item</li>
-      <li class="Item help-otln">.Olist &gt; .Item</li>
-    </ul>
-    <p class="P">Use <code>.Olist</code> subclasses for lists with different markers. These subclasses
-      might be useful in an <a class="Link" rel="this" href="#lists-outline">outlined list</a>.</p>
-    <ol class="Olist Alp">
-      <li class="Item help-otln"><code>.Olist.Alp</code></li>
-      <li class="Item help-otln"><code>{list-style-type: upper-roman;}</code></li>
+    <p>The following is an <code>ol</code>.</p>
+    <ol>
+      <li>ol &gt; li</li>
+      <li>ol &gt; li</li>
+      <li>ol &gt; li</li>
     </ol>
-    <ol class="Olist Bet">
-      <li class="Item help-otln"><code>.Olist.Bet</code></li>
-      <li class="Item help-otln"><code>{list-style-type: upper-alpha;}</code></li>
+    <p>Use classes for lists with different markers. These classes might be useful in an outlined list.</p>
+    <ol class="Alp">
+      <li>ol.Alp</li>
+      <li>upper-roman</li>
     </ol>
-    <ol class="Olist Gam">
-      <li class="Item help-otln"><code>.Olist.Gam</code></li>
-      <li class="Item help-otln"><code>{list-style-type: decimal;}</code> (default)</li>
+    <ol class="Bet">
+      <li>ol.Bet</li>
+      <li>upper-alpha</li>
     </ol>
-    <ol class="Olist Del">
-      <li class="Item help-otln"><code>.Olist.Del</code></li>
-      <li class="Item help-otln"><code>{list-style-type: lower-alpha;}</code></li>
+    <ol class="Gam">
+      <li>ol.Gam</li>
+      <li>decimal (default)</li>
     </ol>
-    <ol class="Olist Eps">
-      <li class="Item help-otln"><code>.Olist.Eps</code></li>
-      <li class="Item help-otln"><code>{list-style-type: lower-roman;}</code></li>
+    <ol class="Del">
+      <li>ol.Del</li>
+      <li>lower-alpha</li>
     </ol>
-    <ol class="Olist Zet">
-      <li class="Item help-otln"><code>.Olist.Zet</code></li>
-      <li class="Item help-otln"><code>{list-style-type: lower-greek;}</code></li>
+    <ol class="Eps">
+      <li>ol.Eps</li>
+      <li>lower-roman</li>
+    </ol>
+    <ol class="Zet">
+      <li>ol.Zet</li>
+      <li>lower-greek</li>
     </ol>
     <ol class="Olist Ome">
-      <li class="Item help-otln"><code>.Olist.Ome</code></li>
-      <li class="Item help-otln"><code>{list-style-type: decimal-leading-zero;}</code></li>
+      <li>ol.Ome</li>
+      <li>decimal-leading-zero</li>
     </ol>
-    <p class="P">The following is a <code>.Ulist</code> Object. Its items are displayed as
-      blocks with identical markers. A <code>.Ulist</code> may be instantiated by a
-      <code>ol</code> or <code>ul</code> Element, whichever is approperiate.</p>
-    <ul class="Ulist">
-      <li class="Item help-otln">.Ulist &gt; .Item</li>
-      <li class="Item help-otln">.Ulist &gt; .Item</li>
-      <li class="Item help-otln">.Ulist &gt; .Item</li>
+    <p>Outlined lists are a collection of nested ordered lists. They may be used to
+      indicate a table of contents, document outline, <i lang="la"><abbr title="et cetera">etc.</abbr></i>
+      Use the class <code>ol.Outline</code>, with an optional additional Greek prefix subclasses
+      for marker style, on all levels of the outline. Thus a DOM tree might look like this:
+      <code class="Codeblock">ol.Outline.Alp &gt; ol.Outline.Bet &gt; ol.Outline</code>
+    </p>
+    <ol class="Outline Alp">
+      <li>Book One (no spans)
+        <ol class="Outline Bet">
+          <li>Chapter I
+            <ol class="Outline Gam">
+              <li>Section 1
+                <ol class="Outline Del">
+                  <li class="Item">Division i</li>
+                  <li class="Item">Division ii</li>
+                </ol>
+              </li>
+              <li>Section 2
+                <ol class="Outline Del">
+                  <li>Division i</li>
+                  <li>Division ii</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>Chapter II
+            <ol class="Outline Gam">
+              <li>Section 1
+                <ol class="Outline Del">
+                  <li>Division i</li>
+                  <li>Division ii</li>
+                </ol>
+              </li>
+              <li class="Item">Section 2
+                <ol class="Outline Del">
+                  <li>Division i</li>
+                  <li>Division ii</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+        </ol>
+      </li>
+      <li class="Item">Book <span>Two</span> (with spans)
+        <ol class="Outline Bet">
+          <li>Chapter <span>I</span>
+            <ol class="Outline Gam">
+              <li>Section <span>1</span>
+                <ol class="Outline Del">
+                  <li>Division <span>i</span></li>
+                  <li>Division <span>ii</span></li>
+                </ol>
+              </li>
+              <li>Section <span>2</span>
+                <ol class="Outline Del">
+                  <li>Division <span>i</span></li>
+                  <li>Division <span>ii</span></li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>Chapter <span>II</span>
+            <ol class="Outline Gam">
+              <li>Section <span>1</span>
+                <ol class="Outline Del">
+                  <li>Division <span>i</span></li>
+                  <li>Division <span>ii</span></li>
+                </ol>
+              </li>
+              <li>Section <span>2</span>
+                <ol class="Outline Del">
+                  <li>Division <span>i</span></li>
+                  <li>Division <span>ii</span></li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+        </ol>
+      </li>
+    </ol>
+    <p>The following is a <code>ul</code>.</p>
+    <ul>
+      <li>ul &gt; li</li>
+      <li>ul &gt; li</li>
+      <li>ul &gt; li</li>
     </ul>
-    <ol class="Alist">
-      <li class="Item help-otln">This is a <code>.Alist</code>.</li>
-      <li class="Item help-otln">Action lists are used specifically for</li>
-      <li class="Item help-otln">short,</li>
-      <li class="Item help-otln">one-line,</li>
-      <li class="Item help-otln">textual hyperlinks.</li>
-    </ol>
-    <p class="P">In an <code>.Alist</code> object, all <code>.Item</code> objects appear as
-      <a class="Link" rel="this" href="#links"><code>.Link</code> objects</a>, so there is no need
+    <p>The following is an <code>.Alist</code>, or action list. These types of lists are used
+      specifically for short, one-line, textual hyperlinks.
+      In <code>ol.Alist</code> or <code>ul.Alist</code> Objects, all <code>.Item</code> Objects appear
+      as <a class="Link" rel="this" href="#links"><code>.Link</code> Objects</a>, so there is no need
       to manually include the <code>.Link</code> class on <code>a</code> Elements inside
-      <code>.Item</code>s. The following should all appear exactly the same.</p>
+      <code>.Item</code>s. The following should all appear exactly the same. Remember to add the
+      <code>.Item</code> class to all line items.</p>
     <ul class="Alist">
-      <li class="Item help-otln">.Alist &gt; .Item</li>
+      <li class="Item">.Alist &gt; .Item</li>
 
-      <li class="Item help-otln"><span>.Alist &gt; .Item &gt; span</span></li>
-      <li class="Item help-otln"><span class="Link">.Alist &gt; .Item &gt; span.Link</span></li>
+      <li class="Item"><span>.Alist &gt; .Item &gt; span</span></li>
+      <li class="Item"><span class="Link">.Alist &gt; .Item &gt; span.Link</span></li>
 
-      <li class="Item help-otln"><a>.Alist &gt; .Item &gt; a</a></li>
-      <li class="Item help-otln"><a href="#lists">.Alist &gt; .Item &gt; a[href]</a></li>
-      <li class="Item help-otln"><a rel="external">.Alist &gt; .Item &gt; a[rel=&quot;external&quot;]</a></li>
-      <li class="Item help-otln"><a href="#lists" rel="external">.Alist &gt; .Item &gt; a[href][rel=&quot;external&quot;]</a></li>
+      <li class="Item"><a>.Alist &gt; .Item &gt; a</a></li>
+      <li class="Item"><a href="#lists">.Alist &gt; .Item &gt; a[href]</a></li>
+      <li class="Item"><a rel="external">.Alist &gt; .Item &gt; a[rel=&quot;external&quot;]</a></li>
+      <li class="Item"><a href="#lists" rel="external">.Alist &gt; .Item &gt; a[href][rel=&quot;external&quot;]</a></li>
 
-      <li class="Item help-otln"><a class="Link">.Alist &gt; .Item &gt; a.Link</a></li>
-      <li class="Item help-otln"><a class="Link" href="#lists">.Alist &gt; .Item &gt; a.Link[href]</a></li>
-      <li class="Item help-otln"><a class="Link" rel="external">.Alist &gt; .Item &gt; a.Link[rel=&quot;external&quot;]</a></li>
-      <li class="Item help-otln"><a class="Link" href="#lists" rel="external">.Alist &gt; .Item &gt; a.Link[href][rel=&quot;external&quot;]</a></li>
+      <li class="Item"><a class="Link">.Alist &gt; .Item &gt; a.Link</a></li>
+      <li class="Item"><a class="Link" href="#lists">.Alist &gt; .Item &gt; a.Link[href]</a></li>
+      <li class="Item"><a class="Link" rel="external">.Alist &gt; .Item &gt; a.Link[rel=&quot;external&quot;]</a></li>
+      <li class="Item"><a class="Link" href="#lists" rel="external">.Alist &gt; .Item &gt; a.Link[href][rel=&quot;external&quot;]</a></li>
     </ul>
-    <section id="lists-outline">
-      <h1 class="H--Del">Outlined Lists</h1>
-      <p class="P">Outlined lists are a collection of nested ordered lists. They may be used to
-        indicate a table of contents, document outline, <i lang="la"><abbr title="et cetera">etc.</abbr></i>
-        Use the subclass <code>.Olist.Outline</code>, with an optional additional Greek prefix subclasses
-        for marker style, on all levels of the outline. Thus a DOM tree might look like this:
-        <code class="Codeblock">.Olist.Outline.Alp &gt; .Olist.Outline.Bet &gt; .Olist.Outline</code>
-      </p>
-      <ol class="Olist Outline Alp">
-        <li class="Item">Book One (no spans)
-          <ol class="Olist Outline Bet">
-            <li class="Item">Chapter I
-              <ol class="Olist Outline Gam">
-                <li class="Item">Section 1
-                  <ol class="Olist Outline Del">
-                    <li class="Item">Division i</li>
-                    <li class="Item">Division ii</li>
-                  </ol>
-                </li>
-                <li class="Item">Section 2
-                  <ol class="Olist Outline Del">
-                    <li class="Item">Division i</li>
-                    <li class="Item">Division ii</li>
-                  </ol>
-                </li>
-              </ol>
-            </li>
-            <li class="Item">Chapter II
-              <ol class="Olist Outline Gam">
-                <li class="Item">Section 1
-                  <ol class="Olist Outline Del">
-                    <li class="Item">Division i</li>
-                    <li class="Item">Division ii</li>
-                  </ol>
-                </li>
-                <li class="Item">Section 2
-                  <ol class="Olist Outline Del">
-                    <li class="Item">Division i</li>
-                    <li class="Item">Division ii</li>
-                  </ol>
-                </li>
-              </ol>
-            </li>
-          </ol>
-        </li>
-        <li class="Item">Book <span>Two</span> (with spans)
-          <ol class="Olist Outline Bet">
-            <li class="Item">Chapter <span>I</span>
-              <ol class="Olist Outline Gam">
-                <li class="Item">Section <span>1</span>
-                  <ol class="Olist Outline Del">
-                    <li class="Item">Division <span>i</span></li>
-                    <li class="Item">Division <span>ii</span></li>
-                  </ol>
-                </li>
-                <li class="Item">Section <span>2</span>
-                  <ol class="Olist Outline Del">
-                    <li class="Item">Division <span>i</span></li>
-                    <li class="Item">Division <span>ii</span></li>
-                  </ol>
-                </li>
-              </ol>
-            </li>
-            <li class="Item">Chapter <span>II</span>
-              <ol class="Olist Outline Gam">
-                <li class="Item">Section <span>1</span>
-                  <ol class="Olist Outline Del">
-                    <li class="Item">Division <span>i</span></li>
-                    <li class="Item">Division <span>ii</span></li>
-                  </ol>
-                </li>
-                <li class="Item">Section <span>2</span>
-                  <ol class="Olist Outline Del">
-                    <li class="Item">Division <span>i</span></li>
-                    <li class="Item">Division <span>ii</span></li>
-                  </ol>
-                </li>
-              </ol>
-            </li>
-          </ol>
-        </li>
-      </ol>
-    </section>
+    <ul class="Alist">
+      <li>.Alist &gt; li</li>
+
+      <li><span>.Alist &gt; li &gt; span</span></li>
+      <li><span class="Link">.Alist &gt; li &gt; span.Link</span></li>
+
+      <li><a>.Alist &gt; li &gt; a</a></li>
+      <li><a href="#lists">.Alist &gt; li &gt; a[href]</a></li>
+      <li><a rel="external">.Alist &gt; li &gt; a[rel=&quot;external&quot;]</a></li>
+      <li><a href="#lists" rel="external">.Alist &gt; li &gt; a[href][rel=&quot;external&quot;]</a></li>
+
+      <li><a class="Link">.Alist &gt; li &gt; a.Link</a></li>
+      <li><a class="Link" href="#lists">.Alist &gt; li &gt; a.Link[href]</a></li>
+      <li><a class="Link" rel="external">.Alist &gt; li &gt; a.Link[rel=&quot;external&quot;]</a></li>
+      <li><a class="Link" href="#lists" rel="external">.Alist &gt; li &gt; a.Link[href][rel=&quot;external&quot;]</a></li>
+    </ul>
     <section id="lists-inline">
       <h1 class="H--Del">Inline Lists</h1>
-      <p class="P">Inline lists are semantically no different from normal Lists. Stylistically,
-        though, they are displayed inline and have inline items. Essentially, they are used for
-        listing words, spans, and other inline content.</p>
-      <p class="P">The following is a <code>.Ilist</code> Object. It and its items are displayed
-        inline, with no markers. Contain this Object in a block (such as a <code>.P</code>)
-        if necessary.</p>
+      <small class="Alert--Help">On all lists below, outlines have been added to each
+        line item to show structure.</small>
+      <p>Inline lists (<code>.Ilist</code>) are semantically no different from normal Lists.
+        Stylistically, though, they are displayed inline and have inline line items. Essentially,
+        they are used for listing words, spans, and other inline content. Remember to use class
+        <code>.Item</code> on the line items. Wrap this Object in a block if necessary.</p>
       <ol class="Ilist">
         <li class="Item help-otln">.Ilist &gt; .Item</li>
         <li class="Item help-otln">.Ilist &gt; .Item</li>
@@ -665,26 +667,27 @@ using site-wide styles.</p>
         <li class="Item help-otln">.Ilist.Square &gt; .Item</li>
       </ol>
     </section>
-    <section id="lists-prose">
+    <!-- <section id="lists-prose">
       <h1 class="H--Del">Lists and Prose</h1>
-      <p class="P">This section describes common ways of combining lists with normal prose.
+      <p>This section describes common ways of combining lists with normal prose.
         The first method is used for listing whole blocks of content, for example a description
         after each list item. The second method is for using lists within prose.</p>
-      <p class="P">A <b>List of Prose</b>, or a <abbr title="List of Prose">LOP</abbr>,
-        is simply a <code>.Olist.LOP</code> Object whose child <code>.Items</code> contain
-        <code>.P</code> Objects.</p>
-      <ol class="Olist LOP">
-        <li class="Item help-otln"><p class="P">An <code>.Olist.LOP</code> has <code>.Item</code>s
-          that consist of prose. Each <code>.Item</code> contains only <code>.P</code> Objects.
-          An <code>.Olist.LOP</code> differs from a normal <code>.Olist</code> in that each
-          non-first item is separated from the previous item.</p></li>
-        <li class="Item help-otln">
-          <p class="P"><span class="Lede">Typically, each list item in a prose list will have a
-            lede sentence.</span> The lede sentence is treated like an actual list item in a short
-            list, if the rest of the prose were not present. It can also be be thought of as a lede
-            lede or <i>heading</i> for the text, although it does not take part in the
-            Document Outline. The lede sentence must be a <code>.Lede</code> Object at the beginning
-            of the <code>.Item</code>.</p>
+      <p>A <b>List of Prose</b>, or a <abbr title="List of Prose">LOP</abbr>,
+        is simply an <code>ol</code> containing prose for its line items, unlike typical lists, whose
+        items are short one-liners. There is no special markup for this type of list.</p>
+      <ol>
+        <li class="help-otln">
+          <p>An <code>ol</code> has <code>li</code>s that consist of prose. Each <code>li</code>
+            contains only <code>p</code> Elements. The <code>li &gt; p</code> provides margins
+            that separate the line items.</p>
+          <p>Line items may contain multiple paragraphs. This is another one.</p>
+        </li>
+        <li class="help-otln">
+          <p><span class="Lede">Typically, each list item in a prose list will have a
+            lede (<code>.Lede</code>) sentence.</span> The reader treats the lede sentence like an
+            actual line item in a short list, as if the rest of the prose were not present.
+            It can also be be thought of as a lede or <i>heading</i> for the text, although it
+            does not take part in the Document Outline.</p>
           <small class="Alert--Cshn">Though literal <code>h1</code> Elements are
             <a class="Link" rel="external"
             href="http://www.w3.org/TR/html5/grouping-content.html#the-li-element">technically
@@ -692,28 +695,27 @@ using site-wide styles.</p>
             look icky, so we don&rsquo;t use them.</small>
         </li>
       </ol>
-      <div class="P">
-        <p>Combining <code>p</code> and <code>ol</code> Elements, we can create
-          what is known as a <b>List in Prose</b>, or a
-          <abbr title="List in Prose">LIP</abbr>. Three things happen with
-          this construction:</p>
+      <p>Combining <code>p</code> and <code>ol</code> Elements, we can create what is known as a
+        <b>List in Prose</b>, or a <abbr title="List in Prose">LIP</abbr>. This is essentialy prose
+        that contains listed content.</p>
+      <div>
+        <p style="display: inline;">We use three Elements:</p>
         <ol class="Ilist LIP">
-          <li class="Item help-otln">we use three Elements: a <code>p</code>, an
-            <code>ol.Ilist.LIP</code></code>, and another <code>p</code>, all
-            representing inline spans of text, contained within a <code>div.P</code>,
-            which represents the paragraph Object;</li>
-          <li class="Item help-otln">each <code>ol.Ilist.LIP &gt; li.Item</code> Object
-            also appears inline, as if it were part of the paragraph itself; and</li>
-          <li class="Item help-otln">the containing Paragraph Object, represented by
-            the <code>div.P</code>, is still displayed as a block so that its
-            surrounding siblings do not appear on the same line.</li>
+          <li class="Item">a <code>p[style="display:inline;"]</code></li>
+          <li class="Item">an <code>ol.Ilist.LIP</code></code></li>
+          <li class="Item">and another <code>p[style="display:inline;"]</code>,</li>
         </ol>
-        <p>With these three taking place, one can utilize the semantics of the
-          ordered list while still maintaining the style of continuous prose. A
-          <code>.Ilist.LIP</code> differs from a normal <code>.Ilist</code> in that the
-          items are numbered.</p>
+        <p style="display: inline;">all representing inline spans of text, contained within a
+          <code>div</code>, which represents one big paragraph.</p>
       </div>
-    </section>
+      <p>Each <code>ol.Ilist.LIP &gt; li.Item</code> Object also appears inline, as if it were
+        part of the paragraph itself, and the containing Paragraph Object, represented by the
+        <code>div</code>, is still displayed as a block so that its surrounding siblings do not
+        appear on the same line.</p>
+      <p>With these taking place, one can utilize the semantics of the ordered list while still
+        maintaining the style of continuous prose. A <code>.Ilist.LIP</code> differs from a normal
+        <code>.Ilist</code> in that the items are numbered.</p>
+    </section> -->
   </section>
   <section id="maps">
     <h1 class="H--Gam">Association Lists (Maps)</h1>

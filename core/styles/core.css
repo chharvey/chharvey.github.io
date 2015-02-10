@@ -995,13 +995,8 @@ body {
 : 2014-09-23
   */
 .Footnotes {
-  display: block;
-  min-height: 1.5rem;
   font-size: 0.75rem;
   line-height: 2;
-}
-:not(h1):not(.H):not(header) + .Footnotes {
-  padding-top: 1.5rem;
 }
 /**
   * The `.Rf` Object represents a reference to a footnote. The reference exists in the document prose,
@@ -1511,20 +1506,8 @@ figcaption:last-child {
 @updated
 : 2014-05-11
   */
-.Olist {
-  display: block;
-  min-height: 1.5rem;
-  padding-left: 0.5in;
-  list-style-type: decimal-leading-zero;
-  list-style-type: decimal;
-}
-:not(h1):not(.H):not(header) + .Olist {
-  padding-top: 1.5rem;
-}
 /**
   * These Objects represent outlined lists with different enumeration types.
-@extends
-: .Olist
 @tags
 : #typography
 : #list
@@ -1534,26 +1517,45 @@ figcaption:last-child {
 @updated
 : 2014-05-03
   */
-.Olist.Ome {
+ol.Ome {
   list-style-type: decimal-leading-zero;
 }
-.Olist.Alp {
+ol.Alp {
   list-style-type: upper-roman;
 }
-.Olist.Bet {
+ol.Bet {
   list-style-type: upper-alpha;
 }
-.Olist.Gam {
+ol.Gam {
   list-style-type: decimal;
 }
-.Olist.Del {
+ol.Del {
   list-style-type: lower-alpha;
 }
-.Olist.Eps {
+ol.Eps {
   list-style-type: lower-roman;
 }
-.Olist.Zet {
+ol.Zet {
   list-style-type: lower-greek;
+}
+/**
+  * This Object represents an outlined list. It is used for nested `ol` objects, for example,
+  * to display a table of contents or document outline.
+@implements
+: .vru-top()
+@tags
+: #typography
+: #list
+@author
+: Chris Harvey
+@updated
+: 2014-12-19
+*/
+ol.Outline {
+  padding-left: 2rem;
+}
+ol.Outline .Outline {
+  margin-bottom: 0rem;
 }
 /**
   * This Object represents a generic list whose items are to be displayed as blocks with the same
@@ -1570,17 +1572,13 @@ figcaption:last-child {
 @updated
 : 2014-05-11
   */
-.Ulist {
-  display: block;
-  min-height: 1.5rem;
-  padding-left: 0.5in;
+ul {
   list-style-type: square;
-}
-:not(h1):not(.H):not(header) + .Ulist {
-  padding-top: 1.5rem;
 }
 /**
   * This Object represents an action list, which typically contains hyperlinks.
+  * Line items are made to look like hyperlinks, even if they are not. Each line item must have
+  * the class `.Item` for elements that aren’t `ul` or `ol`.
 @implements
 : .list-block()
 : .Link
@@ -1594,11 +1592,8 @@ figcaption:last-child {
 : 2014-10-22
   */
 .Alist {
-  display: block;
-  min-height: 1.5rem;
-}
-:not(h1):not(.H):not(header) + .Alist {
-  padding-top: 1.5rem;
+  padding-left: 0;
+  list-style-type: none;
 }
 .Alist > .Item {
   -webkit-transition-property: color;
@@ -1655,6 +1650,7 @@ figcaption:last-child {
   */
 .Ilist {
   display: inline;
+  padding-left: 0;
 }
 .Ilist > .Item {
   display: inline;
@@ -1691,27 +1687,6 @@ figcaption:last-child {
   content: '\0020\25aa\0020';
 }
 /**
-  * This Object represents an outlined list. It is used for nested `Olist` objects, for example,
-  * to display a table of contents or document outline.
-@extends
-: .Olist
-@implements
-: .vru-top()
-@tags
-: #typography
-: #list
-@author
-: Chris Harvey
-@updated
-: 2014-12-19
-*/
-.Olist.Outline {
-  padding-left: 0.25in;
-}
-.Olist.Outline .Outline {
-  padding-top: 0rem;
-}
-/**
   * This Object represents a 'List of Prose', a list whose items consist of only paragraphs.
 @extends
 : .Olist
@@ -1725,9 +1700,6 @@ figcaption:last-child {
 @updated
 : 2014-10-03
   */
-.Olist.LOP > .Item:not(:first-child) {
-  padding-top: 1.5rem;
-}
 /**
   * This Object represents a 'List in Prose', a list that is contained within prose paragraphs.
   * The list items contain spans of text, but not whole paragraphs. It is displayed inline, and has
@@ -1743,15 +1715,6 @@ figcaption:last-child {
 @updated
 : 2014-05-25
   */
-.Ilist.LIP {
-  counter-reset: count;
-}
-.Ilist.LIP > .Item {
-  counter-increment: count;
-}
-.Ilist.LIP > .Item::before {
-  content: '(' counter(count) ') ';
-}
 /*##############*\
     _maps.less
 \*##############*/
@@ -2143,9 +2106,6 @@ code .Comm {
   white-space: pre;
   overflow: auto;
 }
-:not(h1):not(.H):not(header) + .Codeblock {
-  padding-top: 1.5rem;
-}
 .Codeblock .Comm {
   color: #586e75;
 }
@@ -2367,9 +2327,6 @@ code .Comm {
   @updated
   : 2014-05-31
     */
-}
-:not(h1):not(.H):not(header) + .CSSmap {
-  padding-top: 1.5rem;
 }
 .CSSmap .Comm {
   color: #586e75;
@@ -3236,9 +3193,6 @@ del + ins {
   background-image: -webkit-gradient(to bottom, #ff9e9e, #ff6b6b);
   font-family: 'Geneva', 'Tahoma', sans-serif;
 }
-:not(h1):not(.H):not(header) + .Alert--Warn {
-  padding-top: 1.5rem;
-}
 .Alert--Warn::before {
   content: 'Warning' ' ' '\0021' ' ';
   font-weight: bold;
@@ -3266,9 +3220,6 @@ del + ins {
   background-image: linear-gradient(to bottom, #ecff9e, #e1ff6b);
   background-image: -webkit-gradient(to bottom, #ecff9e, #e1ff6b);
   font-family: 'Geneva', 'Tahoma', sans-serif;
-}
-:not(h1):not(.H):not(header) + .Alert--Cshn {
-  padding-top: 1.5rem;
 }
 .Alert--Cshn::before {
   content: 'Caution' ' ' '\2026' ' ';
@@ -3298,9 +3249,6 @@ del + ins {
   background-image: -webkit-gradient(to bottom, #9effc5, #6bffa6);
   font-family: 'Geneva', 'Tahoma', sans-serif;
 }
-:not(h1):not(.H):not(header) + .Alert--Skss {
-  padding-top: 1.5rem;
-}
 .Alert--Skss::before {
   content: 'Success' ' ' '\263a' ' ';
   font-weight: bold;
@@ -3329,9 +3277,6 @@ del + ins {
   background-image: -webkit-gradient(to bottom, #9ec5ff, #6ba6ff);
   font-family: 'Geneva', 'Tahoma', sans-serif;
 }
-:not(h1):not(.H):not(header) + .Alert--Info {
-  padding-top: 1.5rem;
-}
 .Alert--Info::before {
   content: 'Info' ' ' '\003f' ' ';
   font-weight: bold;
@@ -3359,9 +3304,6 @@ del + ins {
   background-image: linear-gradient(to bottom, #ec9eff, #e16bff);
   background-image: -webkit-gradient(to bottom, #ec9eff, #e16bff);
   font-family: 'Geneva', 'Tahoma', sans-serif;
-}
-:not(h1):not(.H):not(header) + .Alert--Help {
-  padding-top: 1.5rem;
 }
 .Alert--Help::before {
   content: 'Help' ' ' '\2665' ' ';
@@ -3656,9 +3598,6 @@ del + ins {
   font-weight: bold;
   text-align: left;
 }
-:not(h1):not(.H):not(header) + .Article[data-status="draft"]::before {
-  padding-top: 1.5rem;
-}
 .Article[data-status="draft"]::before::before {
   content: 'Warning' ' ' '\0021' ' ';
   font-weight: bold;
@@ -3698,9 +3637,6 @@ del + ins {
   font-weight: bold;
   text-align: left;
 }
-:not(h1):not(.H):not(header) + .Article[data-status="complete"]::before {
-  padding-top: 1.5rem;
-}
 .Article[data-status="complete"]::before::before {
   content: 'Caution' ' ' '\2026' ' ';
   font-weight: bold;
@@ -3739,9 +3675,6 @@ del + ins {
   content: 'This article is ready for implemen' '\00ad' 'tation.';
   font-weight: bold;
   text-align: left;
-}
-:not(h1):not(.H):not(header) + .Article[data-status="released"]::before {
-  padding-top: 1.5rem;
 }
 .Article[data-status="released"]::before::before {
   content: 'Success' ' ' '\263a' ' ';
