@@ -1987,8 +1987,6 @@ a[rel~="external"] {
   font-style: italic;
 }
 /**
-  * This Object represents a placeholder reference to a name or title of a heading, section, figure,
-  * table (or column in a table), or creative work.
   * It may be instantiated by the `a` or `cite` Elements.
 @tags
 : #hyperlink
@@ -1999,7 +1997,6 @@ a[rel~="external"] {
 : 2014-05-25
   */
 /**
-  * This Object represents a proper noun traditionally italicized, e.g. periodical name or ship name.
 @tags
 : #typography
 : #span
@@ -2022,11 +2019,8 @@ a[rel~="external"] {
 @author
 : Chris Harvey
 @updated
-: 2014-05-30
+: 2015-02-10
 */
-em {
-  font-style: italic;
-}
 /**
   * Strong text has a level of importance. Important text does not necessarily affect tone of voice
   * (although it may), but rather upsets the normal prose by causing the reader to examine the text
@@ -2037,54 +2031,22 @@ em {
 @author
 : Chris Harvey
 @updated
-: 2014-05-30
+: 2015-02-10
   */
-strong {
-  font-weight: bold;
-}
 /**
   * A phrase interpreted in an alternate voice or mood, without carrying extra emphasis,
   * such as scare quotes and mentions.
   * Or a phrase in a foreign language, such as the taxonomic classification (in Latin) of an organism.
-@implements
-: .quotes-double()
 @tags
 : #typography
 : #span
 @author
 : Chris Harvey
 @updated
-: 2014-09-27
+: 2015-02-10
   */
-i {
-  quotes: '\201c' '\201d';
-}
-i::before {
-  content: open-quote;
-}
-i::after {
-  content: close-quote;
-}
 i[lang] {
-  font-style: italic;
   font-family: 'Didot', 'Bodoni 72', 'Times', serif;
-  quotes: '' '';
-}
-/**
-  * A keyword, technical or specific term, or key phrase
-  * (If a foreign language, be sure to add the `[lang]` attribute.)
-  * A `b` Element is any generic keyword or term, whose definition is not present. If the term is
-  * being defined, use the `dfn` Element.
-@tags
-: #typography
-: #span
-@author
-: Chris Harvey
-@updated
-: 2014-08-05
-  */
-b {
-  font-weight: bold;
 }
 /**
   * A span of text that is relevant in some context. It is advisable to use the `[class]` attribute
@@ -2125,27 +2087,27 @@ u {
   color: #cc004e;
 }
 /**
-  * Superscripts and subscripts.
-@implements
-: .fontsize-sml()
+  * side comments
 @tags
 : #typography
+: #span
 @author
 : Chris Harvey
 @updated
-: 2014-06-13
+: 2015-02-10
   */
-sup,
-sub {
-  font-size: 0.75rem;
-  position: relative;
-  vertical-align: baseline;
-}
-sup {
-  bottom: 0.375rem;
-}
-sub {
-  top: 0.375rem;
+/**
+  * text that is shown to be no longer relevant
+@tags
+: #typography
+: #span
+@author
+: Chris Harvey
+@updated
+: 2015-02-10
+  */
+s {
+  color: #cc004e;
 }
 /**
   * This Object is used to make text appear highlighted.
@@ -2193,6 +2155,26 @@ sub {
     _doctext.less
 \*#################*/
 /**
+  * A span or block of text that has been inserted into a document.
+  * This is used to explicitly indicate that the text has been intentionally inserted.
+@tags
+: #typography
+@author
+: Chris Harvey
+@updated
+: 2014-06-13
+  */
+/**
+  * A span or block of text that has been deleted from a document.
+  * This is used to explicitly indicate that the text has been intentionally deleted.
+@tags
+: #typography
+@author
+: Chris Harvey
+@updated
+: 2014-06-13
+  */
+/**
   * A vocabulary term.
   * Every `dfn` must have an `id` attribute, thus there must only be one `dfn` per page that
   * contains a given term in question. Furthermore, hyperlinks can point to the defining instance
@@ -2203,12 +2185,24 @@ sub {
 @author
 : Chris Harvey
 @updated
-: 2014-08-05
+: 2015-02-10
   */
-dfn[id] {
-  font-weight: bold;
+dfn {
   font-family: 'Baskerville', 'Palatino', 'Cochin', serif;
 }
+/**
+  * A keyword, technical or specific term, or key phrase
+  * (If a foreign language, be sure to add the `[lang]` attribute.)
+  * A `b` Element is any generic keyword or term, whose definition is not present. If the term is
+  * being defined, use the `dfn` Element.
+@tags
+: #typography
+: #span
+@author
+: Chris Harvey
+@updated
+: 2015-02-10
+  */
 /**
   * A placeholder for some textual element. Could be a filename, etc.
   * This does *not* represent a variable in a `code`, e.g., the following HTML would be incorrect:
@@ -2231,7 +2225,6 @@ where <var>filepath</var> is the path or name of the file you want to see the di
   */
 var {
   quotes: '\2039' '\203a';
-  font-style: italic;
 }
 var::before {
   content: open-quote;
@@ -2240,11 +2233,82 @@ var::after {
   content: close-quote;
 }
 /**
+  * An inline quotation: a span of text that is taken directly from another source
+  * (real or fictional).
+@extends
+: .quotes-double
+@tags
+: #typography
+: #span
+: #quote
+@author
+: Chris Harvey
+@updated
+: 2014-05-30
+  */
+/**
+  * This Object represents an altered voice in the form of a thought. Like a quote but silent.
+  * May be applied to the `q` Element.
+@extends
+: .guillemets
+@tags
+: #typography
+: #span
+: #quote
+@author
+: Chris Harvey
+@updated
+: 2014-05-25
+  */
+.q--Th {
+  quotes: '\00ab' '\00bb';
+}
+.q--Th::before {
+  content: open-quote;
+}
+.q--Th::after {
+  content: close-quote;
+}
+/**
+  * This Object represents a placeholder reference to a name or title of a heading, section, figure,
+  * table (or column in a table), or creative work.
+  * This Object may also represent a proper noun traditionally italicized, e.g. periodical name or ship name.
+@tags
+: #typography
+@author
+: Chris Harvey
+@updated
+: 2015-02-10
+  */
+/**
+  * Superscripts and subscripts.
+@tags
+: #typography
+@author
+: Chris Harvey
+@updated
+: 2015-02-10
+  */
+/*##############*\
+    _data.less
+\*##############*/
+/**
+  * machine-readable data
+@tags
+: #typography
+: #span
+@author
+: Chris Harvey
+@updated
+: 2015-02-10
+  */
+/**
   * An abbreviation.
   * Class `.Acro` represents an acronym.
   * `.Acro.First` represents an acronym at the beginning of a sentence or heading.
 @tags
 : #typography
+: #span
 @author
 : Chris Harvey
 @updated
@@ -2262,84 +2326,6 @@ abbr[title] {
 .Acro.First::first-letter {
   font-size: 1rem;
 }
-/**
-  * An inline quotation: a span of text that is taken directly from another source
-  * (real or fictional).
-@extends
-: .quotes-double
-@tags
-: #typography
-: #span
-: #quote
-@author
-: Chris Harvey
-@updated
-: 2014-05-30
-  */
-q {
-  quotes: '\201c' '\201d';
-}
-q::before {
-  content: open-quote;
-}
-q::after {
-  content: close-quote;
-}
-/**
-  * This Object represents an altered voice in the form of a thought. Like a quote but silent.
-  * May be applied to the `q` Element.
-@extends
-: .guillemets
-@tags
-: #typography
-: #span
-: #quote
-@author
-: Chris Harvey
-@updated
-: 2014-05-25
-  */
-.Th {
-  quotes: '\00ab' '\00bb';
-}
-.Th::before {
-  content: open-quote;
-}
-.Th::after {
-  content: close-quote;
-}
-/**
-  * A span or block of text that has been deleted from a document.
-  * This is used to explicitly indicate that the text has been intentionally deleted.
-@tags
-: #typography
-@author
-: Chris Harvey
-@updated
-: 2014-06-13
-  */
-del[datetime] {
-  text-decoration: line-through;
-}
-/**
-  * A span or block of text that has been inserted into a document.
-  * This is used to explicitly indicate that the text has been intentionally inserted.
-@tags
-: #typography
-@author
-: Chris Harvey
-@updated
-: 2014-06-13
-  */
-ins[datetime] {
-  text-decoration: underline;
-}
-del + ins {
-  padding-left: 1.5rem;
-}
-/*##############*\
-    _data.less
-\*##############*/
 /**
   * A time element. See the W3C HTML5 standards for details.
 @tags
@@ -2390,9 +2376,6 @@ del + ins {
 @updated
 : 2014-06-26
   */
-[data-element="geo"] {
-  white-space: nowrap;
-}
 /*##############*\
     _code.less
 \*##############*/
