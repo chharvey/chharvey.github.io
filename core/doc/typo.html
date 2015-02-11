@@ -488,7 +488,7 @@ using site-wide styles.</p>
     <section id="quasi-paragraphs" style="background: #f1f6ff;">
       <h1 class="H--Del">Quasi-Paragraphs</h1>
       <p class="Intro">This section describes Objects that are similar to paragraphs in concept
-        but are not instantiated by <code>p</code> Elements.</p>
+        but are not literal <code>p</code> Elements.</p>
       <!-- <p>This is a <code>.Capt</code>. It should be a sibling of the content it describes.</p>
       <p class="Capt Before">This is a <code>.Capt.Before</code>. It goes before the described content.</p>
       <p class="Capt After">This is a <code>.Capt.After</code>. It goes after the described content.</p>
@@ -537,7 +537,54 @@ using site-wide styles.</p>
         Look at you, soaring through the air like an eagle&hellip; piloting a blimp.
         <cite>GLaDOS</cite>
       </blockquote>
-      <pre>This is a <code>pre</code> Element.</pre>
+      <pre>
+The <code>pre</code> Element is for text whose semantics are indicated by
+typographical conventions rather than HTML Elements, such as
+poetry,
+ASCII art, or
+<a rel="this" href="#code">computer code</a>.
+</pre>
+      <section id="code">
+        <h1 class="H--Eps">Code Blocks</h1>
+        <pre>In general, <code>pre &gt; code</code> is a span of computer code inside preformatted text.</pre>
+        <p>For blocks of computer code where white space and line breaks are important, use
+          <code>pre &gt; code.c--Blk</code>.</p>
+        <pre>
+<code class="c--Blk">function fibonacci(n) {
+  if (n === 0 || n === 1) return 1;
+  else if (n > 1)         return fibonacci(n-1) + fibonacci(n-2);
+  else                    return NaN;
+}
+</code>
+</pre>
+        <p>Add class <code>.Invert</code> for a code block with inverted colors.</p>
+        <pre>
+<code class="c--Blk Invert">function fibonacci(n) {
+  if (n === 0 || n === 1) return 1;
+  else if (n > 1)         return fibonacci(n-1) + fibonacci(n-2);
+  else                    return NaN;
+}
+</code>
+</pre>
+        <small class="Alert--Warn">
+          As of <time>2015-02-11</time> there is no longer a mechanism available for
+          syntax highlighting in code blocks. Check back later for updates.
+        </small>
+        <p>The following code blocks show the syntax for an HTML tag and a Less declaration, respectively.</p>
+        <pre>
+<code class="c--Blk">&lt;tag atr=&quot;val val&quot;&gt;contents&lt;tag&gt;
+&lt;!-- this is an HTML comment --&gt;
+</code>
+<code class="c--Blk">sel {
+  prp: val;
+  .cmd(arg, 'string');
+  &amp;:sel {prp: val;}
+  // This is an inline comment
+}
+/* This is a normal comment */
+</code>
+</pre>
+      </section>
     </section>
   </section>
   <section id="lists">
@@ -1125,18 +1172,22 @@ using site-wide styles.</p>
   <section id="data">
     <h1 class="H--Gam">Data</h1>
     <dl class="Map Horiz Sml">
-      <dt><code>data</code></dt>        <dd><data>machine-readable data</data></dd>
-      <dt><code>abbr[title]</code></dt> <dd><abbr title="">abbreviation</abbr></dd>
-      <dt><code>.Acro</code></dt>       <dd><span class="Acro">Acronym</span></dd>
-      <dt><code>time</code></dt>        <dd><time>a date or time</time></dd>
+      <dt><code>data</code></dt>         <dd><data>machine-readable data</data></dd>
+      <dt><code>abbr[title]</code></dt>  <dd><abbr title="">abbreviation</abbr></dd>
+      <dt><code>.Acro</code></dt>        <dd><span class="Acro">Acronym</span></dd>
+      <dt><code>time</code></dt>         <dd><time>a date or time</time></dd>
+      <dt><code>code</code></dt>         <dd><code>a fragment of code</code></dd>
+      <dt><code>kbd</code></dt>          <dd><kbd>user input</kbd></dd>
+      <dt><code>kbd &gt; kbd</code></dt> <dd><kbd>a <kbd>button</kbd> or <kbd>key</kbd> on a physical device</kbd></dd>
+      <dt><code>samp</code></dt>         <dd><samp>sample computer output</samp></dd>
+      <dt><code>.c--Path</code></dt>     <dd><span class="c--Path">file path, directory or <abbr title="uniform resource identifier">URI</abbr></samp></dd>
     </dl>
-    <section id="code">
-      <h1 class="H--Del">Code</h1>
-      <p><code>This is a fragment of code.</code> That fragment was just a
-        <code>.p &gt; code</code> Element.</p>
-      <p><code>.Codeblock</code> Objects are blocks of computer code.
+    <!-- <section id="code">
+      <h1 class="H--Del">Code Blocks</h1>
+      <p>Use <code>pre &gt; code</code> for blocks of computer code.
         Code blocks may have spans inside that represent different components of different
-        languages. The first block, a <code>.Codeblock.HTML</code>, shows the syntax for an HTML tag.</p>
+        languages.</p>
+      <p><code>.Codeblock.HTML</code> shows the syntax for an HTML tag.</p>
       <code class="Codeblock HTML"><span class="Tag">tag <span class="Atr">atr=<span class="Val">val val</span></span></span>contents<span class="Tag End">tag</span>
 <span class="Comm">this is an HTML comment</span></code>
     <p>This <code>.Codeblock.CSS</code> shows the syntax for a Less declaration.</p>
@@ -1227,17 +1278,17 @@ using site-wide styles.</p>
           <tr class="Row">
             <td class="Cell">
               <p class="P">Comma-separated or space-separated values must be marked up literally:</p>
-              <code class="Codeblock HTML"><span class="Tag">span <span class="Atr">class=<span class="Val">Val</span></span></span>a,b,c<span class="Tag End">span</span></code>
+              <pre><code class="HTML"><span class="Tag">span <span class="Atr">class=<span class="Val">Val</span></span></span>a,b,c<span class="Tag End">span</span></code></pre>
             </td>
             <td class="Cell">
               <p class="P">Comma-separated or space-separated values may be marked up with lists:</p>
-              <code class="Codeblock HTML"><span class="Tag">dd <span class="Atr">class=<span class="Val">Val</span></span></span>
+              <pre><code class="HTML"><span class="Tag">dd <span class="Atr">class=<span class="Val">Val</span></span></span>
   <span class="Tag">ol <span class="Atr">class=<span class="Val">Ilist Comma</span></span></span>
     <span class="Tag">li <span class="Atr">class=<span class="Val">Item</span></span></span>a<span class="Tag End">li</span>
     <span class="Tag">li <span class="Atr">class=<span class="Val">Item</span></span></span>b<span class="Tag End">li</span>
     <span class="Tag">li <span class="Atr">class=<span class="Val">Item</span></span></span>c<span class="Tag End">li</span>
   <span class="Tag End">ol</span>
-<span class="Tag End">dd</span></code>
+<span class="Tag End">dd</span></code></pre>
             </td>
           </tr>
         </tbody>
@@ -1265,8 +1316,8 @@ using site-wide styles.</p>
         disadvantage is that the markup cannot be contained in a <code>code</code> Element:
         by HTML standards, <code>code</code> can only contain phrasing-level content, however
         by these standards, a <code>.CSSmap</code> must contain <code>dl</code>(s).</p>
-      <p>This <code>.Codeblock.JS</code> shows the syntax for a JS file.</p>
-      <code class="Codeblock JS"><span class="Kwd">function</span> <span class="Cmd">Person(<span class="Arg">name</span>)</span> { <span class="Comm I">constructor for class `Person`</span>
+      <p>This <code>code.JS</code> shows the syntax for a JS file.</p>
+      <pre><code class="JS"><span class="Kwd">function</span> <span class="Cmd">Person(<span class="Arg">name</span>)</span> { <span class="Comm I">constructor for class `Person`</span>
   <span class="Obj">this.</span>greet = <span class="Str">hello!</span>;
 }
 <span class="Kwd">function</span> <span class="Cmd">Student(<span class="Arg">name, cred</span>)</span> { <span class="Comm I">constructor for class `Student`</span>
@@ -1274,44 +1325,8 @@ using site-wide styles.</p>
   <span class="Ctl">if (<span class="Arg">cred</span> <span class="Opr">&gt;=</span> <span class="Cst">0</span>)</span> { <span class="Obj">this.</span>credits = <span class="Arg">cred</span>; }
 }
 <span class="Obj">Util</span>.<span class="Cmd">extend(<span class="Arg"><span class="Obj">Student</span>, <span class="Obj">Person</span></span>)</span>; <span class="Comm I">extends `Student` from `Person`</span>
-<span class="Kwd">var</span> me = <span class="Opr">new</span> <span class="Cmd">Student(<span class="Arg"><span class="Str">Chris</span>, <span class="Cst">40</span></span>)</span>; <span class="Comm I">creates an instance of `Student`</span></code>
-      <section>
-        <h1 class="H--Eps">Other Technical Text: Inputs and Outputs</h1>
-        <p class="first">A <code>.Key</code> object represents a physical key (or button) on a
-          computer keyboard, calculator, or other electronic device. It may be instantiated
-          by a <code>kbd &gt; kbd</code> Element.</p>
-        <small class="Alert--Info">In a <code>kbd &gt; kbd</code>, the outer <code>kbd</code> represents a sequence of
-          user input, while the inner <code>kbd</code> represents an actual key to be
-          pressed.</small>
-        <figure class="Fig Text">
-          <figcaption class="Capt Before">The following steps describe an iterative method
-            for obtaining <a href="phi.html">the number
-            <span class="M">\phi</span></a> on a calculator.</figcaption>
-          <ol class="Olist">
-            <li class="Item">First, <kbd>enter any real number</kbd> on the calculator.</li>
-            <li class="Item">Then, <kbd>press the button
-              <kbd class="Key M">1/x</kbd></kbd>. This will give you its
-              reciprocal.</li>
-            <li class="Item">Then add 1 (by <kbd>pressing <kbd class="Key">+</kbd>
-              <kbd class="Key">1</kbd> <kbd class="Key">=</kbd></kbd>).</li>
-            <li>Now look at the result.</li>
-            <li>Repeat steps 2&ndash;4 a sufficiently large number of times.
-              What do you notice about the trend in results?</li>
-          </ol>
-        </figure>
-        <p>A <code>.Dir</code> Object is used to represent a path in a file
-          directory, or a URL or URI. It may be instantiated by a <code>code</code> Element
-          or a <code>samp</code> Element.</p>
-        <figure class="Fig Text">
-          <ul class="Grow">
-            <li class="Gcol w-f1o2">This is a <code>code.Dir</code>:
-              <code class="Dir">../example/folder/file.txt</code></li>
-            <li class="Gcol w-f1o2">This is a <code>samp.Dir</code>:
-              <samp class="Dir">http://www.google.com/</samp></li>
-          </ul>
-        </figure>
-      </section>
-    </section>
+<span class="Kwd">var</span> me = <span class="Opr">new</span> <span class="Cmd">Student(<span class="Arg"><span class="Str">Chris</span>, <span class="Cst">40</span></span>)</span>; <span class="Comm I">creates an instance of `Student`</span></code></pre>
+    </section> -->
   </section>
 </section>
 <section>

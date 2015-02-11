@@ -228,7 +228,7 @@ Util.fibonacci = function (n, recursive) {
   if (recursive) {
     if (n === 0 || n === 1) return 1;
     else if (n > 1)         return (Util.fibonacci(n-1, true) + Util.fibonacci(n-2, true));
-    else return NaN;
+    else                    return NaN;
   }
   n++;
   return (1 / Math.sqrt(5)) * (Math.pow(Util.PHI, n) - Math.pow(Util.PSI, n));
