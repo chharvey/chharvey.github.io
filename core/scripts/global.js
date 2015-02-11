@@ -1,16 +1,16 @@
 /**
-  * Resizes the .H--Alp.Folio headings on home site to keep them horizontally contained.
+  * Resizes the .H--Folio headings on home site to keep them horizontally contained.
   */
 function resizeFolioHeading() {
   var scale = 1/16;
-  $('.Folio').css('font-size', function () {
+  $('.H--Folio').css('font-size', function () {
     var width_rem = $(this).parent().width() / 16;
     return scale * width_rem + 'rem';
   }).css('line-height', function () {
     // var font_rem = parseInt($(this).css('font-size') / 16;
     return 48 / parseInt($(this).css('font-size'));
   });
-  $('.Folio .Cap').css('font-size', function () {
+  $('.H--Folio .Cap').css('font-size', function () {
     var width_rem = $(this).parent().width() / 16;
     return 2 * scale * width_rem + 'rem';
   });
