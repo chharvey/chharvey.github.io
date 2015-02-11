@@ -58,7 +58,61 @@
 .codecolors-sol-dark() {.codecolors(@color_codeblock_txt; @color_codeblock_comm; @color_codeblock_bg; @color_codeblock_brdr);}
 
 /**
+  * Components of code:
+  * `.c--Comm` : any comment
+
+  * `.c--Ctl`  : programming control (if, for, switch, return)
+  * `.c--Opr`  : delimiter or operator (+, ==, ., new, this)
+  * `.c--Kwd`  : predefined keywords (var, function)
+  * `.c--Cst`  : a number, color, or character constant
+  * `.c--Str`  : any string
+  * `.c--Cmd`  : a function name, function call, constructor call, or Less, LaTeX, or JS command
+  * `.c--Arg`  : argument to a function or constructor call, or a Less, LaTeX, or JS argument
+  * `.c--Obj`  : a class or object reference
+
+  * `.c--Tag`  : an HTML tag
+  * `.c--Atr`  : an HTML attribute
+  * `.c--Val`  : an HTML or CSS value
+  * `.c--Sel`  : a CSS selector
+  * `.c--Prp`  : a CSS property
+  */
+.c--Comm {
+  .delimiters('/* '  ;  ' */');
+  &.Inl {quotes: '// '   '';}
+}
+.c--Ctl {
+  color: @solarized_red;
+}
+.c--Opr {
+  color: @solarized_orange;
+}
+.c--Kwd {
+  color: @solarized_yellow;
+}
+.c--Cst {
+  color: @solarized_green;
+}
+.c--Str {
+    .apos();
+    color: @solarized_cyan;
+    &::before,
+    &::after  {color: @solarized_magenta;}
+}
+.c--Cmd {
+  color: @solarized_blue;
+}
+.c--Arg {
+  color: @solarized_violet;
+}
+.c--Obj {
+  color: @solarized_magenta;
+}
+
+
+/**
   * A span of text that a computer program would recognize.
+  * Use class `.c` to force an Element into this style, for example using an inline span of code
+  * inside a `pre` Element (because normally `pre > code` are code blocks).
 @implements
 : .box-inline()
 : .fontsize-sml()
@@ -68,24 +122,18 @@
 @author
 : Chris Harvey
 @updated
-: 2014-05-25
+: 2015-02-10
   */
-code {
+code,
+.c {
   .box-inline(@code_brdr_radius);
-  .fontsize-sml();
   .codecolors-sol-lite();
   font-family: @fontfam_code;
-  text-align: left; // to undo text-align:center in a .Fig
   white-space: nowrap;
 }
 /**
   * A block of code. Its semantics are derived from the formatting (line breaks, indenting, etc) of
-  * the text content. This Object does *not* extend the `.Code` Object.
-  * `.Comm` : any comment
-  * `.Cst`  : a number, color, or character constant
-  * `.Str`  : any string
-  * `.Cmd`  : a function name, function call, or constructor call
-  * `.Arg`  : argument to a function or constructor call
+  * the text content.
   * `&.Invert` : use Solarized Light instead of Solarized Dark
 @implements
 : .box-block()
@@ -97,76 +145,44 @@ code {
 @author
 : Chris Harvey
 @updated
-: 2014-11-02
+: 2015-02-10
   */
-.Codeblock {
+pre > code {
   .box-block(2px; @code_brdr_radius);
   // .follows-heading(1);
   .fontsize-block-sml();
   .codecolors-sol-dark();
-  font-family: @fontfam_code;
+  // font-family: @fontfam_code;
   text-align: left; // to undo text-align:center in a .Fig
-  white-space: pre;
-  overflow: auto;
+  // white-space: pre;
+  // overflow: auto;
   &.Invert { .codecolors-sol-lite(); }
-  .Comm {
-    .delimiters('/* '  ;  ' */');
-    &.I {quotes: '// '   '';}
-  }
-  .Cst {color: @solarized_green;}
-  .Str {
-    .apos();
-    color: @solarized_cyan;
-    &::before,
-    &::after  {color: @solarized_magenta;}
-  }
-  .Cmd {color: @solarized_blue;}
-  .Arg {color: @solarized_violet;}
 }
-
 /**
   * This Object represents a block of HTML code.
-  * `.Tag` : an HTML tag
-  * `.Atr`: an HTML attribute
-  * `.Val` : an HTML or CSS value
-@extends
-: .Codeblock
 @tags
 : #code
 @author
 : Chris Harvey
 @updated
-: 2014-11-02
+: 2015-02-10
   */
-.Codeblock.HTML {
-  .Tag {
+code.HTML {
+  .c--Comm {quotes: '<!-- '   ' -->';}
+  .c--Tag {
     .angles();
     color: @solarized_blue;
     &::before,
-    &::after {
-      color: #808080;
-    }
+    &::after {color: #808080;}
     &.End {quotes: '</'   '>';}
   }
-  .Atr {
+  .c--Atr {
     color: @solarized_yellow;
   }
-  .Val {
-    .Codeblock .Str;
-    .quot();
-  }
-  .Comm {quotes: '<!-- '   ' -->';}
 }
 
 /**
   * This Object represents a block of CSS or LESS code.
-  * `.Sel` : a CSS selector
-  * `.Prop`: a CSS property
-  * `.Val` : a CSS value
-  * `.Cmd` : a Less, LaTeX, or JS command
-  * `.Arg` : a Less, LaTeX, or JS argument
-@extends
-: .Codeblock
 @tags
 : #code
 @author
@@ -174,37 +190,36 @@ code {
 @updated
 : 2014-11-02
   */
-.Codeblock.CSS {
-  .Sel  {
+code.CSS {
+  .c--Sel {
     .delimiters(''  ;  '}');
     color: @solarized_blue;
   }
-  .Prp  {
+  .c--Prp {
     .delimiters(''  ;  ';');
     color: @solarized_yellow;
   }
-  .Val  {
+  .c--Val  {
+    .c--Str;
     .delimiters(': '  ;  '');
     &::before,
-    &::after { color: @solarized_yellow; }
+    &::after {color: @solarized_yellow;}
     color: @solarized_cyan;
   }
-  .Cmd  {
+  .c--Cmd  {
     .delimiters(''  ;  ';');
   }
-  .Arg  {
+  .c--Arg  {
     .parens();
     &::before,
-    &::after { color: @solarized_blue; }
+    &::after {color: @solarized_blue;}
   }
-  .Str {color: @solarized_magenta;}
+  .c--Str {color: @solarized_magenta;}
 }
 
 /**
   * This Object represents a block of CSS code organized as a map.
   * Its semantics are derived not from the formatting of the text, but rather the elements inside.
-@extends
-: .Codeblock.CSS
 @tags
 : #code
 @author
@@ -213,29 +228,27 @@ code {
 : 2014-11-02
   */
 .CSSmap {
-  .Codeblock;
-  .Codeblock.CSS;
   white-space: nowrap;
-  .Str {color: @solarized_magenta;}
-  .Sel {.delimiters(''  ;  ' {');}
+  .c--Str {color: @solarized_magenta;}
+  .c--Sel {.delimiters(''  ;  ' {');}
   .Ruleset {
     .clearfix();
     &::after {
       content: '}';
       color: @solarized_blue;
     }
-    > .Prp {
+    > .c--Prp {
       // .delimiters(''  ;  ':\00A0'); // `&nbsp;` because a normal (`\0020`) will not work on a float
       .delimiters(''  ;  ':');
       float: left;
       clear: both;
     }
-    > .Val {
+    > .c--Val {
         .delimiters(''  ;  ';');
         text-indent: 0.5rem;
       }
-    > .Prp,
-    > .Comm {text-indent: 1rem;}
+    > .c--Prp,
+    > .c--Comm {text-indent: 1rem;}
   }
   /**
     * A block of CSS code whose selectors are inline. This is really useful for selectors with one
@@ -249,8 +262,8 @@ code {
   @updated
   : 2014-05-31
     */
-  &.I {
-    .Sel {
+  &.Inl {
+    .c--Sel {
       float: left;
       clear: both;
     }
@@ -258,7 +271,7 @@ code {
       &::after {
         display: inline;
       }
-      > .Prp {
+      > .c--Prp {
         display: inline;
         float: none;
         &::before {
@@ -266,21 +279,14 @@ code {
           // quotes: '\00A0'   ':';
         }
       }
-      > .Val {
+      > .c--Val {
         display: inline;
       }
     }
   }
 }
-
 /**
   * This Object represents a block of JavaScript code.
-  * `.Ctl` : programming control (if, for, switch, return)
-  * `.Opr` : delimiter or operator (+, ==, ., new, this)
-  * `.Kwd` : predefined keywords (var, function)
-  * `.Obj` : a class or object reference
-@extends
-: .Codeblock
 @tags
 : #code
 @author
@@ -288,11 +294,7 @@ code {
 @updated
 : 2014-12-04
   */
-.Codeblock.JS {
-  .Ctl {color: @solarized_red;}
-  .Opr {color: @solarized_orange;}
-  .Kwd {color: @solarized_yellow;}
-  .Obj {color: @solarized_magenta;}
+.JS {
 }
 
 /**
@@ -316,15 +318,12 @@ code {
 @updated
 : 2014-06-06
   */
-.Key {
+kbd > kbd {
   .box-inline(@code_brdr_radius);
-  .fontsize-sml();
   .codecolors-sol-dark();
-  quotes: none;
   font-family: @fontfam_accent;
   color: @color_codeblock_emph;
 }
-kbd {white-space: nowrap;}
 /**
   * This Object represents a path in a directory system (for folders and files).
   * Recommended instantiated by a `code` or `samp` Element.
@@ -337,10 +336,8 @@ kbd {white-space: nowrap;}
 @updated
 : 2014-05-25
   */
-.Dir {
-  .fontsize-sml();
+.c--Path {
   font-style: italic;
-  font-family: @fontfam_base;
 }
 /**
   * This Object represents a mathematical expression or statement.

@@ -1406,19 +1406,6 @@ blockquote.Short > cite::before {
 @updated
 : 2015-02-09
   */
-pre {
-  border-left-width: 3px;
-  border-left-style: solid;
-  padding-left: 4.85410197px;
-  margin-left: 12.70820393px;
-  border-left-color: #9acc7a;
-  border-right-width: 3px;
-  border-right-style: solid;
-  padding-right: 4.85410197px;
-  margin-right: 12.70820393px;
-  border-right-color: #9acc7a;
-  border-radius: 6px;
-}
 /**
   * Table captions and figure captions.
 @implements
@@ -2407,7 +2394,75 @@ abbr[title] {
 : 2014-12-04
   */
 /**
+  * Components of code:
+  * `.c--Comm` : any comment
+
+  * `.c--Ctl`  : programming control (if, for, switch, return)
+  * `.c--Opr`  : delimiter or operator (+, ==, ., new, this)
+  * `.c--Kwd`  : predefined keywords (var, function)
+  * `.c--Cst`  : a number, color, or character constant
+  * `.c--Str`  : any string
+  * `.c--Cmd`  : a function name, function call, constructor call, or Less, LaTeX, or JS command
+  * `.c--Arg`  : argument to a function or constructor call, or a Less, LaTeX, or JS argument
+  * `.c--Obj`  : a class or object reference
+
+  * `.c--Tag`  : an HTML tag
+  * `.c--Atr`  : an HTML attribute
+  * `.c--Val`  : an HTML or CSS value
+  * `.c--Sel`  : a CSS selector
+  * `.c--Prp`  : a CSS property
+  */
+.c--Comm {
+  quotes: '/* ' ' */';
+}
+.c--Comm::before {
+  content: open-quote;
+}
+.c--Comm::after {
+  content: close-quote;
+}
+.c--Comm.Inl {
+  quotes: '// ' '';
+}
+.c--Ctl {
+  color: #dc322f;
+}
+.c--Opr {
+  color: #cb4b16;
+}
+.c--Kwd {
+  color: #b58900;
+}
+.c--Cst {
+  color: #859900;
+}
+.c--Str {
+  quotes: '\0027' '\0027';
+  color: #2aa198;
+}
+.c--Str::before {
+  content: open-quote;
+}
+.c--Str::after {
+  content: close-quote;
+}
+.c--Str::before,
+.c--Str::after {
+  color: #d33682;
+}
+.c--Cmd {
+  color: #268bd2;
+}
+.c--Arg {
+  color: #6c71c4;
+}
+.c--Obj {
+  color: #d33682;
+}
+/**
   * A span of text that a computer program would recognize.
+  * Use class `.c` to force an Element into this style, for example using an inline span of code
+  * inside a `pre` Element (because normally `pre > code` are code blocks).
 @implements
 : .box-inline()
 : .fontsize-sml()
@@ -2417,33 +2472,29 @@ abbr[title] {
 @author
 : Chris Harvey
 @updated
-: 2014-05-25
+: 2015-02-10
   */
-code {
+code,
+.c {
   display: inline;
+  line-height: 0;
   padding: 1px 2px;
   border-width: 1px;
   border-style: solid;
   border-radius: 3px;
-  font-size: 0.75rem;
   border-color: #eee8d5;
   color: #657b83;
   background-color: #fdf6e3;
   font-family: 'Menlo', 'Monaco', 'Andale Mono', monospace;
-  text-align: left;
   white-space: nowrap;
 }
-code .Comm {
+code .Comm,
+.c .Comm {
   color: #93a1a1;
 }
 /**
   * A block of code. Its semantics are derived from the formatting (line breaks, indenting, etc) of
-  * the text content. This Object does *not* extend the `.Code` Object.
-  * `.Comm` : any comment
-  * `.Cst`  : a number, color, or character constant
-  * `.Str`  : any string
-  * `.Cmd`  : a function name, function call, or constructor call
-  * `.Arg`  : argument to a function or constructor call
+  * the text content.
   * `&.Invert` : use Solarized Light instead of Solarized Dark
 @implements
 : .box-block()
@@ -2455,9 +2506,9 @@ code .Comm {
 @author
 : Chris Harvey
 @updated
-: 2014-11-02
+: 2015-02-10
   */
-.Codeblock {
+pre > code {
   display: block;
   margin-top: -4px;
   border-width: 2px;
@@ -2470,124 +2521,53 @@ code .Comm {
   border-color: #073642;
   color: #839496;
   background-color: #002b36;
-  font-family: 'Menlo', 'Monaco', 'Andale Mono', monospace;
   text-align: left;
-  white-space: pre;
-  overflow: auto;
 }
-.Codeblock .Comm {
+pre > code .Comm {
   color: #586e75;
 }
-.Codeblock.Invert {
+pre > code.Invert {
   border-color: #eee8d5;
   color: #657b83;
   background-color: #fdf6e3;
 }
-.Codeblock.Invert .Comm {
+pre > code.Invert .Comm {
   color: #93a1a1;
-}
-.Codeblock .Comm {
-  quotes: '/* ' ' */';
-}
-.Codeblock .Comm::before {
-  content: open-quote;
-}
-.Codeblock .Comm::after {
-  content: close-quote;
-}
-.Codeblock .Comm.I {
-  quotes: '// ' '';
-}
-.Codeblock .Cst {
-  color: #859900;
-}
-.Codeblock .Str {
-  quotes: '\0027' '\0027';
-  color: #2aa198;
-}
-.Codeblock .Str::before {
-  content: open-quote;
-}
-.Codeblock .Str::after {
-  content: close-quote;
-}
-.Codeblock .Str::before,
-.Codeblock .Str::after {
-  color: #d33682;
-}
-.Codeblock .Cmd {
-  color: #268bd2;
-}
-.Codeblock .Arg {
-  color: #6c71c4;
 }
 /**
   * This Object represents a block of HTML code.
-  * `.Tag` : an HTML tag
-  * `.Atr`: an HTML attribute
-  * `.Val` : an HTML or CSS value
-@extends
-: .Codeblock
 @tags
 : #code
 @author
 : Chris Harvey
 @updated
-: 2014-11-02
+: 2015-02-10
   */
-.Codeblock.HTML .Tag {
+code.HTML .c--Comm {
+  quotes: '<!-- ' ' -->';
+}
+code.HTML .c--Tag {
   quotes: '<' '>';
   color: #268bd2;
 }
-.Codeblock.HTML .Tag::before {
+code.HTML .c--Tag::before {
   content: open-quote;
 }
-.Codeblock.HTML .Tag::after {
+code.HTML .c--Tag::after {
   content: close-quote;
 }
-.Codeblock.HTML .Tag::before,
-.Codeblock.HTML .Tag::after {
+code.HTML .c--Tag::before,
+code.HTML .c--Tag::after {
   color: #808080;
 }
-.Codeblock.HTML .Tag.End {
+code.HTML .c--Tag.End {
   quotes: '</' '>';
 }
-.Codeblock.HTML .Atr {
+code.HTML .c--Atr {
   color: #b58900;
-}
-.Codeblock.HTML .Val {
-  quotes: '\0027' '\0027';
-  color: #2aa198;
-  quotes: '\0022' '\0022';
-}
-.Codeblock.HTML .Val::before {
-  content: open-quote;
-}
-.Codeblock.HTML .Val::after {
-  content: close-quote;
-}
-.Codeblock.HTML .Val::before,
-.Codeblock.HTML .Val::after {
-  color: #d33682;
-}
-.Codeblock.HTML .Val::before {
-  content: open-quote;
-}
-.Codeblock.HTML .Val::after {
-  content: close-quote;
-}
-.Codeblock.HTML .Comm {
-  quotes: '<!-- ' ' -->';
 }
 /**
   * This Object represents a block of CSS or LESS code.
-  * `.Sel` : a CSS selector
-  * `.Prop`: a CSS property
-  * `.Val` : a CSS value
-  * `.Cmd` : a Less, LaTeX, or JS command
-  * `.Arg` : a Less, LaTeX, or JS argument
-@extends
-: .Codeblock
 @tags
 : #code
 @author
@@ -2595,70 +2575,69 @@ code .Comm {
 @updated
 : 2014-11-02
   */
-.Codeblock.CSS .Sel {
+code.CSS .c--Sel {
   quotes: '' '}';
   color: #268bd2;
 }
-.Codeblock.CSS .Sel::before {
+code.CSS .c--Sel::before {
   content: open-quote;
 }
-.Codeblock.CSS .Sel::after {
+code.CSS .c--Sel::after {
   content: close-quote;
 }
-.Codeblock.CSS .Prp {
+code.CSS .c--Prp {
   quotes: '' ';';
   color: #b58900;
 }
-.Codeblock.CSS .Prp::before {
+code.CSS .c--Prp::before {
   content: open-quote;
 }
-.Codeblock.CSS .Prp::after {
+code.CSS .c--Prp::after {
   content: close-quote;
 }
-.Codeblock.CSS .Val {
+code.CSS .c--Val {
+  color: #d33682;
   quotes: ': ' '';
   color: #2aa198;
 }
-.Codeblock.CSS .Val::before {
+code.CSS .c--Val::before {
   content: open-quote;
 }
-.Codeblock.CSS .Val::after {
+code.CSS .c--Val::after {
   content: close-quote;
 }
-.Codeblock.CSS .Val::before,
-.Codeblock.CSS .Val::after {
+code.CSS .c--Val::before,
+code.CSS .c--Val::after {
   color: #b58900;
 }
-.Codeblock.CSS .Cmd {
+code.CSS .c--Cmd {
   quotes: '' ';';
 }
-.Codeblock.CSS .Cmd::before {
+code.CSS .c--Cmd::before {
   content: open-quote;
 }
-.Codeblock.CSS .Cmd::after {
+code.CSS .c--Cmd::after {
   content: close-quote;
 }
-.Codeblock.CSS .Arg {
+code.CSS .c--Arg {
   quotes: '(' ')';
 }
-.Codeblock.CSS .Arg::before {
+code.CSS .c--Arg::before {
   content: open-quote;
 }
-.Codeblock.CSS .Arg::after {
+code.CSS .c--Arg::after {
   content: close-quote;
 }
-.Codeblock.CSS .Arg::before,
-.Codeblock.CSS .Arg::after {
+code.CSS .c--Arg::before,
+code.CSS .c--Arg::after {
   color: #268bd2;
 }
-.Codeblock.CSS .Str {
+code.CSS .c--Str {
   color: #d33682;
 }
 /**
   * This Object represents a block of CSS code organized as a map.
   * Its semantics are derived not from the formatting of the text, but rather the elements inside.
-@extends
-: .Codeblock.CSS
 @tags
 : #code
 @author
@@ -2667,22 +2646,6 @@ code .Comm {
 : 2014-11-02
   */
 .CSSmap {
-  display: block;
-  margin-top: -4px;
-  border-width: 2px;
-  border-style: solid;
-  padding: 0.75rem 0.46352549rem;
-  box-sizing: border-box;
-  border-radius: 3px;
-  font-size: 0.75rem;
-  line-height: 2;
-  border-color: #073642;
-  color: #839496;
-  background-color: #002b36;
-  font-family: 'Menlo', 'Monaco', 'Andale Mono', monospace;
-  text-align: left;
-  white-space: pre;
-  overflow: auto;
   white-space: nowrap;
   /**
     * A block of CSS code whose selectors are inline. This is really useful for selectors with one
@@ -2697,121 +2660,16 @@ code .Comm {
   : 2014-05-31
     */
 }
-.CSSmap .Comm {
-  color: #586e75;
-}
-.CSSmap.Invert {
-  border-color: #eee8d5;
-  color: #657b83;
-  background-color: #fdf6e3;
-}
-.CSSmap.Invert .Comm {
-  color: #93a1a1;
-}
-.CSSmap .Comm {
-  quotes: '/* ' ' */';
-}
-.CSSmap .Comm::before {
-  content: open-quote;
-}
-.CSSmap .Comm::after {
-  content: close-quote;
-}
-.CSSmap .Comm.I {
-  quotes: '// ' '';
-}
-.CSSmap .Cst {
-  color: #859900;
-}
-.CSSmap .Str {
-  quotes: '\0027' '\0027';
-  color: #2aa198;
-}
-.CSSmap .Str::before {
-  content: open-quote;
-}
-.CSSmap .Str::after {
-  content: close-quote;
-}
-.CSSmap .Str::before,
-.CSSmap .Str::after {
+.CSSmap .c--Str {
   color: #d33682;
 }
-.CSSmap .Cmd {
-  color: #268bd2;
-}
-.CSSmap .Arg {
-  color: #6c71c4;
-}
-.CSSmap .Sel {
-  quotes: '' '}';
-  color: #268bd2;
-}
-.CSSmap .Sel::before {
-  content: open-quote;
-}
-.CSSmap .Sel::after {
-  content: close-quote;
-}
-.CSSmap .Prp {
-  quotes: '' ';';
-  color: #b58900;
-}
-.CSSmap .Prp::before {
-  content: open-quote;
-}
-.CSSmap .Prp::after {
-  content: close-quote;
-}
-.CSSmap .Val {
-  quotes: ': ' '';
-  color: #2aa198;
-}
-.CSSmap .Val::before {
-  content: open-quote;
-}
-.CSSmap .Val::after {
-  content: close-quote;
-}
-.CSSmap .Val::before,
-.CSSmap .Val::after {
-  color: #b58900;
-}
-.CSSmap .Cmd {
-  quotes: '' ';';
-}
-.CSSmap .Cmd::before {
-  content: open-quote;
-}
-.CSSmap .Cmd::after {
-  content: close-quote;
-}
-.CSSmap .Arg {
-  quotes: '(' ')';
-}
-.CSSmap .Arg::before {
-  content: open-quote;
-}
-.CSSmap .Arg::after {
-  content: close-quote;
-}
-.CSSmap .Arg::before,
-.CSSmap .Arg::after {
-  color: #268bd2;
-}
-.CSSmap .Str {
-  color: #d33682;
-}
-.CSSmap .Str {
-  color: #d33682;
-}
-.CSSmap .Sel {
+.CSSmap .c--Sel {
   quotes: '' ' {';
 }
-.CSSmap .Sel::before {
+.CSSmap .c--Sel::before {
   content: open-quote;
 }
-.CSSmap .Sel::after {
+.CSSmap .c--Sel::after {
   content: close-quote;
 }
 .CSSmap .Ruleset::after {
@@ -2823,56 +2681,50 @@ code .Comm {
   content: '}';
   color: #268bd2;
 }
-.CSSmap .Ruleset > .Prp {
+.CSSmap .Ruleset > .c--Prp {
   quotes: '' ':';
   float: left;
   clear: both;
 }
-.CSSmap .Ruleset > .Prp::before {
+.CSSmap .Ruleset > .c--Prp::before {
   content: open-quote;
 }
-.CSSmap .Ruleset > .Prp::after {
+.CSSmap .Ruleset > .c--Prp::after {
   content: close-quote;
 }
-.CSSmap .Ruleset > .Val {
+.CSSmap .Ruleset > .c--Val {
   quotes: '' ';';
   text-indent: 0.5rem;
 }
-.CSSmap .Ruleset > .Val::before {
+.CSSmap .Ruleset > .c--Val::before {
   content: open-quote;
 }
-.CSSmap .Ruleset > .Val::after {
+.CSSmap .Ruleset > .c--Val::after {
   content: close-quote;
 }
-.CSSmap .Ruleset > .Prp,
-.CSSmap .Ruleset > .Comm {
+.CSSmap .Ruleset > .c--Prp,
+.CSSmap .Ruleset > .c--Comm {
   text-indent: 1rem;
 }
-.CSSmap.I .Sel {
+.CSSmap.Inl .c--Sel {
   float: left;
   clear: both;
 }
-.CSSmap.I .Ruleset::after {
+.CSSmap.Inl .Ruleset::after {
   display: inline;
 }
-.CSSmap.I .Ruleset > .Prp {
+.CSSmap.Inl .Ruleset > .c--Prp {
   display: inline;
   float: none;
 }
-.CSSmap.I .Ruleset > .Prp::before {
+.CSSmap.Inl .Ruleset > .c--Prp::before {
   content: '\00A0';
 }
-.CSSmap.I .Ruleset > .Val {
+.CSSmap.Inl .Ruleset > .c--Val {
   display: inline;
 }
 /**
   * This Object represents a block of JavaScript code.
-  * `.Ctl` : programming control (if, for, switch, return)
-  * `.Opr` : delimiter or operator (+, ==, ., new, this)
-  * `.Kwd` : predefined keywords (var, function)
-  * `.Obj` : a class or object reference
-@extends
-: .Codeblock
 @tags
 : #code
 @author
@@ -2880,18 +2732,6 @@ code .Comm {
 @updated
 : 2014-12-04
   */
-.Codeblock.JS .Ctl {
-  color: #dc322f;
-}
-.Codeblock.JS .Opr {
-  color: #cb4b16;
-}
-.Codeblock.JS .Kwd {
-  color: #b58900;
-}
-.Codeblock.JS .Obj {
-  color: #d33682;
-}
 /**
   * This Object represents an individual key (a button) on a keyboard, calculator, or other device.
   *
@@ -2913,26 +2753,22 @@ code .Comm {
 @updated
 : 2014-06-06
   */
-.Key {
+kbd > kbd {
   display: inline;
+  line-height: 0;
   padding: 1px 2px;
   border-width: 1px;
   border-style: solid;
   border-radius: 3px;
   white-space: nowrap;
-  font-size: 0.75rem;
   border-color: #073642;
   color: #839496;
   background-color: #002b36;
-  quotes: none;
   font-family: 'Geneva', 'Tahoma', sans-serif;
   color: #93a1a1;
 }
-.Key .Comm {
+kbd > kbd .Comm {
   color: #586e75;
-}
-kbd {
-  white-space: nowrap;
 }
 /**
   * This Object represents a path in a directory system (for folders and files).
@@ -2946,10 +2782,8 @@ kbd {
 @updated
 : 2014-05-25
   */
-.Dir {
-  font-size: 0.75rem;
+.c--Path {
   font-style: italic;
-  font-family: 'Optima', 'Lucida Grande', 'Tahoma', sans-serif;
 }
 /**
   * This Object represents a mathematical expression or statement.
@@ -2994,6 +2828,7 @@ kbd {
   */
 .Button {
   display: inline;
+  line-height: 0;
   padding: 1px 2px;
   border-width: 2px;
   border-style: solid;
