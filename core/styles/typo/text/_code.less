@@ -52,7 +52,7 @@
   border-color: @color_brdr;
   color: @color_txt;
   background-color: @color_bg;
-  .Comm {color: @color_comm;}
+  // .c--Comm {color: @color_comm;}
 }
 .codecolors-sol-lite() {.codecolors(@color_code_txt;      @color_code_comm;      @color_code_bg;      @color_code_brdr);}
 .codecolors-sol-dark() {.codecolors(@color_codeblock_txt; @color_codeblock_comm; @color_codeblock_bg; @color_codeblock_brdr);}
@@ -76,38 +76,37 @@
   * `.c--Sel`  : a CSS selector
   * `.c--Prp`  : a CSS property
   */
-.c--Comm {
-  .delimiters('/* '  ;  ' */');
-  &.Inl {quotes: '// '   '';}
-}
-.c--Ctl {
-  color: @solarized_red;
-}
-.c--Opr {
-  color: @solarized_orange;
-}
-.c--Kwd {
-  color: @solarized_yellow;
-}
-.c--Cst {
-  color: @solarized_green;
-}
-.c--Str {
-    .apos();
-    color: @solarized_cyan;
-    &::before,
-    &::after  {color: @solarized_magenta;}
-}
-.c--Cmd {
-  color: @solarized_blue;
-}
-.c--Arg {
-  color: @solarized_violet;
-}
-.c--Obj {
-  color: @solarized_magenta;
-}
-
+// .c--Comm {
+//   .delimiters('/* '  ;  ' */');
+//   &.Inl {quotes: '// '   '';}
+// }
+// .c--Ctl {
+//   color: @solarized_red;
+// }
+// .c--Opr {
+//   color: @solarized_orange;
+// }
+// .c--Kwd {
+//   color: @solarized_yellow;
+// }
+// .c--Cst {
+//   color: @solarized_green;
+// }
+// .c--Str {
+//     .apos();
+//     color: @solarized_cyan;
+//     &::before,
+//     &::after  {color: @solarized_magenta;}
+// }
+// .c--Cmd {
+//   color: @solarized_blue;
+// }
+// .c--Arg {
+//   color: @solarized_violet;
+// }
+// .c--Obj {
+//   color: @solarized_magenta;
+// }
 
 /**
   * A span of text that a computer program would recognize.
@@ -124,16 +123,15 @@
 @updated
 : 2015-02-10
   */
-code,
-.c {
+code {
   .box-inline(@code_brdr_radius);
   .codecolors-sol-lite();
   font-family: @fontfam_code;
   white-space: nowrap;
 }
 /**
-  * A block of code. Its semantics are derived from the formatting (line breaks, indenting, etc) of
-  * the text content.
+  * A block of code. Since its semantics are derived from the formatting (line breaks, indenting, etc) of
+  * the text content, it should be wrapped with a `pre` Element.
   * `&.Invert` : use Solarized Light instead of Solarized Dark
 @implements
 : .box-block()
@@ -147,17 +145,15 @@ code,
 @updated
 : 2015-02-10
   */
-pre > code {
+.c--Blk {
   .box-block(2px; @code_brdr_radius);
-  // .follows-heading(1);
   .fontsize-block-sml();
   .codecolors-sol-dark();
-  // font-family: @fontfam_code;
-  text-align: left; // to undo text-align:center in a .Fig
-  // white-space: pre;
-  // overflow: auto;
+  text-align: left;
+  white-space: inherit;
   &.Invert { .codecolors-sol-lite(); }
 }
+
 /**
   * This Object represents a block of HTML code.
 @tags
@@ -167,20 +163,19 @@ pre > code {
 @updated
 : 2015-02-10
   */
-code.HTML {
-  .c--Comm {quotes: '<!-- '   ' -->';}
-  .c--Tag {
-    .angles();
-    color: @solarized_blue;
-    &::before,
-    &::after {color: #808080;}
-    &.End {quotes: '</'   '>';}
-  }
-  .c--Atr {
-    color: @solarized_yellow;
-  }
-}
-
+// code.HTML {
+//   .c--Comm {quotes: '<!-- '   ' -->';}
+//   .c--Tag {
+//     .angles();
+//     color: @solarized_blue;
+//     &::before,
+//     &::after {color: #808080;}
+//     &.End {quotes: '</'   '>';}
+//   }
+//   .c--Atr {
+//     color: @solarized_yellow;
+//   }
+// }
 /**
   * This Object represents a block of CSS or LESS code.
 @tags
@@ -190,33 +185,32 @@ code.HTML {
 @updated
 : 2014-11-02
   */
-code.CSS {
-  .c--Sel {
-    .delimiters(''  ;  '}');
-    color: @solarized_blue;
-  }
-  .c--Prp {
-    .delimiters(''  ;  ';');
-    color: @solarized_yellow;
-  }
-  .c--Val  {
-    .c--Str;
-    .delimiters(': '  ;  '');
-    &::before,
-    &::after {color: @solarized_yellow;}
-    color: @solarized_cyan;
-  }
-  .c--Cmd  {
-    .delimiters(''  ;  ';');
-  }
-  .c--Arg  {
-    .parens();
-    &::before,
-    &::after {color: @solarized_blue;}
-  }
-  .c--Str {color: @solarized_magenta;}
-}
-
+// code.CSS {
+//   .c--Sel {
+//     .delimiters(''  ;  '}');
+//     color: @solarized_blue;
+//   }
+//   .c--Prp {
+//     .delimiters(''  ;  ';');
+//     color: @solarized_yellow;
+//   }
+//   .c--Val  {
+//     .c--Str;
+//     .delimiters(': '  ;  '');
+//     &::before,
+//     &::after {color: @solarized_yellow;}
+//     color: @solarized_cyan;
+//   }
+//   .c--Cmd  {
+//     .delimiters(''  ;  ';');
+//   }
+//   .c--Arg  {
+//     .parens();
+//     &::before,
+//     &::after {color: @solarized_blue;}
+//   }
+//   .c--Str {color: @solarized_magenta;}
+// }
 /**
   * This Object represents a block of CSS code organized as a map.
   * Its semantics are derived not from the formatting of the text, but rather the elements inside.
@@ -227,64 +221,64 @@ code.CSS {
 @updated
 : 2014-11-02
   */
-.CSSmap {
-  white-space: nowrap;
-  .c--Str {color: @solarized_magenta;}
-  .c--Sel {.delimiters(''  ;  ' {');}
-  .Ruleset {
-    .clearfix();
-    &::after {
-      content: '}';
-      color: @solarized_blue;
-    }
-    > .c--Prp {
-      // .delimiters(''  ;  ':\00A0'); // `&nbsp;` because a normal (`\0020`) will not work on a float
-      .delimiters(''  ;  ':');
-      float: left;
-      clear: both;
-    }
-    > .c--Val {
-        .delimiters(''  ;  ';');
-        text-indent: 0.5rem;
-      }
-    > .c--Prp,
-    > .c--Comm {text-indent: 1rem;}
-  }
-  /**
-    * A block of CSS code whose selectors are inline. This is really useful for selectors with one
-    * property-value pair each.
-  @extends
-  : .Codeblock.CSS
-  @tags
-  : #code
-  @author
-  : Chris Harvey
-  @updated
-  : 2014-05-31
-    */
-  &.Inl {
-    .c--Sel {
-      float: left;
-      clear: both;
-    }
-    .Ruleset {
-      &::after {
-        display: inline;
-      }
-      > .c--Prp {
-        display: inline;
-        float: none;
-        &::before {
-          content: '\00A0';
-          // quotes: '\00A0'   ':';
-        }
-      }
-      > .c--Val {
-        display: inline;
-      }
-    }
-  }
-}
+// .CSSmap {
+//   white-space: nowrap;
+//   .c--Str {color: @solarized_magenta;}
+//   .c--Sel {.delimiters(''  ;  ' {');}
+//   .Ruleset {
+//     .clearfix();
+//     &::after {
+//       content: '}';
+//       color: @solarized_blue;
+//     }
+//     > .c--Prp {
+//       // .delimiters(''  ;  ':\00A0'); // `&nbsp;` because a normal (`\0020`) will not work on a float
+//       .delimiters(''  ;  ':');
+//       float: left;
+//       clear: both;
+//     }
+//     > .c--Val {
+//         .delimiters(''  ;  ';');
+//         text-indent: 0.5rem;
+//       }
+//     > .c--Prp,
+//     > .c--Comm {text-indent: 1rem;}
+//   }
+//   /**
+//     * A block of CSS code whose selectors are inline. This is really useful for selectors with one
+//     * property-value pair each.
+//   @extends
+//   : .Codeblock.CSS
+//   @tags
+//   : #code
+//   @author
+//   : Chris Harvey
+//   @updated
+//   : 2014-05-31
+//     */
+//   &.Inl {
+//     .c--Sel {
+//       float: left;
+//       clear: both;
+//     }
+//     .Ruleset {
+//       &::after {
+//         display: inline;
+//       }
+//       > .c--Prp {
+//         display: inline;
+//         float: none;
+//         &::before {
+//           content: '\00A0';
+//           // quotes: '\00A0'   ':';
+//         }
+//       }
+//       > .c--Val {
+//         display: inline;
+//       }
+//     }
+//   }
+// }
 /**
   * This Object represents a block of JavaScript code.
 @tags
@@ -294,8 +288,8 @@ code.CSS {
 @updated
 : 2014-12-04
   */
-.JS {
-}
+// .JS {
+// }
 
 /**
   * This Object represents an individual key (a button) on a keyboard, calculator, or other device.
