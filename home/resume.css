@@ -27,6 +27,24 @@
 /*###############*\
     resume.less
 \*###############*/
+/*@RESET*/
+h1 {
+  margin-bottom: 0;
+  font-size: inherit;
+}
+p {
+  margin-bottom: 0;
+}
+dt {
+  font-weight: inherit;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+abbr[title] {
+  border-bottom-width: 0;
+}
 /*@VARIABLES*/
 /*@MAIN OBJECTS*/
 @media screen {
@@ -54,6 +72,11 @@
     text-align: center;
   }
 }
+@media print {
+  .res-Header {
+    margin-bottom: 1.5rem;
+  }
+}
 /**
     * My name at the top of the resume.
   @implements
@@ -70,26 +93,22 @@
 }
 @media screen {
   .res-Name {
-    font-size: 48px;
+    padding-top: 1.85410197rem;
+    margin-bottom: 1.14589803rem;
     font-size: 3rem;
     line-height: 1;
-    margin-top: 29.66563146px;
-    margin-top: 1.85410197rem;
-    padding-bottom: 18.33436854px;
-    padding-bottom: 1.14589803rem;
+    font-family: 'Avenir', 'Seravek', sans-serif;
+    letter-spacing: 1px;
     font-variant: small-caps;
-    font-family: 'Avenir', 'Seravek', 'Gill Sans', sans-serif;
     text-align: center;
     color: #120099;
+    letter-spacing: normal;
   }
 }
 @media print {
   .res-Name {
-    margin-top: 24px;
-    margin-top: 1.5rem;
-    padding-bottom: 24px;
-    padding-bottom: 1.5rem;
-    font-size: 20px;
+    padding-top: 1.5rem;
+    margin-bottom: 1.5rem;
     font-size: 1.25rem;
     line-height: 1.2;
     text-transform: uppercase;
@@ -98,7 +117,7 @@
 /**
     * My contact info at the top of the resume.
   @implements
-  : .Ilist.Square
+  : .l--Inl.Square
   @author
   : Chris Harvey
   @updated
@@ -106,20 +125,21 @@
     */
 .res-Postal {
   display: inline;
+  padding-left: 0;
 }
-.res-Postal > .Item {
+.res-Postal > li {
   display: inline;
 }
-.res-Postal > .Item.endline::after {
+.res-Postal > li.endline::after {
   display: block;
   content: '' !important;
 }
-.res-Postal > .Item:not(:last-child)::after {
+.res-Postal > li:not(:last-child)::after {
   content: '\0020\25aa\0020';
 }
 @media screen {
   .res-Postal {
-    font-family: 'Avenir', 'Seravek', 'Gill Sans', sans-serif;
+    font-family: 'Avenir', 'Seravek', sans-serif;
   }
 }
 /**
@@ -134,9 +154,8 @@
 @updated
 : 2015-01-08
   */
-.res-Skill {
-  margin-top: 24px;
-  margin-top: 1.5rem;
+#objective {
+  margin-bottom: 1.5rem;
 }
 @media screen {
   .res-Skill:first-of-type {
@@ -173,25 +192,21 @@
     text-align: right;
   }
   .res-SkillTitle {
-    font-size: 24px;
     font-size: 1.5rem;
     line-height: 1;
-    font-family: 'Avenir', 'Seravek', 'Gill Sans', sans-serif;
+    font-family: 'Avenir', 'Seravek', sans-serif;
     color: #3d6166;
   }
 }
 @media print {
   .res-SkillTitle {
-    font-size: 20px;
     font-size: 1.25rem;
     line-height: 1.2;
-    display: block;
-    position: relative;
-    top: -1px;
-    margin-bottom: -1px;
+    margin-top: -1px;
     border-bottom-width: 1px;
     border-bottom-style: solid;
     border-bottom-color: #000000;
+    margin-bottom: 1.5rem;
     font-variant: small-caps;
   }
 }
@@ -206,8 +221,7 @@
   : 2015-01-08
     */
 .res-Org {
-  margin-top: 24px;
-  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 /**
       * contains `.res-Titles` and `.res-Spacetime`
@@ -258,10 +272,11 @@
   -webkit-order: 1;
   order: 1;
   font-style: italic;
+  font-weight: normal;
 }
 @media screen {
   .res-OrgTitle {
-    font-family: 'Avenir', 'Seravek', 'Gill Sans', sans-serif;
+    font-family: 'Avenir', 'Seravek', sans-serif;
   }
 }
 /**
@@ -281,7 +296,7 @@
 }
 @media screen {
   .res-JobTitle {
-    font-family: 'Avenir', 'Seravek', 'Gill Sans', sans-serif;
+    font-family: 'Avenir', 'Seravek', sans-serif;
     font-variant: small-caps;
   }
 }
@@ -336,8 +351,6 @@
 }
 /**
       * A bullet list of job descriptions for each job.
-    @implements
-    : .Ulist
     @tags
     : #typography
     : #list
@@ -349,20 +362,10 @@
     : 2014-06-26
       */
 .res-OrgDetail {
-  display: block;
-  min-height: 24px;
-  min-height: 1.5rem;
-  padding-left: 0.5in;
-  list-style-type: square;
   padding-left: 0.25in;
-}
-:not(h1):not(.H):not(header) + .res-OrgDetail {
-  margin-top: 24px;
-  margin-top: 1.5rem;
 }
 @media print {
   .res-OrgDetail {
-    margin-top: -24px;
     margin-top: -1.5rem;
     margin-left: 23.60679775%;
   }
@@ -377,8 +380,7 @@
     */
 @media print {
   .res-Obj {
-    margin-top: -24px;
-    margin-top: -1.5rem;
+    margin-top: -3rem;
     margin-left: 23.60679775%;
   }
 }
@@ -415,11 +417,13 @@
   -webkit-box-ordinal-group: 1;
   -webkit-order: 1;
   order: 1;
+  margin-bottom: 1.5rem;
   font-style: italic;
+  font-weight: normal;
 }
 @media screen {
   .res-InstTitle {
-    font-family: 'Avenir', 'Seravek', 'Gill Sans', sans-serif;
+    font-family: 'Avenir', 'Seravek', sans-serif;
   }
 }
 @media print {
@@ -432,110 +436,61 @@
 /**
   * A list of achievements such as awards or memberships.
 @implements
-: .Map.Horiz;
+: .dl--Horiz;
 @author
 : Chris Harvey
 @updated
 : 2015-01-22
   */
-.res-AchList {
-  min-height: 24px;
-  min-height: 1.5rem;
-  display: block;
-  /**
-    * This Object represent the term in a term-description pair of a `.Map`.
-  @implements
-  : .vru-top() only when following a `.Desc`
-  @tags
-  : #typography
-  : #map
-  @author
-  : Chris Harvey
-  @updated
-  : 2015-01-22
-    */
-  /**
-    * This Object represent the description in a term-description pair of a `.Map`.
-  @belongsto
-  : .Map
-  @tags
-  : #typography
-  : #map
-  @author
-  : Chris Harvey
-  @updated
-  : 2015-01-22
-    */
-}
-:not(h1):not(.H):not(header) + .res-AchList {
-  margin-top: 24px;
-  margin-top: 1.5rem;
-}
-.res-AchList > .Term {
-  min-height: 24px;
-  min-height: 1.5rem;
-  display: block;
-  font-weight: bold;
-}
-.res-AchList > .Desc {
-  min-height: 24px;
-  min-height: 1.5rem;
-  display: block;
-}
-.res-AchList > .Desc + .Term {
-  margin-top: 24px;
-  margin-top: 1.5rem;
-}
 .res-AchList::after {
   display: table;
   content: ' ';
   clear: both;
 }
-.res-AchList > .Term,
-.res-AchList > .Desc {
+.res-AchList > dt,
+.res-AchList > dd {
   box-sizing: border-box;
 }
-.res-AchList > .Term {
+.res-AchList > dt {
   padding-right: 1rem;
   float: left;
   clear: both;
   overflow: auto;
   white-space: nowrap;
 }
-.res-AchList > .Desc {
+.res-AchList > dd {
   float: left;
 }
-.res-AchList > .Desc + .Term {
-  margin-top: 0;
-}
-.res-AchList .Term {
-  font-weight: inherit;
+.res-AchList > dd + dt {
+  padding-top: 0;
 }
 @media screen {
-  .res-AchList .Term {
+  .res-AchList dt {
     padding-right: 0.5rem;
   }
-  .res-AchList .Desc {
+  .res-AchList dd {
     quotes: '(' ')';
   }
-  .res-AchList .Desc::before {
+  .res-AchList dd::before {
     content: open-quote;
   }
-  .res-AchList .Desc::after {
+  .res-AchList dd::after {
     content: close-quote;
   }
 }
 @media print {
-  .res-AchList .Term {
+  .res-AchList {
+    margin-top: -1.5rem;
+  }
+  .res-AchList dt {
     margin-left: 23.60679775%;
     padding-right: 0;
     float: none;
     clear: none;
   }
-  .res-AchList .Desc {
-    margin-top: -24px;
-    margin-top: -1.5rem;
+  .res-AchList dd {
     width: 23.60679775%;
+    margin-top: -1.5rem;
     float: none;
     clear: none;
   }
@@ -546,7 +501,6 @@
   border-top-width: 1px;
   border-top-style: solid;
   border-top-color: #3d6166;
-  font-size: 12px;
   font-size: 0.75rem;
   line-height: 2;
 }

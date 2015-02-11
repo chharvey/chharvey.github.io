@@ -6,9 +6,31 @@
 \*###############*/
 
 //Table of Contents
+//- RESET
 //- VARIABLES
 //- MAIN OBJECTS
 //- OTHER OBJECTS
+
+
+//++++++//
+/*@RESET*/
+//++++++//
+h1 {
+  margin-bottom: 0;
+  font-size: inherit;
+}
+p {
+  margin-bottom:0;
+}
+dt {font-weight: inherit;}
+a {
+  text-decoration: none;
+  color:inherit;
+}
+abbr[title] {
+  border-bottom-width: 0;
+}
+//++++ @end RESET ++++//
 
 
 //++++++++++//
@@ -52,6 +74,7 @@
 }
 @media print {
   .res-Header {
+    .vru-bottom(1);
   }
 }
   /**
@@ -69,14 +92,9 @@
     font-weight: bold;
   }
   @media screen {
-    .res-Name { // selected from _headings.less .H--Alp
-      .fontsize-doubleblock(@fontsize_ratio_alpha);
-      .vru-top(   2 * @phi1); // 1.236
-      .vru-bottom(2 * @phi2); // 0.764
-      font-variant: small-caps;
-      font-family: @fontfam_heading;
-      text-align: center;
-      color: @color_h_major;
+    .res-Name {
+      .H--Alp;
+      letter-spacing: normal;
     }
   }
   @media print {
@@ -90,15 +108,15 @@
   /**
     * My contact info at the top of the resume.
   @implements
-  : .Ilist.Square
+  : .l--Inl.Square
   @author
   : Chris Harvey
   @updated
   : 2015-01-08
     */
   .res-Postal {
-    .Ilist;
-    .Ilist.Square;
+    .l--Inl;
+    .l--Inl.Square;
   }
   @media screen {
     .res-Postal {
@@ -120,8 +138,8 @@
 : 2015-01-08
   */
 .res-Skill {
-  .vru-top(1);
 }
+#objective {.vru-bottom(1);}
 @media screen {
   .res-Skill:first-of-type {
     .vru-top-phi(1px; solid; @color_h_minor);
@@ -162,6 +180,7 @@
     .res-SkillTitle {
       .fontsize-block-lrg;
       .border-vert-one(bottom; 1px; solid; #000);
+      .vru-bottom(1);
       font-variant: small-caps;
     }
   }
@@ -176,7 +195,7 @@
   : 2015-01-08
     */
   .res-Org {
-    .vru-top(1);
+    .vru-bottom(1);
   }
   @media screen {
     .res-Org {}
@@ -231,6 +250,7 @@
         .res-OrgTitle {
           .flex-order(1);
           font-style: italic;
+          font-weight: normal;
         }
         @media screen {
           .res-OrgTitle {
@@ -315,8 +335,6 @@
         }
     /**
       * A bullet list of job descriptions for each job.
-    @implements
-    : .Ulist
     @tags
     : #typography
     : #list
@@ -328,12 +346,13 @@
     : 2014-06-26
       */
     .res-OrgDetail {
-      .Ulist;
-      padding-left: (@listindent / 2);
+      padding-left: 0.25in;
+      // padding-left: 0.5rem;
+      // list-style-position: inside;
     }
     @media print {
       .res-OrgDetail {
-        .vru-top(-1);
+        margin-top: -@vru_core;
         margin-left: @datewidth;
       }
     }
@@ -347,7 +366,7 @@
     */
   @media print {
     .res-Obj {
-      .vru-top(-1);
+      margin-top: (-2 * @vru_core);
       margin-left: @datewidth;
     }
   }
@@ -379,7 +398,9 @@
       */
     .res-InstTitle {
       .flex-order(1);
+      .vru-bottom(1);
       font-style: italic;
+      font-weight: normal;
     }
     @media screen {
       .res-InstTitle {
@@ -401,38 +422,37 @@
 /**
   * A list of achievements such as awards or memberships.
 @implements
-: .Map.Horiz;
+: .dl--Horiz;
 @author
 : Chris Harvey
 @updated
 : 2015-01-22
   */
 .res-AchList {
-  .Map;
-  .Map.Horiz;
+  .dl--Horiz;
 }
-.res-AchList .Term {font-weight: inherit;}
 @media screen {
   .res-AchList {
-    .Term {
+    dt {
       padding-right: 0.5rem;
     }
-    .Desc {
+    dd {
       .parens();
     }
   }
 }
 @media print {
   .res-AchList {
-    .Term {
+    margin-top: -@vru_core;
+    dt {
       margin-left: @datewidth;
       padding-right: 0;
       float: none;
       clear: none;
     }
-    .Desc {
-      .vru-top(-1);
+    dd {
       width: @datewidth;
+      margin-top: -@vru_core;
       float: none;
       clear: none;
     }
