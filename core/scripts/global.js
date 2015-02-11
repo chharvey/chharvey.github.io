@@ -36,13 +36,13 @@ function resizeFolioHeading() {
   * 3. If the number of lines is odd, set margin-bottom: -12px;.
   */
 function qblockLines() {
-  $('.Qblock.Short').each(function () {
-    var lines = $(this).height() / 24;
+  $('blockquote.Short').each(function () {
+    var lines = $(this).height() / 24; // 24 is number of pixels for 1vru
     lines = Math.round(lines / 1.5); // divide by 1.5 to account for new line height
     if (lines % 2 === 1) {
-      $(this).css('margin-bottom','-12px');
+      $(this).css('margin-top','-12px');
     } else {
-      $(this).css('margin-bottom','');
+      $(this).css('margin-top','');
     }
   });
 }
@@ -96,8 +96,8 @@ function tableSpacing() {
     if ($(this).find('.Rowgroup')[0] != null)     n_rowgroups++; // once more for the last border, if there is one
     if ($(this).find('caption').hasClass('Capt')) n_rowgroups++; // once more again for a caption if it exists
     var btm = -(((n_rowgroups + 12) % 24) - 12);
-    if (btm <= 0) $(this).css('margin-bottom',btm);
-    else          $(this).css('padding-bottom',btm);
+    if (btm <= 0) $(this).css('margin-top',btm);
+    else          $(this).css('padding-top',btm);
     // var n_rows = 0;
     // $(this).find('tr').each(function () {
     //   n_rows++;
