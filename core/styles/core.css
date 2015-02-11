@@ -507,18 +507,7 @@
 @author
 : Chris Harvey
 @updated
-: 2015-01-28
-  */
-/**
-  * These Interfaces set a [large|medium|small] preset font size.
-@implements
-: .fontsize()
-@tags
-: #fontsize
-@author
-: Chris Harvey
-@updated
-: 2014-10-07
+: 2015-02-11
   */
 /**
   * These Mixins adjust `line-height` such that
@@ -535,19 +524,7 @@
 @author
 : Chris Harvey
 @updated
-: 2014-07-08
-  */
-/**
-  * This Interface sets a [large|medium|small] preset font size and adjusts corresponding line height.
-@implements
-: .fontsize-block()
-@tags
-: #verticalrhythm
-: #fontsize
-@author
-: Chris Harvey
-@updated
-: 2014-10-07
+: 2015-02-11
   */
 /*##############*\
     _grad.less
@@ -625,8 +602,8 @@
   * The following Interfaces add background images to an Element, typically the `body` Element.
   * `.crossgrid-lined()`    : simple lined paper
   * `.crossgrid-phi()`      : lined paper with vertical lines at phi-like intervals
-  * `.crossgrid-even()`     : lined paper with vertical lines at fractions n/m where 1 ≤ m ≤ 6
-  * `.crossgrid-even-lcm()` : lined paper with vertical lines at n/60
+  * `.crossgrid-even()`     : lined paper with vertical lines at fractions n/m where 1 ≤ m ≤ 6 and 1 ≤ n ≤ m
+  * `.crossgrid-even-lcm()` : lined paper with vertical lines at n/60 where 1 ≤ n ≤ 60
 @tags
 : #schematic
 : #golden
@@ -818,7 +795,7 @@ body {
 /**
   * This Object represents a generic article, technical document, blog post, etc. This Object may
   * or may not take the form of a literal `article` Element or `main` Element of a page. This
-  * Object is designed to contain other block-level Objects such as `.H`s and `.P`s.
+  * Object is designed to contain other block-level Objects such as headings and paragraphs.
 @implements
 : .follows-heading()
 @tags
@@ -984,7 +961,7 @@ body {
   * footnotes is irrelevant, so this Object should be instantiated by a `ul` Element.
 @implements
 : .list-block()
-: .fontsize-block-sml()
+: .font-size-block()
 : .vru-top-phi()
 @tags
 : #footnotes
@@ -993,7 +970,7 @@ body {
 @author
 : Chris Harvey
 @updated
-: 2014-09-23
+: 2015-02-11
   */
 .Footnotes {
   font-size: 0.75rem;
@@ -1139,7 +1116,7 @@ body {
 @author
 : Chris Harvey
 @updated
-: 2014-10-21
+: 2015-02-11
   */
 .H--Sub {
   font-size: 2rem;
@@ -1157,13 +1134,17 @@ body {
   * so that the `::first-letter` selector does not apply to any visual characters
 @extends
 : .H--Alp
+@implements
+: .font-size-block()
+: .vru-top()
+: .vru-bottom()
 @tags
 : #typography
 : #heading
 @author
 : Chris Harvey
 @updated
-: 2015-02-08
+: 2015-02-11
   */
 .H--Folio {
   font-size: 3rem;
@@ -1239,14 +1220,14 @@ p.Intro {
 /**
   * This Object represents a paragraph whose first letter is a dropped capital ("drop cap").
 @implements
-: .fontsize-block()
+: .font-size-block()
 @tags
 : #typography
 : #paragraph
 @author
 : Chris Harvey
 @updated
-: 2014-04-30
+: 2015-02-11
   */
 p.Dropcap::first-letter {
   font-size: 2rem;
@@ -1349,15 +1330,15 @@ figure.Text {
 @implements
 : .crossgrid-lined()
 : .sidebrdr-phi()
-: .fontsize-block-lrg()
-: .fontsize-block-sml()
+: .font-size-block()
+: .parens()
 @tags
 : #typography
 : #quote
 @author
 : Chris Harvey
 @updated
-: 2015-02-09
+: 2015-02-11
   */
 blockquote {
   background-image: url('https://chharvey.github.io/core/images/crossgrid-lined_1x24.svg');
@@ -1385,14 +1366,12 @@ blockquote > footer > cite::after {
 }
 blockquote.Short {
   font-size: 1.25rem;
-  line-height: 1.2;
   line-height: 1.8;
   background-image: none;
 }
 blockquote.Short > cite {
   display: block;
   font-size: 0.75rem;
-  line-height: 2;
   line-height: 3;
   text-align: right;
 }
@@ -1406,10 +1385,23 @@ blockquote.Short > cite::before {
 @updated
 : 2015-02-09
   */
+pre {
+  border-left-width: 3px;
+  border-left-style: groove;
+  padding-left: 4.85410197px;
+  margin-left: 12.70820393px;
+  border-left-color: #9acc7a;
+  border-right-width: 3px;
+  border-right-style: ridge;
+  padding-right: 4.85410197px;
+  margin-right: 12.70820393px;
+  border-right-color: #9acc7a;
+  border-radius: 6px;
+}
 /**
   * Table captions and figure captions.
 @implements
-: .fontsize-block-small()
+: .font-size-block()
 : .border-vert-one(bottom)
 : .border-vert-one(top)
 @tags
@@ -1800,14 +1792,14 @@ dd > ul {
   * dependent output.
 @implements
 : .follows-heading()
-: .fontsize-block-sml()
+: .font-size-block()
 @tags
 : #typography
 : #table
 @author
 : Chris Harvey
 @updated
-: 2014-10-19
+: 2015-02-11
   */
 .Table {
   font-size: 0.75rem;
@@ -2299,7 +2291,7 @@ var::after {
 @author
 : Chris Harvey
 @updated
-: 2014-06-16
+: 2015-02-11
   */
 abbr[title] {
   cursor: help;
@@ -2418,14 +2410,13 @@ abbr[title] {
   * inside a `pre` Element (because normally `pre > code` are code blocks).
 @implements
 : .box-inline()
-: .fontsize-sml()
 : .codecolors-sol-lite()
 @tags
 : #code
 @author
 : Chris Harvey
 @updated
-: 2015-02-10
+: 2015-02-11
   */
 code {
   display: inline;
@@ -2446,15 +2437,14 @@ code {
   * `&.Invert` : use Solarized Light instead of Solarized Dark
 @implements
 : .box-block()
-: .follows-heading()
-: .fontsize-block-sml()
+: .font-size-block()
 : .codecolors-sol-dark()
 @tags
 : #code
 @author
 : Chris Harvey
 @updated
-: 2015-02-10
+: 2015-02-11
   */
 .c--Blk {
   display: block;
@@ -2526,7 +2516,6 @@ code {
   <!-- U+2318 "PLACE OF INTEREST SIGN" ⌘ -->
 @implements
 : .box-inline()
-: .fontsize-sml()
 : .codecolors-sol-dark()
 @tags
 : #code
@@ -2552,8 +2541,6 @@ kbd > kbd {
 /**
   * This Object represents a path in a directory system (for folders and files).
   * Recommended instantiated by a `code` or `samp` Element.
-@implements
-: .fontsize-sml()
 @tags
 : #code
 @author
@@ -2596,14 +2583,14 @@ kbd > kbd {
   * A general Button Object.
 @implements
 : .box-inline()
-: .fontsize-sml()
+: .font-size()
 : .gradient()
 @tags
 : #button
 @author
 : Chris Harvey
 @updated
-: 2014-06-06
+: 2015-02-11
   */
 .Button {
   display: inline;
@@ -2676,9 +2663,8 @@ kbd > kbd {
   * This Object is a block of text with complete sentences or a longer span of information.
 @implements
 : .box-block()
-: .follows-heading()
 : .w-p1.mr
-: .fontsize-block-sml()
+: .font-size-block()
 : .colors()
 : .gradient()
 @tags
@@ -2687,7 +2673,7 @@ kbd > kbd {
 @author
 : Chris Harvey
 @updated
-: 2014-10-26
+: 2015-02-11
   */
 .Alert--Warn {
   display: block;
@@ -2833,7 +2819,7 @@ kbd > kbd {
   * This Object is a has a short bit of content, or perhaps no content at all. It can be
   * added to the inside of an Element.
 @implements
-: .fontsize-sml()
+: .font-size()
 : .colors()
 : .gradient()
 @tags
@@ -2842,7 +2828,7 @@ kbd > kbd {
 @author
 : Chris Harvey
 @updated
-: 2014-10-26
+: 2015-02-11
   */
 .Label--Warn {
   font-size: 0.75rem;
@@ -3036,14 +3022,14 @@ kbd > kbd {
   * This Object represents a generic caption of any sort. A caption is usually a short summary or
   * description of some content ("the described content"). The described content may be in a
   * literal `figure` Element, `table` Element, or it may be any generic content. Since captions are
-  * usually too short to be a paragraph, it may *not* contain `.P` Objects or `p` Elements. If the described content
+  * usually too short to be a paragraph, it may *not* contain `p` Elements. If the described content
   * is text only, the caption should be shorter and more concise than the content's text.
   * If this `.Capt` is a child of a `figure` Element, it should be a `figcaption` Element.
   * If this `.Capt` is a child of a `table` Element, it should be a `caption` Element.
   *
   * A caption may appear before or after the described content, even if it and the content are
-  * children of the same Object (e.g., a `figure`). A `.P.Capt.Before` appears before the content;
-  * a `.P.Capt.After` appears after.
+  * children of the same Object (e.g., a `figure`). A `.Capt.Before` appears before the content;
+  * a `.Capt.After` appears after.
   * Note: According to the HTML5 specs, a `table > caption`, if it exists, may *only* be the
   * first child. However, applying `.Capt.Before` to the `table > caption:first-child` will make it
   * look ugly, because the borders conflict and it will have `display: block;` rather than
@@ -3081,7 +3067,7 @@ kbd > kbd {
 @author
 : Chris Harvey
 @updated
-: 2014-10-26
+: 2015-02-11
   */
 .Article[data-status="draft"]::before {
   display: block;
@@ -3287,8 +3273,8 @@ kbd > kbd {
   .Addy,
   .Qblock,
   .Table {
-    font-size: 1rem;
-    line-height: 1.5;
+    font-size: inherit;
+    line-height: inherit;
   }
   body,
   code {

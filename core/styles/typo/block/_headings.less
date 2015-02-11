@@ -38,27 +38,19 @@
   line-height: @line_height;
   font-family: @fontfam_heading;
   letter-spacing: 1px;
-  // text-align: left; // why is this here?
 }
-// @fontsize_ratio_alpha:   (48/16); // 3.0000rem
-// @fontsize_ratio_beta:    (35/16); // 2.1875rem
-// @fontsize_ratio_gamma:   (26/16); // 1.6250rem
-// @fontsize_ratio_delta:   (21/16); // 1.3125rem
-// @fontsize_ratio_epsilon: (18/16); // 1.1250rem
-// @fontsize_ratio_zeta:    (16/16); // 1.0000rem
-
 @font_size_alpha:   ((48/16) * 1rem); // 3.0000rem
 @font_size_beta:    ((35/16) * 1rem); // 2.1875rem
 @font_size_gamma:   ((26/16) * 1rem); // 1.6250rem
 @font_size_delta:   ((21/16) * 1rem); // 1.3125rem
 @font_size_epsilon: ((18/16) * 1rem); // 1.1250rem
 @font_size_zeta:    ((16/16) * 1rem); // 1.0000rem
-@line_height_alpha:   (@lineheight_base / @font_size_alpha);
-@line_height_beta:    (@lineheight_base / @font_size_beta);
-@line_height_gamma:   (@lineheight_base / @font_size_gamma);
-@line_height_delta:   (@lineheight_base / @font_size_delta);
-@line_height_epsilon: (@lineheight_base / @font_size_epsilon);
-@line_height_zeta:    (@lineheight_base / @font_size_zeta);
+@line_height_alpha:   (@line_height_base / @font_size_alpha);
+@line_height_beta:    (@line_height_base / @font_size_beta);
+@line_height_gamma:   (@line_height_base / @font_size_gamma);
+@line_height_delta:   (@line_height_base / @font_size_delta);
+@line_height_epsilon: (@line_height_base / @font_size_epsilon);
+@line_height_zeta:    (@line_height_base / @font_size_zeta);
 /**
   * The six Objects below represent different levels of headings, starting from top-level to level 6.
 @implements
@@ -132,12 +124,10 @@
 @author
 : Chris Harvey
 @updated
-: 2014-10-21
+: 2015-02-11
   */
 .H--Sub {
-  @this_fontsize: 2rem;
-  font-size: @this_fontsize;
-  line-height: (2 * @lineheight_base / @this_fontsize);
+  .font-size-block(2, 2 * @line_height_base);
   font-style: italic;
   font-weight: normal;
   font-family: @fontfam_script;
@@ -152,35 +142,21 @@
   * so that the `::first-letter` selector does not apply to any visual characters
 @extends
 : .H--Alp
+@implements
+: .font-size-block()
+: .vru-top()
+: .vru-bottom()
 @tags
 : #typography
 : #heading
 @author
 : Chris Harvey
 @updated
-: 2015-02-08
+: 2015-02-11
   */
-// .H--Alp.Folio {
-//   @this_fontsize: @font_size_alpha;
-//   font-size: @this_fontsize;
-//   line-height: (2 * @lineheight_base / @this_fontsize);
-//   .vru-top(4);
-//   .vru-bottom(2);
-//   font-weight: normal;
-//   font-variant: normal;
-//   font-family: @fontfam_script;
-//   letter-spacing: normal;
-//   white-space: nowrap;
-//   .Cap { // ::first-letter is buggy, manually add `span.Cap`
-//     font-size: 2 * @this_fontsize;
-//     line-height: (@lineheight_base / (2 * @this_fontsize));
-//     font-family: 'Snell Roundhand',@fontfam_script;
-//   }
-// }
 .H--Folio {
   @this_fontsize: @font_size_alpha;
-  font-size: @this_fontsize;
-  line-height: (2 * @lineheight_base / @this_fontsize);
+  .font-size-block(@this_fontsize, 2 * @line_height_base);
   .vru-top(4);
   .vru-bottom(2);
   font-weight: normal;
@@ -189,8 +165,7 @@
   white-space: nowrap;
   color: @color_h_major;
   .Cap { // ::first-letter is buggy, manually add `span.Cap`
-    font-size: 2 * @this_fontsize;
-    line-height: (@lineheight_base / (2 * @this_fontsize));
+    .font-size-block(2 * @this_fontsize, @line_height_base);
     font-family: 'Snell Roundhand',@fontfam_script;
   }
 }
