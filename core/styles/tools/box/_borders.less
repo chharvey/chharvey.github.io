@@ -123,3 +123,37 @@
   .sidebrdr-phi(@side; @width; @style);
   border-@{side}-color: @color;
 }
+
+/**
+  * This Interface adds a top border, while adjusting padding to be a Golden proportion to 1vru,
+  * and adjusts margin to keep vertical rhythm.
+@params
+: @brdrw : value of the border-top-width property.
+           Must be unitless but represent number of pixels.
+           Must be less than the number of pixels in 1 vru.
+: @brdrs : value of the border-top-style property
+: @brdrc : value of the border-top-color property
+@tags
+: #verticalrhythm
+: #golden
+: #border
+@author
+: Chris Harvey
+@updated
+: 2015-02-12
+  */
+.vru-top-phi(@brdrw) {
+  @brdrw_rem: @brdrw * (1rem/16); // assuming 1rem = 16px by user agent
+  border-top-width: @brdrw_rem;
+  padding-top: ((@vru_core * @phi2) - @brdrw_rem);
+  margin-top: -(@vru_core * @phi2); // -((@vru_core * @phi2) - @brdrw_rem) - @brdrw_rem;
+}
+.vru-top-phi(@brdrw; @brdrs) {
+  .vru-top-phi(@brdrw);
+  border-top-style: @brdrs;
+}
+.vru-top-phi(@brdrw; @brdrs; @brdrc) {
+  .vru-top-phi(@brdrw; @brdrs);
+  border-top-color: @brdrc;
+}
+.vru-top-phi() {.vru-top-phi(0);}
