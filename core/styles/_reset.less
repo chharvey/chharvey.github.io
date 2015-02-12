@@ -18,9 +18,10 @@
 //   (dubbed a “vertical rhythm unit” or vru) regardless of font size, and typographical elements
 //   (headings, paragraphs, figures, blockquotes, lists, tables, etc.) are separated by
 //   integer multiples of that height.
-// - Units for font-size, margin, and padding are in `rem`s rather than `em`s, thus
+// - Units for font-size, margin, and padding on block elements are in `rem`s rather than `em`s, thus
 //   the size of an element’s font remains the same regardless of where that element is placed
-//   (style does not depend on structure).
+//   (style does not depend on structure). However `em`s are used on text-level elements, so that
+//   if such an element is nested in an element with a larger font size, it would scale accordingly.
 // - Minor, nevertheless prettier, style changes to some text-level semantic elements
 //   (a.k.a. “phrasing content”).
 
@@ -123,9 +124,9 @@
 
 
 // sets up vertical rhythm units
-@font_size_reset: 16px;
+@font_size_reset: 100%; // defined by user agent
 @line_height_reset: 1.5;
-@vru_reset: (@line_height_reset * 1rem); // 1.5rem
+@vru_reset: (@line_height_reset * 1rem);
 html {
   // font-style: normal;
   // font-variant: normal;
@@ -493,7 +494,7 @@ u {
 }
 small {
   // display: inline;
-  font-size: 0.75rem;
+  font-size: 0.75em; // EM used instead of REM because text-level
 }
 s {
   // display: inline;
@@ -536,7 +537,7 @@ cite {
   // font-style: inherit;
 }
 sup, sub {
-  font-size: 0.75rem;
+  font-size: 0.75em; // EM used instead of REM because text-level
 }
 sup {
   // display: inline;
@@ -563,7 +564,7 @@ time {
   // display: inline;
 }
 code, kbd, samp {
-  font-size: 0.75rem;
+  font-size: 0.75em; // EM used instead of REM because text-level
   white-space: nowrap;
 }
 code {

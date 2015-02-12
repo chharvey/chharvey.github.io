@@ -510,21 +510,18 @@
 : 2015-02-11
   */
 /**
-  * These Mixins adjust `line-height` such that
+  * This Mixin sets `font-size` and `line-height` such that
   * `font-size` * `line-height` = one vertical rhythm unit.
-  * The `.fontsize-block-double()` Mixin adjusts `line-height` such that
-  * `font-size` * `line-height` = two vertical rhythm units.
 @params
-: @ratio : the ratio of the new font size to `@fontsize_base`
-@implements
-: .fontsize()
+: @ratio            : the ratio of the new font size to `@fontsize_base`
+: @line_height_orig : the `line-height` of the parent element
 @tags
 : #verticalrhythm
 : #fontsize
 @author
 : Chris Harvey
 @updated
-: 2015-02-11
+: 2015-02-12
   */
 /*##############*\
     _grad.less
@@ -655,9 +652,11 @@
   font-family: 'Zapfino', 'Savoye LET', script, 'Avenir', 'Seravek', sans-serif;
 }
 html {
-  font-family: 'Optima', 'Lucida Grande', 'Tahoma', sans-serif;
+  font-size: 100%;
+  line-height: 1.5;
 }
 body {
+  font-family: 'Optima', 'Lucida Grande', 'Tahoma', sans-serif;
   color: #0e0900;
   background-color: #f1f6ff;
 }
@@ -2293,13 +2292,13 @@ abbr[title] {
   cursor: help;
 }
 .Acro {
-  font-size: 0.75rem;
+  font-size: 0.75em;
 }
 .Acro.First {
   display: inline-block;
 }
 .Acro.First::first-letter {
-  font-size: 1rem;
+  font-size: 1em;
 }
 /**
   * A time element. See the W3C HTML5 standards for details.
@@ -2579,7 +2578,6 @@ kbd > kbd {
   * A general Button Object.
 @implements
 : .box-inline()
-: .font-size()
 : .gradient()
 @tags
 : #button
@@ -2815,7 +2813,6 @@ kbd > kbd {
   * This Object is a has a short bit of content, or perhaps no content at all. It can be
   * added to the inside of an Element.
 @implements
-: .font-size()
 : .colors()
 : .gradient()
 @tags
@@ -3001,50 +2998,6 @@ kbd > kbd {
   content: ' ' '\2665';
   font-weight: bold;
 }
-/*###############*\
-    _media.less
-\*###############*/
-/**
-  * The Media Object is a module that has an image with a body.
-  * See `http://www.stubbornella.org/content/2010/06/25/the-media-object-saves-hundreds-of-lines-of-code/`
-  * for details.
-@author
-: Nicole Sullivan
-: Chris Harvey
-@updated
-: 2014-06-16
-  */
-/**
-  * This Object represents a generic caption of any sort. A caption is usually a short summary or
-  * description of some content ("the described content"). The described content may be in a
-  * literal `figure` Element, `table` Element, or it may be any generic content. Since captions are
-  * usually too short to be a paragraph, it may *not* contain `p` Elements. If the described content
-  * is text only, the caption should be shorter and more concise than the content's text.
-  * If this `.Capt` is a child of a `figure` Element, it should be a `figcaption` Element.
-  * If this `.Capt` is a child of a `table` Element, it should be a `caption` Element.
-  *
-  * A caption may appear before or after the described content, even if it and the content are
-  * children of the same Object (e.g., a `figure`). A `.Capt.Before` appears before the content;
-  * a `.Capt.After` appears after.
-  * Note: According to the HTML5 specs, a `table > caption`, if it exists, may *only* be the
-  * first child. However, applying `.Capt.Before` to the `table > caption:first-child` will make it
-  * look ugly, because the borders conflict and it will have `display: block;` rather than
-  * `display: table-caption;`. Just don't apply `.Capt.Before` or `.Capt.After` to `table > caption`s.
-@implements
-: .vru-content()
-: .fontsize-block-small()
-: .border-vert-one(bottom)
-: .border-vert-one(top)
-@tags
-: #typography
-: #caption
-: #table
-: #figure
-@author
-: Chris Harvey
-@updated
-: 2015-02-09
-  */
 /*################*\
     _trumps.less
 \*################*/
