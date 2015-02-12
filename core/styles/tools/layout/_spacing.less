@@ -44,22 +44,6 @@
   margin-bottom: (@ratio * @vru_core);
 }
 
-// :not(.H) + .Article,
-// :not(.H) + .P,
-// :not(.H) + .Olist,
-// :not(.H) + .Ulist,
-// :not(.H) + .Alist,
-// :not(.H) + .Map,
-// :not(.H) + .Table,
-// :not(.H) + .Codeblock,
-// :not(.H) + .Alert--Warn,
-// :not(.H) + .Alert--Cshn,
-// :not(.H) + .Alert--Skss,
-// :not(.H) + .Alert--Info,
-// :not(.H) + .Alert--Help {
-//   .vru-top(1);
-// }
-
 /**
   * This Interface adds a vru-top to an element if it is an
   * immediate sibling after an Element that is not some type of heading.
@@ -83,7 +67,9 @@
   * is Golden, while keeping the border-top-width. The sum of the padding, border, and margin is
   * one vertical rhythm unit.
 @params
-: @brdrw : value of the border-top-width property. Must be in pixels and less than 1 vru.
+: @brdrw : value of the border-top-width property.
+           Must be unitless but represent number of pixels.
+           Must be less than the number of pixels in 1 vru.
 : @brdrs : value of the border-top-style property
 : @brdrc : value of the border-top-color property
 @tags
@@ -96,10 +82,10 @@
 : 2014-08-07
   */
 .vru-top-phi(@brdrw) {
-  @vru_px:  (@fontsize_base * @lineheight_base); // 16px * 1.5 = 24px
-  padding-top: ((@vru_px - @brdrw) * @phi2);
-  margin-top:  ((@vru_px - @brdrw) * @phi1);
-  border-top-width: @brdrw;
+  @brdrw_rem: @brdrw * (1rem/16); // assuming 1rem = 16px by user agent
+  padding-top: ((@vru_core * @phi2) - @brdrw_rem);
+  margin-top: -(@vru_core * @phi2); // -((@vru_core * @phi2) - @brdrw_rem) - @brdrw_rem;
+  border-top-width: @brdrw_rem;
 }
 .vru-top-phi(@brdrw; @brdrs) {
   .vru-top-phi(@brdrw);
@@ -109,5 +95,4 @@
   .vru-top-phi(@brdrw; @brdrs);
   border-top-color: @brdrc;
 }
-// .vru-top-phi {.vru-top-phi(0; none; #000);}
 .vru-top-phi() {.vru-top-phi(0);}

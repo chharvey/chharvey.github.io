@@ -281,7 +281,9 @@
   * is Golden, while keeping the border-top-width. The sum of the padding, border, and margin is
   * one vertical rhythm unit.
 @params
-: @brdrw : value of the border-top-width property. Must be in pixels and less than 1 vru.
+: @brdrw : value of the border-top-width property.
+           Must be unitless but represent number of pixels.
+           Must be less than the number of pixels in 1 vru.
 : @brdrs : value of the border-top-style property
 : @brdrc : value of the border-top-color property
 @tags
@@ -714,8 +716,6 @@ body {
   * A list of breadcrumbs inside the module.
   * The list either contains ancestor pages (including parent),
   * sibling pages (including the same page), or children pages.
-@implements
-: .vru-top()
 @tags
 : #breadcrumbs
 @author
@@ -723,11 +723,6 @@ body {
 @updated
 : 2014-08-17
   */
-.Bc > .Anc,
-.Bc > .Sib,
-.Bc > .Child {
-  padding-top: 1.5rem;
-}
 /**
   * An actual breadcrumb link.
 @implements
@@ -968,6 +963,11 @@ body {
 .Footnotes {
   font-size: 0.75rem;
   line-height: 2;
+  padding-top: 0.51044902rem;
+  margin-top: -0.57294902rem;
+  border-top-width: 0.0625rem;
+  border-top-style: solid;
+  border-top-color: #9acc7a;
 }
 /**
   * The `.Rf` Object represents a reference to a footnote. The reference exists in the document prose,
@@ -1225,21 +1225,13 @@ p.Dropcap::first-letter {
   color: #120099;
 }
 /*@QUASI-PARAGRAPHS*/
-/**
-  * This interface is used on some quasi-paragraphs (paragraph-looking Objects).
-  * It is not used on `.Capt` because they can't always have `display: block;`
-@implements
-: .vru-top-phi()
-@tags
-: #typography
-: #address
-: #figure
-: #quote
-@author
-: Chris Harvey
-@updated
-: 2014-10-10
-  */
+figure,
+blockquote,
+pre {
+  padding-top: 0.57294902rem;
+  margin-top: -0.57294902rem;
+  border-top-width: 0rem;
+}
 /**
   * This Object represents a generic postal address. It may be the contact address of the document
   * author(s) (contained in an `address` Element), or it may be any arbitrary postal mailing address.
@@ -1500,7 +1492,7 @@ figcaption:last-child {
   * This Object represents an outlined list. It is used for nested `ol` objects, for example,
   * to display a table of contents or document outline.
 @implements
-: .vru-top()
+: .vru-bottom()
 @tags
 : #typography
 : #list
@@ -1615,8 +1607,6 @@ ul {
   * This Object represents a 'List of Prose', a list whose items consist of only paragraphs.
 @extends
 : .Olist
-@implements
-: .vru-top()
 @tags
 : #typography
 : #list
