@@ -5,42 +5,67 @@
 \*##################*/
 
 
-// colors for headings
+// colors
 @color_h_major: @lakesuperior;
 @color_h_minor: @facilityabyss;
 
-// font-sizes for headings
-@font_size_h1: 48/16; // 3.0000
-@font_size_h2: 35/16; // 2.1875
-@font_size_h3: 26/16; // 1.6250
-@font_size_h4: 21/16; // 1.3125
-@font_size_h5: 18/16; // 1.1250
-@font_size_h6: 16/16; // 1.0000
+// font-sizes
+@font_size_h1: 48/16; // 3.0000 || 2.000vru
+@font_size_h2: 35/16; // 2.1875 || 1.458vru
+@font_size_h3: 26/16; // 1.6250 || 1.083vru
+@font_size_h4: 21/16; // 1.3125 || 0.875vru
+@font_size_h5: 18/16; // 1.1250 || 0.750vru
+@font_size_h6: 16/16; // 1.0000 || 0.666vru
 
-// line-heights for headings
-@line_height_h1: 2.0 * @line_height_base/@font_size_h1; // 0.5
-@line_height_h2: 2.0 * @line_height_base/@font_size_h2; // 0.686
-@line_height_h3: 1.0 * @line_height_base/@font_size_h3; // 0.923
-@line_height_h4: 1.0 * @line_height_base/@font_size_h4; // 1.143
-@line_height_h5: 0.5 * @line_height_base/@font_size_h5; // 1.333
-@line_height_h6: 0.5 * @line_height_base/@font_size_h6; // 1.5
+// box height, as a multiple of 1vru (only used in calculations) (same as reset font-size)
+@vru_height_h1: (32/16); // 2.000
+@vru_height_h2: (24/16); // 1.500
+@vru_height_h3: (20/16); // 1.250
+@vru_height_h4: (16/16); // 1.000
+@vru_height_h5: (12/16); // 0.750
+@vru_height_h6: (10/16); // 0.625
 
-// padding/margins for headings
-@spacing_top_h1: 2*@phi1;   @spacing_bot_h1: 2*@phi2;   // 2*@phi1   + 2*@phi2   == 2    &&  2*@phi1   / 2*@phi2   == @phi_inv1
-@spacing_top_h2: 1.447;     @spacing_bot_h2: 0.553;     // 1.447     + 0.553     == 2    &&  1.447     / 0.553     == (@phi_inv1)^2
-@spacing_top_h3: 1*@phi1;   @spacing_bot_h3: 1*@phi2;   // 1*@phi1   + 1*@phi2   == 1    &&  1*@phi1   / 1*@phi2   == @phi_inv1
-@spacing_top_h4: 0.724;     @spacing_bot_h4: 0.276;     // 0.724     + 0.276     == 1    &&  0.724     / 0.276     == (@phi_inv1)^2
-@spacing_top_h5: 0.5*@phi1; @spacing_bot_h5: 0.5*@phi2; // 0.5*@phi1 + 0.5*@phi2 == 0.5  &&  0.5*@phi1 / 0.5*@phi2 == @phi_inv1
-@spacing_top_h6: 0.362;     @spacing_bot_h6: 0.138;     // 0.362     + 0.138     == 0.5  &&  0.362     / 0.138     == (@phi_inv1)^2
+// line-heights
+@line_height_h1: @line_height_base / @font_size_h1 * @vru_height_h1; // 1.5 / 3.0000 * 2.000 == 0.5000
+@line_height_h2: @line_height_base / @font_size_h2 * @vru_height_h2; // 1.5 / 2.1875 * 1.500 == 0.6857
+@line_height_h3: @line_height_base / @font_size_h3 * @vru_height_h3; // 1.5 / 1.6250 * 1.250 == 0.9231
+@line_height_h4: @line_height_base / @font_size_h4 * @vru_height_h4; // 1.5 / 1.3125 * 1.000 == 1.1429
+@line_height_h5: @line_height_base / @font_size_h5 * @vru_height_h5; // 1.5 / 1.1250 * 0.750 == 1.3333
+@line_height_h6: @line_height_base / @font_size_h6 * @vru_height_h6; // 1.5 / 1.0000 * 0.625 == 1.5000
+
+// total remainder spacing (in vrus)
+@vru_remain_h1: 4 - @vru_height_h1; // 2.000
+@vru_remain_h2: 3 - @vru_height_h2; // 1.500
+@vru_remain_h3: 3 - @vru_height_h3; // 1.750
+@vru_remain_h4: 2 - @vru_height_h4; // 1.000
+@vru_remain_h5: 2 - @vru_height_h5; // 1.250
+@vru_remain_h6: 2 - @vru_height_h6; // 1.375
+
+// top spacing, in vrus
+@vru_top_h1: @phi1 * @vru_remain_h1;
+@vru_top_h2: @phi1 * @vru_remain_h2;
+@vru_top_h3: @phi1 * @vru_remain_h3;
+@vru_top_h4: @phi1 * @vru_remain_h4;
+@vru_top_h5: @phi1 * @vru_remain_h5;
+@vru_top_h6: @phi1 * @vru_remain_h6;
+
+// bottom spacing, in vrus
+@vru_bot_h1: @phi2 * @vru_remain_h1;
+@vru_bot_h2: @phi2 * @vru_remain_h2;
+@vru_bot_h3: @phi2 * @vru_remain_h3;
+@vru_bot_h4: @phi2 * @vru_remain_h4;
+@vru_bot_h5: @phi2 * @vru_remain_h5;
+@vru_bot_h6: @phi2 * @vru_remain_h6;
 
 /**
   * This Interface represents a generic textual heading of a section, post, article, or document.
   * It does not represent a heading in a table. See the `.Cell.Hc` Object.
 @params
-: @font_size      : unitless value for the font-size property (multiplied by 1rem here).
-: @line_height    : unitless value of the line-height property.
-: @spacing_top    : unitless number for the `.vru-top(@ratio)` mixin.
-: @spacing_bottom : unitless number for the `.vru-bottom(@ratio)` mixin.
+: @font_size   : unitless value for the font-size property (multiplied by 1rem here).
+: @line_height : unitless value of the line-height property.
+: @vru_height  : unitless number, in vrus, of the box height.
+: @vru_top     : unitless number, in vrus, for the `.vru-top(@ratio)` mixin.
+: @vru_bottom  : unitless number, in vrus, for the `.vru-bottom(@ratio)` mixin.
 @implements
 : .vru-content()
 @tags
@@ -53,9 +78,9 @@
 @updated
 : 2015-02-11
   */
-.heading(@font_size, @line_height, @spacing_top, @spacing_bottom) {
-  .vru-top(@spacing_top);
-  .vru-bottom(@spacing_bottom);
+.heading(@font_size, @line_height, @vru_top, @vru_bottom) {
+  .vru-top(@vru_top);
+  .vru-bottom(@vru_bottom);
   font-size: @font_size * 1rem;
   line-height: @line_height;
 }
@@ -77,32 +102,32 @@ h1, h2, h3, h4, h5, h6 {
   font-family: @fontfam_heading;
 }
 h1 {
-  .heading(@font_size_h1, @line_height_h1, @spacing_top_h1, @spacing_bot_h1);
+  .heading(@font_size_h1, @line_height_h1, @vru_top_h1, @vru_bot_h1);
   font-variant: small-caps;
   text-align: center;
   color: @color_h_major;
 }
 h2 {
-  .heading(@font_size_h2, @line_height_h2, @spacing_top_h2, @spacing_bot_h2);
+  .heading(@font_size_h2, @line_height_h2, @vru_top_h2, @vru_bot_h2);
   .border-vert-one(bottom; 1px; solid; @color_h_minor);
   color: @color_h_minor;
 }
 h3 {
-  .heading(@font_size_h3, @line_height_h3, @spacing_top_h3, @spacing_bot_h3);
+  .heading(@font_size_h3, @line_height_h3, @vru_top_h3, @vru_bot_h3);
   font-variant: small-caps;
 }
 h4 {
-  .heading(@font_size_h4, @line_height_h4, @spacing_top_h4, @spacing_bot_h4);
+  .heading(@font_size_h4, @line_height_h4, @vru_top_h4, @vru_bot_h4);
   font-style: italic;
 }
 h5 {
-  .heading(@font_size_h5, @line_height_h5, @spacing_top_h5, @spacing_bot_h5);
+  .heading(@font_size_h5, @line_height_h5, @vru_top_h5, @vru_bot_h5);
   font-style: italic;
   font-weight: normal;
   color: @color_h_minor;
 }
 h6 {
-  .heading(@font_size_h6, @line_height_h6, @spacing_top_h6, @spacing_bot_h6);
+  .heading(@font_size_h6, @line_height_h6, @vru_top_h6, @vru_bot_h6);
   font-style: italic;
   font-weight: normal;
   font-variant: small-caps;
