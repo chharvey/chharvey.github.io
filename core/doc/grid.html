@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>The Grid &in; Site Design</title>
+<title>Layout &in; Site Design</title>
 <meta charset="UTF-8"/>
 <link rel="stylesheet" href="../styles/all.css"/>
 <style>
@@ -9,73 +9,34 @@
 </style>
 </head>
 <body>
-<main class="MainGolden">
-<h1 class="H--Alp">The Grid</h1>
-<aside style="opacity: 0.5;">
+<main class="MainGolden Article" data-status="draft">
+<h1 class="H--Alp">Layout</h1>
 <small class="Alert--Cshn">This document will eventually be converted into a blog post
-  and relocated under <code class="Dir">/blog/grid.html</code>. For version control reasons, I am
+  and relocated under <code class="Dir">/blog/layout.html</code>. For version control reasons, I am
   keeping it under <code class="Dir">/core/doc/</code> with the other style guide documentation
   until it, along with the new grid system
   (<a class="Link" rel="external" href="https://github.com/chharvey/chharvey.github.io/issues/20">#20</a>),
   is finished.</small>
 <p class="P Intro">There are many grid systems out there. This article does not go into any of them.
   Rather, after reading this article, hopefully you will see the anti-need for any grid system, and
-  certainly how ridiculous it is that there are so many of them. You will create your own grids
-  using pure CSS. No downloads, no pre-defined classes, and definitely no unsemantic markup.</p>
+  certainly how ridiculous it is that there are so many of them. You will create your own layout
+  (read, <em>layout</em>, not grid) using pure CSS. No downloads, no pre-defined classes, and definitely no unsemantic markup.</p>
 <p class="P">Before delving too far, though, you should probably get yourself
   up-to-speed on the
   <a class="Link" rel="external" href="http://www.w3.org/TR/css3-flexbox/">CSS Flexible Box Layout Module</a>,
   or <a class="Link" rel="external" href="http://www.w3.org/TR/css3-flexbox/">Flexbox</a> for short.</p>
-</aside>
+<p class="P">Laying out a page is easier than it may seem. Everything on the page belongs in boxes, and
+  each box has a size and position. That&rsquo;s all there is too it. There are many methods,
+  good and bad, of how to achieve this, but that is the gist of what needs to happen.</p>
 
-
-<p class="P Intro">This page describes the grid system of the site. <a class="Link" rel="external"
-  href="https://github.com/chharvey/chharvey.github.io/blob/master/core/styles/_grid.less">The grid</a>
-  implements the layout of any page. It consists of rows and cells, treated as table rows and
-  table cells respectively.</p>
-<p class="P">The classes used in this grid system determine where elements of a page are positioned.
-  Therefore, the classnames are intentionally <i>unsemanic</i>. Since the grid consists
-  of <em>containers</em>, and not actual content, the classnames are acceptable. See
-  Nicole Sullivan&rsquo;s view on <a>separation of container with content</a>.</p>
-<p class="P">Think of the grid as shelves. The shelves are set up first, and then the contents are
-  placed on them. The rows and columns of the grid have the respective classes
-  <code>.Grow</code> and <code>.Gcol</code>.</p>
-<p class="P">Seeing as the grid is presentational, it should <a>degrade gracefully</a>. This means
-  that if someone were to <i>turn off</i> the grid, you would still be able to read and
-  interact with the website without any problems. It might not look pretty, but the content
-  should be intact.</p>
-<section id="setup">
-  <h1 class="H--Bet">Setting It Up</h1>
-  <p class="P">To set up a grid, you&rsquo;ll need to create a row with cells inside. The effect
-    will be a table-like structure.</p>
-  <div class="Fig">
-    <code class="Codeblock HTML"><span class="Tag">div <span class="Atr">class=<span class="Val">Grow</span></span></span> <span class="Comm">this is a row!</span>
-  <span class="Tag">div <span class="Atr">class=<span class="Val">Gcol</span></span></span>this is col 1!<span class="Tag End">div</span>
-  <span class="Tag">div <span class="Atr">class=<span class="Val">Gcol</span></span></span>this is col 2!<span class="Tag End">div</span>
-  <span class="Tag">div <span class="Atr">class=<span class="Val">Gcol</span></span></span>this is col 3!<span class="Tag End">div</span>
-<span class="Tag End">div</span></code>
-    <div class="Grow">
-      <div class="Gcol help-otln" style="width: 20%;">this is col 1!</div>
-      <div class="Gcol help-otln" style="width: 60%;">this is col 2!</div>
-      <div class="Gcol help-otln" style="width: 20%;">this is col 3!</div>
-    </div>
-    <p class="Capt">Outlines are added to show structure, and widths are not equal
-      to show they are not fixed.</p>
-  </div>
-</section>
-<section id="custom-cells">
-  <h1 class="H--Bet">Custom Cells</h1>
-  <p class="P">Each row is 100% the width of its container, <a>unless otherwise specified</a>.
-    Each row can have any number of cells. Notice that in the example above, that the cells
-    were not evenly distributed: the middle cell will likely be significantly wider than the
-    other two cells, assuming there will be more text in that element. If you want the row to
-    <em>force</em> the cells to have equal widths, use cell subclasses to specify their widths.</p>
-  <p class="P">The tables below lists custom subclasses of <code>.Gcol</code>. The syntax merely
-    serves as an illustration. See
-    <a class="Link" rel="external"
-    href="https://github.com/chharvey/chharvey.github.io/blob/master/core/styles/_grid.less">_grid.less</a>
-    for the true code.</p>
-  <figure class="CSSmap I">
+<section id="widths">
+  <h2 class="H--Bet">Setting Widths</h2>
+  <p class="P">To set the width of an element, add helper classes, <abbr title="also known as">a.k.a.</abbr>
+  <a>Interfaces</a>, to the HTML class attribute of an element.</p>
+  <p class="P">The figure below illustrates a simplified version of the definitions of these Interfaces.
+    The actual code can be found <a class="Link" rel="external"
+      href="https://github.com/chharvey/chharvey.github.io/blob/master/core/styles/_trumps.less">on GitHub</a>.</p>
+  <figure class="CSSmap I w-p1 margin-even">
     <div class="Sel">.w-1o1</div>
     <dl class="Ruleset">
       <dt class="Prp">width</dt>
@@ -212,6 +173,74 @@
       <dd class="Val">85.410%</dd>
     </dl>
   </figure>
+  <p class="P">It&rsquo;s obvious that some of these widths will combine to make a full 100%. See the
+    <a class="Link" href="griddemo.html">grid demo</a> for a full list of combinations.</p>
+
+  <p class="P">Interested in using a little math to make your layout prettier?</p>
+  <figure class="Fig Text">
+    <p class="P w-1o1 margin-even help-otln">Use <code>.w-1o1</code> (100%) to model the
+      <b>harmonic sequence</b>
+      <span class="M B">\left(\infty,\mathbf{1,\frac{1}{2},\frac{1}{3}},\frac{1}{4},\dots,\frac{1}{n+1}\right)</span>
+      where <span class="M">n</span> is the number of cells
+      (<span class="M">n</span> starts at 0).</p>
+    <p class="P w-3o4 margin-even help-otln">Use <code>.w-3o4</code> (75%) to model the
+      <b>geometric sequence</b>
+      <span class="M B">\left(\frac{9}{8},\mathbf{\frac{3}{4},\frac{1}{2},\frac{1}{3}},\frac{2}{9},\dots,\frac{2^{n-3}}{3^{n-2}}\right)</span>
+      where <span class="M">n</span> is the number of cells
+      (<span class="M">n</span> starts at 0).</p>
+    <p class="P w-2o3 margin-even help-otln">Use <code>.w-2o3</code> (66.6%) to model the
+      <b>arithmetic sequence</b>
+      <span class="M B">\left(\frac{5}{6},\mathbf{\frac{2}{3},\frac{1}{2},\frac{1}{3}},\frac{1}{6},\dots,\frac{5-n}{6}\right)</span>
+      where <span class="M">n</span> is the number of cells
+      (<span class="M">n</span> starts at 0).</p>
+    <p class="P w-p1 margin-even help-otln">Use <code>.w-p1</code> (61.8%) to model the
+      <a class="Link" href="phi.html">Golden Ratio <span class="M">\Phi</span></a>.</p>
+  </figure>
+</section>
+<section>
+  <h2 class="H--Bet">Setting Margins</h2>
+</section>
+<p class="P Intro">This page describes the grid system of the site. <a class="Link" rel="external"
+  href="https://github.com/chharvey/chharvey.github.io/blob/master/core/styles/_grid.less">The grid</a>
+  implements the layout of any page. It consists of rows and cells, treated as table rows and
+  table cells respectively.</p>
+<p class="P">The classes used in this grid system determine where elements of a page are positioned.
+  Therefore, the classnames are intentionally <i>unsemanic</i>. Since the grid consists
+  of <em>containers</em>, and not actual content, the classnames are acceptable. See
+  Nicole Sullivan&rsquo;s view on <a>separation of container with content</a>.</p>
+<p class="P">Think of the grid as shelves. The shelves are set up first, and then the contents are
+  placed on them. The rows and columns of the grid have the respective classes
+  <code>.Grow</code> and <code>.Gcol</code>.</p>
+<p class="P">Seeing as the grid is presentational, it should <a>degrade gracefully</a>. This means
+  that if someone were to <i>turn off</i> the grid, you would still be able to read and
+  interact with the website without any problems. It might not look pretty, but the content
+  should be intact.</p>
+<section id="setup">
+  <h1 class="H--Bet">Setting It Up</h1>
+  <p class="P">To set up a grid, you&rsquo;ll need to create a row with cells inside. The effect
+    will be a table-like structure.</p>
+  <div class="Fig">
+    <code class="Codeblock HTML"><span class="Tag">div <span class="Atr">class=<span class="Val">Grow</span></span></span> <span class="Comm">this is a row!</span>
+  <span class="Tag">div <span class="Atr">class=<span class="Val">Gcol</span></span></span>this is col 1!<span class="Tag End">div</span>
+  <span class="Tag">div <span class="Atr">class=<span class="Val">Gcol</span></span></span>this is col 2!<span class="Tag End">div</span>
+  <span class="Tag">div <span class="Atr">class=<span class="Val">Gcol</span></span></span>this is col 3!<span class="Tag End">div</span>
+<span class="Tag End">div</span></code>
+    <div class="Grow">
+      <div class="Gcol help-otln" style="width: 20%;">this is col 1!</div>
+      <div class="Gcol help-otln" style="width: 60%;">this is col 2!</div>
+      <div class="Gcol help-otln" style="width: 20%;">this is col 3!</div>
+    </div>
+    <p class="Capt">Outlines are added to show structure, and widths are not equal
+      to show they are not fixed.</p>
+  </div>
+</section>
+<section id="custom-cells">
+  <h1 class="H--Bet">Custom Cells</h1>
+  <p class="P">Each row is 100% the width of its container, <a>unless otherwise specified</a>.
+    Each row can have any number of cells. Notice that in the example above, that the cells
+    were not evenly distributed: the middle cell will likely be significantly wider than the
+    other two cells, assuming there will be more text in that element. If you want the row to
+    <em>force</em> the cells to have equal widths, use cell subclasses to specify their widths.</p>
   <figure class="Fig">
     <figcaption class="Capt">Let&rsquo;s make sure our cells are equal width. Remember that
       all of the cells must add up to 100%.</figcaption>
@@ -231,7 +260,7 @@
     <p class="P Intro">Please read up on some
       <a class="Link" href="phi.html">background information</a> for a more enriching
       understanding of this section. Also see the
-      <a class="Link" href="griddemo.html">grid demo</a> for a full list of options.</p>
+
   </section>
 </section>
 <section id="custom-block-widths">
@@ -246,25 +275,6 @@
   the Interfaces.</small> -->
   <section>
     <h1 class="H--Gam">Centered Blocks</h1>
-    <figure class="Fig Text">
-      <p class="P w-1o1 margin-even help-otln">Use <code>.w-1o1</code> (100%) to model the
-        <b>harmonic sequence</b>
-        <span class="M B">\left(\infty,\mathbf{1,\frac{1}{2},\frac{1}{3}},\frac{1}{4},\dots,\frac{1}{n+1}\right)</span>
-        where <span class="M">n</span> is the number of cells
-        (<span class="M">n</span> starts at 0).</p>
-      <p class="P w-3o4 margin-even help-otln">Use <code>.w-3o4</code> (75%) to model the
-        <b>geometric sequence</b>
-        <span class="M B">\left(\frac{9}{8},\mathbf{\frac{3}{4},\frac{1}{2},\frac{1}{3}},\frac{2}{9},\dots,\frac{2^{n-3}}{3^{n-2}}\right)</span>
-        where <span class="M">n</span> is the number of cells
-        (<span class="M">n</span> starts at 0).</p>
-      <p class="P w-2o3 margin-even help-otln">Use <code>.w-2o3</code> (66.6%) to model the
-        <b>arithmetic sequence</b>
-        <span class="M B">\left(\frac{5}{6},\mathbf{\frac{2}{3},\frac{1}{2},\frac{1}{3}},\frac{1}{6},\dots,\frac{5-n}{6}\right)</span>
-        where <span class="M">n</span> is the number of cells
-        (<span class="M">n</span> starts at 0).</p>
-      <p class="P w-p1 margin-even help-otln">Use <code>.w-p1</code> (61.8%) to model the
-        <a class="Link" href="phi.html">Golden ratio <span class="M">\Phi</span></a>.</p>
-    </figure>
     <!-- <section>
       <h1 class="H--Del">Full Width</h1>
       <p class="P">A normal block element defaults to 100% width and no left/right margins.
