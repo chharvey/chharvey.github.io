@@ -3,180 +3,247 @@
 <head>
 <title>Layout &in; Site Design</title>
 <meta charset="UTF-8"/>
+<meta name="author" content="Christopher H. Harvey"/>
+<meta name="description" content="Using Flexbox to lay out a page.."/>
+<meta name="keywords" content="Flexbox, layout, CSS, Less"/>
 <link rel="stylesheet" href="../styles/all.css"/>
-<style>
-#golden-block-widths .Codeblock.CSS.Invert > div {overflow: auto;}
-</style>
 </head>
 <body>
 <main class="MainGolden Article" data-status="draft">
-<h1 class="H--Alp">Layout</h1>
-<small class="Alert--Cshn">This document will eventually be converted into a blog post
-  and relocated under <code class="Dir">/blog/layout.html</code>. For version control reasons, I am
-  keeping it under <code class="Dir">/core/doc/</code> with the other style guide documentation
-  until it, along with the new grid system
-  (<a class="Link" rel="external" href="https://github.com/chharvey/chharvey.github.io/issues/20">#20</a>),
-  is finished.</small>
-<p class="P Intro">There are many grid systems out there. This article does not go into any of them.
+<header>
+  <h1 class="H--Alp">Layout</h1>
+  <dl class="Docmeta">
+    <dt>Author</dt>
+    <dd>Christopher H. Harvey</dd>
+    <dt>Description</dt>
+    <dd>The semantics and style of nested heading elements in Webkit.</dd>
+    <dt>Keywords</dt>
+    <dd>Flexbox</dd>
+    <dd>layout</dd>
+    <dd>CSS</dd>
+    <dd>Less</dd>
+    <dt>Version History</dt>
+    <dd class="update latest"><time datetime="2015-02-13 15:23">Feb 13, 2015 <span class="hm">3:23 PM</span></time></dd>
+  </dl>
+  <small class="Alert--Warn">This document will eventually be converted into a blog post
+    and relocated under <code class="Dir">/blog/layout.html</code>. For version control reasons, I am
+    keeping it under <code class="Dir">/core/doc/</code> with the other style guide documentation
+    until it, along with the new grid system
+    (<a class="Link" rel="external" href="https://github.com/chharvey/chharvey.github.io/issues/20">#20</a>),
+    is finished.</small>
+</header>
+<p class="P Intro">Laying out a page is easier than it may seem. Everything on the page belongs in blocks, and
+  each block has a size and position. That&rsquo;s all there is to it. There are many methods,
+  good and bad, of how to achieve this, but that is the gist of what needs to happen.</p>
+<p class="P">There are many grid systems out there. This article does not go into any of them.
   Rather, after reading this article, hopefully you will see the anti-need for any grid system, and
   certainly how ridiculous it is that there are so many of them. You will create your own layout
-  (read, <em>layout</em>, not grid) using pure CSS. No downloads, no pre-defined classes, and definitely no unsemantic markup.</p>
+  (read, <em>layout</em>, not grid) using pure CSS. No downloads, no pre-defined classes, and
+  definitely no unsemantic markup.</p>
 <p class="P">Before delving too far, though, you should probably get yourself
   up-to-speed on the
   <a class="Link" rel="external" href="http://www.w3.org/TR/css3-flexbox/">CSS Flexible Box Layout Module</a>,
-  or <a class="Link" rel="external" href="http://www.w3.org/TR/css3-flexbox/">Flexbox</a> for short.</p>
-<p class="P">Laying out a page is easier than it may seem. Everything on the page belongs in boxes, and
-  each box has a size and position. That&rsquo;s all there is too it. There are many methods,
-  good and bad, of how to achieve this, but that is the gist of what needs to happen.</p>
-
-<section id="widths">
-  <h2 class="H--Bet">Setting Widths</h2>
-  <p class="P">To set the width of an element, add helper classes, <abbr title="also known as">a.k.a.</abbr>
-  <a>Interfaces</a>, to the HTML class attribute of an element.</p>
-  <p class="P">The figure below illustrates a simplified version of the definitions of these Interfaces.
-    The actual code can be found <a class="Link" rel="external"
-      href="https://github.com/chharvey/chharvey.github.io/blob/master/core/styles/_trumps.less">on GitHub</a>.</p>
-  <figure class="CSSmap I w-p1 margin-even">
+  or <a class="Link" rel="external" href="http://css-tricks.com/snippets/css/a-guide-to-flexbox/">Flexbox</a>
+  for short. See <a class="Link" rel="external"
+  href="https://github.com/chharvey/chharvey.github.io/blob/master/core/styles/tools/_flexbox.less">_flexbox.less</a>
+  for my implementation.</p>
+<section>
+  <h2 class="H--Bet">Setting Width and Position</h2>
+  <p class="P">This section discusses laying out one block on a line. This is useful if you want
+    the block to have less than 100% width and you need to horizontally position it.</p>
+  <section>
+    <h3 class="H--Gam">Widths</h3>
+    <p>The easiest way to set the width of a block is to use the CSS <code>width</code> property.
+      I have made it easier to do calculations with Less variables, so use them.
+      The figure below illustrates a simplified version of the code.
+      <a class="Link" rel="external"
+      href="https://github.com/chharvey/chharvey.github.io/blob/master/core/styles/">The
+      actual code</a> is on GitHub.</p>
+    <pre><code class="Codeblock">// even widths:    // golden widths:
+@1o1: 100%;        @golden0:  100%;
+@1o2:  50%;        @golden1:   61.803%;
+@2o2: 100%;        @golden2:   38.197%;
+@1o3:  33.333%;    @golden3:   23.607%;
+@2o3:  66.666%;    @golden4:   14.590%;
+@3o3: 100%;        @golden3c:  76.393%;
+@1o4:  25%;        @golden4c:  85.410%;
+@2o4:  50%;
+@3o4:  75%;
+@4o4: 100%;
+@1o5:  20%;
+@2o5:  40%;
+@3o5:  60%;
+@4o5:  80%;
+@5o5: 100%;
+@1o6:  16.666%;
+@2o6:  33.333%;
+@3o6:  50%;
+@4o6:  66.666%;
+@5o6:  83.333%;
+@6o6: 100%;
+</code></pre>
+    <p class="P">Sometimes, setting the width in CSS is too much work, so <strong>to quickly change
+      the style of an Element using HTML</strong>, you may add helper classes,
+      <abbr title="also known as">a.k.a.</abbr> <i>Interfaces</i>, to the class attribute of the Element.
+      Yes, <strong>this is bad practice</strong>, but it is a pragmatic solution that prevents CSS bloat.</p>
+  <figure class="CSSmap I">
     <div class="Sel">.w-1o1</div>
     <dl class="Ruleset">
       <dt class="Prp">width</dt>
-      <dd class="Val">100%</dd>
+      <dd class="Val">@1o1</dd>
     </dl>
     <div class="Sel">.w-1o2</div>
     <dl class="Ruleset">
       <dt class="Prp">width</dt>
-      <dd class="Val">50%</dd>
+      <dd class="Val">@1o2</dd>
     </dl>
     <div class="Sel">.w-2o2</div>
     <dl class="Ruleset">
       <dt class="Prp">width</dt>
-      <dd class="Val">100%</dd>
+      <dd class="Val">@2o2</dd>
     </dl>
     <div class="Sel">.w-1o3</div>
     <dl class="Ruleset">
       <dt class="Prp">width</dt>
-      <dd class="Val">33.333%</dd>
+      <dd class="Val">@1o3</dd>
     </dl>
     <div class="Sel">.w-2o3</div>
     <dl class="Ruleset">
       <dt class="Prp">width</dt>
-      <dd class="Val">66.666%</dd>
+      <dd class="Val">@2o3</dd>
     </dl>
     <div class="Sel">.w-3o3</div>
     <dl class="Ruleset">
       <dt class="Prp">width</dt>
-      <dd class="Val">100%</dd>
+      <dd class="Val">@3o3</dd>
     </dl>
     <div class="Sel">.w-1o4</div>
     <dl class="Ruleset">
       <dt class="Prp">width</dt>
-      <dd class="Val">25%</dd>
+      <dd class="Val">@1o4</dd>
     </dl>
     <div class="Sel">.w-2o4</div>
     <dl class="Ruleset">
       <dt class="Prp">width</dt>
-      <dd class="Val">50%</dd>
+      <dd class="Val">@2o4</dd>
     </dl>
     <div class="Sel">.w-3o4</div>
     <dl class="Ruleset">
       <dt class="Prp">width</dt>
-      <dd class="Val">75%</dd>
+      <dd class="Val">@3o4</dd>
     </dl>
     <div class="Sel">.w-4o4</div>
     <dl class="Ruleset">
       <dt class="Prp">width</dt>
-      <dd class="Val">100%</dd>
+      <dd class="Val">@4o4</dd>
     </dl>
     <div class="Sel">.w-1o5</div>
     <dl class="Ruleset">
       <dt class="Prp">width</dt>
-      <dd class="Val">20%</dd>
+      <dd class="Val">@1o5</dd>
     </dl>
     <div class="Sel">.w-2o5</div>
     <dl class="Ruleset">
       <dt class="Prp">width</dt>
-      <dd class="Val">40%</dd>
+      <dd class="Val">@2o5</dd>
     </dl>
     <div class="Sel">.w-3o5</div>
     <dl class="Ruleset">
       <dt class="Prp">width</dt>
-      <dd class="Val">60%</dd>
+      <dd class="Val">@3o5</dd>
     </dl>
     <div class="Sel">.w-4o5</div>
     <dl class="Ruleset">
       <dt class="Prp">width</dt>
-      <dd class="Val">80%</dd>
+      <dd class="Val">@4o5</dd>
     </dl>
-    <div class="Sel">.w-5o6</div>
+    <div class="Sel">.w-5o5</div>
     <dl class="Ruleset">
       <dt class="Prp">width</dt>
-      <dd class="Val">100%</dd>
+      <dd class="Val">@5o5</dd>
     </dl>
     <div class="Sel">.w-1o6</div>
     <dl class="Ruleset">
       <dt class="Prp">width</dt>
-      <dd class="Val">16.666%</dd>
+      <dd class="Val">@1o6</dd>
     </dl>
     <div class="Sel">.w-2o6</div>
     <dl class="Ruleset">
       <dt class="Prp">width</dt>
-      <dd class="Val">33.333%</dd>
+      <dd class="Val">@2o6</dd>
     </dl>
     <div class="Sel">.w-3o6</div>
     <dl class="Ruleset">
       <dt class="Prp">width</dt>
-      <dd class="Val">50%</dd>
+      <dd class="Val">@3o6</dd>
     </dl>
     <div class="Sel">.w-4o6</div>
     <dl class="Ruleset">
       <dt class="Prp">width</dt>
-      <dd class="Val">66.666%</dd>
+      <dd class="Val">@4o6</dd>
     </dl>
     <div class="Sel">.w-5o6</div>
     <dl class="Ruleset">
       <dt class="Prp">width</dt>
-      <dd class="Val">83.333%</dd>
+      <dd class="Val">@5o6</dd>
     </dl>
     <div class="Sel">.w-6o6</div>
     <dl class="Ruleset">
       <dt class="Prp">width</dt>
-      <dd class="Val">100%</dd>
+      <dd class="Val">@6o6</dd>
     </dl>
     <div class="Sel">.w-p1</div>
     <dl class="Ruleset">
       <dt class="Prp">width</dt>
-      <dd class="Val">61.803%</dd>
+      <dd class="Val">@golden1</dd>
     </dl>
     <div class="Sel">.w-p2</div>
     <dl class="Ruleset">
       <dt class="Prp">width</dt>
-      <dd class="Val">38.197%</dd>
+      <dd class="Val">@golden2</dd>
     </dl>
     <div class="Sel">.w-p3</div>
     <dl class="Ruleset">
       <dt class="Prp">width</dt>
-      <dd class="Val">23.607%</dd>
+      <dd class="Val">@golden3</dd>
     </dl>
     <div class="Sel">.w-p4</div>
     <dl class="Ruleset">
       <dt class="Prp">width</dt>
-      <dd class="Val">14.590%</dd>
+      <dd class="Val">@golden4</dd>
     </dl>
     <div class="Sel">.w-p3c</div>
     <dl class="Ruleset">
       <dt class="Prp">width</dt>
-      <dd class="Val">76.393%</dd>
+      <dd class="Val">@golden3c</dd>
     </dl>
     <div class="Sel">.w-p4c</div>
     <dl class="Ruleset">
       <dt class="Prp">width</dt>
-      <dd class="Val">85.410%</dd>
+      <dd class="Val">@golden4c</dd>
     </dl>
   </figure>
-  <p class="P">It&rsquo;s obvious that some of these widths will combine to make a full 100%. See the
-    <a class="Link" href="griddemo.html">grid demo</a> for a full list of combinations.</p>
-
-  <p class="P">Interested in using a little math to make your layout prettier?</p>
+  <p class="P">A little math will make it obvious which of these widths will combine to make
+    a full 100% (see the <a class="Link" href="griddemo.html">grid demo</a> for a full list of
+    combinations).</p>
+  </section>
+  <section>
+    <h3 class="H--Gam">Positioning</h3>
+    <p class="P">When a <i>line</i> (that is, a visual horozontal arrangement of blocks) has
+      only one block, you have a few options for how to position it.</p>
+    <p class="P">The worst is using floats. This only pushes the block flush left or flush right, and
+      wraps subsequent content around it. Floats are good for flyers and newsletters when you need
+      to wrap text around an image, but they are not good at all for laying out a page.</p>
+    <p class="P">Instead, you can use <code>position: relative;</code> or <code>position: absolute;</code>,
+      with a value for <code>left</code> or <code>right</code>. The downside of these is that you
+      cannot center a block on a line.</p>
+    <p class="P">My recommendation is to use margins. To horizontally position a block,
+      add left and right margins. You can use the <code>.margin-even</code> Interface to center the
+      block, but there are no other automatic Interfaces for adding margins&mdash;you&rsquo;ll need
+      to write good-old-fashioned CSS if you want to position a block in a non-centered way.
+      Keep in mind you can use the Less variables so you don&rsquo;t have to do the math by hand.</p>
+    </p>
+    <pre><code class="Codeblock">.margin-even {margin-left: auto; margin-right: auto;}</code></pre>
   <figure class="Fig Text">
     <p class="P w-1o1 margin-even help-otln">Use <code>.w-1o1</code> (100%) to model the
       <b>harmonic sequence</b>
@@ -196,417 +263,57 @@
     <p class="P w-p1 margin-even help-otln">Use <code>.w-p1</code> (61.8%) to model the
       <a class="Link" href="phi.html">Golden Ratio <span class="M">\Phi</span></a>.</p>
   </figure>
+  </section>
 </section>
 <section>
-  <h2 class="H--Bet">Setting Margins</h2>
-</section>
-<p class="P Intro">This page describes the grid system of the site. <a class="Link" rel="external"
-  href="https://github.com/chharvey/chharvey.github.io/blob/master/core/styles/_grid.less">The grid</a>
-  implements the layout of any page. It consists of rows and cells, treated as table rows and
-  table cells respectively.</p>
-<p class="P">The classes used in this grid system determine where elements of a page are positioned.
-  Therefore, the classnames are intentionally <i>unsemanic</i>. Since the grid consists
-  of <em>containers</em>, and not actual content, the classnames are acceptable. See
-  Nicole Sullivan&rsquo;s view on <a>separation of container with content</a>.</p>
-<p class="P">Think of the grid as shelves. The shelves are set up first, and then the contents are
-  placed on them. The rows and columns of the grid have the respective classes
-  <code>.Grow</code> and <code>.Gcol</code>.</p>
-<p class="P">Seeing as the grid is presentational, it should <a>degrade gracefully</a>. This means
-  that if someone were to <i>turn off</i> the grid, you would still be able to read and
-  interact with the website without any problems. It might not look pretty, but the content
-  should be intact.</p>
-<section id="setup">
-  <h1 class="H--Bet">Setting It Up</h1>
-  <p class="P">To set up a grid, you&rsquo;ll need to create a row with cells inside. The effect
-    will be a table-like structure.</p>
-  <div class="Fig">
-    <code class="Codeblock HTML"><span class="Tag">div <span class="Atr">class=<span class="Val">Grow</span></span></span> <span class="Comm">this is a row!</span>
-  <span class="Tag">div <span class="Atr">class=<span class="Val">Gcol</span></span></span>this is col 1!<span class="Tag End">div</span>
-  <span class="Tag">div <span class="Atr">class=<span class="Val">Gcol</span></span></span>this is col 2!<span class="Tag End">div</span>
-  <span class="Tag">div <span class="Atr">class=<span class="Val">Gcol</span></span></span>this is col 3!<span class="Tag End">div</span>
-<span class="Tag End">div</span></code>
-    <div class="Grow">
-      <div class="Gcol help-otln" style="width: 20%;">this is col 1!</div>
-      <div class="Gcol help-otln" style="width: 60%;">this is col 2!</div>
-      <div class="Gcol help-otln" style="width: 20%;">this is col 3!</div>
-    </div>
-    <p class="Capt">Outlines are added to show structure, and widths are not equal
-      to show they are not fixed.</p>
-  </div>
-</section>
-<section id="custom-cells">
-  <h1 class="H--Bet">Custom Cells</h1>
-  <p class="P">Each row is 100% the width of its container, <a>unless otherwise specified</a>.
-    Each row can have any number of cells. Notice that in the example above, that the cells
-    were not evenly distributed: the middle cell will likely be significantly wider than the
-    other two cells, assuming there will be more text in that element. If you want the row to
-    <em>force</em> the cells to have equal widths, use cell subclasses to specify their widths.</p>
+  <h2 class="H--Bet">Multiple Blocks</h2>
+  <p class="P">To set up a layout with multiple blocks that will visually appear on one or more lines,
+    you&rsquo;ll need to use the Flexbox model. In this model, a <dfn id="flex-container">flex-container</dfn> is a block
+    that contains other blocks, called <dfn id="flex-item">flex-items</dfn>, inside.</p>
+  <p class="P">Most likely, your HTML is already structured this way: the blocks you want to
+    lay out together are likely already wrapped in some sort of container. All you need to do is add
+    <code>.flex-container</code> to the container. Then, optionally use the width Interfaces mentioned
+    above to set the proper widths of each of the blocks. If not, their widths will automatically
+    fit their content. That&rsquo;s it! Layout done.</p>
   <figure class="Fig">
-    <figcaption class="Capt">Let&rsquo;s make sure our cells are equal width. Remember that
-      all of the cells must add up to 100%.</figcaption>
-    <code class="Codeblock HTML"><span class="Tag">div <span class="Atr">class=<span class="Val">Grow</span></span></span>
-  <span class="Tag">div <span class="Atr">class=<span class="Val">Gcol<u> w-1o3</u></span></span></span>this is col 1!<span class="Tag End">div</span>
-  <span class="Tag">div <span class="Atr">class=<span class="Val">Gcol<u> w-1o3</u></span></span></span>this is col 2!<span class="Tag End">div</span>
-  <span class="Tag">div <span class="Atr">class=<span class="Val">Gcol<u> w-1o3</u></span></span></span>this is col 3!<span class="Tag End">div</span>
-<span class="Tag End">div</span></code>
-    <div class="Grow">
-      <div class="Gcol w-1o3 help-otln">this is col 1!</div>
-      <div class="Gcol w-1o3 help-otln">this is col 2!</div>
-      <div class="Gcol w-1o3 help-otln">this is col 3!</div>
+    <pre><code class="Codeblock HTML"><span class="Tag">div <span class="Atr">class=<span class="Val">flex-container</span></span></span>
+  <span class="Tag">div <span class="Atr">class=<span class="Val">w-1o6</span></span></span>flex-item 1!<span class="Tag End">div</span>
+  <span class="Tag">div <span class="Atr">class=<span class="Val">w-2o6</span></span></span>flex-item 2!<span class="Tag End">div</span>
+  <span class="Tag">div <span class="Atr">class=<span class="Val">w-3o6</span></span></span>flex-item 3!<span class="Tag End">div</span>
+<span class="Tag End">div</span></code></pre>
+    <div class="flex-container">
+      <div class="w-1o6 help-otln">flex-item 1!</div>
+      <div class="w-2o6 help-otln">flex-item 2!</div>
+      <div class="w-3o6 help-otln">flex-item 3!</div>
+    </div>
+    <figcaption class="Capt">Luckily, the widths add up to 100%.
+      If more, the blocks will wrap to the next line.
+      If less, there will be extra space at the end of the line.</figcaption>
+  </figure>
+  <p class="P">The example below demonstrates how to use Flexbox to layout blocks on more than
+    one line. Notice the lack of table rows! Also, it demonstrates the use of <code>order</code>
+    to set the order of the flex-items.</p>
+  <figure class="Fig">
+    <pre><code class="Codeblock">&lt;main class="flex-container"&gt;
+  &lt;header  class="w-5o5"&gt; Header &lt;/header&gt;
+  &lt;article class="w-3o5" style="order: 1;"&gt;
+    &lt;p&gt; Pellentesque habitant morbi &hellip; &lt;/p&gt;
+  &lt;/article&gt;
+  &lt;aside   class="w-1o5"&gt; Aside 1 &lt;/aside&gt;
+  &lt;aside   class="w-1o5" style="order: 2;"&gt; Aside 2 &lt;/aside&gt;
+  &lt;footer  class="w-5o5" style="order: 3;"&gt; Footer &lt;/footer&gt;
+&lt;/main&gt;</code></pre>
+    <div class="flex-container">
+      <header  class="help-otln w-5o5" >Header </header>
+      <article class="help-otln w-3o5" style="order: 1;">
+        <p> Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. </p>
+      </article>
+      <aside   class="help-otln w-1o5"> Aside 1 </aside>
+      <aside   class="help-otln w-1o5" style="order: 2;"> Aside 2 </aside>
+      <footer  class="help-otln w-5o5" style="order: 3;"> Footer </footer>
     </div>
   </figure>
-  <section id="golden-cell-widths">
-    <h1 class="H--Gam">Golden Cell Widths</h1>
-    <p class="P Intro">Please read up on some
-      <a class="Link" href="phi.html">background information</a> for a more enriching
-      understanding of this section. Also see the
-
-  </section>
 </section>
-<section id="custom-block-widths">
-  <h1 class="H--Bet">Custom Block Widths</h1>
-  <p class="P">Sometimes you may want to change the widths of a block or a <code>.Grow</code>.
-    For this, use classes for custom widths. The following Interfaces change the appearance
-    of general block elements. They can be implemented in the class of any block element,
-    or to any extension of <code>.Grow</code>s, which contain <code>.Gcol</code>s.</p>
-  <!-- <small class="Alert--Cshn">For the sake of simplicity, I&rsquo;ll be using the Interface
-  names for the HTML Elements&rsquo; class attributes; I am merely saving time and space. As
-  the developer, you are encouraged to give the elements semantic classnames and implement
-  the Interfaces.</small> -->
-  <section>
-    <h1 class="H--Gam">Centered Blocks</h1>
-    <!-- <section>
-      <h1 class="H--Del">Full Width</h1>
-      <p class="P">A normal block element defaults to 100% width and no left/right margins.
-        However you may use the following Objects to override other styles if need be.</p>
-      <div class="Fig">
-        <div class="center-ful help-otln">
-          <p class="P">The <code>.center-ful</code> class (<i lang="la">sic</i>) sets the
-            row width to 100% with no margins. It&rsquo;s modeled after the
-        </div>
-      </div>
-    </section>
-    <section>
-      <h1 class="H--Del">Large Width</h1>
-      <figure class="Fig">
-        <div class="center-lrg help-otln">
-          <p class="P">The <code>.center-lrg</code> class sets the row width to 75% with
-            equal margins (12.5%). It&rsquo;s modeled after the <b>geometric sequence</b>
-        </div>
-      </figure>
-    </section>
-    <section>
-      <h1 class="H--Del">Medium Width</h1>
-      <figure class="Fig">
-        <div class="center-med help-otln">
-          <p class="P">The <code>.center-med</code> class sets the row width to 66.6% and
-            equal margins (16.6%). It&rsquo;s modeled after the <b>arithmetic sequence</b></p>
-        </div>
-      </figure>
-    </section>
-    <section>
-      <h1 class="H--Del">Small Width</h1>
-      <figure class="Fig">
-        <div class="center-sml help-otln">
-          <p class="P">The <code>.center-sml</code> class sets the row width to about 61.8%
-            and equal margins (19.1%). It&rsquo;s approximately
-            <a class="Link" href="phi.html">the ratio <span class="M">\Phi</span></a>.</p>
-          <p class="P">This means that if you add the margins (38.2%) and take the ratio of
-            that to the row width (61.8%), it&rsquo;s the same as the ratio of the row width
-            to the container (100%). That is, 38.2% is to 61.8% as 61.8% is to 100%.</p>
-        </div>
-      </figure>
-    </section> -->
-  </section>
-  <!-- <section id="golden-block-widths">
-    <h1 class="H--Gam">Golden Block Widths</h1>
-    <figure class="Fig">
-      <figcaption class="Capt">The following Interfaces set the width to a power of
-        <span class="M">\Phi</span> and pushes all of the remaining margin to either
-        the left or right side.</figcaption>
-      <div class="CSSmap Invert">
-        <div class="w-p1 left help-otln">
-          <div class="Sel">.w-p1.left</div>
-          <dl class="Ruleset">
-            <dt class="Prp">margin-left</dt>
-            <dd class="Val">0</dd>
-            <dt class="Prp">width</dt>
-            <dd class="Val">61.80% <span class="Comm">P1</span></dd>
-            <dt class="Prp">margin-right</dt>
-            <dd class="Val">38.20% <span class="Comm">P2</span></dd>
-          </dl>
-        </div>
-        <div class="w-p1 right help-otln">
-          <div class="Sel">.w-p1.right</div>
-          <dl class="Ruleset">
-            <dt class="Prp">margin-left</dt>
-            <dd class="Val">38.20% <span class="Comm">P2</span></dd>
-            <dt class="Prp">width</dt>
-            <dd class="Val">61.80% <span class="Comm">P1</span></dd>
-            <dt class="Prp">margin-right</dt>
-            <dd class="Val">0</dd>
-          </dl>
-        </div>
-        <div class="w-p2 left help-otln">
-          <div class="Sel">.w-p2.left</div>
-          <dl class="Ruleset">
-            <dt class="Prp">margin-left</dt>
-            <dd class="Val">0</dd>
-            <dt class="Prp">width</dt>
-            <dd class="Val">38.20% <span class="Comm">P2</span></dd>
-            <dt class="Prp">margin-right</dt>
-            <dd class="Val">61.80% <span class="Comm">P1</span></dd>
-          </dl>
-        </div>
-        <div class="w-p2 right help-otln">
-          <div class="Sel">.w-p2.right</div>
-          <dl class="Ruleset">
-            <dt class="Prp">margin-left</dt>
-            <dd class="Val">61.80% <span class="Comm">P1</span></dd>
-            <dt class="Prp">width</dt>
-            <dd class="Val">38.20% <span class="Comm">P2</span></dd>
-            <dt class="Prp">margin-right</dt>
-            <dd class="Val">0</dd>
-          </dl>
-        </div>
-        <div class="w-p3 left help-otln">
-          <div class="Sel">.w-p3.left</div>
-          <dl class="Ruleset">
-            <dt class="Prp">margin-left</dt>
-            <dd class="Val">0</dd>
-            <dt class="Prp">width</dt>
-            <dd class="Val">23.61% <span class="Comm">P3</span></dd>
-            <dt class="Prp">margin-right</dt>
-            <dd class="Val">76.39% <span class="Comm">P3c</span></dd>
-          </dl>
-        </div>
-        <div class="w-p3 right help-otln">
-          <div class="Sel">.w-p3.right</div>
-          <dl class="Ruleset">
-            <dt class="Prp">margin-left</dt>
-            <dd class="Val">76.39% <span class="Comm">P3c</span></dd>
-            <dt class="Prp">width</dt>
-            <dd class="Val">23.61% <span class="Comm">P3</span></dd>
-            <dt class="Prp">margin-right</dt>
-            <dd class="Val">0</dd>
-          </dl>
-        </div>
-        <div class="w-p4 left help-otln">
-          <div class="Sel">.w-p4.left</div>
-          <dl class="Ruleset">
-            <dt class="Prp">margin-left</dt>
-            <dd class="Val">0</dd>
-            <dt class="Prp">width</dt>
-            <dd class="Val">14.59% <span class="Comm">P4</span></dd>
-            <dt class="Prp">margin-right</dt>
-            <dd class="Val">85.41% <span class="Comm">P4c</span></dd>
-          </dl>
-        </div>
-        <div class="w-p4 right help-otln">
-          <div class="Sel">.w-p4.right</div>
-          <dl class="Ruleset">
-            <dt class="Prp">margin-left</dt>
-            <dd class="Val">85.41% <span class="Comm">P4c</span></dd>
-            <dt class="Prp">width</dt>
-            <dd class="Val">14.59% <span class="Comm">P4</span></dd>
-            <dt class="Prp">margin-right</dt>
-            <dd class="Val">0</dd>
-          </dl>
-        </div>
-        <div class="w-p3c left help-otln">
-          <div class="Sel">.w-p3c.left</div>
-          <dl class="Ruleset">
-            <dt class="Prp">margin-left</dt>
-            <dd class="Val">0</dd>
-            <dt class="Prp">width</dt>
-            <dd class="Val">76.39% <span class="Comm">P3c</span></dd>
-            <dt class="Prp">margin-right</dt>
-            <dd class="Val">23.61% <span class="Comm">P3</span></dd>
-          </dl>
-        </div>
-        <div class="w-p3c right help-otln">
-          <div class="Sel">.w-p3c.right</div>
-          <dl class="Ruleset">
-            <dt class="Prp">margin-left</dt>
-            <dd class="Val">23.61% <span class="Comm">P3</span></dd>
-            <dt class="Prp">width</dt>
-            <dd class="Val">76.39% <span class="Comm">P3c</span></dd>
-            <dt class="Prp">margin-right</dt>
-            <dd class="Val">0</dd>
-          </dl>
-        </div>
-        <div class="w-p4c left help-otln">
-          <div class="Sel">.w-p4c.left</div>
-          <dl class="Ruleset">
-            <dt class="Prp">margin-left</dt>
-            <dd class="Val">0</dd>
-            <dt class="Prp">width</dt>
-            <dd class="Val">85.41% <span class="Comm">P4c</span></dd>
-            <dt class="Prp">margin-right</dt>
-            <dd class="Val">14.59% <span class="Comm">P4</span></dd>
-          </dl>
-        </div>
-        <div class="w-p4c right help-otln">
-          <div class="Sel">.w-p4c.right</div>
-          <dl class="Ruleset">
-            <dt class="Prp">margin-left</dt>
-            <dd class="Val">14.59% <span class="Comm">P4</span></dd>
-            <dt class="Prp">width</dt>
-            <dd class="Val">85.41% <span class="Comm">P4c</span></dd>
-            <dt class="Prp">margin-right</dt>
-            <dd class="Val">0</dd>
-          </dl>
-        </div>
-      </div>
-    </figure>
-    <figure class="Fig">
-      <figcaption class="Capt">The following Interfaces set the width to a power of
-        <span class="M">\Phi</span> and splits the remaining margin to both the
-        left and right side, making a Golden proportion.</figcaption>
-      <div class="CSSmap Invert">
-        <div class="w-p1 ml help-otln">
-          <div class="Sel">.w-p1.ml</div>
-          <dl class="Ruleset">
-            <dt class="Prp">margin-left</dt>
-            <dd class="Val">14.59% <span class="Comm">P4</span></dd>
-            <dt class="Prp">width</dt>
-            <dd class="Val">61.80% <span class="Comm">P1</span></dd>
-            <dt class="Prp">margin-right</dt>
-            <dd class="Val">23.61% <span class="Comm">P3</span></dd>
-          </dl>
-        </div>
-        <div class="w-p1 mr help-otln">
-          <div class="Sel">.w-p1.mr</div>
-          <dl class="Ruleset">
-            <dt class="Prp">margin-left</dt>
-            <dd class="Val">23.61% <span class="Comm">P3</span></dd>
-            <dt class="Prp">width</dt>
-            <dd class="Val">61.80% <span class="Comm">P1</span></dd>
-            <dt class="Prp">margin-right</dt>
-            <dd class="Val">14.59% <span class="Comm">P4</span></dd>
-          </dl>
-        </div>
-        <div class="w-p2 ml help-otln">
-          <div class="Sel">.w-p2.ml</div>
-          <dl class="Ruleset">
-            <dt class="Prp">margin-left</dt>
-            <dd class="Val">23.61% <span class="Comm">P3</span></dd>
-            <dt class="Prp">width</dt>
-            <dt class="Val">38.20% <span class="Comm">P2</span></dt>
-            <dt class="Prp">margin-right</dt>
-            <dd class="Val">38.20% <span class="Comm">P2</span></dd>
-          </dl>
-        </div>
-        <div class="w-p2 mr help-otln">
-          <div class="Sel">.w-p2.mr</div>
-          <dl class="Ruleset">
-            <dt class="Prp">margin-left</dt>
-            <dd class="Val">38.20% <span class="Comm">P2</span></dd>
-            <dt class="Prp">width</dt>
-            <dt class="Val">38.20% <span class="Comm">P2</span></dt>
-            <dt class="Prp">margin-right</dt>
-            <dd class="Val">23.61% <span class="Comm">P3</span></dd>
-          </dl>
-        </div>
-      </div>
-    </figure>
-  </section> -->
-</section>
-<!-- <section id="nested-rows">
-  <h1 class="H--Bet">Nested Rows</h1>
-  <p class="P">There is something else worth mentioning. It is possible to have more than 5 cells
-    in a row by <strong>nesting rows</strong>. This means putting rows within rows. More
-    accurately, rows within cells within rows.</p>
-  <p class="P">For example, let&rsquo;s say you want twelve equal-width cells. Then you could create a
-    row with three <code>.Gcol.w-1o3</code>s, and in each cell, build a row with 4
-    <code>.Gcol.w-1o4</code>s each. You could also have four groups of three, two groups of three
-    groups of two, <i lang="la"><abbr title="et cetera">etc.</abbr></i></p>
-  <figure class="Fig">
-    <code class="Codeblock HTML"><span class="Tag">div <span class="Atr">class=<span class="Val">Grow</span></span></span> <span class="Comm">big row</span>
-  <span class="Tag">div <span class="Atr">class=<span class="Val">Gcol w-1o3</span></span></span> <span class="Comm">col 33.3%</span>
-    <span class="Tag">div <span class="Atr">class=<span class="Val">Grow</span></span></span> <span class="Comm">small row</span>
-      <span class="Tag">div <span class="Atr">class=<span class="Val">Gcol w-1o4</span></span></span> col 25% <span class="Tag End">div</span>
-      <span class="Tag">div <span class="Atr">class=<span class="Val">Gcol w-1o4</span></span></span> col 25% <span class="Tag End">div</span>
-      <span class="Tag">div <span class="Atr">class=<span class="Val">Gcol w-1o4</span></span></span> col 25% <span class="Tag End">div</span>
-      <span class="Tag">div <span class="Atr">class=<span class="Val">Gcol w-1o4</span></span></span> col 25% <span class="Tag End">div</span>
-    <span class="Tag End">div</span>
-  <span class="Tag End">div</span>
-  <span class="Tag">div <span class="Atr">class=<span class="Val">Gcol w-1o3</span></span></span> <span class="Comm">col 33.3%</span>
-    <span class="Tag">div <span class="Atr">class=<span class="Val">Grow</span></span></span> <span class="Comm">small row</span>
-      <span class="Tag">div <span class="Atr">class=<span class="Val">Gcol w-1o4</span></span></span> col 25% <span class="Tag End">div</span>
-      <span class="Tag">div <span class="Atr">class=<span class="Val">Gcol w-1o4</span></span></span> col 25% <span class="Tag End">div</span>
-      <span class="Tag">div <span class="Atr">class=<span class="Val">Gcol w-1o4</span></span></span> col 25% <span class="Tag End">div</span>
-      <span class="Tag">div <span class="Atr">class=<span class="Val">Gcol w-1o4</span></span></span> col 25% <span class="Tag End">div</span>
-    <span class="Tag End">div</span>
-  <span class="Tag End">div</span>
-  <span class="Tag">div <span class="Atr">class=<span class="Val">Gcol w-1o3</span></span></span> <span class="Comm">col 33.3%</span>
-    <span class="Tag">div <span class="Atr">class=<span class="Val">Grow</span></span></span> <span class="Comm">small row</span>
-      <span class="Tag">div <span class="Atr">class=<span class="Val">Gcol w-1o4</span></span></span> col 25% <span class="Tag End">div</span>
-      <span class="Tag">div <span class="Atr">class=<span class="Val">Gcol w-1o4</span></span></span> col 25% <span class="Tag End">div</span>
-      <span class="Tag">div <span class="Atr">class=<span class="Val">Gcol w-1o4</span></span></span> col 25% <span class="Tag End">div</span>
-      <span class="Tag">div <span class="Atr">class=<span class="Val">Gcol w-1o4</span></span></span> col 25% <span class="Tag End">div</span>
-    <span class="Tag End">div</span>
-  <span class="Tag End">div</span>
-<span class="Tag End">div</span></code>
-  </figure>
-  <p class="P">Here&rsquo;s another example:</p>
-  <figure class="Fig">
-    <code class="Codeblock HTML"><span class="Tag">div <span class="Atr">class=<span class="Val">Grow</span></span></span>
-  <span class="Tag">div <span class="Atr">class=<span class="Val">Gcol w-2o3</span></span></span>
-    <span class="Tag">div <span class="Atr">class=<span class="Val">Grow</span></span></span>
-      <span class="Tag">div <span class="Atr">class=<span class="Val">Gcol w-1o5</span></span></span> col 1 (13.33%) <span class="Tag End">div</span>
-      <span class="Tag">div <span class="Atr">class=<span class="Val">Gcol w-1o5</span></span></span> col 2 (13.33%) <span class="Tag End">div</span>
-      <span class="Tag">div <span class="Atr">class=<span class="Val">Gcol w-1o5</span></span></span> col 3 (13.33%) <span class="Tag End">div</span>
-      <span class="Tag">div <span class="Atr">class=<span class="Val">Gcol w-1o5</span></span></span> col 4 (13.33%) <span class="Tag End">div</span>
-      <span class="Tag">div <span class="Atr">class=<span class="Val">Gcol w-1o5</span></span></span> col 5 (13.33%) <span class="Tag End">div</span>
-    <span class="Tag End">div</span>
-  <span class="Tag End">div</span>
-  <span class="Tag">div <span class="Atr">class=<span class="Val">Gcol w-1o3</span></span></span>
-    <span class="Tag">div <span class="Atr">class=<span class="Val">Grow</span></span></span>
-      <span class="Tag">div <span class="Atr">class=<span class="Val">Gcol w-1o3</span></span></span> col 6 (11.11%) <span class="Tag End">div</span>
-      <span class="Tag">div <span class="Atr">class=<span class="Val">Gcol w-1o3</span></span></span> col 7 (11.11%) <span class="Tag End">div</span>
-      <span class="Tag">div <span class="Atr">class=<span class="Val">Gcol w-1o3</span></span></span> col 8 (11.11%) <span class="Tag End">div</span>
-    <span class="Tag End">div</span>
-  <span class="Tag End">div</span>
-<span class="Tag End">div</span></code>
-    <div class="Grow">
-      <div class="Gcol w-2o3">
-        <div class="Grow">
-          <div class="Gcol w-1o5 help-otln"> col 1 (13.33%) </div>
-          <div class="Gcol w-1o5 help-otln"> col 2 (13.33%) </div>
-          <div class="Gcol w-1o5 help-otln"> col 3 (13.33%) </div>
-          <div class="Gcol w-1o5 help-otln"> col 4 (13.33%) </div>
-          <div class="Gcol w-1o5 help-otln"> col 5 (13.33%) </div>
-        </div>
-      </div>
-      <div class="Gcol w-1o3">
-        <div class="Grow">
-          <div class="Gcol w-1o3 help-otln"> col 6 (11.11%) </div>
-          <div class="Gcol w-1o3 help-otln"> col 7 (11.11%) </div>
-          <div class="Gcol w-1o3 help-otln"> col 8 (11.11%) </div>
-        </div>
-      </div>
-    </div>
-  </figure>
-  <p class="P">Notice how in these examples there were <strong>rows within cells</strong>. If you
-    are nesting rows, you must contain the second-level <em>row</em> within the first-level
-    <em>cell</em>. The <code>.Grow</code> and <code>.Gcol</code> classes were not meant to mix
-    in the same element. There shouldn&rsquo;t be any elements with both classes in your HTML.</p>
-  <figure class="Fig">
-    <small class="Alert--Warn"> This is bad and it will break!</small>
-    <code class="Codeblock">&lt;div class=&quot;Grow&quot;&gt;
-  &lt;div class=&quot;Gcol w-2o3 Grow&quot;&gt;
-    &lt;div class=&quot;Gcol w-1o3&quot;&gt;col 1&lt;/div&gt;
-    &lt;div class=&quot;Gcol w-1o3&quot;&gt;col 2&lt;/div&gt;
-    &lt;div class=&quot;Gcol w-1o3&quot;&gt;col 3&lt;/div&gt;
-  &lt;/div&gt;
-  &lt;div class=&quot;Gcol w-1o3 Grow&quot;&gt;
-    &lt;div class=&quot;Gcol w-1o2&quot;&gt;col 4&lt;/div&gt;
-    &lt;div class=&quot;Gcol w-1o2&quot;&gt;col 5&lt;/div&gt;
-  &lt;/div&gt;
-&lt;/div&gt;</code>
-  </figure>
-</section> -->
 </main>
 <nav class="Bc">
   <ol class="Anc">
