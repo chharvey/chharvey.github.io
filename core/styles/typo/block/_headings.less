@@ -64,8 +64,11 @@
 : @font_size   : unitless value for the font-size property (multiplied by 1rem here).
 : @line_height : unitless value of the line-height property.
 : @vru_height  : unitless number, in vrus, of the box height.
-: @vru_top     : unitless number, in vrus, for the `.vru-top(@ratio)` mixin.
-: @vru_bottom  : unitless number, in vrus, for the `.vru-bottom(@ratio)` mixin.
+: @vru_top     : unitless number, in vrus, for the top spacing
+: @vru_bottom  : unitless number, in vrus, for the bottom spacing
+@implements
+: .spacing-top()
+: .spacing-bottom()
 @tags
 : #typography
 : #heading
@@ -77,8 +80,8 @@
 : 2015-02-11
   */
 .heading(@font_size, @line_height, @vru_top, @vru_bottom) {
-  .vru-top(@vru_top);
-  .vru-bottom(@vru_bottom);
+  .spacing-top(@vru_top * @vru_core);
+  .spacing-bottom(@vru_bottom * @vru_core);
   font-size: (@font_size * 1rem);
   line-height: @line_height;
 }
@@ -161,8 +164,8 @@ h6 {
   * so that the `::first-letter` selector does not apply to any visual characters
 @implements
 : .font-size-block()
-: .vru-top()
-: .vru-bottom()
+: .spacing-top()
+: .spacing-bottom()
 @tags
 : #typography
 : #heading
@@ -174,8 +177,8 @@ h6 {
 .H--Folio {
   @this_fontsize: @font_size_h1;
   .font-size-block(@this_fontsize, 2 * @line_height_base);
-  .vru-top(4);
-  .vru-bottom(2);
+  .spacing-top(4 * @vru_core);
+  .spacing-bottom(2 * @vru_core);
   font-variant: normal;
   font-weight: normal;
   font-family: @fontfam_script;
