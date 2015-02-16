@@ -1,6 +1,38 @@
 /*###############*\
     resume.less
 \*###############*/
+/*@RESET*/
+h2,
+h3,
+h4,
+h5,
+h6 {
+  padding-top: 0;
+  margin-bottom: 0;
+}
+h3,
+h4,
+h5,
+h6 {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+p {
+  margin-bottom: 0;
+}
+a:not(.BlueLink) {
+  color: inherit;
+}
+a:not(.BlueLink)[rel~="external"] {
+  font-style: inherit;
+}
+a:not(.BlueLink):hover {
+  text-decoration: none;
+  color: inherit;
+}
+abbr[title] {
+  border-bottom-width: 0;
+}
 /*@VARIABLES*/
 /*@MAIN OBJECTS*/
 @media screen {
@@ -23,50 +55,42 @@
 @updated
 : 2015-01-22
   */
-@media screen {
-  .res-Header {
-    text-align: center;
-  }
+.res-Header {
+  margin-bottom: 1.5rem;
 }
 /**
     * My name at the top of the resume.
-  @implements
-  : .H--Alp
   @tags
   : #heading
   @author
   : Chris Harvey
   @updated
-  : 2015-01-22
+  : 2015-02-16
     */
 .res-Name {
   font-weight: bold;
 }
 @media screen {
   .res-Name {
-    font-size: 3rem;
-    line-height: 1;
-    margin-top: 1.85410197rem;
-    padding-bottom: 1.14589803rem;
-    font-variant: small-caps;
-    font-family: 'Avenir', 'Seravek', sans-serif;
-    text-align: center;
-    color: #120099;
+    text-align: inherit;
   }
 }
 @media print {
   .res-Name {
-    margin-top: 1.5rem;
-    padding-bottom: 1.5rem;
+    padding-top: 1.5rem;
+    margin-bottom: 1.5rem;
     font-size: 1.25rem;
     line-height: 1.2;
+    font-family: inherit;
+    text-align: left;
     text-transform: uppercase;
+    color: inherit;
   }
 }
 /**
     * My contact info at the top of the resume.
   @implements
-  : .Ilist.Square
+  : .l--Inl.Square
   @author
   : Chris Harvey
   @updated
@@ -74,15 +98,16 @@
     */
 .res-Postal {
   display: inline;
+  padding-left: 0;
 }
-.res-Postal > .Item {
+.res-Postal > li {
   display: inline;
 }
-.res-Postal > .Item.endline::after {
+.res-Postal > li.endline::after {
   display: block;
   content: '' !important;
 }
-.res-Postal > .Item:not(:last-child)::after {
+.res-Postal > li:not(:last-child)::after {
   content: '\0020\25aa\0020';
 }
 @media screen {
@@ -94,84 +119,68 @@
   * A Skill is a top-level section, e.g. Teaching Experience.
   * It contains a `SkillTitle`,
   * and either `Org` Objects, `Obj` Objects, `Inst` Objects, or `ul` Elements.
-@implements
-: .vru-top()
-: .vru-top-phi()
 @author
 : Chris Harvey
 @updated
 : 2015-01-08
   */
-.res-Skill {
-  margin-top: 1.5rem;
+#objective {
+  margin-bottom: 1.5rem;
 }
 @media screen {
   .res-Skill:first-of-type {
-    padding-top: 8.78521826px;
-    margin-top: 14.21478174px;
-    border-top-width: 1px;
+    border-top-width: 0.0625rem;
+    padding-top: 0.51044902rem;
+    margin-top: -0.57294902rem;
     border-top-style: solid;
-    border-top-color: #3d6166;
+    border-top-color: #120099;
   }
 }
 /**
     * The title of each Skill, e.g. "Teaching Experience"
-  @implements
-  : .H--Bet
-  : .vru-top()
-  : .vru-bottom()
-  : .fontsize-block()
-  : .border-vert-undo()
   @author
   : Chris Harvey
   @updated
-  : 2015-01-22
+  : 2015-02-16
     */
-.res-SkillTitle {
-  font-weight: bold;
-}
 @media screen {
   .res-SkillTitle {
+    font-size: 1.5rem;
+    line-height: 1;
     width: 14.58980338%;
-    margin-left: 3.44418537%;
+    margin-top: 0;
     margin-right: 5.572809%;
+    margin-left: 3.44418537%;
+    border-bottom: 0;
     position: absolute;
     left: 0;
     text-align: right;
   }
-  .res-SkillTitle {
-    font-size: 1.5rem;
-    line-height: 1;
-    font-family: 'Avenir', 'Seravek', sans-serif;
-    color: #3d6166;
-  }
 }
 @media print {
   .res-SkillTitle {
-    font-size: 1.25rem;
-    line-height: 1.2;
-    display: block;
-    position: relative;
-    top: -1px;
-    margin-bottom: -1px;
+    margin-top: -1px;
     border-bottom-width: 1px;
     border-bottom-style: solid;
     border-bottom-color: #000000;
+    margin-bottom: 1.5rem;
+    font-size: 1.25rem;
+    line-height: 1.2;
     font-variant: small-caps;
+    font-family: inherit;
+    color: inherit;
   }
 }
 /**
     * A Org is an item in a Skill. It has an organization name and location.
     * It contains a `header` and a `OrgDetail`.
-  @implements
-  : .vru-top()
   @author
   : Chris Harvey
   @updated
   : 2015-01-08
     */
 .res-Org {
-  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 /**
       * contains `.res-Titles` and `.res-Spacetime`
@@ -208,10 +217,6 @@
 }
 /**
           * The title of an organization
-        @implements
-        : .H--Gam
-        : .vru-top()
-        : .vru-bottom()
         @author
         : Chris Harvey
         @updated
@@ -222,18 +227,16 @@
   -webkit-order: 1;
   order: 1;
   font-style: italic;
+  font-variant: inherit;
+  font-weight: inherit;
 }
-@media screen {
+@media print {
   .res-OrgTitle {
-    font-family: 'Avenir', 'Seravek', sans-serif;
+    font-family: inherit;
   }
 }
 /**
           * The title of a job, e.g. a position held at an organization
-        @implements
-        : .H--Del
-        : .vru-top()
-        : .vru-bottom()
         @author
         : Chris Harvey
         @updated
@@ -247,6 +250,12 @@
   .res-JobTitle {
     font-family: 'Avenir', 'Seravek', sans-serif;
     font-variant: small-caps;
+  }
+}
+@media print {
+  .res-JobTitle {
+    font-family: inherit;
+    font-variant: inherit;
   }
 }
 /**
@@ -300,8 +309,6 @@
 }
 /**
       * A bullet list of job descriptions for each job.
-    @implements
-    : .Ulist
     @tags
     : #typography
     : #list
@@ -313,14 +320,7 @@
     : 2014-06-26
       */
 .res-OrgDetail {
-  display: block;
-  min-height: 1.5rem;
-  padding-left: 0.5in;
-  list-style-type: square;
   padding-left: 0.25in;
-}
-:not(h1):not(.H):not(header) + .res-OrgDetail {
-  margin-top: 1.5rem;
 }
 @media print {
   .res-OrgDetail {
@@ -338,7 +338,7 @@
     */
 @media print {
   .res-Obj {
-    margin-top: -1.5rem;
+    margin-top: -3rem;
     margin-left: 23.60679775%;
   }
 }
@@ -364,8 +364,6 @@
       * The title of an institution
     @extends
     : .res-OrgTitle
-    @implements
-    : .H--Zet
     @author
     : Chris Harvey
     @updated
@@ -375,141 +373,94 @@
   -webkit-box-ordinal-group: 1;
   -webkit-order: 1;
   order: 1;
+  margin-bottom: 1.5rem;
   font-style: italic;
-}
-@media screen {
-  .res-InstTitle {
-    font-family: 'Avenir', 'Seravek', sans-serif;
-  }
+  font-variant: inherit;
+  font-weight: inherit;
 }
 @media print {
   .res-InstTitle {
     margin-left: 23.60679775%;
     font-style: italic;
+    font-family: inherit;
   }
 }
 /*@OTHER OBJECTS*/
 /**
   * A list of achievements such as awards or memberships.
 @implements
-: .Map.Horiz;
+: .dl--Horiz;
 @author
 : Chris Harvey
 @updated
 : 2015-01-22
   */
-.res-AchList {
-  min-height: 1.5rem;
-  display: block;
-  /**
-    * This Object represent the term in a term-description pair of a `.Map`.
-  @implements
-  : .vru-top() only when following a `.Desc`
-  @tags
-  : #typography
-  : #map
-  @author
-  : Chris Harvey
-  @updated
-  : 2015-01-22
-    */
-  /**
-    * This Object represent the description in a term-description pair of a `.Map`.
-  @belongsto
-  : .Map
-  @tags
-  : #typography
-  : #map
-  @author
-  : Chris Harvey
-  @updated
-  : 2015-01-22
-    */
-}
-:not(h1):not(.H):not(header) + .res-AchList {
-  margin-top: 1.5rem;
-}
-.res-AchList > .Term {
-  min-height: 1.5rem;
-  display: block;
-  font-weight: bold;
-}
-.res-AchList > .Desc {
-  min-height: 1.5rem;
-  display: block;
-}
-.res-AchList > .Desc + .Term {
-  margin-top: 1.5rem;
-}
 .res-AchList::after {
   display: table;
   content: ' ';
   clear: both;
 }
-.res-AchList > .Term,
-.res-AchList > .Desc {
+.res-AchList > dt,
+.res-AchList > dd {
   box-sizing: border-box;
 }
-.res-AchList > .Term {
+.res-AchList > dt {
   padding-right: 1rem;
   float: left;
   clear: both;
   overflow: auto;
   white-space: nowrap;
 }
-.res-AchList > .Desc {
+.res-AchList > dd {
   float: left;
 }
-.res-AchList > .Desc + .Term {
-  margin-top: 0;
+.res-AchList > dd + dt {
+  padding-top: 0;
 }
-.res-AchList .Term {
+.res-AchList dt {
   font-weight: inherit;
 }
 @media screen {
-  .res-AchList .Term {
+  .res-AchList dt {
     padding-right: 0.5rem;
   }
-  .res-AchList .Desc {
+  .res-AchList dd {
     quotes: '(' ')';
   }
-  .res-AchList .Desc::before {
+  .res-AchList dd::before {
     content: open-quote;
   }
-  .res-AchList .Desc::after {
+  .res-AchList dd::after {
     content: close-quote;
   }
 }
 @media print {
-  .res-AchList .Term {
+  .res-AchList {
+    margin-top: -1.5rem;
+  }
+  .res-AchList dt {
     margin-left: 23.60679775%;
     padding-right: 0;
     float: none;
     clear: none;
   }
-  .res-AchList .Desc {
-    margin-top: -1.5rem;
+  .res-AchList dd {
     width: 23.60679775%;
+    margin-top: -1.5rem;
     float: none;
     clear: none;
   }
 }
 .res-Footer {
-  padding-top: 8.78521826px;
-  margin-top: 14.21478174px;
-  border-top-width: 1px;
+  border-top-width: 0.0625rem;
+  padding-top: 0.51044902rem;
+  margin-top: -0.57294902rem;
   border-top-style: solid;
   border-top-color: #3d6166;
   font-size: 0.75rem;
   line-height: 2;
 }
 /*@TRUMPS*/
-a[rel~="external"] {
-  font-style: inherit;
-}
-i[lang] {
-  font-family: inherit;
-}
 @media print {
   .pagebreak {
     margin-top: 144px;

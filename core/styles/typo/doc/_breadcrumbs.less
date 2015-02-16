@@ -22,15 +22,14 @@
   margin-right: @golden6; // @golden3 within a @golden3
   position: fixed;
   left: 0;
-  top: @vru_rem;
+  top: @vru_core;
   z-index: 1;
 }
+
 /**
   * A list of breadcrumbs inside the module.
   * The list either contains ancestor pages (including parent),
   * sibling pages (including the same page), or children pages.
-@implements
-: .vru-top()
 @tags
 : #breadcrumbs
 @author
@@ -41,7 +40,8 @@
 .Bc > .Anc,
 .Bc > .Sib,
 .Bc > .Child {
-  .vru-top(1);
+  padding: 0;
+  list-style-type: none;
 }
 // .Bc > .Anc {
 //   a::before {content: '\22a5';} // `\bot` or 'up tack'
@@ -79,11 +79,12 @@
 @color_crumb_up_bg:   lighten(@color_link_up, @golden2); // #c3daff
 @color_crumb_dn_bg:   lighten(@color_link_dn, @golden2); // #ffe8c3
 .Crumb {
-  @bc_brdrr: (@vru_rem / 2);
+  @bc_brdrr: (@vru_core / 2);
   .transition(background-color, color; @trans_link);
   display: block;
   padding-left: @bc_brdrr;
   border-radius: @bc_brdrr;
+  line-height: inherit;
   color:            @color_crumb_up_txt;
   background-color: @color_crumb_up_bg;
   cursor: pointer;

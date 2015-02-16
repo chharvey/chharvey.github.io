@@ -11,26 +11,26 @@
   * This Object represents a list whose items each contain a footnote. Typically, the order of
   * footnotes is irrelevant, so this Object should be instantiated by a `ul` Element.
 @implements
-: .list-block()
-: .fontsize-block-sml()
+: .font-size-block()
 : .vru-top-phi()
 @tags
 : #footnotes
 : #lists
+: #links
 @author
 : Chris Harvey
 @updated
-: 2014-09-23
+: 2015-02-11
   */
 .Footnotes {
-  .list-block();
-  .fontsize-block-sml();
-  .vru-top-phi(1px; solid; @color_border);
-  > .Item {
-    // padding-left: @vru_rem;
-    // text-indent: -@vru_rem;
+  .font-size-block(@font_size_sml; @line_height_base);
+  .vru-top-phi(1; solid; @color_border);
+  > li {
+    // padding-left: @vru_core;
+    // text-indent: -@vru_core;
   }
 }
+
 /**
   * The `.Rf` Object represents a reference to a footnote. The reference exists in the document prose,
   * and it links to a footnote, which is contained in the `.Footnotes`.
@@ -47,8 +47,8 @@
   */
 .Rf,
 .Fn {
-  // width: @vru_rem;
-  > .Link {
+  // width: @vru_core;
+  > a[href] {
     .brackets();
   }
 }

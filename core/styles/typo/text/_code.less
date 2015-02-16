@@ -1,0 +1,362 @@
+// main: ../../core.less
+
+/*##############*\
+    _code.less
+\*##############*/
+
+
+// default border radius for code-like Objects
+@code_brdr_radius: 3px;
+
+/**
+  * An Interface used for both inline and block code. Automate the coloring of code Elements.
+  * `.codecolors-sol-lite()` sets a Solarized Light theme, while
+  * `.codecolors-sol-dark()` sets a Solarized Dark theme.
+@params
+: @color_txt  : the value of the `color` property
+: @color_comm : the value of the `color` property for code comments
+: @color_bg   : the value of the `background-color` property
+: @color_brdr : the value of the `border-color` property
+@tags
+: #code
+: #schematic
+: #Solarized
+@author
+: Chris Harvey
+@updated
+: 2014-10-07
+  */
+// colors for inline code (Solarized Light Theme)
+@color_code_bg:   @solarized_base3;
+@color_code_brdr: @solarized_base2;
+@color_code_comm: @solarized_base1;
+@color_code_txt:  @solarized_base00;
+@color_code_emph: @solarized_base01;
+// colors for block code (Solarized Dark Theme)
+@color_codeblock_bg:   @solarized_base03;
+@color_codeblock_brdr: @solarized_base02;
+@color_codeblock_comm: @solarized_base01;
+@color_codeblock_txt:  @solarized_base0;
+@color_codeblock_emph: @solarized_base1;
+
+/**
+  * A mixin for coloring components of code.
+@tags
+: #code
+@author
+: Chris Harvey
+@updated
+: 2014-12-04
+  */
+.codecolors(@color_txt; @color_comm; @color_bg; @color_brdr) {
+  border-color: @color_brdr;
+  color: @color_txt;
+  background-color: @color_bg;
+  // .c--Comm {color: @color_comm;}
+}
+.codecolors-sol-lite() {.codecolors(@color_code_txt;      @color_code_comm;      @color_code_bg;      @color_code_brdr);}
+.codecolors-sol-dark() {.codecolors(@color_codeblock_txt; @color_codeblock_comm; @color_codeblock_bg; @color_codeblock_brdr);}
+
+// /**
+//   * Components of code:
+//   * `.c--Comm` : any comment
+//
+//   * `.c--Ctl`  : programming control (if, for, switch, return)
+//   * `.c--Opr`  : delimiter or operator (+, ==, ., new, this)
+//   * `.c--Kwd`  : predefined keywords (var, function)
+//   * `.c--Cst`  : a number, color, or character constant
+//   * `.c--Str`  : any string
+//   * `.c--Cmd`  : a function name, function call, constructor call, or Less, LaTeX, or JS command
+//   * `.c--Arg`  : argument to a function or constructor call, or a Less, LaTeX, or JS argument
+//   * `.c--Obj`  : a class or object reference
+//
+//   * `.c--Tag`  : an HTML tag
+//   * `.c--Atr`  : an HTML attribute
+//   * `.c--Val`  : an HTML or CSS value
+//   * `.c--Sel`  : a CSS selector
+//   * `.c--Prp`  : a CSS property
+//   */
+// .c--Comm {
+//   .delimiters('/* '  ;  ' */');
+//   &.Inl {quotes: '// '   '';}
+// }
+// .c--Ctl {
+//   color: @solarized_red;
+// }
+// .c--Opr {
+//   color: @solarized_orange;
+// }
+// .c--Kwd {
+//   color: @solarized_yellow;
+// }
+// .c--Cst {
+//   color: @solarized_green;
+// }
+// .c--Str {
+//     .apos();
+//     color: @solarized_cyan;
+//     &::before,
+//     &::after  {color: @solarized_magenta;}
+// }
+// .c--Cmd {
+//   color: @solarized_blue;
+// }
+// .c--Arg {
+//   color: @solarized_violet;
+// }
+// .c--Obj {
+//   color: @solarized_magenta;
+// }
+
+/**
+  * A span of text that a computer program would recognize.
+  * Use class `.c` to force an Element into this style, for example using an inline span of code
+  * inside a `pre` Element (because normally `pre > code` are code blocks).
+@implements
+: .box-inline()
+: .codecolors-sol-lite()
+@tags
+: #code
+@author
+: Chris Harvey
+@updated
+: 2015-02-11
+  */
+code {
+  .box-inline(@code_brdr_radius);
+  .codecolors-sol-lite();
+  font-family: @fontfam_code;
+  white-space: nowrap;
+}
+
+/**
+  * A block of code. Since its semantics are derived from the formatting (line breaks, indenting, etc) of
+  * the text content, it should be wrapped with a `pre` Element.
+  * `&.Invert` : use Solarized Light instead of Solarized Dark
+@implements
+: .box-block()
+: .font-size-block()
+: .codecolors-sol-dark()
+@tags
+: #code
+@author
+: Chris Harvey
+@updated
+: 2015-02-11
+  */
+.c--Blk {
+  .box-block(2px; @code_brdr_radius);
+  .font-size-block(@font_size_sml; @line_height_base);
+  font-size: (@font_size_sml * 1em); // bug fix for Menlo font-family
+  .codecolors-sol-dark();
+  text-align: left;
+  white-space: inherit;
+  &.Invert { .codecolors-sol-lite(); }
+}
+
+// /**
+//   * This Object represents a block of HTML code.
+// @tags
+// : #code
+// @author
+// : Chris Harvey
+// @updated
+// : 2015-02-10
+//   */
+// code.HTML {
+//   .c--Comm {quotes: '<!-- '   ' -->';}
+//   .c--Tag {
+//     .angles();
+//     color: @solarized_blue;
+//     &::before,
+//     &::after {color: #808080;}
+//     &.End {quotes: '</'   '>';}
+//   }
+//   .c--Atr {
+//     color: @solarized_yellow;
+//   }
+// }
+
+// /**
+//   * This Object represents a block of CSS or LESS code.
+// @tags
+// : #code
+// @author
+// : Chris Harvey
+// @updated
+// : 2014-11-02
+//   */
+// code.CSS {
+//   .c--Sel {
+//     .delimiters(''  ;  '}');
+//     color: @solarized_blue;
+//   }
+//   .c--Prp {
+//     .delimiters(''  ;  ';');
+//     color: @solarized_yellow;
+//   }
+//   .c--Val  {
+//     .c--Str;
+//     .delimiters(': '  ;  '');
+//     &::before,
+//     &::after {color: @solarized_yellow;}
+//     color: @solarized_cyan;
+//   }
+//   .c--Cmd  {
+//     .delimiters(''  ;  ';');
+//   }
+//   .c--Arg  {
+//     .parens();
+//     &::before,
+//     &::after {color: @solarized_blue;}
+//   }
+//   .c--Str {color: @solarized_magenta;}
+// }
+
+// /**
+//   * This Object represents a block of CSS code organized as a map.
+//   * Its semantics are derived not from the formatting of the text, but rather the elements inside.
+// @tags
+// : #code
+// @author
+// : Chris Harvey
+// @updated
+// : 2014-11-02
+//   */
+// .CSSmap {
+//   white-space: nowrap;
+//   .c--Str {color: @solarized_magenta;}
+//   .c--Sel {.delimiters(''  ;  ' {');}
+//   .Ruleset {
+//     .clearfix();
+//     &::after {
+//       content: '}';
+//       color: @solarized_blue;
+//     }
+//     > .c--Prp {
+//       // .delimiters(''  ;  ':\00A0'); // `&nbsp;` because a normal (`\0020`) will not work on a float
+//       .delimiters(''  ;  ':');
+//       float: left;
+//       clear: both;
+//     }
+//     > .c--Val {
+//         .delimiters(''  ;  ';');
+//         text-indent: 0.5rem;
+//       }
+//     > .c--Prp,
+//     > .c--Comm {text-indent: 1rem;}
+//   }
+//   /**
+//     * A block of CSS code whose selectors are inline. This is really useful for selectors with one
+//     * property-value pair each.
+//   @extends
+//   : .Codeblock.CSS
+//   @tags
+//   : #code
+//   @author
+//   : Chris Harvey
+//   @updated
+//   : 2014-05-31
+//     */
+//   &.Inl {
+//     .c--Sel {
+//       float: left;
+//       clear: both;
+//     }
+//     .Ruleset {
+//       &::after {
+//         display: inline;
+//       }
+//       > .c--Prp {
+//         display: inline;
+//         float: none;
+//         &::before {
+//           content: '\00A0';
+//           // quotes: '\00A0'   ':';
+//         }
+//       }
+//       > .c--Val {
+//         display: inline;
+//       }
+//     }
+//   }
+// }
+
+// /**
+//   * This Object represents a block of JavaScript code.
+// @tags
+// : #code
+// @author
+// : Chris Harvey
+// @updated
+// : 2014-12-04
+//   */
+// .JS {
+// }
+
+/**
+  * This Object represents an individual key (a button) on a keyboard, calculator, or other device.
+  *
+  * The `kbd` Element represents general user input. The `kbd > kbd` Element represents an actual
+  * key or button that the user should input. Use `kbd > kbd.Key` in this case.
+  * To *name* a key, without commanding use of it, best use `i.Key`, as this is a "mention".
+  *
+<p>Use <kbd><kbd class="Key">cmd</kbd>+<kbd class="Key">S</kbd></kbd> to save, where
+  the <i class="Key">cmd</i> key is depicted with the <i>&#x2318;</i> symbol.</p>
+  <!-- U+2318 "PLACE OF INTEREST SIGN" ⌘ -->
+@implements
+: .box-inline()
+: .codecolors-sol-dark()
+@tags
+: #code
+@author
+: Chris Harvey
+@updated
+: 2014-06-06
+  */
+kbd > kbd {
+  .box-inline(@code_brdr_radius);
+  .codecolors-sol-dark();
+  font-family: @fontfam_accent;
+  color: @color_codeblock_emph;
+}
+
+/**
+  * This Object represents a path in a directory system (for folders and files).
+  * Recommended instantiated by a `code` or `samp` Element.
+@tags
+: #code
+@author
+: Chris Harvey
+@updated
+: 2014-05-25
+  */
+.c--Path {
+  font-style: italic;
+}
+
+/**
+  * This Object represents a mathematical expression or statement.
+  * Its input is the LaTeX syntax.
+@author
+: Chris Harvey
+@updated
+: 2014-08-22
+  */
+.M {
+  font-family: @fontfam_math;
+  white-space: pre;
+  overflow: auto;
+}
+
+/**
+  * These Objects are subclasses of `.M`.
+@author
+: Chris Harvey
+@updated
+: 2014-10-11
+  */
+.M.B {
+  display: block;
+  min-height: (3 * @vru_core);
+}

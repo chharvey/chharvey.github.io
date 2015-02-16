@@ -5,266 +5,16 @@
 /*@General Variables*/
 /** Used for horizontal spacing, e.g., inserting a space between a heading and subheading. */
 /** Determines the duration for transition animation effects. */
-/*@Fonts*/
-/** These determine 1rem and the 'magic number'. Change these if you wish. */
-/** One vertical rhythm unit. This is the so-called "magic number." Do not change these calculations. */
 /*@FUNCTIONS*/
 /*@CONSTANTS*/
-/*@Golden Values*/
-/*@Even Values*/
 /*@Color Values*/
-/*###############*\
-    _reset.less
-\*###############*/
-body,
-section,
-article,
-aside,
-nav,
-main,
-header,
-footer,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-address,
-figure,
-blockquote,
-ol,
-ul,
-dl,
-dt,
-dd,
-pre {
-  display: block;
-}
-li {
-  display: list-item;
-}
-table {
-  display: table;
-  border-collapse: collapse;
-}
-caption {
-  display: table-caption;
-}
-thead {
-  display: table-header-group;
-}
-tbody {
-  display: table-row-group;
-}
-tfoot {
-  display: table-footer-group;
-}
-tr {
-  display: table-row;
-}
-th,
-td {
-  display: table-cell;
-}
-code,
-kbd,
-samp,
-var,
-em,
-strong,
-mark,
-i,
-b,
-q,
-cite,
-time,
-dfn,
-abbr,
-small,
-sup,
-sub,
-button {
-  display: inline;
-}
-br,
-hr {
-  display: none;
-}
-q::before,
-q::after {
-  content: none;
-}
-body,
-section,
-article,
-aside,
-nav,
-main,
-header,
-footer,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-address,
-figure,
-blockquote,
-ol,
-ul,
-li,
-dl,
-dt,
-dd,
-table,
-th,
-td,
-pre,
-button {
-  padding: 0;
-  border: 0;
-  outline: 0;
-  margin: 0;
-  position: static;
-}
-html {
-  font-style: normal;
-  font-variant: normal;
-  font-weight: normal;
-  font-size: 16px;
-  font-family: 'Helvetica', 'Arial', sans-serif;
-  text-align: left;
-  line-height: 1.25;
-  vertical-align: baseline;
-}
-body {
-  color: #000;
-  background-color: #fff;
-}
-address,
-em,
-i,
-cite,
-dfn,
-var {
-  font-style: inherit;
-}
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-th,
-strong,
-b {
-  font-weight: inherit;
-}
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-small,
-sup,
-sub,
-button {
-  font-size: inherit;
-}
-pre,
-code,
-kbd,
-samp,
-button {
-  font-family: inherit;
-}
-caption {
-  text-align: inherit;
-}
-button {
-  line-height: inherit;
-}
-sup,
-sub {
-  vertical-align: inherit;
-}
-ol,
-ul {
-  list-style-type: none;
-  list-style-position: outside;
-}
-u,
-del,
-ins,
-a {
-  text-decoration: none;
-}
-mark,
-a {
-  color: inherit;
-}
-mark,
-button {
-  background-color: transparent;
-}
-/*##############*\
-    _grid.less
-\*##############*/
-/*@MARGINS*/
-/**
-  * The following Mixins define horizontal margins on `.Block`s of content.
-  *
-  * `.margin-even(@width)` splits the margins equally, depending on `@width`.
-  *
-  * `.margin-all-[left|right](@width)` moves all horizontal margins to the [left|right] side.
-  *
-  * `.margin-phi-[left|right](@width)` splits the margins so that the ratio of [left|right] margin
-  * to [right|left] margin is Golden.
-@params
-: @width : the width of the block
-@tags
-: #golden
-@author
-: Chris Harvey
-@updated
-: 2015-01-26
-  */
-/*@Undo Golden Blocks*/
-/*@TABLE SYSTEM*/
-/**
-  * This Object represents a container of blocks of content. The inner blocks are alinged
-  * horizontally, as if all in the same row.
-  * `.Grow` = "grid row"
-@tags
-: #grid
-@author
-: Chris Harvey
-@updated
-: 2014-05-18
-  */
-/**
-  * This Object represents a block of content within a `.Grow`. These blocks are alinged
-  * horizontally.
-  * `.Gcol` = "grid col"
-@implements
-: .P0   and similar
-: .F1o1 and similar
-@tags
-: #grid
-@author
-: Chris Harvey
-@updated
-: 2014-05-18
-  */
-/*#################*\
-    _flexbox.less
-\*#################*/
-/*@HELPER MIXINS*/
+/*################*\
+    _layout.less
+\*################*/
+/*@CONSTANTS*/
+/*@Even Values*/
+/*@Golden Values*/
+/*@FLEXBOXES*/
 /*@Containers*/
 /**
   * Determines the direction of the flow.
@@ -297,6 +47,28 @@ button {
 @updated
 : 2015-02-12
   */
+/**
+  * A Interface used on containers with flex items.
+  * By default, the direction is `row` and items are `wrap`ped.
+  * Flex item widths are not determined. They should be elsewhere specified.
+@tags
+: #flex
+: #grid
+: #presentational
+@author
+: Chris Harvey
+@updated
+: 2015-02-12
+  */
+.flex-container {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
 /*@Items*/
 /**
   * What does this do again?
@@ -322,85 +94,133 @@ button {
 @updated
 : 2015-02-12
   */
-/*@CLASSES*/
+/*@SIZING*/
+/*@Widths*/
 /**
-  * A Interface used on containers with flex items.
-  * By default, the direction is `row` and items are `wrap`ped.
-  * Flex item widths are not determined. They should be elsewhere specified.
+  * The following Interfaces change the width of the Objects that implement them.
 @tags
-: #flex
 : #grid
+: #golden
 : #presentational
 @author
 : Chris Harvey
 @updated
 : 2015-02-12
   */
-.flex-container {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: flex;
-  -webkit-flex-direction: row;
-  flex-direction: row;
-  -webkit-flex-wrap: wrap;
-  flex-wrap: wrap;
+.w-p0 {
+  width: 100%;
 }
-/*#################*\
-    _spacing.less
-\*#################*/
+.w-p1 {
+  width: 61.80339887%;
+}
+.w-p2 {
+  width: 38.19660113%;
+}
+.w-p3 {
+  width: 23.60679775%;
+}
+.w-p4 {
+  width: 14.58980338%;
+}
+.w-p3c {
+  width: 76.39320225%;
+}
+.w-p4c {
+  width: 85.41019662%;
+}
+.w-1o1 {
+  width: 100%;
+}
+.w-1o2 {
+  width: 50%;
+}
+.w-2o2 {
+  width: 100%;
+}
+.w-1o3 {
+  width: 33.33333333%;
+}
+.w-2o3 {
+  width: 66.66666667%;
+}
+.w-3o3 {
+  width: 100%;
+}
+.w-1o4 {
+  width: 25%;
+}
+.w-2o4 {
+  width: 50%;
+}
+.w-3o4 {
+  width: 75%;
+}
+.w-4o4 {
+  width: 100%;
+}
+.w-1o5 {
+  width: 20%;
+}
+.w-2o5 {
+  width: 40%;
+}
+.w-3o5 {
+  width: 60%;
+}
+.w-4o5 {
+  width: 80%;
+}
+.w-5o5 {
+  width: 100%;
+}
+.w-1o6 {
+  width: 16.66666667%;
+}
+.w-2o6 {
+  width: 33.33333333%;
+}
+.w-3o6 {
+  width: 50%;
+}
+.w-4o6 {
+  width: 66.66666667%;
+}
+.w-5o6 {
+  width: 83.33333333%;
+}
+.w-6o6 {
+  width: 100%;
+}
+/*@Margins*/
 /**
-  * This Interface provides a minimum height of one vertical rhythm unit.
-  * It is Meant for text-containing block Elements, such as p, blockquote, li, dt, dd, th, td.
-  * If these Elements have shorter contents, the vertical rhythm won't break.
-  * Do not include `display: block;` in the case of list-item, table-caption, or other exceptions.
-@params
-: @n : (an integer) the number of vertical rhythm units specified for the height
+  * The following Interface defines even horizontal margins on an Object.
 @tags
-: #verticalrhythm
+: #margin
 @author
 : Chris Harvey
 @updated
-: 2015-01-28
+: 2015-02-13
   */
+.margin-even {
+  margin-left: auto;
+  margin-right: auto;
+}
+/*@Undo Golden Blocks*/
+/*@SPACING*/
 /**
-  * These Interfaces provide [top|bottom] spacing of a multiple of a vertical rhythm unit.
+  * These Interfaces provide [top|bottom] spacing of any given amount.
+  * They do *NOT* automatically multiply by a vertical rhythm unit; you have to do that before
+  * giving an argument.
+  * The reason these methods exist is to make your life easier so that you don’t have to remember
+  * whether padding/margin goes on top/bottom. Also, changing it can be done in one step.
 @params
-: @ratio : the multliplier, i.e. how many `rem`s
+: @space : the amout of spacing to insert, in any unit given (px, rems, etc.)
 @author
 : Chris Harvey
 @updated
-: 2015-01-28
+: 2015-02-15
 @tags
 : #verticalrhythm
-  */
-/**
-  * This Interface adds a vru-top to an element if it is an
-  * immediate sibling after an Element that is not some type of heading.
-@params
-: @n : the number of vrus for the top spacing
-@author
-: Chris Harvey
-@updated
-: 2015-01-15
-@tags
-: #verticalrhythm
-  */
-/**
-  * This Interface sets the padding-top, border-top, and margin-top such that the padding:margin ratio
-  * is Golden, while keeping the border-top-width. The sum of the padding, border, and margin is
-  * one vertical rhythm unit.
-@params
-: @brdrw : value of the border-top-width property. Must be in pixels and less than 1 vru.
-: @brdrs : value of the border-top-style property
-: @brdrc : value of the border-top-color property
-@tags
-: #verticalrhythm
-: #golden
-: #border
-@author
-: Chris Harvey
-@updated
-: 2014-08-07
   */
 /*#################*\
     _borders.less
@@ -410,14 +230,14 @@ button {
   * Do not mix these into other Objects or Interfaces.
   * They may only be used for mixins in this file.
 @params
-: @width : value of `border-width`
+: @width : value of `border-width` of a single border
 @tags
 : #verticalrhythm
 : #border
 @author
 : Chris Harvey
 @updated
-: 2014-11-24
+: 2015-02-16
   */
 /**
   * The following Interfaces adjust borders for **BLOCK** Objects only! They will keep the
@@ -460,6 +280,24 @@ button {
 : Chris Harvey
 @updated
 : 2014-10-03
+  */
+/**
+  * This Interface adds a top border, while adjusting padding to be a Golden proportion to 1vru,
+  * and adjusts margin to keep vertical rhythm.
+@params
+: @brdrw : value of the border-top-width property.
+           Must be unitless but represent number of pixels.
+           Must be less than the number of pixels in 1 vru.
+: @brdrs : value of the border-top-style property
+: @brdrc : value of the border-top-color property
+@tags
+: #verticalrhythm
+: #golden
+: #border
+@author
+: Chris Harvey
+@updated
+: 2015-02-12
   */
 /*###############*\
     _boxes.less
@@ -506,7 +344,6 @@ button {
 : @brdrc : the value of `border-color` property (if not specified, default to value of `color` property)
 : @brdrr : the value of `border-radius` property
 @implements
-: .vru-content()
 : .border-vert-both(all)
 : .cellpaddingdefault()
 @tags
@@ -565,57 +402,19 @@ button {
 /*##################*\
     _fontsize.less
 \*##################*/
-/*@Font Sizes*/
 /**
-  * This Mixin sets the `font-size` of an Object to a given scale.
-@params
-: @ratio : the ratio of the new font size to `@fontsize_base`, in other words, the number of `rem`s
-@tags
-: #fontsize
-@author
-: Chris Harvey
-@updated
-: 2015-01-28
-  */
-/**
-  * These Interfaces set a [large|medium|small] preset font size.
-@implements
-: .fontsize()
-@tags
-: #fontsize
-@author
-: Chris Harvey
-@updated
-: 2014-10-07
-  */
-/**
-  * These Mixins adjust `line-height` such that
+  * This Mixin sets `font-size` and `line-height` such that
   * `font-size` * `line-height` = one vertical rhythm unit.
-  * The `.fontsize-block-double()` Mixin adjusts `line-height` such that
-  * `font-size` * `line-height` = two vertical rhythm units.
 @params
-: @ratio : the ratio of the new font size to `@fontsize_base`
-@implements
-: .fontsize()
+: @ratio            : the ratio of the new font size to `@fontsize_base`
+: @line_height_orig : the `line-height` of the parent element
 @tags
 : #verticalrhythm
 : #fontsize
 @author
 : Chris Harvey
 @updated
-: 2014-07-08
-  */
-/**
-  * This Interface sets a [large|medium|small] preset font size and adjusts corresponding line height.
-@implements
-: .fontsize-block()
-@tags
-: #verticalrhythm
-: #fontsize
-@author
-: Chris Harvey
-@updated
-: 2014-10-07
+: 2015-02-12
   */
 /*##############*\
     _grad.less
@@ -746,19 +545,13 @@ button {
   font-family: 'Zapfino', 'Savoye LET', script, 'Avenir', 'Seravek', sans-serif;
 }
 html {
-  font-size: 16px;
-  font-family: 'Optima', 'Lucida Grande', 'Tahoma', sans-serif;
+  font-size: 100%;
   line-height: 1.5;
 }
 body {
+  font-family: 'Optima', 'Lucida Grande', 'Tahoma', sans-serif;
   color: #0e0900;
   background-color: #f1f6ff;
-}
-main {
-  width: auto;
-  margin-left: 1.5rem;
-  margin-right: 1.5rem;
-  margin-bottom: 1.5rem;
 }
 /**
   * This Object represents a special `main` Element on the site,
@@ -816,8 +609,6 @@ main {
   * A list of breadcrumbs inside the module.
   * The list either contains ancestor pages (including parent),
   * sibling pages (including the same page), or children pages.
-@implements
-: .vru-top()
 @tags
 : #breadcrumbs
 @author
@@ -828,7 +619,8 @@ main {
 .Bc > .Anc,
 .Bc > .Sib,
 .Bc > .Child {
-  margin-top: 1.5rem;
+  padding: 0;
+  list-style-type: none;
 }
 /**
   * An actual breadcrumb link.
@@ -869,6 +661,7 @@ main {
   display: block;
   padding-left: 0.75rem;
   border-radius: 0.75rem;
+  line-height: inherit;
   color: #0062ff;
   background-color: #c3daff;
   cursor: pointer;
@@ -895,9 +688,7 @@ main {
 /**
   * This Object represents a generic article, technical document, blog post, etc. This Object may
   * or may not take the form of a literal `article` Element or `main` Element of a page. This
-  * Object is designed to contain other block-level Objects such as `.H`s and `.P`s.
-@implements
-: .follows-heading()
+  * Object is designed to contain other block-level Objects such as headings and paragraphs.
 @tags
 : #typography
 : #article
@@ -910,9 +701,6 @@ main {
   font-family: 'Baskerville', 'Palatino', 'Cochin', serif;
   text-align: justify;
 }
-:not(h1):not(.H):not(header) + .Article {
-  margin-top: 1.5rem;
-}
 /**
   * This Object represents text in an article that is not to displayed like `.Article` text.
   * Essentially it reverts back to the body copy styles.
@@ -923,19 +711,6 @@ main {
 : Chris Harvey
 @updated
 : 2014-05-02
-  */
-/**
-  * This Object represents a section of text that represents "fine print": disclaimers, etc.
-  * It should be instantiated by an entire `section`, `aside`, `div`, or `p` Element, which
-  * may or may not contain `small` Element children.
-@implements
-: .fontsize-block-sml()
-@tags
-: #typography
-@author
-: Chris Harvey
-@updated
-: 2014-06-26
   */
 /*#################*\
     _docmeta.less
@@ -955,7 +730,7 @@ main {
 .Docmeta > dt::after {
   content: ':';
 }
-.Docmeta > dd.complete > time::after {
+.Docmeta > dd.complete::after {
   font-size: 0.75rem;
   border-color: #9acc7a;
   color: #4e6100;
@@ -975,7 +750,7 @@ main {
   white-space: nowrap;
   content: 'Completed';
 }
-.Docmeta > dd.complete > time::after::before {
+.Docmeta > dd.complete::after::before {
   content: '';
   display: block;
   width: 0;
@@ -987,11 +762,11 @@ main {
   top: 0;
   z-index: 1;
 }
-.Docmeta > dd.complete > time::after::after {
+.Docmeta > dd.complete::after::after {
   content: ' ' '\2026';
   font-weight: bold;
 }
-.Docmeta > dd.release > time::after {
+.Docmeta > dd.release::after {
   font-size: 0.75rem;
   border-color: #9acc7a;
   color: #006127;
@@ -1011,7 +786,7 @@ main {
   white-space: nowrap;
   content: 'Released';
 }
-.Docmeta > dd.release > time::after::before {
+.Docmeta > dd.release::after::before {
   content: '';
   display: block;
   width: 0;
@@ -1023,7 +798,7 @@ main {
   top: 0;
   z-index: 1;
 }
-.Docmeta > dd.release > time::after::after {
+.Docmeta > dd.release::after::after {
   content: ' ' '\263a';
   font-weight: bold;
 }
@@ -1073,30 +848,25 @@ main {
   * This Object represents a list whose items each contain a footnote. Typically, the order of
   * footnotes is irrelevant, so this Object should be instantiated by a `ul` Element.
 @implements
-: .list-block()
-: .fontsize-block-sml()
+: .font-size-block()
 : .vru-top-phi()
 @tags
 : #footnotes
 : #lists
+: #links
 @author
 : Chris Harvey
 @updated
-: 2014-09-23
+: 2015-02-11
   */
 .Footnotes {
-  display: block;
-  min-height: 1.5rem;
   font-size: 0.75rem;
   line-height: 2;
-  padding-top: 8.78521826px;
-  margin-top: 14.21478174px;
-  border-top-width: 1px;
+  border-top-width: 0.0625rem;
+  padding-top: 0.51044902rem;
+  margin-top: -0.57294902rem;
   border-top-style: solid;
   border-top-color: #9acc7a;
-}
-:not(h1):not(.H):not(header) + .Footnotes {
-  margin-top: 1.5rem;
 }
 /**
   * The `.Rf` Object represents a reference to a footnote. The reference exists in the document prose,
@@ -1112,16 +882,16 @@ main {
 @updated
 : 2014-07-22
   */
-.Rf > .Link,
-.Fn > .Link {
+.Rf > a[href],
+.Fn > a[href] {
   quotes: '[' ']';
 }
-.Rf > .Link::before,
-.Fn > .Link::before {
+.Rf > a[href]::before,
+.Fn > a[href]::before {
   content: open-quote;
 }
-.Rf > .Link::after,
-.Fn > .Link::after {
+.Rf > a[href]::after,
+.Fn > a[href]::after {
   content: close-quote;
 }
 /*##################*\
@@ -1130,19 +900,27 @@ main {
 /**
   * This Interface represents a generic textual heading of a section, post, article, or document.
   * It does not represent a heading in a table. See the `.Cell.Hc` Object.
+@params
+: @font_size   : unitless value for the font-size property (multiplied by 1rem here).
+: @line_height : unitless value of the line-height property.
+: @vru_height  : unitless number, in vrus, of the box height.
+: @vru_top     : unitless number, in vrus, for the top spacing
+: @vru_bottom  : unitless number, in vrus, for the bottom spacing
 @implements
-: .vru-content()
+: .spacing-top()
+: .spacing-bottom()
 @tags
 : #typography
 : #heading
 : #section
+: #verticalrhythm
 @author
 : Chris Harvey
 @updated
-: 2014-10-21
+: 2015-02-11
   */
 /**
-  * The six Objects below represent different levels of headings, starting from top-level to level 6.
+  * The six levels of headings.
 @implements
 : .heading()
 @tags
@@ -1153,102 +931,88 @@ main {
 @author
 : Chris Harvey
 @updated
-: 2014-10-21
+: 2015-02-11
   */
-.H--Alp {
-  min-height: 1.5rem;
-  display: block;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: 'Avenir', 'Seravek', sans-serif;
-  letter-spacing: 1px;
+}
+h1 {
+  padding-top: 1.85410197rem;
+  margin-bottom: 1.14589803rem;
   font-size: 3rem;
   line-height: 1;
-  margin-top: 1.85410197rem;
-  padding-bottom: 1.14589803rem;
   font-variant: small-caps;
-  font-weight: bold;
   text-align: center;
   color: #120099;
 }
-.H--Bet {
-  min-height: 1.5rem;
-  font-family: 'Avenir', 'Seravek', sans-serif;
-  letter-spacing: 1px;
+h2 {
+  padding-top: 1.39057647rem;
+  margin-bottom: 0.85942353rem;
   font-size: 2.1875rem;
-  line-height: 1.37142857;
-  margin-top: 2.1705rem;
-  padding-bottom: 0.8295rem;
-  display: block;
-  position: relative;
-  top: -1px;
-  margin-bottom: -1px;
+  line-height: 1.02857143;
+  margin-top: -1px;
   border-bottom-width: 1px;
   border-bottom-style: solid;
   border-bottom-color: #3d6166;
-  font-weight: bold;
   color: #3d6166;
 }
-.H--Gam {
-  min-height: 1.5rem;
-  display: block;
-  font-family: 'Avenir', 'Seravek', sans-serif;
-  letter-spacing: 1px;
+h3 {
+  padding-top: 1.62233922rem;
+  margin-bottom: 1.00266078rem;
   font-size: 1.625rem;
-  line-height: 0.92307692;
-  margin-top: 0.92705098rem;
-  padding-bottom: 0.57294902rem;
+  line-height: 1.15384615;
   font-variant: small-caps;
-  font-weight: bold;
 }
-.H--Del {
-  min-height: 1.5rem;
-  display: block;
-  font-family: 'Avenir', 'Seravek', sans-serif;
-  letter-spacing: 1px;
+h4 {
+  padding-top: 0.92705098rem;
+  margin-bottom: 0.57294902rem;
   font-size: 1.3125rem;
   line-height: 1.14285714;
-  margin-top: 1.086rem;
-  padding-bottom: 0.414rem;
   font-style: italic;
-  font-weight: bold;
 }
-.H--Eps {
-  min-height: 1.5rem;
-  display: block;
-  font-family: 'Avenir', 'Seravek', sans-serif;
-  letter-spacing: 1px;
+h5 {
+  padding-top: 1.15881373rem;
+  margin-bottom: 0.71618627rem;
   font-size: 1.125rem;
-  line-height: 1.33333333;
+  line-height: 1;
   font-style: italic;
+  font-weight: normal;
   color: #3d6166;
 }
-.H--Zet {
-  min-height: 1.5rem;
-  display: block;
-  font-family: 'Avenir', 'Seravek', sans-serif;
-  letter-spacing: 1px;
+h6 {
+  padding-top: 1.2746951rem;
+  margin-bottom: 0.7878049rem;
   font-size: 1rem;
-  line-height: 1.5;
+  line-height: 0.9375;
   font-style: italic;
+  font-weight: normal;
   font-variant: small-caps;
 }
 /**
   * This Object represents a generic tagline for a top-level heading, called a 'subheading'.
-  * Do not include this object as a component of an `.H--Alp` Object. (It will become part of the
+  * Do not include this object as a component of a heading Element. (It will become part of the
   * document outline if you do.) Instead, this tagline should be the adjacent sibling to the
-  * corresponding `.H--Alp`.
-  * Use this Object to represent subtitles for top-level headings only (`.H--Alp`). There is no need
-  * to use it for minor headings (`.H--Bet`, `.H--Gam`, etc.).
+  * corresponding heading.
+  * Use this Object to represent subtitles for top-level headings only (`h1`). There is no need
+  * to use it for minor headings (`h2`–`h6`).
 @tags
 : #typography
 : #heading
 @author
 : Chris Harvey
 @updated
-: 2014-10-21
+: 2015-02-11
   */
 .H--Sub {
   font-size: 2rem;
   line-height: 1.5;
+  font-style: italic;
+  font-weight: normal;
   font-family: 'Zapfino', 'Savoye LET', script, 'Avenir', 'Seravek', sans-serif;
   text-align: center;
   color: #cc004e;
@@ -1258,27 +1022,31 @@ main {
   * The `.Normal` subclass adds a hidden
   * U+0001 = "start of heading" character
   * so that the `::first-letter` selector does not apply to any visual characters
-@extends
-: .H--Alp
+@implements
+: .font-size-block()
+: .spacing-top()
+: .spacing-bottom()
 @tags
 : #typography
 : #heading
 @author
 : Chris Harvey
 @updated
-: 2014-11-13
+: 2015-02-11
   */
-.H--Alp.Folio {
+.H--Folio {
   font-size: 3rem;
   line-height: 1;
-  margin-top: 6rem;
-  padding-bottom: 3rem;
-  font-weight: normal;
+  padding-top: 6rem;
+  margin-bottom: 3rem;
   font-variant: normal;
+  font-weight: normal;
   font-family: 'Zapfino', 'Savoye LET', script, 'Avenir', 'Seravek', sans-serif;
+  text-align: center;
   white-space: nowrap;
+  color: #120099;
 }
-.H--Alp.Folio .Cap {
+.H--Folio .Cap {
   font-size: 6rem;
   line-height: 0.25;
   font-family: 'Snell Roundhand', 'Zapfino', 'Savoye LET', script, 'Avenir', 'Seravek', sans-serif;
@@ -1288,36 +1056,11 @@ main {
 \*####################*/
 /*@PARAGRAPHS*/
 /**
-  * This Object represents a generic paragraph in a section, article, or document. A paragraph
-  * Object is a small grouping of textual ideas. In the written media, paragraphs can span
-  * anywhere from 3 to 8 sentences. However on the Web, they can be much, much shorter.
-@implements
-: .vru-content()
-: .follows-heading()
-@tags
-: #typography
-: #paragraph
-@author
-: Chris Harvey
-@updated
-: 2014-10-19
-  */
-.P {
-  min-height: 1.5rem;
-  display: block;
-}
-:not(h1):not(.H):not(header) + .P {
-  margin-top: 1.5rem;
-}
-.P p {
-  display: inline;
-}
-/**
   * This Object refers to the first ("lede"/"lead") sentence in a paragraph or caption, which may
   * act as a "heading" for that paragraph or caption.
   * It may also contain the title of a `table` or `figure` inside the `table > caption` or
   * `figure > figcaption`, respectively.
-  * This Object is typically a child of a `.P` Object, or any paragraph-like Objects such as `.Capt`.
+  * This Object is typically a child of a paragraph.
   * This can also be useful in a list of prose ("LOP"), whose list items consist of long prose text.
 @tags
 : #typography
@@ -1334,11 +1077,7 @@ main {
 /**
   * This Object represents an introduction paragraph, typically referred to as a "standfirst"
   * (in the U.K.). It may also serve as an abstract of a scholarly article. This Object almost
-  * always follows a `.H` Object (a heading).
-@extends
-: .P
-@implements
-: .vru-bottom()
+  * always follows a heading.
 @tags
 : #typography
 : #paragraph
@@ -1347,25 +1086,22 @@ main {
 @updated
 : 2014-07-10
   */
-.P.Intro {
-  padding-bottom: 1.5rem;
+.Intro {
   font-weight: bold;
 }
 /**
   * This Object represents a paragraph whose first letter is a dropped capital ("drop cap").
-@extends
-: .P
 @implements
-: .fontsize-block()
+: .font-size-block()
 @tags
 : #typography
 : #paragraph
 @author
 : Chris Harvey
 @updated
-: 2014-04-30
+: 2015-02-11
   */
-.P.Dropcap::first-letter {
+.Dropcap::first-letter {
   font-size: 2rem;
   line-height: 0.75;
   float: left;
@@ -1377,119 +1113,12 @@ main {
   color: #120099;
 }
 /*@QUASI-PARAGRAPHS*/
-/**
-  * This interface is used on some quasi-paragraphs (paragraph-looking Objects).
-  * It is not used on `.Capt` because they can't always have `display: block;`
-@implements
-: .vru-content()
-: .vru-top-phi()
-@tags
-: #typography
-: #address
-: #figure
-: #quote
-@author
-: Chris Harvey
-@updated
-: 2014-10-10
-  */
-/**
-  * This Object represents a generic caption of any sort. A caption is usually a short summary or
-  * description of some content ("the described content"). The described content may be in a
-  * literal `figure` Element, `table` Element, or it may be any generic content. Since captions are
-  * usually too short to be a paragraph, it may *not* contain `.P` Objects. If the described content
-  * is text only, the caption should be shorter and more concise than the content's text.
-  * If this `.Capt` is a child of a `figure` Element, it should be a `figcaption` Element.
-  * If this `.Capt` is a child of a `table` Element, it should be a `caption` Element.
-@implements
-: .vru-content()
-: .fontsize-block-small()
-@tags
-: #typography
-: #caption
-: #table
-: #figure
-@author
-: Chris Harvey
-@updated
-: 2014-10-03
-  */
-.Capt {
-  min-height: 1.5rem;
-  font-size: 0.75rem;
-  line-height: 2;
-  text-align: right;
-}
-/**
-  * A caption may appear before or after the described content, even if it and the content are
-  * children of the same Object (e.g., a `figure`). A `.P.Capt.Before` appears before the content;
-  * a `.P.Capt.After` appears after.
-  * Note: According to the HTML5 specs, a `table > caption`, if it exists, may *only* be the
-  * first child. However, applying `.Capt.Before` to the `table > caption:first-child` will make it
-  * look ugly, because the borders conflict and it will have `display: block;` rather than
-  * `display: table-caption;`. Just don't apply `.Capt.Before` or `.Capt.After` to `table > caption`s.
-@extends
-: .Capt
-@implements
-: .border-vert-one(bottom)
-: .border-vert-one(top)
-@tags
-: #typography
-: #caption
-: #table
-: #figure
-@author
-: Chris Harvey
-@updated
-: 2014-05-10
-  */
-.Capt.Before {
-  display: block;
-  position: relative;
-  top: -1px;
-  margin-bottom: -1px;
-  border-bottom-width: 1px;
-  border-bottom-style: dotted;
-  border-bottom-color: #9acc7a;
-}
-.Capt.After {
-  display: block;
-  position: relative;
-  top: -1px;
-  margin-bottom: -1px;
-  border-top-width: 1px;
-  border-top-style: dotted;
-  border-top-color: #9acc7a;
-}
-/**
-  * This Object represents a generic postal address. It may be the contact address of the document
-  * author(s) (contained in an `address` Element), or it may be any arbitrary postal mailing address.
-@extends
-: .quasi-p
-@implements
-: .sidebrdr-phi()
-@tags
-: #typography
-: #paragraph
-: #geolocation
-@author
-: Chris Harvey
-@updated
-: 2014-10-03
-  */
-.Addy {
-  min-height: 1.5rem;
-  padding-top: 9.16718427px;
-  margin-top: 14.83281573px;
-  border-top-width: 0;
-  display: block;
-  border-right-width: 3px;
-  border-right-style: solid;
-  padding-right: 4.85410197px;
-  margin-right: 12.70820393px;
-  border-right-color: #9acc7a;
-  border-radius: 6px;
-  text-align: right;
+figure,
+blockquote,
+pre {
+  border-top-width: 0rem;
+  padding-top: 0.57294902rem;
+  margin-top: -0.57294902rem;
 }
 /**
   * This Object represents a generic figure-looking thing in a document. A figure contains excerpts of text,
@@ -1500,8 +1129,6 @@ main {
   * If and only if the content in this `.Fig`---including its caption---is permissible to be extracted from the
   * document and presented on its own, the `.Fig` Object should be wrapped with an `aside` Element.
   * The `.Fig.Text` subclass is a figure whose contents are only text.
-@extends
-: .quasi-p
 @implements
 : .sidebrdr-phi(left)
 : .sidebrdr-phi(right)
@@ -1515,12 +1142,7 @@ main {
 @updated
 : 2014-10-03
   */
-.Fig {
-  min-height: 1.5rem;
-  padding-top: 9.16718427px;
-  margin-top: 14.83281573px;
-  border-top-width: 0;
-  display: block;
+figure {
   border-left-width: 4px;
   border-left-style: solid;
   padding-left: 6.47213595px;
@@ -1533,47 +1155,39 @@ main {
   border-right-color: #9acc7a;
   text-align: center;
 }
-.Fig.Text {
+.Text {
   background-image: url('https://chharvey.github.io/core/images/crossgrid-lined_1x24.svg');
   background-size: 1px 24px;
   background-repeat: repeat;
   background-position: left bottom;
 }
 /**
-  * This Object represents any Block Quotation, representing material taken directly from another
-  * source. It may or may not take the form of a literal `blockquote` Element.
+  * A `blockquote` represents material taken directly from another source. Typically,
+  * block quotations are used when the original source has more than 40 words and/or contains
+  * paragraph breaks. In either of these cases, the `blockquote` should contain child `p` Elements
+  * that correspond to the source (or not have any children `p` Elements if the source does not).
   *
-  * If the original source has paragraph breaks, regardless of word count, use `.Qblock`.
-  * It should have paragraph breaks that correspond to the source.
+  * Sometimes authors may use a block quotation to highlight extracted inline text from an article,
+  * for example. These are so-called "short" block quotations.
+  * If the original source is less than 40 words and does not have paragraph breaks,
+  * use the `blockquote.Short` class. It should *not* contain `p` Elements.
   *
-  * If the original source is more than 40 words and does not have paragraph breaks, use
-  * `.Qblock`. It should not contain paragraphs (either `.P` Objects or `p` Elements);
-  * it should directly contain the source's text.
-  * Optionally contain the citation in a `.Src.Formal`.
-  *
-  * If the original source is less than 40 words and does not have paragraph breaks (for example,
-  * extracted inline text from an article), use the `.Qblock.Short` subclass. It should also not
-  * contain paragraphs.
-@extends
-: .quasi-p
+  * In a normal block quote, the quoted work should be indicated by the `blockquote > footer > cite`.
+  * For `blockquote.Short`, do not use a `footer` (just use `blockquote > cite`).
 @implements
 : .crossgrid-lined()
 : .sidebrdr-phi()
-: .fontsize-block-lrg()
+: .font-size-block()
+: .parens()
 @tags
 : #typography
 : #quote
 @author
 : Chris Harvey
 @updated
-: 2014-10-03
+: 2015-02-11
   */
-.Qblock {
-  min-height: 1.5rem;
-  padding-top: 9.16718427px;
-  margin-top: 14.83281573px;
-  border-top-width: 0;
-  display: block;
+blockquote {
   background-image: url('https://chharvey.github.io/core/images/crossgrid-lined_1x24.svg');
   background-size: 1px 24px;
   background-repeat: repeat;
@@ -1585,126 +1199,94 @@ main {
   border-left-color: #9acc7a;
   font-family: 'Geneva', 'Tahoma', sans-serif;
 }
-.Qblock.Short {
+blockquote > footer {
+  text-align: right;
+}
+blockquote > footer > cite {
+  quotes: '(' ')';
+}
+blockquote > footer > cite::before {
+  content: open-quote;
+}
+blockquote > footer > cite::after {
+  content: close-quote;
+}
+.Short {
   font-size: 1.25rem;
-  line-height: 1.2;
   line-height: 1.8;
   background-image: none;
 }
+.Short > cite {
+  display: block;
+  font-size: 0.75rem;
+  line-height: 3;
+  text-align: right;
+}
+.Short > cite::before {
+  content: '~\0020';
+}
 /**
-  * The `.Src` Object represents the citation of a source inside a `.Qblock` Object. It is
-  * recommended to apply this class to a `cite` Element, possibly within a `footer` Element.
-@belongsto
-: .Qblock
-@extends
-: .parens
-@implements
-: .sidebrdr-phi(right)
-: .fontsize-block-sml()
-@tags
-: #typography
-: #quote
+  * `pre` Element
 @author
 : Chris Harvey
 @updated
-: 2014-10-07
+: 2015-02-09
   */
-.Qblock .Src {
-  display: block;
-  text-align: right;
-}
-.Qblock .Src::before {
-  content: '~\0020';
-}
-.Qblock .Src.Formal {
-  quotes: '(' ')';
-}
-.Qblock .Src.Formal::before {
-  content: open-quote;
-}
-.Qblock .Src.Formal::after {
-  content: close-quote;
-}
-.Qblock .Src:not(.Formal) {
+pre {
+  border-left-width: 3px;
+  border-left-style: groove;
+  padding-left: 4.85410197px;
+  margin-left: 12.70820393px;
+  border-left-color: #9acc7a;
   border-right-width: 3px;
-  border-right-style: double;
+  border-right-style: ridge;
   padding-right: 4.85410197px;
   margin-right: 12.70820393px;
   border-right-color: #9acc7a;
+  border-radius: 6px;
 }
-.Qblock.Short .Src {
+/**
+  * Table captions and figure captions.
+@implements
+: .font-size-block()
+: .border-vert-one(bottom)
+: .border-vert-one(top)
+@tags
+: #typography
+: #table
+: #figure
+: #caption
+@author
+: Chris Harvey
+@updated
+: 2015-02-09
+  */
+caption,
+figcaption {
   font-size: 0.75rem;
   line-height: 2;
-  line-height: 3;
+}
+caption:first-child,
+figcaption:first-child {
+  margin-top: -1px;
+  border-bottom-width: 1px;
+  border-bottom-style: dotted;
+  border-bottom-color: #9acc7a;
+}
+figcaption:last-child {
+  margin-top: -1px;
+  border-top-width: 1px;
+  border-top-style: dotted;
+  border-top-color: #9acc7a;
 }
 /*###############*\
     _lists.less
 \*###############*/
-/**
-  * The left indent of a `.List` Object (or similar Object).
-  * The indent should be 0.5in (48px), the standard indent for APA style.
-  * Use this value on `padding-left` or `margin-left`, whichever is more appropriate.
-  * Use operations on `@listindent`, such as `(@listindent / 2)` for variants.
-  */
-/**
-  * This Interface is used on block lists. It may be a literal `ol` or `ul` Element containing
-  * `li` Elements, or it may be the abstract notion of a list of other block Objects. The order of
-  * list items may be releveant or irrelevant.
-@implements
-: .vru-content()
-: .follows-heading()
-@tags
-: #typography
-: #list
-@author
-: Chris Harvey
-@updated
-: 2014-10-19
-  */
-/**
-  * This Object represents a block item in a list. It may be a literal `li` Element
-  * inside an `ol` or `ul` Element, or it may be any Element in any "List" class.
-@implements
-: .vru-content
-@tags
-: #typography
-: #list
-@author
-: Chris Harvey
-@updated
-: 2014-10-11
-  */
-/**
-  * This Object represents an ordered list, or a list used for an outline. This does *not*
-  * correspond directly to a literal `ol` Element; this Object is simply to be displayed with
-  * block list items, with markers that indicate order. This class does *not* indicate that the
-  * list is semantically ordered. Typical uses include table of contents, etc. Outlines are by
-  * definition, ordered.
-@implements
-: .list-block()
-@tags
-: #typography
-: #list
-: #ordered
-@author
-: Chris Harvey
-@updated
-: 2014-05-11
-  */
-.Olist {
-  display: block;
-  min-height: 1.5rem;
-  padding-left: 0.5in;
-  list-style-type: decimal-leading-zero;
-  list-style-type: decimal;
-}
-:not(h1):not(.H):not(header) + .Olist {
-  margin-top: 1.5rem;
+ul {
+  list-style-type: square;
 }
 /**
   * These Objects represent outlined lists with different enumeration types.
-@extends
-: .Olist
 @tags
 : #typography
 : #list
@@ -1714,56 +1296,48 @@ main {
 @updated
 : 2014-05-03
   */
-.Olist.Ome {
+.l--Ome {
   list-style-type: decimal-leading-zero;
 }
-.Olist.Alp {
+.l--Alp {
   list-style-type: upper-roman;
 }
-.Olist.Bet {
+.l--Bet {
   list-style-type: upper-alpha;
 }
-.Olist.Gam {
+.l--Gam {
   list-style-type: decimal;
 }
-.Olist.Del {
+.l--Del {
   list-style-type: lower-alpha;
 }
-.Olist.Eps {
+.l--Eps {
   list-style-type: lower-roman;
 }
-.Olist.Zet {
+.l--Zet {
   list-style-type: lower-greek;
 }
 /**
-  * This Object represents a generic list whose items are to be displayed as blocks with the same
-  * markers. It does *not* necessarily correspond directly to a literal `ul` Element. This class
-  * does *not* indicate that the list is semantically unordered.
+  * This Object represents an outlined list. It is used for nested `ol` objects, for example,
+  * to display a table of contents or document outline.
 @implements
-: .list-block()
+: .spacing-bottom()
 @tags
 : #typography
 : #list
-: #unordered
 @author
 : Chris Harvey
 @updated
-: 2014-05-11
-  */
-.Ulist {
-  display: block;
-  min-height: 1.5rem;
-  padding-left: 0.5in;
-  list-style-type: square;
+: 2014-12-19
+*/
+.l--Otln {
+  padding-left: 2rem;
 }
-:not(h1):not(.H):not(header) + .Ulist {
-  margin-top: 1.5rem;
+.l--Otln .l--Otln {
+  margin-bottom: 0;
 }
 /**
   * This Object represents an action list, which typically contains hyperlinks.
-@implements
-: .list-block()
-: .Link
 @tags
 : #typography
 : #list
@@ -1773,45 +1347,12 @@ main {
 @updated
 : 2014-10-22
   */
-.Alist {
-  display: block;
-  min-height: 1.5rem;
-}
-:not(h1):not(.H):not(header) + .Alist {
-  margin-top: 1.5rem;
-}
-.Alist > .Item {
-  -webkit-transition-property: color;
-  -moz-transition-property: color;
-  -ms-transition-property: color;
-  -o-transition-property: color;
-  transition-property: color;
-  -webkit-transition-duration: 0.125s;
-  -moz-transition-duration: 0.125s;
-  -ms-transition-duration: 0.125s;
-  -o-transition-duration: 0.125s;
-  transition-duration: 0.125s;
-  -webkit-transition-timing-function: ease;
-  -moz-transition-timing-function: ease;
-  -ms-transition-timing-function: ease;
-  -o-transition-timing-function: ease;
-  transition-timing-function: ease;
-  -webkit-transition-delay: 0s;
-  -moz-transition-delay: 0s;
-  -ms-transition-delay: 0s;
-  -o-transition-delay: 0s;
-  transition-delay: 0s;
+.l--Action {
+  padding-left: 0;
+  list-style-type: none;
   color: #0062ff;
-  cursor: pointer;
 }
-.Alist > .Item:hover {
-  text-decoration: underline;
-  color: #ff9d00;
-}
-.Alist > .Item:active {
-  color: #cc004e;
-}
-.Alist > .Item::before {
+.l--Action > li::before {
   content: '\2713\0020';
 }
 /**
@@ -1821,9 +1362,7 @@ main {
   *
   * Authors may wish to contain this Object within a block, such as a Paragraph Object.
   *
-  * `.Item.endline` creates a visual appearance of a line break within an inline list.
-@extends
-: .List
+  * `li.endline` creates a visual appearance of a line break within an inline list.
 @tags
 : #typography
 : #list
@@ -1833,20 +1372,21 @@ main {
 @updated
 : 2015-01-05
   */
-.Ilist {
+.l--Inl {
+  display: inline;
+  padding-left: 0;
+}
+.l--Inl > li {
   display: inline;
 }
-.Ilist > .Item {
-  display: inline;
-}
-.Ilist > .Item.endline::after {
+.l--Inl > li.endline::after {
   display: block;
   content: '' !important;
 }
 /**
-  * These Objects are `.Item`s in a `.Ilist`. They represent character-separated values.
+  * These Objects are items in an inline list. They represent character-separated values.
 @extends
-: .Ilist
+: .l--Inl
 @tags
 : #typography
 : #list
@@ -1855,142 +1395,44 @@ main {
 @updated
 : 2015-01-05
   */
-.Ilist.Comma > .Item:not(:last-child)::after {
+.l--Inl.Comma > li:not(:last-child)::after {
   content: ',\0020';
 }
-.Ilist.Mdash > .Item:not(:last-child)::after {
+.l--Inl.Mdash > li:not(:last-child)::after {
   content: '\0020\2014\0020';
 }
-.Ilist.Ndash > .Item:not(:last-child)::after {
+.l--Inl.Ndash > li:not(:last-child)::after {
   content: '\0020\2013\0020';
 }
-.Ilist.Bull > .Item:not(:last-child)::after {
+.l--Inl.Bull > li:not(:last-child)::after {
   content: '\0020\2022\0020';
 }
-.Ilist.Square > .Item:not(:last-child)::after {
+.l--Inl.Square > li:not(:last-child)::after {
   content: '\0020\25aa\0020';
-}
-/**
-  * This Object represents an outlined list. It is used for nested `Olist` objects, for example,
-  * to display a table of contents or document outline.
-@extends
-: .Olist
-@implements
-: .vru-top()
-@tags
-: #typography
-: #list
-@author
-: Chris Harvey
-@updated
-: 2014-12-19
-*/
-.Olist.Outline {
-  padding-left: 0.25in;
-}
-.Olist.Outline .Outline {
-  margin-top: 0rem;
-}
-/**
-  * This Object represents a 'List of Prose', a list whose items consist of only paragraphs.
-@extends
-: .Olist
-@implements
-: .vru-top()
-@tags
-: #typography
-: #list
-@author
-: Chris Harvey
-@updated
-: 2014-10-03
-  */
-.Olist.LOP > .Item:not(:first-child) {
-  margin-top: 1.5rem;
-}
-/**
-  * This Object represents a 'List in Prose', a list that is contained within prose paragraphs.
-  * The list items contain spans of text, but not whole paragraphs. It is displayed inline, and has
-  * inline items as well. The items are preceded with counters.
-@extends
-: .Ilist
-@tags
-: #typography
-: #list
-: #inline
-@author
-: Chris Harvey
-@updated
-: 2014-05-25
-  */
-.Ilist.LIP {
-  counter-reset: count;
-}
-.Ilist.LIP > .Item {
-  counter-increment: count;
-}
-.Ilist.LIP > .Item::before {
-  content: '(' counter(count) ') ';
 }
 /*##############*\
     _maps.less
 \*##############*/
 /**
-  * This Object represents an association list, which contains term-description pairs. Each pair
-  * consists of exactly one `.Term` and exactly one `.Desc`.
+  * A `dl` Element, or Map, contains term-description pairs.
+  * Each pair consists of exactly one `dt` and exactly one `dd`, where
+  * the `dt` is the term (or name) and the `dd` is the description (or value).
 @implements
-: .vru-content()
-: .follows-heading()
+: .spacing-bottom()
 @tags
 : #typography
 : #map
 @author
 : Chris Harvey
 @updated
-: 2014-10-19
+: 2015-02-10
   */
-.Map {
-  min-height: 1.5rem;
-  display: block;
-  /**
-    * This Object represent the term in a term-description pair of a `.Map`.
-  @implements
-  : .vru-top() only when following a `.Desc`
-  @tags
-  : #typography
-  : #map
-  @author
-  : Chris Harvey
-  @updated
-  : 2015-01-22
-    */
-  /**
-    * This Object represent the description in a term-description pair of a `.Map`.
-  @belongsto
-  : .Map
-  @tags
-  : #typography
-  : #map
-  @author
-  : Chris Harvey
-  @updated
-  : 2015-01-22
-    */
-}
-:not(h1):not(.H):not(header) + .Map {
-  margin-top: 1.5rem;
-}
-.Map > .Term {
-  min-height: 1.5rem;
-  display: block;
-  font-weight: bold;
-}
-.Map > .Desc {
-  min-height: 1.5rem;
-  display: block;
-}
-.Map > .Desc + .Term {
-  margin-top: 1.5rem;
+dt > ol,
+dd > ol,
+dt > ul,
+dd > ul {
+  margin-bottom: 0;
+  padding-left: 2rem;
 }
 /**
   * This Object represents an association list in which corresponding terms and descriptions are
@@ -1998,7 +1440,7 @@ main {
   * This map acts like a table, with each row containing a single term-description group.
   * Multiple terms and multiple descriptions in the same group are in the same row.
 @extends
-: .Map
+: dl
 @implements
 : .clearfix()
 @tags
@@ -2010,62 +1452,63 @@ main {
 @updated
 : 2014-11-23
   */
-.Map.Horiz::after {
+.dl--Horiz::after {
   display: table;
   content: ' ';
   clear: both;
 }
-.Map.Horiz > .Term,
-.Map.Horiz > .Desc {
+.dl--Horiz > dt,
+.dl--Horiz > dd {
   box-sizing: border-box;
 }
-.Map.Horiz > .Term {
+.dl--Horiz > dt {
   padding-right: 1rem;
   float: left;
   clear: both;
   overflow: auto;
   white-space: nowrap;
 }
-.Map.Horiz > .Desc {
+.dl--Horiz > dd {
   float: left;
 }
-.Map.Horiz > .Desc + .Term {
-  margin-top: 0;
+.dl--Horiz > dd + dt {
+  padding-top: 0;
 }
-.Map.Horiz.Sml > .Term {
+.dl--Horiz.Sml > dt {
   width: 23.60679775%;
 }
-.Map.Horiz.Sml > .Desc {
+.dl--Horiz.Sml > dd {
   width: 76.39320225%;
 }
-.Map.Horiz.Msm > .Term {
+.dl--Horiz.Msm > dt {
   width: 38.19660113%;
 }
-.Map.Horiz.Msm > .Desc {
+.dl--Horiz.Msm > dd {
   width: 61.80339887%;
 }
-.Map.Horiz.Med > .Term {
+.dl--Horiz.Med > dt {
   width: 50%;
 }
-.Map.Horiz.Med > .Desc {
+.dl--Horiz.Med > dd {
   width: 50%;
 }
-.Map.Horiz.Mlg > .Term {
+.dl--Horiz.Mlg > dt {
   width: 61.80339887%;
 }
-.Map.Horiz.Mlg > .Desc {
+.dl--Horiz.Mlg > dd {
   width: 38.19660113%;
 }
-.Map.Horiz.Lrg > .Term {
+.dl--Horiz.Lrg > dt {
   width: 76.39320225%;
 }
-.Map.Horiz.Lrg > .Desc {
+.dl--Horiz.Lrg > dd {
   width: 23.60679775%;
 }
 /**
-  * This Object represents a Horizontal Map that appears as a Table Object.
+  * This Object represents a Horizontal Map that appears as a table.
+  * Use the subclasses .Sml, .Msm, etc for pre-defined `dt` widths.
 @extends
-: .Map.Horiz
+: dl.Horiz
 @implements
 : .cellpaddingdefault()
 @tags
@@ -2077,16 +1520,16 @@ main {
 @updated
 : 2014-11-23
   */
-.Map.Horiz.Tbl > .Term,
-.Map.Horiz.Tbl > .Desc {
+.dl--Horiz.Tbl > dt,
+.dl--Horiz.Tbl > dd {
   padding: 0.75rem 0.46352549rem;
 }
-.Map.Horiz.Tbl > .Term:nth-child(4n+1),
-.Map.Horiz.Tbl > .Desc:nth-child(4n+2) {
+.dl--Horiz.Tbl > dt:nth-child(4n+1),
+.dl--Horiz.Tbl > dd:nth-child(4n+2) {
   background-color: #cfe0e2;
 }
-.Map.Horiz.Tbl > .Term:nth-child(4n+3),
-.Map.Horiz.Tbl > .Desc:nth-child(4n) {
+.dl--Horiz.Tbl > dt:nth-child(4n+3),
+.dl--Horiz.Tbl > dd:nth-child(4n) {
   background-color: #b6d0d3;
 }
 /*################*\
@@ -2098,24 +1541,20 @@ main {
   * would be a multivariable map: given multiple (e.g., two) independent inputs there exists one
   * dependent output.
 @implements
-: .follows-heading()
-: .fontsize-block-sml()
+: .font-size-block()
 @tags
 : #typography
 : #table
 @author
 : Chris Harvey
 @updated
-: 2014-10-19
+: 2015-02-11
   */
 .Table {
   font-size: 0.75rem;
   line-height: 2;
   display: table;
   text-align: center;
-}
-:not(h1):not(.H):not(header) + .Table {
-  margin-top: 1.5rem;
 }
 .Table > .Capt {
   border-top-width: 1px;
@@ -2181,7 +1620,6 @@ main {
 /**
   * This Object represents a single data entry in a `.Table`.
 @implements
-: .vru-content()
 : .cellpaddingdefault()
 @tags
 : #typography
@@ -2192,7 +1630,6 @@ main {
 : 2014-05-18
   */
 .Cell {
-  min-height: 1.5rem;
   padding: 0.75rem 0.46352549rem;
   display: table-cell;
 }
@@ -2224,624 +1661,11 @@ table {
 table tr {
   counter-increment: nrows;
 }
-/*##############*\
-    _code.less
-\*##############*/
-/**
-  * An Interface used for both inline and block code. Automate the coloring of code Elements.
-  * `.codecolors-sol-lite()` sets a Solarized Light theme, while
-  * `.codecolors-sol-dark()` sets a Solarized Dark theme.
-@params
-: @color_txt  : the value of the `color` property
-: @color_comm : the value of the `color` property for code comments
-: @color_bg   : the value of the `background-color` property
-: @color_brdr : the value of the `border-color` property
-@tags
-: #code
-: #schematic
-: #Solarized
-@author
-: Chris Harvey
-@updated
-: 2014-10-07
-  */
-/**
-  * A mixin for coloring components of code.
-@tags
-: #code
-@author
-: Chris Harvey
-@updated
-: 2014-12-04
-  */
-/**
-  * A span of text that a computer program would recognize.
-@implements
-: .box-inline()
-: .fontsize-sml()
-: .codecolors-sol-lite()
-@tags
-: #code
-@author
-: Chris Harvey
-@updated
-: 2014-05-25
-  */
-code {
-  display: inline;
-  padding: 1px 2px;
-  border-width: 1px;
-  border-style: solid;
-  border-radius: 3px;
-  font-size: 0.75rem;
-  border-color: #eee8d5;
-  color: #657b83;
-  background-color: #fdf6e3;
-  font-family: 'Menlo', 'Monaco', 'Andale Mono', monospace;
-  text-align: left;
-  white-space: nowrap;
-}
-code .Comm {
-  color: #93a1a1;
-}
-/**
-  * A block of code. Its semantics are derived from the formatting (line breaks, indenting, etc) of
-  * the text content. This Object does *not* extend the `.Code` Object.
-  * `.Comm` : any comment
-  * `.Cst`  : a number, color, or character constant
-  * `.Str`  : any string
-  * `.Cmd`  : a function name, function call, or constructor call
-  * `.Arg`  : argument to a function or constructor call
-  * `&.Invert` : use Solarized Light instead of Solarized Dark
-@implements
-: .box-block()
-: .follows-heading()
-: .fontsize-block-sml()
-: .codecolors-sol-dark()
-@tags
-: #code
-@author
-: Chris Harvey
-@updated
-: 2014-11-02
-  */
-.Codeblock {
-  min-height: 1.5rem;
-  display: block;
-  position: relative;
-  top: -2px;
-  margin-bottom: -4px;
-  border-width: 2px;
-  border-style: solid;
-  padding: 0.75rem 0.46352549rem;
-  box-sizing: border-box;
-  border-radius: 3px;
-  font-size: 0.75rem;
-  line-height: 2;
-  border-color: #073642;
-  color: #839496;
-  background-color: #002b36;
-  font-family: 'Menlo', 'Monaco', 'Andale Mono', monospace;
-  text-align: left;
-  white-space: pre;
-  overflow: auto;
-}
-:not(h1):not(.H):not(header) + .Codeblock {
-  margin-top: 1.5rem;
-}
-.Codeblock .Comm {
-  color: #586e75;
-}
-.Codeblock.Invert {
-  border-color: #eee8d5;
-  color: #657b83;
-  background-color: #fdf6e3;
-}
-.Codeblock.Invert .Comm {
-  color: #93a1a1;
-}
-.Codeblock .Comm {
-  quotes: '/* ' ' */';
-}
-.Codeblock .Comm::before {
-  content: open-quote;
-}
-.Codeblock .Comm::after {
-  content: close-quote;
-}
-.Codeblock .Comm.I {
-  quotes: '// ' '';
-}
-.Codeblock .Cst {
-  color: #859900;
-}
-.Codeblock .Str {
-  quotes: '\0027' '\0027';
-  color: #2aa198;
-}
-.Codeblock .Str::before {
-  content: open-quote;
-}
-.Codeblock .Str::after {
-  content: close-quote;
-}
-.Codeblock .Str::before,
-.Codeblock .Str::after {
-  color: #d33682;
-}
-.Codeblock .Cmd {
-  color: #268bd2;
-}
-.Codeblock .Arg {
-  color: #6c71c4;
-}
-/**
-  * This Object represents a block of HTML code.
-  * `.Tag` : an HTML tag
-  * `.Atr`: an HTML attribute
-  * `.Val` : an HTML or CSS value
-@extends
-: .Codeblock
-@tags
-: #code
-@author
-: Chris Harvey
-@updated
-: 2014-11-02
-  */
-.Codeblock.HTML .Tag {
-  quotes: '<' '>';
-  color: #268bd2;
-}
-.Codeblock.HTML .Tag::before {
-  content: open-quote;
-}
-.Codeblock.HTML .Tag::after {
-  content: close-quote;
-}
-.Codeblock.HTML .Tag::before,
-.Codeblock.HTML .Tag::after {
-  color: #808080;
-}
-.Codeblock.HTML .Tag.End {
-  quotes: '</' '>';
-}
-.Codeblock.HTML .Atr {
-  color: #b58900;
-}
-.Codeblock.HTML .Val {
-  quotes: '\0027' '\0027';
-  color: #2aa198;
-  quotes: '\0022' '\0022';
-}
-.Codeblock.HTML .Val::before {
-  content: open-quote;
-}
-.Codeblock.HTML .Val::after {
-  content: close-quote;
-}
-.Codeblock.HTML .Val::before,
-.Codeblock.HTML .Val::after {
-  color: #d33682;
-}
-.Codeblock.HTML .Val::before {
-  content: open-quote;
-}
-.Codeblock.HTML .Val::after {
-  content: close-quote;
-}
-.Codeblock.HTML .Comm {
-  quotes: '<!-- ' ' -->';
-}
-/**
-  * This Object represents a block of CSS or LESS code.
-  * `.Sel` : a CSS selector
-  * `.Prop`: a CSS property
-  * `.Val` : a CSS value
-  * `.Cmd` : a Less, LaTeX, or JS command
-  * `.Arg` : a Less, LaTeX, or JS argument
-@extends
-: .Codeblock
-@tags
-: #code
-@author
-: Chris Harvey
-@updated
-: 2014-11-02
-  */
-.Codeblock.CSS .Sel {
-  quotes: '' '}';
-  color: #268bd2;
-}
-.Codeblock.CSS .Sel::before {
-  content: open-quote;
-}
-.Codeblock.CSS .Sel::after {
-  content: close-quote;
-}
-.Codeblock.CSS .Prp {
-  quotes: '' ';';
-  color: #b58900;
-}
-.Codeblock.CSS .Prp::before {
-  content: open-quote;
-}
-.Codeblock.CSS .Prp::after {
-  content: close-quote;
-}
-.Codeblock.CSS .Val {
-  quotes: ': ' '';
-  color: #2aa198;
-}
-.Codeblock.CSS .Val::before {
-  content: open-quote;
-}
-.Codeblock.CSS .Val::after {
-  content: close-quote;
-}
-.Codeblock.CSS .Val::before,
-.Codeblock.CSS .Val::after {
-  color: #b58900;
-}
-.Codeblock.CSS .Cmd {
-  quotes: '' ';';
-}
-.Codeblock.CSS .Cmd::before {
-  content: open-quote;
-}
-.Codeblock.CSS .Cmd::after {
-  content: close-quote;
-}
-.Codeblock.CSS .Arg {
-  quotes: '(' ')';
-}
-.Codeblock.CSS .Arg::before {
-  content: open-quote;
-}
-.Codeblock.CSS .Arg::after {
-  content: close-quote;
-}
-.Codeblock.CSS .Arg::before,
-.Codeblock.CSS .Arg::after {
-  color: #268bd2;
-}
-.Codeblock.CSS .Str {
-  color: #d33682;
-}
-/**
-  * This Object represents a block of CSS code organized as a map.
-  * Its semantics are derived not from the formatting of the text, but rather the elements inside.
-@extends
-: .Codeblock.CSS
-@tags
-: #code
-@author
-: Chris Harvey
-@updated
-: 2014-11-02
-  */
-.CSSmap {
-  min-height: 1.5rem;
-  display: block;
-  position: relative;
-  top: -2px;
-  margin-bottom: -4px;
-  border-width: 2px;
-  border-style: solid;
-  padding: 0.75rem 0.46352549rem;
-  box-sizing: border-box;
-  border-radius: 3px;
-  font-size: 0.75rem;
-  line-height: 2;
-  border-color: #073642;
-  color: #839496;
-  background-color: #002b36;
-  font-family: 'Menlo', 'Monaco', 'Andale Mono', monospace;
-  text-align: left;
-  white-space: pre;
-  overflow: auto;
-  white-space: nowrap;
-  /**
-    * A block of CSS code whose selectors are inline. This is really useful for selectors with one
-    * property-value pair each.
-  @extends
-  : .Codeblock.CSS
-  @tags
-  : #code
-  @author
-  : Chris Harvey
-  @updated
-  : 2014-05-31
-    */
-}
-:not(h1):not(.H):not(header) + .CSSmap {
-  margin-top: 1.5rem;
-}
-.CSSmap .Comm {
-  color: #586e75;
-}
-.CSSmap.Invert {
-  border-color: #eee8d5;
-  color: #657b83;
-  background-color: #fdf6e3;
-}
-.CSSmap.Invert .Comm {
-  color: #93a1a1;
-}
-.CSSmap .Comm {
-  quotes: '/* ' ' */';
-}
-.CSSmap .Comm::before {
-  content: open-quote;
-}
-.CSSmap .Comm::after {
-  content: close-quote;
-}
-.CSSmap .Comm.I {
-  quotes: '// ' '';
-}
-.CSSmap .Cst {
-  color: #859900;
-}
-.CSSmap .Str {
-  quotes: '\0027' '\0027';
-  color: #2aa198;
-}
-.CSSmap .Str::before {
-  content: open-quote;
-}
-.CSSmap .Str::after {
-  content: close-quote;
-}
-.CSSmap .Str::before,
-.CSSmap .Str::after {
-  color: #d33682;
-}
-.CSSmap .Cmd {
-  color: #268bd2;
-}
-.CSSmap .Arg {
-  color: #6c71c4;
-}
-.CSSmap .Sel {
-  quotes: '' '}';
-  color: #268bd2;
-}
-.CSSmap .Sel::before {
-  content: open-quote;
-}
-.CSSmap .Sel::after {
-  content: close-quote;
-}
-.CSSmap .Prp {
-  quotes: '' ';';
-  color: #b58900;
-}
-.CSSmap .Prp::before {
-  content: open-quote;
-}
-.CSSmap .Prp::after {
-  content: close-quote;
-}
-.CSSmap .Val {
-  quotes: ': ' '';
-  color: #2aa198;
-}
-.CSSmap .Val::before {
-  content: open-quote;
-}
-.CSSmap .Val::after {
-  content: close-quote;
-}
-.CSSmap .Val::before,
-.CSSmap .Val::after {
-  color: #b58900;
-}
-.CSSmap .Cmd {
-  quotes: '' ';';
-}
-.CSSmap .Cmd::before {
-  content: open-quote;
-}
-.CSSmap .Cmd::after {
-  content: close-quote;
-}
-.CSSmap .Arg {
-  quotes: '(' ')';
-}
-.CSSmap .Arg::before {
-  content: open-quote;
-}
-.CSSmap .Arg::after {
-  content: close-quote;
-}
-.CSSmap .Arg::before,
-.CSSmap .Arg::after {
-  color: #268bd2;
-}
-.CSSmap .Str {
-  color: #d33682;
-}
-.CSSmap .Str {
-  color: #d33682;
-}
-.CSSmap .Sel {
-  quotes: '' ' {';
-}
-.CSSmap .Sel::before {
-  content: open-quote;
-}
-.CSSmap .Sel::after {
-  content: close-quote;
-}
-.CSSmap .Ruleset::after {
-  display: table;
-  content: ' ';
-  clear: both;
-}
-.CSSmap .Ruleset::after {
-  content: '}';
-  color: #268bd2;
-}
-.CSSmap .Ruleset > .Prp {
-  quotes: '' ':';
-  float: left;
-  clear: both;
-}
-.CSSmap .Ruleset > .Prp::before {
-  content: open-quote;
-}
-.CSSmap .Ruleset > .Prp::after {
-  content: close-quote;
-}
-.CSSmap .Ruleset > .Val {
-  quotes: '' ';';
-  text-indent: 0.5rem;
-}
-.CSSmap .Ruleset > .Val::before {
-  content: open-quote;
-}
-.CSSmap .Ruleset > .Val::after {
-  content: close-quote;
-}
-.CSSmap .Ruleset > .Prp,
-.CSSmap .Ruleset > .Comm {
-  text-indent: 1rem;
-}
-.CSSmap.I .Sel {
-  float: left;
-  clear: both;
-}
-.CSSmap.I .Ruleset::after {
-  display: inline;
-}
-.CSSmap.I .Ruleset > .Prp {
-  display: inline;
-  float: none;
-}
-.CSSmap.I .Ruleset > .Prp::before {
-  content: '\00A0';
-}
-.CSSmap.I .Ruleset > .Val {
-  display: inline;
-}
-/**
-  * This Object represents a block of JavaScript code.
-  * `.Ctl` : programming control (if, for, switch, return)
-  * `.Opr` : delimiter or operator (+, ==, ., new, this)
-  * `.Kwd` : predefined keywords (var, function)
-  * `.Obj` : a class or object reference
-@extends
-: .Codeblock
-@tags
-: #code
-@author
-: Chris Harvey
-@updated
-: 2014-12-04
-  */
-.Codeblock.JS .Ctl {
-  color: #dc322f;
-}
-.Codeblock.JS .Opr {
-  color: #cb4b16;
-}
-.Codeblock.JS .Kwd {
-  color: #b58900;
-}
-.Codeblock.JS .Obj {
-  color: #d33682;
-}
-/**
-  * This Object represents an individual key (a button) on a keyboard, calculator, or other device.
-  *
-  * The `kbd` Element represents general user input. The `kbd > kbd` Element represents an actual
-  * key or button that the user should input. Use `kbd > kbd.Key` in this case.
-  * To *name* a key, without commanding use of it, best use `i.Key`, as this is a "mention".
-  *
-<p>Use <kbd><kbd class="Key">cmd</kbd>+<kbd class="Key">S</kbd></kbd> to save, where
-  the <i class="Key">cmd</i> key is depicted with the <i>&#x2318;</i> symbol.</p>
-  <!-- U+2318 "PLACE OF INTEREST SIGN" ⌘ -->
-@implements
-: .box-inline()
-: .fontsize-sml()
-: .codecolors-sol-dark()
-@tags
-: #code
-@author
-: Chris Harvey
-@updated
-: 2014-06-06
-  */
-.Key {
-  display: inline;
-  padding: 1px 2px;
-  border-width: 1px;
-  border-style: solid;
-  border-radius: 3px;
-  white-space: nowrap;
-  font-size: 0.75rem;
-  border-color: #073642;
-  color: #839496;
-  background-color: #002b36;
-  quotes: none;
-  font-family: 'Geneva', 'Tahoma', sans-serif;
-  color: #93a1a1;
-}
-.Key .Comm {
-  color: #586e75;
-}
-kbd {
-  white-space: nowrap;
-}
-/**
-  * This Object represents a path in a directory system (for folders and files).
-  * Recommended instantiated by a `code` or `samp` Element.
-@implements
-: .fontsize-sml()
-@tags
-: #code
-@author
-: Chris Harvey
-@updated
-: 2014-05-25
-  */
-.Dir {
-  font-size: 0.75rem;
-  font-style: italic;
-  font-family: 'Optima', 'Lucida Grande', 'Tahoma', sans-serif;
-}
-/**
-  * This Object represents a mathematical expression or statement.
-  * Its input is the LaTeX syntax.
-@author
-: Chris Harvey
-@updated
-: 2014-08-22
-  */
-.M {
-  font-family: 'Didot', 'Bodoni 72', 'Times', serif;
-  white-space: pre;
-  overflow: auto;
-}
-/**
-  * These Objects are subclasses of `.M`.
-@author
-: Chris Harvey
-@updated
-: 2014-10-11
-  */
-.M.B {
-  display: block;
-  min-height: 4.5rem;
-}
 /*###############*\
     _links.less
 \*###############*/
 /**
-  * This Object represents the abstract concept of a span of text that links to another file.
-  * It does not represent an inactive placeholder (equivalent to an empty `a` Element). It also
-  * does not represent a block-level hyperlink, e.g. a box that could contain an image.
+  * Inline "active" hyperlinks. Not placeholder links, nor box links.
 @tags
 : #hyperlink
 : #span
@@ -2850,7 +1674,7 @@ kbd {
 @updated
 : 2014-09-23
   */
-.Link {
+a[href] {
   -webkit-transition-property: color;
   -moz-transition-property: color;
   -ms-transition-property: color;
@@ -2871,48 +1695,19 @@ kbd {
   -ms-transition-delay: 0s;
   -o-transition-delay: 0s;
   transition-delay: 0s;
+  text-decoration: none;
   color: #0062ff;
   cursor: pointer;
 }
-.Link:hover {
+a[href]:hover {
   text-decoration: underline;
   color: #ff9d00;
 }
-.Link:active {
+a[href]:active {
   color: #cc004e;
 }
 a[rel~="external"] {
   font-style: italic;
-}
-/**
-  * This Object represents a placeholder reference to a name or title of a heading, section, figure,
-  * table (or column in a table), or creative work.
-  * It may be instantiated by the `a` or `cite` Elements.
-@tags
-: #hyperlink
-: #span
-@author
-: Chris Harvey
-@updated
-: 2014-05-25
-  */
-.Ref {
-  font-weight: bold;
-}
-/**
-  * This Object represents a proper noun traditionally italicized, e.g. periodical name or ship name.
-@tags
-: #typography
-: #span
-: #highlight
-@author
-: Chris Harvey
-@updated
-: 2014-05-25
-  */
-.Proper {
-  font-style: italic;
-  text-transform: capitalize;
 }
 /*################*\
     _stress.less
@@ -2927,11 +1722,8 @@ a[rel~="external"] {
 @author
 : Chris Harvey
 @updated
-: 2014-05-30
+: 2015-02-10
 */
-em {
-  font-style: italic;
-}
 /**
   * Strong text has a level of importance. Important text does not necessarily affect tone of voice
   * (although it may), but rather upsets the normal prose by causing the reader to examine the text
@@ -2942,54 +1734,22 @@ em {
 @author
 : Chris Harvey
 @updated
-: 2014-05-30
+: 2015-02-10
   */
-strong {
-  font-weight: bold;
-}
 /**
   * A phrase interpreted in an alternate voice or mood, without carrying extra emphasis,
   * such as scare quotes and mentions.
   * Or a phrase in a foreign language, such as the taxonomic classification (in Latin) of an organism.
-@implements
-: .quotes-double()
 @tags
 : #typography
 : #span
 @author
 : Chris Harvey
 @updated
-: 2014-09-27
+: 2015-02-10
   */
-i {
-  quotes: '\201c' '\201d';
-}
-i::before {
-  content: open-quote;
-}
-i::after {
-  content: close-quote;
-}
 i[lang] {
-  font-style: italic;
   font-family: 'Didot', 'Bodoni 72', 'Times', serif;
-  quotes: '' '';
-}
-/**
-  * A keyword, technical or specific term, or key phrase
-  * (If a foreign language, be sure to add the `[lang]` attribute.)
-  * A `b` Element is any generic keyword or term, whose definition is not present. If the term is
-  * being defined, use the `dfn` Element.
-@tags
-: #typography
-: #span
-@author
-: Chris Harvey
-@updated
-: 2014-08-05
-  */
-b {
-  font-weight: bold;
 }
 /**
   * A span of text that is relevant in some context. It is advisable to use the `[class]` attribute
@@ -3012,12 +1772,6 @@ mark {
 /**
   * A span of text to which the reader's attention should be brought for purposes of illustration.
   * This span is typically in a figure or example.
-  * Note: There could be a more appropriate element to use. Namely:
-  * - If the span of text has an emphasized meaning, use `em`.
-  * - If the span of text relays an important concept, use `strong`.
-  * - If the span of text is represented in an alternate voice/mood, use `i`.
-  * - If the span of text is a key word, key phrase, or common expression, use `b`.
-  * - If the span of text is relevant in a certain context, use `mark`.
 @tags
 : #typography
 : #span
@@ -3030,27 +1784,27 @@ u {
   color: #cc004e;
 }
 /**
-  * Superscripts and subscripts.
-@implements
-: .fontsize-sml()
+  * side comments
 @tags
 : #typography
+: #span
 @author
 : Chris Harvey
 @updated
-: 2014-06-13
+: 2015-02-10
   */
-sup,
-sub {
-  font-size: 0.75rem;
-  position: relative;
-  vertical-align: baseline;
-}
-sup {
-  bottom: 0.375rem;
-}
-sub {
-  top: 0.375rem;
+/**
+  * text that is shown to be no longer relevant
+@tags
+: #typography
+: #span
+@author
+: Chris Harvey
+@updated
+: 2015-02-10
+  */
+s {
+  color: #cc004e;
 }
 /**
   * This Object is used to make text appear highlighted.
@@ -3098,6 +1852,26 @@ sub {
     _doctext.less
 \*#################*/
 /**
+  * A span or block of text that has been inserted into a document.
+  * This is used to explicitly indicate that the text has been intentionally inserted.
+@tags
+: #typography
+@author
+: Chris Harvey
+@updated
+: 2014-06-13
+  */
+/**
+  * A span or block of text that has been deleted from a document.
+  * This is used to explicitly indicate that the text has been intentionally deleted.
+@tags
+: #typography
+@author
+: Chris Harvey
+@updated
+: 2014-06-13
+  */
+/**
   * A vocabulary term.
   * Every `dfn` must have an `id` attribute, thus there must only be one `dfn` per page that
   * contains a given term in question. Furthermore, hyperlinks can point to the defining instance
@@ -3108,12 +1882,24 @@ sub {
 @author
 : Chris Harvey
 @updated
-: 2014-08-05
+: 2015-02-10
   */
-dfn[id] {
-  font-weight: bold;
+dfn {
   font-family: 'Baskerville', 'Palatino', 'Cochin', serif;
 }
+/**
+  * A keyword, technical or specific term, or key phrase
+  * (If a foreign language, be sure to add the `[lang]` attribute.)
+  * A `b` Element is any generic keyword or term, whose definition is not present. If the term is
+  * being defined, use the `dfn` Element.
+@tags
+: #typography
+: #span
+@author
+: Chris Harvey
+@updated
+: 2015-02-10
+  */
 /**
   * A placeholder for some textual element. Could be a filename, etc.
   * This does *not* represent a variable in a `code`, e.g., the following HTML would be incorrect:
@@ -3136,36 +1922,12 @@ where <var>filepath</var> is the path or name of the file you want to see the di
   */
 var {
   quotes: '\2039' '\203a';
-  font-style: italic;
 }
 var::before {
   content: open-quote;
 }
 var::after {
   content: close-quote;
-}
-/**
-  * An abbreviation.
-  * Class `.Acro` represents an acronym.
-  * `.Acro.First` represents an acronym at the beginning of a sentence or heading.
-@tags
-: #typography
-@author
-: Chris Harvey
-@updated
-: 2014-06-16
-  */
-abbr[title] {
-  cursor: help;
-}
-.Acro {
-  font-size: 0.75rem;
-}
-.Acro.First {
-  display: inline-block;
-}
-.Acro.First::first-letter {
-  font-size: 1rem;
 }
 /**
   * An inline quotation: a span of text that is taken directly from another source
@@ -3181,15 +1943,6 @@ abbr[title] {
 @updated
 : 2014-05-30
   */
-q {
-  quotes: '\201c' '\201d';
-}
-q::before {
-  content: open-quote;
-}
-q::after {
-  content: close-quote;
-}
 /**
   * This Object represents an altered voice in the form of a thought. Like a quote but silent.
   * May be applied to the `q` Element.
@@ -3204,99 +1957,236 @@ q::after {
 @updated
 : 2014-05-25
   */
-.Th {
+.q--Th {
   quotes: '\00ab' '\00bb';
 }
-.Th::before {
+.q--Th::before {
   content: open-quote;
 }
-.Th::after {
+.q--Th::after {
   content: close-quote;
 }
 /**
-  * A span or block of text that has been deleted from a document.
-  * This is used to explicitly indicate that the text has been intentionally deleted.
+  * This Object represents a placeholder reference to a name or title of a heading, section, figure,
+  * table (or column in a table), or creative work.
+  * This Object may also represent a proper noun traditionally italicized, e.g. periodical name or ship name.
 @tags
 : #typography
 @author
 : Chris Harvey
 @updated
-: 2014-06-13
+: 2015-02-10
   */
-del[datetime] {
-  text-decoration: line-through;
-}
 /**
-  * A span or block of text that has been inserted into a document.
-  * This is used to explicitly indicate that the text has been intentionally inserted.
+  * Superscripts and subscripts.
 @tags
 : #typography
 @author
 : Chris Harvey
 @updated
-: 2014-06-13
+: 2015-02-10
   */
-ins[datetime] {
-  text-decoration: underline;
-}
-del + ins {
-  padding-left: 1.5rem;
-}
 /*##############*\
     _data.less
 \*##############*/
 /**
-  * A time element. See the W3C HTML5 standards for details.
+  * machine-readable data
 @tags
 : #typography
+: #span
 @author
 : Chris Harvey
 @updated
-: 2014-07-21
+: 2015-02-10
   */
 /**
-  * A geographical location on Earth.
-  *
-  * This Element must have the `data-lon=""` and `data-lat=""` attributes (corresponding to
-  * longitude and latitude, respectively), whose values are decimal numbers representing angles,
-  * measured in decimal degrees. To find these values, simply go to [maps.google.com](),
-  * enter the city/town name, and then look at the URL.
-  *
-  * This Element may also optionally have the `data-alt=""` attribute (corresponding to
-  * altitude or elevation), whose value is text representing a physical length,
-  * measured in any unit (feet/meters most common).
-  *
-  * My Locations:
-  * Fairfax, VA
-  * : data-element="geo" data-lon="-77.2888239" data-lat="38.864158"
-  * Vienna, VA
-  * : data-element="geo" data-lon="-77.263014" data-lat="38.900159"
-  * Blacksburg, VA
-  * : data-element="geo" data-lon="-80.4294548" data-lat="37.2304516"
-  * Riner, VA
-  * : data-element="geo" data-lon="-80.4406068" data-lat="37.0665176"
-  * Roanoke, VA
-  * : data-element="geo" data-lon="-79.9575425" data-lat="37.2743219"
-  * Charlottesville, VA
-  * : data-element="geo" data-lon="-78.4849739" data-lat="38.0400874"
-  * Stanardsville, VA
-  * : data-element="geo" data-lon="-78.4368073" data-lat="38.2982581"
-  * Harrisonburg, VA
-  * : data-element="geo" data-lon="-78.8711824" data-lat="38.4393105"
-  * Virginia Beach, VA
-  * : data-element="geo" data-lon="-76.0476647" data-lat="36.7674971"
-  * Richmond, VA
-  * : data-element="geo" data-lon="-77.4932615" data-lat="37.5246609"
-  *
+  * An abbreviation.
+  * Class `.Acro` represents an acronym.
+  * `.Acro.First` represents an acronym at the beginning of a sentence or heading.
 @tags
 : #typography
+: #span
 @author
 : Chris Harvey
 @updated
-: 2014-06-26
+: 2015-02-11
   */
-[data-element="geo"] {
+abbr[title] {
+  cursor: help;
+}
+.Acro {
+  font-size: 0.75em;
+}
+.Acro.First {
+  display: inline-block;
+}
+.Acro.First::first-letter {
+  font-size: 1.33333333em;
+}
+/*##############*\
+    _code.less
+\*##############*/
+/**
+  * An Interface used for both inline and block code. Automate the coloring of code Elements.
+  * `.codecolors-sol-lite()` sets a Solarized Light theme, while
+  * `.codecolors-sol-dark()` sets a Solarized Dark theme.
+@params
+: @color_txt  : the value of the `color` property
+: @color_comm : the value of the `color` property for code comments
+: @color_bg   : the value of the `background-color` property
+: @color_brdr : the value of the `border-color` property
+@tags
+: #code
+: #schematic
+: #Solarized
+@author
+: Chris Harvey
+@updated
+: 2014-10-07
+  */
+/**
+  * A mixin for coloring components of code.
+@tags
+: #code
+@author
+: Chris Harvey
+@updated
+: 2014-12-04
+  */
+/**
+  * A span of text that a computer program would recognize.
+  * Use class `.c` to force an Element into this style, for example using an inline span of code
+  * inside a `pre` Element (because normally `pre > code` are code blocks).
+@implements
+: .box-inline()
+: .codecolors-sol-lite()
+@tags
+: #code
+@author
+: Chris Harvey
+@updated
+: 2015-02-11
+  */
+code {
+  display: inline;
+  line-height: 0;
+  padding: 1px 2px;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 3px;
+  border-color: #eee8d5;
+  color: #657b83;
+  background-color: #fdf6e3;
+  font-family: 'Menlo', 'Monaco', 'Andale Mono', monospace;
   white-space: nowrap;
+}
+/**
+  * A block of code. Since its semantics are derived from the formatting (line breaks, indenting, etc) of
+  * the text content, it should be wrapped with a `pre` Element.
+  * `&.Invert` : use Solarized Light instead of Solarized Dark
+@implements
+: .box-block()
+: .font-size-block()
+: .codecolors-sol-dark()
+@tags
+: #code
+@author
+: Chris Harvey
+@updated
+: 2015-02-11
+  */
+.c--Blk {
+  display: block;
+  margin-top: -4px;
+  border-width: 2px;
+  border-style: solid;
+  padding: 0.75rem 0.46352549rem;
+  box-sizing: border-box;
+  border-radius: 3px;
+  font-size: 0.75rem;
+  line-height: 2;
+  font-size: 0.75em;
+  border-color: #073642;
+  color: #839496;
+  background-color: #002b36;
+  text-align: left;
+  white-space: inherit;
+}
+.c--Blk.Invert {
+  border-color: #eee8d5;
+  color: #657b83;
+  background-color: #fdf6e3;
+}
+/**
+  * This Object represents an individual key (a button) on a keyboard, calculator, or other device.
+  *
+  * The `kbd` Element represents general user input. The `kbd > kbd` Element represents an actual
+  * key or button that the user should input. Use `kbd > kbd.Key` in this case.
+  * To *name* a key, without commanding use of it, best use `i.Key`, as this is a "mention".
+  *
+<p>Use <kbd><kbd class="Key">cmd</kbd>+<kbd class="Key">S</kbd></kbd> to save, where
+  the <i class="Key">cmd</i> key is depicted with the <i>&#x2318;</i> symbol.</p>
+  <!-- U+2318 "PLACE OF INTEREST SIGN" ⌘ -->
+@implements
+: .box-inline()
+: .codecolors-sol-dark()
+@tags
+: #code
+@author
+: Chris Harvey
+@updated
+: 2014-06-06
+  */
+kbd > kbd {
+  display: inline;
+  line-height: 0;
+  padding: 1px 2px;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 3px;
+  white-space: nowrap;
+  border-color: #073642;
+  color: #839496;
+  background-color: #002b36;
+  font-family: 'Geneva', 'Tahoma', sans-serif;
+  color: #93a1a1;
+}
+/**
+  * This Object represents a path in a directory system (for folders and files).
+  * Recommended instantiated by a `code` or `samp` Element.
+@tags
+: #code
+@author
+: Chris Harvey
+@updated
+: 2014-05-25
+  */
+.c--Path {
+  font-style: italic;
+}
+/**
+  * This Object represents a mathematical expression or statement.
+  * Its input is the LaTeX syntax.
+@author
+: Chris Harvey
+@updated
+: 2014-08-22
+  */
+.M {
+  font-family: 'Didot', 'Bodoni 72', 'Times', serif;
+  white-space: pre;
+  overflow: auto;
+}
+/**
+  * These Objects are subclasses of `.M`.
+@author
+: Chris Harvey
+@updated
+: 2014-10-11
+  */
+.M.B {
+  display: block;
+  min-height: 4.5rem;
 }
 /*#################*\
     _buttons.less
@@ -3306,17 +2196,17 @@ del + ins {
   * A general Button Object.
 @implements
 : .box-inline()
-: .fontsize-sml()
 : .gradient()
 @tags
 : #button
 @author
 : Chris Harvey
 @updated
-: 2014-06-06
+: 2015-02-11
   */
 .Button {
   display: inline;
+  line-height: 0;
   padding: 1px 2px;
   border-width: 2px;
   border-style: solid;
@@ -3385,9 +2275,8 @@ del + ins {
   * This Object is a block of text with complete sentences or a longer span of information.
 @implements
 : .box-block()
-: .follows-heading()
 : .w-p1.mr
-: .fontsize-block-sml()
+: .font-size-block()
 : .colors()
 : .gradient()
 @tags
@@ -3396,14 +2285,11 @@ del + ins {
 @author
 : Chris Harvey
 @updated
-: 2014-10-26
+: 2015-02-11
   */
 .Alert--Warn {
-  min-height: 1.5rem;
   display: block;
-  position: relative;
-  top: -1px;
-  margin-bottom: -2px;
+  margin-top: -2px;
   border-width: 1px;
   border-style: solid;
   padding: 0.75rem 0.46352549rem;
@@ -3425,19 +2311,13 @@ del + ins {
   background-image: -webkit-gradient(to bottom, #ff9e9e, #ff6b6b);
   font-family: 'Geneva', 'Tahoma', sans-serif;
 }
-:not(h1):not(.H):not(header) + .Alert--Warn {
-  margin-top: 1.5rem;
-}
 .Alert--Warn::before {
   content: 'Warning' ' ' '\0021' ' ';
   font-weight: bold;
 }
 .Alert--Cshn {
-  min-height: 1.5rem;
   display: block;
-  position: relative;
-  top: -1px;
-  margin-bottom: -2px;
+  margin-top: -2px;
   border-width: 1px;
   border-style: solid;
   padding: 0.75rem 0.46352549rem;
@@ -3459,19 +2339,13 @@ del + ins {
   background-image: -webkit-gradient(to bottom, #ecff9e, #e1ff6b);
   font-family: 'Geneva', 'Tahoma', sans-serif;
 }
-:not(h1):not(.H):not(header) + .Alert--Cshn {
-  margin-top: 1.5rem;
-}
 .Alert--Cshn::before {
   content: 'Caution' ' ' '\2026' ' ';
   font-weight: bold;
 }
 .Alert--Skss {
-  min-height: 1.5rem;
   display: block;
-  position: relative;
-  top: -1px;
-  margin-bottom: -2px;
+  margin-top: -2px;
   border-width: 1px;
   border-style: solid;
   padding: 0.75rem 0.46352549rem;
@@ -3493,19 +2367,13 @@ del + ins {
   background-image: -webkit-gradient(to bottom, #9effc5, #6bffa6);
   font-family: 'Geneva', 'Tahoma', sans-serif;
 }
-:not(h1):not(.H):not(header) + .Alert--Skss {
-  margin-top: 1.5rem;
-}
 .Alert--Skss::before {
   content: 'Success' ' ' '\263a' ' ';
   font-weight: bold;
 }
 .Alert--Info {
-  min-height: 1.5rem;
   display: block;
-  position: relative;
-  top: -1px;
-  margin-bottom: -2px;
+  margin-top: -2px;
   border-width: 1px;
   border-style: solid;
   padding: 0.75rem 0.46352549rem;
@@ -3527,19 +2395,13 @@ del + ins {
   background-image: -webkit-gradient(to bottom, #9ec5ff, #6ba6ff);
   font-family: 'Geneva', 'Tahoma', sans-serif;
 }
-:not(h1):not(.H):not(header) + .Alert--Info {
-  margin-top: 1.5rem;
-}
 .Alert--Info::before {
   content: 'Info' ' ' '\003f' ' ';
   font-weight: bold;
 }
 .Alert--Help {
-  min-height: 1.5rem;
   display: block;
-  position: relative;
-  top: -1px;
-  margin-bottom: -2px;
+  margin-top: -2px;
   border-width: 1px;
   border-style: solid;
   padding: 0.75rem 0.46352549rem;
@@ -3561,9 +2423,6 @@ del + ins {
   background-image: -webkit-gradient(to bottom, #ec9eff, #e16bff);
   font-family: 'Geneva', 'Tahoma', sans-serif;
 }
-:not(h1):not(.H):not(header) + .Alert--Help {
-  margin-top: 1.5rem;
-}
 .Alert--Help::before {
   content: 'Help' ' ' '\2665' ' ';
   font-weight: bold;
@@ -3572,7 +2431,6 @@ del + ins {
   * This Object is a has a short bit of content, or perhaps no content at all. It can be
   * added to the inside of an Element.
 @implements
-: .fontsize-sml()
 : .colors()
 : .gradient()
 @tags
@@ -3581,7 +2439,7 @@ del + ins {
 @author
 : Chris Harvey
 @updated
-: 2014-10-26
+: 2015-02-11
   */
 .Label--Warn {
   font-size: 0.75rem;
@@ -3758,19 +2616,6 @@ del + ins {
   content: ' ' '\2665';
   font-weight: bold;
 }
-/*###############*\
-    _media.less
-\*###############*/
-/**
-  * The Media Object is a module that has an image with a body.
-  * See `http://www.stubbornella.org/content/2010/06/25/the-media-object-saves-hundreds-of-lines-of-code/`
-  * for details.
-@author
-: Nicole Sullivan
-: Chris Harvey
-@updated
-: 2014-06-16
-  */
 /*################*\
     _trumps.less
 \*################*/
@@ -3789,14 +2634,11 @@ del + ins {
 @author
 : Chris Harvey
 @updated
-: 2014-10-26
+: 2015-02-11
   */
 .Article[data-status="draft"]::before {
-  min-height: 1.5rem;
   display: block;
-  position: relative;
-  top: -1px;
-  margin-bottom: -2px;
+  margin-top: -2px;
   border-width: 1px;
   border-style: solid;
   padding: 0.75rem 0.46352549rem;
@@ -3814,9 +2656,7 @@ del + ins {
   background-image: linear-gradient(to bottom, #ff9e9e, #ff6b6b);
   background-image: -webkit-gradient(to bottom, #ff9e9e, #ff6b6b);
   font-family: 'Geneva', 'Tahoma', sans-serif;
-  position: static;
-  top: auto;
-  margin-bottom: 0;
+  margin-top: 0;
   border: 0;
   font-size: 0.75rem;
   line-height: 2;
@@ -3830,19 +2670,13 @@ del + ins {
   font-weight: bold;
   text-align: left;
 }
-:not(h1):not(.H):not(header) + .Article[data-status="draft"]::before {
-  margin-top: 1.5rem;
-}
 .Article[data-status="draft"]::before::before {
   content: 'Warning' ' ' '\0021' ' ';
   font-weight: bold;
 }
 .Article[data-status="complete"]::before {
-  min-height: 1.5rem;
   display: block;
-  position: relative;
-  top: -1px;
-  margin-bottom: -2px;
+  margin-top: -2px;
   border-width: 1px;
   border-style: solid;
   padding: 0.75rem 0.46352549rem;
@@ -3860,9 +2694,7 @@ del + ins {
   background-image: linear-gradient(to bottom, #ecff9e, #e1ff6b);
   background-image: -webkit-gradient(to bottom, #ecff9e, #e1ff6b);
   font-family: 'Geneva', 'Tahoma', sans-serif;
-  position: static;
-  top: auto;
-  margin-bottom: 0;
+  margin-top: 0;
   border: 0;
   font-size: 0.75rem;
   line-height: 2;
@@ -3876,19 +2708,13 @@ del + ins {
   font-weight: bold;
   text-align: left;
 }
-:not(h1):not(.H):not(header) + .Article[data-status="complete"]::before {
-  margin-top: 1.5rem;
-}
 .Article[data-status="complete"]::before::before {
   content: 'Caution' ' ' '\2026' ' ';
   font-weight: bold;
 }
 .Article[data-status="released"]::before {
-  min-height: 1.5rem;
   display: block;
-  position: relative;
-  top: -1px;
-  margin-bottom: -2px;
+  margin-top: -2px;
   border-width: 1px;
   border-style: solid;
   padding: 0.75rem 0.46352549rem;
@@ -3906,9 +2732,7 @@ del + ins {
   background-image: linear-gradient(to bottom, #9effc5, #6bffa6);
   background-image: -webkit-gradient(to bottom, #9effc5, #6bffa6);
   font-family: 'Geneva', 'Tahoma', sans-serif;
-  position: static;
-  top: auto;
-  margin-bottom: 0;
+  margin-top: 0;
   border: 0;
   font-size: 0.75rem;
   line-height: 2;
@@ -3921,9 +2745,6 @@ del + ins {
   content: 'This article is ready for implemen' '\00ad' 'tation.';
   font-weight: bold;
   text-align: left;
-}
-:not(h1):not(.H):not(header) + .Article[data-status="released"]::before {
-  margin-top: 1.5rem;
 }
 .Article[data-status="released"]::before::before {
   content: 'Success' ' ' '\263a' ' ';
@@ -3998,9 +2819,6 @@ del + ins {
 .help-otln {
   outline: 1px solid #cc004e;
 }
-[hidden] {
-  display: none !important;
-}
 [data-bool="0"] {
   color: #f1f6ff;
   background-color: #4d91ff;
@@ -4016,8 +2834,8 @@ del + ins {
   .Addy,
   .Qblock,
   .Table {
-    font-size: 1rem;
-    line-height: 1.5;
+    font-size: inherit;
+    line-height: inherit;
   }
   body,
   code {
@@ -4068,113 +2886,3 @@ del + ins {
   }
 }
 /*@HELPER CLASSES*/
-/*@Widths*/
-/**
-  * The following Interfaces change the width of the Objects that implement them.
-@tags
-: #grid
-: #golden
-: #presentational
-@author
-: Chris Harvey
-@updated
-: 2015-02-12
-  */
-.w-p0 {
-  width: 100%;
-}
-.w-p1 {
-  width: 61.80339887%;
-}
-.w-p2 {
-  width: 38.19660113%;
-}
-.w-p3 {
-  width: 23.60679775%;
-}
-.w-p4 {
-  width: 14.58980338%;
-}
-.w-p3c {
-  width: 76.39320225%;
-}
-.w-p4c {
-  width: 85.41019662%;
-}
-.w-1o1 {
-  width: 100%;
-}
-.w-1o2 {
-  width: 50%;
-}
-.w-2o2 {
-  width: 100%;
-}
-.w-1o3 {
-  width: 33.33333333%;
-}
-.w-2o3 {
-  width: 66.66666667%;
-}
-.w-3o3 {
-  width: 100%;
-}
-.w-1o4 {
-  width: 25%;
-}
-.w-2o4 {
-  width: 50%;
-}
-.w-3o4 {
-  width: 75%;
-}
-.w-4o4 {
-  width: 100%;
-}
-.w-1o5 {
-  width: 20%;
-}
-.w-2o5 {
-  width: 40%;
-}
-.w-3o5 {
-  width: 60%;
-}
-.w-4o5 {
-  width: 80%;
-}
-.w-5o5 {
-  width: 100%;
-}
-.w-1o6 {
-  width: 16.66666667%;
-}
-.w-2o6 {
-  width: 33.33333333%;
-}
-.w-3o6 {
-  width: 50%;
-}
-.w-4o6 {
-  width: 66.66666667%;
-}
-.w-5o6 {
-  width: 83.33333333%;
-}
-.w-6o6 {
-  width: 100%;
-}
-/*@Margins*/
-/**
-  * The following Interface defines even horizontal margins on an Object.
-@tags
-: #margin
-@author
-: Chris Harvey
-@updated
-: 2015-02-13
-  */
-.margin-even {
-  margin-left: auto;
-  margin-right: auto;
-}

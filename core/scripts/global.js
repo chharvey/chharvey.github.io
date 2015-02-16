@@ -1,16 +1,16 @@
 /**
-  * Resizes the .H--Alp.Folio headings on home site to keep them horizontally contained.
+  * Resizes the .H--Folio headings on home site to keep them horizontally contained.
   */
 function resizeFolioHeading() {
   var scale = 1/16;
-  $('.Folio').css('font-size', function () {
+  $('.H--Folio').css('font-size', function () {
     var width_rem = $(this).parent().width() / 16;
     return scale * width_rem + 'rem';
   }).css('line-height', function () {
     // var font_rem = parseInt($(this).css('font-size') / 16;
     return 48 / parseInt($(this).css('font-size'));
   });
-  $('.Folio .Cap').css('font-size', function () {
+  $('.H--Folio .Cap').css('font-size', function () {
     var width_rem = $(this).parent().width() / 16;
     return 2 * scale * width_rem + 'rem';
   });
@@ -36,30 +36,31 @@ function resizeFolioHeading() {
   * 3. If the number of lines is odd, set margin-bottom: -12px;.
   */
 function qblockLines() {
-  $('.Qblock.Short').each(function () {
-    var lines = $(this).height() / 24;
+  $('blockquote.Short').each(function () {
+    var lines = $(this).height() / 24; // 24 is number of pixels for 1vru
     lines = Math.round(lines / 1.5); // divide by 1.5 to account for new line height
     if (lines % 2 === 1) {
-      $(this).css('margin-bottom','-12px');
+      $(this).css('margin-top','-12px');
+      // FIX THIS. instead of setting the margin-top to -12, just subtract 12 from the current margin-top!
     } else {
-      $(this).css('margin-bottom','');
+      $(this).css('margin-top','');
     }
   });
 }
 
 /**
-  * Adjusts the height of the `.Term`s and `.Desc`s inside a `.Map` such that
+  * Adjusts the height of the `dt`s and `dd`s inside a `dl` such that
   * the each pair of terms and descriptions share the same height.
-  * NOTE: this assumes each term-description group contains exactly one `.Term` and one `.Desc`.
+  * NOTE: this assumes each term-description group contains exactly one `dt` and one `dd`.
   */
 function mapHeights() {
-  $('.Map.Horiz, .FuncTabl').each(function () {
-    $(this).children('.Term').each(function () {
+  $('.dl--Horiz, .FuncTabl').each(function () {
+    $(this).children('dt').each(function () {
       var height1 = parseInt($(this).css('height'));
       var height2 = parseInt($(this).next().css('height'));
       $(this).next().css('height', Math.max(height1, height2) + 'px');
     });
-    $(this).children('.Desc').each(function () {
+    $(this).children('dd').each(function () {
       var height1 = parseInt($(this).prev().css('height'));
       var height2 = parseInt($(this).css('height'));
       $(this).prev().css('height', Math.max(height1, height2) + 'px');
@@ -96,8 +97,8 @@ function tableSpacing() {
     if ($(this).find('.Rowgroup')[0] != null)     n_rowgroups++; // once more for the last border, if there is one
     if ($(this).find('caption').hasClass('Capt')) n_rowgroups++; // once more again for a caption if it exists
     var btm = -(((n_rowgroups + 12) % 24) - 12);
-    if (btm <= 0) $(this).css('margin-bottom',btm);
-    else          $(this).css('padding-bottom',btm);
+    if (btm <= 0) $(this).css('margin-top',btm);
+    else          $(this).css('padding-top',btm);
     // var n_rows = 0;
     // $(this).find('tr').each(function () {
     //   n_rows++;

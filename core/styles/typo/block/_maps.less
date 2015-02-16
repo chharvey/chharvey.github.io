@@ -6,57 +6,36 @@
 
 
 /**
-  * This Object represents an association list, which contains term-description pairs. Each pair
-  * consists of exactly one `.Term` and exactly one `.Desc`.
+  * A `dl` Element, or Map, contains term-description pairs.
+  * Each pair consists of exactly one `dt` and exactly one `dd`, where
+  * the `dt` is the term (or name) and the `dd` is the description (or value).
 @implements
-: .vru-content()
-: .follows-heading()
+: .spacing-bottom()
 @tags
 : #typography
 : #map
 @author
 : Chris Harvey
 @updated
-: 2014-10-19
+: 2015-02-10
   */
-.Map {
-  .vru-content();
-  .follows-heading(1);
-  display: block;
-  /**
-    * This Object represent the term in a term-description pair of a `.Map`.
-  @implements
-  : .vru-top() only when following a `.Desc`
-  @tags
-  : #typography
-  : #map
-  @author
-  : Chris Harvey
-  @updated
-  : 2015-01-22
-    */
-  > .Term {
-    .vru-content();
-    display: block;
-    font-weight: bold;
+dl {
+  // display: block;
+}
+dt,
+dd {
+  > ol,
+  > ul {
+    .spacing-bottom(0);
+    padding-left: 2rem;
   }
-  /**
-    * This Object represent the description in a term-description pair of a `.Map`.
-  @belongsto
-  : .Map
-  @tags
-  : #typography
-  : #map
-  @author
-  : Chris Harvey
-  @updated
-  : 2015-01-22
-    */
-  > .Desc {
-    .vru-content();
-    display: block;
-  }
-  > .Desc + .Term {.vru-top(1);}
+}
+dt {
+  // display: block;
+  // font-weight: bold;
+}
+dd {
+  // display: block;
 }
 
 /**
@@ -65,7 +44,7 @@
   * This map acts like a table, with each row containing a single term-description group.
   * Multiple terms and multiple descriptions in the same group are in the same row.
 @extends
-: .Map
+: dl
 @implements
 : .clearfix()
 @tags
@@ -77,42 +56,37 @@
 @updated
 : 2014-11-23
   */
-@termpadding: 1rem;
-.Map.Horiz {
+.dl--Horiz {
   .clearfix();
-  > .Term,
-  > .Desc {box-sizing: border-box;}
-  > .Term {
-    padding-right: @termpadding;
+  > dt,
+  > dd {box-sizing: border-box;}
+  > dt {
+    padding-right: 1rem;
     float: left;
     clear: both;
     overflow: auto;
     white-space: nowrap;
   }
-  > .Desc {
+  > dd {
     float: left;
   }
-  > .Desc + .Term {margin-top: 0;} // undo `.vru-top(1);` from `.Map > .Desc + .Term`
-  // > .Desc + .Desc {margin-left: @termwidth;}
+  > dd + dt {padding-top: 0;} // undo padding from reset
 }
 .map-horiz-mx(@termwidth) {
-  > .Term {
-    width: @termwidth;
-  }
-  > .Desc {
-    width: (100% - @termwidth);
-  }
+  > dt {width: @termwidth;}
+  > dd {width: (100% - @termwidth);}
 }
-.Map.Horiz.Sml {.map-horiz-mx(@golden3);}  // 23.6067977499789696%
-.Map.Horiz.Msm {.map-horiz-mx(@golden2);}  // 38.1966011250105152%
-.Map.Horiz.Med {.map-horiz-mx(@1o2);}      // 50%
-.Map.Horiz.Mlg {.map-horiz-mx(@golden1);}  // 61.8033988749894848%
-.Map.Horiz.Lrg {.map-horiz-mx(@golden3c);} // 76.3932022500210304%
+.dl--Horiz.Sml {.map-horiz-mx(@golden3);}  // 23.6067977499789696%
+.dl--Horiz.Msm {.map-horiz-mx(@golden2);}  // 38.1966011250105152%
+.dl--Horiz.Med {.map-horiz-mx(@1o2);}      // 50%
+.dl--Horiz.Mlg {.map-horiz-mx(@golden1);}  // 61.8033988749894848%
+.dl--Horiz.Lrg {.map-horiz-mx(@golden3c);} // 76.3932022500210304%
 
 /**
-  * This Object represents a Horizontal Map that appears as a Table Object.
+  * This Object represents a Horizontal Map that appears as a table.
+  * Use the subclasses .Sml, .Msm, etc for pre-defined `dt` widths.
 @extends
-: .Map.Horiz
+: dl.Horiz
 @implements
 : .cellpaddingdefault()
 @tags
@@ -124,22 +98,13 @@
 @updated
 : 2014-11-23
   */
-.Map.Horiz.Tbl {
-  > .Term,
-  > .Desc {
+.dl--Horiz.Tbl {
+  > dt,
+  > dd {
     .cellpaddingdefault();
   }
-  > .Term:nth-child(4n+1),
-  > .Desc:nth-child(4n+2) {background-color: @color_table_bg_md;}
-  > .Term:nth-child(4n+3),
-  > .Desc:nth-child(4n)   {background-color: @color_table_bg_lo;}
+  > dt:nth-child(4n+1),
+  > dd:nth-child(4n+2) {background-color: @color_table_bg_md;}
+  > dt:nth-child(4n+3),
+  > dd:nth-child(4n)   {background-color: @color_table_bg_lo;}
 }
-
-// /*dl*/.dl--ordered {
-//   > dt:first-child,
-//   > dd + dt {
-//     display: list-item;
-//     list-style-type: decimal;
-//     list-style-position: outside;
-//   }
-// }

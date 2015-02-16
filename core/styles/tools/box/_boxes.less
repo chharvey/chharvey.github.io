@@ -19,7 +19,7 @@
 : 2015-01-28
   */
 .cellpaddingdefault() {
-  padding: (@vru_rem / 2) (@vru_rem / 2 * @phi1);
+  padding: (@vru_core / 2) (@vru_core / 2 * @phi1);
 }
 
 /**
@@ -42,6 +42,7 @@
   */
 .box-inline(@brdrw; @brdrr) {
   display: inline;
+  line-height: 0;
   padding: 1px 2px; // why these numbers?
   border-width: @brdrw;
   border-style: solid;
@@ -55,6 +56,7 @@
 .box-inline(@brdrr) {
   .box-inline(1px; @brdrr);
 }
+
 /**
   * These Mixins create abstract block structures, boxed with a solid border.
   * `.box-block(@brdrw; @brdrc; @brdrr)` is an extension of `.box-block(@brdrw; @brdrr)`
@@ -66,7 +68,6 @@
 : @brdrc : the value of `border-color` property (if not specified, default to value of `color` property)
 : @brdrr : the value of `border-radius` property
 @implements
-: .vru-content()
 : .border-vert-both(all)
 : .cellpaddingdefault()
 @tags
@@ -78,7 +79,7 @@
 : 2014-07-07
   */
 .box-block(@brdrw; @brdrr) {
-  .vru-content();
+  display: block;
   .border-vert-both(all; @brdrw; solid);
   .cellpaddingdefault();
   box-sizing: border-box;
