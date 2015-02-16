@@ -22,6 +22,8 @@ data {
   * An abbreviation.
   * Class `.Acro` represents an acronym.
   * `.Acro.First` represents an acronym at the beginning of a sentence or heading.
+  * `.Acro.First` has `display:inline-block;`, a HACK because `::first-letter` only works on
+  * block or inline-block elements
 @tags
 : #typography
 : #span
@@ -35,12 +37,12 @@ abbr[title] {
 }
 .Acro {
   // text-transform: uppercase;
-  font-size: (@font_size_sml * 1em); // EM used instead of REM because text-level
+  font-size: (@font_size_sml * 1em); // `em` used instead of `rem` because text-level
 }
 .Acro.First {
-  display: inline-block; // a HACK (::first-letter only works on block or inline-block elements)
+  display: inline-block;
   &::first-letter {
-    font-size: (1/@font_size_sml * 1em); // EM used instead of REM because text-level; 1.333 to revert to normal
+    font-size: (1/@font_size_sml * 1em); // `em` used instead of `rem` because text-level
   }
 }
 
