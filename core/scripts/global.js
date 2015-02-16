@@ -40,7 +40,9 @@ function qblockLines() {
     var lines = $(this).height() / 24; // 24 is number of pixels for 1vru
     lines = Math.round(lines / 1.5); // divide by 1.5 to account for new line height
     if (lines % 2 === 1) {
-      $(this).css('margin-top','-12px');
+      $(this).css('margin-top',''); // removes any previous inline style
+      $(this).css('margin-top',parseFloat($(this).css('margin-top'))-12);
+
       // FIX THIS. instead of setting the margin-top to -12, just subtract 12 from the current margin-top!
     } else {
       $(this).css('margin-top','');
@@ -97,8 +99,13 @@ function tableSpacing() {
     if ($(this).find('.Rowgroup')[0] != null)     n_rowgroups++; // once more for the last border, if there is one
     if ($(this).find('caption').hasClass('Capt')) n_rowgroups++; // once more again for a caption if it exists
     var btm = -(((n_rowgroups + 12) % 24) - 12);
-    if (btm <= 0) $(this).css('margin-top',btm);
-    else          $(this).css('padding-top',btm);
+    if (btm <= 0) {
+      $(this).css('margin-top',''); // removes any previous inline style
+      $(this).css('margin-top',parseFloat($(this).css('margin-top'))+btm);
+    } else {
+      $(this).css('padding-top',''); // removes any previous inline style
+      $(this).css('padding-top',parseFloat($(this).css('padding-top'))+btm);
+    }
     // var n_rows = 0;
     // $(this).find('tr').each(function () {
     //   n_rows++;
