@@ -7,6 +7,7 @@
 /** Determines the duration for transition animation effects. */
 /*@Fonts*/
 /** These determine 1rem and the 'magic number'. Change these if you wish. */
+/** One vertical rhythm unit. This is the so-called "magic number." Do not change these calculations. */
 /*@FUNCTIONS*/
 /*@CONSTANTS*/
 /*@Golden Values*/
@@ -210,225 +211,91 @@ mark,
 button {
   background-color: transparent;
 }
-/*##############*\
-    _grid.less
-\*##############*/
-/*@WIDTHS*/
+/*#################*\
+    _flexbox.less
+\*#################*/
+/*@HELPER MIXINS*/
+/*@Containers*/
 /**
-  * The following Interfaces change the width of the Objects that implement them.
-  * The Interface names describe the widths.
+  * Determines the direction of the flow.
+@params
+: @direction :
+             : `row` (default)  : left to right in `ltr`; right to left in `rtl`
+             : `row-reverse`    : right to left in `ltr`; left to right in `rtl`
+             : `column`         : same as `row` but top to bottom
+             : `column-reverse` : same as `row-reverse` but bottom to top
 @tags
-: #grid
-: #golden
-@author
-: Chris Harvey
-@updated
-: 2014-05-18
-  */
-.w-p0,
-.w-f1o1,
-.w-f2o2,
-.w-f3o3,
-.w-f4o4,
-.w-f5o5,
-.w-f6o6,
-.center-ful {
-  width: 100%;
-}
-.w-p1,
-.center-sml {
-  width: 61.80339887%;
-}
-.w-p2 {
-  width: 38.19660113%;
-}
-.w-p3 {
-  width: 23.60679775%;
-}
-.w-p4 {
-  width: 14.58980338%;
-}
-.w-p3c {
-  width: 76.39320225%;
-}
-.w-p4c {
-  width: 85.41019662%;
-}
-.w-f1o2,
-.w-f2o4,
-.w-f3o6 {
-  width: 50%;
-}
-.w-f1o3,
-.w-f2o6 {
-  width: 33.33333333%;
-}
-.w-f2o3,
-.w-f4o6,
-.center-med {
-  width: 66.66666667%;
-}
-.w-f1o4 {
-  width: 25%;
-}
-.w-f3o4,
-.center-lrg {
-  width: 75%;
-}
-.w-f1o5 {
-  width: 20%;
-}
-.w-f2o5 {
-  width: 40%;
-}
-.w-f3o5 {
-  width: 60%;
-}
-.w-f4o5 {
-  width: 80%;
-}
-.w-f1o6 {
-  width: 16.66666667%;
-}
-.w-f5o6 {
-  width: 83.33333333%;
-}
-/*@MARGINS*/
-/**
-  * The following Mixins define horizontal margins on `.Block`s of content.
-  * `.margin-phi-[left|right]()` splits the margins so that the ratio of [left|right] margin
-  * to [right|left] margin is Golden.
-  * `.margin-even()` splits the margins equally.
-  * `.margin-all-[left|right]()` moves all horizontal margins to the [left|right] side.
-@tags
-: #golden
-@author
-: Chris Harvey
-@updated
-: 2014-05-18
-  */
-/**
-  * This Interface is like the `.margin-even()` Mixin except it can be used when the width of the
-  * block is unknown. It is sets the left and right margins to `auto`.
-@tags
-@author
-: Chris Harvey
-@updated
-: 2014-06-16
-  */
-.margin-even {
-  margin-left: auto;
-  margin-right: auto;
-}
-/**
-  * This Object represents a block of content that has horizontal margins. It's not technically
-  * part of the "grid" system, but it's here because it's used for layout.
-@tags
-: #golden
-@author
-: Chris Harvey
-@updated
-: 2014-05-18
-  */
-.w-p1.left {
-  margin-right: 38.19660113%;
-}
-.w-p2.left {
-  margin-right: 61.80339887%;
-}
-.w-p3.left {
-  margin-right: 76.39320225%;
-}
-.w-p4.left {
-  margin-right: 85.41019662%;
-}
-.w-p3c.left {
-  margin-right: 23.60679775%;
-}
-.w-p4c.left {
-  margin-right: 14.58980338%;
-}
-.w-p1.right {
-  margin-left: 38.19660113%;
-}
-.w-p2.right {
-  margin-left: 61.80339887%;
-}
-.w-p3.right {
-  margin-left: 76.39320225%;
-}
-.w-p4.right {
-  margin-left: 85.41019662%;
-}
-.w-p3c.right {
-  margin-left: 23.60679775%;
-}
-.w-p4c.right {
-  margin-left: 14.58980338%;
-}
-.w-p1.ml {
-  margin-left: 14.58980338%;
-  margin-right: 23.60679775%;
-}
-.w-p1.mr {
-  margin-left: 23.60679775%;
-  margin-right: 14.58980338%;
-}
-.w-p2.ml {
-  margin-left: 23.60679775%;
-  margin-right: 38.19660113%;
-}
-.w-p2.mr {
-  margin-left: 38.19660113%;
-  margin-right: 23.60679775%;
-}
-.center-sml {
-  margin-left: 19.09830056%;
-  margin-right: 19.09830056%;
-}
-.center-med {
-  margin-left: 16.66666667%;
-  margin-right: 16.66666667%;
-}
-.center-lrg {
-  margin-left: 12.5%;
-  margin-right: 12.5%;
-}
-/*@Undo Golden Blocks*/
-/*@TABLE SYSTEM*/
-/**
-  * This Object represents a container of blocks of content. The inner blocks are alinged
-  * horizontally, as if all in the same row.
-  * `.Grow` = "grid row"
-@tags
+: #flex
 : #grid
 @author
 : Chris Harvey
 @updated
-: 2014-05-18
+: 2015-02-12
   */
-.Grow {
-  display: table;
-  width: 100%;
-}
 /**
-  * This Object represents a block of content within a `.Grow`. These blocks are alinged
-  * horizontally.
-  * `.Gcol` = "grid col"
-@implements
-: .P0   and similar
-: .F1o1 and similar
+  * Determines whether boxes wrap to the next row or column.
+@params
+: @wrap :
+        : `nowrap` (default) : single-line / left to right in `ltr`; right to left in `rtl`
+        : `wrap`             : multi-line  / left to right in `ltr`; right to left in `rtl`
+        : `wrap-reverse`     : multi-line  / right to left in `ltr`; left to right in `rtl`
 @tags
+: #flex
 : #grid
 @author
 : Chris Harvey
 @updated
-: 2014-05-18
+: 2015-02-12
   */
-.Grow > .Gcol {
-  display: table-cell;
-  vertical-align: top;
-  overflow: visible;
+/*@Items*/
+/**
+  * What does this do again?
+@params
+: @values : ?????
+@tags
+: #flex
+: #grid
+@author
+: Chris Harvey
+@updated
+: 2015-02-12
+  */
+/**
+  * Determines the order in which items appear in the flex container.
+@params
+: @number : (integer, 0 default) the order in which the item appears in the flex container.
+@tags
+: #flex
+: #grid
+@author
+: Chris Harvey
+@updated
+: 2015-02-12
+  */
+/*@CLASSES*/
+/**
+  * A Interface used on containers with flex items.
+  * By default, the direction is `row` and items are `wrap`ped.
+  * Flex item widths are not determined. They should be elsewhere specified.
+@tags
+: #flex
+: #grid
+: #presentational
+@author
+: Chris Harvey
+@updated
+: 2015-02-12
+  */
+.flex-container {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
 }
 /*####################*\
     _transition.less
@@ -448,9 +315,6 @@ button {
 @updated
 : 2014-06-17
   */
-/*#################*\
-    _flexbox.less
-\*#################*/
 /*#################*\
     _borders.less
 \*#################*/
@@ -521,11 +385,10 @@ button {
 @tags
 : #verticalrhythm
 : #padding
-: #fallback
 @author
 : Chris Harvey
 @updated
-: 2014-10-07
+: 2015-01-28
   */
 /**
   * These Mixins create abstract inline structures, boxed with a solid border.
@@ -582,7 +445,7 @@ button {
 @author
 : Chris Harvey
 @updated
-: 2014-10-07
+: 2015-01-28
   */
 /**
   * These Interfaces provide [top|bottom] spacing of a multiple of a vertical rhythm unit.
@@ -591,7 +454,7 @@ button {
 @author
 : Chris Harvey
 @updated
-: 2014-07-10
+: 2015-01-28
 @tags
 : #verticalrhythm
   */
@@ -612,7 +475,7 @@ button {
   * is Golden, while keeping the border-top-width. The sum of the padding, border, and margin is
   * one vertical rhythm unit.
 @params
-: @brdrw : value of the border-top-width property. Must be in pixels and less than `@vru_px`.
+: @brdrw : value of the border-top-width property. Must be in pixels and less than 1 vru.
 : @brdrs : value of the border-top-style property
 : @brdrc : value of the border-top-color property
 @tags
@@ -624,47 +487,6 @@ button {
 @updated
 : 2014-08-07
   */
-/*#################*\
-    _gutters.less
-\*#################*/
-/**
-  * This Interface allows for the appearance of Elements in the left and right "gutters":
-  * The margins of the `main` Element.
-  * Depending on the layout, the `--major` gutter falls in the "wider" margin, and
-  * the `--minor` gutter falls in the "narrower" margin.
-  * Currently, the winder margin is on the left while the narrower margin is on the right.
-  *
-  * `.gutter--major` acts like a `.w-p1.ml` within a `.w-p3.left`
-  * `.gutter--minor` acts like a `.w-p1.mr` within a `.w-p4.right`
-@tags
-: #golden
-: #margin
-: #positioning
-@author
-: Chris Harvey
-@updated
-: 2014-08-11
-  */
-.gutter {
-  box-sizing: border-box;
-  position: fixed;
-}
-.gutter--major {
-  box-sizing: border-box;
-  position: fixed;
-  width: 14.58980338%;
-  margin-left: 3.44418537%;
-  margin-right: 5.572809%;
-  left: 0;
-}
-.gutter--minor {
-  box-sizing: border-box;
-  position: fixed;
-  width: 9.01699437%;
-  margin-left: 3.44418537%;
-  margin-right: 2.12862363%;
-  right: 0;
-}
 /*################*\
     _floats.less
 \*################*/
@@ -714,20 +536,16 @@ button {
     _fontsize.less
 \*##################*/
 /*@Font Sizes*/
-/** One vertical rhythm unit. This is the so-called "magic number." */
 /**
   * This Mixin sets the `font-size` of an Object to a given scale.
-  * For example, to set the font size scale to 3, instead of using `font-size: 3rem;` (which may  be
-  * unsupported in some browsers), use this Mixin, which includes a fallback.
 @params
 : @ratio : the ratio of the new font size to `@fontsize_base`, in other words, the number of `rem`s
 @tags
 : #fontsize
-: #fallback
 @author
 : Chris Harvey
 @updated
-: 2014-07-08
+: 2015-01-28
   */
 /**
   * These Interfaces set a [large|medium|small] preset font size.
@@ -845,8 +663,8 @@ button {
   * The following Interfaces add background images to an Element, typically the `body` Element.
   * `.crossgrid-lined()`    : simple lined paper
   * `.crossgrid-phi()`      : lined paper with vertical lines at phi-like intervals
-  * `.crossgrid-even()`     : lined paper with vertical lines at fractions n/m where 1 ≤ m ≤ 6
-  * `.crossgrid-even-lcm()` : lined paper with vertical lines at n/60
+  * `.crossgrid-even()`     : lined paper with vertical lines at fractions n/m where 1 ≤ m ≤ 6 and 1 ≤ n ≤ m
+  * `.crossgrid-even-lcm()` : lined paper with vertical lines at n/60 where 1 ≤ n ≤ 60
 @tags
 : #schematic
 : #golden
@@ -865,22 +683,19 @@ button {
   font-family: 'Baskerville', 'Palatino', 'Cochin', serif;
 }
 .fontfam_heading {
-  font-family: 'Avenir', 'Seravek', 'Gill Sans', sans-serif;
-}
-.fontfam_intro {
-  font-family: 'Seravek', 'Gill Sans', 'Avenir', sans-serif;
+  font-family: 'Avenir', 'Seravek', sans-serif;
 }
 .fontfam_accent {
-  font-family: 'Gill Sans', 'Avenir', 'Seravek', sans-serif;
+  font-family: 'Geneva', 'Tahoma', sans-serif;
 }
 .fontfam_code {
   font-family: 'Menlo', 'Monaco', 'Andale Mono', monospace;
 }
 .fontfam_math {
-  font-family: 'Didot', 'Times', 'Times New Roman', serif;
+  font-family: 'Didot', 'Bodoni 72', 'Times', serif;
 }
 .fontfam_script {
-  font-family: 'Zapfino', 'Savoye LET', script, 'Avenir', 'Seravek', 'Gill Sans', sans-serif;
+  font-family: 'Zapfino', 'Savoye LET', script, 'Avenir', 'Seravek', sans-serif;
 }
 html {
   font-size: 16px;
@@ -893,12 +708,13 @@ body {
 }
 main {
   width: auto;
-  margin-left: 24px;
-  margin-right: 24px;
-  margin-bottom: 24px;
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 /**
-  * This Object represents the standard `main` Element on the main site.
+  * This Object represents a special `main` Element on the site,
+  * used for blog posts, articles, etc.
   * The following ratios are Golden (0.618):
   * - main width to window width
   * - main margin right to main margin left
@@ -907,13 +723,13 @@ main {
 @author
 : Chris Harvey
 @updated
-: 2014-11-29
+: 2015-02-12
   */
 .MainGolden {
   width: 61.80339887%;
   margin-left: 23.60679775%;
   margin-right: 14.58980338%;
-  margin-bottom: 192px;
+  margin-bottom: 12rem;
 }
 /**
   * This Interface undoes the effects of the `main.Main-Golden` Element to a component inside.
@@ -940,12 +756,11 @@ main {
   */
 .Bc {
   box-sizing: border-box;
-  position: fixed;
   width: 14.58980338%;
   margin-left: 3.44418537%;
   margin-right: 5.572809%;
+  position: fixed;
   left: 0;
-  top: 24px;
   top: 1.5rem;
   z-index: 1;
 }
@@ -965,7 +780,6 @@ main {
 .Bc > .Anc,
 .Bc > .Sib,
 .Bc > .Child {
-  margin-top: 24px;
   margin-top: 1.5rem;
 }
 /**
@@ -1005,8 +819,8 @@ main {
   -o-transition-delay: 0s;
   transition-delay: 0s;
   display: block;
-  padding-left: 12px;
-  border-radius: 12px;
+  padding-left: 0.75rem;
+  border-radius: 0.75rem;
   color: #0062ff;
   background-color: #c3daff;
   cursor: pointer;
@@ -1017,7 +831,7 @@ main {
 }
 .Crumb[rel~="this"] {
   position: relative;
-  left: 12px;
+  left: 0.75rem;
   font-weight: bold;
   color: #f1f6ff;
   background-color: #0062ff;
@@ -1049,7 +863,6 @@ main {
   text-align: justify;
 }
 :not(h1):not(.H) + .Article {
-  margin-top: 24px;
   margin-top: 1.5rem;
 }
 /**
@@ -1076,11 +889,6 @@ main {
 @updated
 : 2014-06-26
   */
-.Fineprint {
-  font-size: 12px;
-  font-size: 0.75rem;
-  line-height: 2;
-}
 /*#################*\
     _docmeta.less
 \*#################*/
@@ -1100,7 +908,6 @@ main {
   content: ':';
 }
 .Docmeta > dd.complete > time::after {
-  font-size: 12px;
   font-size: 0.75rem;
   border-color: #9acc7a;
   color: #4e6100;
@@ -1113,10 +920,10 @@ main {
   background-image: -webkit-gradient(to right, #ecff9e, #dcff51);
   display: inline;
   padding: 3px 5px 2px;
-  margin-left: 24px;
+  margin-left: 1rem;
   position: relative;
   font-weight: bold;
-  font-family: 'Gill Sans', 'Avenir', 'Seravek', sans-serif;
+  font-family: 'Geneva', 'Tahoma', sans-serif;
   white-space: nowrap;
   content: 'Completed';
 }
@@ -1137,7 +944,6 @@ main {
   font-weight: bold;
 }
 .Docmeta > dd.release > time::after {
-  font-size: 12px;
   font-size: 0.75rem;
   border-color: #9acc7a;
   color: #006127;
@@ -1150,10 +956,10 @@ main {
   background-image: -webkit-gradient(to right, #9effc5, #51ff97);
   display: inline;
   padding: 3px 5px 2px;
-  margin-left: 24px;
+  margin-left: 1rem;
   position: relative;
   font-weight: bold;
-  font-family: 'Gill Sans', 'Avenir', 'Seravek', sans-serif;
+  font-family: 'Geneva', 'Tahoma', sans-serif;
   white-space: nowrap;
   content: 'Released';
 }
@@ -1174,7 +980,6 @@ main {
   font-weight: bold;
 }
 .Docmeta > dd.latest::after {
-  font-size: 12px;
   font-size: 0.75rem;
   border-color: #9acc7a;
   color: #610000;
@@ -1187,10 +992,10 @@ main {
   background-image: -webkit-gradient(to right, #ff9e9e, #ff5151);
   display: inline;
   padding: 3px 5px 2px;
-  margin-left: 24px;
+  margin-left: 1rem;
   position: relative;
   font-weight: bold;
-  font-family: 'Gill Sans', 'Avenir', 'Seravek', sans-serif;
+  font-family: 'Geneva', 'Tahoma', sans-serif;
   white-space: nowrap;
   content: 'Latest';
 }
@@ -1233,9 +1038,7 @@ main {
   */
 .Footnotes {
   display: block;
-  min-height: 24px;
   min-height: 1.5rem;
-  font-size: 12px;
   font-size: 0.75rem;
   line-height: 2;
   padding-top: 8.78521826px;
@@ -1245,12 +1048,7 @@ main {
   border-top-color: #9acc7a;
 }
 :not(h1):not(.H) + .Footnotes {
-  margin-top: 24px;
   margin-top: 1.5rem;
-}
-.Footnotes > .Item {
-  padding-left: 24px;
-  text-indent: -24px;
 }
 /**
   * The `.Rf` Object represents a reference to a footnote. The reference exists in the document prose,
@@ -1266,10 +1064,6 @@ main {
 @updated
 : 2014-07-22
   */
-.Rf,
-.Fn {
-  width: 24px;
-}
 .Rf > .Link,
 .Fn > .Link {
   quotes: '[' ']';
@@ -1314,18 +1108,13 @@ main {
 : 2014-10-21
   */
 .H--Alp {
-  min-height: 24px;
   min-height: 1.5rem;
   display: block;
-  font-family: 'Avenir', 'Seravek', 'Gill Sans', sans-serif;
+  font-family: 'Avenir', 'Seravek', sans-serif;
   letter-spacing: 1px;
-  text-align: left;
-  font-size: 48px;
   font-size: 3rem;
   line-height: 1;
-  margin-top: 29.66563146px;
   margin-top: 1.85410197rem;
-  padding-bottom: 18.33436854px;
   padding-bottom: 1.14589803rem;
   font-variant: small-caps;
   font-weight: bold;
@@ -1333,17 +1122,12 @@ main {
   color: #120099;
 }
 .H--Bet {
-  min-height: 24px;
   min-height: 1.5rem;
-  font-family: 'Avenir', 'Seravek', 'Gill Sans', sans-serif;
+  font-family: 'Avenir', 'Seravek', sans-serif;
   letter-spacing: 1px;
-  text-align: left;
-  font-size: 35px;
   font-size: 2.1875rem;
   line-height: 1.37142857;
-  margin-top: 34.728px;
   margin-top: 2.1705rem;
-  padding-bottom: 13.272px;
   padding-bottom: 0.8295rem;
   display: block;
   position: relative;
@@ -1356,60 +1140,44 @@ main {
   color: #3d6166;
 }
 .H--Gam {
-  min-height: 24px;
   min-height: 1.5rem;
   display: block;
-  font-family: 'Avenir', 'Seravek', 'Gill Sans', sans-serif;
+  font-family: 'Avenir', 'Seravek', sans-serif;
   letter-spacing: 1px;
-  text-align: left;
-  font-size: 26px;
   font-size: 1.625rem;
   line-height: 0.92307692;
-  margin-top: 14.83281573px;
   margin-top: 0.92705098rem;
-  padding-bottom: 9.16718427px;
   padding-bottom: 0.57294902rem;
   font-variant: small-caps;
   font-weight: bold;
 }
 .H--Del {
-  min-height: 24px;
   min-height: 1.5rem;
   display: block;
-  font-family: 'Avenir', 'Seravek', 'Gill Sans', sans-serif;
+  font-family: 'Avenir', 'Seravek', sans-serif;
   letter-spacing: 1px;
-  text-align: left;
-  font-size: 21px;
   font-size: 1.3125rem;
   line-height: 1.14285714;
-  margin-top: 17.376px;
   margin-top: 1.086rem;
-  padding-bottom: 6.624px;
   padding-bottom: 0.414rem;
   font-style: italic;
   font-weight: bold;
 }
 .H--Eps {
-  min-height: 24px;
   min-height: 1.5rem;
   display: block;
-  font-family: 'Avenir', 'Seravek', 'Gill Sans', sans-serif;
+  font-family: 'Avenir', 'Seravek', sans-serif;
   letter-spacing: 1px;
-  text-align: left;
-  font-size: 18px;
   font-size: 1.125rem;
   line-height: 1.33333333;
   font-style: italic;
   color: #3d6166;
 }
 .H--Zet {
-  min-height: 24px;
   min-height: 1.5rem;
   display: block;
-  font-family: 'Avenir', 'Seravek', 'Gill Sans', sans-serif;
+  font-family: 'Avenir', 'Seravek', sans-serif;
   letter-spacing: 1px;
-  text-align: left;
-  font-size: 16px;
   font-size: 1rem;
   line-height: 1.5;
   font-style: italic;
@@ -1431,10 +1199,9 @@ main {
 : 2014-10-21
   */
 .H--Sub {
-  font-size: 32px;
   font-size: 2rem;
   line-height: 1.5;
-  font-family: 'Zapfino', 'Savoye LET', script, 'Avenir', 'Seravek', 'Gill Sans', sans-serif;
+  font-family: 'Zapfino', 'Savoye LET', script, 'Avenir', 'Seravek', sans-serif;
   text-align: center;
   color: #cc004e;
 }
@@ -1454,16 +1221,13 @@ main {
 : 2014-11-13
   */
 .H--Alp.Folio {
-  font-size: 48px;
   font-size: 3rem;
   line-height: 1;
-  margin-top: 96px;
   margin-top: 6rem;
-  padding-bottom: 48px;
   padding-bottom: 3rem;
   font-weight: normal;
   font-variant: normal;
-  font-family: 'Zapfino', 'Savoye LET', script, 'Avenir', 'Seravek', 'Gill Sans', sans-serif;
+  font-family: 'Zapfino', 'Savoye LET', script, 'Avenir', 'Seravek', sans-serif;
   white-space: nowrap;
 }
 .H--Alp.Folio.Normal::before {
@@ -1471,10 +1235,9 @@ main {
 }
 .H--Alp.Folio .Cap,
 .H--Alp.Folio::first-letter {
-  font-size: 96px;
   font-size: 6rem;
   line-height: 0.25;
-  font-family: 'Snell Roundhand', 'Zapfino', 'Savoye LET', script, 'Avenir', 'Seravek', 'Gill Sans', sans-serif;
+  font-family: 'Snell Roundhand', 'Zapfino', 'Savoye LET', script, 'Avenir', 'Seravek', sans-serif;
 }
 /*####################*\
     _paragraphs.less
@@ -1496,12 +1259,10 @@ main {
 : 2014-10-19
   */
 .P {
-  min-height: 24px;
   min-height: 1.5rem;
   display: block;
 }
 :not(h1):not(.H) + .P {
-  margin-top: 24px;
   margin-top: 1.5rem;
 }
 .P p {
@@ -1523,9 +1284,8 @@ main {
 : 2014-05-29
   */
 .Lede {
-  padding-right: 24px;
+  padding-right: 1rem;
   font-weight: bold;
-  font-family: 'Seravek', 'Gill Sans', 'Avenir', sans-serif;
 }
 /**
   * This Object represents an introduction paragraph, typically referred to as a "standfirst"
@@ -1544,10 +1304,8 @@ main {
 : 2014-07-10
   */
 .P.Intro {
-  padding-bottom: 24px;
   padding-bottom: 1.5rem;
   font-weight: bold;
-  font-family: 'Seravek', 'Gill Sans', 'Avenir', sans-serif;
 }
 /**
   * This Object represents a paragraph whose first letter is a dropped capital ("drop cap").
@@ -1564,15 +1322,14 @@ main {
 : 2014-04-30
   */
 .P.Dropcap::first-letter {
-  font-size: 32px;
   font-size: 2rem;
   line-height: 0.75;
   float: left;
-  padding-top: 24px;
-  padding-right: 12px;
+  padding-top: 1.5rem;
+  padding-right: 0.5rem;
   font-style: normal;
   font-weight: normal;
-  font-family: 'Zapfino', 'Savoye LET', script, 'Avenir', 'Seravek', 'Gill Sans', sans-serif;
+  font-family: 'Zapfino', 'Savoye LET', script, 'Avenir', 'Seravek', sans-serif;
   color: #120099;
 }
 /*@QUASI-PARAGRAPHS*/
@@ -1614,9 +1371,7 @@ main {
 : 2014-10-03
   */
 .Capt {
-  min-height: 24px;
   min-height: 1.5rem;
-  font-size: 12px;
   font-size: 0.75rem;
   line-height: 2;
   text-align: right;
@@ -1679,7 +1434,6 @@ main {
 : 2014-10-03
   */
 .Addy {
-  min-height: 24px;
   min-height: 1.5rem;
   padding-top: 9.16718427px;
   margin-top: 14.83281573px;
@@ -1718,7 +1472,6 @@ main {
 : 2014-10-03
   */
 .Fig {
-  min-height: 24px;
   min-height: 1.5rem;
   padding-top: 9.16718427px;
   margin-top: 14.83281573px;
@@ -1772,7 +1525,6 @@ main {
 : 2014-10-03
   */
 .Qblock {
-  min-height: 24px;
   min-height: 1.5rem;
   padding-top: 9.16718427px;
   margin-top: 14.83281573px;
@@ -1787,10 +1539,9 @@ main {
   padding-left: 11.32623792px;
   margin-left: 29.65247584px;
   border-left-color: #9acc7a;
-  font-family: 'Gill Sans', 'Avenir', 'Seravek', sans-serif;
+  font-family: 'Geneva', 'Tahoma', sans-serif;
 }
 .Qblock.Short {
-  font-size: 20px;
   font-size: 1.25rem;
   line-height: 1.2;
   line-height: 1.8;
@@ -1838,7 +1589,6 @@ main {
   border-right-color: #9acc7a;
 }
 .Qblock.Short .Src {
-  font-size: 12px;
   font-size: 0.75rem;
   line-height: 2;
   line-height: 3;
@@ -1899,14 +1649,12 @@ main {
   */
 .Olist {
   display: block;
-  min-height: 24px;
   min-height: 1.5rem;
   padding-left: 0.5in;
   list-style-type: decimal-leading-zero;
   list-style-type: decimal;
 }
 :not(h1):not(.H) + .Olist {
-  margin-top: 24px;
   margin-top: 1.5rem;
 }
 /**
@@ -1960,13 +1708,11 @@ main {
   */
 .Ulist {
   display: block;
-  min-height: 24px;
   min-height: 1.5rem;
   padding-left: 0.5in;
   list-style-type: square;
 }
 :not(h1):not(.H) + .Ulist {
-  margin-top: 24px;
   margin-top: 1.5rem;
 }
 /**
@@ -1985,11 +1731,9 @@ main {
   */
 .Alist {
   display: block;
-  min-height: 24px;
   min-height: 1.5rem;
 }
 :not(h1):not(.H) + .Alist {
-  margin-top: 24px;
   margin-top: 1.5rem;
 }
 .Alist > .Item {
@@ -2103,7 +1847,6 @@ main {
   padding-left: 0.25in;
 }
 .Olist.Outline .Outline {
-  margin-top: 0px;
   margin-top: 0rem;
 }
 /**
@@ -2121,7 +1864,6 @@ main {
 : 2014-10-03
   */
 .Olist.LOP > .Item:not(:first-child) {
-  margin-top: 24px;
   margin-top: 1.5rem;
 }
 /**
@@ -2167,7 +1909,6 @@ main {
   */
 .Map {
   display: block;
-  min-height: 24px;
   min-height: 1.5rem;
   /**
     * This Object represent the term in a term-description pair of a `.Map`.
@@ -2195,14 +1936,12 @@ main {
     */
 }
 :not(h1):not(.H) + .Map {
-  margin-top: 24px;
   margin-top: 1.5rem;
 }
 .Map > .Term {
   font-weight: bold;
 }
 .Map > .Desc + .Term {
-  margin-top: 24px;
   margin-top: 1.5rem;
 }
 /**
@@ -2233,7 +1972,7 @@ main {
   box-sizing: border-box;
 }
 .Map.Horiz > .Term {
-  padding-right: 1.31556175%;
+  padding-right: 1rem;
   float: left;
   clear: both;
   overflow: auto;
@@ -2292,7 +2031,6 @@ main {
   */
 .Map.Horiz.Tbl > .Term,
 .Map.Horiz.Tbl > .Desc {
-  padding: 12px 7.41640786px;
   padding: 0.75rem 0.46352549rem;
 }
 .Map.Horiz.Tbl > .Term:nth-child(4n+1),
@@ -2323,14 +2061,12 @@ main {
 : 2014-10-19
   */
 .Table {
-  font-size: 12px;
   font-size: 0.75rem;
   line-height: 2;
   display: table;
   text-align: center;
 }
 :not(h1):not(.H) + .Table {
-  margin-top: 24px;
   margin-top: 1.5rem;
 }
 .Table > .Capt {
@@ -2408,9 +2144,7 @@ main {
 : 2014-05-18
   */
 .Cell {
-  min-height: 24px;
   min-height: 1.5rem;
-  padding: 12px 7.41640786px;
   padding: 0.75rem 0.46352549rem;
   display: table-cell;
 }
@@ -2491,7 +2225,6 @@ code {
   border-width: 1px;
   border-style: solid;
   border-radius: 3px;
-  font-size: 12px;
   font-size: 0.75rem;
   border-color: #eee8d5;
   color: #657b83;
@@ -2525,7 +2258,6 @@ code .Comm {
 : 2014-11-02
   */
 .Codeblock {
-  min-height: 24px;
   min-height: 1.5rem;
   display: block;
   position: relative;
@@ -2533,11 +2265,9 @@ code .Comm {
   margin-bottom: -4px;
   border-width: 2px;
   border-style: solid;
-  padding: 12px 7.41640786px;
   padding: 0.75rem 0.46352549rem;
   box-sizing: border-box;
   border-radius: 3px;
-  font-size: 12px;
   font-size: 0.75rem;
   line-height: 2;
   border-color: #073642;
@@ -2549,7 +2279,6 @@ code .Comm {
   overflow: auto;
 }
 :not(h1):not(.H) + .Codeblock {
-  margin-top: 24px;
   margin-top: 1.5rem;
 }
 .Codeblock .Comm {
@@ -2744,7 +2473,6 @@ code .Comm {
 : 2014-11-02
   */
 .CSSmap {
-  min-height: 24px;
   min-height: 1.5rem;
   display: block;
   position: relative;
@@ -2752,11 +2480,9 @@ code .Comm {
   margin-bottom: -4px;
   border-width: 2px;
   border-style: solid;
-  padding: 12px 7.41640786px;
   padding: 0.75rem 0.46352549rem;
   box-sizing: border-box;
   border-radius: 3px;
-  font-size: 12px;
   font-size: 0.75rem;
   line-height: 2;
   border-color: #073642;
@@ -2781,7 +2507,6 @@ code .Comm {
     */
 }
 :not(h1):not(.H) + .CSSmap {
-  margin-top: 24px;
   margin-top: 1.5rem;
 }
 .CSSmap .Comm {
@@ -2911,7 +2636,7 @@ code .Comm {
   color: #268bd2;
 }
 .CSSmap .Ruleset > .Prp {
-  quotes: '' ':\00A0';
+  quotes: '' ':';
   float: left;
   clear: both;
 }
@@ -2923,6 +2648,7 @@ code .Comm {
 }
 .CSSmap .Ruleset > .Val {
   quotes: '' ';';
+  text-indent: 0.5rem;
 }
 .CSSmap .Ruleset > .Val::before {
   content: open-quote;
@@ -2932,7 +2658,7 @@ code .Comm {
 }
 .CSSmap .Ruleset > .Prp,
 .CSSmap .Ruleset > .Comm {
-  padding-left: 48px;
+  text-indent: 1rem;
 }
 .CSSmap.I .Sel {
   float: left;
@@ -2943,8 +2669,10 @@ code .Comm {
 }
 .CSSmap.I .Ruleset > .Prp {
   display: inline;
-  padding-left: 6px;
   float: none;
+}
+.CSSmap.I .Ruleset > .Prp::before {
+  content: '\00A0';
 }
 .CSSmap.I .Ruleset > .Val {
   display: inline;
@@ -3004,13 +2732,12 @@ code .Comm {
   border-style: solid;
   border-radius: 3px;
   white-space: nowrap;
-  font-size: 12px;
   font-size: 0.75rem;
   border-color: #073642;
   color: #839496;
   background-color: #002b36;
   quotes: none;
-  font-family: 'Gill Sans', 'Avenir', 'Seravek', sans-serif;
+  font-family: 'Geneva', 'Tahoma', sans-serif;
   color: #93a1a1;
 }
 .Key .Comm {
@@ -3032,7 +2759,6 @@ kbd {
 : 2014-05-25
   */
 .Dir {
-  font-size: 12px;
   font-size: 0.75rem;
   font-style: italic;
   font-family: 'Optima', 'Lucida Grande', 'Tahoma', sans-serif;
@@ -3045,9 +2771,8 @@ kbd {
 @updated
 : 2014-08-22
   */
-.Math,
 .M {
-  font-family: 'Didot', 'Times', 'Times New Roman', serif;
+  font-family: 'Didot', 'Bodoni 72', 'Times', serif;
   white-space: pre;
   overflow: auto;
 }
@@ -3060,7 +2785,6 @@ kbd {
   */
 .M.B {
   display: block;
-  min-height: 72px;
   min-height: 4.5rem;
 }
 /*###############*\
@@ -3200,7 +2924,7 @@ i::after {
 }
 i[lang] {
   font-style: italic;
-  font-family: 'Didot', 'Times', 'Times New Roman', serif;
+  font-family: 'Didot', 'Bodoni 72', 'Times', serif;
   quotes: '' '';
 }
 /**
@@ -3270,16 +2994,15 @@ u {
   */
 sup,
 sub {
-  font-size: 12px;
   font-size: 0.75rem;
   position: relative;
   vertical-align: baseline;
 }
 sup {
-  bottom: 6px;
+  bottom: 0.375rem;
 }
 sub {
-  top: 6px;
+  top: 0.375rem;
 }
 /**
   * This Object is used to make text appear highlighted.
@@ -3461,7 +3184,7 @@ ins[datetime] {
   text-decoration: underline;
 }
 del + ins {
-  padding-left: 24px;
+  padding-left: 1.5rem;
 }
 /*##############*\
     _data.less
@@ -3544,7 +3267,6 @@ del + ins {
   border-radius: 6px;
   white-space: nowrap;
   border-color: #0062ff;
-  font-size: 12px;
   font-size: 0.75rem;
   background-image: -webkit-linear-gradient(to bottom right, #dceaff, #90baff);
   background-image: -moz-linear-gradient(to bottom right, #dceaff, #90baff);
@@ -3554,7 +3276,7 @@ del + ins {
   background-image: -webkit-gradient(to bottom right, #dceaff, #90baff);
   border-style: outset;
   margin-bottom: -4px;
-  font-family: 'Gill Sans', 'Avenir', 'Seravek', sans-serif;
+  font-family: 'Geneva', 'Tahoma', sans-serif;
   color: #0062ff;
   background-color: #c3daff;
   cursor: pointer;
@@ -3621,7 +3343,6 @@ del + ins {
 : 2014-10-26
   */
 .Alert--Warn {
-  min-height: 24px;
   min-height: 1.5rem;
   display: block;
   position: relative;
@@ -3629,14 +3350,12 @@ del + ins {
   margin-bottom: -2px;
   border-width: 1px;
   border-style: solid;
-  padding: 12px 7.41640786px;
   padding: 0.75rem 0.46352549rem;
   box-sizing: border-box;
   border-radius: 6px;
   width: 61.80339887%;
   margin-left: 23.60679775%;
   margin-right: 14.58980338%;
-  font-size: 12px;
   font-size: 0.75rem;
   line-height: 2;
   border-color: #ff0000;
@@ -3648,10 +3367,9 @@ del + ins {
   background-image: -o-linear-gradient(to bottom, #ff9e9e, #ff6b6b);
   background-image: linear-gradient(to bottom, #ff9e9e, #ff6b6b);
   background-image: -webkit-gradient(to bottom, #ff9e9e, #ff6b6b);
-  font-family: 'Gill Sans', 'Avenir', 'Seravek', sans-serif;
+  font-family: 'Geneva', 'Tahoma', sans-serif;
 }
 :not(h1):not(.H) + .Alert--Warn {
-  margin-top: 24px;
   margin-top: 1.5rem;
 }
 .Alert--Warn::before {
@@ -3659,7 +3377,6 @@ del + ins {
   font-weight: bold;
 }
 .Alert--Cshn {
-  min-height: 24px;
   min-height: 1.5rem;
   display: block;
   position: relative;
@@ -3667,14 +3384,12 @@ del + ins {
   margin-bottom: -2px;
   border-width: 1px;
   border-style: solid;
-  padding: 12px 7.41640786px;
   padding: 0.75rem 0.46352549rem;
   box-sizing: border-box;
   border-radius: 6px;
   width: 61.80339887%;
   margin-left: 23.60679775%;
   margin-right: 14.58980338%;
-  font-size: 12px;
   font-size: 0.75rem;
   line-height: 2;
   border-color: #ccff00;
@@ -3686,10 +3401,9 @@ del + ins {
   background-image: -o-linear-gradient(to bottom, #ecff9e, #e1ff6b);
   background-image: linear-gradient(to bottom, #ecff9e, #e1ff6b);
   background-image: -webkit-gradient(to bottom, #ecff9e, #e1ff6b);
-  font-family: 'Gill Sans', 'Avenir', 'Seravek', sans-serif;
+  font-family: 'Geneva', 'Tahoma', sans-serif;
 }
 :not(h1):not(.H) + .Alert--Cshn {
-  margin-top: 24px;
   margin-top: 1.5rem;
 }
 .Alert--Cshn::before {
@@ -3697,7 +3411,6 @@ del + ins {
   font-weight: bold;
 }
 .Alert--Skss {
-  min-height: 24px;
   min-height: 1.5rem;
   display: block;
   position: relative;
@@ -3705,14 +3418,12 @@ del + ins {
   margin-bottom: -2px;
   border-width: 1px;
   border-style: solid;
-  padding: 12px 7.41640786px;
   padding: 0.75rem 0.46352549rem;
   box-sizing: border-box;
   border-radius: 6px;
   width: 61.80339887%;
   margin-left: 23.60679775%;
   margin-right: 14.58980338%;
-  font-size: 12px;
   font-size: 0.75rem;
   line-height: 2;
   border-color: #00ff66;
@@ -3724,10 +3435,9 @@ del + ins {
   background-image: -o-linear-gradient(to bottom, #9effc5, #6bffa6);
   background-image: linear-gradient(to bottom, #9effc5, #6bffa6);
   background-image: -webkit-gradient(to bottom, #9effc5, #6bffa6);
-  font-family: 'Gill Sans', 'Avenir', 'Seravek', sans-serif;
+  font-family: 'Geneva', 'Tahoma', sans-serif;
 }
 :not(h1):not(.H) + .Alert--Skss {
-  margin-top: 24px;
   margin-top: 1.5rem;
 }
 .Alert--Skss::before {
@@ -3735,7 +3445,6 @@ del + ins {
   font-weight: bold;
 }
 .Alert--Info {
-  min-height: 24px;
   min-height: 1.5rem;
   display: block;
   position: relative;
@@ -3743,14 +3452,12 @@ del + ins {
   margin-bottom: -2px;
   border-width: 1px;
   border-style: solid;
-  padding: 12px 7.41640786px;
   padding: 0.75rem 0.46352549rem;
   box-sizing: border-box;
   border-radius: 6px;
   width: 61.80339887%;
   margin-left: 23.60679775%;
   margin-right: 14.58980338%;
-  font-size: 12px;
   font-size: 0.75rem;
   line-height: 2;
   border-color: #0066ff;
@@ -3762,10 +3469,9 @@ del + ins {
   background-image: -o-linear-gradient(to bottom, #9ec5ff, #6ba6ff);
   background-image: linear-gradient(to bottom, #9ec5ff, #6ba6ff);
   background-image: -webkit-gradient(to bottom, #9ec5ff, #6ba6ff);
-  font-family: 'Gill Sans', 'Avenir', 'Seravek', sans-serif;
+  font-family: 'Geneva', 'Tahoma', sans-serif;
 }
 :not(h1):not(.H) + .Alert--Info {
-  margin-top: 24px;
   margin-top: 1.5rem;
 }
 .Alert--Info::before {
@@ -3773,7 +3479,6 @@ del + ins {
   font-weight: bold;
 }
 .Alert--Help {
-  min-height: 24px;
   min-height: 1.5rem;
   display: block;
   position: relative;
@@ -3781,14 +3486,12 @@ del + ins {
   margin-bottom: -2px;
   border-width: 1px;
   border-style: solid;
-  padding: 12px 7.41640786px;
   padding: 0.75rem 0.46352549rem;
   box-sizing: border-box;
   border-radius: 6px;
   width: 61.80339887%;
   margin-left: 23.60679775%;
   margin-right: 14.58980338%;
-  font-size: 12px;
   font-size: 0.75rem;
   line-height: 2;
   border-color: #cc00ff;
@@ -3800,10 +3503,9 @@ del + ins {
   background-image: -o-linear-gradient(to bottom, #ec9eff, #e16bff);
   background-image: linear-gradient(to bottom, #ec9eff, #e16bff);
   background-image: -webkit-gradient(to bottom, #ec9eff, #e16bff);
-  font-family: 'Gill Sans', 'Avenir', 'Seravek', sans-serif;
+  font-family: 'Geneva', 'Tahoma', sans-serif;
 }
 :not(h1):not(.H) + .Alert--Help {
-  margin-top: 24px;
   margin-top: 1.5rem;
 }
 .Alert--Help::before {
@@ -3826,7 +3528,6 @@ del + ins {
 : 2014-10-26
   */
 .Label--Warn {
-  font-size: 12px;
   font-size: 0.75rem;
   border-color: #9acc7a;
   color: #610000;
@@ -3839,10 +3540,10 @@ del + ins {
   background-image: -webkit-gradient(to right, #ff9e9e, #ff5151);
   display: inline;
   padding: 3px 5px 2px;
-  margin-left: 24px;
+  margin-left: 1rem;
   position: relative;
   font-weight: bold;
-  font-family: 'Gill Sans', 'Avenir', 'Seravek', sans-serif;
+  font-family: 'Geneva', 'Tahoma', sans-serif;
   white-space: nowrap;
 }
 .Label--Warn::before {
@@ -3862,7 +3563,6 @@ del + ins {
   font-weight: bold;
 }
 .Label--Cshn {
-  font-size: 12px;
   font-size: 0.75rem;
   border-color: #9acc7a;
   color: #4e6100;
@@ -3875,10 +3575,10 @@ del + ins {
   background-image: -webkit-gradient(to right, #ecff9e, #dcff51);
   display: inline;
   padding: 3px 5px 2px;
-  margin-left: 24px;
+  margin-left: 1rem;
   position: relative;
   font-weight: bold;
-  font-family: 'Gill Sans', 'Avenir', 'Seravek', sans-serif;
+  font-family: 'Geneva', 'Tahoma', sans-serif;
   white-space: nowrap;
 }
 .Label--Cshn::before {
@@ -3898,7 +3598,6 @@ del + ins {
   font-weight: bold;
 }
 .Label--Skss {
-  font-size: 12px;
   font-size: 0.75rem;
   border-color: #9acc7a;
   color: #006127;
@@ -3911,10 +3610,10 @@ del + ins {
   background-image: -webkit-gradient(to right, #9effc5, #51ff97);
   display: inline;
   padding: 3px 5px 2px;
-  margin-left: 24px;
+  margin-left: 1rem;
   position: relative;
   font-weight: bold;
-  font-family: 'Gill Sans', 'Avenir', 'Seravek', sans-serif;
+  font-family: 'Geneva', 'Tahoma', sans-serif;
   white-space: nowrap;
 }
 .Label--Skss::before {
@@ -3934,7 +3633,6 @@ del + ins {
   font-weight: bold;
 }
 .Label--Info {
-  font-size: 12px;
   font-size: 0.75rem;
   border-color: #9acc7a;
   color: #002761;
@@ -3947,10 +3645,10 @@ del + ins {
   background-image: -webkit-gradient(to right, #9ec5ff, #5197ff);
   display: inline;
   padding: 3px 5px 2px;
-  margin-left: 24px;
+  margin-left: 1rem;
   position: relative;
   font-weight: bold;
-  font-family: 'Gill Sans', 'Avenir', 'Seravek', sans-serif;
+  font-family: 'Geneva', 'Tahoma', sans-serif;
   white-space: nowrap;
 }
 .Label--Info::before {
@@ -3970,7 +3668,6 @@ del + ins {
   font-weight: bold;
 }
 .Label--Help {
-  font-size: 12px;
   font-size: 0.75rem;
   border-color: #9acc7a;
   color: #4e0061;
@@ -3983,10 +3680,10 @@ del + ins {
   background-image: -webkit-gradient(to right, #ec9eff, #dc51ff);
   display: inline;
   padding: 3px 5px 2px;
-  margin-left: 24px;
+  margin-left: 1rem;
   position: relative;
   font-weight: bold;
-  font-family: 'Gill Sans', 'Avenir', 'Seravek', sans-serif;
+  font-family: 'Geneva', 'Tahoma', sans-serif;
   white-space: nowrap;
 }
 .Label--Help::before {
@@ -4039,7 +3736,6 @@ del + ins {
 : 2014-10-26
   */
 .Article[data-status="draft"]::before {
-  min-height: 24px;
   min-height: 1.5rem;
   display: block;
   position: relative;
@@ -4047,7 +3743,6 @@ del + ins {
   margin-bottom: -2px;
   border-width: 1px;
   border-style: solid;
-  padding: 12px 7.41640786px;
   padding: 0.75rem 0.46352549rem;
   border-radius: 6px;
   width: 61.80339887%;
@@ -4062,27 +3757,24 @@ del + ins {
   background-image: -o-linear-gradient(to bottom, #ff9e9e, #ff6b6b);
   background-image: linear-gradient(to bottom, #ff9e9e, #ff6b6b);
   background-image: -webkit-gradient(to bottom, #ff9e9e, #ff6b6b);
-  font-family: 'Gill Sans', 'Avenir', 'Seravek', sans-serif;
-  box-sizing: border-box;
-  position: fixed;
-  width: 9.01699437%;
-  margin-left: 3.44418537%;
-  margin-right: 2.12862363%;
-  right: 0;
+  font-family: 'Geneva', 'Tahoma', sans-serif;
   position: static;
   top: auto;
   margin-bottom: 0;
   border: 0;
-  font-size: 12px;
   font-size: 0.75rem;
   line-height: 2;
+  box-sizing: border-box;
+  width: 9.01699437%;
+  margin-left: 3.44418537%;
+  margin-right: 2.12862363%;
   position: absolute;
+  right: 0;
   content: 'This article is a work in progress.';
   font-weight: bold;
   text-align: left;
 }
 :not(h1):not(.H) + .Article[data-status="draft"]::before {
-  margin-top: 24px;
   margin-top: 1.5rem;
 }
 .Article[data-status="draft"]::before::before {
@@ -4090,7 +3782,6 @@ del + ins {
   font-weight: bold;
 }
 .Article[data-status="complete"]::before {
-  min-height: 24px;
   min-height: 1.5rem;
   display: block;
   position: relative;
@@ -4098,7 +3789,6 @@ del + ins {
   margin-bottom: -2px;
   border-width: 1px;
   border-style: solid;
-  padding: 12px 7.41640786px;
   padding: 0.75rem 0.46352549rem;
   border-radius: 6px;
   width: 61.80339887%;
@@ -4113,27 +3803,24 @@ del + ins {
   background-image: -o-linear-gradient(to bottom, #ecff9e, #e1ff6b);
   background-image: linear-gradient(to bottom, #ecff9e, #e1ff6b);
   background-image: -webkit-gradient(to bottom, #ecff9e, #e1ff6b);
-  font-family: 'Gill Sans', 'Avenir', 'Seravek', sans-serif;
-  box-sizing: border-box;
-  position: fixed;
-  width: 9.01699437%;
-  margin-left: 3.44418537%;
-  margin-right: 2.12862363%;
-  right: 0;
+  font-family: 'Geneva', 'Tahoma', sans-serif;
   position: static;
   top: auto;
   margin-bottom: 0;
   border: 0;
-  font-size: 12px;
   font-size: 0.75rem;
   line-height: 2;
+  box-sizing: border-box;
+  width: 9.01699437%;
+  margin-left: 3.44418537%;
+  margin-right: 2.12862363%;
   position: absolute;
+  right: 0;
   content: 'This article is mostly complete.';
   font-weight: bold;
   text-align: left;
 }
 :not(h1):not(.H) + .Article[data-status="complete"]::before {
-  margin-top: 24px;
   margin-top: 1.5rem;
 }
 .Article[data-status="complete"]::before::before {
@@ -4141,7 +3828,6 @@ del + ins {
   font-weight: bold;
 }
 .Article[data-status="released"]::before {
-  min-height: 24px;
   min-height: 1.5rem;
   display: block;
   position: relative;
@@ -4149,7 +3835,6 @@ del + ins {
   margin-bottom: -2px;
   border-width: 1px;
   border-style: solid;
-  padding: 12px 7.41640786px;
   padding: 0.75rem 0.46352549rem;
   border-radius: 6px;
   width: 61.80339887%;
@@ -4164,27 +3849,24 @@ del + ins {
   background-image: -o-linear-gradient(to bottom, #9effc5, #6bffa6);
   background-image: linear-gradient(to bottom, #9effc5, #6bffa6);
   background-image: -webkit-gradient(to bottom, #9effc5, #6bffa6);
-  font-family: 'Gill Sans', 'Avenir', 'Seravek', sans-serif;
-  box-sizing: border-box;
-  position: fixed;
-  width: 9.01699437%;
-  margin-left: 3.44418537%;
-  margin-right: 2.12862363%;
-  right: 0;
+  font-family: 'Geneva', 'Tahoma', sans-serif;
   position: static;
   top: auto;
   margin-bottom: 0;
   border: 0;
-  font-size: 12px;
   font-size: 0.75rem;
   line-height: 2;
+  box-sizing: border-box;
+  width: 9.01699437%;
+  margin-left: 3.44418537%;
+  margin-right: 2.12862363%;
   position: absolute;
+  right: 0;
   content: 'This article is ready for implemen' '\00ad' 'tation.';
   font-weight: bold;
   text-align: left;
 }
 :not(h1):not(.H) + .Article[data-status="released"]::before {
-  margin-top: 24px;
   margin-top: 1.5rem;
 }
 .Article[data-status="released"]::before::before {
@@ -4260,11 +3942,6 @@ del + ins {
 .help-otln {
   outline: 1px solid #cc004e;
 }
-.crossgridphi {
-  background-image: url('https://chharvey.github.io/core/images/crossgrid-phi_1440x24.svg');
-  background-size: 100% 24px;
-  background-repeat: repeat-y;
-}
 [hidden] {
   display: none !important;
 }
@@ -4283,7 +3960,6 @@ del + ins {
   .Addy,
   .Qblock,
   .Table {
-    font-size: 16px;
     font-size: 1rem;
     line-height: 1.5;
   }
@@ -4330,4 +4006,115 @@ del + ins {
   .noprint {
     display: none;
   }
+}
+/*@HELPER CLASSES*/
+/*@Widths*/
+/**
+  * The following Interfaces change the width of the Objects that implement them.
+@tags
+: #grid
+: #golden
+: #presentational
+@author
+: Chris Harvey
+@updated
+: 2015-02-12
+  */
+.w-p0 {
+  width: 100%;
+}
+.w-p1 {
+  width: 61.80339887%;
+}
+.w-p2 {
+  width: 38.19660113%;
+}
+.w-p3 {
+  width: 23.60679775%;
+}
+.w-p4 {
+  width: 14.58980338%;
+}
+.w-p3c {
+  width: 76.39320225%;
+}
+.w-p4c {
+  width: 85.41019662%;
+}
+.w-1o1 {
+  width: 100%;
+}
+.w-1o2 {
+  width: 50%;
+}
+.w-2o2 {
+  width: 100%;
+}
+.w-1o3 {
+  width: 33.33333333%;
+}
+.w-2o3 {
+  width: 66.66666667%;
+}
+.w-3o3 {
+  width: 100%;
+}
+.w-1o4 {
+  width: 25%;
+}
+.w-2o4 {
+  width: 50%;
+}
+.w-3o4 {
+  width: 75%;
+}
+.w-4o4 {
+  width: 100%;
+}
+.w-1o5 {
+  width: 20%;
+}
+.w-2o5 {
+  width: 40%;
+}
+.w-3o5 {
+  width: 60%;
+}
+.w-4o5 {
+  width: 80%;
+}
+.w-5o5 {
+  width: 100%;
+}
+.w-1o6 {
+  width: 16.66666667%;
+}
+.w-2o6 {
+  width: 33.33333333%;
+}
+.w-3o6 {
+  width: 50%;
+}
+.w-4o6 {
+  width: 66.66666667%;
+}
+.w-5o6 {
+  width: 83.33333333%;
+}
+.w-6o6 {
+  width: 100%;
+}
+/*@Margins*/
+/**
+  * The following Interface defines even horizontal margins on an Object.
+@tags
+: #margin
+@author
+: Chris Harvey
+@updated
+: 2015-02-13
+  */
+.margin-even {
+  margin-left: auto;
+  margin-right: auto;
 }
