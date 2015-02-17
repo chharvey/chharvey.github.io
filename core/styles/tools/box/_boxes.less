@@ -29,9 +29,9 @@
   *   `.box-inline(@brdrw; @brdrc; @brdrr)`) because the border color, if not specified,
   *   should not be a preset color; rather, it should be the value of the `color` property.
 @params
-: @brdrw : the value of `border-width` property (if not specified, default to 1px)
-: @brdrc : the value of `border-color` property (if not specified, default to value of `color` property)
-: @brdrr : the value of `border-radius` property
+: @width  : the value of `border-width` property (default to 1px)
+: @color  : the value of `border-color` property (default to `currentColor`)
+: @radius : the value of `border-radius` property
 @tags
 : #box
 : #verticalrhythm
@@ -40,31 +40,27 @@
 @updated
 : 2015-02-17
   */
-.box-inline(@brdrw; @brdrc; @brdrr) {
+.box-inline(@width; @color; @radius) {
   padding: 1px 2px; // why these numbers?
-  border-width: @brdrw;
+  border-width: @width;
   border-style: solid;
-  border-color: @brdrc;
-  border-radius: @brdrr;
+  border-color: @color;
+  border-radius: @radius;
   white-space: nowrap;
 }
-.box-inline(@brdrw; @brdrr) {
-  .box-inline(@brdrw; currentColor; @brdrr);
+.box-inline(@width; @radius) {
+  .box-inline(@width; currentColor; @radius);
 }
-.box-inline(@brdrr) {
-  .box-inline(1px; @brdrr);
+.box-inline(@radius) {
+  .box-inline(1px; @radius);
 }
 
 /**
   * These Mixins create abstract block structures, boxed with a solid border.
-  * `.box-block(@brdrw; @brdrc; @brdrr)` is an extension of `.box-block(@brdrw; @brdrr)`
-  *   (it's not the case that `.box-block(@brdrw; @brdrr)` is a restriction of
-  *   `.box-block(@brdrw; @brdrc; @brdrr)`) because the border color, if not specified,
-  *   should not be a preset color; rather, it should be the value of the `color` property.
 @params
-: @brdrw : the value of `border-width` property (if not specified, default to 1px)
-: @brdrc : the value of `border-color` property (if not specified, default to value of `color` property)
-: @brdrr : the value of `border-radius` property
+: @width  : the value of `border-width` property (default to `1px`)
+: @color  : the value of `border-color` property (default to `currentColor`)
+: @radius : the value of `border-radius` property
 @implements
 : .border-vert-both(all)
 : .cellpaddingdefault()
@@ -76,16 +72,16 @@
 @updated
 : 2015-02-17
   */
-.box-block(@brdrw; @brdrc; @brdrr) {
+.box-block(@width; @color; @radius) {
   box-sizing: border-box;
   .cellpaddingdefault();
-  .border-vert-both(all; @brdrw; solid);
-  border-color: @brdrc;
-  border-radius: @brdrr;
+  .border-vert-both(all; @width; solid);
+  border-color: @color;
+  border-radius: @radius;
 }
-.box-block(@brdrw; @brdrr) {
-  .box-block(@brdrw; currentColor; @brdrr);
+.box-block(@width; @radius) {
+  .box-block(@width; currentColor; @radius);
 }
-.box-block(@brdrr) {
-  .box-block(1px; @brdrr);
+.box-block(@radius) {
+  .box-block(1px; @radius);
 }

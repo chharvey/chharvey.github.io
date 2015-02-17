@@ -257,15 +257,15 @@
 @params
 : @side  : either `top` or `bottom`
 : @width : value of `border-width`
-: @style : value of `border-style`
-: @color : value of `border-color`
+: @style : value of `border-style` (default to `solid`)
+: @color : value of `border-color` (default to `currentColor`)
 @tags
 : #verticalrhythm
 : #border
 @author
 : Chris Harvey
 @updated
-: 2014-10-07
+: 2015-02-17
   */
 /**
   * These Mixins set the padding, border, and margin on the left or right side of an Object,
@@ -273,24 +273,24 @@
 @params
 : @side  : either `left` or `right`
 : @width : value of `border-[left|right]-width`
-: @style : value of `border-[left|right]-style`
-: @color : value of `border-[left|right]-color`
+: @style : value of `border-[left|right]-style` (default to `solid`)
+: @color : value of `border-[left|right]-color` (default to `currentColor`)
 @tags
 : #golden
 @author
 : Chris Harvey
 @updated
-: 2014-10-03
+: 2015-02-17
   */
 /**
   * This Interface adds a top border, while adjusting padding to be a Golden proportion to 1vru,
   * and adjusts margin to keep vertical rhythm.
 @params
-: @brdrw : value of the border-top-width property.
+: @width : value of the border-top-width property.
            Must be unitless but represent number of pixels.
            Must be less than the number of pixels in 1 vru.
-: @brdrs : value of the border-top-style property
-: @brdrc : value of the border-top-color property
+: @style : value of the border-top-style property (default to `solid`)
+: @color : value of the border-top-color property (default to `currentColor`)
 @tags
 : #verticalrhythm
 : #golden
@@ -298,7 +298,7 @@
 @author
 : Chris Harvey
 @updated
-: 2015-02-12
+: 2015-02-17
   */
 /*###############*\
     _boxes.less
@@ -323,9 +323,9 @@
   *   `.box-inline(@brdrw; @brdrc; @brdrr)`) because the border color, if not specified,
   *   should not be a preset color; rather, it should be the value of the `color` property.
 @params
-: @brdrw : the value of `border-width` property (if not specified, default to 1px)
-: @brdrc : the value of `border-color` property (if not specified, default to value of `color` property)
-: @brdrr : the value of `border-radius` property
+: @width  : the value of `border-width` property (default to 1px)
+: @color  : the value of `border-color` property (default to `currentColor`)
+: @radius : the value of `border-radius` property
 @tags
 : #box
 : #verticalrhythm
@@ -336,14 +336,10 @@
   */
 /**
   * These Mixins create abstract block structures, boxed with a solid border.
-  * `.box-block(@brdrw; @brdrc; @brdrr)` is an extension of `.box-block(@brdrw; @brdrr)`
-  *   (it's not the case that `.box-block(@brdrw; @brdrr)` is a restriction of
-  *   `.box-block(@brdrw; @brdrc; @brdrr)`) because the border color, if not specified,
-  *   should not be a preset color; rather, it should be the value of the `color` property.
 @params
-: @brdrw : the value of `border-width` property (if not specified, default to 1px)
-: @brdrc : the value of `border-color` property (if not specified, default to value of `color` property)
-: @brdrr : the value of `border-radius` property
+: @width  : the value of `border-width` property (default to `1px`)
+: @color  : the value of `border-color` property (default to `currentColor`)
+: @radius : the value of `border-radius` property
 @implements
 : .border-vert-both(all)
 : .cellpaddingdefault()
@@ -864,10 +860,10 @@ body {
   font-size: 0.75rem;
   line-height: 2;
   border-top-width: 0.0625rem;
-  padding-top: 0.51044902rem;
-  margin-top: -0.57294902rem;
   border-top-style: solid;
   border-top-color: #9acc7a;
+  padding-top: 0.51044902rem;
+  margin-top: -0.57294902rem;
 }
 /**
   * The `.Rf` Object represents a reference to a footnote. The reference exists in the document prose,
@@ -1118,6 +1114,8 @@ figure,
 blockquote,
 pre {
   border-top-width: 0rem;
+  border-top-style: solid;
+  border-top-color: currentColor;
   padding-top: 0.57294902rem;
   margin-top: -0.57294902rem;
 }
@@ -1139,14 +1137,14 @@ pre {
 figure {
   border-left-width: 4px;
   border-left-style: solid;
+  border-left-color: #9acc7a;
   padding-left: 6.47213595px;
   margin-left: 16.94427191px;
-  border-left-color: #9acc7a;
   border-right-width: 4px;
   border-right-style: solid;
+  border-right-color: #9acc7a;
   padding-right: 6.47213595px;
   margin-right: 16.94427191px;
-  border-right-color: #9acc7a;
   text-align: center;
 }
 .Text {
@@ -1188,9 +1186,9 @@ blockquote {
   background-position: left bottom;
   border-left-width: 7px;
   border-left-style: double;
+  border-left-color: #9acc7a;
   padding-left: 11.32623792px;
   margin-left: 29.65247584px;
-  border-left-color: #9acc7a;
   font-family: 'Geneva', 'Tahoma', sans-serif;
 }
 blockquote > footer {
@@ -1229,14 +1227,14 @@ blockquote > footer > cite::after {
 pre {
   border-left-width: 3px;
   border-left-style: groove;
+  border-left-color: #9acc7a;
   padding-left: 4.85410197px;
   margin-left: 12.70820393px;
-  border-left-color: #9acc7a;
   border-right-width: 3px;
   border-right-style: ridge;
+  border-right-color: #9acc7a;
   padding-right: 4.85410197px;
   margin-right: 12.70820393px;
-  border-right-color: #9acc7a;
   border-radius: 6px;
 }
 /**
@@ -2727,9 +2725,9 @@ kbd > kbd {
 .Article [data-status="draft"] {
   border-left-width: 4px;
   border-left-style: solid;
+  border-left-color: #ff0000;
   padding-left: 6.47213595px;
   margin-left: 16.94427191px;
-  border-left-color: #ff0000;
   padding-right: 4px;
   box-shadow: 4px 4px 8px #808080;
   background-color: rgba(255, 158, 158, 0.14589803);
@@ -2737,9 +2735,9 @@ kbd > kbd {
 .Article [data-status="complete"] {
   border-left-width: 4px;
   border-left-style: solid;
+  border-left-color: #ccff00;
   padding-left: 6.47213595px;
   margin-left: 16.94427191px;
-  border-left-color: #ccff00;
   padding-right: 4px;
   box-shadow: 4px 4px 8px #808080;
   background-color: rgba(236, 255, 158, 0.14589803);
@@ -2747,9 +2745,9 @@ kbd > kbd {
 .Article [data-status="released"] {
   border-left-width: 4px;
   border-left-style: solid;
+  border-left-color: #00ff66;
   padding-left: 6.47213595px;
   margin-left: 16.94427191px;
-  border-left-color: #00ff66;
   padding-right: 4px;
   box-shadow: 4px 4px 8px #808080;
   background-color: rgba(158, 255, 197, 0.14589803);
@@ -2768,14 +2766,14 @@ kbd > kbd {
 .Article [data-informative] {
   border-left-width: 2px;
   border-left-style: solid;
+  border-left-color: #0066ff;
   padding-left: 3.23606798px;
   margin-left: 8.47213595px;
-  border-left-color: #0066ff;
   border-right-width: 2px;
   border-right-style: solid;
+  border-right-color: #0066ff;
   padding-right: 3.23606798px;
   margin-right: 8.47213595px;
-  border-right-color: #0066ff;
   box-shadow: 2px 2px 4px #c0c0c0;
   background-color: rgba(158, 197, 255, 0.14589803);
 }
@@ -2839,14 +2837,14 @@ kbd > kbd {
   pre {
     border-left-width: 0;
     border-left-style: solid;
+    border-left-color: currentColor;
     padding-left: 0;
     margin-left: 0;
-    border-left-color: #000000;
     border-right-width: 0;
     border-right-style: solid;
+    border-right-color: currentColor;
     padding-right: 0;
     margin-right: 0;
-    border-right-color: #000000;
   }
   br.print {
     display: inline;
