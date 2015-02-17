@@ -125,6 +125,8 @@
 /**
   * This Interface adds a top border, while adjusting padding to be a Golden proportion to 1vru,
   * and adjusts margin to keep vertical rhythm.
+  * `.vru-top-phi(...)`    adjusts padding to be the smaller of the proportion (0.381966)
+  * `.vru-top-phi(c; ...)` adjusts padding to be the larger  of the proportion (0.618034)
 @params
 : @width : value of the border-top-width property.
            Must be unitless but represent number of pixels.
@@ -146,7 +148,7 @@
   border-top-style: @style;
   border-top-color: @color;
   padding-top: ((@vru_core * @phi2) - @width_rem);
-  margin-top: -(@vru_core * @phi2); // -((@vru_core * @phi2) - @brdrw_rem) - @brdrw_rem;
+  margin-top: -(@vru_core * @phi2); // -((@vru_core * @phi2) - @width_rem) - @width_rem;
 }
 .vru-top-phi(@width; @style) {
   .vru-top-phi(@width; @style; currentColor);
@@ -156,4 +158,22 @@
 }
 .vru-top-phi() {
   .vru-top-phi(0);
+}
+
+.vru-top-phi(c; @width; @style; @color) {
+  @width_rem: @width * (1rem/16); // assuming 1rem = 16px by user agent
+  border-top-width: @width_rem;
+  border-top-style: @style;
+  border-top-color: @color;
+  padding-top: ((@vru_core * @phi1) - @width_rem);
+  margin-top: -(@vru_core * @phi1); // -((@vru_core * @phi1) - @width_rem) - @width_rem;
+}
+.vru-top-phi(c; @width; @style) {
+  .vru-top-phi(c; @width; @style; currentColor);
+}
+.vru-top-phi(c; @width) {
+  .vru-top-phi(c; @width; solid);
+}
+.vru-top-phi(c) {
+  .vru-top-phi(c; 0);
 }
