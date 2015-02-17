@@ -97,7 +97,7 @@ function tableSpacing() {
       n_rowgroups++;
     });
     if ($(this).find('.Rowgroup')[0] != null)     n_rowgroups++; // once more for the last border, if there is one
-    if ($(this).find('caption').hasClass('Capt')) n_rowgroups++; // once more again for a caption if it exists
+    if ($(this).find('caption')[0]   != null)     n_rowgroups++; // once more again for a caption if it exists
     var btm = -(((n_rowgroups + 12) % 24) - 12);
     if (btm <= 0) {
       $(this).css('margin-top',''); // removes any previous inline style
