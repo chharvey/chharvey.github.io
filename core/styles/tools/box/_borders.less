@@ -41,47 +41,48 @@
 @params
 : @side  : either `top` or `bottom`
 : @width : value of `border-width`
-: @style : value of `border-style`
-: @color : value of `border-color`
+: @style : value of `border-style` (default to `solid`)
+: @color : value of `border-color` (default to `currentColor`)
 @tags
 : #verticalrhythm
 : #border
 @author
 : Chris Harvey
 @updated
-: 2014-10-07
+: 2015-02-17
   */
-.border-vert-one(@side; @width; @style) {
-  .border-vert-one(@width);
-  border-@{side}-width: @width;
-  border-@{side}-style: @style;
-}
 .border-vert-one(@side; @width; @style; @color) {
-  .border-vert-one(@side; @width; @style);
-  border-@{side}-color: @color;
+  .border-vert-one(@width);
+  border-@{side}: @width  @style  @color;
+}
+.border-vert-one(@side; @width; @style) {
+  .border-vert-one(@side; @width; @style; currentColor);
+}
+.border-vert-one(@side; @width) {
+  .border-vert-one(@side; @width; solid);
 }
 
-.border-vert-both(topbot; @width; @style) {
-  .border-vert-both(@width);
-  border-top-width:    @width;
-  border-bottom-width: @width;
-  border-top-style:    @style;
-  border-bottom-style: @style;
-}
 .border-vert-both(topbot; @width; @style; @color) {
-  .border-vert-both(topbot; @width; @style);
-  border-top-color:    @color;
-  border-bottom-color: @color;
+  .border-vert-both(@width);
+  border-top:    @width  @style  @color;
+  border-bottom: @width  @style  @color;
+}
+.border-vert-both(topbot; @width; @style) {
+  .border-vert-both(topbot; @width; @style; currentColor);
+}
+.border-vert-both(topbot; @width) {
+  .border-vert-both(topbot; @width; solid);
 }
 
-.border-vert-both(all; @width; @style) {
-  .border-vert-both(@width);
-  border-width: @width;
-  border-style: @style;
-}
 .border-vert-both(all; @width; @style; @color) {
-  .border-vert-both(all; @width; @style);
-  border-color: @color;
+  .border-vert-both(@width);
+  border: @width  @style  @color;
+}
+.border-vert-both(all; @width; @style) {
+  .border-vert-both(all; @width; @style; currentColor);
+}
+.border-vert-both(all; @width) {
+  .border-vert-both(all; @width; solid);
 }
 
 /**
@@ -90,35 +91,44 @@
 @params
 : @side  : either `left` or `right`
 : @width : value of `border-[left|right]-width`
-: @style : value of `border-[left|right]-style`
-: @color : value of `border-[left|right]-color`
+: @style : value of `border-[left|right]-style` (default to `solid`)
+: @color : value of `border-[left|right]-color` (default to `currentColor`)
 @tags
 : #golden
 @author
 : Chris Harvey
 @updated
-: 2014-10-03
+: 2015-02-17
   */
-.sidebrdr-phi(@side; @width; @style) {
+.sidebrdr-phi(@side; @width; @style; @color) {
    border-@{side}-width: @width;
    border-@{side}-style: @style;
+  border-@{side}-color: @color;
   padding-@{side}: (@width * @inv_phi1);
    margin-@{side}: (@width * @inv_phi3);
 }
-.sidebrdr-phi(@side; @width; @style; @color) {
-  .sidebrdr-phi(@side; @width; @style);
-  border-@{side}-color: @color;
+.sidebrdr-phi(@side; @width; @style) {
+  .sidebrdr-phi(@side; @width; @style; currentColor);
+}
+.sidebrdr-phi(@side; @width) {
+  .sidebrdr-phi(@side; @width; solid);
 }
 
 /**
   * This Interface adds a top border, while adjusting padding to be a Golden proportion to 1vru,
   * and adjusts margin to keep vertical rhythm.
+  * `.vru-top-phi(...)`    adjusts top padding to be the larger  of the proportion (0.618034)
+  * `.vru-top-phi(c; ...)` adjusts top padding to be the smaller of the proportion (0.381966)
+  * `.vru-bottom-phi(...)`    adjusts bottom padding to be the larger  of the proportion (0.618034)
+  * `.vru-bottom-phi(c; ...)` adjusts bottom padding to be the smaller of the proportion (0.381966)
+  * `.vru-top-even(...)`    adjusts top    padding to be an even proportion (0.5)
+  * `.vru-bottom-even(...)` adjusts bottom padding to be an even proportion (0.5)
 @params
-: @brdrw : value of the border-top-width property.
+: @n     : value of the border-top-width property.
            Must be unitless but represent number of pixels.
            Must be less than the number of pixels in 1 vru.
-: @brdrs : value of the border-top-style property
-: @brdrc : value of the border-top-color property
+: @style : value of the border-top-style property (default to `solid`)
+: @color : value of the border-top-color property (default to `currentColor`)
 @tags
 : #verticalrhythm
 : #golden
@@ -126,20 +136,100 @@
 @author
 : Chris Harvey
 @updated
-: 2015-02-12
+: 2015-02-17
   */
-.vru-top-phi(@brdrw) {
-  @brdrw_rem: @brdrw * (1rem/16); // assuming 1rem = 16px by user agent
-  border-top-width: @brdrw_rem;
-  padding-top: ((@vru_core * @phi2) - @brdrw_rem);
-  margin-top: -(@vru_core * @phi2); // -((@vru_core * @phi2) - @brdrw_rem) - @brdrw_rem;
+.vru-top-phi(@n; @style; @color) {
+  @width_rem: @n * (1rem/16); // assuming 1rem = 16px by user agent
+  border-top: @width_rem  @style  @color;
+  padding-top: ((@vru_core * @phi1) - @width_rem);
+  margin-top: -(@vru_core * @phi1); // -((@vru_core * @phi1) - @width_rem) - @width_rem;
 }
-.vru-top-phi(@brdrw; @brdrs) {
-  .vru-top-phi(@brdrw);
-  border-top-style: @brdrs;
+.vru-top-phi(@n; @style) {
+  .vru-top-phi(@n; @style; currentColor);
 }
-.vru-top-phi(@brdrw; @brdrs; @brdrc) {
-  .vru-top-phi(@brdrw; @brdrs);
-  border-top-color: @brdrc;
+.vru-top-phi(@n) {
+  .vru-top-phi(@n; solid);
 }
-.vru-top-phi() {.vru-top-phi(0);}
+.vru-top-phi() {
+  .vru-top-phi(0);
+}
+
+.vru-top-phi(c; @n; @style; @color) {
+  @width_rem: @n * (1rem/16); // assuming 1rem = 16px by user agent
+  border-top: @width_rem  @style  @color;
+  padding-top: ((@vru_core * @phi2) - @width_rem);
+  margin-top: -(@vru_core * @phi2); // -((@vru_core * @phi2) - @width_rem) - @width_rem;
+}
+.vru-top-phi(c; @n; @style) {
+  .vru-top-phi(c; @width; @style; currentColor);
+}
+.vru-top-phi(c; @n) {
+  .vru-top-phi(c; @n; solid);
+}
+.vru-top-phi(c) {
+  .vru-top-phi(c; 0);
+}
+
+.vru-bottom-phi(@n; @style; @color) {
+  @width_rem: @n * (1rem/16); // assuming 1rem = 16px by user agent
+  border-bottom: @width_rem  @style  @color;
+  padding-bottom: ((@vru_core * @phi1) - @width_rem);
+  margin-bottom:  @vru_core * @phi2; // @vru_core - ((@vru_core * @phi1) - @width_rem) - @width_rem;
+}
+.vru-bottom-phi(@n; @style) {
+  .vru-bottom-phi(@n; @style; currentColor);
+}
+.vru-bottom-phi(@n) {
+  .vru-bottom-phi(@n; solid);
+}
+.vru-bottom-phi() {
+  .vru-bottom-phi(0);
+}
+
+.vru-bottom-phi(c; @n; @style; @color) {
+  @width_rem: @n * (1rem/16); // assuming 1rem = 16px by user agent
+  border-bottom: @width_rem  @style  @color;
+  padding-bottom: ((@vru_core * @phi2) - @width_rem);
+  margin-bottom:  @vru_core * @phi1; // @vru_core - ((@vru_core * @phi2) - @width_rem) - @width_rem;
+}
+.vru-bottom-phi(c; @n; @style) {
+  .vru-top-phi(c; @n; @style; currentColor);
+}
+.vru-bottom-phi(c; @n) {
+  .vru-bottom-phi(c; @n; solid);
+}
+.vru-bottomhi(c) {
+  .vru-bottom-phi(c; 0);
+}
+
+.vru-top-even(@n; @style; @color) {
+  @width_rem: @n * (1rem/16); // assuming 1rem = 16px by user agent
+  border-top: @width_rem  @style  @color;
+  padding-top: ((@vru_core * 0.5) - @width_rem);
+  margin-top: -(@vru_core * 0.5); // -((@vru_core * 0.5) - @width_rem) - @width_rem;
+}
+.vru-top-even(@n; @style) {
+  .vru-top-even(@n; @style; currentColor);
+}
+.vru-top-even(@n) {
+  .vru-top-even(@n; solid);
+}
+.vru-top-even() {
+  .vru-top-even(0);
+}
+
+.vru-bottom-even(@n; @style; @color) {
+  @width_rem: @n * (1rem/16); // assuming 1rem = 16px by user agent
+  border-bottom: @width_rem  @style  @color;
+  padding-bottom: ((@vru_core * 0.5) - @width_rem);
+  margin-bottom:  @vru_core * 0.5; // @vru_core - ((@vru_core * 0.5) - @width_rem) - @width_rem;
+}
+.vru-bottom-even(@n; @style) {
+  .vru-bottom-even(@n; @style; currentColor);
+}
+.vru-bottom-even(@n) {
+  .vru-bottom-even(@n; solid);
+}
+.vru-bottom-even() {
+  .vru-bottom-even(0);
+}
