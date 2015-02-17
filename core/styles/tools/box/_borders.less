@@ -53,9 +53,7 @@
   */
 .border-vert-one(@side; @width; @style; @color) {
   .border-vert-one(@width);
-  border-@{side}-width: @width;
-  border-@{side}-style: @style;
-  border-@{side}-color: @color;
+  border-@{side}: @width  @style  @color;
 }
 .border-vert-one(@side; @width; @style) {
   .border-vert-one(@side; @width; @style; currentColor);
@@ -66,12 +64,8 @@
 
 .border-vert-both(topbot; @width; @style; @color) {
   .border-vert-both(@width);
-  border-top-width:    @width;
-  border-bottom-width: @width;
-  border-top-style:    @style;
-  border-bottom-style: @style;
-  border-top-color:    @color;
-  border-bottom-color: @color;
+  border-top:    @width  @style  @color;
+  border-bottom: @width  @style  @color;
 }
 .border-vert-both(topbot; @width; @style) {
   .border-vert-both(topbot; @width; @style; currentColor);
@@ -82,9 +76,7 @@
 
 .border-vert-both(all; @width; @style; @color) {
   .border-vert-both(@width);
-  border-width: @width;
-  border-style: @style;
-  border-color: @color;
+  border: @width  @style  @color;
 }
 .border-vert-both(all; @width; @style) {
   .border-vert-both(all; @width; @style; currentColor);
@@ -125,10 +117,14 @@
 /**
   * This Interface adds a top border, while adjusting padding to be a Golden proportion to 1vru,
   * and adjusts margin to keep vertical rhythm.
-  * `.vru-top-phi(...)`    adjusts padding to be the smaller of the proportion (0.381966)
-  * `.vru-top-phi(c; ...)` adjusts padding to be the larger  of the proportion (0.618034)
+  * `.vru-top-phi(...)`    adjusts top padding to be the larger  of the proportion (0.618034)
+  * `.vru-top-phi(c; ...)` adjusts top padding to be the smaller of the proportion (0.381966)
+  * `.vru-bottom-phi(...)`    adjusts bottom padding to be the larger  of the proportion (0.618034)
+  * `.vru-bottom-phi(c; ...)` adjusts bottom padding to be the smaller of the proportion (0.381966)
+  * `.vru-top-even(...)`    adjusts top    padding to be an even proportion (0.5)
+  * `.vru-bottom-even(...)` adjusts bottom padding to be an even proportion (0.5)
 @params
-: @width : value of the border-top-width property.
+: @n     : value of the border-top-width property.
            Must be unitless but represent number of pixels.
            Must be less than the number of pixels in 1 vru.
 : @style : value of the border-top-style property (default to `solid`)
@@ -142,38 +138,98 @@
 @updated
 : 2015-02-17
   */
-.vru-top-phi(@width; @style; @color) {
-  @width_rem: @width * (1rem/16); // assuming 1rem = 16px by user agent
-  border-top-width: @width_rem;
-  border-top-style: @style;
-  border-top-color: @color;
-  padding-top: ((@vru_core * @phi2) - @width_rem);
-  margin-top: -(@vru_core * @phi2); // -((@vru_core * @phi2) - @width_rem) - @width_rem;
+.vru-top-phi(@n; @style; @color) {
+  @width_rem: @n * (1rem/16); // assuming 1rem = 16px by user agent
+  border-top: @width_rem  @style  @color;
+  padding-top: ((@vru_core * @phi1) - @width_rem);
+  margin-top: -(@vru_core * @phi1); // -((@vru_core * @phi1) - @width_rem) - @width_rem;
 }
-.vru-top-phi(@width; @style) {
-  .vru-top-phi(@width; @style; currentColor);
+.vru-top-phi(@n; @style) {
+  .vru-top-phi(@n; @style; currentColor);
 }
-.vru-top-phi(@width) {
-  .vru-top-phi(@width; solid);
+.vru-top-phi(@n) {
+  .vru-top-phi(@n; solid);
 }
 .vru-top-phi() {
   .vru-top-phi(0);
 }
 
-.vru-top-phi(c; @width; @style; @color) {
-  @width_rem: @width * (1rem/16); // assuming 1rem = 16px by user agent
-  border-top-width: @width_rem;
-  border-top-style: @style;
-  border-top-color: @color;
-  padding-top: ((@vru_core * @phi1) - @width_rem);
-  margin-top: -(@vru_core * @phi1); // -((@vru_core * @phi1) - @width_rem) - @width_rem;
+.vru-top-phi(c; @n; @style; @color) {
+  @width_rem: @n * (1rem/16); // assuming 1rem = 16px by user agent
+  border-top: @width_rem  @style  @color;
+  padding-top: ((@vru_core * @phi2) - @width_rem);
+  margin-top: -(@vru_core * @phi2); // -((@vru_core * @phi2) - @width_rem) - @width_rem;
 }
-.vru-top-phi(c; @width; @style) {
+.vru-top-phi(c; @n; @style) {
   .vru-top-phi(c; @width; @style; currentColor);
 }
-.vru-top-phi(c; @width) {
-  .vru-top-phi(c; @width; solid);
+.vru-top-phi(c; @n) {
+  .vru-top-phi(c; @n; solid);
 }
 .vru-top-phi(c) {
   .vru-top-phi(c; 0);
+}
+
+.vru-bottom-phi(@n; @style; @color) {
+  @width_rem: @n * (1rem/16); // assuming 1rem = 16px by user agent
+  border-bottom: @width_rem  @style  @color;
+  padding-bottom: ((@vru_core * @phi1) - @width_rem);
+  margin-bottom:  @vru_core * @phi2; // @vru_core - ((@vru_core * @phi1) - @width_rem) - @width_rem;
+}
+.vru-bottom-phi(@n; @style) {
+  .vru-bottom-phi(@n; @style; currentColor);
+}
+.vru-bottom-phi(@n) {
+  .vru-bottom-phi(@n; solid);
+}
+.vru-bottom-phi() {
+  .vru-bottom-phi(0);
+}
+
+.vru-bottom-phi(c; @n; @style; @color) {
+  @width_rem: @n * (1rem/16); // assuming 1rem = 16px by user agent
+  border-bottom: @width_rem  @style  @color;
+  padding-bottom: ((@vru_core * @phi2) - @width_rem);
+  margin-bottom:  @vru_core * @phi1; // @vru_core - ((@vru_core * @phi2) - @width_rem) - @width_rem;
+}
+.vru-bottom-phi(c; @n; @style) {
+  .vru-top-phi(c; @n; @style; currentColor);
+}
+.vru-bottom-phi(c; @n) {
+  .vru-bottom-phi(c; @n; solid);
+}
+.vru-bottomhi(c) {
+  .vru-bottom-phi(c; 0);
+}
+
+.vru-top-even(@n; @style; @color) {
+  @width_rem: @n * (1rem/16); // assuming 1rem = 16px by user agent
+  border-top: @width_rem  @style  @color;
+  padding-top: ((@vru_core * 0.5) - @width_rem);
+  margin-top: -(@vru_core * 0.5); // -((@vru_core * 0.5) - @width_rem) - @width_rem;
+}
+.vru-top-even(@n; @style) {
+  .vru-top-even(@n; @style; currentColor);
+}
+.vru-top-even(@n) {
+  .vru-top-even(@n; solid);
+}
+.vru-top-even() {
+  .vru-top-even(0);
+}
+
+.vru-bottom-even(@n; @style; @color) {
+  @width_rem: @n * (1rem/16); // assuming 1rem = 16px by user agent
+  border-bottom: @width_rem  @style  @color;
+  padding-bottom: ((@vru_core * 0.5) - @width_rem);
+  margin-bottom:  @vru_core * 0.5; // @vru_core - ((@vru_core * 0.5) - @width_rem) - @width_rem;
+}
+.vru-bottom-even(@n; @style) {
+  .vru-bottom-even(@n; @style; currentColor);
+}
+.vru-bottom-even(@n) {
+  .vru-bottom-even(@n; solid);
+}
+.vru-bottom-even() {
+  .vru-bottom-even(0);
 }
