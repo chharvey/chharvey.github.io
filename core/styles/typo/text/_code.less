@@ -147,8 +147,8 @@ code {
 .c--Blk {
   .box-block(2px; @code_brdr_radius);
   .font-size-block(@font_size_sml; @line_height_base);
-  font-size: (@font_size_sml * 1em); // bug fix for Menlo font-family
   .codecolors-sol-dark();
+  display: block;
   text-align: left;
   white-space: inherit;
   &.Invert { .codecolors-sol-lite(); }
@@ -298,12 +298,8 @@ code {
   * This Object represents an individual key (a button) on a keyboard, calculator, or other device.
   *
   * The `kbd` Element represents general user input. The `kbd > kbd` Element represents an actual
-  * key or button that the user should input. Use `kbd > kbd.Key` in this case.
-  * To *name* a key, without commanding use of it, best use `i.Key`, as this is a "mention".
+  * key, button, or single unit of input.
   *
-<p>Use <kbd><kbd class="Key">cmd</kbd>+<kbd class="Key">S</kbd></kbd> to save, where
-  the <i class="Key">cmd</i> key is depicted with the <i>&#x2318;</i> symbol.</p>
-  <!-- U+2318 "PLACE OF INTEREST SIGN" ⌘ -->
 @implements
 : .box-inline()
 : .codecolors-sol-dark()
@@ -312,11 +308,12 @@ code {
 @author
 : Chris Harvey
 @updated
-: 2014-06-06
+: 2015-02-17
   */
 kbd > kbd {
   .box-inline(@code_brdr_radius);
   .codecolors-sol-dark();
+  font-size: inherit; // undo compounding font sizes
   font-family: @fontfam_accent;
   color: @color_codeblock_emph;
 }
