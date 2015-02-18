@@ -1,5 +1,5 @@
 // out: home.css
-@import (reference) url('../core/styles/all.less');
+@import (reference) url('../core/styles/core.less');
 
 /*#############*\
     home.less
@@ -16,8 +16,11 @@
 //+++++++++++//
 .Spiral {
   position: relative;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
 }
-.Square {
+a.Square {
   @trans_square: @t_ani_long;
   .transition(background-color; @trans_square);
   display: block;
@@ -27,6 +30,7 @@
   background-color: @color_crumb_up_bg;
   background-image: url('images/circle.svg');
   background-size: 200%;
+  opacity: inherit;
   .Text {
     .transition(box-shadow,text-shadow,color,background-color; @trans_square);
     display: block;
@@ -38,7 +42,8 @@
     text-shadow: 2px 2px 10px;
   }
 }
-.Square:hover {
+a.Square:hover {
+  text-decoration: none;
   color: @color_crumb_dn_txt;
   background-color: @color_crumb_dn_bg;
   .Text {
@@ -159,13 +164,15 @@
   background-repeat: no-repeat;
   .translucent();
   overflow: hidden;
+  &:hover {
+    color: transparent;
+  }
 }
 /**
   * This Object represents a list of icons.
 @implements
-: .list-block()
 : .margin-even
-: .vru-top()
+: .spacing-top()
 @tags
 : #typography
 : #list
@@ -177,11 +184,10 @@
 @iconsize: 64px;
 @iconpadd: 10px;
 .Iconlist {
-  .list-block();
   .margin-even;
-  .vru-top(1);
+  .spacing-top(@vru_core);
   text-align: center;
-  .Item {display: inline;}
+  li {display: inline;}
 }
 
 /**
@@ -195,7 +201,7 @@
   */
 @contacticonsize: 64px;
 @contacticonpadd: 10px;
-.Icon--Ct {
+a.Icon--Ct {
   .icon(@contacticonsize; url('images/contact-sprite.png'));
 }
 .Icon--Ct.Mapss {.sprite(1; @contacticonsize; @contacticonpadd);}
@@ -217,7 +223,7 @@
 : 2014-09-25
   */
 @appiconsize: 72px;
-.Icon--Ap {
+a.Icon--Ap {
   .icon(@appiconsize; url());
   background-size: contain;
   background-position: center center;
@@ -238,8 +244,8 @@
 : 2015-01-08
   */
 .Ulist.Ack {
-  .fontsize-block-sml();
-  padding-left: (@listindent / 2);
+  .font-size-block(@font_size_sml; @line_height_base);
+  padding-left: 2rem;
 }
 
 /**
@@ -249,16 +255,16 @@
 @updated
 : 2014-06-16
   */
-.Capt.Capt-logo {
+.Capt-logo {
   padding-right: 96px;
   background-position: right center;
   background-repeat: no-repeat;
   background-size: 72px auto;
 }
-.Capt.Capt-logo.Nctm {background-image: url('images/logos-banners/logo-NCTM.png');}
-.Capt.Capt-logo.Vctm {background-image: url('images/logos-banners/logo-VCTM.png');}
-.Capt.Capt-logo.Txin {background-image: url('images/logos-banners/logo-TI.png');}
-.Capt.Capt-logo.Vdoe {background-image: url('images/logos-banners/logo-VA-DOE.png');}
-.Capt.Capt-logo.Amsy {background-image: url('images/logos-banners/logo-AMS.png');}
-.Capt.Capt-logo.Vmta {background-image: url('images/logos-banners/logo-VMTA.png');}
+.Capt-logo.Nctm {background-image: url('images/logos-banners/logo-NCTM.png');}
+.Capt-logo.Vctm {background-image: url('images/logos-banners/logo-VCTM.png');}
+.Capt-logo.Txin {background-image: url('images/logos-banners/logo-TI.png');}
+.Capt-logo.Vdoe {background-image: url('images/logos-banners/logo-VA-DOE.png');}
+.Capt-logo.Amsy {background-image: url('images/logos-banners/logo-AMS.png');}
+.Capt-logo.Vmta {background-image: url('images/logos-banners/logo-VMTA.png');}
 //++++ @end OTHER PAGES ++++//

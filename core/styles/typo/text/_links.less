@@ -1,4 +1,4 @@
-// main: ../../all.less
+// main: ../../core.less
 
 /*###############*\
     _links.less
@@ -14,9 +14,7 @@
 @trans_link: @t_ani_short;
 
 /**
-  * This Object represents the abstract concept of a span of text that links to another file.
-  * It does not represent an inactive placeholder (equivalent to an empty `a` Element). It also
-  * does not represent a block-level hyperlink, e.g. a box that could contain an image.
+  * Inline "active" hyperlinks. Not placeholder links, nor box links.
 @tags
 : #hyperlink
 : #span
@@ -25,8 +23,9 @@
 @updated
 : 2014-09-23
   */
-.Link {
+a[href] {
   .transition(color; @trans_link);
+  text-decoration: none;
   color: @color_link_up;
   cursor: pointer;
   &:hover {
@@ -39,46 +38,16 @@ a[rel~="external"] {font-style: italic;}
 // mobile device styles:
 // @updated
 // : 2014-09-23
-.Link {
-	font-weight: bold;
-	color: inherit;
-	&:hover {
-		text-decoration: none;
-		color: inherit;
-	}
-	&:active {
-		color: inherit;
-		background-color: @color_btn_up_bg;
-		border-radius: 3px;
-	}
-}
-/**
-  * This Object represents a placeholder reference to a name or title of a heading, section, figure,
-  * table (or column in a table), or creative work.
-  * It may be instantiated by the `a` or `cite` Elements.
-@tags
-: #hyperlink
-: #span
-@author
-: Chris Harvey
-@updated
-: 2014-05-25
-  */
-.Ref {
+a[href] {
   font-weight: bold;
-}
-/**
-  * This Object represents a proper noun traditionally italicized, e.g. periodical name or ship name.
-@tags
-: #typography
-: #span
-: #highlight
-@author
-: Chris Harvey
-@updated
-: 2014-05-25
-  */
-.Proper {
-  font-style: italic;
-  text-transform: capitalize;
+  color: inherit;
+  &:hover {
+    text-decoration: none;
+    color: inherit;
+  }
+  &:active {
+    color: inherit;
+    background-color: @color_btn_up_bg;
+    border-radius: 3px;
+  }
 }
