@@ -26,14 +26,8 @@
 @author
 : Chris Harvey
 @updated
-: 2015-02-11
+: 2015-02-17
   */
-.status(@brdrc; @bgc) {
-  .sidebrdr-phi(left; 4px; solid; @brdrc);
-  padding-right: 4px;
-  box-shadow: 4px 4px 8px #808080;
-  background-color: fadeout(@bgc, @golden4c);
-}
 .Article {
   &[data-status="draft"]::before,
   &[data-status="complete"]::before,
@@ -53,9 +47,30 @@
   &[data-status="complete"]::before {color: @color_cshn_txt; background: @color_cshn_bg; content: 'This article is mostly complete.';}
   &[data-status="released"]::before {color: @color_skss_txt; background: @color_skss_bg; content: 'This article is ready for implemen' '\00ad' 'tation.';}
 
+}
+.status(@brdrc; @bgc) {
+  .sidebrdr-phi(left; 4px; solid; @brdrc);
+  background-color: fadeout(@bgc, @golden4c);
+}
+@media screen {
+  .Article {
+    [data-status="draft"],
+    [data-status="complete"],
+    [data-status="released"] {
+      padding-right: 4px;
+      box-shadow: 4px 4px 8px #808080;
+    }
   [data-status="draft"]    {.status(@color_warn_brdr; @color_warn_bg);}
   [data-status="complete"] {.status(@color_cshn_brdr; @color_cshn_bg);}
   [data-status="released"] {.status(@color_skss_brdr; @color_skss_bg);}
+  }
+}
+@media print {
+  .Article {
+    [data-status="draft"]    {color: @color_warn_txt;}
+    [data-status="complete"] {color: @color_cshn_txt;}
+    [data-status="released"] {color: @color_skss_txt;}
+  }
 }
 
 /**
