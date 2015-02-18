@@ -25,14 +25,22 @@ h3, h4, h5, h6 {
 p {
   .spacing-bottom(0);
 }
-a:not(.BlueLink) {
+a[href] {
+  &:not(.BlueLink) {
+  font-style: inherit;
   color: inherit;
-  &[rel~="external"] {
-    font-style: inherit;
-  }
   &:hover {
     text-decoration: none;
     color: inherit;
+  }
+  }
+}
+@media print {
+  a[href] {
+    text-decoration: none;
+    &.BlueLink {
+      color: @color_link_up;
+    }
   }
 }
 abbr[title] {
