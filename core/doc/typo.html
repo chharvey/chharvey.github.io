@@ -544,7 +544,7 @@ Add class <code>.Invert</code> for a code block with inverted colors.
         <p class="Alert--Warn"><small><strong class="Lede">Warning:</strong> As of
           <time>2015-02-18</time> there is no longer a mechanism available for
           syntax highlighting in code blocks. Check back later for updates.</small></p>
-        <p>The following code blocks show the syntax for an HTML tag and a Less declaration, respectively.</p>
+        <p>The following code blocks show HTML, Less, and JavaScript syntax, respectively.</p>
         <pre>
 <code class="c--Blk">&lt;tag atr=&quot;val val&quot;&gt;contents&lt;tag&gt;
 &lt;!-- this is an HTML comment --&gt;
@@ -556,7 +556,27 @@ Add class <code>.Invert</code> for a code block with inverted colors.
   // This is an inline comment
 }
 /* This is a normal comment */
-</code></pre>
+</code>
+<style scoped="">
+  .Ctl {color: #dc322f;} /* red */
+  .Opr {color: #cb4b16;} /* orange */
+  .Kwd {color: #b58900;} /* yellow */
+  .Cst {color: #859900;} /* green */
+  .Str {color: #2aa198;} /* cyan */
+  .Cmd {color: #268bd2;} /* blue */
+  .Arg {color: #6c71c4;} /* violet */
+  .Obj {color: #d33682;} /* magenta */
+  .Comm {opacity: 0.6;}
+</style>
+<code class="c--Blk"><span class="Kwd">function</span> <span class="Cmd">Person(<span class="Arg">name</span>)</span> { <span class="Comm">// constructor for class `Person`</span>
+  <span class="Obj">this</span>.greet = <span class="Str">'hello!'</span>;
+}
+<span class="Kwd">function</span> <span class="Cmd">Student(<span class="Arg">name, cred</span>)</span> { <span class="Comm">// constructor for class `Student`</span>
+  <span class="Obj">Person</span>.<span class="Cmd">call(<span class="Arg"><span class="Obj">this</span>, name, cred</span>)</span>; <span class="Comm">// calls the parent constructor</span>
+  <span class="Ctl">if (<span class="Arg">cred</span> <span class="Opr">&gt;=</span> <span class="Cst">0</span>)</span> { <span class="Obj">this.</span>credits = <span class="Arg">cred</span>; }
+}
+<span class="Obj">Util</span>.<span class="Cmd">extend(<span class="Arg"><span class="Obj">Student</span>, <span class="Obj">Person</span></span>)</span>; <span class="Comm">// extends `Student` from `Person`</span>
+<span class="Kwd">var</span> me = <span class="Opr">new</span> <span class="Cmd">Student(<span class="Arg"><span class="Str">'Chris'</span>, <span class="Cst">40</span></span>)</span>; <span class="Comm">// creates an instance of `Student`</span></code></pre>
       </section>
     </section>
   </section>
@@ -607,8 +627,8 @@ Add class <code>.Invert</code> for a code block with inverted colors.
       indicate a table of contents, document outline, <i lang="la"><abbr title="et cetera">etc.</abbr></i>
       Use the class <code>.l--Otln</code>, with an optional additional Greek prefix subclasses
       for marker style, on all levels of the outline. Thus a DOM tree might look like this:
-      <code class="Codeblock">ol.Outline.Alp &gt; ol.Outline.Bet &gt; ol.Outline</code>
     </p>
+    <pre><code class="c--Blk">ol.Outline.Alp &gt; ol.Outline.Bet &gt; ol.Outline</code></pre>
     <ol class="l--Otln l--Alp">
       <li>Book One (no spans)
         <ol class="l--Otln l--Bet">
@@ -1103,32 +1123,6 @@ Add class <code>.Invert</code> for a code block with inverted colors.
       <dt><code>.c--Path</code></dt>     <dd><span class="c--Path">file path, directory or <abbr class="Acro" title="uniform resource identifier">URI</abbr></samp></dd>
     </dl>
     <!-- <section id="code">
-      <h4>Code Blocks</h4>
-      <p>Use <code>pre &gt; code</code> for blocks of computer code.
-        Code blocks may have spans inside that represent different components of different
-        languages.</p>
-      <p><code>.Codeblock.HTML</code> shows the syntax for an HTML tag.</p>
-      <code class="Codeblock HTML"><span class="Tag">tag <span class="Atr">atr=<span class="Val">val val</span></span></span>contents<span class="Tag End">tag</span>
-<span class="Comm">this is an HTML comment</span></code>
-    <p>This <code>.Codeblock.CSS</code> shows the syntax for a Less declaration.</p>
-    <code class="Codeblock CSS"><span class="Sel">sel {
-  <span class="Prp">prp<span class="Val">val</span></span>
-  <span class="Cmd">.cmd<span class="Arg">arg, <span class="Str">string</span></span></span>
-  <span class="Sel">&amp;:sel {<span class="Prp">prp<span class="Val">val</span></span></span>
-  <span class="Comm I">This is an inline comment</span>
-</span>
-<span class="Comm">This is a normal comment</span></code>
-      <p>Use a <code>.Codeblock.Invert</code> for a light color theme. Its source code is exactly
-        the same as above, except for the class addition.</p>
-      <code class="Codeblock HTML Invert"><span class="Tag">tag <span class="Atr">atr=<span class="Val">val val</span></span></span>contents<span class="Tag End">tag</span>
-<span class="Comm">this is an HTML comment</span></code>
-    <code class="Codeblock CSS Invert"><span class="Sel">sel {
-  <span class="Prp">prp<span class="Val">val</span></span>
-  <span class="Cmd">.cmd<span class="Arg">arg, <span class="Str">string</span></span></span>
-  <span class="Sel">&amp;:sel {<span class="Prp">prp<span class="Val">val</span></span></span>
-  <span class="Comm I">This is an inline comment</span>
-</span>
-<span class="Comm">This is a normal comment</span></code>
       <p>The next example is a <code>.CSSmap</code>. This special code block is
         not preformatted. That is, the semantics of the code are not derived from its formatting,
         but rather its subcomponent Objects. The Object names are given in the first selector.
@@ -1175,7 +1169,7 @@ Add class <code>.Invert</code> for a code block with inverted colors.
         <caption>Differences between two methods of displaying CSS code</caption>
         <thead class="Rowgroup Head">
           <tr class="Row">
-            <th class="Cell Hc"><code>.Codeblock.CSS</code></th>
+            <th class="Cell Hc"><code>.c--Blk</code></th>
             <th class="Cell Hc"><code>.CSSmap</code></th>
           </tr>
         </thead>
