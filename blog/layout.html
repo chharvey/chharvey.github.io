@@ -52,17 +52,17 @@
     <p>The easiest way to set the width of a block is to use the CSS <code>width</code> property.
       I have made it easier to do calculations with Less variables, so use them.
       The figure below illustrates a simplified version of the code.
-      <arel="external"
-      href="https://github.com/chharvey/chharvey.github.io/blob/master/core/styles/">The
+      <a rel="external"
+      href="https://github.com/chharvey/chharvey.github.io/blob/master/core/styles/tools/_flexbox.less">The
       actual code</a> is on GitHub.</p>
-    <pre><code class="c--Blk">// even widths:    // golden widths:
-@1o1: 100%;        @golden0:  100%;
-@1o2:  50%;        @golden1:   61.803%;
-@2o2: 100%;        @golden2:   38.197%;
-@1o3:  33.333%;    @golden3:   23.607%;
-@2o3:  66.666%;    @golden4:   14.590%;
-@3o3: 100%;        @golden3c:  76.393%;
-@1o4:  25%;        @golden4c:  85.410%;
+    <pre><code class="c--Blk">// even widths:        // golden widths:
+@1o1: 100%;            @golden0:  100%;
+@1o2:  50%;            @golden1:   61.803%;
+@2o2: 100%;            @golden2:   38.197%;
+@1o3:  33.333%;        @golden3:   23.607%;
+@2o3:  66.666%;        @golden4:   14.590%;
+@3o3: 100%;            @golden3c:  76.393%;
+@1o4:  25%;            @golden4c:  85.410%;
 @2o4:  50%;
 @3o4:  75%;
 @4o4: 100%;
@@ -228,17 +228,19 @@
     <p>When a <i>line</i> (that is, a visual horozontal arrangement of blocks) has
       only one block, you have a few options for how to position it.</p>
     <p>The worst is using floats. This only pushes the block flush left or flush right, and
-      wraps subsequent content around it. Floats are good for flyers and newsletters when you need
+      wraps subsequent content around it, requiring a hack known as a <i>clearfix</i> to
+      prevent this behavior. Floats are good for flyers and newsletters when you need
       to wrap text around an image, but they are not good at all for laying out a page.</p>
     <p>Instead, you can use <code>position: relative;</code> or <code>position: absolute;</code>,
       with a value for <code>left</code> or <code>right</code>. The downside of these is that you
       cannot center a block on a line.</p>
     <p>My recommendation is to use margins. To horizontally position a block,
-      add left and right margins. You can use the <code>.margin-even</code> Interface to center the
-      block, but there are no other automatic Interfaces for adding margins&mdash;you&rsquo;ll need
-      to write good-old-fashioned CSS if you want to position a block in a non-centered way.
+      add left and right margins in the CSS. You can add the <code>.margin-even</code> <b>Interface</b>
+      to an HTML Element to center the block, or you can include or <code>:extend()</code> it in Less.
+      There are no other automatic Interfaces for adding margins&mdash;you&rsquo;ll need
+      to write good-old-fashioned CSS if you want to position a block in a non-centered
+      way.<sup class="Rf"><a class="Link" id="rf-sitelayout" rel="this" href="#fn-sitelayout">1</a></sup>
       Keep in mind you can use the Less variables so you don&rsquo;t have to do the math by hand.</p>
-    </p>
     <pre><code class="c--Blk">.margin-even {margin-left: auto; margin-right: auto;}</code></pre>
     <figure class="Text">
       <p class="w-1o1 margin-even help-otln">Use <code>.w-1o1</code> (100%) to model the
@@ -259,6 +261,15 @@
       <p class="w-p1 margin-even help-otln">Use <code>.w-p1</code> (61.8%) to model the
         <a href="../core/doc/phi.html">Golden Ratio <span class="M">\Phi</span></a>.</p>
     </figure>
+    <footer>
+      <ul class="Footnotes">
+        <li><sup class="Fn"><a class="Link" id="fn-sitelayout" rel="this" href="#rf-sitelayout">1</a></sup>For
+          example, this site uses a main width of about 61.8% (the <a class="Link"
+          href="../core/doc/phi.html">Golden Ratio</a>) with the remaining 38.2% split into
+          the left and right margins: about 23.6% on the left and about 14.6% on the right&mdash;another
+          Golden Ratio.</li>
+      </ul>
+    </footer>
   </section>
 </section>
 <section>
@@ -268,7 +279,7 @@
     that contains other blocks, called <dfn id="flex-item">flex-items</dfn>, inside.</p>
   <p>Most likely, your HTML is already structured this way: the blocks you want to
     lay out together are likely already wrapped in some sort of container. All you need to do is add
-    <code>.flex-container</code> to the container. Then, optionally use the width Interfaces mentioned
+    the <code>.flex-container</code> <b>Interface</b> to the container. Then, optionally use the width Interfaces mentioned
     above to set the proper widths of each of the blocks. If not, their widths will automatically
     fit their content. That&rsquo;s it! Layout done.</p>
   <figure>
