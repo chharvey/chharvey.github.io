@@ -2083,11 +2083,15 @@ var::after {
 \*##############*/
 /**
   * An Interface used for both inline and block code. Automate the coloring of code Elements.
-  * `.codecolors-sol-lite()` sets a Solarized Light theme, while
-  * `.codecolors-sol-dark()` sets a Solarized Dark theme.
+  * `.codecolors-sol(lite)` sets a Solarized Light theme
+  * `.codecolors-sol(dark)` sets a Solarized Dark theme
+  * IMPORTANT:
+  * - To denote comments, use the HTML `small` Element. Yes, this means code comments.
+  * - To denote importance, use the HTML `strong` Element.
 @params
 : @color_txt  : the value of the `color` property
 : @color_comm : the value of the `color` property for code comments
+: @color_emph : the value of the `color` property for code marked important
 : @color_bg   : the value of the `background-color` property
 : @color_brdr : the value of the `border-color` property
 @tags
@@ -2097,7 +2101,7 @@ var::after {
 @author
 : Chris Harvey
 @updated
-: 2014-12-04
+: 2015-02-19
   */
 /**
   * A span of text that a computer program would recognize.
@@ -2111,7 +2115,7 @@ var::after {
 @author
 : Chris Harvey
 @updated
-: 2015-02-17
+: 2015-02-19
   */
 code {
   padding: 1px 2px;
@@ -2125,10 +2129,16 @@ code {
   background-color: #fdf6e3;
   font-family: 'Menlo', 'Monaco', 'Andale Mono', monospace;
 }
+code > small {
+  font-size: inherit;
+  color: #93a1a1;
+}
+code > strong {
+  color: #586e75;
+}
 /**
-  * A block of code. Since its semantics are derived from the formatting (line breaks, indenting, etc) of
-  * the text content, it should be wrapped with a `pre` Element.
-  * `&.Invert` : use Solarized Light instead of Solarized Dark
+  * A block of code. Since its semantics are derived from the formatting
+  * (line breaks, indenting, etc) of the text content, it should be wrapped with a `pre` Element.
 @implements
 : .box-block()
 : .font-size-block()
@@ -2138,7 +2148,7 @@ code {
 @author
 : Chris Harvey
 @updated
-: 2015-02-11
+: 2015-02-19
   */
 .c--Blk {
   box-sizing: border-box;
@@ -2156,10 +2166,75 @@ code {
   white-space: inherit;
   overflow: inherit;
 }
-.c--Blk.Invert {
-  border-color: #eee8d5;
-  color: #657b83;
-  background-color: #fdf6e3;
+.c--Blk > small {
+  font-size: inherit;
+  color: #586e75;
+}
+.c--Blk > strong {
+  color: #93a1a1;
+}
+/**
+  * Sub-Components of code:
+  *
+  * `.c__Ctl`  : programming control (if, for, switch, return)
+  * `.c__Opr`  : delimiter or operator (+, ==, ., new, this)
+  * `.c__Kwd`  : predefined keywords (var, function)
+  * `.c__Cst`  : a number, color, or character constant
+  * `.c__Str`  : any string
+  * `.c__Cmd`  : a function name, function call, constructor call, or Less, LaTeX, or JS command
+  * `.c__Arg`  : argument to a function or constructor call, or a Less, LaTeX, or JS argument
+  * `.c__Obj`  : a class or object reference
+
+  * `.c__Tag`  : an HTML tag
+  * `.c__Atr`  : an HTML attribute
+  * `.c__Val`  : an HTML or CSS value
+  * `.c__Sel`  : a CSS selector
+  * `.c__Prp`  : a CSS property
+@tags
+: #code
+@author
+: Chris Harvey
+@updated
+: 2015-02-19
+  */
+.c__Ctl {
+  color: #dc322f;
+}
+.c__Opr {
+  color: #cb4b16;
+}
+.c__Kwd {
+  color: #b58900;
+}
+.c__Cst {
+  color: #859900;
+}
+.c__Str {
+  color: #2aa198;
+}
+.c__Cmd {
+  color: #268bd2;
+}
+.c__Arg {
+  color: #6c71c4;
+}
+.c__Obj {
+  color: #d33682;
+}
+.c__Tag {
+  color: #268bd2;
+}
+.c__Atr {
+  color: #b58900;
+}
+.c__Val {
+  color: #2aa198;
+}
+.c__Sel {
+  color: #268bd2;
+}
+.c__Prp {
+  color: #b58900;
 }
 /**
   * This Object represents an individual key (a button) on a keyboard, calculator, or other device.
@@ -2189,6 +2264,13 @@ kbd > kbd {
   background-color: #002b36;
   font-size: inherit;
   font-family: 'Geneva', 'Tahoma', sans-serif;
+  color: #93a1a1;
+}
+kbd > kbd > small {
+  font-size: inherit;
+  color: #586e75;
+}
+kbd > kbd > strong {
   color: #93a1a1;
 }
 /**

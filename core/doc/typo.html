@@ -524,22 +524,40 @@ whose semantics are not affected by typographical structure:
 In general, <code>pre &gt; code</code> is a <a rel="this" href="#data">fragment of code</a>
 inside preformatted text.
 
-For blocks of computer code where white space and line breaks are semantic,
-use <code>pre &gt; code.c--Blk</code>.
+For blocks of computer code where white space and line breaks
+indicate semantics, use <code>pre &gt; code.c--Blk</code>.
 
 <code class="c--Blk">function fibonacci(n) {
   if (n === 0 || n === 1) return 1;
   else if (n > 1)         return fibonacci(n-1) + fibonacci(n-2);
   else                    return NaN;
 }
-</code>
-Add class <code>.Invert</code> for a code block with inverted colors.
-
-<code class="c--Blk Invert">function fibonacci(n) {
-  if (n === 0 || n === 1) return 1;
+</code></pre>
+        <p>The Elements
+          <code><small>code.c--Blk &gt; small</small></code> and
+          <code><strong>code.c--Blk &gt; strong</strong></code>
+          respectively denote code comments, an actual thing, and importance.
+          (Importance isn&rsquo;t an actual thing in code, since all code is important.)
+          Punctuation is not included.</p>
+        <pre>
+<code class="c--Blk">function fibonacci(n) {
+  if (n === 0 || n === 1) return 1; <small>// these are the base cases</small>
   else if (n > 1)         return fibonacci(n-1) + fibonacci(n-2);
-  else                    return NaN;
+  <strong>else                    return NaN;</strong>
 }
+</code></pre>
+        <p>The following block shows the colors given by subcomponents of code.
+          They should all be in the form of <code>span.c__*</code>.
+          See the <a rel="sibling" href="colors.html">color styleguide</a> for info on usage.</p>
+        <pre>
+<code class="c--Blk"><span class="c__Ctl">span.c__Ctl  (control)</span>         <span class="c__Tag">span.c__Tag  (HTML tag)</span>
+<span class="c__Opr">span.c__Opr  (operator)</span>        <span class="c__Atr">span.c__Atr  (HTML attribute)</span>
+<span class="c__Kwd">span.c__Kwd  (keyword)</span>         <span class="c__Val">span.c__Val  (HTML/CSS value)</span>
+<span class="c__Cst">span.c__Cst  (constant)</span>        <span class="c__Sel">span.c__Sel  (CSS selector)</span>
+<span class="c__Str">span.c__Str  (string)</span>          <span class="c__Prp">span.c__Prp  (CSS property)</span>
+<span class="c__Cmd">span.c__Cmd  (command)</span>
+<span class="c__Arg">span.c__Arg  (argument)</span>
+<span class="c__Obj">span.c__Obj  (object)</span>
 </code></pre>
         <p class="Alert--Warn"><small><strong class="Lede">Warning:</strong> As of
           <time>2015-02-18</time> there is no longer a mechanism available for
@@ -547,36 +565,25 @@ Add class <code>.Invert</code> for a code block with inverted colors.
         <p>The following code blocks show HTML, Less, and JavaScript syntax, respectively.</p>
         <pre>
 <code class="c--Blk">&lt;tag atr=&quot;val val&quot;&gt;contents&lt;tag&gt;
-&lt;!-- this is an HTML comment --&gt;
+<small>&lt;!-- this is an HTML comment --&gt;</small>
 </code>
 <code class="c--Blk">sel {
   prp: val;
   .cmd(arg, 'string');
   &amp;:sel {prp: val;}
-  // This is an inline comment
+  <small>// This is an inline comment</small>
 }
-/* This is a normal comment */
+<small>/* This is a normal comment, and <strong>IT IS IMPORTANT!!!</strong> */</small>
 </code>
-<style scoped="">
-  .Ctl {color: #dc322f;} /* red */
-  .Opr {color: #cb4b16;} /* orange */
-  .Kwd {color: #b58900;} /* yellow */
-  .Cst {color: #859900;} /* green */
-  .Str {color: #2aa198;} /* cyan */
-  .Cmd {color: #268bd2;} /* blue */
-  .Arg {color: #6c71c4;} /* violet */
-  .Obj {color: #d33682;} /* magenta */
-  .Comm {opacity: 0.6;}
-</style>
-<code class="c--Blk"><span class="Kwd">function</span> <span class="Cmd">Person(<span class="Arg">name</span>)</span> { <span class="Comm">// constructor for class `Person`</span>
-  <span class="Obj">this</span>.greet = <span class="Str">'hello!'</span>;
+<code class="c--Blk"><span class="c__Kwd">function</span> <span class="c__Cmd">Person(<span class="c__Arg">name</span>)</span> { <small>// constructor for class `Person`</small>
+  <span class="c__Obj">this</span>.greet = <span class="c__Str">'hello!'</span>;
 }
-<span class="Kwd">function</span> <span class="Cmd">Student(<span class="Arg">name, cred</span>)</span> { <span class="Comm">// constructor for class `Student`</span>
-  <span class="Obj">Person</span>.<span class="Cmd">call(<span class="Arg"><span class="Obj">this</span>, name, cred</span>)</span>; <span class="Comm">// calls the parent constructor</span>
-  <span class="Ctl">if (<span class="Arg">cred</span> <span class="Opr">&gt;=</span> <span class="Cst">0</span>)</span> { <span class="Obj">this.</span>credits = <span class="Arg">cred</span>; }
+<span class="c__Kwd">function</span> <span class="c__Cmd">Student(<span class="c__Arg">name, cred</span>)</span> { <small>// constructor for class `Student`</small>
+  <span class="c__Obj">Person</span>.<span class="c__Cmd">call(<span class="c__Arg"><span class="c__Obj">this</span>, name, cred</span>)</span>; <small>// calls the parent constructor</small>
+  <span class="c__Ctl">if (<span class="c__Arg">cred</span> <span class="c__Opr">&gt;=</span> <span class="c__Cst">0</span>)</span> { <span class="c__Obj">this.</span>credits = <span class="c__Arg">cred</span>; }
 }
-<span class="Obj">Util</span>.<span class="Cmd">extend(<span class="Arg"><span class="Obj">Student</span>, <span class="Obj">Person</span></span>)</span>; <span class="Comm">// extends `Student` from `Person`</span>
-<span class="Kwd">var</span> me = <span class="Opr">new</span> <span class="Cmd">Student(<span class="Arg"><span class="Str">'Chris'</span>, <span class="Cst">40</span></span>)</span>; <span class="Comm">// creates an instance of `Student`</span></code></pre>
+<span class="c__Obj">Util</span>.<span class="c__Cmd">extend(<span class="c__Arg"><span class="c__Obj">Student</span>, <span class="c__Obj">Person</span></span>)</span>; <small>// extends `Student` from `Person`</small>
+<span class="c__Kwd">var</span> me = <span class="c__Opr">new</span> <span class="c__Cmd">Student(<span class="c__Arg"><span class="c__Str">'Chris'</span>, <span class="c__Cst">40</span></span>)</span>; <small>// creates an instance of `Student`</small></code></pre>
       </section>
     </section>
   </section>
