@@ -533,35 +533,38 @@ indicate semantics, use <code>pre &gt; code.c--Blk</code>.
   else                    return NaN;
 }
 </code></pre>
+        <p class="Alert--Warn"><small><strong class="Lede">Warning:</strong> As of
+          <time>2015-02-19</time> there is no longer a mechanism available for <ins>automated</ins>
+          syntax highlighting in code blocks. <ins>Manual highlighting is described below.</ins>
+          Check back later for updates.</small></p>
         <p>The Elements
           <code><small>code.c--Blk &gt; small</small></code> and
           <code><strong>code.c--Blk &gt; strong</strong></code>
           respectively denote code comments, an actual thing, and importance.
-          (Importance isn&rsquo;t an actual thing in code, since all code is important.)
-          Punctuation is not included.</p>
+          (Importance isn&rsquo;t an actual thing in code, since all code is important.)</p>
         <pre>
 <code class="c--Blk">function fibonacci(n) {
   if (n === 0 || n === 1) return 1; <small>// these are the base cases</small>
   else if (n > 1)         return fibonacci(n-1) + fibonacci(n-2);
   <strong>else                    return NaN;</strong>
 }
+<small>/* Comment punctuation (<code>/*</code>, <code>*/</code>, and <code>//</code>) is not included; must type manually. */</small>
+<small>/* <strong>This is an IMPORTANT comment!!!</strong> It is <code>small &gt; strong</code>, not the other way around &hellip; */</small>
+<strong><small>/* &hellip; otherwise, it would look like this, which is distracting. */</small></strong>
 </code></pre>
-        <p>The following block shows the colors given by subcomponents of code.
+        <p>The following block shows the colors given by <b>Subcomponents</b> of code.
           They should all be in the form of <code>span.c__*</code>.
           See the <a rel="sibling" href="colors.html">color styleguide</a> for info on usage.</p>
         <pre>
-<code class="c--Blk"><span class="c__Ctl">span.c__Ctl  (control)</span>         <span class="c__Tag">span.c__Tag  (HTML tag)</span>
-<span class="c__Opr">span.c__Opr  (operator)</span>        <span class="c__Atr">span.c__Atr  (HTML attribute)</span>
-<span class="c__Kwd">span.c__Kwd  (keyword)</span>         <span class="c__Val">span.c__Val  (HTML/CSS value)</span>
-<span class="c__Cst">span.c__Cst  (constant)</span>        <span class="c__Sel">span.c__Sel  (CSS selector)</span>
-<span class="c__Str">span.c__Str  (string)</span>          <span class="c__Prp">span.c__Prp  (CSS property)</span>
-<span class="c__Cmd">span.c__Cmd  (command)</span>
-<span class="c__Arg">span.c__Arg  (argument)</span>
+<code class="c--Blk"><span class="c__Ctl">span.c__Ctl  (control)</span>                   <span class="c__Tag">span.c__Tag  (HTML tag)</span>
+<span class="c__Opr">span.c__Opr  (delimiter/operator)</span>        <span class="c__Atr">span.c__Atr  (HTML attribute)</span>
+<span class="c__Kwd">span.c__Kwd  (keyword/type)</span>              <span class="c__Val">span.c__Val  (HTML/CSS value)</span>
+<span class="c__Cst">span.c__Cst  (constant)</span>                  <span class="c__Sel">span.c__Sel  (CSS selector)</span>
+<span class="c__Str">span.c__Str  (string)</span>                    <span class="c__Prp">span.c__Prp  (CSS property)</span>
+<span class="c__Cmd">span.c__Cmd  (command/function)</span>
+<span class="c__Arg">span.c__Arg  (argument/variable)</span>
 <span class="c__Obj">span.c__Obj  (object)</span>
 </code></pre>
-        <p class="Alert--Warn"><small><strong class="Lede">Warning:</strong> As of
-          <time>2015-02-18</time> there is no longer a mechanism available for
-          syntax highlighting in code blocks. Check back later for updates.</small></p>
         <p>The following code blocks show HTML, Less, and JavaScript syntax, respectively.</p>
         <pre>
 <code class="c--Blk">&lt;tag atr=&quot;val val&quot;&gt;contents&lt;tag&gt;
@@ -573,7 +576,7 @@ indicate semantics, use <code>pre &gt; code.c--Blk</code>.
   &amp;:sel {prp: val;}
   <small>// This is an inline comment</small>
 }
-<small>/* This is a normal comment, and <strong>IT IS IMPORTANT!!!</strong> */</small>
+<small>/* This is a block comment */</small>
 </code>
 <code class="c--Blk"><span class="c__Kwd">function</span> <span class="c__Cmd">Person(<span class="c__Arg">name</span>)</span> { <small>// constructor for class `Person`</small>
   <span class="c__Obj">this</span>.greet = <span class="c__Str">'hello!'</span>;
@@ -1129,125 +1132,6 @@ indicate semantics, use <code>pre &gt; code.c--Blk</code>.
       <dt><code>samp</code></dt>         <dd><samp>sample computer output</samp></dd>
       <dt><code>.c--Path</code></dt>     <dd><span class="c--Path">file path, directory or <abbr class="Acro" title="uniform resource identifier">URI</abbr></samp></dd>
     </dl>
-    <!-- <section id="code">
-      <p>The next example is a <code>.CSSmap</code>. This special code block is
-        not preformatted. That is, the semantics of the code are not derived from its formatting,
-        but rather its subcomponent Objects. The Object names are given in the first selector.
-        The second selector is an example syntax.</p>
-      <p class="Alert--Info"><small><strong class="Lede">Note:</strong> With styles turned off,
-        the block of CSS code would not appear syntactically correct. The semantics of the code
-        are not given by its syntax (punctuation, <i lang="la"><abbr title="et cetera">etc.</abbr></i>)
-        but rather its semantic Elements.</small></p>
-      <div class="CSSmap">
-        <div class="Sel">div.CSSmap &gt; div.Sel</div>
-        <dl class="Ruleset">
-          <dt class="Prp">div.CSSmap &gt; dl.Ruleset &gt; dt.Prp</dt>
-          <dd class="Val">div.CSSmap &gt; dl.Ruleset &gt; dd.Val</dd>
-        </dl>
-        <div class="Comm">div.CSSmap &gt; div.Comm</div>
-        <div class="Sel">sel</div>
-        <dl class="Ruleset">
-          <dt class="Prp">prp</dt>
-          <dd class="Val">val</dd>
-          <dt class="Prp">prp</dt>
-          <dd class="Val"><span class="Str">string</span></dd>
-          <dt class="Prp">prp</dt>
-          <dd class="Val">
-            <ol>
-              <li>val1</li>
-              <li>val2</li>
-              <li>val3</li>
-            </ol>
-          </dd>
-          <dt class="Prp">prp</dt>
-          <dd class="Val">
-            <ol class="l--Inl Comma">
-              <li>valA</li>
-              <li>valB</li>
-              <li>valC</li>
-            </ol>
-          </dd>
-          <dt class="Comm">another comment, this time as a <code>dt.Comm</code>. <br/> notice
-            the empty <code>dd</code> that follows.</dt>
-          <dd></dd>
-        </dl>
-      </div>
-      <table class="Table">
-        <caption>Differences between two methods of displaying CSS code</caption>
-        <thead class="Rowgroup Head">
-          <tr class="Row">
-            <th class="Cell Hc"><code>.c--Blk</code></th>
-            <th class="Cell Hc"><code>.CSSmap</code></th>
-          </tr>
-        </thead>
-        <tbody class="Rowgroup Body">
-          <tr class="Row">
-            <td class="Cell">Selectors contain properties: <code>span.Sel &gt; span.Prp</code></td>
-            <td class="Cell">Selectors are siblings of rulesets (groups of property-value pairs):
-              <code>div.Sel + dl.Ruleset</code></td>
-          </tr>
-          <tr class="Row">
-            <td class="Cell">Multiple properties are adjacent siblings inside selector:
-              <code>span.Sel &gt; (span.Prp + span.Prp)</code></td>
-            <td class="Cell">Multiple properties are siblings inside ruleset:
-              <code>dl.Ruleset &gt; (dt.Prp ~ dt.Prp)</code></td>
-          </tr>
-          <tr class="Row">
-            <td class="Cell">Properties contain values: <code>span.Prp &gt; span.Val</code></td>
-            <td class="Cell">Properties are siblings of values: <code>dt.Prp + dd.Val</code></td>
-          </tr>
-          <tr class="Row">
-            <td class="Cell">
-              <p>Comma-separated or space-separated values must be marked up literally:</p>
-              <pre><code class="HTML"><span class="Tag">span <span class="Atr">class=<span class="Val">Val</span></span></span>a,b,c<span class="Tag End">span</span></code></pre>
-            </td>
-            <td class="Cell">
-              <p>Comma-separated or space-separated values may be marked up with lists:</p>
-              <pre><code class="HTML"><span class="Tag">dd <span class="Atr">class=<span class="Val">Val</span></span></span>
-  <span class="Tag">ol <span class="Atr">class=<span class="Val">l--Inl Comma</span></span></span>
-    <span class="Tag">li <span class="Atr">class=<span class="Val">Item</span></span></span>a<span class="Tag End">li</span>
-    <span class="Tag">li <span class="Atr">class=<span class="Val">Item</span></span></span>b<span class="Tag End">li</span>
-    <span class="Tag">li <span class="Atr">class=<span class="Val">Item</span></span></span>c<span class="Tag End">li</span>
-  <span class="Tag End">ol</span>
-<span class="Tag End">dd</span></code></pre>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <p>The example below is a <code>.CSSmap.I</code>, which is used only when
-        selectors contain one property-value pair and are written on one line. The subcomponents
-        are identical to those in a normal <code>.CSSmap</code>.</p>
-      <div class="CSSmap I">
-        <div class="Sel">div.Sel</div>
-        <dl class="Ruleset">
-          <dt class="Prp">dl.Ruleset &gt; dt.Prp</dt>
-          <dd class="Val">dl.Ruleset &gt; dd.Val</dd>
-        </dl>
-        <div class="Sel">sel</div>
-        <dl class="Ruleset">
-          <dt class="Prp">prp</dt>
-          <dd class="Val">val</dd>
-        </dl>
-      </div>
-      <p>These methods provide for a more semantic Web. The source code is cleaner,
-        the Elements provide semantics and formatting, and some of the CSS syntax
-        (<i lang="la"><abbr title="id est">i.e.</abbr></i>, delimiters) are automated.
-        However, it can only be used for CSS,
-        not Less, syntax. That means no commands, arguments, or nested selectors. Another
-        disadvantage is that the markup cannot be contained in a <code>code</code> Element:
-        by HTML standards, <code>code</code> can only contain phrasing-level content, however
-        by these standards, a <code>.CSSmap</code> must contain <code>dl</code>(s).</p>
-      <p>This <code>code.JS</code> shows the syntax for a JS file.</p>
-      <pre><code class="JS"><span class="Kwd">function</span> <span class="Cmd">Person(<span class="Arg">name</span>)</span> { <span class="Comm I">constructor for class `Person`</span>
-  <span class="Obj">this.</span>greet = <span class="Str">hello!</span>;
-}
-<span class="Kwd">function</span> <span class="Cmd">Student(<span class="Arg">name, cred</span>)</span> { <span class="Comm I">constructor for class `Student`</span>
-  <span class="Obj">Person</span>.<span class="Cmd">call(<span class="Arg"><span class="Obj">this</span>, name, cred</span>)</span>; <span class="Comm I">calls the parent constructor</span>
-  <span class="Ctl">if (<span class="Arg">cred</span> <span class="Opr">&gt;=</span> <span class="Cst">0</span>)</span> { <span class="Obj">this.</span>credits = <span class="Arg">cred</span>; }
-}
-<span class="Obj">Util</span>.<span class="Cmd">extend(<span class="Arg"><span class="Obj">Student</span>, <span class="Obj">Person</span></span>)</span>; <span class="Comm I">extends `Student` from `Person`</span>
-<span class="Kwd">var</span> me = <span class="Opr">new</span> <span class="Cmd">Student(<span class="Arg"><span class="Str">Chris</span>, <span class="Cst">40</span></span>)</span>; <span class="Comm I">creates an instance of `Student`</span></code></pre>
-    </section> -->
   </section>
 </section>
 <!-- <section>

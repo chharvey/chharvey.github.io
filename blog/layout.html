@@ -25,7 +25,9 @@
     <dd>CSS</dd>
     <dd>Less</dd>
     <dt>Version History</dt>
-    <dd class="update latest"><time datetime="2015-02-13 15:23">Feb 13, 2015 <span class="hm">3:23 PM</span></time></dd>
+    <dd class="update"><time datetime="2015-02-13 15:23">Feb 13, 2015 <span class="hm">3:23 PM</span></time></dd>
+    <dd class="update"><time datetime="2015-02-19 13:01">Feb 19, 2015 <span class="hm">1:01 PM</span></time></dd>
+    <dd class="update latest"><time datetime="2015-02-19 19:23">Feb 19, 2015 <span class="hm">7:23 PM</span></time></dd>
   </dl>
 </header>
 <p class="Intro">Laying out a page is easier than it may seem. Everything on the page belongs in blocks, and
@@ -40,11 +42,16 @@
   <a rel="external" href="http://www.w3.org/TR/css3-flexbox/">CSS Flexible Box Layout Module</a>,
   or <a rel="external" href="http://css-tricks.com/snippets/css/a-guide-to-flexbox/">Flexbox</a>
   for short. This article is not a Flexbox tutorial, but rather a guide on how to <em>use</em> it
+  (along with <a rel="external"
+  href="https://github.com/chharvey/chharvey.github.io/blob/master/core/styles/tools/_layout.less">my
+  implementation</a>)
   to obtain the layout you want.</p>
 <section>
   <h2>Setting Width and Position</h2>
   <p>This section discusses laying out one block on a line. This is useful if you want
-    the block to have less than 100% width and you need to horizontally position it.</p>
+    the block to have less than 100% width and you need to horizontally position it.
+    For laying out multiple blocks on a line, like columns, skip ahead to <a rel="this"
+    href="#flex-container">Multiple Blocks</a>.</p>
   <section>
     <h3>Widths</h3>
     <p>The easiest way to set the width of a block is to use the CSS <code>width</code> property.
@@ -53,170 +60,56 @@
       <a rel="external"
       href="https://github.com/chharvey/chharvey.github.io/blob/master/core/styles/tools/_layout.less">The
       actual code</a> is on GitHub.</p>
-    <pre><code class="c--Blk">// even widths:        // golden widths:
-@1o1: 100%;            @golden0:  100%;
-@1o2:  50%;            @golden1:   61.803%;
-@2o2: 100%;            @golden2:   38.197%;
-@1o3:  33.333%;        @golden3:   23.607%;
-@2o3:  66.666%;        @golden4:   14.590%;
-@3o3: 100%;            @golden3c:  76.393%;
-@1o4:  25%;            @golden4c:  85.410%;
-@2o4:  50%;
-@3o4:  75%;
-@4o4: 100%;
-@1o5:  20%;
-@2o5:  40%;
-@3o5:  60%;
-@4o5:  80%;
-@5o5: 100%;
-@1o6:  16.666%;
-@2o6:  33.333%;
-@3o6:  50%;
-@4o6:  66.666%;
-@5o6:  83.333%;
-@6o6: 100%;
+    <pre><code class="c--Blk"><small>// even widths:        // golden widths:</small>
+<span class="c__Arg">@1o1</span>: <span class="c__Cst">100%</span>;            <span class="c__Arg">@golden0</span>: <span class="c__Cst">100%</span>;
+<span class="c__Arg">@1o2</span>: <span class="c__Cst"> 50%</span>;            <span class="c__Arg">@golden1</span>:  <span class="c__Cst">61.803%</span>;
+<span class="c__Arg">@2o2</span>: <span class="c__Cst">100%</span>;            <span class="c__Arg">@golden2</span>:  <span class="c__Cst">38.197%</span>;
+<span class="c__Arg">@1o3</span>: <span class="c__Cst"> 33.333%</span>;        <span class="c__Arg">@golden3</span>:  <span class="c__Cst">23.607%</span>;
+<span class="c__Arg">@2o3</span>: <span class="c__Cst"> 66.666%</span>;        <span class="c__Arg">@golden4</span>:  <span class="c__Cst">14.590%</span>;
+<span class="c__Arg">@3o3</span>: <span class="c__Cst">100%</span>;            <span class="c__Arg">@golden3c</span>: <span class="c__Cst">76.393%</span>;
+<span class="c__Arg">@1o4</span>: <span class="c__Cst"> 25%</span>;            <span class="c__Arg">@golden4c</span>: <span class="c__Cst">85.410%</span>;
+<span class="c__Arg">@2o4</span>: <span class="c__Cst"> 50%</span>;
+<span class="c__Arg">@3o4</span>: <span class="c__Cst"> 75%</span>;
+<span class="c__Arg">@4o4</span>: <span class="c__Cst">100%</span>;
+<span class="c__Arg">@1o5</span>: <span class="c__Cst"> 20%</span>;
+<span class="c__Arg">@2o5</span>: <span class="c__Cst"> 40%</span>;
+<span class="c__Arg">@3o5</span>: <span class="c__Cst"> 60%</span>;
+<span class="c__Arg">@4o5</span>: <span class="c__Cst"> 80%</span>;
+<span class="c__Arg">@5o5</span>: <span class="c__Cst">100%</span>;
+<span class="c__Arg">@1o6</span>: <span class="c__Cst"> 16.666%</span>;
+<span class="c__Arg">@2o6</span>: <span class="c__Cst"> 33.333%</span>;
+<span class="c__Arg">@3o6</span>: <span class="c__Cst"> 50%</span>;
+<span class="c__Arg">@4o6</span>: <span class="c__Cst"> 66.666%</span>;
+<span class="c__Arg">@5o6</span>: <span class="c__Cst"> 83.333%</span>;
+<span class="c__Arg">@6o6</span>: <span class="c__Cst">100%</span>;
 </code></pre>
     <p>Sometimes, setting the width in CSS is too much work, so <strong>to quickly change
       the style of an Element using HTML</strong>, you may add helper classes,
       <abbr title="also known as">a.k.a.</abbr> <i>Interfaces</i>, to the class attribute of the Element.
       Yes, <strong>this is bad practice</strong>, but it is a pragmatic solution that prevents CSS bloat.</p>
-  <figure class="CSSmap I">
-    <div class="Sel">.w-1o1</div>
-    <dl class="Ruleset">
-      <dt class="Prp">width</dt>
-      <dd class="Val">@1o1</dd>
-    </dl>
-    <div class="Sel">.w-1o2</div>
-    <dl class="Ruleset">
-      <dt class="Prp">width</dt>
-      <dd class="Val">@1o2</dd>
-    </dl>
-    <div class="Sel">.w-2o2</div>
-    <dl class="Ruleset">
-      <dt class="Prp">width</dt>
-      <dd class="Val">@2o2</dd>
-    </dl>
-    <div class="Sel">.w-1o3</div>
-    <dl class="Ruleset">
-      <dt class="Prp">width</dt>
-      <dd class="Val">@1o3</dd>
-    </dl>
-    <div class="Sel">.w-2o3</div>
-    <dl class="Ruleset">
-      <dt class="Prp">width</dt>
-      <dd class="Val">@2o3</dd>
-    </dl>
-    <div class="Sel">.w-3o3</div>
-    <dl class="Ruleset">
-      <dt class="Prp">width</dt>
-      <dd class="Val">@3o3</dd>
-    </dl>
-    <div class="Sel">.w-1o4</div>
-    <dl class="Ruleset">
-      <dt class="Prp">width</dt>
-      <dd class="Val">@1o4</dd>
-    </dl>
-    <div class="Sel">.w-2o4</div>
-    <dl class="Ruleset">
-      <dt class="Prp">width</dt>
-      <dd class="Val">@2o4</dd>
-    </dl>
-    <div class="Sel">.w-3o4</div>
-    <dl class="Ruleset">
-      <dt class="Prp">width</dt>
-      <dd class="Val">@3o4</dd>
-    </dl>
-    <div class="Sel">.w-4o4</div>
-    <dl class="Ruleset">
-      <dt class="Prp">width</dt>
-      <dd class="Val">@4o4</dd>
-    </dl>
-    <div class="Sel">.w-1o5</div>
-    <dl class="Ruleset">
-      <dt class="Prp">width</dt>
-      <dd class="Val">@1o5</dd>
-    </dl>
-    <div class="Sel">.w-2o5</div>
-    <dl class="Ruleset">
-      <dt class="Prp">width</dt>
-      <dd class="Val">@2o5</dd>
-    </dl>
-    <div class="Sel">.w-3o5</div>
-    <dl class="Ruleset">
-      <dt class="Prp">width</dt>
-      <dd class="Val">@3o5</dd>
-    </dl>
-    <div class="Sel">.w-4o5</div>
-    <dl class="Ruleset">
-      <dt class="Prp">width</dt>
-      <dd class="Val">@4o5</dd>
-    </dl>
-    <div class="Sel">.w-5o5</div>
-    <dl class="Ruleset">
-      <dt class="Prp">width</dt>
-      <dd class="Val">@5o5</dd>
-    </dl>
-    <div class="Sel">.w-1o6</div>
-    <dl class="Ruleset">
-      <dt class="Prp">width</dt>
-      <dd class="Val">@1o6</dd>
-    </dl>
-    <div class="Sel">.w-2o6</div>
-    <dl class="Ruleset">
-      <dt class="Prp">width</dt>
-      <dd class="Val">@2o6</dd>
-    </dl>
-    <div class="Sel">.w-3o6</div>
-    <dl class="Ruleset">
-      <dt class="Prp">width</dt>
-      <dd class="Val">@3o6</dd>
-    </dl>
-    <div class="Sel">.w-4o6</div>
-    <dl class="Ruleset">
-      <dt class="Prp">width</dt>
-      <dd class="Val">@4o6</dd>
-    </dl>
-    <div class="Sel">.w-5o6</div>
-    <dl class="Ruleset">
-      <dt class="Prp">width</dt>
-      <dd class="Val">@5o6</dd>
-    </dl>
-    <div class="Sel">.w-6o6</div>
-    <dl class="Ruleset">
-      <dt class="Prp">width</dt>
-      <dd class="Val">@6o6</dd>
-    </dl>
-    <div class="Sel">.w-p1</div>
-    <dl class="Ruleset">
-      <dt class="Prp">width</dt>
-      <dd class="Val">@golden1</dd>
-    </dl>
-    <div class="Sel">.w-p2</div>
-    <dl class="Ruleset">
-      <dt class="Prp">width</dt>
-      <dd class="Val">@golden2</dd>
-    </dl>
-    <div class="Sel">.w-p3</div>
-    <dl class="Ruleset">
-      <dt class="Prp">width</dt>
-      <dd class="Val">@golden3</dd>
-    </dl>
-    <div class="Sel">.w-p4</div>
-    <dl class="Ruleset">
-      <dt class="Prp">width</dt>
-      <dd class="Val">@golden4</dd>
-    </dl>
-    <div class="Sel">.w-p3c</div>
-    <dl class="Ruleset">
-      <dt class="Prp">width</dt>
-      <dd class="Val">@golden3c</dd>
-    </dl>
-    <div class="Sel">.w-p4c</div>
-    <dl class="Ruleset">
-      <dt class="Prp">width</dt>
-      <dd class="Val">@golden4c</dd>
-    </dl>
-  </figure>
+  <figure><pre><code class="c--Blk"><small>// even widths:              // golden widths:</small>
+<span class="c__Sel">.w-1o1 {<span class="c__Prp">width: <span class="c__Arg">@1o1</span>;</span>}</span>        <span class="c__Sel">.w-p1  {<span class="c__Prp">width: <span class="c__Arg">@golden1</span>;</span>}</span>
+<span class="c__Sel">.w-1o2 {<span class="c__Prp">width: <span class="c__Arg">@1o2</span>;</span>}</span>        <span class="c__Sel">.w-p2  {<span class="c__Prp">width: <span class="c__Arg">@golden2</span>;</span>}</span>
+<span class="c__Sel">.w-2o2 {<span class="c__Prp">width: <span class="c__Arg">@2o2</span>;</span>}</span>        <span class="c__Sel">.w-p3  {<span class="c__Prp">width: <span class="c__Arg">@golden3</span>;</span>}</span>
+<span class="c__Sel">.w-1o3 {<span class="c__Prp">width: <span class="c__Arg">@1o3</span>;</span>}</span>        <span class="c__Sel">.w-p4  {<span class="c__Prp">width: <span class="c__Arg">@golden4</span>;</span>}</span>
+<span class="c__Sel">.w-2o3 {<span class="c__Prp">width: <span class="c__Arg">@2o3</span>;</span>}</span>        <span class="c__Sel">.w-p3c {<span class="c__Prp">width: <span class="c__Arg">@golden3c</span>;</span>}</span>
+<span class="c__Sel">.w-3o3 {<span class="c__Prp">width: <span class="c__Arg">@3o3</span>;</span>}</span>        <span class="c__Sel">.w-p4c {<span class="c__Prp">width: <span class="c__Arg">@golden4c</span>;</span>}</span>
+<span class="c__Sel">.w-1o4 {<span class="c__Prp">width: <span class="c__Arg">@1o4</span>;</span>}</span>
+<span class="c__Sel">.w-2o4 {<span class="c__Prp">width: <span class="c__Arg">@2o4</span>;</span>}</span>
+<span class="c__Sel">.w-3o4 {<span class="c__Prp">width: <span class="c__Arg">@3o4</span>;</span>}</span>
+<span class="c__Sel">.w-4o4 {<span class="c__Prp">width: <span class="c__Arg">@4o4</span>;</span>}</span>
+<span class="c__Sel">.w-1o5 {<span class="c__Prp">width: <span class="c__Arg">@1o5</span>;</span>}</span>
+<span class="c__Sel">.w-2o5 {<span class="c__Prp">width: <span class="c__Arg">@2o5</span>;</span>}</span>
+<span class="c__Sel">.w-3o5 {<span class="c__Prp">width: <span class="c__Arg">@3o5</span>;</span>}</span>
+<span class="c__Sel">.w-4o5 {<span class="c__Prp">width: <span class="c__Arg">@4o5</span>;</span>}</span>
+<span class="c__Sel">.w-5o5 {<span class="c__Prp">width: <span class="c__Arg">@5o5</span>;</span>}</span>
+<span class="c__Sel">.w-1o6 {<span class="c__Prp">width: <span class="c__Arg">@1o6</span>;</span>}</span>
+<span class="c__Sel">.w-2o6 {<span class="c__Prp">width: <span class="c__Arg">@2o6</span>;</span>}</span>
+<span class="c__Sel">.w-3o6 {<span class="c__Prp">width: <span class="c__Arg">@3o6</span>;</span>}</span>
+<span class="c__Sel">.w-4o6 {<span class="c__Prp">width: <span class="c__Arg">@4o6</span>;</span>}</span>
+<span class="c__Sel">.w-5o6 {<span class="c__Prp">width: <span class="c__Arg">@5o6</span>;</span>}</span>
+<span class="c__Sel">.w-6o6 {<span class="c__Prp">width: <span class="c__Arg">@6o6</span>;</span>}</span>
+</code></pre></figure>
   <p>A little math will make it obvious which of these widths will combine to make
     a full 100% (see the <a rel="child" href="griddemo.html">grid demo</a> for a full
     list of combinations).</p>
@@ -237,7 +130,7 @@
       to an HTML Element to center the block, or you can include or <code>:extend()</code> it in Less.
       There are no other automatic Interfaces for adding margins&mdash;you&rsquo;ll need
       to write good-old-fashioned CSS if you want to position a block in a non-centered
-      way.<sup><a class="Rf" id="rf-sitelayout" rel="this" href="#fn-sitelayout">1</a></sup>
+      way.<sup><a class="Rf" id="rf-sitelayout" rel="this" href="#fn-sitelayout">[1]</a></sup>
       Keep in mind you can use the Less variables so you don&rsquo;t have to do the math by hand.</p>
     <pre><code class="c--Blk">.margin-even {margin-left: auto; margin-right: auto;}</code></pre>
     <figure class="Text">
@@ -261,7 +154,7 @@
     </figure>
     <footer>
       <ul class="Footnotes">
-        <li><sup><a class="Fn" id="fn-sitelayout" rel="this" href="#rf-sitelayout">1</a></sup>This
+        <li><sup><a class="Fn" id="fn-sitelayout" rel="this" href="#rf-sitelayout">[1]</a></sup>This
           site uses a main width of about 61.8% (the <a
           href="../core/doc/phi.html">Golden Ratio</a>) with the remaining 38.2% split into
           the left and right margins: about 23.6% on the left and about 14.6% on the right&mdash;another
@@ -292,7 +185,7 @@
       <div class="w-3o6 help-otln"> flex-item 3! </div>
     </div>
   </figure>
-  <p class="P">Luckily, the widths add up to 100%. If they add up to more, the blocks will wrap
+  <p>Luckily, the widths add up to 100%. If they add up to too much, the blocks will wrap
     to the next line. If they don&rsquo;t add up to enough, there will be extra space.
     See the examples below for an illustration.</p>
   <figure>
