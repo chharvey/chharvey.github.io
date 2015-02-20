@@ -28,7 +28,9 @@
     <dd class="update"><time datetime="2015-02-13 15:23">Feb 13, 2015 <span class="hm">3:23 PM</span></time></dd>
     <dd class="update"><time datetime="2015-02-19 13:01">Feb 19, 2015 <span class="hm">1:01 PM</span></time></dd>
     <dd class="update"><time datetime="2015-02-19 19:23">Feb 19, 2015 <span class="hm">7:23 PM</span></time></dd>
-    <dd class="update latest"><time datetime="2015-02-20 01:04">Feb 20, 2015 <span class="hm">1:04 AM</span></time></dd>
+    <dd class="update"><time datetime="2015-02-20 01:04">Feb 20, 2015 <span class="hm">1:04 AM</span></time></dd>
+    <dd class="update"><time datetime="2015-02-20 15:11">Feb 20, 2015 <span class="hm">3:11 PM</span></time></dd>
+    <dd class="update latest"><time datetime="2015-02-20 16:20">Feb 20, 2015 <span class="hm">4:20 PM</span></time></dd>
   </dl>
 </header>
 <p class="Intro Dropcap">Laying out a page is easier than it may seem. Everything on the page belongs in blocks, and
@@ -47,26 +49,21 @@
   href="https://github.com/chharvey/chharvey.github.io/blob/master/core/styles/tools/_layout.less">my
   implementation</a>)
   to obtain the layout you want.</p>
-<p>Now, think about how you design a layout. Ask yourself,
-  for each block, where will it go? What will it go next to? How wide will it be? If it&rsquo;s not
-  full-width, will it go next to anything? If so, what? How wide is that thing? How many
-  things can fit horizontally across the page? Will this change on different parts of the page?</p>
-<p>The easiest way to approach these questions is to first decide on the size, or width, of each
-  block, and then put it into position. Then you might realize it didn&rsquo;t add up, and so you
-  have to make some tweaks. And then you might decide to change the order of blocks, so you do that,
-  and then you have to change all the widths again. Unfortunately this seems like a circular process,
-  going back and forth between widths and position and widths again. <b>Flexbox</b> makes this easy: you
+<p>After you&rsquo;ve designed the layout on paper (or in your head), you have to produce that layout
+  on the screen. The easiest way to do this is to first decide on the order of the blocks,
+  next set their widths such that they add up to the full page (or container) width, and then
+  place the blocks into position. <b>Flexbox</b> makes this extremely easy: you
   can do this all in CSS, without ever having to touch your HTML.</p>
 <p><i style="quotes: none;">Wait, what? You&rsquo;re saying that presentation is not at all related
-  to content?</i> Let me reiterate. <strong>You can change the sizing, positioning, and ordering of
+  to content?</i> Let me reiterate. <strong>You can change the ordering, sizing, and positioning of
   elements on a page without having to touch the HTML.</strong> This means no wrapper divs,
-  no table rows, no presentational clases, and no huge commits. Have I caught your attention yet?</p>
+  no table rows, no presentational classes, and no huge commits. Have I caught your attention yet?</p>
 <section id="setup">
   <h2>Setting up Flexbox</h2>
   <p class="Dropcap">The most important part of a site is its content, that is, the HTML. I cannot stress enough the
     importance of writing good, structured HTML first, and then styling it with CSS later. A lot of
     frameworks <small>(ahem, Bootstrap)</small> actually
-    <em>use</em> HTML to affect style, which becomes unreadable and unmaintainable (think div soup).
+    <em>use</em> HTML to affect style, which makes the source code unreadable and unmaintainable (think div soup).
     No, first we&rsquo;ll write our content and structure, use good, meaningful classnames, and then
     use those classnames as style hooks in the CSS.</p>
   <p>Let&rsquo;s start with a prototypical example: a site with a header, footer, body copy, and
@@ -87,54 +84,53 @@
   <figure>
     <pre>
 &lt;main class="Article"&gt;
-  &lt;article class="BodyCopy"&gt;
+  &lt;article class="Body"&gt;
     &lt;p&gt; Pellentesque habitant morbi &hellip; &lt;/p&gt;
   &lt;/article&gt;
-  &lt;header class="Head"&gt;     Header &lt;/header&gt;
-  &lt;footer class="Foot"&gt;     Footer &lt;/footer&gt;
-  &lt;aside  class="Sidebar1"&gt; Aside 1 &lt;/aside&gt;
-  &lt;aside  class="Sidebar2"&gt; Aside 2 &lt;/aside&gt;
+  &lt;header class="Head"&gt;  Head &lt;/header&gt;
+  &lt;footer class="Foot"&gt;  Foot &lt;/footer&gt;
+  &lt;aside  class="Side1"&gt; Side1 &lt;/aside&gt;
+  &lt;aside  class="Side2"&gt; Side2 &lt;/aside&gt;
 &lt;/main&gt;
 </pre>
     <div>
       <article class="help-otln">
         <p> Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. &hellip; </p>
       </article>
-      <header  class="help-otln"> Header </header>
-      <footer  class="help-otln"> Footer </footer>
-      <aside   class="help-otln"> Aside 1 </aside>
-      <aside   class="help-otln"> Aside 2 </aside>
+      <header  class="help-otln"> Head </header>
+      <footer  class="help-otln"> Foot </footer>
+      <aside   class="help-otln"> Side1 </aside>
+      <aside   class="help-otln"> Side2 </aside>
     </div>
   </figure>
   <p class="Intro">Now for the fun part: adding Flexbox.</p>
   <p>To set up a layout with multiple blocks that will visually appear on one or more lines,
     we need to use the Flexbox model. In this model, a <dfn id="flex-container">flex-container</dfn>
-    is a block that contains other blocks, called <dfn id="flex-item">flex-items</dfn>, inside.
-    For distinction, we&rsquo;ll use the terms <i>container</i> and <i>item</i> respectively.</p>
+    is a block that contains other blocks, called <dfn id="flex-item">flex-items</dfn>, inside.</p>
   <p>Well, it&rsquo;s a good thing our HTML is already structured this way! We already have a
-    container with 5 items. To turn the <code>main.Article</code> into a <b>flex-container</b>,
+    container with 5 items. To turn the <code>main.Article</code> into a flex-container,
     add class <code>.flex-container</code> to it. (There is no need to add class
-    <code>.flex-item</code> to its children).
+    <code>.flex-item</code> to its children.)
     You <em>could</em> do this with <code>&lt;main class="Article flex-container"&gt;</code>,
     but that would be using a presentational class in HTML, which is a no-no.
     <small>(Imagine having to add that class to hundreds of <code>.Article</code>s.)</small>
-    Instead, go into your Less and do:</p>
+    Instead, go into your Less and do the following. Notice how we aren&rsquo;t changing any HTML.</p>
   <figure>
     <pre>
 .Article {
   .flex-container;
   <small>// I would not recommend using &amp;:extend(.flex-container);
-  // because of specificity issues</small>
+  // because of issues with specificity</small>
 }
 </pre>
     <div class="flex-container">
       <article class="help-otln">
         <p> Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. &hellip; </p>
       </article>
-      <header  class="help-otln"> Header </header>
-      <footer  class="help-otln"> Footer </footer>
-      <aside   class="help-otln"> Aside 1 </aside>
-      <aside   class="help-otln"> Aside 2 </aside>
+      <header  class="help-otln"> Head </header>
+      <footer  class="help-otln"> Foot </footer>
+      <aside   class="help-otln"> Side1 </aside>
+      <aside   class="help-otln"> Side2 </aside>
     </div>
   </figure>
   <p>First notice how the items are now aligned in rows, and that if there are too many of them
@@ -146,7 +142,74 @@
     the order and width of flex-items to make them go into the <i>correct</i> rows.</p>
 </section>
 <section id="order">
-  <h2>Changing Item Order</h2>
+  <h2>Setting Item Order</h2>
+  <p class="Dropcap">Use the <code>.flex-order()</code> mixin on an item to change its placement
+    in the order. The rules for ordering are simple:</p>
+  <ol>
+    <li>The flex-container will arrange its flex-items in increasing order.</li>
+    <li>If two flex-items have equal ordinal numbers, the ordering will be the same as in the source (HTML).</li>
+    <li>Every flex-item starts out with a default ordinal of 0. Thus the default ordering is that of the source.</li>
+    <li>A flex-item&rsquo;s ordinal can be changed to any integer, even a negative integer.</li>
+  </ol>
+  <p>Before I spoon-feed you the answer, let&rsquo;s take a moment to figure out what the ordinals
+    should be. Here is a comparison of the items in order of source versus the order we want:</p>
+  <table class="Table Vert w-1o1">
+    <tbody class="Rowgroup">
+      <tr class="Row" style="border-bottom: 1px solid #9acc7a;">
+        <th class="Cell Hc" style="background-color: #ebf2f3;">source </th>
+        <td class="Cell"><u>Body</u></td>
+        <td class="Cell">Head</td>
+        <td class="Cell">Foot</td>
+        <td class="Cell">Side1</td>
+        <td class="Cell"><u>Side2</u></td>
+      </tr>
+      <tr class="Row">
+        <th class="Cell Hc" style="background-color: #ebf2f3;">desired</th>
+        <td class="Cell">Head</td>
+        <td class="Cell">Side1</td>
+        <td class="Cell"><u>Body</u></td>
+        <td class="Cell"><u>Side2</u></td>
+        <td class="Cell">Foot</td>
+      </tr>
+    </tbody>
+  </table>
+  <p>Body and Side2 are already in place, so we just need to rearrange the other items around them.
+    This means keep the ordinal of Body and Side2 as the default 0, give the Head and Side1 an
+    ordinal of -1 (and since they&rsquo;re already in the correct order, they can have the same
+    ordinal), and move the Foot to the end by giving it an ordinal of 1. Thus we need to make
+    the following adjustments to our Less:</p>
+  <figure>
+    <pre>
+.Article {.flex-container;}
+
+.Body  {} <small>// .flex-order(0); by default</small>
+.Head  {.flex-order(-1);}
+.Foot  {.flex-order(1);}
+.Side1 {.flex-order(-1);}
+.Side2 {}
+</pre>
+    <div class="flex-container">
+      <article class="help-otln" style="order: 0;">
+        <p> Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. &hellip; </p>
+      </article>
+      <header  class="help-otln" style="order: -1;"> Head </header>
+      <footer  class="help-otln" style="order: 1;"> Foot </footer>
+      <aside   class="help-otln" style="order: -1;"> Side1 </aside>
+      <aside   class="help-otln" style="order: 0;"> Side2 </aside>
+    </div>
+  </figure>
+  <p>Remember, the actual ordinal numbers aren&rsquo;t important. What&rsquo;s important is their
+    comparison to each other. We could have just as easily given the following ordinals to achieve
+    the same effect.</p>
+  <pre>
+.Body  {.flex-order(1);}
+.Head  {}
+.Foot  {.flex-order(2);}
+.Side1 {}
+.Side2 {.flex-order(1);}
+</pre>
+  <p>Now, the items are in the correct order. Adjusting their widths will automatically put them
+    into position, because Flexbox wraps!</p>
 </section>
 <section id="widths">
   <h2>Setting Widths</h2>
