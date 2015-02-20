@@ -27,7 +27,8 @@
     <dt>Version History</dt>
     <dd class="update"><time datetime="2015-02-13 15:23">Feb 13, 2015 <span class="hm">3:23 PM</span></time></dd>
     <dd class="update"><time datetime="2015-02-19 13:01">Feb 19, 2015 <span class="hm">1:01 PM</span></time></dd>
-    <dd class="update latest"><time datetime="2015-02-19 19:23">Feb 19, 2015 <span class="hm">7:23 PM</span></time></dd>
+    <dd class="update"><time datetime="2015-02-19 19:23">Feb 19, 2015 <span class="hm">7:23 PM</span></time></dd>
+    <dd class="update latest"><time datetime="2015-02-20 01:04">Feb 20, 2015 <span class="hm">1:04 AM</span></time></dd>
   </dl>
 </header>
 <p class="Intro">Laying out a page is easier than it may seem. Everything on the page belongs in blocks, and
@@ -173,7 +174,7 @@
   <p>Most likely, your HTML is already structured this way: the blocks you want to
     lay out together are likely already wrapped in some sort of container. All you need to do is add
     the <code>.flex-container</code> <b>Interface</b> to the container. Then, optionally use the width Interfaces mentioned
-    above to set the proper widths of each of the blocks (if not, their widths will automatically
+    above to set the proper widths of each of the items (if not, their widths will automatically
     fit their content). That&rsquo;s it! Layout done.</p>
   <figure>
     <pre>
@@ -189,9 +190,8 @@
       <div class="w-3o6 help-otln"> flex-item 3! </div>
     </div>
   </figure>
-  <p>Luckily, the widths add up to 100%. If they add up to too much, the blocks will wrap
-    to the next line. If they don&rsquo;t add up to enough, there will be extra space.
-    See the examples below for an illustration.</p>
+  <p>Luckily, the widths add up to 100%. If they add up to too much, the items will wrap
+    to the next line. If they don&rsquo;t add up to enough, there will be extra space.</p>
   <figure>
     <pre>
 &lt;div class="flex-container"&gt;
@@ -220,19 +220,20 @@
       <div class="w-2o6 help-otln">flex-item 3!</div>
     </div>
   </figure>
-  <p>By default, the extra space is evenly distributed <em>between</em> the blocks, much like
+  <p>By default, the extra space is evenly distributed <em>between</em> the items, much like
     the inter-word space in a paragraph with a justified (flush left and right) alignment.
-    To override this and distribute the space <em>around</em> the blocks, add
-    <code>justify-content: space-around;</code>.</p>
+    If you want to push the items toward the middle and push the space to the outside, use
+    the modifier <code>.flex-container--center</code> <em>instead of</em> (not in addition to)
+    the normal <code>.flex-container</code>.</p>
   <figure>
     <pre>
-&lt;div class="flex-container" style="justify-content: space-around;"&gt;
+&lt;div class="flex-container--center"&gt;
   &lt;div class="w-2o6"&gt; flex-item 1! &lt;/div&gt;
   &lt;div class="w-2o6"&gt; flex-item 2! &lt;/div&gt;
   &lt;div class="w-3o6"&gt; flex-item 3! &lt;/div&gt;
 &lt;/div&gt;
 </pre>
-    <div class="flex-container" style="justify-content: space-around;">
+    <div class="flex-container--center">
       <div class="w-2o6 help-otln">flex-item 1!</div>
       <div class="w-2o6 help-otln">flex-item 2!</div>
       <div class="w-3o6 help-otln">flex-item 3!</div>
@@ -240,18 +241,23 @@
   </figure>
   <figure>
     <pre>
-&lt;div class="flex-container" style="justify-content: space-around;"&gt;
+&lt;div class="flex-container--center"&gt;
   &lt;div class="w-1o6"&gt; flex-item 1! &lt;/div&gt;
   &lt;div class="w-2o6"&gt; flex-item 2! &lt;/div&gt;
   &lt;div class="w-2o6"&gt; flex-item 3! &lt;/div&gt;
 &lt;/div&gt;
 </pre>
-    <div class="flex-container" style="justify-content: space-around;">
+    <div class="flex-container--center">
       <div class="w-1o6 help-otln">flex-item 1!</div>
       <div class="w-2o6 help-otln">flex-item 2!</div>
       <div class="w-2o6 help-otln">flex-item 3!</div>
     </div>
   </figure>
+  <p>Now, if you want a little space, you can decide whether to add margins to each item or
+    to use <code>[-webkit-]justify-content: space-around;</code>. I have not included an Interface
+    for that.</p>
+  <section>
+    <h3>Demo</h3>
   <p>The example below demonstrates how to use Flexbox to layout blocks on more than
     one line. Notice the lack of table rows! Also, it demonstrates the use of <code>order</code>
     to set the order of the flex-items.</p>
@@ -277,6 +283,7 @@
       <footer  class="help-otln w-5o5" style="order: 3;"> Footer </footer>
     </div>
   </figure>
+  </section>
 </section>
 </main>
 <script src="https://code.jquery.com/jquery-2.0.3.min.js"></script>
