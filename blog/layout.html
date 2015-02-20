@@ -31,7 +31,7 @@
     <dd class="update latest"><time datetime="2015-02-20 01:04">Feb 20, 2015 <span class="hm">1:04 AM</span></time></dd>
   </dl>
 </header>
-<p class="Intro">Laying out a page is easier than it may seem. Everything on the page belongs in blocks, and
+<p class="Intro Dropcap">Laying out a page is easier than it may seem. Everything on the page belongs in blocks, and
   each block has a size and position. That&rsquo;s all there is to it. There are many methods,
   good and bad, of how to achieve this, but that is the gist of what needs to happen.</p>
 <p>Of all the grid systems out there, this article does not discuss any of them.
@@ -61,6 +61,93 @@
   to content?</i> Let me reiterate. <strong>You can change the sizing, positioning, and ordering of
   elements on a page without having to touch the HTML.</strong> This means no wrapper divs,
   no table rows, no presentational clases, and no huge commits. Have I caught your attention yet?</p>
+<section id="setup">
+  <h2>Setting up Flexbox</h2>
+  <p class="Dropcap">The most important part of a site is its content, that is, the HTML. I cannot stress enough the
+    importance of writing good, structured HTML first, and then styling it with CSS later. A lot of
+    frameworks <small>(ahem, Bootstrap)</small> actually
+    <em>use</em> HTML to affect style, which becomes unreadable and unmaintainable (think div soup).
+    No, first we&rsquo;ll write our content and structure, use good, meaningful classnames, and then
+    use those classnames as style hooks in the CSS.</p>
+  <p>Let&rsquo;s start with a prototypical example: a site with a header, footer, body copy, and
+    two sidebars. We want our end result to show the header at top, footer at bottom, sidebars
+    on left and right, and body copy in the middle. Something like this:</p>
+  <figure>
+    <img class="w-1o1" src="images/prototypical-site.png" alt="A screenshot of a typical website structure."/>
+    <figcaption><span class="Lede">Figure 1.</span> A screenshot of a typical website structure.</figcaption>
+  </figure>
+  <p>Not worring about how it looks for a moment, we need to write the HTML that makes the most
+    semantic sense (and is the most accessible). This means our body copy should come first,
+    so that it gets loaded first, followed by the header and footer, and then followed by the sidebars.
+    Indeed, the order of our Elements does not match the order of our intended result, but CSS
+    will take care of that later.</p>
+  <p>It might also be a good idea to add semantic classnames to the Elements so we can use them as
+    stylehooks. This is not redundant though, because <a>we don&rsquo;t want to use Element selectors
+    as style hooks</a> for reasons not discussed in this article.</p>
+  <figure>
+    <pre>
+&lt;main class="Article"&gt;
+  &lt;article class="BodyCopy"&gt;
+    &lt;p&gt; Pellentesque habitant morbi &hellip; &lt;/p&gt;
+  &lt;/article&gt;
+  &lt;header class="Head"&gt;     Header &lt;/header&gt;
+  &lt;footer class="Foot"&gt;     Footer &lt;/footer&gt;
+  &lt;aside  class="Sidebar1"&gt; Aside 1 &lt;/aside&gt;
+  &lt;aside  class="Sidebar2"&gt; Aside 2 &lt;/aside&gt;
+&lt;/main&gt;
+</pre>
+    <div>
+      <article class="help-otln">
+        <p> Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. &hellip; </p>
+      </article>
+      <header  class="help-otln"> Header </header>
+      <footer  class="help-otln"> Footer </footer>
+      <aside   class="help-otln"> Aside 1 </aside>
+      <aside   class="help-otln"> Aside 2 </aside>
+    </div>
+  </figure>
+  <p class="Intro">Now for the fun part: adding Flexbox.</p>
+  <p>To set up a layout with multiple blocks that will visually appear on one or more lines,
+    we need to use the Flexbox model. In this model, a <dfn id="flex-container">flex-container</dfn>
+    is a block that contains other blocks, called <dfn id="flex-item">flex-items</dfn>, inside.
+    For distinction, we&rsquo;ll use the terms <i>container</i> and <i>item</i> respectively.</p>
+  <p>Well, it&rsquo;s a good thing our HTML is already structured this way! We already have a
+    container with 5 items. To turn the <code>main.Article</code> into a <b>flex-container</b>,
+    add class <code>.flex-container</code> to it. (There is no need to add class
+    <code>.flex-item</code> to its children).
+    You <em>could</em> do this with <code>&lt;main class="Article flex-container"&gt;</code>,
+    but that would be using a presentational class in HTML, which is a no-no.
+    <small>(Imagine having to add that class to hundreds of <code>.Article</code>s.)</small>
+    Instead, go into your Less and do:</p>
+  <figure>
+    <pre>
+.Article {
+  .flex-container;
+  <small>// I would not recommend using &amp;:extend(.flex-container);
+  // because of specificity issues</small>
+}
+</pre>
+    <div class="flex-container">
+      <article class="help-otln">
+        <p> Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. &hellip; </p>
+      </article>
+      <header  class="help-otln"> Header </header>
+      <footer  class="help-otln"> Footer </footer>
+      <aside   class="help-otln"> Aside 1 </aside>
+      <aside   class="help-otln"> Aside 2 </aside>
+    </div>
+  </figure>
+  <p>First notice how the items are now aligned in rows, and that if there are too many of them
+    or if they are too big, they wrap to the next row. This is a major advantage over grid systems
+    with <code>&lt;tr&gt;</code>-like containers, which are very limiting.
+    Next notice how the width of each flex-item fits its contents. In this particular example,
+    the body copy is large compared to the other 4 items, but this would not be the case if
+    those items had more content. In the next sections, we&rsquo;ll see how to adjust
+    the order and width of flex-items to make them go into the <i>correct</i> rows.</p>
+</section>
+<section id="order">
+  <h2>Changing Item Order</h2>
+</section>
 <section id="widths">
   <h2>Setting Widths</h2>
   <p>Let&rsquo;s set some widths. The easiest way to set the width of an Element is to use the CSS
@@ -159,9 +246,12 @@
         is being used to model the layout.</figcaption>
     </figure>
   </aside>
+</section>
+<section>
+  <h2>Positioning Items</h2>
   <del>
   <section>
-    <h3>Positioning</h3>
+
     <p>When a <i>line</i> (that is, a visual horozontal arrangement of blocks) has
       only one block, you have a few options for how to position it.</p>
     <p>The worst is using floats. This only pushes the block flush left or flush right, and
@@ -193,11 +283,8 @@
 </section>
 <section>
   <h2>Multiple Blocks</h2>
-  <p>To set up a layout with multiple blocks that will visually appear on one or more lines,
-    you&rsquo;ll need to use the Flexbox model. In this model, a <dfn id="flex-container">flex-container</dfn> is a block
-    that contains other blocks, called <dfn id="flex-item">flex-items</dfn>, inside.</p>
-  <p>Most likely, your HTML is already structured this way: the blocks you want to
-    lay out together are likely already wrapped in some sort of container. All you need to do is add
+  <p>Most likely, your HTML is alre</p>ady structured this way: the blocks you want to
+    lay out togeth</code>er are likely already wrapped in some sort of container. All you need to do is add
     the <code>.flex-container</code> <b>Interface</b> to the container. Then, optionally use the width Interfaces mentioned
     above to set the proper widths of each of the items (if not, their widths will automatically
     fit their content). That&rsquo;s it! Layout done.</p>
