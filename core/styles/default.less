@@ -8,8 +8,12 @@
 // This stylesheet rides on top of `normalize.css` developed by
 // [Nicolas Gallagher](http://necolas.github.io/normalize.css/).
 //
-// Remember to include normalize.css in your HTML *before* this file!
+// Remember to link normalize.css in your HTML *before* this file! or ...
 // `<link rel="stylesheet" href="normalize.css"/>`
+//
+// ... alternatively, you may un-comment the following line instead,
+// though this is known to be a slower HTTP request. // HACK
+// @import url('../../node_modules/normalize.css/normalize.css');
 //
 // While `normalize.css` addresses discrepancies between different browsers’ rendering of
 // HTML elements, providing only the very basic and necessary styles, `default.css` adds
@@ -130,18 +134,18 @@
 
 
 // sets up vertical rhythm units
-@font_size_reset: 100%; // defined by user agent
-@line_height_reset: 1.5;
-@vru_reset: (@line_height_reset * 1rem);
+@default_font_size: 100%; // defined by user agent
+@default_line_height: 1.5;
+@default_vru: (@default_line_height * 1rem);
 html {
-  font-size: @font_size_reset;
-  line-height: @line_height_reset;
+  font-size: @default_font_size;
+  line-height: @default_line_height;
 }
 //+++++++++//
 /*@SECTIONS*/
 //+++++++++//
 body {
-  margin: 0 0 @vru_reset;
+  margin: 0 0 @default_vru;
 }
 section {
 }
@@ -152,7 +156,7 @@ aside {
 nav {
 }
 main {
-  margin: 0 1rem @vru_reset;
+  margin: 0 1rem @default_vru;
 }
 header {
 }
@@ -166,20 +170,20 @@ footer {
 @font_size_h5: 12/16; // 0.750
 @font_size_h6: 10/16; // 0.625
 
-@line_height_h1: @line_height_reset/@font_size_h1; // 0.75
-@line_height_h2: @line_height_reset/@font_size_h2; // 1.00
-@line_height_h3: @line_height_reset/@font_size_h3; // 1.20
-@line_height_h4: @line_height_reset/@font_size_h4; // 1.50
-@line_height_h5: @line_height_reset/@font_size_h5; // 2.00
-@line_height_h6: @line_height_reset/@font_size_h6; // 2.40
+@line_height_h1: @default_line_height / @font_size_h1; // 0.75
+@line_height_h2: @default_line_height / @font_size_h2; // 1.00
+@line_height_h3: @default_line_height / @font_size_h3; // 1.20
+@line_height_h4: @default_line_height / @font_size_h4; // 1.50
+@line_height_h5: @default_line_height / @font_size_h5; // 2.00
+@line_height_h6: @default_line_height / @font_size_h6; // 2.40
 
 h1, h2, h3, h4, h5, h6 {
-  margin: 0 0 @vru_reset;
+  margin: 0 0 @default_vru;
 }
 h1 {
   font-size: (@font_size_h1 * 1rem);
   line-height: @line_height_h1;
-  padding-top: @vru_reset;
+  padding-top: @default_vru;
 }
 h2 {
   font-size: (@font_size_h2 * 1rem);
@@ -214,13 +218,13 @@ hr {
   display: none;
 }
 p, ol, ul, dl, table {
-  margin: 0 0 @vru_reset;
+  margin: 0 0 @default_vru;
 }
 //-----------------------//
 /*@Paragraph-Like Content*/
 //-----------------------//
 figure, blockquote, pre {
-  margin: 0 1rem @vru_reset;
+  margin: 0 1rem @default_vru;
 }
 p {
 }
@@ -254,8 +258,11 @@ dt {
 dd {
   margin: 0;
 }
+// dd! + dt { // uncomment this when `!` selector is supported in CSS4
+//   margin-bottom: @devault_vru;
+// }
 dd + dt {
-  padding: @vru_reset 0 0; // only because can’t add margin-bottom to last `dd` in a group
+  padding-top: @default_vru; // only because can’t add margin-bottom to last `dd` in a group
 }
 //---- @end Lists ----//
 
@@ -286,13 +293,14 @@ td {
 //+++++++++++++++++++++//
 /*@TEXT-LEVEL SEMANTICS*/
 //+++++++++++++++++++++//
-/* In this section, font sizes should be in units of `em` instead of `rem` because
-text-level elements should scale with their parents. */
+// In this section,
+//   - font sizes should be in units of `em` instead of `rem` because
+//     text-level elements should scale with their parents
+//   - inline elements should not affect vertical rhythm, thus line-heights are zero
 a, br,
 em, strong, i, mark, u, small, s,
 dfn, b, var, q, cite, sup, sub,
 data, abbr, time, code, kbd, samp {
-  // inline element line-height not to affect vertical rhythm
   line-height: 0;
 }
 a {
@@ -305,6 +313,9 @@ a[href] {
   // color: #551a8b; // default visited
   // color: #f00;    // default active
 }
+// Do not use `br` to indicate line breaks, use CSS instead.
+// One exception: MAY use `address > br` to indicate line breaks (by convention), but
+// preferred method is to use `address > ol` and use CSS to remove item markers
 br {
   display: none;
 }
