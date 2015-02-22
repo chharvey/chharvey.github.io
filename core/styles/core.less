@@ -2,7 +2,6 @@
 
 @import url('tools/_layout.less');
 
-@import url('tools/box/_borders.less');
 @import url('tools/box/_boxes.less');
 @import url('tools/box/_floats.less');
 @import url('tools/box/_transform.less');
@@ -13,6 +12,180 @@
 @import url('tools/scheme/_translucent.less');
 @import url('tools/scheme/_bground.less');
 @import url('tools/scheme/_transition.less');
+
+
+
+// FIXME TEMPORARY DUMP FOR PROJECT-SPECIFIC LESS
+
+
+
+/**
+  * This Interface adds a top border, while adjusting padding to be a Golden proportion to 1vru,
+  * and adjusts margin to keep vertical rhythm.
+  *
+  * `.vru-top-phi(...)`    adjusts top padding to be the larger  of the proportion (0.618034)
+  * `.vru-top-phi(c; ...)` adjusts top padding to be the smaller of the proportion (0.381966)
+  *
+  * `.vru-bottom-phi(...)`    adjusts bottom padding to be the larger  of the proportion (0.618034)
+  * `.vru-bottom-phi(c; ...)` adjusts bottom padding to be the smaller of the proportion (0.381966)
+  *
+  * `.vru-top-even(...)`    adjusts top    padding to be an even proportion (0.5)
+  * `.vru-bottom-even(...)` adjusts bottom padding to be an even proportion (0.5)
+  *
+  * `.vru-top-undo(...)`    removes top    border, padding, and margin completely
+  * `.vru-bottom-undo(...)` removes bottom border, padding, and margin completely
+@params
+: @n     : value of the border-top-width property.
+           Must be unitless but represent number of pixels.
+           Must be less than the number of pixels in 1 vru.
+: @style : value of the border-top-style property (default to `solid`)
+: @color : value of the border-top-color property (default to `currentColor`)
+@tags
+: #verticalrhythm
+: #golden
+: #border
+@author
+: Chris Harvey
+@updated
+: 2015-02-17
+  */
+.vru-top-phi(@n; @style; @color) {
+  @width_rem: @n * (1rem/16); // assuming 1rem = 16px by user agent
+  border-top: @width_rem  @style  @color;
+  padding-top: ((@vru_core * @phi1) - @width_rem);
+  margin-top: -(@vru_core * @phi1); // -((@vru_core * @phi1) - @width_rem) - @width_rem;
+}
+.vru-top-phi(@n; @style) {
+  .vru-top-phi(@n; @style; currentColor);
+}
+.vru-top-phi(@n) {
+  .vru-top-phi(@n; solid);
+}
+.vru-top-phi() {
+  .vru-top-phi(0);
+}
+
+.vru-top-phi-c(@n; @style; @color) {
+  @width_rem: @n * (1rem/16); // assuming 1rem = 16px by user agent
+  border-top: @width_rem  @style  @color;
+  padding-top: ((@vru_core * @phi2) - @width_rem);
+  margin-top: -(@vru_core * @phi2); // -((@vru_core * @phi2) - @width_rem) - @width_rem;
+}
+.vru-top-phi-c(@n; @style) {
+  .vru-top-phi-c(@n; @style; currentColor);
+}
+.vru-top-phi-c(@n) {
+  .vru-top-phi-c(@n; solid);
+}
+.vru-top-phi-c() {
+  .vru-top-phi-c(0);
+}
+
+.vru-bottom-phi(@n; @style; @color) {
+  @width_rem: @n * (1rem/16); // assuming 1rem = 16px by user agent
+  border-bottom: @width_rem  @style  @color;
+  padding-bottom: ((@vru_core * @phi1) - @width_rem);
+  margin-bottom:  @vru_core * @phi2; // @vru_core - ((@vru_core * @phi1) - @width_rem) - @width_rem;
+}
+.vru-bottom-phi(@n; @style) {
+  .vru-bottom-phi(@n; @style; currentColor);
+}
+.vru-bottom-phi(@n) {
+  .vru-bottom-phi(@n; solid);
+}
+.vru-bottom-phi() {
+  .vru-bottom-phi(0);
+}
+
+.vru-bottom-phi-c(@n; @style; @color) {
+  @width_rem: @n * (1rem/16); // assuming 1rem = 16px by user agent
+  border-bottom: @width_rem  @style  @color;
+  padding-bottom: ((@vru_core * @phi2) - @width_rem);
+  margin-bottom:  @vru_core * @phi1; // @vru_core - ((@vru_core * @phi2) - @width_rem) - @width_rem;
+}
+.vru-bottom-phi-c(@n; @style) {
+  .vru-top-phi-c(@n; @style; currentColor);
+}
+.vru-bottom-phi-c(@n) {
+  .vru-bottom-phi-c(@n; solid);
+}
+.vru-bottom-phi-c() {
+  .vru-bottom-phi-c(0);
+}
+
+.vru-top-even(@n; @style; @color) {
+  @width_rem: @n * (1rem/16); // assuming 1rem = 16px by user agent
+  border-top: @width_rem  @style  @color;
+  padding-top: ((@vru_core * 0.5) - @width_rem);
+  margin-top: -(@vru_core * 0.5); // -((@vru_core * 0.5) - @width_rem) - @width_rem;
+}
+.vru-top-even(@n; @style) {
+  .vru-top-even(@n; @style; currentColor);
+}
+.vru-top-even(@n) {
+  .vru-top-even(@n; solid);
+}
+.vru-top-even() {
+  .vru-top-even(0);
+}
+
+.vru-bottom-even(@n; @style; @color) {
+  @width_rem: @n * (1rem/16); // assuming 1rem = 16px by user agent
+  border-bottom: @width_rem  @style  @color;
+  padding-bottom: ((@vru_core * 0.5) - @width_rem);
+  margin-bottom:  @vru_core * 0.5; // @vru_core - ((@vru_core * 0.5) - @width_rem) - @width_rem;
+}
+.vru-bottom-even(@n; @style) {
+  .vru-bottom-even(@n; @style; currentColor);
+}
+.vru-bottom-even(@n) {
+  .vru-bottom-even(@n; solid);
+}
+.vru-bottom-even() {
+  .vru-bottom-even(0);
+}
+
+.vru-top-undo() {
+  border-top: 0;
+  padding-top: 0;
+  margin-top: 0;
+}
+
+.vru-bottom-undo() {
+  border-bottom: 0;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
+/**
+  * These Mixins set the padding, border, and margin on the left or right side of an Object,
+  * such that the border:padding ratio and the (border+padding):margin ratio are Golden.
+@params
+: @side  : either `left` or `right`
+: @width : value of `border-[left|right]-width`
+: @style : value of `border-[left|right]-style` (default to `solid`)
+: @color : value of `border-[left|right]-color` (default to `currentColor`)
+@tags
+: #golden
+@author
+: Chris Harvey
+@updated
+: 2015-02-17
+  */
+.sidebrdr-phi(@side; @width; @style; @color) {
+  border-@{side}: @width  @style  @color;
+  padding-@{side}: (@width * @inv_phi1);
+   margin-@{side}: (@width * @inv_phi3);
+}
+.sidebrdr-phi(@side; @width; @style) {
+  .sidebrdr-phi(@side; @width; @style; currentColor);
+}
+.sidebrdr-phi(@side; @width) {
+  .sidebrdr-phi(@side; @width; solid);
+}
+
+
+// END DUMP
 
 @import url('settings/_settings.less');
 @import url('settings/_fonts.less');
