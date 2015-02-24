@@ -258,18 +258,30 @@
     _boxes.less
 \*###############*/
 /**
-  * Default padding for cell-like structures (table cells, grid cells,
-  * boxes, etc.).
-  * The padding is based on the Vertical Rhythm Unit. The vertical padding is in rems, and
-  * the horizontal padding is in pixels.
+  * Variable padding for box-like structures (dl cells, table cells, grid cells, etc.).
+  * `@padding_sml` : for regular cells, boxes, alerts, etc
+  * `@padding_med` : for special boxes like pop-up dialogs
+  * `@padding_lrg` : for huge things like hero sections or big buttons
+@params
+: @y : the vertical   (top/bottom) padding, as a coefficient of 1vru
+: @x : the horizontal (left/right) padding, as a coefficient of 1rem
 @tags
 : #verticalrhythm
 : #padding
 @author
 : Chris Harvey
 @updated
-: 2015-02-17
+: 2015-02-24
   */
+.boxpadding--sml {
+  padding: 0.75rem 1rem !important;
+}
+.boxpadding--med {
+  padding: 1.5rem 2rem !important;
+}
+.boxpadding--lrg {
+  padding: 3rem 4rem !important;
+}
 /**
   * These Mixins create abstract inline structures, boxed with a solid border.
 @params
@@ -770,7 +782,7 @@ body {
   * Each is an `a` Element.
 @implements
 : .font-size-block()
-: .vru-top-phi()
+: .vru-top-phi-c()
 : .brackets()
 @tags
 : #footnotes
@@ -1138,9 +1150,9 @@ blockquote > footer > cite::after {
 : 2015-02-19
   */
 pre {
-  padding: 0.75rem 0.5rem;
   border: 2px solid currentColor;
   margin-top: -4px;
+  padding: 0.75rem 1rem;
   box-sizing: border-box;
   border-radius: 0.5rem;
   font-size: 0.75rem;
@@ -1431,7 +1443,7 @@ dd > ul {
   */
 .dl--Horiz.Tbl > dt,
 .dl--Horiz.Tbl > dd {
-  padding: 0.75rem 0.5rem;
+  padding: 0.75rem 1rem;
 }
 .dl--Horiz.Tbl > dt:nth-child(4n+1),
 .dl--Horiz.Tbl > dd:nth-child(4n+2) {
@@ -1581,7 +1593,7 @@ dd > ul {
 : 2014-05-18
   */
 .Cell {
-  padding: 0.75rem 0.5rem;
+  padding: 0.75rem 1rem;
   display: table-cell;
 }
 /**
