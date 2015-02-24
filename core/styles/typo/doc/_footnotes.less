@@ -8,47 +8,37 @@
 // See [http://www.w3.org/TR/html5/common-idioms.html#footnotes] for more information.
 
 /**
-  * This Object represents a list whose items each contain a footnote. Typically, the order of
-  * footnotes is irrelevant, so this Object should be instantiated by a `ul` Element.
+  * A `footer` containing a list whose items each contain a footnote. Typically, the order of
+  * footnotes is irrelevant, so this list would be a `ul` Element.
+  *
+  * `.Rf` represents a reference to a footnote. The reference exists in the document prose,
+  * and it links to a footnote, which is contained in the `.Footnotes`.
+  * `.Fn` represents the footnote that is referenced.
+  * Each is an `a` Element.
 @implements
-: .list-block()
-: .fontsize-block-sml()
+: .font-size-block()
 : .vru-top-phi()
+: .brackets()
 @tags
 : #footnotes
 : #lists
+: #links
 @author
 : Chris Harvey
 @updated
-: 2014-09-23
+: 2015-02-23
   */
 .Footnotes {
-  .list-block();
   .fontsize-block-sml();
   .vru-top-phi(1px; solid; @color_border);
-  > .Item {
-    // padding-left: @vru_rem;
-    // text-indent: -@vru_rem;
+  > ul {
+    padding-left: 1em;
+    text-indent: -1em;
+    list-style: none;
   }
 }
-/**
-  * The `.Rf` Object represents a reference to a footnote. The reference exists in the document prose,
-  * and it links to a footnote, which is contained in the `.Footnotes`.
-  * The `.Fn` Object represents the footnote that is referenced.
-  * Each Object contains an `a` Element.
-@implements
-: .brackets
-@tags
-: #footnotes
-@author
-: Chris Harvey
-@updated
-: 2014-07-22
-  */
+
 .Rf,
 .Fn {
-  // width: @vru_rem;
-  > .Link {
-    .brackets();
-  }
+  .brackets();
 }
