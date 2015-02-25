@@ -155,6 +155,8 @@ blockquote {
 /**
   * `pre` Element
   * CHANGED: Will only use `pre` for blocks of code. No longer using child `code` Element.
+  * - To denote comments, use the HTML `small` Element. Yes, this means code comments.
+  * - To denote importance, use the HTML `strong` Element.
 @implements
 : .box-block()
 : .font-size-block()
@@ -169,9 +171,22 @@ blockquote {
 pre {
   .box-block(2px);
   .font-size-block(@font_size_sml; @line_height_base);
-  .codecolors-sol(dark);
   font-family: @fontfam_code;
   text-align: left;
+  border-color: @code_lite_brdr;
+  color: @code_lite_txt;
+  background-color: @code_lite_bg;
+  > code {
+    font-size: inherit;
+  }
+  > small {
+    font-style: italic;
+    font-size: inherit;
+    color: @code_lite_comm;
+  }
+  > strong {
+    color: @code_lite_emph;
+  }
 }
 
 /**
