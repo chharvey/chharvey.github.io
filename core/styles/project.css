@@ -29,21 +29,6 @@
 : 2015-02-17
   */
 /**
-  * These Mixins set the padding, border, and margin on the left or right side of an Object,
-  * such that the border:padding ratio and the (border+padding):margin ratio are Golden.
-@params
-: @side  : either `left` or `right`
-: @width : value of `border-[left|right]-width`
-: @style : value of `border-[left|right]-style` (default to `solid`)
-: @color : value of `border-[left|right]-color` (default to `currentColor`)
-@tags
-: #golden
-@author
-: Chris Harvey
-@updated
-: 2015-02-17
-  */
-/**
   * The following Interfaces add background images to an Element, typically the `body` Element.
   * `.crossgrid-lined()`    : simple lined paper
   * `.crossgrid-phi()`      : lined paper with vertical lines at phi-like intervals
@@ -624,28 +609,34 @@ body {
   content: 'This article is ready for implemen' '\00ad' 'tation.';
 }
 .Article [data-status="draft"] {
-  border-left: 4px solid #ff0000;
-  padding-left: 6.47213595px;
-  margin-left: 16.94427191px;
-  padding-right: 4px;
+  border-left: 0.25rem solid #ff0000;
+  border-right: 0.25rem solid #ff0000;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
   box-shadow: 4px 4px 8px #808080;
-  background-color: rgba(255, 158, 158, 0.14589803);
+  background-color: rgba(255, 158, 158, 0.2);
 }
 .Article [data-status="complete"] {
-  border-left: 4px solid #ccff00;
-  padding-left: 6.47213595px;
-  margin-left: 16.94427191px;
-  padding-right: 4px;
+  border-left: 0.25rem solid #ccff00;
+  border-right: 0.25rem solid #ccff00;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
   box-shadow: 4px 4px 8px #808080;
-  background-color: rgba(236, 255, 158, 0.14589803);
+  background-color: rgba(236, 255, 158, 0.2);
 }
 .Article [data-status="released"] {
-  border-left: 4px solid #00ff66;
-  padding-left: 6.47213595px;
-  margin-left: 16.94427191px;
-  padding-right: 4px;
+  border-left: 0.25rem solid #00ff66;
+  border-right: 0.25rem solid #00ff66;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
   box-shadow: 4px 4px 8px #808080;
-  background-color: rgba(158, 255, 197, 0.14589803);
+  background-color: rgba(158, 255, 197, 0.2);
 }
 /**
   * The `[data-informative]` attribute on an Element in an `.Article` indicates that
@@ -659,15 +650,15 @@ body {
 : 2015-02-23
   */
 .Article [data-informative] {
-  border-left: 2px solid #0066ff;
-  padding-left: 3.23606798px;
-  margin-left: 8.47213595px;
-  border-right: 2px solid #0066ff;
-  padding-right: 3.23606798px;
-  margin-right: 8.47213595px;
+  border-left: 0.125rem solid #0066ff;
+  border-right: 0.125rem solid #0066ff;
+  padding-left: 0.375rem;
+  padding-right: 0.375rem;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
   box-shadow: 2px 2px 4px #c0c0c0;
   font-family: 'Optima', 'Lucida Grande', 'Tahoma', sans-serif;
-  background-color: rgba(158, 197, 255, 0.14589803);
+  background-color: rgba(158, 197, 255, 0.2);
 }
 /*#####################*\
     _breadcrumbs.less
@@ -1037,18 +1028,10 @@ h6 {
   color: #120099;
 }
 /*@QUASI-PARAGRAPHS*/
-figure,
-blockquote {
-  border-top: 0rem solid currentColor;
-  padding-top: 0.57294902rem;
-  margin-top: -0.57294902rem;
-}
 /**
   * A `figure` Element.
   * Class `.Text` adds a lined-paper background. For figures whose contents are only text.
 @implements
-: .sidebrdr-phi(left)
-: .sidebrdr-phi(right)
 : .crossgrid-lined()
 @tags
 : #typography
@@ -1059,12 +1042,10 @@ blockquote {
 : 2015-02-16
   */
 figure {
-  border-left: 4px solid #9acc7a;
-  padding-left: 6.47213595px;
-  margin-left: 16.94427191px;
-  border-right: 4px solid #9acc7a;
-  padding-right: 6.47213595px;
-  margin-right: 16.94427191px;
+  border-left: 0.25rem solid #9acc7a;
+  border-right: 0.25rem solid #9acc7a;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
   text-align: center;
 }
 .Text {
@@ -1088,7 +1069,6 @@ figure {
   * For `blockquote.Short`, do not use a `footer` (just use `blockquote > cite`).
 @implements
 : .crossgrid-lined()
-: .sidebrdr-phi()
 : .font-size-block()
 : .parens()
 @tags
@@ -1104,9 +1084,8 @@ blockquote {
   background-size: 1px 24px;
   background-repeat: repeat;
   background-position: left bottom;
-  border-left: 7px double #9acc7a;
-  padding-left: 11.32623792px;
-  margin-left: 29.65247584px;
+  border-left: 0.75rem double #9acc7a;
+  padding-left: 0.25rem;
   font-family: 'Geneva', 'Tahoma', sans-serif;
 }
 blockquote > footer {
@@ -2192,16 +2171,6 @@ kbd > kbd > strong {
     margin-left: auto;
     margin-right: auto;
     margin-bottom: auto;
-  }
-  figure,
-  blockquote,
-  pre {
-    border-left: 0 solid currentColor;
-    padding-left: 0;
-    margin-left: 0;
-    border-right: 0 solid currentColor;
-    padding-right: 0;
-    margin-right: 0;
   }
   br.print {
     display: inline;
