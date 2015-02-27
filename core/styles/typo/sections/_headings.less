@@ -163,9 +163,10 @@ h6 {
 
 /**
   * A fancy heading for the portfolio pages.
-  * The `.Normal` subclass adds a hidden
-  * U+0001 = "start of heading" character
-  * so that the `::first-letter` selector does not apply to any visual characters
+  * Note: You may add a hidden `U+0001` = "start of heading" character to
+  * prevent `::first-letter` from applying to any visual characters.
+  * `.Cap` represents a capital leter to be styled slightly differently. It is an inline
+  * element so its font-size should be in 'em's and its line-height should be 0.
 @implements
 : .font-size-block()
 : .spacing-top()
@@ -179,10 +180,9 @@ h6 {
 : 2015-02-11
   */
 .H--Folio {
-  @this_fontsize: @font_size_h1;
-  .font-size-block(@this_fontsize; 2 * @line_height_base);
-  .spacing-top(4 * @vru_core);
-  .spacing-bottom(2 * @vru_core);
+  .font-size-block(3; 3 * @line_height_base);
+  .spacing-top(   4 * @vru_core);
+  .spacing-bottom(1 * @vru_core);
   font-variant: normal;
   font-weight: normal;
   font-family: @fontfam_script;
@@ -190,7 +190,8 @@ h6 {
   white-space: nowrap;
   color: @color_h_major;
   .Cap { // ::first-letter is buggy, manually add `span.Cap`
-    .font-size-block(2 * @this_fontsize; @line_height_base);
-    font-family: 'Snell Roundhand',@fontfam_script;
+    font-size: 1.5em;
+    line-height: 0;
+    text-transform: uppercase;
   }
 }
