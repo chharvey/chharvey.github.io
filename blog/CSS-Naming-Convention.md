@@ -1,4 +1,4 @@
-Read my take on [Object-Oriented CSS](https://github.com/chharvey/chharvey.github.io/wiki/object-oriented-css#apply-it-to-css).
+Read my take on [Object-Oriented CSS](Object-Oriented-CSS.md#apply-it-to-css).
 
 Use `CamelCase` on Objects and `single-hyphen-separated` on Interfaces, so that in terms of readability one can determine whether a class is an Object or Interface. Major words appear in order from general to specific. E.g., do `.ParaIntro`, not `.IntroPara`. Minor words should be combined, like `.Dropcap`.
 
