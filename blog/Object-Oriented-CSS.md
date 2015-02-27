@@ -87,7 +87,7 @@ So, in CSS, how do we distinguish between Objects and Interfaces? How do we make
 
 ## A Suggested Solution
 
-Before we get into architecting CSS to make it object-oriented, please read about [naming classes](Naming-Convention.md).
+Before we get into architecting CSS to make it object-oriented, please read about [naming classes](CSS-Naming-Convention.md).
 
 ### Showing and Hiding Classes
 
