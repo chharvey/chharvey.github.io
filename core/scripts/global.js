@@ -7,10 +7,10 @@ project = {
 };
 
 /**
-  * Resizes the .H--Folio headings on home site to keep them horizontally contained.
+  * Resizes the `.h--Folio` headings on home site to keep them horizontally contained.
   */
 function resizeFolioHeading() {
-  $('.H--Folio').each(function () {
+  $('.h--Folio').each(function () {
     var self = this;
     this.width_in_rem = $(this).parent().width() / project.px_per_rem;
     this.font_size_in_rem = (1/16) * this.width_in_rem; // magic number alert! why (1/16) ???
