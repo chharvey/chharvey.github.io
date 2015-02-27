@@ -845,11 +845,17 @@ body {
     _footnotes.less
 \*###################*/
 /**
-  * This Object represents a list whose items each contain a footnote. Typically, the order of
-  * footnotes is irrelevant, so this Object should be instantiated by a `ul` Element.
+  * A `footer` containing a list whose items each contain a footnote. Typically, the order of
+  * footnotes is irrelevant, so this list would be a `ul` Element.
+  *
+  * `.Rf` represents a reference to a footnote. The reference exists in the document prose,
+  * and it links to a footnote, which is contained in the `.Footnotes`.
+  * `.Fn` represents the footnote that is referenced.
+  * Each is an `a` Element.
 @implements
 : .font-size-block()
 : .vru-top-phi()
+: .brackets()
 @tags
 : #footnotes
 : #lists
@@ -857,16 +863,21 @@ body {
 @author
 : Chris Harvey
 @updated
-: 2015-02-11
+: 2015-02-23
   */
 .Footnotes {
   font-size: 0.75rem;
   line-height: 2;
-  border-top-width: 0.0625rem;
+  border-top-width: 0.0625px;
   padding-top: 0.51044902rem;
   margin-top: -0.57294902rem;
   border-top-style: solid;
   border-top-color: #9acc7a;
+}
+.Footnotes > ul {
+  padding-left: 1em;
+  text-indent: -1em;
+  list-style: none;
 }
 /**
   * The `.Rf` Object represents a reference to a footnote. The reference exists in the document prose,
@@ -882,16 +893,16 @@ body {
 @updated
 : 2014-07-22
   */
-.Rf > a[href],
-.Fn > a[href] {
+.Rf,
+.Fn {
   quotes: '[' ']';
 }
-.Rf > a[href]::before,
-.Fn > a[href]::before {
+.Rf::before,
+.Fn::before {
   content: open-quote;
 }
-.Rf > a[href]::after,
-.Fn > a[href]::after {
+.Rf::after,
+.Fn::after {
   content: close-quote;
 }
 /*##################*\
@@ -2628,7 +2639,7 @@ kbd > kbd {
   * "draft"    : a work in progress
   * "complete" : finished but still needs edits before releasing
   * "released" : ready for implementation
-  * See https://github.com/chharvey/chharvey.github.io/wiki/Document-Status/ for more info.
+  * See `/blog/Document-Status.md` for more info.
 @tags
 : #status
 : #golden
@@ -2786,7 +2797,7 @@ kbd > kbd {
 /**
   * The `[data-informative]` attribute on an Element in an `.Article` indicates that
   * the content is nonessential to the article.
-  * See https://github.com/chharvey/chharvey.github.io/wiki/Document-Status/ for more info.
+  * See `/blog/Document-Status.md` for more info.
 @tags
 : #status
 @author
