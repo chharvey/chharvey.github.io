@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Class Color &in; Chris Harvey&rsquo;s Library</title>
+<meta charset="UTF-8"/>
+<meta name="author" content="Christopher H. Harvey"/>
+<link rel="stylesheet" href="../../styles/project.css"/>
+<link rel="stylesheet" href="jslib.css"/>
+<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML,http://chharvey.github.io/chhlib/mathjax-localconfig.js"></script>
+<script src="../../scripts/Util.js"></script>
+<script src="../../scripts/Color.js"></script>
+<script src="../../scripts/global.js"></script>
+</head>
+<body>
+<main class="Article" data-status="draft">
+<header>
+  <h1>Class <code>Color</code></h1>
+  <p class="p--Lede">A 256-bit color that can be displayed in a pixel, given three components
+    (red-green-blue). If the components are not given, they each default to 0 (black).</p>
+</header>
+<section>
+  <h2>Constructor</h2>
+  <dl class="FuncTabl">
+    <dt id="Color"><code>new Color(<var>r</var>, <var>g</var>, <var>b</var>)</code></dt>
+    <dd>
+      <dl class="FuncDescMap">
+        <dt>Param <var>r</var></dt>
+        <dd>optional integer <span class="M">0 \le r \le 255</span> defaults to 0; the red component of this color</dd>
+        <dt>Param <var>g</var></dt>
+        <dd>optional integer <span class="M">0 \le r \le 255</span> defaults to 0; the green component of this color</dd>
+        <dt>Param <var>b</var></dt>
+        <dd>optional integer <span class="M">0 \le r \le 255</span> defaults to 0; the blue component of this color</dd>
+      </dl>
+    </dd>
+  </dl>
+</section>
+<section>
+  <h2>Fields</h2>
+  <section>
+    <h3>Instance Variables</h3>
+    <dl class="FuncTabl">
+      <dt id="red"><code>this.red</code></dt>
+      <dd>the red component of this color. immutable</dd>
+      <dt id="green"><code>this.green</code></dt>
+      <dd>the green component of this color. immutable</dd>
+      <dt id="blue"><code>this.blue</code></dt>
+      <dd>the blue component of this color. immutable</dd>
+      <dt id="hsv_hue"><code>this.hsv_hue</code></dt>
+      <dd>the HSV-space hue of this color, or what <i>color</i> this color is</dd>
+      <dt id="hsv_sat"><code>this.hsv_sat</code></dt>
+      <dd>the HSV-space saturation, or <i>vividness</i>, of this color</dd>
+      <dt id="hsv_lum"><code>this.hsv_val</code></dt>
+      <dd>the HSV-space value, or <i>brightness</i>, of this color</dd>
+      <dt id="hsl_hue"><code>this.hsl_hue</code></dt>
+      <dd>the HSL-space hue of this color (identical to the HSV-space hue)</dd>
+      <dt id="hsl_sat"><code>this.hsl_sat</code></dt>
+      <dd>the HSL-space saturation of this color, or the <i>amount of color</i> this color has</dd>
+      <dt id="hsl_lum"><code>this.hsl_lum</code></dt>
+      <dd>the HSL-space luminosity of this color, or how <i>white</i> or <i>black</i> this color is</dd>
+    </dl>
+  </section>
+</section>
+<section>
+  <h2>Methods</h2>
+  <section>
+    <h3>Instance Methods</h3>
+    <dl class="FuncTabl">
+      <dt id="complement"><code>this.complement()</code></dt>
+      <dd>
+        <dl class="FuncDescMap">
+          <dt>Description</dt>
+          <dd>Returns a new color that is the complement of this color. The complement
+            of a color is the difference between that color and white. The differences are computed
+            for each component in the RGB-space.</dd>
+        </dl>
+      </dd>
+      <dt id="invert"><code>this.invert()</code></dt>
+      <dd>
+        <dl class="FuncDescMap">
+          <dt>Description</dt>
+          <dd>Returns a new color that is the inverse of this color. The inverse of a
+            color is that color with a hue rotation of 180 degrees.</dd>
+        </dl>
+      </dd>
+      <dt id="brighten" data-status="draft"><code>this.brighten(<var>p</var>)</code></dt>
+      <dd data-status="draft">
+        <dl class="FuncDescMap">
+          <dt>Description</dt>
+          <dd>Returns a new color that is a brighter version of this color in the HSL-space.</dd>
+          <dt>Param <var>p</var></dt>
+          <dd>required number <span class="M">-1 \le p \le 1</span>; the percentage
+            by which to lighten this color
+            <ul class="Ulist">
+              <li><span class="M">p= 1</span> will return white</li>
+              <li><span class="M">p=-1</span> will return black</li>
+              <li><span class="M">p= 0</span> will return an identical copy of this color</li>
+            </ul>
+          </dd>
+        </dl>
+      </dd>
+      <dt id="darken" data-status="draft"><code>this.darken(<var>p</var>)</code></dt>
+      <dd data-status="draft">
+        <dl class="FuncDescMap">
+          <dt>Description</dt>
+          <dd>Returns a new color that is a darker version of this color in the HSL-space.</dd>
+          <dt>Param <var>p</var></dt>
+          <dd>required number <span class="M">-1 \le p \le 1</span>; the percentage
+            by which to darken this color
+            <ul class="Ulist">
+              <li><span class="M">p= 1</span> will return black</li>
+              <li><span class="M">p=-1</span> will return white</li>
+              <li><span class="M">p= 0</span> will return an identical copy of this color</li>
+            </ul>
+          </dd>
+        </dl>
+      </dd>
+      <dt id="toString"><code>this.toString(<var>space</var>)</code></dt>
+      <dd>
+        <dl class="FuncDescMap">
+          <dt>Description</dt>
+          <dd>Returns a string representation of this color.</dd>
+          <dt>Param <var>space</var></dt>
+          <dd>optional string defaults to <code>&apos;rgb&apos;</code>;
+            the space in which this color exists
+            <ul class="Ulist">
+              <li><code>space === 'rgb'</code> will return <code>&apos;rgb(<var>this.red</var>, <var>this.green</var>, <var>this.blue</var>)&apos;</code></li>
+              <li><code>space === 'hsv'</code> will return <code>&apos;hsv(<var>this.hsv_hue</var>, <var>this.hsv_sat</var>, <var>this.hsv_val</var>)&apos;</code></li>
+              <li><code>space === 'hsl'</code> will return <code>&apos;hsl(<var>this.hsl_hue</var>, <var>this.hsl_sat</var>, <var>this.hsl_lum</var>)&apos;</code></li>
+            </ul>
+          </dd>
+        </dl>
+      </dd>
+    </dl>
+  </section>
+  <section>
+    <h3>Static Methods</h3>
+    <dl class="FuncTabl">
+      <dt id="newColorHSV"><code>Color.newColorHSV(<var>h</var>, <var>s</var>, <var>v</var>)</code></dt>
+      <dd>
+        <dl class="FuncDescMap">
+          <dt>Description</dt>
+          <dd>Returns a new Color object with a given hue, saturation, and value in HSV-space.</dd>
+          <dt>Param <var>h</var></dt>
+          <dd>required integer <span class="M">0 \le h \le 359</span>; the hue in HSV-space</dd>
+          <dt>Param <var>s</var></dt>
+          <dd>required number <span class="M">0 \le s \le 1</span>; the saturation in HSV-space</dd>
+          <dt>Param <var>v</var></dt>
+          <dd>required number <span class="M">0 \le v \le 1</span>; the value (brightness) in HSV-space</dd>
+        </dl>
+      </dd>
+      <dt id="newColorHSL"><code>Color.newColorHSL(<var>h</var>, <var>s</var>, <var>l</var>)</code></dt>
+      <dd>
+        <dl class="FuncDescMap">
+          <dt>Description</dt>
+          <dd>Returns a new Color object with a given hue, saturation, and luminosity in HSL-space.</dd>
+          <dt>Param <var>h</var></dt>
+          <dd>required integer <span class="M">0 \le h \le 359</span>; the hue in HSL-space</dd>
+          <dt>Param <var>s</var></dt>
+          <dd>required number <span class="M">0 \le s \le 1</span>; the saturation in HSL-space</dd>
+          <dt>Param <var>l</var></dt>
+          <dd>required number <span class="M">0 \le l \le 1</span>; the luminosity in HSL-space</dd>
+        </dl>
+      </dd>
+      <dt id="mix"><code>Color.mix(<var>color1</var>, <var>color2</var>, <var>w</var>)</code></dt>
+      <dd>
+        <dl class="FuncDescMap">
+          <dt>Description</dt>
+          <dd>Mixes two colors, with a weight favoring the first color.
+          </dd>
+          <dt>Param <var>color1</var></dt>
+          <dd>required <code>Color</code> object</dd>
+          <dt>Param <var>color2</var></dt>
+          <dd>required <code>Color</code> object</dd>
+          <dt>Param <var>w</var></dt>
+          <dd>optional number <span class="M">0 \le w \le 1</span> defaults to 0.5;
+            the weight favoring the first color
+            <ul class="Ulist">
+              <li><span class="M">w=1</span> will return <code><var>color1</var></code></li>
+              <li><span class="M">w=0</span> will return <code><var>color2</var></code></li>
+              <li><span class="M">w=0.5</span> will return a perfectly even mix</li>
+            </ul>
+          </dd>
+        </dl>
+      </dd>
+    </dl>
+  </section>
+</section>
+</main>
+</body>
+</html>

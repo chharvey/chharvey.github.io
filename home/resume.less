@@ -1,258 +1,505 @@
 // out: resume.css
-@import (reference) url('../core/styles/all.less');
+@import (reference) url('../core/styles/core.less');
 
 /*###############*\
     resume.less
 \*###############*/
 
 //Table of Contents
-//- SECTIONS
-//- HEADINGS
-//  - Overriding
-//- OBJECTS
+//- RESET
+//- VARIABLES
+//- MAIN OBJECTS
+//- OTHER OBJECTS
 
 
-
-//+++++++++//
-/*@SECTIONS*/
-//+++++++++//
-/**
-  * The Header contains my name and contact information.
-  */
-.res-Header {
-  .res-Postal {
-    .Ilist;
-    .Ilist.Square;
-    br {display: none;}
+//++++++//
+/*@RESET*/
+//++++++//
+h2, h3, h4, h5, h6 {
+  .spacing-top(0);
+  .spacing-bottom(0);
+}
+h3, h4, h5, h6 {
+  .font-size-block(1; @line_height_base);
+}
+p {
+  .spacing-bottom(0);
+}
+a:not(.BlueLink) {
+  color: inherit;
+  &[rel~="external"] {
+    font-style: inherit;
+  }
+  &:hover {
+    text-decoration: none;
+    color: inherit;
   }
 }
-.res-Skill,
-.res-Job {
-  .vru-top(1);
+abbr[title] {
+  border-bottom: 0;
 }
-/**
-  * A Skill is a top-level section, e.g. Teaching Experience.
-  * The name of the Skill is a `.res-SkillTitle`.
-  */
-.res-Skill {
-  &:first-of-type {
-    .vru-top-phi(1px; solid; @color_h_minor);
-  }
-}
-
-/**
-  * A Job is an item in a Skill. It has an organization name and location.
-  * The name of the Job is a `.res-JobTitle`.
-  */
-.res-Job {}
-/**
-  * Similar to a Job, an Institution (`Inst`) is an educational organization (college/university)
-  * with a name and location. It is also in a Skill, namely, the one corresponding to Education.
-  * The name of the Inst is a `.res-InstTitle`.
-  */
-.res-Inst {
-  display: flex;
-  flex-direction: column;
-}
-/**
-  * A Pos(ition) is an item in a Job. Usually, each Job will only have one position, but there
-  * could be multiple positions.
-  * The name of the Position is a `.res-PosTitle`.
-  * There may be a list of descriptors, which is called a `.res-PosDetail`.
-  */
-.res-Pos {}
-
-.res-Footer {
-  .vru-top-phi(1px; solid; @color_h_minor);
-  .fontsize-block-sml();
-}
-//++++ @end SECTIONS ++++//
+//++++ @end RESET ++++//
 
 
-//+++++++++//
-/*@HEADINGS*/
-//+++++++++//
-/**
-  * My name at the top of the resume.
-@extends
-: .H--Alp
-@tags
-: #heading
-@author
-: Chris Harvey
-@updated
-: 2014-10-19
-*/
-.res-Name {
-  .H--Alp;
-}
-/**
-  * The title of each skillgroup, e.g. "Teaching Experience"
-@extends
-: .H--Bet
-@implements
-: .fontsize-block()
-: .border-vert-undo()
-@tags
-: #golden
-@author
-: Chris Harvey
-@updated
-: 2014-10-19
-  */
-.res-SkillTitle {
-  .H--Bet;
-  .border-vert-undo(); // undo .border-vert-one() in .H--Bet
-  .fontsize-block(1.5);
-}
-.res-JobTitle {
-  .H--Gam;
-}
-.res-InstTitle {
-  .H--Eps;
-  order: 1;
-}
-.res-PosTitle {
-  .H--Del;
-  font-weight: normal;
-}
-
-//-----------//
-/*@Overriding*/
-//-----------//
-.res-Name,
-.res-SkillTitle,
-.res-JobTitle,
-.res-InstTitle,
-.res-PosTitle {
-  letter-spacing: normal;
-}
-.res-SkillTitle,
-.res-JobTitle,
-.res-InstTitle,
-.res-PosTitle {
-  .vru-top(   0);
-  .vru-bottom(0);
-}
-.res-JobTitle,
-.res-InstTitle,
-.res-PosTitle {
-  font-size: inherit;
-  line-height: inherit;
-}
-//---- @end Overriding ----//
-//++++ @end HEADINGS ++++//
-
-//++++++++//
-/*@OBJECTS*/
-//++++++++//
-.Ulist {padding-left: (@listindent / 2);}
-
-/**
-  * A bullet list of job descriptions for each Position.
-@extends
-: .Ulist
-@tags
-: #typography
-: #list
-: #indent
-: #padding
-@author
-: Chris Harvey
-@updated
-: 2014-06-26
-  */
-.res-PosDetail {
-  .Ulist;
-}
-
-/**
-  * date & location of job
-@author
-: Chris Harvey
-@updated
-: 2014-07-26
-  */
-.res-Spacetime {
-  float: right;
-  font-weight: normal;
-  font-variant: normal;
-  font-style: normal;
-  color: @color_base_txt;
-}
-
-a[rel~="external"] {font-style: inherit;}
-i[lang] {font-family: inherit;}
-
-//++++ @end OBJECTS ++++//
+//++++++++++//
+/*@VARIABLES*/
+//++++++++++//
+@datewidth: (768px * @phi3); // (8in * phi3) or (8in * 0.236067977499789696)
+@datewidth: @golden3; // 23.6067977499789696%
+//++++ @end VARIABLES ++++//
 
 
+//+++++++++++++//
+/*@MAIN OBJECTS*/
+//+++++++++++++//
 @media screen {
-  @font_text: @fontfam_prose;
-  html {
-    font-family: @font_text;
-  }
-  .res-Header {
-    text-align: center;
-  }
-  .res-Postal {
-    font-family: @fontfam_heading;
-  }
-  .res-SkillTitle {
-    width: @golden4;
-    margin-left: @golden7;
-    margin-right: @golden6;
-    text-align: right;
-    position: absolute;
-    left: 0;
-  }
-  .res-Spacetime {
-    font-family: @font_text;
-  }
-  .js-res-Footer {
-    display: none;
+  body {
+    position: relative; // so that absolutely positioned elements are sized proportionally
+    font-family: @fontfam_prose;
   }
 }
 @media print {
   body {
     width: 768px; // 8in
     font-size: inherit;
-    font-family: 'Times','Times New Roman',serif;
+    font-family: 'Marion','Times','Times New Roman',serif;
     line-height: inherit;
   }
-
-  .res-Name,
-  .res-SkillTitle,
-  .res-JobTitle,
-  .res-InstTitle,
-  .res-PosTitle {
-    font-weight: inherit;
-    font-style: inherit;
-    font-variant: inherit;
-    font-family: inherit;
-    text-align: inherit;
-    color: inherit;
-  }
-  .res-Name,
-  .res-SkillTitle,
-  .res-JobTitle {
-    font-weight: bold;
-  }
-  .res-Name,
-  .res-SkillTitle {
-    .fontsize-block-lrg;
-  }
-  .res-Name {}
-  .res-SkillTitle {
-    font-variant: small-caps;
-  }
-  .res-JobTitle {}
-  .res-InstTitle {
-    font-style: italic;
-  }
-  .res-PosTitle {
-    font-style: italic;
-  }
-
-  .pagebreak {margin-top: 120px;}
 }
+@media screen {
+  .AsideGolden {
+    box-sizing: border-box;
+    width: @golden4;
+    margin-left: @golden6;
+    margin-right: @golden7;
+  }
+}
+// new layout: comment out this query for old layout
+@media screen {
+  body {
+    margin-left: 2rem;
+    margin-right: 2rem;
+  }
+  .MainGolden {
+    margin-left: @golden2;
+    margin-right: 0;
+  }
+  .AsideGolden {
+    width: @golden2;
+    margin-left: 0;
+    margin-right: 0;
+    padding-right: 1rem;
+  }
+}
+
+
+/**
+  * The Header contains my name (`Name`) and contact information (`Postal`).
+@author
+: Chris Harvey
+@updated
+: 2015-01-22
+  */
+.res-Header {
+  .spacing-bottom(@vru_core);
+}
+@media screen {
+  .res-Header {
+    .vru-bottom-even(1; solid; @color_h_major);
+  }
+}
+@media print {
+  .res-Header {
+  }
+}
+  /**
+    * My name at the top of the resume.
+  @tags
+  : #heading
+  @author
+  : Chris Harvey
+  @updated
+  : 2015-02-16
+    */
+  .res-Name {
+    font-weight: bold;
+    text-align: inherit;
+  }
+  @media screen {
+    .res-Name {
+    }
+  }
+  @media print {
+    .res-Name {
+      .spacing-top(@vru_core);
+      .spacing-bottom(@vru_core);
+      .font-size-block(@font_size_lrg; @line_height_base);
+      font-family: inherit;
+      text-transform: uppercase;
+      color: inherit;
+    }
+  }
+  /**
+    * My contact info at the top of the resume.
+  @implements
+  : .l--Inl.Square
+  @author
+  : Chris Harvey
+  @updated
+  : 2015-01-08
+    */
+  .res-Postal {
+    .l--Inl;
+    .l--Inl.Square;
+  }
+  @media screen {
+    .res-Postal {
+      font-family: @fontfam_heading;
+    }
+  }
+
+
+/**
+  * A Skill is a top-level section, e.g. Teaching Experience.
+  * It contains a `SkillTitle`,
+  * and either `Org` Objects, `Obj` Objects, `Inst` Objects, or `ul` Elements.
+@author
+: Chris Harvey
+@updated
+: 2015-01-08
+  */
+.res-Skill {
+}
+@media screen {
+  .res-Skill {
+    border-left: 1px dotted fadeout(@color_h_minor, @golden1);
+    padding-left: 0.5rem;
+    margin-left: -0.5rem;
+  }
+}
+  /**
+    * The title of each Skill, e.g. "Teaching Experience"
+  @author
+  : Chris Harvey
+  @updated
+  : 2015-02-16
+    */
+  .res-SkillTitle {
+  }
+  @media screen {
+    .res-SkillTitle {
+      .font-size-block(1.5; @line_height_base);
+      margin-top: 0;
+      border-bottom: 0;
+      position: absolute;
+      left: 0;
+      text-align: right;
+    }
+  }
+  @media print {
+    .res-SkillTitle {
+      .border-vert-one(bottom; 1px; solid; #000);
+      .spacing-bottom(@vru_core);
+      .font-size-block(@font_size_lrg; @line_height_base);
+      font-variant: small-caps;
+      font-family: inherit;
+      color: inherit;
+    }
+  }
+  /**
+    * A Org is an item in a Skill. It has an organization name and location.
+    * It contains a `header` and a `OrgDetail`.
+  @author
+  : Chris Harvey
+  @updated
+  : 2015-01-08
+    */
+  .res-Org {
+    .spacing-bottom(@vru_core);
+  }
+  @media screen {
+    .res-Org {}
+  }
+  @media print {
+    .res-Org {}
+  }
+    /**
+      * contains `.res-Titles` and `.res-Spacetime`
+    @author
+    : Chris Harvey
+    @updated
+    : 2015-01-15
+      */
+    .res-Org header {
+    }
+    @media screen {
+    }
+    @media print {
+      .res-Org header {
+        .flexbox();
+      }
+    }
+      /**
+        * contains .res-OrgTitle and .res-JobTitle
+      @author
+      : Chris Harvey
+      @updated
+      : 2015-01-15
+        */
+      .res-Titles {
+        .flexbox();
+      }
+      @media screen {
+      }
+      @media print {
+        .res-Titles {
+          .flex-order(1);
+        }
+      }
+        /**
+          * The title of an organization
+        @author
+        : Chris Harvey
+        @updated
+        : 2015-01-22
+          */
+        .res-OrgTitle {
+          .flex-order(1);
+          font-style: italic;
+          font-variant: inherit;
+          font-weight: inherit;
+        }
+        @media screen {
+          .res-OrgTitle {
+          }
+        }
+        @media print {
+          .res-OrgTitle {
+            font-family: inherit;
+          }
+        }
+        /**
+          * The title of a job, e.g. a position held at an organization
+        @author
+        : Chris Harvey
+        @updated
+        : 2015-01-22
+          */
+        .res-JobTitle {
+          padding-right: 1rem;
+          font-weight: bold;
+        }
+        @media screen {
+        .res-JobTitle {
+            font-family: @fontfam_heading;
+            font-variant: small-caps;
+          }
+        }
+        @media print {
+          .res-JobTitle {
+            font-family: inherit;
+            font-variant: inherit;
+          }
+        }
+      /**
+        * contains .res-Dates and .res-Place
+      @author
+      : Chris Harvey
+      @updated
+      : 2015-01-15
+        */
+      .res-Spacetime {
+      }
+      @media screen {
+        .res-Spacetime {
+          .flexbox();
+        }
+      }
+      @media print {
+        .res-Spacetime {
+          width: @datewidth;
+        }
+      }
+        /**
+          * dates worked at each organization
+        @author
+        : Chris Harvey
+        @updated
+        : 2015-01-15
+          */
+        .res-Dates {
+        }
+        @media screen {
+          .res-Dates {
+            padding-right: 0.5rem;
+          }
+        }
+        /**
+          * the city or location of an organization
+        @author
+        : Chris Harvey
+        @updated
+        : 2015-01-15
+          */
+        .res-Place {
+        }
+        @media screen {
+          .res-Place [itemprop="name"] {
+            .parens();
+          }
+        }
+    /**
+      * A bullet list of job descriptions for each job.
+    @tags
+    : #typography
+    : #list
+    : #indent
+    : #padding
+    @author
+    : Chris Harvey
+    @updated
+    : 2014-06-26
+      */
+    .res-OrgDetail {
+      padding-left: 0.25in;
+      // padding-left: 0.5rem;
+      // list-style-position: inside;
+    }
+    @media print {
+      .res-OrgDetail {
+        margin-top: -@vru_core;
+        margin-left: @datewidth;
+      }
+    }
+  /**
+    * On the same level as an Org, a `.res-Obj` is a paragraph that describes an objective.
+    * It is in the Skill belonging to Objective
+  @author
+  : Chris Harvey
+  @updated
+  : 2015-02-17
+    */
+  .res-Obj {
+    .spacing-bottom(@vru_core);
+  }
+  @media print {
+    .res-Obj {
+      margin-top: (-2 * @vru_core);
+      margin-left: @datewidth;
+    }
+  }
+  /**
+    * On the same level as an Org, an Institution (`Inst`) is an educational organization
+    * (college/university) with a name and location. It is also in a Skill, namely,
+    * the one corresponding to Education. The name of the Inst is a `.res-InstTitle`.
+  @extends
+  : .res-Org
+  @author
+  : Chris Harvey
+  @updated
+  : 2015-01-08
+    */
+  .res-Inst {
+    .flexbox();
+    .flex-direction(column);
+  }
+    /**
+      * The title of an institution
+    @extends
+    : .res-OrgTitle
+    @author
+    : Chris Harvey
+    @updated
+    : 2015-01-08
+      */
+    .res-InstTitle {
+      .flex-order(1);
+      .spacing-bottom(@vru_core);
+      font-style: italic;
+      font-variant: inherit;
+      font-weight: inherit;
+    }
+    @media screen {
+      .res-InstTitle {
+      }
+    }
+    @media print {
+      .res-InstTitle {
+        margin-left: @datewidth;
+        font-style: italic;
+        font-family: inherit;
+      }
+    }
+//++++ @end MAIN OBJECTS ++++//
+
+
+//++++++++++++++//
+/*@OTHER OBJECTS*/
+//++++++++++++++//
+/**
+  * A list of achievements such as awards or memberships.
+@implements
+: .dl--Horiz;
+@author
+: Chris Harvey
+@updated
+: 2015-01-22
+  */
+.res-AchList {
+  .dl--Horiz;
+  dt {
+    font-weight: inherit;
+  }
+}
+@media screen {
+  .res-AchList {
+    dt {
+      padding-right: 0.5rem;
+    }
+    dd {
+      .parens();
+    }
+  }
+}
+@media print {
+  .res-AchList {
+    margin-top: -@vru_core;
+    dt {
+      margin-left: @datewidth;
+      padding-right: 0;
+      float: none;
+      clear: none;
+    }
+    dd {
+      width: @datewidth;
+      margin-top: -@vru_core;
+      float: none;
+      clear: none;
+    }
+  }
+}
+
+.res-Footer {
+  .vru-top-even(1; solid; @color_h_minor);
+  .font-size-block(@font_size_sml; @line_height_base);
+}
+@media screen {
+}
+@media print {
+  // .noprint(); need to fix this in core
+}
+//++++ @end OTHER OBJECTS ++++//
+
+
+//+++++++//
+/*@TRUMPS*/
+//+++++++//
+@media print {
+  .pagebreak {
+    margin-top: 144px;
+  }
+  #tech-misc {
+    margin-left: @datewidth;
+  }
+}
+//++++ @end TRUMPS ++++//
