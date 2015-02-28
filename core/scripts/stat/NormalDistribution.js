@@ -14,7 +14,7 @@ function NormalDistribution(mean, stdev) {
   * @param `x` the input of the PDF to evaluate
   * @return    the y-value of the PDF evaluated at `x`
   */
-NormalDistribution.prototype.evalPDF = function (x) {
+NormalDistribution.prototype.evalPDF = function evalPDF(x) {
   var t = (x - this.mean) / this.stdev;
   return (1 / (this.stdev * Math.sqrt(Util.TAU))) * Math.exp(-t*t / 2);
 }
@@ -30,7 +30,7 @@ NormalDistribution.prototype.evalPDF = function (x) {
   * @param `accuracy` the number of terms in the series in the calculation of this function; defaults to 100
   * @return           the y-value of the PDF evaluated at `x`
   */
-NormalDistribution.prototype.evalCDF = function (x, accuracy) {
+NormalDistribution.prototype.evalCDF = function evalCDF(x, accuracy) {
   accuracy = (accuracy === undefined) ? 100 : accuracy;
   function series(y) {
     var sum = 0;
@@ -56,15 +56,15 @@ NormalDistribution.prototype.evalCDF = function (x, accuracy) {
   * @param `accuracy` the number of terms in the series in the calculation of this function; defaults to 100
   * @return           this.evalCDF(max) - this.evalCDF(min)
   */
-NormalDistribution.prototype.area = function (min, max, accuracy) {
+NormalDistribution.prototype.area = function area(min, max, accuracy) {
   return this.evalCDF(max, accuracy) - this.evalCDF(min, accuracy);
 }
 
 /** Returns the mean (statistical average) of this distribution. */
-NormalDistribution.prototype.getMean = function () { return this.mean; }
+NormalDistribution.prototype.getMean = function getMean() { return this.mean; }
 
 /** Returns the standard deviation (statistical spread) of this distribution. */
-NormalDistribution.prototype.getStdev = function () { return this.stdev; }
+NormalDistribution.prototype.getStdev = function getStdev() { return this.stdev; }
 
 /**
   * Selects a Gaussian-distributed random variable of this distribution.
@@ -77,7 +77,7 @@ NormalDistribution.prototype.getStdev = function () { return this.stdev; }
   * [the polar form of the Box-Muller Transformation](http://en.wikipedia.org/wiki/Box-Muller_transform).
   * @return a normally-distributed decimal
   */
-NormalDistribution.prototype.rand = function () {
+NormalDistribution.prototype.rand = function rand() {
   var x, y;
   var s = 0;
   do {
@@ -106,7 +106,7 @@ NormalDistribution.prototype.rand = function () {
   * @param `min` the minimum of the interval of successes
   * @param `max` the maximum of the interval of successes
   */
-NormalDistribution.prototype.test = function (times, min, max) {
+NormalDistribution.prototype.test = function test(times, min, max) {
   var successes = 0;
   var  failures = 0;
   for (var i = 0; i < times && times <= 10000; i++) {
@@ -127,7 +127,7 @@ NormalDistribution.prototype.test = function (times, min, max) {
   * @param `x` the data value of the observation
   * @return    the z-score of the observed data value
   */
-NormalDistribution.prototype.zScore = function (x) {
+NormalDistribution.prototype.zScore = function zScore(x) {
   return (x - this.mean) / this.stdev;
 }
 
@@ -138,6 +138,6 @@ NormalDistribution.prototype.zScore = function (x) {
   * @param `z` the given z-score
   * @return    the raw data value corresponding to the z-score
   */
-NormalDistribution.prototype.zScoreInv = function (x) {
+NormalDistribution.prototype.zScoreInv = function zScoreInv(z) {
   return (z * this.stdev) + this.mean;
 }

@@ -36,7 +36,7 @@ function DiscreteDistribution(outcomes) {
   * @param `x` the input of the PDF to evaluate
   * @return    the y-value of the PDF evaluated at `x`
   */
-DiscreteDistribution.prototype.evalPDF = function (x) {
+DiscreteDistribution.prototype.evalPDF = function evalPDF(x) {
   if (x === -Infinity || x === Infinity) return 0;
 }
 
@@ -47,7 +47,7 @@ DiscreteDistribution.prototype.evalPDF = function (x) {
   * @param `x` the input of the CDF to evaluate
   * @return    the y-value of the PDF evaluated at `x`
   */
-DiscreteDistribution.prototype.evalCDF = function (x) {
+DiscreteDistribution.prototype.evalCDF = function evalCDF(x) {
   if      (x === -Infinity) return 0;
   else if (x ===  Infinity) return 1;
   var sum = 0;
@@ -65,12 +65,12 @@ DiscreteDistribution.prototype.evalCDF = function (x) {
   * @param `max` the upper bound of the input
   * @return      this.evalCDF(max) - this.evalCDF(min)
   */
-DiscreteDistribution.prototype.area = function (min, max) {
+DiscreteDistribution.prototype.area = function area(min, max) {
   return this.evalCDF(max) - this.evalCDF(min);
 }
 
 /** Returns the mean (statistical average) of this distribution. */
-DiscreteDistribution.prototype.getMean = function () {
+DiscreteDistribution.prototype.getMean = function getMean() {
   var sum = 0;
   for (var i = 0; i < this.outcomes; i++) {
     sum += i * this.evalPDF(i);
@@ -79,7 +79,7 @@ DiscreteDistribution.prototype.getMean = function () {
 }
 
 /** Returns the standard deviation (statistical spread) of this distribution. */
-DiscreteDistribution.prototype.getStdev = function () {
+DiscreteDistribution.prototype.getStdev = function getStdev() {
   var sum = 0;
   for (var i = 0; i < this.outcomes; i++) {
     sum += Math.pow(i - this.getMean(), 2) * this.evalPDF(i);

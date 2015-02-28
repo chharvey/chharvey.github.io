@@ -13,18 +13,18 @@ function Pair(a, b) {
 }
 Util.extend(Pair, Set);
 
-Pair.prototype.owns = function (x) {
+Pair.prototype.owns = function owns(x) {
   return this.element1.equals(x) || this.element2.equals(x);
 }
 
-Pair.prototype.includes = function (x) {
+Pair.prototype.includes = function includes(x) {
   return x.isEmpty() // every set includes the empty set
     || x.isSingletonOf(this.element1)
     || x.isSingletonOf(this.element2)
     || x.isPairOf(this.element1, this.element2);
 }
 
-Pair.prototype.toString = function () {
+Pair.prototype.toString = function toString() {
   var s = '{ ' + this.element1;
   if (!this.isSingleton()) s += ',  ' + this.element2;
   s += ' }';
@@ -32,27 +32,27 @@ Pair.prototype.toString = function () {
 }
 
 
-Pair.prototype.isEmpty = function () {
+Pair.prototype.isEmpty = function isEmpty() {
   return false;
 }
 
-Pair.prototype.ownsEmpty = function () {
+Pair.prototype.ownsEmpty = function ownsEmpty() {
   // overrides Set.prototype.ownsEmpty() {return this.owns(new EmptySet());}
   return this.element1.isEmpty() || this.element2.isEmpty();
 }
 
-Pair.prototype.isSingleton = function () {
+Pair.prototype.isSingleton = function isSingleton() {
   return this.element1.equals(this.element2);
 }
 
-Pair.prototype.isPair = function () {
+Pair.prototype.isPair = function isPair() {
   return true;
 }
-Pair.prototype.isPairOf = function (x, y) {
+Pair.prototype.isPairOf = function isPairOf(x, y) {
   return this.owns(x) && this.owns(y);
 }
 
-Pair.prototype.isPowerSetOf = function (x) {
+Pair.prototype.isPowerSetOf = function isPowerSetOf(x) {
   // The power set P(x) of any set x owns the empty set, x itself, and possibly more elements.
   // If x is empty, then P(x) is exacly the set that owns x, which makes it a singleton, which is a pair.
   // If x is a singleton, then P(x) owns the empty set and x, and nothing else, which makes it a non-singleton pair.
@@ -63,6 +63,6 @@ Pair.prototype.isPowerSetOf = function (x) {
   // PowerSet.prototype.isPowerSetOf.call(this, x)
 }
 
-Pair.prototype.isInductive = function () {
+Pair.prototype.isInductive = function isInductive() {
   return false;
 }

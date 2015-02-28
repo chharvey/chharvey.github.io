@@ -16,12 +16,12 @@ function OrderedTriple(a, b) {
 }
 Util.extend(OrderedTriple, OrderedPair);
 
-OrderedTriple.prototype.equals = function (x) {
+OrderedTriple.prototype.equals = function equals(x) {
   return this.abscissa.equals(x.abscissa) && this.ordinate.equals(x.ordinate) && this.applicate.equals(x.applicate);
   // fix this, it's wrong. there may be a set that is an ordered triple that is not an instance of
   // the OrderedTriple class
 }
 
-OrderedTriple.prototype.toString = function () {
+OrderedTriple.prototype.toString = function toString() {
   return '( ' + this.abscissa + ',  ' + this.ordinate + ',  ' + this.applicate + ' )';
 }

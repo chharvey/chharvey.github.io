@@ -13,39 +13,39 @@ function Singleton(a) {
 }
 Util.extend(Singleton, Pair);
 
-Singleton.prototype.owns = function (x) {
+Singleton.prototype.owns = function owns(x) {
   return this.element.equals(x);
 }
 
-Singleton.prototype.includes = function (x) {
+Singleton.prototype.includes = function includes(x) {
   return x.isEmpty() || x.isSingletonOf(this.element);
 }
 
-Singleton.prototype.toString = function () {
+Singleton.prototype.toString = function toString() {
   return '{ ' + this.element + ' }';
 }
 
 
-Singleton.prototype.ownsEmpty = function () {
+Singleton.prototype.ownsEmpty = function ownsEmpty() {
   // overrides Set.prototype.ownsEmpty() {return this.owns(new EmptySet());}
   return this.element.isEmpty();
 }
 
-Singleton.prototype.isSingleton = function () {
+Singleton.prototype.isSingleton = function isSingleton() {
   return true;
 }
-Singleton.prototype.isSingletonOf = function (x) {
+Singleton.prototype.isSingletonOf = function isSingletonOf(x) {
   return this.owns(x);
 }
 
-Singleton.prototype.isPairOf = function (x, y) {
+Singleton.prototype.isPairOf = function isPairOf(x, y) {
   return this.owns(x) && x.equals(y);
 }
 
-Singleton.prototype.isPowerSetOf = function (x) {
+Singleton.prototype.isPowerSetOf = function isPowerSetOf(x) {
   return this.ownsEmpty() && x.isEmpty();
 }
 
-Singleton.prototype.isInductive = function () {
+Singleton.prototype.isInductive = function isInductive() {
   return false;
 }

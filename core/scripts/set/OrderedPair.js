@@ -18,17 +18,17 @@ function OrderedPair(a, b) {
 }
 Util.extend(OrderedPair, Pair);
 
-OrderedPair.prototype.equals = function (x) {
+OrderedPair.prototype.equals = function equals(x) {
   return this.abscissa.equals(x.abscissa) && this.ordinate.equals(x.ordinate);
   // fix this, it's wrong. there may be a set that is an ordered pair that is not an instance of
   // the OrderedPair class
 }
 
-OrderedPair.prototype.toString = function () {
+OrderedPair.prototype.toString = function toString() {
   return '( ' + this.abscissa + ',  ' + this.ordinate + ' )';
 }
 
 
-OrderedPair.prototype.ownsEmpty = function () {
+OrderedPair.prototype.ownsEmpty = function ownsEmpty() {
   return false;
 }

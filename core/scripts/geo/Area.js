@@ -11,8 +11,8 @@ function Area(x, u) {
 /**
   * Returns a string representation of this object.
   */
-Area.prototype.toString = function () {
-  return '' + this.value + this.units + '²'; // U+00B2
+Area.prototype.toString = function toString() {
+  return '' + this.value + (this.units ? this.units + '²' : ''); // U+00B2
 }
 
 /**
@@ -20,7 +20,7 @@ Area.prototype.toString = function () {
   * @param `area` the Area object to add to this object
   * @return       an Area equal to the sum of both Areas
   */
-Area.prototype.add = function (area) {
+Area.prototype.add = function add(area) {
   if (this.units === area.units) return new Area(this.value + area.value, this.units);
   else                           return '' + this + ' + ' + area;
 }
@@ -33,7 +33,7 @@ Area.prototype.add = function (area) {
   * @param `k` a non-negative number: the scale factor
   * @return    the product of this Area and the scale factor
   */
-Area.prototype.scale = function (k) {
+Area.prototype.scale = function scale(k) {
   return new Area(this.value * k, this.units);
 }
 
@@ -42,7 +42,7 @@ Area.prototype.scale = function (k) {
   * @param `length` the Length object to multiply by this object
   * @return         a Volume equal to the product of this Area and the given Length
   */
-Area.prototype.multiply = function (length) {
+Area.prototype.multiply = function multiply(length) {
   if (this.units === length.units) return new Volume(this.value * length.value, this.units);
   else                             return '' + this + ' × ' + length;
 }

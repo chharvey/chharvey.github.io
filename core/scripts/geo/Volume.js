@@ -11,8 +11,8 @@ function Volume(x, u) {
 /**
   * Returns a string representation of this object.
   */
-Volume.prototype.toString = function () {
-  return '' + this.value + this.units + '³'; // U+00B3
+Volume.prototype.toString = function toString() {
+  return '' + this.value + (this.units ? this.units + '³' : ''); // U+00B3
 }
 
 /**
@@ -20,7 +20,7 @@ Volume.prototype.toString = function () {
   * @param `volume` the Volume object to add to this object
   * @return         a Volume equal to the sum of both Volumes
   */
-Volume.prototype.add = function (volume) {
+Volume.prototype.add = function add(volume) {
   if (this.units === volume.units) return new Volume(this.value + volume.value, this.units);
   else                             return '' + this + ' + ' + volume;
 }
@@ -33,8 +33,8 @@ Volume.prototype.add = function (volume) {
   * @param `k` a non-negative number: the scale factor
   * @return    the product of this Volume and the scale factor
   */
-Volume.prototype.scale = function (k) {
+Volume.prototype.scale = function scale(k) {
   return new Volume(this.value * k, this.units);
 }
 
-Volume.prototype.multiply = function (length) { return null; }
+Volume.prototype.multiply = function multiply(length) { return null; }

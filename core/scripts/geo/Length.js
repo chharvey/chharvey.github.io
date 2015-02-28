@@ -11,7 +11,7 @@ function Length(x, u) {
 /**
   * Returns a string representation of this object.
   */
-Length.prototype.toString = function () {
+Length.prototype.toString = function toString() {
   return '' + this.value + this.units;
 }
 
@@ -20,7 +20,7 @@ Length.prototype.toString = function () {
   * @param `length` the Length object to add to this object
   * @return         a Length equal to the sum of both Lengths
   */
-Length.prototype.add = function (length) {
+Length.prototype.add = function add(length) {
   if (this.units === length.units) return new Length(this.value + length.value, this.units);
   else                             return '' + this + ' + ' + length;
 }
@@ -33,7 +33,7 @@ Length.prototype.add = function (length) {
   * @param `k` a non-negative number: the scale factor
   * @return    the product of this Length and the scale factor
   */
-Length.prototype.scale = function (k) {
+Length.prototype.scale = function scale(k) {
   return new Length(this.value * k, this.units);
 }
 
@@ -44,7 +44,7 @@ Length.prototype.scale = function (k) {
   * @param `length` the Length object to multiply by this object
   * @return         an Area equal to the product of both Lengths
   */
-Length.prototype.multiply = function (length) {
+Length.prototype.multiply = function multiply(length) {
   if (this.units === length.units) return new Area(this.value * length.value, this.units);
   else                             return '' + this + ' × ' + length;
 }
@@ -54,7 +54,7 @@ Length.prototype.multiply = function (length) {
   * Equivalent to `this.multiply(this)`
   * @return an Area equal to the square of this Length
   */
-Length.prototype.square = function () {
+Length.prototype.square = function square() {
   return this.multiply(this);
 }
 
@@ -63,8 +63,22 @@ Length.prototype.square = function () {
   * Equivalent to `this.square().multiply(this)`
   * @return an Area equal to the cube of this Length
   */
-Length.prototype.cube = function () {
+Length.prototype.cube = function cube() {
   return this.square().multiply(this);
+}
+
+/**
+  * Converts this length to the same length in a different unit.
+  * Example:
+      var x = new Length(9,'cm');
+      x.convert('in'); // returns new Length(3.54,'in')
+  * @param `tounit` string: the unit to convert to
+  * @return         (nondestructive) a new Length object equivalent to this object
+  *                 but measured in a different unit
+  */
+Length.prototype.convert = function convert(tounit) {
+  var val = Length.convert(this.value, this.units, tounit);
+  return new Length(val, tounit);
 }
 
 /**
@@ -85,12 +99,13 @@ Length.conversion = {
 
 /**
   * Converts from one unit to another.
-  * Example: `Length.convert(9, 'cm', 'in')` returns 3.54.
+  * Example:
+      Length.convert(9, 'cm', 'in'); // returns 3.54
   * @param `x`        a number to convert
   * @param `fromunit` string: the unit to convert from
   * @param `tounit`   string: the unit to convert to
   * @return           the number of ‹tounit›s that x ‹fromunit›s converts to
   */
-Length.convert = function (x, fromunit, tounit) {
+Length.convert = function convert(x, fromunit, tounit) {
   return x * Length.conversion[fromunit][tounit];
 }

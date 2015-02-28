@@ -20,7 +20,7 @@ function Set() {}
   * @param `x` the element in question
   * @return    `true` if `elem` is a member of this set
   */
-Set.prototype.owns = function (x) {}
+Set.prototype.owns = function (x) owns{}
 
 /**
   * Returns whether this Set has the specified Set as a subset.
@@ -37,7 +37,7 @@ Set.prototype.owns = function (x) {}
   * @param `x` the set in question
   * @return    `true` if this set owns at least all the elements in `x`
   */
-Set.prototype.includes = function (x) {}
+Set.prototype.includes = function (x) includes{}
 
 /**
   * Returns whether the specified Set has the same elements as this Set.
@@ -52,7 +52,7 @@ Set.prototype.includes = function (x) {}
   * @param `x` the specified set
   * @return    `true` if `this` and `x` include each other
   */
-Set.prototype.equals = function (x) {
+Set.prototype.equals = function equals(x) {
   return (this === x) // convenience statement: equal Objects are equal sets (but not vice versa)
     || (this.isEmpty() && x.isEmpty()) // convenience statement: all empty sets are equal
     || (this.includes(x) && x.includes(this)); // definition of set equality
@@ -61,7 +61,7 @@ Set.prototype.equals = function (x) {
 /**
   * Returns the set-theoretic representation of this object as a string.
   */
-Set.prototype.toString = function () {}
+Set.prototype.toString = function toString() {}
 
 
 /**
@@ -72,12 +72,12 @@ Set.prototype.toString = function () {}
   *
   * @return `true` if this set has no elements
   */
-Set.prototype.isEmpty = function () {}
+Set.prototype.isEmpty = function isEmpty() {}
 /**
   * Returns whether this set contains the Empty Set.
   * @return `true` if the empty set is an element of this set
   */
-Set.prototype.ownsEmpty = function () {
+Set.prototype.ownsEmpty = function ownsEmpty() {
   return this.owns(new EmptySet());
 }
 
@@ -91,13 +91,13 @@ Set.prototype.ownsEmpty = function () {
   *
   * @return `true` if this set contains exactly one element
   */
-Set.prototype.isSingleton = function () {}
+Set.prototype.isSingleton = function isSingleton() {}
 /**
   * Returns whether this Set contains one unique element specified as a parameter.
   * @param `x` the Set of which this set may or may not contain
   * @return    `true` if this set contains `x` and no other elements
   */
-Set.prototype.isSingletonOf = function (x) {
+Set.prototype.isSingletonOf = function isSingletonOf(x) {
   return this.isSingleton() && this.owns(x);
 }
 
@@ -114,14 +114,14 @@ Set.prototype.isSingletonOf = function (x) {
   *
   * @return `true` if this set contains exactly two elements (which may be equal)
   */
-Set.prototype.isPair = function () {}
+Set.prototype.isPair = function isPair() {}
 /**
   * Returns whether this Set contains two elements specified as parameters.
   * @param `x` a Set of which this set may or may not contain
   * @param `y` a Set of which this set may or may not contain
   * @return    `true` if this contains `x` and `y` and no other elements
   */
-Set.prototype.isPairOf = function (x, y) {
+Set.prototype.isPairOf = function isPairOf(x, y) {
   return this.isPair() && this.owns(x) && this.owns(y);
 }
 
@@ -135,7 +135,7 @@ Set.prototype.isPairOf = function (x, y) {
   * @param `x` the set of which this set may be a power set
   * @return    `true` if this set owns only and all subsets of `x`
   */
-Set.prototype.isPowerSetOf = function (x) {}
+Set.prototype.isPowerSetOf = function isPowerSetOf(x) {}
 
 /**
   * Returns whether this Set is the successor of the specified Set.
@@ -151,7 +151,7 @@ Set.prototype.isPowerSetOf = function (x) {}
   * @param `x` the Set of which this Set may or may not be the successor
   * @return    `true` if this set is the successor of `x`
   */
-Set.prototype.isSuccessorOf = function (x) {
+Set.prototype.isSuccessorOf = function isSuccessorOf(x) {
   return (this.contains(x) && this.includes(x));
 }
 
@@ -165,7 +165,7 @@ Set.prototype.isSuccessorOf = function (x) {
   * inductive without being an instance of the `InductiveSet` class.
   * @return `true` if this set is inductive
   */
-Set.prototype.isInductive = function () {}
+Set.prototype.isInductive = function isInductive() {}
 
 /**
   * Returns whether this set is a cardinal number.
@@ -174,7 +174,7 @@ Set.prototype.isInductive = function () {}
   * a cardinal number without being an instance of the `Cardinal` class.
   * @return `true` if this set is a cardinal number
   */
-Set.prototype.isCardinal = function () {}
+Set.prototype.isCardinal = function isCardinal() {}
 /**
   * Returns whether this set is an ordinal number.
   *
@@ -182,19 +182,19 @@ Set.prototype.isCardinal = function () {}
   * an ordinal number without being an instance of the `Ordinal` class.
   * @return `true` if this set is an ordinal number
   */
-Set.prototype.isOrdinal = function () {}
+Set.prototype.isOrdinal = function isOrdinal() {}
 
 /**
   * Returns a Cardinal number representing this set's "size" (referring to the number of
   * elements in this set).
   * @return a `Cardinal` object representing the size of this set
   */
-Set.prototype.cardinality = function () {}
+Set.prototype.cardinality = function cardinality() {}
 /**
   * Returns an Ordinal number representing this set's "order type" (referring to the ...).
   * @return an `Ordinal` object representing the order type of this set
   */
-Set.prototype.ordinality = function () {}
+Set.prototype.ordinality = function ordinality() {}
 
 /**
   * Returns whether this set and the given set are equinumerous, that is, they "have the same
@@ -204,7 +204,7 @@ Set.prototype.ordinality = function () {}
   * @param `x` the set to test equinumerosity with
   * @return    `true` if `x` and this set have equal cardinalities
   */
-Set.prototype.isEquinumerousTo = function (x) {
+Set.prototype.isEquinumerousTo = function isEquinumerousTo(x) {
   return this.cardinality().equals(x.cardinality());
 }
 /**
@@ -214,6 +214,6 @@ Set.prototype.isEquinumerousTo = function (x) {
   * @param `x` the set to test order isomorphism with
   * @return    `true` if `x` and this set have equal ordinalities
   */
-Set.prototype.isOrderIsomorphicWith = function (x) {
+Set.prototype.isOrderIsomorphicWith = function isOrderIsomorphicWith(x) {
   return this.ordinality().equals(x.ordinality());
 }

@@ -14,7 +14,7 @@ function ContinuousUniformDistribution(low, high) {
   * @param `x` the input of the PDF to evaluate
   * @return    the y-value of the PDF evaluated at `x`
   */
-ContinuousUniformDistribution.prototype.evalPDF = function (x) {
+ContinuousUniformDistribution.prototype.evalPDF = function evalPDF(x) {
   return (this.low <= x && x <= this.high) ? 1 / (this.high - this.low) : 0;
 }
 
@@ -25,7 +25,7 @@ ContinuousUniformDistribution.prototype.evalPDF = function (x) {
   * @param `x` the input of the CDF to evaluate
   * @return    the y-value of the PDF evaluated at `x`
   */
-ContinuousUniformDistribution.prototype.evalCDF = function (x) {
+ContinuousUniformDistribution.prototype.evalCDF = function evalCDF(x) {
   if (x < this.low)                         return 0;
   else if (this.low <= x && x <= this.high) return (x - this.low) * this.evalPDF(x);
   else if (this.high < x)                   return 1;
@@ -40,16 +40,16 @@ ContinuousUniformDistribution.prototype.evalCDF = function (x) {
   * @param `max` the upper bound of the input
   * @return      this.evalCDF(max) - this.evalCDF(min)
   */
-ContinuousUniformDistribution.prototype.area = function (min, max) {
+ContinuousUniformDistribution.prototype.area = function area(min, max) {
   return this.evalCDF(max) - this.evalCDF(min);
 }
 
 /** Returns the mean (statistical average) of this distribution. */
-ContinuousUniformDistribution.prototype.getMean = function () {
+ContinuousUniformDistribution.prototype.getMean = function getMean() {
   return (this.low + this.high) / 2;
 }
 
 /** Returns the standard deviation (statistical spread) of this distribution. */
-ContinuousUniformDistribution.prototype.getStdev = function () {
+ContinuousUniformDistribution.prototype.getStdev = function getStdev() {
   return Math.pow(this.high - this.low, 2) / 12;
 }
