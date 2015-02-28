@@ -6,12 +6,14 @@
 <meta name="author" content="Christopher H. Harvey"/>
 <meta name="description" content="Using Flexbox to lay out Elements on a page."/>
 <meta name="keywords" content="Flexbox, layout, CSS, Less"/>
-<link rel="stylesheet" href="../core/styles/core.css"/>
+<link rel="stylesheet" href="../bower_components/normalize.css/normalize.css"/>
+<link rel="stylesheet" href="../core/styles/default/default.css"/>
+<link rel="stylesheet" href="../core/styles/project.css"/>
 </head>
 <body>
 <main class="MainGolden Article" data-status="draft" itemscope="" itemtype="http://schema.org/Article">
 <header>
-  <h1 class="H--Alp">Flexbox Layout</h1>
+  <h1>Flexbox Layout</h1>
   <dl class="Docmeta">
     <dt>Author</dt>
     <dd>Christopher H. Harvey</dd>
@@ -23,294 +25,509 @@
     <dd>CSS</dd>
     <dd>Less</dd>
     <dt>Version History</dt>
-    <dd class="update" itemprop="dateModified"><time datetime="2015-02-13 15:23">Feb 13, 2015 <span class="tod">3:23 PM</span></time></dd>
+    <dd class="update"><time datetime="2015-02-13 15:23">Feb 13, 2015 <span class="hm">3:23 PM</span></time></dd>
+    <dd class="update"><time datetime="2015-02-19 13:01">Feb 19, 2015 <span class="hm">1:01 PM</span></time></dd>
+    <dd class="update"><time datetime="2015-02-19 19:23">Feb 19, 2015 <span class="hm">7:23 PM</span></time></dd>
+    <dd class="update"><time datetime="2015-02-20 01:04">Feb 20, 2015 <span class="hm">1:04 AM</span></time></dd>
+    <dd class="update"><time datetime="2015-02-20 15:11">Feb 20, 2015 <span class="hm">3:11 PM</span></time></dd>
+    <dd class="update"><time datetime="2015-02-20 16:20">Feb 20, 2015 <span class="hm">4:20 PM</span></time></dd>
+    <dd class="update" itemprop="dateModified"><time datetime="2015-02-23 22:06">Feb 23, 2015 <span class="hm">10:06 PM</span></time></dd>
   </dl>
-  <small class="Alert--Warn">This document will eventually be converted into a blog post
-    and relocated under <code class="Dir">/blog/layout.html</code>. For version control reasons, I am
-    keeping it under <code class="Dir">/core/doc/</code> with the other style guide documentation
-    until it, along with the new grid system
-    (<a class="Link" rel="external" href="https://github.com/chharvey/chharvey.github.io/issues/20">#20</a>),
-    is finished.</small>
 </header>
-<p class="P Intro">Laying out a page is easier than it may seem. Everything on the page belongs in blocks, and
+<p class="p--Lede Dropcap">Laying out a page is easier than it may seem. Everything on the page belongs in blocks, and
   each block has a size and position. That&rsquo;s all there is to it. There are many methods,
   good and bad, of how to achieve this, but that is the gist of what needs to happen.</p>
-<p class="P">There are many grid systems out there. This article does not go into any of them.
-  Rather, after reading this article, hopefully you will see the anti-need for any grid system, and
+<p>Of all the grid systems out there, this article does not discuss any of them.
+  Rather, after reading this article, hopefully you will see the <strong>anti-need</strong> for any grid system, and
   certainly how ridiculous it is that there are so many of them. You will create your own layout
-  (read, <em>layout</em>, not grid) using pure CSS. No downloads, no pre-defined classes, and
-  definitely no unsemantic markup.</p>
-<p class="P">Before delving too far, though, you should probably get yourself
-  up-to-speed on the
-  <a class="Link" rel="external" href="http://www.w3.org/TR/css3-flexbox/">CSS Flexible Box Layout Module</a>,
-  or <a class="Link" rel="external" href="http://css-tricks.com/snippets/css/a-guide-to-flexbox/">Flexbox</a>
-  for short. See <a class="Link" rel="external"
-  href="https://github.com/chharvey/chharvey.github.io/blob/master/core/styles/tools/_flexbox.less">_flexbox.less</a>
-  for my implementation.</p>
-<section>
-  <h2 class="H--Bet">Setting Width and Position</h2>
-  <p class="P">This section discusses laying out one block on a line. This is useful if you want
-    the block to have less than 100% width and you need to horizontally position it.</p>
-  <section>
-    <h3 class="H--Gam">Widths</h3>
-    <p>The easiest way to set the width of a block is to use the CSS <code>width</code> property.
-      I have made it easier to do calculations with Less variables, so use them.
-      The figure below illustrates a simplified version of the code.
-      <a class="Link" rel="external"
-      href="https://github.com/chharvey/chharvey.github.io/blob/master/core/styles/">The
-      actual code</a> is on GitHub.</p>
-    <pre><code class="Codeblock">// even widths:    // golden widths:
-@1o1: 100%;        @golden0:  100%;
-@1o2:  50%;        @golden1:   61.803%;
-@2o2: 100%;        @golden2:   38.197%;
-@1o3:  33.333%;    @golden3:   23.607%;
-@2o3:  66.666%;    @golden4:   14.590%;
-@3o3: 100%;        @golden3c:  76.393%;
-@1o4:  25%;        @golden4c:  85.410%;
-@2o4:  50%;
-@3o4:  75%;
-@4o4: 100%;
-@1o5:  20%;
-@2o5:  40%;
-@3o5:  60%;
-@4o5:  80%;
-@5o5: 100%;
-@1o6:  16.666%;
-@2o6:  33.333%;
-@3o6:  50%;
-@4o6:  66.666%;
-@5o6:  83.333%;
-@6o6: 100%;
-</code></pre>
-    <p class="P">Sometimes, setting the width in CSS is too much work, so <strong>to quickly change
-      the style of an Element using HTML</strong>, you may add helper classes,
-      <abbr title="also known as">a.k.a.</abbr> <i>Interfaces</i>, to the class attribute of the Element.
-      Yes, <strong>this is bad practice</strong>, but it is a pragmatic solution that prevents CSS bloat.</p>
-  <figure class="CSSmap I">
-    <div class="Sel">.w-1o1</div>
-    <dl class="Ruleset">
-      <dt class="Prp">width</dt>
-      <dd class="Val">@1o1</dd>
-    </dl>
-    <div class="Sel">.w-1o2</div>
-    <dl class="Ruleset">
-      <dt class="Prp">width</dt>
-      <dd class="Val">@1o2</dd>
-    </dl>
-    <div class="Sel">.w-2o2</div>
-    <dl class="Ruleset">
-      <dt class="Prp">width</dt>
-      <dd class="Val">@2o2</dd>
-    </dl>
-    <div class="Sel">.w-1o3</div>
-    <dl class="Ruleset">
-      <dt class="Prp">width</dt>
-      <dd class="Val">@1o3</dd>
-    </dl>
-    <div class="Sel">.w-2o3</div>
-    <dl class="Ruleset">
-      <dt class="Prp">width</dt>
-      <dd class="Val">@2o3</dd>
-    </dl>
-    <div class="Sel">.w-3o3</div>
-    <dl class="Ruleset">
-      <dt class="Prp">width</dt>
-      <dd class="Val">@3o3</dd>
-    </dl>
-    <div class="Sel">.w-1o4</div>
-    <dl class="Ruleset">
-      <dt class="Prp">width</dt>
-      <dd class="Val">@1o4</dd>
-    </dl>
-    <div class="Sel">.w-2o4</div>
-    <dl class="Ruleset">
-      <dt class="Prp">width</dt>
-      <dd class="Val">@2o4</dd>
-    </dl>
-    <div class="Sel">.w-3o4</div>
-    <dl class="Ruleset">
-      <dt class="Prp">width</dt>
-      <dd class="Val">@3o4</dd>
-    </dl>
-    <div class="Sel">.w-4o4</div>
-    <dl class="Ruleset">
-      <dt class="Prp">width</dt>
-      <dd class="Val">@4o4</dd>
-    </dl>
-    <div class="Sel">.w-1o5</div>
-    <dl class="Ruleset">
-      <dt class="Prp">width</dt>
-      <dd class="Val">@1o5</dd>
-    </dl>
-    <div class="Sel">.w-2o5</div>
-    <dl class="Ruleset">
-      <dt class="Prp">width</dt>
-      <dd class="Val">@2o5</dd>
-    </dl>
-    <div class="Sel">.w-3o5</div>
-    <dl class="Ruleset">
-      <dt class="Prp">width</dt>
-      <dd class="Val">@3o5</dd>
-    </dl>
-    <div class="Sel">.w-4o5</div>
-    <dl class="Ruleset">
-      <dt class="Prp">width</dt>
-      <dd class="Val">@4o5</dd>
-    </dl>
-    <div class="Sel">.w-5o5</div>
-    <dl class="Ruleset">
-      <dt class="Prp">width</dt>
-      <dd class="Val">@5o5</dd>
-    </dl>
-    <div class="Sel">.w-1o6</div>
-    <dl class="Ruleset">
-      <dt class="Prp">width</dt>
-      <dd class="Val">@1o6</dd>
-    </dl>
-    <div class="Sel">.w-2o6</div>
-    <dl class="Ruleset">
-      <dt class="Prp">width</dt>
-      <dd class="Val">@2o6</dd>
-    </dl>
-    <div class="Sel">.w-3o6</div>
-    <dl class="Ruleset">
-      <dt class="Prp">width</dt>
-      <dd class="Val">@3o6</dd>
-    </dl>
-    <div class="Sel">.w-4o6</div>
-    <dl class="Ruleset">
-      <dt class="Prp">width</dt>
-      <dd class="Val">@4o6</dd>
-    </dl>
-    <div class="Sel">.w-5o6</div>
-    <dl class="Ruleset">
-      <dt class="Prp">width</dt>
-      <dd class="Val">@5o6</dd>
-    </dl>
-    <div class="Sel">.w-6o6</div>
-    <dl class="Ruleset">
-      <dt class="Prp">width</dt>
-      <dd class="Val">@6o6</dd>
-    </dl>
-    <div class="Sel">.w-p1</div>
-    <dl class="Ruleset">
-      <dt class="Prp">width</dt>
-      <dd class="Val">@golden1</dd>
-    </dl>
-    <div class="Sel">.w-p2</div>
-    <dl class="Ruleset">
-      <dt class="Prp">width</dt>
-      <dd class="Val">@golden2</dd>
-    </dl>
-    <div class="Sel">.w-p3</div>
-    <dl class="Ruleset">
-      <dt class="Prp">width</dt>
-      <dd class="Val">@golden3</dd>
-    </dl>
-    <div class="Sel">.w-p4</div>
-    <dl class="Ruleset">
-      <dt class="Prp">width</dt>
-      <dd class="Val">@golden4</dd>
-    </dl>
-    <div class="Sel">.w-p3c</div>
-    <dl class="Ruleset">
-      <dt class="Prp">width</dt>
-      <dd class="Val">@golden3c</dd>
-    </dl>
-    <div class="Sel">.w-p4c</div>
-    <dl class="Ruleset">
-      <dt class="Prp">width</dt>
-      <dd class="Val">@golden4c</dd>
-    </dl>
+  (read, <em>layout</em>, not grid) using pure CSS3.</p>
+<p>Before delving too far, though, you should probably get yourself
+  up-to-speed on the <a rel="external" href="http://lesscss.org/">Less</a> CSS preprocessor, and the
+  <a rel="external" href="http://www.w3.org/TR/css3-flexbox/">CSS Flexible Box Layout Module</a>,
+  or &ldquo;<a rel="external" href="http://css-tricks.com/snippets/css/a-guide-to-flexbox/">Flexbox</a>,&rdquo;
+  for short. This article is not a Flexbox tutorial, but rather a guide on how to <em>use</em> it
+  (along with my implementations <a rel="external"
+  href="https://github.com/chharvey/chharvey.github.io/blob/master/core/styles/default/tools/box/_flexbox.less">_flexbox.less</a>
+  and <a rel="external"
+  href="https://github.com/chharvey/chharvey.github.io/blob/master/core/styles/helpers/_layout.less">_layout.less</a>)
+  to obtain the layout you want.</p>
+<p>After you&rsquo;ve designed the layout on paper (or in your head), you have to produce that layout
+  on the screen. The easiest way to do this is to first decide on the order of the blocks,
+  next set their widths such that they add up to the full page (or container) width, and then
+  place the blocks into position. <b>Flexbox</b> makes this extremely easy: you
+  can do this all in CSS, without ever having to touch your HTML.</p>
+<p><i style="quotes: none;">Wait, what? You&rsquo;re saying that presentation is not at all related
+  to content?</i> Let me reiterate. <strong>You can change the ordering, sizing, and positioning of
+  elements on a page without having to touch the HTML.</strong> This means no wrapper divs,
+  no table rows, no presentational classes, and no huge commits. Have I caught your attention yet?</p>
+<section id="setup">
+  <h2>Setting up Flexbox</h2>
+  <p>The most important part of a site is its content, that is, the HTML. I cannot stress enough the
+    importance of writing good, structured HTML first, and then styling it with CSS later. A lot of
+    frameworks <small>(ahem, Bootstrap)</small> actually
+    <em>use</em> HTML to affect style, which makes the source code unreadable and unmaintainable (think div soup).
+    No, first we&rsquo;ll write our content and structure, use good, meaningful classnames, and then
+    use those classnames as style hooks in the CSS.</p>
+  <p>Let&rsquo;s start with a prototypical example: a site with a header, footer, body copy, and
+    two sidebars. We want our end result to show the header at top, footer at bottom, sidebars
+    on left and right, and body copy in the middle. Something like this:</p>
+  <figure>
+    <img class="w-1o1" src="images/prototypical-site.png" alt="A screenshot of a typical website structure."/>
+    <figcaption><span class="p__Title">Figure 1.</span> A screenshot of a typical website structure.</figcaption>
   </figure>
-  <p class="P">A little math will make it obvious which of these widths will combine to make
-    a full 100% (see the <a class="Link" rel="child" href="griddemo.html">grid demo</a> for a full
-    list of combinations).</p>
-  </section>
+  <p>Not worring about how it looks for a moment, we need to write the HTML that makes the most
+    semantic sense (and is the most accessible). This means our body copy should come first,
+    so that it gets loaded first, followed by the header and footer, and then followed by the sidebars.
+    Indeed, the order of our Elements does not match the order of our intended result, but CSS
+    will take care of that later.</p>
+  <p>It might also be a good idea to add semantic classnames to the Elements so we can use them as
+    stylehooks. This is not redundant though, because <a>we don&rsquo;t want to use Element selectors
+    as style hooks</a> for reasons not discussed in this article.</p>
+  <figure>
+    <pre>
+&lt;main class="Article"&gt;
+  &lt;article class="Body"&gt;
+    &lt;p&gt; Pellentesque habitant morbi &hellip; &lt;/p&gt;
+  &lt;/article&gt;
+  &lt;header class="Head"&gt;  Head  &lt;/header&gt;
+  &lt;footer class="Foot"&gt;  Foot  &lt;/footer&gt;
+  &lt;aside  class="Side1"&gt; Side1 &lt;/aside&gt;
+  &lt;aside  class="Side2"&gt; Side2 &lt;/aside&gt;
+&lt;/main&gt;
+</pre>
+    <div>
+      <article class="help-otln">
+        <p> Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. &hellip; </p>
+      </article>
+      <header  class="help-otln"> Head </header>
+      <footer  class="help-otln"> Foot </footer>
+      <aside   class="help-otln"> Side1 </aside>
+      <aside   class="help-otln"> Side2 </aside>
+    </div>
+  </figure>
+  <p class="p--Lede">Now for the fun part: adding Flexbox.</p>
+  <p>To set up a layout with multiple blocks that will visually appear on one or more lines,
+    we need to use the Flexbox model. In this model, a <dfn id="flex-container">flex-container</dfn>
+    is a block that contains other blocks, called <dfn id="flex-item">flex-items</dfn>, inside.</p>
+  <p>Well, it&rsquo;s a good thing our HTML is already structured this way! We already have a
+    container with 5 items. To turn the <code>main.Article</code> into a flex-container,
+    add class <code>.flex-container</code> to it. (There is no need to add class
+    <code>.flex-item</code> to its children.)
+    You <em>could</em> do this with <code>&lt;main class="Article flex-container"&gt;</code>,
+    but that would be using a presentational class in HTML, which is a no-no.
+    <small>(Imagine having to add that class to hundreds of <code>.Article</code>s.)</small>
+    Instead, go into your Less and do the following. Notice how we aren&rsquo;t changing any HTML.</p>
+  <figure>
+    <pre>
+.Article {
+  .flex-container;
+  <small>// I would not recommend using &amp;:extend(.flex-container);
+  // because of issues with specificity</small>
+}
+</pre>
+    <div class="flex-container">
+      <article class="help-otln">
+        <p> Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. &hellip; </p>
+      </article>
+      <header  class="help-otln"> Head </header>
+      <footer  class="help-otln"> Foot </footer>
+      <aside   class="help-otln"> Side1 </aside>
+      <aside   class="help-otln"> Side2 </aside>
+    </div>
+  </figure>
+  <p>First notice how the items are now aligned in rows, and that if there are too many of them
+    or if they are too big, they wrap to the next row. This is a major advantage over grid systems
+    with <code>&lt;tr&gt;</code>-like containers, which are very limiting.
+    Next notice how the width of each flex-item fits its contents. In this particular example,
+    the body copy is large compared to the other 4 items, but this would not be the case if
+    those items had more content. In the next sections, we&rsquo;ll see how to adjust
+    the order and width of flex-items to make them go into the <i>correct</i> rows.</p>
+</section>
+<section id="order">
+  <h2>Setting Item Order</h2>
+  <p>Use the <code>.flex-order()</code> mixin on an item to change its placement
+    in the order. The rules for ordering are simple:</p>
+  <ol>
+    <li>The flex-container will arrange its flex-items in increasing order.</li>
+    <li>If two flex-items have equal ordinal numbers, the ordering will be the same as in the source (HTML).</li>
+    <li>Every flex-item starts out with a default ordinal of 0. Thus the default ordering is that of the source.</li>
+    <li>A flex-item&rsquo;s ordinal can be changed to any integer, even a negative integer.</li>
+  </ol>
+  <p>Before I spoon-feed you the answer, let&rsquo;s take a moment to figure out what the ordinals
+    should be. Here is a comparison of the items in order of source versus the order we want:</p>
+  <table class="Table Vert w-1o1">
+    <tbody class="Rowgroup">
+      <tr class="Row" style="border-bottom: 1px solid #9acc7a;">
+        <th class="Cell Hc" style="background-color: #ebf2f3;">source </th>
+        <td class="Cell"><u>Body</u></td>
+        <td class="Cell">Head</td>
+        <td class="Cell">Foot</td>
+        <td class="Cell">Side1</td>
+        <td class="Cell"><u>Side2</u></td>
+      </tr>
+      <tr class="Row">
+        <th class="Cell Hc" style="background-color: #ebf2f3;">desired</th>
+        <td class="Cell">Head</td>
+        <td class="Cell">Side1</td>
+        <td class="Cell"><u>Body</u></td>
+        <td class="Cell"><u>Side2</u></td>
+        <td class="Cell">Foot</td>
+      </tr>
+    </tbody>
+  </table>
+  <p>Body and Side2 are already in place, so we just need to rearrange the other items around them.
+    This means keep the ordinal of Body and Side2 as the default 0, give the Head and Side1 an
+    ordinal of -1 (and since they&rsquo;re already in the correct order, they can have the same
+    ordinal), and move the Foot to the end by giving it an ordinal of 1. Thus we need to make
+    the following adjustments to our Less:</p>
+  <figure>
+    <pre>
+.Article {.flex-container;}
+
+.Body  {} <small>// .flex-order(0); by default</small>
+.Head  {.flex-order(-1);}
+.Foot  {.flex-order(1);}
+.Side1 {.flex-order(-1);}
+.Side2 {}
+</pre>
+    <div class="flex-container">
+      <article class="help-otln" style="order: 0;">
+        <p> Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. &hellip; </p>
+      </article>
+      <header  class="help-otln" style="order: -1;"> Head </header>
+      <footer  class="help-otln" style="order: 1;"> Foot </footer>
+      <aside   class="help-otln" style="order: -1;"> Side1 </aside>
+      <aside   class="help-otln" style="order: 0;"> Side2 </aside>
+    </div>
+  </figure>
+  <p>Remember, the actual ordinal numbers aren&rsquo;t important. What&rsquo;s important is their
+    comparison to each other. We could have just as easily given the following ordinals to achieve
+    the same effect.</p>
+  <pre>
+.Body  {.flex-order(1);}
+.Head  {}
+.Foot  {.flex-order(2);}
+.Side1 {}
+.Side2 {.flex-order(1);}
+</pre>
+  <p>Now, the items are in the correct order. Adjusting their widths will automatically put them
+    into position, because Flexbox wraps!</p>
+</section>
+<section id="widths">
+  <h2>Setting Widths</h2>
+  <p>All we have to do is set the widths of each item. This will automatically place them into position
+    because of the way Flexboxes wrap. The easiest way to set the width of an Element is to use the CSS
+    <code>width</code> property. You can do this with inline styles (yuck) or you can add it to
+    the Element&rsquo;s class&rsquo; definition in an external stylesheet. Your life will be
+    significantly easier if you let <b>Less</b> do all the mathematical calculations, so use the
+    variables below.
+    Oh and by the way, Less won&rsquo;t work with inline styles anyway.
+    The figure below illustrates a simplified version of my code.</p>
+  <pre>
+<small>// even widths:        // golden widths:</small>
+<span class="c__Arg">@1o1</span>: <span class="c__Cst">100%</span>;            <span class="c__Arg">@golden0</span>: <span class="c__Cst">100%</span>;
+<span class="c__Arg">@1o2</span>: <span class="c__Cst"> 50%</span>;            <span class="c__Arg">@golden1</span>:  <span class="c__Cst">61.803%</span>;
+<span class="c__Arg">@2o2</span>: <span class="c__Cst">100%</span>;            <span class="c__Arg">@golden2</span>:  <span class="c__Cst">38.197%</span>;
+<span class="c__Arg">@1o3</span>: <span class="c__Cst"> 33.333%</span>;        <span class="c__Arg">@golden3</span>:  <span class="c__Cst">23.607%</span>;
+<span class="c__Arg">@2o3</span>: <span class="c__Cst"> 66.666%</span>;        <span class="c__Arg">@golden4</span>:  <span class="c__Cst">14.590%</span>;
+<span class="c__Arg">@3o3</span>: <span class="c__Cst">100%</span>;            <span class="c__Arg">@golden3c</span>: <span class="c__Cst">76.393%</span>;
+<span class="c__Arg">@1o4</span>: <span class="c__Cst"> 25%</span>;            <span class="c__Arg">@golden4c</span>: <span class="c__Cst">85.410%</span>;
+<span class="c__Arg">@2o4</span>: <span class="c__Cst"> 50%</span>;
+<span class="c__Arg">@3o4</span>: <span class="c__Cst"> 75%</span>;
+<span class="c__Arg">@4o4</span>: <span class="c__Cst">100%</span>;
+<span class="c__Arg">@1o5</span>: <span class="c__Cst"> 20%</span>;
+<span class="c__Arg">@2o5</span>: <span class="c__Cst"> 40%</span>;
+<span class="c__Arg">@3o5</span>: <span class="c__Cst"> 60%</span>;
+<span class="c__Arg">@4o5</span>: <span class="c__Cst"> 80%</span>;
+<span class="c__Arg">@5o5</span>: <span class="c__Cst">100%</span>;
+<span class="c__Arg">@1o6</span>: <span class="c__Cst"> 16.666%</span>;
+<span class="c__Arg">@2o6</span>: <span class="c__Cst"> 33.333%</span>;
+<span class="c__Arg">@3o6</span>: <span class="c__Cst"> 50%</span>;
+<span class="c__Arg">@4o6</span>: <span class="c__Cst"> 66.666%</span>;
+<span class="c__Arg">@5o6</span>: <span class="c__Cst"> 83.333%</span>;
+<span class="c__Arg">@6o6</span>: <span class="c__Cst">100%</span>;
+</pre>
+  <p>If we want our article to look like the screenshot in <b>Figure 1</b>, the Head and Foot
+    should be full width, the Body should be a majority of the full width, and the sidebars
+    should be the remainder, equal in length. For the middle part, 20% + 60% + 20% seems about right,
+    but you can choose your own widths as long as they add up to 100%.</p>
+  <figure>
+    <pre>
+.Article {.flex-container;}
+
+.Body  {
+  width: @3o5;
+}
+.Head  {
+  .flex-order(-1);
+  width: @1o1; <small>// or you could use @5o5 here to be consistent</small>
+}
+.Foot  {
+  .flex-order(1);
+  width: @1o1; <small>// or you could use @5o5 here to be consistent</small>
+}
+.Side1 {
+  .flex-order(-1);
+  width: @1o5;
+}
+.Side2 {
+  width: @1o5;
+}
+</pre>
+    <div class="flex-container">
+      <article class="help-otln" style="order: 0; width: 60%;">
+        <p> Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. </p>
+      </article>
+      <header  class="help-otln" style="order: -1; width: 100%;"> Head </header>
+      <footer  class="help-otln" style="order: 1; width: 100%;"> Foot </footer>
+      <aside   class="help-otln" style="order: -1; width: 20%;"> Side1 </aside>
+      <aside   class="help-otln" style="order: 0; width: 20%;"> Side2 </aside>
+    </div>
+  </figure>
+  <p>That&rsquo;s it! Tutorial done. The rest of this document discusses further applications.</p>
   <section>
-    <h3 class="H--Gam">Positioning</h3>
-    <p class="P">When a <i>line</i> (that is, a visual horozontal arrangement of blocks) has
+    <h3>Helper Classes</h3>
+  <p>Sometimes, setting the width in CSS is too much work, so <strong>to quickly change
+    the style of an Element using HTML</strong>, you may add <b>helper classes</b>
+    to the <code>[class]</code> attribute of the Element. Yes, <strong>this is bad practice</strong>,
+    but it&rsquo;s a pragmatic solution that prevents CSS bloat. You can use these
+    so-called <i>inline helpers</i> for debugging/testing purposes, but in the long run, you&rsquo;ll
+    want to migrate them over to an external stylesheet and use more semantic classnames.
+    That&rsquo;s what <b>Less</b> includes and extends are for.
+    A little math will make it obvious which of these widths will combine to make
+    a full 100% (see the <a rel="child" href="griddemo.html">grid demo</a> for a full
+    list of combinations).</p>
+  <pre>
+<small>// even widths:                         // golden widths:</small>
+<span class="c__Sel">.w-1o1</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@1o1</span> <span class="c__Ctl">!important</span>;}        <span class="c__Sel">.w-p1 </span> {<span class="c__Prp">width</span>: <span class="c__Arg">@golden1</span>  <span class="c__Ctl">!important</span>;}
+<span class="c__Sel">.w-1o2</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@1o2</span> <span class="c__Ctl">!important</span>;}        <span class="c__Sel">.w-p2 </span> {<span class="c__Prp">width</span>: <span class="c__Arg">@golden2</span>  <span class="c__Ctl">!important</span>;}
+<span class="c__Sel">.w-2o2</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@2o2</span> <span class="c__Ctl">!important</span>;}        <span class="c__Sel">.w-p3 </span> {<span class="c__Prp">width</span>: <span class="c__Arg">@golden3</span>  <span class="c__Ctl">!important</span>;}
+<span class="c__Sel">.w-1o3</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@1o3</span> <span class="c__Ctl">!important</span>;}        <span class="c__Sel">.w-p4 </span> {<span class="c__Prp">width</span>: <span class="c__Arg">@golden4</span>  <span class="c__Ctl">!important</span>;}
+<span class="c__Sel">.w-2o3</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@2o3</span> <span class="c__Ctl">!important</span>;}        <span class="c__Sel">.w-p3c</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@golden3c</span> <span class="c__Ctl">!important</span>;}
+<span class="c__Sel">.w-3o3</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@3o3</span> <span class="c__Ctl">!important</span>;}        <span class="c__Sel">.w-p4c</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@golden4c</span> <span class="c__Ctl">!important</span>;}
+<span class="c__Sel">.w-1o4</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@1o4</span> <span class="c__Ctl">!important</span>;}
+<span class="c__Sel">.w-2o4</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@2o4</span> <span class="c__Ctl">!important</span>;}
+<span class="c__Sel">.w-3o4</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@3o4</span> <span class="c__Ctl">!important</span>;}
+<span class="c__Sel">.w-4o4</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@4o4</span> <span class="c__Ctl">!important</span>;}
+<span class="c__Sel">.w-1o5</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@1o5</span> <span class="c__Ctl">!important</span>;}
+<span class="c__Sel">.w-2o5</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@2o5</span> <span class="c__Ctl">!important</span>;}
+<span class="c__Sel">.w-3o5</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@3o5</span> <span class="c__Ctl">!important</span>;}
+<span class="c__Sel">.w-4o5</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@4o5</span> <span class="c__Ctl">!important</span>;}
+<span class="c__Sel">.w-5o5</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@5o5</span> <span class="c__Ctl">!important</span>;}
+<span class="c__Sel">.w-1o6</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@1o6</span> <span class="c__Ctl">!important</span>;}
+<span class="c__Sel">.w-2o6</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@2o6</span> <span class="c__Ctl">!important</span>;}
+<span class="c__Sel">.w-3o6</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@3o6</span> <span class="c__Ctl">!important</span>;}
+<span class="c__Sel">.w-4o6</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@4o6</span> <span class="c__Ctl">!important</span>;}
+<span class="c__Sel">.w-5o6</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@5o6</span> <span class="c__Ctl">!important</span>;}
+<span class="c__Sel">.w-6o6</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@6o6</span> <span class="c__Ctl">!important</span>;}
+</pre>
+  <p><small><strong class="p__Title">Warning:</strong> These helpers use the keyword <code>!important</code>,
+    so adding one to an Element&rsquo;s <code>[class]</code> attribute and then trying to override
+    it later with inline styles will result in a failure.</small></p>
+  <figure>
+    <pre>
+&lt;main class="Article"&gt;
+  &lt;article class="Body w-3o5"&gt;
+    &lt;p&gt; Pellentesque habitant morbi &hellip; &lt;/p&gt;
+  &lt;/article&gt;
+  &lt;header class="Head  w-1o1"&gt; Head  &lt;/header&gt;
+  &lt;footer class="Foot  w-1o1"&gt; Foot  &lt;/footer&gt;
+  &lt;aside  class="Side1 w-1o5"&gt; Side1 &lt;/aside&gt;
+  &lt;aside  class="Side2 w-1o5"&gt; Side2 &lt;/aside&gt;
+&lt;/main&gt;
+</pre>
+    <div class="flex-container">
+      <article class="help-otln w-3o5" style="order: 0; width: 60%;">
+        <p> Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. </p>
+      </article>
+      <header  class="help-otln w-1o1" style="order: -1; width: 100%;"> Head </header>
+      <footer  class="help-otln w-1o1" style="order: 1; width: 100%;"> Foot </footer>
+      <aside   class="help-otln w-1o5" style="order: -1; width: 20%;"> Side1 </aside>
+      <aside   class="help-otln w-1o5" style="order: 0; width: 20%;"> Side2 </aside>
+    </div>
+  </figure>
+  </section>
+  <aside style="
+    padding: 12px 1em;
+    border: 1px solid #9acc7a;
+    border-radius: 1rem;
+    background: rgba(0, 0, 0, 0.05);
+    box-shadow: inset 0 0 0.5rem 0rem rgba(0,0,0,0.2);">
+    <h3 style="text-align: center;">Side Project</h3>
+    <p>Here&rsquo;s some fun math to think about for your design. In a row with two blocks,
+      each block should be 50% to add up to 100%. For three blocks, each should be ≈33.3%.
+      Working backwards, you should be able to figure out what the width of one block
+      should be, depending on the pattern you use. The last one is just there because
+      how could I not include the Golden Ratio?</p>
+    <figure class="fig--Text flex-container--center">
+      <p class="w-1o1 help-otln">Use <code>.w-1o1</code> (100%) to model the
+        <b>harmonic sequence</b>
+        <span class="M B">\left(\infty,\mathbf{1,\frac{1}{2},\frac{1}{3}},\frac{1}{4},\dots,\frac{1}{n}\right)</span>
+        where <span class="M">n</span> is the number of blocks
+        (<span class="M">n</span> starts at 0).</p>
+      <p class="w-3o4 help-otln">Use <code>.w-3o4</code> (75%) to model the
+        <b>geometric sequence</b>
+        <span class="M B">\left(\frac{9}{8},\mathbf{\frac{3}{4},\frac{1}{2},\frac{1}{3}},\frac{2}{9},\dots,\frac{2^{n-3}}{3^{n-2}}\right)</span>
+        where <span class="M">n</span> is the number of blocks
+        (<span class="M">n</span> starts at 0).</p>
+      <p class="w-2o3 help-otln">Use <code>.w-2o3</code> (66.6%) to model the
+        <b>arithmetic sequence</b>
+        <span class="M B">\left(\frac{5}{6},\mathbf{\frac{2}{3},\frac{1}{2},\frac{1}{3}},\frac{1}{6},\dots,\frac{5-n}{6}\right)</span>
+        where <span class="M">n</span> is the number of blocks
+        (<span class="M">n</span> starts at 0).</p>
+      <p class="w-p1 help-otln">Use <code>.w-p1</code> (61.8%) to model the
+        <a href="../core/doc/phi.html">Golden Ratio <span class="M">\Phi</span></a>.</p>
+      <figcaption>The width of a one-column block varies depending on which mathematical sequence
+        is being used to model the layout.</figcaption>
+    </figure>
+  </aside>
+</section>
+<section data-status="draft">
+  <h2>Positioning Items</h2>
+  <section>
+
+    <p>When a <i>line</i> (that is, a visual horozontal arrangement of blocks) has
       only one block, you have a few options for how to position it.</p>
-    <p class="P">The worst is using floats. This only pushes the block flush left or flush right, and
-      wraps subsequent content around it. Floats are good for flyers and newsletters when you need
+    <p>The worst is using floats. This only pushes the block flush left or flush right, and
+      wraps subsequent content around it, requiring a hack known as a <i>clearfix</i> to
+      prevent this behavior. Floats are good for flyers and newsletters when you need
       to wrap text around an image, but they are not good at all for laying out a page.</p>
-    <p class="P">Instead, you can use <code>position: relative;</code> or <code>position: absolute;</code>,
+    <p>Instead, you can use <code>position: relative;</code> or <code>position: absolute;</code>,
       with a value for <code>left</code> or <code>right</code>. The downside of these is that you
       cannot center a block on a line.</p>
-    <p class="P">My recommendation is to use margins. To horizontally position a block,
-      add left and right margins. You can use the <code>.margin-even</code> Interface to center the
-      block, but there are no other automatic Interfaces for adding margins&mdash;you&rsquo;ll need
-      to write good-old-fashioned CSS if you want to position a block in a non-centered way.
+    <p>My recommendation is to use margins. To horizontally position a block,
+      add left and right margins in the CSS. You can add the <code>.margin-even</code> <b>Interface</b>
+      to an HTML Element to center the block, or you can include or <code>:extend()</code> it in Less.
+      There are no other automatic Interfaces for adding margins&mdash;you&rsquo;ll need
+      to write good-old-fashioned CSS if you want to position a block in a non-centered
+      way.<sup><a class="Rf" id="rf-sitelayout" rel="this" href="#fn-sitelayout">1</a></sup>
       Keep in mind you can use the Less variables so you don&rsquo;t have to do the math by hand.</p>
-    </p>
-    <pre><code class="Codeblock">.margin-even {margin-left: auto; margin-right: auto;}</code></pre>
-  <figure class="Fig Text">
-    <p class="P w-1o1 margin-even help-otln">Use <code>.w-1o1</code> (100%) to model the
-      <b>harmonic sequence</b>
-      <span class="M B">\left(\infty,\mathbf{1,\frac{1}{2},\frac{1}{3}},\frac{1}{4},\dots,\frac{1}{n+1}\right)</span>
-      where <span class="M">n</span> is the number of cells
-      (<span class="M">n</span> starts at 0).</p>
-    <p class="P w-3o4 margin-even help-otln">Use <code>.w-3o4</code> (75%) to model the
-      <b>geometric sequence</b>
-      <span class="M B">\left(\frac{9}{8},\mathbf{\frac{3}{4},\frac{1}{2},\frac{1}{3}},\frac{2}{9},\dots,\frac{2^{n-3}}{3^{n-2}}\right)</span>
-      where <span class="M">n</span> is the number of cells
-      (<span class="M">n</span> starts at 0).</p>
-    <p class="P w-2o3 margin-even help-otln">Use <code>.w-2o3</code> (66.6%) to model the
-      <b>arithmetic sequence</b>
-      <span class="M B">\left(\frac{5}{6},\mathbf{\frac{2}{3},\frac{1}{2},\frac{1}{3}},\frac{1}{6},\dots,\frac{5-n}{6}\right)</span>
-      where <span class="M">n</span> is the number of cells
-      (<span class="M">n</span> starts at 0).</p>
-    <p class="P w-p1 margin-even help-otln">Use <code>.w-p1</code> (61.8%) to model the
-      <a class="Link" href="../core/doc/phi.html">Golden Ratio <span class="M">\Phi</span></a>.</p>
-  </figure>
+    <pre>.margin-even {margin-left: auto; margin-right: auto;}</pre>
+    <footer class="Footnotes">
+      <ul>
+        <li><sup><a class="Fn" id="fn-sitelayout" rel="this" href="#rf-sitelayout">1</a></sup>
+          This site uses a main width of about 61.8% (the <a
+          href="../core/doc/phi.html">Golden Ratio</a>) with the remaining 38.2% split into
+          the left and right margins: about 23.6% on the left and about 14.6% on the right&mdash;another
+          Golden Ratio.</li>
+      </ul>
+    </footer>
   </section>
 </section>
 <section>
-  <h2 class="H--Bet">Multiple Blocks</h2>
-  <p class="P">To set up a layout with multiple blocks that will visually appear on one or more lines,
-    you&rsquo;ll need to use the Flexbox model. In this model, a <dfn id="flex-container">flex-container</dfn> is a block
-    that contains other blocks, called <dfn id="flex-item">flex-items</dfn>, inside.</p>
-  <p class="P">Most likely, your HTML is already structured this way: the blocks you want to
-    lay out together are likely already wrapped in some sort of container. All you need to do is add
-    <code>.flex-container</code> to the container. Then, optionally use the width Interfaces mentioned
-    above to set the proper widths of each of the blocks. If not, their widths will automatically
-    fit their content. That&rsquo;s it! Layout done.</p>
-  <figure class="Fig">
-    <pre><code class="Codeblock HTML"><span class="Tag">div <span class="Atr">class=<span class="Val">flex-container</span></span></span>
-  <span class="Tag">div <span class="Atr">class=<span class="Val">w-1o6</span></span></span>flex-item 1!<span class="Tag End">div</span>
-  <span class="Tag">div <span class="Atr">class=<span class="Val">w-2o6</span></span></span>flex-item 2!<span class="Tag End">div</span>
-  <span class="Tag">div <span class="Atr">class=<span class="Val">w-3o6</span></span></span>flex-item 3!<span class="Tag End">div</span>
-<span class="Tag End">div</span></code></pre>
+  <h2>Multiple Blocks</h2>
+  <p>Most likely, your HTML is alre</p>ady structured this way: the blocks you want to
+    lay out togeth</code>er are likely already wrapped in some sort of container. All you need to do is add
+    the <code>.flex-container</code> <b>Interface</b> to the container. Then, optionally use the width Interfaces mentioned
+    above to set the proper widths of each of the items (if not, their widths will automatically
+    fit their content). That&rsquo;s it! Layout done.</p>
+  <figure>
+    <pre>
+&lt;div class="flex-container"&gt;
+  &lt;div class="w-1o6"&gt; flex-item 1! &lt;/div&gt;
+  &lt;div class="w-2o6"&gt; flex-item 2! &lt;/div&gt;
+  &lt;div class="w-3o6"&gt; flex-item 3! &lt;/div&gt;
+&lt;/div&gt;
+</pre>
     <div class="flex-container">
-      <div class="w-1o6 help-otln">flex-item 1!</div>
+      <div class="w-1o6 help-otln"> flex-item 1! </div>
+      <div class="w-2o6 help-otln"> flex-item 2! </div>
+      <div class="w-3o6 help-otln"> flex-item 3! </div>
+    </div>
+  </figure>
+  <p>Luckily, the widths add up to 100%. If they add up to too much, the items will wrap
+    to the next line. If they don&rsquo;t add up to enough, there will be extra space.</p>
+  <figure>
+    <pre>
+&lt;div class="flex-container"&gt;
+  &lt;div class="w-2o6"&gt; flex-item 1! &lt;/div&gt;
+  &lt;div class="w-2o6"&gt; flex-item 2! &lt;/div&gt;
+  &lt;div class="w-3o6"&gt; flex-item 3! &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+    <div class="flex-container">
+      <div class="w-2o6 help-otln">flex-item 1!</div>
       <div class="w-2o6 help-otln">flex-item 2!</div>
       <div class="w-3o6 help-otln">flex-item 3!</div>
     </div>
-    <figcaption class="Capt">Luckily, the widths add up to 100%.
-      If more, the blocks will wrap to the next line.
-      If less, there will be extra space at the end of the line.</figcaption>
   </figure>
-  <p class="P">The example below demonstrates how to use Flexbox to layout blocks on more than
-    one line. Notice the lack of table rows! Also, it demonstrates the use of <code>order</code>
-    to set the order of the flex-items.</p>
-  <figure class="Fig">
-    <pre><code class="Codeblock">&lt;main class="flex-container"&gt;
-  &lt;header  class="w-5o5"&gt; Header &lt;/header&gt;
-  &lt;article class="w-3o5" style="order: 1;"&gt;
-    &lt;p&gt; Pellentesque habitant morbi &hellip; &lt;/p&gt;
-  &lt;/article&gt;
-  &lt;aside   class="w-1o5"&gt; Aside 1 &lt;/aside&gt;
-  &lt;aside   class="w-1o5" style="order: 2;"&gt; Aside 2 &lt;/aside&gt;
-  &lt;footer  class="w-5o5" style="order: 3;"&gt; Footer &lt;/footer&gt;
-&lt;/main&gt;</code></pre>
+  <figure>
+    <pre>
+&lt;div class="flex-container"&gt;
+  &lt;div class="w-1o6"&gt; flex-item 1! &lt;/div&gt;
+  &lt;div class="w-2o6"&gt; flex-item 2! &lt;/div&gt;
+  &lt;div class="w-2o6"&gt; flex-item 3! &lt;/div&gt;
+&lt;/div&gt;
+</pre>
     <div class="flex-container">
-      <header  class="help-otln w-5o5" >Header </header>
-      <article class="help-otln w-3o5" style="order: 1;">
-        <p> Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. </p>
-      </article>
-      <aside   class="help-otln w-1o5"> Aside 1 </aside>
-      <aside   class="help-otln w-1o5" style="order: 2;"> Aside 2 </aside>
-      <footer  class="help-otln w-5o5" style="order: 3;"> Footer </footer>
+      <div class="w-1o6 help-otln">flex-item 1!</div>
+      <div class="w-2o6 help-otln">flex-item 2!</div>
+      <div class="w-2o6 help-otln">flex-item 3!</div>
+    </div>
+  </figure>
+  <p>By default, the extra space is evenly distributed <em>between</em> the items, much like
+    the inter-word space in a paragraph with <code>text-align: justify;</code>.
+    To override this and distribute the space <em>around</em> the blocks, leaving a little bit
+    on the outside, use
+    the modifier <code>.flex-container--around</code> <em>instead of</em> (not in addition to)
+    the normal <code>.flex-container</code>.</p>
+  <figure>
+    <pre>
+&lt;div class="flex-container--around"&gt;
+  &lt;div class="w-2o6"&gt; flex-item 1! &lt;/div&gt;
+  &lt;div class="w-2o6"&gt; flex-item 2! &lt;/div&gt;
+  &lt;div class="w-3o6"&gt; flex-item 3! &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+    <div class="flex-container--around">
+      <div class="w-2o6 help-otln">flex-item 1!</div>
+      <div class="w-2o6 help-otln">flex-item 2!</div>
+      <div class="w-3o6 help-otln">flex-item 3!</div>
+    </div>
+  </figure>
+  <figure>
+    <pre>
+&lt;div class="flex-container--around"&gt;
+  &lt;div class="w-1o6"&gt; flex-item 1! &lt;/div&gt;
+  &lt;div class="w-2o6"&gt; flex-item 2! &lt;/div&gt;
+  &lt;div class="w-2o6"&gt; flex-item 3! &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+    <div class="flex-container--around">
+      <div class="w-1o6 help-otln">flex-item 1!</div>
+      <div class="w-2o6 help-otln">flex-item 2!</div>
+      <div class="w-2o6 help-otln">flex-item 3!</div>
+    </div>
+  </figure>
+  <p>To completely remove the space between the items and push it all the way to the outside,
+    use the modifier <code>.flex-container--center</code> instead. This acts like a paragraph with
+    <code>text-align: center;</code>.</p>
+  <figure>
+    <pre>
+&lt;div class="flex-container--center"&gt;
+  &lt;div class="w-2o6"&gt; flex-item 1! &lt;/div&gt;
+  &lt;div class="w-2o6"&gt; flex-item 2! &lt;/div&gt;
+  &lt;div class="w-3o6"&gt; flex-item 3! &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+    <div class="flex-container--center">
+      <div class="w-2o6 help-otln">flex-item 1!</div>
+      <div class="w-2o6 help-otln">flex-item 2!</div>
+      <div class="w-3o6 help-otln">flex-item 3!</div>
+    </div>
+  </figure>
+  <figure>
+    <pre>
+&lt;div class="flex-container--center"&gt;
+  &lt;div class="w-1o6"&gt; flex-item 1! &lt;/div&gt;
+  &lt;div class="w-2o6"&gt; flex-item 2! &lt;/div&gt;
+  &lt;div class="w-2o6"&gt; flex-item 3! &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+    <div class="flex-container--center">
+      <div class="w-1o6 help-otln">flex-item 1!</div>
+      <div class="w-2o6 help-otln">flex-item 2!</div>
+      <div class="w-2o6 help-otln">flex-item 3!</div>
     </div>
   </figure>
 </section>

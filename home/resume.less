@@ -6,9 +6,39 @@
 \*###############*/
 
 //Table of Contents
+//- RESET
 //- VARIABLES
 //- MAIN OBJECTS
 //- OTHER OBJECTS
+
+
+//++++++//
+/*@RESET*/
+//++++++//
+h2, h3, h4, h5, h6 {
+  .spacing-top(0);
+  .spacing-bottom(0);
+}
+h3, h4, h5, h6 {
+  .font-size-block(1; @line_height_base);
+}
+p {
+  .spacing-bottom(0);
+}
+a:not(.BlueLink) {
+  color: inherit;
+  &[rel~="external"] {
+    font-style: inherit;
+  }
+  &:hover {
+    text-decoration: none;
+    color: inherit;
+  }
+}
+abbr[title] {
+  border-bottom: 0;
+}
+//++++ @end RESET ++++//
 
 
 //++++++++++//
@@ -24,6 +54,7 @@
 //+++++++++++++//
 @media screen {
   body {
+    position: relative; // so that absolutely positioned elements are sized proportionally
     font-family: @fontfam_prose;
   }
 }
@@ -35,6 +66,32 @@
     line-height: inherit;
   }
 }
+@media screen {
+  .AsideGolden {
+    box-sizing: border-box;
+    width: @golden4;
+    margin-left: @golden6;
+    margin-right: @golden7;
+  }
+}
+// new layout: comment out this query for old layout
+@media screen {
+  body {
+    margin-left: 2rem;
+    margin-right: 2rem;
+  }
+  .MainGolden {
+    margin-left: @golden2;
+    margin-right: 0;
+  }
+  .AsideGolden {
+    width: @golden2;
+    margin-left: 0;
+    margin-right: 0;
+    padding-right: 1rem;
+  }
+}
+
 
 /**
   * The Header contains my name (`Name`) and contact information (`Postal`).
@@ -44,10 +101,11 @@
 : 2015-01-22
   */
 .res-Header {
+  .spacing-bottom(@vru_core);
 }
 @media screen {
   .res-Header {
-    text-align: center;
+    .vru-bottom-even(1; solid; @color_h_major);
   }
 }
 @media print {
@@ -56,49 +114,43 @@
 }
   /**
     * My name at the top of the resume.
-  @implements
-  : .H--Alp
   @tags
   : #heading
   @author
   : Chris Harvey
   @updated
-  : 2015-01-22
+  : 2015-02-16
     */
   .res-Name {
     font-weight: bold;
+    text-align: inherit;
   }
   @media screen {
-    .res-Name { // selected from _headings.less .H--Alp
-      .fontsize-doubleblock(@fontsize_ratio_alpha);
-      .vru-top(   2 * @phi1); // 1.236
-      .vru-bottom(2 * @phi2); // 0.764
-      font-variant: small-caps;
-      font-family: @fontfam_heading;
-      text-align: center;
-      color: @color_h_major;
+    .res-Name {
     }
   }
   @media print {
     .res-Name {
-      .vru-top(1);
-      .vru-bottom(1);
-      .fontsize-block-lrg;
+      .spacing-top(@vru_core);
+      .spacing-bottom(@vru_core);
+      .font-size-block(@font_size_lrg; @line_height_base);
+      font-family: inherit;
       text-transform: uppercase;
+      color: inherit;
     }
   }
   /**
     * My contact info at the top of the resume.
   @implements
-  : .Ilist.Square
+  : .l--Inl.Square
   @author
   : Chris Harvey
   @updated
   : 2015-01-08
     */
   .res-Postal {
-    .Ilist;
-    .Ilist.Square;
+    .l--Inl;
+    .l--Inl.Square;
   }
   @media screen {
     .res-Postal {
@@ -111,72 +163,59 @@
   * A Skill is a top-level section, e.g. Teaching Experience.
   * It contains a `SkillTitle`,
   * and either `Org` Objects, `Obj` Objects, `Inst` Objects, or `ul` Elements.
-@implements
-: .vru-top()
-: .vru-top-phi()
 @author
 : Chris Harvey
 @updated
 : 2015-01-08
   */
 .res-Skill {
-  .vru-top(1);
 }
 @media screen {
-  .res-Skill:first-of-type {
-    .vru-top-phi(1px; solid; @color_h_minor);
+  .res-Skill {
+    border-left: 1px dotted fadeout(@color_h_minor, @golden1);
+    padding-left: 0.5rem;
+    margin-left: -0.5rem;
   }
 }
   /**
     * The title of each Skill, e.g. "Teaching Experience"
-  @implements
-  : .H--Bet
-  : .vru-top()
-  : .vru-bottom()
-  : .fontsize-block()
-  : .border-vert-undo()
   @author
   : Chris Harvey
   @updated
-  : 2015-01-22
+  : 2015-02-16
     */
   .res-SkillTitle {
-    font-weight: bold;
   }
   @media screen {
-    .res-SkillTitle { // positioning styles
-      width: @golden4;
-      margin-left: @golden7;
-      margin-right: @golden6;
+    .res-SkillTitle {
+      .font-size-block(1.5; @line_height_base);
+      margin-top: 0;
+      border-bottom: 0;
       position: absolute;
       left: 0;
       text-align: right;
     }
-    .res-SkillTitle { // heading styles selected from _headings.less .H--Bet
-      .fontsize-block(1.5);
-      font-family: @fontfam_heading;
-      color: @color_h_minor;
-    }
   }
   @media print {
     .res-SkillTitle {
-      .fontsize-block-lrg;
       .border-vert-one(bottom; 1px; solid; #000);
+      .spacing-bottom(@vru_core);
+      .font-size-block(@font_size_lrg; @line_height_base);
       font-variant: small-caps;
+      font-family: inherit;
+      color: inherit;
     }
   }
   /**
     * A Org is an item in a Skill. It has an organization name and location.
     * It contains a `header` and a `OrgDetail`.
-  @implements
-  : .vru-top()
   @author
   : Chris Harvey
   @updated
   : 2015-01-08
     */
   .res-Org {
-    .vru-top(1);
+    .spacing-bottom(@vru_core);
   }
   @media screen {
     .res-Org {}
@@ -219,10 +258,6 @@
       }
         /**
           * The title of an organization
-        @implements
-        : .H--Gam
-        : .vru-top()
-        : .vru-bottom()
         @author
         : Chris Harvey
         @updated
@@ -231,22 +266,20 @@
         .res-OrgTitle {
           .flex-order(1);
           font-style: italic;
+          font-variant: inherit;
+          font-weight: inherit;
         }
         @media screen {
           .res-OrgTitle {
-            font-family: @fontfam_heading;
           }
         }
         @media print {
           .res-OrgTitle {
+            font-family: inherit;
           }
         }
         /**
           * The title of a job, e.g. a position held at an organization
-        @implements
-        : .H--Del
-        : .vru-top()
-        : .vru-bottom()
         @author
         : Chris Harvey
         @updated
@@ -264,6 +297,8 @@
         }
         @media print {
           .res-JobTitle {
+            font-family: inherit;
+            font-variant: inherit;
           }
         }
       /**
@@ -315,8 +350,6 @@
         }
     /**
       * A bullet list of job descriptions for each job.
-    @implements
-    : .Ulist
     @tags
     : #typography
     : #list
@@ -328,12 +361,13 @@
     : 2014-06-26
       */
     .res-OrgDetail {
-      .Ulist;
-      padding-left: (@listindent / 2);
+      padding-left: 0.25in;
+      // padding-left: 0.5rem;
+      // list-style-position: inside;
     }
     @media print {
       .res-OrgDetail {
-        .vru-top(-1);
+        margin-top: -@vru_core;
         margin-left: @datewidth;
       }
     }
@@ -343,11 +377,14 @@
   @author
   : Chris Harvey
   @updated
-  : 2015-01-22
+  : 2015-02-17
     */
+  .res-Obj {
+    .spacing-bottom(@vru_core);
+  }
   @media print {
     .res-Obj {
-      .vru-top(-1);
+      margin-top: (-2 * @vru_core);
       margin-left: @datewidth;
     }
   }
@@ -370,8 +407,6 @@
       * The title of an institution
     @extends
     : .res-OrgTitle
-    @implements
-    : .H--Zet
     @author
     : Chris Harvey
     @updated
@@ -379,17 +414,20 @@
       */
     .res-InstTitle {
       .flex-order(1);
+      .spacing-bottom(@vru_core);
       font-style: italic;
+      font-variant: inherit;
+      font-weight: inherit;
     }
     @media screen {
       .res-InstTitle {
-        font-family: @fontfam_heading;
       }
     }
     @media print {
       .res-InstTitle {
         margin-left: @datewidth;
         font-style: italic;
+        font-family: inherit;
       }
     }
 //++++ @end MAIN OBJECTS ++++//
@@ -401,38 +439,40 @@
 /**
   * A list of achievements such as awards or memberships.
 @implements
-: .Map.Horiz;
+: .dl--Horiz;
 @author
 : Chris Harvey
 @updated
 : 2015-01-22
   */
 .res-AchList {
-  .Map;
-  .Map.Horiz;
+  .dl--Horiz;
+  dt {
+    font-weight: inherit;
+  }
 }
-.res-AchList .Term {font-weight: inherit;}
 @media screen {
   .res-AchList {
-    .Term {
+    dt {
       padding-right: 0.5rem;
     }
-    .Desc {
+    dd {
       .parens();
     }
   }
 }
 @media print {
   .res-AchList {
-    .Term {
+    margin-top: -@vru_core;
+    dt {
       margin-left: @datewidth;
       padding-right: 0;
       float: none;
       clear: none;
     }
-    .Desc {
-      .vru-top(-1);
+    dd {
       width: @datewidth;
+      margin-top: -@vru_core;
       float: none;
       clear: none;
     }
@@ -440,9 +480,8 @@
 }
 
 .res-Footer {
-  .vru-top-phi(1px; solid; @color_h_minor);
-  .fontsize-block-sml();
-
+  .vru-top-even(1; solid; @color_h_minor);
+  .font-size-block(@font_size_sml; @line_height_base);
 }
 @media screen {
 }
@@ -455,18 +494,12 @@
 //+++++++//
 /*@TRUMPS*/
 //+++++++//
-a[rel~="external"] {font-style: inherit;}
-i[lang] {font-family: inherit;}
 @media print {
-  // PRINT STYLE TRUMPS
   .pagebreak {
     margin-top: 144px;
   }
   #tech-misc {
     margin-left: @datewidth;
-  }
-  #VT {
-    margin-top: 0;
   }
 }
 //++++ @end TRUMPS ++++//

@@ -8,73 +8,7 @@
 
 // Table of Contents
 // - HELPER CLASSES
-//   - Widths
-//   - Margins
 
-
-
-/**
-  * The `[data-status]` attribute indicates the status of a document or Element.
-  * "draft"    : a work in progress
-  * "complete" : finished but still needs edits before releasing
-  * "released" : ready for implementation
-  * See https://github.com/chharvey/chharvey.github.io/wiki/Document-Status/ for more info.
-@tags
-: #status
-: #golden
-: #border
-: #background
-@author
-: Chris Harvey
-@updated
-: 2014-10-26
-  */
-.article-before-mx(@content) {
-  .border-vert-undo();
-  .fontsize-block-sml();
-  box-sizing: border-box;
-  width:        @golden5; // @golden1 within a @golden4
-  margin-left:  @golden7; // @golden3 within a @golden4
-  margin-right: @golden8; // @golden4 within a @golden4
-  position: absolute;
-  right: 0;
-  content: @content;
-  font-weight: bold;
-  text-align: left;
-}
-.status(@brdrc; @bgc) {
-  .sidebrdr-phi(left; 4px; solid; @brdrc);
-  padding-right: 4px;
-  box-shadow: 4px 4px 8px #808080;
-  background-color: fadeout(@bgc, @golden4c);
-}
-.Article {
-  &[data-status="draft"]::before    {.Alert--Warn; .article-before-mx('This article is a work in progress.');}
-  &[data-status="complete"]::before {.Alert--Cshn; .article-before-mx('This article is mostly complete.');}
-  &[data-status="released"]::before {.Alert--Skss; .article-before-mx('This article is ready for implemen' '\00ad' 'tation.');}
-
-  [data-status="draft"]    {.status(@color_warn_brdr; @color_warn_bg);}
-  [data-status="complete"] {.status(@color_cshn_brdr; @color_cshn_bg);}
-  [data-status="released"] {.status(@color_skss_brdr; @color_skss_bg);}
-}
-
-/**
-  * The `[data-informative]` attribute on an Element in an `.Article` indicates that
-  * the content is nonessential to the article.
-  * See https://github.com/chharvey/chharvey.github.io/wiki/Document-Status/ for more info.
-@tags
-: #status
-@author
-: Chris Harvey
-@updated
-: 2014-08-12
-  */
-.Article [data-informative] {
-  .sidebrdr-phi(left;  2px; solid; @color_info_brdr);
-  .sidebrdr-phi(right; 2px; solid; @color_info_brdr);
-  box-shadow: 2px 2px 4px #c0c0c0;
-  background-color: fadeout(@color_info_bg, @golden4c);
-}
 
 /**
   * This Interface puts an outline around an Object to show its structure. It is used for
@@ -91,9 +25,6 @@
   outline: 1px solid @color_accent;
 }
 
-[hidden] {
-  display: none !important;
-}
 [data-bool="0"] {
   color: @color_base_bg;
   background-color: lighten(@color_link_up, 15%);
@@ -106,10 +37,11 @@
 
 @media print {
   body,
-  .H,
-  .Fig, .Addy, .Qblock,
+  h1, h2, h3, h4, h5, h6,
+  figure, blockquote, pre,
   .Table {
-    .fontsize-block-med();
+    font-size: inherit;
+    line-height: inherit;
   }
   body,
   code {color: #000;}
@@ -125,11 +57,6 @@
     margin-right: auto;
     margin-bottom: auto;
   }
-  .Fig, .Addy, .Qblock {
-    .sidebrdr-phi(left;  0; solid; #000);
-    .sidebrdr-phi(right; 0; solid; #000);
-  }
-
 
   br.print {display: inline;} // default display for br elements; should show on print
   /**
@@ -162,67 +89,4 @@
 //+++++++++++++++//
 /*@HELPER CLASSES*/
 //+++++++++++++++//
-
-//-------//
-/*@Widths*/
-//-------//
-/**
-  * The following Interfaces change the width of the Objects that implement them.
-@tags
-: #grid
-: #golden
-: #presentational
-@author
-: Chris Harvey
-@updated
-: 2015-02-12
-  */
-.w-p0  {width: @golden0;}
-.w-p1  {width: @golden1;}
-.w-p2  {width: @golden2;}
-.w-p3  {width: @golden3;}
-.w-p4  {width: @golden4;}
-.w-p3c {width: @golden3c;}
-.w-p4c {width: @golden4c;}
-
-.w-1o1 {width: @1o1;}
-.w-1o2 {width: @1o2;}
-.w-2o2 {width: @2o2;}
-.w-1o3 {width: @1o3;}
-.w-2o3 {width: @2o3;}
-.w-3o3 {width: @3o3;}
-.w-1o4 {width: @1o4;}
-.w-2o4 {width: @2o4;}
-.w-3o4 {width: @3o4;}
-.w-4o4 {width: @4o4;}
-.w-1o5 {width: @1o5;}
-.w-2o5 {width: @2o5;}
-.w-3o5 {width: @3o5;}
-.w-4o5 {width: @4o5;}
-.w-5o5 {width: @5o5;}
-.w-1o6 {width: @1o6;}
-.w-2o6 {width: @2o6;}
-.w-3o6 {width: @3o6;}
-.w-4o6 {width: @4o6;}
-.w-5o6 {width: @5o6;}
-.w-6o6 {width: @6o6;}
-//---- @end Widths ----//
-
-//--------//
-/*@Margins*/
-//--------//
-/**
-  * The following Interface defines even horizontal margins on an Object.
-@tags
-: #margin
-@author
-: Chris Harvey
-@updated
-: 2015-02-13
-  */
-.margin-even {
-  margin-left:  auto;
-  margin-right: auto;
-}
-//---- @end Margins ----//
 //++++ @end HELPER CLASSES ++++//
