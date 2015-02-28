@@ -44,7 +44,7 @@ function resizeFolioHeading() {
   * 3. If the number of lines is odd, set margin-bottom: -12px;.
   */
 function qblockLines() {
-  $('blockquote.Short').each(function () {
+  $('blockquote.bq--Short').each(function () {
     var lines = $(this).height() / 24; // 24 is number of pixels for 1vru
     lines = Math.round(lines / 1.5); // divide by 1.5 to account for new line height
     if (lines % 2 === 1) {
