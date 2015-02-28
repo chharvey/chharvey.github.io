@@ -32,9 +32,9 @@
 }
 
 /**
-  * This Object represents an introduction paragraph, typically referred to as a "standfirst"
-  * (in the U.K.). It may also serve as an abstract of a scholarly article. This Object almost
-  * always follows a heading.
+  * An introduction paragraph, typically referred to as a "lede" (or "standfirst" in the U.K.).
+  * It may also serve as an abstract of a scholarly article. Almost always follows a heading.
+  * May also be `.Dropcap`: a paragraph whose first letter is a dropped capital ("drop cap").
 @tags
 : #typography
 : #paragraph
@@ -43,34 +43,18 @@
 @updated
 : 2015-02-19
   */
-.p--Intro {
-  font-weight: bold;
-  .Article & {
-    letter-spacing: -0.5px;
-  }
-}
-
-/**
-  * A paragraph whose first letter is a dropped capital ("drop cap").
-@tags
-: #typography
-: #paragraph
-@author
-: Chris Harvey
-@updated
-: 2015-02-27
-  */
-.p--Dropcap {
-  &::first-letter {
-    font-size: 2rem;
-    line-height: 0;
+.p--Lede {
+  font-family: @fontfam_accent;
+  color: @color_h_major;
+  &.Dropcap::first-letter {
     float: left;
     padding-top: 1.5 * @vru_core;
     padding-right: 0.5rem;
     font-style:  normal;
     font-weight: normal;
+    font-size: 2rem;
+    line-height: 0;
     font-family: @fontfam_script;
-    color: @color_h_major;
   }
 }
 //++++ @end PARAGRAPHS ++++//
@@ -209,6 +193,7 @@ pre {
 caption,
 figcaption {
   .font-size-block(@font_size_sml; @line_height_base);
+  font-family: @fontfam_accent;
 }
 caption:first-child,
 figcaption:first-child {.border-vert-one(bottom; 1px; dotted; @color_border);}
