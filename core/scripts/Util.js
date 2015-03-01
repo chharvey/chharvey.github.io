@@ -20,7 +20,7 @@ Util.TAU = 2 * Math.PI;
   * @param `upper` the upper bound, inclusive. Must be >= `lower`.
   * @return        the closest number to `x` within the interval [lower, upper]
   */
-Util.bound = function (x, lower, upper) {
+Util.bound = function bound(x, lower, upper) {
   if      (x < lower) return lower;
   else if (x > upper) return upper;
   else                return x;
@@ -36,7 +36,7 @@ Util.bound = function (x, lower, upper) {
   * @param `w` optional number between 0 and 1 defaults to 0.5, the weight that favors `a`
   * @return    the weighted average of `a` and `b`
   */
-Util.average = function (a, b, w) {
+Util.average = function average(a, b, w) {
   w = (typeof w === 'number') ? w : 0.5;
   return (a * w) + (b * (1 - w));
 }
@@ -47,9 +47,38 @@ Util.average = function (a, b, w) {
   * @param `b` the second number
   * @return    the square root of the product of `a` and `b`
   */
-Util.gMean = function (a, b) {
+Util.gMean = function gMean(a, b) {
   return Math.sqrt(a * b);
 }
+
+// /**
+//  * Returns the arithmetic mean of an array of doubles.
+//  * @param nums   the array of doubles, with undetermined length
+//  * @return          the arithmetic mean of all the doubles in the array
+//  */
+// public static double aMean(double[] nums) {
+//     double sum = 0.0;
+//     int n = nums.length;
+//     for (int i = 0; i < n; i++) {
+//         sum += nums[i];
+//     }
+//     return sum / n;
+// }
+//
+// /**
+//   * Returns the geometric mean of an array of doubles.
+//   * Mathematical note: if any entry in the given array is equal to 0, then this method will return {@code 0.0}.
+//   * @param doubles   the array of doubles, with undetermined length
+//   * @return          the geometric mean of all the doubles in the array
+//   */
+// public static double gMean(double[] doubles) {
+//     double product = 1.0;
+//     int n = doubles.length;
+//     for (int i = 0; i < n; i++) {
+//         product *= doubles[i];
+//     }
+//     return Math.pow(product, 1.0 / n);
+// }
 
 /**
   * Returns whether a given integer is prime.
@@ -57,7 +86,7 @@ Util.gMean = function (a, b) {
   * @param `integer` the given integer
   * @return          `true` if `integer` is prime
   */
-Util.isPrime = function (integer) {
+Util.isPrime = function isPrime(integer) {
   var returned = true;
   if (integer <= 1) returned = false;
   else {
@@ -73,7 +102,7 @@ Util.isPrime = function (integer) {
   * @param `n` a positive integer to be factored
   * @return    an array containing integers, which are all factors of `n`, in increasing order
   */
-Util.factors = function (n, prime) {
+Util.factors = function factors(n, prime) {
   var factors = [];
   for (var i = 2; i <= n; i++) if (n % i === 0) factors.push(i);
   return factors;
@@ -87,7 +116,7 @@ Util.factors = function (n, prime) {
   * @param `n` a positive integer to be factored
   * @return    an array containing integers, which are the prime factors of `n`, in increasing order
   */
-Util.factorize = function (n) {
+Util.factorize = function factorize(n) {
   var factors = [];
   var i = 2;
   while (i <= n) {
@@ -106,7 +135,7 @@ Util.factorize = function (n) {
   * @param `b` the second positive integer
   * @return    the greatest integer factor that `a` and `b` have in common
   */
-Util.gcf = function (a, b) {
+Util.gcf = function gcf(a, b) {
   if (a === 0 || b === 0) return Math.max(a,b);
   else {
     var hi = Math.max(a,b);
@@ -122,7 +151,7 @@ Util.gcf = function (a, b) {
   * @param `b` the second positive integer
   * @return    the least integer multiple that `a` and `b` have in common
   */
-Util.lcm = function (a, b) {
+Util.lcm = function lcm(a, b) {
   return (a * b) / Util.gcf(a, b);
 }
 
@@ -137,7 +166,7 @@ Util.lcm = function (a, b) {
   * @param `recursive` optional: whether to use the recursive form of this function
   * @return            the product of all the positive integers less than or equal to the parameter
   */
-Util.factorial = function (integer, recursive) {
+Util.factorial = function factorial(integer, recursive) {
   if (recursive) {
     var product = 1;
     if (integer > 0) product = integer * Util.factorial(integer - 1, true);
@@ -168,7 +197,7 @@ Util.factorial = function (integer, recursive) {
   * @param `recursive` optional: whether to use the recursive form of this function
   * @return            the product of every other positive integer less than or equal to the parameter
   */
-Util.doubleFactorial = function (integer, recursive) {
+Util.doubleFactorial = function doubleFactorial(integer, recursive) {
   if (recursive) {
     var product = 1;
     if (integer > 0) product = Util.factorial(integer) / Util.doubleFactorial(integer - 1, true);
@@ -196,7 +225,7 @@ Util.doubleFactorial = function (integer, recursive) {
   * @param `recursive` optional: whether to use the recursive form of this function
   * @return            the sum of all the non-negative integers less than or equal to the parameter
   */
-Util.triangular = function (integer, recursive) {
+Util.triangular = function triangular(integer, recursive) {
   if (recursive) {
     var sum = 0;
     if (integer > 0) sum = integer + Util.triangular(integer - 1, true);
@@ -224,7 +253,7 @@ Util.triangular = function (integer, recursive) {
   * @param `recursive` optional: whether to use the recursive form of this function
   * @return            the `n`th term of the sequence
   */
-Util.fibonacci = function (n, recursive) {
+Util.fibonacci = function fibonacci(n, recursive) {
   if (recursive) {
     if (n === 0 || n === 1) return 1;
     else if (n > 1)         return (Util.fibonacci(n-1, true) + Util.fibonacci(n-2, true));
@@ -240,7 +269,7 @@ Util.fibonacci = function (n, recursive) {
   * @param `r` the number of objects taken at a time; must be <= `n`
   * @return    the number of permutations of `n` objects taken `r` at a time
   */
-Util.permute = function (n, r) {
+Util.permute = function permute(n, r) {
   var numerator = 0;
   var denominator = 1;
   if (1 <= r && r <= n) {
@@ -257,7 +286,7 @@ Util.permute = function (n, r) {
   * @param `r` the number of objects taken at a time; must be <= `n`
   * @return    the number of combinations of `n` objects taken `r` at a time
   */
-Util.combine = function (n, r) {
+Util.combine = function combine(n, r) {
     var numerator   = Util.permute(n, r);
     var denominator = Util.factorial(r);
     return num / den;
@@ -270,12 +299,52 @@ Util.combine = function (n, r) {
   */
 Util.rand = Math.random; // = function () { return Math.random(); }
 
+// /** A static variable used as a seed in the random generators. */
+// private static long seed = 0;
+//
+// /**
+//   * Selects a uniformly distributed random rational number within
+//   * a given interval.
+//   * @param low   the minimum of the interval
+//   * @param high  the exclusive least upper bound of the interval
+//   * @return      a random double-precision number within the interval [low, high).
+//   */
+// private static double nestedInterval(double low, double high) {
+//     double term;
+//     if (low == high) term = low;
+//     else {
+//         // if seed is 0, reset it
+//         if (Random.seed == 0) Random.seed = System.currentTimeMillis();
+//         Random.seed *= 3; // for cases in which the long is too short
+//         /*
+//          * the following switch statement
+//          * tests whether the rightmost bit is even or odd.
+//          * If even, it chooses the left half-interval;
+//          * if odd, it chooses the right half-interval.
+//          */
+//         switch ((int) (Random.seed & 1)) {
+//             case 0:
+//                 Random.seed = Random.seed >> 1;
+//                 term = Random.nestedInterval(low, Number.aMean(low, high));
+//                 break;
+//             case 1:
+//                 Random.seed = Random.seed >> 1;
+//                 term = Random.nestedInterval(Number.aMean(low, high), high);
+//                 break;
+//             default:
+//                 term = Math.E; // just an irrelevant identifiable number for debugging purposes
+//                 break;
+//         }
+//     }
+//     return term;
+// }
+
 /**
   * Selects a uniformly distributed random non-negative decimal less than the given parameter.
   * @param `number` a positive decimal, the exclusive least upper bound of the interval
   * @return         a randomly selected decimal within [0, number)
   */
-Util.randTo = function (number) {
+Util.randTo = function randTo(number) {
   return Math.random() * number;
 }
 
@@ -284,7 +353,7 @@ Util.randTo = function (number) {
   * @param integer a positive integer, the exclusive least upper bound of the interval
   * @return        a randomly selected integer within [0, integer)
   */
-Util.randToInt = function (integer) {
+Util.randToInt = function randToInt(integer) {
   return Math.floor(Util.randTo(integer));
 }
 
@@ -294,7 +363,7 @@ Util.randToInt = function (integer) {
   * @param `high` a positive decimal, the exclusive least upper bound of the interval
   * @return       a randomly selected nonnegative decimal within [low, high)
   */
-Util.randBetween = function (low, high) {
+Util.randBetween = function randBetween(low, high) {
   return Util.randTo(high - low) + low;
 }
 
@@ -303,7 +372,7 @@ Util.randBetween = function (low, high) {
   * @param `p` optional number within [0.0, 1.0] (default 0.5); the probability that this method will return `true`
   * @return    `true` if a randomly selected number between 0 and 1 is less than `p`
   */
-Util.randBoolean = function (p) {
+Util.randBoolean = function randBoolean(p) {
   p = (p === undefined) ? 0.5 : p;
   return (Math.random() < p);
 }
@@ -347,7 +416,7 @@ function doublefactorialtest(times) {
 //     Child.prototype.constructor = Child;
 //   };
 // }());
-Util.extend = function (child, parent) {
+Util.extend = function extend(child, parent) {
   child.prototype = Object.create(parent.prototype);
   child.__super__ = parent.prototype; // Chrome uses this to get the right `typeof`
   child.prototype.constructor = child;
