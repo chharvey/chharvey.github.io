@@ -1,3 +1,6 @@
+var Circle = require('./Circle.js');
+var Rectangle = require('./Rectangle.js');
+
 /**
   * A cylinder is a prism whose base is a circle.
   * @param `r` a Length object: the radius of this cylinder
@@ -19,3 +22,5 @@ function Cylinder(r, h) {
   /** The volume of this cylinder. */
   this.volume = this.base.area.multiply(this.height);
 }
+
+module.exports = Cylinder;

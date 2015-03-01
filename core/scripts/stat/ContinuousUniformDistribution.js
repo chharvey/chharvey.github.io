@@ -53,3 +53,5 @@ ContinuousUniformDistribution.prototype.getMean = function getMean() {
 ContinuousUniformDistribution.prototype.getStdev = function getStdev() {
   return Math.pow(this.high - this.low, 2) / 12;
 }
+
+module.exports = ContinuousUniformDistribution;

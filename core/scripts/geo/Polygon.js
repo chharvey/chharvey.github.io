@@ -5,3 +5,5 @@
 function Polygon(s) {
   this.sides = s;
 }
+
+module.exports = Polygon;

@@ -1,3 +1,5 @@
+var Rectangle = require('./Rectangle.js');
+
 /**
   * A rectangular prism is a polyhedron that has 6 faces, each of which is a
   * rectangle and that intersect at right angles.
@@ -26,3 +28,5 @@ function RectPrism(l, w, h) {
   /** The volume of this cylinder. */
   this.volume = this.base.area.multiply(this.height);
 }
+
+module.exports = RectPrism;

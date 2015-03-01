@@ -1,3 +1,6 @@
+var Util = require('../Util.js');
+var Polygon = require('./Polygon.js');
+
 /**
   * A quadrilateral is a four-sided polygon.
   * @extends   Polygon
@@ -17,3 +20,5 @@ function Quadrilateral(a, b, c, d) {
   this.perimeter = this.a.add(this.b).add(this.c).add(this.d);
 }
 Util.extend(Quadrilateral, Polygon);
+
+module.exports = Quadrilateral;

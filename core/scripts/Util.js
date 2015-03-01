@@ -352,3 +352,5 @@ Util.extend = function extend(child, parent) {
   child.__super__ = parent.prototype; // Chrome uses this to get the right `typeof`
   child.prototype.constructor = child;
 }
+
+module.exports = Util;

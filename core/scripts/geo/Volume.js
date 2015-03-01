@@ -38,3 +38,5 @@ Volume.prototype.scale = function scale(k) {
 }
 
 Volume.prototype.multiply = function multiply(length) { return null; }
+
+module.exports = Volume;

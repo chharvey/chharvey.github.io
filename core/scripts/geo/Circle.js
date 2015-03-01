@@ -11,3 +11,5 @@ function Circle(r) {
   /** The area of this circle. */
   this.area = this.radius.square().scale(Math.PI);
 }
+
+module.exports = Circle;

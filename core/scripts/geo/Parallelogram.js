@@ -1,3 +1,6 @@
+var Util = require('../Util.js');
+var Quadrilateral = require('./Quadrilateral.js');
+
 /**
   * A parallelogram is a quadrilateral whose opposite sides are parallel.
   * Theorem: the opposite sides of a parallelogram are congruent.
@@ -24,3 +27,5 @@ function Parallelogram(a, b, ang) {
   this.area = this.base.multiply(this.height);
 }
 Util.extend(Parallelogram, Quadrilateral);
+
+module.exports = Parallelogram;

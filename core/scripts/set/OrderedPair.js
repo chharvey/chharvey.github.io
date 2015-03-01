@@ -1,3 +1,6 @@
+var Util = require('../Util.js');
+var Pair = require('./Pair.js');
+
 /**
   * An OrderedPair is a set that encodes the order of its two coordinates.
   * An ordered pair is written (a, b), where a and b are the coordinates.
@@ -32,3 +35,5 @@ OrderedPair.prototype.toString = function toString() {
 OrderedPair.prototype.ownsEmpty = function ownsEmpty() {
   return false;
 }
+
+module.exports = OrderedPair;

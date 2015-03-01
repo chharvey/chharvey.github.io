@@ -1,3 +1,6 @@
+var Util = require('../Util.js');
+var Pair = require('./Pair.js');
+
 /**
   * A singleton is a set that owns exactly one element.
   * This class is not to be confused with a "singleton" class in Java,
@@ -49,3 +52,5 @@ Singleton.prototype.isPowerSetOf = function isPowerSetOf(x) {
 Singleton.prototype.isInductive = function isInductive() {
   return false;
 }
+
+module.exports = Singleton;

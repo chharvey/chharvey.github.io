@@ -1,3 +1,6 @@
+var Util = require('../Util.js');
+var Set = require('./Set.js');
+
 /**
   * There exists a set that contains no elements; furthermore, this set is unique.
   * We symbolize this set by '{}' or the symbol '0'.
@@ -57,3 +60,5 @@ EmptySet.prototype.isSuccessorOf = function isSuccessorOf(x) {
 EmptySet.prototype.isInductive = function isInductive() {
   return false;
 }
+
+module.exports = EmptySet;

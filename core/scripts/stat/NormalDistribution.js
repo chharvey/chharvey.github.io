@@ -141,3 +141,5 @@ NormalDistribution.prototype.zScore = function zScore(x) {
 NormalDistribution.prototype.zScoreInv = function zScoreInv(z) {
   return (z * this.stdev) + this.mean;
 }
+
+module.exports = NormalDistribution;

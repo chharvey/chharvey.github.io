@@ -86,3 +86,5 @@ DiscreteDistribution.prototype.getStdev = function getStdev() {
   }
   return sum;
 }
+
+module.exports = DiscreteDistribution;

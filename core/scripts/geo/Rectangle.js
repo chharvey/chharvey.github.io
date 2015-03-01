@@ -1,3 +1,6 @@
+var Util = require('../Util.js');
+var Parallelogram = require('./Parallelogram.js');
+
 /**
   * A rectangle is a quadrilateral with four congruent angles.
   * Theorem: a rectangle is a parallelogram.
@@ -13,3 +16,5 @@ function Rectangle(a, b) {
   this.height = b;
 }
 Util.extend(Rectangle, Parallelogram);
+
+module.exports = Rectangle;

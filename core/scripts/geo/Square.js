@@ -1,3 +1,6 @@
+var Util = require('../Util.js')
+var Rectangle = require('./Rectangle.js')
+
 /**
   * Theorem: A square is a rectangle with four congruent sides.
   * Theorem A square is a rhombus with four right angles.
@@ -9,3 +12,5 @@ function Square(s, ang) {
   Rectangle.call(this, s, s);
 }
 Util.extend(Square, Rectangle);
+
+module.exports = Square;

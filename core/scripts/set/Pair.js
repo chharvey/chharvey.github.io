@@ -1,3 +1,6 @@
+var Util = require('../Util.js');
+var Set = require('./Set.js');
+
 /**
   * Given two Sets, there exists a Set that owns exactly them both.
   * The order of these elements is not relevant, that is,
@@ -66,3 +69,5 @@ Pair.prototype.isPowerSetOf = function isPowerSetOf(x) {
 Pair.prototype.isInductive = function isInductive() {
   return false;
 }
+
+module.exports = Pair;

@@ -1,3 +1,5 @@
+var Volume = require('./Volume.js');
+
 /**
   * A wrapper class representing a two-dimensional measurement.
   * @param `x` this object represented as a non-negative number
@@ -46,3 +48,5 @@ Area.prototype.multiply = function multiply(length) {
   if (this.units === length.units) return new Volume(this.value * length.value, this.units);
   else                             return '' + this + ' × ' + length;
 }
+
+module.exports = Area;

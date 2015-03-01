@@ -1,3 +1,6 @@
+var Util = require('../Util.js');
+var OrderedPair = require('./OrderedPair.js');
+
 /**
   * An OrderedTriple is a set that encodes the order of its three coordinates.
   * An ordered triple is written (a, b, c), where a, b, and c are the coordinates.
@@ -25,3 +28,5 @@ OrderedTriple.prototype.equals = function equals(x) {
 OrderedTriple.prototype.toString = function toString() {
   return '( ' + this.abscissa + ',  ' + this.ordinate + ',  ' + this.applicate + ' )';
 }
+
+module.exports = OrderedTriple;

@@ -20,7 +20,7 @@ function Set() {}
   * @param `x` the element in question
   * @return    `true` if `elem` is a member of this set
   */
-Set.prototype.owns = function (x) owns{}
+Set.prototype.owns = function owns(x) {}
 
 /**
   * Returns whether this Set has the specified Set as a subset.
@@ -37,7 +37,7 @@ Set.prototype.owns = function (x) owns{}
   * @param `x` the set in question
   * @return    `true` if this set owns at least all the elements in `x`
   */
-Set.prototype.includes = function (x) includes{}
+Set.prototype.includes = function includes(x) {}
 
 /**
   * Returns whether the specified Set has the same elements as this Set.
@@ -217,3 +217,5 @@ Set.prototype.isEquinumerousTo = function isEquinumerousTo(x) {
 Set.prototype.isOrderIsomorphicWith = function isOrderIsomorphicWith(x) {
   return this.ordinality().equals(x.ordinality());
 }
+
+module.exports = Set;

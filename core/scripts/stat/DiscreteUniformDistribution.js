@@ -57,3 +57,5 @@ DiscreteUniformDistribution.prototype.getStdev = function getStdev() {
   }
   return this.evalPDF(i) * sum;
 }
+
+module.exports = DiscreteUniformDistribution;

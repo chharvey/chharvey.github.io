@@ -1,3 +1,5 @@
+var Area = require('./Area.js');
+
 /**
   * A wrapper class representing a one-dimensional measurement.
   * @param `x` this object represented as a non-negative number
@@ -109,3 +111,5 @@ Length.conversion = {
 Length.convert = function convert(x, fromunit, tounit) {
   return x * Length.conversion[fromunit][tounit];
 }
+
+module.exports = Length;
