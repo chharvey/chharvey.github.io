@@ -4,7 +4,7 @@
 
 Properties within a CSS block should be written in order of decreasing structure definition. The inverted pyramid below illustrates how CSS properties are related.
 
-![An inverted pyramid illustrates how CSS properties are related. The top contains structural properties, the middle contains content/textual properties, and the bottom contains schematic properties.](https://chharvey.github.io/chhlib/css-pyramid-props.svg)
+![An inverted pyramid illustrates how CSS properties are related. The top contains structural properties, the middle contains content/textual properties, and the bottom contains schematic properties.](images/css-pyramid-props.svg)
 
 Authors are encouraged to define properties in order shown from top to bottom in the pyramid. The top base of the pyramid contains properties that set up foundation and structure, such as display and position. The middle contains content, font, and text properties. Notice how container is defined before content. Then we finish with low-level schematic properties, such as color, at the vertex on the bottom.
 
@@ -72,7 +72,7 @@ Stylesheets should be imported in order from most generic to least generic. It i
 -  modules (non-text-based Objects)
 -  style trumps (states, anomalies, special cases, `!important`, etc.)
 
-![An inverted pyramid illustrates how CSS stylesheets should be implemented.](https://chharvey.github.io/chhlib/css-pyramid-sheets.svg)
+![An inverted pyramid illustrates how CSS stylesheets should be implemented.](images/css-pyramid-sheets.svg)
 
 Each of these categories are described in further detail below.
 
