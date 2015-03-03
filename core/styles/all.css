@@ -1022,23 +1022,27 @@ main {
     _footnotes.less
 \*###################*/
 /**
-  * This Object represents a list whose items each contain a footnote. Typically, the order of
-  * footnotes is irrelevant, so this Object should be instantiated by a `ul` Element.
+  * A `footer` containing a list whose items each contain a footnote. Typically, the order of
+  * footnotes is irrelevant, so this list would be a `ul` Element.
+  *
+  * `.Rf` represents a reference to a footnote. The reference exists in the document prose,
+  * and it links to a footnote, which is contained in the `.Footnotes`.
+  * `.Fn` represents the footnote that is referenced.
+  * Each is an `a` Element.
 @implements
-: .list-block()
-: .fontsize-block-sml()
+: .font-size-block()
 : .vru-top-phi()
+: .brackets()
 @tags
 : #footnotes
 : #lists
+: #links
 @author
 : Chris Harvey
 @updated
-: 2014-09-23
+: 2015-02-23
   */
 .Footnotes {
-  display: block;
-  min-height: 1.5rem;
   font-size: 0.75rem;
   line-height: 2;
   padding-top: 8.78521826px;
@@ -1047,33 +1051,21 @@ main {
   border-top-style: solid;
   border-top-color: #9acc7a;
 }
-:not(h1):not(.H) + .Footnotes {
-  margin-top: 1.5rem;
+.Footnotes > ul {
+  padding-left: 1em;
+  text-indent: -1em;
+  list-style: none;
 }
-/**
-  * The `.Rf` Object represents a reference to a footnote. The reference exists in the document prose,
-  * and it links to a footnote, which is contained in the `.Footnotes`.
-  * The `.Fn` Object represents the footnote that is referenced.
-  * Each Object contains an `a` Element.
-@implements
-: .brackets
-@tags
-: #footnotes
-@author
-: Chris Harvey
-@updated
-: 2014-07-22
-  */
-.Rf > .Link,
-.Fn > .Link {
+.Rf,
+.Fn {
   quotes: '[' ']';
 }
-.Rf > .Link::before,
-.Fn > .Link::before {
+.Rf::before,
+.Fn::before {
   content: open-quote;
 }
-.Rf > .Link::after,
-.Fn > .Link::after {
+.Rf::after,
+.Fn::after {
   content: close-quote;
 }
 /*##################*\
@@ -1306,6 +1298,9 @@ main {
 .P.Intro {
   padding-bottom: 1.5rem;
   font-weight: bold;
+}
+.Article .Intro {
+  letter-spacing: -0.5px;
 }
 /**
   * This Object represents a paragraph whose first letter is a dropped capital ("drop cap").
@@ -3724,7 +3719,7 @@ del + ins {
   * "draft"    : a work in progress
   * "complete" : finished but still needs edits before releasing
   * "released" : ready for implementation
-  * See https://github.com/chharvey/chharvey.github.io/wiki/Document-Status/ for more info.
+  * See `https://github.com/chharvey/chharvey.github.io/wiki/Document-Status` for more info.
 @tags
 : #status
 : #golden
@@ -3906,7 +3901,7 @@ del + ins {
 /**
   * The `[data-informative]` attribute on an Element in an `.Article` indicates that
   * the content is nonessential to the article.
-  * See https://github.com/chharvey/chharvey.github.io/wiki/Document-Status/ for more info.
+  * See `https://github.com/chharvey/chharvey.github.io/wiki/Document-Status` for more info.
 @tags
 : #status
 @author
