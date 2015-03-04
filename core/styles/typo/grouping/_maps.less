@@ -63,12 +63,14 @@ dd {
 .dl--Horiz {
   .clearfix();
   > dt,
-  > dd {box-sizing: border-box;}
+  > dd {
+    box-sizing: border-box;
+    overflow: auto;
+  }
   > dt {
     padding-right: 1rem;
     float: left;
     clear: both;
-    overflow: auto;
     white-space: nowrap;
   }
   > dd {
@@ -80,19 +82,17 @@ dd {
   > dt {width: @termwidth;}
   > dd {width: (100% - @termwidth);}
 }
-.dl--Horiz.Sml {.map-horiz-mx(@golden3);}  // 23.6067977499789696%
-.dl--Horiz.Msm {.map-horiz-mx(@golden2);}  // 38.1966011250105152%
-.dl--Horiz.Med {.map-horiz-mx(@1o2);}      // 50%
-.dl--Horiz.Mlg {.map-horiz-mx(@golden1);}  // 61.8033988749894848%
-.dl--Horiz.Lrg {.map-horiz-mx(@golden3c);} // 76.3932022500210304%
+.dl--Horiz--Sml {.map-horiz-mx(@golden3);}  // 23.6067977499789696%
+.dl--Horiz--Msm {.map-horiz-mx(@golden2);}  // 38.1966011250105152%
+.dl--Horiz--Med {.map-horiz-mx(@1o2);}      // 50%
+.dl--Horiz--Mlg {.map-horiz-mx(@golden1);}  // 61.8033988749894848%
+.dl--Horiz--Lrg {.map-horiz-mx(@golden3c);} // 76.3932022500210304%
 
 /**
   * This Object represents a Horizontal Map that appears as a table.
   * Use the subclasses .Sml, .Msm, etc for pre-defined `dt` widths.
 @extends
-: dl.Horiz
-@implements
-: .cellpaddingdefault()
+: dl--Horiz
 @tags
 : #typography
 : #map
@@ -102,7 +102,7 @@ dd {
 @updated
 : 2014-11-23
   */
-.dl--Horiz.Tbl {
+.dl--Horiz--Tbl {
   > dt,
   > dd {
     padding: @project_boxpadding_sml;

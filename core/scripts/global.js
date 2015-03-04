@@ -64,7 +64,7 @@ function qblockLines() {
   * NOTE: this assumes each term-description group contains exactly one `dt` and one `dd`.
   */
 function mapHeights() {
-  $('.dl--Horiz, .FuncTabl').each(function () {
+  $('.dl--Horiz').each(function () {
     $(this).children('dt').each(function () {
       var height1 = parseInt($(this).css('height'));
       var height2 = parseInt($(this).next().css('height'));
@@ -129,8 +129,8 @@ function tableSpacing() {
   * Inline uses parentheses and block uses brackets.
   */
 function mathJax() {
-  $('.M:not(.B)').prepend('\\(').append('\\)');
-  $('.M.B').prepend('\\[').append('\\]');
+  $('.M:not(.M--B)').prepend('\\(').append('\\)');
+  $('.M.M--B').prepend('\\[').append('\\]');
 }
 $(document).ready(function () {
   resizeFolioHeading();
