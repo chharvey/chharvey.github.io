@@ -1,18 +1,26 @@
 /**
-  * Resizes the .H--Folio headings on home site to keep them horizontally contained.
+  * The entire project.
+  */
+project = {
+  px_per_rem : 16,
+  line_height : 1.5,
+};
+
+/**
+  * Resizes the `.h--Folio` headings on home site to keep them horizontally contained.
   */
 function resizeFolioHeading() {
-  var scale = 1/16;
-  $('.H--Folio').css('font-size', function () {
-    var width_rem = $(this).parent().width() / 16;
-    return scale * width_rem + 'rem';
-  }).css('line-height', function () {
-    // var font_rem = parseInt($(this).css('font-size') / 16;
-    return 48 / parseInt($(this).css('font-size'));
-  });
-  $('.H--Folio .Cap').css('font-size', function () {
-    var width_rem = $(this).parent().width() / 16;
-    return 2 * scale * width_rem + 'rem';
+  $('.h--Folio').each(function () {
+    var self = this;
+    this.width_in_rem = $(this).parent().width() / project.px_per_rem;
+    this.font_size_in_rem = (1/16) * this.width_in_rem; // magic number alert! why (1/16) ???
+    this.line_height = 3 * project.line_height / this.font_size_in_rem; // magic number alert!
+
+    $(this).css('font-size', function () {
+      return self.font_size_in_rem + 'rem';
+    }).css('line-height', function () {
+      return self.line_height;
+    });
   });
 }
 
@@ -36,11 +44,13 @@ function resizeFolioHeading() {
   * 3. If the number of lines is odd, set margin-bottom: -12px;.
   */
 function qblockLines() {
-  $('blockquote.Short').each(function () {
+  $('blockquote.bq--Short').each(function () {
     var lines = $(this).height() / 24; // 24 is number of pixels for 1vru
     lines = Math.round(lines / 1.5); // divide by 1.5 to account for new line height
     if (lines % 2 === 1) {
-      $(this).css('margin-top','-12px');
+      $(this).css('margin-top',''); // removes any previous inline style
+      $(this).css('margin-top',parseFloat($(this).css('margin-top'))-12);
+
       // FIX THIS. instead of setting the margin-top to -12, just subtract 12 from the current margin-top!
     } else {
       $(this).css('margin-top','');
@@ -54,7 +64,7 @@ function qblockLines() {
   * NOTE: this assumes each term-description group contains exactly one `dt` and one `dd`.
   */
 function mapHeights() {
-  $('.dl--Horiz, .FuncTabl').each(function () {
+  $('.dl--Horiz').each(function () {
     $(this).children('dt').each(function () {
       var height1 = parseInt($(this).css('height'));
       var height2 = parseInt($(this).next().css('height'));
@@ -95,10 +105,15 @@ function tableSpacing() {
       n_rowgroups++;
     });
     if ($(this).find('.Rowgroup')[0] != null)     n_rowgroups++; // once more for the last border, if there is one
-    if ($(this).find('caption').hasClass('Capt')) n_rowgroups++; // once more again for a caption if it exists
+    if ($(this).find('caption')[0]   != null)     n_rowgroups++; // once more again for a caption if it exists
     var btm = -(((n_rowgroups + 12) % 24) - 12);
-    if (btm <= 0) $(this).css('margin-top',btm);
-    else          $(this).css('padding-top',btm);
+    if (btm <= 0) {
+      $(this).css('margin-top',''); // removes any previous inline style
+      $(this).css('margin-top',parseFloat($(this).css('margin-top'))+btm);
+    } else {
+      $(this).css('padding-top',''); // removes any previous inline style
+      $(this).css('padding-top',parseFloat($(this).css('padding-top'))+btm);
+    }
     // var n_rows = 0;
     // $(this).find('tr').each(function () {
     //   n_rows++;
@@ -114,8 +129,8 @@ function tableSpacing() {
   * Inline uses parentheses and block uses brackets.
   */
 function mathJax() {
-  $('.M:not(.B)').prepend('\\(').append('\\)');
-  $('.M.B').prepend('\\[').append('\\]');
+  $('.M:not(.M--B)').prepend('\\(').append('\\)');
+  $('.M.M--B').prepend('\\[').append('\\]');
 }
 $(document).ready(function () {
   resizeFolioHeading();

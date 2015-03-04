@@ -1,5 +1,5 @@
 // out: resume.css
-@import (reference) url('../core/styles/core.less');
+@import (reference) url('../core/styles/project.less');
 
 /*###############*\
     resume.less
@@ -35,8 +35,14 @@ a:not(.BlueLink) {
     color: inherit;
   }
 }
+i[lang] {
+  font-family: inherit;
+}
+cite {
+  font-style: inherit;
+}
 abbr[title] {
-  border-bottom-width: 0;
+  border-bottom: 0;
 }
 //++++ @end RESET ++++//
 
@@ -54,6 +60,7 @@ abbr[title] {
 //+++++++++++++//
 @media screen {
   body {
+    position: relative; // so that absolutely positioned elements are sized proportionally
     font-family: @fontfam_prose;
   }
 }
@@ -65,6 +72,32 @@ abbr[title] {
     line-height: inherit;
   }
 }
+@media screen {
+  .AsideGolden {
+    box-sizing: border-box;
+    width: @golden4;
+    margin-left: @golden6;
+    margin-right: @golden7;
+  }
+}
+// new layout: comment out this query for old layout
+@media screen {
+  body {
+    margin-left: 2rem;
+    margin-right: 2rem;
+  }
+  .MainGolden {
+    margin-left: @golden2;
+    margin-right: 0;
+  }
+  .AsideGolden {
+    width: @golden2;
+    margin-left: 0;
+    margin-right: 0;
+    padding-right: 1rem;
+  }
+}
+
 
 /**
   * The Header contains my name (`Name`) and contact information (`Postal`).
@@ -78,6 +111,7 @@ abbr[title] {
 }
 @media screen {
   .res-Header {
+    .vru-bottom-even(1; solid; @color_h_major);
   }
 }
 @media print {
@@ -95,10 +129,10 @@ abbr[title] {
     */
   .res-Name {
     font-weight: bold;
+    text-align: inherit;
   }
   @media screen {
     .res-Name {
-      text-align: inherit;
     }
   }
   @media print {
@@ -107,7 +141,6 @@ abbr[title] {
       .spacing-bottom(@vru_core);
       .font-size-block(@font_size_lrg; @line_height_base);
       font-family: inherit;
-      text-align: left;
       text-transform: uppercase;
       color: inherit;
     }
@@ -115,7 +148,7 @@ abbr[title] {
   /**
     * My contact info at the top of the resume.
   @implements
-  : .l--Inl.Square
+  : .l--Inl--Square
   @author
   : Chris Harvey
   @updated
@@ -123,7 +156,7 @@ abbr[title] {
     */
   .res-Postal {
     .l--Inl;
-    .l--Inl.Square;
+    .l--Inl--Square;
   }
   @media screen {
     .res-Postal {
@@ -143,10 +176,11 @@ abbr[title] {
   */
 .res-Skill {
 }
-#objective {.spacing-bottom(@vru_core);}
 @media screen {
-  .res-Skill:first-of-type {
-    .vru-top-phi(1; solid; @color_h_major);
+  .res-Skill {
+    border-left: 1px dotted fadeout(@color_h_minor, @golden1);
+    padding-left: 0.5rem;
+    margin-left: -0.5rem;
   }
 }
   /**
@@ -161,10 +195,7 @@ abbr[title] {
   @media screen {
     .res-SkillTitle {
       .font-size-block(1.5; @line_height_base);
-      width: @golden4;
       margin-top: 0;
-      margin-right: @golden6;
-      margin-left: @golden7;
       border-bottom: 0;
       position: absolute;
       left: 0;
@@ -352,8 +383,11 @@ abbr[title] {
   @author
   : Chris Harvey
   @updated
-  : 2015-01-22
+  : 2015-02-17
     */
+  .res-Obj {
+    .spacing-bottom(@vru_core);
+  }
   @media print {
     .res-Obj {
       margin-top: (-2 * @vru_core);
@@ -387,6 +421,7 @@ abbr[title] {
     .res-InstTitle {
       .flex-order(1);
       .spacing-bottom(@vru_core);
+      margin-top: -@vru_core;
       font-style: italic;
       font-variant: inherit;
       font-weight: inherit;
@@ -452,9 +487,8 @@ abbr[title] {
 }
 
 .res-Footer {
-  .vru-top-phi(1; solid; @color_h_minor);
+  .vru-top-even(1; solid; @color_h_minor);
   .font-size-block(@font_size_sml; @line_height_base);
-
 }
 @media screen {
 }
@@ -473,9 +507,6 @@ abbr[title] {
   }
   #tech-misc {
     margin-left: @datewidth;
-  }
-  #VT {
-    margin-top: 0;
   }
 }
 //++++ @end TRUMPS ++++//
