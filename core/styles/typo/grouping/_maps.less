@@ -127,8 +127,11 @@ dd {
     font-weight: bold;
     &::after {content: ':';}
   }
-  > dd[itemprop="dateCreated"]::after,
-  > dd[itemprop="datePublished"]::after {
+  // reason `time` is here is in the case of multiple itemprop values
+  > dd[itemprop~="dateModified"] > time::after,
+  > dd[itemprop~="dateCreated"]::after,
+  > dd[itemprop~="datePublished"]::after {
+    .box-inline(1px; transparent);
     display: inline;
     margin-left: 1rem;
     font-weight: bold;
@@ -136,8 +139,8 @@ dd {
     line-height: 0;
     font-family: @project_font_family_accent;
   }
-  > dd[itemprop="dateModified"]::after  {color: #610000; background: #ff9e9e; content: 'Latest';}
-  > dd[itemprop="dateCreated"]::after   {color: #4e6100; background: #ecff9e; content: 'Completed';}
-  > dd[itemprop="datePublished"]::after {color: #006127; background: #9effc5; content: 'Released';}
+  > dd[itemprop~="dateModified"] > time::after {color: #610000; background: #ff9e9e; content: 'Latest';}
+  > dd[itemprop~="dateCreated"]::after         {color: #4e6100; background: #ecff9e; content: 'Completed';}
+  > dd[itemprop~="datePublished"]::after       {color: #006127; background: #9effc5; content: 'Released';}
   .tod::before {content: '@\0020';}
 }
