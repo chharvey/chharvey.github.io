@@ -4,10 +4,6 @@
 \*##################*/
 
 
-// colors
-@color_h_major: @lakesuperior;
-@color_h_minor: @facilityabyss;
-
 // font-sizes
 @font_size_h1: 48/16; // 3.0000 || 2.000vru
 @font_size_h2: 35/16; // 2.1875 || 1.458vru
@@ -25,12 +21,12 @@
 @vru_height_h6: 10/16; // 0.625
 
 // line-heights
-@line_height_h1: @line_height_base / @font_size_h1 * @vru_height_h1; // 1.5 / 3.0000 * 2.000 == 0.5000
-@line_height_h2: @line_height_base / @font_size_h2 * @vru_height_h2; // 1.5 / 2.1875 * 1.500 == 0.6857
-@line_height_h3: @line_height_base / @font_size_h3 * @vru_height_h3; // 1.5 / 1.6250 * 1.250 == 0.9231
-@line_height_h4: @line_height_base / @font_size_h4 * @vru_height_h4; // 1.5 / 1.3125 * 1.000 == 1.1429
-@line_height_h5: @line_height_base / @font_size_h5 * @vru_height_h5; // 1.5 / 1.1250 * 0.750 == 1.3333
-@line_height_h6: @line_height_base / @font_size_h6 * @vru_height_h6; // 1.5 / 1.0000 * 0.625 == 1.5000
+@line_height_h1: @project_line_height / @font_size_h1 * @vru_height_h1; // 1.5 / 3.0000 * 2.000 == 0.5000
+@line_height_h2: @project_line_height / @font_size_h2 * @vru_height_h2; // 1.5 / 2.1875 * 1.500 == 0.6857
+@line_height_h3: @project_line_height / @font_size_h3 * @vru_height_h3; // 1.5 / 1.6250 * 1.250 == 0.9231
+@line_height_h4: @project_line_height / @font_size_h4 * @vru_height_h4; // 1.5 / 1.3125 * 1.000 == 1.1429
+@line_height_h5: @project_line_height / @font_size_h5 * @vru_height_h5; // 1.5 / 1.1250 * 0.750 == 1.3333
+@line_height_h6: @project_line_height / @font_size_h6 * @vru_height_h6; // 1.5 / 1.0000 * 0.625 == 1.5000
 
 // total remainder spacing (in vrus)
 @vru_remain_h1: 4 - @vru_height_h1; // 2.000
@@ -79,8 +75,8 @@
 : 2015-02-11
   */
 .heading(@font_size, @line_height, @vru_top, @vru_bottom) {
-  .spacing-top(@vru_top * @vru_core);
-  .spacing-bottom(@vru_bottom * @vru_core);
+  .spacing-top(@vru_top * @project_vru);
+  .spacing-bottom(@vru_bottom * @project_vru);
   font-size: (@font_size * 1rem);
   line-height: @line_height;
 }
@@ -100,18 +96,18 @@
 : 2015-02-11
   */
 h1, h2, h3, h4, h5, h6 {
-  font-family: @fontfam_heading;
+  font-family: @project_font_family_heading;
 }
 h1 {
   .heading(@font_size_h1, @line_height_h1, @vru_top_h1, @vru_bot_h1);
   font-variant: small-caps;
   text-align: center;
-  color: @color_h_major;
+  color: @project_color_h_major;
 }
 h2 {
   .heading(@font_size_h2, @line_height_h2, @vru_top_h2, @vru_bot_h2);
-  .border-vert-one(bottom; 1px; solid; @color_h_minor);
-  color: @color_h_minor;
+  .border-vert-one(bottom; 1px; solid);
+  color: @project_color_h_minor;
 }
 h3 {
   .heading(@font_size_h3, @line_height_h3, @vru_top_h3, @vru_bot_h3);
@@ -125,7 +121,7 @@ h5 {
   .heading(@font_size_h5, @line_height_h5, @vru_top_h5, @vru_bot_h5);
   font-style: italic;
   font-weight: normal;
-  color: @color_h_minor;
+  color: @project_color_h_minor;
 }
 h6 {
   .heading(@font_size_h6, @line_height_h6, @vru_top_h6, @vru_bot_h6);
@@ -150,13 +146,13 @@ h6 {
 : 2015-02-27
   */
 .h--Sub {
-  .font-size-block(2; 2 * @line_height_base);
+  .font-size-block(2; 2 * @project_line_height);
   font-style: normal;
   font-variant: normal;
   font-weight: normal;
-  font-family: @fontfam_script;
+  font-family: @project_font_family_script;
   text-align: center;
-  color: @color_accent;
+  color: @project_color_accent;
 }
 
 /**
@@ -176,11 +172,11 @@ h6 {
   */
 .h--Folio {
   .h--Sub;
-  .font-size-block(3; 3 * @line_height_base);
-  .spacing-top(   4 * @vru_core);
-  .spacing-bottom(1 * @vru_core);
+  .font-size-block(3; 3 * @project_line_height);
+  .spacing-top(   4 * @project_vru);
+  .spacing-bottom(1 * @project_vru);
   white-space: nowrap;
-  color: @color_h_major;
+  color: @project_color_h_major;
 }
 
 /**

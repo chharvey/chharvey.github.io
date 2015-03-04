@@ -1,11 +1,19 @@
 
-/*#################*\
-    _borders.less
-\*#################*/
+/*############*\
+    _hr.less
+\*############*/
+
+
+// This stylesheet defines mixins used for creating an `hr`-like border on the top or bottom
+// of an Element. Rather than using an `<hr/>` Element, which doesn't really provide any
+// semantic value, use `</section><section>` (or whichever Element is appropriate) and
+// style it/them using CSS. Use these mixins to style the end of the first section, and/or the
+// beginning of the second section with a border. Using CSS to style borders also provides more
+// flexible options that cannot be achieved by the `<hr/>` Element alone.
 
 
 /**
-  * Adds a top border, while adjusting padding to be a Golden proportion to 1vru,
+  * Adds a top/bottom border, while adjusting padding to be a Golden proportion to 1vru,
   * and adjusts margin to keep vertical rhythm.
   *
   * `.vru-top-phi(...)`    adjusts top padding to be the larger  of the proportion (0.618034)
@@ -69,8 +77,8 @@
 .vru-top-even(@n; @style; @color) {
   @width_rem: @n * (1rem/16); // assuming 1rem = 16px by user agent
   border-top: @width_rem  @style  @color;
-  padding-top: ((@vru_core * 0.5) - @width_rem);
-  margin-top: -(@vru_core * 0.5); // -((@vru_core * 0.5) - @width_rem) - @width_rem;
+  padding-top: ((@project_vru * 0.5) - @width_rem);
+  margin-top: -(@project_vru * 0.5); // -((@project_vru * 0.5) - @width_rem) - @width_rem;
 }
 .vru-top-even(@n; @style) {
   .vru-top-even(@n; @style; currentColor);
@@ -83,9 +91,9 @@
 }
 
 .vru-top-undo() {
-  border-top: 0;
+  border-top:  0;
   padding-top: 0;
-  margin-top: 0;
+  margin-top:  0;
 }
 
 // .vru-bottom-phi(@n; @style; @color) {
@@ -123,8 +131,8 @@
 .vru-bottom-even(@n; @style; @color) {
   @width_rem: @n * (1rem/16); // assuming 1rem = 16px by user agent
   border-bottom: @width_rem  @style  @color;
-  padding-bottom: ((@vru_core * 0.5) - @width_rem);
-  margin-bottom:  @vru_core * 0.5; // @vru_core - ((@vru_core * 0.5) - @width_rem) - @width_rem;
+  padding-bottom: ((@project_vru * 0.5) - @width_rem);
+  margin-bottom:  @project_vru * 0.5; // @project_vru - ((@project_vru * 0.5) - @width_rem) - @width_rem;
 }
 .vru-bottom-even(@n; @style) {
   .vru-bottom-even(@n; @style; currentColor);
@@ -137,7 +145,7 @@
 }
 
 .vru-bottom-undo() {
-  border-bottom: 0;
+  border-bottom:  0;
   padding-bottom: 0;
-  margin-bottom: 0;
+  margin-bottom:  0;
 }

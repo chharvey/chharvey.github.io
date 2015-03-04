@@ -4,6 +4,11 @@
 \*##############*/
 
 
+@color_map_bg_hi: #ebf2f3; @color_map_bg_hi: lighten(@facilityabyss, @golden1);                            // 61.80%
+@color_map_bg_md: #cfe0e2; @color_map_bg_md: lighten(@facilityabyss, @golden1 * @phi4c);                   // 52.79%
+@color_map_bg_lo: #b6d0d3; @color_map_bg_lo: lighten(@facilityabyss, @golden1 * @phi4c * @phi4c);          // 45.08%
+@color_map_bg_hv: #a1c2c7; @color_map_bg_hv: lighten(@facilityabyss, @golden1 * @phi4c * @phi4c * @phi4c); // 38.51% ≈ @golden2
+
 /**
   * A `dl` Element, or Map, contains term-description pairs.
   * Each pair consists of exactly one `dt` and exactly one `dd`, where
@@ -100,12 +105,12 @@ dd {
 .dl--Horiz.Tbl {
   > dt,
   > dd {
-    padding: @boxpadding_sml;
+    padding: @project_boxpadding_sml;
   }
   > dt:nth-child(4n+1),
-  > dd:nth-child(4n+2) {background-color: @color_table_bg_md;}
+  > dd:nth-child(4n+2) {background-color: @color_map_bg_md;}
   > dt:nth-child(4n+3),
-  > dd:nth-child(4n)   {background-color: @color_table_bg_lo;}
+  > dd:nth-child(4n)   {background-color: @color_map_bg_lo;}
 }
 
 /**
@@ -122,17 +127,17 @@ dd {
     font-weight: bold;
     &::after {content: ':';}
   }
+  > dd.latest::after,
   > dd.complete::after,
-  > dd.release::after,
-  > dd.latest::after {
+  > dd.release::after {
     display: inline;
     margin-left: 1rem;
     font-weight: bold;
-    font-size: (@font_size_sml * 1rem);
-    font-family: @fontfam_accent;
+    font-size: (@project_font_size_sml * 1rem);
+    font-family: @project_font_family_accent;
   }
-  > dd.complete::after {color: @color_cshn_txt; background: @color_cshn_bg; content: 'Completed';}
-  > dd.release::after  {color: @color_skss_txt; background: @color_skss_bg; content: 'Released';}
-  > dd.latest::after   {color: @color_warn_txt; background: @color_warn_bg; content: 'Latest';}
+  > dd.latest::after   {color: #610000; background: #ff9e9e; content: 'Latest';}
+  > dd.complete::after {color: #4e6100; background: #ecff9e; content: 'Completed';}
+  > dd.release::after  {color: #006127; background: #9effc5; content: 'Released';}
   .hm::before {content: '@\0020';}
 }
