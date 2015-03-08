@@ -1,4 +1,3 @@
-// out: resume.css
 @import (reference) url('../core/styles/project.less');
 
 /*###############*\
@@ -25,14 +24,22 @@ h3, h4, h5, h6 {
 p {
   .spacing-bottom(0);
 }
-a:not(.BlueLink) {
+a[href] {
+  &:not(.BlueLink) {
+  font-style: inherit;
   color: inherit;
-  &[rel~="external"] {
-    font-style: inherit;
-  }
   &:hover {
     text-decoration: none;
     color: inherit;
+  }
+  }
+}
+@media print {
+  a[href] {
+    text-decoration: none;
+    &.BlueLink {
+      color: @project_color_a_up;
+    }
   }
 }
 i[lang] {
@@ -70,14 +77,6 @@ abbr[title] {
     font-size: inherit;
     font-family: 'Marion','Times','Times New Roman',serif;
     line-height: inherit;
-  }
-}
-@media screen {
-  .AsideGolden {
-    box-sizing: border-box;
-    width: @golden4;
-    margin-left: @golden6;
-    margin-right: @golden7;
   }
 }
 // new layout: comment out this query for old layout
@@ -197,8 +196,6 @@ abbr[title] {
       .font-size-block(1.5; @project_line_height);
       margin-top: 0;
       border-bottom: 0;
-      position: absolute;
-      left: 0;
       text-align: right;
     }
   }

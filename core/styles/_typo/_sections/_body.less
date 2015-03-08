@@ -11,29 +11,56 @@ html {
 }
 body {
   font-family: @project_font_family_base;
-  color: @project_color_txt;
-  background-color: @project_color_bg;
+}
+@media screen {
+  body {
+    color: @project_color_txt;
+    background-color: @project_color_bg;
+  }
+}
+@media print {
+  body,
+  main {
+    margin: 0;
+  }
 }
 
 /**
-  * This Object represents a special `main` Element on the site,
-  * used for blog posts, articles, etc.
+  * These Objects represent a special layout of the site.
   * The following ratios are Golden (0.618):
-  * - main width to window width
-  * - main margin right to main margin left
+  * - `.MainGolden` to its container
+  * - `.AsideGoldenMinor` to `.AsideGolden`
 @tags
 : #golden
 @author
 : Chris Harvey
 @updated
-: 2015-02-12
+: 2015-02-17
   */
-.MainGolden {
-  box-sizing: border-box;
-  width:        @golden1;
-  margin-left:  @golden3;
-  margin-right: @golden4;
-  margin-bottom: 8 * @project_vru;
+@media screen {
+  .MainGolden {
+    box-sizing: border-box;
+    width:        @golden1;
+    margin-left:  @golden3;
+    margin-right: @golden4;
+    margin-bottom: 8 * @project_vru;
+  }
+  .AsideGolden {
+    box-sizing: border-box;
+    width:        @golden4; // @golden1 within a @golden3
+    margin-left:  @golden6; // @golden3 within a @golden3
+    margin-right: @golden7; // @golden4 within a @golden3
+    position: absolute;
+    left: 0;
+  }
+  .AsideGoldenMinor {
+    box-sizing: border-box;
+    width:        @golden5; // @golden1 within a @golden4
+    margin-left:  @golden8; // @golden4 within a @golden4
+    margin-right: @golden7; // @golden3 within a @golden4
+    position: absolute;
+    right: 0;
+  }
 }
 
 /**
@@ -101,22 +128,13 @@ body {
 @author
 : Chris Harvey
 @updated
-: 2015-02-11
+: 2015-02-28
   */
-.status(@brdrc; @bgc) {
-  border-left:  0.25rem solid @brdrc;
-  border-right: 0.25rem solid @brdrc;
-  padding-left:  0.75rem;
-  padding-right: 0.75rem;
-  margin-left:  1rem;
-  margin-right: 1rem;
-  box-shadow: 4px 4px 8px #808080;
-  background: fadeout(@bgc, 80%);
-}
 .Article { // change this to [itemscope][itemtype="https://schema.org/Article"]
   &[data-status="draft"]::before,
   &[data-status="complete"]::before,
   &[data-status="released"]::before {
+    // FIXME cannot use AsideGoldenMinor because cannot include classes from inside media queries
     .box-block(1px; transparent);
     .font-size-block(@project_font_size_sml; @project_line_height);
     display: block;
@@ -132,9 +150,34 @@ body {
   &[data-status="complete"]::before {color: #4e6100; background: #ecff9e; content: 'This article is mostly complete.';}
   &[data-status="released"]::before {color: #006127; background: #9effc5; content: 'This article is ready for implemen' '\00ad' 'tation.';}
 
+}
+@media screen {
+  .Article {
+    .status(@brdrc; @bgc) {
+      border-left:  0.25rem solid @brdrc;
+      border-right: 0.25rem solid @brdrc;
+      background: fadeout(@bgc, 80%);
+    }
+    [data-status="draft"],
+    [data-status="complete"],
+    [data-status="released"] {
+      padding-left:  0.75rem;
+      padding-right: 0.75rem;
+      margin-left:  1rem;
+      margin-right: 1rem;
+      box-shadow: 4px 4px 8px #808080;
+    }
   [data-status="draft"]    {.status(#f00; #ff9e9e);}
   [data-status="complete"] {.status(#cf0; #ecff9e);}
   [data-status="released"] {.status(#0f6; #9effc5);}
+  }
+}
+@media print {
+  .Article {
+    [data-status="draft"]    {color: #610000;}
+    [data-status="complete"] {color: #4e6100;}
+    [data-status="released"] {color: #006127;}
+  }
 }
 
 /**
