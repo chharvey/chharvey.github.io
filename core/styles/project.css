@@ -293,10 +293,14 @@ body {
 .Article[data-status="draft"]::before,
 .Article[data-status="complete"]::before,
 .Article[data-status="released"]::before {
+  border: 1px solid transparent;
+  margin-top: -2px;
+  padding: 0.75rem 1rem;
+  box-sizing: border-box;
+  border-radius: 0.5rem;
   font-size: 0.75rem;
   line-height: 2;
   display: block;
-  box-sizing: border-box;
   width: 9.01699437%;
   margin-left: 3.44418537%;
   margin-right: 2.12862363%;
@@ -1247,31 +1251,38 @@ dd > ul {
 .Docmeta > dt::after {
   content: ':';
 }
-.Docmeta > dd.latest::after,
-.Docmeta > dd.complete::after,
-.Docmeta > dd.release::after {
+.Docmeta > dd[itemprop~="dateModified"] > time::after,
+.Docmeta > dd[itemprop~="dateCreated"]::after,
+.Docmeta > dd[itemprop~="datePublished"]::after {
+  padding: 1px 2px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: transparent;
+  border-radius: 0.25rem;
+  white-space: nowrap;
   display: inline;
   margin-left: 1rem;
   font-weight: bold;
   font-size: 0.75rem;
+  line-height: 0;
   font-family: 'Geneva', 'Tahoma', sans-serif;
 }
-.Docmeta > dd.latest::after {
+.Docmeta > dd[itemprop~="dateModified"] > time::after {
   color: #610000;
   background: #ff9e9e;
   content: 'Latest';
 }
-.Docmeta > dd.complete::after {
+.Docmeta > dd[itemprop~="dateCreated"]::after {
   color: #4e6100;
   background: #ecff9e;
   content: 'Completed';
 }
-.Docmeta > dd.release::after {
+.Docmeta > dd[itemprop~="datePublished"]::after {
   color: #006127;
   background: #9effc5;
   content: 'Released';
 }
-.Docmeta .hm::before {
+.Docmeta .tod::before {
   content: '@\0020';
 }
 /*################*\
@@ -1687,24 +1698,23 @@ var::after {
 \*##############*/
 /**
   * Class `.abbr--Acro` represents an acronym.
-  * `.abbr--Acro.First` represents an acronym at the beginning of a sentence or heading.
-  * `.abbr--Acro.First` has `display:inline-block;`, a HACK because `::first-letter` only works on
-  * block or inline-block elements
+  * `.abbr__First` should be used on the first letter in an acronym at the beginning
+  * of a sentence or heading. E.g.:
+<p><abbr class="abbr--Acro"><span class="abbr__First">D</span>IY</abbr>
+  stands for Do It Yourself.</p>
+  * Reminder: text-level uses 'em' instead of 'rem'
 @tags
 : #typography
 : #span
 @author
 : Chris Harvey
 @updated
-: 2015-02-28
+: 2015-03-05
   */
 .abbr--Acro {
   font-size: 0.75em;
 }
-.abbr--Acro.First {
-  display: inline-block;
-}
-.abbr--Acro.First::first-letter {
+.abbr__First {
   font-size: 1.33333333em;
 }
 /**
