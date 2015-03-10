@@ -293,99 +293,107 @@ body {
 @author
 : Chris Harvey
 @updated
-: 2015-03-07
+: 2015-03-09
   */
-[itemtype="https://schema.org/Article"] {
+.Article {
   font-family: 'Baskerville', 'Palatino', 'Cochin', serif;
   text-align: justify;
 }
 /**
   * The `[data-status]` attribute indicates the status of a document or Element.
-  * "draft"    : a work in progress
-  * "complete" : finished but still needs edits before releasing
-  * "released" : ready for implementation
+  * Use class `.Article--*` to style the article based on its status, or
+  * `.Article__*` to style an element based on its status.
+  * `draft`    : a work in progress
+  * `complete` : finished but still needs edits before releasing
+  * `released` : ready for implementation
   * See https://github.com/chharvey/chharvey.github.io/wiki/Document-Status/ for more info.
 @implements
+: .box-block()
 : .font-size-block()
 @tags
 : #status
-: #golden
 : #border
 : #background
 @author
 : Chris Harvey
 @updated
-: 2015-03-07
+: 2015-03-09
   */
-[itemtype="https://schema.org/Article"][data-status="draft"]::before,
-[itemtype="https://schema.org/Article"][data-status="complete"]::before,
-[itemtype="https://schema.org/Article"][data-status="released"]::before {
-  border: 0 solid currentColor;
-  margin-top: 0;
-  padding: 0.75rem 1rem;
-  box-sizing: border-box;
-  border-radius: 0.5rem;
-  font-size: 0.75rem;
-  line-height: 2;
-  display: block;
-  width: 9.01699437%;
-  margin-left: 3.44418537%;
-  margin-right: 2.12862363%;
-  position: absolute;
-  right: 0;
-  font-weight: bold;
-  font-family: 'Geneva', 'Tahoma', sans-serif;
-  text-align: left;
-}
-[itemtype="https://schema.org/Article"][data-status="draft"]::before {
-  color: #610000;
-  background: #ff9e9e;
+.Article--draft::before {
   content: 'This article is a work in progress.';
+  color: #610000;
 }
-[itemtype="https://schema.org/Article"][data-status="complete"]::before {
-  color: #4e6100;
-  background: #ecff9e;
+.Article--complete::before {
   content: 'This article is mostly complete.';
+  color: #4e6100;
 }
-[itemtype="https://schema.org/Article"][data-status="released"]::before {
-  color: #006127;
-  background: #9effc5;
+.Article--released::before {
   content: 'This article is ready for implemen' '\00ad' 'tation.';
+  color: #006127;
 }
 @media screen {
-  [itemtype="https://schema.org/Article"] [data-status="draft"],
-  [itemtype="https://schema.org/Article"] [data-status="complete"],
-  [itemtype="https://schema.org/Article"] [data-status="released"] {
+  .Article--draft::before,
+  .Article--complete::before,
+  .Article--released::before {
+    border: 0 solid currentColor;
+    margin-top: 0;
+    padding: 0.75rem 1rem;
+    box-sizing: border-box;
+    border-radius: 0.5rem;
+    font-size: 0.75rem;
+    line-height: 2;
+    display: block;
+    width: 9.01699437%;
+    margin-left: 3.44418537%;
+    margin-right: 2.12862363%;
+    position: absolute;
+    right: 0;
+    font-weight: bold;
+    font-family: 'Geneva', 'Tahoma', sans-serif;
+    text-align: left;
+  }
+  .Article--draft::before {
+    background: #ff9e9e;
+  }
+  .Article--complete::before {
+    background: #ecff9e;
+  }
+  .Article--released::before {
+    background: #9effc5;
+  }
+  .Article__draft,
+  .Article__complete,
+  .Article__released {
     padding-left: 0.75rem;
     padding-right: 0.75rem;
     margin-left: 1rem;
     margin-right: 1rem;
     box-shadow: 4px 4px 8px #808080;
   }
-  [itemtype="https://schema.org/Article"] [data-status="draft"] {
+  .Article__draft {
     border-left: 0.25rem solid #ff0000;
     border-right: 0.25rem solid #ff0000;
     background: rgba(255, 158, 158, 0.2);
   }
-  [itemtype="https://schema.org/Article"] [data-status="complete"] {
+  .Article__complete {
     border-left: 0.25rem solid #ccff00;
     border-right: 0.25rem solid #ccff00;
     background: rgba(236, 255, 158, 0.2);
   }
-  [itemtype="https://schema.org/Article"] [data-status="released"] {
+  .Article__released {
     border-left: 0.25rem solid #00ff66;
     border-right: 0.25rem solid #00ff66;
     background: rgba(158, 255, 197, 0.2);
   }
 }
 @media print {
-  [itemtype="https://schema.org/Article"] [data-status="draft"] {
+  .Article__draft {
     color: #610000;
   }
-  [itemtype="https://schema.org/Article"] [data-status="complete"] {
+  .Article__complete {
     color: #4e6100;
   }
-  [itemtype="https://schema.org/Article"] [data-status="released"] {
+  .Article__released {
     color: #006127;
   }
 }
@@ -398,9 +406,9 @@ body {
 @author
 : Chris Harvey
 @updated
-: 2015-03-07
+: 2015-03-09
   */
-[itemtype="https://schema.org/Article"] [data-informative] {
+.Article [data-informative] {
   border-left: 0.125rem solid #06f;
   border-right: 0.125rem solid #06f;
   padding-left: 0.375rem;
