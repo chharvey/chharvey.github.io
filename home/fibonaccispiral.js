@@ -51,7 +51,7 @@ function makepretty() {
   }
 }
 
-(function d3circles() {
+function d3circles() {
   var svg_width = 960;
   var svg_padding = 24;
   var svg = d3.select('main').append('svg').attr('xmlns','http://www.w3.org/2000/svg')
@@ -122,7 +122,7 @@ function makepretty() {
     side_links.select('.js-res').select('text').attr('transform', 'rotate(' + (360-side_rotate.res) + ')').attr('dy','0.5em').text('Résumé');
     side_links.select('.js-cpr').select('text').attr('transform', 'rotate(' + (360-side_rotate.cpr) + ')').attr('dy','0.5em').text('©');
   })();
-})();
+};
 
 
 $(document).ready(function () {
