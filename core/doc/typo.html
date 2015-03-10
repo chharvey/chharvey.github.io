@@ -909,41 +909,38 @@ sel {
       <button class="Button">Click me!</button></p>
   </section>
 </section> -->
-<h1>Modules</h1>
+<h1>Components</h1>
 <section>
-  <h2>Document-Level</h2>
-  <section id="doc-status">
-    <h3>Document Status</h3>
+  <h2>Documents</h2>
     <p class="Alert--Help"><small><strong class="p__Title">Note:</strong> On all <code>.Article</code>
       objects in this section, outlines have been added to show structure.</small></p>
-    <p>An entire <code>.Article</code>, (either <code>main</code> or <code>article</code>
-      Element) may be marked with one of three types of statuses:
-      <b>draft</b>, <b>complete</b>, or <b>released</b>.
-      An <code>.Article</code> marked with either of these statuses appears with a box
-      describing its implementation status.
+  <p>A <dfn id="document">document</dfn> may take the form of a <code>body &gt; main</code> or
+    <code>body &gt;&gt; article</code>. This document should have a <b>status</b> and be marked up
+    with metadata. Use the  <code>.Article</code> class to style the document, and use modifier
+    subclasses to style the document according to its status if it has one.
       Read <a rel="external"
       href="https://github.com/chharvey/chharvey.github.io/wiki/Document-Status">my
       technical report on document status</a> for more information.</p>
-    <p class="help-otln Article--draft"    data-status="draft"    style="height: 9rem;">This is an <code>.Article--draft</code>.</p>
-    <p class="help-otln Article--complete" data-status="complete" style="height: 9rem;">This is an <code>.Article--complete</code>.</p>
-    <p class="help-otln Article--released" data-status="released" style="height: 9rem;">This is an <code>.Article--released</code>.</p>
+  <article class="Article help-otln Article--draft"    data-status="draft"    style="height: 9rem;">This is an <code>.Article.Article--draft</code>.    It is a document with a stautus of <b>draft</b>.</article>
+  <article class="Article help-otln Article--complete" data-status="complete" style="height: 9rem;">This is an <code>.Article.Article--complete</code>. It is a document with a stautus of <b>complete</b>.</article>
+  <article class="Article help-otln Article--released" data-status="released" style="height: 9rem;">This is an <code>.Article.Article--released</code>. It is a document with a stautus of <b>released</b>.</article>
     <p>Additionally, any Element inside an <code>.Article</code> may be marked with:</p>
-    <p class="Article__draft"    data-status="draft"   >This is an <code>.Article__draft</code>.</p>
-    <p class="Article__complete" data-status="complete">This is an <code>.Article__complete</code>.</p>
-    <p class="Article__released" data-status="released">This is an <code>.Article__released</code>.</p>
+  <article class="Article help-otln">
+    <p class="Article__draft"    data-status="draft"   >This is an <code>.Article &gt; .Article__draft</code>.</p>
+    <p class="Article__complete" data-status="complete">This is an <code>.Article &gt; .Article__complete</code>.</p>
+    <p class="Article__released" data-status="released">This is an <code>.Article &gt; .Article__released</code>.</p>
+  </article>
     <p>An <code>.Article</code> is normative by default, but may also have
       informative (non-essential) Elements.</p>
     <article class="Article help-otln">
-      This is an <code>.Article</code>, with Elements inside:
-      <p>This is an <code>.Article &gt; p</code>.</p>
-      <p data-informative="">This is an Element marked with <code>[data-informative]</code> inside an <code>.Article</code>.</p>
+      <p data-informative="">This is an <code>.Article &gt;&gt; p[data-informative]</code>.</p>
       <p>This is another paragraph in an article.
-        <span data-informative="">This span is informative.</span>
+        <span data-informative="">This is an <code>.Article &gt;&gt; span[data-informative]</code>.</span>
         This is the rest of the paragraph.</p>
     </article>
-  </section>
+</section>
   <section id="breadcrumbs">
-    <h3>Breadcrumbs</h3>
+    <h2>Breadcrumbs</h2>
     <p>Read <a rel="external"
       href="https://github.com/chharvey/chharvey.github.io/wiki/Breadcrumbs">my
       technical report on breadcrumbs</a> for more information.</p>
@@ -964,7 +961,7 @@ sel {
     </ol>
   </section>
   <section id="docmta">
-    <h3>Document Metadata</h3>
+    <h2>Document Metadata</h2>
     <p>This <code>.Docmeta</code> is here for stylistic demonstration purposes.</p>
     <dl class="Docmeta">
       <dt>Author</dt>
@@ -983,11 +980,11 @@ sel {
       <dd class="update" itemprop="dateModified"><time datetime="2014-05-08 14:53">May 8, 2013 <span class="hm">2:53 PM</span></time></dd>
     </dl>
   </section>
-  <section id="toc" class="Article__draft" data-status="draft">
-    <h3>Table of Contents</h3>
-  </section>
+<section id="toc" class="Article__draft">
+  <h2>Table of Contents</h2>
+</section>
   <section id="footnotes">
-    <h3>Footnotes</h3>
+    <h2>Footnotes</h2>
     <p>Conversion gel is made with moon rocks.<sup><a class="Rf" id="rf-rocks" rel="this" href="#fn-rocks">1</a></sup>
       Some panels are made with conversion gel.<sup><a class="Rf" id="rf-panels" rel="this" href="#fn-panels">2</a></sup>
       Read <a rel="external" href="https://github.com/chharvey/chharvey.github.io/wiki/Footnotes">my
@@ -1009,7 +1006,6 @@ sel {
       </ul>
     </footer>
   </section>
-</section>
 <section id="messages">
   <h2>Messages</h2>
   <p>The following block is an alert. It should take the form of <code>p &gt; small</code>, with
