@@ -1575,17 +1575,25 @@ kbd > kbd {
 @updated
 : 2015-03-09
   */
-.Article {
+.Document {
   font-family: 'Baskerville', 'Palatino', 'Cochin', serif;
   text-align: justify;
 }
 /**
   * The `[data-status]` attribute indicates the status of a document or Element.
-  * Use class `.Article--*` to style the article based on its status, or
-  * `.Article__*` to style an element based on its status.
+  *
+  * Use class `.Document--*` to style the document based on its status, or
+  * `.Document__*` to style an element based on its status.
+  *
   * `draft`    : a work in progress
   * `complete` : finished but still needs edits before releasing
   * `released` : ready for implementation
+  *
+  * The `[data-informative]` attribute on an Element in a `.Document` indicates that
+  * the content is nonessential to the document.
+  *
+  * Use class `.Document__informative` to style nonessential elements.
+  *
   * See https://github.com/chharvey/chharvey.github.io/wiki/Document-Status/ for more info.
 @implements
 : .box-block()
@@ -1597,24 +1605,36 @@ kbd > kbd {
 @author
 : Chris Harvey
 @updated
-: 2015-03-09
+: 2015-03-14
   */
-.Article--draft::before {
-  content: 'This article is a work in progress.';
+.Document--draft::before {
+  color: #610000;
+  content: 'This document is a work in progress.';
+}
+.Document--complete::before {
+  color: #4e6100;
+  content: 'This document is mostly complete.';
+}
+.Document--released::before {
+  color: #006127;
+  content: 'This document is ready for implemen' '\00ad' 'tation.';
+}
+.Document__draft {
   color: #610000;
 }
-.Article--complete::before {
-  content: 'This article is mostly complete.';
+.Document__complete {
   color: #4e6100;
 }
-.Article--released::before {
-  content: 'This article is ready for implemen' '\00ad' 'tation.';
+.Document__released {
   color: #006127;
 }
+.Document__informative {
+  color: #002761;
+}
 @media screen {
-  .Article--draft::before,
-  .Article--complete::before,
-  .Article--released::before {
+  .Document--draft::before,
+  .Document--complete::before,
+  .Document--released::before {
     border: 0 solid currentColor;
     margin-top: 0;
     padding: 0.75rem 1rem;
@@ -1632,72 +1652,61 @@ kbd > kbd {
     font-family: 'Geneva', 'Tahoma', sans-serif;
     text-align: left;
   }
-  .Article--draft::before {
+  .Document--draft::before {
     background: #ff9e9e;
   }
-  .Article--complete::before {
+  .Document--complete::before {
     background: #ecff9e;
   }
-  .Article--released::before {
+  .Document--released::before {
     background: #9effc5;
   }
-  .Article__draft,
-  .Article__complete,
-  .Article__released {
+  .Document__draft,
+  .Document__complete,
+  .Document__released {
     padding-left: 0.75rem;
     padding-right: 0.75rem;
     margin-left: 1rem;
     margin-right: 1rem;
     box-shadow: 4px 4px 8px #808080;
   }
-  .Article__draft {
+  .Document__draft {
     border-left: 0.25rem solid #ff0000;
     border-right: 0.25rem solid #ff0000;
     background: rgba(255, 158, 158, 0.2);
   }
-  .Article__complete {
+  .Document__complete {
     border-left: 0.25rem solid #ccff00;
     border-right: 0.25rem solid #ccff00;
     background: rgba(236, 255, 158, 0.2);
   }
-  .Article__released {
+  .Document__released {
     border-left: 0.25rem solid #00ff66;
     border-right: 0.25rem solid #00ff66;
     background: rgba(158, 255, 197, 0.2);
   }
+  .Document__informative {
+    border-left: 0.125rem solid #06f;
+    border-right: 0.125rem solid #06f;
+    padding-left: 0.375rem;
+    padding-right: 0.375rem;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    box-shadow: 2px 2px 4px #c0c0c0;
+    font-family: 'Optima', 'Lucida Grande', 'Tahoma', sans-serif;
+    background: rgba(158, 197, 255, 0.2);
+  }
 }
 @media print {
-  .Article__draft {
-    color: #610000;
+  .Document__informative {
+    quotes: '(' ')';
   }
-  .Article__complete {
-    color: #4e6100;
+  .Document__informative::before {
+    content: open-quote;
   }
-  .Article__released {
-    color: #006127;
+  .Document__informative::after {
+    content: close-quote;
   }
-}
-/**
-  * The `[data-informative]` attribute on an Element in an `.Article` indicates that
-  * the content is nonessential to the article.
-  * See https://github.com/chharvey/chharvey.github.io/wiki/Document-Status/ for more info.
-@tags
-: #status
-@author
-: Chris Harvey
-@updated
-: 2015-03-09
-  */
-.Article [data-informative] {
-  border-left: 0.125rem solid #06f;
-  border-right: 0.125rem solid #06f;
-  padding-left: 0.375rem;
-  padding-right: 0.375rem;
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
-  box-shadow: 2px 2px 4px #c0c0c0;
-  font-family: 'Optima', 'Lucida Grande', 'Tahoma', sans-serif;
-  background: rgba(158, 197, 255, 0.2);
 }
 /*#####################*\
     _breadcrumbs.less
