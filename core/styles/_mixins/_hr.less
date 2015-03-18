@@ -28,7 +28,7 @@
   * `.vru-top-undo(...)`    removes top    border, padding, and margin completely
   * `.vru-bottom-undo(...)` removes bottom border, padding, and margin completely
 @params
-: @n     : value of the border-top-width property.
+: @n     : value of the border-top-width property (default to `0`).
            Must be unitless but represent number of pixels.
            Must be less than the number of pixels in 1 vru.
 : @style : value of the border-top-style property (default to `solid`)
@@ -75,10 +75,18 @@
 // }
 
 .vru-top-even(@n; @style; @color) {
-  @width_rem: @n * (1rem/16); // assuming 1rem = 16px by user agent
-  border-top: @width_rem  @style  @color;
-  padding-top: ((@project_vru * 0.5) - @width_rem);
-  margin-top: -(@project_vru * 0.5); // -((@project_vru * 0.5) - @width_rem) - @width_rem;
+  // @width_rem: @n * (1rem/16); // assuming 1rem = 16px by user agent
+  // border-top: @width_rem  @style  @color;
+  // padding-top: ((@project_vru * 0.5) - @width_rem);
+  // margin-top: -(@project_vru * 0.5); // -((@project_vru * 0.5) - @width_rem) - @width_rem;
+  @width: @n * 1px;
+  &::before {
+    content: '';
+    display: block;
+    .border-vert-one(top; @width; @style; @color);
+    position: relative;
+    top: (-0.5 * @project_vru);
+  }
 }
 .vru-top-even(@n; @style) {
   .vru-top-even(@n; @style; currentColor);
@@ -129,10 +137,18 @@
 // }
 
 .vru-bottom-even(@n; @style; @color) {
-  @width_rem: @n * (1rem/16); // assuming 1rem = 16px by user agent
-  border-bottom: @width_rem  @style  @color;
-  padding-bottom: ((@project_vru * 0.5) - @width_rem);
-  margin-bottom:  @project_vru * 0.5; // @project_vru - ((@project_vru * 0.5) - @width_rem) - @width_rem;
+  // @width_rem: @n * (1rem/16); // assuming 1rem = 16px by user agent
+  // border-bottom: @width_rem  @style  @color;
+  // padding-bottom: ((@project_vru * 0.5) - @width_rem);
+  // margin-bottom:  @project_vru * 0.5; // @project_vru - ((@project_vru * 0.5) - @width_rem) - @width_rem;
+  @width: @n * 1px;
+  &::after {
+    content: '';
+    display: block;
+    .border-vert-one(bottom; @width; @style; @color);
+    position: relative;
+    top: (0.5 * @project_vru);
+  }
 }
 .vru-bottom-even(@n; @style) {
   .vru-bottom-even(@n; @style; currentColor);
