@@ -25,8 +25,8 @@ nav {
   margin: 0;
   list-style-type: none;
 }
+@trans_square: @project_ani_long;
 a.Square { // `a` to increase specificity // HACK
-  @trans_square: @project_ani_long;
   .transition(background-color, opacity; @trans_square);
   display: block;
   height: 3em; // will be changed proportionally in JS
@@ -36,26 +36,26 @@ a.Square { // `a` to increase specificity // HACK
   background-image: url('images/circle.svg');
   background-size: 200%;
   opacity: inherit;
-  > .Text {
-    .transition(box-shadow,text-shadow,color,background-color; @trans_square);
-    display: block;
-    position: relative;
-    top: 0.5em; // will be changed proportionally in JS
-    border-radius: 0; // will be changed proportionally in JS
-    font-family: @project_font_family_heading;
-    text-align: center;
-    text-shadow: 2px 2px 10px;
+  &:hover {
+    text-decoration: none;
+    color: @color_crumb_dn_txt;
+    background-color: @color_crumb_dn_bg;
   }
 }
-a.Square:hover {
-  text-decoration: none;
-  color: @color_crumb_dn_txt;
-  background-color: @color_crumb_dn_bg;
-  > .Text {
-    @bgcolor: fadeout(@project_color_bg, 60%);
-    box-shadow: 0px 0px 20px 20px @bgcolor;
-    background-color: @bgcolor;
-  }
+.Square__Text {
+  .transition(box-shadow,text-shadow,color,background-color; @trans_square);
+  display: block;
+  position: relative;
+  top: 0.5em; // will be changed proportionally in JS
+  border-radius: 0; // will be changed proportionally in JS
+  font-family: @project_font_family_heading;
+  text-align: center;
+  text-shadow: 2px 2px 10px;
+}
+.Square:hover > .Square__Text {
+  @bgcolor: fadeout(@project_color_bg, 60%);
+  box-shadow: 0px 0px 20px 20px @bgcolor;
+  background-color: @bgcolor;
 }
 
 .q1() {background-position: 100%   0%;}
@@ -76,13 +76,16 @@ a.Square:hover {
 .Spiral > :nth-child(11) > .Square {.q3(); width: @golden11;}
 .Spiral > :nth-child(12) > .Square {.q4(); width: @golden12;}
 
-/*.Square*/.devlink {
+a.Square--Dev {
   width: 100%;
   order: -1; // in case js is turned off
   background-position: 100% 100%;
   opacity: 0;
   &:hover {opacity: 1;}
-  > .Text {font-family: 'Courier','Menlo','Monaco','Andale Mono',monospace;}
+  > .Square__Text {
+    line-height: 1;
+    font-family: 'Courier',@project_font_family_code;
+  }
 }
 
 @media print {

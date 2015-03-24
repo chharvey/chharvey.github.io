@@ -6,15 +6,15 @@ function makepretty() {
       return $(this).width();
     });
     /** sets a proportional font size for each square (dependent on square height) */
-    $('.Text').css('font-size', function () {
+    $('.Square__Text').css('font-size', function () {
       return $(this).parents('.Square').height() / 4 + 'px';
     });
     /** vertically aligns the textbox in each square (depenedent on font-size) */
-    $('.Text').css('top', function () {;
+    $('.Square__Text').css('top', function () {;
       return ($(this).parents('.Square').height() - $(this).height()) / 2 + 'px';
     });
     /** adjust the border-radius of the textbox proportionally */
-    $('.Text').css('border-radius', function () {
+    $('.Square__Text').css('border-radius', function () {
       return $(this).height() / 2 + 'px';
     });
     /** Positions the squares in a Fibonacci spiral. */
@@ -43,16 +43,14 @@ function makepretty() {
       $('.Spiral > li:nth-child(10) > .Square').css('left', p(3) + p(7)).css('top', p(2) + p(6));
       $('.Spiral > li:nth-child(11) > .Square').css('left', p(3) + p(7)).css('top', p(2) + p(6) + p(10));
       $('.Spiral > li:nth-child(12) > .Square').css('left', p(3) + p(7) + p(11)).css('top', p(2) + p(6) + p(10));
+
+      // * positions the devlink square
+      $('.Square--Dev').css('top', ($(window).height() - p(1)) * Math.pow(Util.PHI_INV, 2)  +  p(1)  +  'px');
     })();
     /** centers the group of buttons on the page */
     $('.Spiral').css('top', function () {
       return ($(window).height() - $('main').width() * Util.PHI_INV) * Math.pow(Util.PHI_INV, 2) + 'px';
     });
-    (function () {
-      // * positions the devlink square
-      var p = (-1 + Math.sqrt(5)) / 2;
-      $('.devlink').css('top', ($(window).height() - p * $('main').width()) * p*p  +  p * $('main').width()  +  'px');
-    })();
   }
 }
 
