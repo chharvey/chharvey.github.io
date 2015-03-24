@@ -2,6 +2,9 @@
     home.less
 \*#############*/
 /*@INDEX PAGE*/
+nav {
+  position: relative;
+}
 .Spiral {
   position: relative;
   padding: 0;
@@ -9,11 +12,11 @@
   list-style-type: none;
 }
 a.Square {
-  -webkit-transition-property: background-color;
-  -moz-transition-property: background-color;
-  -ms-transition-property: background-color;
-  -o-transition-property: background-color;
-  transition-property: background-color;
+  -webkit-transition-property: background-color, opacity;
+  -moz-transition-property: background-color, opacity;
+  -ms-transition-property: background-color, opacity;
+  -o-transition-property: background-color, opacity;
+  transition-property: background-color, opacity;
   -webkit-transition-duration: 0.5s;
   -moz-transition-duration: 0.5s;
   -ms-transition-duration: 0.5s;
@@ -30,15 +33,19 @@ a.Square {
   -o-transition-delay: 0s;
   transition-delay: 0s;
   display: block;
+  box-sizing: content-box;
   height: 3em;
-  position: static;
+  padding: 1px;
+  overflow: hidden;
   color: transparent;
   background-color: #c3daff;
-  background-image: url('images/circle.svg');
-  background-size: 200%;
-  opacity: inherit;
 }
-a.Square .Text {
+a.Square:hover {
+  text-decoration: none;
+  color: #ff9d00;
+  background-color: #ffe8c3;
+}
+.Square__Text {
   -webkit-transition-property: box-shadow, text-shadow, color, background-color;
   -moz-transition-property: box-shadow, text-shadow, color, background-color;
   -ms-transition-property: box-shadow, text-shadow, color, background-color;
@@ -67,62 +74,70 @@ a.Square .Text {
   text-align: center;
   text-shadow: 2px 2px 10px;
 }
-a.Square:hover {
-  text-decoration: none;
-  color: #ff9d00;
-  background-color: #ffe8c3;
-}
-a.Square:hover .Text {
+.Square:hover > .Square__Text {
   box-shadow: 0px 0px 20px 20px rgba(242, 247, 255, 0.4);
   background-color: rgba(242, 247, 255, 0.4);
 }
-.Spiral > :nth-child(1) > .Square {
+.js-Square--right::before,
+.js-Square--top::before,
+.js-Square--left::before,
+.js-Square--bottom::before {
+  -webkit-transition-property: transform;
+  -moz-transition-property: transform;
+  -ms-transition-property: transform;
+  -o-transition-property: transform;
+  transition-property: transform;
+  -webkit-transition-duration: 0.5s;
+  -moz-transition-duration: 0.5s;
+  -ms-transition-duration: 0.5s;
+  -o-transition-duration: 0.5s;
+  transition-duration: 0.5s;
+  -webkit-transition-timing-function: ease;
+  -moz-transition-timing-function: ease;
+  -ms-transition-timing-function: ease;
+  -o-transition-timing-function: ease;
+  transition-timing-function: ease;
+  -webkit-transition-delay: 0s;
+  -moz-transition-delay: 0s;
+  -ms-transition-delay: 0s;
+  -o-transition-delay: 0s;
+  transition-delay: 0s;
+  content: '';
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-image: url('images/circle.svg');
+  background-size: 200%;
+}
+.js-Square--right::before {
   background-position: 100%   0%;
-  width: 61.80339887%;
 }
-.Spiral > :nth-child(2) > .Square {
+.js-Square--top::before {
   background-position: 0%   0%;
-  width: 38.19660113%;
 }
-.Spiral > :nth-child(3) > .Square {
+.js-Square--left::before {
   background-position: 0% 100%;
-  width: 23.60679775%;
 }
-.Spiral > :nth-child(4) > .Square {
+.js-Square--bottom::before {
   background-position: 100% 100%;
-  width: 14.58980338%;
 }
-.Spiral > :nth-child(5) > .Square {
-  background-position: 100%   0%;
-  width: 9.01699437%;
+.js-Square--funnel::before {
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  transform: rotate(90deg);
 }
-.Spiral > :nth-child(6) > .Square {
-  background-position: 0%   0%;
-  width: 5.572809%;
+#devlink {
+  width: 100%;
+  opacity: 0;
 }
-.Spiral > :nth-child(7) > .Square {
-  background-position: 0% 100%;
-  width: 3.44418537%;
+#devlink:hover {
+  opacity: 1;
 }
-.Spiral > :nth-child(8) > .Square {
-  background-position: 100% 100%;
-  width: 2.12862363%;
-}
-.Spiral > :nth-child(9) > .Square {
-  background-position: 100%   0%;
-  width: 1.31556175%;
-}
-.Spiral > :nth-child(10) > .Square {
-  background-position: 0%   0%;
-  width: 0.81306188%;
-}
-.Spiral > :nth-child(11) > .Square {
-  background-position: 0% 100%;
-  width: 0.50249987%;
-}
-.Spiral > :nth-child(12) > .Square {
-  background-position: 100% 100%;
-  width: 0.310562%;
+#devlink > .Square__Text {
+  line-height: 1;
+  font-family: 'Courier', 'Menlo', 'Monaco', 'Andale Mono', monospace;
 }
 @media print {
   .Spiral {
@@ -130,7 +145,6 @@ a.Square:hover .Text {
     position: static;
   }
   .Square {
-    width: 100%;
     height: 4em;
     position: static;
     background-image: none;

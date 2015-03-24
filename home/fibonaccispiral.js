@@ -1,53 +1,130 @@
 function makepretty() {
+  function phi(n) {
+    n = n || 1;
+    return Math.pow(Util.PHI_INV, n);
+  }
   var user_has_CSS_enabled = true; // it is most likely the case that if users have JS enabled then they also have CSS enabled
   if (user_has_CSS_enabled) {
-    /** sets the height of the given rectangle to its width */
-    $('.Square').css('height', function() {
-      return $(this).width();
-    });
+    /** centers the group of buttons on the page */
+    $('.Spiral')
+      .height($('.Spiral').width() * Util.PHI_INV)
+      .css('margin-top', ($(window).height() - $('.Spiral').height()) * Math.pow(Util.PHI_INV, 2))
+      .css('margin-left', 0);
+
+    /** sets the width and height of the given rectangles. */
+    // this is not done in CSS anymore because one might want to change JS later without having to change CSS
+    (function sizeSquares() {
+      $('.Spiral > :nth-child(1)  > .Square').width(100 * phi(1)  + '%');
+      $('.Spiral > :nth-child(2)  > .Square').width(100 * phi(2)  + '%');
+      $('.Spiral > :nth-child(3)  > .Square').width(100 * phi(3)  + '%');
+      $('.Spiral > :nth-child(4)  > .Square').width(100 * phi(4)  + '%');
+      $('.Spiral > :nth-child(5)  > .Square').width(100 * phi(5)  + '%');
+      $('.Spiral > :nth-child(6)  > .Square').width(100 * phi(6)  + '%');
+      $('.Spiral > :nth-child(7)  > .Square').width(100 * phi(7)  + '%');
+      $('.Spiral > :nth-child(8)  > .Square').width(100 * phi(8)  + '%');
+      $('.Spiral > :nth-child(9)  > .Square').width(100 * phi(9)  + '%');
+      $('.Spiral > :nth-child(10) > .Square').width(100 * phi(10) + '%');
+      $('.Spiral > :nth-child(11) > .Square').width(100 * phi(11) + '%');
+      $('.Spiral > :nth-child(12) > .Square').width(100 * phi(12) + '%');
+      $('.Square').css('height', function() {
+        return $(this).width();
+      });
+    })();
+
     /** sets a proportional font size for each square (dependent on square height) */
-    $('.Text').css('font-size', function () {
+    $('.Square__Text').css('font-size', function () {
       return $(this).parents('.Square').height() / 4 + 'px';
     });
+
     /** vertically aligns the textbox in each square (depenedent on font-size) */
-    $('.Text').css('top', function () {;
+    $('.Square__Text').css('top', function () {;
       return ($(this).parents('.Square').height() - $(this).height()) / 2 + 'px';
     });
-    /** adjust the border-radius of the textbox proportionally */
-    $('.Text').css('border-radius', function () {
+
+    /** adjusts the border-radius of the textbox proportionally (dependent on square height) */
+    $('.Square__Text').css('border-radius', function () {
       return $(this).height() / 2 + 'px';
     });
+
+    /** positions the devlink square */
+    $('#devlink')
+      .addClass('js-Square--bottom')
+      .css('top', $('.Spiral').height());
+
     /** Positions the squares in a Fibonacci spiral. */
-    (function () {
+    (function spiralSquares() {
       /**
-        * Returns the product of Phi^n and $('main').width(), where Phi ≈ 0.618034
-        * @param n      the power of phi
-        * @return       Phi^n * length
+        * Creates a fibonacci spiral with one square and a group of other squares, which themselves
+        * will be recursively made into a Fibonacci spiral.
+        * @param `width`      the width of this spiral
+        * @param `pos`        the position of this spiral as 2-D array `[x,y]`
+        * @param `square0`    the first square
+        * @param `square0pos` ['right'|'top'|'left'|'bottom'] the position of the first square in this spiral
+        * @param `others`     an array of other squares
         */
-      function p(n) {
-        return ($('main').width() * Math.pow(Util.PHI_INV, n));
+      function Spiral(width, coords, square0, square0pos, others) {
+        function shorthand(width, coords, square0pos) {
+          new Spiral(width, coords, others[0], square0pos, others.slice(1, others.length));
+        }
+        this.width = width;
+        this.x = coords[0];
+        this.y = coords[1];
+        $(square0).addClass('js-Square--' + square0pos)
+        switch (square0pos) {
+          case 'right':
+            this.height = this.width * phi();
+            $(square0)
+              .css('left',this.x + this.width*phi(2))
+              .css('top', this.y + 0);
+            if (others.length) shorthand(this.width*phi(2), [this.x + 0, this.y + 0], 'top');
+            break;
+          case 'top':
+            this.height = this.width / phi();
+            $(square0)
+              .css('left',this.x + 0)
+              .css('top', this.y + 0);
+            if (others.length) shorthand(this.width, [this.x + 0, this.y + this.height*phi()], 'left');
+            break;
+          case 'left':
+            this.height = this.width * phi();
+            $(square0)
+              .css('left',this.x + 0)
+              .css('top', this.y + 0);
+            if (others.length) shorthand(this.width*phi(2), [this.x + this.width*phi(), this.y + 0], 'bottom');
+            break;
+          case 'bottom':
+            this.height = this.width / phi();
+            $(square0)
+              .css('left',this.x + 0)
+              .css('top', this.y + this.height*phi(2));
+            if (others.length) shorthand(this.width, [this.x + 0, this.y + 0], 'right');
+            break;
+          default:
+            break;
+        }
       }
+
       /* this is in JS and not in CSS: in case users have
       JS disabled but CSS not disabled, the position
       should be static (as specified in css file) */
       $('.Square').css('position', 'absolute');
 
-      $('.Spiral > li:nth-child( 1) > .Square').css('left', p(2));
-      $('.Spiral > li:nth-child( 3) > .Square').css('top', p(2));
-      $('.Spiral > li:nth-child( 4) > .Square').css('left', p(3)).css('top', p(2) + p(5));
-      $('.Spiral > li:nth-child( 5) > .Square').css('left', p(3) + p(6)).css('top', p(2));
-      $('.Spiral > li:nth-child( 6) > .Square').css('left', p(3)).css('top', p(2));
-      $('.Spiral > li:nth-child( 7) > .Square').css('left', p(3)).css('top', p(2) + p(6));
-      $('.Spiral > li:nth-child( 8) > .Square').css('left', p(3) + p(7)).css('top', p(2) + p(6) + p(9));
-      $('.Spiral > li:nth-child( 9) > .Square').css('left', p(3) + p(7) + p(10)).css('top', p(2) + p(6));
-      $('.Spiral > li:nth-child(10) > .Square').css('left', p(3) + p(7)).css('top', p(2) + p(6));
-      $('.Spiral > li:nth-child(11) > .Square').css('left', p(3) + p(7)).css('top', p(2) + p(6) + p(10));
-      $('.Spiral > li:nth-child(12) > .Square').css('left', p(3) + p(7) + p(11)).css('top', p(2) + p(6) + p(10));
+      new Spiral($('.Spiral').width(), [0,0], '.Spiral > li:nth-child(1) > .Square', 'right', [
+        '.Spiral > li:nth-child( 2) > .Square',
+        '.Spiral > li:nth-child( 3) > .Square',
+        '.Spiral > li:nth-child( 4) > .Square',
+        '.Spiral > li:nth-child( 5) > .Square',
+        '.Spiral > li:nth-child( 6) > .Square',
+        '.Spiral > li:nth-child( 7) > .Square',
+        '.Spiral > li:nth-child( 8) > .Square',
+        '.Spiral > li:nth-child( 9) > .Square',
+        '.Spiral > li:nth-child(10) > .Square',
+        '.Spiral > li:nth-child(11) > .Square',
+        '.Spiral > li:nth-child(12) > .Square'
+      ]);
     })();
-    /** centers the group of buttons on the page */
-    $('.Spiral').css('top', function () {
-      return ($(window).height() - $('main').width() * Util.PHI_INV) * Math.pow(Util.PHI_INV, 2) + 'px';
-    });
+    // adjusts background images
+    $('.Square' ).mouseleave(function() { $(this).addClass('js-Square--funnel' ); });
   }
 }
 
