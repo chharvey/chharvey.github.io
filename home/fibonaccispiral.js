@@ -47,7 +47,9 @@ function makepretty() {
     });
 
     /** positions the devlink square */
-    $('.Square--Dev').css('top', parseInt($('.Spiral').css('margin-top')) + $('.Spiral').height());
+    $('#devlink')
+      .addClass('Square--bottom')
+      .css('top', $('.Spiral').height());
 
     /** Positions the squares in a Fibonacci spiral. */
     (function spiralSquares() {
@@ -121,6 +123,15 @@ function makepretty() {
         '.Spiral > li:nth-child(12) > .Square'
       ]);
     })();
+    // adjusts background images
+    // $('.Square--right' ).mouseleave(function() { $(this).addClass('Square--right--funnel' ); });
+    // $('.Square--top'   ).mouseleave(function() { $(this).addClass('Square--top--funnel'   ); });
+    // $('.Square--left'  ).mouseleave(function() { $(this).addClass('Square--left--funnel'  ); });
+    // $('.Square--bottom').mouseleave(function() { $(this).addClass('Square--bottom--funnel'); });
+    $('.Square--right' ).mouseleave(function() { $(this).css('transform','rotate(90deg)').children().css('transform','rotate(-90deg)'); });
+    $('.Square--top'   ).mouseleave(function() { $(this).css('transform','rotate(90deg)').children().css('transform','rotate(-90deg)'); });
+    $('.Square--left'  ).mouseleave(function() { $(this).css('transform','rotate(90deg)').children().css('transform','rotate(-90deg)'); });
+    $('.Square--bottom').mouseleave(function() { $(this).css('transform','rotate(90deg)').children().css('transform','rotate(-90deg)'); });
   }
 }
 

@@ -15,8 +15,6 @@
 /*@INDEX PAGE*/
 //+++++++++++//
 nav {
-  display: flex; // in case JS is disabled
-  flex-direction: column; // in case JS is disabled
   position: relative; // so devlink can be 100%
 }
 .Spiral {
@@ -27,13 +25,13 @@ nav {
 }
 @trans_square: @project_ani_long;
 a.Square { // `a` to increase specificity // HACK
-  .transition(background-color, opacity; @trans_square);
+  .transition(background-color,opacity,transform; @trans_square);
   display: block;
+  box-sizing: content-box; // so padding can be added to remove gaps
   height: 3em; // will be changed proportionally in JS
+  padding: 1px;
   color: transparent;
   background-color: @color_crumb_up_bg;
-  background-image: url('images/circle.svg');
-  background-size: 200%;
   opacity: inherit;
   &:hover {
     text-decoration: none;
@@ -42,7 +40,7 @@ a.Square { // `a` to increase specificity // HACK
   }
 }
 .Square__Text {
-  .transition(box-shadow,text-shadow,color,background-color; @trans_square);
+  .transition(box-shadow,text-shadow,color,background-color,transform; @trans_square);
   display: block;
   position: relative;
   top: 0.5em; // will be changed proportionally in JS
@@ -57,15 +55,27 @@ a.Square { // `a` to increase specificity // HACK
   background-color: @bgcolor;
 }
 
+.Square--right,
+.Square--top,
+.Square--left,
+.Square--bottom {
+  background-image: url('images/circle.svg');
+  background-size: 200%;
+}
+
 .Square--right  {background-position: 100%   0%;}
 .Square--top    {background-position:   0%   0%;}
 .Square--left   {background-position:   0% 100%;}
 .Square--bottom {background-position: 100% 100%;}
 
-a.Square--Dev {
-  .Square--bottom;
+.Square--right--funnel  {background-position: 100% 100%;}
+.Square--top--funnel    {background-position: 100%   0%;}
+.Square--left--funnel   {background-position:   0%   0%;}
+.Square--bottom--funnel {background-position:   0% 100%;}
+
+
+#devlink {
   width: 100%;
-  order: -1; // in case js is turned off
   opacity: 0;
   &:hover {opacity: 1;}
   > .Square__Text {
