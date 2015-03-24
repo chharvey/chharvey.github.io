@@ -1,16 +1,36 @@
 function makepretty() {
   var user_has_CSS_enabled = true; // it is most likely the case that if users have JS enabled then they also have CSS enabled
   if (user_has_CSS_enabled) {
+    function phi(n) {
+      n = n || 1;
+      return Math.pow(Util.PHI_INV, n);
+    }
+
     /** centers the group of buttons on the page */
     $('.Spiral')
       .height($('.Spiral').width() * Util.PHI_INV)
       .css('margin-top', ($(window).height() - $('.Spiral').height()) * Math.pow(Util.PHI_INV, 2))
       .css('margin-left', 0);
 
-    /** sets the height of the given rectangle to its width */
-    $('.Square').css('height', function() {
-      return $(this).width();
-    });
+    /** sets the width and height of the given rectangles. */
+    // this is not done in CSS anymore because one might want to change JS later without having to change CSS
+    (function sizeSquares() {
+      $('.Spiral > :nth-child(1)  > .Square').width(100 * phi(1)  + '%');
+      $('.Spiral > :nth-child(2)  > .Square').width(100 * phi(2)  + '%');
+      $('.Spiral > :nth-child(3)  > .Square').width(100 * phi(3)  + '%');
+      $('.Spiral > :nth-child(4)  > .Square').width(100 * phi(4)  + '%');
+      $('.Spiral > :nth-child(5)  > .Square').width(100 * phi(5)  + '%');
+      $('.Spiral > :nth-child(6)  > .Square').width(100 * phi(6)  + '%');
+      $('.Spiral > :nth-child(7)  > .Square').width(100 * phi(7)  + '%');
+      $('.Spiral > :nth-child(8)  > .Square').width(100 * phi(8)  + '%');
+      $('.Spiral > :nth-child(9)  > .Square').width(100 * phi(9)  + '%');
+      $('.Spiral > :nth-child(10) > .Square').width(100 * phi(10) + '%');
+      $('.Spiral > :nth-child(11) > .Square').width(100 * phi(11) + '%');
+      $('.Spiral > :nth-child(12) > .Square').width(100 * phi(12) + '%');
+      $('.Square').css('height', function() {
+        return $(this).width();
+      });
+    })();
 
     /** sets a proportional font size for each square (dependent on square height) */
     $('.Square__Text').css('font-size', function () {
@@ -42,10 +62,6 @@ function makepretty() {
         * @param `others`     an array of other squares
         */
       function Spiral(width, coords, square0, square0pos, others) {
-        function phi(n) {
-          n = n || 1;
-          return Math.pow(Util.PHI_INV, n);
-        }
         function shorthand(width, coords, square0pos) {
           new Spiral(width, coords, others[0], square0pos, others.slice(1, others.length));
         }
