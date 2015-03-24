@@ -48,6 +48,11 @@ function makepretty() {
     $('.Spiral').css('top', function () {
       return ($(window).height() - $('main').width() * Util.PHI_INV) * Math.pow(Util.PHI_INV, 2) + 'px';
     });
+    (function () {
+      // * positions the devlink square
+      var p = (-1 + Math.sqrt(5)) / 2;
+      $('.devlink').css('top', ($(window).height() - p * $('main').width()) * p*p  +  p * $('main').width()  +  'px');
+    })();
   }
 }
 
