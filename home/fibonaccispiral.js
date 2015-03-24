@@ -20,13 +20,61 @@ function makepretty() {
     /** Positions the squares in a Fibonacci spiral. */
     (function () {
       /**
+        * Creates a fibonacci spiral with one square and a group of other squares, which themselves
+        * will be recursively made into a Fibonacci spiral.
+        * @param `width`      the width of this spiral
+        * @param `pos`        the position of this spiral as 2-D array `[x,y]`
+        * @param `square0`    the first square
+        * @param `square0pos` ['right'|'top'|'left'|'bottom'] the position of the first square in this spiral
+        * @param `others`     an array of other squares
+        */
+      function Spiral(width, pos, square0, square0pos, others) {
+        function phi(n) {
+          n = n || 1;
+          return Math.pow(Util.PHI_INV, n);
+        }
+        function shorthand(width, pos, square0pos) {
+          return Spiral(width, pos, others[0], square0pos, others.slice(1, others.length));
+        }
+        switch (square0pos) {
+          case 'right':
+            var height = width * phi();
+            $(square0).css('left',pos[0] + width*phi(2));
+            $(square0).css('top', pos[1] + 0);
+            if (others) shorthand(width*phi(2), [0,0], 'top');
+            break;
+          case 'top':
+            var height = width / phi();
+            $(square0).css('left',pos[0] + 0);
+            $(square0).css('top', pos[1] + 0);
+            if (others) shorthand(width, [0,height*phi()], 'left');
+            break;
+          case 'left':
+            var height = width * phi();
+            $(square0).css('left',pos[0] + 0);
+            $(square0).css('top', pos[1] + 0);
+            if (others) shorthand(width*phi(2), [width*phi(),0], 'bottom');
+            break;
+          case 'bottom':
+            var height = width / phi();
+            $(square0).css('left',pos[0] + 0);
+            $(square0).css('top', pos[1] + height*phi(2));
+            if (others) shorthand(width, [0,0], 'right');
+            break;
+          default:
+            break;
+        }
+      }
+      // Spiral($('.Spiral').width(), [0,0], )
+      /**
         * Returns the product of Phi^n and $('main').width(), where Phi ≈ 0.618034
         * @param n      the power of phi
         * @return       Phi^n * length
         */
       function p(n) {
-        return ($('main').width() * Math.pow(Util.PHI_INV, n));
+        return ($('.Spiral').width() * Math.pow(Util.PHI_INV, n));
       }
+      var spiral_height = p(1);
       /* this is in JS and not in CSS: in case users have
       JS disabled but CSS not disabled, the position
       should be static (as specified in css file) */
@@ -45,12 +93,13 @@ function makepretty() {
       $('.Spiral > li:nth-child(12) > .Square').css('left', p(3) + p(7) + p(11)).css('top', p(2) + p(6) + p(10));
 
       // * positions the devlink square
-      $('.Square--Dev').css('top', ($(window).height() - p(1)) * Math.pow(Util.PHI_INV, 2)  +  p(1)  +  'px');
+      $('.Square--Dev').css('top', ($(window).height() - spiral_height) * Math.pow(Util.PHI_INV, 2)  +  p(1)  +  'px');
     })();
     /** centers the group of buttons on the page */
-    $('.Spiral').css('top', function () {
-      return ($(window).height() - $('main').width() * Util.PHI_INV) * Math.pow(Util.PHI_INV, 2) + 'px';
-    });
+    $('.Spiral')
+      .height($('.Spiral').width() * Util.PHI_INV)
+      .css('margin-top', ($(window).height() - $('.Spiral').height()) * Math.pow(Util.PHI_INV, 2))
+      .css('margin-left', 0);
   }
 }
 
