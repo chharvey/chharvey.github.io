@@ -48,7 +48,7 @@ function makepretty() {
 
     /** positions the devlink square */
     $('#devlink')
-      .addClass('Square--bottom')
+      .addClass('js-Square--bottom')
       .css('top', $('.Spiral').height());
 
     /** Positions the squares in a Fibonacci spiral. */
@@ -69,7 +69,7 @@ function makepretty() {
         this.width = width;
         this.x = coords[0];
         this.y = coords[1];
-        $(square0).addClass('Square--' + square0pos)
+        $(square0).addClass('js-Square--' + square0pos)
         switch (square0pos) {
           case 'right':
             this.height = this.width * phi();
@@ -124,14 +124,7 @@ function makepretty() {
       ]);
     })();
     // adjusts background images
-    // $('.Square--right' ).mouseleave(function() { $(this).addClass('Square--right--funnel' ); });
-    // $('.Square--top'   ).mouseleave(function() { $(this).addClass('Square--top--funnel'   ); });
-    // $('.Square--left'  ).mouseleave(function() { $(this).addClass('Square--left--funnel'  ); });
-    // $('.Square--bottom').mouseleave(function() { $(this).addClass('Square--bottom--funnel'); });
-    $('.Square--right' ).mouseleave(function() { $(this).css('transform','rotate(90deg)').children().css('transform','rotate(-90deg)'); });
-    $('.Square--top'   ).mouseleave(function() { $(this).css('transform','rotate(90deg)').children().css('transform','rotate(-90deg)'); });
-    $('.Square--left'  ).mouseleave(function() { $(this).css('transform','rotate(90deg)').children().css('transform','rotate(-90deg)'); });
-    $('.Square--bottom').mouseleave(function() { $(this).css('transform','rotate(90deg)').children().css('transform','rotate(-90deg)'); });
+    $('.Square' ).mouseleave(function() { $(this).addClass('js-Square--funnel' ); });
   }
 }
 
