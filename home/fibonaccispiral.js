@@ -11,47 +11,7 @@ function makepretty() {
       .css('margin-top', ($(window).height() - $('.Spiral').height()) * Math.pow(Util.PHI_INV, 2))
       .css('margin-left', 0);
 
-    /** sets the width and height of the given rectangles. */
-    // this is not done in CSS anymore because one might want to change JS later without having to change CSS
-    (function sizeSquares() {
-      $('.Spiral > :nth-child(1)  > .Square').width(100 * phi(1)  + '%');
-      $('.Spiral > :nth-child(2)  > .Square').width(100 * phi(2)  + '%');
-      $('.Spiral > :nth-child(3)  > .Square').width(100 * phi(3)  + '%');
-      $('.Spiral > :nth-child(4)  > .Square').width(100 * phi(4)  + '%');
-      $('.Spiral > :nth-child(5)  > .Square').width(100 * phi(5)  + '%');
-      $('.Spiral > :nth-child(6)  > .Square').width(100 * phi(6)  + '%');
-      $('.Spiral > :nth-child(7)  > .Square').width(100 * phi(7)  + '%');
-      $('.Spiral > :nth-child(8)  > .Square').width(100 * phi(8)  + '%');
-      $('.Spiral > :nth-child(9)  > .Square').width(100 * phi(9)  + '%');
-      $('.Spiral > :nth-child(10) > .Square').width(100 * phi(10) + '%');
-      $('.Spiral > :nth-child(11) > .Square').width(100 * phi(11) + '%');
-      $('.Spiral > :nth-child(12) > .Square').width(100 * phi(12) + '%');
-      $('.Square').css('height', function() {
-        return $(this).width();
-      });
-    })();
-
-    /** sets a proportional font size for each square (dependent on square height) */
-    $('.Square__Text').css('font-size', function () {
-      return $(this).parents('.Square').height() / 4 + 'px';
-    });
-
-    /** vertically aligns the textbox in each square (depenedent on font-size) */
-    $('.Square__Text').css('top', function () {;
-      return ($(this).parents('.Square').height() - $(this).height()) / 2 + 'px';
-    });
-
-    /** adjusts the border-radius of the textbox proportionally (dependent on square height) */
-    $('.Square__Text').css('border-radius', function () {
-      return $(this).height() / 2 + 'px';
-    });
-
-    /** positions the devlink square */
-    $('#devlink')
-      .addClass('js-Square--bottom')
-      .css('top', $('.Spiral').height());
-
-    /** Positions the squares in a Fibonacci spiral. */
+    /** Positions and sizes the squares in a Fibonacci spiral. */
     (function spiralSquares() {
       /**
         * Creates a fibonacci spiral with one square and a group of other squares, which themselves
@@ -69,11 +29,12 @@ function makepretty() {
         this.width = width;
         this.x = coords[0];
         this.y = coords[1];
-        $(square0).addClass('js-Square--' + square0pos)
+        $(square0).addClass('js-Square--' + square0pos);
         switch (square0pos) {
           case 'right':
             this.height = this.width * phi();
             $(square0)
+              .width(this.width*phi())
               .css('left',this.x + this.width*phi(2))
               .css('top', this.y + 0);
             if (others.length) shorthand(this.width*phi(2), [this.x + 0, this.y + 0], 'top');
@@ -81,6 +42,7 @@ function makepretty() {
           case 'top':
             this.height = this.width / phi();
             $(square0)
+              .width(this.width)
               .css('left',this.x + 0)
               .css('top', this.y + 0);
             if (others.length) shorthand(this.width, [this.x + 0, this.y + this.height*phi()], 'left');
@@ -88,6 +50,7 @@ function makepretty() {
           case 'left':
             this.height = this.width * phi();
             $(square0)
+              .width(this.width*phi())
               .css('left',this.x + 0)
               .css('top', this.y + 0);
             if (others.length) shorthand(this.width*phi(2), [this.x + this.width*phi(), this.y + 0], 'bottom');
@@ -95,6 +58,7 @@ function makepretty() {
           case 'bottom':
             this.height = this.width / phi();
             $(square0)
+              .width(this.width)
               .css('left',this.x + 0)
               .css('top', this.y + this.height*phi(2));
             if (others.length) shorthand(this.width, [this.x + 0, this.y + 0], 'right');
@@ -103,11 +67,6 @@ function makepretty() {
             break;
         }
       }
-
-      /* this is in JS and not in CSS: in case users have
-      JS disabled but CSS not disabled, the position
-      should be static (as specified in css file) */
-      $('.Square').css('position', 'absolute');
 
       new Spiral($('.Spiral').width(), [0,0], '.Spiral > li:nth-child(1) > .Square', 'right', [
         '.Spiral > li:nth-child( 2) > .Square',
@@ -122,9 +81,32 @@ function makepretty() {
         '.Spiral > li:nth-child(11) > .Square',
         '.Spiral > li:nth-child(12) > .Square'
       ]);
+
+      $('.Square')
+        .height(function () { return $(this).width(); })
+        .css('position', 'absolute');
     })();
-    // adjusts background images
-    $('.Square' ).mouseleave(function() { $(this).addClass('js-Square--funnel' ); });
+
+    /** positions and sizes the devlink square */
+    $('#devlink')
+      .height(function () { return $(this).width(); })
+      .addClass('js-Square--bottom')
+      .css('top', $('.Spiral').height());
+
+    /** adjusts background images */
+    $('.Square' ).mouseleave(function() { $(this).addClass('js-Square--funnel'); });
+
+    /** sets a proportional font size for each square (dependent on square height) */
+    /** vertically aligns the textbox in each square (depenedent on font-size) */
+    /** adjusts the border-radius of the textbox proportionally (dependent on square height) */
+    $('.Square__Text')
+      .css('font-size', function () {
+        return $(this).parents('.Square').height() / 4 + 'px';
+      }).css('top', function () {
+        return ($(this).parents('.Square').height() - $(this).height()) / 2 + 'px';
+      }).css('border-radius', function () {
+        return $(this).height() / 2 + 'px';
+      });
   }
 }
 
