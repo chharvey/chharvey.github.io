@@ -58,6 +58,11 @@ function makepretty() {
       // * centers the group of buttons on the page
       return ($(window).height() - p(1, $('main').width())) * p(2, 1) + 'px';
     });
+    (function () {
+      // * positions the devlink square
+      var p = (-1 + Math.sqrt(5)) / 2;
+      $('.devlink').css('top', ($(window).height() - p * $('main').width()) * p*p  +  p * $('main').width()  +  'px');
+    })();
   }
 }
 
