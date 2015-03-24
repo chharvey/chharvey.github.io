@@ -1,11 +1,10 @@
 function makepretty() {
+  function phi(n) {
+    n = n || 1;
+    return Math.pow(Util.PHI_INV, n);
+  }
   var user_has_CSS_enabled = true; // it is most likely the case that if users have JS enabled then they also have CSS enabled
   if (user_has_CSS_enabled) {
-    function phi(n) {
-      n = n || 1;
-      return Math.pow(Util.PHI_INV, n);
-    }
-
     /** centers the group of buttons on the page */
     $('.Spiral')
       .height($('.Spiral').width() * Util.PHI_INV)
@@ -68,29 +67,34 @@ function makepretty() {
         this.width = width;
         this.x = coords[0];
         this.y = coords[1];
+        $(square0).addClass('Square--' + square0pos)
         switch (square0pos) {
           case 'right':
             this.height = this.width * phi();
-            $(square0).css('left',this.x + this.width*phi(2));
-            $(square0).css('top', this.y + 0);
+            $(square0)
+              .css('left',this.x + this.width*phi(2))
+              .css('top', this.y + 0);
             if (others.length) shorthand(this.width*phi(2), [this.x + 0, this.y + 0], 'top');
             break;
           case 'top':
             this.height = this.width / phi();
-            $(square0).css('left',this.x + 0);
-            $(square0).css('top', this.y + 0);
+            $(square0)
+              .css('left',this.x + 0)
+              .css('top', this.y + 0);
             if (others.length) shorthand(this.width, [this.x + 0, this.y + this.height*phi()], 'left');
             break;
           case 'left':
             this.height = this.width * phi();
-            $(square0).css('left',this.x + 0);
-            $(square0).css('top', this.y + 0);
+            $(square0)
+              .css('left',this.x + 0)
+              .css('top', this.y + 0);
             if (others.length) shorthand(this.width*phi(2), [this.x + this.width*phi(), this.y + 0], 'bottom');
             break;
           case 'bottom':
             this.height = this.width / phi();
-            $(square0).css('left',this.x + 0);
-            $(square0).css('top', this.y + this.height*phi(2));
+            $(square0)
+              .css('left',this.x + 0)
+              .css('top', this.y + this.height*phi(2));
             if (others.length) shorthand(this.width, [this.x + 0, this.y + 0], 'right');
             break;
           default:
