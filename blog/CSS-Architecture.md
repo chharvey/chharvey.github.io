@@ -1,24 +1,24 @@
-**Define properties, selectors, and stylesheets in order of increasing specificity.**
+**Define properties, selectors, and stylesheets in order of increasing specificity. Based off of Harry Roberts&rsquo;s Theory of ITCSS.**
 
 # Property Order
 
 Properties within a CSS block should be written in order of decreasing structure definition. The inverted pyramid below illustrates how CSS properties are related.
 
-![An inverted pyramid illustrates how CSS properties are related. The top contains structural properties, the middle contains content/textual properties, and the bottom contains schematic properties.](images/css-pyramid-props.svg)
+![An inverted pyramid illustrates how CSS properties are related. The top contains structural properties, the middle contains content/textual properties, and the bottom contains cosmetic properties.](images/css-pyramid-props.svg)
 
-Authors are encouraged to define properties in order shown from top to bottom in the pyramid. The top base of the pyramid contains properties that set up foundation and structure, such as display and position. The middle contains content, font, and text properties. Notice how container is defined before content. Then we finish with low-level schematic properties, such as color, at the vertex on the bottom.
+Authors are encouraged to define properties in order shown from top to bottom in the pyramid. The top base of the pyramid contains properties that set up foundation and structure, such as display and position. The middle contains content, font, and text properties. Notice how container is defined before content. Then we finish with low-level cosmetic properties, such as color, at the vertex on the bottom.
+
+Authors may take this a step further and **split CSS classes into designated responsibilities,** that is, use separate classes for structural vs. textual vs. cosmetic properties.
 
 Use this outline as a guide to ordering CSS properties.
 
 1. structural properties:
   1. display
   -  width, height
-  -  padding
-  -  border
-  -  outline
-  -  margin
   -  box-sizing
-  -  box-shadow
+  -  padding
+  -  border-width
+  -  margin
   -  positioning and float
   -  z-index
   -  transformations
@@ -29,20 +29,24 @@ Use this outline as a guide to ordering CSS properties.
   -  letter-spacing
   -  text-align
   -  text-indent
+  -  white-space
+  -  list-style
+- cosmetic properties:
+  1. border-style
+  -  border-color
+  -  border-radius
+  -  outline
+  -  box-shadow
   -  text-transform
   -  text-decoration
   -  text-shadow
-  -  white-space
-  -  list-style
-- schematic properties:
-  1. color
+  -  color
   -  background
   -  opacity
   -  visibility
   -  overflow
   -  cursor
-  -  transition effects
-  -  miscellaneous
+  -  transition
 
 # Selector Order
 
@@ -61,73 +65,73 @@ The bottom line is that authors must define `.foo ~ .bar {}` *before* `.foo + .b
 
 # Stylesheet Order
 
-Stylesheets should be imported in order from most generic to least generic. It is recommended to split stylesheets into the following categories. Notice the categories go from general to specific, like an *inverted pyramid*.
+Stylesheets should be imported in order from most generic to least generic. It is recommended to split stylesheets into the following categories. Notice the categories go from general to specific, like an [inverted pyramid].
 
-1. global settings (site-wide, math functions, number and color constants)
--  reset (element selectors only)
--  layout and containers (grids, etc.)
--  tools and mixins (css helpers)
--  components (parts that build Objects)
--  typographical Objects (body copy, headings, paragraphs, text-level Elements, forms, etc.)
--  modules (non-text-based Objects)
--  style trumps (states, anomalies, special cases, `!important`, etc.)
+1. global project settings (`@import`s, frameworks, site-wide number and color constants)
+-  helper tools (math functions, mixins for vendor-specific css, fallbacks)
+-  unclassed base elements
+-  objects (structural patterns, layout, containers, etc.)
+-  components (specific pieces of UI with look-and-feel)
+-  utilities (trumps, hacks, states, anomalies, special cases, `!important`, etc.)
 
 ![An inverted pyramid illustrates how CSS stylesheets should be implemented.](images/css-pyramid-sheets.svg)
 
-Each of these categories are described in further detail below.
-
 ## Settings
 
-The Settings stylesheet contains all the variables, functions, and constants that you want accessible throughout the entire site. This file doesn't actually produce any CSS. Since it's imported first, every other CSS (or Less) file has access to it. Settings include&mdash;
+The Settings stylesheet contains all the variables, functions, and constants that you want accessible throughout the entire project. Since it&rsquo;s imported first, every subsequent stylesheet has access to it.
 
-- global variables that are used throught the site and give it its look and feel. Global variables such as the base font size, line height, font families, and base colors, provide the look-and-feel of the site and may be changed.
-- math functions that encapsulate repetitive mathematical operations. These are *not* Mixins or Interfaces used for CSS; they are just helper functions.
-- global constants such as numerical values, color values, etc.
+This stylesheet is where you `@import` any other frameworks (normalize, resets, etc.). Imports should be at the top.
 
-## Reset
-
-The Reset stylesheet removes the browser-default styles (e.g. margins, font styles, etc.) from all HTML Elements. Essentially, it strips the elements down to nothing. This is the first stylesheet with actual CSS. With the Reset put into place (and nothing else), every single Element would look exactly the same. The reset stylesheet is very broad and general, because it comes early in the Cascade and is likely to be overridden later.
-
-The use of a CSS reset is controversial. Authors against the use of a reset would say there's no point in removing a margin if you're going to add it back in later; this is just more work for the browser. Proponents might say that there's no predicting how a browser might one day change the default presentation of an element (all of a sudden it might decide to just go ahead and italicize all paragraphs), so you might as well reset everything just in case.
-
-## Layout
-
-Layout stylesheets determine how and where Objects are placed on the page. These stylesheets will define only classes that are meant for *containers, not content*. Thus it is acceptable that these classes have presentational names (e.g., `left`).
-
-However, it should be the responsibility of the CSS/HTML author to *not* use presentational names in the HTML source. It is recommended to use semantic classnames, e.g. `main`, and then either implement or include the layout (grid) classes. This way, if the design of the page were to change, all that would need to be changed is the CSS code.
+After imports, include global site-wide constants such as main font size, line-height, font families, colors, and spacing constants that give the site its look and feel. They may be changed here.
 
 ## Tools
 
-Tools are Mixins and Interfaces that, like functions, encapsulate repetitive tasks. These Interfaces are *not* meant to be added to Elements in the HTML source (that is, *Elements cannot instantiate Interfaces*). Rather, Interfaces are simply helper classes that repeat sets of CSS rules to achieve a function. These are likely to be implemented in higher-level Components and Objects.
+Tools are used only for encapsulating repetitive tasks. They should not be accessible to HTML elements (thus they should be mixins, not classes), but they may be used in subsequent stylesheets. There are 3 types of tools.
 
-The difference between functions (in the [settings](#settings) sheet) and tools is that functions simply return values, whereas tools return styles. For example, [the Less `lighten(@color)` function](http://lesscss.org/functions/#color-operations-lighten) takes a color as an input and returns another color as the output. On the other hand, a tool such as `.fontsize(@ratio)` is a Mixin that will take a ratio as an input and returns a set of CSS rules (e.g. `font-size: (@ratio * 16px); line-height: (1.5 / @ratio);`) as the output. Not all tools are Mixins. Some are regular classes, though they should still not be added to HTML Elements. These are called Interfaces. Think of them as Mixins with zero inputs. There is a reason they are not zero-parameter Mixins, which you can read about in [Object-Oriented CSS](Object-Oriented-CSS.md).
+### Math Functions
+
+Math functions make doing mathematical operations easier. For example you may want to define a function that averages two numbers evenly, or that adds a transparent factor (alpha) to an rgb color. These functions are content-ambiguous by nature, and do not produce actual CSS properties. They only take input values and produce output values.
+
+### Fallback Tools
+
+Fallback tools are exactly that. They are mixins that you want to use to encapsulate fallback rules or vendor-specific rules. These mixins *do* produce actual CSS, but only if they&rsquo;re included in a CSS selector. Displaying a flexbox, for example, needs to support multiple browsers and/or a fallback for browsers not supporting it. Rather than repeating the same handful of rules over and over again, use a tool that will automate this task.
+
+### Modules
+
+Modules are small tools that make your life easier. Like fallback tools, modules combine multiple properties to achieve an effect, except that these properties aren&rsquo;t all variations of the same thing. They are actually different properties that when combined take care of one task. One example is the `.font-size-block()` tool.
+
+    .font-size-block(@ratio) {
+      font-size: (@ratio * 1rem);
+      line-height: (@project_line_height / @ratio);
+      // @project_line_height is a global variable defined in the Settings sheet
+    }
+
+This mixin sets the font size of a block and adjusts its line height such that the total height of the block will be an integer multiple of the project line height. This is a common tool used to maintain vertical rhythm.
+
+Other similar examples include a module that adds a bottom border to an Element but removes an equivalent amount of bottom margin, or a brand font module that requires `font-weight: bold;` every time a certain font family is set.
+
+Modules can also be thought of as pieces of [Objects](#objects) and [Components](#components), or <i>Legos</i> that are used repetitively throughout the project. They utilize reusable and abstract design patterns, but do not describe whole Objects or Components. More examples include a type of border used as a particular theme, or a particular amount of padding on a box.
+
+Again, modules should not be accessible to HTML Elements. They should be mixins that you include in your Less selectors. If a certain Object needs to use a Module, include the Module in that Object&rsquo;s class definition.
+
+## Base
+
+The Base stylesheet is the first stylesheet with real selectors. This is what shows up first in the compiled output CSS. All its selectors are unclassed HTML Elements. Think of it as a tailored normalize stylesheet for your project typography. If your project Settings sheet imports other frameworks, this stylesheet will build on top of those frameworks. This stylesheet is very broad and general, because it comes early in the Cascade and is likely to be overridden later.
+
+## Objects
+
+Objects are generic classes that provide cosmetic-free layout and structure for a page and its Elements. Any layout or grid system classes should go here, as well as other classes that are used to define an Element&rsquo;s structure without relying on context. Examples include the Media Object, the Nav Abstraction, and the Island Object. All of these objects determine layout and/or structure, but do not affect look-and-feel.
+
+Objects, and Components discussed below, are actual CSS classes that can be applied to HTML Elements. In OOP-speak, Objects and Components are classes that Elements can <i>instantiate</i>. Tools, on the other hand, should not be accessible to HTML Elements, only to CSS classes. Tools are more analogous to interfaces instead of classes. Elements cannot instantiate interfaces but classes can implement them.
 
 ## Components
 
-Components are pieces of Objects that are used repetitively throughout the site. They utilize reusable and abstract design patterns, but do not describe whole Objects. An example would be a type of border used as a particular theme.
+Components are recognizable pieces of UI that have a particular look-and-feel. Buttons, breadcrumb lists, labels, and tags are all good examples. These classes are built on top of Objects, but they also provide cosmetics for the Element.
 
-Like [tools](#tools), components should not be instantiated by HTML Elements. If an Element needs to "have" a certain component, it should instantiate an Object that implements that component's Interface. Read more about [Object-Oriented CSS](Object-Oriented-CSS.md) for details. Tools and components are very similar in that they group a particular set of styles to create design patterns. Technically, there is no real difference, but you can think of tools as **helpers for doing something** and components as **"Legos" for building Objects**. Tools typically have only one function (but may need more than one CSS rule to achieve it), while components typically add many features to an Object.
+In a way, the semantics of a component is derived from its presentation (cosmetics). That is, the look-and-feel of an Element may determine its meaning in terms of usability. For example, a `span.label` might not look like anything with styles turned off, but with them on it might clearly represent a label attached to a link or something.
 
-## Typography
+Furthermore, a Component itself may not be one semantic Element; it may be a grouping of semantic Elements. For example a profile Component may contain an image, heading, and paragraph. The Component as a whole though is simply a `div`.
 
-Here we reach our first stylesheet that allows classes to be added to HTML Elements. In OOP-speak, Objects are classes that Elements can instantiate. Read more about this in [Object-Oriented CSS](Object-Oriented-CSS.md).
+## Utilities
 
-Typographical Objects are mostly text-based and are used mainly in document prose. These include body copy, articles, headings, paragraphs, block quotes, lists, figures, tables, and text-level semantics (highlighting, etc.). Some authors choose to split even these categories into separate sub-stylesheets.
-
-This stylesheet does not use Element selectors as you would expect, but rather Objects that correspond to features of a document. For example, the Heading Object in this stylesheet will not have the selector `h1 {}`, but rather a class selector such as `.H {}`. *HTML elements on a page must instantiate the CSS Objects* for proper styling. Elements that do not instantiate an Object will be styled via [reset](#reset) or browser-default.
-
-There are three layers of typographical Objects: document-level, block-level, and text-level. Document-level Objects include styles that apply to the entire body copy or an entire article and subcomponents thereof, such as breadcrumbs and tables of content. It may be noted that some of these subcomponents actually contain other Objects that are to be defined later down in our inverted pyramid. For example, a breadcrumb link may contain a type of module defined in the [Modules](#modules) stylesheet.
-
-The second layer is block-level, which includes styles for elements in a document or article that group text together. For example, headings, paragraphs, lists, tables, etc. Again, although eachg of these things corresponds to an HTML Element, it is best to make an class (such as `.Fig` for figure-looking Objects) and then *instantiate* that class with the Element. This way the Objects remain Element-agnostic, meaning any Element can instantiate it. This makes it possible to do something like `<p class="Fig">`, in which you want a paragraph to *look* like a figure, but not actually have the semantics of the HTML `figure` Element (namely, that it may be taken out of context).
-
-Lastly the third layer is text-level, which styles only phrasing content. These Elements are used so frequently that it would actually be more inefficient to assign a class for each of them. For instance it would be impractical to make an `.Emph` Object and have to write `<em class="Emph">` in your code. Thus for this last layer, the "Objects" will be defined with their normal Element selectors.
-
-There is one more category of Objects that belong to the "Typographical" group: Form Objects. Though slightly less text-based, Form Objects are only used in `form` Elements. Examples include buttons, text boxes, drop-down lists, and check boxes.
-
-## Modules
-
-Modules are self-containing Objects that may be placed anywhere. They are not necessarily typographical or semantic (they might be instantiated by `div`s and `span`s), but their semantics are derived from their presentation. That is, the meaning of the Object can, for the most part, only be determined by how it looks. Examples include breadcrumb lists, warning labels, and word tags. More importantly, though, a module may not be semantic per se: it may have semantic sub-components (such as an image, heading, and paragraph) but the module as a whole is simply a grouping. A good example of this would be *the media object*.
-
-## Trumps
-
-...
+Overrides, helper classes, hacks, and things that use `!important`.
