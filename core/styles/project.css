@@ -7,6 +7,12 @@
 /*@More Portal Colors*/
 /*@SOLARIZED / LUNARIZED THEMES*/
 /*@LABEL THEME*/
+/*################*\
+    _sizing.less
+\*################*/
+/*@SIZING*/
+/*@Even Values*/
+/*@Golden Values*/
 /*##################*\
     _settings.less
 \*##################*/
@@ -89,9 +95,6 @@
   -webkit-justify-content: space-around;
   justify-content: space-around;
 }
-/*@SIZING*/
-/*@Even Values*/
-/*@Golden Values*/
 /*############*\
     _hr.less
 \*############*/
@@ -211,62 +214,9 @@ body {
     background-color: #f2f7ff;
   }
 }
-@media print {
-  body,
-  main {
-    margin: 0;
-  }
-}
-/**
-  * These Objects represent a special layout of the site.
-  * The following ratios are Golden (0.618):
-  * - `.MainGolden` to its container
-  * - `.AsideGoldenMinor` to `.AsideGolden`
-@tags
-: #golden
-@author
-: Chris Harvey
-@updated
-: 2015-02-17
-  */
-@media screen {
-  .MainGolden {
-    box-sizing: border-box;
-    width: 61.80339887%;
-    margin-left: 23.60679775%;
-    margin-right: 14.58980338%;
-    margin-bottom: 12rem;
-  }
-  .AsideGolden {
-    box-sizing: border-box;
-    width: 14.58980338%;
-    margin-left: 5.572809%;
-    margin-right: 3.44418537%;
-    position: absolute;
-    left: 0;
-  }
-  .AsideGoldenMinor {
-    box-sizing: border-box;
-    width: 9.01699437%;
-    margin-left: 2.12862363%;
-    margin-right: 3.44418537%;
-    position: absolute;
-    right: 0;
-  }
-}
-/**
-  * This Interface undoes the effects of the `main.Main-Golden` Element to a component inside.
-  * Essentially, it treats the component as if it were not inside the `main` Element.
-@tags
-: #golden
-@author
-: Chris Harvey
-@updated
-: 2014-10-07
-  */
-/*#################*\
-    _heading.less
-\*#################*/
+/*######################*\
+    _base.heading.less
+\*######################*/
 /**
   * This Interface represents a generic textual heading of a section, post, article, or document.
   * It does not represent a heading in a table. See the `.Cell.Hc` Object.
@@ -1540,8 +1490,104 @@ kbd > kbd {
   display: block;
   min-height: 4.5rem;
 }
+/*####################*\
+    _GoldenBody.less
+\*####################*/
+/**
+  * The GoldenBody theme represents a `body` Element that may be broken up into 3 objects, or
+  * pieces of layout:
+  * 1. The "Content" object, which forms an inverse golden proportion with its container (the body).
+  *    The remainder of the space is then split into the two remaining sidebars.
+  * 2. The "Major" sidebar object, which forms a golden proportion with the "Minor" piece. The "Major" piece
+  *    is typically on the left side of the "Content" piece.
+  * 3. The "Minor" sidebar object is typically on the right side.
+@tags
+: #golden
+@author
+: Chris Harvey
+@updated
+: 2015-02-17
+  */
+@media screen {
+  .o-Content {
+    box-sizing: border-box;
+    width: 61.80339887%;
+    margin-bottom: 12rem;
+  }
+  .t-GoldenBody--Left .o-Content {
+    margin-left: 14.58980338%;
+    margin-right: 23.60679775%;
+  }
+  .t-GoldenBody--Right .o-Content {
+    margin-left: 23.60679775%;
+    margin-right: 14.58980338%;
+  }
+  .o-Sidebar {
+    box-sizing: border-box;
+    position: absolute;
+  }
+  .o-Sidebar--Major {
+    width: 14.58980338%;
+  }
+  .t-GoldenBody--Left .o-Sidebar--Major {
+    margin-left: 3.44418537%;
+    margin-right: 5.572809%;
+    right: 0;
+  }
+  .t-GoldenBody--Right .o-Sidebar--Major {
+    margin-left: 5.572809%;
+    margin-right: 3.44418537%;
+    left: 0;
+  }
+  .o-Sidebar--Minor {
+    width: 9.01699437%;
+  }
+  .t-GoldenBody--Left .o-Sidebar--Minor {
+    margin-left: 3.44418537%;
+    margin-right: 2.12862363%;
+    left: 0;
+  }
+  .t-GoldenBody--Right .o-Sidebar--Minor {
+    margin-left: 2.12862363%;
+    margin-right: 3.44418537%;
+    right: 0;
+  }
+  .MainGolden {
+    box-sizing: border-box;
+    width: 61.80339887%;
+    margin-left: 23.60679775%;
+    margin-right: 14.58980338%;
+    margin-bottom: 12rem;
+  }
+  .AsideGolden {
+    box-sizing: border-box;
+    width: 14.58980338%;
+    margin-left: 5.572809%;
+    margin-right: 3.44418537%;
+    position: absolute;
+    left: 0;
+  }
+  .AsideGoldenMinor {
+    box-sizing: border-box;
+    width: 9.01699437%;
+    margin-left: 2.12862363%;
+    margin-right: 3.44418537%;
+    position: absolute;
+    right: 0;
+  }
+}
+/**
+  * This Interface undoes the effects of the `main.Main-Golden` Element to a component inside.
+  * Essentially, it treats the component as if it were not inside the `main` Element.
+@tags
+: #golden
+@author
+: Chris Harvey
+@updated
+: 2014-10-07
+  */
 /*##################*\
-    _document.less
+    _Document.less
 \*##################*/
 /**
   * Represents a generic article, technical document, blog post, etc.
@@ -1618,11 +1664,11 @@ kbd > kbd {
     border: 0 solid currentColor;
     margin-top: 0;
     padding: 0.75rem 1rem;
-    box-sizing: border-box;
     border-radius: 0.5rem;
     font-size: 0.75rem;
     line-height: 2;
     display: block;
+    box-sizing: border-box;
     width: 9.01699437%;
     margin-left: 3.44418537%;
     margin-right: 2.12862363%;
@@ -2061,7 +2107,7 @@ kbd > kbd {
   margin-left: auto;
   margin-right: auto;
 }
-/*@FONTS*/
+/*@FONTS & TEXT*/
 .fontfam_base {
   font-family: 'Optima', 'Lucida Grande', 'Tahoma', sans-serif;
 }
