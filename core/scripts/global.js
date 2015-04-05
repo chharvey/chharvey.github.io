@@ -44,14 +44,12 @@ function resizeFolioHeading() {
   * 3. If the number of lines is odd, set margin-bottom: -12px;.
   */
 function qblockLines() {
-  $('blockquote.bq--Short').each(function () {
+  $('.c-PullQuote').each(function () {
     var lines = $(this).height() / 24; // 24 is number of pixels for 1vru
     lines = Math.round(lines / 1.5); // divide by 1.5 to account for new line height
     if (lines % 2 === 1) {
       $(this).css('margin-top',''); // removes any previous inline style
       $(this).css('margin-top',parseFloat($(this).css('margin-top'))-12);
-
-      // FIX THIS. instead of setting the margin-top to -12, just subtract 12 from the current margin-top!
     } else {
       $(this).css('margin-top','');
     }
