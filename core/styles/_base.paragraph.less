@@ -54,9 +54,15 @@ blockquote {
 }
 
 // `pre` Element.
-// CHANGED: Will only use `pre` for blocks of code. No longer using child `code` Element.
-// - To denote comments, use the HTML `small` Element. Yes, this means code comments.
-// - To denote importance, use the HTML `strong` Element.
+// CHANGED: Will only use `pre` for blocks of code. No longer using child `code` Element for entire block.
+//
+// Child Elements:
+// `> code`   - fragments of code (per usual)
+// `> small`  - code comments
+// `> strong` - importance
+//
+// *[1] undo default `code` styles
+// *[2] undo compounding font sizes
 //
 // ^author
 // : Chris Harvey
@@ -69,11 +75,11 @@ pre {
   text-indent: 0;
   code {
     .delimiters('\`';'\`');
-    padding: 0;
-    border: 0;
-    font-size: inherit;
-    color: inherit;
-    background: transparent;
+    padding: 0;              // *[1]
+    border: 0;               // *[1]
+    color: inherit;          // *[1]
+    background: transparent; // *[1]
+    font-size: inherit; // *[2]
   }
   > small {
     font-style: italic;
