@@ -24,6 +24,10 @@ nav {
   list-style-type: none;
 }
 @trans_square: @project_ani_long;
+@color_crumb_up_txt:  @atlas;
+@color_crumb_dn_txt:  @pbody;
+@color_crumb_up_bg:   lighten(@color_crumb_up_txt, @golden2); // #c3daff
+@color_crumb_dn_bg:   lighten(@color_crumb_dn_txt, @golden2); // #ffe8c3
 a.Square { // specificity HACK FIXME
   .transition(background-color,opacity; @trans_square);
   display: block;
@@ -158,50 +162,48 @@ a.Square { // specificity HACK FIXME
 /*++++++++++++++++*\
     #OTHER PAGES
 \*++++++++++++++++*/
-// A regular icon.
+// A button with an icon as its background image.
+// It should have text for when CSS is disabled, but this text has a transparent color.
+// Typically, this button will take the form of an `a[href]` Element.
 //
-// @iconsize - the width and height of the icon
-// @bgurl    - the url for the background image
 // ^author
 // : Chris Harvey
 // ^updated
-// : 2015-03-24
-a.Icon { // HACK FIXME due to specificity of `a[href]`
-  .translucent();
-  .transition(opacity; @project_ani_medium);
+// : 2015-04-07
+.c-IconButton {
+  .box-block(0);
   display: block;
-  color: transparent !important;
+  color: transparent !important; // HACK FIXME due to specificity of `a[href]`
   background-repeat: no-repeat;
 }
-.icon(@iconsize, @bgurl) {
-  width:  @iconsize;
-  height: @iconsize;
-  background-image: @bgurl;
-}
 
-// A contact icon.
+// A contact icon on the "About" page.
 //
 // ^author
 // : Chris Harvey
 // ^updated
 // : 2014-09-25
-
 @contacticonsize: 64px;
 @contacticonpadd: 10px;
-.Icon--Ct {
-  .icon(@contacticonsize; url('images/contact-sprite.png'));
+.c-IconButton--Ct {
+  width:  @contacticonsize;
+  height: @contacticonsize;
+  background-image: url('images/contact-sprite-bw.png');
+  &:hover {
+    background-image: url('images/contact-sprite.png');
+  }
 }
-.Icon--Ct--Mapss {.sprite(horizontal; 1; @contacticonsize; @contacticonpadd);}
-.Icon--Ct--Phone {.sprite(horizontal; 2; @contacticonsize; @contacticonpadd);}
-.Icon--Ct--Email {.sprite(horizontal; 3; @contacticonsize; @contacticonpadd);}
-.Icon--Ct--Linkd {.sprite(horizontal; 4; @contacticonsize; @contacticonpadd);}
-.Icon--Ct--Stack {.sprite(horizontal; 5; @contacticonsize; @contacticonpadd);}
-.Icon--Ct--Githb {.sprite(horizontal; 6; @contacticonsize; @contacticonpadd);}
-.Icon--Ct--Googl {.sprite(horizontal; 7; @contacticonsize; @contacticonpadd);}
-.Icon--Ct--Twitr {.sprite(horizontal; 8; @contacticonsize; @contacticonpadd);}
-.Icon--Ct--Npmjs {.sprite(horizontal; 9; @contacticonsize; @contacticonpadd);}
+.c-IconButton--Ct--Mapss {.sprite(horizontal; 1; @contacticonsize; @contacticonpadd);}
+.c-IconButton--Ct--Phone {.sprite(horizontal; 2; @contacticonsize; @contacticonpadd);}
+.c-IconButton--Ct--Email {.sprite(horizontal; 3; @contacticonsize; @contacticonpadd);}
+.c-IconButton--Ct--Linkd {.sprite(horizontal; 4; @contacticonsize; @contacticonpadd);}
+.c-IconButton--Ct--Stack {.sprite(horizontal; 5; @contacticonsize; @contacticonpadd);}
+.c-IconButton--Ct--Githb {.sprite(horizontal; 6; @contacticonsize; @contacticonpadd);}
+.c-IconButton--Ct--Googl {.sprite(horizontal; 7; @contacticonsize; @contacticonpadd);}
+.c-IconButton--Ct--Twitr {.sprite(horizontal; 8; @contacticonsize; @contacticonpadd);}
+.c-IconButton--Ct--Npmjs {.sprite(horizontal; 9; @contacticonsize; @contacticonpadd);}
 
-// An application icon.
+// An application icon on the "Web" page.
 //
 // ^author
 // : Chris Harvey
@@ -209,14 +211,19 @@ a.Icon { // HACK FIXME due to specificity of `a[href]`
 // : 2015-04-07
 @appiconsize: 64px;
 @appiconpadd: 10px;
-.Icon--Ap {
-  .icon(@appiconsize; url('images/setup-sprite.png'));
+.c-IconButton--Ap {
+  width:  @appiconsize;
+  height: @appiconsize;
+  background-image: url('images/setup-sprite-bw.png');
+  &:hover {
+    background-image: url('images/setup-sprite.png');
+  }
 }
-.Icon--Ap--Apple {.sprite(horizontal; 1; @appiconsize; @appiconpadd);}
-.Icon--Ap--Chrom {.sprite(horizontal; 2; @appiconsize; @appiconpadd);}
-.Icon--Ap--Atomm {.sprite(horizontal; 3; @appiconsize; @appiconpadd);}
-.Icon--Ap--Latex {.sprite(horizontal; 4; @appiconsize; @appiconpadd);}
-.Icon--Ap--Gittt {.sprite(horizontal; 5; @appiconsize; @appiconpadd);}
+.c-IconButton--Ap--Apple {.sprite(horizontal; 1; @appiconsize; @appiconpadd);}
+.c-IconButton--Ap--Chrom {.sprite(horizontal; 2; @appiconsize; @appiconpadd);}
+.c-IconButton--Ap--Atomm {.sprite(horizontal; 3; @appiconsize; @appiconpadd);}
+.c-IconButton--Ap--Latex {.sprite(horizontal; 4; @appiconsize; @appiconpadd);}
+.c-IconButton--Ap--Gittt {.sprite(horizontal; 5; @appiconsize; @appiconpadd);}
 
 // List of acknowledgements on about page.
 //
