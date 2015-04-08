@@ -41,6 +41,27 @@ dt.Colorblock {
 }
 .ColorRelation::before {content: open-quote;}
 .ColorRelation::after  {content: close-quote;}
+
+form {
+  box-sizing: border-box;
+  padding: 1.5rem 1rem;
+  margin-bottom: 1.5rem;
+}
+fieldset {
+  box-sizing: border-box;
+  width: 33%;
+  margin: 0;
+}
+fieldset > ul {
+  padding: 0;
+  list-style-type: none;
+}
+#syntax-example, #syntax-example * {
+  transition-property: border-color, color, background-color;
+  transition-duration: 500ms;
+  transition-timing-function: ease;
+  transition-delay: 0ms;
+}
 </style>
 </head>
 <body class="t-GoldenBody t-GoldenBody--Right">
@@ -596,26 +617,71 @@ complement(@color) : rgb( 255 - red(@color), 255 - green(@color), 255 - blue(@co
   </section>
   <section>
     <h3>Interactive Example</h3>
-    <p>Check the checkboxes to change the color themes.</p>
-    <pre>
-      Check Boxes
-Backgrounds
-t-bg-sol-lite
-t-bg-sol-dark
-t-bg-lun-lite (checked)
-t-bg-lun-dark
-
-Foregrounds
-t-fg-sol-lite (checked)
-t-fg-sol-dark
-t-fg-lun-lite
-t-fg-lun-dark
-
-Accents
-t-ac-sol (checked)
-t-ac-lun
-</pre>
-    <pre id="syntax-exmpl">
+    <form class="o-FlexContainer">
+      <p>Check the radio buttons to add/remove classes to the <code>pre</code> Element below, which
+        will change its color theme.</p>
+      <fieldset>
+        <legend>Backgrounds</legend>
+        <ul>
+          <li>
+            <input type="radio" id="check-t-bg-sol-lite" name="bg" value="t-bg-sol-lite"/>
+            <label for="check-t-bg-sol-lite">t-bg-sol-lite</label>
+          </li>
+          <li>
+            <input type="radio" id="check-t-bg-sol-dark" name="bg" value="t-bg-sol-dark"/>
+            <label for="check-t-bg-sol-dark">t-bg-sol-dark</label>
+          </li>
+          <li>
+            <input type="radio" id="check-t-bg-lun-lite" name="bg" value="t-bg-lun-lite" checked=""/>
+            <label for="check-t-bg-lun-lite">t-bg-lun-lite (default)</label>
+          </li>
+          <li>
+            <input type="radio" id="check-t-bg-lun-dark" name="bg" value="t-bg-lun-dark"/>
+            <label for="check-t-bg-lun-dark">t-bg-lun-dark</label>
+          </li>
+        </ul>
+      </fieldset>
+      <fieldset>
+        <legend>Foregrounds</legend>
+        <ul>
+          <li>
+            <input type="radio" id="check-t-fg-sol-lite" name="fg" value="t-fg-sol-lite" checked=""/>
+            <label for="check-t-fg-sol-lite">t-fg-sol-lite (default)</label>
+          </li>
+          <li>
+            <input type="radio" id="check-t-fg-sol-dark" name="fg" value="t-fg-sol-dark"/>
+            <label for="check-t-fg-sol-dark">t-fg-sol-dark</label>
+          </li>
+          <li>
+            <input type="radio" id="check-t-fg-lun-lite" name="fg" value="t-fg-lun-lite"/>
+            <label for="check-t-fg-lun-lite">t-fg-lun-lite</label>
+          </li>
+          <li>
+            <input type="radio" id="check-t-fg-lun-dark" name="fg" value="t-fg-lun-dark"/>
+            <label for="check-t-fg-lun-dark">t-fg-lun-dark</label>
+          </li>
+        </ul>
+      </fieldset>
+      <fieldset>
+        <legend>Accents</legend>
+        <ul>
+          <li>
+            <input type="radio" id="check-default" name="ac" value="" checked=""/>
+            <label for="check-default">none (default)</label>
+          </li>
+          <li>
+            <input type="radio" id="check-t-ac-sol" name="ac" value="t-ac-sol"/>
+            <label for="check-t-ac-sol">t-ac-sol</label>
+          </li>
+          <li>
+            <input type="radio" id="check-t-ac-lun" name="ac" value="t-ac-lun"/>
+            <label for="check-t-ac-lun">t-ac-lun</label>
+          </li>
+        </ul>
+      </fieldset>
+      <input type="reset"/>
+    </form>
+    <pre id="syntax-example">
 <span class="c__Kwd">function</span> <span class="c__Cmd">Person(<span class="c__Arg">name</span>)</span> { <small class="c__Comm">// constructor for class `Person`</small>
   <span class="c__Obj">this</span>.greet = <span class="c__Str">'hello!'</span>;
 }
@@ -627,6 +693,18 @@ t-ac-lun
 }
 <span class="c__Obj">Util</span>.<span class="c__Cmd">extend(<span class="c__Arg"><span class="c__Obj">TestSubject</span>, <span class="c__Obj">Person</span></span>)</span>; <small class="c__Comm">// extends `TestSubject` from `Person`</small>
 <span class="c__Kwd">var</span> you = <span class="c__Opr">new</span> <span class="c__Cmd">TestSubject(<span class="c__Arg"><span class="c__Str">'Chell'</span>, <span class="c__Cst">true</span></span>)</span>; <small class="c__Comm">// creates an instance of `TestSubject`</small>
+
+<small class="c__Comm">small.c__Comm  (comment)</small>
+<strong class="c__Emph">strong.c__Emph (importance)</strong>
+
+<span class="c__Ctl">.c__Ctl  (control)</span>                   <span class="c__Tag">.c__Tag  (HTML tag)</span>
+<span class="c__Opr">.c__Opr  (delimiter/operator)</span>        <span class="c__Atr">.c__Atr  (HTML attribute)</span>
+<span class="c__Kwd">.c__Kwd  (keyword/type)</span>              <span class="c__Val">.c__Val  (HTML/CSS value)</span>
+<span class="c__Cst">.c__Cst  (constant)</span>                  <span class="c__Sel">.c__Sel  (CSS selector)</span>
+<span class="c__Str">.c__Str  (string)</span>                    <span class="c__Prp">.c__Prp  (CSS property)</span>
+<span class="c__Cmd">.c__Cmd  (command/function)</span>
+<span class="c__Arg">.c__Arg  (argument/variable)</span>
+<span class="c__Obj">.c__Obj  (object)</span>
 </pre>
   </section>
 </section>
@@ -710,5 +788,23 @@ t-ac-lun
 </nav>
 <script src="../../bower_components/jquery/dist/jquery.js"></script>
 <script src="../scripts/global.js"></script>
+<script>
+var pre = $('#syntax-example');
+$('input[name="bg"]').change(function () {
+  pre.removeClass('t-bg-sol-lite t-bg-sol-dark t-bg-lun-lite t-bg-lun-dark');
+  if (this.checked) {pre.addClass($(this).val());}
+})
+$('input[name="fg"]').change(function () {
+  pre.removeClass('t-fg-sol-lite t-fg-sol-dark t-fg-lun-lite t-fg-lun-dark');
+  if (this.checked) {pre.addClass($(this).val());}
+})
+$('input[name="ac"]').change(function () {
+  pre.removeClass('t-ac-sol t-ac-lun');
+  if (this.checked) {pre.addClass($(this).val());}
+})
+$('input[type="reset"]').click(function () {
+  pre.removeClass();
+});
+</script>
 </body>
 </html>
