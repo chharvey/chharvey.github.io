@@ -1,0 +1,123 @@
+// main: ../all.less
+
+/*#################*\
+    _bground.less
+\*#################*/
+
+
+/**
+  * Use this Mixin as a tool to apply the color scheme to an Element.
+@params
+: @color_bd  : the border     color of the Element
+: @color_txt : the text       color of the Element
+: @color_bg  : the background color of the Element
+@tags
+: #border
+: #background
+@author
+: Chris Harvey
+@updated
+: 2014-08-11
+  */
+.colors(@color_bd; @color_txt; @color_bg) {
+  border-color: @color_bd;
+  color: @color_txt;
+  background-color: @color_bg;
+}
+
+/**
+  * This Mixin sets the background color to a certain opacity.
+@params
+: @color   : the base color of the background color
+: @fadeout : the fade-out factor as a percentage. 100% is completely transparent, 0% is completely opaque.
+@tags
+: #background
+: #opacity
+@author
+: Chris Harvey
+@updated
+: 2014-06-26
+  */
+.fade-background(@color; @fadeout) {
+  background-color: @color; // fallback
+  background-color: fadeout(@color, @fadeout);
+}
+
+/**
+  * Use this Mixin to apply a linear gradient background on an Element.
+  * See [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/linear-gradient) for more info.
+  * See [WPD](http://docs.webplatform.org/wiki/css/functions/linear-gradient) for more info.
+@params
+: ... : any number of parameters
+@tags
+: #background-image
+: #gradient
+: #vendorspecific
+@author
+: Chris Harvey
+@updated
+: 2014-07-08
+  */
+.gradient(...) {
+  background-image: -webkit-linear-gradient(@arguments);
+  background-image:    -moz-linear-gradient(@arguments);
+  background-image:     -ms-linear-gradient(@arguments);
+  background-image:      -o-linear-gradient(@arguments);
+  background-image:         linear-gradient(@arguments);
+  background-image:        -webkit-gradient(@arguments); // "Old Webkit"
+}
+
+/**
+  * This Mixin sets the background position of an Object's background sprite image.
+  * This assumes the sprite's images are linearly horizontally ordered.
+@params
+: @position : the position of the sprite's image to be used. must be a positive integer.
+: @iconsize : the horizontal (x) size of the sprite's image. in pixels.
+: @iconpadd : the padding between images in the sprite's image. in pixels.
+@tags
+: #background-image
+@author
+: Chris Harvey
+@updated
+: 2014-07-18
+  */
+.sprite(@position; @iconsize; @iconpadd) {
+  background-position: ((@position - 1) * -(@iconsize + @iconpadd)) 0;
+}
+
+/**
+  * The following Interfaces add background images to an Element, typically the `body` Element.
+  * `.crossgrid-lined()`    : simple lined paper
+  * `.crossgrid-phi()`      : lined paper with vertical lines at phi-like intervals
+  * `.crossgrid-even()`     : lined paper with vertical lines at fractions n/m where 1 ≤ m ≤ 6 and 1 ≤ n ≤ m
+  * `.crossgrid-even-lcm()` : lined paper with vertical lines at n/60 where 1 ≤ n ≤ 60
+@tags
+: #schematic
+: #golden
+@author
+: Chris Harvey
+@updated
+: 2014-10-07
+  */
+.crossgrid-lined() {
+  background-image: url('https://chharvey.github.io/core/images/crossgrid-lined.svg');
+  background-size: 1px 24px;
+  background-repeat: repeat;
+  background-position: left bottom; // fallback
+  // background-position-y: bottom;
+}
+.crossgrid-phi() {
+  background-image: url('https://chharvey.github.io/core/images/crossgrid-phi.svg');
+  background-size: 100% 24px;
+  background-repeat: repeat-y;
+}
+.crossgrid-even() {
+  background-image: url('https://chharvey.github.io/core/images/crossgrid-even.svg');
+  background-size: 100% 24px;
+  background-repeat: repeat-y;
+}
+.crossgrid-lcm() {
+  background-image: url('https://chharvey.github.io/core/images/crossgrid-even-lcm.svg');
+  background-size: 100% 24px;
+  background-repeat: repeat-y;
+}

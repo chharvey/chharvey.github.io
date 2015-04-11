@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>Flexbox Layout</title>
+<title>The FlexContainer Object</title>
 <meta charset="UTF-8"/>
 <meta name="author" content="Christopher H. Harvey"/>
 <meta name="description" content="Using Flexbox to lay out Elements on a page."/>
@@ -10,10 +10,10 @@
 <link rel="stylesheet" href="../bower_components/xmeter/xmeter.css"/>
 <link rel="stylesheet" href="../core/styles/project.css"/>
 </head>
-<body>
-<main class="MainGolden Document Document--draft" data-status="draft" itemscope="" itemtype="https://schema.org/Article">
+<body class="t-GoldenBody t-GoldenBody--Right">
+<main class="o-Content c-Document c-Document--draft" data-status="draft" itemscope="" itemtype="https://schema.org/Article">
 <header>
-  <h1 itemprop="name headline">Flexbox Layout</h1>
+  <h1 itemprop="name headline">The FlexContainer Object</h1>
   <dl class="Docmeta">
     <dt>Author</dt>
     <dd itemprop="author">Christopher H. Harvey</dd>
@@ -31,10 +31,11 @@
     <dd class="update"><time datetime="2015-02-20 01:04">Feb 20, 2015 <span class="hm">1:04 AM</span></time></dd>
     <dd class="update"><time datetime="2015-02-20 15:11">Feb 20, 2015 <span class="hm">3:11 PM</span></time></dd>
     <dd class="update"><time datetime="2015-02-20 16:20">Feb 20, 2015 <span class="hm">4:20 PM</span></time></dd>
-    <dd class="update" itemprop="dateModified"><time datetime="2015-02-23 22:06">Feb 23, 2015 <span class="hm">10:06 PM</span></time></dd>
+    <dd class="update"><time datetime="2015-02-23 22:06">Feb 23, 2015 <span class="hm">10:06 PM</span></time></dd>
+    <dd class="update" itemprop="dateModified"><time datetime="2015-04-08 09:39">Apr 8, 2015 <span class="hm">9:39 AM</span></time></dd>
   </dl>
 </header>
-<p class="p--Lede Dropcap">Laying out a page is easier than it may seem. Everything on the page belongs in blocks, and
+<p class="c-Lede c-Lede--Dropcap">Laying out a page is easier than it may seem. Everything on the page belongs in blocks, and
   each block has a size and position. That&rsquo;s all there is to it. There are many methods,
   good and bad, of how to achieve this, but that is the gist of what needs to happen.</p>
 <p>Of all the grid systems out there, this article does not discuss any of them.
@@ -46,10 +47,12 @@
   <a rel="external" href="http://www.w3.org/TR/css3-flexbox/">CSS Flexible Box Layout Module</a>,
   or &ldquo;<a rel="external" href="http://css-tricks.com/snippets/css/a-guide-to-flexbox/">Flexbox</a>,&rdquo;
   for short. This article is not a Flexbox tutorial, but rather a guide on how to <em>use</em> it
+<!--
   (along with my implementations <a rel="external"
   href="https://github.com/chharvey/chharvey.github.io/blob/master/core/styles/default/tools/box/_flexbox.less">_flexbox.less</a>
   and <a rel="external"
   href="https://github.com/chharvey/chharvey.github.io/blob/master/core/styles/helpers/_layout.less">_layout.less</a>)
+-->
   to obtain the layout you want.</p>
 <p>After you&rsquo;ve designed the layout on paper (or in your head), you have to produce that layout
   on the screen. The easiest way to do this is to first decide on the order of the blocks,
@@ -72,8 +75,8 @@
     two sidebars. We want our end result to show the header at top, footer at bottom, sidebars
     on left and right, and body copy in the middle. Something like this:</p>
   <figure>
-    <img class="w-1o1" src="images/prototypical-site.png" alt="A screenshot of a typical website structure."/>
-    <figcaption><span class="p__Title">Figure 1.</span> A screenshot of a typical website structure.</figcaption>
+    <img src="images/prototypical-site.png" alt="A screenshot of a typical website structure."/>
+    <figcaption><b class="Title">Figure 1.</b> A screenshot of a typical website structure.</figcaption>
   </figure>
   <p>Not worring about how it looks for a moment, we need to write the HTML that makes the most
     semantic sense (and is the most accessible). This means our body copy should come first,
@@ -105,27 +108,25 @@
       <aside   class="help-otln"> Side2 </aside>
     </div>
   </figure>
-  <p class="p--Lede">Now for the fun part: adding Flexbox.</p>
+  <p><strong>Now for the fun part: adding Flexbox.</strong></p>
   <p>To set up a layout with multiple blocks that will visually appear on one or more lines,
     we need to use the Flexbox model. In this model, a <dfn id="flex-container">flex-container</dfn>
     is a block that contains other blocks, called <dfn id="flex-item">flex-items</dfn>, inside.</p>
   <p>Well, it&rsquo;s a good thing our HTML is already structured this way! We already have a
     container with 5 items. To turn the <code>main.Article</code> into a flex-container,
-    add class <code>.flex-container</code> to it. (There is no need to add class
-    <code>.flex-item</code> to its children.)
-    You <em>could</em> do this with <code>&lt;main class="Article flex-container"&gt;</code>,
-    but that would be using a presentational class in HTML, which is a no-no.
-    <small>(Imagine having to add that class to hundreds of <code>.Article</code>s.)</small>
-    Instead, go into your Less and do the following. Notice how we aren&rsquo;t changing any HTML.</p>
+    use the FlexContainer Object by adding class <code>.o-FlexContainer</code> to it.
+    (There is no need to add any class to its children.)
+    You should do this with <code>&lt;main class="Article o-FlexContainer"&gt;</code>, but you
+    may use the Object as a mixin in your Less.</p>
   <figure>
     <pre>
 .Article {
-  .flex-container;
-  <small>// I would not recommend using &amp;:extend(.flex-container);
+  .o-FlexContainer;
+  <small>// I would not recommend using &amp;:extend(.o-FlexContainer);
   // because of issues with specificity</small>
 }
 </pre>
-    <div class="flex-container">
+    <div class="o-FlexContainer">
       <article class="help-otln">
         <p> Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. &hellip; </p>
       </article>
@@ -145,7 +146,7 @@
 </section>
 <section id="order">
   <h2>Setting Item Order</h2>
-  <p>Use the <code>.flex-order()</code> mixin on an item to change its placement
+  <p>Use the <code>.flex-order()</code> tool on an item to change its placement
     in the order. The rules for ordering are simple:</p>
   <ol>
     <li>The flex-container will arrange its flex-items in increasing order.</li>
@@ -155,7 +156,7 @@
   </ol>
   <p>Before I spoon-feed you the answer, let&rsquo;s take a moment to figure out what the ordinals
     should be. Here is a comparison of the items in order of source versus the order we want:</p>
-  <table class="Table Vert w-1o1">
+  <table class="Table Vert">
     <tbody class="Rowgroup">
       <tr class="Row" style="border-bottom: 1px solid #9acc7a;">
         <th class="Cell Hc" style="background-color: #ebf2f3;">source </th>
@@ -182,7 +183,7 @@
     the following adjustments to our Less:</p>
   <figure>
     <pre>
-.Article {.flex-container;}
+.Article {.o-FlexContainer;}
 
 .Body  {} <small>// .flex-order(0); by default</small>
 .Head  {.flex-order(-1);}
@@ -190,7 +191,7 @@
 .Side1 {.flex-order(-1);}
 .Side2 {}
 </pre>
-    <div class="flex-container">
+    <div class="o-FlexContainer">
       <article class="help-otln" style="order: 0;">
         <p> Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. &hellip; </p>
       </article>
@@ -253,7 +254,7 @@
     but you can choose your own widths as long as they add up to 100%.</p>
   <figure>
     <pre>
-.Article {.flex-container;}
+.Article {.o-FlexContainer;}
 
 .Body  {
   width: @3o5;
@@ -274,7 +275,7 @@
   width: @1o5;
 }
 </pre>
-    <div class="flex-container">
+    <div class="o-FlexContainer">
       <article class="help-otln" style="order: 0; width: 60%;">
         <p> Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. </p>
       </article>
@@ -321,12 +322,12 @@
 <span class="c__Sel">.w-5o6</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@5o6</span> <span class="c__Ctl">!important</span>;}
 <span class="c__Sel">.w-6o6</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@6o6</span> <span class="c__Ctl">!important</span>;}
 </pre>
-  <p><small><strong class="p__Title">Warning:</strong> These helpers use the keyword <code>!important</code>,
+  <p><small><strong class="Title">Warning:</strong> These helpers use the keyword <code>!important</code>,
     so adding one to an Element&rsquo;s <code>[class]</code> attribute and then trying to override
     it later with inline styles will result in a failure.</small></p>
   <figure>
     <pre>
-&lt;main class="Article"&gt;
+&lt;main class="Article o-FlexContainer"&gt;
   &lt;article class="Body w-3o5"&gt;
     &lt;p&gt; Pellentesque habitant morbi &hellip; &lt;/p&gt;
   &lt;/article&gt;
@@ -336,7 +337,7 @@
   &lt;aside  class="Side2 w-1o5"&gt; Side2 &lt;/aside&gt;
 &lt;/main&gt;
 </pre>
-    <div class="flex-container">
+    <div class="o-FlexContainer">
       <article class="help-otln w-3o5" style="order: 0; width: 60%;">
         <p> Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. </p>
       </article>
@@ -359,7 +360,7 @@
       Working backwards, you should be able to figure out what the width of one block
       should be, depending on the pattern you use. The last one is just there because
       how could I not include the Golden Ratio?</p>
-    <figure class="fig--Text flex-container--center">
+    <figure class="o-FlexContainer u-jc--center crossgrid-lined">
       <p class="w-1o1 help-otln">Use <code>.w-1o1</code> (100%) to model the
         <b>harmonic sequence</b>
         <span class="M M--B">\left(\infty,\mathbf{1,\frac{1}{2},\frac{1}{3}},\frac{1}{4},\dots,\frac{1}{n}\right)</span>
@@ -382,7 +383,7 @@
     </figure>
   </aside>
 </section>
-<section class="Document__draft" data-status="draft">
+<section class="c-Document__draft" data-status="draft">
   <h2>Positioning Items</h2>
   <section>
 
@@ -416,20 +417,20 @@
 </section>
 <section>
   <h2>Multiple Blocks</h2>
-  <p>Most likely, your HTML is alre</p>ady structured this way: the blocks you want to
+  <p>Most likely, your HTML is already structured this way: the blocks you want to
     lay out togeth</code>er are likely already wrapped in some sort of container. All you need to do is add
-    the <code>.flex-container</code> <b>Interface</b> to the container. Then, optionally use the width Interfaces mentioned
+    the <code>.o-FlexContainer</code> <b>Object</b> to the container. Then, optionally use the width Utilities mentioned
     above to set the proper widths of each of the items (if not, their widths will automatically
     fit their content). That&rsquo;s it! Layout done.</p>
   <figure>
     <pre>
-&lt;div class="flex-container"&gt;
+&lt;div class="o-FlexContainer"&gt;
   &lt;div class="w-1o6"&gt; flex-item 1! &lt;/div&gt;
   &lt;div class="w-2o6"&gt; flex-item 2! &lt;/div&gt;
   &lt;div class="w-3o6"&gt; flex-item 3! &lt;/div&gt;
 &lt;/div&gt;
 </pre>
-    <div class="flex-container">
+    <div class="o-FlexContainer">
       <div class="w-1o6 help-otln"> flex-item 1! </div>
       <div class="w-2o6 help-otln"> flex-item 2! </div>
       <div class="w-3o6 help-otln"> flex-item 3! </div>
@@ -439,13 +440,13 @@
     to the next line. If they don&rsquo;t add up to enough, there will be extra space.</p>
   <figure>
     <pre>
-&lt;div class="flex-container"&gt;
+&lt;div class="o-FlexContainer"&gt;
   &lt;div class="w-2o6"&gt; flex-item 1! &lt;/div&gt;
   &lt;div class="w-2o6"&gt; flex-item 2! &lt;/div&gt;
   &lt;div class="w-3o6"&gt; flex-item 3! &lt;/div&gt;
 &lt;/div&gt;
 </pre>
-    <div class="flex-container">
+    <div class="o-FlexContainer">
       <div class="w-2o6 help-otln">flex-item 1!</div>
       <div class="w-2o6 help-otln">flex-item 2!</div>
       <div class="w-3o6 help-otln">flex-item 3!</div>
@@ -453,13 +454,13 @@
   </figure>
   <figure>
     <pre>
-&lt;div class="flex-container"&gt;
+&lt;div class="o-FlexContainer"&gt;
   &lt;div class="w-1o6"&gt; flex-item 1! &lt;/div&gt;
   &lt;div class="w-2o6"&gt; flex-item 2! &lt;/div&gt;
   &lt;div class="w-2o6"&gt; flex-item 3! &lt;/div&gt;
 &lt;/div&gt;
 </pre>
-    <div class="flex-container">
+    <div class="o-FlexContainer">
       <div class="w-1o6 help-otln">flex-item 1!</div>
       <div class="w-2o6 help-otln">flex-item 2!</div>
       <div class="w-2o6 help-otln">flex-item 3!</div>
@@ -469,17 +470,17 @@
     the inter-word space in a paragraph with <code>text-align: justify;</code>.
     To override this and distribute the space <em>around</em> the blocks, leaving a little bit
     on the outside, use
-    the modifier <code>.flex-container--around</code> <em>instead of</em> (not in addition to)
-    the normal <code>.flex-container</code>.</p>
+    the <code>.u-jc--around</code> Utility <em>in addition to</em>
+    the <code>.o-FlexContainer</code> Object.</p>
   <figure>
     <pre>
-&lt;div class="flex-container--around"&gt;
+&lt;div class="o-FlexContainer u-jc--around"&gt;
   &lt;div class="w-2o6"&gt; flex-item 1! &lt;/div&gt;
   &lt;div class="w-2o6"&gt; flex-item 2! &lt;/div&gt;
   &lt;div class="w-3o6"&gt; flex-item 3! &lt;/div&gt;
 &lt;/div&gt;
 </pre>
-    <div class="flex-container--around">
+    <div class="o-FlexContainer u-jc--around">
       <div class="w-2o6 help-otln">flex-item 1!</div>
       <div class="w-2o6 help-otln">flex-item 2!</div>
       <div class="w-3o6 help-otln">flex-item 3!</div>
@@ -487,30 +488,30 @@
   </figure>
   <figure>
     <pre>
-&lt;div class="flex-container--around"&gt;
+&lt;div class="o-FlexContainer u-jc--around"&gt;
   &lt;div class="w-1o6"&gt; flex-item 1! &lt;/div&gt;
   &lt;div class="w-2o6"&gt; flex-item 2! &lt;/div&gt;
   &lt;div class="w-2o6"&gt; flex-item 3! &lt;/div&gt;
 &lt;/div&gt;
 </pre>
-    <div class="flex-container--around">
+    <div class="o-FlexContainer u-jc--around">
       <div class="w-1o6 help-otln">flex-item 1!</div>
       <div class="w-2o6 help-otln">flex-item 2!</div>
       <div class="w-2o6 help-otln">flex-item 3!</div>
     </div>
   </figure>
   <p>To completely remove the space between the items and push it all the way to the outside,
-    use the modifier <code>.flex-container--center</code> instead. This acts like a paragraph with
+    add the <code>.u-jc--center</code> Utility. This acts like a paragraph with
     <code>text-align: center;</code>.</p>
   <figure>
     <pre>
-&lt;div class="flex-container--center"&gt;
+&lt;div class="o-FlexContainer u-jc--center"&gt;
   &lt;div class="w-2o6"&gt; flex-item 1! &lt;/div&gt;
   &lt;div class="w-2o6"&gt; flex-item 2! &lt;/div&gt;
   &lt;div class="w-3o6"&gt; flex-item 3! &lt;/div&gt;
 &lt;/div&gt;
 </pre>
-    <div class="flex-container--center">
+    <div class="o-FlexContainer u-jc--center">
       <div class="w-2o6 help-otln">flex-item 1!</div>
       <div class="w-2o6 help-otln">flex-item 2!</div>
       <div class="w-3o6 help-otln">flex-item 3!</div>
@@ -518,13 +519,13 @@
   </figure>
   <figure>
     <pre>
-&lt;div class="flex-container--center"&gt;
+&lt;div class="o-FlexContainer u-jc--center"&gt;
   &lt;div class="w-1o6"&gt; flex-item 1! &lt;/div&gt;
   &lt;div class="w-2o6"&gt; flex-item 2! &lt;/div&gt;
   &lt;div class="w-2o6"&gt; flex-item 3! &lt;/div&gt;
 &lt;/div&gt;
 </pre>
-    <div class="flex-container--center">
+    <div class="o-FlexContainer u-jc--center">
       <div class="w-1o6 help-otln">flex-item 1!</div>
       <div class="w-2o6 help-otln">flex-item 2!</div>
       <div class="w-2o6 help-otln">flex-item 3!</div>
@@ -532,7 +533,7 @@
   </figure>
 </section>
 </main>
-<script src="https://code.jquery.com/jquery-2.0.3.min.js"></script>
+<script src="../bower_components/jquery/dist/jquery.js"></script>
 <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML,https://chharvey.github.io/chhlib/mathjax-localconfig.js"></script>
 <script src="../core/scripts/global.js"></script>
 </body>
