@@ -1,0 +1,111 @@
+
+/*####################*\
+    _c-Document.less
+\*####################*/
+
+
+// Represents a generic article, technical document, blog post, etc.
+// This class may be added to a literal `article` Element or `main` Element of a page.
+// Designed to contain other block-level Elements such as headings and paragraphs.
+//
+// ^author
+// : Chris Harvey
+// ^updated
+// : 2015-03-09
+.c-Document {
+  font-family: @project_font_family_prose;
+  text-align: justify;
+}
+
+// Use class `.c-Document--*` to style the document based on its status, or
+// `.c-Document__*` to style an element based on its status inside a `.c-Document`.
+//
+// These classes are stylistic only. They do not provide semantics.
+// The `[data-status]` attribute semantically indicates the status of a document or Element.
+//
+// `draft`    : a work in progress
+// `complete` : finished but still needs edits before releasing
+// `released` : ready for implementation
+//
+// Use class `.c-Document__informative` to style nonessential elements.
+//
+// The `[data-informative]` attribute on an Element in a `.Document` indicates that
+// the content is nonessential to the document.
+//
+// ^url
+// : https://github.com/chharvey/chharvey.github.io/wiki/Document-Status/
+// ^author
+// : Chris Harvey
+// ^updated
+// : 2015-03-14
+@content_draft:    'This document is a work in progress.';
+@content_complete: 'This document is mostly complete.';
+@content_released: 'This document is ready for implemen' '\00ad' 'tation.'; // &shy;
+.c-Document--draft::before    {color: #610000; content: @content_draft;}
+.c-Document--complete::before {color: #4e6100; content: @content_complete;}
+.c-Document--released::before {color: #006127; content: @content_released;}
+.c-Document__draft    {color: #610000;}
+.c-Document__complete {color: #4e6100;}
+.c-Document__released {color: #006127;}
+.c-Document__informative {color: #002761;}
+@media screen {
+  .c-Document--draft::before,
+  .c-Document--complete::before,
+  .c-Document--released::before {
+    // FIXME cannot use `.o-Sidebar--Minor` because cannot include classes from inside media queries
+    display: block;
+    box-sizing: border-box;
+    position: absolute;
+    width:        @golden5; // @golden1 within a @golden4
+    margin-left:  @golden8; // @golden4 within a @golden4
+    margin-right: @golden7; // @golden3 within a @golden4
+    right: 0;
+    .box-block();
+    .font-size-block(@project_font_size_sml; @project_line_height);
+    font-weight: bold;
+    font-family: @project_font_family_accent;
+    text-align: left;
+  }
+  .c-Document--draft::before    {background: #ff9e9e;}
+  .c-Document--complete::before {background: #ecff9e;}
+  .c-Document--released::before {background: #9effc5;}
+
+  .elem-status-screen(@brdrc; @bgc) {
+    border-left:  0.25rem solid @brdrc;
+    border-right: 0.25rem solid @brdrc;
+    background: fadeout(@bgc, 80%);
+  }
+  .c-Document__draft,
+  .c-Document__complete,
+  .c-Document__released {
+    padding-left:  0.75rem;
+    padding-right: 0.75rem;
+    margin-left:  1rem;
+    margin-right: 1rem;
+    box-shadow: 4px 4px 8px #808080;
+  }
+  .c-Document__draft    {.elem-status-screen(#f00; #ff9e9e);}
+  .c-Document__complete {.elem-status-screen(#cf0; #ecff9e);}
+  .c-Document__released {.elem-status-screen(#0f6; #9effc5);}
+
+  .c-Document__informative {
+    border-left:  0.125rem solid #06f;
+    border-right: 0.125rem solid #06f;
+    padding-left:  0.375rem;
+    padding-right: 0.375rem;
+    margin-left:  0.5rem;
+    margin-right: 0.5rem;
+    box-shadow: 2px 2px 4px #c0c0c0;
+    font-family: @project_font_family_base;
+    background: fadeout(#9ec5ff, 80%);
+  }
+}
+@media print {
+  .c-Document--draft::before    {}
+  .c-Document--complete::before {}
+  .c-Document--released::before {}
+  .c-Document__draft    {}
+  .c-Document__complete {}
+  .c-Document__released {}
+  .c-Document__informative {.parens();}
+}

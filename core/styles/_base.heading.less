@@ -1,0 +1,110 @@
+
+/*######################*\
+    _base.heading.less
+\*######################*/
+
+
+// font-sizes
+@font_size_h1: 48/16; // 3.0000 || 2.000vru
+@font_size_h2: 35/16; // 2.1875 || 1.458vru
+@font_size_h3: 26/16; // 1.6250 || 1.083vru
+@font_size_h4: 21/16; // 1.3125 || 0.875vru
+@font_size_h5: 18/16; // 1.1250 || 0.750vru
+@font_size_h6: 16/16; // 1.0000 || 0.666vru
+
+// box height, as a multiple of 1vru (only used in calculations) (same as reset font-size)
+@vru_height_h1: 32/16; // 2.000
+@vru_height_h2: 24/16; // 1.500
+@vru_height_h3: 20/16; // 1.250
+@vru_height_h4: 16/16; // 1.000
+@vru_height_h5: 12/16; // 0.750
+@vru_height_h6: 10/16; // 0.625
+
+// line-heights
+@line_height_h1: @project_line_height / @font_size_h1 * @vru_height_h1; // 1.5 / 3.0000 * 2.000 == 0.5000
+@line_height_h2: @project_line_height / @font_size_h2 * @vru_height_h2; // 1.5 / 2.1875 * 1.500 == 0.6857
+@line_height_h3: @project_line_height / @font_size_h3 * @vru_height_h3; // 1.5 / 1.6250 * 1.250 == 0.9231
+@line_height_h4: @project_line_height / @font_size_h4 * @vru_height_h4; // 1.5 / 1.3125 * 1.000 == 1.1429
+@line_height_h5: @project_line_height / @font_size_h5 * @vru_height_h5; // 1.5 / 1.1250 * 0.750 == 1.3333
+@line_height_h6: @project_line_height / @font_size_h6 * @vru_height_h6; // 1.5 / 1.0000 * 0.625 == 1.5000
+
+// total remainder spacing (in vrus)
+@vru_remain_h1: 4 - @vru_height_h1; // 2.000
+@vru_remain_h2: 3 - @vru_height_h2; // 1.500
+@vru_remain_h3: 3 - @vru_height_h3; // 1.750
+@vru_remain_h4: 2 - @vru_height_h4; // 1.000
+@vru_remain_h5: 2 - @vru_height_h5; // 1.250
+@vru_remain_h6: 2 - @vru_height_h6; // 1.375
+
+// top spacing, in vrus
+@vru_top_h1: @phi1 * @vru_remain_h1;
+@vru_top_h2: @phi1 * @vru_remain_h2;
+@vru_top_h3: @phi1 * @vru_remain_h3;
+@vru_top_h4: @phi1 * @vru_remain_h4;
+@vru_top_h5: @phi1 * @vru_remain_h5;
+@vru_top_h6: @phi1 * @vru_remain_h6;
+
+// bottom spacing, in vrus
+@vru_bot_h1: @phi2 * @vru_remain_h1;
+@vru_bot_h2: @phi2 * @vru_remain_h2;
+@vru_bot_h3: @phi2 * @vru_remain_h3;
+@vru_bot_h4: @phi2 * @vru_remain_h4;
+@vru_bot_h5: @phi2 * @vru_remain_h5;
+@vru_bot_h6: @phi2 * @vru_remain_h6;
+
+// This Mixin represents a generic textual heading of a section, post, article, or document.
+// It does not represent a heading in a table. See the `.Cell.Hc` Object.
+//
+// @font_size   - unitless value for the font-size property (multiplied by 1rem here).
+// @line_height - unitless value of the line-height property.
+// @vru_height  - unitless number, in vrus, of the box height.
+// @vru_top     - unitless number, in vrus, for the top spacing
+// @vru_bottom  - unitless number, in vrus, for the bottom spacing
+// ^author
+// : Chris Harvey
+// ^updated
+// : 2015-02-11
+.heading(@font_size; @line_height; @vru_top; @vru_bottom) {
+  .spacing-top(@vru_top * @project_vru);
+  .spacing-bottom(@vru_bottom * @project_vru);
+  font-size: (@font_size * 1rem);
+  line-height: @line_height;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: @project_font_family_heading;
+}
+h1 {
+  font-variant: small-caps;
+  text-align: center;
+  color: @project_color_h_major;
+}
+h2 {
+  .border-vert(bottom; 1px);
+  border-bottom-style: solid;
+  color: @project_color_h_minor;
+}
+h3 {
+  font-variant: small-caps;
+}
+h4 {
+  font-style: italic;
+}
+h5 {
+  font-style: italic;
+  font-weight: normal;
+  color: @project_color_h_minor;
+}
+h6 {
+  font-style: italic;
+  font-weight: normal;
+  font-variant: small-caps;
+}
+@media screen {
+  h1 {.heading(@font_size_h1; @line_height_h1; @vru_top_h1; @vru_bot_h1);}
+  h2 {.heading(@font_size_h2; @line_height_h2; @vru_top_h2; @vru_bot_h2);}
+  h3 {.heading(@font_size_h3; @line_height_h3; @vru_top_h3; @vru_bot_h3);}
+  h4 {.heading(@font_size_h4; @line_height_h4; @vru_top_h4; @vru_bot_h4);}
+  h5 {.heading(@font_size_h5; @line_height_h5; @vru_top_h5; @vru_bot_h5);}
+  h6 {.heading(@font_size_h6; @line_height_h6; @vru_top_h6; @vru_bot_h6);}
+}

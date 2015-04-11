@@ -11,9 +11,9 @@
 // - OTHER PAGES
 
 
-//+++++++++++//
-/*@INDEX PAGE*/
-//+++++++++++//
+/*+++++++++++++++*\
+    #INDEX PAGE
+\*+++++++++++++++*/
 nav {
   position: relative; // so devlink can be 100%
 }
@@ -24,6 +24,10 @@ nav {
   list-style-type: none;
 }
 @trans_square: @project_ani_long;
+@color_crumb_up_txt:  @atlas;
+@color_crumb_dn_txt:  @pbody;
+@color_crumb_up_bg:   lighten(@color_crumb_up_txt, @golden2); // #c3daff
+@color_crumb_dn_bg:   lighten(@color_crumb_dn_txt, @golden2); // #ffe8c3
 a.Square { // specificity HACK FIXME
   .transition(background-color,opacity; @trans_square);
   display: block;
@@ -48,11 +52,11 @@ a.Square { // specificity HACK FIXME
   font-family: @project_font_family_heading;
   text-align: center;
   text-shadow: 2px 2px 10px;
-}
-.Square:hover > .Square__Text {
-  @bgcolor: fadeout(@project_color_bg, 60%);
-  box-shadow: 0px 0px 20px 20px @bgcolor;
-  background-color: @bgcolor;
+  .Square:hover > & {
+    @bgcolor: fadeout(@project_color_bg, 60%);
+    box-shadow: 0px 0px 20px 20px @bgcolor;
+    background-color: @bgcolor;
+  }
 }
 
 .js-Square--right::before,
@@ -73,7 +77,7 @@ a.Square { // specificity HACK FIXME
 .js-Square--left::before   {background-position:   0% 100%;}
 .js-Square--bottom::before {background-position: 100% 100%;}
 
-.js-Square--funnel&::before  {.rotate(90deg);}
+.js-Square--funnel::before  {.rotate(90deg);}
 
 
 #devlink {
@@ -152,135 +156,86 @@ a.Square { // specificity HACK FIXME
   stroke-width: 1px;
   stroke-dasharray: 1,4;
 }
-//++++ @end INDEX PAGE ++++//
+//++++ #end INDEX PAGE ++++//
 
 
-//++++++++++++//
-/*@OTHER PAGES*/
-//++++++++++++//
-/**
-  * This Object represents a list of icons.
-@implements
-: .margin-even
-: .spacing-top()
-@tags
-: #typography
-: #list
-@author
-: Chris Harvey
-@updated
-: 2014-07-18
-  */
-@iconsize: 64px;
-@iconpadd: 10px;
-.Iconlist {
-  .flex-container;
-  .justify-content(space-around);
-  padding-left: 0;
-  list-style-type: none;
-}
-
-/**
-  * This interface represents a regular icon.
-@params
-: @iconsize : the width and height of the icon
-: @bgurl    : the url for the background image
-@tags
-: #background-image
-: #sprite
-@author
-: Chris Harvey
-@updated
-: 2015-03-24
-  */
-a.Icon { // specificity HACK FIXME
-  .translucent();
-  .transition(opacity; @project_ani_medium);
+/*++++++++++++++++*\
+    #OTHER PAGES
+\*++++++++++++++++*/
+// A button with an icon as its background image.
+// It should have text for when CSS is disabled, but this text has a transparent color.
+// Typically, this button will take the form of an `a[href]` Element.
+//
+// ^author
+// : Chris Harvey
+// ^updated
+// : 2015-04-07
+.c-IconButton {
+  .box-block();
   display: block;
-  color: transparent !important;
+  color: transparent !important; // HACK FIXME due to specificity of `a[href]`
   background-repeat: no-repeat;
 }
-.icon(@iconsize, @bgurl) {
-  width:  @iconsize;
-  height: @iconsize;
-  background-image: @bgurl;
-}
 
-/**
-  * A contact icon.
-@tags
-: #sprite
-@author
-: Chris Harvey
-@updated
-: 2014-09-25
-  */
-@contacticonsize: 64px;
-@contacticonpadd: 10px;
-.Icon--Ct {
-  .icon(@contacticonsize; url('images/contact-sprite.png'));
+// A contact icon on the "About" page.
+// An application icon on the "Web" page.
+//
+// ^author
+// : Chris Harvey
+// ^updated
+// : 2015-04-11
+@homeiconsize: 64px;
+@homeiconpadd: 10px;
+.c-IconButton--Ct,
+.c-IconButton--Ap {
+  width:  @homeiconsize;
+  height: @homeiconsize;
+  background-image: url('images/icon-sprite-bw.png');
+  &:hover {
+    background-image: url('images/icon-sprite.png');
+  }
 }
-.Icon--Ct--Mapss {.sprite(horizontal; 1; @contacticonsize; @contacticonpadd);}
-.Icon--Ct--Phone {.sprite(horizontal; 2; @contacticonsize; @contacticonpadd);}
-.Icon--Ct--Email {.sprite(horizontal; 3; @contacticonsize; @contacticonpadd);}
-.Icon--Ct--Linkd {.sprite(horizontal; 4; @contacticonsize; @contacticonpadd);}
-.Icon--Ct--Stack {.sprite(horizontal; 5; @contacticonsize; @contacticonpadd);}
-.Icon--Ct--Githb {.sprite(horizontal; 6; @contacticonsize; @contacticonpadd);}
-.Icon--Ct--Googl {.sprite(horizontal; 7; @contacticonsize; @contacticonpadd);}
-.Icon--Ct--Twitr {.sprite(horizontal; 8; @contacticonsize; @contacticonpadd);}
-.Icon--Ct--Npmjs {.sprite(horizontal; 9; @contacticonsize; @contacticonpadd);}
-
-/**
-  * An application icon.
-@tags
-: #sprite
-@author
-: Chris Harvey
-@updated
-: 2014-09-25
-  */
-@appiconsize: 64px;
-@appiconpadd: 10px;
-.Icon--Ap {
-  .icon(@appiconsize; url('images/setup-sprite.png'));
-  border-radius: (@appiconsize / 2);
+.c-IconButton--Ct {
 }
-.Icon--Ap--Apple {.sprite(horizontal; 1; @appiconsize; @appiconpadd);}
-.Icon--Ap--Chrom {.sprite(horizontal; 2; @appiconsize; @appiconpadd);}
-.Icon--Ap--Atomm {.sprite(horizontal; 3; @appiconsize; @appiconpadd);}
-.Icon--Ap--Gittt {.sprite(horizontal; 5; @appiconsize; @appiconpadd);}
-.Icon--Ap--Lessc {background-image: url('images/setup-icons/logo-Less-64.png');}
-.Icon--Ap--Jadee {
-  background-color: #00A86B;
-  background-image: url('images/setup-icons/logo-Jade-temp.png');
-  background-size: contain;
-  background-position: center center;
+.c-IconButton--Ct--Mapss {.sprite(horizontal; 1; @homeiconsize; @homeiconpadd);}
+.c-IconButton--Ct--Phone {.sprite(horizontal; 2; @homeiconsize; @homeiconpadd);}
+.c-IconButton--Ct--Email {.sprite(horizontal; 3; @homeiconsize; @homeiconpadd);}
+.c-IconButton--Ct--Linkd {.sprite(horizontal; 4; @homeiconsize; @homeiconpadd);}
+.c-IconButton--Ct--Stack {.sprite(horizontal; 5; @homeiconsize; @homeiconpadd);}
+.c-IconButton--Ct--Githb {.sprite(horizontal; 6; @homeiconsize; @homeiconpadd);}
+.c-IconButton--Ct--Googl {.sprite(horizontal; 7; @homeiconsize; @homeiconpadd);}
+.c-IconButton--Ct--Twitr {.sprite(horizontal; 8; @homeiconsize; @homeiconpadd);}
+.c-IconButton--Ct--Npmjs {.sprite(horizontal; 9; @homeiconsize; @homeiconpadd);}
+
+.c-IconButton--Ap {
+  border-radius: (@homeiconsize / 4);
 }
-.Icon--Ap--Npmjs {.Icon--Ct; .Icon--Ct--Npmjs;}
-.Icon--Ap--Bower {background-image: url('images/setup-icons/logo-Bower-64.png');}
+.c-IconButton--Ap--Apple {.sprite(horizontal; 10; @homeiconsize; @homeiconpadd);}
+.c-IconButton--Ap--Chrom {.sprite(horizontal; 11; @homeiconsize; @homeiconpadd);}
+.c-IconButton--Ap--Atomm {.sprite(horizontal; 12; @homeiconsize; @homeiconpadd);}
+.c-IconButton--Ap--Gittt {.sprite(horizontal; 13; @homeiconsize; @homeiconpadd);}
+.c-IconButton--Ap--Lessc {.sprite(horizontal; 14; @homeiconsize; @homeiconpadd);}
+.c-IconButton--Ap--Jadee {.sprite(horizontal; 15; @homeiconsize; @homeiconpadd);}
+.c-IconButton--Ap--Npmjs {.sprite(horizontal; 16; @homeiconsize; @homeiconpadd);}
+.c-IconButton--Ap--Bower {.sprite(horizontal; 17; @homeiconsize; @homeiconpadd);}
 
-
-/**
-  * List of acknowledgements on about page.
-@implements
-: .fontsize-block-sml()
-@author
-: Chris Harvey
-@updated
-: 2015-03-24
-  */
+// List of acknowledgements on about page.
+//
+// ^author
+// : Chris Harvey
+// ^updated
+// : 2015-03-24
 .AcknowledgementsList {
   .font-size-block(@project_font_size_sml; @project_line_height);
   padding-left: 2rem;
 }
 
-/**
-  * A logo for an organization.
-@author
-: Chris Harvey
-@updated
-: 2014-06-16
-  */
+// A logo for an organization.
+//
+// ^author
+// : Chris Harvey
+// ^updated
+// : 2014-06-16
 .Capt-logo {
   padding-right: 96px;
   background-position: right center;
@@ -293,4 +248,4 @@ a.Icon { // specificity HACK FIXME
 .Capt-logo.Vdoe {background-image: url('images/logos-banners/logo-VA-DOE.png');}
 .Capt-logo.Amsy {background-image: url('images/logos-banners/logo-AMS.png');}
 .Capt-logo.Vmta {background-image: url('images/logos-banners/logo-VMTA.png');}
-//++++ @end OTHER PAGES ++++//
+//++++ #end OTHER PAGES ++++//
