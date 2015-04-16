@@ -1,7 +1,7 @@
 
-/*#############*\
-    _box.less
-\*#############*/
+/*###############*\
+    _o-Box.less
+\*###############*/
 
 
 // These Mixins create abstract inline structures, boxed with a solid border and rounded corners.
@@ -13,15 +13,15 @@
 // ^updated
 // : 2015-02-21
 .box-inline(@width; @color) {
-  padding: 1px 2px; // why these numbers?
+  padding: @project_boxpadding_tny;
   border-width: @width;
   border-style: solid;
   border-color: @color;
-  border-radius: 0.25rem;
+  border-radius: @project_border_radius_tny;
   white-space: nowrap;
 }
 .box-inline(@width) {
-  .box-inline(@width; currentColor);
+  .box-inline(@width; transparent);
 }
 .box-inline() {
   .box-inline(0);
@@ -41,22 +41,44 @@
   border-color: @color;
   padding: @project_boxpadding_sml;
   box-sizing: border-box;
-  border-radius: 0.5rem;
+  border-radius: @project_border_radius_sml;
 }
 .box-block(@width) {
-  .box-block(@width; currentColor);
+  .box-block(@width; transparent);
 }
 .box-block() {
   .box-block(0);
 }
 
-// TODO: separate structure from cosmetics here:
-// use object `o-Box` with mixins for border width
-// change `box-block` to `c-Cell` with options to add border-color and border-radius
+
+// There are two flavors of Boxes: Inline and Block
+//
+// ^author
+// : Chris Harvey
+// ^updated
+// : 2015-04-16
 .o-Box {
-  .box-block();
 }
-.o-Cell {
-  .box-block();
-  border-radius: 0;
+.o-Box--Inline {
+  padding: @project_boxpadding_tny;
+  border-width: 1px;
+  white-space: nowrap;
+}
+.o-Box--Block {
+  .border-vert(all; 2px);
+  padding: @project_boxpadding_sml;
+  box-sizing: border-box;
+}
+
+.c-Cell {
+}
+.c-Cell--Inline {
+  border-style: solid;
+  border-color: currentColor;
+  border-radius: @project_border_radius_tny;
+}
+.c-Cell--Block {
+  border-style: solid;
+  border-color: currentColor;
+  border-radius: @project_border_radius_sml;
 }
