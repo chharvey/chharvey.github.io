@@ -1,6 +1,6 @@
 
 # Christopher H. Harvey
-2641 Barracks Road, Unit I &mdash; Charlottesville, VA 22901 &mdash; (703) 507-2467<br/>
+2641 Barracks Road, Unit I &mdash; Charlottesville, VA 22901 &mdash; (703) 507-2467
 chrisharvey2pi@gmail.com &mdash; https://chharvey.github.io/
 
 ## TECHNICAL EXPERIENCE
