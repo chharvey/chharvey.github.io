@@ -4,6 +4,10 @@
     margin: 0;
   }
 }
+pre {
+  text-align: left;
+  text-indent: 0;
+}
 li,
 dt,
 dd {
@@ -35,6 +39,17 @@ img {
 }
 table {
   max-width: 100%;
+}
+code code,
+kbd code,
+samp code,
+code kbd,
+kbd kbd,
+samp kbd,
+code samp,
+kbd samp,
+samp samp {
+  font-size: inherit;
 }
 /*################*\
     _colors.less
@@ -72,6 +87,9 @@ table {
 /*##################*\
     _settings.less
 \*##################*/
+/*++++++++++++++++++++++++++*\
+    #PROJECT MAIN SETTINGS
+\*++++++++++++++++++++++++++*/
 /*+++++++++++++++++++++++++*\
     #PROJECT BOX SETTINGS
 \*+++++++++++++++++++++++++*/
@@ -87,27 +105,24 @@ table {
 /*############*\
     _hr.less
 \*############*/
-/*#############*\
-    _box.less
-\*#############*/
+/*###############*\
+    _o-Box.less
+\*###############*/
 .o-Box {
-  border-width: 0;
-  margin-top: 0;
-  border-style: solid;
-  border-color: currentColor;
-  padding: 0.75rem 1rem;
   box-sizing: border-box;
-  border-radius: 0.5rem;
+  border-width: 2px;
+  margin-top: -4px;
+  border-style: solid;
+  padding: 0.75rem 1rem;
+  border-radius: 0.50rem;
 }
-.o-Cell {
-  border-width: 0;
-  margin-top: 0;
-  border-style: solid;
-  border-color: currentColor;
-  padding: 0.75rem 1rem;
-  box-sizing: border-box;
-  border-radius: 0.5rem;
-  border-radius: 0;
+.o-Box--Special {
+  padding: 1.5rem 2rem;
+  border-radius: 1.00rem;
+}
+.o-Box--Hero {
+  padding: 3rem 4rem;
+  border-radius: 2.00rem;
 }
 /*##############*\
     _body.less
@@ -245,8 +260,6 @@ pre {
   font-size: 0.75rem;
   line-height: 2;
   font-family: 'Menlo', 'Monaco', 'Andale Mono', monospace;
-  text-align: left;
-  text-indent: 0;
 }
 pre code {
   quotes: '\`' '\`';
@@ -270,14 +283,13 @@ pre > small {
   pre {
     border-width: 2px;
     margin-top: -4px;
-    border-style: solid;
-    border-color: transparent;
-    padding: 0.75rem 1rem;
     box-sizing: border-box;
-    border-radius: 0.5rem;
+    padding: 0.75rem 1rem;
+    border-style: solid;
+    border-radius: 0.50rem;
+    background: #e3eafd;
     border-color: #d5dbee;
     color: #657b83;
-    background: #e3eafd;
   }
   pre > small {
     color: #93a1a1;
@@ -396,8 +408,8 @@ ul {
 : 2014-05-18
   */
 .Cell {
-  padding: 0.75rem 1rem;
   display: table-cell;
+  padding: 0.75rem 1rem;
 }
 /**
   * This Object represents a heading in a `.Table`. A table heading may apply to a single row,
@@ -560,32 +572,12 @@ code {
 }
 @media screen {
   code {
-    padding: 1px 2px;
-    border-width: 1px;
-    border-style: solid;
-    border-color: transparent;
+    padding: 0.16666667em 0.25em 0.08333333em;
     border-radius: 0.25rem;
-    white-space: nowrap;
+    border: 1px solid;
     border-color: #eee8d5;
     color: #836d65;
     background: #fdf6e3;
-  }
-}
-kbd > kbd {
-  font-size: inherit;
-  font-family: 'Geneva', 'Tahoma', sans-serif;
-}
-@media screen {
-  kbd > kbd {
-    padding: 1px 2px;
-    border-width: 1px;
-    border-style: solid;
-    border-color: transparent;
-    border-radius: 0.25rem;
-    white-space: nowrap;
-    border-color: #073642;
-    color: #93a1a1;
-    background: #002b36;
   }
 }
 .M {
@@ -749,6 +741,19 @@ kbd > kbd {
   display: block;
   content: '' !important;
 }
+/*###################*\
+    _o-Textbox.less
+\*###################*/
+.o-Textbox {
+  display: inline;
+  padding: 0.16666667em 0.25em 0.08333333em;
+  border-width: 1px;
+  font-size: 0.75em;
+  line-height: 0;
+  white-space: nowrap;
+  border-style: solid;
+  border-radius: 0.25rem;
+}
 /*####################*\
     _c-Document.less
 \*####################*/
@@ -761,18 +766,17 @@ kbd > kbd {
   .c-Document--Complete::before,
   .c-Document--Released::before {
     display: block;
+    box-sizing: border-box;
+    border-width: 2px;
+    margin-top: -4px;
+    border-style: solid;
+    padding: 0.75rem 1rem;
+    border-radius: 0.50rem;
     position: absolute;
     width: 9.01699437%;
     margin-left: 2.12862363%;
     margin-right: 3.44418537%;
     right: 0;
-    border-width: 0;
-    margin-top: 0;
-    border-style: solid;
-    border-color: currentColor;
-    padding: 0.75rem 1rem;
-    box-sizing: border-box;
-    border-radius: 0.5rem;
     font-size: 0.75rem;
     line-height: 2;
     font-weight: bold;
@@ -1058,32 +1062,33 @@ kbd > kbd {
 .Docmeta > dd[itemprop~="dateModified"] > time::after,
 .Docmeta > dd[itemprop~="dateCreated"]::after,
 .Docmeta > dd[itemprop~="datePublished"]::after {
-  padding: 1px 2px;
-  border-width: 1px;
-  border-style: solid;
-  border-color: transparent;
-  border-radius: 0.25rem;
-  white-space: nowrap;
   display: inline;
-  margin-left: 1rem;
-  font-weight: bold;
-  font-size: 0.75rem;
+  padding: 0.16666667em 0.25em 0.08333333em;
+  border-width: 1px;
+  font-size: 0.75em;
   line-height: 0;
+  white-space: nowrap;
+  border-style: solid;
+  border-radius: 0.25rem;
+  margin-left: 1rem;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: bold;
   font-family: 'Geneva', 'Tahoma', sans-serif;
+  border-color: transparent;
+  color: #f2f7ff;
+  background: #595855;
 }
 .Docmeta > dd[itemprop~="dateModified"] > time::after {
-  color: #610000;
-  background: #ff9e9e;
+  background: #990000;
   content: 'Latest';
 }
 .Docmeta > dd[itemprop~="dateCreated"]::after {
-  color: #4e6100;
-  background: #ecff9e;
+  background: #7a9900;
   content: 'Completed';
 }
 .Docmeta > dd[itemprop~="datePublished"]::after {
-  color: #006127;
-  background: #9effc5;
+  background: #00993d;
   content: 'Released';
 }
 .Docmeta .tod::before {
@@ -1122,6 +1127,94 @@ kbd > kbd {
 .Rf::after,
 .Fn::after {
   content: close-quote;
+}
+/*#################*\
+    _c-Label.less
+\*#################*/
+.color_dang_base {
+  background-color: #ff0000;
+}
+.color_cshn_base {
+  background-color: #ccff00;
+}
+.color_skss_base {
+  background-color: #00ff66;
+}
+.color_info_base {
+  background-color: #0066ff;
+}
+.color_help_base {
+  background-color: #cc00ff;
+}
+.color_dang_bg {
+  background-color: #990000;
+}
+.color_cshn_bg {
+  background-color: #7a9900;
+}
+.color_skss_bg {
+  background-color: #00993d;
+}
+.color_info_bg {
+  background-color: #003d99;
+}
+.color_help_bg {
+  background-color: #7a0099;
+}
+.c-Label {
+  display: inline;
+  padding: 0.16666667em 0.25em 0.08333333em;
+  border-width: 1px;
+  font-size: 0.75em;
+  line-height: 0;
+  white-space: nowrap;
+  border-style: solid;
+  border-radius: 0.25rem;
+  margin-left: 1rem;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: bold;
+  font-family: 'Geneva', 'Tahoma', sans-serif;
+  border-color: transparent;
+  color: #f2f7ff;
+  background: #595855;
+}
+.c-Label--Dang {
+  background: #990000;
+}
+.c-Label--Cshn {
+  background: #7a9900;
+}
+.c-Label--Skss {
+  background: #00993d;
+}
+.c-Label--Info {
+  background: #003d99;
+}
+.c-Label--Help {
+  background: #7a0099;
+}
+/*###############*\
+    _o-Key.less
+\*###############*/
+.c-Key {
+  font-family: 'Geneva', 'Tahoma', sans-serif;
+}
+@media screen {
+  .c-Key {
+    display: inline;
+    padding: 0.16666667em 0.25em 0.08333333em;
+    border-width: 1px;
+    font-size: 0.75em;
+    line-height: 0;
+    white-space: nowrap;
+    border-style: solid;
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+    border-color: #073642;
+    color: #93a1a1;
+    background: #002b36;
+  }
 }
 /*####################*\
     _colortheme.less
@@ -1377,15 +1470,6 @@ kbd > kbd {
 /*++++++++++++*\
     #SPACING
 \*++++++++++++*/
-.boxpadding--sml {
-  padding: 0.75rem 1rem;
-}
-.boxpadding--med {
-  padding: 1.5rem 2rem;
-}
-.boxpadding--lrg {
-  padding: 3rem 4rem;
-}
 .margin-even {
   margin-left: auto;
   margin-right: auto;
