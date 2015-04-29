@@ -60,6 +60,9 @@ samp samp {
 /*+++++++++++++++++++++++++++++++++*\
     #SOLARIZED / LUNARIZED THEMES
 \*+++++++++++++++++++++++++++++++++*/
+/*++++++++++++++++*\
+    #LABEL THEME
+\*++++++++++++++++*/
 /*################*\
     _sizing.less
 \*################*/
@@ -115,12 +118,12 @@ samp samp {
   border-radius: 2rem;
 }
 .o-Box {
+  display: block;
   box-sizing: border-box;
   padding: 0.75rem 1rem;
   overflow: auto;
 }
 .o-Box--Island {
-  padding: 0.75rem 1rem;
   border-radius: 0.5rem;
 }
 .o-Box--Dialog {
@@ -570,10 +573,10 @@ code {
 }
 @media screen {
   code {
-    padding: 0.16666667em 0.25em 0.08333333em;
+    padding: 0.25em 0.41666667em 0.16666667em;
     border-radius: 0.25rem;
-    border: 1px solid;
-    border-color: #eee8d5;
+    padding-bottom: 0.08333333em;
+    border: 1px solid #eee8d5;
     color: #836d65;
     background: #fdf6e3;
   }
@@ -744,13 +747,55 @@ code {
 \*###################*/
 .o-Textbox {
   display: inline;
-  padding: 0.16666667em 0.25em 0.08333333em;
-  border-width: 1px;
+  padding: 0.25em 0.41666667em 0.16666667em;
   font-size: 0.75em;
   line-height: 0;
   white-space: nowrap;
-  border-style: solid;
   border-radius: 0.25rem;
+}
+/*#################*\
+    _s-ff_UI.less
+\*#################*/
+.s-ff_UI {
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  font-family: 'Geneva', 'Tahoma', sans-serif;
+  text-align: left;
+}
+/*#################*\
+    _s.label.less
+\*#################*/
+.s-bg_Dang {
+  background: #ff4b33;
+  color: #f2f7ff;
+}
+.s-bg_Cshn {
+  background: #ffe433;
+}
+.s-bg_Skss {
+  background: #9acc7a;
+}
+.s-bg_Info {
+  background: #99daff;
+}
+.s-bg_Help {
+  background: #ff99c0;
+}
+.s-fg_Dang {
+  color: #660c00;
+}
+.s-fg_Cshn {
+  color: #665800;
+}
+.s-fg_Skss {
+  color: #375822;
+}
+.s-fg_Info {
+  color: #0081cc;
+}
+.s-fg_Help {
+  color: #cc004e;
 }
 /*####################*\
     _c-Document.less
@@ -763,21 +808,26 @@ code {
   .c-Document--Draft::before,
   .c-Document--Complete::before,
   .c-Document--Released::before {
-    display: block;
-    box-sizing: border-box;
-    overflow: auto;
-    padding: 0.75rem 1rem;
-    border-radius: 0.5rem;
     position: absolute;
     width: 9.01699437%;
     margin-left: 2.12862363%;
     margin-right: 3.44418537%;
     right: 0;
-    font-size: 0.75rem;
-    line-height: 2;
-    font-weight: bold;
+    display: block;
+    box-sizing: border-box;
+    padding: 0.75rem 1rem;
+    overflow: auto;
+    border-radius: 0.5rem;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
     font-family: 'Geneva', 'Tahoma', sans-serif;
     text-align: left;
+    font-size: 0.75rem;
+    line-height: 2;
+    color: #0d0800;
+    background: #a6a7aa;
+    font-weight: bold;
   }
 }
 .c-Document--Draft::before {
@@ -1003,26 +1053,25 @@ code {
 .Docmeta > dd[itemprop~="dateCreated"]::after,
 .Docmeta > dd[itemprop~="datePublished"]::after {
   display: inline;
-  padding: 0.16666667em 0.25em 0.08333333em;
-  border-width: 1px;
+  padding: 0.25em 0.41666667em 0.16666667em;
   font-size: 0.75em;
   line-height: 0;
   white-space: nowrap;
-  border-style: solid;
   border-radius: 0.25rem;
-  margin-left: 1rem;
   font-style: normal;
   font-variant: normal;
-  font-weight: bold;
+  font-weight: normal;
   font-family: 'Geneva', 'Tahoma', sans-serif;
-  border-color: transparent;
+  text-align: left;
+  margin-left: 1rem;
+  font-weight: bold;
   color: #0d0800;
   background: #a6a7aa;
 }
 .Docmeta > dd[itemprop~="dateModified"] > time::after {
   background: #ff4b33;
-  color: #f2f7ff;
   content: 'Latest';
+  color: #f2f7ff;
 }
 .Docmeta > dd[itemprop~="dateCreated"]::after {
   background: #ffe433;
@@ -1073,19 +1122,8 @@ code {
     _c-Alert.less
 \*#################*/
 .c-Alert {
-  display: block;
-  box-sizing: border-box;
-  overflow: auto;
-  padding: 0.75rem 1rem;
-  border-radius: 0.5rem;
   font-size: 0.75rem;
   line-height: 2;
-  font-style: normal;
-  font-variant: normal;
-  font-weight: bold;
-  font-weight: normal;
-  font-family: 'Geneva', 'Tahoma', sans-serif;
-  text-align: left;
   color: #0d0800;
   background: #a6a7aa;
 }
@@ -1108,29 +1146,17 @@ code {
 .c-Alert__Title {
   padding-right: 1rem;
   font-weight: bold;
-  text-shadow: 1px 1px 2px rgba(242, 247, 255, 0.6);
+  text-shadow: 0 1px 2px rgba(242, 247, 255, 0.6);
 }
 .c-Alert--Dang .c-Alert__Title {
-  text-shadow: 1px 1px 2px rgba(13, 8, 0, 0.6);
+  text-shadow: 0 1px 2px rgba(13, 8, 0, 0.6);
 }
 /*#################*\
     _c-Label.less
 \*#################*/
 .c-Label {
-  display: inline;
-  padding: 0.16666667em 0.25em 0.08333333em;
-  border-width: 1px;
-  font-size: 0.75em;
-  line-height: 0;
-  white-space: nowrap;
-  border-style: solid;
-  border-radius: 0.25rem;
   margin-left: 1rem;
-  font-style: normal;
-  font-variant: normal;
   font-weight: bold;
-  font-family: 'Geneva', 'Tahoma', sans-serif;
-  border-color: transparent;
   color: #0d0800;
   background: #a6a7aa;
 }
@@ -1159,12 +1185,10 @@ code {
 @media screen {
   .c-Key {
     display: inline;
-    padding: 0.16666667em 0.25em 0.08333333em;
-    border-width: 1px;
+    padding: 0.25em 0.41666667em 0.16666667em;
     font-size: 0.75em;
     line-height: 0;
     white-space: nowrap;
-    border-style: solid;
     border-radius: 0.25rem;
     font-size: 0.75rem;
     border-color: #073642;
