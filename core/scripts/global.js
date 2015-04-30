@@ -60,21 +60,22 @@ function qblockLines() {
   * Adjusts the height of the `dt`s and `dd`s inside a `dl` such that
   * the each pair of terms and descriptions share the same height.
   * NOTE: this assumes each term-description group contains exactly one `dt` and one `dd`.
+  * CHANGED: 2015-04-15: no longer needed as Flexbox now automates height of boxes
   */
-function mapHeights() {
-  $('.dl--Horiz').each(function () {
-    $(this).children('dt').each(function () {
-      var height1 = parseInt($(this).css('height'));
-      var height2 = parseInt($(this).next().css('height'));
-      $(this).next().css('height', Math.max(height1, height2) + 'px');
-    });
-    $(this).children('dd').each(function () {
-      var height1 = parseInt($(this).prev().css('height'));
-      var height2 = parseInt($(this).css('height'));
-      $(this).prev().css('height', Math.max(height1, height2) + 'px');
-    });
-  });
-}
+// function mapHeights() {
+//   $('.dl--Horiz').each(function () {
+//     $(this).children('dt').each(function () {
+//       var height1 = parseInt($(this).css('height'));
+//       var height2 = parseInt($(this).next().css('height'));
+//       $(this).next().css('height', Math.max(height1, height2) + 'px');
+//     });
+//     $(this).children('dd').each(function () {
+//       var height1 = parseInt($(this).prev().css('height'));
+//       var height2 = parseInt($(this).css('height'));
+//       $(this).prev().css('height', Math.max(height1, height2) + 'px');
+//     });
+//   });
+// }
 
 /**
   * Adjusts the bottom spacing of a `.Table`.
@@ -133,7 +134,7 @@ function mathJax() {
 $(document).ready(function () {
   resizeFolioHeading();
   qblockLines();
-  mapHeights();
+  // mapHeights();
   tableSpacing();
   mathJax();
 });
