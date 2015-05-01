@@ -97,14 +97,20 @@ function tableSpacing() {
    * function transformation: MOD(x,24) translated left 12 and down 12, then flipped vertically.
    * if g(x) <= 0, then margin-bottom that number
    * else, padding-bottom that number.
+   *
+   * Notes:
+   * [1] n_rowgroups++ once more for the last border, if there is one
+   * [2] n_rowgroups++ once more again for a caption if it exists:
+   *     (this is for the border-top of the `caption` Element,
+   *     not the border-bottom of the `.c-Caption--Before` Component)
    */
   $('.Table').each(function () {
     var n_rowgroups = 0;
     $(this).find('.Rowgroup').each(function () {
       n_rowgroups++;
     });
-    if ($(this).find('.Rowgroup')[0] != null)     n_rowgroups++; // once more for the last border, if there is one
-    if ($(this).find('caption')[0]   != null)     n_rowgroups++; // once more again for a caption if it exists
+    if ($(this).find('.Rowgroup')[0] != null)     n_rowgroups++; // *[1]
+    if ($(this).find('caption')[0]   != null)     n_rowgroups++; // *[2]
     var btm = -(((n_rowgroups + 12) % 24) - 12);
     if (btm <= 0) {
       $(this).css('margin-top',''); // removes any previous inline style
