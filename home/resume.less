@@ -5,23 +5,45 @@
 \*###############*/
 
 //Table of Contents
-//- RESET
 //- VARIABLES
+//- BASE/RESET
 //- STRUCTURAL OBJECTS
 //- COSMETIC COMPONENTS
 //- OTHER OBJECTS
 //- TRUMPS
 
 
-/*++++++++++*\
-    #RESET
-\*++++++++++*/
+/*++++++++++++++*\
+    #VARIABLES
+\*++++++++++++++*/
+@datewidth: (768px * @phi3); // (8in * phi3) or (8in * 0.236067977499789696)
+@datewidth: @golden3; // 23.6067977499789696%
+//++++ #end VARIABLES ++++//
+
+
+/*+++++++++++++++*\
+    #BASE/RESET
+\*+++++++++++++++*/
+body {
+  @media screen {
+    position: relative; // so that absolutely positioned elements are sized proportionally
+    font-family: @project_font_family_prose;
+  }
+  @media print {
+    width: 768px; // 8in
+    font-family: 'Marion','Times','Times New Roman',serif;
+  }
+}
+
 h1, h2, h3, h4, h5, h6 {
   .spacing-top(0);
   .spacing-bottom(0);
 }
 p {
   .spacing-bottom(0);
+}
+ul {
+  padding-left: 0.25in;
 }
 a[href] {
   &:not(.BlueLink) {
@@ -51,28 +73,9 @@ abbr[title] {
 //++++ #end RESET ++++//
 
 
-/*++++++++++++++*\
-    #VARIABLES
-\*++++++++++++++*/
-@datewidth: (768px * @phi3); // (8in * phi3) or (8in * 0.236067977499789696)
-@datewidth: @golden3; // 23.6067977499789696%
-//++++ #end VARIABLES ++++//
-
-
 /*+++++++++++++++++++++++*\
     #STRUCTURAL OBJECTS
 \*+++++++++++++++++++++++*/
-body {
-  @media screen {
-    position: relative; // so that absolutely positioned elements are sized proportionally
-    font-family: @project_font_family_prose;
-  }
-  @media print {
-    width: 768px; // 8in
-    font-family: 'Marion','Times','Times New Roman',serif;
-  }
-}
-
 // The Header contains my name (`res-Name`) and contact information (`res-Postal`).
 //
 // ^author
@@ -138,43 +141,40 @@ body {
   .res-Org--Obj {
     @media print {
       margin-top: (-2 * @project_vru);
-      margin-left: @datewidth;
     }
   }
   .res-Org--Inst {
     .flexbox();
     .flex-direction(column);
   }
-    // Contains `.res-Org__Header__Titles` and `.res-Org__Spacetime`.
+    // The name of an institution organization
+    .res-Org--Inst__Name {
+      .flex-order(1);
+      margin-top: -@project_vru;
+    }
+    // Contains `.res-Org__Header__Titles` and `.res-Org__Header__Spacetime`.
     .res-Org__Header {
       @media print {
         .flexbox();
       }
     }
-      // Contains `.res-Org__Name` and `.res-Org__JobTitle`.
-      .res-Org__Titles {
+      // Contains `.res-Org__Titles__Name` and `.res-Org__Titles__JobTitle`.
+      .res-Org__Header__Titles {
         .flexbox();
         @media print {
           .flex-order(1);
         }
       }
         // The name of an organization.
-        .res-Org__Titles__Name {
+        .res-Org__Header__Titles__Name {
           .flex-order(1);
         }
-        // The name of an institution organization
-        .res-Org__Titles__Name--Inst {
-          margin-top: -@project_vru;
-          @media print {
-            margin-left: @datewidth;
-          }
-        }
         // The title of a job, e.g. a position held at an organization.
-        .res-Org__Titles__JobTitle {
+        .res-Org__Header__Titles__JobTitle {
           padding-right: 1rem;
         }
       // Contains dates and location of the organization.
-      .res-Org__Spacetime {
+      .res-Org__Header__Spacetime {
         @media screen {
           .flexbox();
         }
@@ -183,25 +183,21 @@ body {
         }
       }
         // Dates worked at each organization.
-        .res-Org__Spacetime__Dates {
+        .res-Org__Header__Spacetime__Dates {
           @media screen {
             padding-right: 0.5rem;
           }
         }
         // The city or location of an organization.
-        .res-Org__Spacetime__Place {
+        .res-Org__Header__Spacetime__Place {
           @media screen {
             .parens();
           }
         }
     // A bullet list of job descriptions for each job.
     .res-Org__Detail {
-      padding-left: 0.25in;
-      // padding-left: 0.5rem;
-      // list-style-position: inside;
       @media print {
         margin-top: -@project_vru;
-        margin-left: @datewidth;
       }
     }
 //++++ #end STRUCTURAL OBJECTS ++++//
@@ -318,11 +314,6 @@ body {
 .res-Footer {
   .hr-top-even(1px; solid; @project_color_h_minor);
   .font-size-block(@project_font_size_sml; @project_line_height);
-}
-/*.res-Org*/#tech-misc {
-  @media print {
-    margin-left: @datewidth;
-  }
 }
 //++++ #end OTHER OBJECTS ++++//
 
