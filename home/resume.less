@@ -45,20 +45,9 @@ p {
 ul {
   padding-left: 0.25in;
 }
-a[href] {
-  &:not(.BlueLink) {
-    font-style: inherit;
-    color: inherit;
-    &:hover {
-      text-decoration: none;
-      color: inherit;
-    }
-  }
+a {
   @media print {
     text-decoration: none;
-    &.BlueLink {
-      color: @project_color_a_up;
-    }
   }
 }
 i[lang] {
@@ -66,9 +55,6 @@ i[lang] {
 }
 cite {
   font-style: inherit;
-}
-abbr[title] {
-  border-bottom: 0;
 }
 //++++ #end RESET ++++//
 
@@ -241,6 +227,11 @@ abbr[title] {
     .pull-this(@project_vru);
   }
 }
+
+.res-Footer {
+  .hr-top-even(1px; solid; @project_color_h_minor);
+  .font-size-block(@project_font_size_sml; @project_line_height);
+}
 //++++ #end STRUCTURAL OBJECTS ++++//
 
 
@@ -303,18 +294,23 @@ abbr[title] {
 .res-H4 {
   font-style: italic;
 }
-//++++ #end COSMETIC COMPONENTS ++++//
 
-
-/*++++++++++++++++++*\
-    #OTHER OBJECTS
-\*++++++++++++++++++*/
-
-.res-Footer {
-  .hr-top-even(1px; solid; @project_color_h_minor);
-  .font-size-block(@project_font_size_sml; @project_line_height);
+// camouflage hyperlinks: // may move this to core project at a later time
+a.res-Camo { // specificity HACK
+  font-style: inherit;
+  text-decoration: none;
+  color: inherit;
+  // &:hover {
+  //   text-decoration: none;
+  //   color: inherit;
+  // }
 }
-//++++ #end OTHER OBJECTS ++++//
+a.BlueLink { // specificity HACK
+  @media print {
+    color: @project_color_a_up;
+  }
+}
+//++++ #end COSMETIC COMPONENTS ++++//
 
 
 /*+++++++++++*\
