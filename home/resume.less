@@ -7,7 +7,8 @@
 //Table of Contents
 //- RESET
 //- VARIABLES
-//- MAIN OBJECTS
+//- STRUCTURAL OBJECTS
+//- COSMETIC COMPONENTS
 //- OTHER OBJECTS
 //- TRUMPS
 
@@ -15,28 +16,23 @@
 /*++++++++++*\
     #RESET
 \*++++++++++*/
-h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6 {
   .spacing-top(0);
   .spacing-bottom(0);
-}
-h3, h4, h5, h6 {
-  .font-size-block(1; @project_line_height);
 }
 p {
   .spacing-bottom(0);
 }
 a[href] {
   &:not(.BlueLink) {
-  font-style: inherit;
-  color: inherit;
-  &:hover {
-    text-decoration: none;
+    font-style: inherit;
     color: inherit;
+    &:hover {
+      text-decoration: none;
+      color: inherit;
+    }
   }
-  }
-}
-@media print {
-  a[href] {
+  @media print {
     text-decoration: none;
     &.BlueLink {
       color: @project_color_a_up;
@@ -63,20 +59,18 @@ abbr[title] {
 //++++ #end VARIABLES ++++//
 
 
-/*+++++++++++++++++*\
-    #MAIN OBJECTS
-\*+++++++++++++++++*/
+/*+++++++++++++++++++++++*\
+    #STRUCTURAL OBJECTS
+\*+++++++++++++++++++++++*/
 body {
-@media screen {
+  @media screen {
     position: relative; // so that absolutely positioned elements are sized proportionally
     font-family: @project_font_family_prose;
-}
-@media print {
+  }
+  @media print {
     width: 768px; // 8in
-    font-size: inherit;
     font-family: 'Marion','Times','Times New Roman',serif;
-    line-height: inherit;
-}
+  }
 }
 
 // The Header contains my name (`res-Name`) and contact information (`res-Postal`).
@@ -87,28 +81,15 @@ body {
 // : 2015-01-22
 .res-Header {
   .spacing-bottom(@project_vru);
-@media screen {
+  @media screen {
     .hr-bottom-even(1px; solid; @project_color_h_major);
-}
+    font-family: @project_font_family_heading;
+  }
 }
   // My name at the top of the resume.
   .res-Header__Name {
-    font-weight: bold;
-    text-align: inherit;
-  @media print {
-      .spacing-top(@project_vru);
-      .spacing-bottom(@project_vru);
-      .font-size-block(@project_font_size_lrg; @project_line_height);
-      font-family: inherit;
-      text-transform: uppercase;
-      color: inherit;
-  }
-  }
-  // My contact info at the top of the resume.
-  .res-Header__Postal {
-  @media screen {
-      font-family: @project_font_family_heading;
-  }
+    .spacing-top(@project_vru);
+    .spacing-bottom(@project_vru);
   }
 
 
@@ -121,27 +102,21 @@ body {
 // ^updated
 // : 2015-01-08
 .res-Skill {
-@media screen {
+  @media screen {
     border-left: 1px dotted fadeout(@project_color_h_minor, 50%);
     padding-left: 0.5rem;
     margin-left: -0.5rem;
-}
+  }
 }
   // The title of each Skill, e.g. "Teaching Experience".
   .res-Skill__Title {
-  @media screen {
-      .font-size-block(1.5; @project_line_height);
-      .border-vert(bottom);
+    @media screen {
       padding-right: 1rem;
       text-align: right;
-  }
-  @media print {
+    }
+    @media print {
       .spacing-bottom(@project_vru);
-      .font-size-block(@project_font_size_lrg; @project_line_height);
-      font-variant: small-caps;
-      font-family: inherit;
-      color: inherit;
-  }
+    }
   }
   // A Org is an item in a Skill. It has an organization name and location.
   // It usually contains an `Org__Header` and an `Org__Detail`.
@@ -161,10 +136,10 @@ body {
     .spacing-bottom(@project_vru);
   }
   .res-Org--Obj {
-  @media print {
+    @media print {
       margin-top: (-2 * @project_vru);
       margin-left: @datewidth;
-  }
+    }
   }
   .res-Org--Inst {
     .flexbox();
@@ -172,26 +147,20 @@ body {
   }
     // Contains `.res-Org__Header__Titles` and `.res-Org__Spacetime`.
     .res-Org__Header {
-    @media print {
+      @media print {
         .flexbox();
-    }
+      }
     }
       // Contains `.res-Org__Name` and `.res-Org__JobTitle`.
       .res-Org__Titles {
         .flexbox();
-      @media print {
+        @media print {
           .flex-order(1);
-      }
+        }
       }
         // The name of an organization.
         .res-Org__Titles__Name {
           .flex-order(1);
-          font-style: italic;
-          font-variant: inherit;
-          font-weight: inherit;
-        @media print {
-            font-family: inherit;
-        }
         }
         // The name of an institution organization
         .res-Org__Titles__Name--Inst {
@@ -203,36 +172,25 @@ body {
         // The title of a job, e.g. a position held at an organization.
         .res-Org__Titles__JobTitle {
           padding-right: 1rem;
-          font-weight: bold;
-        @media screen {
-            font-family: @project_font_family_heading;
-            font-variant: small-caps;
-        }
-        @media print {
-            font-family: inherit;
-            font-variant: inherit;
-        }
         }
       // Contains dates and location of the organization.
       .res-Org__Spacetime {
-      @media screen {
+        @media screen {
           .flexbox();
-      }
-      @media print {
+        }
+        @media print {
           width: @datewidth;
-      }
+        }
       }
         // Dates worked at each organization.
         .res-Org__Spacetime__Dates {
-        @media screen {
+          @media screen {
             padding-right: 0.5rem;
-        }
+          }
         }
         // The city or location of an organization.
         .res-Org__Spacetime__Place {
-        }
-        @media screen {
-          .res-Org__Spacetime__Place [itemprop="name"] {
+          @media screen {
             .parens();
           }
         }
@@ -241,12 +199,74 @@ body {
       padding-left: 0.25in;
       // padding-left: 0.5rem;
       // list-style-position: inside;
-    @media print {
+      @media print {
         margin-top: -@project_vru;
         margin-left: @datewidth;
+      }
     }
-    }
-//++++ #end MAIN OBJECTS ++++//
+//++++ #end STRUCTURAL OBJECTS ++++//
+
+
+/*++++++++++++++++++++++++*\
+    #COSMETIC COMPONENTS
+\*++++++++++++++++++++++++*/
+.res-H1,
+.res-H2,
+.res-H3,
+.res-H4,
+.res-H5,
+.res-H6 {
+  font-style: inherit;
+  font-weight: inherit;
+  font-variant: inherit;
+  @media screen {
+    font-family: @project_font_family_heading;
+  }
+  @media print {
+    font-family: inherit;
+    color: inherit;
+  }
+}
+.res-H1,
+.res-H2 {
+  font-weight: bold;
+  @media print {
+    .font-size-block(@project_font_size_lrg; @project_line_height);
+  }
+}
+.res-H3,
+.res-H4 {
+  font-size: inherit;
+  line-height: inherit;
+}
+.res-H1 {
+  text-align: inherit;
+  @media screen {
+    font-variant: small-caps;
+  }
+  @media print {
+    text-transform: uppercase;
+  }
+}
+.res-H2 {
+  @media screen {
+    .font-size-block(1.5; @project_line_height);
+    .border-vert(bottom); // undo h2 default
+  }
+  @media print {
+    font-variant: small-caps;
+  }
+}
+.res-H3 {
+  font-weight: bold;
+  @media screen {
+    font-variant: small-caps;
+  }
+}
+.res-H4 {
+  font-style: italic;
+}
+//++++ #end COSMETIC COMPONENTS ++++//
 
 
 /*++++++++++++++++++*\
@@ -270,15 +290,15 @@ body {
   > dd + dt {
     margin-top: 0;
   }
-@media screen {
+  @media screen {
     dt {
       padding-right: 0.5rem;
     }
     dd {
       .parens();
     }
-}
-@media print {
+  }
+  @media print {
     margin-top: -@project_vru;
     dt {
       margin-left: @datewidth;
@@ -292,7 +312,7 @@ body {
       float: none;
       clear: none;
     }
-}
+  }
 }
 
 .res-Footer {
