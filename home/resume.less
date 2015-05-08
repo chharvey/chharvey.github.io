@@ -66,19 +66,17 @@ abbr[title] {
 /*+++++++++++++++++*\
     #MAIN OBJECTS
 \*+++++++++++++++++*/
+body {
 @media screen {
-  body {
     position: relative; // so that absolutely positioned elements are sized proportionally
     font-family: @project_font_family_prose;
-  }
 }
 @media print {
-  body {
     width: 768px; // 8in
     font-size: inherit;
     font-family: 'Marion','Times','Times New Roman',serif;
     line-height: inherit;
-  }
+}
 }
 
 // The Header contains my name (`res-Name`) and contact information (`res-Postal`).
@@ -89,42 +87,28 @@ abbr[title] {
 // : 2015-01-22
 .res-Header {
   .spacing-bottom(@project_vru);
-}
 @media screen {
-  .res-Header {
     .hr-bottom-even(1px; solid; @project_color_h_major);
-  }
 }
-@media print {
-  .res-Header {
-  }
 }
   // My name at the top of the resume.
   .res-Header__Name {
     font-weight: bold;
     text-align: inherit;
-  }
-  @media screen {
-    .res-Header__Name {
-    }
-  }
   @media print {
-    .res-Header__Name {
       .spacing-top(@project_vru);
       .spacing-bottom(@project_vru);
       .font-size-block(@project_font_size_lrg; @project_line_height);
       font-family: inherit;
       text-transform: uppercase;
       color: inherit;
-    }
+  }
   }
   // My contact info at the top of the resume.
   .res-Header__Postal {
-  }
   @media screen {
-    .res-Header__Postal {
       font-family: @project_font_family_heading;
-    }
+  }
   }
 
 
@@ -137,36 +121,37 @@ abbr[title] {
 // ^updated
 // : 2015-01-08
 .res-Skill {
-}
 @media screen {
-  .res-Skill {
     border-left: 1px dotted fadeout(@project_color_h_minor, 50%);
     padding-left: 0.5rem;
     margin-left: -0.5rem;
-  }
+}
 }
   // The title of each Skill, e.g. "Teaching Experience".
   .res-Skill__Title {
-  }
   @media screen {
-    .res-Skill__Title {
       .font-size-block(1.5; @project_line_height);
       .border-vert(bottom);
       padding-right: 1rem;
       text-align: right;
-    }
   }
   @media print {
-    .res-Skill__Title {
       .spacing-bottom(@project_vru);
       .font-size-block(@project_font_size_lrg; @project_line_height);
       font-variant: small-caps;
       font-family: inherit;
       color: inherit;
-    }
+  }
   }
   // A Org is an item in a Skill. It has an organization name and location.
   // It usually contains an `Org__Header` and an `Org__Detail`.
+  //
+  // On the same level as an Org, a `Org--Obj` is a paragraph that describes an objective.
+  // It is in the Skill belonging to Objective
+  //
+  // On the same level as an Org, an Institution (`Org--Inst`) is an educational organization
+  // (college/university) with a name and location. It is also in a Skill, namely,
+  // the one corresponding to Education.
   //
   // ^author
   // : Chris Harvey
@@ -175,34 +160,28 @@ abbr[title] {
   .res-Org {
     .spacing-bottom(@project_vru);
   }
-  @media screen {
-    .res-Org {
-    }
-  }
+  .res-Org--Obj {
   @media print {
-    .res-Org {
-    }
+      margin-top: (-2 * @project_vru);
+      margin-left: @datewidth;
+  }
+  }
+  .res-Org--Inst {
+    .flexbox();
+    .flex-direction(column);
   }
     // Contains `.res-Org__Header__Titles` and `.res-Org__Spacetime`.
     .res-Org__Header {
-    }
-    @media screen {
-    }
     @media print {
-      .res-Org__Header {
         .flexbox();
-      }
+    }
     }
       // Contains `.res-Org__Name` and `.res-Org__JobTitle`.
       .res-Org__Titles {
         .flexbox();
-      }
-      @media screen {
-      }
       @media print {
-        .res-Org__Titles {
           .flex-order(1);
-        }
+      }
       }
         // The name of an organization.
         .res-Org__Titles__Name {
@@ -210,15 +189,9 @@ abbr[title] {
           font-style: italic;
           font-variant: inherit;
           font-weight: inherit;
-        }
-        @media screen {
-          .res-Org__Titles__Name {
-          }
-        }
         @media print {
-          .res-Org__Titles__Name {
             font-family: inherit;
-          }
+        }
         }
         // The name of an institution organization
         .res-Org__Titles__Name--Inst {
@@ -231,39 +204,29 @@ abbr[title] {
         .res-Org__Titles__JobTitle {
           padding-right: 1rem;
           font-weight: bold;
-        }
         @media screen {
-        .res-Org__Titles__JobTitle {
             font-family: @project_font_family_heading;
             font-variant: small-caps;
-          }
         }
         @media print {
-          .res-Org__Titles__JobTitle {
             font-family: inherit;
             font-variant: inherit;
-          }
+        }
         }
       // Contains dates and location of the organization.
       .res-Org__Spacetime {
-      }
       @media screen {
-        .res-Org__Spacetime {
           .flexbox();
-        }
       }
       @media print {
-        .res-Org__Spacetime {
           width: @datewidth;
-        }
+      }
       }
         // Dates worked at each organization.
         .res-Org__Spacetime__Dates {
-        }
         @media screen {
-          .res-Org__Spacetime__Dates {
             padding-right: 0.5rem;
-          }
+        }
         }
         // The city or location of an organization.
         .res-Org__Spacetime__Place {
@@ -278,40 +241,11 @@ abbr[title] {
       padding-left: 0.25in;
       // padding-left: 0.5rem;
       // list-style-position: inside;
-    }
     @media print {
-      .res-Org__Detail {
         margin-top: -@project_vru;
         margin-left: @datewidth;
-      }
     }
-  // On the same level as an Org, a `.res-Obj` is a paragraph that describes an objective.
-  // It is in the Skill belonging to Objective
-  //
-  // ^author
-  // : Chris Harvey
-  // ^updated
-  // : 2015-02-17
-  .res-Org--Obj {
-  }
-  @media print {
-    .res-Org--Obj {
-      margin-top: (-2 * @project_vru);
-      margin-left: @datewidth;
     }
-  }
-  // On the same level as an Org, an Institution (`Inst`) is an educational organization
-  // (college/university) with a name and location. It is also in a Skill, namely,
-  // the one corresponding to Education.
-  //
-  // ^author
-  // : Chris Harvey
-  // ^updated
-  // : 2015-01-08
-  .res-Org--Inst {
-    .flexbox();
-    .flex-direction(column);
-  }
 //++++ #end MAIN OBJECTS ++++//
 
 
@@ -336,19 +270,15 @@ abbr[title] {
   > dd + dt {
     margin-top: 0;
   }
-}
 @media screen {
-  .res-AchList {
     dt {
       padding-right: 0.5rem;
     }
     dd {
       .parens();
     }
-  }
 }
 @media print {
-  .res-AchList {
     margin-top: -@project_vru;
     dt {
       margin-left: @datewidth;
@@ -362,19 +292,14 @@ abbr[title] {
       float: none;
       clear: none;
     }
-  }
+}
 }
 
 .res-Footer {
   .hr-top-even(1px; solid; @project_color_h_minor);
   .font-size-block(@project_font_size_sml; @project_line_height);
 }
-@media screen {
-}
-@media print {
-  // .noprint(); need to fix this in core
-}
-#tech-misc {
+/*.res-Org*/#tech-misc {
   @media print {
     margin-left: @datewidth;
   }
