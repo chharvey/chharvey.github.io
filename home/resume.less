@@ -200,6 +200,47 @@ abbr[title] {
         margin-top: -@project_vru;
       }
     }
+// used for when this object has no corresponding date or term
+.res-HasNoDate {
+  @media print {
+    margin-left: @datewidth;
+  }
+}
+
+// A list of achievements such as awards or memberships.
+.res-ListAchv {
+  @media print {
+    margin-top: -@project_vru;
+  }
+}
+
+// An award in a list of achievements.
+.res-ListAchv__Award {
+  margin-top: 0; // override dd + dt
+  font-weight: inherit;
+  @media screen {
+    display: inline;
+    &::before { // creates line breaks
+      content: '';
+      display: block;
+    }
+  }
+  @media print {
+    margin-left: @datewidth;
+  }
+}
+
+// A date for an award/achievement.
+.res-ListAchv__Date {
+  @media screen {
+    display: inline;
+    .parens();
+  }
+  @media print {
+    width: @datewidth;
+    .pull-this(@project_vru);
+  }
+}
 //++++ #end STRUCTURAL OBJECTS ++++//
 
 
@@ -268,48 +309,6 @@ abbr[title] {
 /*++++++++++++++++++*\
     #OTHER OBJECTS
 \*++++++++++++++++++*/
-// A list of achievements such as awards or memberships.
-.res-AchList {
-  .clearfix();
-  > dt,
-  > dd {
-    box-sizing: border-box;
-    float: left;
-    overflow: auto;
-  }
-  > dt {
-    padding-right: 1rem;
-    font-weight: inherit;
-    clear: both;
-    white-space: nowrap;
-  }
-  > dd + dt {
-    margin-top: 0;
-  }
-  @media screen {
-    dt {
-      padding-right: 0.5rem;
-    }
-    dd {
-      .parens();
-    }
-  }
-  @media print {
-    margin-top: -@project_vru;
-    dt {
-      margin-left: @datewidth;
-      padding-right: 0;
-      float: none;
-      clear: none;
-    }
-    dd {
-      width: @datewidth;
-      margin-top: -@project_vru;
-      float: none;
-      clear: none;
-    }
-  }
-}
 
 .res-Footer {
   .hr-top-even(1px; solid; @project_color_h_minor);
