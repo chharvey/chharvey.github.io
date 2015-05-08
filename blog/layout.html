@@ -11,10 +11,12 @@
 <link rel="stylesheet" href="../core/styles/project.css"/>
 </head>
 <body class="t-GoldenBody t-GoldenBody--Right">
-<main class="o-Content c-Document c-Document--draft" data-status="draft" itemscope="" itemtype="https://schema.org/Article">
+<main class="o-Content c-Document c-Document--Draft" data-status="draft" itemscope="" itemtype="https://schema.org/Article">
 <header>
   <h1 itemprop="name headline">The FlexContainer Object</h1>
-  <dl class="Docmeta">
+  <p class="o-Sidebar o-Sidebar--Minor c-Alert c-Alert--Dang">
+    This document is a work in progress.</p>
+  <dl class="c-Document__Meta">
     <dt>Author</dt>
     <dd itemprop="author">Christopher H. Harvey</dd>
     <dt>Description</dt>
@@ -25,14 +27,17 @@
     <dd itemprop="keywords">CSS</dd>
     <dd itemprop="keywords">Less</dd>
     <dt>Version History</dt>
-    <dd class="update"><time datetime="2015-02-13 15:23">Feb 13, 2015 <span class="hm">3:23 PM</span></time></dd>
-    <dd class="update"><time datetime="2015-02-19 13:01">Feb 19, 2015 <span class="hm">1:01 PM</span></time></dd>
-    <dd class="update"><time datetime="2015-02-19 19:23">Feb 19, 2015 <span class="hm">7:23 PM</span></time></dd>
-    <dd class="update"><time datetime="2015-02-20 01:04">Feb 20, 2015 <span class="hm">1:04 AM</span></time></dd>
-    <dd class="update"><time datetime="2015-02-20 15:11">Feb 20, 2015 <span class="hm">3:11 PM</span></time></dd>
-    <dd class="update"><time datetime="2015-02-20 16:20">Feb 20, 2015 <span class="hm">4:20 PM</span></time></dd>
-    <dd class="update"><time datetime="2015-02-23 22:06">Feb 23, 2015 <span class="hm">10:06 PM</span></time></dd>
-    <dd class="update" itemprop="dateModified"><time datetime="2015-04-08 09:39">Apr 8, 2015 <span class="hm">9:39 AM</span></time></dd>
+    <dd class="update"><time datetime="2015-02-13 15:23">Feb 13, 2015 <span class="tod">3:23 PM</span></time></dd>
+    <dd class="update"><time datetime="2015-02-19 13:01">Feb 19, 2015 <span class="tod">1:01 PM</span></time></dd>
+    <dd class="update"><time datetime="2015-02-19 19:23">Feb 19, 2015 <span class="tod">7:23 PM</span></time></dd>
+    <dd class="update"><time datetime="2015-02-20 01:04">Feb 20, 2015 <span class="tod">1:04 AM</span></time></dd>
+    <dd class="update"><time datetime="2015-02-20 15:11">Feb 20, 2015 <span class="tod">3:11 PM</span></time></dd>
+    <dd class="update"><time datetime="2015-02-20 16:20">Feb 20, 2015 <span class="tod">4:20 PM</span></time></dd>
+    <dd class="update"><time datetime="2015-02-23 22:06">Feb 23, 2015 <span class="tod">10:06 PM</span></time></dd>
+    <dd class="update" itemprop="dateModified">
+      <time datetime="2015-04-08 09:39">Apr 8, 2015 <span class="tod">9:39 AM</span></time>
+      <span class="c-Label c-Label--Dang">Latest</span>
+    </dd>
   </dl>
 </header>
 <p class="c-Lede c-Lede--Dropcap">Laying out a page is easier than it may seem. Everything on the page belongs in blocks, and
@@ -76,7 +81,7 @@
     on left and right, and body copy in the middle. Something like this:</p>
   <figure>
     <img src="images/prototypical-site.png" alt="A screenshot of a typical website structure."/>
-    <figcaption><b class="Title">Figure 1.</b> A screenshot of a typical website structure.</figcaption>
+    <figcaption class="c-Caption"><strong>Figure 1.</strong> A screenshot of a typical website structure.</figcaption>
   </figure>
   <p>Not worring about how it looks for a moment, we need to write the HTML that makes the most
     semantic sense (and is the most accessible). This means our body copy should come first,
@@ -300,51 +305,53 @@
     list of combinations).</p>
   <pre>
 <small>// even widths:                         // golden widths:</small>
-<span class="c__Sel">.w-1o1</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@1o1</span> <span class="c__Ctl">!important</span>;}        <span class="c__Sel">.w-p1 </span> {<span class="c__Prp">width</span>: <span class="c__Arg">@golden1</span>  <span class="c__Ctl">!important</span>;}
-<span class="c__Sel">.w-1o2</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@1o2</span> <span class="c__Ctl">!important</span>;}        <span class="c__Sel">.w-p2 </span> {<span class="c__Prp">width</span>: <span class="c__Arg">@golden2</span>  <span class="c__Ctl">!important</span>;}
-<span class="c__Sel">.w-2o2</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@2o2</span> <span class="c__Ctl">!important</span>;}        <span class="c__Sel">.w-p3 </span> {<span class="c__Prp">width</span>: <span class="c__Arg">@golden3</span>  <span class="c__Ctl">!important</span>;}
-<span class="c__Sel">.w-1o3</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@1o3</span> <span class="c__Ctl">!important</span>;}        <span class="c__Sel">.w-p4 </span> {<span class="c__Prp">width</span>: <span class="c__Arg">@golden4</span>  <span class="c__Ctl">!important</span>;}
-<span class="c__Sel">.w-2o3</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@2o3</span> <span class="c__Ctl">!important</span>;}        <span class="c__Sel">.w-p3c</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@golden3c</span> <span class="c__Ctl">!important</span>;}
-<span class="c__Sel">.w-3o3</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@3o3</span> <span class="c__Ctl">!important</span>;}        <span class="c__Sel">.w-p4c</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@golden4c</span> <span class="c__Ctl">!important</span>;}
-<span class="c__Sel">.w-1o4</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@1o4</span> <span class="c__Ctl">!important</span>;}
-<span class="c__Sel">.w-2o4</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@2o4</span> <span class="c__Ctl">!important</span>;}
-<span class="c__Sel">.w-3o4</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@3o4</span> <span class="c__Ctl">!important</span>;}
-<span class="c__Sel">.w-4o4</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@4o4</span> <span class="c__Ctl">!important</span>;}
-<span class="c__Sel">.w-1o5</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@1o5</span> <span class="c__Ctl">!important</span>;}
-<span class="c__Sel">.w-2o5</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@2o5</span> <span class="c__Ctl">!important</span>;}
-<span class="c__Sel">.w-3o5</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@3o5</span> <span class="c__Ctl">!important</span>;}
-<span class="c__Sel">.w-4o5</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@4o5</span> <span class="c__Ctl">!important</span>;}
-<span class="c__Sel">.w-5o5</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@5o5</span> <span class="c__Ctl">!important</span>;}
-<span class="c__Sel">.w-1o6</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@1o6</span> <span class="c__Ctl">!important</span>;}
-<span class="c__Sel">.w-2o6</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@2o6</span> <span class="c__Ctl">!important</span>;}
-<span class="c__Sel">.w-3o6</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@3o6</span> <span class="c__Ctl">!important</span>;}
-<span class="c__Sel">.w-4o6</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@4o6</span> <span class="c__Ctl">!important</span>;}
-<span class="c__Sel">.w-5o6</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@5o6</span> <span class="c__Ctl">!important</span>;}
-<span class="c__Sel">.w-6o6</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@6o6</span> <span class="c__Ctl">!important</span>;}
+<span class="c__Sel">.u-w_1o1</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@1o1</span> <span class="c__Ctl">!important</span>;}        <span class="c__Sel">.u-w_p1 </span> {<span class="c__Prp">width</span>: <span class="c__Arg">@golden1</span>  <span class="c__Ctl">!important</span>;}
+<span class="c__Sel">.u-w_1o2</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@1o2</span> <span class="c__Ctl">!important</span>;}        <span class="c__Sel">.u-w_p2 </span> {<span class="c__Prp">width</span>: <span class="c__Arg">@golden2</span>  <span class="c__Ctl">!important</span>;}
+<span class="c__Sel">.u-w_2o2</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@2o2</span> <span class="c__Ctl">!important</span>;}        <span class="c__Sel">.u-w_p3 </span> {<span class="c__Prp">width</span>: <span class="c__Arg">@golden3</span>  <span class="c__Ctl">!important</span>;}
+<span class="c__Sel">.u-w_1o3</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@1o3</span> <span class="c__Ctl">!important</span>;}        <span class="c__Sel">.u-w_p4 </span> {<span class="c__Prp">width</span>: <span class="c__Arg">@golden4</span>  <span class="c__Ctl">!important</span>;}
+<span class="c__Sel">.u-w_2o3</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@2o3</span> <span class="c__Ctl">!important</span>;}        <span class="c__Sel">.u-w_p3c</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@golden3c</span> <span class="c__Ctl">!important</span>;}
+<span class="c__Sel">.u-w_3o3</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@3o3</span> <span class="c__Ctl">!important</span>;}        <span class="c__Sel">.u-w_p4c</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@golden4c</span> <span class="c__Ctl">!important</span>;}
+<span class="c__Sel">.u-w_1o4</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@1o4</span> <span class="c__Ctl">!important</span>;}
+<span class="c__Sel">.u-w_2o4</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@2o4</span> <span class="c__Ctl">!important</span>;}
+<span class="c__Sel">.u-w_3o4</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@3o4</span> <span class="c__Ctl">!important</span>;}
+<span class="c__Sel">.u-w_4o4</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@4o4</span> <span class="c__Ctl">!important</span>;}
+<span class="c__Sel">.u-w_1o5</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@1o5</span> <span class="c__Ctl">!important</span>;}
+<span class="c__Sel">.u-w_2o5</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@2o5</span> <span class="c__Ctl">!important</span>;}
+<span class="c__Sel">.u-w_3o5</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@3o5</span> <span class="c__Ctl">!important</span>;}
+<span class="c__Sel">.u-w_4o5</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@4o5</span> <span class="c__Ctl">!important</span>;}
+<span class="c__Sel">.u-w_5o5</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@5o5</span> <span class="c__Ctl">!important</span>;}
+<span class="c__Sel">.u-w_1o6</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@1o6</span> <span class="c__Ctl">!important</span>;}
+<span class="c__Sel">.u-w_2o6</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@2o6</span> <span class="c__Ctl">!important</span>;}
+<span class="c__Sel">.u-w_3o6</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@3o6</span> <span class="c__Ctl">!important</span>;}
+<span class="c__Sel">.u-w_4o6</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@4o6</span> <span class="c__Ctl">!important</span>;}
+<span class="c__Sel">.u-w_5o6</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@5o6</span> <span class="c__Ctl">!important</span>;}
+<span class="c__Sel">.u-w_6o6</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@6o6</span> <span class="c__Ctl">!important</span>;}
 </pre>
-  <p><small><strong class="Title">Warning:</strong> These helpers use the keyword <code>!important</code>,
+  <p class="c-Alert c-Alert--Cshn">
+    <strong class="c-Alert__Title">Warning:</strong>
+    These helpers use the keyword <code>!important</code>,
     so adding one to an Element&rsquo;s <code>[class]</code> attribute and then trying to override
-    it later with inline styles will result in a failure.</small></p>
+    it later with inline styles will result in a failure.</p>
   <figure>
     <pre>
 &lt;main class="Article o-FlexContainer"&gt;
-  &lt;article class="Body w-3o5"&gt;
+  &lt;article class="Body u-w_3o5"&gt;
     &lt;p&gt; Pellentesque habitant morbi &hellip; &lt;/p&gt;
   &lt;/article&gt;
-  &lt;header class="Head  w-1o1"&gt; Head  &lt;/header&gt;
-  &lt;footer class="Foot  w-1o1"&gt; Foot  &lt;/footer&gt;
-  &lt;aside  class="Side1 w-1o5"&gt; Side1 &lt;/aside&gt;
-  &lt;aside  class="Side2 w-1o5"&gt; Side2 &lt;/aside&gt;
+  &lt;header class="Head  u-w_1o1"&gt; Head  &lt;/header&gt;
+  &lt;footer class="Foot  u-w_1o1"&gt; Foot  &lt;/footer&gt;
+  &lt;aside  class="Side1 u-w_1o5"&gt; Side1 &lt;/aside&gt;
+  &lt;aside  class="Side2 u-w_1o5"&gt; Side2 &lt;/aside&gt;
 &lt;/main&gt;
 </pre>
     <div class="o-FlexContainer">
-      <article class="help-otln w-3o5" style="order: 0; width: 60%;">
+      <article class="help-otln u-w_3o5" style="order: 0; width: 60%;">
         <p> Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. </p>
       </article>
-      <header  class="help-otln w-1o1" style="order: -1; width: 100%;"> Head </header>
-      <footer  class="help-otln w-1o1" style="order: 1; width: 100%;"> Foot </footer>
-      <aside   class="help-otln w-1o5" style="order: -1; width: 20%;"> Side1 </aside>
-      <aside   class="help-otln w-1o5" style="order: 0; width: 20%;"> Side2 </aside>
+      <header  class="help-otln u-w_1o1" style="order: -1; width: 100%;"> Head </header>
+      <footer  class="help-otln u-w_1o1" style="order: 1; width: 100%;"> Foot </footer>
+      <aside   class="help-otln u-w_1o5" style="order: -1; width: 20%;"> Side1 </aside>
+      <aside   class="help-otln u-w_1o5" style="order: 0; width: 20%;"> Side2 </aside>
     </div>
   </figure>
   </section>
@@ -360,30 +367,30 @@
       Working backwards, you should be able to figure out what the width of one block
       should be, depending on the pattern you use. The last one is just there because
       how could I not include the Golden Ratio?</p>
-    <figure class="o-FlexContainer u-jc--center crossgrid-lined">
-      <p class="w-1o1 help-otln">Use <code>.w-1o1</code> (100%) to model the
+    <figure class="o-FlexContainer u-jc_center crossgrid-lined">
+      <p class="u-w_1o1 help-otln">Use <code>.u-w_1o1</code> (100%) to model the
         <b>harmonic sequence</b>
         <span class="M M--B">\left(\infty,\mathbf{1,\frac{1}{2},\frac{1}{3}},\frac{1}{4},\dots,\frac{1}{n}\right)</span>
         where <span class="M">n</span> is the number of blocks
         (<span class="M">n</span> starts at 0).</p>
-      <p class="w-3o4 help-otln">Use <code>.w-3o4</code> (75%) to model the
+      <p class="u-w_3o4 help-otln">Use <code>.u-w_3o4</code> (75%) to model the
         <b>geometric sequence</b>
         <span class="M M--B">\left(\frac{9}{8},\mathbf{\frac{3}{4},\frac{1}{2},\frac{1}{3}},\frac{2}{9},\dots,\frac{2^{n-3}}{3^{n-2}}\right)</span>
         where <span class="M">n</span> is the number of blocks
         (<span class="M">n</span> starts at 0).</p>
-      <p class="w-2o3 help-otln">Use <code>.w-2o3</code> (66.6%) to model the
+      <p class="u-w_2o3 help-otln">Use <code>.u-w_2o3</code> (66.6%) to model the
         <b>arithmetic sequence</b>
         <span class="M M--B">\left(\frac{5}{6},\mathbf{\frac{2}{3},\frac{1}{2},\frac{1}{3}},\frac{1}{6},\dots,\frac{5-n}{6}\right)</span>
         where <span class="M">n</span> is the number of blocks
         (<span class="M">n</span> starts at 0).</p>
-      <p class="w-p1 help-otln">Use <code>.w-p1</code> (61.8%) to model the
+      <p class="u-w_p1 help-otln">Use <code>.u-w_p1</code> (61.8%) to model the
         <a href="../core/doc/phi.html">Golden Ratio <span class="M">\Phi</span></a>.</p>
-      <figcaption>The width of a one-column block varies depending on which mathematical sequence
+      <figcaption class="c-Caption c-Caption--After">The width of a one-column block varies depending on which mathematical sequence
         is being used to model the layout.</figcaption>
     </figure>
   </aside>
 </section>
-<section class="c-Document__draft" data-status="draft">
+<section class="c-Document__Draft" data-status="draft">
   <h2>Positioning Items</h2>
   <section>
 
@@ -397,15 +404,10 @@
       with a value for <code>left</code> or <code>right</code>. The downside of these is that you
       cannot center a block on a line.</p>
     <p>My recommendation is to use margins. To horizontally position a block,
-      add left and right margins in the CSS. You can add the <code>.margin-even</code> <b>Interface</b>
-      to an HTML Element to center the block, or you can include or <code>:extend()</code> it in Less.
-      There are no other automatic Interfaces for adding margins&mdash;you&rsquo;ll need
-      to write good-old-fashioned CSS if you want to position a block in a non-centered
-      way.<sup><a class="Rf" id="rf-sitelayout" rel="this" href="#fn-sitelayout">1</a></sup>
-      Keep in mind you can use the Less variables so you don&rsquo;t have to do the math by hand.</p>
-    <pre>.margin-even {margin-left: auto; margin-right: auto;}</pre>
-    <footer class="Footnotes">
-      <ul>
+      add left and right margins in the CSS.<sup><a class="Rf" id="rf-sitelayout" rel="this" href="#fn-sitelayout">1</a></sup></p>
+    <pre>.block { margin-left: auto; margin-right: auto; }</pre>
+    <footer>
+      <ul class="c-ListFootnotes">
         <li><sup><a class="Fn" id="fn-sitelayout" rel="this" href="#rf-sitelayout">1</a></sup>
           This site uses a main width of about 61.8% (the <a
           href="../core/doc/phi.html">Golden Ratio</a>) with the remaining 38.2% split into
@@ -425,15 +427,15 @@
   <figure>
     <pre>
 &lt;div class="o-FlexContainer"&gt;
-  &lt;div class="w-1o6"&gt; flex-item 1! &lt;/div&gt;
-  &lt;div class="w-2o6"&gt; flex-item 2! &lt;/div&gt;
-  &lt;div class="w-3o6"&gt; flex-item 3! &lt;/div&gt;
+  &lt;div class="u-w_1o6"&gt; flex-item 1! &lt;/div&gt;
+  &lt;div class="u-w_2o6"&gt; flex-item 2! &lt;/div&gt;
+  &lt;div class="u-w_3o6"&gt; flex-item 3! &lt;/div&gt;
 &lt;/div&gt;
 </pre>
     <div class="o-FlexContainer">
-      <div class="w-1o6 help-otln"> flex-item 1! </div>
-      <div class="w-2o6 help-otln"> flex-item 2! </div>
-      <div class="w-3o6 help-otln"> flex-item 3! </div>
+      <div class="u-w_1o6 help-otln"> flex-item 1! </div>
+      <div class="u-w_2o6 help-otln"> flex-item 2! </div>
+      <div class="u-w_3o6 help-otln"> flex-item 3! </div>
     </div>
   </figure>
   <p>Luckily, the widths add up to 100%. If they add up to too much, the items will wrap
@@ -441,94 +443,94 @@
   <figure>
     <pre>
 &lt;div class="o-FlexContainer"&gt;
-  &lt;div class="w-2o6"&gt; flex-item 1! &lt;/div&gt;
-  &lt;div class="w-2o6"&gt; flex-item 2! &lt;/div&gt;
-  &lt;div class="w-3o6"&gt; flex-item 3! &lt;/div&gt;
+  &lt;div class="u-w_2o6"&gt; flex-item 1! &lt;/div&gt;
+  &lt;div class="u-w_2o6"&gt; flex-item 2! &lt;/div&gt;
+  &lt;div class="u-w_3o6"&gt; flex-item 3! &lt;/div&gt;
 &lt;/div&gt;
 </pre>
     <div class="o-FlexContainer">
-      <div class="w-2o6 help-otln">flex-item 1!</div>
-      <div class="w-2o6 help-otln">flex-item 2!</div>
-      <div class="w-3o6 help-otln">flex-item 3!</div>
+      <div class="u-w_2o6 help-otln">flex-item 1!</div>
+      <div class="u-w_2o6 help-otln">flex-item 2!</div>
+      <div class="u-w_3o6 help-otln">flex-item 3!</div>
     </div>
   </figure>
   <figure>
     <pre>
 &lt;div class="o-FlexContainer"&gt;
-  &lt;div class="w-1o6"&gt; flex-item 1! &lt;/div&gt;
-  &lt;div class="w-2o6"&gt; flex-item 2! &lt;/div&gt;
-  &lt;div class="w-2o6"&gt; flex-item 3! &lt;/div&gt;
+  &lt;div class="u-w_1o6"&gt; flex-item 1! &lt;/div&gt;
+  &lt;div class="u-w_2o6"&gt; flex-item 2! &lt;/div&gt;
+  &lt;div class="u-w_2o6"&gt; flex-item 3! &lt;/div&gt;
 &lt;/div&gt;
 </pre>
     <div class="o-FlexContainer">
-      <div class="w-1o6 help-otln">flex-item 1!</div>
-      <div class="w-2o6 help-otln">flex-item 2!</div>
-      <div class="w-2o6 help-otln">flex-item 3!</div>
+      <div class="u-w_1o6 help-otln">flex-item 1!</div>
+      <div class="u-w_2o6 help-otln">flex-item 2!</div>
+      <div class="u-w_2o6 help-otln">flex-item 3!</div>
     </div>
   </figure>
   <p>By default, the extra space is evenly distributed <em>between</em> the items, much like
     the inter-word space in a paragraph with <code>text-align: justify;</code>.
     To override this and distribute the space <em>around</em> the blocks, leaving a little bit
     on the outside, use
-    the <code>.u-jc--around</code> Utility <em>in addition to</em>
+    the <code>.u-jc_around</code> Utility <em>in addition to</em>
     the <code>.o-FlexContainer</code> Object.</p>
   <figure>
     <pre>
-&lt;div class="o-FlexContainer u-jc--around"&gt;
-  &lt;div class="w-2o6"&gt; flex-item 1! &lt;/div&gt;
-  &lt;div class="w-2o6"&gt; flex-item 2! &lt;/div&gt;
-  &lt;div class="w-3o6"&gt; flex-item 3! &lt;/div&gt;
+&lt;div class="o-FlexContainer u-jc_around"&gt;
+  &lt;div class="u-w_2o6"&gt; flex-item 1! &lt;/div&gt;
+  &lt;div class="u-w_2o6"&gt; flex-item 2! &lt;/div&gt;
+  &lt;div class="u-w_3o6"&gt; flex-item 3! &lt;/div&gt;
 &lt;/div&gt;
 </pre>
-    <div class="o-FlexContainer u-jc--around">
-      <div class="w-2o6 help-otln">flex-item 1!</div>
-      <div class="w-2o6 help-otln">flex-item 2!</div>
-      <div class="w-3o6 help-otln">flex-item 3!</div>
+    <div class="o-FlexContainer u-jc_around">
+      <div class="u-w_2o6 help-otln">flex-item 1!</div>
+      <div class="u-w_2o6 help-otln">flex-item 2!</div>
+      <div class="u-w_3o6 help-otln">flex-item 3!</div>
     </div>
   </figure>
   <figure>
     <pre>
-&lt;div class="o-FlexContainer u-jc--around"&gt;
-  &lt;div class="w-1o6"&gt; flex-item 1! &lt;/div&gt;
-  &lt;div class="w-2o6"&gt; flex-item 2! &lt;/div&gt;
-  &lt;div class="w-2o6"&gt; flex-item 3! &lt;/div&gt;
+&lt;div class="o-FlexContainer u-jc_around"&gt;
+  &lt;div class="u-w_1o6"&gt; flex-item 1! &lt;/div&gt;
+  &lt;div class="u-w_2o6"&gt; flex-item 2! &lt;/div&gt;
+  &lt;div class="u-w_2o6"&gt; flex-item 3! &lt;/div&gt;
 &lt;/div&gt;
 </pre>
-    <div class="o-FlexContainer u-jc--around">
-      <div class="w-1o6 help-otln">flex-item 1!</div>
-      <div class="w-2o6 help-otln">flex-item 2!</div>
-      <div class="w-2o6 help-otln">flex-item 3!</div>
+    <div class="o-FlexContainer u-jc_around">
+      <div class="u-w_1o6 help-otln">flex-item 1!</div>
+      <div class="u-w_2o6 help-otln">flex-item 2!</div>
+      <div class="u-w_2o6 help-otln">flex-item 3!</div>
     </div>
   </figure>
   <p>To completely remove the space between the items and push it all the way to the outside,
-    add the <code>.u-jc--center</code> Utility. This acts like a paragraph with
+    add the <code>.u-jc_center</code> Utility. This acts like a paragraph with
     <code>text-align: center;</code>.</p>
   <figure>
     <pre>
-&lt;div class="o-FlexContainer u-jc--center"&gt;
-  &lt;div class="w-2o6"&gt; flex-item 1! &lt;/div&gt;
-  &lt;div class="w-2o6"&gt; flex-item 2! &lt;/div&gt;
-  &lt;div class="w-3o6"&gt; flex-item 3! &lt;/div&gt;
+&lt;div class="o-FlexContainer u-jc_center"&gt;
+  &lt;div class="u-w_2o6"&gt; flex-item 1! &lt;/div&gt;
+  &lt;div class="u-w_2o6"&gt; flex-item 2! &lt;/div&gt;
+  &lt;div class="u-w_3o6"&gt; flex-item 3! &lt;/div&gt;
 &lt;/div&gt;
 </pre>
-    <div class="o-FlexContainer u-jc--center">
-      <div class="w-2o6 help-otln">flex-item 1!</div>
-      <div class="w-2o6 help-otln">flex-item 2!</div>
-      <div class="w-3o6 help-otln">flex-item 3!</div>
+    <div class="o-FlexContainer u-jc_center">
+      <div class="u-w_2o6 help-otln">flex-item 1!</div>
+      <div class="u-w_2o6 help-otln">flex-item 2!</div>
+      <div class="u-w_3o6 help-otln">flex-item 3!</div>
     </div>
   </figure>
   <figure>
     <pre>
-&lt;div class="o-FlexContainer u-jc--center"&gt;
-  &lt;div class="w-1o6"&gt; flex-item 1! &lt;/div&gt;
-  &lt;div class="w-2o6"&gt; flex-item 2! &lt;/div&gt;
-  &lt;div class="w-2o6"&gt; flex-item 3! &lt;/div&gt;
+&lt;div class="o-FlexContainer u-jc_center"&gt;
+  &lt;div class="u-w_1o6"&gt; flex-item 1! &lt;/div&gt;
+  &lt;div class="u-w_2o6"&gt; flex-item 2! &lt;/div&gt;
+  &lt;div class="u-w_2o6"&gt; flex-item 3! &lt;/div&gt;
 &lt;/div&gt;
 </pre>
-    <div class="o-FlexContainer u-jc--center">
-      <div class="w-1o6 help-otln">flex-item 1!</div>
-      <div class="w-2o6 help-otln">flex-item 2!</div>
-      <div class="w-2o6 help-otln">flex-item 3!</div>
+    <div class="o-FlexContainer u-jc_center">
+      <div class="u-w_1o6 help-otln">flex-item 1!</div>
+      <div class="u-w_2o6 help-otln">flex-item 2!</div>
+      <div class="u-w_2o6 help-otln">flex-item 3!</div>
     </div>
   </figure>
 </section>

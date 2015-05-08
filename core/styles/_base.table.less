@@ -6,7 +6,7 @@
 
 @table_brdr_w: 1px;
 @table_brdr_s: solid;
-@table_brdr_c: @project_color_border;
+@table_brdr_c: transparent;
 
 @color_table_bg_hi: #ebf2f3; @color_table_bg_hi: lighten(@facilityabyss, @golden1);                            // 61.80%
 @color_table_bg_md: #cfe0e2; @color_table_bg_md: lighten(@facilityabyss, @golden1 * @phi4c);                   // 52.79%
@@ -95,8 +95,8 @@
 : 2014-05-18
   */
 .Cell {
-  padding: @project_boxpadding_sml;
   display: table-cell;
+  padding: (0.5 * @project_vru) (1 * 1rem); // duplicated from .o-Box
 }
 
 /**
@@ -168,5 +168,13 @@ table {
   .Table.Vert .Cell {
     &:nth-child(odd)  {background-color: @color_table_bg_md;}
     &:nth-child(even) {background-color: @color_table_bg_lo;}
+  }
+}
+@media screen {
+  .c-Table {
+    > dt:nth-child(4n+1),
+    > dd:nth-child(4n+2) {background-color: @color_table_bg_md;}
+    > dt:nth-child(4n+3),
+    > dd:nth-child(4n)   {background-color: @color_table_bg_lo;}
   }
 }

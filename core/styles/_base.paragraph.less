@@ -12,12 +12,13 @@
 \*+++++++++++++++++++++*/
 figure {
   box-sizing: border-box;
+  font-family: @project_font_family_accent;
   text-align: center;
 }
 @media screen {
   figure {
-    border-left:  0.25rem solid @project_color_border;
-    border-right: 0.25rem solid @project_color_border;
+    border-left:  0.25rem solid transparent;
+    border-right: 0.25rem solid transparent;
     padding-left:  0.75rem;
     padding-right: 0.75rem;
   }
@@ -48,7 +49,7 @@ blockquote {
 }
 @media screen {
   blockquote {
-    border-left: 0.75rem double @project_color_border;
+    border-left: 0.75rem double transparent;
     padding-left: 0.25rem;
   }
 }
@@ -61,9 +62,6 @@ blockquote {
 // `> small`  - code comments
 // `> strong` - importance
 //
-// *[1] undo default `code` styles
-// *[2] undo compounding font sizes
-//
 // ^author
 // : Chris Harvey
 // ^updated
@@ -71,8 +69,8 @@ blockquote {
 pre {
   .font-size-block(@project_font_size_sml; @project_line_height);
   font-family: @project_font_family_code;
-  text-align: left;
-  text-indent: 0;
+  // *[1] undo default `code` styles
+  // *[2] undo compounding font sizes
   code {
     .delimiters('\`';'\`');
     padding: 0;              // *[1]
@@ -87,31 +85,24 @@ pre {
   }
 }
 @media screen {
+  // The `pre` Element.
+  // *[1] `.o-Box`
+  // *[2] `.t-bg-lun-lite`
+  // *[3] `.t-fg-sol-lite`
+  // *[4] `.t-fg-sol-lite > .c__Comm`
+  // *[5] `.t-fg-sol-lite > .c__Emph`
   pre {
     .SOLLUN();
-    .box-block(2px; transparent);
-    border-color: @lunarized_lite_brdr;
-    color: @solarized_lite_txt;
-    background: @lunarized_lite_bg;
-    > small  {color: @solarized_lite_comm;}
-    > strong {color: @solarized_lite_emph;}
+    .border-vert(all; 2px);                   // *[1]
+    box-sizing: border-box;                   // *[1]
+    padding: (0.5 * @project_vru) (1 * 1rem); // *[1]
+    border-style: solid;                      // *[1]
+    border-radius: 0.50rem;                   // *[1]
+    background: @lunarized_lite_bg;     // *[2]
+    border-color: @lunarized_lite_brdr; // *[2]
+    color: @solarized_lite_txt; // *[3]
+    > small  {color: @solarized_lite_comm;} // *[4]
+    > strong {color: @solarized_lite_emph;} // *[5]
   }
-}
-
-caption,
-figcaption {
-  .font-size-block(@project_font_size_sml; @project_line_height);
-  font-family: @project_font_family_accent;
-}
-caption:first-child,
-figcaption:first-child {
-  .border-vert(bottom; 1px;);
-  border-bottom-style: dotted;
-  border-bottom-color: @project_color_border;
-}
-figcaption:last-child  {
-  .border-vert(top; 1px;);
-  border-top-style: dotted;
-  border-top-color: @project_color_border;
 }
 //++++ #end QUASI-PARAGRAPHS ++++//
