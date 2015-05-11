@@ -1,52 +1,12 @@
 /*###############*\
     resume.less
 \*###############*/
-/*@RESET*/
-h2,
-h3,
-h4,
-h5,
-h6 {
-  padding-top: 0;
-  margin-bottom: 0;
-}
-h3,
-h4,
-h5,
-h6 {
-  font-size: 1rem;
-  line-height: 1.5;
-}
-p {
-  margin-bottom: 0;
-}
-a[href]:not(.BlueLink) {
-  font-style: inherit;
-  color: inherit;
-}
-a[href]:not(.BlueLink):hover {
-  text-decoration: none;
-  color: inherit;
-}
-@media print {
-  a[href] {
-    text-decoration: none;
-  }
-  a[href].BlueLink {
-    color: #0062ff;
-  }
-}
-i[lang] {
-  font-family: inherit;
-}
-cite {
-  font-style: inherit;
-}
-abbr[title] {
-  border-bottom: 0;
-}
-/*@VARIABLES*/
-/*@MAIN OBJECTS*/
+/*++++++++++++++*\
+    #VARIABLES
+\*++++++++++++++*/
+/*+++++++++++++++*\
+    #BASE/RESET
+\*+++++++++++++++*/
 @media screen {
   body {
     position: relative;
@@ -56,77 +16,60 @@ abbr[title] {
 @media print {
   body {
     width: 768px;
-    font-size: inherit;
     font-family: 'Marion', 'Times', 'Times New Roman', serif;
-    line-height: inherit;
   }
 }
-/**
-  * The Header contains my name (`Name`) and contact information (`Postal`).
-@author
-: Chris Harvey
-@updated
-: 2015-01-22
-  */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  padding-top: 0;
+  margin-bottom: 0;
+}
+p {
+  margin-bottom: 0;
+}
+ul {
+  padding-left: 0.25in;
+}
+@media print {
+  a {
+    text-decoration: none;
+  }
+}
+i[lang] {
+  font-family: inherit;
+}
+cite {
+  font-style: inherit;
+}
+/*+++++++++++++++++++++++*\
+    #STRUCTURAL OBJECTS
+\*+++++++++++++++++++++++*/
 .res-Header {
   margin-bottom: 1.5rem;
 }
 @media screen {
+  .res-Header {
+    font-family: 'Avenir', 'Seravek', sans-serif;
+  }
   .res-Header::after {
     content: '';
     display: block;
-    border-bottom: 1px solid #120099;
+    border-bottom-width: 1px;
     margin-top: -1px;
+    border-bottom-style: solid;
+    border-bottom-color: #120099;
     position: relative;
     top: 0.75rem;
   }
 }
-/**
-    * My name at the top of the resume.
-  @tags
-  : #heading
-  @author
-  : Chris Harvey
-  @updated
-  : 2015-02-16
-    */
-.res-Name {
-  font-weight: bold;
-  text-align: inherit;
+.res-Header__Name {
+  padding-top: 1.5rem;
+  margin-bottom: 1.5rem;
 }
-@media print {
-  .res-Name {
-    padding-top: 1.5rem;
-    margin-bottom: 1.5rem;
-    font-size: 1.25rem;
-    line-height: 1.2;
-    font-family: inherit;
-    text-transform: uppercase;
-    color: inherit;
-  }
-}
-/**
-    * My contact info at the top of the resume.
-  @implements
-  @author
-  : Chris Harvey
-  @updated
-  : 2015-01-08
-    */
-@media screen {
-  .res-Postal {
-    font-family: 'Avenir', 'Seravek', sans-serif;
-  }
-}
-/**
-  * A Skill is a top-level section, e.g. Teaching Experience.
-  * It contains a `SkillTitle`,
-  * and either `Org` Objects, `Obj` Objects, `Inst` Objects, or `ul` Elements.
-@author
-: Chris Harvey
-@updated
-: 2015-01-08
-  */
 @media screen {
   .res-Skill {
     border-left: 1px dotted rgba(61, 97, 102, 0.5);
@@ -134,320 +77,142 @@ abbr[title] {
     margin-left: -0.5rem;
   }
 }
-/**
-    * The title of each Skill, e.g. "Teaching Experience"
-  @author
-  : Chris Harvey
-  @updated
-  : 2015-02-16
-    */
 @media screen {
-  .res-SkillTitle {
-    font-size: 1.5rem;
-    line-height: 1;
-    margin-top: 0;
-    border-bottom: 0;
+  .res-Skill__Title {
     padding-right: 1rem;
     text-align: right;
   }
 }
 @media print {
-  .res-SkillTitle {
+  .res-Skill__Title {
     margin-bottom: 1.5rem;
-    font-size: 1.25rem;
-    line-height: 1.2;
-    font-variant: small-caps;
-    font-family: inherit;
-    color: inherit;
   }
 }
-/**
-    * A Org is an item in a Skill. It has an organization name and location.
-    * It contains a `header` and a `OrgDetail`.
-  @author
-  : Chris Harvey
-  @updated
-  : 2015-01-08
-    */
 .res-Org {
   margin-bottom: 1.5rem;
 }
 @media print {
-  .res-Org#tech-misc {
-    margin-left: 23.60679775%;
-  }
-}
-/**
-      * contains `.res-Titles` and `.res-Spacetime`
-    @author
-    : Chris Harvey
-    @updated
-    : 2015-01-15
-      */
-@media print {
-  .res-Org header {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: flex;
-  }
-}
-/**
-        * contains .res-OrgTitle and .res-JobTitle
-      @author
-      : Chris Harvey
-      @updated
-      : 2015-01-15
-        */
-.res-Titles {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: flex;
-}
-@media print {
-  .res-Titles {
-    -webkit-box-ordinal-group: 1;
-    -webkit-order: 1;
-    order: 1;
-  }
-}
-/**
-          * The title of an organization
-        @author
-        : Chris Harvey
-        @updated
-        : 2015-01-22
-          */
-.res-OrgTitle {
-  -webkit-box-ordinal-group: 1;
-  -webkit-order: 1;
-  order: 1;
-  font-style: italic;
-  font-variant: inherit;
-  font-weight: inherit;
-}
-@media print {
-  .res-OrgTitle {
-    font-family: inherit;
-  }
-}
-/**
-          * The title of a job, e.g. a position held at an organization
-        @author
-        : Chris Harvey
-        @updated
-        : 2015-01-22
-          */
-.res-JobTitle {
-  padding-right: 1rem;
-  font-weight: bold;
-}
-@media screen {
-  .res-JobTitle {
-    font-family: 'Avenir', 'Seravek', sans-serif;
-    font-variant: small-caps;
-  }
-}
-@media print {
-  .res-JobTitle {
-    font-family: inherit;
-    font-variant: inherit;
-  }
-}
-/**
-        * contains .res-Dates and .res-Place
-      @author
-      : Chris Harvey
-      @updated
-      : 2015-01-15
-        */
-@media screen {
-  .res-Spacetime {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: flex;
-  }
-}
-@media print {
-  .res-Spacetime {
-    width: 23.60679775%;
-  }
-}
-/**
-          * dates worked at each organization
-        @author
-        : Chris Harvey
-        @updated
-        : 2015-01-15
-          */
-@media screen {
-  .res-Dates {
-    padding-right: 0.5rem;
-  }
-}
-/**
-          * the city or location of an organization
-        @author
-        : Chris Harvey
-        @updated
-        : 2015-01-15
-          */
-@media screen {
-  .res-Place [itemprop="name"] {
-    quotes: '(' ')';
-  }
-  .res-Place [itemprop="name"]::before {
-    content: open-quote;
-  }
-  .res-Place [itemprop="name"]::after {
-    content: close-quote;
-  }
-}
-/**
-      * A bullet list of job descriptions for each job.
-    @tags
-    : #typography
-    : #list
-    : #indent
-    : #padding
-    @author
-    : Chris Harvey
-    @updated
-    : 2014-06-26
-      */
-.res-OrgDetail {
-  padding-left: 0.25in;
-}
-@media print {
-  .res-OrgDetail {
-    margin-top: -1.5rem;
-    margin-left: 23.60679775%;
-  }
-}
-/**
-    * On the same level as an Org, a `.res-Obj` is a paragraph that describes an objective.
-    * It is in the Skill belonging to Objective
-  @author
-  : Chris Harvey
-  @updated
-  : 2015-02-17
-    */
-.res-Obj {
-  margin-bottom: 1.5rem;
-}
-@media print {
-  .res-Obj {
+  .res-Org--Obj {
     margin-top: -3rem;
-    margin-left: 23.60679775%;
   }
 }
-/**
-    * On the same level as an Org, an Institution (`Inst`) is an educational organization
-    * (college/university) with a name and location. It is also in a Skill, namely,
-    * the one corresponding to Education. The name of the Inst is a `.res-InstTitle`.
-  @extends
-  : .res-Org
-  @author
-  : Chris Harvey
-  @updated
-  : 2015-01-08
-    */
-.res-Inst {
+.res-Org--Inst {
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
   -webkit-flex-direction: column;
   flex-direction: column;
 }
-/**
-      * The title of an institution
-    @extends
-    : .res-OrgTitle
-    @author
-    : Chris Harvey
-    @updated
-    : 2015-01-08
-      */
-.res-InstTitle {
+.res-Org--Inst__Name {
   -webkit-box-ordinal-group: 1;
   -webkit-order: 1;
   order: 1;
-  margin-bottom: 1.5rem;
   margin-top: -1.5rem;
-  font-style: italic;
-  font-variant: inherit;
-  font-weight: inherit;
 }
 @media print {
-  .res-InstTitle {
-    margin-left: 23.60679775%;
-    font-style: italic;
-    font-family: inherit;
+  .res-Org__Header {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
   }
 }
-/*@OTHER OBJECTS*/
-/**
-  * A list of achievements such as awards or memberships.
-@implements
-: .dl--Horiz;
-@author
-: Chris Harvey
-@updated
-: 2015-01-22
-  */
-.res-AchList::after {
-  display: table;
-  content: ' ';
-  clear: both;
+.res-Org__Header__Titles {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
 }
-.res-AchList > dt,
-.res-AchList > dd {
-  box-sizing: border-box;
-  overflow: auto;
+@media print {
+  .res-Org__Header__Titles {
+    -webkit-box-ordinal-group: 1;
+    -webkit-order: 1;
+    order: 1;
+  }
 }
-.res-AchList > dt {
+.res-Org__Header__Titles__Name {
+  -webkit-box-ordinal-group: 1;
+  -webkit-order: 1;
+  order: 1;
+}
+.res-Org__Header__Titles__JobTitle {
   padding-right: 1rem;
-  float: left;
-  clear: both;
-  white-space: nowrap;
-}
-.res-AchList > dd {
-  float: left;
-}
-.res-AchList > dd + dt {
-  margin-top: 0;
-}
-.res-AchList dt {
-  font-weight: inherit;
 }
 @media screen {
-  .res-AchList dt {
+  .res-Org__Header__Spacetime {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+  }
+}
+@media print {
+  .res-Org__Header__Spacetime {
+    width: 23.60679775%;
+  }
+}
+@media screen {
+  .res-Org__Header__Spacetime__Dates {
     padding-right: 0.5rem;
   }
-  .res-AchList dd {
+}
+@media screen {
+  .res-Org__Header__Spacetime__Place {
     quotes: '(' ')';
   }
-  .res-AchList dd::before {
+  .res-Org__Header__Spacetime__Place::before {
     content: open-quote;
   }
-  .res-AchList dd::after {
+  .res-Org__Header__Spacetime__Place::after {
     content: close-quote;
   }
 }
 @media print {
-  .res-AchList {
+  .res-Org__Detail {
     margin-top: -1.5rem;
   }
-  .res-AchList dt {
+}
+@media print {
+  .res-HasNoDate {
     margin-left: 23.60679775%;
-    padding-right: 0;
-    float: none;
-    clear: none;
   }
-  .res-AchList dd {
+}
+@media print {
+  .res-ListAchv {
+    margin-top: -1.5rem;
+  }
+}
+.res-ListAchv__Award {
+  margin-top: 0;
+  font-weight: inherit;
+}
+@media screen {
+  .res-ListAchv__Award {
+    display: inline;
+  }
+  .res-ListAchv__Award::before {
+    content: '';
+    display: block;
+  }
+}
+@media print {
+  .res-ListAchv__Award {
+    margin-left: 23.60679775%;
+  }
+}
+@media screen {
+  .res-ListAchv__Date {
+    display: inline;
+    quotes: '(' ')';
+  }
+  .res-ListAchv__Date::before {
+    content: open-quote;
+  }
+  .res-ListAchv__Date::after {
+    content: close-quote;
+  }
+}
+@media print {
+  .res-ListAchv__Date {
     width: 23.60679775%;
     margin-top: -1.5rem;
-    float: none;
-    clear: none;
   }
 }
 .res-Footer {
@@ -457,25 +222,116 @@ abbr[title] {
 .res-Footer::before {
   content: '';
   display: block;
-  border-top: 1px solid #9acc7a;
+  border-top-width: 1px;
   margin-top: -1px;
+  border-top-style: solid;
+  border-top-color: #3d6166;
   position: relative;
   bottom: 0.75rem;
 }
-.res-Footer > ul {
-  padding-left: 1em;
-  text-indent: -1em;
-  list-style: none;
+/*++++++++++++++++++++++++*\
+    #COSMETIC COMPONENTS
+\*++++++++++++++++++++++++*/
+.res-H1,
+.res-H2,
+.res-H3,
+.res-H4,
+.res-H5,
+.res-H6 {
+  font-style: inherit;
+  font-weight: inherit;
+  font-variant: inherit;
 }
-.res-Footer::before {
-  border-color: #3d6166;
+@media screen {
+  .res-H1,
+  .res-H2,
+  .res-H3,
+  .res-H4,
+  .res-H5,
+  .res-H6 {
+    font-family: 'Avenir', 'Seravek', sans-serif;
+  }
 }
-/*@TRUMPS*/
 @media print {
-  #AMS {
-    margin-top: 60px;
-  }
-  br.print {
-    display: inline;
+  .res-H1,
+  .res-H2,
+  .res-H3,
+  .res-H4,
+  .res-H5,
+  .res-H6 {
+    font-family: inherit;
+    color: inherit;
   }
 }
+.res-H1,
+.res-H2 {
+  font-weight: bold;
+}
+@media print {
+  .res-H1,
+  .res-H2 {
+    font-size: 1.25rem;
+    line-height: 1.2;
+  }
+}
+.res-H3,
+.res-H4 {
+  font-size: inherit;
+  line-height: inherit;
+}
+.res-H1 {
+  text-align: inherit;
+}
+@media screen {
+  .res-H1 {
+    font-variant: small-caps;
+  }
+}
+@media print {
+  .res-H1 {
+    text-transform: uppercase;
+  }
+}
+@media screen {
+  .res-H2 {
+    font-size: 1.5rem;
+    line-height: 1;
+    border-bottom-width: 0;
+    margin-top: 0;
+  }
+}
+@media print {
+  .res-H2 {
+    font-variant: small-caps;
+  }
+}
+.res-H3 {
+  font-weight: bold;
+}
+@media screen {
+  .res-H3 {
+    font-variant: small-caps;
+  }
+}
+.res-H4 {
+  font-style: italic;
+}
+a.res-Camo {
+  font-style: inherit;
+  text-decoration: none;
+  color: inherit;
+}
+@media screen {
+  .c-Label--ResTech {
+    margin-left: 0;
+    margin-right: 0.5rem;
+  }
+}
+@media print {
+  .c-Label--ResTech:not(:last-child)::after {
+    content: ',\0020';
+  }
+}
+/*+++++++++++*\
+    #TRUMPS
+\*+++++++++++*/

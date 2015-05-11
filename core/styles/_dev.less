@@ -26,12 +26,65 @@
     margin: 0;
   }
 }
-li,
-dt,
-dd {
-  > ol,
-  > ul,
-  > dl {
-    .spacing-bottom(0);
+h1, h2, h3, h4, h5, h6 {
+  font-weight: bold;
+}
+pre {
+  text-align: left;
+  text-indent: 0;
+}
+li, dt, dd /* more elements here if necessary */ {
+  box-sizing: border-box;
+}
+li, dt, dd {
+  > ol, > ul, > dl {
+    .spacing-bottom(0); // undo default spacing-bottom for lists
   }
+}
+ol, ul {
+  li > &,
+  dt > &,
+  dd > & {
+    padding-left: 2rem;
+  }
+}
+img {
+  max-width: 100%; // fluid images for responsive purposes
+  font-style: italic; // offset `alt` text from surrounding copy
+  vertical-align: middle; // safer alternative to `display: block;`
+}
+table {
+  max-width: 100%; // fluid tables for responsive purposes
+}
+code, kbd, samp {
+  code, kbd, samp {
+    font-size: inherit; // undo compounding font sizes
+  }
+}
+
+
+
+
+
+// remove these once xmeter@v2.0.0 is released
+
+.border-vert(top; @width: 0) {
+  border-top-width: @width;
+  .pull-this(@width);
+}
+
+.border-vert(bottom; @width: 0) {
+  border-bottom-width: @width;
+  .pull-this(@width);
+}
+
+.border-vert(topbot; @width: 0) {
+  border-top-width:    @width;
+  border-bottom-width: @width;
+  .pull-this(2 * @width);
+}
+
+.border-vert(all; @width: 0) {
+  border-width: @width;
+  .pull-this(2 * @width);
 }
