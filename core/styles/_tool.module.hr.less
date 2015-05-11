@@ -8,27 +8,21 @@
 // of an Element. Rather than using an `<hr/>` Element, which doesn't really provide any
 // semantic value, use `</section><section>` (or whichever Element is appropriate) and
 // style it/them using CSS. Use these mixins to style the end of the first section, and/or the
-// beginning of the second section with a border. Using CSS to style borders also provides more
+// beginning of the second section with a horizontal border. Using CSS to style borders also provides more
 // flexible options that cannot be achieved by the `<hr/>` Element alone.
 
 
-// Adds a top/bottom border, while adjusting padding to be a Golden proportion to 1vru,
-// and adjusts margin to keep vertical rhythm.
+// Adds a top/bottom border, while adjusting padding and margin to keep vertical rhythm.
 //
-// `.hr-top(...)`         - private to this file only. mixin for ease of use
-// `.hr-bottom(...)`      - private to this file only. mixin for ease of use
-// `.hr-top-even(...)`    - public. adjusts top    padding to be an even proportion (0.5)
-// `.hr-bottom-even(...)` - public. adjusts bottom padding to be an even proportion (0.5)
-//
-// @width - (optional: `0`)                value of the border-*-width property, in any unit
-// @style - (optional: `solid`)            value of the border-*-style property
-// @color - (optional: `currentColor`)     value of the border-*-color property
+// @width - (optional: `0`)                value of the border-[top|bottom]-width property, in any unit
+// @style - (optional: `solid`)            value of the border-[top|bottom]-style property
+// @color - (optional: `currentColor`)     value of the border-[top|bottom]-color property
 // @space - (optional: `0.5*@project_vru`) amount of whitespace between the border and the content
 // ^author
 // : Chris Harvey
 // ^updated
-// : 2015-04-07
-.hr-top(@width; @style; @color; @space) {
+// : 2015-05-11
+.hr-top(@width: 0; @style: solid; @color: currentColor; @space: (0.5 * @project_vru)) {
   &::before {
     content: '';
     display: block;
@@ -39,20 +33,8 @@
     bottom: @space;
   }
 }
-.hr-top-even(@width; @style; @color) {
-  .hr-top(@width; @style; @color; (0.5 * @project_vru));
-}
-.hr-top-even(@width; @style) {
-  .hr-top-even(@width; @style; currentColor);
-}
-.hr-top-even(@width) {
-  .hr-top-even(@width; solid);
-}
-.hr-top-even() {
-  .hr-top-even(0);
-}
 
-.hr-bottom(@width; @style; @color; @space) {
+.hr-bottom(@width: 0; @style: solid; @color: currentColor; @space: (0.5 * @project_vru)) {
   &::after {
     content: '';
     display: block;
@@ -62,16 +44,4 @@
     position: relative;
     top: @space;
   }
-}
-.hr-bottom-even(@width; @style; @color) {
-  .hr-bottom(@width; @style; @color; (0.5 * @project_vru));
-}
-.hr-bottom-even(@width; @style) {
-  .hr-bottom-even(@width; @style; currentColor);
-}
-.hr-bottom-even(@width) {
-  .hr-bottom-even(@width; solid);
-}
-.hr-bottom-even() {
-  .hr-bottom-even(0);
 }
