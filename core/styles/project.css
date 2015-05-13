@@ -54,6 +54,13 @@ img {
 table {
   max-width: 100%;
 }
+thead,
+tfoot {
+  vertical-align: bottom;
+}
+tbody {
+  vertical-align: top;
+}
 code code,
 kbd code,
 samp code,
@@ -307,146 +314,43 @@ ul {
 /*###############*\
     _table.less
 \*###############*/
-/**
-  * This Object represents a table-like structure. It may or may not be a literal `table` Element.
-  * A `.Table` is defined as an collection of data in two or more dimensions. A common example
-  * would be a multivariable map: given multiple (e.g., two) independent inputs there exists one
-  * dependent output.
-@implements
-: .font-size-block()
-@tags
-: #typography
-: #table
-@author
-: Chris Harvey
-@updated
-: 2015-02-17
-  */
-.Table {
-  display: table;
-  width: 100%;
-  text-align: center;
-}
-.Table > caption {
-  border-top: 1px solid transparent;
-}
-/**
-  * This Object represents a group of rows in a `.Table`.
-@tags
-: #typography
-: #table
-@author
-: Chris Harvey
-@updated
-: 2015-02-17
-  */
-.Rowgroup {
-  border-width: 1px 0;
-  border-style: solid;
-  border-color: transparent;
-}
-.Rowgroup.Head,
-.Rowgroup.Foot {
-  vertical-align: bottom;
-}
-.Rowgroup.Head .Row,
-.Rowgroup.Foot .Row {
-  background-color: transparent;
-}
-.Rowgroup.Head {
-  display: table-header-group;
-}
-.Rowgroup.Body {
-  display: table-row-group;
-  vertical-align: top;
-}
-.Rowgroup.Foot {
-  display: table-footer-group;
-}
-/**
-  * This Object represents a single row in a `.Table`.
-@tags
-: #typography
-: #table
-@author
-: Chris Harvey
-@updated
-: 2015-02-17
-  */
-.Row {
-  display: table-row;
-}
-/**
-  * This Object represents a single data entry in a `.Table`.
-@implements
-: .cellpaddingdefault()
-@tags
-: #typography
-: #table
-@author
-: Chris Harvey
-@updated
-: 2014-05-18
-  */
-.Cell {
-  display: table-cell;
-  padding: 0.75rem 1rem;
-}
-/**
-  * This Object represents a heading in a `.Table`. A table heading may apply to a single row,
-  * a single column, a group of rows, or a group of columns.
-@tags
-: #typography
-: #table
-: #heading
-@author
-: Chris Harvey
-@updated
-: 2014-05-18
-  */
-.Cell.Hc {
-  font-weight: bold;
-}
-table {
-  counter-reset: nrows;
-  counter-increment: nrows;
-}
-table tr {
-  counter-increment: nrows;
-}
 @media screen {
-  .Table {
+  table {
     font-size: 0.75rem;
     line-height: 2;
   }
-  .Rowgroup.Head,
-  .Rowgroup.Foot {
-    background-color: #ebf2f3;
+}
+@media screen {
+  tbody tr:nth-child(odd) {
+    background-color: rgba(204, 207, 212, 0.5);
   }
-  .Row:nth-child(odd) {
-    background-color: #cfe0e2;
+  tbody tr:nth-child(even) {
+    background-color: rgba(166, 167, 170, 0.5);
   }
-  .Row:nth-child(even) {
-    background-color: #b6d0d3;
+  thead tr,
+  tfoot tr {
+    background-color: rgba(242, 247, 255, 0.5);
   }
-  .Row:hover {
-    background-color: #a1c2c7;
+  tr:hover {
+    background-color: rgba(128, 128, 128, 0.75) !important;
   }
-  .Table.Vert .Cell:nth-child(odd) {
-    background-color: #cfe0e2;
+  .Table.Vert td:nth-child(odd),
+  .Table.Vert th:nth-child(odd) {
+    background-color: rgba(204, 207, 212, 0.5);
   }
-  .Table.Vert .Cell:nth-child(even) {
-    background-color: #b6d0d3;
+  .Table.Vert td:nth-child(even),
+  .Table.Vert th:nth-child(even) {
+    background-color: rgba(166, 167, 170, 0.5);
   }
 }
 @media screen {
   .c-Table > dt:nth-child(4n+1),
   .c-Table > dd:nth-child(4n+2) {
-    background-color: #cfe0e2;
+    background-color: rgba(204, 207, 212, 0.5);
   }
   .c-Table > dt:nth-child(4n+3),
   .c-Table > dd:nth-child(4n) {
-    background-color: #b6d0d3;
+    background-color: rgba(166, 167, 170, 0.5);
   }
 }
 /*###############*\
@@ -663,26 +567,7 @@ code {
 /*###############*\
     _o-Box.less
 \*###############*/
-.u-p_sml {
-  padding: 0.75rem 1rem;
-}
-.u-p_med {
-  padding: 1.5rem 2rem;
-}
-.u-p_lrg {
-  padding: 3rem 4rem;
-}
-.u-br_sml {
-  border-radius: 0.5rem;
-}
-.u-br_med {
-  border-radius: 1rem;
-}
-.u-br_lrg {
-  border-radius: 2rem;
-}
 .o-Box {
-  display: block;
   box-sizing: border-box;
   padding: 0.75rem 1rem;
   overflow: auto;
@@ -1006,7 +891,6 @@ code {
   font-weight: normal;
   font-family: 'Geneva', 'Tahoma', sans-serif;
   text-align: left;
-  display: block;
   box-sizing: border-box;
   padding: 0.75rem 1rem;
   overflow: auto;
