@@ -102,7 +102,7 @@ function tableSpacing() {
    * [1] n_rowgroups++ once more for the last border, if there is one
    * [2] n_rowgroups++ once more again for a caption if it exists:
    *     (this is for the border-top of the `caption` Element,
-   *     not the border-bottom of the `.c-Caption--Before` Component)
+   *     not the border-bottom of the `.c-Caption--before` Component)
    */
   $('.Table').each(function () {
     var n_rowgroups = 0;
