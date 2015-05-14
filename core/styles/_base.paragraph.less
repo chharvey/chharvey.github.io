@@ -3,20 +3,12 @@
     _paragraph.less
 \*###################*/
 
-// Table of Contents
-// - QUASI-PARAGRAPHS
 
-
-/*+++++++++++++++++++++*\
-    #QUASI-PARAGRAPHS
-\*+++++++++++++++++++++*/
 figure {
   box-sizing: border-box;
   font-family: @project_font_family_accent;
   text-align: center;
-}
 @media screen {
-  figure {
     border-left:  0.25rem solid transparent;
     border-right: 0.25rem solid transparent;
     padding-left:  0.75rem;
@@ -40,17 +32,15 @@ figure {
 blockquote {
   box-sizing: border-box;
   font-family: @project_font_family_accent;
+  @media screen {
+    border-left: 0.75rem double transparent;
+    padding-left: 0.25rem;
+  }
   > footer {
     text-align: right;
     > cite {
       .parens();
     }
-  }
-}
-@media screen {
-  blockquote {
-    border-left: 0.75rem double transparent;
-    padding-left: 0.25rem;
   }
 }
 
@@ -62,6 +52,14 @@ blockquote {
 // `> small`  - code comments
 // `> strong` - importance
 //
+// *[1] `.o-Box`
+// *[2] `.t-bg-lun-lite`
+// *[3] `.t-fg-sol-lite`
+// *[4] `.t-fg-sol-lite > .c__Comm`
+// *[5] `.t-fg-sol-lite > .c__Emph`
+// *[6] undo default `code` styles
+// *[7] undo compounding font sizes
+//
 // ^author
 // : Chris Harvey
 // ^updated
@@ -69,29 +67,19 @@ blockquote {
 pre {
   .font-size-block(@project_font_size_sml; @project_line_height);
   font-family: @project_font_family_code;
-  // *[1] undo default `code` styles
-  // *[2] undo compounding font sizes
   code {
     .delimiters('\`';'\`');
-    padding: 0;              // *[1]
-    border: 0;               // *[1]
-    color: inherit;          // *[1]
-    background: transparent; // *[1]
-    font-size: inherit; // *[2]
+    padding: 0;              // *[6]
+    border: 0;               // *[6]
+    color: inherit;          // *[6]
+    background: transparent; // *[6]
+    font-size: inherit; // *[7]
   }
   > small {
     font-style: italic;
     font-size: inherit;
   }
-}
 @media screen {
-  // The `pre` Element.
-  // *[1] `.o-Box`
-  // *[2] `.t-bg-lun-lite`
-  // *[3] `.t-fg-sol-lite`
-  // *[4] `.t-fg-sol-lite > .c__Comm`
-  // *[5] `.t-fg-sol-lite > .c__Emph`
-  pre {
     .SOLLUN();
     .border-vert(all; 2px);                   // *[1]
     box-sizing: border-box;                   // *[1]
@@ -105,4 +93,3 @@ pre {
     > strong {color: @solarized_lite_emph;} // *[5]
   }
 }
-//++++ #end QUASI-PARAGRAPHS ++++//
