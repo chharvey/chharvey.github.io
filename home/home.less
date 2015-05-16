@@ -14,12 +14,17 @@
 //+++++++++++//
 /*@INDEX PAGE*/
 //+++++++++++//
+nav {
+  display: flex; // in case JS is disabled
+  flex-direction: column; // in case JS is disabled
+  position: relative; // so devlink can be 100%
+}
 .Spiral {
   position: relative;
 }
 .Square {
   @trans_square: @t_ani_long;
-  .transition(background-color; @trans_square);
+  .transition(background-color, opacity; @trans_square);
   display: block;
   height: 3em; // will be changed proportionally in JS
   position: static; // will be changed to `absolute` in JS
@@ -27,7 +32,7 @@
   background-color: @color_crumb_up_bg;
   background-image: url('images/circle.svg');
   background-size: 200%;
-  .Text {
+  > .Text {
     .transition(box-shadow,text-shadow,color,background-color; @trans_square);
     display: block;
     position: relative;
@@ -41,7 +46,7 @@
 .Square:hover {
   color: @color_crumb_dn_txt;
   background-color: @color_crumb_dn_bg;
-  .Text {
+  > .Text {
     @bgcolor: fadeout(@color_base_bg, @golden1);
     box-shadow: 0px 0px 20px 20px @bgcolor;
     background-color: @bgcolor;
@@ -65,6 +70,15 @@
 .Spiral > :nth-child(10) > .Square {.q2(); width: @golden10;}
 .Spiral > :nth-child(11) > .Square {.q3(); width: @golden11;}
 .Spiral > :nth-child(12) > .Square {.q4(); width: @golden12;}
+
+/*.Square*/.devlink {
+  width: 100%;
+  order: -1; // in case js is turned off
+  background-position: 100% 100%;
+  opacity: 0;
+  &:hover {opacity: 1;}
+  > .Text {font-family: 'Courier','Menlo','Monaco','Andale Mono',monospace;}
+}
 //++++ @end INDEX PAGE ++++//
 
 
