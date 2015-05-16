@@ -4,10 +4,16 @@
 \*###############*/
 
 
-@color_table_bg_hi: fadeout(@aperture_grey_6o6, 50%);
-@color_table_bg_md: fadeout(@aperture_grey_5o6, 50%);
-@color_table_bg_lo: fadeout(@aperture_grey_4o6, 50%);
-@color_table_bg_hv: fadeout(@aperture_grey_3o6, 25%);
+@color_table_bg_hi: fadeout(@aperture_black, 96%);
+@color_table_bg_md: fadeout(@aperture_black, 92%);
+@color_table_bg_lo: fadeout(@aperture_black, 88%);
+@color_table_bg_hv: fadeout(@aperture_black, 80%);
+@color_table_brdr:  fadeout(@aperture_black, 80%);
+
+.u-bgc_table_hi { background-color: @color_table_bg_hi; }
+.u-bgc_table_md { background-color: @color_table_bg_md; }
+.u-bgc_table_lo { background-color: @color_table_bg_lo; }
+.u-bgc_table_hv { background-color: @color_table_bg_hv; }
 
 table {
   @media screen {
@@ -36,20 +42,56 @@ table {
 //   }
 // }
 
-@media screen {
-  tr {
-    tbody &:nth-child(odd)  { background-color: @color_table_bg_md; }
-    tbody &:nth-child(even) { background-color: @color_table_bg_lo; }
-    thead &,
-    tfoot & { background-color: @color_table_bg_hi; }
-  }
-  tr:hover { background-color: @color_table_bg_hv !important; }
+table {
+}
+thead {
+}
+tbody,
+tfoot {
+}
+tr {
+  .border-vert(top; 1px);
+  border-color: @color_table_brdr;
+  thead > &:first-child { .border-vert(top); }
+  tfoot > &:first-child,
+  tbody > &:first-child { .border-vert(top; 2px); }
+}
+th, td {
+  padding: (0.25 * @project_vru) (0.5 * 1rem);
+}
 
-  .Table.Vert td,
-  .Table.Vert th {
-    &:nth-child(odd)  {background-color: @color_table_bg_md;}
-    &:nth-child(even) {background-color: @color_table_bg_lo;}
+.c-TableStriped {
+  .mx() { background-color: fadeout(@aperture_black, 92%); }
+  .mx();
+  tbody { .mx(); }
+  &--Rows {
+    tbody > tr:nth-child(even) { .mx(); }
   }
+  &--Cols {
+    tbody th:nth-child(even),
+    tbody td:nth-child(even) { .mx(); }
+  }
+}
+
+@media screen {
+  // table,
+  // tbody,
+  // tbody > tr:nth-child(even),
+  // tbody th:nth-child(even),
+  // tbody td:nth-child(even) { background: fadeout(@aperture_black, 96%); }
+  // tr {
+  //   tbody &:nth-child(odd)  { background-color: @color_table_bg_md; }
+  //   tbody &:nth-child(even) { background-color: @color_table_bg_lo; }
+  //   thead &,
+  //   tfoot & { background-color: @color_table_bg_hi; }
+  // }
+  // tr:hover { background-color: @color_table_bg_hv !important; }
+  //
+  // td,
+  // th {
+  //   &:nth-child(odd)  {background-color: @color_table_bg_md;}
+  //   &:nth-child(even) {background-color: @color_table_bg_lo;}
+  // }
 }
 @media screen {
   .c-Table {
