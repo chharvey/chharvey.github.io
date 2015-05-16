@@ -86,6 +86,7 @@ function qblockLines() {
   * CHANGED: 2015-05-13: temporarily commenting out as generic tables no longer have borders.
   *                      may use components later which may need this function.
   */
+
 // function tableSpacing() {
 //   /*
 //    * Algorithm:
@@ -104,7 +105,7 @@ function qblockLines() {
 //    * [1] n_rowgroups++ once more for the last border, if there is one
 //    * [2] n_rowgroups++ once more again for a caption if it exists:
 //    *     (this is for the border-top of the `caption` Element,
-//    *     not the border-bottom of the `.c-Caption--Before` Component)
+//    *     not the border-bottom of the `.c-Caption--before` Component)
 //    */
 //   $('.Table').each(function () {
 //     var n_rowgroups = 0;
@@ -131,6 +132,7 @@ function qblockLines() {
 //     // else          {$(this).css('padding-bottom',btm);}
 //   });
 // }
+
 /**
   * Adds delimiters to LaTeX expressions.
   * Inline uses parentheses and block uses brackets.
