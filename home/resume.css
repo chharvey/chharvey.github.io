@@ -1,12 +1,31 @@
-/*###############*\
+/*################################*\
     resume.less
-\*###############*/
-/*++++++++++++++*\
-    #VARIABLES
-\*++++++++++++++*/
-/*+++++++++++++++*\
-    #BASE/RESET
-\*+++++++++++++++*/
+\*################################*/
+/**
+  * **** CONTENTS ****
+  *
+  * _settings.less................page settings and values
+  * _base.less....................unclassed Elements and reset styles
+  *
+  * OBJECTS
+  * _res-o-headfoot.less..........name and contact info / footer
+  * _res-o-Skill.less.............top-level section of resume
+  * _res-o-Org.less...............organization section of resume
+  * _res-o-ListAchv.less..........list of achievements such as awards or memberships
+  * `.res-HasNoDate {}` ..........for when an object has no corresponding date or term
+  *
+  * COMPONENTS
+  * _res-c-headings.less..........resume-style H1 through H4 (classes, not elements)
+  * _res-c-Camo.less..............camouflage hyperlinks
+  * _res-c-Label--resTech.less....a subclass of Label for specific needs
+  *
+  */
+/*################################*\
+    resume/_settings.less
+\*################################*/
+/*################################*\
+    resume/_base.less
+\*################################*/
 @media screen {
   body {
     position: relative;
@@ -45,9 +64,9 @@ i[lang] {
 cite {
   font-style: inherit;
 }
-/*+++++++++++++++++++++++*\
-    #STRUCTURAL OBJECTS
-\*+++++++++++++++++++++++*/
+/*################################*\
+    _res-o-headfoot.less
+\*################################*/
 .res-Header {
   margin-bottom: 1.5rem;
 }
@@ -70,6 +89,23 @@ cite {
   padding-top: 1.5rem;
   margin-bottom: 1.5rem;
 }
+.res-Footer {
+  font-size: 0.75rem;
+  line-height: 2;
+}
+.res-Footer::before {
+  content: '';
+  display: block;
+  border-top-width: 1px;
+  margin-top: -1px;
+  border-top-style: solid;
+  border-top-color: #3d6166;
+  position: relative;
+  bottom: 0.75rem;
+}
+/*################################*\
+    _res-o-Skill.less
+\*################################*/
 @media screen {
   .res-Skill {
     border-left: 1px dotted rgba(61, 97, 102, 0.5);
@@ -88,8 +124,16 @@ cite {
     margin-bottom: 1.5rem;
   }
 }
+/*################################*\
+    _res-o-Org.less
+\*################################*/
 .res-Org {
   margin-bottom: 1.5rem;
+}
+@media print {
+  .res-Org__Detail {
+    margin-top: -1.5rem;
+  }
 }
 @media print {
   .res-Org--Obj {
@@ -109,6 +153,9 @@ cite {
   order: 1;
   margin-top: -1.5rem;
 }
+/*################################*\
+    _res-o-Org__Header.less
+\*################################*/
 @media print {
   .res-Org__Header {
     display: -webkit-box;
@@ -164,16 +211,9 @@ cite {
     content: close-quote;
   }
 }
-@media print {
-  .res-Org__Detail {
-    margin-top: -1.5rem;
-  }
-}
-@media print {
-  .res-HasNoDate {
-    margin-left: 23.60679775%;
-  }
-}
+/*################################*\
+    _res-o-ListAchv.less
+\*################################*/
 @media print {
   .res-ListAchv {
     margin-top: -1.5rem;
@@ -215,23 +255,14 @@ cite {
     margin-top: -1.5rem;
   }
 }
-.res-Footer {
-  font-size: 0.75rem;
-  line-height: 2;
+@media print {
+  .res-HasNoDate {
+    margin-left: 23.60679775%;
+  }
 }
-.res-Footer::before {
-  content: '';
-  display: block;
-  border-top-width: 1px;
-  margin-top: -1px;
-  border-top-style: solid;
-  border-top-color: #3d6166;
-  position: relative;
-  bottom: 0.75rem;
-}
-/*++++++++++++++++++++++++*\
-    #COSMETIC COMPONENTS
-\*++++++++++++++++++++++++*/
+/*################################*\
+    _res-c-headings.less
+\*################################*/
 .res-H1,
 .res-H2,
 .res-H3,
@@ -316,11 +347,17 @@ cite {
 .res-H4 {
   font-style: italic;
 }
+/*################################*\
+    _res-c-Camo.less
+\*################################*/
 a.res-Camo {
   font-style: inherit;
   text-decoration: none;
   color: inherit;
 }
+/*################################*\
+    _res-c-Camo.less
+\*################################*/
 @media screen {
   .c-Label--resTech {
     margin-left: 0;
@@ -332,6 +369,3 @@ a.res-Camo {
     content: ',\0020';
   }
 }
-/*+++++++++++*\
-    #TRUMPS
-\*+++++++++++*/
