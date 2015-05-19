@@ -107,6 +107,8 @@ function qblockLines() {
 //    *     (this is for the border-top of the `caption` Element,
 //    *     not the border-bottom of the `.c-Caption--before` Component)
 //    */
+//   var px_per_line = project.px_per_rem * project.line_height;
+//   var px_per_line_half = px_per_line / 2;
 //   $('.Table').each(function () {
 //     var n_rowgroups = 0;
 //     $(this).find('.Rowgroup').each(function () {
@@ -114,7 +116,7 @@ function qblockLines() {
 //     });
 //     if ($(this).find('.Rowgroup')[0] != null)     n_rowgroups++; // *[1]
 //     if ($(this).find('caption')[0]   != null)     n_rowgroups++; // *[2]
-//     var btm = -(((n_rowgroups + 12) % 24) - 12);
+//     var btm = -(((n_rowgroups + px_per_line_half) % px_per_line) - px_per_line_half);
 //     if (btm <= 0) {
 //       $(this).css('margin-top',''); // removes any previous inline style
 //       $(this).css('margin-top',parseFloat($(this).css('margin-top'))+btm);
@@ -127,11 +129,32 @@ function qblockLines() {
 //     //   n_rows++;
 //     // });
 //     // n_rows++; // once more for the last border
-//     // var btm = -(((n_rows + 12) % 24) - 12);
-//     // if (btm <= 0) {$(this).css('margin-bottom',btm);}
-//     // else          {$(this).css('padding-bottom',btm);}
+//     // var btm = -(((n_rows + px_per_line_half) % px_per_line) - px_per_line_half);
+//     // if (btm <= 0) { $(this).css('margin-bottom', btm); }
+//     // else          { $(this).css('padding-bottom', btm); }
 //   });
 // }
+function tableSpacing() {
+
+  // fixes vertical spacing for normal, unclassed table elements. this is due to the fact that
+  // each cell (th or td) has a vertical padding of `(0.25 * @project_vru)`
+  // (that is, `0.25 * project.line_height` in javascript), which totals to be 0.5.
+  // thus if there are an odd number of rows in the table, the margin needs to be offset by
+  // 0.5.
+
+  var px_per_line = project.px_per_rem * project.line_height;
+  var px_per_line_half = px_per_line / 2;
+
+  $('table').each(function () {
+    var n_rows = 0;
+    $(this).find('tr').each(function () {
+      n_rows++;
+    })
+    if (n_rows % 2 == 1) {
+      $(this).css('margin-top', -1 * px_per_line_half);
+    }
+  });
+}
 
 /**
   * Adds delimiters to LaTeX expressions.
@@ -145,7 +168,7 @@ $(document).ready(function () {
   resizeFolioHeading();
   qblockLines();
   // mapHeights();
-  // tableSpacing();
+  tableSpacing();
   mathJax();
 });
 $(window).resize(function () {
