@@ -20,6 +20,9 @@
 /*#############*\
     _dev.less
 \*#############*/
+* {
+  border: 0px solid;
+}
 @media print {
   body,
   main {
@@ -38,9 +41,13 @@ pre {
   text-align: left;
   text-indent: 0;
 }
+ol,
+ul,
+dl,
 li,
 dt,
-dd {
+dd,
+table {
   box-sizing: border-box;
 }
 li > ol,
@@ -67,8 +74,15 @@ img {
   font-style: italic;
   vertical-align: middle;
 }
-table {
-  max-width: 100%;
+caption {
+  text-align: center;
+}
+thead,
+tfoot {
+  vertical-align: bottom;
+}
+tbody {
+  vertical-align: top;
 }
 code code,
 kbd code,
@@ -311,7 +325,7 @@ pre > small {
 }
 @media print {
   pre {
-    background: rgba(13, 8, 0, 0.1);
+    background: rgba(13, 8, 0, 0.04);
   }
 }
 /*##############*\
@@ -320,150 +334,32 @@ pre > small {
 ul {
   list-style-type: square;
 }
+dl,
+dt,
+dd {
+  border-color: rgba(13, 8, 0, 0.12);
+}
 /*###############*\
     _table.less
 \*###############*/
-/**
-  * This Object represents a table-like structure. It may or may not be a literal `table` Element.
-  * A `.Table` is defined as an collection of data in two or more dimensions. A common example
-  * would be a multivariable map: given multiple (e.g., two) independent inputs there exists one
-  * dependent output.
-@implements
-: .font-size-block()
-@tags
-: #typography
-: #table
-@author
-: Chris Harvey
-@updated
-: 2015-02-17
-  */
-.Table {
-  display: table;
-  width: 100%;
-  text-align: center;
-}
-.Table > caption {
-  border-top: 1px solid transparent;
-}
-/**
-  * This Object represents a group of rows in a `.Table`.
-@tags
-: #typography
-: #table
-@author
-: Chris Harvey
-@updated
-: 2015-02-17
-  */
-.Rowgroup {
-  border-width: 1px 0;
-  border-style: solid;
-  border-color: transparent;
-}
-.Rowgroup.Head,
-.Rowgroup.Foot {
-  vertical-align: bottom;
-}
-.Rowgroup.Head .Row,
-.Rowgroup.Foot .Row {
-  background-color: transparent;
-}
-.Rowgroup.Head {
-  display: table-header-group;
-}
-.Rowgroup.Body {
-  display: table-row-group;
-  vertical-align: top;
-}
-.Rowgroup.Foot {
-  display: table-footer-group;
-}
-/**
-  * This Object represents a single row in a `.Table`.
-@tags
-: #typography
-: #table
-@author
-: Chris Harvey
-@updated
-: 2015-02-17
-  */
-.Row {
-  display: table-row;
-}
-/**
-  * This Object represents a single data entry in a `.Table`.
-@implements
-: .cellpaddingdefault()
-@tags
-: #typography
-: #table
-@author
-: Chris Harvey
-@updated
-: 2014-05-18
-  */
-.Cell {
-  display: table-cell;
-  padding: 0.75rem 1rem;
-}
-/**
-  * This Object represents a heading in a `.Table`. A table heading may apply to a single row,
-  * a single column, a group of rows, or a group of columns.
-@tags
-: #typography
-: #table
-: #heading
-@author
-: Chris Harvey
-@updated
-: 2014-05-18
-  */
-.Cell.Hc {
-  font-weight: bold;
-}
-table {
-  counter-reset: nrows;
-  counter-increment: nrows;
-}
-table tr {
-  counter-increment: nrows;
+table,
+thead,
+tfoot,
+tbody,
+tr,
+th,
+td {
+  border-color: rgba(13, 8, 0, 0.12);
 }
 @media screen {
-  .Table {
+  table {
     font-size: 0.75rem;
     line-height: 2;
   }
-  .Rowgroup.Head,
-  .Rowgroup.Foot {
-    background-color: #ebf2f3;
-  }
-  .Row:nth-child(odd) {
-    background-color: #cfe0e2;
-  }
-  .Row:nth-child(even) {
-    background-color: #b6d0d3;
-  }
-  .Row:hover {
-    background-color: #a1c2c7;
-  }
-  .Table.Vert .Cell:nth-child(odd) {
-    background-color: #cfe0e2;
-  }
-  .Table.Vert .Cell:nth-child(even) {
-    background-color: #b6d0d3;
-  }
 }
-@media screen {
-  .c-Table > dt:nth-child(4n+1),
-  .c-Table > dd:nth-child(4n+2) {
-    background-color: #cfe0e2;
-  }
-  .c-Table > dt:nth-child(4n+3),
-  .c-Table > dd:nth-child(4n) {
-    background-color: #b6d0d3;
-  }
+th,
+td {
+  padding: 0.375rem 0.5rem;
 }
 /*###############*\
     _links.less
@@ -686,26 +582,7 @@ code {
 /*###############*\
     _o-Box.less
 \*###############*/
-.u-p_sml {
-  padding: 0.75rem 1rem;
-}
-.u-p_med {
-  padding: 1.5rem 2rem;
-}
-.u-p_lrg {
-  padding: 3rem 4rem;
-}
-.u-br_sml {
-  border-radius: 0.5rem;
-}
-.u-br_med {
-  border-radius: 1rem;
-}
-.u-br_lrg {
-  border-radius: 2rem;
-}
 .o-Box {
-  display: block;
   box-sizing: border-box;
   padding: 0.75rem 1rem;
   overflow: auto;
@@ -950,6 +827,47 @@ code {
 .Fn::after {
   content: close-quote;
 }
+/*###################*\
+    _c-Table.less
+\*###################*/
+.c-TableBordered {
+  border-width: 3px;
+  margin-top: -6px;
+}
+.c-TableBorderedRows > *:not(caption) ~ *:not(dt):not(dd) {
+  border-top-width: 2px;
+  margin-top: -2px;
+}
+.c-TableBorderedRows > * > tr:not(:first-child) {
+  border-top-width: 1px;
+  margin-top: -1px;
+}
+.c-TableBorderedRows > dt:not(:first-of-type),
+.c-TableBorderedRows dd:not(:first-of-type) {
+  border-top-width: 1px;
+  margin-top: -1px;
+}
+.c-TableBorderedCols > * > tr > *:not(:first-child),
+.c-TableBorderedCols > dd {
+  border-left-width: 1px;
+}
+.c-TableShaded {
+  background-color: rgba(13, 8, 0, 0.04);
+}
+.c-TableShadedRows > tbody > tr:nth-child(even),
+.c-TableShadedRows > dt:nth-child(4n+3),
+.c-TableShadedRows > dd:nth-child(4n) {
+  background-color: rgba(13, 8, 0, 0.04);
+}
+.c-TableShadedCols > * > tr > *:nth-child(even),
+.c-TableShadedCols > dd {
+  background-color: rgba(13, 8, 0, 0.04);
+}
+.c-TableHover > * > tr:hover,
+.c-TableHover > dt:hover,
+.c-TableHover > dd:hover {
+  background-color: rgba(13, 8, 0, 0.08) !important;
+}
 /*#####################*\
     _breadcrumbs.less
 \*#####################*/
@@ -1027,7 +945,6 @@ code {
   font-weight: normal;
   font-family: 'Helvetica Neue', 'Helvetica', sans-serif;
   text-align: left;
-  display: block;
   box-sizing: border-box;
   padding: 0.75rem 1rem;
   overflow: auto;
@@ -1475,6 +1392,9 @@ code {
 /*+++++++++++*\
     #COLORS
 \*+++++++++++*/
+.u-bgc_transparent {
+  background-color: transparent;
+}
 /*------------------*\
     #Portal Colors
 \*------------------*/
@@ -1701,12 +1621,15 @@ code {
   .h-on-print-normalize {
     margin: 0;
     padding: 0;
+    border: 0;
+    border-radius: 0;
     font-style: inherit;
     font-weight: inherit;
     font-variant: inherit;
     font-size: inherit;
     line-height: inherit;
     font-family: inherit;
+    white-space: inherit;
     text-align: inherit;
     text-shadow: inherit;
     color: inherit;
