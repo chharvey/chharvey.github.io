@@ -6,6 +6,8 @@ project = {
   line_height : 1.5,
 };
 
+project.vru = project.px_per_rem * project.line_height;
+
 /**
   * Resizes the `.c-FolioTitle` headings on home site to keep them horizontally contained.
   */
@@ -25,33 +27,20 @@ function resizeFolioHeading() {
 }
 
 /**
-  * Changes the line height of block quotes to 1.5 times the usual amount.
+  * Compensates for changes of pullquote line height.
   *
-  * Currently (2014-03-01), the line-height is 1.2, because font-size is 1.25rem and
-  * 1.25rem × 1.2 = 1.5rem = 1vru, where 1vru = 1.5rem = 24px, one "line".
+  * The line-height of pull quotes and pull quote sources is by default the amount
+  * such that the font-size * line-height equals 1 vru. In CSS, the line-height is
+  * multiplied by a coefficient to increase vertical spacing between lines.
   *
-  * Change line-height to 1.8 to increase vertical spacing between lines. That way, each line
-  * would be 1.25rem × 1.8 = 2.25rem = 1.5vru.
-  *
-  * If the number of lines is even, the total would be a multiple of 1.5vru × 2 = 3vru, which is
-  * a whole number, so vertical rhythm would be okay. No need to adjust margin-bottom.
-  *
-  * However if the number of lines is odd, the total would always be a multiple of 3vru plus 1.5vru,
-  * which would always be offset by 0.5vru = 0.75rem = 12px. So the margin-bottom must be set to -12px.
-  *
-  * 1. take the height of the blockquote in pixels (e.g. 72px)
-  * 2. divide height by vru (e.g. 72px / 24px = 3) this result is the number of lines
-  * 3. If the number of lines is odd, set margin-bottom: -12px;.
+  * This function compensates for the shift in vertical rhythm by adding a negative margin-top.
   */
-function qblockLines() {
-  $('.c-PullQuote').each(function () {
-    var lines = $(this).height() / 24; // 24 is number of pixels for 1vru
-    lines = Math.round(lines / 1.5); // divide by 1.5 to account for new line height
-    if (lines % 2 === 1) {
-      $(this).css('margin-top',''); // removes any previous inline style
-      $(this).css('margin-top',parseFloat($(this).css('margin-top'))-12);
-    } else {
-      $(this).css('margin-top','');
+function pullquoteLines() {
+  $('.c-Pullquote').each(function () {
+    var vrus = $(this).height() / project.vru;
+    $(this).css('margin-top',''); // removes any inline style
+    if (vrus % 1 !== 0) {
+      $(this).css('margin-top', parseFloat($(this).css('margin-top')) - (vrus % 1) * project.vru);
     }
   });
 }
@@ -166,12 +155,12 @@ function mathJax() {
 }
 $(document).ready(function () {
   resizeFolioHeading();
-  qblockLines();
+  pullquoteLines();
   // mapHeights();
   tableSpacing();
   mathJax();
 });
 $(window).resize(function () {
   resizeFolioHeading();
-  qblockLines();
+  pullquoteLines();
 });
