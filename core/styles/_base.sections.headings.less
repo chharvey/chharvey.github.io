@@ -4,70 +4,62 @@
 \*################################*/
 
 
-// font-sizes
-@font_size_h1: 48/16; // 3.0000 || 2.000vru
-@font_size_h2: 35/16; // 2.1875 || 1.458vru
-@font_size_h3: 26/16; // 1.6250 || 1.083vru
-@font_size_h4: 21/16; // 1.3125 || 0.875vru
-@font_size_h5: 18/16; // 1.1250 || 0.750vru
-@font_size_h6: 16/16; // 1.0000 || 0.666vru
+// font-sizes (in vrus)
+@h1_font_size: @project_line_height * (24/12); // 1.5 * 2.000 == 3.000(rem)
+@h2_font_size: @project_line_height * (18/12); // 1.5 * 1.500 == 2.250(rem)
+@h3_font_size: @project_line_height * (15/12); // 1.5 * 1.250 == 1.875(rem)
+@h4_font_size: @project_line_height * (12/12); // 1.5 * 1.000 == 1.500(rem)
+@h5_font_size: @project_line_height * ( 9/12); // 1.5 * 0.750 == 1.125(rem)
+@h6_font_size: @project_line_height * ( 8/12); // 1.5 * 0.666 == 1.000(rem)
 
-// box height, as a multiple of 1vru (only used in calculations) (same as reset font-size)
-@vru_height_h1: 32/16; // 2.000
-@vru_height_h2: 24/16; // 1.500
-@vru_height_h3: 20/16; // 1.250
-@vru_height_h4: 16/16; // 1.000
-@vru_height_h5: 12/16; // 0.750
-@vru_height_h6: 10/16; // 0.625
+// box height, as a multiple of 1vru; that is, coefficient of line-height
+@h1_coefficient: 2;
+@h2_coefficient: 2;
+@h3_coefficient: 1;
+@h4_coefficient: 1;
+@h5_coefficient: 1;
+@h6_coefficient: 1;
 
-// line-heights
-@line_height_h1: @project_line_height / @font_size_h1 * @vru_height_h1; // 1.5 / 3.0000 * 2.000 == 0.5000
-@line_height_h2: @project_line_height / @font_size_h2 * @vru_height_h2; // 1.5 / 2.1875 * 1.500 == 0.6857
-@line_height_h3: @project_line_height / @font_size_h3 * @vru_height_h3; // 1.5 / 1.6250 * 1.250 == 0.9231
-@line_height_h4: @project_line_height / @font_size_h4 * @vru_height_h4; // 1.5 / 1.3125 * 1.000 == 1.1429
-@line_height_h5: @project_line_height / @font_size_h5 * @vru_height_h5; // 1.5 / 1.1250 * 0.750 == 1.3333
-@line_height_h6: @project_line_height / @font_size_h6 * @vru_height_h6; // 1.5 / 1.0000 * 0.625 == 1.5000
 
-// total remainder spacing (in vrus)
-@vru_remain_h1: 4 - @vru_height_h1; // 2.000
-@vru_remain_h2: 3 - @vru_height_h2; // 1.500
-@vru_remain_h3: 3 - @vru_height_h3; // 1.750
-@vru_remain_h4: 2 - @vru_height_h4; // 1.000
-@vru_remain_h5: 2 - @vru_height_h5; // 1.250
-@vru_remain_h6: 2 - @vru_height_h6; // 1.375
+// total spacing (top and bottom)
+@h1_space: 3;
+@h2_space: 2;
+@h3_space: 1;
+@h4_space: 1;
+@h5_space: 1;
+@h6_space: 1;
 
-// top spacing, in vrus
-@vru_top_h1: @phi1 * @vru_remain_h1;
-@vru_top_h2: @phi1 * @vru_remain_h2;
-@vru_top_h3: @phi1 * @vru_remain_h3;
-@vru_top_h4: @phi1 * @vru_remain_h4;
-@vru_top_h5: @phi1 * @vru_remain_h5;
-@vru_top_h6: @phi1 * @vru_remain_h6;
+// weight to the top spacing. the complement (1 - *) will go to padding
+@h1_top_weight: (2/3);
+@h2_top_weight: 0.750;
+@h3_top_weight: 0.500;
+@h4_top_weight: 0.625;
+@h5_top_weight: 0.750;
+@h6_top_weight: 0.875;
 
-// bottom spacing, in vrus
-@vru_bot_h1: @phi2 * @vru_remain_h1;
-@vru_bot_h2: @phi2 * @vru_remain_h2;
-@vru_bot_h3: @phi2 * @vru_remain_h3;
-@vru_bot_h4: @phi2 * @vru_remain_h4;
-@vru_bot_h5: @phi2 * @vru_remain_h5;
-@vru_bot_h6: @phi2 * @vru_remain_h6;
+// top spacing, in vrus                     // bottom spacing, in vrus
+@h1_vru_top: @h1_space * @h1_top_weight;    @h1_vru_bot: @h1_space * (1 - @h1_top_weight);
+@h2_vru_top: @h2_space * @h2_top_weight;    @h2_vru_bot: @h2_space * (1 - @h2_top_weight);
+@h3_vru_top: @h3_space * @h3_top_weight;    @h3_vru_bot: @h3_space * (1 - @h3_top_weight);
+@h4_vru_top: @h4_space * @h4_top_weight;    @h4_vru_bot: @h4_space * (1 - @h4_top_weight);
+@h5_vru_top: @h5_space * @h5_top_weight;    @h5_vru_bot: @h5_space * (1 - @h5_top_weight);
+@h6_vru_top: @h6_space * @h6_top_weight;    @h6_vru_bot: @h6_space * (1 - @h6_top_weight);
+
 
 // This Mixin represents a generic textual heading of a section, post, article, or document.
 //
-// @font_size   - unitless value for the font-size property (multiplied by 1rem here).
-// @line_height - unitless value of the line-height property.
-// @vru_height  - unitless number, in vrus, of the box height.
+// @font_size   - unitless number, in rems, for the font-size property
+// @coefficient - unitless number, in vrus, of the box height
 // @vru_top     - unitless number, in vrus, for the top spacing
 // @vru_bottom  - unitless number, in vrus, for the bottom spacing
 // ^author
 // : Chris Harvey
 // ^updated
 // : 2015-02-11
-.heading(@font_size; @line_height; @vru_top; @vru_bottom) {
+.heading(@font_size; @coefficient; @vru_top; @vru_bottom) {
+  .font-size-block(@font_size; (@coefficient * @project_line_height));
   .spacing-top(@vru_top * @project_vru);
   .spacing-bottom(@vru_bottom * @project_vru);
-  font-size: (@font_size * 1rem);
-  line-height: @line_height;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -77,31 +69,42 @@ h1 {
   font-variant: small-caps;
   text-align: center;
   color: @project_color_h_major;
-  @media screen { .heading(@font_size_h1; @line_height_h1; @vru_top_h1; @vru_bot_h1); }
+  @media screen {
+    .heading(@h1_font_size; @h1_coefficient; @h1_vru_top; @h1_vru_bot);
+  }
 }
 h2 {
-  .border-vert(bottom; 1px);
-  border-bottom-style: solid;
+  .hr-bottom(1px; solid; @space: 0); // alternative to .border-vert(bottom; 1px); border-bottom-style: solid;
   color: @project_color_h_minor;
-  @media screen { .heading(@font_size_h2; @line_height_h2; @vru_top_h2; @vru_bot_h2); }
+  @media screen {
+    .heading(@h2_font_size; @h2_coefficient; @h2_vru_top; @h2_vru_bot);
+  }
 }
 h3 {
   font-variant: small-caps;
-  @media screen { .heading(@font_size_h3; @line_height_h3; @vru_top_h3; @vru_bot_h3); }
+  @media screen {
+    .heading(@h3_font_size; @h3_coefficient; @h3_vru_top; @h3_vru_bot);
+  }
 }
 h4 {
   font-style: italic;
-  @media screen { .heading(@font_size_h4; @line_height_h4; @vru_top_h4; @vru_bot_h4); }
+  @media screen {
+    .heading(@h4_font_size; @h4_coefficient; @h4_vru_top; @h4_vru_bot);
+  }
 }
 h5 {
   font-style: italic;
   font-weight: normal;
   color: @project_color_h_minor;
-  @media screen { .heading(@font_size_h5; @line_height_h5; @vru_top_h5; @vru_bot_h5); }
+  @media screen {
+    .heading(@h5_font_size; @h5_coefficient; @h5_vru_top; @h5_vru_bot);
+  }
 }
 h6 {
   font-style: italic;
   font-weight: normal;
   font-variant: small-caps;
-  @media screen { .heading(@font_size_h6; @line_height_h6; @vru_top_h6; @vru_bot_h6); }
+  @media screen {
+    .heading(@h6_font_size; @h6_coefficient; @h6_vru_top; @h6_vru_bot);
+  }
 }
