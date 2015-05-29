@@ -10,11 +10,11 @@
 <link rel="stylesheet" href="../bower_components/xmeter/xmeter.css"/>
 <link rel="stylesheet" href="../core/styles/project.css"/>
 </head>
-<body class="o-GoldenBody o-GoldenBody--right">
-<main class="o-GoldenBody__Content c-Document c-Document--Draft" data-status="draft" itemscope="" itemtype="https://schema.org/Article">
+<body class="o-GoldenBody  o-GoldenBody--right">
+<main class="o-GoldenBody__Content  c-Document  c-Document--Draft" data-status="draft" itemscope="" itemtype="https://schema.org/Article">
 <header>
   <h1 itemprop="name headline">The FlexContainer Object</h1>
-  <p class="o-GoldenBody__Sidebar o-GoldenBody__Sidebar--minor c-Alert c-Alert--dang">
+  <p class="o-GoldenBody__Sidebar  o-GoldenBody__Sidebar--minor  o-Box  o-Box--island  c-Alert  c-Alert--dang">
     This document is a work in progress.</p>
   <dl class="c-Document__Meta">
     <dt>Author</dt>
@@ -36,11 +36,11 @@
     <dd class="update"><time datetime="2015-02-23 22:06">Feb 23, 2015 <span class="tod">10:06 PM</span></time></dd>
     <dd class="update" itemprop="dateModified">
       <time datetime="2015-04-08 09:39">Apr 8, 2015 <span class="tod">9:39 AM</span></time>
-      <span class="c-Label c-Label--dang">Latest</span>
+      <span class="o-Textbox  c-Label  c-Label--dang">Latest</span>
     </dd>
   </dl>
 </header>
-<p class="c-Lede c-Lede--dropcap">Laying out a page is easier than it may seem. Everything on the page belongs in blocks, and
+<p class="c-Lede  c-Lede--dropcap">Laying out a page is easier than it may seem. Everything on the page belongs in blocks, and
   each block has a size and position. That&rsquo;s all there is to it. There are many methods,
   good and bad, of how to achieve this, but that is the gist of what needs to happen.</p>
 <p>Of all the grid systems out there, this article does not discuss any of them.
@@ -91,7 +91,7 @@
   <p>It might also be a good idea to add semantic classnames to the Elements so we can use them as
     stylehooks. This is not redundant though, because <a>we don&rsquo;t want to use Element selectors
     as style hooks</a> for reasons not discussed in this article.</p>
-  <figure>
+  <figure class="u-ta_c">
     <pre>
 &lt;main class="Article"&gt;
   &lt;article class="Body"&gt;
@@ -123,7 +123,7 @@
     (There is no need to add any class to its children.)
     You should do this with <code>&lt;main class="Article o-FlexContainer"&gt;</code>, but you
     may use the Object as a mixin in your Less.</p>
-  <figure>
+  <figure class="u-ta_c">
     <pre>
 .Article {
   .o-FlexContainer;
@@ -161,23 +161,23 @@
   </ol>
   <p>Before I spoon-feed you the answer, let&rsquo;s take a moment to figure out what the ordinals
     should be. Here is a comparison of the items in order of source versus the order we want:</p>
-  <table class="Table Vert">
-    <tbody class="Rowgroup">
-      <tr class="Row" style="border-bottom: 1px solid #9acc7a;">
-        <th class="Cell Hc" style="background-color: #ebf2f3;">source </th>
-        <td class="Cell"><u>Body</u></td>
-        <td class="Cell">Head</td>
-        <td class="Cell">Foot</td>
-        <td class="Cell">Side1</td>
-        <td class="Cell"><u>Side2</u></td>
+  <table class="c-TableShaded  c-TableShadedCols  c-TableBorderedRows  u-w_1o1  u-ta_c">
+    <tbody>
+      <tr>
+        <th>source</th>
+        <td><u>Body</u></td>
+        <td>Head</td>
+        <td>Foot</td>
+        <td>Side1</td>
+        <td><u>Side2</u></td>
       </tr>
-      <tr class="Row">
-        <th class="Cell Hc" style="background-color: #ebf2f3;">desired</th>
-        <td class="Cell">Head</td>
-        <td class="Cell">Side1</td>
-        <td class="Cell"><u>Body</u></td>
-        <td class="Cell"><u>Side2</u></td>
-        <td class="Cell">Foot</td>
+      <tr>
+        <th>desired</th>
+        <td>Head</td>
+        <td>Side1</td>
+        <td><u>Body</u></td>
+        <td><u>Side2</u></td>
+        <td>Foot</td>
       </tr>
     </tbody>
   </table>
@@ -186,7 +186,7 @@
     ordinal of -1 (and since they&rsquo;re already in the correct order, they can have the same
     ordinal), and move the Foot to the end by giving it an ordinal of 1. Thus we need to make
     the following adjustments to our Less:</p>
-  <figure>
+  <figure class="u-ta_c">
     <pre>
 .Article {.o-FlexContainer;}
 
@@ -257,7 +257,7 @@
     should be full width, the Body should be a majority of the full width, and the sidebars
     should be the remainder, equal in length. For the middle part, 20% + 60% + 20% seems about right,
     but you can choose your own widths as long as they add up to 100%.</p>
-  <figure>
+  <figure class="u-ta_c">
     <pre>
 .Article {.o-FlexContainer;}
 
@@ -327,12 +327,12 @@
 <span class="c__Sel">.u-w_5o6</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@5o6</span> <span class="c__Ctl">!important</span>;}
 <span class="c__Sel">.u-w_6o6</span> {<span class="c__Prp">width</span>: <span class="c__Arg">@6o6</span> <span class="c__Ctl">!important</span>;}
 </pre>
-  <p class="c-Alert c-Alert--cshn">
+  <p class="o-Box  o-Box--island  c-Alert  c-Alert--cshn">
     <strong class="c-Alert__Title">Warning:</strong>
     These helpers use the keyword <code>!important</code>,
     so adding one to an Element&rsquo;s <code>[class]</code> attribute and then trying to override
     it later with inline styles will result in a failure.</p>
-  <figure>
+  <figure class="u-ta_c">
     <pre>
 &lt;main class="Article o-FlexContainer"&gt;
   &lt;article class="Body u-w_3o5"&gt;
@@ -367,7 +367,7 @@
       Working backwards, you should be able to figure out what the width of one block
       should be, depending on the pattern you use. The last one is just there because
       how could I not include the Golden Ratio?</p>
-    <figure class="o-FlexContainer u-jc_center crossgrid-lined">
+    <figure class="o-FlexContainer u-jc_center u-ta_c crossgrid-lined">
       <p class="u-w_1o1 help-otln">Use <code>.u-w_1o1</code> (100%) to model the
         <b>harmonic sequence</b>
         <span class="M M--B">\left(\infty,\mathbf{1,\frac{1}{2},\frac{1}{3}},\frac{1}{4},\dots,\frac{1}{n}\right)</span>
@@ -424,7 +424,7 @@
     the <code>.o-FlexContainer</code> <b>Object</b> to the container. Then, optionally use the width Utilities mentioned
     above to set the proper widths of each of the items (if not, their widths will automatically
     fit their content). That&rsquo;s it! Layout done.</p>
-  <figure>
+  <figure class="u-ta_c">
     <pre>
 &lt;div class="o-FlexContainer"&gt;
   &lt;div class="u-w_1o6"&gt; flex-item 1! &lt;/div&gt;
@@ -440,7 +440,7 @@
   </figure>
   <p>Luckily, the widths add up to 100%. If they add up to too much, the items will wrap
     to the next line. If they don&rsquo;t add up to enough, there will be extra space.</p>
-  <figure>
+  <figure class="u-ta_c">
     <pre>
 &lt;div class="o-FlexContainer"&gt;
   &lt;div class="u-w_2o6"&gt; flex-item 1! &lt;/div&gt;
@@ -454,7 +454,7 @@
       <div class="u-w_3o6 help-otln">flex-item 3!</div>
     </div>
   </figure>
-  <figure>
+  <figure class="u-ta_c">
     <pre>
 &lt;div class="o-FlexContainer"&gt;
   &lt;div class="u-w_1o6"&gt; flex-item 1! &lt;/div&gt;
@@ -474,7 +474,7 @@
     on the outside, use
     the <code>.u-jc_around</code> Utility <em>in addition to</em>
     the <code>.o-FlexContainer</code> Object.</p>
-  <figure>
+  <figure class="u-ta_c">
     <pre>
 &lt;div class="o-FlexContainer u-jc_around"&gt;
   &lt;div class="u-w_2o6"&gt; flex-item 1! &lt;/div&gt;
@@ -488,7 +488,7 @@
       <div class="u-w_3o6 help-otln">flex-item 3!</div>
     </div>
   </figure>
-  <figure>
+  <figure class="u-ta_c">
     <pre>
 &lt;div class="o-FlexContainer u-jc_around"&gt;
   &lt;div class="u-w_1o6"&gt; flex-item 1! &lt;/div&gt;
@@ -505,7 +505,7 @@
   <p>To completely remove the space between the items and push it all the way to the outside,
     add the <code>.u-jc_center</code> Utility. This acts like a paragraph with
     <code>text-align: center;</code>.</p>
-  <figure>
+  <figure class="u-ta_c">
     <pre>
 &lt;div class="o-FlexContainer u-jc_center"&gt;
   &lt;div class="u-w_2o6"&gt; flex-item 1! &lt;/div&gt;
@@ -519,7 +519,7 @@
       <div class="u-w_3o6 help-otln">flex-item 3!</div>
     </div>
   </figure>
-  <figure>
+  <figure class="u-ta_c">
     <pre>
 &lt;div class="o-FlexContainer u-jc_center"&gt;
   &lt;div class="u-w_1o6"&gt; flex-item 1! &lt;/div&gt;

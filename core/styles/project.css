@@ -1,9 +1,29 @@
-/*###############*\
+/**
+  * CONTENTS
+  *
+  * IMPORTS
+  * REFERENCE (Less)
+  * xmeter.less............
+  *
+  * SETTINGS
+  * colors.less............global color names and values
+  * sizing.less............global values used for widths
+  * settings.less..........global project values for padding, colors, fonts, etc.
+  *
+  * TOOLS
+  * MODULES
+  * flex-container.less....a class for making an element having display: flex
+  */
+/*################################*\
     xmeter.less
-\*###############*/
-/*#############*\
+\*################################*/
+/*################################*\
     _dev.less
-\*#############*/
+\*################################*/
+* {
+  box-sizing: border-box;
+  border: 0px solid;
+}
 @media print {
   body,
   main {
@@ -21,11 +41,6 @@ h6 {
 pre {
   text-align: left;
   text-indent: 0;
-}
-li,
-dt,
-dd {
-  box-sizing: border-box;
 }
 li > ol,
 dt > ol,
@@ -51,8 +66,15 @@ img {
   font-style: italic;
   vertical-align: middle;
 }
-table {
-  max-width: 100%;
+caption {
+  text-align: center;
+}
+thead,
+tfoot {
+  vertical-align: bottom;
+}
+tbody {
+  vertical-align: top;
 }
 code code,
 kbd code,
@@ -65,9 +87,9 @@ kbd samp,
 samp samp {
   font-size: inherit;
 }
-/*################*\
+/*################################*\
     _colors.less
-\*################*/
+\*################################*/
 /*+++++++++++++++++*\
     #PORTAL THEME
 \*+++++++++++++++++*/
@@ -77,9 +99,9 @@ samp samp {
 /*++++++++++++++++*\
     #LABEL THEME
 \*++++++++++++++++*/
-/*################*\
+/*################################*\
     _sizing.less
-\*################*/
+\*################################*/
 /*+++++++++++\/
     #SIZING
 \*+++++++++++*/
@@ -89,9 +111,9 @@ samp samp {
 /*------------------*\
     #Golden Values
 \*------------------*/
-/*##################*\
+/*################################*\
     _settings.less
-\*##################*/
+\*################################*/
 /*++++++++++++++++++++++++++*\
     #PROJECT MAIN SETTINGS
 \*++++++++++++++++++++++++++*/
@@ -107,21 +129,21 @@ samp samp {
 /*+++++++++++++++++++++++++++++++++++*\
     #PROJECT MISCELLANEOUS SETTINGS
 \*+++++++++++++++++++++++++++++++++++*/
-/*############*\
+/*################################*\
     _hr.less
-\*############*/
-/*#################*\
-    _ui-font.less
-\*#################*/
-/*##############*\
+\*################################*/
+/*################################*\
+    _ui.less
+\*################################*/
+/*################################*\
     _body.less
-\*##############*/
+\*################################*/
 html {
   font-size: 100%;
   line-height: 1.5;
 }
 body {
-  font-family: 'Avenir', 'Helvetica Neue', sans-serif;
+  font-family: 'Avenir', 'Helvetica Neue', 'Helvetica', sans-serif;
 }
 @media screen {
   body {
@@ -129,9 +151,9 @@ body {
     background: #f2f7ff;
   }
 }
-/*######################*\
-    _base.heading.less
-\*######################*/
+/*################################*\
+    _heading.less
+\*################################*/
 h1,
 h2,
 h3,
@@ -147,24 +169,31 @@ h1 {
 }
 @media screen {
   h1 {
-    padding-top: 1.85410197rem;
-    margin-bottom: 1.14589803rem;
     font-size: 3rem;
     line-height: 1;
+    padding-top: 3rem;
+    margin-bottom: 1.5rem;
   }
 }
 h2 {
+  color: #3d6166;
+}
+h2::after {
+  content: '';
+  display: block;
   border-bottom-width: 1px;
   margin-top: -1px;
   border-bottom-style: solid;
-  color: #3d6166;
+  border-bottom-color: currentColor;
+  position: relative;
+  top: 0;
 }
 @media screen {
   h2 {
-    padding-top: 1.39057647rem;
-    margin-bottom: 0.85942353rem;
-    font-size: 2.1875rem;
-    line-height: 1.02857143;
+    font-size: 2.25rem;
+    line-height: 1.33333333;
+    padding-top: 2.25rem;
+    margin-bottom: 0.75rem;
   }
 }
 h3 {
@@ -172,10 +201,10 @@ h3 {
 }
 @media screen {
   h3 {
-    padding-top: 1.62233922rem;
-    margin-bottom: 1.00266078rem;
-    font-size: 1.625rem;
-    line-height: 1.15384615;
+    font-size: 1.875rem;
+    line-height: 0.8;
+    padding-top: 0.75rem;
+    margin-bottom: 0.75rem;
   }
 }
 h4 {
@@ -183,10 +212,10 @@ h4 {
 }
 @media screen {
   h4 {
-    padding-top: 0.92705098rem;
-    margin-bottom: 0.57294902rem;
-    font-size: 1.3125rem;
-    line-height: 1.14285714;
+    font-size: 1.5rem;
+    line-height: 1;
+    padding-top: 0.9375rem;
+    margin-bottom: 0.5625rem;
   }
 }
 h5 {
@@ -196,10 +225,10 @@ h5 {
 }
 @media screen {
   h5 {
-    padding-top: 1.15881373rem;
-    margin-bottom: 0.71618627rem;
     font-size: 1.125rem;
-    line-height: 1;
+    line-height: 1.33333333;
+    padding-top: 1.125rem;
+    margin-bottom: 0.375rem;
   }
 }
 h6 {
@@ -209,19 +238,15 @@ h6 {
 }
 @media screen {
   h6 {
-    padding-top: 1.2746951rem;
-    margin-bottom: 0.7878049rem;
     font-size: 1rem;
-    line-height: 0.9375;
+    line-height: 1.5;
+    padding-top: 1.3125rem;
+    margin-bottom: 0.1875rem;
   }
 }
-/*###################*\
-    _paragraph.less
-\*###################*/
-figure {
-  box-sizing: border-box;
-  text-align: center;
-}
+/*################################*\
+    _paragraphs.less
+\*################################*/
 @media screen {
   figure {
     border-left: 0.25rem solid transparent;
@@ -229,9 +254,6 @@ figure {
     padding-left: 0.75rem;
     padding-right: 0.75rem;
   }
-}
-blockquote {
-  box-sizing: border-box;
 }
 @media screen {
   blockquote {
@@ -278,7 +300,6 @@ pre > small {
   pre {
     border-width: 2px;
     margin-top: -4px;
-    box-sizing: border-box;
     padding: 0.75rem 1rem;
     border-style: solid;
     border-radius: 0.50rem;
@@ -295,163 +316,45 @@ pre > small {
 }
 @media print {
   pre {
-    background: rgba(0, 0, 0, 0.1);
+    background: rgba(13, 8, 0, 0.04);
   }
 }
-/*##############*\
-    _list.less
-\*##############*/
+/*################################*\
+    _lists.less
+\*################################*/
 ul {
   list-style-type: square;
 }
-/*###############*\
-    _table.less
-\*###############*/
-/**
-  * This Object represents a table-like structure. It may or may not be a literal `table` Element.
-  * A `.Table` is defined as an collection of data in two or more dimensions. A common example
-  * would be a multivariable map: given multiple (e.g., two) independent inputs there exists one
-  * dependent output.
-@implements
-: .font-size-block()
-@tags
-: #typography
-: #table
-@author
-: Chris Harvey
-@updated
-: 2015-02-17
-  */
-.Table {
-  display: table;
-  width: 100%;
-  text-align: center;
+dl,
+dt,
+dd {
+  border-color: rgba(13, 8, 0, 0.12);
 }
-.Table > caption {
-  border-top: 1px solid transparent;
-}
-/**
-  * This Object represents a group of rows in a `.Table`.
-@tags
-: #typography
-: #table
-@author
-: Chris Harvey
-@updated
-: 2015-02-17
-  */
-.Rowgroup {
-  border-width: 1px 0;
-  border-style: solid;
-  border-color: transparent;
-}
-.Rowgroup.Head,
-.Rowgroup.Foot {
-  vertical-align: bottom;
-}
-.Rowgroup.Head .Row,
-.Rowgroup.Foot .Row {
-  background-color: transparent;
-}
-.Rowgroup.Head {
-  display: table-header-group;
-}
-.Rowgroup.Body {
-  display: table-row-group;
-  vertical-align: top;
-}
-.Rowgroup.Foot {
-  display: table-footer-group;
-}
-/**
-  * This Object represents a single row in a `.Table`.
-@tags
-: #typography
-: #table
-@author
-: Chris Harvey
-@updated
-: 2015-02-17
-  */
-.Row {
-  display: table-row;
-}
-/**
-  * This Object represents a single data entry in a `.Table`.
-@implements
-: .cellpaddingdefault()
-@tags
-: #typography
-: #table
-@author
-: Chris Harvey
-@updated
-: 2014-05-18
-  */
-.Cell {
-  display: table-cell;
-  padding: 0.75rem 1rem;
-}
-/**
-  * This Object represents a heading in a `.Table`. A table heading may apply to a single row,
-  * a single column, a group of rows, or a group of columns.
-@tags
-: #typography
-: #table
-: #heading
-@author
-: Chris Harvey
-@updated
-: 2014-05-18
-  */
-.Cell.Hc {
-  font-weight: bold;
-}
-table {
-  counter-reset: nrows;
-  counter-increment: nrows;
-}
-table tr {
-  counter-increment: nrows;
+/*################################*\
+    _tables.less
+\*################################*/
+table,
+thead,
+tfoot,
+tbody,
+tr,
+th,
+td {
+  border-color: rgba(13, 8, 0, 0.12);
 }
 @media screen {
-  .Table {
+  table {
     font-size: 0.75rem;
     line-height: 2;
   }
-  .Rowgroup.Head,
-  .Rowgroup.Foot {
-    background-color: #ebf2f3;
-  }
-  .Row:nth-child(odd) {
-    background-color: #cfe0e2;
-  }
-  .Row:nth-child(even) {
-    background-color: #b6d0d3;
-  }
-  .Row:hover {
-    background-color: #a1c2c7;
-  }
-  .Table.Vert .Cell:nth-child(odd) {
-    background-color: #cfe0e2;
-  }
-  .Table.Vert .Cell:nth-child(even) {
-    background-color: #b6d0d3;
-  }
 }
-@media screen {
-  .c-Table > dt:nth-child(4n+1),
-  .c-Table > dd:nth-child(4n+2) {
-    background-color: #cfe0e2;
-  }
-  .c-Table > dt:nth-child(4n+3),
-  .c-Table > dd:nth-child(4n) {
-    background-color: #b6d0d3;
-  }
+th,
+td {
+  padding: 0.375rem 0.5rem;
 }
-/*###############*\
+/*################################*\
     _links.less
-\*###############*/
+\*################################*/
 a[href] {
   color: #0062ff;
   cursor: pointer;
@@ -491,15 +394,15 @@ a[href]:active {
 a[rel~="external"] {
   font-style: italic;
 }
-/*################*\
+/*################################*\
     _stress.less
-\*################*/
+\*################################*/
 i[lang] {
   font-family: 'Didot', 'Bodoni 72', 'Times', serif;
 }
-/*#################*\
+/*################################*\
     _doctext.less
-\*#################*/
+\*################################*/
 dfn {
   font-family: 'Baskerville', 'Palatino', 'Cochin', serif;
 }
@@ -512,22 +415,13 @@ var::before {
 var::after {
   content: close-quote;
 }
-.q--Th {
-  quotes: '\00ab' '\00bb';
-}
-.q--Th::before {
-  content: open-quote;
-}
-.q--Th::after {
-  content: close-quote;
-}
-/*##############*\
+/*################################*\
     _data.less
-\*##############*/
-.abbr--Acro {
+\*################################*/
+.c-Acro {
   font-size: 0.75em;
 }
-.abbr__First {
+.c-Acro__First {
   font-size: 1.33333333em;
 }
 @media print {
@@ -542,9 +436,9 @@ code {
 }
 @media screen {
   code {
-    padding: 0.25em 0.41666667em 0.16666667em;
-    border-radius: 0.25rem;
-    padding-bottom: 0.08333333em;
+    padding: 0.33333333em 0.5em 0.25em;
+    padding-bottom: 0.16666667em;
+    border-radius: 0.25em;
     border: 1px solid #eee8d5;
     color: #836d65;
     background: #fdf6e3;
@@ -559,9 +453,9 @@ code {
   display: block;
   min-height: 4.5rem;
 }
-/*######################*\
+/*################################*\
     _o-GoldenBody.less
-\*######################*/
+\*################################*/
 @media screen {
   .o-GoldenBody {
     position: relative;
@@ -575,7 +469,6 @@ code {
     margin-right: 2rem;
   }
   .o-GoldenBody__Content {
-    box-sizing: border-box;
     width: 61.80339887%;
     margin-bottom: 12rem;
   }
@@ -596,7 +489,6 @@ code {
     margin-right: 0;
   }
   .o-GoldenBody__Sidebar {
-    box-sizing: border-box;
     position: absolute;
   }
   .o-GoldenBody--left .o-GoldenBody__Sidebar--major {
@@ -648,9 +540,9 @@ code {
     right: 0;
   }
 }
-/*########################*\
+/*################################*\
     _o-FlexContainer.less
-\*########################*/
+\*################################*/
 .o-FlexContainer {
   display: -webkit-box;
   display: -webkit-flex;
@@ -667,30 +559,10 @@ code {
 .o-FlexContainer > dd + dt {
   margin-top: 0;
 }
-/*###############*\
+/*################################*\
     _o-Box.less
-\*###############*/
-.u-p_sml {
-  padding: 0.75rem 1rem;
-}
-.u-p_med {
-  padding: 1.5rem 2rem;
-}
-.u-p_lrg {
-  padding: 3rem 4rem;
-}
-.u-br_sml {
-  border-radius: 0.5rem;
-}
-.u-br_med {
-  border-radius: 1rem;
-}
-.u-br_lrg {
-  border-radius: 2rem;
-}
+\*################################*/
 .o-Box {
-  display: block;
-  box-sizing: border-box;
   padding: 0.75rem 1rem;
   overflow: auto;
 }
@@ -705,9 +577,9 @@ code {
   padding: 3rem 4rem;
   border-radius: 2rem;
 }
-/*######################*\
+/*################################*\
     _o-ListInline.less
-\*######################*/
+\*################################*/
 .o-ListInline {
   display: inline;
   padding-left: 0;
@@ -734,20 +606,20 @@ code {
 .o-ListInline__Item--square::after {
   content: '\0020\25aa\0020';
 }
-/*###################*\
+/*################################*\
     _o-Textbox.less
-\*###################*/
+\*################################*/
 .o-Textbox {
   display: inline;
-  padding: 0.25em 0.41666667em 0.16666667em;
+  padding: 0.33333333em 0.5em 0.25em;
   font-size: 0.75em;
   line-height: 0;
   white-space: nowrap;
   border-radius: 0.25em;
 }
-/*####################*\
+/*################################*\
     _c-Document.less
-\*####################*/
+\*################################*/
 .c-Document {
   font-family: 'Baskerville', 'Palatino', 'Cochin', serif;
   text-align: justify;
@@ -776,7 +648,7 @@ code {
 .c-Document__Informative {
   color: #0081cc;
   background: rgba(153, 218, 255, 0.2);
-  font-family: 'Avenir', 'Helvetica Neue', sans-serif;
+  font-family: 'Avenir', 'Helvetica Neue', 'Helvetica', sans-serif;
 }
 @media print {
   .c-Document__Informative {
@@ -789,9 +661,9 @@ code {
     content: close-quote;
   }
 }
-/*###################*\
+/*################################*\
     _c-Subhead.less
-\*###################*/
+\*################################*/
 @media screen {
   .c-Subhead {
     font-size: 1.5rem;
@@ -804,9 +676,9 @@ code {
     color: #ff7e33;
   }
 }
-/*######################*\
+/*################################*\
     _c-FolioTitle.less
-\*######################*/
+\*################################*/
 @media screen {
   .c-FolioTitle {
     font-size: 1.5rem;
@@ -835,12 +707,11 @@ code {
     text-transform: uppercase;
   }
 }
-/*###################*\
+/*################################*\
     _paragraph.less
-\*###################*/
+\*################################*/
 .c-Lede {
-  font-family: 'Helvetica Neue', sans-serif;
-  text-align: justify;
+  font-family: 'Helvetica Neue', 'Helvetica', sans-serif;
   color: #120099;
 }
 .c-Lede--dropcap::first-letter {
@@ -853,13 +724,13 @@ code {
   line-height: 0;
   font-family: 'Zapfino', 'Savoye LET', script;
 }
-/*###################*\
+/*################################*\
     _c-Caption.less
-\*###################*/
+\*################################*/
 .c-Caption {
   font-size: 0.75rem;
   line-height: 2;
-  font-family: 'Helvetica Neue', sans-serif;
+  font-family: 'Helvetica Neue', 'Helvetica', sans-serif;
 }
 .c-Caption--before {
   border-bottom-width: 1px;
@@ -871,26 +742,26 @@ code {
   margin-top: -1px;
   border-top-style: dotted;
 }
-/*#####################*\
-    _c-PullQuote.less
-\*#####################*/
-.c-PullQuote {
+/*################################*\
+    _c-Pullquote.less
+\*################################*/
+.c-Pullquote {
   font-size: 1.25rem;
   line-height: 1.8;
-  font-family: 'Helvetica Neue', sans-serif;
+  font-family: 'Helvetica Neue', 'Helvetica', sans-serif;
 }
-.c-PullQuote__Src {
+.c-Pullquote__Src {
   font-size: 0.75rem;
   line-height: 3;
   display: block;
   text-align: right;
 }
-.c-PullQuote__Src::before {
+.c-Pullquote__Src::before {
   content: '~\0020';
 }
-/*######################*\
+/*################################*\
     _c-ListAction.less
-\*######################*/
+\*################################*/
 .c-ListAction {
   padding-left: 0;
   list-style-type: none;
@@ -899,9 +770,9 @@ code {
 .c-ListAction__Item::before {
   content: '\2713\0020';
 }
-/*#########################*\
+/*################################*\
     _c-ListFootnotes.less
-\*#########################*/
+\*################################*/
 .c-ListFootnotes {
   font-size: 0.75rem;
   line-height: 2;
@@ -934,11 +805,51 @@ code {
 .Fn::after {
   content: close-quote;
 }
-/*#####################*\
+/*################################*\
+    _c-Table.less
+\*################################*/
+.c-TableBordered {
+  border-width: 3px;
+  margin-top: -6px;
+}
+.c-TableBorderedRows > *:not(caption) ~ *:not(dt):not(dd) {
+  border-top-width: 2px;
+  margin-top: -2px;
+}
+.c-TableBorderedRows > * > tr:not(:first-child) {
+  border-top-width: 1px;
+  margin-top: -1px;
+}
+.c-TableBorderedRows > dt:not(:first-of-type),
+.c-TableBorderedRows dd:not(:first-of-type) {
+  border-top-width: 1px;
+  margin-top: -1px;
+}
+.c-TableBorderedCols > * > tr > *:not(:first-child),
+.c-TableBorderedCols > dd {
+  border-left-width: 1px;
+}
+.c-TableShaded {
+  background-color: rgba(13, 8, 0, 0.04);
+}
+.c-TableShadedRows > tbody > tr:nth-child(even),
+.c-TableShadedRows > dt:nth-child(4n+3),
+.c-TableShadedRows > dd:nth-child(4n) {
+  background-color: rgba(13, 8, 0, 0.04);
+}
+.c-TableShadedCols > * > tr > *:nth-child(even),
+.c-TableShadedCols > dd {
+  background-color: rgba(13, 8, 0, 0.04);
+}
+.c-TableHover > * > tr:hover,
+.c-TableHover > dt:hover,
+.c-TableHover > dd:hover {
+  background-color: rgba(13, 8, 0, 0.08) !important;
+}
+/*################################*\
     _breadcrumbs.less
-\*#####################*/
+\*################################*/
 .Bc {
-  box-sizing: border-box;
   width: 14.58980338%;
   margin-left: 3.44418537%;
   margin-right: 5.572809%;
@@ -1000,28 +911,27 @@ code {
   color: #f2f7ff !important;
   background-color: #0062ff;
 }
-/*#################*\
+/*################################*\
     _c-Alert.less
-\*#################*/
+\*################################*/
 .c-Alert {
   font-size: 0.75rem;
   line-height: 2;
   font-style: normal;
   font-variant: normal;
   font-weight: normal;
-  font-family: 'Helvetica Neue', sans-serif;
+  font-family: 'Helvetica Neue', 'Helvetica', sans-serif;
   text-align: left;
-  display: block;
-  box-sizing: border-box;
-  padding: 0.75rem 1rem;
-  overflow: auto;
-  border-radius: 0.5rem;
   color: #0d0800;
-  background: #a6a7aa;
+  text-shadow: 0 1px 4px rgba(242, 247, 255, 0.6);
+  background: #cccfd4;
+  box-shadow: 0 0 0.5rem 0.25rem rgba(13, 8, 0, 0.08);
 }
 .c-Alert--dang {
-  background: #ff4b33;
   color: #f2f7ff;
+  text-shadow: 0 1px 4px rgba(13, 8, 0, 0.6);
+  background: #33302a;
+  background: #ff4b33;
 }
 .c-Alert--cshn {
   background: #ffe433;
@@ -1038,35 +948,27 @@ code {
 .c-Alert__Title {
   padding-right: 1rem;
   font-weight: bold;
-  text-shadow: 0 1px 2px rgba(242, 247, 255, 0.6);
 }
-.c-Alert--dang .c-Alert__Title {
-  text-shadow: 0 1px 2px rgba(13, 8, 0, 0.6);
-}
-/*#################*\
+/*################################*\
     _c-Label.less
-\*#################*/
+\*################################*/
 .c-Label {
   font-style: normal;
   font-variant: normal;
   font-weight: normal;
-  font-family: 'Helvetica Neue', sans-serif;
+  font-family: 'Helvetica Neue', 'Helvetica', sans-serif;
   text-align: left;
-  display: inline;
-  padding: 0.25em 0.41666667em 0.16666667em;
-  font-size: 0.75em;
-  line-height: 0;
-  white-space: nowrap;
-  border-radius: 0.25em;
-  margin-left: 1rem;
-  text-shadow: 0 1px 2px rgba(242, 247, 255, 0.6);
   color: #0d0800;
-  background: #a6a7aa;
+  text-shadow: 0 1px 4px rgba(242, 247, 255, 0.6);
+  background: #cccfd4;
+  margin-left: 1rem;
+  box-shadow: 0 1px 2px 1px rgba(13, 8, 0, 0.08);
 }
 .c-Label--dang {
-  background: #ff4b33;
   color: #f2f7ff;
-  text-shadow: 0 1px 2px rgba(13, 8, 0, 0.6);
+  text-shadow: 0 1px 4px rgba(13, 8, 0, 0.6);
+  background: #33302a;
+  background: #ff4b33;
 }
 .c-Label--cshn {
   background: #ffe433;
@@ -1080,34 +982,64 @@ code {
 .c-Label--help {
   background: #ff99c0;
 }
-/*###############*\
-    _o-Key.less
-\*###############*/
+/*################################*\
+    _c-Badge.less
+\*################################*/
+.c-Badge {
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  font-family: 'Helvetica Neue', 'Helvetica', sans-serif;
+  text-align: left;
+  color: #f2f7ff;
+  text-shadow: 0 1px 4px rgba(13, 8, 0, 0.6);
+  background: #33302a;
+  margin-left: 1rem;
+  padding-left: 0.66666667em;
+  padding-right: 0.66666667em;
+  font-weight: bold;
+  border-radius: 1em;
+  box-shadow: 0 1px 2px 1px rgba(13, 8, 0, 0.08);
+}
+.c-Badge--dang {
+  background: #cc1800;
+}
+.c-Badge--cshn {
+  background: #ccb100;
+}
+.c-Badge--skss {
+  background: #65a23e;
+}
+.c-Badge--info {
+  background: #33b4ff;
+}
+.c-Badge--help {
+  background: #ff3381;
+}
+/*################################*\
+    _c-Key.less
+\*################################*/
 .c-Key {
   font-style: normal;
   font-variant: normal;
   font-weight: normal;
-  font-family: 'Helvetica Neue', sans-serif;
+  font-family: 'Helvetica Neue', 'Helvetica', sans-serif;
   text-align: left;
 }
 @media screen {
   .c-Key {
-    display: inline;
-    padding: 0.25em 0.41666667em 0.16666667em;
-    font-size: 0.75em;
-    line-height: 0;
-    white-space: nowrap;
-    border-radius: 0.25em;
     padding-bottom: 0.08333333em;
     font-size: 0.75rem;
     border: 1px solid #073642;
     color: #93a1a1;
     background: #002b36;
+    text-shadow: 0 1px 2px rgba(242, 247, 255, 0.2);
+    box-shadow: 0 1px 2px 1px rgba(13, 8, 0, 0.2), inset 0 2px 1px 0 rgba(242, 247, 255, 0.2);
   }
 }
-/*####################*\
+/*################################*\
     _colortheme.less
-\*####################*/
+\*################################*/
 .t-bg-sol-lite {
   background: #fdf6e3;
   border-color: #eee8d5;
@@ -1238,9 +1170,9 @@ code {
 .t-ac-lun .c__Prp {
   color: #938e3b;
 }
-/*################*\
+/*################################*\
     _trumps.less
-\*################*/
+\*################################*/
 .help-otln {
   outline: 1px solid #ff99c0;
 }
@@ -1260,9 +1192,9 @@ code {
 /*+++++++++++++++++++*\
     #HELPER CLASSES
 \*+++++++++++++++++++*/
-/*#################*\
+/*################################*\
     _helpers.less
-\*#################*/
+\*################################*/
 /*+++++++++++*\
     #WIDTHS
 \*+++++++++++*/
@@ -1382,8 +1314,26 @@ code {
 /*+++++++++++++++++*\
     #FONTS & TEXT
 \*+++++++++++++++++*/
+.u-fs_i {
+  font-style: inherit;
+}
+.u-fs_n {
+  font-style: normal;
+}
+.u-fs_t {
+  font-style: italic;
+}
+.u-fw_i {
+  font-weight: inherit;
+}
+.u-fw_n {
+  font-weight: normal;
+}
+.u-fw_b {
+  font-weight: bold;
+}
 .u-ff_base {
-  font-family: 'Avenir', 'Helvetica Neue', sans-serif;
+  font-family: 'Avenir', 'Helvetica Neue', 'Helvetica', sans-serif;
 }
 .u-ff_prose {
   font-family: 'Baskerville', 'Palatino', 'Cochin', serif;
@@ -1392,7 +1342,7 @@ code {
   font-family: 'Optima', 'Seravek', 'Tahoma', sans-serif;
 }
 .u-ff_accent {
-  font-family: 'Helvetica Neue', sans-serif;
+  font-family: 'Helvetica Neue', 'Helvetica', sans-serif;
 }
 .u-ff_code {
   font-family: 'Menlo', 'Monaco', 'Andale Mono', monospace;
@@ -1439,6 +1389,9 @@ code {
 /*+++++++++++*\
     #COLORS
 \*+++++++++++*/
+.u-bgc_transparent {
+  background-color: transparent;
+}
 /*------------------*\
     #Portal Colors
 \*------------------*/
@@ -1447,26 +1400,26 @@ code {
 }
 .u-bgc_aperture_black {
   background-color: #0d0800;
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(242, 247, 255, 0.8);
 }
 .u-bgc_lakesuperior {
   background-color: #120099;
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(242, 247, 255, 0.8);
 }
 .u-bgc_facilityabyss {
   background-color: #3d6166;
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(242, 247, 255, 0.8);
 }
 .u-bgc_atlas {
   background-color: #0062ff;
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(242, 247, 255, 0.8);
 }
 .u-bgc_pbody {
   background-color: #ff9d00;
 }
 .u-bgc_deploying {
   background-color: #ff4b33;
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(242, 247, 255, 0.8);
 }
 .u-bgc_hereye {
   background-color: #ffe433;
@@ -1482,11 +1435,11 @@ code {
 }
 .u-bgc_vilify {
   background-color: #9d00ff;
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(242, 247, 255, 0.8);
 }
 .u-bgc_cavescaves {
   background-color: #80522b;
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(242, 247, 255, 0.8);
 }
 .u-bgc_asbestos {
   background-color: #bf9300;
@@ -1499,15 +1452,15 @@ code {
 }
 .u-bgc_aperture_grey_0o6 {
   background-color: #0d0800;
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(242, 247, 255, 0.8);
 }
 .u-bgc_aperture_grey_1o6 {
   background-color: #33302a;
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(242, 247, 255, 0.8);
 }
 .u-bgc_aperture_grey_2o6 {
   background-color: #595855;
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(242, 247, 255, 0.8);
 }
 .u-bgc_aperture_grey_3o6 {
   background-color: #808080;
@@ -1526,11 +1479,11 @@ code {
 \*-------------------*/
 .u-bgc_solarized_base03 {
   background-color: #002b36;
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(242, 247, 255, 0.8);
 }
 .u-bgc_solarized_base02 {
   background-color: #073642;
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(242, 247, 255, 0.8);
 }
 .u-bgc_solarized_base01 {
   background-color: #586e75;
@@ -1576,11 +1529,11 @@ code {
 }
 .u-bgc_lunarized_base03 {
   background-color: #360b00;
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(242, 247, 255, 0.8);
 }
 .u-bgc_lunarized_base02 {
   background-color: #421307;
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(242, 247, 255, 0.8);
 }
 .u-bgc_lunarized_base01 {
   background-color: #755f58;
@@ -1665,12 +1618,15 @@ code {
   .h-on-print-normalize {
     margin: 0;
     padding: 0;
+    border: 0;
+    border-radius: 0;
     font-style: inherit;
     font-weight: inherit;
     font-variant: inherit;
     font-size: inherit;
     line-height: inherit;
     font-family: inherit;
+    white-space: inherit;
     text-align: inherit;
     text-shadow: inherit;
     color: inherit;

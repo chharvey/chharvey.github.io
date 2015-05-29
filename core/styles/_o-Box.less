@@ -1,61 +1,14 @@
 
-/*###############*\
+/*################################*\
     _o-Box.less
-\*###############*/
-
-
-// These Mixins create abstract inline structures, boxed with a solid border and rounded corners.
-//
-// @width - the value of `border-width` property (default to `0`)
-// @color - the value of `border-color` property (default to `currentColor`)
-// ^author
-// : Chris Harvey
-// ^updated
-// : 2015-02-21
-// .box-inline(@width; @color) {
-//   padding: @project_boxpadding_tny;
-//   border-width: @width;
-//   border-style: solid;
-//   border-color: @color;
-//   border-radius: @project_border_radius_tny;
-//   white-space: nowrap;
-// }
-// .box-inline(@width) {
-//   .box-inline(@width; transparent);
-// }
-// .box-inline() {
-//   .box-inline(0);
-// }
-
-// These Mixins create abstract block structures, boxed with a solid border and rounded corners.
-//
-// : @width  : the value of `border-width` property (default to `0`)
-// : @color  : the value of `border-color` property (default to `currentColor`)
-// ^author
-// : Chris Harvey
-// ^updated
-// : 2015-02-21
-// .box-block(@width; @color) {
-//   .border-vert(all; @width);
-//   border-style: solid;
-//   border-color: @color;
-//   padding: @project_boxpadding_sml;
-//   box-sizing: border-box;
-//   border-radius: @project_border_radius_sml;
-// }
-// .box-block(@width) {
-//   .box-block(@width; transparent);
-// }
-// .box-block() {
-//   .box-block(0);
-// }
+\*################################*/
 
 
 // A Box Object is a block of content separated from the surrounding flow.
 // Typically used for cells in a table-like structure, but may be used for
 // other components as well.
 // It has a default padding, which may be overridden by subclasses:
-// `--island` - regular blocks, alerts, etc.
+// `--island` - regular blocks, table cells, alerts, etc.
 // `--dialog` - special boxes like pop-up dialogs
 // `--hero`   - huge boxes like hero sections or very large buttons
 //
@@ -63,44 +16,36 @@
 //
 // *[1] may remove later if run into problems
 //      (e.g. element-default displays like table-caption or list-item)
+//      UPDATE 2015-05-13: removed due to `td` Elements breaking if not `display: table-cell;`
 //
 // ^author
 // : Chris Harvey
 // ^updated
 // : 2015-04-26
-.BOXES() {
-  @padding_sml: (0.5 * @project_vru) (1 * 1rem);
-  @padding_med: (1.0 * @project_vru) (2 * 1rem);
-  @padding_lrg: (2.0 * @project_vru) (4 * 1rem);
-  @border_radius_sml: 0.50rem;
-  @border_radius_med: 1.00rem;
-  @border_radius_lrg: 2.00rem;
-}
-.u-p_sml {.BOXES(); padding: @padding_sml;}
-.u-p_med {.BOXES(); padding: @padding_med;}
-.u-p_lrg {.BOXES(); padding: @padding_lrg;}
+// .u-p_sml {.BOXES(); padding: @padding_sml;}
+// .u-p_med {.BOXES(); padding: @padding_med;}
+// .u-p_lrg {.BOXES(); padding: @padding_lrg;}
+// .u-br_sml {.BOXES(); border-radius: @border_radius_sml;}
+// .u-br_med {.BOXES(); border-radius: @border_radius_med;}
+// .u-br_lrg {.BOXES(); border-radius: @border_radius_lrg;}
 
-.u-br_sml {.BOXES(); border-radius: @border_radius_sml;}
-.u-br_med {.BOXES(); border-radius: @border_radius_med;}
-.u-br_lrg {.BOXES(); border-radius: @border_radius_lrg;}
 .o-Box {
-  .BOXES();
-  display: block; // IDEA *[1]
-  box-sizing: border-box;
+  .UI-BOX();
+  // display: block; // IDEA *[1]
   padding: @padding_sml;
   overflow: auto;
 }
 .o-Box--island {
-  .BOXES();
+  .UI-BOX();
   border-radius: @border_radius_sml;
 }
 .o-Box--dialog {
-  .BOXES();
+  .UI-BOX();
   padding: @padding_med;
   border-radius: @border_radius_med;
 }
 .o-Box--hero {
-  .BOXES();
+  .UI-BOX();
   padding: @padding_lrg;
   border-radius: @border_radius_lrg;
 }
