@@ -1,3 +1,7 @@
+/*################################*\
+    _dev.less
+\*################################*/
+
 // remove these once xmeter@v1.1.0 is released
 .push-this(@space) {
   padding-top: @space;
@@ -20,6 +24,10 @@
 .sprite(vertical; @position; @iconsize; @iconpadd) {
   background-position: 0 ((@position - 1) * -(@iconsize + @iconpadd));
 }
+* {
+  box-sizing: border-box;
+  border: 0px solid; // reset browser default border
+}
 @media print {
   body,
   main {
@@ -32,9 +40,6 @@ h1, h2, h3, h4, h5, h6 {
 pre {
   text-align: left;
   text-indent: 0;
-}
-li, dt, dd /* more elements here if necessary */ {
-  box-sizing: border-box;
 }
 li, dt, dd {
   > ol, > ul, > dl {
@@ -53,9 +58,17 @@ img {
   font-style: italic; // offset `alt` text from surrounding copy
   vertical-align: middle; // safer alternative to `display: block;`
 }
-table {
-  max-width: 100%; // fluid tables for responsive purposes
+caption {
+  text-align: center;
 }
+thead,
+tfoot {
+  vertical-align: bottom; // for heading alignment
+}
+tbody {
+  vertical-align: top; // for data alignment
+}
+
 code, kbd, samp {
   code, kbd, samp {
     font-size: inherit; // undo compounding font sizes
@@ -68,35 +81,23 @@ code, kbd, samp {
 
 // remove these once xmeter@v2.0.0 is released
 
-.border-vert(top; @width) {
+.border-vert(top; @width: 0) {
   border-top-width: @width;
   .pull-this(@width);
 }
-.border-vert(top) {
-  .border-vert(top; 0);
-}
 
-.border-vert(bottom; @width) {
+.border-vert(bottom; @width: 0) {
   border-bottom-width: @width;
   .pull-this(@width);
 }
-.border-vert(bottom) {
-  .border-vert(bottom; 0);
-}
 
-.border-vert(topbot; @width) {
+.border-vert(topbot; @width: 0) {
   border-top-width:    @width;
   border-bottom-width: @width;
   .pull-this(2 * @width);
 }
-.border-vert(topbot) {
-  .border-vert(topbot; 0);
-}
 
-.border-vert(all; @width) {
+.border-vert(all; @width: 0) {
   border-width: @width;
   .pull-this(2 * @width);
-}
-.border-vert(all) {
-  .border-vert(all; 0);
 }
