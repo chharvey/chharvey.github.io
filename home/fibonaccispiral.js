@@ -69,18 +69,19 @@ function makepretty() {
       }
 
       new Spiral($('.Spiral').width(), [0,0], '.Spiral > li:nth-child(1) > .Square', 'right', [
-        '.Spiral > li:nth-child( 2) > .Square',
-        '.Spiral > li:nth-child( 3) > .Square',
-        '.Spiral > li:nth-child( 4) > .Square',
-        '.Spiral > li:nth-child( 5) > .Square',
-        '.Spiral > li:nth-child( 6) > .Square',
-        '.Spiral > li:nth-child( 7) > .Square',
-        '.Spiral > li:nth-child( 8) > .Square',
-        '.Spiral > li:nth-child( 9) > .Square',
-        '.Spiral > li:nth-child(10) > .Square',
-        '.Spiral > li:nth-child(11) > .Square',
-        '.Spiral > li:nth-child(12) > .Square'
-      ]);
+          '.Spiral > li:nth-child( 2) > .Square'
+        , '.Spiral > li:nth-child( 3) > .Square'
+        , '.Spiral > li:nth-child( 4) > .Square'
+        , '.Spiral > li:nth-child( 5) > .Square'
+        , '.Spiral > li:nth-child( 6) > .Square'
+        , '.Spiral > li:nth-child( 7) > .Square'
+        , '.Spiral > li:nth-child( 8) > .Square'
+        , '.Spiral > li:nth-child( 9) > .Square'
+        , '.Spiral > li:nth-child(10) > .Square'
+        , '.Spiral > li:nth-child(11) > .Square'
+        , '.Spiral > li:nth-child(12) > .Square'
+        ]
+      );
 
       $('.Square')
         .height(function () { return $(this).width() })
@@ -112,31 +113,31 @@ function makepretty() {
 
 function d3circles() {
   var svg_width = 960
-  var svg_padding = 24
-  var svg = d3.select('main').append('svg').attr('xmlns','http://www.w3.org/2000/svg')
-                                           .classed('js-bubbles dark', true)
-                                           .attr('viewBox', '0 0 ' + svg_width + ' ' + svg_width)
-                                           .attr('preserveAspectRatio', 'xMidYMid')
-  var main_link_radius = svg_width/8
-  var side_link_radius = main_link_radius/2
+    , svg_padding = 24
+    , svg = d3.select('main').append('svg').attr('xmlns','http://www.w3.org/2000/svg')
+        .attr('viewBox', '0 0 ' + svg_width + ' ' + svg_width)
+        .attr('preserveAspectRatio', 'xMidYMid')
+        .classed('js-bubbles dark', true)
+    , main_link_radius = svg_width/8
+    , side_link_radius = main_link_radius/2
   ;(function mainCircles() {
     // adds a group for each main link
     var main_links = svg.append('g').classed('js-main-links', true).attr('transform', 'translate(' + svg_width/2 + ', ' + (svg_width/2 + (side_link_radius+svg_padding)/2) + ')')
     // herebelow, the ORDER of the `transform` attribute's values is RELEVANT!
     // i.e. rotate before translate is different than translate before rotate.
     var main_rotate = {
-      mth : 72 * 2,
-      web : 72 * 0,
-      edu : 72 * 4,
-      mus : 72 * 3,
-      swm : 72 * 1,
+      mth : 72 * 2
+    , web : 72 * 0
+    , edu : 72 * 4
+    , mus : 72 * 3
+    , swm : 72 * 1
     }
     var main_translate = {
-      mth : '0,' + (main_link_radius*2),
-      web : '0,' + (main_link_radius*2),
-      edu : '0,' + (main_link_radius*2),
-      mus : '0,' + (main_link_radius*2),
-      swm : '0,' + (main_link_radius*2),
+      mth : '0,' + (main_link_radius*2)
+    , web : '0,' + (main_link_radius*2)
+    , edu : '0,' + (main_link_radius*2)
+    , mus : '0,' + (main_link_radius*2)
+    , swm : '0,' + (main_link_radius*2)
     }
     //transforms each main group
     main_links.append('g').classed('js-mth', true).attr('transform', 'rotate(' + main_rotate.mth + ') translate(' + main_translate.mth + ')')
@@ -160,14 +161,14 @@ function d3circles() {
     var PHI = (Math.sqrt(5)-1)/2
     var side_links = svg.append('g').classed('js-side-links', true).attr('transform', 'translate(' + svg_width/2 + ',' + (side_link_radius+svg_padding) + ')')
     var side_rotate = {
-      abt : 0,
-      res : 0,
-      cpr : 0,
+      abt : 0
+    , res : 0
+    , cpr : 0
     }
     var side_translate = {
-      abt :                  0 + ',0',
-      res : PHI * -svg_width/2 + ',0',
-      cpr : PHI *  svg_width/2 + ',0',
+      abt :                  0 + ',0'
+    , res : PHI * -svg_width/2 + ',0'
+    , cpr : PHI *  svg_width/2 + ',0'
     }
     // transforms each side group
     side_links.append('g').classed('js-abt', true).attr('transform', 'rotate(' + side_rotate.abt + ') translate(' + side_translate.abt + ')')
