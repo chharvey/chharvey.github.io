@@ -4,24 +4,24 @@
 project = {
   px_per_rem : 16,
   line_height : 1.5,
-};
+}
 
-project.vru = project.px_per_rem * project.line_height;
+project.vru = project.px_per_rem * project.line_height
 
 /**
   * Resizes the `.c-FolioTitle` headings on home site to keep them horizontally contained.
   */
 function resizeFolioHeading() {
   $('.c-FolioTitle').each(function () {
-    var self = this;
-    this.width_in_rem = $(this).parent().width() / project.px_per_rem;
-    this.font_size_in_rem = (1/16) * this.width_in_rem; // magic number alert! why (1/16) ???
-    this.line_height = 3 * project.line_height / this.font_size_in_rem; // magic number alert!
+    var self = this
+    this.width_in_rem = $(this).parent().width() / project.px_per_rem
+    this.font_size_in_rem = (1/16) * this.width_in_rem // HACK // magic number alert! why (1/16) ???
+    this.line_height = 3 * project.line_height / this.font_size_in_rem // HACK // magic number alert!
 
     $(this).css('font-size', function () {
-      return self.font_size_in_rem + 'rem';
+      return self.font_size_in_rem + 'rem'
     }).css('line-height', function () {
-      return self.line_height;
+      return self.line_height
     });
   });
 }
@@ -37,12 +37,12 @@ function resizeFolioHeading() {
   */
 function pullquoteLines() {
   $('.c-Pullquote').each(function () {
-    var vrus = $(this).height() / project.vru;
-    $(this).css('margin-top',''); // removes any inline style
+    var vrus = $(this).height() / project.vru
+    $(this).css('margin-top','') // removes any inline style
     if (vrus % 1 !== 0) {
-      $(this).css('margin-top', parseFloat($(this).css('margin-top')) - (vrus % 1) * project.vru);
+      $(this).css('margin-top', parseFloat($(this).css('margin-top')) - (vrus % 1) * project.vru)
     }
-  });
+  })
 }
 
 /**
@@ -54,14 +54,14 @@ function pullquoteLines() {
 // function mapHeights() {
 //   $('.dl--Horiz').each(function () {
 //     $(this).children('dt').each(function () {
-//       var height1 = parseInt($(this).css('height'));
-//       var height2 = parseInt($(this).next().css('height'));
-//       $(this).next().css('height', Math.max(height1, height2) + 'px');
+//       var height1 = parseInt($(this).css('height'))
+//         , height2 = parseInt($(this).next().css('height'))
+//       $(this).next().css('height', Math.max(height1, height2) + 'px')
 //     });
 //     $(this).children('dd').each(function () {
-//       var height1 = parseInt($(this).prev().css('height'));
-//       var height2 = parseInt($(this).css('height'));
-//       $(this).prev().css('height', Math.max(height1, height2) + 'px');
+//       var height1 = parseInt($(this).prev().css('height'))
+//         , height2 = parseInt($(this).css('height'))
+//       $(this).prev().css('height', Math.max(height1, height2) + 'px')
 //     });
 //   });
 // }
@@ -99,28 +99,28 @@ function pullquoteLines() {
 //   var px_per_line = project.px_per_rem * project.line_height;
 //   var px_per_line_half = px_per_line / 2;
 //   $('.Table').each(function () {
-//     var n_rowgroups = 0;
+//     var n_rowgroups = 0
 //     $(this).find('.Rowgroup').each(function () {
-//       n_rowgroups++;
-//     });
-//     if ($(this).find('.Rowgroup')[0] != null)     n_rowgroups++; // *[1]
-//     if ($(this).find('caption')[0]   != null)     n_rowgroups++; // *[2]
-//     var btm = -(((n_rowgroups + px_per_line_half) % px_per_line) - px_per_line_half);
+//       n_rowgroups++
+//     })
+//     if ($(this).find('.Rowgroup')[0] != null)     n_rowgroups++ // *[1]
+//     if ($(this).find('caption')[0]   != null)     n_rowgroups++ // *[2]
+//     var btm = -(((n_rowgroups + px_per_line_half) % px_per_line) - px_per_line_half)
 //     if (btm <= 0) {
-//       $(this).css('margin-top',''); // removes any previous inline style
-//       $(this).css('margin-top',parseFloat($(this).css('margin-top'))+btm);
+//       $(this).css('margin-top','') // removes any previous inline style
+//       $(this).css('margin-top',parseFloat($(this).css('margin-top'))+btm)
 //     } else {
-//       $(this).css('padding-top',''); // removes any previous inline style
-//       $(this).css('padding-top',parseFloat($(this).css('padding-top'))+btm);
+//       $(this).css('padding-top','') // removes any previous inline style
+//       $(this).css('padding-top',parseFloat($(this).css('padding-top'))+btm)
 //     }
-//     // var n_rows = 0;
+//     // var n_rows = 0
 //     // $(this).find('tr').each(function () {
-//     //   n_rows++;
-//     // });
-//     // n_rows++; // once more for the last border
-//     // var btm = -(((n_rows + px_per_line_half) % px_per_line) - px_per_line_half);
-//     // if (btm <= 0) { $(this).css('margin-bottom', btm); }
-//     // else          { $(this).css('padding-bottom', btm); }
+//     //   n_rows++
+//     // })
+//     // n_rows++ // once more for the last border
+//     // var btm = -(((n_rows + px_per_line_half) % px_per_line) - px_per_line_half)
+//     // if (btm <= 0) $(this).css('margin-bottom', btm)
+//     // else          $(this).css('padding-bottom', btm)
 //   });
 // }
 function tableSpacing() {
@@ -131,18 +131,18 @@ function tableSpacing() {
   // thus if there are an odd number of rows in the table, the margin needs to be offset by
   // 0.5.
 
-  var px_per_line = project.px_per_rem * project.line_height;
-  var px_per_line_half = px_per_line / 2;
+  var px_per_line = project.px_per_rem * project.line_height
+    , px_per_line_half = px_per_line / 2
 
   $('table').each(function () {
-    var n_rows = 0;
+    var n_rows = 0
     $(this).find('tr').each(function () {
-      n_rows++;
+      n_rows++
     })
     if (n_rows % 2 == 1) {
-      $(this).css('margin-top', -1 * px_per_line_half);
+      $(this).css('margin-top', -1 * px_per_line_half)
     }
-  });
+  })
 }
 
 /**
@@ -150,17 +150,17 @@ function tableSpacing() {
   * Inline uses parentheses and block uses brackets.
   */
 function mathJax() {
-  $('.M:not(.M--B)').prepend('\\(').append('\\)');
-  $('.M.M--B').prepend('\\[').append('\\]');
+  $('.M:not(.M--B)').prepend('\\(').append('\\)')
+  $('.M.M--B').prepend('\\[').append('\\]')
 }
 $(document).ready(function () {
-  resizeFolioHeading();
-  pullquoteLines();
-  // mapHeights();
-  tableSpacing();
-  mathJax();
-});
+  resizeFolioHeading()
+  pullquoteLines()
+  // mapHeights()
+  tableSpacing()
+  mathJax()
+})
 $(window).resize(function () {
-  resizeFolioHeading();
-  pullquoteLines();
-});
+  resizeFolioHeading()
+  pullquoteLines()
+})

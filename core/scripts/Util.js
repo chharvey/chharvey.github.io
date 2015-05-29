@@ -4,10 +4,10 @@
   */
 var Util = {}
 
-Util.PHI = (1 + Math.sqrt(5)) / 2;
-Util.PSI = (1 - Math.sqrt(5)) / 2;
-Util.PHI_INV = 1 / Util.PHI;
-Util.TAU = 2 * Math.PI;
+Util.PHI = (1 + Math.sqrt(5)) / 2
+Util.PSI = (1 - Math.sqrt(5)) / 2
+Util.PHI_INV = 1 / Util.PHI
+Util.TAU = 2 * Math.PI
 
 
 /**
@@ -21,10 +21,10 @@ Util.TAU = 2 * Math.PI;
   * @return        the closest number to `x` within the interval [lower, upper]
   */
 Util.bound = function bound(x, lower, upper) {
-  if      (x < lower) return lower;
-  else if (x > upper) return upper;
-  else                return x;
-  // return Math.max(lower, Math.min(x, upper)) or Math.min(upper, Math.max(x, lower));
+  if      (x < lower) return lower
+  else if (x > upper) return upper
+  else                return x
+  // return Math.max(lower, Math.min(x, upper)) or Math.min(upper, Math.max(x, lower))
 }
 
 /**
@@ -37,8 +37,8 @@ Util.bound = function bound(x, lower, upper) {
   * @return    the weighted average of `a` and `b`
   */
 Util.average = function average(a, b, w) {
-  w = (typeof w === 'number') ? w : 0.5;
-  return (a * w) + (b * (1 - w));
+  w = (typeof w === 'number') ? w : 0.5
+  return (a * w) + (b * (1 - w))
 }
 
 /**
@@ -48,7 +48,7 @@ Util.average = function average(a, b, w) {
   * @return    the square root of the product of `a` and `b`
   */
 Util.gMean = function gMean(a, b) {
-  return Math.sqrt(a * b);
+  return Math.sqrt(a * b)
 }
 
 // /**
@@ -87,8 +87,8 @@ Util.gMean = function gMean(a, b) {
   * @return          `true` if `integer` is prime
   */
 Util.isPrime = function isPrime(integer) {
-  var returned = true;
-  if (integer <= 1) returned = false;
+  var returned = true
+  if (integer <= 1) returned = false
   else {
     for (var i = 2; i <= Math.sqrt(integer); i++) {
       if (integer % i == 0) returned = returned && false;
@@ -103,9 +103,9 @@ Util.isPrime = function isPrime(integer) {
   * @return    an array containing integers, which are all factors of `n`, in increasing order
   */
 Util.factors = function factors(n, prime) {
-  var factors = [];
-  for (var i = 2; i <= n; i++) if (n % i === 0) factors.push(i);
-  return factors;
+  var factors = []
+  for (var i = 2; i <= n; i++) if (n % i === 0) factors.push(i)
+  return factors
 }
 
 /**
@@ -117,16 +117,16 @@ Util.factors = function factors(n, prime) {
   * @return    an array containing integers, which are the prime factors of `n`, in increasing order
   */
 Util.factorize = function factorize(n) {
-  var factors = [];
-  var i = 2;
+  var factors = []
+  var i = 2
   while (i <= n) {
     if (n % i === 0) {
-      factors.push(i);
-      n /= i;
-      i = 2;
-    } else i++;
+      factors.push(i)
+      n /= i
+      i = 2
+    } else i++
   }
-  return factors;
+  return factors
 }
 
 /**
@@ -136,12 +136,12 @@ Util.factorize = function factorize(n) {
   * @return    the greatest integer factor that `a` and `b` have in common
   */
 Util.gcf = function gcf(a, b) {
-  if (a === 0 || b === 0) return Math.max(a,b);
+  if (a === 0 || b === 0) return Math.max(a,b)
   else {
-    var hi = Math.max(a,b);
-    var lo = Math.min(a,b);
-    var mod =  hi % lo;
-    return Util.gcf(lo, mod);
+    var hi = Math.max(a,b)
+    var lo = Math.min(a,b)
+    var mod =  hi % lo
+    return Util.gcf(lo, mod)
   }
 }
 
@@ -152,7 +152,7 @@ Util.gcf = function gcf(a, b) {
   * @return    the least integer multiple that `a` and `b` have in common
   */
 Util.lcm = function lcm(a, b) {
-  return (a * b) / Util.gcf(a, b);
+  return (a * b) / Util.gcf(a, b)
 }
 
 /**
@@ -168,21 +168,21 @@ Util.lcm = function lcm(a, b) {
   */
 Util.factorial = function factorial(integer, recursive) {
   if (recursive) {
-    var product = 1;
-    if (integer > 0) product = integer * Util.factorial(integer - 1, true);
-    else if (integer === 0) product = 1;
-    else product = NaN;
-    return product;
+    var product = 1
+    if (integer > 0) product = integer * Util.factorial(integer - 1, true)
+    else if (integer === 0) product = 1
+    else product = NaN
+    return product
   }
-  var product = 1;
+  var product = 1
   if (integer > 0) {
     for (var i = integer; i > 0; i--) {
-      product *= i;
+      product *= i
     }
   }
-  else if (integer === 0) product = 1;
-  else product = NaN;
-  return product;
+  else if (integer === 0) product = 1
+  else product = NaN
+  return product
 }
 
 /**
@@ -199,22 +199,22 @@ Util.factorial = function factorial(integer, recursive) {
   */
 Util.doubleFactorial = function doubleFactorial(integer, recursive) {
   if (recursive) {
-    var product = 1;
-    if (integer > 0) product = Util.factorial(integer) / Util.doubleFactorial(integer - 1, true);
-    else if (integer === 0) product = 1;
-    else product = NaN;
-    return product;
+    var product = 1
+    if (integer > 0) product = Util.factorial(integer) / Util.doubleFactorial(integer - 1, true)
+    else if (integer === 0) product = 1
+    else product = NaN
+    return product
   }
-  var product = 1;
+  var product = 1
   if (integer > 0) {
     for (var i = integer; i > 0; i--) {
-      product *= i;
-      i--; // again
+      product *= i
+      i-- // again
     }
   }
-  else if (integer === 0) product = 1;
-  else product = NaN;
-  return product;
+  else if (integer === 0) product = 1
+  else product = NaN
+  return product
 }
 
 /**
@@ -227,21 +227,21 @@ Util.doubleFactorial = function doubleFactorial(integer, recursive) {
   */
 Util.triangular = function triangular(integer, recursive) {
   if (recursive) {
-    var sum = 0;
-    if (integer > 0) sum = integer + Util.triangular(integer - 1, true);
-    else if (integer == 0) sum += 0;
-    else sum = NaN;
-    return sum;
+    var sum = 0
+    if (integer > 0) sum = integer + Util.triangular(integer - 1, true)
+    else if (integer == 0) sum += 0
+    else sum = NaN
+    return sum
   }
-  var sum = 0;
+  var sum = 0
   if (integer > 0) {
     for (var i = 1; i <= integer; i++) {
-      sum += i;
+      sum += i
     }
   }
-  else if (integer == 0) sum += 0;
-  else sum = NaN;
-  return sum;
+  else if (integer == 0) sum += 0
+  else sum = NaN
+  return sum
 }
 
 /**
@@ -255,12 +255,12 @@ Util.triangular = function triangular(integer, recursive) {
   */
 Util.fibonacci = function fibonacci(n, recursive) {
   if (recursive) {
-    if (n === 0 || n === 1) return 1;
-    else if (n > 1)         return (Util.fibonacci(n-1, true) + Util.fibonacci(n-2, true));
-    else                    return NaN;
+    if (n === 0 || n === 1) return 1
+    else if (n > 1)         return (Util.fibonacci(n-1, true) + Util.fibonacci(n-2, true))
+    else                    return NaN
   }
-  n++;
-  return (1 / Math.sqrt(5)) * (Math.pow(Util.PHI, n) - Math.pow(Util.PSI, n));
+  n++
+  return (1 / Math.sqrt(5)) * (Math.pow(Util.PHI, n) - Math.pow(Util.PSI, n))
 }
 
 /**
@@ -270,13 +270,13 @@ Util.fibonacci = function fibonacci(n, recursive) {
   * @return    the number of permutations of `n` objects taken `r` at a time
   */
 Util.permute = function permute(n, r) {
-  var numerator = 0;
-  var denominator = 1;
+  var numerator = 0
+  var denominator = 1
   if (1 <= r && r <= n) {
-    numerator   = Util.factorial(n);
-    denominator = Util.factorial(n - r);
+    numerator   = Util.factorial(n)
+    denominator = Util.factorial(n - r)
   }
-  return numerator / denominator;
+  return numerator / denominator
   // The ratio will always be an integer because factorial(n) will always be an integer multiple of factorial(n-r).
 }
 
@@ -287,9 +287,9 @@ Util.permute = function permute(n, r) {
   * @return    the number of combinations of `n` objects taken `r` at a time
   */
 Util.combine = function combine(n, r) {
-    var numerator   = Util.permute(n, r);
-    var denominator = Util.factorial(r);
-    return num / den;
+    var numerator   = Util.permute(n, r)
+    var denominator = Util.factorial(r)
+    return num / den
     // The ratio will always be an integer because permute(n, r) will always be an integer multiple of factorial(r).
 }
 
@@ -345,7 +345,7 @@ Util.rand = Math.random; // = function () { return Math.random(); }
   * @return         a randomly selected decimal within [0, number)
   */
 Util.randTo = function randTo(number) {
-  return Math.random() * number;
+  return Math.random() * number
 }
 
 /**
@@ -354,7 +354,7 @@ Util.randTo = function randTo(number) {
   * @return        a randomly selected integer within [0, integer)
   */
 Util.randToInt = function randToInt(integer) {
-  return Math.floor(Util.randTo(integer));
+  return Math.floor(Util.randTo(integer))
 }
 
 /**
@@ -364,7 +364,7 @@ Util.randToInt = function randToInt(integer) {
   * @return       a randomly selected nonnegative decimal within [low, high)
   */
 Util.randBetween = function randBetween(low, high) {
-  return Util.randTo(high - low) + low;
+  return Util.randTo(high - low) + low
 }
 
 /**
@@ -373,32 +373,32 @@ Util.randBetween = function randBetween(low, high) {
   * @return    `true` if a randomly selected number between 0 and 1 is less than `p`
   */
 Util.randBoolean = function randBoolean(p) {
-  p = (p === undefined) ? 0.5 : p;
-  return (Math.random() < p);
+  p = (p === undefined) ? 0.5 : p
+  return (Math.random() < p)
 }
 
 function uniformTest(times, min, max) {
-  var successes = 0;
-  var  failures = 0;
+  var successes = 0
+  var  failures = 0
   for (var i = 0; i < times && times <= 10000; i++) {
-    var x = Util.rand();
-    if      (min <= x && x <= max) successes++;
-    else if (x < min  ||  max < x)  failures++;
+    var x = Util.rand()
+    if      (min <= x && x <= max) successes++
+    else if (x < min  ||  max < x)  failures++
   }
-  console.log('successes: ' + successes);
-  console.log('failures:  ' +  failures);
-  console.log('random sample: ' + x);
+  console.log('successes: ' + successes)
+  console.log('failures:  ' +  failures)
+  console.log('random sample: ' + x)
 }
 
 function factorialtest(times) {
   for (i = 0; i <= times; i++) {
-    console.log(i + '! = ' + Util.factorial(i) + ' or ' + Util.factorialRecursive(i));
+    console.log(i + '! = ' + Util.factorial(i) + ' or ' + Util.factorialRecursive(i))
   }
 }
 
 function doublefactorialtest(times) {
   for (i = 0; i <= times; i++) {
-    console.log(i + '!! = ' + Util.doubleFactorial(i) + ' or ' + Util.doubleFactorialRecursive(i));
+    console.log(i + '!! = ' + Util.doubleFactorial(i) + ' or ' + Util.doubleFactorialRecursive(i))
   }
 }
 
@@ -417,7 +417,7 @@ function doublefactorialtest(times) {
 //   };
 // }());
 Util.extend = function extend(child, parent) {
-  child.prototype = Object.create(parent.prototype);
-  child.__super__ = parent.prototype; // Chrome uses this to get the right `typeof`
-  child.prototype.constructor = child;
+  child.prototype = Object.create(parent.prototype)
+  child.__super__ = parent.prototype // Chrome uses this to get the right `typeof`
+  child.prototype.constructor = child
 }
