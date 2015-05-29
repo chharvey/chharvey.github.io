@@ -88,7 +88,7 @@ function makepretty() {
     })();
 
     /** positions and sizes the devlink square */
-    $('#devlink')
+    $('.Square--dev')
       .height(function () { return $(this).width(); })
       .addClass('js-Square--bottom')
       .css('top', $('.Spiral').height());

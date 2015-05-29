@@ -13,6 +13,12 @@ nav {
   margin: 0;
   list-style-type: none;
 }
+@media print {
+  .Spiral {
+    width: 100%;
+    position: static;
+  }
+}
 a.Square {
   -webkit-transition-property: background-color, opacity;
   -moz-transition-property: background-color, opacity;
@@ -41,12 +47,31 @@ a.Square {
   overflow: hidden;
   color: transparent;
   background-color: #c3daff;
-  opacity: 1 !important;
+  opacity: 1;
 }
 a.Square:hover {
   text-decoration: none;
   color: #ff9d00;
   background-color: #ffe8c3;
+}
+@media print {
+  a.Square {
+    height: 4em;
+    position: static;
+    background-image: none;
+    color: #0062ff;
+  }
+}
+a.Square--dev {
+  width: 100%;
+  opacity: 0;
+}
+a.Square--dev:hover {
+  opacity: 1;
+}
+a.Square--dev > .Square__Text {
+  line-height: 1;
+  font-family: 'Courier', 'Menlo', 'Monaco', 'Andale Mono', monospace;
 }
 .Square__Text {
   -webkit-transition-property: box-shadow, text-shadow, color, background-color;
@@ -131,29 +156,6 @@ a.Square:hover {
   -ms-transform: rotate(90deg);
   -o-transform: rotate(90deg);
   transform: rotate(90deg);
-}
-#devlink {
-  width: 100%;
-  opacity: 0;
-}
-#devlink:hover {
-  opacity: 1;
-}
-#devlink > .Square__Text {
-  line-height: 1;
-  font-family: 'Courier', 'Menlo', 'Monaco', 'Andale Mono', monospace;
-}
-@media print {
-  .Spiral {
-    width: 100%;
-    position: static;
-  }
-  .Square {
-    height: 4em;
-    position: static;
-    background-image: none;
-    color: #0062ff;
-  }
 }
 .js-bubbles circle {
   stroke-width: 2px;

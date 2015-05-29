@@ -22,13 +22,18 @@ nav {
   padding: 0;
   margin: 0;
   list-style-type: none;
+  @media print {
+    // mobile device styles:
+    width: 100%;
+    position: static;
+  }
 }
 @trans_square: @project_ani_long;
-@color_crumb_up_txt:  @atlas;
-@color_crumb_dn_txt:  @pbody;
-@color_crumb_up_bg:   lighten(@color_crumb_up_txt, @golden2); // #c3daff
-@color_crumb_dn_bg:   lighten(@color_crumb_dn_txt, @golden2); // #ffe8c3
 a.Square { // specificity HACK FIXME
+  @color_crumb_up_txt:  @atlas;
+  @color_crumb_dn_txt:  @pbody;
+  @color_crumb_up_bg:   lighten(@color_crumb_up_txt, @golden2); // #c3daff
+  @color_crumb_dn_bg:   lighten(@color_crumb_dn_txt, @golden2); // #ffe8c3
   .transition(background-color,opacity; @trans_square);
   display: block;
   box-sizing: content-box; // so padding can be added to remove gaps
@@ -37,12 +42,24 @@ a.Square { // specificity HACK FIXME
   overflow: hidden;
   color: transparent;
   background-color: @color_crumb_up_bg;
-  opacity: 1 !important;
+  opacity: 1; // removed !important due to #devlink opacity
   &:hover {
     text-decoration: none;
     color: @color_crumb_dn_txt;
     background-color: @color_crumb_dn_bg;
   }
+  @media print {
+    // mobile device styles:
+    height: 4em;
+    position: static;
+    background-image: none;
+    color: @color_crumb_up_txt;
+  }
+}
+a.Square--dev { // specificity HACK FIXME
+  width: 100%;
+  opacity: 0;
+  &:hover {opacity: 1;}
 }
 .Square__Text {
   .transition(box-shadow,text-shadow,color,background-color; @trans_square);
@@ -58,6 +75,10 @@ a.Square { // specificity HACK FIXME
     @bgcolor: fadeout(@project_color_bg, 60%);
     box-shadow: 0px 0px 20px 20px @bgcolor;
     background-color: @bgcolor;
+  }
+  a.Square--dev > & {
+    line-height: 1;
+    font-family: 'Courier',@project_font_family_code;
   }
 }
 
@@ -80,31 +101,6 @@ a.Square { // specificity HACK FIXME
 .js-Square--bottom::before {background-position: 100% 100%;}
 
 .js-Square--funnel::before  {.rotate(90deg);}
-
-
-#devlink {
-  width: 100%;
-  opacity: 0;
-  &:hover {opacity: 1;}
-  > .Square__Text {
-    line-height: 1;
-    font-family: 'Courier',@project_font_family_code;
-  }
-}
-
-@media print {
-  // mobile device styles:
-  .Spiral {
-    width: 100%;
-    position: static;
-  }
-  .Square{
-    height: 4em;
-    position: static;
-    background-image: none;
-    color: @color_crumb_up_txt;
-  }
-}
 
 .js-bubbles {
   .SOLLUN();
