@@ -1,8 +1,4 @@
 function makepretty() {
-  function phi(n) {
-    n = n || 1
-    return Math.pow(Util.PHI_INV, n)
-  }
   var user_has_CSS_enabled = true // it is most likely the case that if users have JS enabled then they also have CSS enabled
   if (user_has_CSS_enabled) {
     /** centers the group of buttons on the page */
@@ -18,54 +14,57 @@ function makepretty() {
         * will be recursively made into a Fibonacci spiral.
         * @param `width`      the width of this spiral
         * @param `pos`        the position of this spiral as 2-D array `[x,y]`
-        * @param `square0`    the first square
+        * @param `square0`    the first square as a query string
         * @param `square0pos` ['right'|'top'|'left'|'bottom'] the position of the first square in this spiral
         * @param `others`     an array of other squares
         */
       function Spiral(width, coords, square0, square0pos, others) {
-        function shorthand(width, coords, square0pos) {
-          new Spiral(width, coords, others[0], square0pos, others.slice(1, others.length))
-        }
         this.width = width
         this.x = coords[0]
         this.y = coords[1]
-        $(square0).addClass('js-Square--' + square0pos)
-        switch (square0pos) {
-          case 'right':
-            this.height = this.width * phi()
-            $(square0)
-              .width(this.width*phi())
-              .css('left',this.x + this.width*phi(2))
-              .css('top', this.y + 0)
-            if (others.length) shorthand(this.width*phi(2), [this.x + 0, this.y + 0], 'top')
-            ;break
-          case 'top':
-            this.height = this.width / phi()
-            $(square0)
-              .width(this.width)
-              .css('left',this.x + 0)
-              .css('top', this.y + 0)
-            if (others.length) shorthand(this.width, [this.x + 0, this.y + this.height*phi()], 'left')
-            ;break
-          case 'left':
-            this.height = this.width * phi()
-            $(square0)
-              .width(this.width*phi())
-              .css('left',this.x + 0)
-              .css('top', this.y + 0)
-            if (others.length) shorthand(this.width*phi(2), [this.x + this.width*phi(), this.y + 0], 'bottom')
-            ;break
-          case 'bottom':
-            this.height = this.width / phi()
-            $(square0)
-              .width(this.width)
-              .css('left',this.x + 0)
-              .css('top', this.y + this.height*phi(2))
-            if (others.length) shorthand(this.width, [this.x + 0, this.y + 0], 'right')
-            ;break
-          default:
-            ;break
+        function phi(n) {
+          n = n || 1
+          return Math.pow(Util.PHI_INV, n)
         }
+        function shorthand(width, coords, square0pos) {
+          new Spiral(width, coords, others[0], square0pos, others.slice(1, others.length))
+        }
+        var cases = {
+          right : function (spiral) {
+            spiral.height = spiral.width * phi()
+            $(square0)
+              .width(spiral.width*phi())
+              .css('left',spiral.x + spiral.width*phi(2))
+              .css('top', spiral.y + 0)
+            if (others.length) shorthand(spiral.width*phi(2), [spiral.x + 0, spiral.y + 0], 'top')
+          }
+        , top : function (spiral) {
+            spiral.height = spiral.width / phi()
+            $(square0)
+              .width(spiral.width)
+              .css('left',spiral.x + 0)
+              .css('top', spiral.y + 0)
+            if (others.length) shorthand(spiral.width, [spiral.x + 0, spiral.y + spiral.height*phi()], 'left')
+          }
+        , left : function (spiral) {
+            spiral.height = spiral.width * phi()
+            $(square0)
+              .width(spiral.width*phi())
+              .css('left',spiral.x + 0)
+              .css('top', spiral.y + 0)
+            if (others.length) shorthand(spiral.width*phi(2), [spiral.x + spiral.width*phi(), spiral.y + 0], 'bottom')
+          }
+        , bottom : function (spiral) {
+            spiral.height = spiral.width / phi()
+            $(square0)
+              .width(spiral.width)
+              .css('left',spiral.x + 0)
+              .css('top', spiral.y + spiral.height*phi(2))
+            if (others.length) shorthand(spiral.width, [spiral.x + 0, spiral.y + 0], 'right')
+          }
+        }
+        $(square0).addClass('js-Square--' + square0pos)
+        cases[square0pos](this)
       }
 
       new Spiral($('.Spiral').width(), [0,0], '.Spiral > li:nth-child(1) > .Square', 'right', [
@@ -90,7 +89,6 @@ function makepretty() {
 
     /** positions and sizes the devlink square */
     $('#devlink')
-      .height(function () { return $(this).width() })
       .addClass('js-Square--bottom')
       .css('top', $('.Spiral').height())
 

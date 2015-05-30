@@ -157,14 +157,15 @@ Color.newColorHSV = function (hue, sat, val) {
       , p = val * (1 - sat)
       , q = val * (1 - sat * f)
       , t = val * (1 - sat * (1 - f))
-    switch(i) {
-      case 0:  red = val; grn = t;   blu = p;   break
-      case 1:  red = q;   grn = val; blu = p;   break
-      case 2:  red = p;   grn = val; blu = t;   break
-      case 3:  red = p;   grn = q;   blu = val; break
-      case 4:  red = t;   grn = p;   blu = val; break
-      default: red = val; grn = p;   blu = q;   break // case 5
+    var cases = {
+      0 : function () { red = val; grn = t;   blu = p;   }
+    , 1 : function () { red = q;   grn = val; blu = p;   }
+    , 2 : function () { red = p;   grn = val; blu = t;   }
+    , 3 : function () { red = p;   grn = q;   blu = val; }
+    , 4 : function () { red = t;   grn = p;   blu = val; }
+    , 5 : function () { red = val; grn = p;   blu = q;   }
     }
+    cases[i]()
   }
 
   red = Math.round(red * 255)
