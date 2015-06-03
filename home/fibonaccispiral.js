@@ -19,16 +19,6 @@ function makepretty() {
         * @param `others`     an array of other squares
         */
       function Spiral(width, coords, square0, square0pos, others) {
-        this.width = width
-        this.x = coords[0]
-        this.y = coords[1]
-        function phi(n) {
-          n = n || 1
-          return Math.pow(Util.PHI_INV, n)
-        }
-        function shorthand(width, coords, square0pos) {
-          new Spiral(width, coords, others[0], square0pos, others.slice(1, others.length))
-        }
         var cases = {
           right : function (spiral) {
             spiral.height = spiral.width * phi()
@@ -63,6 +53,19 @@ function makepretty() {
             if (others.length) shorthand(spiral.width, [spiral.x + 0, spiral.y + 0], 'right')
           }
         }
+
+        this.width = width
+        this.x = coords[0]
+        this.y = coords[1]
+
+        function phi(n) {
+          n = n || 1
+          return Math.pow(Util.PHI_INV, n)
+        }
+        function shorthand(width, coords, square0pos) {
+          new Spiral(width, coords, others[0], square0pos, others.slice(1, others.length))
+        }
+
         $(square0).addClass('js-Square--' + square0pos)
         cases[square0pos](this)
       }

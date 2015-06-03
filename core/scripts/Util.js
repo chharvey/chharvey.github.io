@@ -136,12 +136,11 @@ Util.factorize = function factorize(n) {
   * @return    the greatest integer factor that `a` and `b` have in common
   */
 Util.gcf = function gcf(a, b) {
-  if (a === 0 || b === 0) return Math.max(a,b)
+  var hi = Math.max(a,b)
+  var lo = Math.min(a,b)
+  if (a === 0 || b === 0) return hi
   else {
-    var hi = Math.max(a,b)
-    var lo = Math.min(a,b)
-    var mod =  hi % lo
-    return Util.gcf(lo, mod)
+    return Util.gcf(lo, hi % lo)
   }
 }
 
@@ -287,10 +286,10 @@ Util.permute = function permute(n, r) {
   * @return    the number of combinations of `n` objects taken `r` at a time
   */
 Util.combine = function combine(n, r) {
-    var numerator   = Util.permute(n, r)
-    var denominator = Util.factorial(r)
-    return num / den
-    // The ratio will always be an integer because permute(n, r) will always be an integer multiple of factorial(r).
+  var numerator   = Util.permute(n, r)
+  var denominator = Util.factorial(r)
+  return num / den
+  // The ratio will always be an integer because permute(n, r) will always be an integer multiple of factorial(r).
 }
 
 /**
@@ -379,7 +378,7 @@ Util.randBoolean = function randBoolean(p) {
 
 function uniformTest(times, min, max) {
   var successes = 0
-  var  failures = 0
+    ,  failures = 0
   for (var i = 0; i < times && times <= 10000; i++) {
     var x = Util.rand()
     if      (min <= x && x <= max) successes++
@@ -391,13 +390,13 @@ function uniformTest(times, min, max) {
 }
 
 function factorialtest(times) {
-  for (i = 0; i <= times; i++) {
+  for (var i = 0; i <= times; i++) {
     console.log(i + '! = ' + Util.factorial(i) + ' or ' + Util.factorialRecursive(i))
   }
 }
 
 function doublefactorialtest(times) {
-  for (i = 0; i <= times; i++) {
+  for (var i = 0; i <= times; i++) {
     console.log(i + '!! = ' + Util.doubleFactorial(i) + ' or ' + Util.doubleFactorialRecursive(i))
   }
 }

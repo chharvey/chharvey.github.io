@@ -60,7 +60,7 @@ function Color(red, grn, blu) {
   * The complement of a color is the difference between that color and white (#fff).
   * @return a new Color object that corresponds to this color's complement
   */
-Color.prototype.complement = function () {
+Color.prototype.complement = function complement() {
   return new Color(255 - this.red, 255 - this.green, 255 - this.blue)
 }
 
@@ -69,7 +69,7 @@ Color.prototype.complement = function () {
   * The inverse of a color is that color with a hue rotation of 180 degrees.
   * @return a new Color object that corresponds to this color's inverse
   */
-Color.prototype.invert = function () {
+Color.prototype.invert = function invert() {
   var newhue = (this.getHSV_hue() + 180) % 360
   return Color.newColorHSV(newhue, this.hsv_sat, this.hsv_val)
 }
@@ -81,7 +81,7 @@ Color.prototype.invert = function () {
   * @param `p` must be between -1.0 and 1.0; the percentage by which to lighten this color
   * @return    a new Color object that corresponds to this color brightened by a percentage `p`
   */
-Color.prototype.brighten = function (p) {
+Color.prototype.brighten = function brighten(p) {
   // return Color.newColorHSL(this.hsl_hue, this.hsl_sat, this.hsl_val + p)
 }
 /**
@@ -91,7 +91,7 @@ Color.prototype.brighten = function (p) {
   * @param `p` must be between -1.0 and 1.0; the percentage by which to darken this color
   * @return    a new Color object that corresponds to this color darkened by a percentage `p`
   */
-Color.prototype.darken = function (p) {
+Color.prototype.darken = function darken(p) {
   // return Color.newColorHSL(this.hsl_hue, this.hsl_sat, this.hsl_val - p)
   // return this.brighten(-p)
 }
@@ -105,7 +105,7 @@ Color.prototype.darken = function (p) {
   * @param `space` optional ('rgb'): a string representing the space in which this color exists
   * @return        a string representing this color.
   */
-Color.prototype.toString = function (space) {
+Color.prototype.toString = function toString(space) {
   function toHex(n) {
     n = +n || 0
     n = Util.bound(n, 0, 255)
@@ -122,7 +122,7 @@ Color.prototype.toString = function (space) {
   * where `r`, `g`, and `b` are decimal RGB components (in base 10, out of 255).
   * @param `rgb_string` a string of the form `rgb(r,g,b)` or `rgb(r, g, b)`
   */
-Color.newColorRGBstring = function (rgb_string) {
+Color.newColorRGBstring = function newColorRGBstring(rgb_string) {
   var splitted = rgb_string.slice(4, -1).split(',')
   return new Color(+splitted[0], +splitted[1], +splitted[2])
 }
@@ -145,27 +145,29 @@ Color.newColorRGBstring = function (rgb_string) {
   * @param `val` must be between 0.0 and 1.0; brightness in HSV-space
   * @return      a new Color object with hsv(`h`, `s`, `v`)
   */
-Color.newColorHSV = function (hue, sat, val) {
+Color.newColorHSV = function newColorHSV(hue, sat, val) {
   var red, grn, blu
   if (sat === 0) {
     // achromatic (grey)
     red = grn = blu = val
   } else {
-    var h = hue / 60 // sector 0 to 5
-      , i = Math.floor(h)
-      , f = h - i // factorial part of h
-      , p = val * (1 - sat)
-      , q = val * (1 - sat * f)
-      , t = val * (1 - sat * (1 - f))
-    var cases = {
-      0 : function () { red = val; grn = t;   blu = p;   }
-    , 1 : function () { red = q;   grn = val; blu = p;   }
-    , 2 : function () { red = p;   grn = val; blu = t;   }
-    , 3 : function () { red = p;   grn = q;   blu = val; }
-    , 4 : function () { red = t;   grn = p;   blu = val; }
-    , 5 : function () { red = val; grn = p;   blu = q;   }
-    }
-    cases[i]()
+    (function () {
+      var h = hue / 60 // sector 0 to 5
+        , i = Math.floor(h)
+        , f = h - i // factorial part of h
+        , p = val * (1 - sat)
+        , q = val * (1 - sat * f)
+        , t = val * (1 - sat * (1 - f))
+      var cases = {
+        0 : function () { red = val; grn = t;   blu = p;   }
+      , 1 : function () { red = q;   grn = val; blu = p;   }
+      , 2 : function () { red = p;   grn = val; blu = t;   }
+      , 3 : function () { red = p;   grn = q;   blu = val; }
+      , 4 : function () { red = t;   grn = p;   blu = val; }
+      , 5 : function () { red = val; grn = p;   blu = q;   }
+      }
+      cases[i]()
+    })()
   }
 
   red = Math.round(red * 255)
@@ -186,7 +188,7 @@ Color.newColorHSV = function (hue, sat, val) {
   * @param `lum` must be between 0.0 and 1.0; luminosity in HSL-space
   * @return      a new Color object with hsl(`hue`, `sat`, `lum`)
   */
-Color.newColorHSL = function (hue, sat, lum) {
+Color.newColorHSL = function newColorHSL(hue, sat, lum) {
   return new Color() // FIXME
 }
 
@@ -199,7 +201,7 @@ Color.newColorHSL = function (hue, sat, lum) {
   * @param `w`      optional number between 0.0 and 1.0, defaults to 0.5; the weight favoring the first color
   * @return         a mix of the two given colors
   */
-Color.mix = function (color1, color2, w) {
+Color.mix = function mix(color1, color2, w) {
   w = (typeof w === 'number') ? w : 0.5
   var r = Math.round(Util.average(color1.red,   color2.red,   w))
     , g = Math.round(Util.average(color1.green, color2.green, w))

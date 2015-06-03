@@ -1,11 +1,8 @@
 /** Creates an array of numerical data. */
 
-// global variables
-var i
-
 // creates a dataset containing random integers
 var dataset = new Array(16)
-for (i = 0; i < dataset.length; i++) {
+for (var i = 0; i < dataset.length; i++) {
   dataset[i] = Math.floor(Math.random() * 100)
 }
 
