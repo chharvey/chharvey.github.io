@@ -126,7 +126,7 @@ function pullquoteLines() {
 function tableSpacing() {
 
   // fixes vertical spacing for normal, unclassed table elements. this is due to the fact that
-  // each cell (th or td) has a vertical padding of `(0.25 * @project_vru)`
+  // each cell (th or td) has a vertical padding of `(0.25 * @chh_vru)`
   // (that is, `0.25 * project.line_height` in javascript), which totals to be 0.5.
   // thus if there are an odd number of rows in the table, the margin needs to be offset by
   // 0.5.
