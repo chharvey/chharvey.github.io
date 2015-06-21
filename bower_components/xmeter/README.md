@@ -39,7 +39,7 @@ To install:
 #### Using the Tools
 
 Take a look in the `src/` folder. In here you will find a set of tools, starting
-with `_tool`, from which to pick and choose to use for your package. Note that
+with `__tool`, from which to pick and choose to use for your package. Note that
 the contents of each file are wrapped with the id selector `#XMETER {}` to keep
 it encapsulated. Think of `#XMETER` as one huge object whose properties are
 the mixins. Or think of it as a namespace. Whatever.
@@ -49,7 +49,7 @@ If you want to use a particular tool in your stylesheet, you will have to
 if you plan to use the `.font-size-block()` mixin in your Less, you must include
 
 ```less
-@import (reference) url('/node_modules/xmeter/src/_tool.module.fontsize.less');
+@import (reference) url('/node_modules/xmeter/src/__tool.module.fontsize.less');
 ```
 
 at the top of your stylesheet. Then when you want to “call” the mixin, do
@@ -60,16 +60,27 @@ at the top of your stylesheet. Then when you want to “call” the mixin, do
 }
 ```
 
-To use the xmeter variables,
+To use the xmeter variables and constants,
 
 ```less
-@import (reference) url('/node_modules/xmeter/src/_settings.less');
+@import (reference) url('/node_modules/xmeter/src/__settings.less');
 
 .my-selector {
-  #XMETER .VARS();
-  margin-bottom: @xmeter_vru;
+  #XMETER .VARS(); // invokes the set of variables
+  line-height: 2 * @xmeter_line_height;
+}
+.my-other-selector {
+  #XMETER .CONSTS(); // invokes the set of constants
+  width: @1o2;
 }
 ```
+
+*The difference between **variables** and **constants** is that values are reflected in
+the names of constants but not variables. For example, `@xmeter_line_height` so happens to be 1.5.
+This value may change in the future (though it probably won’t), but the variable name need not change.
+This merely indicates the line height has been changed.
+On the other hand, `@1o2` is a constant whose value is 50%. It would be silly to change this value
+for obvious reasons.*
 
 #### Using the Base
 
