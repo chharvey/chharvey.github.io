@@ -9,6 +9,7 @@ function makepretty() {
 
     /** Positions and sizes the squares in a Fibonacci spiral. */
     ;(function spiralSquares() {
+      var sq_arr = [] // the array of squares to create the spiral
       /**
         * Creates a fibonacci spiral with one square and a group of other squares, which themselves
         * will be recursively made into a Fibonacci spiral.
@@ -22,6 +23,7 @@ function makepretty() {
         */
       function Spiral(width, coords, square0, square0pos, others) {
         var self = this
+        var cases
         this.width = width
         this.x = coords[0]
         this.y = coords[1]
@@ -48,7 +50,7 @@ function makepretty() {
         function newSpiralShorthand(width, dr, square0pos) {
           new Spiral(width, [self.x+dr[0], self.y+dr[1]], others[0], square0pos, others.slice(1, others.length))
         }
-        var cases = {
+        cases = {
           right: function () {
             self.height = self.width * phi()
             setFirstSquare(self.width*phi(), [self.width*phi(2), 0])
@@ -74,19 +76,11 @@ function makepretty() {
         cases[square0pos]()
       }
 
-      new Spiral($('.c-Spiral').width(), [0,0], '.c-Spiral > li:nth-child(1) > .c-Square', 'right', [
-        '.c-Spiral > li:nth-child( 2) > .c-Square'
-      , '.c-Spiral > li:nth-child( 3) > .c-Square'
-      , '.c-Spiral > li:nth-child( 4) > .c-Square'
-      , '.c-Spiral > li:nth-child( 5) > .c-Square'
-      , '.c-Spiral > li:nth-child( 6) > .c-Square'
-      , '.c-Spiral > li:nth-child( 7) > .c-Square'
-      , '.c-Spiral > li:nth-child( 8) > .c-Square'
-      , '.c-Spiral > li:nth-child( 9) > .c-Square'
-      , '.c-Spiral > li:nth-child(10) > .c-Square'
-      , '.c-Spiral > li:nth-child(11) > .c-Square'
-      , '.c-Spiral > li:nth-child(12) > .c-Square'
-      ])
+      for (var i = 1; i <= 12; i++) {
+        sq_arr.push('.c-Spiral > li:nth-child(' + i + ') > .c-Square')
+      }
+      // TODO: create array by using filtered jquery object, instead of pushing
+      new Spiral($('.c-Spiral').width(), [0,0], sq_arr[0], 'right', sq_arr.slice(1, sq_arr.length))
     })()
 
     /**
