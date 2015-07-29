@@ -1,8 +1,4 @@
 function makepretty() {
-  function phi(n) {
-    n = n || 1
-    return Math.pow(Util.PHI_INV, n)
-  }
   var user_has_CSS_enabled = true // it is most likely the case that if users have JS enabled then they also have CSS enabled
   if (user_has_CSS_enabled) {
     /** centers the group of buttons on the page */
@@ -16,56 +12,66 @@ function makepretty() {
       /**
         * Creates a fibonacci spiral with one square and a group of other squares, which themselves
         * will be recursively made into a Fibonacci spiral.
-        * @param `width`      the width of this spiral
-        * @param `pos`        the position of this spiral as 2-D array `[x,y]`
-        * @param `square0`    the first square
-        * @param `square0pos` ['right'|'top'|'left'|'bottom'] the position of the first square in this spiral
-        * @param `others`     an array of other squares
+        * Note that this function only sets the widths and positions the squares. It does not set
+        * the heights, thereby making them geometrically *square*.
+        * @param width      the width of this spiral
+        * @param pos        the position of this spiral as 2-D array `[x,y]`
+        * @param square0    the first square
+        * @param square0pos ['right'|'top'|'left'|'bottom'] the position of the first square in this spiral
+        * @param others     an array of other squares
         */
       function Spiral(width, coords, square0, square0pos, others) {
-        function shorthand(width, coords, square0pos) {
-          new Spiral(width, coords, others[0], square0pos, others.slice(1, others.length))
-        }
+        var self = this
         this.width = width
         this.x = coords[0]
         this.y = coords[1]
-        $(square0).addClass('js-square--' + square0pos)
-        switch (square0pos) {
-          case 'right':
-            this.height = this.width * phi()
-            $(square0)
-              .width(this.width*phi())
-              .css('left',this.x + this.width*phi(2))
-              .css('top', this.y + 0)
-            if (others.length) shorthand(this.width*phi(2), [this.x + 0, this.y + 0], 'top')
-            break
-          case 'top':
-            this.height = this.width / phi()
-            $(square0)
-              .width(this.width)
-              .css('left',this.x + 0)
-              .css('top', this.y + 0)
-            if (others.length) shorthand(this.width, [this.x + 0, this.y + this.height*phi()], 'left')
-            break
-          case 'left':
-            this.height = this.width * phi()
-            $(square0)
-              .width(this.width*phi())
-              .css('left',this.x + 0)
-              .css('top', this.y + 0)
-            if (others.length) shorthand(this.width*phi(2), [this.x + this.width*phi(), this.y + 0], 'bottom')
-            break
-          case 'bottom':
-            this.height = this.width / phi()
-            $(square0)
-              .width(this.width)
-              .css('left',this.x + 0)
-              .css('top', this.y + this.height*phi(2))
-            if (others.length) shorthand(this.width, [this.x + 0, this.y + 0], 'right')
-            break
-          default:
-            break
+        function phi(n) {
+          n = n || 1
+          return Math.pow(Util.PHI_INV, n)
         }
+        /**
+         * Sets the width and position of `$(square0)`
+         * @param  {number} w            width of `$(square0)`
+         * @param  {[number, number]} ds relative position of `$(square0)` to this spiral (starts at [self.x, self.y])
+         */
+        function setFirstSquare(w, ds) {
+          $(square0).width(w)
+            .css('left', self.x + ds[0])
+            .css('top',  self.y + ds[1])
+        }
+        /**
+         * a shorthand for recursively creating a new Spiral object
+         * @param  {number} width        the width of the new spiral
+         * @param  {[number, number]} dr the relative position of the new spiral to this spiral (starts at [self.x, self.y])
+         * @param  {string} square0pos   string representing position of first square in the next spiral
+         */
+        function newSpiralShorthand(width, dr, square0pos) {
+          new Spiral(width, [self.x+dr[0], self.y+dr[1]], others[0], square0pos, others.slice(1, others.length))
+        }
+        var cases = {
+          right: function () {
+            self.height = self.width * phi()
+            setFirstSquare(self.width*phi(), [self.width*phi(2), 0])
+            if (others.length) newSpiralShorthand(self.width*phi(2), [0, 0], 'top')
+          }
+        , top: function () {
+            self.height = self.width / phi()
+            setFirstSquare(self.width, [0, 0])
+            if (others.length) newSpiralShorthand(self.width, [0, self.height*phi()], 'left')
+          }
+        , left: function () {
+            self.height = self.width * phi()
+            setFirstSquare(self.width*phi(), [0, 0])
+            if (others.length) newSpiralShorthand(self.width*phi(2), [self.width*phi(), 0], 'bottom')
+          }
+        , bottom: function () {
+            self.height = self.width / phi()
+            setFirstSquare(self.width, [0, self.height*phi(2)])
+            if (others.length) newSpiralShorthand(self.width, [0, 0], 'right')
+          }
+        }
+        $(square0).addClass('js-square--' + square0pos)
+        cases[square0pos]()
       }
 
       new Spiral($('.c-Spiral').width(), [0,0], '.c-Spiral > li:nth-child(1) > .c-Square', 'right', [
@@ -81,20 +87,24 @@ function makepretty() {
       , '.c-Spiral > li:nth-child(11) > .c-Square'
       , '.c-Spiral > li:nth-child(12) > .c-Square'
       ])
-
-      $('.c-Square')
-        .height(function () { return $(this).width() })
-        .css('position', 'absolute')
     })()
+
+    /**
+     * 1. makes the squares geometrically square (sets height = width).
+     * 2. position absolute
+     * 3. adjusts background images
+     * note: need this outside of Square() function for those .c-Squares not inside .c-Spiral
+     */
+    $('.c-Square')
+      .height(function () { return $(this).width() })
+      .css('position', 'absolute')
+      .mouseleave(function() { $(this).addClass('js-square--funnel') })
 
     /** positions and sizes the devlink square */
     $('.c-Square--dev')
       .height(function () { return $(this).width() })
       .addClass('js-square--bottom')
       .css('top', $('.c-Spiral').height())
-
-    /** adjusts background images */
-    $('.c-Square' ).mouseleave(function() { $(this).addClass('js-square--funnel') })
 
     /** sets a proportional font size for each square (dependent on square height) */
     /** vertically aligns the textbox in each square (depenedent on font-size) */
@@ -106,7 +116,7 @@ function makepretty() {
         return ($(this).parents('.c-Square').height() - $(this).height()) / 2 + 'px'
       }).css('border-radius', function () {
         return $(this).height() / 2 + 'px'
-      });
+      })
   }
 }
 
