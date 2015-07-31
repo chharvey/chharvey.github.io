@@ -1,0 +1,85 @@
+/*################################*\
+    _comp.typo.Table.less
+\*################################*/
+@import (reference) url('../../../node_modules/xmeter/src/__tool.module.borders.less');
+@import (reference) url('__settings.less');
+
+
+// By defualt, tables are horizontally oriented.
+// Horizontal tables are best for displaying information that correlates across rows.
+// An example of this might be a list of student information including names, ages,
+// genders, and ID numbers.
+//
+// Vertical tables are best for displaying information that correlates down columns.
+// An example of a vertically-oriented table might be a spreadsheet displaying the position,
+// velocity, and acceleration values of a falling object across time.
+//
+// Grid-style tables are best for displaying information that either correlates
+// across rows, down columns, or tabular data that correlates among both rows and columns.
+// An example of a grid-style table might be...
+//
+// ^author
+// : Chris Harvey
+// ^updated
+// : 2015-05-18
+
+.c-TableBordered {
+  #XMETER .border-vert(all; 3px);
+}
+
+.c-TableBorderedRows {
+  > *:not(caption) ~ *:not(dt):not(dd) {
+    #XMETER .border-vert(top; 2px);
+  }
+  > * > tr:not(:first-child) {
+    #XMETER .border-vert(top; 1px);
+  }
+  > dt, dd {
+    &:not(:first-of-type) {
+      #XMETER .border-vert(top; 1px);
+    }
+  }
+}
+
+.c-TableBorderedCols {
+  > * > tr > *:not(:first-child),
+  > dd {
+    border-left-width: 1px;
+  }
+}
+
+.c-TableShaded {
+  #CHH .CONSTS();
+  // background-color: @color_table_bg; // FIXME: color used outside of scope
+  background-color: fadeout(@chh_color_portal_apertureblack, 96%); // FIXME: @color_table_bg
+
+}
+
+.c-TableShadedRows {
+  #CHH .CONSTS();
+  > tbody > tr:nth-child(even),
+  > dt:nth-child(4n+3),
+  > dd:nth-child(4n) {
+    // background-color: @color_table_bg; // FIXME: color used outside of scope
+    background-color: fadeout(@chh_color_portal_apertureblack, 96%); // FIXME: @color_table_bg
+  }
+}
+
+.c-TableShadedCols {
+  #CHH .CONSTS();
+  > * > tr > *:nth-child(even),
+  > dd {
+    // background-color: @color_table_bg; // FIXME: color used outside of scope
+    background-color: fadeout(@chh_color_portal_apertureblack, 96%); // FIXME: @color_table_bg
+  }
+}
+
+.c-TableHover {
+  > * > tr:hover,
+  > dt:hover,
+  > dd:hover {
+    #CHH .CONSTS();
+    // background-color: @color_table_hv !important; // FIXME: color used outside of scope
+    background-color: fadeout(@chh_color_portal_apertureblack, 92%) !important; // FIXME: @color_table_hv
+  }
+}

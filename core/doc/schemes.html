@@ -5,11 +5,23 @@
 <meta charset="UTF-8"/>
 <link rel="stylesheet" href="../../bower_components/normalize.css/normalize.css"/>
 <link rel="stylesheet" href="../../bower_components/xmeter/xmeter.css"/>
-<link rel="stylesheet" href="../styles/project.css"/>
+<link rel="stylesheet" href="../styles/core.css"/>
 <style>
 body {
   color: #000;
   background-color: #fff;
+}
+
+.this-c-FontDemo {
+  margin-bottom: 1.5rem;
+}
+.this-c-FontDemo::after {
+  content: '';
+  display: block;
+  border-bottom: 0.25rem solid #cbcfd4;
+  margin-top: -0.25rem;
+  position: relative;
+  top: 0.75rem;
 }
 
 .o-FlexContainer > .o-Box {
@@ -33,7 +45,6 @@ form {
   margin-bottom: 1.5rem;
 }
 fieldset {
-  width: 33%;
   margin: 0;
 }
 fieldset > ul {
@@ -46,6 +57,10 @@ fieldset > ul {
   transition-timing-function: ease;
   transition-delay: 0ms;
 }
+/* Some background colors are dark, so a light translucent foreground color has been added. */
+.h-darkbg {
+  color: rgba(255, 255, 255, 0.8);
+}
 </style>
 </head>
 <body class="o-GoldenBody o-GoldenBody--right">
@@ -53,71 +68,165 @@ fieldset > ul {
 <h1>Site-Wide Schemes</h1>
 <section id="fonts">
   <h2>Font Scheme</h2>
-  <p class="u-ff_base">
-    The base font-family is used for the main body copy.
-    It is a sans-serif type with little to no thick/thin transition.
-    Being a sans-serif, its <i>italic</i> is actually an oblique, which just slants the glyphs.
-    Suggested typefaces include <b>Avenir</b>, <b>Helvetica Neue</b>, <b>Helvetica</b>.
-  </p>
-  <figure class="this-c-FontDemo crossgrid-lined u-ff_base">
-    <p>The quick brown fox jumps over the lazy dog.</p>
-  </figure>
-  <p class="u-ff_heading">
-    The heading font-family is used only for headings of body copy (not table headings,
-    <i lang="la"><abbr title="et cetera">etc.</abbr></i>).
-    It is a sans-serif polyweight type with a moderate thick/thin transition.
-    Because of this, it goes well with both monoweight types and serif types, which makes it perfect for headings.
-    Suggested typefaces include <b>Optima</b>, <b>Seravek</b>, <b>Tahoma</b>.
-  </p>
-  <figure class="this-c-FontDemo crossgrid-lined u-ff_heading">
-    <p>The quick brown fox jumps over the lazy dog.</p>
-  </figure>
-  <p class="u-ff_prose">
-    The prose font-family is used for text in formal documents and articles.
-    It is a serif oldstyle type, which is easy on the eyes and can be read at extensive length.
-    Like the <i>heading</i> font family, it, too, has a moderate thick/thin transition, but has diagonal stress and
-    serifs, and true italics, which means it uses a whole new set of glyphs.
-    Suggested typefaces include <b>Baskerville</b>, <b>Palatino</b>, <b>Cochin</b>.<sup><a class="Rf" id="rf-baskerville" rel="this" href="#fn-baskerville">1</a></sup>
-  </p>
-  <figure class="this-c-FontDemo crossgrid-lined u-ff_prose">
-    <p>The quick brown fox jumps over the lazy dog.</p>
-  </figure>
-  <p class="u-ff_accent">
-    The accent font-family is used for typographical and <abbr title="user interface">UI</abbr>
-    components such as ledes, pull quotes, captions, alerts, labels, buttons, and keys.
-    Like the <i>base</i> font-family, it is a monoweight sans-serif, yet slightly heavier.
-    Suggested typefaces include <b>Helvetica Neue</b>, <b>Helvetica</b>.
-  </p>
-  <figure class="this-c-FontDemo crossgrid-lined u-ff_accent">
-    <p>The quick brown fox jumps over the lazy dog.</p>
-  </figure>
-  <p class="u-ff_code">
-    The code font-family is a monospace type used for&hellip; well, code. Personally, I dislike
-    monospace fonts with serifs, so this family is sans-serif.
-    Suggested typefaces include <b>Menlo</b>, <b>Monaco</b>, <b>Andale Mono</b>.
-  </p>
-  <figure class="this-c-FontDemo crossgrid-lined u-ff_code">
-    <p>The quick brown fox jumps over the lazy dog.</p>
-  </figure>
-  <p class="u-ff_math">
-    The math font-family is a serif modern type use for mathematical spans and spans in foreign
-    languages. It has a radical
-    thick/thin transition, vertical stress, and straight horizontal serifs. With a cold yet
-    elegant look, this font family makes long spans of text
-    hard to read, but that&rsquo;s okay because this font is used only for short expressions.
-    Suggested typefaces include <b>Didot</b>, <b>Bodoni 72</b>, <b>Times</b>.
-  </p>
-  <figure class="this-c-FontDemo crossgrid-lined u-ff_math">
-    <p>The quick brown fox jumps over the lazy dog.</p>
-  </figure>
-  <p class="u-ff_script" style="line-height: 3.0;">
-    The script font-family is used for very fancy elements such as drop-caps and subheadings. Use
-    this font family sparingly.
-    Suggested typefaces include <b>Zapfino</b>.
-  </p>
-  <figure class="this-c-FontDemo crossgrid-lined u-ff_script" style="line-height: 3.0;">
-    <p>The quick brown fox jumps over the lazy dog.</p>
-  </figure>
+  <form class="o-FlexContainer">
+    <p class="u-w_1o1">Check the radio buttons to change the
+      style, variant, and weight of the font demos below.</p>
+    <fieldset class="u-w_1o2">
+      <legend>font-style</legend>
+      <ul>
+        <li>
+          <input type="radio" id="check-fs-n" name="fs" value="normal" checked=""/>
+          <label for="check-fs-n">normal (default)</label>
+        </li>
+        <li>
+          <input type="radio" id="check-fs-i" name="fs" value="italic"/>
+          <label for="check-fs-i">italic</label>
+        </li>
+      </ul>
+    </fieldset>
+    <fieldset class="u-w_1o2">
+      <legend>font-variant</legend>
+      <ul>
+        <li>
+          <input type="radio" id="check-fv-n" name="fv" value="normal" checked=""/>
+          <label for="check-fv-n">normal (default)</label>
+        </li>
+        <li>
+          <input type="radio" id="check-fv-s" name="fv" value="small-caps"/>
+          <label for="check-fv-s">small-caps</label>
+        </li>
+      </ul>
+    </fieldset>
+    <fieldset class="u-w_1o1">
+      <legend>font-weight</legend>
+      <ul class="o-FlexContainer">
+        <li>
+          <input type="radio" id="check-fw-n" name="fw" value="normal" checked=""/>
+          <label for="check-fw-n">normal (default)</label>
+        </li>
+        <li>
+          <input type="radio" id="check-fw-b" name="fw" value="bold"/>
+          <label for="check-fw-b">bold</label>
+        </li>
+        <li>
+          <input type="radio" id="check-fw-100" name="fw" value="100"/>
+          <label for="check-fw-100">100</label>
+        </li>
+        <li>
+          <input type="radio" id="check-fw-200" name="fw" value="200"/>
+          <label for="check-fw-200">200</label>
+        </li>
+        <li>
+          <input type="radio" id="check-fw-300" name="fw" value="300"/>
+          <label for="check-fw-300">300</label>
+        </li>
+        <li>
+          <input type="radio" id="check-fw-400" name="fw" value="400"/>
+          <label for="check-fw-400">400</label>
+        </li>
+        <li>
+          <input type="radio" id="check-fw-500" name="fw" value="500"/>
+          <label for="check-fw-500">500</label>
+        </li>
+        <li>
+          <input type="radio" id="check-fw-600" name="fw" value="600"/>
+          <label for="check-fw-600">600</label>
+        </li>
+        <li>
+          <input type="radio" id="check-fw-700" name="fw" value="700"/>
+          <label for="check-fw-700">700</label>
+        </li>
+        <li>
+          <input type="radio" id="check-fw-800" name="fw" value="800"/>
+          <label for="check-fw-800">800</label>
+        </li>
+        <li>
+          <input type="radio" id="check-fw-900" name="fw" value="900"/>
+          <label for="check-fw-900">900</label>
+        </li>
+      </ul>
+    </fieldset>
+    <input type="reset" id="reset-fonts"/>
+  </form>
+  <section class="this-c-FontDemo u-ff_base">
+    <p>
+      The base font-family is used for the main body copy.
+      It is a sans-serif type with little to no thick/thin transition.
+      Being a sans-serif, its <i>italic</i> is actually an oblique, which just slants the glyphs.
+      Suggested typefaces include <b>Avenir</b>, <b>Helvetica Neue</b>, <b>Helvetica</b>.
+    </p>
+    <figure class="crossgrid-lined">
+      <p>The quick brown fox jumps over the lazy dog.</p>
+    </figure>
+  </section>
+  <section class="this-c-FontDemo u-ff_heading">
+    <p>
+      The heading font-family is used only for headings of body copy (not table headings,
+      <i lang="la"><abbr title="et cetera">etc.</abbr></i>).
+      It is a sans-serif polyweight type with a moderate thick/thin transition.
+      Because of this, it goes well with both monoweight types and serif types, which makes it perfect for headings.
+      Suggested typefaces include <b>Optima</b>, <b>Seravek</b>, <b>Tahoma</b>.
+    </p>
+    <figure class="crossgrid-lined">
+      <p>The quick brown fox jumps over the lazy dog.</p>
+    </figure>
+  </section>
+  <section class="this-c-FontDemo u-ff_prose">
+    <p>
+      The prose font-family is used for text in formal documents and articles.
+      It is a serif oldstyle type, which is easy on the eyes and can be read at extensive length.
+      Like the <i>heading</i> font family, it, too, has a moderate thick/thin transition, but has diagonal stress and
+      serifs, and true italics, which means it uses a whole new set of glyphs.
+      Suggested typefaces include <b>Baskerville</b>, <b>Palatino</b>, <b>Cochin</b>.<sup><a class="Rf" id="rf-baskerville" rel="this" href="#fn-baskerville">1</a></sup>
+    </p>
+    <figure class="crossgrid-lined">
+      <p>The quick brown fox jumps over the lazy dog.</p>
+    </figure>
+  </section>
+  <section class="this-c-FontDemo u-ff_accent">
+    <p>
+      The accent font-family is used for typographical and <abbr title="user interface">UI</abbr>
+      components such as ledes, pull quotes, captions, alerts, labels, buttons, and keys.
+      Like the <i>base</i> font-family, it is a monoweight sans-serif, yet slightly heavier.
+      Suggested typefaces include <b>Helvetica Neue</b>, <b>Helvetica</b>.
+    </p>
+    <figure class="crossgrid-lined">
+      <p>The quick brown fox jumps over the lazy dog.</p>
+    </figure>
+  </section>
+  <section class="this-c-FontDemo u-ff_code">
+    <p>
+      The code font-family is a monospace type used for&hellip; well, code. Personally, I dislike
+      monospace fonts with serifs, so this family is sans-serif.
+      Suggested typefaces include <b>Menlo</b>, <b>Monaco</b>, <b>Andale Mono</b>.
+    </p>
+    <figure class="crossgrid-lined">
+      <p>The quick brown fox jumps over the lazy dog.</p>
+    </figure>
+  </section>
+  <section class="this-c-FontDemo u-ff_math">
+    <p>
+      The math font-family is a serif modern type use for mathematical spans and spans in foreign
+      languages. It has a radical
+      thick/thin transition, vertical stress, and straight horizontal serifs. With a cold yet
+      elegant look, this font family makes long spans of text
+      hard to read, but that&rsquo;s okay because this font is used only for short expressions.
+      Suggested typefaces include <b>Didot</b>, <b>Bodoni 72</b>, <b>Times</b>.
+    </p>
+    <figure class="crossgrid-lined">
+      <p>The quick brown fox jumps over the lazy dog.</p>
+    </figure>
+  </section>
+  <section class="this-c-FontDemo u-ff_script" style="line-height: 3.0;">
+    <p>
+      The script font-family is used for very fancy elements such as drop-caps and subheadings. Use
+      this font family sparingly.
+      Suggested typefaces include <b>Zapfino</b>.
+    </p>
+    <figure class="crossgrid-lined">
+      <p>The quick brown fox jumps over the lazy dog.</p>
+    </figure>
+  </section>
   <footer>
     <ul class="c-ListFootnotes">
       <li>
@@ -176,8 +285,8 @@ fieldset > ul {
           <li>body background</li>
         </ul>
       </dd>
-      <dt class="o-Box u-bgc_aperture_black ColorTitle" style="order: 0;">Aperture Black</dt>
-      <dd class="o-Box u-bgc_aperture_black" style="order: 1;">
+      <dt class="o-Box u-bgc_aperture_black h-darkbg ColorTitle" style="order: 0;">Aperture Black</dt>
+      <dd class="o-Box u-bgc_aperture_black h-darkbg" style="order: 1;">
         <p>The polar opposite of Aperture White. Representing the true dark nature
           of the Enrichment Center, this is the color of the panels that inhibit
           portals. A hint of orange is infinitesimally noticeable. What better way to
@@ -186,8 +295,8 @@ fieldset > ul {
           <li>body text</li>
         </ul>
       </dd>
-      <dt class="o-Box u-bgc_lakesuperior ColorTitle" style="order: 1;">Lake Superior</dt>
-      <dd class="o-Box u-bgc_lakesuperior" style="order: 2;">
+      <dt class="o-Box u-bgc_lakesuperior h-darkbg ColorTitle" style="order: 1;">Lake Superior</dt>
+      <dd class="o-Box u-bgc_lakesuperior h-darkbg" style="order: 2;">
         <p>This Great Lake borders <a>Ontonagon, MI</a>, the location of the
           Aperture Science Enrichment Center. A perfect fit for superior headings on
           a page.</p>
@@ -196,22 +305,20 @@ fieldset > ul {
           <li>ledes and drop caps</li>
         </ul>
       </dd>
-      <dt class="o-Box u-bgc_facilityabyss ColorTitle" style="order: 1;">Facility Abyss</dt>
-      <dd class="o-Box u-bgc_facilityabyss" style="order: 2;">
+      <dt class="o-Box u-bgc_facilityabyss h-darkbg ColorTitle" style="order: 1;">Facility Abyss</dt>
+      <dd class="o-Box u-bgc_facilityabyss h-darkbg" style="order: 2;">
         <p>This color can be seen in the endless depths of the subterranean
           Enrichment Center. This color is for <i>minor</i> headings of a page.</p>
         <ul>
           <li>minor heading text</li>
-          <li>footnote border</li>
         </ul>
       </dd>
-      <dt class="o-Box u-bgc_atlas ColorTitle" style="order: 2;">Atlas</dt>
-      <dd class="o-Box u-bgc_atlas" style="order: 3;">
+      <dt class="o-Box u-bgc_atlas h-darkbg ColorTitle" style="order: 2;">Atlas</dt>
+      <dd class="o-Box u-bgc_atlas h-darkbg" style="order: 3;">
         <p>Short and stout, Atlas is one of the two robots used for testing.
           Untouched hyperlinks are dedicated to his digital iris.</p>
         <ul>
           <li>link text</li>
-          <li>breadcrumb text</li>
         </ul>
       </dd>
       <dt class="o-Box u-bgc_pbody ColorTitle" style="order: 2;">P-Body</dt>
@@ -220,7 +327,6 @@ fieldset > ul {
           Hovered hyperlinks are dedicated to his (or her?) digital iris.</p>
         <ul>
           <li>hover link text</li>
-          <li>hover breadcrumb text</li>
         </ul>
       </dd>
     </dl>
@@ -228,8 +334,8 @@ fieldset > ul {
   <section>
     <h3>UI Component Colors</h3>
     <dl class="o-FlexContainer">
-      <dt class="o-Box u-w_1o2 u-bgc_deploying ColorTitle" style="order: 0;">Deploying</dt>
-      <dd class="o-Box u-w_1o2 u-bgc_deploying" style="order: 1;">
+      <dt class="o-Box u-w_1o2 u-bgc_deploying h-darkbg ColorTitle" style="order: 0;">Deploying</dt>
+      <dd class="o-Box u-w_1o2 u-bgc_deploying h-darkbg" style="order: 1;">
         <p>The one word you never want to hear without a portal gun. Just as the
           iris of a Sentry Turret, this color is briefly seen, providing a subtle accent
           on the site.</p>
@@ -272,12 +378,11 @@ fieldset > ul {
           a friend. A perfect color for helpful elements on a Web page.</p>
         <ul>
           <li>Help components</li>
-          <li>help outline</li>
         </ul>
       </dd>
-      <dt class="o-Box u-bgc_vilify ColorTitle" style="order: 2;">Vilify</dt>
-      <dd class="o-Box u-bgc_vilify" style="order: 3;">
-        <p><q cite="https://www.youtube.com/watch?v=G-Vg2YS-sFE">You&rsquo;ve
+      <dt class="o-Box u-bgc_vilify h-darkbg ColorTitle" style="order: 2;">Vilify</dt>
+      <dd class="o-Box u-bgc_vilify h-darkbg" style="order: 3;">
+        <p><q class="u-fs_t" cite="https://www.youtube.com/watch?v=G-Vg2YS-sFE">You&rsquo;ve
           got sucker&rsquo;s luck. Have you given up? Does it feel
           like a trial? Does it trouble your mind the way you trouble mine?</q></p>
         <ul>
@@ -288,8 +393,8 @@ fieldset > ul {
   <section>
     <h3>More Portal Colors</h3>
     <dl class="o-FlexContainer">
-      <dt class="o-Box u-bgc_cavescaves ColorTitle" style="order: 0;">Cave&rsquo;s Caves</dt>
-      <dd class="o-Box u-bgc_cavescaves" style="order: 1;">
+      <dt class="o-Box u-bgc_cavescaves h-darkbg ColorTitle" style="order: 0;">Cave&rsquo;s Caves</dt>
+      <dd class="o-Box u-bgc_cavescaves h-darkbg" style="order: 1;">
         <p>Cave&rsquo;s underground salt mines were the ideal venue for early
           test chambers.</p>
         <ul>
@@ -298,7 +403,7 @@ fieldset > ul {
       <dt class="o-Box u-bgc_asbestos ColorTitle" style="order: 0;">Asbestos</dt>
       <dd class="o-Box u-bgc_asbestos" style="order: 1;">
         <p>The forgotten underground test chambers are ridden with this harmful
-          substance. Or so Mr. Johnson says.</p>
+          substance. Or so Mr.&nbsp;Johnson says.</p>
         <ul>
         </ul>
       </dd>
@@ -308,6 +413,7 @@ fieldset > ul {
           Bad news, it does <em>not</em> like the human skeleton. Turns out you might
           just break every bone in your legs anyway.</p>
         <ul>
+          <li>code/kbd/samp on print</li>
         </ul>
       </dd>
       <dt class="o-Box u-bgc_propulsion ColorTitle" style="order: 1;">Propulsion Gel</dt>
@@ -322,20 +428,20 @@ fieldset > ul {
   <section>
     <h3>Grey Tones</h3>
     <dl class="o-FlexContainer">
-      <dt class="o-Box u-bgc_aperture_grey_0o6 ColorTitle"       style="order: 0;">Aperture Grey 0/6</dt>
-      <dd class="o-Box u-bgc_aperture_grey_0o6           "       style="order: 1;"><p class="ColorRelation">Aperture Black</p></dd>
-      <dt class="o-Box u-bgc_aperture_grey_1o6 ColorTitle"       style="order: 2;">Aperture Grey 1/6</dt>
-      <dd class="o-Box u-bgc_aperture_grey_1o6           "       style="order: 3; padding: 0;"></dd>
-      <dt class="o-Box u-bgc_aperture_grey_2o6 ColorTitle"       style="order: 4;">Aperture Grey 2/6</dt>
-      <dd class="o-Box u-bgc_aperture_grey_2o6           "       style="order: 5; padding: 0;"></dd>
-      <dt class="o-Box u-bgc_aperture_grey_3o6 ColorTitle u-w_1o1" style="order: 6;">Aperture Grey 3/6</dt>
-      <dd class="o-Box u-bgc_aperture_grey_3o6            u-w_1o1" style="order: 6; padding: 0;"></dd>
-      <dt class="o-Box u-bgc_aperture_grey_4o6 ColorTitle"       style="order: 4;">Aperture Grey 4/6</dt>
-      <dd class="o-Box u-bgc_aperture_grey_4o6           "       style="order: 5; padding: 0;"></dd>
-      <dt class="o-Box u-bgc_aperture_grey_5o6 ColorTitle"       style="order: 2;">Aperture Grey 5/6</dt>
-      <dd class="o-Box u-bgc_aperture_grey_5o6           "       style="order: 3; padding: 0;"></dd>
-      <dt class="o-Box u-bgc_aperture_grey_6o6 ColorTitle"       style="order: 0;">Aperture Grey 6/6</dt>
-      <dd class="o-Box u-bgc_aperture_grey_6o6           "       style="order: 1;"><p class="ColorRelation">Aperture White</p></dd>
+      <dt class="o-Box u-bgc_aperture_grey_0o6 h-darkbg ColorTitle"       style="order: 0;">Aperture Grey 0/6</dt>
+      <dd class="o-Box u-bgc_aperture_grey_0o6 h-darkbg           "       style="order: 1;"><p class="ColorRelation">Aperture Black</p></dd>
+      <dt class="o-Box u-bgc_aperture_grey_1o6 h-darkbg ColorTitle"       style="order: 2;">Aperture Grey 1/6</dt>
+      <dd class="o-Box u-bgc_aperture_grey_1o6 h-darkbg           "       style="order: 3; padding: 0;"></dd>
+      <dt class="o-Box u-bgc_aperture_grey_2o6 h-darkbg ColorTitle"       style="order: 4;">Aperture Grey 2/6</dt>
+      <dd class="o-Box u-bgc_aperture_grey_2o6 h-darkbg           "       style="order: 5; padding: 0;"></dd>
+      <dt class="o-Box u-bgc_aperture_grey_3o6          ColorTitle u-w_1o1" style="order: 6;">Aperture Grey 3/6</dt>
+      <dd class="o-Box u-bgc_aperture_grey_3o6                     u-w_1o1" style="order: 6; padding: 0;"></dd>
+      <dt class="o-Box u-bgc_aperture_grey_4o6          ColorTitle"       style="order: 4;">Aperture Grey 4/6</dt>
+      <dd class="o-Box u-bgc_aperture_grey_4o6                    "       style="order: 5; padding: 0;"></dd>
+      <dt class="o-Box u-bgc_aperture_grey_5o6          ColorTitle"       style="order: 2;">Aperture Grey 5/6</dt>
+      <dd class="o-Box u-bgc_aperture_grey_5o6                    "       style="order: 3; padding: 0;"></dd>
+      <dt class="o-Box u-bgc_aperture_grey_6o6          ColorTitle"       style="order: 0;">Aperture Grey 6/6</dt>
+      <dd class="o-Box u-bgc_aperture_grey_6o6                    "       style="order: 1;"><p class="ColorRelation">Aperture White</p></dd>
     </dl>
   </section>
 </section>
@@ -375,8 +481,8 @@ complement(@color) : rgb( 255 - red(@color), 255 - green(@color), 255 - blue(@co
   <section>
     <h3><cite>Solarized</cite> Color Scheme</h3>
   <dl class="o-FlexContainer">
-    <dt class="o-Box u-bgc_solarized_base03 ColorTitle" style="order: 0;">Solarized Base03</dt>
-    <dd class="o-Box u-bgc_solarized_base03" style="order: 1;">
+    <dt class="o-Box u-bgc_solarized_base03 h-darkbg ColorTitle" style="order: 0;">Solarized Base03</dt>
+    <dd class="o-Box u-bgc_solarized_base03 h-darkbg" style="order: 1;">
       <ul>
         <li>dark code background</li>
       </ul>
@@ -387,8 +493,8 @@ complement(@color) : rgb( 255 - red(@color), 255 - green(@color), 255 - blue(@co
         <li>light code background</li>
       </ul>
     </dd>
-    <dt class="o-Box u-bgc_solarized_base02 ColorTitle" style="order: 1;">Solarized Base02</dt>
-    <dd class="o-Box u-bgc_solarized_base02" style="order: 2;">
+    <dt class="o-Box u-bgc_solarized_base02 h-darkbg ColorTitle" style="order: 1;">Solarized Base02</dt>
+    <dd class="o-Box u-bgc_solarized_base02 h-darkbg" style="order: 2;">
       <ul>
         <li>dark code border</li>
       </ul>
@@ -494,8 +600,8 @@ complement(@color) : rgb( 255 - red(@color), 255 - green(@color), 255 - blue(@co
   <section>
     <h3><i>Lunarized</i> Color Scheme</h3>
     <dl class="o-FlexContainer">
-      <dt class="o-Box u-bgc_lunarized_base03 ColorTitle" style="order: 0;">Lunarized Base03</dt>
-      <dd class="o-Box u-bgc_lunarized_base03" style="order: 1;">
+      <dt class="o-Box u-bgc_lunarized_base03 h-darkbg ColorTitle" style="order: 0;">Lunarized Base03</dt>
+      <dd class="o-Box u-bgc_lunarized_base03 h-darkbg" style="order: 1;">
         <p class="ColorRelation">inverse of Solarized Base 03</p>
         <ul>
           <li>dark code background</li>
@@ -508,8 +614,8 @@ complement(@color) : rgb( 255 - red(@color), 255 - green(@color), 255 - blue(@co
           <li>light code background</li>
         </ul>
       </dd>
-      <dt class="o-Box u-bgc_lunarized_base02 ColorTitle" style="order: 1;">Lunarized Base02</dt>
-      <dd class="o-Box u-bgc_lunarized_base02" style="order: 2;">
+      <dt class="o-Box u-bgc_lunarized_base02 h-darkbg ColorTitle" style="order: 1;">Lunarized Base02</dt>
+      <dd class="o-Box u-bgc_lunarized_base02 h-darkbg" style="order: 2;">
         <p class="ColorRelation">inverse of Solarized Base 02</p>
         <ul>
           <li>dark code border</li>
@@ -591,7 +697,7 @@ complement(@color) : rgb( 255 - red(@color), 255 - green(@color), 255 - blue(@co
     <form class="o-FlexContainer">
       <p>Check the radio buttons to add/remove classes to the <code>pre</code> Element below, which
         will change its color theme.</p>
-      <fieldset>
+      <fieldset class="u-w_1o3">
         <legend>Backgrounds</legend>
         <ul>
           <li>
@@ -612,7 +718,7 @@ complement(@color) : rgb( 255 - red(@color), 255 - green(@color), 255 - blue(@co
           </li>
         </ul>
       </fieldset>
-      <fieldset>
+      <fieldset class="u-w_1o3">
         <legend>Foregrounds</legend>
         <ul>
           <li>
@@ -633,7 +739,7 @@ complement(@color) : rgb( 255 - red(@color), 255 - green(@color), 255 - blue(@co
           </li>
         </ul>
       </fieldset>
-      <fieldset>
+      <fieldset class="u-w_1o3">
         <legend>Accents</legend>
         <ul>
           <li>
@@ -650,7 +756,7 @@ complement(@color) : rgb( 255 - red(@color), 255 - green(@color), 255 - blue(@co
           </li>
         </ul>
       </fieldset>
-      <input type="reset"/>
+      <input type="reset" id="reset-pre"/>
     </form>
     <pre id="syntax-example">
 <span class="c__Kwd">function</span> <span class="c__Cmd">Person(<span class="c__Arg">name</span>)</span> { <small class="c__Comm">// constructor for class `Person`</small>
@@ -726,22 +832,37 @@ complement(@color) : rgb( 255 - red(@color), 255 - green(@color), 255 - blue(@co
 <script src="../../bower_components/jquery/dist/jquery.js"></script>
 <script src="../scripts/global.js"></script>
 <script>
-var pre = $('#syntax-example');
+var pre = $('#syntax-example')
 $('input[name="bg"]').change(function () {
   pre.removeClass('t-bg-sol-lite t-bg-sol-dark t-bg-lun-lite t-bg-lun-dark');
-  if (this.checked) {pre.addClass($(this).val());}
+  if (this.checked) {pre.addClass($(this).val())}
 })
 $('input[name="fg"]').change(function () {
   pre.removeClass('t-fg-sol-lite t-fg-sol-dark t-fg-lun-lite t-fg-lun-dark');
-  if (this.checked) {pre.addClass($(this).val());}
+  if (this.checked) {pre.addClass($(this).val())}
 })
 $('input[name="ac"]').change(function () {
   pre.removeClass('t-ac-sol t-ac-lun');
-  if (this.checked) {pre.addClass($(this).val());}
+  if (this.checked) {pre.addClass($(this).val())}
 })
-$('input[type="reset"]').click(function () {
+$('#reset-pre').click(function () {
   pre.removeClass();
-});
+})
+
+var fontdemo = $('.this-c-FontDemo')
+$('input[name="fs"]').change(function () {
+  fontdemo.css('font-style', (this.checked) ? $(this).val() : '')
+})
+$('input[name="fv"]').change(function () {
+  fontdemo.css('font-variant', (this.checked) ? $(this).val() : '')
+})
+$('input[name="fw"]').change(function () {
+  fontdemo.css('font-weight', (this.checked) ? $(this).val() : '')
+})
+
+$('#reset-fonts').click(function () {
+  fontdemo.css('font-style', '').css('font-variant','').css('font-weight', '')
+})
 </script>
 </body>
 </html>
