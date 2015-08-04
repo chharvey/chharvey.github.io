@@ -48,7 +48,7 @@ function makepretty() {
          * @param  {string} square0pos   string representing position of first square in the next spiral
          */
         function newSpiralShorthand(width, dr, square0pos) {
-          new Spiral(width, [self.x+dr[0], self.y+dr[1]], others[0], square0pos, others.slice(1, others.length))
+          new Spiral(width, [self.x+dr[0], self.y+dr[1]], others[0], square0pos, others.slice(1))
         }
         cases = {
           right: function () {
@@ -80,7 +80,7 @@ function makepretty() {
         sq_arr.push('.c-Spiral > li:nth-child(' + i + ') > .c-Square')
       }
       // TODO: create array by using filtered jquery object, instead of pushing
-      new Spiral($('.c-Spiral').width(), [0,0], sq_arr[0], 'right', sq_arr.slice(1, sq_arr.length))
+      new Spiral($('.c-Spiral').width(), [0,0], sq_arr[0], 'right', sq_arr.slice(1))
     })()
 
     /**
