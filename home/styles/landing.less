@@ -1,0 +1,167 @@
+
+/*################################*\
+    landing.less
+\*################################*/
+@import (reference) url('../../node_modules/xmeter/src/__tool.fallback.transition.less');
+@import (reference) url('../../node_modules/xmeter/src/__tool.fallback.rotate.less');
+@import (reference) url('../../core/styles/src/__settings.less');
+
+.THIS() { // FIXME allow for 'global' (this file only) vars
+  #CHH .VARS();
+  @trans_square: @chh_ani_long;
+}
+
+nav {
+  position: relative; // so devlink can be 100%
+}
+h1 { // reset project default
+  padding: 0;
+  margin: 0;
+  font-variant: normal;
+  font-weight: normal;
+  color: inherit;
+}
+
+.c-Spiral {
+  position: relative;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  @media print {
+    // mobile device styles:
+    width: 100%;
+    position: static;
+  }
+}
+
+a.c-Square { // specificity HACK FIXME
+  @color_crumb_up_txt:  @chh_color_portal_atlas;
+  @color_crumb_dn_txt:  @chh_color_portal_pbody;
+  @color_crumb_up_bg:   lighten(@color_crumb_up_txt, @golden2); // #c3daff
+  @color_crumb_dn_bg:   lighten(@color_crumb_dn_txt, @golden2); // #ffe8c3
+  .THIS();
+  #XMETER .transition(background-color,opacity; @trans_square);
+  display: block;
+  box-sizing: content-box; // so padding can be added to remove gaps
+  height: 3em; // will be changed proportionally in JS
+  padding: 1px;
+  overflow: hidden;
+  color: transparent;
+  background-color: @color_crumb_up_bg;
+  opacity: 1; // due to a:not([href]) in xmeter
+  &:hover {
+    text-decoration: none;
+    color: @color_crumb_dn_txt;
+    background-color: @color_crumb_dn_bg;
+  }
+  @media print {
+    // mobile device styles:
+    height: 4em;
+    position: static;
+    background-image: none;
+    color: @color_crumb_up_txt;
+  }
+}
+a.c-Square--dev { // specificity HACK FIXME
+  width: 100%;
+  opacity: 0;
+  &:hover {opacity: 1;}
+}
+.c-Square__Text {
+  .THIS();
+  #XMETER .transition(box-shadow,text-shadow,color,background-color; @trans_square);
+  display: block;
+  position: relative;
+  top: 0.5em; // will be changed proportionally in JS
+  border-radius: 0; // will be changed proportionally in JS
+  font-weight: bold;
+  font-family: @chh_font_family_heading;
+  text-align: center;
+  text-shadow: 2px 2px 10px;
+  .c-Square:hover > & {
+    @bgcolor: fadeout(@chh_color_bg, 60%);
+    box-shadow: 0px 0px 20px 20px @bgcolor;
+    background-color: @bgcolor;
+  }
+  a.c-Square--dev > & {
+    line-height: 1;
+    font-family: 'Courier',@chh_font_family_code;
+  }
+}
+
+.js-square--right::before,
+.js-square--top::before,
+.js-square--left::before,
+.js-square--bottom::before {
+  .THIS();
+  #XMETER .transition(transform; @trans_square);
+  content: '';
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-image: url('../images/circle.svg');
+  background-size: 200%;
+}
+
+.js-square--right::before  {background-position: 100%   0%;}
+.js-square--top::before    {background-position:   0%   0%;}
+.js-square--left::before   {background-position:   0% 100%;}
+.js-square--bottom::before {background-position: 100% 100%;}
+
+.js-square--funnel::before  {#XMETER .rotate(90deg);}
+
+.js-bubbles {
+  circle {
+    stroke-width: 2px;
+  }
+  text {
+    #CHH .VARS();
+    text-anchor: middle;
+    font-family: @chh_font_family_heading;
+  }
+  &.dark {
+    #CHH .CONSTS();
+    background-color: @chh_color_solarized_base03;
+    circle {
+      stroke: @chh_color_solarized_base1;
+    }
+    text {
+      fill: @chh_color_solarized_base2;
+    }
+  }
+  &.lite {
+    #CHH .CONSTS();
+    background-color: @chh_color_solarized_base3;
+    circle {
+      stroke: @chh_color_solarized_base01;
+    }
+    text {
+      fill: @chh_color_solarized_base02;
+    }
+  }
+}
+.js-main-links {
+  text {
+    font-size: 30px;
+  }
+}
+.js-side-links {
+  text {
+    font-size: 20px;
+  }
+}
+circle {
+  .js-mth & { #CHH .CONSTS(); fill: @chh_color_solarized_orange; }
+  .js-web & { #CHH .CONSTS(); fill: @chh_color_solarized_green; }
+  .js-edu & { #CHH .CONSTS(); fill: @chh_color_solarized_magenta; }
+  .js-mus & { #CHH .CONSTS(); fill: @chh_color_solarized_yellow; }
+  .js-swm & { #CHH .CONSTS(); fill: @chh_color_solarized_blue; }
+  .js-abt & { #CHH .CONSTS(); fill: @chh_color_solarized_cyan; }
+  .js-res & { #CHH .CONSTS(); fill: @chh_color_solarized_violet; }
+  .js-cpr & { #CHH .CONSTS(); fill: @chh_color_solarized_red; }
+}
+.center circle {
+  fill: transparent;
+  stroke-width: 1px;
+  stroke-dasharray: 1,4;
+}
