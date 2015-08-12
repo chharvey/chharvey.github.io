@@ -27,6 +27,42 @@ function makepretty() {
         this.width = width
         this.x = coords[0]
         this.y = coords[1]
+
+        cases = {
+          right : function (spiral) {
+            spiral.height = spiral.width * phi()
+            $(square0)
+              .width(spiral.width*phi())
+              .css('left',spiral.x + spiral.width*phi(2))
+              .css('top', spiral.y + 0)
+            if (others.length) shorthand(spiral.width*phi(2), [spiral.x + 0, spiral.y + 0], 'top')
+          }
+        , top : function (spiral) {
+            spiral.height = spiral.width / phi()
+            $(square0)
+              .width(spiral.width)
+              .css('left',spiral.x + 0)
+              .css('top', spiral.y + 0)
+            if (others.length) shorthand(spiral.width, [spiral.x + 0, spiral.y + spiral.height*phi()], 'left')
+          }
+        , left : function (spiral) {
+            spiral.height = spiral.width * phi()
+            $(square0)
+              .width(spiral.width*phi())
+              .css('left',spiral.x + 0)
+              .css('top', spiral.y + 0)
+            if (others.length) shorthand(spiral.width*phi(2), [spiral.x + spiral.width*phi(), spiral.y + 0], 'bottom')
+          }
+        , bottom : function (spiral) {
+            spiral.height = spiral.width / phi()
+            $(square0)
+              .width(spiral.width)
+              .css('left',spiral.x + 0)
+              .css('top', spiral.y + spiral.height*phi(2))
+            if (others.length) shorthand(spiral.width, [spiral.x + 0, spiral.y + 0], 'right')
+          }
+        }
+
         function phi(n) {
           n = n || 1
           return Math.pow(Util.PHI_INV, n)
@@ -74,15 +110,14 @@ function makepretty() {
         }
         $(square0).addClass('js-square--' + square0pos)
         cases[square0pos]()
+        cases[square0pos](this)
       }
-
       for (var i = 1; i <= 12; i++) {
         sq_arr.push('.c-Spiral > li:nth-child(' + i + ') > .c-Square')
       }
       // TODO: create array by using filtered jquery object, instead of pushing
       new Spiral($('.c-Spiral').width(), [0,0], sq_arr[0], 'right', sq_arr.slice(1))
     })()
-
     /**
      * 1. makes the squares geometrically square (sets height = width).
      * 2. position absolute
@@ -93,7 +128,6 @@ function makepretty() {
       .height(function () { return $(this).width() })
       .css('position', 'absolute')
       .mouseleave(function() { $(this).addClass('js-square--funnel') })
-
     /** positions and sizes the devlink square */
     $('.c-Square--dev')
       .height(function () { return $(this).width() })
@@ -118,9 +152,9 @@ function d3circles() {
   var svg_width = 960
     , svg_padding = 24
     , svg = d3.select('main').append('svg').attr('xmlns','http://www.w3.org/2000/svg')
-                                           .classed('js-bubbles dark', true)
                                            .attr('viewBox', '0 0 ' + svg_width + ' ' + svg_width)
                                            .attr('preserveAspectRatio', 'xMidYMid')
+                                           .classed('js-bubbles dark', true)
   var main_link_radius = svg_width/8
     , side_link_radius = main_link_radius/2
   ;(function mainCircles() {
