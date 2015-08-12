@@ -1,264 +1,122 @@
-/*###############*\
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*\
     xmeter.less
-\*###############*/
-/*#################*\
-    _flexbox.less
-\*#################*/
-/*@FLEXBOXES*/
-/*@Containers*/
+\*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 /**
-  * Sets up a flexbox container.
-@tags
-: #flex
-: #vendor-specific
-@author
-: Chris Harvey
-@updated
-: 2015-02-21
-  */
-/**
-  * Determines the direction of the flow.
-@params
-: @direction :
-             : `row` (default)  : left to right in `ltr`; right to left in `rtl`
-             : `row-reverse`    : right to left in `ltr`; left to right in `rtl`
-             : `column`         : same as `row` but top to bottom
-             : `column-reverse` : same as `row-reverse` but bottom to top
-@tags
-: #flex
-: #vendor-specific
-@author
-: Chris Harvey
-@updated
-: 2015-02-12
-  */
-/**
-  * Determines whether boxes wrap to the next row or column.
-@params
-: @wrap :
-        : `nowrap` (default) : single-line / left to right in `ltr`; right to left in `rtl`
-        : `wrap`             : multi-line  / left to right in `ltr`; right to left in `rtl`
-        : `wrap-reverse`     : multi-line  / right to left in `ltr`; left to right in `rtl`
-@tags
-: #flex
-: #vendor-specific
-@author
-: Chris Harvey
-@updated
-: 2015-02-12
-  */
-/**
-  * Determines how content is justified.
-@params
-: @justify :
-           : `flex-start` (default) : items are aligned left (in rows) or top (in columns)
-           : `flex-end`             : items are aligned right (in rows) or bottom (in columns)
-           : `center`               : items are pushed to middle
-           : `space-between`        : extra space is distributed between items,
-                                      leaving them flush left/right
-           : `space-around`         : extra space is distributed around items,
-                                      leaving margin on left/right. Good for centering one item
-                                      without using `margin-left: auto; margin-right: auto;`!!!
-@tags
-: #flex
-: #vendor-specific
-@author
-: Chris Harvey
-@updated
-: 2015-02-20
-  */
-/*@Items*/
-/**
-  * What does this do again?
-@params
-: @values : ?????
-@tags
-: #flex
-: #vendor-specific
-@author
-: Chris Harvey
-@updated
-: 2015-02-12
-  */
-/**
-  * Determines the order in which items appear in the flex container.
-@params
-: @number : (integer, 0 default) the order in which the item appears in the flex container.
-@tags
-: #flex
-: #vendor-specific
-@author
-: Chris Harvey
-@updated
-: 2015-02-12
-  */
-/*#################*\
-    _borders.less
-\*#################*/
-/**
-  * The following mixins adjust borders for **BLOCK** Objects only! They will keep the
-  * vertical rhythm intact when adding borders (by slightly adjusting position and margins).
-  * Do *not* use these mixins on INLINE Objects!
+  * CONTENTS
   *
-  * Methods with same # of params cannot be overloaded; thus mixin names have modifiers.
-  * Use the `.border-vert-one(@side; ...)`   set of Mixins to adjust either the top or bottom border.
-  * Use the `.border-vert-both(topbot; ...)` set of Mixins to adjust both the top and bottom borders.
-  * Use the `.border-vert-both(all; ...)`    set of Mixins to adjust all four borders.
-  *
-  * Note: `.border-vert-***(@side; @width)` is not defined because the default `style` is set to
-  * `none`. Thus `@width` and `@style` must be defined, but `@color` is optional.
-@params
-: @side  : either `top` or `bottom`
-: @width : value of `border-width`
-: @style : value of `border-style` (default to `solid`)
-: @color : value of `border-color` (default to `currentColor`)
-@tags
-: #verticalrhythm
-: #border
-@author
-: Chris Harvey
-@updated
-: 2015-02-17
+  * BASE
+  * generic.......................styles that apply to very far-reaching groups of elements
+  * sections......................secioning content and section-related elements
+  * grouping......................grouping content
+  * ....paras.........................paragraphs, block-level textual elements
+  * ....lists.........................ordered, unordered, association
+  * ....tables........................tables
+  * text..........................text-level and inline elements
+  * ....links.........................inline hyperlinks
+  * ....stress........................text outstanding from surrounding prose (e.g., <em> and <u>)
+  * ....doctext.......................documentation elements (e.g., <dfn> and <var>)
+  * ....data..........................machine- or human-readable data (e.g., <time> and <code>)
+  * forms.........................form elements
+  * embedded......................images and other media
   */
-/*################*\
-    _floats.less
-\*################*/
-/**
-  * This tool is used on **containers of floats** (not on floats themselves).
-  * It pushes subsequent content to the bottom of the container.
-@tags
-: #float
-@author
-: Chris Harevy
-@updated
-: 2014-05-12
-  */
-/*###################*\
-    _transform.less
-\*###################*/
-/**
-  * Use this tool to apply a rotation transformation to an Object.
-@params
-: @rotation : the angle, in degrees, to rotate the Object
-@tags
-: #transformation
-: #vendorspecific
-@author
-: Chris Harvey
-@updated
-: 2014-05-10
-  */
-/*################*\
-    _delims.less
-\*################*/
-/**
-  * This tool adds opening and closing punctuation marks surrounding an Object. The
-  * punctuation marks are given by the `quotes` property.
-@params
-: @left  : the character for the left delimiter
-: @right : the character for the right delimiter
-@tags
-: #typography
-: #quote
-@author
-: Chris Harvey
-@updated
-: 2014-10-11
-  */
-/*##################*\
-    _fontsize.less
-\*##################*/
-/**
-  * This Mixin sets `font-size` and `line-height` such that
-  * `font-size` * `line-height` = one vertical rhythm unit.
-@params
-: @ratio            : the ratio of the new font size to `@fontsize_base`, i.e., the number of 'rem's
-: @line_height_orig : the `line-height` of the parent element
-@tags
-: #verticalrhythm
-: #fontsize
-@author
-: Chris Harvey
-@updated
-: 2015-02-12
-  */
-/*#################*\
-    _bground.less
-\*#################*/
-/**
-  * Applies a linear gradient background on an Element.
-  * See [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/linear-gradient) for more info.
-  * See [WPD](http://docs.webplatform.org/wiki/css/functions/linear-gradient) for more info.
-@params
-: ... : any number of parameters
-@tags
-: #background-image
-: #gradient
-: #vendorspecific
-@author
-: Chris Harvey
-@updated
-: 2014-07-08
-  */
-/**
-  * Sets the background position of an Object's background sprite image.
-  * This assumes the sprite's images are linearly horizontally ordered.
-@params
-: @position : the position of the sprite's image to be used. must be a positive integer.
-: @iconsize : the horizontal (x) size of the sprite's image. in pixels.
-: @iconpadd : the padding between images in the sprite's image. in pixels.
-@tags
-: #background-image
-@author
-: Chris Harvey
-@updated
-: 2014-07-18
-  */
-/*#####################*\
-    _translucent.less
-\*#####################*/
-/**
-  * Makes an object slightly transparent, but it becomes opaque upon `:hover`.
-@tags
-: #schematic
-: #golden
-@author
-: Chris Harvey
-@updated
-: 2014-10-07
-  */
-/*####################*\
-    _transition.less
-\*####################*/
-/**
-  * Applies a transition timing effect on an Element.
-@params
-: @props : the CSS property name(s). If more than one, they must be comma-separated
-: @dura  : the length in time, in seconds, the transition is to be in effect
-: @func  : the timing-function. See `https://developer.mozilla.org/en-US/docs/Web/CSS/timing-function`
-: @delay : the length in time, in seconds, the transition will wait before starting
-@tags
-: #transition
-: #vendorspecific
-@author
-: Chris Harvey
-@updated
-: 2014-06-17
-  */
-/*##################*\
-    _sections.less
-\*##################*/
-/*@SETTINGS*/
-/*@SECTIONS*/
+/*################################*\
+    _base.generic.less
+\*################################*/
+* {
+  box-sizing: border-box;
+  border: 0px solid;
+}
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+figure,
+blockquote,
+pre,
+ol,
+ul,
+dl {
+  margin: 0;
+}
+body,
+main,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+figure,
+blockquote,
+pre,
+ol,
+ul,
+dl,
+table {
+  margin-bottom: 1.5rem;
+}
+dd + dt {
+  margin-top: 1.5rem;
+}
+li > ol,
+dt > ol,
+dd > ol,
+li > ul,
+dt > ul,
+dd > ul,
+li > dl,
+dt > dl,
+dd > dl {
+  margin-bottom: 0;
+}
+span,
+a,
+br,
+em,
+strong,
+i,
+mark,
+u,
+small,
+s,
+dfn,
+b,
+var,
+q,
+cite,
+sup,
+sub,
+abbr,
+data,
+time,
+code,
+kbd,
+samp {
+  line-height: 0;
+}
+
+/*################################*\
+    _base.sections.less
+\*################################*/
 html {
   font-size: 100%;
   line-height: 1.5;
 }
 body {
-  margin: 0 0 1.5rem;
+  text-align: left;
 }
 main {
-  margin: 0 1rem 1.5rem;
+  margin: 0 1rem;
+}
+@media print {
+  main {
+    margin: 0;
+  }
 }
 h1,
 h2,
@@ -266,12 +124,11 @@ h3,
 h4,
 h5,
 h6 {
-  margin: 0 0 1.5rem;
+  font-weight: bold;
 }
 h1 {
   font-size: 2rem;
   line-height: 0.75;
-  padding-top: 1.5rem;
 }
 h2 {
   font-size: 1.5rem;
@@ -290,36 +147,50 @@ h5 {
   line-height: 2;
 }
 h6 {
-  font-size: 0.625rem;
-  line-height: 2.4;
+  font-size: 0.66666667rem;
+  line-height: 2.25;
+}
+h1 {
+  padding-top: 1.5rem;
+}
+hr {
+  display: none;
 }
 address {
   font-style: inherit;
 }
-/*##################*\
-    _grouping.less
-\*##################*/
-/*@GROUPING CONTENT*/
-hr {
-  display: none;
-}
-p,
-ol,
-ul,
-dl,
-table {
-  margin: 0 0 1.5rem;
-}
-/*@Paragraph-Like Content*/
+
+/*################################*\
+    _base.grouping.less
+\*################################*/
+
+/*################################*\
+    _base.grouping.paras.less
+\*################################*/
 figure,
 blockquote,
 pre {
-  margin: 0 1rem 1.5rem;
+  margin: 0 1rem;
 }
-/*@Lists*/
+pre {
+  text-align: left;
+  text-indent: 0;
+}
+
+/*################################*\
+    _base.grouping.lists.less
+\*################################*/
 ol,
 ul {
   padding: 0 0 0 4rem;
+}
+li > ol,
+li > ul,
+dt > ol,
+dt > ul,
+dd > ol,
+dd > ul {
+  padding-left: 2rem;
 }
 dt {
   font-weight: bold;
@@ -327,52 +198,45 @@ dt {
 dd {
   margin: 0;
 }
-dd + dt {
-  margin-top: 1.5rem;
-}
-/*@Tables*/
-th {
+
+/*################################*\
+    _base.grouping.tables.less
+\*################################*/
+caption {
   text-align: center;
 }
-/*##############*\
-    _text.less
-\*##############*/
-/*@TEXT-LEVEL SEMANTICS*/
-span,
-a,
-br,
-em,
-strong,
-i,
-mark,
-u,
-small,
-s,
-dfn,
-b,
-var,
-q,
-cite,
-sup,
-sub,
-data,
-abbr,
-time,
-code,
-kbd,
-samp {
-  line-height: 0;
+thead,
+tfoot {
+  vertical-align: bottom;
 }
-a:not([href]) {
-  opacity: 0.5;
+tbody {
+  vertical-align: top;
 }
+th {
+  font-weight: bold;
+  text-align: center;
+}
+
+/*################################*\
+    _base.text.less
+\*################################*/
 br {
   display: none;
 }
 address > br {
   display: inline;
 }
-/*@Stressed Text*/
+
+/*################################*\
+    _base.text.links.less
+\*################################*/
+a:not([href]) {
+  opacity: 0.5;
+}
+
+/*################################*\
+    _base.text.stress.less
+\*################################*/
 i:not([lang]) {
   quotes: '\201c' '\201d';
 }
@@ -391,7 +255,10 @@ small {
 s {
   color: #e00;
 }
-/*@Documentation and Edits*/
+
+/*################################*\
+    _base.text.doctext.less
+\*################################*/
 ins {
   background: #a6f3a6;
 }
@@ -406,7 +273,10 @@ sup,
 sub {
   font-size: 0.75em;
 }
-/*@Machine-Readable Data*/
+
+/*################################*\
+    _base.text.data.less
+\*################################*/
 abbr[title] {
   cursor: help;
   border-bottom: 0;
@@ -417,11 +287,28 @@ samp {
   font-size: 0.75em;
   white-space: nowrap;
 }
-/*###############*\
-    _forms.less
-\*###############*/
-/*@FORMS*/
-/*##################*\
-    _embedded.less
-\*##################*/
-/*@EMBEDDED CONTENT*/
+code code,
+kbd code,
+samp code,
+code kbd,
+kbd kbd,
+samp kbd,
+code samp,
+kbd samp,
+samp samp {
+  font-size: inherit;
+}
+
+/*################################*\
+    _base.forms.less
+\*################################*/
+
+/*################################*\
+    _base.embedded.less
+\*################################*/
+img {
+  max-width: 100%;
+  font-style: italic;
+  vertical-align: middle;
+}
+
