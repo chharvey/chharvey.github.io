@@ -27,6 +27,7 @@ function makepretty() {
         this.width = width
         this.x = coords[0]
         this.y = coords[1]
+
         function phi(n) {
           n = n || 1
           return Math.pow(Util.PHI_INV, n)
@@ -37,7 +38,8 @@ function makepretty() {
          * @param  {[number, number]} ds relative position of `$(square0)` to this spiral (starts at [self.x, self.y])
          */
         function setFirstSquare(w, ds) {
-          $(square0).width(w)
+          $(square0)
+            .width(w)
             .css('left', self.x + ds[0])
             .css('top',  self.y + ds[1])
         }
@@ -51,38 +53,36 @@ function makepretty() {
           new Spiral(width, [self.x+dr[0], self.y+dr[1]], others[0], square0pos, others.slice(1))
         }
         cases = {
-          right: function () {
-            self.height = self.width * phi()
-            setFirstSquare(self.width*phi(), [self.width*phi(2), 0])
-            if (others.length) newSpiralShorthand(self.width*phi(2), [0, 0], 'top')
+          right: function (spiral) {
+            spiral.height = spiral.width * phi()
+            setFirstSquare(spiral.width*phi(), [spiral.width*phi(2), 0])
+            if (others.length) newSpiralShorthand(spiral.width*phi(2), [0, 0], 'top')
           }
-        , top: function () {
-            self.height = self.width / phi()
-            setFirstSquare(self.width, [0, 0])
-            if (others.length) newSpiralShorthand(self.width, [0, self.height*phi()], 'left')
+        , top: function (spiral) {
+            spiral.height = spiral.width / phi()
+            setFirstSquare(spiral.width, [0, 0])
+            if (others.length) newSpiralShorthand(spiral.width, [0, spiral.height*phi()], 'left')
           }
-        , left: function () {
-            self.height = self.width * phi()
-            setFirstSquare(self.width*phi(), [0, 0])
-            if (others.length) newSpiralShorthand(self.width*phi(2), [self.width*phi(), 0], 'bottom')
+        , left: function (spiral) {
+            spiral.height = spiral.width * phi()
+            setFirstSquare(spiral.width*phi(), [0, 0])
+            if (others.length) newSpiralShorthand(spiral.width*phi(2), [spiral.width*phi(), 0], 'bottom')
           }
-        , bottom: function () {
-            self.height = self.width / phi()
-            setFirstSquare(self.width, [0, self.height*phi(2)])
-            if (others.length) newSpiralShorthand(self.width, [0, 0], 'right')
+        , bottom: function (spiral) {
+            spiral.height = spiral.width / phi()
+            setFirstSquare(spiral.width, [0, spiral.height*phi(2)])
+            if (others.length) newSpiralShorthand(spiral.width, [0, 0], 'right')
           }
         }
         $(square0).addClass('js-square--' + square0pos)
-        cases[square0pos]()
+        cases[square0pos](this)
       }
-
       for (var i = 1; i <= 12; i++) {
         sq_arr.push('.c-Spiral > li:nth-child(' + i + ') > .c-Square')
       }
       // TODO: create array by using filtered jquery object, instead of pushing
       new Spiral($('.c-Spiral').width(), [0,0], sq_arr[0], 'right', sq_arr.slice(1))
     })()
-
     /**
      * 1. makes the squares geometrically square (sets height = width).
      * 2. position absolute
@@ -93,7 +93,6 @@ function makepretty() {
       .height(function () { return $(this).width() })
       .css('position', 'absolute')
       .mouseleave(function() { $(this).addClass('js-square--funnel') })
-
     /** positions and sizes the devlink square */
     $('.c-Square--dev')
       .height(function () { return $(this).width() })
@@ -117,10 +116,11 @@ function makepretty() {
 function d3circles() {
   var svg_width = 960
     , svg_padding = 24
-    , svg = d3.select('main').append('svg').attr('xmlns','http://www.w3.org/2000/svg')
-                                           .classed('js-bubbles dark', true)
-                                           .attr('viewBox', '0 0 ' + svg_width + ' ' + svg_width)
-                                           .attr('preserveAspectRatio', 'xMidYMid')
+    , svg = d3.select('main').append('svg')
+        .attr('xmlns','http://www.w3.org/2000/svg')
+        .attr('viewBox', '0 0 ' + svg_width + ' ' + svg_width)
+        .attr('preserveAspectRatio', 'xMidYMid')
+        .classed('js-bubbles dark', true)
   var main_link_radius = svg_width/8
     , side_link_radius = main_link_radius/2
   ;(function mainCircles() {
@@ -162,13 +162,13 @@ function d3circles() {
   ;(function sideCircles() {
     // adds a group for each side link
     var side_links = svg.append('g').classed('js-side-links', true).attr('transform', 'translate(' + svg_width/2 + ',' + (side_link_radius+svg_padding) + ')')
-      , side_rotate = {
+    var side_rotate = {
       abt : 0
     , res : 0
     , cpr : 0
     }
     var side_translate = {
-      abt :                  0 + ',0'
+      abt :                           0 + ',0'
     , res : Util.PHI_INV * -svg_width/2 + ',0'
     , cpr : Util.PHI_INV *  svg_width/2 + ',0'
     }
