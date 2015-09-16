@@ -1,176 +1,230 @@
 doctype html
 html(lang="en")
   head
+    title Workflow with Git
+    meta(name="author", content="Christopher H. Harvey")
+    meta(name="description", content="My workflow with git.")
+    meta(name="keywords",content="git, workflow, semantic versioning, versioning, branching")
+    link(rel="stylesheet",href="../bower_components/normalize.css/normalize.css")
+    link(rel="stylesheet",href="../bower_components/xmeter/xmeter.css")
+    link(rel="stylesheet",href="../core/styles/core.css")
+    style.
+      var {
+        quotes: none;
+      }
+      code {
+        font-variant: normal;
+      }
   body
     main
       header
-        h1 Workflow wit Git
+        h1 Workflow with Git
+        p.
+          This is my attempt to briefly describe my workflow on a project using
+          #[a(href="https://git-scm.com/", rel="external") Git].
+          First I think a little background information is necessary, and that is information
+          on semantic versioning, the principle of numbering your versions semantically.
       section
-        h1 Semantic Versioning
+        h2 Semantic Versioning
         p.
           This section describes my modifications to
-          [Tom Preston-Werner's <cite>Sematnic Versioning</cite>](http://semver.org/).
-
+          #[a(href="http://semver.org/", rel="external") Tom Preston-Werner&rsquo;s #[cite Sematnic Versioning]].
+          You can read more about it there, but in this section I will attempt to apply the analogy
+          of semantic versioning in software development to that in web development&mdash;which
+          we can all agree, is a field in and of itself.
         p.
-          In any software (and/or Web) development environment involving staged releases, it's best to use
-          Semantic Versioning. This is a versioning model in which every version number has a meaningful
-          indication to users and developers. Without getting into too much detail, I will summarize below.
-        ul
-          li.
-            The version number of an application (or website, henceforth referred to as "an app") is written
-            as so: v<var>X</var>.<var>Y</var>.<var>Z</var>, where *v* stands for "version",
-            <var>X</var> is the major version,
-            <var>Y</var> is the minor version, and
-            <var>Z</var> is the patch.
-          li.
-            Every time a Major Version is released, <var>X</var> is incremented, and <var>Y</var> and <var>Z</var> reset to 0.
-            Every time a Minor Version is released, <var>X</var> remains the same, <var>Y</var> is incremented, and <var>Z</var> resets to 0.
-            Every time a Patch is released, <var>X</var> and <var>Y</var> remain the same, and <var>Z</var> is incremented.
-          li.
-            The place value of the integer does not carry over. For example, the next Patch for *v1.4.9*
-            would be *v1.4.10*, not *v1.5.0*.
+          Semantic Versioning is a model in which every version number of an #[dfn(id="app") app]
+          (repostory, program, module, website, app, #[i(lang="la") #[abbr(title="et cetera") etc.]])
+          has a meaningful indication to users and developers.
+        p.
+          In a nutshell, the version number of an app is written as
+          #[code v#[var X].#[var Y].#[var Z]], where
+          #[var X] is the major version,
+          #[var Y] is the minor version, and
+          #[var Z] is the patch.
+          When any next version is released, the corresponding version number (major, minor, or patch)
+          is incremented, and numbers to the right are reset to 0.
+          (The place value of the integer does not carry over. For example, the next Patch for
+          #[code v1.4.9] would be #[code v1.4.10], not #[code v1.5.0].)
         section
-          h1 Major Versions
+          h3 Major Versions
           p.
-            incorporate new features that change the application or API in a non-backward-compatible way.
-            This means that the implementation of Major features would require a change in previous functionality.
-            In the world of front-end web development, since there isn't really an API, I would consider the
-            following as "Major" revisions:
+            Major versions incorporate new features that change the application or API in a
+            non-backward-compatible, or breaking, way. On a website, this might include
           ul
             li.
-              Any semantic changes to content (the meaning of the content changes) to a lot of documents or
-              large portion of the site.
+              Any semantic changes to content (the meaning of the content changes) to a lot of
+              documents or large portion of the site.
             li.
-              Any revamps of any systems, such as CSS architecture, grid layouts, etc., *that would necessitate
-              a change in HTML or content*. This last part is important. If a system revamped but was handled automatically (e.g. the classnames stayed the same; only their definitions changed), this would not be a Major revision.
+              Any revamps of any systems, such as CSS architecture, grid layouts, #[i(lang="la") #[abbr(title="et cetera") etc.]],
+              #[em that would necessitate a change in HTML or content].
+              If a system revamped but was handled automatically
+              (#[i(lang="la") #[abbr(title="exampli gratia") e.g.]], the classnames stayed the same;
+              only their definitions changed), this would not be a Major revision.
             li.
-              Any *major* changes to look-and-feel. Though this would be considered an "unsemantic" revision,
-              a major change to a site's appearance constitutes a new Major version number. The reasoning behind
-              this is mostly psychological and helps users in some way probably.
+              Any #[em major] changes to look-and-feel. Though this would be considered an
+              #[i unsemantic] revision, a major change to a site&rsquo;s appearance constitutes
+              a new Major version number. The reasoning behind this is mostly psychological and
+              helps users in some way probably.
         section
-          h1 Minor Versions
+          h3 Minor Versions
           p.
-            incorporate new features that change the app in a backward-compatible way. This means that the
-            implementation of Minor features would not require any change in previous functionality.
+            Minor versions incorporate new features that change the API in a backward-compatible,
+            or non-breaking, way. In the world of front-end web development, this could include
           ul
             li.
-              Anything added to the site that does not require changing a previously-defined aspect of the site.
+              Anything added to the site that does not require changing a previously-defined aspect
+              of the site.
             li.
-              These are where most "bells and whistles" would be categorized.
+              These are where most #[i bells and whistles] would be categorized.
             li.
-              Also, any cleaning up or organizing code or source files (e.g, to improve efficiency/performance) would be considered a Minor feature, even though this does not add new functionality.
+              Also, any cleaning up or organizing code or source files,
+              #[i(lang="la") #[abbr(title="exampli gratia") e.g.]], to improve efficiency/performance,
+              would be considered a Minor feature, even though this does not add new functionality.
         section
-          h1 Patches
+          h3 Patches
           p.
-            incorporate bug fixes only. These are fixes to errors, either compile-time (syntactic), run-time,
-            or semantic, and must be backward-compatible. Do not release any new features in a Patch. Typically, a bugfix only *adds* code to fix a problem; rarely does it require deletion of code. Think of it as the *quickest* way to fix something. Do not concentrate on efficiency/performance unless the time it takes to do so is marginal.
+            Patches incorporate backwards-compatible, non-breaking, bug fixes only.
+            Do not release any new features in a Patch.
+            In HTML/CSS/JS, this could mean
           ul
             li.
-              Typo corrections
+              Typo corrections in content and/or syntactical corrections in code
             li.
-              Changes in formatting code (indents, newlines, etc.)
+              Non-syntactic changes in code formatting (indents, newlines, #[i(lang="la") #[abbr(title="et cetera") etc.]])
             li.
               Minor changes to CSS styles / HTML Elements
+          p.
+            Think of patches as the #[em quickest] way to fix something.
+            Bug fixes do not necessarily hold efficiency/performance in high priortiy.
       section
-        h1 Branching Model
+        h2 Branching Model
         p.
+          Now that we got the introductory material out of the way, we can start talking about branching.
           This section describes my modifications to
-          [Vincent Driessen's <cite>Successful Git Branching Model</cite>](http://nvie.com/posts/a-successful-git-branching-model/).
+          #[a(href="http://nvie.com/posts/a-successful-git-branching-model/", rel="external") Vincent Driessen&rsquo;s #[cite A Successful Git Branching Model]].
         p.
-          There are five types of branches: `master`, `develop`, feature branches, hotfix branches, and release branches.
-        section
-          h1 `master`
+          In this branching model, there are five types of branches:
+          #[code master], #[code dev], feature branches, hotfix branches, and staging branches.
+        section#master
+          h3 #[code master]
           p.
-            The `master` branch is where the most up-to-date *released* version of the app lives. Users have
-            read access to `master` and should be able to download any version, including old versions. Every
-            commit on `master` corresponds to a stable release with a unique version number. The most recent
-            commit on `master` corresponds to the most recent released version.
-            Every time a new commit is made on `master` and a new version is released,
-            `master` merges into `develop` and also into any active [release branches](#release) to keep them
-            up to date with the most recent released changes.
-            `master` is never deleted.
+            The #[code master] branch is where the most up-to-date #[em released] version of the
+            app lives. Users have read access to #[code master] and should be able to download any
+            version, including old versions.
+            Every commit on #[code master] corresponds to a stable release with a unique version number.
+            The most recent commit on #[code master] corresponds to the most recent released version.
+            #[code master] is never deleted.
+          //- p.
+          //-   Every time a new commit is made on #[code master] and a new version is released,
+          //-   #[code master] merges into #[a(href="#dev") #[code dev]] and also into any active
+          //-   #[a(href="#stage") staging branches]
+          //-   to keep them up to date with the most recent released changes.
+          //- p.
+          //-   #[strong Note:]
+          //-   Every commit on #[code master] should have the *possibility* of being fast-forwarded.
+          //-   Fast-forwarding
+          //-   is generally a bad idea for #[code master] in particular: if we want commits to correspond to releases and
+          //-   fast-forwarding is enabled, then a fast-forward to master will introduce more commits on the
+          //-   #[code master] branch than necessary. Thus it is advisable to use
+          //- pre.
+          //-   $ git config branch.master.mergeoptions = --no-ff
+          //- p.
+          //-   However, we want the *possibility of fast-forwarding every commit*,
+          //-   so there are no merge conflicts when we commit to #[code master]. Since #[code master] represents the most
+          //-   stable release, we don't want any unexpected surprises when merging.
+          //-   Thus every time a commit is made on #[code master], #[code master] should be merged into any active release branch
+          //-   so that final touches can be made before the next release.
+        section#dev
+          h3 #[code dev]
           p.
-            Note: Every commit on `master` should have the *possibility* of being fast-forwarded. Fast-forwarding
-            is generally a bad idea for `master` in particular: if we want commits to correspond to releases and
-            fast-forwarding is enabled, then a fast-forward to master will introduce more commits on the
-            `master` branch than necessary. Thus it is advisable to use
-          pre.
-            $ git config branch.master.mergeoptions = --no-ff
+            The #[code dev] branch represents the most up-to-date #[em unreleased] version of the app.
+            All the completed fixes and features are committed to #[code dev]. There should be no
+            works-in-progress; only the finished product of the fix/feature is committed.
+            #[code dev] lives in parallel to #[code master]. At some point in time, the code on
+            #[code dev] will eventually make its way onto #[code master] via a
+            #[a(href="#stage") staging branch] (discussed below).
+            #[code dev] is never deleted.
+          //- p.
+          //-   It is advised to have a separate develop branch corresponding to the next *major* version.
+          //-   This way, the minor features can still be committed to #[code dev] but the features for the next major version,
+          //-   say v4.0.0, can be committed to branch #[code dev-v4] without interfering with the minor releases.
+          //-   #[code master] should be merged into #[code dev-v4] to keep it up to date with the latest released changes, and
+          //-   #[code dev] should be frequently merged into #[code dev-v4] to keep it up to date with the latest unreleased changes.
+          //-   #[code dev-v4] is merged back into #[code dev] when the major features of v4.0.0 are stable, typically when
+          //-   its corresponding GitHub Milestone is closed.
+        section#feat
+          h3 Feature Branches
           p.
-            However, we want the *possibility of fast-forwarding every commit*,
-            so there are no merge conflicts when we commit to `master`. Since `master` represents the most
-            stable release, we don't want any unexpected surprises when merging.
-            Thus every time a commit is made on `master`, `master` should be merged into any active release branch
-            so that final touches can be made before the next release.
-        section
-          h1 `develop`
+            A feature branch is branched off of #[code dev], work is then done on the feature branch,
+            and once the work and testing of the new feature is complete, the branch is merged back
+            into #[code dev], at which point the feature branch is deleted.
           p.
-            The `develop` branch represents the most up-to-date *unreleased* version of the app. All the
-            completed fixes and features are committed to `develop`. There should be no works in progress:
-            only the finished product of the fix/feature is committed. `develop` lives in parallel to `master`.
-            At some point in time, the code on `develop` will eventually make its way onto `master` via a
-            [release branch](#release).
-            `develop` is never deleted.
+            Feature branches are for works in progress of major or minor features for the next
+            major or minor version. Though work on a feature branche may include bug fixes or patches
+            for that particular feature, these branches are not for fixes/patches for the app itself.
           p.
-            It is advised to have a separate develop branch corresponding to the next *major* version.
-            This way, the minor features can still be committed to `develop` but the features for the next major version,
-            say v4.0.0, can be committed to branch `dev-v4` without interfering with the minor releases.
-            `master` should be merged into `dev-v4` to keep it up to date with the latest released changes, and
-            `develop` should be frequently merged into `dev-v4` to keep it up to date with the latest unreleased changes.
-            `dev-v4` is merged back into `develop` when the major features of v4.0.0 are stable, typically when
-            its corresponding GitHub Milestone is closed.
-        section
-          h1 Feature
+            A feature branch begins with the prefix #[code feat-] and usually contains an issue number
+            (if there is an issue on GitHub) and then some short descriptor.
+            Example: #[code feat-17footnotes].
+        section#fix
+          h3 Fix Branches and #[code hotfix]
           p.
-            A feature branch begins with the prefix `feat-` and usually contains an issue number (if there is
-            an issue on GitHub) and then some short descriptor. Example: `feat-17footnotes`.
+            A branch called #[code hotfix] is branched off of #[code master] and acts sort of like
+            a development branch, but only for fixes, not new features.
+            #[code hotfix] is likely to contain multiple fixes, and
+            at some point in time when a patch version is ready to be released,
+            #[code hotfix] is merged back into #[code master]
+            #[strong creating a new Patch Version release], and then #[code hotfix] is deleted.
           p.
-            Feature branches are for works in progress of major or minor features for the next major or minor
-            version. They are not for bug fixes or patches.
+            Usually, individual fixes are small enough to be their own commits on #[code hotfix],
+            so the commit history of this branch is linear.
+            However sometimes fixes are too large for one commit, and they need their own sub-branch.
+            Thus we use fix branches.
           p.
-            A feature branch is branched off of `develop`, work is then done on the feature branch, and once
-            the work and testing of the new feature is complete, the branch is merged back into `develop`,
-            at which point the feature branch is deleted.
-        section
-          h1 Hotfix
+            Fix branches branches are branched off of #[code hotfix],
+            much like #[a(href="#feature") feature branches] are branched off of #[code dev].
+            The difference is fix branches are used for fixing small bugs and errors instead of
+            introducing new features.
+            When work is complete for the fix, the branch merges back into #[code hotfix] and
+            is then deleted.
           p.
-            The hotfix branches begin with prefix `fix-` and usually contain an issue number (if there is an
-            issue on GitHub) and then some short descriptor. Example: `fix-13sprites`.
+            Fix branches begin with prefix #[code fix-] and usually contain an issue number
+            (if there is an issue on GitHub) and then some short descriptor.
+            Example: #[code fix-13sprites].
+          //- p.
+          //-   And of course, every new release on #[code master] is merged into #[code dev] and any active
+          //-   [release branches](#release) as well.
+        section#stage
+          h3 Staging Branches
           p.
-            Hotfix branches are analogous to [feature branches](#feature) for `develop`, except hotfix branches
-            are used for fixing small bugs and errors instead of introducing new features.
-            A branch called `hotfix` is branched off of `master` every time a new version of any kind
-            is released. Essentially, `hotfix` lives in parallel to `master` but corresponds only to a
-            particular version number.
+            The staging branches are a bit of a mix between feature and hotfix branches.
+            At some point in development when a release (say v3.2.0) has been determined
+            //- (this usually happens when a Milestone is closed),
+            a staging branch #[code stage-v3.2.0] branches off of #[code dev].
+            From this point on, no further feature branches are to be merged into #[code stage-v3.2.0],
+            no new features are to be added, and no development on features is to be made.
+            The purpose of staging branches is only to make small fixes and corrections,
+            setting the &hellip; ahem &hellip; #[i stage] for release of version v3.2.0.
+            Meanwhile, #[code dev] can continue progressing while the features for v3.2.0 are locked.
           p.
-            All hotfix branches branch off of `hotfix`, and when work is complete for that fix,
-            the branch merges back into `hotfix` and is then deleted. Thus the branch `hotfix` actually
-            contains multiple fixes. At some point in time, `hotfix` is merged back into `master` **creating
-            a new Patch Version release**, and then `hotfix` is deleted.
-            And of course, every new release on `master` is merged into `develop` and any active
-            [release branches](#release) as well.
-        section
-          h1 Release
+            When v3.2.0 is ready to be released, #[code stage-v3.2.0] is merged into #[code master],
+            #[strong creating a new Minor (or Major) release], and then #[code stage-v3.2.0]
+            is deleted.
           p.
-            Lastly, the release branches begin with `rel-` and end with a version number. Example: `rel-v3.2.0`.
-          p.
-            The release branches are a bit of a mix between feature and hotfix branches. At some
-            stage in development when a release (say v3.2.0) has been determined (this usually happens when
-            a Milestone is closed), a release branch `rel-v3.2.0` branches off of `develop`. From this point on,
-            no further feature branches are to be merged into `rel-v3.2.0` and no new features are to be added.
-            Only small fixes for v3.2.0 are to be made on this branch.
-            That way, `develop` can continue progressing while the features for v3.2.0 are "locked."
-          p.
-            When v3.2.0 is ready to be released, `rel-v3.2.0` is merged into `master`,
-            **creating a new Minor (or Major) release**, and then `rel-v3.2.0` is deleted.
-            And of course, every new release on `master` is merged into `develop` and any other active
-            release branches as well. (Usually there won't be any other release branches, but there could be
-            an active release branch for the next major release, `rel-v4.0.0`. In this case, the changes on
-            `master` need to be merged in.)
+            Staging branches begin with #[code stage-] and end with a version number.
+            Example: #[code stage-v3.2.0].
+          //- p.
+          //-   And of course, every new release on #[code master] is merged into #[code dev] and any other active
+          //-   release branches as well. (Usually there won't be any other release branches, but there could be
+          //-   an active release branch for the next major release, `rel-v4.0.0`. In this case, the changes on
+          //-   #[code master] need to be merged in.)
       section
-        h1 Example Workflow
+        h2 Advanced Branching
+      section
+        h2 Example Workflow
         section
-          h1 Single Issue Examples
+          h3 Single Issue Examples
           p Required Labels for GitHub issues. These are mutually-exclusive (an issue must have exactly one of these).
           ul
             li `feature-hotfix`: A request to fix a bug (not really a feature).
@@ -184,23 +238,23 @@ html(lang="en")
             This is the typical priority order. Of course, work can be done on all three at the same time but
             it's best to finalize the bugfixes first.
           section
-            h1 Single Bug Example
+            h4 Single Bug Example
             p.
               Let's say you're working on a project and you're at some point in time at which the project is 100% stable:
-              there are no bugs, and no new features to be added. You have two branches, `master` and `develop`,
+              there are no bugs, and no new features to be added. You have two branches, #[code master] and #[code dev],
               which live parallel alongside each other.
             p.
-              A developer or user notices a bug in the current version (latest release on `master`).
+              A developer or user notices a bug in the current version (latest release on #[code master]).
               This could be a syntactic error, run-time error, or semantic error. They submit a new GitHub Issue,
               say *#5: background image missing*. This issue would be given the label `feature-hotfix` and
               assigned to a GitHub Milestone with a patch version number.
-              Then a developer creates the branch a new branch `fix-5bgimg` off of `hotfix` (which is already
-              branched off `master`).
+              Then a developer creates the branch a new branch `fix-5bgimg` off of #[code hotfix] (which is already
+              branched off #[code master]).
               Developers do work on this branch, and when it is fixed, close the issue or submit a pull request.
               When the project manager sees the closed issue/pull request, `fix-5bgimg` is merged back into
-              `hotfix` and then `fix-5bgimg` is deleted.
+              #[code hotfix] and then `fix-5bgimg` is deleted.
           section
-            h1 Minor Feature Example
+            h4 Minor Feature Example
             p.
               Same situation as before, stable project.
             p.
@@ -208,13 +262,13 @@ html(lang="en")
               GitHub Issue called *#13: new color scheme*.
               Because a new color scheme is a new feature that wouldn't require any changing of previous functionality,
               it will be given the label `feature-minor`. It would also be assigned to a GitHub Milestone with a minor version number.
-              A developer creates a new branch called `feat-13colorscheme` off `develop`.
+              A developer creates a new branch called `feat-13colorscheme` off #[code dev].
               Developers do work on the branch, and when they decide it is complete, they close the GitHub Issue
               or submit a pull request. The branch is not merged until the project manager sees the
-              closed issue/pull request and decides to merge it back into `develop`. When `feat-13colorscheme`
-              is merged back into `develop`, the feature branch is deleted.
+              closed issue/pull request and decides to merge it back into #[code dev]. When `feat-13colorscheme`
+              is merged back into #[code dev], the feature branch is deleted.
           section
-            h1 Major Feature Example
+            h4 Major Feature Example
             p.
               Major features are difficult because they are long-term features and typically take more time to
               complete than minor features do. In addition, major features aren't as frequently released, and
@@ -228,62 +282,62 @@ html(lang="en")
               A developer or user requests a new major feature and submits a new GitHub Issue. The Issue would be
               assigned to a Milestone with a major version number.
             p.
-              A major feature branch is very similar to a minor feature branch. It would be branched off `develop`,
+              A major feature branch is very similar to a minor feature branch. It would be branched off #[code dev],
               and when complete, the GitHub Issue would be closed. However since major features are more slowly
-              released than minor features, it wouldn't make sense to merge this feature into `develop`:
+              released than minor features, it wouldn't make sense to merge this feature into #[code dev]:
               if so, the latest unreleased version of the project would contain a bunch of minor features and perhaps
               one major feature. In this case, the next released version would have to be a major release, even if
               there is only one major feature introduced.
             p.
               If we want our next scheduled release to be a minor release, we don't want any major features
-              introduced into the `develop` branch, even if the major feature is complete.
-              Instead, we should branch a **development branch** `dev-v4` off
-              of `develop` and merge the major feature branch into the new development branch.
+              introduced into the #[code dev] branch, even if the major feature is complete.
+              Instead, we should branch a **development branch** #[code dev-v4] off
+              of #[code dev] and merge the major feature branch into the new development branch.
         section
-          h1 Release Examples
+          h3 Release Examples
           section
-            h1 Patch Release Example
+            h4 Patch Release Example
             p.
               Same situation as before, stable project. Say the project's latest release is v3.2.1.
             p.
-              Patches are released only when bugs on `master` have been fixed via the `hotfix` branch.
+              Patches are released only when bugs on #[code master] have been fixed via the #[code hotfix] branch.
               At some point in time, *Milestone v3.2.2* will be closed. This happens when all
               the Issues in the Milestone are closed. At this point, if all the fixes and bugs have been worked out,
-              `hotfix` is merged into `master`, creating v3.2.2.
-              Then `master` is merged into `develop` (and any existing release branches).
+              #[code hotfix] is merged into #[code master], creating v3.2.2.
+              Then #[code master] is merged into #[code dev] (and any existing release branches).
           section
-            h1 Minor Release Example
+            h4 Minor Release Example
             p.
               Same situation as before, stable project. Say the project's latest release is v3.2.1.
             p.
-              When a minor feature Issue is closed, that feature branch is most likely merged into `develop` and
+              When a minor feature Issue is closed, that feature branch is most likely merged into #[code dev] and
               *Milestone v3.3.0* is closer to being complete. When all the Issues for the
               Milestone are closed, the Milestone itself is closed. At this point, `rel-v3.3.0` is branched
-              off `develop` and only fixes and bugs for v3.3.0 may be committed to `rel-v3.3.0`.
+              off #[code dev] and only fixes and bugs for v3.3.0 may be committed to `rel-v3.3.0`.
               Any new features will be committed to a development branch.
             p.
               The time at which Version 3.3.0 is released is probably dependent on a deadline. Beforehand,
-              any changes to `master` (namely, hotfixes) should be merged into `develop` and `rel-v3.3.0`
+              any changes to #[code master] (namely, hotfixes) should be merged into #[code dev] and `rel-v3.3.0`
               as previously mentioned.
             p.
-              When Version 3.3.0 is ready to be released, `rel-v3.3.0` is merged into `master` and then
-              `master` is merged into `develop` (and any other existing release branches).
+              When Version 3.3.0 is ready to be released, `rel-v3.3.0` is merged into #[code master] and then
+              #[code master] is merged into #[code dev] (and any other existing release branches).
           section
-            h1 Major Release Example
+            h4 Major Release Example
             p.
               Same situation as before, stable project. Say the project's latest release is v3.2.1.
             p.
               When a major feature Issue is closed, that feature branch is most likely merged into the next
-              major development branch, e.g., `dev-v4`. When all the issues for *Milestone v4.0.0* are closed,
+              major development branch, e.g., #[code dev-v4]. When all the issues for *Milestone v4.0.0* are closed,
               the Milestone itself is closed.
             p.
               At this point, regardless of whether there are any active hotfix or release branches,
-              `dev-v4` is merged into `develop`, `dev-v4` is deleted, and a new branch `rel-v4.0.0` is branched
-              off of `develop`. (Remember, the development branch `dev-v4` is where major work can be done and features can be added. In contrast, the release branch `rel-v4.0.0` is only for bugfixes. Once `rel-v4.0.0` is branched off `develop`, work can be done on `develop` for the next Minor release, namely, v4.1.0.)
+              #[code dev-v4] is merged into #[code dev], #[code dev-v4] is deleted, and a new branch `rel-v4.0.0` is branched
+              off of #[code dev]. (Remember, the development branch #[code dev-v4] is where major work can be done and features can be added. In contrast, the release branch `rel-v4.0.0` is only for bugfixes. Once `rel-v4.0.0` is branched off #[code dev], work can be done on #[code dev] for the next Minor release, namely, v4.1.0.)
             p.
               The work on any existing hotfix branches and release branches continues as normal, merging into
-              `master` when appropriate. Then any changes to `master` are merged into `develop` and `rel-v4.0.0`
+              #[code master] when appropriate. Then any changes to #[code master] are merged into #[code dev] and `rel-v4.0.0`
               as previously mentioned.
             p.
               When Version 4.0.0 is ready to be released, which is probably due to a deadline, `rel-v4.0.0` is
-              merged into `master` and then `master` is merged into `develop` (and any other existing release branches).
+              merged into #[code master] and then #[code master] is merged into #[code dev] (and any other existing release branches).
