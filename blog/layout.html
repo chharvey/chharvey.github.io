@@ -197,13 +197,13 @@
 .Side2 {}
 </pre>
     <div class="o-FlexContainer">
-      <article class="h-ol" style="order: 0;">
+      <article class="h-ol">
         <p> Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. &hellip; </p>
       </article>
-      <header  class="h-ol" style="order: -1;"> Head </header>
-      <footer  class="h-ol" style="order: 1;"> Foot </footer>
-      <aside   class="h-ol" style="order: -1;"> Side1 </aside>
-      <aside   class="h-ol" style="order: 0;"> Side2 </aside>
+      <header  class="h-ol" style="order: -1;"> Head </header><!-- TODO no bang for negative order values yet -->
+      <footer  class="h-ol !o:1"> Foot </footer>
+      <aside   class="h-ol" style="order: -1;"> Side1 </aside><!-- TODO no bang for negative order values yet -->
+      <aside   class="h-ol"> Side2 </aside>
     </div>
   </figure>
   <p>Remember, the actual ordinal numbers aren&rsquo;t important. What&rsquo;s important is their
@@ -215,6 +215,22 @@
 .Foot  {.flex-order(2);}
 .Side1 {}
 .Side2 {.flex-order(1);}
+</pre>
+  <p>Likewise,</p>
+  <pre>
+.Body  {.flex-order(2);}
+.Head  {.flex-order(0);}
+.Foot  {.flex-order(4);}
+.Side1 {.flex-order(1);}
+.Side2 {.flex-order(3);}
+</pre>
+  <p>Or even,</p>
+  <pre>
+.Body  {.flex-order(5);}
+.Head  {.flex-order(2);}
+.Foot  {.flex-order(11);}
+.Side1 {.flex-order(3);}
+.Side2 {.flex-order(7);}
 </pre>
   <p>Now, the items are in the correct order. Adjusting their widths will automatically put them
     into position, because Flexbox wraps!</p>
@@ -281,13 +297,13 @@
 }
 </pre>
     <div class="o-FlexContainer">
-      <article class="h-ol" style="order: 0; width: 60%;">
+      <article class="h-ol !w:3o5">
         <p> Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. </p>
       </article>
-      <header  class="h-ol" style="order: -1; width: 100%;"> Head </header>
-      <footer  class="h-ol" style="order: 1; width: 100%;"> Foot </footer>
-      <aside   class="h-ol" style="order: -1; width: 20%;"> Side1 </aside>
-      <aside   class="h-ol" style="order: 0; width: 20%;"> Side2 </aside>
+      <header  class="h-ol !w:1o1" style="order: -1;"> Head </header><!-- TODO no bang for negative order values yet -->
+      <footer  class="h-ol !w:1o1 !o:1"> Foot </footer>
+      <aside   class="h-ol !w:1o5" style="order: -1;"> Side1 </aside><!-- TODO no bang for negative order values yet -->
+      <aside   class="h-ol !w:1o5"> Side2 </aside>
     </div>
   </figure>
   <p>That&rsquo;s it! Tutorial done. The rest of this document discusses further applications.</p>
@@ -330,13 +346,13 @@
 &lt;/main&gt;
 </pre>
     <div class="o-FlexContainer">
-      <article class="h-ol !w:3o5" style="order: 0;">
+      <article class="h-ol !w:3o5">
         <p> Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. </p>
       </article>
       <header  class="h-ol !w:1o1" style="order: -1;"> Head </header>
-      <footer  class="h-ol !w:1o1" style="order: 1;"> Foot </footer>
+      <footer  class="h-ol !w:1o1 !o:1"> Foot </footer>
       <aside   class="h-ol !w:1o5" style="order: -1;"> Side1 </aside>
-      <aside   class="h-ol !w:1o5" style="order: 0;"> Side2 </aside>
+      <aside   class="h-ol !w:1o5"> Side2 </aside>
     </div>
   </figure>
   </section>
@@ -455,6 +471,8 @@
   </figure>
   <p>By default, the extra space is evenly distributed <em>between</em> the items, much like
     the inter-word space in a paragraph with <code>text-align: justify;</code>.
+  </p>
+  <p>
     To override this and distribute the space <em>around</em> the blocks, leaving a little bit
     on the outside, use
     the <code>.!j:ad</code> Utility <em>in addition to</em>
