@@ -239,34 +239,9 @@
     because of the way Flexboxes wrap. The easiest way to set the width of an Element is to use the CSS
     <code>width</code> property. You can do this with inline styles (yuck) or you can add it to
     the Element&rsquo;s class&rsquo; definition in an external stylesheet. Your life will be
-    significantly easier if you let <b>Less</b> do all the mathematical calculations, so use the
-    variables below.
-    Oh and by the way, Less won&rsquo;t work with inline styles anyway.
-    The figure below illustrates a simplified version of my code.</p>
-  <pre>
-<small>// even widths:        // golden widths:</small>
-<span class="c__Arg">@1o1</span>: <span class="c__Cst">100%</span>;            <span class="c__Arg">@golden0</span>: <span class="c__Cst">100%</span>;
-<span class="c__Arg">@1o2</span>: <span class="c__Cst"> 50%</span>;            <span class="c__Arg">@golden1</span>:  <span class="c__Cst">61.803%</span>;
-<span class="c__Arg">@2o2</span>: <span class="c__Cst">100%</span>;            <span class="c__Arg">@golden2</span>:  <span class="c__Cst">38.197%</span>;
-<span class="c__Arg">@1o3</span>: <span class="c__Cst"> 33.333%</span>;        <span class="c__Arg">@golden3</span>:  <span class="c__Cst">23.607%</span>;
-<span class="c__Arg">@2o3</span>: <span class="c__Cst"> 66.666%</span>;        <span class="c__Arg">@golden4</span>:  <span class="c__Cst">14.590%</span>;
-<span class="c__Arg">@3o3</span>: <span class="c__Cst">100%</span>;            <span class="c__Arg">@golden3c</span>: <span class="c__Cst">76.393%</span>;
-<span class="c__Arg">@1o4</span>: <span class="c__Cst"> 25%</span>;            <span class="c__Arg">@golden4c</span>: <span class="c__Cst">85.410%</span>;
-<span class="c__Arg">@2o4</span>: <span class="c__Cst"> 50%</span>;
-<span class="c__Arg">@3o4</span>: <span class="c__Cst"> 75%</span>;
-<span class="c__Arg">@4o4</span>: <span class="c__Cst">100%</span>;
-<span class="c__Arg">@1o5</span>: <span class="c__Cst"> 20%</span>;
-<span class="c__Arg">@2o5</span>: <span class="c__Cst"> 40%</span>;
-<span class="c__Arg">@3o5</span>: <span class="c__Cst"> 60%</span>;
-<span class="c__Arg">@4o5</span>: <span class="c__Cst"> 80%</span>;
-<span class="c__Arg">@5o5</span>: <span class="c__Cst">100%</span>;
-<span class="c__Arg">@1o6</span>: <span class="c__Cst"> 16.666%</span>;
-<span class="c__Arg">@2o6</span>: <span class="c__Cst"> 33.333%</span>;
-<span class="c__Arg">@3o6</span>: <span class="c__Cst"> 50%</span>;
-<span class="c__Arg">@4o6</span>: <span class="c__Cst"> 66.666%</span>;
-<span class="c__Arg">@5o6</span>: <span class="c__Cst"> 83.333%</span>;
-<span class="c__Arg">@6o6</span>: <span class="c__Cst">100%</span>;
-</pre>
+    significantly easier if you let <b>Less</b> do all the mathematical calculations, so you can
+    use math calculations (e.g., <code>(5/6) * 100%</code>) or you can simply type in the
+    percentages yourself.</p>
   <p>If we want our article to look like the screenshot in <b>Figure 1</b>, the Head and Foot
     should be full width, the Body should be a majority of the full width, and the sidebars
     should be the remainder, equal in length. For the middle part, 20% + 60% + 20% seems about right,
@@ -276,22 +251,22 @@
 .Article {.o-FlexContainer;}
 
 .Body  {
-  width: @3o5;
+  width: 60%;
 }
 .Head  {
   .flex-order(-1);
-  width: @1o1; <small>// or you could use @5o5 here to be consistent</small>
+  width: 100%;
 }
 .Foot  {
   .flex-order(1);
-  width: @1o1; <small>// or you could use @5o5 here to be consistent</small>
+  width: 100%;
 }
 .Side1 {
   .flex-order(-1);
-  width: @1o5;
+  width: 20%;
 }
 .Side2 {
-  width: @1o5;
+  width: 20%;
 }
 </pre>
     <div class="o-FlexContainer">
@@ -319,6 +294,14 @@
     list of combinations).</p>
   <pre>
 <small>// golden widths:</small>
+<span class="c__Arg">@golden0</span>:  <span class="c__Cst">100%</span>;
+<span class="c__Arg">@golden1</span>:  <span class="c__Cst">61.803%</span>;
+<span class="c__Arg">@golden2</span>:  <span class="c__Cst">38.197%</span>;
+<span class="c__Arg">@golden3</span>:  <span class="c__Cst">23.607%</span>;
+<span class="c__Arg">@golden4</span>:  <span class="c__Cst">14.590%</span>;
+<span class="c__Arg">@golden3c</span>: <span class="c__Cst">76.393%</span>;
+<span class="c__Arg">@golden4c</span>: <span class="c__Cst">85.410%</span>;
+<span class="c__Sel">.u-w_p0 </span> {<span class="c__Prp">width</span>: <span class="c__Arg">@golden0</span>  <span class="c__Ctl">!important</span>;}
 <span class="c__Sel">.u-w_p1 </span> {<span class="c__Prp">width</span>: <span class="c__Arg">@golden1</span>  <span class="c__Ctl">!important</span>;}
 <span class="c__Sel">.u-w_p2 </span> {<span class="c__Prp">width</span>: <span class="c__Arg">@golden2</span>  <span class="c__Ctl">!important</span>;}
 <span class="c__Sel">.u-w_p3 </span> {<span class="c__Prp">width</span>: <span class="c__Arg">@golden3</span>  <span class="c__Ctl">!important</span>;}
