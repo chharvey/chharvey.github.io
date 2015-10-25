@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>Limit Definitions Quiz Answers</h1>
-<h6 class="!ta:cr"><a href="intro.html">Site Map</a></h6>
+<h6 class="!ta:c"><a href="intro.html">Site Map</a></h6>
 <?php
 $yourscore = 0;
 $totalscore = 0;
@@ -317,7 +317,7 @@ else
 echo'</h3>';
 ?>
 
-<h2 class="!ta:cr"><a href="intro.html">Site Map</a></h2>
+<h2 class="!ta:c"><a href="intro.html">Site Map</a></h2>
 
 </body>
 </html>
