@@ -7,7 +7,7 @@
 
 <body>
 <h1>Limits Test Answers</h1>
-<h6 style="text-align: center;"><a href="intro.html">Site Map</a></h6>
+<h6 class="!ta:c"><a href="intro.html">Site Map</a></h6>
 <?php
 $yourscore = 0;
 $totalscore=0;
