@@ -77,10 +77,10 @@ function makepretty() {
         $(square0).addClass('js-square--' + square0pos)
         cases[square0pos](this)
       }
+      // TODO: create array by using filtered jquery object, instead of pushing
       for (var i = 1; i <= 12; i++) {
         sq_arr.push('.c-Spiral > li:nth-child(' + i + ') > .c-Square')
       }
-      // TODO: create array by using filtered jquery object, instead of pushing
       new Spiral($('.c-Spiral').width(), [0,0], sq_arr[0], 'right', sq_arr.slice(1))
     })()
     /**
