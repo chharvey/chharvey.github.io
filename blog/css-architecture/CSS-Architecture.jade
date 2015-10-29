@@ -5,10 +5,10 @@ html(lang="en",xmlns="http://www.w3.org/1999/xhtml")
     meta(charset="UTF-8")
     meta(name="author",content="Christopher H. Harvey")
     meta(name="description",content="A brief summary on how to organize your CSS.")
-    meta(name="keywords",content="lists, ordered, unordered, association")
+    meta(name="keywords",content="css, code organization")
     link(rel="stylesheet",href="../bower_components/normalize.css/normalize.css")
     link(rel="stylesheet",href="../bower_components/xmeter/xmeter.css")
-    link(rel="stylesheet",href="../core/styles/project.css")
+    link(rel="stylesheet",href="../core/styles/core.css")
   body.t-GoldenBody.t-GoldenBody--Right
     p(style="position:fixed;font-weight:bold;font-size:1.5rem;color:red;") WARNING: THIS DRAFT IS INCOMPLETE AND POSSIBLY EVEN INCORRECT. DO NOT CITE OR REFERENCE IT. IT WILL BE MERGED INTO ANOTHER DOCUMENT AND RELEASED AT A LATER TIME.
     main.o-Content.c-Document.c-Document--draft(data-status="draft",itemscope="",itemtype="https://schema.org/Article")
@@ -27,11 +27,11 @@ html(lang="en",xmlns="http://www.w3.org/1999/xhtml")
           dt Version History
           dd.update
             time(datetime="2015-03-27") Mar 27, 2015
-          dd.update(itemprop="dateModified")
+          dd.update
             time(datetime="2015-04-09 17:54") Apr 8, 2015 #[span.tod 5:54 PM]
-            span.o-Textbox.c-Label.c-Label--Dang Latest
-        figure
-          h2 Table of Contents
+          dd.update(itemprop="dateModified")
+            time(datetime="2015-10-03 12:13") Oct 3, 2015 #[span.tod 12:13 PM]
+            small.o-Textbox.c-Label.c-Label--dang(class="!ml:1") Latest
       p.c-Lede.
         Define properties, selectors, and stylesheets in order of increasing specificity.
         Based off of #[a(rel="external",href="http://itcss.io/") Harry Roberts&rsquo;s Theory of ITCSS].
@@ -40,62 +40,71 @@ html(lang="en",xmlns="http://www.w3.org/1999/xhtml")
         p.
           CSS properties should be grouped by order of decreasing structure definition.
           The inverted pyramid below illustrates how CSS properties are related.
-        img(src="images/css-pyramid-props.svg",alt="An inverted pyramid illustrates how \
-  CSS properties are related. The top contains structural properties, the middle contains \
-  textual properties, and the bottom contains cosmetic properties.")
+        img(src="images/css-pyramid-props.svg",alt="An inverted pyramid illustrates how CSS properties are related. The top contains layout and structure, the middle contains typography, and the bottom contains cosmetics.")
         p.
-          The top base of the pyramid contains properties that set up foundation and structure,
-          such as display and position. The middle contains content, font, and text properties.
-          Notice how container is defined before content. Then we finish with low-level
-          cosmetic properties, such as color, at the vertex on the bottom.
+          The top base of the pyramid contains properties that set up foundation and layout,
+          such as display and position. The middle contains typographical structure, like font and text alignment.
+          Then we finish with low-level cosmetic properties,
+          such as color, at the vertex on the bottom.
         p.
-          Authors are encouraged to define properties within a CSS block or ruleset in the order shown
+          Define properties within a CSS block or ruleset in the order shown
           from top to bottom in the pyramid. This pyramid can be used to serve another purpose, however:
           CSS classes can be split into designated responsibilities, that is, authors may use
           separate classes for structural vs. textual vs. cosmetic properties. This makes the CSS
           more modular and reusable.
         p Use this outline as a guide to ordering/grouping CSS properties.
-        p: small.
+        p.
           #[strong Note:] This is not a complete list of all CSS properties.
           If a property is not listed, use your best guess for where to place it.
         ol
-          li structural properties:
+          li Layout:
             ol
               li display
-              li width, height
-              li box-sizing
-              li padding
-              li border-width
-              li margin
-              li positioning and float
+              li position, top, left, bottom, right
+              li float, clear
               li z-index
+              li vertical-align
+          li Box Structure:
+            ol
+              li box-sizing
+              li width, height
+              li padding, margin
+              li flex-direction, flex-wrap, justify-content, align-content, align-items, flex, order
               li transformations
-          li textual properties:
+          li Text Structure:
             ol
-              li content and counter
-              li font
-              li line-height
-              li letter-spacing
-              li text-align
-              li text-indent
-              li white-space
-              li list-style
-          li cosmetic properties:
+              li font[-style|-variant|-weight|-size|-family]? #[small.o-Textbox.c-Label.c-Label--skss inherited]
+              li line-height                                  #[small.o-Textbox.c-Label.c-Label--skss inherited]
+              li letter-spacing                               #[small.o-Textbox.c-Label.c-Label--skss inherited]
+              li word-spacing                                 #[small.o-Textbox.c-Label.c-Label--skss inherited]
+              li text-align                                   #[small.o-Textbox.c-Label.c-Label--skss inherited]
+              li text-indent                                  #[small.o-Textbox.c-Label.c-Label--skss inherited]
+              li white-space                                  #[small.o-Textbox.c-Label.c-Label--skss inherited]
+              li overflow-wrap (word-wrap)                    #[small.o-Textbox.c-Label.c-Label--skss inherited]
+              li column[-count|-width|s]
+              li page-break-[before|after]
+          li Box Cosmetics:
             ol
-              li border-style
-              li border-color
-              li border-radius
+              li border[-width|-style|-color|-radius]?
               li outline
               li box-shadow
-              li text-transform
-              li text-decoration
-              li text-shadow
-              li color
-              li background
-              li opacity
-              li visibility
+              li background[-image|-position|-size|-repeat|-attachment|-origin|-clip|-color]
               li overflow
-              li cursor
+              li opacity
+              li visibility                          #[small.o-Textbox.c-Label.c-Label--skss inherited]
+          li Text Cosmetics:
+            ol
+              li text-rendering                      #[small.o-Textbox.c-Label.c-Label--skss inherited]
+              li text-transform                      #[small.o-Textbox.c-Label.c-Label--skss inherited]
+              li text-decoration
+              li text-shadow                         #[small.o-Textbox.c-Label.c-Label--skss inherited]
+              li text-overflow
+              li list-style[-type|-position|-image]? #[small.o-Textbox.c-Label.c-Label--skss inherited]
+              li quotes
+              li color                               #[small.o-Textbox.c-Label.c-Label--skss inherited]
+          li Other:
+            ol
+              li cursor                              #[small.o-Textbox.c-Label.c-Label--skss inherited]
               li transition
       section
         h2 Stylesheet Order
@@ -105,16 +114,25 @@ html(lang="en",xmlns="http://www.w3.org/1999/xhtml")
           This section discusses CSS at a higher level: different types of stylesheets and the order
           in which to load them into your project.
         section
-          h3 Metrics
+          h3 Key Metrics
           p.
             There are 3 metrics on which to base your organization of your stylesheets.
             This section is a more abstract discussion. See the next section for a tangible examples.
+          ul
+            li Generic &rarr; Explicit
+            li Far-Reaching &rarr; Localized
+            li Low Specificity &rarr; High Specificity
           section
-            h4 Generic &rarr; Explicit
-          section
-            h4 Far-Reaching &rarr; Localized
-          section
-            h4 Low Specificity &rarr; High Specificity
+            h4 Discussion
+            p.
+              What might not be apparent is that there may be some cases in which
+              moving from one end to the other end of one spectrum might correspond
+              to moving in the #[em opposite] direction on another spectrum. That is,
+              some selectors that are more explicit than others may not always be
+              more localized or have a higher specificity. It&rsquo;s important
+              to understand, though, that your selectors should be put in order that
+              #[em on average] corresponds to moving from the left to right in the
+              metrics discussed above.
         section
           h3 Categories of Stylesheets
           p.

@@ -1,0 +1,139 @@
+CSS Inheritance - DRAFT
+Harry Roberts says to <q cite=”https://www.youtube.com/watch?v=R-BX4N8egEc&hd=1&t=8m30s”>defer more work to the HTML.</q> He says that HTML, by definition, is self-descriptive, while CSS is not. It is beneficial to distribute the styling work evenly between the two.
+While I can see his point, I don’t agree that HTML should have any information about styling an element, apart from its <code>class</code> attribute. That’s the whole point of <a>separation of concerns</a>. Yes, there are some benefits to Harry’s strategy (such as reducing CSS bloat) but I wholeheartedly believe that the needs of HTML should take precedence over the needs of CSS. We shouldn’t be changing our HTML to make CSS more efficient. It should be the other way around. After all, <a>Content is King</a>.
+“Inclusion” (single-class)
+Summary
+CSS classes do not inherit from one another. Each class has its own set of properties and is independent from other classes. ‘Subclasses’ simply repeat the properties of their parents, and have more properties to make them special cases.
+Figure 2:
+.para {
+    color: #333;
+    text-align: justify;
+}
+.specialpara {
+    color: black;        /* a property of `.para` */
+    text-align: justify; /* a property of `.para` */
+    line-height: 1.5em;
+}
+<p class=”specialpara”>Special paragraph.</p>
+Discussion
+Figure 2 above is actually worse than the “Implicit Extension” case of class inheritance (Figure 1), but it is deemed “still pretty bad” with the help of preprocessors. More on that later.
+For pure CSS though this is the worst case. Subclasses include all the properties of their parents, and maybe some extra properties. The CSS is not DRY at all. Everything needs to be repeated, maintenance is extremely high, and the CSS is bloated, which means the browser needs to download a lot of duplicate information. If one property in the parent class needs to be changed, that same property needs to be changed in all its subclasses. Let’s say you want to change the color of .para to #111. Then you would have to change it in the .para class as well as the .specialpara class.
+Preprocessors
+To make your life simpler you could use a preprocessor such as Less. A preprocessor takes care of the nuts and bolts of repeated code via scripting. In this example, you would write (syntax varies):
+Figure 3:
+.para {
+    color: black;
+    text-align: justify;
+}
+.specialpara:include(.para) /* syntax varies */ {
+    line-height: 1.5em;
+}
+A preprocessor would then take all the properties in the .para class (the color and text-align) and include them into the .specialpara class, thereby outputting the CSS shown in Figure 2.
+Such a preprocessor would make your life easy because the Less code (or whatever language) is much more DRY and maintainable. If you want to change the color of .para to #111, you only have to do it once. However, this method doesn’t make the compiled CSS any better for the browser. The output CSS would be the same as Figure 2, so the user agent would still need to download and interpret the same amount of duplicate code. An advantage is that subclassing is taken care of in the CSS, not the HTML. This means two things: (1) by reading the HTML, you would not need to know that a `.specialpara` is a special case of a `.para`, and (2) even if the HTML author were aware that .specialpara is a special case of .para, he would not need to add the .para class to the element in question. Simply writing <p class=”specialpara”> is sufficient to style the p element with the properties of .para. The HTML is DRY, but the CSS is not.
+“implicit extension” (multi-class)
+Summary
+This is Harry Roberts’ approach. Each class has its own set of properties and is independent from other classes. ‘Subclasses’ simply have more properties to make them special cases. Subclasses do not inherit from parent classes, and subclassing is not explicit in the actual CSS. If it is even shown at all, it is in the comments.
+Figure 1:
+.para {
+    color: #333;
+    text-align: justify;
+}
+/*.para*/.specialpara {
+    /* extends `.para` implicitly: this can be done in a comment or in a quasi-qualified selector as shown here */
+    line-height: 1.5em;
+}
+<p class=”specialpara”>Only line-height is changed. Not really an OOCSS object.</p>
+<p class=”para specialpara”>True OOCSS object.</p>
+Discussion
+The subclassing is taken care of in the HTML. In other words, the CSS code contains no indication that .specialpara is a special case of .para (other than the obvious nomenclature, commenting, etc). The HTML, however, contains this information. HTML should not contain styling information. While this CSS may be very efficient and DRY, we have a tradeoff: The HTML is now less efficient and less maintainable. The HTML author must be aware of CSS class-subclass relationships and implement them.
+
+“qualification”
+Summary
+Each class has its own set of properties and is independent from other classes. ‘Subclasses’ simply have more properties to make them special cases. Subclasses inherit properties from their parent classes, but only because they are qualified. This makes class-subclass relationships explicit in the CSS, however it must also be explicit in the HTML.
+Figure 4:
+.para {
+	color: #333;
+	text-align: justify;
+}
+.para.specialpara {
+	/* extends `.para` explicitly:
+	(indication of extension is in this selector) */
+	line-height: 1.5em;
+}
+<p class=”specialpara”>Nothing changed</p>
+<p class=”para specialpara”>Special paragraph.</p>
+Discussion
+This method is equivalent to implicit extension, except the qualifier is explicit. The HTML is equivalent: the code requires multiple classes and the HTML author needs to be aware of class-subclass relationships, but that is okay since this information can be read in the CSS selectors.
+The good news is that p.specialpara will not render as desired unless you add clas .para. The bad news is it essentially forces the HTML to have a certain syntax, which does not follow my philosophy of <a>Content is King</a> (the idea that HTML should not be written to meet the needs of CSS).
+The other upside is that the specificity of a subclass is greater than its parent class. This means that if a subclass and its parent had conflicting properties, the subclass would override its parent, as OOP classes should. Raising specificity isn’t always a bad thing: we may use it to our advantage in this case. Because the subclass has a higher specificity, it wouldn’t matter where the definition appears in the stylesheet. (It doesn’t necessarily have to be defined after the parent class.)
+There are other downsides: (1) the qualifier is less efficient (because of how browsers read CSS), but (2) more importantly, the qualifier has a higher <a>specificity</a>. This means if you want to override some styles in a particular <code>p.para.specialpara</code> (let’s say you want to change the line-height of an intro special paragraph to 1.8), you will have to write a more specific selector. <code>.intro</code> won’t cut it; you would need to write <code>.para.intro</code>. As Harry says, you’re only digging the hole deeper.
+It’s okay to still use Extends, but just not to “extend” a class. That is if .class is a class and .subclass is a class that “extends” .class (in the OOP sense), then just define .class.subclass. However, .subclass may still Extend (in Less terms) another class, call it .pattern, if .pattern contains properties that are integral to .subclass (or .class for that matter).
+Another Example
+Figure 5:
+p {
+	color: #333;
+	text-align: justify;
+}
+p.specialpara {
+	/* extends element p explicitly */
+	line-height: 1.5em;
+}
+<p class=”specialpara”>Special paragraph.</p>
+This example is essentially the same as above, except the selector being extended is an element selector rather than a class selector. A disadvantage is that this method only works if an element’s style (rather than a class’s style) is extended. An advantage is that the HTML author has to write the `p` element name in the tag anyway, so there’s no extra work done on his part.
+The big disadvantage, though, is that you’re extending an element. <a>OOCSS classes should be classes, not elements.</a> Elements should be instances of these classes (a.k.a. objects). So from an OOP perspective, a class can’t really extend an object.
+“extension”  (single-class)
+Figure 6:
+.para,
+.specialpara {
+	color: #333;
+	text-align: justify;
+}
+.specialpara {
+	/* extends class .para explicitly: */
+	/* (indication of extension is in the above selector) */
+	line-height: 1.5em;
+}
+The inheritance is taken care of in the CSS. Any element with class .specialpara is automatically styled with the properties of .para. The HTML author only needs to use one class, so the HTML is DRY. CSS is also DRY because changes to parent class (.para) are immediately taken care of in all subclasses. The disadvantage is that if the CSS designer wants to create a new subclass of .para, he needs to add it to the list of classes in the parent selector:
+Figure 7:
+.para,
+.specialpara,
+.anotherspecialpara {
+	color: #333;
+	text-align: justify;
+}
+.specialpara {
+	line-height: 1.5em;
+}
+.anotherspecialpara {
+	font-weight: bold;
+}
+Preprocessors
+Again, the use of a preprocessor can make your life easier. In this example, you would write (syntax varies):
+Figure 8:
+.para {
+	color: black;
+	text-align: justify;
+}
+.specialpara:extend(.para) /* syntax varies */ {
+	line-height: 1.5em;
+}
+.anotherspecialpara:extend(.para) /* syntax varies */ {
+	font-weight: bold;
+}
+A preprocessor would then insert the .specialpara classname behind every instance of the .para classname automatically, so you wouldn’t have to worry about it. The output would be the same as that shown in Figure 6.
+The Less code (or whatever language) is even more DRY and maintainable. If you want to change the color of .para to #111, you only have to do it once. Creating a new subclass is easier as well, since you wouldn’t have to add .anotherspecialpara to the list of classes that follow .para.
+Still, (1) by reading the HTML, you would not need to know that a `.specialpara` is a special case of a `.para`, and (2) even if the HTML author were aware that .specialpara is a special case of .para, he would not need to add the .para class to the element in question. Simply writing <p class=”specialpara”> is sufficient to style the p element with the properties of .para. The HTML and CSS are both DRY.
+
+Using a preprocessor would again make your life much easier:
+.para {
+	color: #333;
+	text-align: justify;
+}
+.specialpara {
+	extend: .para;     /*(or some other kind of syntax)*/
+	line-height: 1.5em;
+}
+.anotherspecialpara {
+	extend: .para;     /*(or some other kind of syntax)*/
+	font-weight: bold;
+}
