@@ -18,12 +18,12 @@
 @h6_font_size: @chh_line_height * ( 8/12); // 1.5 * 0.666(vru) == 1.000(rem)
 
 // box height, as a multiple of 1vru; that is, coefficient of line-height
-@h1_coefficient: 2;
-@h2_coefficient: 2;
-@h3_coefficient: 1;
-@h4_coefficient: 1;
-@h5_coefficient: 1;
-@h6_coefficient: 1;
+@h1_vru_box: 2;
+@h2_vru_box: 2;
+@h3_vru_box: 1;
+@h4_vru_box: 1;
+@h5_vru_box: 1;
+@h6_vru_box: 1;
 
 // top spacing, in vrus    // bottom spacing, in vrus
 @h1_vru_top: 2.000;        @h1_vru_bot: 1.000;
@@ -57,42 +57,51 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 800; // "ExtraBlack", special font-weight for 'Optima' family
   text-rendering: geometricPrecision;
 }
-h1 {
+h1.old {
   #CHH .VARS();
   font-variant: small-caps;
   text-align: center;
   color: @chh_color_h_major;
   @media screen {
-    .heading(@h1_font_size; @h1_coefficient; @h1_vru_top; @h1_vru_bot);
+    .heading(@h1_font_size; @h1_vru_box; @h1_vru_top; @h1_vru_bot);
+  }
+}
+h1 {
+  // new h1
+  text-align: center;
+  font-weight: 100;
+  color: @chh_color_h_major;
+  @media screen {
+    .heading(5; 3; @h1_vru_top; @h1_vru_bot);
   }
 }
 h2 {
-  #CHH .VARS();
   #CHH .hr-bottom(1px; solid; @space: 0); // alternative to .border-vert(bottom; 1px); border-bottom-style: solid;
+  #CHH .VARS();
   color: @chh_color_h_minor;
   @media screen {
-    .heading(@h2_font_size; @h2_coefficient; @h2_vru_top; @h2_vru_bot);
+    .heading(@h2_font_size; @h2_vru_box; @h2_vru_top; @h2_vru_bot);
   }
 }
 h3 {
   font-variant: small-caps;
   @media screen {
-    .heading(@h3_font_size; @h3_coefficient; @h3_vru_top; @h3_vru_bot);
+    .heading(@h3_font_size; @h3_vru_box; @h3_vru_top; @h3_vru_bot);
   }
 }
 h4 {
   font-style: italic;
   @media screen {
-    .heading(@h4_font_size; @h4_coefficient; @h4_vru_top; @h4_vru_bot);
+    .heading(@h4_font_size; @h4_vru_box; @h4_vru_top; @h4_vru_bot);
   }
 }
 h5 {
-  #CHH .VARS();
   font-style: italic;
   font-weight: 400;
+  #CHH .VARS();
   color: @chh_color_h_minor;
   @media screen {
-    .heading(@h5_font_size; @h5_coefficient; @h5_vru_top; @h5_vru_bot);
+    .heading(@h5_font_size; @h5_vru_box; @h5_vru_top; @h5_vru_bot);
   }
 }
 h6 {
@@ -100,6 +109,6 @@ h6 {
   font-weight: 400;
   font-variant: small-caps;
   @media screen {
-    .heading(@h6_font_size; @h6_coefficient; @h6_vru_top; @h6_vru_bot);
+    .heading(@h6_font_size; @h6_vru_box; @h6_vru_top; @h6_vru_bot);
   }
 }
