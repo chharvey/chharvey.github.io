@@ -3,6 +3,8 @@
     _obj.GoldenBody.less
 \*################################*/
 @import (reference) url('__settings.less');
+@import (reference) url('../../../node_modules/xmeter/src/__tool.fallback.transition.less');
+@import (reference) url('../../../node_modules/xmeter/src/__tool.module.clearfix.less');
 
 
 // The GoldenBody theme represents a `body` Element that may be broken up into 3 objects, or
@@ -34,10 +36,11 @@
 
 .o-GoldenBody {
   @media screen { // @s
-    // contains 1 column
-    position: relative;
+    position: relative; // only because there are positioned children
     #CHH .VARS();
     margin-bottom: 8*@chh_vru;
+    #XMETER .transition(margin; @chh_ani_short);
+    #XMETER .clearfix();
   }
   @media screen and (min-width: 30em) { // @sK
     // contains 1 column
@@ -57,93 +60,82 @@
 }
 .o-GoldenBody--flip {}
 
+.o-GoldenBody__Content,
+.o-GoldenBody__Sidebar {
+}
 .o-GoldenBody__Content {
   @media screen and (min-width: 45em) { // @sM
     // 2 columns: p2 + 'p1'
+    position: relative;
     #CHH .CONSTS();
     width: @golden1;
-    margin-left:  @golden2;
-    margin-right: 0;
+    left: @golden2;
     .o-GoldenBody--flip & {
       // 2 columns: 'p1' + p2
       #CHH .CONSTS();
-      margin-left:  0;
-      margin-right: @golden2;
+      left: 0;
     }
   }
   @media screen and (min-width: 60em) { // @sG
     // 3 columns: p3 + 'p1' + p4
     #CHH .CONSTS();
-    margin-left:  @golden3;
-    margin-right: @golden4;
+    left: @golden3;
     .o-GoldenBody--flip & {
       // 3 columns: p4 + 'p1' + p3
       #CHH .CONSTS();
-      margin-left:  @golden4;
-      margin-right: @golden3;
+      left: @golden4;
     }
   }
 }
 
 .o-GoldenBody__Sidebar {
-}
-.o-GoldenBody__Sidebar--major,
-.o-GoldenBody__Sidebar--minor {
   @media screen and (min-width: 45em) { // @sM
     // 2 columns: 'p2' + p1
-    left: 0;
+    position: absolute;
     #CHH .CONSTS();
-    width: @golden3;        // @golden1 within a @golden2
-    margin-left:  @golden5; // @golden3 within a @golden2
-    margin-right: @golden6; // @golden4 within a @golden2
+    width: @golden2;
+    left: 0;
     .o-GoldenBody--flip & {
       // 2 columns: p1 + 'p2'
-      left: initial;
-      right: 0;
       #CHH .CONSTS();
-      margin-left:  @golden6; // @golden4 within a @golden2
-      margin-right: @golden5; // @golden3 within a @golden2
+      left: @golden1;
     }
   }
   @media screen and (min-width: 60em) { // @sG
-    // 3 columns: 'p3' + p1 + p4 (major)
-    // 3 columns: p3 + p1 + 'p4' (minor)
-    position: absolute;
+    // 3 columns: 'p3' + p1 + 'p4'
+    top: 0;
   }
 }
 .o-GoldenBody__Sidebar--major {
+  @media screen and (min-width: 45em) { // @sM
+    // 2 columns: 'p2' + p1
+    top: 0;
+  }
   @media screen and (min-width: 60em) { // @sG
     // 3 columns: 'p3' + p1 + p4
-    left: 0;
     #CHH .CONSTS();
-    width: @golden4;        // @golden1 within a @golden3
-    margin-left:  @golden6; // @golden3 within a @golden3
-    margin-right: @golden7; // @golden4 within a @golden3
+    width: @golden3;
+    left: 0;
     .o-GoldenBody--flip & {
       // 3 columns: p4 + p1 + 'p3'
-      left: initial;
-      right: 0;
       #CHH .CONSTS();
-      margin-left:  @golden7; // @golden4 within a @golden3
-      margin-right: @golden6; // @golden3 within a @golden3
+      left: auto;
+      right: 0;
     }
   }
 }
 .o-GoldenBody__Sidebar--minor {
   @media screen and (min-width: 60em) { // @sG
     // 3 columns: p3 + p1 + 'p4'
-    right: 0;
     #CHH .CONSTS();
-    width: @golden5;        // @golden1 within a @golden4
-    margin-left:  @golden8; // @golden4 within a @golden4
-    margin-right: @golden7; // @golden3 within a @golden4
+    width: @golden4;
+    left: auto;
+    right: 0;
     .o-GoldenBody--flip & {
       // 3 columns: 'p4' + p1 + p3
-      left: 0;
-      right: initial;
       #CHH .CONSTS();
-      margin-left:  @golden7; // @golden3 within a @golden4
-      margin-right: @golden8; // @golden4 within a @golden4
+      left: 0;
+      right: auto;
     }
   }
 }
