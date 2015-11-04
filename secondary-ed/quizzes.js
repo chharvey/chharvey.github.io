@@ -1,12 +1,12 @@
 /*
  * new class HTMLtext
  * field string text
- * 
+ *
  * new class AnswerChoice
  * field HTMLtext answertext
  * field double award must be >= 0 but lt= 1
- * 
- * 
+ *
+ *
  * new class Question_MultChoice
  * field HTMLtext questiontext
  * var answer;
@@ -14,10 +14,10 @@
  * method addAnswer(text) {
  *  answer = new AnswerChoice(text, 1);
  * }
- * method addDistractor(n, text) {  
+ * method addDistractor(n, text) {
  *  distractors[n].answertext = text;
  * }
- * 
+ *
  * new class Question-SelAll
  * field int answers must be > 0
  * field AnswerChoice answer2
@@ -27,5 +27,5 @@
  */
 
 function addAnswer(text) {
-  answer = new AnswerChoice(text, 1);
+  answer = new AnswerChoice(text, 1)
 }
