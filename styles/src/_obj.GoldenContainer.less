@@ -24,6 +24,10 @@
 // `__Sidebar--major` - a type of sidebar: primary content
 // `__Sidebar--minor` - a type of sidebar: secondary content
 //
+// `GoldenContainer__Content` also has subcomponents:
+// `__SideMajor` - an object inside Content to be pushed to the `Sidebar--major` component’s area
+// `__SideMinor` - an object inside Content to be pushed to the `Sidebar--minor` component’s area
+//
 // NOTE that a `Sidebar` cannot be inside the `Content` or its positioning and width will be
 // relative to the `Content`, instead of the `GoldenContainer` as intended.
 //
@@ -161,6 +165,50 @@
       #CHH .CONSTS();
       left: 0;
       right: auto;
+    }
+  }
+}
+
+.o-GoldenContainer__Content__SideMajor,
+.o-GoldenContainer__Content__SideMinor {
+  @media screen and (min-width: 45em) { // @sM
+    // 2 columns: 'p2' + p1
+    position: absolute;
+    #CHH .CONSTS();
+    width: (@phi2/@phi1 * 100%);
+    left: -(@phi2/@phi1 * 100%);
+  }
+  .o-GoldenContainer--flip & {
+    @media screen and (min-width: 45em) { // @sM
+      // 2 columns: p1 + 'p2'
+      // #CHH .CONSTS();
+      // left: 0;
+    }
+  }
+}
+.o-GoldenContainer__Content__SideMajor {
+  @media screen and (min-width: 60em) { // @sG
+    // 3 columns: 'p3' + p1 + p4
+    #CHH .CONSTS();
+    width: (@phi3/@phi1 * 100%);
+    left: -(@phi3/@phi1 * 100%);
+  }
+  .o-GoldenContainer--flip & {
+    @media screen and (min-width: 60em) { // @sG
+      // 3 columns: p4 + p1 + 'p3'
+    }
+  }
+}
+.o-GoldenContainer__Content__SideMinor {
+  @media screen and (min-width: 60em) { // @sG
+    // 3 columns: p3 + p1 + 'p4'
+    #CHH .CONSTS();
+    width: (@phi4/@phi1 * 100%);
+    left:  (@phi1/@phi1 * 100%);
+  }
+  .o-GoldenContainer--flip & {
+    @media screen and (min-width: 60em) { // @sG
+      // 3 columns: 'p4' + p1 + p3
     }
   }
 }
