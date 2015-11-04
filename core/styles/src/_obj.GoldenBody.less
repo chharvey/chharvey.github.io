@@ -37,29 +37,42 @@
 // ^updated
 // : 2015-11-03
 
+// variables for container’s horizontal spacing
+@hspace_s: 0.5rem;
+@hspace_M: 1rem;
+@hspace_G: @hspace_M;
+@hspace_T: 2rem;
+
 .o-GoldenBody {
   @media screen { // @s
     position: relative; // only because there are positioned children
+    margin-left:  @hspace_s;
+    margin-right: @hspace_s;
     #CHH .VARS();
-    margin-bottom: 8*@chh_vru;
+    margin-bottom: 8*@chh_vru; // TODO may move to `body` element
     #XMETER .transition(margin; @chh_ani_short);
   }
   @media screen and (min-width: 45em) { // @sM
     // contains 2 columns: p2 + p1
-    margin-left:  2rem;
-    margin-right: 2rem;
+    margin-left:  @hspace_M;
+    margin-right: @hspace_M;
   }
   @media screen and (min-width: 60em) { // @sG
     // contains 3 columns: p3 + p1 + p4
-    margin-left:  0;
-    margin-right: 0;
+  }
+  @media screen and (min-width: 75em) { // @sT
+    margin-left:  @hspace_T;
+    margin-right: @hspace_T;
   }
 }
 .o-GoldenBody--flip {}
 
 .o-GoldenBody__Content,
 .o-GoldenBody__Sidebar {
+  #CHH .VARS();
+  #XMETER .transition(left, top, width, padding; @chh_ani_short);
 }
+
 .o-GoldenBody__Content {
   @media screen and (min-width: 45em) { // @sM
     // 2 columns: p2 + 'p1'
@@ -67,22 +80,37 @@
     #CHH .CONSTS();
     left: @golden2;
     width: @golden1;
-    margin-left:  0;
-    margin-right: 0;
-    .o-GoldenBody--flip & {
-      // 2 columns: 'p1' + p2
-      #CHH .CONSTS();
-      left: 0;
-    }
+    padding-left: @hspace_M;
   }
   @media screen and (min-width: 60em) { // @sG
     // 3 columns: p3 + 'p1' + p4
     #CHH .CONSTS();
     left: @golden3;
-    .o-GoldenBody--flip & {
+    padding-left:  @hspace_G;
+    padding-right: @hspace_G;
+  }
+  @media screen and (min-width: 75em) { // @sT
+    padding-left:  @hspace_T;
+    padding-right: @hspace_T;
+  }
+  .o-GoldenBody--flip & {
+    @media screen and (min-width: 45em) { // @sM
+      // 2 columns: 'p1' + p2
+      #CHH .CONSTS();
+      left: 0;
+      padding-left: initial;
+      padding-right: @hspace_M;
+    }
+    @media screen and (min-width: 60em) { // @sG
       // 3 columns: p4 + 'p1' + p3
       #CHH .CONSTS();
       left: @golden4;
+      padding-left:  @hspace_G; // FIXME duplicate code
+      padding-right: @hspace_G; // FIXME duplicate code
+    }
+    @media screen and (min-width: 75em) { // @sT
+      padding-left:  @hspace_T; // FIXME duplicate code
+      padding-right: @hspace_T; // FIXME duplicate code
     }
   }
 }
@@ -94,7 +122,9 @@
     #CHH .CONSTS();
     left: 0;
     width: @golden2;
-    .o-GoldenBody--flip & {
+  }
+  .o-GoldenBody--flip & {
+    @media screen and (min-width: 45em) { // @sM
       // 2 columns: p1 + 'p2'
       #CHH .CONSTS();
       left: @golden1;
@@ -111,7 +141,9 @@
     #CHH .CONSTS();
     left: 0;
     width: @golden3;
-    .o-GoldenBody--flip & {
+  }
+  .o-GoldenBody--flip & {
+    @media screen and (min-width: 60em) { // @sG
       // 3 columns: p4 + p1 + 'p3'
       #CHH .CONSTS();
       left: auto;
@@ -127,7 +159,9 @@
     right: 0;
     top: 0;
     width: @golden4;
-    .o-GoldenBody--flip & {
+  }
+  .o-GoldenBody--flip & {
+    @media screen and (min-width: 60em) { // @sG
       // 3 columns: 'p4' + p1 + p3
       #CHH .CONSTS();
       left: 0;
