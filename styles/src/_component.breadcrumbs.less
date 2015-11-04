@@ -1,0 +1,88 @@
+
+/*################################*\
+    _breadcrumbs.less
+\*################################*/
+@import (reference) url('../../node_modules/xmeter/src/__tool.fallback.transition.less');
+@import (reference) url('__settings.less');
+
+
+// A Breadcrumbs component.
+//
+// ^author
+// : Chris Harvey
+// ^updated
+// : 2014-06-18
+.Bc {
+  #CHH .CONSTS();
+  width:        @golden4; // @golden1 within a @golden3
+  margin-left:  @golden7; // @golden4 within a @golden3
+  margin-right: @golden6; // @golden3 within a @golden3
+  position: fixed;
+  left: 0;
+  #CHH .VARS();
+  top: @chh_vru;
+  z-index: 1;
+  @media print {
+    display: none;
+  }
+}
+
+// A list of breadcrumbs inside the component.
+// The list either contains ancestor pages (including parent),
+// sibling pages (including the same page), or children pages.
+//
+// Ideas for symbols:
+// - '\22a5' : `\bot` or 'up tack'
+// - '\22a4' : `\top` or 'down tack'
+// - '\22a2' : `\vdash` or 'turnstile'
+// - '\22b7' : 'image of'
+// - '\22b6' : 'original of'
+// - '\29df' : 'double-ended multimap'
+//
+// ^author
+// : Chris Harvey
+// ^updated
+// : 2015-01-15
+.Bc > .Anc,
+.Bc > .Sib,
+.Bc > .Child {
+  padding: 0;
+  list-style-type: none;
+}
+
+// An actual breadcrumb link.
+//
+// @bc_brdrr - the border-radius of the `.Crumb` Object.
+// ^author
+// : Chris Harvey
+// ^updated
+// : 2014-09-21
+.Crumb {
+  #CHH .CONSTS();
+  @color_crumb_up_txt:  @chh_color_portal_atlas;
+  @color_crumb_dn_txt:  @chh_color_portal_pbody;
+  @color_crumb_up_bg:   lighten(@color_crumb_up_txt, @golden2); // #c3daff
+  @color_crumb_dn_bg:   lighten(@color_crumb_dn_txt, @golden2); // #ffe8c3
+
+  #CHH .VARS();
+  @bc_brdrr: (@chh_vru / 2);
+  #XMETER .transition(background-color, color; @chh_ani_short);
+  display: block;
+  padding-left: @bc_brdrr;
+  border-radius: @bc_brdrr;
+  line-height: inherit;
+  color:            @color_crumb_up_txt;
+  background-color: @color_crumb_up_bg;
+  cursor: pointer;
+  &:hover {text-decoration: none !important;}
+  &:not([rel~="this"]):hover {
+    background-color: @color_crumb_dn_bg;
+  }
+  &[rel~="this"] {
+    position: relative;
+    left: @bc_brdrr;
+    font-weight: 700;
+    color: @chh_color_bg !important;
+    background-color: @color_crumb_up_txt;
+  }
+}
