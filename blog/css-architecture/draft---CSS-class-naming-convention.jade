@@ -1,0 +1,51 @@
+Please read my article on types of classes before reading this. This article discusses the implementation and naming of those classes.
+Introductory Vocabulary
+DOM — Document Object Model. The hierarchy of elements on the page.
+classname — the name of a class in CSS and/or HTML.
+Lettering Cases
+PascalCase — a compound word with each component begins with a capital letter but finishes in lower case. Acronyms will also follow this convention. Examples: RedValue, BackColor, FatalError, AsceLogo, FirstId.
+camelCase — similar to PascalCase except the first letter of the entire word is lowercase. Examples: redValue, backColor, fatalError, asceLogo, firstId.
+UPPER_CASE — all letters are capitalized and components are separated by an underscore.
+lower_case — all letters are lowercase and components are separated by an underscore.
+Class Names
+There are three levels of classes.
+A parent class represents a pattern independent from other patterns.
+A subclass represents a special case of a parent class. That is, it is the same as the parent class except with a few changes.
+A subcomponent is a pattern that lives inside a parent class. It is literally a child of the parent in the DOM.
+Each parent classname is constructed as follows:
+one lowercase letter, followed by
+one hyphen (-), followed by
+one word in PascalCase
+Example: .c-Callout (a callout)
+Visually, a subclass extends the parent in that it uses the same styles as its parent but tacks on some extra styles. The syntax of a subclass name is as follows:
+the parent classname, followed by
+two hyphens (--), followed by
+the name of the subclass in camelCase
+Example: .c-Callout--register (a special callout used for registration)
+In the DOM, a subcomponent lives inside the parent class. Not all children of a parent class are subcomponents. A child is a subcomponent only if it exists only as a specific piece of the parent class. The syntax of a subcomponent classname is as follows:
+the parent classname, followed by
+two underscores (__), followed by
+the name of the subcomponent in PascalCase
+Example: .c-Callout__Body (the body inside the callout)
+In essence, seeing as parent classes and subcomponents are actual “things,” their names use PascalCase usually in the form nouns. As subclasses are extensions that describe their parent class, their names use camelCase usually in the form of adjectives, or maybe verbs.
+Benefits to this convention:
+very easy to check in HTML:
+If an element’s class contains .o-Parent__Child, then you know for a fact that one of its ancestors in the DOM, most likely its direct parent, should have class .o-Parent. If not, you haven’t used your classes correctly.
+Likewise, if an element’s class contains .o-Thing--special, then you know that it should also have class .o-Thing. This is because if it is a “special thing” then it is also a “thing.” If an element’s classes include a subclass but does not include the parent, you’re using your classes incorrectly.
+Now, surprise, there are more complex cases. There aren’t only Parent Classes, Subclasses, and Subcomponents.
+It is possible for a Subcomponent to be a “thing” and there be other, special types of subcomponents. An example would be .c-Callout__Body--clear, or .c-Callout__Body--inverse. These would be bodies inside the callout but instead of the normal styles, one has a transparent background and the other has inverted colors, for instance. Thus when an element has class .c-Callout__Body--clear, you expect two things to happen. One, it also has class .c-Callout__Body (because it is a callout body), and two, it lives inside an element—maybe its direct parent, but maybe an ancestor further up—that has class .c-Callout.
+You might think the opposite is true as well, but it is not good practice. That is, you should never use the syntax .c-Callout--clear__Body. This says many things.
+First, it says that there must be a .c-Callout--clear. So that’s one more classname you need. If it already exists, great. If not, you need to make it.
+Second, and more importantly, what this says is that you are styling an element a different way (presumably different from .c-Callout__Body) based on the parent it lives in.
+So if it lives inside a .c-Callout, it looks normal, but if it’s inside a .o-Callout--clear, then it should look different. Is that really all that different from using a nested selector, .c-Callout--clear > .Body? Yes, it’s not as bad (the specificity is unaffected), but the concept is the same: style is dependent on location.
+Rather, you should do this: .c-Callout__Body--clear. This says you have a body in a callout, but it is a special type of body. Regardless of what type of callout it’s in. This means the .c-Callout__Body--clear is allowed to live inside a .c-Callout as well as inside a .c-Callout--clear.
+This looks like a child of a certain type of parent. However this is bad 
+ Another example could be .c-Callout
+begins with one required lowercase letter, followed by one required hyphen (-), followed by one required word in PascalCase, followed by, optionally, either two hyphens (--) or two underscores (__) but not both, and then, if either is the case, followed by, in the case of hyphens, a simple or compound word in camelCase and optionally two underscores (__), or in the case of underscores, a simple or compound word in CamelCase and also optionally two hyphens (--) and a word in camelCase.
+.[o|c|u|t]-
+
+Objects
+Objects’ classnames start with `.o-` (obviously “o” stands for Object). T
+
+Typography
+Typefaces

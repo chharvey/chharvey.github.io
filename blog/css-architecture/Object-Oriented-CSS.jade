@@ -1,0 +1,79 @@
+doctype html
+html(lang="en")
+  head
+  body
+    p(style="position:fixed;font-weight:bold;font-size:1.5rem;color:red;") WARNING: THIS DRAFT IS INCOMPLETE AND POSSIBLY EVEN INCORRECT. DO NOT CITE OR REFERENCE IT. IT WILL BE MERGED INTO ANOTHER DOCUMENT AND RELEASED AT A LATER TIME.
+    main
+      header
+        h1 Object-Orienting Your CSS
+        dl.c-Document__Meta
+          dt Author
+          dd(itemprop="author") Christopher H. Harvey
+          dt Description
+          dd(itemprop="description") A brief summary on how to organize your CSS.
+          dt Keywords
+          dd(itemprop="keywords") #[abbr(title="Cascading StyleSheets") CSS]
+          dd(itemprop="keywords") code organization
+          dt Version History
+          dd.update(itemprop="dateModified")
+            time(datetime="2015-08-20 19:06") Aug 20, 2015 #[span.tod 7:06 PM]
+            span.o-Textbox.c-Label.c-Label--Dang Latest
+      section
+        h1 A Brief Introduction
+        p This is a *very* short introduction on object-oriented concepts. In the computer programming world, most data takes the form of an **object**. This object and others like it are made from a template, called a **class**. When you have a class, you can **instantiate** it, in other words, create an object from the template. Classes may have different properties that describe it, such as states and behaviors.
+        p The biggest advantage to object-oriented programming is a feature called **inheritance**. Given a class, you can **extend** it by create another class, called a **subclass**, which takes all the properties of its **parent class**. The subclass will usually have more properties as well; it is a special case of the parent class. In most cases, inheritance is single: a subclass can only extend one parent class.
+        p In addition to classes, there are also things called **interfaces**. Interfaces are like classes in that they also have properties, and classes can take the properties of interfaces, as they can with other classes. However instead of saying the class *extends* the interface, we say the class **implements** the interface. Interfaces are different from classes in that they cannot be instantiated. You can't make an object out of an interface. You can, however, make an object from a class that implements the interface.
+        p Because interfaces cannot be instantiated, they provide many benefits. First, interfaces can have **multiple inheritance**: one interface can extend more than one parent. More so, classes themselves can implement more than one interface as well.
+      section
+        h1 Apply it to CSS
+        p We can apply these ideals to CSS, if we make the correct analogies.
+        p The following definitions are used throughout documentation and have no particular object-oriented (OO) significance. An **Element** refers to just that: an element in HTML that takes the form of a tag, or, in CSS, any selector that corresponds to an HTML Element. An **HTML class** refers to any value of the `[class]` attribute of an Element in HTML source. Also, a **CSS class** in general is any identifier in CSS that begins with `.` and can be used in the HTML `[class]` attribute.
+        p Here we begin to use terms in the object-oriented sense. An **Object** (capitalized) refers to a CSS class that *should* be applied to an Element, that is, *should be* allowed to be a value of the `[class]` attribute. You might be wondering if that refers to all CSS classes. While any CSS class can be applied to an Element, as stated above, certain CSS classes *should* and *should not* be available to HTML. Here, the term **Object** refers only to Type 3 CSS classes, those that are semantically named. An **Object** may also refer to an Element that instantiates a Class. (In the OOP world, Objects are different from Classes but in CSS we can use them interchangeably.)
+        p Other CSS classes exist but are not deemed as "Objects" because they shouldn't be instantiated (as mentioned above, Type 1 and Type 2 classes shouldn't be available to HTML). These classes can, however, be used to make up Type 3 classes. In the OO sense, we call these classes **Interfaces**, and Objects can **implement** them. Interfaces are permitted to be named "unsemantically", i.e., their names may describe their definitions or general appearance. This is because Interface names are visible in CSS, so Objects can implement them, but they're not visible in HTML, so Elements cannot.
+        p So, in CSS, how do we distinguish between Objects and Interfaces? How do we make Objects available to HTML while keeping Interfaces visible only to the CSS?
+      section
+        h1 A Suggested Solution
+        p Before we get into architecting CSS to make it object-oriented, please read about [naming classes](CSS-Naming-Convention.md).
+        section
+          h1 Showing and Hiding Classes
+          p Other than change the naming convention, we don't need to do anything to Objects. Our goal is to make them available to HTML, which is already built into CSS.
+          p For Interfaces, the issue gets complicated.
+          section
+            h1 Mixins (Includes)
+            p The first solution is to use a mixin. A mixin in its general definition allows the developer to reuse lines of code without having to write them over and over again. It's basically a glorified copy-and-paste. Mixins are available in CSS pre-processors such as Less and Sass, and using a mixin instead of a class will hide the mixin block from the CSS output. That means the name can't be used in HTML, which is good.
+            p Although mixins make life easier for the developer, the problem is that the compiled CSS is still not DRY. The properties are still being written over and over again (this time by the compiler instead of the developer), which creates bloat in the CSS properties. This means a lot of work for the browser, a lot of bytes to download, etc. Imagine having a mixin with 10 properties. If hundreds of other classes are using this mixin, you've got those 10 lines of code repeated hundreds of times.
+            p Aside from reducing repeated code, another benefit of mixins is that they can be used with parameters to abstract a ruleset. Mixins are good with parameters, but if you have a mixin with zero parameters, there might be a better solution.
+          section
+            h1 Extends
+            p Another solution is to use a regular class, but `extend`ing it (not in the OO sense, but using the `extend` mechanism). A preprocessor handles the `extend` mechanism by defining the extending class immediately after every definition of the extended class. In CSS, comma-separated selectors all share the rules in the block. So you're not repeating the CSS properties, but now you're repeating CSS selectors. The bloat is still there, just in a different place. This isn't much of a step up from mixins. And not to mention, now that you're using a normal class, it will be available to the HTML.
+            p **UPDATE: I have decided to no longer use the `extend` mechanism in Less/Sass because of the problems with specificity. Though using `include` (mixin) is less DRY, the benefit of keeping specificity in line outweighs the cost of duplicated code.**
+          section
+            h1 Hack
+            p A better solution is somewhat of a hack: still use a class, but &ldquo;hide&rsquo; it from the HTML by nesting it into a nonsensical ID selector.
+            pre #_  .boldred { ... }
+            p Define the Interface and `extend` or mixin/inlcude it with the classes you need such as `.warning`. Yes, the class `.boldred` is still available to the HTML, but the styles will only apply if it's in an Element with `id="_"`, which I hope you'd never use, albeit valid. By the way, this is the one time you can use an ID selector in CSS (and it's really not even an ID selector; it's a hack). Other than this, *never* use ID selectors!
+          section
+            h1 One Can Dream
+            p It is my hope that future versions of CSS will support some sort of Interface/private selector functionality, and not to mention, an accompanying `GOTO`-like feature.
+            pre.
+              <style>
+              @boldred {
+                font-weight: bold;
+                color: red;
+              }
+              .warning {
+                goto: @boldered; // browser reads @boldred{} and returns when done
+                text-align: center;
+              }
+              </style>
+              <div class="boldred"> nothing happened </div>
+              <div class="warning"> bold and red, and also centere</div>
+      section
+        h1 Caveats
+        p Objects must only extend Objects that have been previously defined in a stylesheet. The reason is to honor the cascade. If an Object were to extend an Object that were defined *afterward*, then some of the properties in the subclass may get overridden by properties in the superclass. The same applies to Objects/Interfaces that implement Interfaces. Not observing this practice will result in semantic errors, not syntactical errors. **Developers beware.**
+        p Objects must only include mixins that have been previously defined in a stylesheet. The reason is to prevent infinite loops (or in set theory terms, irregular sets, ha). The following Less will not compile:
+        pre.
+          .bar {.foo;}
+          .foo {.bar;}
+          // syntax error
+        p Thus if `.foo` is written before `.bar`, then `.bar` may include/extend `.foo` but `.foo` may *not* include/extend `.bar`. Not observing this practice *will* result in syntactical errors. *Don't do it!*
