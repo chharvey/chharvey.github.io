@@ -2,9 +2,8 @@
 /*################################*\
     _obj.GoldenContainer.less
 \*################################*/
-@import (reference) url('__settings.less');
 @import (reference) url('../../node_modules/xmeter/src/__tool.fallback.transition.less');
-@import (reference) url('../../node_modules/xmeter/src/__tool.module.clearfix.less');
+@import (reference) url('__settings.less');
 
 
 // The GoldenContainer theme represents an object containing 3 objects pieces of layout:
@@ -63,7 +62,6 @@
     margin-right: @hspace_T;
   }
 }
-.o-GoldenContainer--flip {}
 
 .o-GoldenContainer__Content,
 .o-GoldenContainer__Sidebar {
@@ -91,26 +89,6 @@
     padding-left:  @hspace_T;
     padding-right: @hspace_T;
   }
-  .o-GoldenContainer--flip & {
-    @media screen and (min-width: 45em) { // @sM
-      // 2 columns: 'p1' + p2
-      #CHH .CONSTS();
-      left: 0;
-      padding-left: initial;
-      padding-right: @hspace_M;
-    }
-    @media screen and (min-width: 60em) { // @sG
-      // 3 columns: p4 + 'p1' + p3
-      #CHH .CONSTS();
-      left: @golden4;
-      padding-left:  @hspace_G; // FIXME duplicate code
-      padding-right: @hspace_G; // FIXME duplicate code
-    }
-    @media screen and (min-width: 75em) { // @sT
-      padding-left:  @hspace_T; // FIXME duplicate code
-      padding-right: @hspace_T; // FIXME duplicate code
-    }
-  }
 }
 
 .o-GoldenContainer__Sidebar {
@@ -118,15 +96,7 @@
     // 2 columns: 'p2' + p1
     position: absolute;
     #CHH .CONSTS();
-    left: 0;
     width: @golden2;
-  }
-  .o-GoldenContainer--flip & {
-    @media screen and (min-width: 45em) { // @sM
-      // 2 columns: p1 + 'p2'
-      #CHH .CONSTS();
-      left: @golden1;
-    }
   }
 }
 .o-GoldenContainer__Sidebar--major {
@@ -137,46 +107,23 @@
   @media screen and (min-width: 60em) { // @sG
     // 3 columns: 'p3' + p1 + p4
     #CHH .CONSTS();
-    left: 0;
     width: @golden3;
-  }
-  .o-GoldenContainer--flip & {
-    @media screen and (min-width: 60em) { // @sG
-      // 3 columns: p4 + p1 + 'p3'
-      #CHH .CONSTS();
-      left: auto;
-      right: 0;
-    }
   }
 }
 .o-GoldenContainer__Sidebar--minor {
   @media screen and (min-width: 60em) { // @sG
     // 3 columns: p3 + p1 + 'p4'
     #CHH .CONSTS();
-    left: auto;
     right: 0;
     top: 0;
     width: @golden4;
   }
-  .o-GoldenContainer--flip & {
-    @media screen and (min-width: 60em) { // @sG
-      // 3 columns: 'p4' + p1 + p3
-      #CHH .CONSTS();
-      left: 0;
-      right: auto;
-    }
-  }
 }
 
 .o-GoldenContainer__Content__SideMajor,
-.o-GoldenContainer__Content__SideMinor,
-.o-GoldenContainer__Content__SideMajor\@sG,
-.o-GoldenContainer__Content__SideMinor\@sG {
+.o-GoldenContainer__Content__SideMinor {
   #CHH .VARS();
   #XMETER .transition(left, top, width, padding; @chh_ani_short);
-}
-.o-GoldenContainer__Content__SideMajor,
-.o-GoldenContainer__Content__SideMinor {
   @media screen and (min-width: 45em) { // @sM
     // 2 columns: 'p2' + p1
     position: absolute;
@@ -184,52 +131,103 @@
     width: (@phi2/@phi1 * 100%);
     left: -(@phi2/@phi1 * 100%);
   }
-  .o-GoldenContainer--flip & {
-    @media screen and (min-width: 45em) { // @sM
-      // 2 columns: p1 + 'p2'
-      #CHH .CONSTS();
-      left: (@phi1/@phi1 * 100%);
-    }
-  }
 }
-.o-GoldenContainer__Content__SideMajor\@sG,
-.o-GoldenContainer__Content__SideMinor\@sG {
-  @media screen and (min-width: 60em) { // @sG
-    // 3 columns: 'p3' + p1 + 'p4'
-    position: absolute;
-  }
-}
-.o-GoldenContainer__Content__SideMajor,
-.o-GoldenContainer__Content__SideMajor\@sG {
+.o-GoldenContainer__Content__SideMajor {
   @media screen and (min-width: 60em) { // @sG
     // 3 columns: 'p3' + p1 + p4
     #CHH .CONSTS();
     width: (@phi3/@phi1 * 100%);
     left: -(@phi3/@phi1 * 100%);
   }
-  .o-GoldenContainer--flip & {
-    @media screen and (min-width: 60em) { // @sG
-      // 3 columns: p4 + p1 + 'p3'
-      #CHH .CONSTS();
-      left: (@phi1/@phi1 * 100%);
-    }
-  }
 }
-.o-GoldenContainer__Content__SideMinor,
-.o-GoldenContainer__Content__SideMinor\@sG {
+.o-GoldenContainer__Content__SideMinor {
   @media screen and (min-width: 60em) { // @sG
     // 3 columns: p3 + p1 + 'p4'
     #CHH .CONSTS();
     width: (@phi4/@phi1 * 100%);
     left:  (@phi1/@phi1 * 100%);
   }
-  .o-GoldenContainer--flip & {
-    @media screen and (min-width: 60em) { // @sG
-      // 3 columns: 'p4' + p1 + p3
-      #CHH .CONSTS();
-      left: -(@phi4/@phi1 * 100%);
-    }
+}
+@media screen and (min-width: 60em) { // @sG
+  .o-GoldenContainer__Content__SideMajor\@sG { .o-GoldenContainer__Content__SideMajor; }
+  .o-GoldenContainer__Content__SideMinor\@sG { .o-GoldenContainer__Content__SideMinor; }
+}
+
+
+.o-GoldenContainerFlip {
+  &:extend(.o-GoldenContainer);
+}
+
+.o-GoldenContainerFlip__Content {
+  &:extend(.o-GoldenContainer__Content);
+  @media screen and (min-width: 45em) { // @sM
+    // 2 columns: 'p1' + p2
+    #CHH .CONSTS();
+    left: 0;
+    padding-left: 0; padding-left: initial;
+    padding-right: @hspace_M;
   }
+  @media screen and (min-width: 60em) { // @sG
+    // 3 columns: p4 + 'p1' + p3
+    #CHH .CONSTS();
+    left: @golden4;
+  }
+}
+
+.o-GoldenContainerFlip__Sidebar {
+  &:extend(.o-GoldenContainer__Sidebar);
+  @media screen and (min-width: 45em) { // @sM
+    // 2 columns: p1 + 'p2'
+    #CHH .CONSTS();
+    left: @golden1;
+  }
+}
+.o-GoldenContainerFlip__Sidebar--major {
+  &:extend(.o-GoldenContainer__Sidebar--major);
+  @media screen and (min-width: 60em) { // @sG
+    // 3 columns: p4 + p1 + 'p3'
+    #CHH .CONSTS();
+    left: auto; left: initial;
+    right: 0;
+  }
+}
+.o-GoldenContainerFlip__Sidebar--minor {
+  &:extend(.o-GoldenContainer__Sidebar--minor);
+  @media screen and (min-width: 60em) { // @sG
+    // 3 columns: 'p4' + p1 + p3
+    #CHH .CONSTS();
+    left: 0;
+    right: auto; right: initial;
+  }
+}
+
+.o-GoldenContainerFlip__Content__SideMajor,
+.o-GoldenContainerFlip__Content__SideMinor {
+  @media screen and (min-width: 45em) { // @sM
+    // 2 columns: p1 + 'p2'
+    #CHH .CONSTS();
+    left: (@phi1/@phi1 * 100%);
+  }
+}
+.o-GoldenContainerFlip__Content__SideMajor {
+  &:extend(.o-GoldenContainer__Content__SideMajor);
+  @media screen and (min-width: 60em) { // @sG
+    // 3 columns: p4 + p1 + 'p3'
+    #CHH .CONSTS();
+    left: (@phi1/@phi1 * 100%);
+  }
+}
+.o-GoldenContainerFlip__Content__SideMinor {
+  &:extend(.o-GoldenContainer__Content__SideMinor);
+  @media screen and (min-width: 60em) { // @sG
+    // 3 columns: 'p4' + p1 + p3
+    #CHH .CONSTS();
+    left: -(@phi4/@phi1 * 100%);
+  }
+}
+@media screen and (min-width: 60em) { // @sG
+  .o-GoldenContainerFlip__Content__SideMajor\@sG { .o-GoldenContainerFlip__Content__SideMajor; }
+  .o-GoldenContainerFlip__Content__SideMinor\@sG { .o-GoldenContainerFlip__Content__SideMinor; }
 }
 
 
