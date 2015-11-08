@@ -6,16 +6,13 @@
 @import (reference) url('__settings.less');
 
 
-// The GoldenContainer theme represents an object containing 3 objects pieces of layout:
+// The GoldenContainer object contains 3 object pieces of layout:
 // 1. The "Content" object, which forms an inverse golden proportion with its container (the body).
 //    The remainder of the space is then split into the two remaining sidebars.
 // 2. The "Major" sidebar object forms an inverse golden proportion with the "Content" piece, and
 //    is typically on the left side.
 // 3. The "Minor" sidebar object forms an inverse golden proportion with the "Major" piece, and
 //    is typically on the right side.
-//
-// Subclasses of `GoldenContainer`:
-// `--flip`  - flips the column widths horizontally
 //
 // Subcomponents of `GoldenContainer`:
 // `__Content`        - the main content of the page
@@ -24,16 +21,17 @@
 // `__Sidebar--minor` - a type of sidebar: secondary content
 //
 // `GoldenContainer__Content` also has subcomponents:
+// `__Page`      - an object inside Content to appear as if it were outside Content
 // `__SideMajor` - an object inside Content to be pushed to the `Sidebar--major` component’s area
 // `__SideMinor` - an object inside Content to be pushed to the `Sidebar--minor` component’s area
 //
-// NOTE that a `Sidebar` cannot be inside the `Content` or its positioning and width will be
-// relative to the `Content`, instead of the `GoldenContainer` as intended.
+// Similar classes:
+// `GoldenContainerFlip` - similar to GoldenContainer but the dimensions are horizontally switched
 //
 // ^author
 // : Chris Harvey
 // ^updated
-// : 2015-11-04
+// : 2015-11-08
 
 // variables for container’s horizontal spacing
 @hspace_s: 0.5rem;
@@ -41,6 +39,10 @@
 @hspace_G: @hspace_M;
 @hspace_T: 2rem;
 
+
+/*++++++++++++++++++++++++++++++++*\
+    #GoldenContainer
+\*++++++++++++++++++++++++++++++++*/
 .o-GoldenContainer {
   #CHH .VARS();
   #XMETER .transition(margin; @chh_ani_short);
@@ -120,40 +122,69 @@
   }
 }
 
+.o-GoldenContainer__Content__Page,
 .o-GoldenContainer__Content__SideMajor,
 .o-GoldenContainer__Content__SideMinor {
   #CHH .VARS();
   #XMETER .transition(left, top, width, padding; @chh_ani_short);
+}
+.o-GoldenContainer__Content__Page {
+  @media screen and (min-width: 45em) { // @sM
+    // 2 columns: p2 + p1
+    position: relative;
+    #CHH .CONSTS();
+    left: calc(-(@phi2/@phi1 * 100%)e(' - ')(@phi2/@phi1 * 1*@hspace_M)e(' - ')(@hspace_M));
+    width: calc((1/@phi1 * 100%)e(' + ')(1/@phi1 * 1*@hspace_M));
+  }
+  @media screen and (min-width: 60em) { // @sG
+    // 3 columns: p3 + p1 + p4
+    #CHH .CONSTS();
+    left: calc(-(@phi3/@phi1 * 100%)e(' - ')(@phi3/@phi1 * 2*@hspace_G)e(' - ')(@hspace_G));
+    width: calc((1/@phi1 * 100%)e(' + ')(1/@phi1 * 2*@hspace_G));
+  }
+  @media screen and (min-width: 75em) { // @sT
+    #CHH .CONSTS();
+    left: calc(-(@phi3/@phi1 * 100%)e(' - ')(@phi3/@phi1 * 2*@hspace_T)e(' - ')(@hspace_T));
+    width: calc((1/@phi1 * 100%)e(' + ')(1/@phi1 * 2*@hspace_T));
+  }
+}
+
+.o-GoldenContainer__Content__SideMajor,
+.o-GoldenContainer__Content__SideMinor {
   @media screen and (min-width: 45em) { // @sM
     // 2 columns: 'p2' + p1
     position: absolute;
     #CHH .CONSTS();
-    width: (@phi2/@phi1 * 100%);
     left: -(@phi2/@phi1 * 100%);
+    width: (@phi2/@phi1 * 100%);
   }
 }
 .o-GoldenContainer__Content__SideMajor {
   @media screen and (min-width: 60em) { // @sG
     // 3 columns: 'p3' + p1 + p4
     #CHH .CONSTS();
-    width: (@phi3/@phi1 * 100%);
     left: -(@phi3/@phi1 * 100%);
+    width: (@phi3/@phi1 * 100%);
   }
 }
 .o-GoldenContainer__Content__SideMinor {
   @media screen and (min-width: 60em) { // @sG
     // 3 columns: p3 + p1 + 'p4'
     #CHH .CONSTS();
-    width: (@phi4/@phi1 * 100%);
     left:  (@phi1/@phi1 * 100%);
+    width: (@phi4/@phi1 * 100%);
   }
 }
 @media screen and (min-width: 60em) { // @sG
   .o-GoldenContainer__Content__SideMajor\@sG { .o-GoldenContainer__Content__SideMajor; }
   .o-GoldenContainer__Content__SideMinor\@sG { .o-GoldenContainer__Content__SideMinor; }
 }
+//++++ #end GoldenContainer ++++//
 
 
+/*++++++++++++++++++++++++++++++++*\
+    #GoldenContainerFlip
+\*++++++++++++++++++++++++++++++++*/
 .o-GoldenContainerFlip {
   &:extend(.o-GoldenContainer);
 }
@@ -229,17 +260,4 @@
   .o-GoldenContainerFlip__Content__SideMajor\@sG { .o-GoldenContainerFlip__Content__SideMajor; }
   .o-GoldenContainerFlip__Content__SideMinor\@sG { .o-GoldenContainerFlip__Content__SideMinor; }
 }
-
-
-// This Interface undoes the effects of the `main.Main-Golden` Element to a component inside.
-// Essentially, it treats the component as if it were not inside the `main` Element.
-//
-// ^author
-// : Chris Harvey
-// ^updated
-// : 2014-10-07
-// .undo-MainGolden() {
-//   width: @inv_golden1;
-//   position: relative;
-//   left: -@golden2;
-// }
+//++++ #end GoldenContainerFlip ++++//
