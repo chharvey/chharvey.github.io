@@ -1,0 +1,178 @@
+doctype html
+html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
+  head
+    title The Semantics and Style of Nested Headings in Webkit
+    meta(charset="utf-8")
+    meta(name="author" content="Christopher H. Harvey")
+    meta(name="description" content="The semantics and style of nested heading elements in Webkit.")
+    meta(name="keywords" content="semantic, heading, Document Outline")
+    link(rel="stylesheet" href="../styles/chharvey.css")
+    style.
+      body { font-family: sans-serif; }
+      .lvl h1,
+      .lvl h2,
+      .lvl h3 {
+        /* unsets every heading style */
+        font-style: initial;
+        font-variant: initial;
+        font-weight: initial;
+        font-family: initial;
+        color: initial;
+      }
+      .lvl h2::after { content: none; }
+
+      .explicit,
+      .implicit { cursor: help; }
+      .explicit { font-weight: bold; }
+      .implicit { color: gray; }
+
+      .lang-html,
+      .lang-css  { font-weight: bold; }
+      .lang-html { color: red; }
+      .lang-css  { color: blue; }
+
+      dl > dd {
+        padding-left: 24px;
+      }
+      .lvl { margin-left: 0.5in; }
+      .lvl-1     { background-color: #eff; }
+      .lvl-2     { background-color: #eef; }
+      .lvl-3     { background-color: #edf; }
+      .lvl-1-1   { background-color: #dff; }
+      .lvl-1-2   { background-color: #def; }
+      .lvl-1-3   { background-color: #ddf; }
+      .lvl-1-1-1 { background-color: #cff; }
+      .lvl-1-1-2 { background-color: #cef; }
+      .lvl-1-1-3 { background-color: #cdf; }
+  body.o-GoldenContainer
+    main.o-GoldenContainer__Content.c-Document(data-status="released" itemscope="" itemtype="https://schema.org/Article")
+      header
+        h1(itemprop="name headline") The Semantics and Style of Nested Headings in Webkit
+        p.c-Subhead What kind of heading is it?
+        p.o-GoldenContainer__Content__SideMinor.o-Box.o-Box--island.c-Alert.c-Alert--skss.
+          This document is ready for implemen&shy;tation.
+        dl.c-Document__Meta
+          dt Author
+          dd(itemprop="author") Christopher H. Harvey
+          dt Description
+          dd(itemprop="description") The semantics and style of nested heading elements in Webkit.
+          dt Keywords
+          dd(itemprop="keywords") HTML
+          dd(itemprop="keywords") semantic
+          dd(itemprop="keywords") heading
+          dd(itemprop="keywords") Document Outline
+          dt Version History
+          dd.update
+            time(datetime="2013-06-12 01:15") Jun 12, 2013 #[span.tod  1:15 AM]
+          dd.update
+            time(datetime="2014-08-02 23:45") Aug  2, 2014 #[span.tod 11:45 PM]
+          dd.update(itemprop="datePublished dateModified")
+            time(datetime="2014-09-07 22:45") Sep  7, 2014 #[span.tod 10:45 PM]
+            span.o-Textbox.c-Label.c-Label--skss(class="!ml:1") Released
+            span.o-Textbox.c-Label.c-Label--dang(class="!ml:1") Latest
+      div.lvl.lvl-1(style="border: 1px solid #000;")
+        p: code.lang-html &lt;body&gt;
+        h1 #[span.explicit BODY] heading
+        dl
+          dt is:
+          dd: code.lang-css body &gt; h1
+          dt means:
+          dd heading level 1
+          dt appears:
+          dd: code h1
+        div.lvl.lvl-2
+          h2 #[span.explicit BODY].#[span.implicit I] heading
+          dl
+            dt is:
+            dd: code.lang-css body &gt; h2
+            dt means:
+            dd heading level 2
+            dt appears:
+            dd: code h2
+          div.lvl.lvl-3
+            h3 #[span.explicit BODY].#[span.implicit I].#[span.implicit A] heading
+            dl
+              dt is:
+              dd: code.lang-css body &gt; h3
+              dt means:
+              dd heading level 3
+              dt appears:
+              dd: code h3
+        section.lvl.lvl-1-1
+          p: code.lang-html &lt;section&gt;
+          h1 #[span.explicit BODY].#[span.explicit II] heading
+          dl
+            dt is:
+            dd: code.lang-css body &gt; section &gt; h1
+            dt means:
+            dd heading level 2
+            dt appears:
+            dd: code h2
+          div.lvl.lvl-1-2
+            h2 #[span.explicit BODY].#[span.explicit II].#[span.implicit A] heading
+            dl
+              dt is:
+              dd: code.lang-css body &gt; section &gt; h2
+              dt means:
+              dd heading level 3
+              dt appears:
+              dd: code h2
+            div.lvl.lvl-1-3
+              h3 #[span.explicit BODY].#[span.explicit II].#[span.implicit A].#[span.implicit 1] heading
+              dl
+                dt is:
+                dd: code.lang-css body &gt; section &gt; h3
+                dt means:
+                dd heading level 4
+                dt appears:
+                dd: code h3
+          section.lvl.lvl-1-1-1
+            p: code.lang-html &lt;section&gt;
+            h1 #[span.explicit BODY].#[span.explicit II].#[span.explicit B] heading
+            dl
+              dt is:
+              dd: code.lang-css body &gt; section &gt; section &gt; h1
+              dt means:
+              dd heading level 3
+              dt appears:
+              dd: code h3
+            div.lvl.lvl-1-1-2
+              h2 #[span.explicit BODY].#[span.explicit II].#[span.explicit B].#[span.implicit 1] heading
+              dl
+                dt is:
+                dd: code.lang-css body &gt; section &gt; section &gt; h2
+                dt means:
+                dd heading level 4
+                dt appears:
+                dd: code h2
+              div.lvl.lvl-1-1-3
+                h3 #[span.explicit BODY].#[span.explicit II].#[span.explicit B].#[span.implicit 1].#[span.implicit a] heading
+                dl
+                  dt is:
+                  dd: code.lang-css body &gt; section &gt; section &gt; h3
+                  dt means:
+                  dd heading level 5
+                  dt appears:
+                  dd: code h3
+            p: code.lang-html &lt;/section&gt;
+          p: code.lang-html &lt;/section&gt;
+        p: code.lang-html &lt;/body&gt;
+      section(data-informative="")
+        h2 Conclusion
+        p.
+          Based on explicit and implicit sections, Webkit browsers will style #[code h1]
+          Elements #[i properly]. For example, an #[code h1] in a #[code section] in
+          the #[code body] semantically acts as a level-2 heading. Therefore the Webkit browser will
+          style it as if it were an #[code h2].
+        p.
+          However, all other headings, #[code h2]&ndash;#[code h6], have constant
+          styles. That is, an #[code h2], no matter want it #[strong means]
+          (semantically, based on explicit/implicit sectioning), will always appear as an #[code h2].
+    script(src="../bower_components/jquery/dist/jquery.js")
+    script(src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML,https://chharvey.github.io/chhlib/mathjax-localconfig.js")
+    script(src="../core/scripts/global.js")
+    script.
+      $(document).ready(function() {
+        $('.explicit').attr('title', 'explicit section');
+        $('.implicit').attr('title', 'implicit section');
+      });

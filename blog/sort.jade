@@ -1,0 +1,130 @@
+doctype html
+html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
+  head
+    title Sorting Algorithms
+    meta(charset="utf-8")
+    meta(name="author" content="Christopher H. Harvey")
+    meta(name="description" content="A comparison of the most popular comparison sorting algorithms used in computer science.")
+    meta(name="keywords" content="computer science, sorting, algorithm")
+    link(rel="stylesheet" href="../styles/chharvey.css")
+  body.o-GoldenContainer
+    main.o-GoldenContainer__Content.c-Document(data-status="draft" itemscope="" itemtype="https://schema.org/Article")
+      header
+        h1(itemprop="name headline") Comparison Sorting Algorithms
+        p.o-GoldenContainer__Content__SideMinor.o-Box.o-Box--island.c-Alert.c-Alert--dang.
+          This document is a work in progress.
+        dl.c-Document__Meta
+          dt Author
+          dd(itemprop="author") Christopher H. Harvey
+          dt Description
+          dd(itemprop="description") A comparison of the most popular comparison sorting algorithms used in computer science.
+          dt Keywords
+          dd(itemprop="keywords") computer science
+          dd(itemprop="keywords") sorting
+          dd(itemprop="keywords") algorithm
+          dt Version History
+          dd.update(itemprop="dateModified")
+            time(datetime="2014-10-16 21:14") Oct 16, 2014 #[span.tod 9:14 PM]
+            span.o-Textbox.c-Label.c-Label--dang(class="!ml:1") Latest
+      p.c-Lede This article describes and makes comparisons among the Comparison Sorting Algorithms.
+      p.
+        A sorting algorithm takes an unordered list of objects and arranges them according to
+        a few axioms of total order. The total ordering relation will be named, for simplicity,
+        #[i less-than]. The axioms are explained below:
+      dl
+        dt Reflexivity
+        dd Any element is #[i less-than] itself.
+        dd.M.M--B x\le x
+        dt Antisymmetry
+        dd Any two elements that are #[i less-than] each other are equal.
+        dd.M.M--B \text{if } x\le y \text{ and } y\le x \text{ then } x=y
+        dt Transitivity
+        dd The #[i less-than] relation carries over.
+        dd.M.M--B \text{if } x\le y \text{ and } y\le z \text{ then } x\le z
+        dt Totality
+        dd Any two elements can be compared to each other.
+        dd.M.M--B x\le y \text{ or } y\le x \text{ (or possibly both)}
+      p.
+        It is fortunate that these axioms are satisfied by the JavaScript relation
+        #[code &lt;=] on the positive integers.
+      p.
+        In addition to the axioms of total order, we are assuming the set has a finite number
+        of elements. It is then a consequence that there be a minimum and a maximum in the set.
+      ul
+        li
+          p.
+            A #[dfn#d-minimum minimal element], or minimum in a set is
+            an element that is #[i less-than] every element in the set.
+          p.
+            There exists an element #[span.M a] in the set such that
+            for every #[span.M x] in the set, #[span.M a \le x].
+        li
+          p.
+            A #[dfn#d-maximum maximal element], or maximum in a set is
+            an element for which every element in that set is #[i less-than] that element.
+          p.
+            There exists an element #[span.M b] in the set such that
+            for every #[span.M x] in the set, #[span.M x \le b].
+      p.
+        A comparison sorting algorithm sorts a set only by comparing elements in the set,
+        as opposed to other sorting algorithms that use other methods... In this article we assume the
+        goal is to sort a finite set of positive integers from least to greatest.
+      section#simple
+        h2 Simple Sorts
+        section
+          h3 Selection Sort
+          p.
+            A #[dfn#d-selection selection sort] finds the minimum in the set of all data,
+            and then swaps that minimum with the first element. It then repeats this process with the
+            remaining data.
+          pre.
+            function selectSort(dataset) {
+              for (var i = 0; i < dataset.length; i++) {
+                var subarray = subarray(dataset, i, dataset.length - 1);
+                var min = findmin(subarray);
+                swap(dataset[i], min);
+              }
+              return dataset;
+            }
+          p A selection sort has the advantage of executing a maximum of #[var n] swaps.
+        section
+          h3 Insertion Sort
+          p.c-Document__Draft An #[dfn#d-insertion insertion sort] creates an empty copy of the given array
+      section#efficient
+        h2 Efficient Sorts
+        section
+          h3 Mergesort
+        section
+          h3 Heapsort
+        section
+          h3 Quicksort
+      section#bubble-type
+        h2 Bubble-type Sorts
+        section
+          h3 Bubble Sort
+        section
+          h3 Shell Sort
+        section
+          h3 Comb Sort
+      section
+        h2 Conclusion
+        table
+          caption.c-Caption A Comparison of Comparison Sorts
+          thead
+            tr
+              th.o-Box Name
+              th.o-Box Runtime Range
+              th.o-Box Swaps Range
+          tbody
+            tr
+              th.o-Box Selection
+              td.o-Box O(n^2)
+              td.o-Box 0&ndash;O(n)
+            tr
+              th.o-Box Insertion
+              td.o-Box O(n)&ndash;O(n^2)
+              td.o-Box O(n)
+    script(src="../bower_components/jquery/dist/jquery.js")
+    script(src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML,https://chharvey.github.io/hosting/mathjax-localconfig.js")
+    script(src="../core/scripts/global.js")
+    script(src="sort.js")
