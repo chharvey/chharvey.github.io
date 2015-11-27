@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Lists</title>
+    <meta charset="utf-8">
+    <meta name="author" content="Christopher H. Harvey">
+    <meta name="description" content="My thoughts on lists.">
+    <meta name="keywords" content="lists, ordered, unordered, association">
+    <link rel="stylesheet" href="../styles/chharvey.css">
+  </head>
+  <body class="o-GoldenContainer">
+    <main data-status="draft" itemscope="" itemtype="https://schema.org/Article" class="o-GoldenContainer__Content c-Document">
+      <header>
+        <h1 itemprop="name headline">Lists</h1>
+        <p class="o-GoldenContainer__Content__SideMinor o-Box o-Box--island c-Alert c-Alert--dang">This document is a work in progress.</p>
+        <dl class="c-Document__Meta">
+          <dt>Author</dt>
+          <dd itemprop="author">Christopher H. Harvey</dd>
+          <dt>Description</dt>
+          <dd itemprop="description">My thoughts on lists.</dd>
+          <dt>Keywords</dt>
+          <dd itemprop="keywords">lists</dd>
+          <dd itemprop="keywords">ordered</dd>
+          <dd itemprop="keywords">unordered</dd>
+          <dd itemprop="keywords">association</dd>
+          <dt>Version History</dt>
+          <dd itemprop="dateModified" class="update">
+            <time datetime="2015-03-14 21:26">Mar 14, 2015 <span class="tod">9:26 PM</span></time><span class="o-Textbox c-Label c-Label--dang !ml:1">Latest</span>
+          </dd>
+        </dl>
+      </header>
+      <section>
+        <h2>Vocabulary</h2>
+        <dl>
+          <dt>relevant order</dt>
+          <dd>changing the order of the objects would change the outcome or semantics of the containing object</dd>
+          <dt>irrelevant order</dt>
+          <dd>changing the order of the objects would <em>not</em> change the outcome or semantics of the containing object</dd>
+        </dl>
+      </section>
+      <section>
+        <h2>Ordered and Unordered Lists</h2>
+        <p>
+          If the order matters (i.e., changing the order changes the meaning of the list or changes the result),
+          then it should be an ordered list. If not, it should be unordered.
+        </p>
+        <p>A grocery list should be unordered, <em>unless</em> it is written in order of priority.
+          A recipe is my favorite example of an ordered list because changing the order of steps could
+          result in one effed up cake.
+        </p>
+        <section>
+          <h3>Named List Items</h3>
+          <p>The order of the list may be irrelevant, yet one may want to refer to a particular list item.</p>
+          <p>For example, on a grocery list, <i>see the third bullet</i> sounds less elegant than <i>see number 3</i>
+            (Eggs). Ideally, the items&rsquo; names should <em>not</em> be connected to the order in which they
+            appear, because changing the order of the items changes the name of the third item, for example.
+            So <i>Eggs</i> is not necessarily always number 3.
+          </p>
+          <p>
+            Clearly, in an ordered list, we already have a solution. The order of the items is relevant,
+            and we still have a robust naming system. Yes, changing the order changes the name of number 3,
+            but now we have a <i>different</i> list so it&rsquo;s okay. Step 3 is now different, but
+            it&rsquo;s okay since the steps are rearranged.
+          </p>
+          <p><strong>
+              But with unordered lists whose items need to be named, we need to come up with a new
+              naming convention&hellip;</strong></p>
+          <p class="o-Box o-Box--island c-Alert c-Alert--info"><strong class="c-Alert__Title">Note:</strong> Any list <em>can</em> be made into an ordered list, as long as a (maybe arbitrary)
+            specification is given. Whether it <em>should</em> is a different story. (Read
+            <a href="http://www.cut-the-knot.org/do_you_know/complex_compare.shtml">the lexicographical ordering of the complex numbers</a>.)
+          </p>
+        </section>
+      </section>
+      <section>
+        <h2>Association Lists</h2>
+        <p>An association list (<code>dl</code>) contains at least 0 term-description groups. A single
+          
+          <dfn>term-description group</dfn> consists of at least 1 term (<code>dt</code>) followed by at least
+          1 description (<code>dd</code>).
+        </p>
+        <p>The order of the term-description groups is <b>irrelevant</b> by default. There is no
+          standardized way to make them ordered, but authors may specify that
+          <strong>the order of term-description groups is <b>relevant</b></strong> by using the <code>dl[data-*]</code> attribute.
+          This does not, however, change the order of terms or descriptions within a particular
+          term-description group. Those are <b>order-irrelevant</b> by default.
+        </p>
+        <section>
+          <h3>Terms</h3>
+          <p>If there are multiple <code>dt</code> Elements in a particular term-description group, the order
+            of terms is <b>irrelevant</b>, and these terms are <em>alternative</em> such that either term or
+            multiple terms, <em>but possibly not all</em> terms, are related to the description(s) in the same group.
+          </p>
+          <p>If authors want <em>all</em> terms to apply to a value in one term-description group, they must use
+            a single <code>dt</code> Element containing only and exactly 1 <code>ul</code> or <code>ol</code> Element,
+            whose <code>li</code> children correspond to the terms. A <code>dt > ul:only-child</code> indicates
+            that the terms in the term-description group are <b>unordered</b> (the default behavior, except
+            that <em>all</em> terms are applicable). A <code>dt > ol:only-child</code> indicates that the terms are
+            <b>ordered</b>.
+          </p>
+          <p>
+            There are two term-description groups in the association list below. In the first, there are
+            two alternative terms and one description. It is not necessary to use both terms. In the
+            second group, there is one <code>dt</code> with two terms listed, and one description. Both of these
+            terms apply to the description.
+          </p>
+          <pre>&lt;dl&gt;
+  &lt;dt&gt;color&lt;/dt&gt;
+  &lt;dt&gt;colour&lt;/dt&gt;
+  &lt;dd&gt;the property of producing a sensation on the eye as a result of reflecting or emitting light&lt;/dd&gt;
+  &lt;dt&gt;
+    &lt;ul&gt;
+      &lt;li&gt;elephant&lt;/li&gt;
+      &lt;li&gt;hippopotamus&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/dt&gt;
+  &lt;dd&gt;grey animals&lt;/dd&gt;
+&lt;/dl&gt;</pre>
+        </section>
+        <section>
+          <h3>Descriptions</h3>
+          <p>If there are multiple <code>dd</code> Elements in a particular group, the order of descriptions is
+            also <b>irrelevant</b>, and the descriptions are <em>alternative</em> such that either or multiple, but
+            <em>possibly not all</em>, descriptions are related to the term(s) in the same group.
+          </p>
+          <p>If authors want <em>all</em> values to apply to a name in one term-description group, they must use
+            a single <code>dd</code> Element containing only and exactly 1 <code>ul</code> or <code>ol</code> Element,
+            whose <code>li</code> children correspond to the descriptions.
+          </p>
+          <pre>&lt;dl&gt;
+    &lt;dt&gt;lead&lt;/dt&gt;
+    &lt;dd&gt;the chemical element with atomic number 82&lt;/dd&gt;
+    &lt;dd&gt;a blank space between lines of print&lt;/dd&gt;
+    &lt;dt&gt;elephants&lt;/dt&gt;
+    &lt;dd&gt;
+        &lt;ul&gt;
+            &lt;li&gt;are grey&lt;/li&gt;
+            &lt;li&gt;have long trunks&lt;/li&gt;
+            &lt;li&gt;never forget&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/dd&gt;
+&lt;/dl&gt;</pre>
+        </section>
+      </section>
+    </main>
+  </body>
+</html>
