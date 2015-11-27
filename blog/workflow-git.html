@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Workflow with Git</title>
+    <meta charset="utf-8">
+    <meta name="author" content="Christopher H. Harvey">
+    <meta name="description" content="My workflow with git.">
+    <meta name="keywords" content="git, workflow, semantic versioning, versioning, branching">
+    <link rel="stylesheet" href="../styles/chharvey.css">
+    <style>
+      var {
+        quotes: none;
+      }
+      code {
+        font-variant: normal;
+      }
+    </style>
+  </head>
+  <body class="o-GoldenContainer">
+    <main data-status="draft" itemscope="" itemtype="https://schema.org/Article" class="o-GoldenContainer__Content c-Document">
+      <header>
+        <h1 itemprop="name headline">Workflow with Git</h1>
+        <p class="o-GoldenContainer__Content__SideMinor o-Box o-Box--island c-Alert c-Alert--dang">This document is a work in progress.</p>
+        <dl class="c-Document__Meta">
+          <dt>Author</dt>
+          <dd itemprop="author">Christopher H. Harvey</dd>
+          <dt>Description</dt>
+          <dd itemprop="description">My workflow with git.</dd>
+          <dt>Keywords</dt>
+          <dd itemprop="keywords">git</dd>
+          <dd itemprop="keywords">workflow</dd>
+          <dd itemprop="keywords">semantic versioning</dd>
+          <dd itemprop="keywords">versioning</dd>
+          <dd itemprop="keywords">branching</dd>
+          <dt>Version History</dt>
+          <dd itemprop="dateModified" class="update">
+            <time datetime=""><span class="tod"></span></time><span class="o-Textbox c-Label c-Label--dang !ml:1">Latest</span>
+          </dd>
+        </dl>
+        <p>
+          This is my attempt to briefly describe my workflow on a project using
+          <a href="https://git-scm.com/" rel="external">Git</a>.
+          First I think a little background information is necessary, and that is information
+          on semantic versioning, the principle of numbering your versions semantically.
+        </p>
+      </header>
+      <section>
+        <h2>Semantic Versioning</h2>
+        <p>
+          This section describes my modifications to
+          <a href="http://semver.org/" rel="external">Tom Preston-Werner&rsquo;s 
+            <cite>Sematnic Versioning</cite></a>.
+          You can read more about it there, but in this section I will attempt to apply the analogy
+          of semantic versioning in software development to that in web development&mdash;which
+          we can all agree, is a field in and of itself.
+        </p>
+        <p>Semantic Versioning is a model in which every version number of an 
+          <dfn id="app">app</dfn>
+          (repostory, program, module, website, app, <i lang="la"><abbr title="et cetera">etc.</abbr></i>)
+          has a meaningful indication to users and developers.
+        </p>
+        <p>
+          In a nutshell, the version number of an app is written as
+          <code>v
+            <var>X</var>.
+            <var>Y</var>.
+            <var>Z</var></code>, where
+          
+          <var>X</var> is the major version,
+          
+          <var>Y</var> is the minor version, and
+          
+          <var>Z</var> is the patch.
+          When any next version is released, the corresponding version number (major, minor, or patch)
+          is incremented, and numbers to the right are reset to 0.
+          (The place value of the integer does not carry over. For example, the next Patch for
+          <code>v1.4.9</code> would be <code>v1.4.10</code>, not <code>v1.5.0</code>.)
+        </p>
+        <section>
+          <h3>Major Versions</h3>
+          <p>
+            Major versions incorporate new features that change the application or API in a
+            non-backward-compatible, or breaking, way. On a website, this might include
+          </p>
+          <ul>
+            <li>
+              Any semantic changes to content (the meaning of the content changes) to a lot of
+              documents or large portion of the site.
+            </li>
+            <li>Any revamps of any systems, such as CSS architecture, grid layouts, <i lang="la"><abbr title="et cetera">etc.</abbr></i>,
+              <em>that would necessitate a change in HTML or content</em>.
+              If a system revamped but was handled automatically
+              (<i lang="la"><abbr title="exampli gratia">e.g.</abbr></i>, the classnames stayed the same;
+              only their definitions changed), this would not be a Major revision.
+            </li>
+            <li>Any <em>major</em> changes to look-and-feel. Though this would be considered an
+              <i>unsemantic</i> revision, a major change to a site&rsquo;s appearance constitutes
+              a new Major version number. The reasoning behind this is mostly psychological and
+              helps users in some way probably.
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h3>Minor Versions</h3>
+          <p>
+            Minor versions incorporate new features that change the API in a backward-compatible,
+            or non-breaking, way. In the world of front-end web development, this could include
+          </p>
+          <ul>
+            <li>
+              Anything added to the site that does not require changing a previously-defined aspect
+              of the site.
+            </li>
+            <li>These are where most <i>bells and whistles</i> would be categorized.</li>
+            <li>
+              Also, any cleaning up or organizing code or source files,
+              <i lang="la"><abbr title="exampli gratia">e.g.</abbr></i>, to improve efficiency/performance,
+              would be considered a Minor feature, even though this does not add new functionality.
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h3>Patches</h3>
+          <p>
+            Patches incorporate backwards-compatible, non-breaking, bug fixes only.
+            Do not release any new features in a Patch.
+            In HTML/CSS/JS, this could mean
+          </p>
+          <ul>
+            <li>Typo corrections in content and/or syntactical corrections in code</li>
+            <li>Non-syntactic changes in code formatting (indents, newlines, <i lang="la"><abbr title="et cetera">etc.</abbr></i>)</li>
+            <li>Minor changes to CSS styles / HTML Elements</li>
+          </ul>
+          <p>Think of patches as the <em>quickest</em> way to fix something.
+            Bug fixes do not necessarily hold efficiency/performance in high priortiy.
+          </p>
+        </section>
+      </section>
+      <section>
+        <h2>Branching Model</h2>
+        <p>
+          Now that we got the introductory material out of the way, we can start talking about branching.
+          This section describes my modifications to
+          <a href="http://nvie.com/posts/a-successful-git-branching-model/" rel="external">Vincent Driessen&rsquo;s 
+            <cite>A Successful Git Branching Model</cite></a>.
+        </p>
+        <p>
+          In this branching model, there are five types of branches:
+          <code>master</code>, <code>dev</code>, feature branches, hotfix branches, and staging branches.
+        </p>
+        <section id="master">
+          <h3><code>master</code></h3>
+          <p>The <code>master</code> branch is where the most up-to-date <em>released</em> version of the
+            app lives. Users have read access to <code>master</code> and should be able to download any
+            version, including old versions.
+            Every commit on <code>master</code> corresponds to a stable release with a unique version number.
+            The most recent commit on <code>master</code> corresponds to the most recent released version.
+            <code>master</code> is never deleted.
+          </p>
+        </section>
+        <section id="dev">
+          <h3><code>dev</code></h3>
+          <p>The <code>dev</code> branch represents the most up-to-date <em>unreleased</em> version of the app.
+            All the completed fixes and features are committed to <code>dev</code>. There should be no
+            works-in-progress; only the finished product of the fix/feature is committed.
+            <code>dev</code> lives in parallel to <code>master</code>. At some point in time, the code on
+            <code>dev</code> will eventually make its way onto <code>master</code> via a
+            <a href="#stage">staging branch</a> (discussed below).
+            <code>dev</code> is never deleted.
+          </p>
+        </section>
+        <section id="feat">
+          <h3>Feature Branches</h3>
+          <p>A feature branch is branched off of <code>dev</code>, work is then done on the feature branch,
+            and once the work and testing of the new feature is complete, the branch is merged back
+            into <code>dev</code>, at which point the feature branch is deleted.
+          </p>
+          <p>
+            Feature branches are for works in progress of major or minor features for the next
+            major or minor version. Though work on a feature branche may include bug fixes or patches
+            for that particular feature, these branches are not for fixes/patches for the app itself.
+          </p>
+          <p>A feature branch begins with the prefix <code>feat-</code> and usually contains an issue number
+            (if there is an issue on GitHub) and then some short descriptor.
+            Example: <code>feat-17footnotes</code>.
+          </p>
+        </section>
+        <section id="fix">
+          <h3>Fix Branches and <code>hotfix</code></h3>
+          <p>A branch called <code>hotfix</code> is branched off of <code>master</code> and acts sort of like
+            a development branch, but only for fixes, not new features.
+            <code>hotfix</code> is likely to contain multiple fixes, and
+            at some point in time when a patch version is ready to be released,
+            <code>hotfix</code> is merged back into <code>master</code>
+            <strong>creating a new Patch Version release</strong>, and then <code>hotfix</code> is deleted.
+          </p>
+          <p>Usually, individual fixes are small enough to be their own commits on <code>hotfix</code>,
+            so the commit history of this branch is linear.
+            However sometimes fixes are too large for one commit, and they need their own sub-branch.
+            Thus we use fix branches.
+          </p>
+          <p>Fix branches branches are branched off of <code>hotfix</code>,
+            much like <a href="#feature">feature branches</a> are branched off of <code>dev</code>.
+            The difference is fix branches are used for fixing small bugs and errors instead of
+            introducing new features.
+            When work is complete for the fix, the branch merges back into <code>hotfix</code> and
+            is then deleted.
+          </p>
+          <p>Fix branches begin with prefix <code>fix-</code> and usually contain an issue number
+            (if there is an issue on GitHub) and then some short descriptor.
+            Example: <code>fix-13sprites</code>.
+          </p>
+        </section>
+        <section id="stage">
+          <h3>Staging Branches</h3>
+          <p>
+            The staging branches are a bit of a mix between feature and hotfix branches.
+            At some point in development when a release (say v3.2.0) has been determined
+            //- (this usually happens when a Milestone is closed),
+            a staging branch <code>stage-v3.2.0</code> branches off of <code>dev</code>.
+            From this point on, no further feature branches are to be merged into <code>stage-v3.2.0</code>,
+            no new features are to be added, and no development on features is to be made.
+            The purpose of staging branches is only to make small fixes and corrections,
+            setting the &hellip; ahem &hellip; <i>stage</i> for release of version v3.2.0.
+            Meanwhile, <code>dev</code> can continue progressing while the features for v3.2.0 are locked.
+          </p>
+          <p>When v3.2.0 is ready to be released, <code>stage-v3.2.0</code> is merged into <code>master</code>,
+            <strong>creating a new Minor (or Major) release</strong>, and then <code>stage-v3.2.0</code>
+            is deleted.
+          </p>
+          <p>Staging branches begin with <code>stage-</code> and end with a version number.
+            Example: <code>stage-v3.2.0</code>.
+          </p>
+        </section>
+      </section>
+      <section>
+        <h2>Advanced Branching</h2>
+      </section>
+      <section>
+        <h2>Example Workflow</h2>
+        <section>
+          <h3>Single Issue Examples</h3>
+          <p>Required Labels for GitHub issues. These are mutually-exclusive (an issue must have exactly one of these).</p>
+          <ul>
+            <li>`feature-hotfix`: A request to fix a bug (not really a feature).</li>
+            <li>`feature-minor` : A request to add a minor feature.</li>
+            <li>`feature-major` : A request to add a major feature.</li>
+          </ul>
+          <p>Optional Labels. Mutually-exclusive labels are grouped in brackets.</p>
+          <pre>[`priority-high` | `priority-medium` | `priority-low` | `priority-wontfix`] || [`layer-HTML` | `layer-CSS` | `layer-JS`] || `question` || `duplicate`</pre>
+          <p>Issues are also assigned to GitHub Milestones. Milestones are named after expected future release version numbers.</p>
+          <p>
+            Good developers will address the bugs first, then the minor issues, then the major issues.
+            This is the typical priority order. Of course, work can be done on all three at the same time but
+            it's best to finalize the bugfixes first.
+          </p>
+          <section>
+            <h4>Single Bug Example</h4>
+            <p>
+              Let's say you're working on a project and you're at some point in time at which the project is 100% stable:
+              there are no bugs, and no new features to be added. You have two branches, <code>master</code> and <code>dev</code>,
+              which live parallel alongside each other.
+            </p>
+            <p>A developer or user notices a bug in the current version (latest release on <code>master</code>).
+              This could be a syntactic error, run-time error, or semantic error. They submit a new GitHub Issue,
+              say *#5: background image missing*. This issue would be given the label `feature-hotfix` and
+              assigned to a GitHub Milestone with a patch version number.
+              Then a developer creates the branch a new branch `fix-5bgimg` off of <code>hotfix</code> (which is already
+              branched off <code>master</code>).
+              Developers do work on this branch, and when it is fixed, close the issue or submit a pull request.
+              When the project manager sees the closed issue/pull request, `fix-5bgimg` is merged back into
+              <code>hotfix</code> and then `fix-5bgimg` is deleted.
+            </p>
+          </section>
+          <section>
+            <h4>Minor Feature Example</h4>
+            <p>Same situation as before, stable project.</p>
+            <p>
+              Then either a developer or user requests a new minor feature, say a new color scheme, and submits a new
+              GitHub Issue called *#13: new color scheme*.
+              Because a new color scheme is a new feature that wouldn't require any changing of previous functionality,
+              it will be given the label `feature-minor`. It would also be assigned to a GitHub Milestone with a minor version number.
+              A developer creates a new branch called `feat-13colorscheme` off <code>dev</code>.
+              Developers do work on the branch, and when they decide it is complete, they close the GitHub Issue
+              or submit a pull request. The branch is not merged until the project manager sees the
+              closed issue/pull request and decides to merge it back into <code>dev</code>. When `feat-13colorscheme`
+              is merged back into <code>dev</code>, the feature branch is deleted.
+            </p>
+          </section>
+          <section>
+            <h4>Major Feature Example</h4>
+            <p>
+              Major features are difficult because they are long-term features and typically take more time to
+              complete than minor features do. In addition, major features aren't as frequently released, and
+              they aren't typically released one at a time. It is usually the case that a bunch of major features
+              are released all together, so that the number of non-backward-compatible changes is minimized.
+              Thus it takes careful consideration of how and when to release major versions of an app.
+              This section describes a model example of a major feature.
+            </p>
+            <p>Same situation as before, stable project.</p>
+            <p>
+              A developer or user requests a new major feature and submits a new GitHub Issue. The Issue would be
+              assigned to a Milestone with a major version number.
+            </p>
+            <p>A major feature branch is very similar to a minor feature branch. It would be branched off <code>dev</code>,
+              and when complete, the GitHub Issue would be closed. However since major features are more slowly
+              released than minor features, it wouldn't make sense to merge this feature into <code>dev</code>:
+              if so, the latest unreleased version of the project would contain a bunch of minor features and perhaps
+              one major feature. In this case, the next released version would have to be a major release, even if
+              there is only one major feature introduced.
+            </p>
+            <p>
+              If we want our next scheduled release to be a minor release, we don't want any major features
+              introduced into the <code>dev</code> branch, even if the major feature is complete.
+              Instead, we should branch a **development branch** <code>dev-v4</code> off
+              of <code>dev</code> and merge the major feature branch into the new development branch.
+            </p>
+          </section>
+        </section>
+        <section>
+          <h3>Release Examples</h3>
+          <section>
+            <h4>Patch Release Example</h4>
+            <p>Same situation as before, stable project. Say the project's latest release is v3.2.1.</p>
+            <p>Patches are released only when bugs on <code>master</code> have been fixed via the <code>hotfix</code> branch.
+              At some point in time, *Milestone v3.2.2* will be closed. This happens when all
+              the Issues in the Milestone are closed. At this point, if all the fixes and bugs have been worked out,
+              <code>hotfix</code> is merged into <code>master</code>, creating v3.2.2.
+              Then <code>master</code> is merged into <code>dev</code> (and any existing release branches).
+            </p>
+          </section>
+          <section>
+            <h4>Minor Release Example</h4>
+            <p>Same situation as before, stable project. Say the project's latest release is v3.2.1.</p>
+            <p>When a minor feature Issue is closed, that feature branch is most likely merged into <code>dev</code> and
+              *Milestone v3.3.0* is closer to being complete. When all the Issues for the
+              Milestone are closed, the Milestone itself is closed. At this point, `rel-v3.3.0` is branched
+              off <code>dev</code> and only fixes and bugs for v3.3.0 may be committed to `rel-v3.3.0`.
+              Any new features will be committed to a development branch.
+            </p>
+            <p>
+              The time at which Version 3.3.0 is released is probably dependent on a deadline. Beforehand,
+              any changes to <code>master</code> (namely, hotfixes) should be merged into <code>dev</code> and `rel-v3.3.0`
+              as previously mentioned.
+            </p>
+            <p>When Version 3.3.0 is ready to be released, `rel-v3.3.0` is merged into <code>master</code> and then
+              <code>master</code> is merged into <code>dev</code> (and any other existing release branches).
+            </p>
+          </section>
+          <section>
+            <h4>Major Release Example</h4>
+            <p>Same situation as before, stable project. Say the project's latest release is v3.2.1.</p>
+            <p>
+              When a major feature Issue is closed, that feature branch is most likely merged into the next
+              major development branch, e.g., <code>dev-v4</code>. When all the issues for *Milestone v4.0.0* are closed,
+              the Milestone itself is closed.
+            </p>
+            <p>
+              At this point, regardless of whether there are any active hotfix or release branches,
+              <code>dev-v4</code> is merged into <code>dev</code>, <code>dev-v4</code> is deleted, and a new branch `rel-v4.0.0` is branched
+              off of <code>dev</code>. (Remember, the development branch <code>dev-v4</code> is where major work can be done and features can be added. In contrast, the release branch `rel-v4.0.0` is only for bugfixes. Once `rel-v4.0.0` is branched off <code>dev</code>, work can be done on <code>dev</code> for the next Minor release, namely, v4.1.0.)
+            </p>
+            <p>
+              The work on any existing hotfix branches and release branches continues as normal, merging into
+              <code>master</code> when appropriate. Then any changes to <code>master</code> are merged into <code>dev</code> and `rel-v4.0.0`
+              as previously mentioned.
+            </p>
+            <p>
+              When Version 4.0.0 is ready to be released, which is probably due to a deadline, `rel-v4.0.0` is
+              merged into <code>master</code> and then <code>master</code> is merged into <code>dev</code> (and any other existing release branches).
+            </p>
+          </section>
+        </section>
+      </section>
+    </main>
+  </body>
+</html>

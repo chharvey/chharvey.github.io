@@ -11,6 +11,8 @@ project.vru = project.px_per_rem * project.line_height
 /**
   * Resizes the `.c-FolioTitle` headings on home site to keep them horizontally contained.
   */
+/*
+ * CHANGED: no longer needed as .c-FolioTitle is now responsive
 function resizeFolioHeading() {
   $('.c-FolioTitle').each(function () {
     var self = this
@@ -25,6 +27,7 @@ function resizeFolioHeading() {
     });
   });
 }
+ */
 
 /**
   * Compensates for changes of pullquote line height.
@@ -154,13 +157,13 @@ function mathJax() {
   $('.M.M--B').prepend('\\[').append('\\]')
 }
 $(document).ready(function () {
-  resizeFolioHeading()
+  // resizeFolioHeading()
   pullquoteLines()
   // mapHeights()
   tableSpacing()
   mathJax()
 })
 $(window).resize(function () {
-  resizeFolioHeading()
+  // resizeFolioHeading()
   pullquoteLines()
 })

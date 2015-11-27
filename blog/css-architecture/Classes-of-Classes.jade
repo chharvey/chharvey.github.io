@@ -1,0 +1,252 @@
+doctype html
+html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
+  head
+    title Classes of Classes
+    meta(charset="utf-8")
+    meta(name="author" content="Christopher H. Harvey")
+    meta(name="description" content="An overview of the many uses of the HTML `class` attribute and corresponding CSS classes.")
+    meta(name="keywords" content="lists, ordered, unordered, association")
+    link(rel="stylesheet" href="../styles/chharvey.css")
+  body.o-GoldenContainer
+    p(style="position:fixed;font-weight:bold;font-size:1.5rem;color:red;") WARNING: THIS DRAFT IS INCOMPLETE AND POSSIBLY EVEN INCORRECT. DO NOT CITE OR REFERENCE IT. IT WILL BE MERGED INTO ANOTHER DOCUMENT AND RELEASED AT A LATER TIME.
+    main.o-GoldenContainer__Content.c-Document.c-Document--draft(data-status="draft" itemscope="" itemtype="https://schema.org/Article")
+      header
+        h1(itemprop="name headline") Classes of Classes
+        dl.Docmeta
+          dt Author
+          dd(itemprop="author") Christopher H. Harvey
+          dt Description
+          dd(itemprop="description") An overview of the many uses of the HTML #[code class] attribute and corresponding CSS classes.
+          dt Keywords
+          dd(itemprop="keywords") #[abbr(title="HyperText Markup Languge") HTML]
+          dd(itemprop="keywords") #[abbr(title="Cascading StyleSheets") CSS]
+          dd(itemprop="keywords") class
+          dt Version History
+          dd.update(itemprop="dateModified") #[time(datetime="2015-04-13 14:30") Apr 13, 2015 #[span.tod 2:30 PM]]
+      p.c-Lede.
+        There is a clear case of #[i classitis] on the front end. No, I&rsquo;m not talking about
+        an overuse of classes&mdash;I don&rsquo;t believe you can ever use too many classes in HTML.
+        I&rsquo;m referring to the fact that we are using classes for #[em everything], and this
+        becomes overwhelming when it comes to architecting and maintaining your CSS. We need to
+        seriously analyze the different ways in which we are using classes, separate and organize them
+        into #[i classifications] to clearly identify each use, and maybe provide some alternative
+        methods and/or conventions for implementing semantics and style.
+        I even go insofar as to suggest ammendments to the CSS specification. After all,
+        #[a we are using a very old technology to achieve very new things].
+      section
+        h2 Introduction
+        p.
+          #[span.Title Content before presentation.] When it comes down to efficient HTML versus
+          efficient CSS, HTML wins. The reason? Semantics always trumps over style. You&rsquo;ve got
+          a problem when you find yourself having to adjust a huge amount of HTML just to conform to
+          CSS best practices (such as adding 8 different classes to an Element to get it to look
+          exactly how you want; ahem, looking at you, atomic css). It should be the other way around.
+          CSS should conform to how HTML is (or should be) written, even if it means sacrificing
+          a little bit of efficiency.
+        p.
+          #[span.Title The original intent of HTML classes.]
+          The HTML #[code class] attribute were #[a originally] meant to group
+          #[b semantically similar] Elements together.
+          For example, all Elements that represent warnings on a page could all have
+          #[code class="warning"]. A side effect of semantically similar elements belonging to
+          one class is that they can all be styled the same way with the CSS #[code .warning] class.
+          Well, it seems now we have blown this way out of proportion.
+        p.
+          With the development of Object-Oriented CSS, we have learned to take advantage of
+          classes and use them for many different reasons. This can be a good thing and a bad thing.
+          On one hand, authors are successfully implementing best practices: separating concerns,
+          abstracting reusable components, #[i(lang="la") #[abbr(title="et cetera") etc.]] On the other,
+          such a diverse use of one specific feature of HTML has grown so large it has become an epidemic.
+        p.
+          Now, instead of using CSS classes to merely group similar Elements together, we are using them
+          to define Objects and Components (which are patterns of style repeated throughout a page or site)
+          and then making Elements #[i instantiate] them, if you will.
+          While syntactically, there really is no change, there&rsquo;s something fundamentally,
+          subtly, different going on here. Instead of saying,
+          #[q these two Elements are similar in meaning; I should give them the same class so that they appear the same],
+          we&rsquo;re now saying,
+          #[q I want these two Elements to appear the same (for whatever reason); I should give them the same class].
+          It&rsquo;s almost backwards!
+        p.
+          I&rsquo;m not here to tell you not to use classes. In fact I think classes are the perfect
+          mechanism for this. But as you read this article I do hope you become more aware of the
+          different types of classes you are using, and you are able to make smart decisions about
+          when you should or should not be using them.
+      section
+        h2 Categories of Classes
+        p.
+          All the types of classes discussed here are syntactically indistinguishable&mdash;like
+          any CSS class, they have a given set of properties and thus aren&rsquo;t differentiated
+          by browsers&mdash;however, they are actually used for different purposes. We must make
+          the distinction clear to provide a starting point for the cure of classitis.
+          In this section we discuss the different uses of classes from an abstract point of view.
+          The ways they can be syntactically implemented is left out, because there are many methods
+          of doing so.
+        section
+          h3 Objects
+          p.
+            Objects are generic classes that provide cosmetic-free layout and structure for a page
+            and its Elements. Any layout or grid system classes belong here, as well as other
+            classes that are used to define an Element&rsquo;s structure without relying on context.
+            Examples include the Media Object, the Nav Abstraction, and the Island Object. All
+            of these objects determine layout and/or structure, but do not affect look-and-feel.
+        section
+          h3 Components
+          p.
+            Components are recognizable pieces of UI that have a particular look-and-feel.
+            Buttons, breadcrumb lists, labels, and tags are all good examples. These classes are
+            built on top of Objects, but they also provide cosmetics for the Element.
+            In most cases, the cosmetics of a Component laregly contribute to its function.
+          p.
+            Components are unusual in that their semantics are derived from their presentation.
+            That is, the look-and-feel of a Component may determine its meaning in terms of usability.
+            For example, a #[code span.label] might not look like anything with CSS turned off,
+            but with CSS on it might clearly represent a label attached to a heading or link.
+            <strong>As a consequence, authors should be careful with Components because users with
+            a visual interface might have an advantage over users with, say, an audio interface.
+            Therefore authors should continue to support
+            #[a HTML5 Microdata] and #[a ARIA roles]
+            to accommodate the latter.</strong>
+        section
+          h3 Subclasses of Objects &amp; Components
+          p.
+            As in an OO programming language, a subclasses extends a class by specifying parameters
+            that were previously open, or overriding previously-defined parameters. A subclass of an
+            Object (or Component) is a special case of that Object (or Component): it&rsquo;s the same
+            thing but maybe just with a few small changes. Defining a subclass on an Object is
+            beneficial to defining a whole new Object because it saves you from repeating code.
+        section
+          h3 Themes
+          p.
+            Theme classes are tricky. A theme class applied to an Element might not affect the Element
+            itself, but will very likely affect its descendants. Theme selectors are usually along
+            the lines of #[code .t-light .o-Media {&hellip;}], where the styles are actually applied to the
+            Media object inside the theme, not the theme itself. We&rsquo;ll talk about how to write
+            theme classes in CSS at a later time, but here we are just raising awareness
+            of the type of class.
+        section
+          h3 Utilities
+          p.
+            Overrides, helper classes, hacks, and things that use #[code !important].
+          section
+            h4 Type 1 Utility: Atoms. Classnames that describe their definitions
+            p.
+              Atoms are classes that do exactly one thing and do it very well. Their definitions
+              include one property-value pair that is usually accompanied by `!important`.
+              Because of the rigid static nature of these classes, the classnames are
+              allowed to be descriptive, that is, they describe their contents.
+              The atom #[code .mt1 {margin-top: 1rem !important;}] is a good example. Its name
+              reflects its style definition, which is okay because we aren't expecting either to change.
+              If however we did change it from `1rem` to `2rem` then `.mt1` would be a silly name for
+              the class, wouldn't it?
+            p.
+              Atomic CSS is a very radical ideology that basically says your entire codebase should
+              consist of nothing but atoms, and then you would use only those atoms in HTML
+              to style a site. I won't go into much detail but I will say that without a templating
+              system this will hinder development a lot. Personally, I don't see a difference between
+              defining templates to have certain classes versus defining classes to have certain
+              properties. It's just one more step to add to workflow.
+              defining a template so that a "button" component will have classes
+              background-gradient-blue  on-hover-background-lighten  border-outset
+              on-click-border-inset  border-rounded-corners-10
+              This results in very bloated markup, with site components needing tons of classes.
+            pre.
+              &lt;a class="background-gradient-blue  on-hover-background-lighten  border-outset
+                        on-click-border-inset  border-rounded-corners-10  etc  etc  etc"&gt;press me&lt;/a&gt;
+            p.
+               very much .The argument for this 
+            p.
+              Read about *Atomic CSS* [here](https://www.lucidchart.com/techblog/2014/01/31/atomic-css-tool-set/) and  [here](http://www.smashingmagazine.com/2013/10/21/challenging-css-best-practices-atomic-approach/) for more examples. It shouldn't be very hard to guess how these classes are defined.
+            p.
+              These classnames describe the properties that define the class. Examples include
+              `.big` and `.margin-top-24`. Read about *Atomic CSS*
+              [here](https://www.lucidchart.com/techblog/2014/01/31/atomic-css-tool-set/) and
+              [here](http://www.smashingmagazine.com/2013/10/21/challenging-css-best-practices-atomic-approach/)
+              for more examples. It shouldn't be very hard to guess how these classes are defined.
+          section
+            h4 Type 2 Utility: Classnames that describe their general appearance
+            p.
+              While truly presentational classes describe the properties in their definitions, there
+              is a bit of a step up in types of presentational classes. Classes that describe their
+              *general* appearance are still presentational, but are not so specifically named that
+              their properties are locked.
+            p.
+              Take `.grid-50-left` for example. The name of the class indicates the look of the
+              component, namely, that it should be 50% wide and moved to the left, but it does not
+              explicitly say *how* it achieves this look. It may use floats, a table-like layout,
+              flex boxes, or grid layouts. The implementation of its appearance may be changed, so
+              long as its appearance stays the same. Another example would be `.list-inline`.
+            pre.
+              ### Discussion: Type 1 and Type 2
+
+              There are some cases in which having presentational classes available in CSS is helpful.
+              In short, they provide abstraction. Type 1 and Type 2 classes can be used as a mechanism
+              for site-wide consistency, and can save developers the hassle of having to repeat the
+              same lines of code over and over again. For example, redefining the same top margin on
+              multiple elements is not only tedious but also error prone. The developer has to remember
+              the number of pixels, code is repeated, and upkeep is expensive. These classes provide
+              an easy and scalable solution. Another case of this is using a grid system. A class such
+              as `.grid-50-left` is *very* presentational but necessary for DRY code.
+
+              Though presentational classes are useful to CSS developers, Type 1 and Type 2 should
+              *not* be accessible to the HTML. There are a number of reasons why:
+
+              - HTML describes content, not presentation. Technically, classes are in the HTML.
+              It is an HTML attribute, and thus adding a value to the `class` attribute of an Element
+              should have *some* semantic meaning (even if only for humans). The classname `.boldred`
+              for example does not add any semantic value to the HTML. An ideal alternative would be
+                to use `.warning` (or something similar) and then have the `.warning` class use the
+                properties defined in `.boldred` in some way. More on that later. `.warning` would
+                go in the [Type 3 category](#type-3).
+              - **The Theoretical Redesign Future.** If you wanted to change the properties of the
+              `.boldred` class, say, make it italic instead of bold, now you have to deal with an
+              awkward classname, or you have to change the classname from `class="boldred"` to
+              `class="italicred"` everywhere in the HTML. Sure, a search-and-replace tool would be
+              useful, but you shouldn't have to put yourself through all that trouble. On the other
+              hand, you are free to change `font-weight: bold;` to `font-style: italic;` in the
+              definition of `.warning` easily without dealing with a classname that doesn't match
+              its definition.
+
+              The point is not to say that `.boldred` *shouldn't* be a classname. It very well can be!
+              In fact, if a lot of elements use the properties of this class, you *should* make
+              `.boldred` a class, so you can use it as a tool to abstract a repeating pattern. The
+              point *is*, however, to say that this class should *not* be available to HTML Elements.
+              [Continue reading for a discussion on how to do this.]
+
+              Type 2 classes are *a bit* of a step up from Type 1 because their definitions are a
+              little more maleable, but still, they shouldn't be available in the HTML because they
+              are presentational. In HTML, you should use semantic classnames.
+          section
+            h4 Type 3 Utility: Classnames that describe their function
+            p.
+              &ldquo;Semantic&rdquo; classnames aren't really semantic (they don't actually *convey*
+              meaning to the HTML or UAs (user agents)). Rather, they are *named* semantically
+              because they describe the meaning of the component and/or its contents. Examples
+              include `.pacingtable`, `.answer`, `.optional`, `.menu`, and `.success`.
+            p.
+              These are good classes to use in HTML because they mark up Elements with data describing
+              what they mean. For example, take the Element `p.success`. There are two semantic
+              things going on here: first, the `p` tag describes what the Element *is*, but
+              second, the `class="success"` attribute describes what the Element *means*: it's some
+              sort of indication of success, such as the completion of an upload. Of course, only the
+              first of these is actually meaningful to a UA, but that is not to say that the classname
+              doesn't add any semantic value for the benefit of human developers. The bottom line,
+              semantic classnames *should* be accessible to the HTML.
+          section
+            h4 Type 4 Utility: classes used to add semantic value to the HTML
+            p.
+              A common use of classes to extend HTML would be to create elements that aren't present
+              in the HTML standard. Based on an author's field, the HTML specification may or may not
+              have an adequate sampling of types of elements for the author's work. For example, why
+              is there not an `abstract` element? I suppose the solution would be to use
+              `p class="abstract"`. This is an example of using a classname to "extend" the `p`
+              Element: it is a type of paragraph, namely an article abstract.
+            p.
+              The biggest use of Type 4 classes I can think of would be
+              [Microformats](http://microformats.org/). However this is basically an industry
+              standard, albeit easily extendable, and individual developers can't use their own
+              custom classes for this. As stated at the top of this page, classes are really meant to
+              add styles and that's about it. They should not indicate semantics to user agents
+              in my opinion. To add semantic value, I would recommend using another method such as the
+              custom `data-*` HTML attribute, [Microdata](http://schema.org/)
+              (`itemscope` and `itemprop`), and/or [ARIA roles].

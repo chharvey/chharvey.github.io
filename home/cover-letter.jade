@@ -1,0 +1,140 @@
+- var company = { name: 'Agilex', location: 'Washington, DC' }
+- var urls = { home: 'https://dev-chharvey.github.io/', source: 'https://github.com/dev-chharvey/dev-chharvey.github.io/', resume: 'https://dev-chharvey.github.io/home/resume.html'}
+
+doctype html
+html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
+  head
+    title Cover Letter
+    meta(charset="utf-8")
+    meta(name="author" content="Christopher H. Harvey")
+    meta(name="description" content="Cover Letter of Christopher H. Harvey of Fairfax, VA.")
+    link(rel="icon" href="../core/images/favicon.ico")
+    link(rel="stylesheet" href="../styles/chharvey.css")
+    style.
+      @media print {
+        body {
+          font-size: 0.75rem;
+        }
+        main {
+          margin-left:  0.5in;
+          margin-right: 0.5in;
+        }
+        h1 {
+          height: 0;
+        }
+      }
+      h1 {
+        color: transparent;
+      }
+      form, label {
+        margin-bottom: 1.5rem;
+      }
+      label {
+        display: block;
+      }
+      .o-ListBare {
+        padding-left: 0;
+        list-style-type: none;
+      }
+  body.o-GoldenContainer
+    main.o-GoldenContainer__Content.c-Document
+      h1(style="color: transparent;") Cover Letter
+      form#company-info
+        label Company Name
+          input#company-name(type="text" placeholder="Acme, Inc.")
+        label Company Location
+          input#company-location(type="text" placeholder="Washington, DC")
+        button#submit(type="button") replace variables
+      p Hello,
+      p.
+        I am Chris Harvey, applying for a front-end web developer
+        position at
+        #[output(form="company-info" for="company-name"): var company]
+        in the
+        #[output(form="company-info" for="company-location"): var city]
+        area.
+      p.
+        My experience with HTML and CSS is primarily self-taught, but I am a fast
+        learner and have used it to build projects using current best practices.
+        At my most recent position, I worked with JavaScript/jQuery, D3.js, and SVG
+        to build a feature that displays analytics data to users in an interactive
+        graphical way. I also have some experience with XML/Schema and Java.
+        I pride myself on architecting code that is clean, powerful, efficient,
+        and scalable.
+      p.
+        I believe I can sharpen these skills to build better websites and applications,
+        and I can offer fresh ideas for new projects. As an avid user of Git and GitHub,
+        and as an occasional contributor to open-source projects, I make a great team
+        member and work well in a collaborative environment. I have also spent two years
+        teaching secondary-school mathematics, from which I have gained a bit of
+        leadership experience.
+      p.
+        After graduating from Virginia Tech with a Bachelor&rsquo;s degree in Mathematics
+        and a Master&rsquo;s degree in Education, I taught in secondary schools for two years.
+        The skills I have gained from that experience would be applicable to the
+        position for which I am applying.
+      ul
+        li.
+          Working in a classroom taught me patience, delegation, multi-tasking, and the
+          importance of human relationships. I believe these skills are essential in a
+          workplace that puts a high premium on a team-like environment.
+        li.
+          Teaching often-complicated mathematical concepts gave me much experience
+          communicating complex material to an audience not well-versed in the subject
+          matter. I would need to draw on this skill when briefing nontechnical customers
+          or users.
+        li.
+          Preparing lesson plans required me to analyze and compare different sources of
+          content, organize learning objectives effectively, and use data from assessments
+          to drive instruction. These skills would be required on a daily basis while
+          analyzing the technical requirements of a project or solutions to a problem.
+      //- p.
+      //-   Some of my best work is sampled by my personal website hosted on GitHub. My
+      //-   home page can be found at #[a(href="#{urls.home}") #{urls.home}]
+      //-   and its source code at #[a(href="#{urls.source}") #{urls.source}].
+      //-   My resume can also be found online at #[a(href="#{urls.resume}") #{urls.resume}].
+      p.
+        I think I have a lot to offer and can become a great asset to the
+        #[output(form="company-info" for="company-name"): var company]
+        team.
+      footer(itemscope="" itemtype="https://schema.org/Person")
+        p Sincerely,
+        address(itemprop="address" itemscope="" itemtype="https://schema.org/PostalAddress")
+          ol.o-ListBare
+            li(itemprop="name")
+              span(itemprop="givenName") Christopher&nbsp;
+              abbr(title="Hewitt") H.&nbsp;
+              span(itemprop="familyName") Harvey
+            li(itemprop="streetAddress") 11156 Byrd Drive
+            li
+              span(itemprop="addressLocality") Fairfax,&nbsp;
+              span(itemprop="addressRegion") VA&nbsp;
+              span(itemprop="postalCode") 22030
+              span(itemscope="" itemtype="https://schema.org/GeoCoordinates")
+                meta(itemprop="latitude" content="38.864158")
+                meta(itemprop="longitude" content="-77.2888239")
+            li(itemprop="telephone")
+              a(rel="author" href="tel:+17035072467") (703) 507-2467
+            li(itemprop="email")
+              a(rel="author" href="mailto:chrisharvey2pi@gmail.com") chrisharvey2pi@gmail.com
+            li(itemprop="url")
+              a(rel="author" href="https://chharvey.github.io/") https://chharvey.github.io/
+    nav.Bc(hidden="")
+      ol.Anc
+        li
+          a.Crumb(rel="top parent" href="../index.html") Home
+      ul.Sib
+        li
+          a.Crumb(rel="sibling" href="resume.html") Resume
+        li
+          a.Crumb(rel="this" href="cover-letter.html") Cover Letter
+      ul.Child
+    script(src="../bower_components/jquery/dist/jquery.js")
+    script(src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML,https://chharvey.github.io/chhlib/mathjax-localconfig.js")
+    script(src="../core/scripts/global.js")
+    script.
+      $('#submit').click(function () {
+        $('form').hide()
+        $('output[for="company-name"]').val($('#company-name').val())
+        $('output[for="company-location"]').val($('#company-location').val())
+      })

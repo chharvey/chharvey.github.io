@@ -19,7 +19,7 @@ Util.LETTER_ENCODINGS = {
   , 'T':8 , 'U':8 , 'V':8
   , 'W':9 , 'X':9 , 'Y':9 , 'Z':9
   }
-  dualTone : function (s) { return Util.LETTER_ENCODINGS.DUAL_TONE[s] }
+, dualTone : function (s) { return Util.LETTER_ENCODINGS.DUAL_TONE[s] }
 }
 
 

@@ -1,0 +1,86 @@
+doctype html
+html(lang="en")
+  head
+    title Page Relationships
+    meta(charset="utf-8")
+    meta(name="author" content="Christopher H. Harvey")
+    meta(name="description" content="")
+    meta(name="keywords" content="")
+    link(rel="stylesheet" href="../styles/chharvey.css")
+  body.o-GoldenContainer
+    main.o-GoldenContainer__Content.c-Document(data-status="draft" itemscope="" itemtype="https://schema.org/Article")
+      header
+        h1(itemprop="name headline") Page Relationships
+        p.o-GoldenContainer__Content__SideMinor.o-Box.o-Box--island.c-Alert.c-Alert--dang.
+          This document is a work in progress.
+        dl.c-Document__Meta
+          dt Author
+          dd(itemprop="author") Christopher H. Harvey
+          dt Description
+          dd(itemprop="description")
+          dt Keywords
+          dd(itemprop="keywords")
+          dt Version History
+          dd.update(itemprop="dateModified")
+            time(datetime="2015-08-20 19:06") Aug 20, 2015 #[span.tod 7:06 PM]
+            span.o-Textbox.c-Label.c-Label--dang(class="!ml:1") Latest
+      section
+        h2 Hierarchical Relationships
+        p **Pages can be logically related to one another, in that the content on those pages is related. This section describes how pages can be related to one another in a logical hierarchy. This hierarchy is independent of the physical locations of those pages in the file system.**
+        p A **logical relative** to a page A, is another page B that is related in content to A. The logical relation between A and B has nothing to do with their locations in the file directory, but rather a &ldquo;semantic filetree&rdquo; that describes how the pages are related. For example, the **logical root** is the home page of the site. This file may or may not exist at the root of the filetree.
+        p Page B can be related to page A in different ways:
+        ul
+          li B may be a **logical child** of A, indicating that the content of B is a subset or tangential extension of the content of A.
+          li.
+            B may be a **logical sibling** of A, but only if A and B are both *children* of the same page (say, page C).
+            Note: This implication is unidirectional. That is, if A and B are children of the same parent C, they are *not necessarily* logical siblings: they may be in separate groups of children of C. In that case, A and B can be thought of as &ldquo;step-siblings.&rdquo;
+          li B may be the **unique logical parent** of A, in other words, A is a child of B. We say B is *the unique* parent of A because any given page has only one parent (the exception being the root&mdash;it has no parent).
+        p There are also extended hierarchical relationships between pages:
+        ul
+          li B may be a **logical descendant** of A, which means exactly one of the following is true:
+            ul
+              li either B is a *child* of A (in which case we say B is a &ldquo;direct descendant&rdquo; of A),
+              li or B is a child of a *descendant* of A. (This term is recursively defined.)
+          li B may be a **logical ancestor** of A, meaning exactly one is true:
+            ul
+              li either B is the *parent* of A (we say B is the &ldquo;direct ancestor&rdquo; of A),
+              li or B is the parent of an *ancestor* of A. (This term is recursively defined.)
+        p The following table summarizes the properties of page relationships. For more information, see [Properties of Mathematical Relations]. The relations in this table are described as they apply to all *non-root* pages.
+        pre.
+          relation | reflexivity | symmetry | transitivity | connectivity | left-total | surjective | right-unique | injective
+          :--------: | ----------- | -------- | ------------ | ------------ | ---------- | ---------- | ------------ | ---------
+          **descendant of** | antireflexive | antisymmetric | TRANSITIVE | unconnected | LEFT-TOTAL | not surjective | not right-unique | not injective
+          **child of** | antireflexive | antisymmetric | antitransitive | unconnected | LEFT-TOTAL | not surjective | RIGHT-UNIQUE | not injective
+          **sibling of** | REFLEXIVE | SYMMETRIC | TRANSITIVE | unconnected | not left-total | not surjective | not right-unique | not injective
+          **parent of** | antireflexive | antisymmetric | antitransitive | unconnected | not left-total | SURJECTIVE | not right-unique | INJECTIVE
+          **ancestor of** | antireflexive | antisymmetric | TRANSITIVE | unconnected | not left-total | SURJECTIVE | not right-unique | not injective
+      section
+        h2 Using the `rel` Attribute
+        p **When an `a` Element links the current document to another document, the `rel` attribute can be used to describe the relationship between the current document and the linked document. This relationship may be hierarchical, as described above, but there are also other types of relationships.**
+        section
+          h3 Hierarchical `rel` Values
+          p The following values can be used on an anchor&rsquo;s `rel` attribute to describe the hierarchical relationship between the current page and the linked page. More than one value may be specified (for example, `rel="top parent"`).
+          p *Caution: These values are not in [the HTML5 specification](http://www.w3.org/TR/html51/links.html#linkTypes) and are not endorsed by the W3C. They do appear in the [Microformats specification](http://microformats.org/wiki/existing-rel-values), however they do not have the same definitions.*
+          pre.
+            value | description
+            ----- | -----------
+            `rel="top"` | The anchor links to the *logical root*, that is, the common logical ancestor of all pages in the site. This value implies `rel="ancestor"` because the root is an ancestor of every page.
+            `rel="ancestor"` | The anchor links to a logical ancestor (which is possibly the parent) of the page.
+            `rel="parent"` | The anchor links to the unique logical parent of the page. This value implies `rel="ancestor"` because a parent is an ancestor.
+            `rel="sibling"` | The anchor links to a logical sibling of the page.
+            `rel="this"` | The anchor links to the current page. This value implies `rel="sibling"`.
+            `rel="child"` | The anchor links to a logical child of the page. This value implies `rel="descendant"` because a child is a descendant.
+            `rel="descendant"` | The anchor links to a logical descendant (which is possibly a child) of the page.
+          p Anchors on a page whose `href` attribute value begins with `#` link to the current page. If there is no `rel` attribute, or if the `rel` attribute exists but does not have a corresponding value, the said anchor&rsquo;s relationship implies `rel="this"`.
+          p The value of the `rel` attribute may also contain other tokens as well. In the case of conflicting tokens (e.g., `rel="parent child"`), the latter must be considered and the former must be disregarded.
+        section
+          h3 Other `rel` Values
+          p The following values are described in [the HTML5 specification](http://www.w3.org/TR/html51/links.html#linkTypes) and are endorsed by the W3C. In addition, there are some `rel` values that are not described in HTML5 but are still valid, as described by the [WHATWG](http://www.whatwg.org/specs/web-apps/current-work/multipage/links.html#linkTypes) and in the [Microformats specification](http://microformats.org/wiki/existing-rel-values).
+          pre.
+            value | description
+            ----- | -----------
+            `rel="next"` | The current page is part of a sequence, and the anchor links to *the unique* next page in the sequence. The next page may also be a sibling, in which case use `rel="next sibling"`. There must only be one `a[rel~="next"]` on any given page.
+            `rel="prev"` | The current page is part of a sequence, and the anchor links to *the unique* previous page in the sequence. The previous page may also be a sibling, in which case use `rel="prev sibling"`. There must only be one `a[rel~="prev"]` on any given page.
+            `rel="external"` | The anchor links to a page that is not part of the same site.
+            `rel="author"` | The anchor links to another page that represents the author of the current page. An example might be a profile page, blog, RSS feed, or email address. This `a` Element is likely a descendant of an `address` Element.
+          p Anchors on a page whose `href` attribute value begins with `http://` or `https://` *could possibly* link to an external page. If the domain name in the URL is not that of the same page, the link is definitely external. In this case, if there is no `rel` attribute, or if the `rel` attribute exists but does not have a corresponding value, the said anchor&rsquo;s relationship implies `rel="external"`.

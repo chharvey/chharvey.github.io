@@ -1,0 +1,486 @@
+doctype html
+html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
+  head
+    title The FlexContainer Object
+    meta(charset="utf-8")
+    meta(name="author" content="Christopher H. Harvey")
+    meta(name="description" content="Using Flexbox to lay out Elements on a page.")
+    meta(name="keywords" content="Flexbox, layout, CSS, Less")
+    link(rel="stylesheet" href="../styles/chharvey.css")
+  body.o-GoldenContainer
+    main.o-GoldenContainer__Content.c-Document(data-status="draft" itemscope="" itemtype="https://schema.org/Article")
+      header
+        h1(itemprop="name headline") The FlexContainer Object
+        p.o-GoldenContainer__Content__SideMinor.o-Box.o-Box--island.c-Alert.c-Alert--dang.
+          This document is a work in progress.
+        dl.c-Document__Meta
+          dt Author
+          dd(itemprop="author") Christopher H. Harvey
+          dt Description
+          dd(itemprop="description") Using Flexbox to lay out Elements on a page.
+          dt Keywords
+          dd(itemprop="keywords") Flexbox
+          dd(itemprop="keywords") layout
+          dd(itemprop="keywords") CSS
+          dd(itemprop="keywords") Less
+          dt Version History
+          dd.update
+            time(datetime="2015-02-13 15:23") Feb 13, 2015 #[span.tod  3:23 PM]
+          dd.update
+            time(datetime="2015-02-19 13:01") Feb 19, 2015 #[span.tod  1:01 PM]
+          dd.update
+            time(datetime="2015-02-19 19:23") Feb 19, 2015 #[span.tod  7:23 PM]
+          dd.update
+            time(datetime="2015-02-20 01:04") Feb 20, 2015 #[span.tod  1:04 AM]
+          dd.update
+            time(datetime="2015-02-20 15:11") Feb 20, 2015 #[span.tod  3:11 PM]
+          dd.update
+            time(datetime="2015-02-20 16:20") Feb 20, 2015 #[span.tod  4:20 PM]
+          dd.update
+            time(datetime="2015-02-23 22:06") Feb 23, 2015 #[span.tod 10:06 PM]
+          dd.update(itemprop="dateModified")
+            time(datetime="2015-04-08 09:39") Apr  8, 2015 #[span.tod  9:39 AM]
+            span.o-Textbox.c-Label.c-Label--dang(class="!ml:1") Latest
+      p.c-Lede.c-Lede--dropcap.
+        Laying out a page is easier than it may seem. Everything on the page belongs in blocks, and
+        each block has a size and position. That&rsquo;s all there is to it. There are many methods,
+        good and bad, of how to achieve this, but that is the gist of what needs to happen.
+      p.
+        Of all the grid systems out there, this article does not discuss any of them.
+        Rather, after reading this article, hopefully you will see the #[strong anti-need]
+        for any grid system, and certainly how ridiculous it is that there are so many of them.
+        You will create your own layout (read, #[em layout], not grid) using pure CSS3.
+      p.
+        Before delving too far, though, you should probably get yourself up-to-speed on the
+        #[a(rel="external" href="http://lesscss.org/") Less] CSS preprocessor, and the
+        #[a(rel="external" href="http://www.w3.org/TR/css3-flexbox/") CSS Flexible Box Layout Module],
+        or
+        &ldquo;#[a(rel="external" href="http://css-tricks.com/snippets/css/a-guide-to-flexbox/") Flexbox],&rdquo;
+        for short. This article is not a Flexbox tutorial, but rather a guide on how to #[em use] it
+        to obtain the layout you want.
+      p.
+        After you&rsquo;ve designed the layout on paper (or in your head), you have to produce that layout
+        on the screen. The easiest way to do this is to first decide on the order of the blocks,
+        next set their widths such that they add up to the full page (or container) width, and then
+        place the blocks into position. #[b Flexbox] makes this extremely easy: you
+        can do this all in CSS, without ever having to touch your HTML.
+      p.
+        #[i(style="quotes: none;") Wait, what? You&rsquo;re saying that presentation is not at all related to content?]
+        Let me reiterate.
+        #[strong You can change the ordering, sizing, and positioning of elements on a page without having to touch the HTML.]
+        This means no wrapper divs, no table rows, no presentational classes, and no huge commits.
+        Have I caught your attention yet?
+      section#setup
+        h2 Setting up Flexbox
+        p.
+          The most important part of a site is its content, that is, the HTML. I cannot stress enough the
+          importance of writing good, structured HTML first, and then styling it with CSS later. A lot of
+          frameworks #[small (ahem, Bootstrap)] actually
+          #[em use] HTML to affect style, which makes the source code unreadable and unmaintainable (think div soup).
+          No, first we&rsquo;ll write our content and structure, use good, meaningful classnames, and then
+          use those classnames as style hooks in the CSS.
+        p.
+          Let&rsquo;s start with a prototypical example: a site with a header, footer, body copy, and
+          two sidebars. We want our end result to show the header at top, footer at bottom, sidebars
+          on left and right, and body copy in the middle. Something like this:
+        figure
+          img(src="images/prototypical-site.png" alt="A screenshot of a typical website structure.")
+          figcaption.c-Caption.
+            #[strong Figure 1.] A screenshot of a typical website structure.
+        p.
+          Not worring about how it looks for a moment, we need to write the HTML that makes the most
+          semantic sense (and is the most accessible). This means our body copy should come first,
+          so that it gets loaded first, followed by the header and footer, and then followed by the sidebars.
+          Indeed, the order of our Elements does not match the order of our intended result, but CSS
+          will take care of that later.
+        p.
+          It might also be a good idea to add semantic classnames to the Elements so we can use them as
+          stylehooks. This is not redundant though, because
+          #[a we don&rsquo;t want to use Element selectors as style hooks]
+          for reasons not discussed in this article.
+        figure
+          pre.
+            &lt;main class="Article"&gt;
+              &lt;article class="Body"&gt;
+                &lt;p&gt; Pellentesque habitant morbi &hellip; &lt;/p&gt;
+              &lt;/article&gt;
+              &lt;header class="Head"&gt;  Head  &lt;/header&gt;
+              &lt;footer class="Foot"&gt;  Foot  &lt;/footer&gt;
+              &lt;aside  class="Side1"&gt; Side1 &lt;/aside&gt;
+              &lt;aside  class="Side2"&gt; Side2 &lt;/aside&gt;
+            &lt;/main&gt;
+          div(class="!ta:c")
+            article.h-ol
+              p Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. &hellip; 
+            header.h-ol Head 
+            footer.h-ol Foot 
+            aside.h-ol Side1 
+            aside.h-ol Side2 
+        p: strong Now for the fun part: adding Flexbox.
+        p.
+          To set up a layout with multiple blocks that will visually appear on one or more lines,
+          we need to use the Flexbox model. In this model, a #[dfn#flex-container flex-container]
+          is a block that contains other blocks, called #[dfn#flex-item flex-items], inside.
+        p.
+          Well, it&rsquo;s a good thing our HTML is already structured this way! We already have a
+          container with 5 items. To turn the #[code main.Article] into a flex-container,
+          use the FlexContainer Object by adding class #[code .o-FlexContainer] to it.
+          (There is no need to add any class to its children.)
+          You should do this with #[code &lt;main class="Article o-FlexContainer"&gt;], but you
+          may use the Object as a mixin in your Less.
+        figure
+          pre.
+            .Article {
+              .o-FlexContainer;
+              <small>// I would not recommend using &amp;:extend(.o-FlexContainer);</small>
+              <small>// because of issues with specificity</small>
+            }
+          div.o-FlexContainer(class="!ta:c")
+            article.h-ol
+              p Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. &hellip; 
+            header.h-ol Head 
+            footer.h-ol Foot 
+            aside.h-ol Side1 
+            aside.h-ol Side2 
+        p.
+          First notice how the items are now aligned in rows, and that if there are too many of them
+          or if they are too big, they wrap to the next row. This is a major advantage over grid systems
+          with #[code &lt;tr&gt;]-like containers, which are very limiting.
+          Next notice how the width of each flex-item fits its contents. In this particular example,
+          the body copy is large compared to the other 4 items, but this would not be the case if
+          those items had more content. In the next sections, we&rsquo;ll see how to adjust
+          the order and width of flex-items to make them go into the #[i correct] rows.
+      section#order
+        h2 Setting Item Order
+        p.
+          Use the #[code .flex-order()] tool on an item to change its placement
+          in the order. The rules for ordering are simple:
+        ol
+          li The flex-container will arrange its flex-items in increasing order.
+          li If two flex-items have equal ordinal numbers, the ordering will be the same as in the source (HTML).
+          li Every flex-item starts out with a default ordinal of 0. Thus the default ordering is that of the source.
+          li A flex-item&rsquo;s ordinal can be changed to any integer, even a negative integer.
+        p.
+          Before I spoon-feed you the answer, let&rsquo;s take a moment to figure out what the ordinals
+          should be. Here is a comparison of the items in order of source versus the order we want:
+        table.c-TableShaded.c-TableShadedCols.c-TableBorderedRows(class="!w:1o1 !ta:c")
+          tbody
+            tr
+              th source
+              td #[u Body]
+              td Head
+              td Foot
+              td Side1
+              td #[u Side2]
+            tr
+              th desired
+              td Head
+              td Side1
+              td #[u Body]
+              td #[u Side2]
+              td Foot
+        p.
+          Body and Side2 are already in place, so we just need to rearrange the other items around them.
+          This means keep the ordinal of Body and Side2 as the default 0, give the Head and Side1 an
+          ordinal of -1 (and since they&rsquo;re already in the correct order, they can have the same
+          ordinal), and move the Foot to the end by giving it an ordinal of 1. Thus we need to make
+          the following adjustments to our Less:
+        figure
+          pre.
+            .Article {.o-FlexContainer;}
+            .Body  {} <small>// .flex-order(0); by default</small>
+            .Head  {.flex-order(-1);}
+            .Foot  {.flex-order(1);}
+            .Side1 {.flex-order(-1);}
+            .Side2 {}
+          div.o-FlexContainer(class="!ta:c")
+            article.h-ol
+              p Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. &hellip; 
+            header.h-ol(class="!xo:-1") Head 
+            footer.h-ol(class="!xo:1") Foot 
+            aside.h-ol(class="!xo:-1") Side1 
+            aside.h-ol Side2 
+        p.
+          Remember, the actual ordinal numbers aren&rsquo;t important. What&rsquo;s important is their
+          comparison to each other. We could have just as easily given the following ordinals to achieve
+          the same effect.
+        pre.
+          .Body  {.flex-order(1);}
+          .Head  {}
+          .Foot  {.flex-order(2);}
+          .Side1 {}
+          .Side2 {.flex-order(1);}
+        p Likewise,
+        pre.
+          .Body  {.flex-order(2);}
+          .Head  {.flex-order(0);}
+          .Foot  {.flex-order(4);}
+          .Side1 {.flex-order(1);}
+          .Side2 {.flex-order(3);}
+        p Or even,
+        pre.
+          .Body  {.flex-order(5);}
+          .Head  {.flex-order(2);}
+          .Foot  {.flex-order(11);}
+          .Side1 {.flex-order(3);}
+          .Side2 {.flex-order(7);}
+        p.
+          Now, the items are in the correct order. Adjusting their widths will automatically put them
+          into position, because Flexbox wraps!
+      section#widths
+        h2 Setting Widths
+        p.
+          All we have to do is set the widths of each item. This will automatically place them into position
+          because of the way Flexboxes wrap. The easiest way to set the width of an Element is to use the CSS
+          #[code width] property. You can do this with inline styles (yuck) or you can add it to
+          the Element&rsquo;s class&rsquo; definition in an external stylesheet. Your life will be
+          significantly easier if you let #[b Less] do all the mathematical calculations, so you can
+          use math calculations (e.g., #[code (5/6) * 100%]) or you can simply type in the
+          percentages yourself.
+        p.
+          If we want our article to look like the screenshot in #[b Figure 1], the Head and Foot
+          should be full width, the Body should be a majority of the full width, and the sidebars
+          should be the remainder, equal in length. For the middle part, 20% + 60% + 20% seems about right,
+          but you can choose your own widths as long as they add up to 100%.
+        figure
+          pre.
+            .Article {.o-FlexContainer;}
+            .Body  {
+              width: 60%;
+            }
+            .Head  {
+              .flex-order(-1);
+              width: 100%;
+            }
+            .Foot  {
+              .flex-order(1);
+              width: 100%;
+            }
+            .Side1 {
+              .flex-order(-1);
+              width: 20%;
+            }
+            .Side2 {
+              width: 20%;
+            }
+          div.o-FlexContainer(class="!ta:c")
+            article.h-ol(class="!w:3o5")
+              p Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. 
+            header.h-ol(class="!w:1o1 !xo:-1") Head 
+            footer.h-ol(class="!w:1o1 !xo:1") Foot 
+            aside.h-ol(class="!w:1o5 !xo:-1") Side1 
+            aside.h-ol(class="!w:1o5") Side2 
+        p That&rsquo;s it! Tutorial done. The rest of this document discusses further applications.
+        section
+          h3 Helper Classes
+          p.
+            Sometimes, setting the width in CSS is too much work, so
+            #[strong to quickly change the style of an Element using HTML], you may add
+            #[b helper classes]
+            to the #[code [class]] attribute of the Element. Yes, #[strong this is bad practice],
+            but it&rsquo;s a pragmatic solution that prevents CSS bloat. You can use these
+            so-called #[i inline helpers] for debugging/testing purposes, but in the long run, you&rsquo;ll
+            want to migrate them over to an external stylesheet and use more semantic classnames.
+            That&rsquo;s what #[b Less] includes and extends are for.
+            A little math will make it obvious which of these widths will combine to make
+            a full 100% (see the #[a(rel="child" href="griddemo.html") grid demo] for a full
+            list of combinations).
+          pre.
+            <small>// golden widths:</small>
+            #[span.c__Arg @golden0 ]: #[span.c__Cst    100%];
+            #[span.c__Arg @golden1 ]: #[span.c__Cst 61.803%];
+            #[span.c__Arg @golden2 ]: #[span.c__Cst 38.197%];
+            #[span.c__Arg @golden3 ]: #[span.c__Cst 23.607%];
+            #[span.c__Arg @golden4 ]: #[span.c__Cst 14.590%];
+            #[span.c__Arg @golden3c]: #[span.c__Cst 76.393%];
+            #[span.c__Arg @golden4c]: #[span.c__Cst 85.410%];
+            #[span.c__Sel .u-w_p0 ] { #[span.c__Prp width]: #[span.c__Arg @golden0 ] #[span.c__Ctl !important]; }
+            #[span.c__Sel .u-w_p1 ] { #[span.c__Prp width]: #[span.c__Arg @golden1 ] #[span.c__Ctl !important]; }
+            #[span.c__Sel .u-w_p2 ] { #[span.c__Prp width]: #[span.c__Arg @golden2 ] #[span.c__Ctl !important]; }
+            #[span.c__Sel .u-w_p3 ] { #[span.c__Prp width]: #[span.c__Arg @golden3 ] #[span.c__Ctl !important]; }
+            #[span.c__Sel .u-w_p4 ] { #[span.c__Prp width]: #[span.c__Arg @golden4 ] #[span.c__Ctl !important]; }
+            #[span.c__Sel .u-w_p3c] { #[span.c__Prp width]: #[span.c__Arg @golden3c] #[span.c__Ctl !important]; }
+            #[span.c__Sel .u-w_p4c] { #[span.c__Prp width]: #[span.c__Arg @golden4c] #[span.c__Ctl !important]; }
+          p.o-Box.o-Box--island.c-Alert.c-Alert--cshn.
+            #[strong.c-Alert__Title Warning:]
+            These helpers use the keyword #[code !important],
+            so adding one to an Element&rsquo;s #[code [class]] attribute and then trying to override
+            it later with inline styles will result in a failure.
+          figure
+            pre.
+              &lt;main class="Article o-FlexContainer"&gt;
+                &lt;article class="Body !w:3o5"&gt;
+                  &lt;p&gt; Pellentesque habitant morbi &hellip; &lt;/p&gt;
+                &lt;/article&gt;
+                &lt;header class="Head  !w:1o1"&gt; Head  &lt;/header&gt;
+                &lt;footer class="Foot  !w:1o1"&gt; Foot  &lt;/footer&gt;
+                &lt;aside  class="Side1 !w:1o5"&gt; Side1 &lt;/aside&gt;
+                &lt;aside  class="Side2 !w:1o5"&gt; Side2 &lt;/aside&gt;
+              &lt;/main&gt;
+            div.o-FlexContainer(class="!ta:c")
+              article.h-ol(class="!w:3o5")
+                p Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. 
+              header.h-ol(class="!w:1o1 !xo:-1") Head 
+              footer.h-ol(class="!w:1o1 !xo:1") Foot 
+              aside.h-ol(class="!w:1o5 !xo:-1") Side1 
+              aside.h-ol(class="!w:1o5") Side2 
+        aside(style="padding: 12px 1em; border: 1px solid #9acc7a; border-radius: 1rem; background: rgba(0, 0, 0, 0.05); box-shadow: inset 0 0 0.5rem 0rem rgba(0,0,0,0.2);")
+          h3(class="!ta:c") Side Project
+          p.
+            Here&rsquo;s some fun math to think about for your design. In a row with two blocks,
+            each block should be 50% to add up to 100%. For three blocks, each should be ≈33.3%.
+            Working backwards, you should be able to figure out what the width of one block
+            should be, depending on the pattern you use. The last one is just there because
+            how could I not include the Golden Ratio?
+          figure.crossgrid-lined(class="!ta:c")
+            p.h-ol(class="!mx:a !w:1o1").
+              Use #[code .!w:1o1] (100%) to model the
+              #[b harmonic sequence]
+              #[span.M.M--B \left(\infty,\mathbf{1,\frac{1}{2},\frac{1}{3}},\frac{1}{4},\dots,\frac{1}{n}\right)]
+              where #[span.M n] is the number of blocks, which starts at 0.
+            p.h-ol(class="!mx:a !w:3o4").
+              Use #[code .!w:3o4] (75%) to model the
+              #[b geometric sequence]
+              #[span.M.M--B \left(\frac{9}{8},\mathbf{\frac{3}{4},\frac{1}{2},\frac{1}{3}},\frac{2}{9},\dots,\frac{2^{n-3}}{3^{n-2}}\right)]
+              where #[span.M n] is the number of blocks, which starts at 0.
+            p.h-ol(class="!mx:a !w:2o3").
+              Use #[code .!w:2o3] (66.6%) to model the
+              #[b arithmetic sequence]
+              #[span.M.M--B \left(\frac{5}{6},\mathbf{\frac{2}{3},\frac{1}{2},\frac{1}{3}},\frac{1}{6},\dots,\frac{5-n}{6}\right)]
+              where #[span.M n] is the number of blocks, which starts at 0.
+            p.h-ol(class="!mx:a u-w_p1").
+              Use #[code .u-w_p1] (61.8%) to model the
+              #[a(href="../core/doc/phi.html") Golden Ratio #[span.M \Phi]].
+            figcaption.c-Caption.c-Caption--after.
+              The width of a one-column block varies depending on which mathematical sequence
+              is being used to model the layout.
+      section#positioning.c-Document__Draft(data-status="draft")
+        h2 Positioning Items
+        section
+          p.
+            When a #[i line] (that is, a visual horozontal arrangement of blocks) has
+            only one block, you have a few options for how to position it.
+          p.
+            The worst is using floats. This only pushes the block flush left or flush right, and
+            wraps subsequent content around it, requiring a hack known as a #[i clearfix] to
+            prevent this behavior. Floats are good for flyers and newsletters when you need
+            to wrap text around an image, but they are not good at all for laying out a page.
+          p.
+            Instead, you can use #[code position: relative;] or #[code position: absolute;],
+            with a value for #[code left] or #[code right]. The downside of these is that you
+            cannot center a block on a line.
+          p.
+            My recommendation is to use margins. To horizontally position a block,
+            add left and right margins in the CSS.#[sup #[a#rf-sitelayout.Rf(rel="this" href="#fn-sitelayout") 1]]
+          pre .!mx:a { margin-left: auto; margin-right: auto; }
+          footer
+            ul.c-ListFootnotes
+              li.
+                #[sup #[a#fn-sitelayout.Fn(rel="this" href="#rf-sitelayout") 1]]
+                This site uses a main width of about 61.8%
+                (the #[a(href="../core/doc/phi.html") Golden Ratio])
+                with the remaining 38.2% split into the left and right margins:
+                about 23.6% on the left and about 14.6% on the right&mdash;another Golden Ratio.
+      section#multiple
+        h2 Multiple Blocks
+        p.
+          Most likely, your HTML is already structured this way: the blocks you want to
+          lay out together are likely already wrapped in some sort of container. All you need to do is add
+          the #[code .o-FlexContainer] Object to the container. Then, optionally use the width Utilities mentioned
+          above to set the proper widths of each of the items (if not, their widths will automatically
+          fit their content). That&rsquo;s it! Layout done.
+        figure
+          pre.
+            &lt;div class="o-FlexContainer"&gt;
+              &lt;div class="!w:1o6"&gt; flex-item 1! &lt;/div&gt;
+              &lt;div class="!w:2o6"&gt; flex-item 2! &lt;/div&gt;
+              &lt;div class="!w:3o6"&gt; flex-item 3! &lt;/div&gt;
+            &lt;/div&gt;
+          div.o-FlexContainer(class="!ta:c")
+            div.h-ol(class="!w:1o6") flex-item 1!
+            div.h-ol(class="!w:2o6") flex-item 2!
+            div.h-ol(class="!w:3o6") flex-item 3!
+        p.
+          Luckily, the widths add up to 100%. If they add up to too much, the items will wrap
+          to the next line. If they don&rsquo;t add up to enough, there will be extra space.
+        figure
+          pre.
+            &lt;div class="o-FlexContainer"&gt;
+              &lt;div class="!w:2o6"&gt; flex-item 1! &lt;/div&gt;
+              &lt;div class="!w:2o6"&gt; flex-item 2! &lt;/div&gt;
+              &lt;div class="!w:3o6"&gt; flex-item 3! &lt;/div&gt;
+            &lt;/div&gt;
+          div.o-FlexContainer(class="!ta:c")
+            div.h-ol(class="!w:2o6") flex-item 1!
+            div.h-ol(class="!w:2o6") flex-item 2!
+            div.h-ol(class="!w:3o6") flex-item 3!
+        figure
+          pre.
+            &lt;div class="o-FlexContainer"&gt;
+              &lt;div class="!w:1o6"&gt; flex-item 1! &lt;/div&gt;
+              &lt;div class="!w:2o6"&gt; flex-item 2! &lt;/div&gt;
+              &lt;div class="!w:2o6"&gt; flex-item 3! &lt;/div&gt;
+            &lt;/div&gt;
+          div.o-FlexContainer(class="!ta:c")
+            div.h-ol(class="!w:1o6") flex-item 1!
+            div.h-ol(class="!w:2o6") flex-item 2!
+            div.h-ol(class="!w:2o6") flex-item 3!
+        p.
+          By default, the extra space is evenly distributed #[em between] the items, much like
+          the inter-word space in a paragraph with #[code text-align: justify;].
+        p.
+          To override this and distribute the space #[em around] the blocks, leaving a little bit
+          on the outside, use
+          the #[code .!xj:sa] Utility #[em in addition to]
+          the #[code .o-FlexContainer] Object.
+        figure
+          pre.
+            &lt;div class="o-FlexContainer !xj:sa"&gt;
+              &lt;div class="!w:2o6"&gt; flex-item 1! &lt;/div&gt;
+              &lt;div class="!w:2o6"&gt; flex-item 2! &lt;/div&gt;
+              &lt;div class="!w:3o6"&gt; flex-item 3! &lt;/div&gt;
+            &lt;/div&gt;
+          div.o-FlexContainer(class="!ta:c !xj:sa")
+            div.h-ol(class="!w:2o6") flex-item 1!
+            div.h-ol(class="!w:2o6") flex-item 2!
+            div.h-ol(class="!w:3o6") flex-item 3!
+        figure
+          pre.
+            &lt;div class="o-FlexContainer !xj:sa"&gt;
+              &lt;div class="!w:1o6"&gt; flex-item 1! &lt;/div&gt;
+              &lt;div class="!w:2o6"&gt; flex-item 2! &lt;/div&gt;
+              &lt;div class="!w:2o6"&gt; flex-item 3! &lt;/div&gt;
+            &lt;/div&gt;
+          div.o-FlexContainer(class="!ta:c !xj:sa")
+            div.h-ol(class="!w:1o6") flex-item 1!
+            div.h-ol(class="!w:2o6") flex-item 2!
+            div.h-ol(class="!w:2o6") flex-item 3!
+        p.
+          To completely remove the space between the items and push it all the way to the outside,
+          add the #[code .!xj:c] Utility. This acts like a paragraph with
+          #[code text-align: center;].
+        figure
+          pre.
+            &lt;div class="o-FlexContainer !xj:c"&gt;
+              &lt;div class="!w:2o6"&gt; flex-item 1! &lt;/div&gt;
+              &lt;div class="!w:2o6"&gt; flex-item 2! &lt;/div&gt;
+              &lt;div class="!w:3o6"&gt; flex-item 3! &lt;/div&gt;
+            &lt;/div&gt;
+          div.o-FlexContainer(class="!ta:c !xj:c")
+            div.h-ol(class="!w:2o6") flex-item 1!
+            div.h-ol(class="!w:2o6") flex-item 2!
+            div.h-ol(class="!w:3o6") flex-item 3!
+        figure
+          pre.
+            &lt;div class="o-FlexContainer !xj:c"&gt;
+              &lt;div class="!w:1o6"&gt; flex-item 1! &lt;/div&gt;
+              &lt;div class="!w:2o6"&gt; flex-item 2! &lt;/div&gt;
+              &lt;div class="!w:2o6"&gt; flex-item 3! &lt;/div&gt;
+            &lt;/div&gt;
+          div.o-FlexContainer(class="!ta:c !xj:c")
+            div.h-ol(class="!w:1o6") flex-item 1!
+            div.h-ol(class="!w:2o6") flex-item 2!
+            div.h-ol(class="!w:2o6") flex-item 3!
+    script(src="../bower_components/jquery/dist/jquery.js")
+    script(src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML,https://chharvey.github.io/chhlib/mathjax-localconfig.js")
+    script(src="../core/scripts/global.js")
