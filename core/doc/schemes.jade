@@ -296,6 +296,60 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
         section
           h3 Gray Tones and Shadows
           section
+            h4 Introduction
+            p.
+              I picked four as the number of gray tones I wanted on this site, one of which would be
+              pure gray (an even mix of black and white, that is, #[code #808080]).
+              To calculate the other three grays, I used a system of overlapping opacities.
+              Four overlapping blocks, each pure black and with the same alpha,
+              on top of a white background, should result in this pure gray. Likewise,
+              four overlapping white blocks with the same alpha in front of a black background
+              should produce the same pure gray.
+            p To spoil the answer, this uniquely-determined alpha has a value of about 0.1591.
+            aside(style="padding: 12px 1em; margin-bottom: 1.5rem; border: 1px solid #9acc7a; border-radius: 1rem; background: rgba(0, 0, 0, 0.05); box-shadow: inset 0 0 0.5rem 0rem rgba(0,0,0,0.2);")
+              h5 Calculating Overlapping Opacities: Mathematical Background
+              p.o-Box.o-Box--island.c-Alert.c-Alert--help
+                strong.c-Alert__Title !
+                | You may skip this section if you don&rsquo;t care about the mathematical explanation.
+              p.
+                Let it be noted that the common intuition that overlapping alphas are simply added
+                is incorrect. For example, a block with an opacity of 0.4 in front of another block
+                with an opacity of 0.6 does not result in a total opacity of 1.0. It actually results
+                in an opacity of 0.76. The fact of the matter is that no matter how many translucent
+                blocks overlap (as long as their alphas are less than 1), you will never get something
+                completely opaque. (You may get very close, like 0.99991, but not exactly 1.0.)
+                This implies that the model for overlapping opacities is some sort of
+                exponential decay#[sup: a.Rf#rf-decay(href="#fn-decay") 1]
+                that increasingly and asymptotically approaches 1.0.
+              p: small.
+              p.
+                To cut to the chase, the formula used to calculate the final resulting alpha,
+                #[span.M \alpha^\prime], from a given number of alphas,
+                #[span.M \alpha_1, \alpha_1, \dots, \alpha_n], is
+              p.M.M--B \alpha^\prime = 1 - \bigl[\left(1-\alpha_1\right)\left(1-\alpha_2\right)\cdots\left(1-\alpha_n\right)\bigr]
+              p Therefore the true resulting opacity from two overlapping blocks with opacity 0.4 and 0.6 is
+              p.M.M--B.
+                \begin{align}
+                  \alpha^\prime
+                  &= 1 - \left(1-0.6\right)\left(1-0.4\right) \\
+                  &= 1-\left(0.4\right)\left(0.6\right) \\
+                  &= 1-0.24 \\
+                  &= 0.76
+                \end{align}
+              p.
+                So for my problem, I needed to obtain a final alpha of 0.5, using
+                four overlapping blocks each with an alpha of some unknown value #[span.M \alpha].
+              p.M.M--B \frac{1}{2} = 1 - \left(1-\alpha\right)^4
+              p Using algebra to solve for #[span.M \alpha] gives approximately 0.1591.
+              p.M.M--B \alpha = 1 - \frac{1}{\sqrt[4]2}
+              footer: ul.c-ListFootnotes(class="!mb:0")
+                  li.
+                    #[sup: a.Fn#fn-decay(href="#rf-decay") 1]
+                    I call it exponential #[em decay] because the base of the exponent is less than 1.
+                    This is true even if the function itself is increasing.
+                    It would only be called exponential #[em growth] if the base were more than 1,
+                    again, whether the function is increasing or decreasing.
+          section
             h4 Pure Gray Tones
             table.c-TableBordered
               caption
