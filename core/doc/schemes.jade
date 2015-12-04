@@ -40,10 +40,6 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
         font-family: 'Menlo','Monaco','Andale Mono',monospace;
         font-size: 0.75rem;
       }
-      form {
-        padding: 1.5rem 1rem;
-        margin-bottom: 1.5rem;
-      }
       fieldset {
         margin: 0;
       }
@@ -65,6 +61,16 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
       .a-bc-gray-shade2 { background-color: rgba(  0,   0,   0, 0.29289322) !important; }
       .a-bc-gray-shade3 { background-color: rgba(  0,   0,   0, 0.40539644) !important; }
       .a-bc-gray-shade4 { background-color: rgba(  0,   0,   0, 0.5       ) !important; }
+      .js-bc-black-new,
+      .js-bc-white-new {
+        color: #000;
+      }
+      .js-bc-black-new {
+        background-color: #33b4ff !important; /* @chh_color_portal_repulsion */
+      }
+      .js-bc-white-new {
+        background-color: #ff7e33 !important; /* @chh_color_portal_propulsion */
+      }
   body.o-GoldenContainer
     main.o-GoldenContainer__Content
       h1 Site-Wide Schemes
@@ -470,6 +476,9 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
                     div Tints
                     code fadein(@aperturewhite,&hellip;)
                     .ColorCode #0d0800
+                    form: label
+                      input.js-rowbc__chk(type="checkbox" value="js-bc-black-new")
+                      |  bgcolor
                   td.ColorCode.a-bc-portal-tint03 #312e28
                   td.ColorCode.a-bc-portal-tint02 #4e4e4a
                   td.ColorCode.a-bc-portal-tint01 #6a6967
@@ -479,6 +488,9 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
                     div Shades
                     code fadein(@apertureblack,&hellip;)
                     .ColorCode #f2f7ff
+                    form: label
+                      input.js-rowbc__chk(type="checkbox" value="js-bc-white-new")
+                      |  bgcolor
                   td.ColorCode.a-bc-portal-shade3 #ced1d7
                   td.ColorCode.a-bc-portal-shade2 #afb2b5
                   td.ColorCode.a-bc-portal-shade1 #969798
@@ -496,13 +508,21 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
                 th.o-Box 4
               tbody(class="!va:m")
                 tr.u-bgc_aperture_black.h-darkbg
-                  th.ColorCode.o-Box #0d0800
+                  th.o-Box
+                    .ColorCode #0d0800
+                    form: label
+                      input.js-rowbc__chk(type="checkbox" value="js-bc-black-new")
+                      |  bgcolor
                   td.ColorCode: .o-Cell.a-bc-portal-tint03: .o-Cell:                   .o-Cell:                   .o-Cell                   #312e28
                   td.ColorCode: .o-Cell.a-bc-portal-tint03: .o-Cell.a-bc-portal-tint03: .o-Cell:                   .o-Cell                   #4e4e4a
                   td.ColorCode: .o-Cell.a-bc-portal-tint03: .o-Cell.a-bc-portal-tint03: .o-Cell.a-bc-portal-tint03: .o-Cell                   #696966
                   td.ColorCode: .o-Cell.a-bc-portal-tint03: .o-Cell.a-bc-portal-tint03: .o-Cell.a-bc-portal-tint03: .o-Cell.a-bc-portal-tint03 #7f807e
                 tr.u-bgc_aperture_white
-                  th.ColorCode.o-Box #f2f7ff
+                  th.o-Box
+                    .ColorCode #f2f7ff
+                    form: label
+                      input.js-rowbc__chk(type="checkbox" value="js-bc-white-new")
+                      |  bgcolor
                   td.ColorCode: .o-Cell.a-bc-portal-shade3: .o-Cell:                    .o-Cell:                    .o-Cell                    #ced1d7
                   td.ColorCode: .o-Cell.a-bc-portal-shade3: .o-Cell.a-bc-portal-shade3: .o-Cell:                    .o-Cell                    #b0b1b5
                   td.ColorCode: .o-Cell.a-bc-portal-shade3: .o-Cell.a-bc-portal-shade3: .o-Cell.a-bc-portal-shade3: .o-Cell                    #979699
@@ -789,6 +809,10 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
     script(src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML,https://chharvey.github.io/chhlib/mathjax-localconfig.js")
     script(src="../scripts/global.js")
     script.
+      $('.js-rowbc__chk').change(function () {
+        $(this).parents('tr').removeClass('js-bc-black-new js-bc-white-new')
+        if (this.checked) $(this).parents('tr').addClass($(this).val())
+      })
       var pre = $('#syntax-example')
       $('input[name="bg"]').change(function () {
         pre.removeClass('t-bg-sol-lite t-bg-sol-dark t-bg-lun-lite t-bg-lun-dark')
@@ -805,7 +829,6 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
       $('#reset-pre').click(function () {
         pre.removeClass()
       })
-
       var fontdemo = $('.this-c-FontDemo')
       $('input[name="fs"]').change(function () {
         fontdemo.css('font-style', (this.checked) ? $(this).val() : '')
@@ -816,7 +839,6 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
       $('input[name="fw"]').change(function () {
         fontdemo.css('font-weight', (this.checked) ? $(this).val() : '')
       })
-
       $('#reset-fonts').click(function () {
         fontdemo.css('font-style', '').css('font-variant','').css('font-weight', '')
       })
