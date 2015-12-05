@@ -61,16 +61,6 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
       .a-bc-gray-shade2 { background-color: rgba(  0,   0,   0, 0.29289322) !important; }
       .a-bc-gray-shade3 { background-color: rgba(  0,   0,   0, 0.40539644) !important; }
       .a-bc-gray-shade4 { background-color: rgba(  0,   0,   0, 0.5       ) !important; }
-      .js-bc-black-new,
-      .js-bc-white-new {
-        color: #000;
-      }
-      .js-bc-black-new {
-        background-color: #33b4ff !important; /* @chh_color_portal_repulsion */
-      }
-      .js-bc-white-new {
-        background-color: #ff7e33 !important; /* @chh_color_portal_propulsion */
-      }
   body.o-GoldenContainer
     main.o-GoldenContainer__Content
       h1 Site-Wide Schemes
@@ -475,10 +465,10 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
                   th.o-Box
                     div Tints
                     code fadein(@aperturewhite,&hellip;)
-                    .ColorCode #0d0800
-                    form: label
-                      input.js-rowbc__chk(type="checkbox" value="js-bc-black-new")
-                      |  bgcolor
+                    form
+                      .ColorCode #0d0800
+                      input.js-rowbc-swatch(type="color" value="#0d0800")
+                      input.js-reset-swatch(type="reset")
                   td.ColorCode.a-bc-portal-tint03 #312e28
                   td.ColorCode.a-bc-portal-tint02 #4e4e4a
                   td.ColorCode.a-bc-portal-tint01 #6a6967
@@ -487,10 +477,10 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
                   th.o-Box
                     div Shades
                     code fadein(@apertureblack,&hellip;)
-                    .ColorCode #f2f7ff
-                    form: label
-                      input.js-rowbc__chk(type="checkbox" value="js-bc-white-new")
-                      |  bgcolor
+                    form
+                      .ColorCode #f2f7ff
+                      input.js-rowbc-swatch(type="color" value="#f2f7ff")
+                      input.js-reset-swatch(type="reset")
                   td.ColorCode.a-bc-portal-shade3 #ced1d7
                   td.ColorCode.a-bc-portal-shade2 #afb2b5
                   td.ColorCode.a-bc-portal-shade1 #969798
@@ -509,20 +499,20 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
               tbody(class="!va:m")
                 tr.u-bgc_aperture_black.h-darkbg
                   th.o-Box
-                    .ColorCode #0d0800
-                    form: label
-                      input.js-rowbc__chk(type="checkbox" value="js-bc-black-new")
-                      |  bgcolor
+                    form
+                      .ColorCode #0d0800
+                      input.js-rowbc-swatch(type="color" value="#0d0800")
+                      input.js-reset-swatch(type="reset")
                   td.ColorCode: .o-Cell.a-bc-portal-tint03: .o-Cell:                   .o-Cell:                   .o-Cell                   #312e28
                   td.ColorCode: .o-Cell.a-bc-portal-tint03: .o-Cell.a-bc-portal-tint03: .o-Cell:                   .o-Cell                   #4e4e4a
                   td.ColorCode: .o-Cell.a-bc-portal-tint03: .o-Cell.a-bc-portal-tint03: .o-Cell.a-bc-portal-tint03: .o-Cell                   #696966
                   td.ColorCode: .o-Cell.a-bc-portal-tint03: .o-Cell.a-bc-portal-tint03: .o-Cell.a-bc-portal-tint03: .o-Cell.a-bc-portal-tint03 #7f807e
                 tr.u-bgc_aperture_white
                   th.o-Box
-                    .ColorCode #f2f7ff
-                    form: label
-                      input.js-rowbc__chk(type="checkbox" value="js-bc-white-new")
-                      |  bgcolor
+                    form
+                      .ColorCode #f2f7ff
+                      input.js-rowbc-swatch(type="color" value="#f2f7ff")
+                      input.js-reset-swatch(type="reset")
                   td.ColorCode: .o-Cell.a-bc-portal-shade3: .o-Cell:                    .o-Cell:                    .o-Cell                    #ced1d7
                   td.ColorCode: .o-Cell.a-bc-portal-shade3: .o-Cell.a-bc-portal-shade3: .o-Cell:                    .o-Cell                    #b0b1b5
                   td.ColorCode: .o-Cell.a-bc-portal-shade3: .o-Cell.a-bc-portal-shade3: .o-Cell.a-bc-portal-shade3: .o-Cell                    #979699
@@ -808,10 +798,30 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
     script(src="../../bower_components/jquery/dist/jquery.js")
     script(src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML,https://chharvey.github.io/chhlib/mathjax-localconfig.js")
     script(src="../scripts/global.js")
+    script(src="../scripts/Util.js")
+    script(src="../scripts/Color.js")
     script.
-      $('.js-rowbc__chk').change(function () {
-        $(this).parents('tr').removeClass('js-bc-black-new js-bc-white-new')
-        if (this.checked) $(this).parents('tr').addClass($(this).val())
+      $('.js-rowbc-swatch').change(function () {
+        var orig = $(this).attr('value')
+          , value = $(this).val() || orig
+        function swatchChange(self, newvalue) {
+          $(self).parents('tr').each(function () {
+            $(this).attr('style', 'background-color: ' + newvalue + ' !important')
+            $(this).find('th .ColorCode').html(newvalue)
+          })
+        }
+        swatchChange($(this), value)
+        $(this).parents('tr').find('td').each(function () {
+          if ($(this).find('s').length === 0) {
+            $(this).wrapInner('<s>').find('s').css('line-height','inherit').css('color', 'transparent')
+          }
+        })
+        $(this).siblings('.js-reset-swatch').click(function () {
+          swatchChange($(this), orig)
+          $(this).parents('tr').find('td').each(function () {
+            $(this).html($(this).find('s').html()) // unwraps contents with <s> element
+          })
+        })
       })
       var pre = $('#syntax-example')
       $('input[name="bg"]').change(function () {
