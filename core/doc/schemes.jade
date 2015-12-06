@@ -41,9 +41,6 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
         font-family: 'Menlo','Monaco','Andale Mono',monospace;
         font-size: 0.75rem;
       }
-      fieldset {
-        margin: 0;
-      }
       #syntax-example, #syntax-example * {
         transition-property: border-color, color, background-color;
         transition-duration: 250ms;
@@ -67,49 +64,20 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
       h1 Site-Wide Schemes
       section#fonts
         h2 Font Scheme
-        form.o-FlexContainer
-          p(class="!w:1o1").
-            Check the radio buttons to change the style, variant, and weight of the font demos below.
-          fieldset(class="!w:1o1")
-            legend font style and variant
-            ul.o-FlexContainer
-              li(class="!w:1o2")
+        form
+          p Check the radio buttons to change the style, variant, and weight of the font demos below.
+          fieldset
+            ul.o-ListBare
+              li
                 input#check-fs(type="checkbox" name="fs" value="italic")
                 label(for="check-fs") font-style: italic;
-              li(class="!w:1o2")
+              li
                 input#check-fv(type="checkbox" name="fv" value="small-caps")
                 label(for="check-fv") font-variant: small-caps;
-          fieldset(class="!w:1o1")
-            legend font-weight
-            ul.o-FlexContainer
               li
-                input#check-fw-100(type="radio" name="fw" value="100")
-                label(for="check-fw-100") 100
-              li
-                input#check-fw-200(type="radio" name="fw" value="200")
-                label(for="check-fw-200") 200
-              li
-                input#check-fw-300(type="radio" name="fw" value="300")
-                label(for="check-fw-300") 300
-              li
-                input#check-fw-400(type="radio" name="fw" value="400" checked="")
-                label(for="check-fw-400") 400 (normal (default))
-              li
-                input#check-fw-500(type="radio" name="fw" value="500")
-                label(for="check-fw-500") 500
-              li
-                input#check-fw-600(type="radio" name="fw" value="600")
-                label(for="check-fw-600") 600
-              li
-                input#check-fw-700(type="radio" name="fw" value="700")
-                label(for="check-fw-700") 700 (bold)
-              li
-                input#check-fw-800(type="radio" name="fw" value="800")
-                label(for="check-fw-800") 800
-              li
-                input#check-fw-900(type="radio" name="fw" value="900")
-                label(for="check-fw-900") 900
-          input#reset-fonts(type="reset")
+                input#js-range-fw(type="range" name="fw" min="100" max="900" step="100" value="400")
+                label(for="js-range-fw"): input#js-text-fw(class="!ml:1" type="text" value="400 (normal)" disabled="")
+          p: input#reset-fonts(type="reset")
         section.this-c-FontDemo.u-ff_base
           p.
             The base font-family is used for the main body copy.
@@ -209,7 +177,7 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
             p: span.ColorCode #3d6166
             p.
               This color can be seen in the endless depths of the subterranean
-              Enrichment Center. This color is for #[i minor] headings of a page.
+              testing facility. This color is for #[i minor] headings of a page.
             ul
               li minor heading text
           section.o-Box(class="!w:1o2").u-bgc_atlas.h-darkbg
@@ -707,12 +675,12 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
         section
           h3 Interactive Example
           form.o-FlexContainer
-            p.
+            p(class="!w:1o1").
               Check the radio buttons to add/remove classes to the #[code pre] Element below,
               which will change its color theme.
             fieldset(class="!w:1o3")
               legend Backgrounds
-              ul
+              ul.o-ListBare
                 li
                   input#check-t-bg-sol-lite(type="radio" name="bg" value="t-bg-sol-lite")
                   label(for="check-t-bg-sol-lite") t-bg-sol-lite
@@ -727,7 +695,7 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
                   label(for="check-t-bg-lun-dark") t-bg-lun-dark
             fieldset(class="!w:1o3")
               legend Foregrounds
-              ul
+              ul.o-ListBare
                 li
                   input#check-t-fg-sol-lite(type="radio" name="fg" value="t-fg-sol-lite" checked="")
                   label(for="check-t-fg-sol-lite") t-fg-sol-lite (default)
@@ -742,7 +710,7 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
                   label(for="check-t-fg-lun-dark") t-fg-lun-dark
             fieldset(class="!w:1o3")
               legend Accents
-              ul
+              ul.o-ListBare
                 li
                   input#check-default(type="radio" name="ac" value="" checked="")
                   label(for="check-default") none (default)
@@ -752,7 +720,7 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
                 li
                   input#check-t-ac-lun(type="radio" name="ac" value="t-ac-lun")
                   label(for="check-t-ac-lun") t-ac-lun
-            input#reset-pre(type="reset")
+            p(class="!w:1o1"): input#reset-pre(type="reset")
           pre#syntax-example.
             <span class="c__Kwd">function</span> <span class="c__Cmd">Person(<span class="c__Arg">name</span>)</span> { <small class="c__Comm">// constructor for class `Person`</small>
               <span class="c__Obj">this</span>.greet = <span class="c__Str">'hello!'</span>;
@@ -868,6 +836,13 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
       })
       $('input[name="fw"]').change(function () {
         fontdemo.css('font-weight', (this.checked) ? $(this).val() : '')
+      })
+      $('input[name="fw"]').on('input change', function () {
+        var val = $(this).val() // a string
+        fontdemo.css('font-weight', val)
+        var norm = (+val == 400) ? ' (normal)' : ''
+        var bold = (+val == 700) ? ' (bold)' : ''
+        $('#js-text-fw').val(val + norm + bold)
       })
       $('#reset-fonts').click(function () {
         fontdemo.css('font-style', '').css('font-variant','').css('font-weight', '')
