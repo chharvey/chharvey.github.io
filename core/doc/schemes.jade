@@ -29,6 +29,7 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
         font-family: inherit;
         font-size: 1.25rem;
         line-height: 1.2;
+        color: inherit;
       }
       .ColorRelation {
         font-style: italic;
@@ -282,11 +283,81 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
               li subheading text
         section
           h3 Gray Tones and Shadows
+          div.o-FlexContainer.o-FlexContainer
+            section.o-Box(class="!w:1o2").u-bgc_aperture_black.h-darkbg
+              h4.ColorTitle Aperture Black
+              p: span.ColorCode #0d0800
+              p See Above.
+            section.o-Box(class="!w:1o2").u-bgc_aperture_white
+              h4.ColorTitle Aperture White
+              p: span.ColorCode #f2f7ff
+              p See Above.
+            section.o-Box(class="!w:1o2").a-bc-aperturegray03.h-darkbg
+              h4.ColorTitle Aperture Gray 03
+              p: span.ColorCode #312e29
+            section.o-Box(class="!w:1o2").a-bc-aperturegray3
+              h4.ColorTitle Aperture Gray 3
+              p: span.ColorCode #ced1d6
+              ul
+                li light ui component box-shadow
+            section.o-Box(class="!w:1o2").a-bc-aperturegray02.h-darkbg
+              h4.ColorTitle Aperture Gray 02
+              p: span.ColorCode #504e4b
+              ul
+                li dark ui component background
+            section.o-Box(class="!w:1o2").a-bc-aperturegray2
+              h4.ColorTitle Aperture Gray 2
+              p: span.ColorCode #afb1b4
+              ul
+                li light ui component background
+            section.o-Box(class="!w:1o2").a-bc-aperturegray01.h-darkbg
+              h4.ColorTitle Aperture Gray 01
+              p: span.ColorCode #6a6967
+              ul
+                li dark ui component box-shadow
+            section.o-Box(class="!w:1o2").a-bc-aperturegray1
+              h4.ColorTitle Aperture Gray 1
+              p: span.ColorCode #959698
+            section.o-Box(class="!w:1o2").a-bc-aperturegray00.h-darkbg
+              h4.ColorTitle Aperture Gray 00
+              p: span.ColorCode #7f7f7f
+            section.o-Box(class="!w:1o2").a-bc-aperturegray0
+              h4.ColorTitle Aperture Gray 0
+              p: span.ColorCode #808080
+          p.o-Box.o-Box--island.c-Alert.c-Alert--info
+            strong.c-Alert__Title Note:
+            | Tinds and Shades in this section are shown on a #[b Facility Abyss] background.
+          div.o-FlexContainer.u-bgc_facilityabyss
+            section.o-Box(class="!w:1o1")
+              h4.ColorTitle Facility Abyss
+              p: span.ColorCode #3d6166
+              p.h-darkbg See Above.
+            section.o-Box(class="!w:1o2").a-bc-portal-tint1
+              h4.ColorTitle Tint 1
+              p: span.ColorCode fadein(@aperturewhite, 15.910%)
+            section.o-Box(class="!w:1o2").a-bc-portal-shade1.h-darkbg
+              h4.ColorTitle Shade 1
+              p: span.ColorCode fadein(@apertureblack, 15.910%)
+            section.o-Box(class="!w:1o2").a-bc-portal-tint2
+              h4.ColorTitle Tint 2
+              p: span.ColorCode fadein(@aperturewhite, 29.289%)
+            section.o-Box(class="!w:1o2").a-bc-portal-shade2.h-darkbg
+              h4.ColorTitle Shade 2
+              p: span.ColorCode fadein(@apertureblack, 29.289%)
+            section.o-Box(class="!w:1o2").a-bc-portal-tint3
+              h4.ColorTitle Tint 3
+              p: span.ColorCode fadein(@aperturewhite, 40.540%)
+            section.o-Box(class="!w:1o2").a-bc-portal-shade3.h-darkbg
+              h4.ColorTitle Shade 3
+              p: span.ColorCode fadein(@apertureblack, 40.540%)
+            section.o-Box(class="!w:1o2").a-bc-portal-tint4
+              h4.ColorTitle Tint 4
+              p: span.ColorCode fadein(@aperturewhite, 50%)
+            section.o-Box(class="!w:1o2").a-bc-portal-shade4.h-darkbg
+              h4.ColorTitle Shade 4
+              p: span.ColorCode fadein(@apertureblack, 50%)
           aside.o-Box.o-Box--dialog(style="margin-bottom: 1.5rem; border: 1px solid #9acc7a; background: rgba(0, 0, 0, 0.05); box-shadow: inset 0 0 0.5rem 0rem rgba(0,0,0,0.2);")
-            h4 Introduction and Mathematical Background
-            p.o-Box.o-Box--island.c-Alert.c-Alert--help
-              strong.c-Alert__Title !
-              | You may skip this section if you don&rsquo;t care about the mathematical explanation.
+            h4 Aside: Mathematical Background
             p.
               I picked four as the number of shades and tints I wanted on this site, one of each which would be
               pure gray (an even mix of black and white, that is, #[code #808080]).
@@ -297,8 +368,9 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
               should produce the same pure gray.
             p.
               To spoil the answer, this uniquely-determined alpha has a value of about 0.1591.
-              The next subsection explains how I derived its value, and the subsection after
-              demonstrates its use with pure black and white opacities.
+              The next subsection explains how I derived its value, and the subsections after
+              demonstrate its use with pure black and white opacities, and with Aperture White
+              and Aperture Black opacities, respectively.
             aside
               h5 Calculating The Right Alpha
               p.
@@ -331,20 +403,22 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
                 this formula into a function of one variable: the number of overlapping blocks.
                 This results in our desired increasing exponential decay function. Indeed,
                 its right-hand limit is 1.
-              p.M.M--B \alpha(n) = 1 - \left(1-\alpha_1\right)^n
+              p.M.M--B \alpha(n;\alpha_1) = 1 - \left(1-\alpha_1\right)^n
               p.
                 So for my problem, I needed to obtain a final alpha of 0.5, using
                 four overlapping blocks each with an alpha of some unknown constant value #[span.M a].
-              p.M.M--B \alpha(4) = \frac{1}{2} = 1 - \left(1-a\right)^4
-              p Using algebra to solve for #[span.M a] gives us approximately 0.1591.
-              p.M.M--B a = 1 - \frac{1}{\sqrt[4]2}
-              p Now we can use #[span.M a] to find the other three alpha values.
+              p.M.M--B \alpha(4; a) = \frac{1}{2} = 1 - \left(1-a\right)^4
+              p Using algebra to solve for #[span.M a] gave me approximately 0.1591.
+              p.M.M--B a = 1 - \frac{1}{\sqrt[4]{2}}
+              p With the solved value of #[span.M a] my function became
+              p.M.M--B \alpha(n;a) = 1 - \frac{1}{2^{n/4}}
+              p and then I could find the other three alpha values.
               p.M.M--B.
                 \begin{align}
-                  \alpha(1) &= 1 - \left(1-a\right)^1 = 1 - \frac{1}{\sqrt[4]2} &&\approx 0.1591 \\
-                  \alpha(2) &= 1 - \left(1-a\right)^2 = 1 - \frac{1}{\sqrt{2}}  &&\approx 0.2929 \\
-                  \alpha(3) &= 1 - \left(1-a\right)^3 = 1 - \frac{1}{2^{3/4}}   &&\approx 0.4054 \\
-                  \alpha(4) &= 1 - \left(1-a\right)^4 = 1 - \frac{1}{2}         &&=       0.5 \text{ (as expected)}
+                  \alpha(1;a) &= 1 - \frac{1}{\sqrt[4]{2}}=a &&\approx 0.1591 \\
+                  \alpha(2;a) &= 1 - \frac{1}{\sqrt{2}}      &&\approx 0.2929 \\
+                  \alpha(3;a) &= 1 - \frac{1}{2^{3/4}}       &&\approx 0.4054 \\
+                  \alpha(4;a) &= 1 - \frac{1}{2}             &&=       0.5 \text{ (as expected)}
                 \end{align}
               footer: ul.c-ListFootnotes
                   li.
@@ -376,18 +450,22 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
                 tbody(class="!va:m")
                   tr(class="!bc:b !c:w")
                     th.o-Box
-                      div Tints
+                      | Tints
+                      br
                       code fadein(#fff,&hellip;)
-                      .ColorCode #000000
+                      br
+                      span.ColorCode #000000
                     td.ColorCode.a-bc-gray-tint1 #282828
                     td.ColorCode.a-bc-gray-tint2 #4a4a4a
                     td.ColorCode.a-bc-gray-tint3 #676767
                     td.ColorCode.a-bc-gray-tint4 #7f7f7f
                   tr(class="!bc:w !c:b")
                     th.o-Box
-                      div Shades
+                      | Shades
+                      br
                       code fadein(#000,&hellip;)
-                      .ColorCode #ffffff
+                      br
+                      span.ColorCode #ffffff
                     td.ColorCode.a-bc-gray-shade1 #d7d7d7
                     td.ColorCode.a-bc-gray-shade2 #b5b5b5
                     td.ColorCode.a-bc-gray-shade3 #989898
@@ -416,109 +494,117 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
                     td.ColorCode: .o-Cell.a-bc-gray-shade1: .o-Cell.a-bc-gray-shade1: .o-Cell:                  .o-Cell                  #b5b5b5
                     td.ColorCode: .o-Cell.a-bc-gray-shade1: .o-Cell.a-bc-gray-shade1: .o-Cell.a-bc-gray-shade1: .o-Cell                  #999999
                     td.ColorCode: .o-Cell.a-bc-gray-shade1: .o-Cell.a-bc-gray-shade1: .o-Cell.a-bc-gray-shade1: .o-Cell.a-bc-gray-shade1 #818181
-          section
-            h4 Aperture Gray Tones
-            p.
-              The section above was purely theoretical, demonstrative, and unopinionated,
-              for the purpose of arriving at the necessary alpha value of 0.1591.
-              This value is used with the Aperture White and Aperture Black colors to create the
-              opinionated gray tone palette for the site.
-            p.
-              #[cite Table 2a] and #[cite Table 2b], like #[cite Table 1a] and #[cite Table 1b],
-              contain translucent blocks. As such, the hexadecimal values shown are not the actual
-              background colors.
-            p.
-              The hexadecimal values shown in Table 3 however are the blocks&rsquo; true
-              background colors.
-            table.c-TableBordered
-              caption.c-Caption
-                strong(class="!mr:1") Table 2a.
-                | Increasing opacities of
-                |  Aperture White (#[code #f2f7ff]) and Aperture Black (#[code #0d0800])
-                |  on Aperture Black and Aperture White backgrounds, respectively.
-              thead
-                th.o-Box.M(class="!fz:h4") \alpha
-                th.o-Box 15.910%
-                th.o-Box 29.289%
-                th.o-Box 40.540%
-                th.o-Box 50%
-              tbody(class="!va:m")
-                tr.u-bgc_aperture_black.h-darkbg
-                  th.o-Box
-                    div Tints
-                    code fadein(@aperturewhite,&hellip;)
-                    form
-                      .ColorCode #0d0800
-                      input.js-rowbc-swatch(type="color" value="#0d0800")
-                      input.js-reset-swatch(type="reset")
-                  td.ColorCode.a-bc-portal-tint03 #312e28
-                  td.ColorCode.a-bc-portal-tint02 #4e4e4a
-                  td.ColorCode.a-bc-portal-tint01 #6a6967
-                  td.ColorCode.a-bc-portal-tint00 #807f7f
-                tr.u-bgc_aperture_white
-                  th.o-Box
-                    div Shades
-                    code fadein(@apertureblack,&hellip;)
-                    form
-                      .ColorCode #f2f7ff
-                      input.js-rowbc-swatch(type="color" value="#f2f7ff")
-                      input.js-reset-swatch(type="reset")
-                  td.ColorCode.a-bc-portal-shade3 #ced1d7
-                  td.ColorCode.a-bc-portal-shade2 #afb2b5
-                  td.ColorCode.a-bc-portal-shade1 #969798
-                  td.ColorCode.a-bc-portal-shade0 #808080
-            table.c-TableBordered
-              caption.c-Caption
-                strong(class="!mr:1") Table 2b.
-                | A demonstration of overlapping blocks, each with an opacity of 0.1591,
-                |  whose resulting opacities approximate the tints and shades above.
-              thead
-                th.o-Box Nested Divs
-                th.o-Box 1
-                th.o-Box 2
-                th.o-Box 3
-                th.o-Box 4
-              tbody(class="!va:m")
-                tr.u-bgc_aperture_black.h-darkbg
-                  th.o-Box
-                    form
-                      .ColorCode #0d0800
-                      input.js-rowbc-swatch(type="color" value="#0d0800")
-                      input.js-reset-swatch(type="reset")
-                  td.ColorCode: .o-Cell.a-bc-portal-tint03: .o-Cell:                   .o-Cell:                   .o-Cell                   #312e28
-                  td.ColorCode: .o-Cell.a-bc-portal-tint03: .o-Cell.a-bc-portal-tint03: .o-Cell:                   .o-Cell                   #4e4e4a
-                  td.ColorCode: .o-Cell.a-bc-portal-tint03: .o-Cell.a-bc-portal-tint03: .o-Cell.a-bc-portal-tint03: .o-Cell                   #696966
-                  td.ColorCode: .o-Cell.a-bc-portal-tint03: .o-Cell.a-bc-portal-tint03: .o-Cell.a-bc-portal-tint03: .o-Cell.a-bc-portal-tint03 #7f807e
-                tr.u-bgc_aperture_white
-                  th.o-Box
-                    form
-                      .ColorCode #f2f7ff
-                      input.js-rowbc-swatch(type="color" value="#f2f7ff")
-                      input.js-reset-swatch(type="reset")
-                  td.ColorCode: .o-Cell.a-bc-portal-shade3: .o-Cell:                    .o-Cell:                    .o-Cell                    #ced1d7
-                  td.ColorCode: .o-Cell.a-bc-portal-shade3: .o-Cell.a-bc-portal-shade3: .o-Cell:                    .o-Cell                    #b0b1b5
-                  td.ColorCode: .o-Cell.a-bc-portal-shade3: .o-Cell.a-bc-portal-shade3: .o-Cell.a-bc-portal-shade3: .o-Cell                    #979699
-                  td.ColorCode: .o-Cell.a-bc-portal-shade3: .o-Cell.a-bc-portal-shade3: .o-Cell.a-bc-portal-shade3: .o-Cell.a-bc-portal-shade3 #818081
-            p.
-              Sometimes you may need a gray-colored element when the background of its container
-              isn&rsquo;t Aperture White or Aperture Black. In these cases, using a translucent background
-              is not an ideal solution, so you need an opaque color (whose alpha is 1). The following
-              colors are mixes of Aperture Black and Aperture White. The weight of each mix corresponds
-              to the alphas shown above.
-            p.c-Caption
-              strong(class="!mr:1") Table 3.
-              | A table of opaque gray tones, for use when backgrounds are non-standard.
-            ul.o-FlexContainer
-              li.o-Box(class="!w:2o10      ").u-bgc_aperture_black.h-darkbg Aperture Black   #[span.ColorCode #0d0800]
-              li.o-Box(class="!w:2o10      ").a-bc-aperturegray03.h-darkbg  Aperture Gray 03 #[span.ColorCode #312e29]
-              li.o-Box(class="!w:2o10      ").a-bc-aperturegray02.h-darkbg  Aperture Gray 02 #[span.ColorCode #504e4b]
-              li.o-Box(class="!w:2o10      ").a-bc-aperturegray01.h-darkbg  Aperture Gray 01 #[span.ColorCode #6a6967]
-              li.o-Box(class="!w:2o10      ").a-bc-aperturegray00           Aperture Gray 00 #[span.ColorCode #7f7f7f]
-              li.o-Box(class="!w:2o10 !xo:4").a-bc-aperturegray0            Aperture Gray 0  #[span.ColorCode #808080]
-              li.o-Box(class="!w:2o10 !xo:3").a-bc-aperturegray1            Aperture Gray 1  #[span.ColorCode #959698]
-              li.o-Box(class="!w:2o10 !xo:2").a-bc-aperturegray2            Aperture Gray 2  #[span.ColorCode #afb1b4]
-              li.o-Box(class="!w:2o10 !xo:1").a-bc-aperturegray3            Aperture Gray 3  #[span.ColorCode #ced1d6]
-              li.o-Box(class="!w:2o10 !xo:0").u-bgc_aperture_white          Aperture White   #[span.ColorCode #f2f7ff]
+            section
+              h5 Aperture Gray Tones
+              p.
+                The section above was purely theoretical, demonstrative, and unopinionated,
+                for the purpose of arriving at the necessary alpha value of 0.1591.
+                This value is used with the Aperture White and Aperture Black colors to create the
+                opinionated gray tone palette for the site.
+              p.
+                #[cite Table 2a] and #[cite Table 2b], like #[cite Table 1a] and #[cite Table 1b],
+                contain translucent blocks. As such, the hexadecimal values shown are not the actual
+                background colors.
+              p.
+                The hexadecimal values shown in Table 3 however are the blocks&rsquo; true
+                background colors.
+              table.c-TableBordered
+                caption.c-Caption
+                  strong(class="!mr:1") Table 2a.
+                  | Increasing opacities of
+                  |  Aperture White (#[code #f2f7ff]) and Aperture Black (#[code #0d0800])
+                  |  on Aperture Black and Aperture White backgrounds, respectively.
+                thead
+                  th.o-Box.M(class="!fz:h4") \alpha
+                  th.o-Box 15.910%
+                  th.o-Box 29.289%
+                  th.o-Box 40.540%
+                  th.o-Box 50%
+                tbody(class="!va:m")
+                  tr.u-bgc_aperture_black.h-darkbg
+                    th.o-Box
+                      | Tints
+                      br
+                      code fadein(@aperturewhite,&hellip;)
+                      br
+                      form
+                        span.ColorCode #0d0800
+                        br
+                        input.js-rowbc-swatch(type="color" value="#0d0800")
+                        input.js-reset-swatch(type="reset")
+                    td.a-bc-portal-tint1 #[span(class="!fz:h4") Tint 1] #[br] #[span.ColorCode #312e28]
+                    td.a-bc-portal-tint2 #[span(class="!fz:h4") Tint 2] #[br] #[span.ColorCode #4e4e4a]
+                    td.a-bc-portal-tint3 #[span(class="!fz:h4") Tint 3] #[br] #[span.ColorCode #6a6967]
+                    td.a-bc-portal-tint4 #[span(class="!fz:h4") Tint 4] #[br] #[span.ColorCode #807f7f]
+                  tr.u-bgc_aperture_white
+                    th.o-Box
+                      | Shades
+                      br
+                      code fadein(@apertureblack,&hellip;)
+                      br
+                      form
+                        span.ColorCode #f2f7ff
+                        br
+                        input.js-rowbc-swatch(type="color" value="#f2f7ff")
+                        input.js-reset-swatch(type="reset")
+                    td.a-bc-portal-shade1 #[span(class="!fz:h4") Shade 1] #[br] #[span.ColorCode #ced1d7]
+                    td.a-bc-portal-shade2 #[span(class="!fz:h4") Shade 2] #[br] #[span.ColorCode #afb2b5]
+                    td.a-bc-portal-shade3 #[span(class="!fz:h4") Shade 3] #[br] #[span.ColorCode #969798]
+                    td.a-bc-portal-shade4 #[span(class="!fz:h4") Shade 4] #[br] #[span.ColorCode #808080]
+              table.c-TableBordered
+                caption.c-Caption
+                  strong(class="!mr:1") Table 2b.
+                  | A demonstration of overlapping blocks, each with an opacity of 0.1591,
+                  |  whose resulting opacities approximate the tints and shades above.
+                thead
+                  th.o-Box Nested Divs
+                  th.o-Box 1
+                  th.o-Box 2
+                  th.o-Box 3
+                  th.o-Box 4
+                tbody(class="!va:m")
+                  tr.u-bgc_aperture_black.h-darkbg
+                    th.o-Box
+                      form
+                        span.ColorCode #0d0800
+                        br
+                        input.js-rowbc-swatch(type="color" value="#0d0800")
+                        input.js-reset-swatch(type="reset")
+                    td.ColorCode: .o-Cell.a-bc-portal-tint1: .o-Cell:                   .o-Cell:                   .o-Cell                   #312e28
+                    td.ColorCode: .o-Cell.a-bc-portal-tint1: .o-Cell.a-bc-portal-tint1: .o-Cell:                   .o-Cell                   #4e4e4a
+                    td.ColorCode: .o-Cell.a-bc-portal-tint1: .o-Cell.a-bc-portal-tint1: .o-Cell.a-bc-portal-tint1: .o-Cell                   #696966
+                    td.ColorCode: .o-Cell.a-bc-portal-tint1: .o-Cell.a-bc-portal-tint1: .o-Cell.a-bc-portal-tint1: .o-Cell.a-bc-portal-tint1 #7f807e
+                  tr.u-bgc_aperture_white
+                    th.o-Box
+                      form
+                        span.ColorCode #f2f7ff
+                        br
+                        input.js-rowbc-swatch(type="color" value="#f2f7ff")
+                        input.js-reset-swatch(type="reset")
+                    td.ColorCode: .o-Cell.a-bc-portal-shade1: .o-Cell:                    .o-Cell:                    .o-Cell                    #ced1d7
+                    td.ColorCode: .o-Cell.a-bc-portal-shade1: .o-Cell.a-bc-portal-shade1: .o-Cell:                    .o-Cell                    #b0b1b5
+                    td.ColorCode: .o-Cell.a-bc-portal-shade1: .o-Cell.a-bc-portal-shade1: .o-Cell.a-bc-portal-shade1: .o-Cell                    #979699
+                    td.ColorCode: .o-Cell.a-bc-portal-shade1: .o-Cell.a-bc-portal-shade1: .o-Cell.a-bc-portal-shade1: .o-Cell.a-bc-portal-shade1 #818081
+              p.
+                Sometimes you may need a gray-colored element when the background of its container
+                isn&rsquo;t Aperture White or Aperture Black. In these cases, using a translucent background
+                is not an ideal solution, so you need an opaque color (whose alpha is 1). The following
+                colors are mixes of Aperture Black and Aperture White. The weight of each mix corresponds
+                to the alphas shown above.
+              p.c-Caption
+                strong(class="!mr:1") Table 3.
+                | A table of opaque gray tones, for use when backgrounds are non-standard.
+              ul.o-FlexContainer
+                li.o-Box(class="!w:2o10      ").u-bgc_aperture_black.h-darkbg Aperture Black   #[span.ColorCode #0d0800]
+                li.o-Box(class="!w:2o10      ").a-bc-aperturegray03.h-darkbg  Aperture Gray 03 #[span.ColorCode #312e29]
+                li.o-Box(class="!w:2o10      ").a-bc-aperturegray02.h-darkbg  Aperture Gray 02 #[span.ColorCode #504e4b]
+                li.o-Box(class="!w:2o10      ").a-bc-aperturegray01.h-darkbg  Aperture Gray 01 #[span.ColorCode #6a6967]
+                li.o-Box(class="!w:2o10      ").a-bc-aperturegray00.h-darkbg  Aperture Gray 00 #[span.ColorCode #7f7f7f]
+                li.o-Box(class="!w:2o10 !xo:4").a-bc-aperturegray0            Aperture Gray 0  #[span.ColorCode #808080]
+                li.o-Box(class="!w:2o10 !xo:3").a-bc-aperturegray1            Aperture Gray 1  #[span.ColorCode #959698]
+                li.o-Box(class="!w:2o10 !xo:2").a-bc-aperturegray2            Aperture Gray 2  #[span.ColorCode #afb1b4]
+                li.o-Box(class="!w:2o10 !xo:1").a-bc-aperturegray3            Aperture Gray 3  #[span.ColorCode #ced1d6]
+                li.o-Box(class="!w:2o10 !xo:0").u-bgc_aperture_white          Aperture White   #[span.ColorCode #f2f7ff]
       section
         h2 Code Color Scheme
         //- p.
