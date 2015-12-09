@@ -148,7 +148,7 @@ Color.newColorRGBstring = function newColorRGBstring(rgb_string) {
 Color.newColorHSV = function newColorHSV(hue, sat, val) {
   var red, grn, blu
   if (sat === 0) {
-    // achromatic (grey)
+    // achromatic (gray)
     red = grn = blu = val
   } else {
     (function () {
