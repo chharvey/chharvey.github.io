@@ -262,6 +262,34 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
               You&rsquo;ve
               got sucker&rsquo;s luck. Have you given up? Does it feel
               like a trial? Does it trouble your mind the way you trouble mine?
+          section.o-Box(class="!w:1o2 !bc:w").u-bgc_aperture_white
+            h4.ColorTitle Overlapping Shades
+            form
+              input.js-rowbc-swatch(type="color" value="#f2f7ff")
+              input.js-reset-swatch(type="reset")
+            p: span.ColorCode each: fadeout(@apertureblack, 80%) == rgba(#0d0800, 0.2)
+            | Zero
+            div.o-Box.a-bc-portal-shade One
+              div.o-Box.a-bc-portal-shade Two
+                div.o-Box.a-bc-portal-shade Three
+                  div.o-Box.a-bc-portal-shade Four
+                    div.o-Box.a-bc-portal-shade Five
+                      div.o-Box.a-bc-portal-shade Six
+                        div.o-Box.a-bc-portal-shade Seven
+          section.o-Box(class="!w:1o2 !bc:b").u-bgc_aperture_black.h-darkbg
+            h4.ColorTitle Overlapping Tints
+            form
+              input.js-rowbc-swatch(type="color" value="#0d0800")
+              input.js-reset-swatch(type="reset")
+            p: span.ColorCode each: fadeout(@aperturewhite, 80%) == rgba(#f2f7ff, 0.2)
+            | Zero
+            div.o-Box.a-bc-portal-tint One
+              div.o-Box.a-bc-portal-tint Two
+                div.o-Box.a-bc-portal-tint Three
+                  div.o-Box.a-bc-portal-tint Four
+                    div.o-Box.a-bc-portal-tint Five
+                      div.o-Box.a-bc-portal-tint Six
+                        div.o-Box.a-bc-portal-tint Seven
         section.o-FlexContainer
           h3(class="!w:1o1") More Portal Colors
           section.o-Box(class="!w:1o2").u-bgc_cavescaves.h-darkbg
@@ -848,22 +876,13 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
         var orig = $(this).attr('value')
           , value = $(this).val() || orig
         function swatchChange(self, newvalue) {
-          $(self).parents('tr').each(function () {
+          $(self).parents('.o-Box').each(function () {
             $(this).attr('style', 'background-color: ' + newvalue + ' !important')
-            $(this).find('th .ColorCode').html(newvalue)
           })
         }
         swatchChange($(this), value)
-        $(this).parents('tr').find('td').each(function () {
-          if ($(this).find('s').length === 0) {
-            $(this).wrapInner('<s>').find('s').css('line-height','inherit').css('color', 'transparent')
-          }
-        })
         $(this).siblings('.js-reset-swatch').click(function () {
           swatchChange($(this), orig)
-          $(this).parents('tr').find('td').each(function () {
-            $(this).html($(this).find('s').html()) // unwraps contents with <s> element
-          })
         })
       })
       var pre = $('#syntax-example')
