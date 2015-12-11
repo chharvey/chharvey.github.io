@@ -120,3 +120,28 @@
     .h-normalize;
   }
 }
+
+// The following helper classes add content to the `::after` pseudo-element.
+// These classes may typically be used on `:not(:last-child)` list items of an inline list.
+//
+// ^author
+// : Chris Harvey
+// ^updated
+// : 2015-12-11
+.h-After       { &::after { content:          ''      ; } }
+.h-AfterComma  { &::after { content:          ',\0020'; } } // ', '
+.h-AfterSem    { &::after { content:          ';\0020'; } } // '; '
+.h-AfterMdash  { &::after { content: '\0020\2014\0020'; } } // ' — '
+.h-AfterNdash  { &::after { content: '\0020\2013\0020'; } } // ' – '
+.h-AfterDisc   { &::after { content: '\0020\2022\0020'; } } // ' • '
+.h-AfterSquare { &::after { content: '\0020\25aa\0020'; } } // ' ▪ '
+
+@media print {
+  .h-After\@p       { .h-After      ; }
+  .h-AfterComma\@p  { .h-AfterComma ; }
+  .h-AfterSem\@p    { .h-AfterSem   ; }
+  .h-AfterMdash\@p  { .h-AfterMdash ; }
+  .h-AfterNdash\@p  { .h-AfterNdash ; }
+  .h-AfterDisc\@p   { .h-AfterDisc  ; }
+  .h-AfterSquare\@p { .h-AfterSquare; }
+}
