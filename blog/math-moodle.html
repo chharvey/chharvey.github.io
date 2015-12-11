@@ -1,450 +1,495 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<title>Typsetting Math in Moodle</title>
-<meta charset="utf-8"/>
-<meta name="author" content="Christopher H. Harvey"/>
-<meta name="description" content="A tutorial for inputting mathematical expressions into the Moodle system."/>
-<meta name="keywords" content="math expressions, math equations"/>
-<link rel="stylesheet" href="../styles/chharvey.css"/>
-<style>
-th > .M,
-td > .M {font-size: 16px;}
-.c-HeadWithSub {
-  text-align: center;
-}
-.c-HeadWithSub::after {
-  content: none;
-}
-._subunderline::after {
-  /* copied directly from `.hr-bottom` */
-  content: '';
-  display: block;
-  border-bottom-width: 1px;
-  margin-top: -1px;
-  border-bottom-style: solid;
-}
-</style>
-</head>
-<body class="o-GoldenContainer">
-<main class="o-GoldenContainer__Content  c-Document  c-Document--Released" data-status="released" itemscope="" itemtype="https://schema.org/Article">
-<header>
-  <h1 itemprop="name headline">Typesetting Math in Moodle</h1>
-  <p class="o-GoldenContainer__Sidebar  o-GoldenContainer__Sidebar--minor  o-Box  o-Box--island  c-Alert  c-Alert--skss">
-    This document is ready for implemen&shy;tation.</p>
-  <dl class="c-Document__Meta">
-    <dt>Author</dt>
-    <dd itemprop="author">Christopher H. Harvey</dd>
-    <dt>Description</dt>
-    <dd itemprop="description">A tutorial for inputting mathematical expressions into the Moodle system.</dd>
-    <dt>Keywords</dt>
-    <dd itemprop="keywords">math expressions</dd>
-    <dd itemprop="keywords">math equations</dd>
-    <dt>Version History</dt>
-    <dd class="update" itemprop="dateCreated">
-      <time datetime="2013-02-18">Feb 18, 2013</time>
-      <span class="o-Textbox  c-Label  c-Label--cshn  !ml:1">Completed</span>
-    </dd>
-    <dd class="update">
-      <time datetime="2013-08-25 21:56">Aug 25, 2013 <span class="tod">9:56 PM</span></time>
-    </dd>
-    <dd class="update" itemprop="datePublished">
-      <time datetime="2014-10-22 12:42">Oct 22, 2014 <span class="tod">12:42 PM</span></time>
-      <span class="o-Textbox  c-Label  c-Label--skss  !ml:1">Released</span>
-    </dd>
-    <dd class="update" itemprop="dateModified">
-      <time datetime="2014-11-23 22:39">Nov 23, 2014 <span class="tod">10:39 PM</span></time>
-      <span class="o-Textbox  c-Label  c-Label--dang  !ml:1">Latest</span>
-    </dd>
-  </dl>
-  <!-- <nav>
-    <h2>Table of Contents</h2>
-    <ol class="TOC">
-      <li><a href="#intro">Introduction: Your First Equation by Hand</a></li>
-      <li><a href="#modes">Equation Modes</a></li>
-      <li><a href="#placement">Placement of Symbols</a>
-        <ol>
-          <li><a href="#supsub">Superscripts and Subscripts</a></li>
-          <li><a href="#frac">Fraction Bars</a></li>
-          <li><a href="#sqrt">Square Roots</a></li>
-          <li><a href="#delimeters">Parentheses and other Delimiters</a>
-            <ol>
-              <li><a href="#parens">Parentheses</a></li>
-              <li><a href="#brackets">Absolute Value, Square Brackets</a></li>
-              <li><a href="#braces">Curly Braces</a></li>
-            </ol>
-          </li>
-        </ol>
-      </li>
-      <li><a href="#special-chars">Special Characters</a>
-        <ol>
-          <li><a href="#vars">Values and Variables</a></li>
-          <li><a href="#operations">Binary Operations</a></li>
-          <li><a href="#relations">Binary Relations</a></li>
-        </ol>
-      </li>
-      <li><a href="#more-oper">More Operators</a></li>
-      <li><a href="#conclusion">Conclusion</a>
-        <ol>
-          <li><a href="#more-info">More Information</a></li>
-        </ol>
-      </li>
-    </ol>
-  </nav> -->
-</header>
-<p class="c-Lede  c-Lede--dropcap">You may already know how to use <b>MathType</b> (or <b>Equation Editor</b>) to put
-  equations in Moodle. But if you don&rsquo;t have those programs installed on your personal computer,
-  or if you don&rsquo;t feel like switching applications often, this short tutorial is just for you.
-  You will learn the basics of entering Math into test questions on Moodle&mdash;by hand!</p>
-<p>This tutorial will teach you the basics of <span class="M">\LaTeX</span>
-  (written <i>LaTeX</i> and pronounced <i>LAH-tech</i>), which is sort of like a programming language.
-  Learning <span class="M">\LaTeX</span> may take some time, but it will save you much more time in
-  the long run. Once you are fluent with it, you&rsquo;ll be able to enter math equations without
-  ever having to leave the Moodle page.</p>
-<section id="intro">
-  <h2 class="c-HeadWithSub">Introduction</h2>
-  <p class="c-Subhead _subunderline">Your First Equation by Hand</p>
-  <p>To enter a math equation into Moodle, you need to surround the math with double
-    dollar signs on each side. For example, to display <span class="M">2x+3=7</span>, you
-    would need to type <code>$$2x+3=7$$</code> anywhere in the text box on
-    Moodle. Try it for yourself:</p>
-  <figure class="!ta:c">
-    <img src="images/moodle-inline.png" alt="A screenshot of a dialog box in Moodle
-      with LaTeX input."/>
-  </figure>
-  <p data-informative="" class="c-Document__Informative">The reason you need to surround the <span class="M">\LaTeX</span> code with
-    double dollar signs is that there is a JavaScript program installed on the Moodle server that
-    searches for these signs. When it finds <code>$$</code>, it knows to convert
-    the code inside into mathematical characters. In fact, the same program is installed on this
-    web page you&rsquo;re reading right now. In order for <span class="M">\LaTeX</span> to properly
-    typeset, you and your students need to have JavaScript enabled in your browsers.</p>
-  <p>Notice how <span class="M">\LaTeX</span> is <em>space-insensitive</em>. This
-    means you could enter <code>$$2x+3=7$$</code>, or
-    <code>$$2x + 3 = 7$$</code>, or any variation, and it would still be
-    displayed exactly the same. The spaces aren&rsquo;t counted. To deliberately enter a space, you
-    need to put a <em>backslash</em> (not a forward slash) before the space character. For
-    example: <code>$$2\ x$$</code> is displayed as
-    <span class="M">2\ x</span>. The <kbd><kbd class="o-Textbox  c-Key">backslash</kbd></kbd> key is right above
-    the <kbd><kbd class="o-Textbox  c-Key">enter</kbd></kbd> key on your keyboard.</p>
-    <p>All <span class="M">\LaTeX</span> commands begin with a backslash, and may
-      contain arguments, which are contained in curly braces. We&rsquo;ll see some more commands in the
-      next sections.</p>
-</section>
-<section id="modes">
-  <h2>Equation Modes</h2>
-  <p>There are two main modes of showing an equation: Inline Mode and Display Mode.
-    Inline Mode displays an equation inline with text, like this: <span class="M">2x+3=7</span>.
-    In Display Mode, the equation is displayed on its own line and centered. Sometimes I&rsquo;ll
-    use the term <i>Block Mode</i>, since really everything is displayed. You might want to use
-    Block Mode to isolate an equation to show that it&rsquo;s important:
-    <span class="M M--B">2x+3=7</span></p>
-  <p>In normal typesetting systems that use <span class="M">\LaTeX</span>, these
-    modes are activated differently, however in Moodle they are both activated the same. This means
-    you don&rsquo;t have to memorize any special codes to activate Inline versus Block mode. In order
-    to show an equation in Block Mode, you&rsquo;ll have to put the equation on its own line and center
-    it yourself (like how you would do in <b>Word</b>).</p>
-  <figure class="!ta:c">
-    <img src="images/moodle-block.png" alt="A screenshot of a dialog box in Moodle with LaTeX input."/>
-  </figure>
-</section>
-<section id="placement">
-  <h2>Placement of Symbols</h2>
-  <p>This short section covers how to place mathematical symbols in semantic ways.</p>
-  <section id="supsub">
-    <h3>Superscripts and Subscripts</h3>
-    <p>To enter a superscript for powers or exponents, simply place the exponent in
-      curly braces following a caret symbol:</p>
-    <dl class="o-FlexContainer">
-      <dt><code>$$a^{2} + b^{2} = c^{2}$$</code></dt>
-      <dd><span class="M">a^{2} + b^{2} = c^{2}</span></dd>
-    </dl>
-    <p>To enter a subscript, place the subscript in curly braces following an
-      underscore:</p>
-    <dl class="o-FlexContainer">
-      <dt><code>$$a_{n} = a_{n-1} + d$$</code></dt>
-      <dd><span class="M">a_{n} = a_{n-1} + d</span></dd>
-    </dl>
-  </section>
-  <section id="frac">
-    <h3>Fraction Bars</h3>
-    <p>This one is a little more complicated. To enter a fraction, you need to start
-      with the command <code>\frac</code> (notice the backslash), and then enter
-      the arguments in curly braces. There are two arguments: the numerator and the denominator.</p>
-    <dl class="o-FlexContainer">
-      <dt><code>$$\frac{-b}{2a}$$</code></dt>
-      <dd><span class="M">\dfrac{-b}{2a}</span></dd>
-    </dl>
-  </section>
-  <section id="sqrt">
-    <h3>Square Roots</h3>
-    <p>The square root command is almost like the fraction command, but it has one
-      argument instead of two. The command is <code>\sqrt</code>, and your
-      argument should go in curly braces.</p>
-    <dl class="o-FlexContainer">
-      <dt><code>$$\sqrt{2}$$</code></dt>
-      <dd><span class="M">\sqrt{2}</span></dd>
-    </dl>
-  </section>
-  <section id="delimeters">
-    <h3>Parentheses and other Delimiters</h3>
-    <p>Sometimes, you may want to put parentheses and other delimiters (absolute
-      value, square brackets, curly braces, <i lang="la"><abbr title="et cetera">etc.</abbr></i>)
-      around an expression or equation. There are many ways to do this, but we&rsquo;ll just cover the
-      basics.</p>
-    <section id="parens">
-      <h4>Parentheses</h4>
-      <p>To enter parentheses the easy way, just type them in on your keyboard:</p>
-      <dl class="o-FlexContainer">
-        <dt><code>$$f(y) = 2(y^{2}+1)$$</code></dt>
-        <dd><span class="M">f(y) = 2(y^{2}+1)</span></dd>
-      </dl>
-      <p>The parentheses aren&rsquo;t terrible, but since the <i><span class="M">y</span></i> hangs down a
-        little bit, and we have a superscript, we might want to make our parentheses a little bit
-        taller so that they&rsquo;ll fit their contents. To do this, we have to use the commands
-        <code>\left</code> and <code>\right</code> before each parenthesis:</p>
-      <dl class="o-FlexContainer">
-        <dt><code>$$f \left( y \right) = 2 \left( y^{2}+1 \right) $$</code></dt>
-        <dd><span class="M">f\left(y\right) = 2\left(y^{2}+1\right)</span></dd>
-      </dl>
-      <p>It&rsquo;s a little more typing to do, but it makes all the difference. And you
-        will want to use these commands to go from this:
-        <span class="M">(\dfrac{-b}{2a})^{2}</span> to this:
-        <span class="M">\left(\dfrac{-b}{2a}\right)^{2}</span>.</p>
-    </section>
-    <section id="brackets">
-      <h4>Absolute Value, Square Brackets</h4>
-      <p>Other delimiting symbols work just the same way. You can enter them in on
-        your keyboard directly, or you can precede them with the <code>\left</code>
-        and <code>\right</code> commands.</p>
-      <p>For the absolute value symbol, use the <kbd><kbd class="o-Textbox  c-Key">bar</kbd></kbd> key above
-        the <kbd><kbd class="o-Textbox  c-Key">enter</kbd></kbd> key on your keyboard. (It&rsquo;s
-        <kbd><kbd class="o-Textbox  c-Key">shift</kbd> + <kbd class="o-Textbox  c-Key">backslash</kbd></kbd>.)</p>
-      <dl class="o-FlexContainer">
-        <dt class="u-w_p2"><code>$$ |x+2|^{2}+3 $$</code></dt>               <dd class="u-w_p2c"><span class="M">|x+2|^{2}+3</span></dd>
-        <dt class="u-w_p2"><code>$$ \left|x+2\right|^{2}+3 $$</code></dt>    <dd class="u-w_p2c"><span class="M">\left|x+2\right|^{2}+3</span></dd>
-        <dt class="u-w_p2"><code>$$ [x^{2}+6x+9]-9 $$</code></dt>            <dd class="u-w_p2c"><span class="M">[x^{2}+6x+9]-9</span></dd>
-        <dt class="u-w_p2"><code>$$ \left[x^{2}+6x+9\right]-9 $$</code></dt> <dd class="u-w_p2c"><span class="M">\left[x^{2}+6x+9\right]-9</span></dd>
-      </dl>
-    </section>
-    <section id="braces">
-      <h4>Curly Braces</h4>
-      <p>Now, curly braces are a different situation. Since the
-        <span class="M">\LaTeX</span> language uses these symbols for its command arguments,
-        we can&rsquo;t just type them in like we would normal parentheses. We have to <em>escape</em>
-        them with a backslash. To get <span class="M">\{4,2,1,\dfrac{1}{2},\dots\}</span>,
-        for example, we would have to type
-        <code>$$ \{ 4,2,1,\frac{1}{2},\dots \} $$</code>. Notice the backslash before each brace.</p>
-      <p>Again, if we want to stretch the braces to fit their contents, we have to
-        add the <code>\left</code> and <code>\right</code> commands:</p>
-      <dl class="o-FlexContainer">
-        <dt><code>$$ \left\{ 4,2,1,\frac{1}{2},\dots \right\} $$</code></dt>
-        <dd><span class="M">\left\{4,2,1,\dfrac{1}{2},\dots\right\}</span></dd>
-      </dl>
-    </section>
-  </section>
-</section>
-<section id="special-chars">
-  <h2>Special Characters</h2>
-  <p>This section covers the common characters we use in everyday high school math.
-    Since they won&rsquo;t always be found on your keyboard, there are <span class="M">\LaTeX</span>
-    commands for each of them.</p>
-  <table class="c-TableShaded  c-TableShadedRows  c-TableHover  !w:1o1  !ta:c">
-    <thead>
-      <tr>
-        <th class="o-Box" scope="col">Symbol Name</th>
-        <th class="o-Box" scope="col"><span class="M">\LaTeX</span> Code</th>
-        <th class="o-Box" scope="col">Symbol</th>
-      </tr>
-    </thead>
-    <tbody id="vars">
-      <tr><th class="o-Box" colspan="3" scope="colgroup">Values and Variables</th></tr>
-      <tr>
-        <td>pi</td>
-        <td><code>$$ \pi $$</code></td>
-        <td><span class="M">\pi</span></td>
-      </tr>
-      <tr>
-        <td>Delta</td>
-        <td><code>$$ \Delta $$</code></td>
-        <td><span class="M">\Delta</span></td>
-      </tr>
-      <tr>
-        <td>ellipsis</td>
-        <td><code>$$ \dots $$</code></td>
-        <td><span class="M">\dots</span></td>
-      </tr>
-      <tr>
-        <td>imaginary unit</td>
-        <td><code>$$ \imath $$</code></td>
-        <td><span class="M">\imath</span></td>
-      </tr>
-      <tr>
-        <td>infinity</td>
-        <td><code>$$ \infty $$</code></td>
-        <td><span class="M">\infty</span></td>
-      </tr>
-    </tbody>
-    <tbody id="operations">
-      <tr><th class="o-Box" colspan="3" scope="colgroup">Binary Operations</th></tr>
-      <tr>
-        <td>plus or minus</td>
-        <td><code>$$ \pm $$</code></td>
-        <td><span class="M">\pm</span></td>
-      </tr>
-      <tr>
-        <td>times (dot)</td>
-        <td><code>$$ \cdot $$</code></td>
-        <td><span class="M">\cdot</span></td>
-      </tr>
-      <tr>
-        <td>times (cross)</td>
-        <td><code>$$ \times $$</code></td>
-        <td><span class="M">\times</span></td>
-      </tr>
-      <tr>
-        <td>divide symbol</td>
-        <td><code>$$ \div $$</code></td>
-        <td><span class="M">\div</span></td>
-      </tr>
-    </tbody>
-    <tbody id="relations">
-      <tr><th class="o-Box" colspan="3" scope="colgroup">Binary Relations</th></tr>
-      <tr>
-        <td>less than (strictly)</td>
-        <td><code>$$ \lt $$</code></td>
-        <td><span class="M">\lt</span></td>
-      </tr>
-      <tr>
-        <td>greater than (strictly)</td>
-        <td><code>$$ \gt $$</code></td>
-        <td><span class="M">\gt</span></td>
-      </tr>
-      <tr>
-        <td>less than or equal to</td>
-        <td><code>$$ \le $$</code></td>
-        <td><span class="M">\le</span></td>
-      </tr>
-      <tr>
-        <td>greater than or equal to</td>
-        <td><code>$$ \ge $$</code></td>
-        <td><span class="M">\ge</span></td>
-      </tr>
-      <tr>
-        <td>not less than</td>
-        <td><code>$$ \not\lt $$</code></td>
-        <td><span class="M">\not\lt</span></td>
-      </tr>
-      <tr>
-        <td>not greater than</td>
-        <td><code>$$ \not\gt $$</code></td>
-        <td><span class="M">\not\gt</span></td>
-      </tr>
-      <tr>
-        <td>not equal to</td>
-        <td><code>$$ \ne $$</code></td>
-        <td><span class="M">\ne</span></td>
-      </tr>
-      <tr>
-        <td>similar</td>
-        <td><code>$$ \sim $$</code></td>
-        <td><span class="M">\sim</span></td>
-      </tr>
-      <tr>
-        <td>congruent</td>
-        <td><code>$$ \cong $$</code></td>
-        <td><span class="M">\cong</span></td>
-      </tr>
-      <tr>
-        <td>approaches</td>
-        <td><code>$$ \to $$</code></td>
-        <td><span class="M">\to</span></td>
-      </tr>
-      <tr>
-        <td>material implication</td>
-        <td><code>$$ \implies $$</code></td>
-        <td><span class="M">\implies</span></td>
-      </tr>
-      <tr>
-        <td>logical implication</td>
-        <td><code>$$ \therefore $$</code></td>
-        <td><span class="M">\therefore</span></td>
-      </tr>
-    </tbody>
-    <tbody id="more-oper">
-      <tr><th class="o-Box" colspan="3" scope="colgroup">More Operators</th></tr>
-      <tr>
-        <td>sine</td>
-        <td><code>$$ \sin{x} $$</code></td>
-        <td><span class="M">\sin{x}</span></td>
-      </tr>
-      <tr>
-        <td>cosine</td>
-        <td><code>$$ \cos{x} $$</code></td>
-        <td><span class="M">\cos{x}</span></td>
-      </tr>
-      <tr>
-        <td>tangent</td>
-        <td><code>$$ \tan{x} $$</code></td>
-        <td><span class="M">\tan{x}</span></td>
-      </tr>
-      <tr>
-        <td>natural log</td>
-        <td><code>$$ \ln{x} $$</code></td>
-        <td><span class="M">\ln{x}</span></td>
-      </tr>
-      <tr>
-        <td>common log</td>
-        <td><code>$$ \log{x} $$</code></td>
-        <td><span class="M">\log{x}</span></td>
-      </tr>
-      <tr>
-        <td>log base <span class="M  !fz:i">b</span></td>
-        <td><code>$$ \log_{b} {x} $$</code></td>
-        <td><span class="M">\log_{b} {x}</span></td>
-      </tr>
-      <tr>
-        <td>derivative</td>
-        <td><code>$$ \frac{d}{dx} $$</code></td>
-        <td><span class="M">\frac{d}{dx}</span></td>
-      </tr>
-    </tbody>
-  </table>
-  <p>For a complete list of Greek letters and other symbols,
-    <a href="images/LaTeX_Greek_letters.pdf">download this PDF</a>.
-    Or you can check out a <a href="html-entities.html">bigger table</a>!</p>
-</section>
-<section id="large-oper">
-  <h2>Large Operators</h2>
-  <p>Below are the three most common <i>large operators</i> used in high school math:
-    the limit, the integral, and the summation. The best explanation is by example.
-    <ins datetime="2014-11-23">The first table shows Inline Mode and the second table shows Block Mode.</ins></p>
-  <dl class="o-FlexContainer">
-    <dt class="u-w_p2"><code>$$ \lim_{x \to -\infty} e^{x} $$</code></dt>            <dd class="u-w_p2c"><span class="M M--B">\lim_{x \to -\infty} e^{x}</span></dd>
-    <dt class="u-w_p2"><code>$$ \int_{1}^{e} \frac{1}{x}\ dx $$</code></dt>          <dd class="u-w_p2c"><span class="M M--B">\int_{1}^{e} \dfrac{1}{x}\ dx</span></dd>
-    <dt class="u-w_p2"><code>$$ \sum_{n=1}^{\infty} \frac{1}{ n^{2} } $$</code></dt> <dd class="u-w_p2c"><span class="M M--B">\sum_{n=1}^{\infty}\frac{1}{n^{2}}</span></dd>
-  </dl>
-</section>
-<section id="conclusion">
-  <h2>Conclusion</h2>
-  <p>That&rsquo;s it for now!
-    <a href="mailto:chrisharvey2pi@gmail.com">Email me</a>
-    if you have any questions or if you want me to add anything you think needs to be here.</p>
-  <section id="more-info">
-    <h3>More Information</h3>
-    <p>The program that typesets your <span class="M">\LaTeX</span> into math is called
-      <a rel="external" href="http://www.mathjax.org/">MathJax</a>, a third party
-      company that uses JavaScript to communicate between the languages of <span class="M">\LaTeX</span>
-      and HTML-CSS. Basically, MathJax provides technology that allows you to display math on the
-      web in an accessible, user-friendly way.</p>
-    <p><a class="M" rel="external" href="http://latex-project.org/intro.html">\LaTeX</a>
-      is a language, originally developed by Leslie Lamport, used to typeset and mark up documents.
-      It is a very common (perhaps the most common) system used by authors of professional math
-      journals.</p>
-  </section>
-</section>
-</main>
-<script src="../bower_components/jquery/dist/jquery.js"></script>
-<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML,https://chharvey.github.io/chhlib/mathjax-localconfig.js"></script>
-<script src="../core/scripts/global.js"></script>
-</body>
+  <head>
+    <title>Typsetting Math in Moodle</title>
+    <meta charset="utf-8">
+    <meta name="author" content="Christopher H. Harvey">
+    <meta name="description" content="A tutorial for inputting mathematical expressions into the Moodle system.">
+    <meta name="keywords" content="math expressions, math equations">
+    <link rel="stylesheet" href="../styles/chharvey.css">
+    <style>
+      th > .M,
+      td > .M {font-size: 16px;}
+      .c-HeadWithSub {
+        text-align: center;
+      }
+      .c-HeadWithSub::after {
+        content: none;
+      }
+      ._subunderline::after {
+        /* copied directly from `.hr-bottom` */
+        content: '';
+        display: block;
+        border-bottom-width: 1px;
+        margin-top: -1px;
+        border-bottom-style: solid;
+      }
+    </style>
+  </head>
+  <body class="o-GoldenContainer">
+    <main data-status="released" itemscope="" itemtype="https://schema.org/Article" class="o-GoldenContainer__Content c-Document">
+      <header>
+        <h1 itemprop="name headline">Typesetting Math in Moodle</h1>
+        <p class="o-GoldenContainer__Content__SideMinor o-Box o-Box--island c-Alert c-Alert--skss">This document is ready for implemen&shy;tation.</p>
+        <dl class="c-Document__Meta">
+          <dt>Author</dt>
+          <dd itemprop="author">Christopher H. Harvey</dd>
+          <dt>Description</dt>
+          <dd itemprop="description">A tutorial for inputting mathematical expressions into the Moodle system.</dd>
+          <dt>Keywords</dt>
+          <dd itemprop="keywords">math expressions</dd>
+          <dd itemprop="keywords">math equations</dd>
+          <dt>Version History</dt>
+          <dd itemprop="dateCreated" class="update">
+            <time datetime="2013-02-18">Feb 18, 2013</time><span class="o-Textbox c-Label c-Label--cshn !ml:1">Completed</span>
+          </dd>
+          <dd class="update">
+            <time datetime="2013-08-25 21:56">Aug 25, 2013 <span class="tod"> 9:56 PM</span></time>
+          </dd>
+          <dd itemprop="datePublished" class="update">
+            <time datetime="2014-10-22 12:42">Oct 22, 2014 <span class="tod">12:42 PM</span></time><span class="o-Textbox c-Label c-Label--skss !ml:1">Released</span>
+          </dd>
+          <dd itemprop="dateModified" class="update">
+            <time datetime="2014-11-23 22:39">Nov 23, 2014 <span class="tod">10:39 PM</span></time><span class="o-Textbox c-Label c-Label--dang !ml:1">Latest</span>
+          </dd>
+        </dl>
+        <!--  nav.-->
+        <!--    h2 Table of Contents-->
+        <!--    ol.TOC-->
+        <!--      li:a(href="#intro") Introduction: Your First Equation by Hand-->
+        <!--      li:a(href="#modes") Equation Modes-->
+        <!--      li-->
+        <!--        a(href="#placement") Placement of Symbols-->
+        <!--        ol-->
+        <!--          li:a(href="#supsub") Superscripts and Subscripts-->
+        <!--          li:a(href="#frac") Fraction Bars-->
+        <!--          li:a(href="#sqrt") Square Roots-->
+        <!--          li-->
+        <!--            a(href="#delimeters") Parentheses and other Delimiters-->
+        <!--            ol-->
+        <!--              li:a(href="#parens") Parentheses-->
+        <!--              li:a(href="#brackets") Absolute Value, Square Brackets-->
+        <!--              li:a(href="#braces") Curly Braces-->
+        <!--      li-->
+        <!--        a(href="#special-chars") Special Characters-->
+        <!--        ol-->
+        <!--          li:a(href="#vars") Values and Variables-->
+        <!--          li:a(href="#operations") Binary Operations-->
+        <!--          li:a(href="#relations") Binary Relations-->
+        <!--      li:a(href="#more-oper") More Operators-->
+        <!--      li-->
+        <!--        a(href="#conclusion") Conclusion-->
+        <!--        ol-->
+        <!--          li:a(href="#more-info") More Information-->
+      </header>
+      <p class="c-Lede c-Lede--dropcap">You may already know how to use <b>MathType</b> (or <b>Equation Editor</b>) to put
+        equations in Moodle. But if you don&rsquo;t have those programs installed on your personal computer,
+        or if you don&rsquo;t feel like switching applications often, this short tutorial is just for you.
+        You will learn the basics of entering Math into test questions on Moodle&mdash;by hand!
+      </p>
+      <p>This tutorial will teach you the basics of <span class="M">\LaTeX</span>
+        (written <i>LaTeX</i> and pronounced <i>LAH-tech</i>), which is sort of like a programming language.
+        Learning <span class="M">\LaTeX</span> may take some time, but it will save you much more time in
+        the long run. Once you are fluent with it, you&rsquo;ll be able to enter math equations without
+        ever having to leave the Moodle page.
+      </p>
+      <section id="intro">
+        <h2 class="c-HeadWithSub">Introduction</h2>
+        <p class="c-Subhead _subunderline">Your First Equation by Hand</p>
+        <p>
+          To enter a math equation into Moodle, you need to surround the math with double
+          dollar signs on each side. For example, to display <span class="M">2x+3=7</span>, you
+          would need to type <code>$$2x+3=7$$</code> anywhere in the text box on
+          Moodle. Try it for yourself:
+        </p>
+        <figure class="!ta:c"><img src="images/moodle-inline.png" alt="A screenshot of a dialog box in Moodle with LaTeX input."></figure>
+        <p data-informative="" class="c-Document__Informative">The reason you need to surround the <span class="M">\LaTeX</span> code with
+          double dollar signs is that there is a JavaScript program installed on the Moodle server that
+          searches for these signs. When it finds <code>$$</code>, it knows to convert
+          the code inside into mathematical characters. In fact, the same program is installed on this
+          web page you&rsquo;re reading right now. In order for <span class="M">\LaTeX</span> to properly
+          typeset, you and your students need to have JavaScript enabled in your browsers.
+        </p>
+        <p>Notice how <span class="M">\LaTeX</span> is <em>space-insensitive</em>. This
+          means you could enter <code>$$2x+3=7$$</code>, or
+          <code>$$2x + 3 = 7$$</code>, or any variation, and it would still be
+          displayed exactly the same. The spaces aren&rsquo;t counted. To deliberately enter a space, you
+          need to put a <em>backslash</em> (not a forward slash) before the space character. For
+          example: <code>$$2\ x$$</code> is displayed as
+          
+          <sppan class="M">2\ x</sppan>. The <kbd><kbd class="o-Textbox c-Key">backslash</kbd></kbd> key is right above
+          the <kbd><kbd class="o-Textbox c-Key">enter</kbd></kbd> key on your keyboard.
+        </p>
+        <p>All <span class="M">\LaTeX</span> commands begin with a backslash, and may
+          contain arguments, which are contained in curly braces. We&rsquo;ll see some more commands in the
+          next sections.
+        </p>
+      </section>
+      <section id="modes">
+        <h2>Equation Modes</h2>
+        <p>
+          There are two main modes of showing an equation: Inline Mode and Display Mode.
+          Inline Mode displays an equation inline with text, like this: <span class="M">2x+3=7</span>.
+          In Display Mode, the equation is displayed on its own line and centered. Sometimes I&rsquo;ll
+          use the term <i>Block Mode</i>, since really everything is displayed. You might want to use
+          Block Mode to isolate an equation to show that it&rsquo;s important:
+          <span class="M M--B">2x+3=7</span>
+        </p>
+        <p>In normal typesetting systems that use <span class="M">\LaTeX</span>, these
+          modes are activated differently, however in Moodle they are both activated the same. This means
+          you don&rsquo;t have to memorize any special codes to activate Inline versus Block mode. In order
+          to show an equation in Block Mode, you&rsquo;ll have to put the equation on its own line and center
+          it yourself (like how you would do in <b>Word</b>).
+        </p>
+        <figure class="!ta:c"><img src="images/moodle-block.png" alt="A screenshot of a dialog box in Moodle with LaTeX input."></figure>
+      </section>
+      <section id="placement">
+        <h2>Placement of Symbols</h2>
+        <p>This short section covers how to place mathematical symbols in semantic ways.</p>
+        <section id="supsub">
+          <h3>Superscripts and Subscripts</h3>
+          <p>
+            To enter a superscript for powers or exponents, simply place the exponent in
+            curly braces following a caret symbol:
+          </p>
+          <dl class="o-FlexContainer">
+            <dt><code>$$a^{2} + b^{2} = c^{2}$$</code></dt>
+            <dd><span class="M">a^{2} + b^{2} = c^{2}</span></dd>
+          </dl>
+          <p>
+            To enter a subscript, place the subscript in curly braces following an
+            underscore:
+          </p>
+          <dl class="o-FlexContainer">
+            <dt><code>$$a_{n} = a_{n-1} + d$$</code></dt>
+            <dd><span class="M">a_{n} = a_{n-1} + d</span></dd>
+          </dl>
+        </section>
+        <section id="frac">
+          <h3>Fraction Bars</h3>
+          <p>
+            This one is a little more complicated. To enter a fraction, you need to start
+            with the command <code>\frac</code> (notice the backslash), and then enter
+            the arguments in curly braces. There are two arguments: the numerator and the denominator.
+          </p>
+          <dl class="o-FlexContainer">
+            <dt><code>$$\frac{-b}{2a}$$</code></dt>
+            <dd><span class="M">\dfrac{-b}{2a}</span></dd>
+          </dl>
+        </section>
+        <section id="sqrt">
+          <h3>Square Roots</h3>
+          <p>
+            The square root command is almost like the fraction command, but it has one
+            argument instead of two. The command is <code>\sqrt</code>, and your
+            argument should go in curly braces.
+          </p>
+          <dl class="o-FlexContainer">
+            <dt><code>$$\sqrt{2}$$</code></dt>
+            <dd><span class="M">\sqrt{2}</span></dd>
+          </dl>
+        </section>
+        <section id="delimeters">
+          <h3>Parentheses and other Delimiters</h3>
+          <p>
+            Sometimes, you may want to put parentheses and other delimiters (absolute
+            value, square brackets, curly braces, <i lang="la"><abbr title="et cetera">etc.</abbr></i>)
+            around an expression or equation. There are many ways to do this, but we&rsquo;ll just cover the
+            basics.
+          </p>
+          <section id="parens">
+            <h4>Parentheses</h4>
+            <p>To enter parentheses the easy way, just type them in on your keyboard:</p>
+            <dl class="o-FlexContainer">
+              <dt><code>$$f(y) = 2(y^{2}+1)$$</code></dt>
+              <dd><span class="M">f(y) = 2(y^{2}+1)</span></dd>
+            </dl>
+            <p>The parentheses aren&rsquo;t terrible, but since the <i><span class="M">y</span></i> hangs down a
+              little bit, and we have a superscript, we might want to make our parentheses a little bit
+              taller so that they&rsquo;ll fit their contents. To do this, we have to use the commands
+              <code>\left</code> and <code>\right</code> before each parenthesis:
+            </p>
+            <dl class="o-FlexContainer">
+              <dt><code>$$f \left( y \right) = 2 \left( y^{2}+1 \right) $$</code></dt>
+              <dd><span class="M">f\left(y\right) = 2\left(y^{2}+1\right)</span></dd>
+            </dl>
+            <p>
+              It&rsquo;s a little more typing to do, but it makes all the difference. And you
+              will want to use these commands to go from this:
+              <span class="M">(\dfrac{-b}{2a})^{2}</span> to this:
+              <span class="M">\left(\dfrac{-b}{2a}\right)^{2}</span>.
+            </p>
+          </section>
+          <section id="brackets">
+            <h4>Absolute Value, Square Brackets</h4>
+            <p>
+              Other delimiting symbols work just the same way. You can enter them in on
+              your keyboard directly, or you can precede them with the <code>\left</code>
+              and <code>\right</code> commands.
+            </p>
+            <p>For the absolute value symbol, use the <kbd><kbd class="o-Textbox c-Key">bar</kbd></kbd> key above
+              the <kbd><kbd class="o-Textbox c-Key">enter</kbd></kbd> key on your keyboard. (It&rsquo;s
+              <kbd><kbd class="o-Textbox c-Key">shift</kbd> + <kbd class="o-Textbox c-Key">backslash</kbd></kbd>.)
+            </p>
+            <dl class="o-FlexContainer">
+              <dt class="u-w_p2c"><code>$$ |x+2|^{2}+3 $$</code></dt>               
+              <dd class="u-w_p2"><span class="M">|x+2|^{2}+3</span></dd>
+              
+              <dt class="u-w_p2c"><code>$$ \left|x+2\right|^{2}+3 $$</code></dt>    
+              <dd class="u-w_p2"><span class="M">\left|x+2\right|^{2}+3</span></dd>
+              
+              <dt class="u-w_p2c"><code>$$ [x^{2}+6x+9]-9 $$</code></dt>            
+              <dd class="u-w_p2"><span class="M">[x^{2}+6x+9]-9</span></dd>
+              
+              <dt class="u-w_p2c"><code>$$ \left[x^{2}+6x+9\right]-9 $$</code></dt> 
+              <dd class="u-w_p2"><span class="M">\left[x^{2}+6x+9\right]-9</span></dd>
+            </dl>
+          </section>
+          <section id="braces">
+            <h4>Curly Braces</h4>
+            <p>
+              Now, curly braces are a different situation. Since the
+              <span class="M">\LaTeX</span> language uses these symbols for its command arguments,
+              we can&rsquo;t just type them in like we would normal parentheses. We have to <em>escape</em>
+              them with a backslash. To get <span class="M">\{4,2,1,\dfrac{1}{2},\dots\}</span>,
+              for example, we would have to type
+              <code>$$ \{ 4,2,1,\frac{1}{2},\dots \} $$</code>. Notice the backslash before each brace.
+            </p>
+            <p>
+              Again, if we want to stretch the braces to fit their contents, we have to
+              add the <code>\left</code> and <code>\right</code> commands:
+            </p>
+            <dl class="o-FlexContainer">
+              <dt><code>$$ \left\{ 4,2,1,\frac{1}{2},\dots \right\} $$</code></dt>
+              <dd><span class="M">\left\{4,2,1,\dfrac{1}{2},\dots\right\}</span></dd>
+            </dl>
+          </section>
+        </section>
+      </section>
+      <section id="special-chars">
+        <h2>Special Characters</h2>
+        <p>
+          This section covers the common characters we use in everyday high school math.
+          Since they won&rsquo;t always be found on your keyboard, there are <span class="M">\LaTeX</span>
+          commands for each of them.
+        </p>
+        <table class="c-TableShaded c-TableShadedRows c-TableHover !w:1o1 !ta:c">
+          <thead>
+            <tr>
+              <th scope="col" class="o-Box">Symbol Name</th>
+              <th scope="col" class="o-Box"><span class="M">\LaTeX</span> Code</th>
+              <th scope="col" class="o-Box">Symbol</th>
+            </tr>
+          </thead>
+          <tbody id="vars">
+            <tr>
+              <th colspan="3" scope="colgroup" class="o-Box">Values and Variables</th>
+            </tr>
+            <tr>
+              <td>pi</td>
+              <td><code>$$ \pi $$</code></td>
+              <td><span class="M">\pi</span></td>
+            </tr>
+            <tr>
+              <td>Delta</td>
+              <td><code>$$ \Delta $$</code></td>
+              <td><span class="M">\Delta</span></td>
+            </tr>
+            <tr>
+              <td>ellipsis</td>
+              <td><code>$$ \dots $$</code></td>
+              <td><span class="M">\dots</span></td>
+            </tr>
+            <tr>
+              <td>imaginary unit</td>
+              <td><code>$$ \imath $$</code></td>
+              <td><span class="M">\imath</span></td>
+            </tr>
+            <tr>
+              <td>infinity</td>
+              <td><code>$$ \infty $$</code></td>
+              <td><span class="M">\infty</span></td>
+            </tr>
+          </tbody>
+          <tbody id="operations">
+            <tr>
+              <th colspan="3" scope="colgroup" class="o-Box">Binary Operations</th>
+            </tr>
+            <tr>
+              <td>plus or minus</td>
+              <td><code>$$ \pm $$</code></td>
+              <td><span class="M">\pm</span></td>
+            </tr>
+            <tr>
+              <td>times (dot)</td>
+              <td><code>$$ \cdot $$</code></td>
+              <td><span class="M">\cdot</span></td>
+            </tr>
+            <tr>
+              <td>times (cross)</td>
+              <td><code>$$ \times $$</code></td>
+              <td><span class="M">\times</span></td>
+            </tr>
+            <tr>
+              <td>divide symbol</td>
+              <td><code>$$ \div $$</code></td>
+              <td><span class="M">\div</span></td>
+            </tr>
+          </tbody>
+          <tbody id="relations">
+            <tr>
+              <th colspan="3" scope="colgroup" class="o-Box">Binary Relations</th>
+            </tr>
+            <tr>
+              <td>less than (strictly)</td>
+              <td><code>$$ \lt $$</code></td>
+              <td><span class="M">\lt</span></td>
+            </tr>
+            <tr>
+              <td>greater than (strictly)</td>
+              <td><code>$$ \gt $$</code></td>
+              <td><span class="M">\gt</span></td>
+            </tr>
+            <tr>
+              <td>less than or equal to</td>
+              <td><code>$$ \le $$</code></td>
+              <td><span class="M">\le</span></td>
+            </tr>
+            <tr>
+              <td>greater than or equal to</td>
+              <td><code>$$ \ge $$</code></td>
+              <td><span class="M">\ge</span></td>
+            </tr>
+            <tr>
+              <td>not less than</td>
+              <td><code>$$ \not\lt $$</code></td>
+              <td><span class="M">\not\lt</span></td>
+            </tr>
+            <tr>
+              <td>not greater than</td>
+              <td><code>$$ \not\gt $$</code></td>
+              <td><span class="M">\not\gt</span></td>
+            </tr>
+            <tr>
+              <td>not equal to</td>
+              <td><code>$$ \ne $$</code></td>
+              <td><span class="M">\ne</span></td>
+            </tr>
+            <tr>
+              <td>similar</td>
+              <td><code>$$ \sim $$</code></td>
+              <td><span class="M">\sim</span></td>
+            </tr>
+            <tr>
+              <td>congruent</td>
+              <td><code>$$ \cong $$</code></td>
+              <td><span class="M">\cong</span></td>
+            </tr>
+            <tr>
+              <td>approaches</td>
+              <td><code>$$ \to $$</code></td>
+              <td><span class="M">\to</span></td>
+            </tr>
+            <tr>
+              <td>material implication</td>
+              <td><code>$$ \implies $$</code></td>
+              <td><span class="M">\implies</span></td>
+            </tr>
+            <tr>
+              <td>logical implication</td>
+              <td><code>$$ \therefore $$</code></td>
+              <td><span class="M">\therefore</span></td>
+            </tr>
+          </tbody>
+          <tbody id="more-oper">
+            <tr>
+              <th colspan="3" scope="colgroup" class="o-Box">More Operators</th>
+            </tr>
+            <tr>
+              <td>sine</td>
+              <td><code>$$ \sin{x} $$</code></td>
+              <td><span class="M">\sin{x}</span></td>
+            </tr>
+            <tr>
+              <td>cosine</td>
+              <td><code>$$ \cos{x} $$</code></td>
+              <td><span class="M">\cos{x}</span></td>
+            </tr>
+            <tr>
+              <td>tangent</td>
+              <td><code>$$ \tan{x} $$</code></td>
+              <td><span class="M">\tan{x}</span></td>
+            </tr>
+            <tr>
+              <td>natural log</td>
+              <td><code>$$ \ln{x} $$</code></td>
+              <td><span class="M">\ln{x}</span></td>
+            </tr>
+            <tr>
+              <td>common log</td>
+              <td><code>$$ \log{x} $$</code></td>
+              <td><span class="M">\log{x}</span></td>
+            </tr>
+            <tr>
+              <td>log base <span class="M !fz:i">b</span></td>
+              <td><code>$$ \log_{b} {x} $$</code></td>
+              <td><span class="M">\log_{b} {x}</span></td>
+            </tr>
+            <tr>
+              <td>derivative</td>
+              <td><code>$$ \frac{d}{dx} $$</code></td>
+              <td><span class="M">\frac{d}{dx}</span></td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="o-Box o-Box--island c-Alert c-Alert--help">
+          For a complete list of Greek letters and other symbols,
+          <a href="images/LaTeX_Greek_letters.pdf">download this PDF</a>.
+          Or you can check out a <a href="html-entities.html">bigger table</a>!
+        </p>
+      </section>
+      <section id="large-oper">
+        <h2>Large Operators</h2>
+        <p>Below are the three most common <i>large operators</i> used in high school math:
+          the limit, the integral, and the summation. The best explanation is by example.
+          <ins datetime="2014-11-23">The first table shows Inline Mode and the second table shows Block Mode.</ins>
+        </p>
+        <dl class="o-FlexContainer">
+          <dt class="u-w_p2c"><code>$$ \lim_{x \to -\infty} e^{x} $$</code></dt>            
+          <dd class="u-w_p2"><span class="M M--B">\lim_{x \to -\infty} e^{x}</span></dd>
+          
+          <dt class="u-w_p2c"><code>$$ \int_{1}^{e} \frac{1}{x}\ dx $$</code></dt>          
+          <dd class="u-w_p2"><span class="M M--B">\int_{1}^{e} \dfrac{1}{x}\ dx</span></dd>
+          
+          <dt class="u-w_p2c"><code>$$ \sum_{n=1}^{\infty} \frac{1}{ n^{2} } $$</code></dt> 
+          <dd class="u-w_p2"><span class="M M--B">\sum_{n=1}^{\infty}\frac{1}{n^{2}}</span></dd>
+        </dl>
+      </section>
+      <section id="conclusion">
+        <h2>Conclusion</h2>
+        <p>
+          That&rsquo;s it for now!
+          <a href="mailto:chrisharvey2pi@gmail.com">Email me</a>
+          if you have any questions or if you want me to add anything you think needs to be here.
+        </p>
+        <section id="more-info">
+          <h3>More Information</h3>
+          <p>The program that typesets your <span class="M">\LaTeX</span> into math is called
+            <a rel="external" href="http://www.mathjax.org/">MathJax</a>, a third party
+            company that uses JavaScript to communicate between the languages of <span class="M">\LaTeX</span>
+            and HTML-CSS. Basically, MathJax provides technology that allows you to display math on the
+            web in an accessible, user-friendly way.
+          </p>
+          <p><a rel="external" href="http://latex-project.org/intro.html" class="M">\LaTeX</a>
+            is a language, originally developed by Leslie Lamport, used to typeset and mark up documents.
+            It is a very common (perhaps the most common) system used by authors of professional math
+            journals.
+          </p>
+        </section>
+      </section>
+    </main>
+    <script src="../bower_components/jquery/dist/jquery.js"></script>
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML,https://chharvey.github.io/chhlib/mathjax-localconfig.js"></script>
+    <script src="../core/scripts/global.js"></script>
+  </body>
 </html>

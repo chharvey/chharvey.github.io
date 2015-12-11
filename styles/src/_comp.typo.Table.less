@@ -21,65 +21,70 @@
 // ^author
 // : Chris Harvey
 // ^updated
-// : 2015-05-18
+// : 2015-12-10
+
+.mx-bordered {
+  #CHH .CONSTS();
+  border-color: @chh_color_portal_shadelight;
+}
+.mx-shaded {
+  #CHH .CONSTS();
+  background-color: @chh_color_portal_shadelight;
+}
+
 
 .c-TableBordered {
   #XMETER .border-vert(all; 3px);
+  &:extend(.mx-bordered);
 }
 
 .c-TableBorderedRows {
-  > *:not(caption) ~ *:not(dt):not(dd) {
+  & > *:not(caption) ~ *:not(dt):not(dd) {
     #XMETER .border-vert(top; 2px);
+    &:extend(.mx-bordered);
   }
-  > * > tr:not(:first-child) {
+  & > * > tr:not(:first-child) {
     #XMETER .border-vert(top; 1px);
+    &:extend(.mx-bordered);
   }
-  > dt, dd {
+  & > dt, dd {
     &:not(:first-of-type) {
       #XMETER .border-vert(top; 1px);
+      &:extend(.mx-bordered);
     }
   }
 }
 
 .c-TableBorderedCols {
-  > * > tr > *:not(:first-child),
-  > dd {
+  & > * > tr > *:not(:first-child),
+  & > dd {
     border-left-width: 1px;
   }
 }
 
 .c-TableShaded {
-  #CHH .CONSTS();
-  // background-color: @color_table_bg; // FIXME: color used outside of scope
-  background-color: fadeout(@chh_color_portal_apertureblack, 96%); // FIXME: @color_table_bg
-
+  &:extend(.mx-shaded);
 }
 
 .c-TableShadedRows {
-  #CHH .CONSTS();
-  > tbody > tr:nth-child(even),
-  > dt:nth-child(4n+3),
-  > dd:nth-child(4n) {
-    // background-color: @color_table_bg; // FIXME: color used outside of scope
-    background-color: fadeout(@chh_color_portal_apertureblack, 96%); // FIXME: @color_table_bg
+  & > tbody > tr:nth-child(even),
+  & > dt:nth-child(4n+3),
+  & > dd:nth-child(4n) {
+    &:extend(.mx-shaded);
   }
 }
 
 .c-TableShadedCols {
-  #CHH .CONSTS();
-  > * > tr > *:nth-child(even),
-  > dd {
-    // background-color: @color_table_bg; // FIXME: color used outside of scope
-    background-color: fadeout(@chh_color_portal_apertureblack, 96%); // FIXME: @color_table_bg
+  & > * > tr > *:nth-child(even),
+  & > dd {
+    &:extend(.mx-shaded);
   }
 }
 
 .c-TableHover {
-  > * > tr:hover,
-  > dt:hover,
-  > dd:hover {
-    #CHH .CONSTS();
-    // background-color: @color_table_hv !important; // FIXME: color used outside of scope
-    background-color: fadeout(@chh_color_portal_apertureblack, 92%) !important; // FIXME: @color_table_hv
+  & > * > tr:hover,
+  & > dt:hover,
+  & > dd:hover {
+    &:extend(.mx-shaded);
   }
 }
