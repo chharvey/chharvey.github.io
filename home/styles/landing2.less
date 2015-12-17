@@ -6,6 +6,25 @@
     landing2.less
 \*################################*/
 
+@mainwidth_sK: 1;
+@mainwidth_sM: 4/5;
+@mainwidth_sG: 3/4;
+@mainwidth_sT: 2/3;
+main {
+  margin: auto;
+  @media screen and (min-width: 30em) { // @sK
+    width: @mainwidth_sK * 100%;
+  }
+  @media screen and (min-width: 45em) { // @sM
+    width: @mainwidth_sM * 100%;
+  }
+  @media screen and (min-width: 60em) { // @sG
+    width: @mainwidth_sG * 100%;
+  }
+  @media screen and (min-width: 75em) { // @sT
+    width: @mainwidth_sT * 100%;
+  }
+}
 // h1 {
 //   display: inline;
 //   font: inherit;
@@ -17,65 +36,86 @@
 .c-Spiral {
   #XMETER .flex-justify-content(space-around);
   text-align: center;
+  & > li {
+    @media screen and (max-width: 29.999em) {
+      #CHH .VARS();
+      width: 100%;
+      line-height: (@chh_line_height * 2);
+      margin-bottom: (@chh_vru / 2);
+    }
+  }
 }
 .c-Square {
   display: block;
   line-height: inherit;
   border: 1px solid black;
-  // body x-margins are 0.5rem
-  @boxwidth: (15 - 2*0.5)/5 * 16px;
-  width:  @boxwidth;
-  height: @boxwidth;
-  padding: 0.25rem;
-  @media screen and (min-width: 30em) {
+  width: 100%;
+  height: auto;
+  @media screen and (min-width: 30em) { // @sK
     // body x-margins are 0.5rem
-    @boxwidth: (30 - 2*0.5)/5 * 16px;
+    @body_margin_x: 0.5;
+    @boxwidth: ((30 - 2*@body_margin_x)*@mainwidth_sK)/5 * 16px;
     width:  @boxwidth;
     height: @boxwidth;
   }
-  @media screen and (min-width: 45em) {
-    // body x-margins are 1rem and container is @phi1 with left-padding of 1rem
-    #CHH .CONSTS();
-    @boxwidth: ((45 - 2*1)*@phi1 - 1*1)/5 * 16px;
+  @media screen and (min-width: 45em) { // @sM
+    // body x-margins are 1rem and container is @mainwidth_sM
+    @body_margin_x: 1;
+    @boxwidth: ((45 - 2*@body_margin_x)*@mainwidth_sM)/5 * 16px;
     width:  @boxwidth;
     height: @boxwidth;
-    padding: 0.5rem;
+    padding: @body_margin_x/2 * 1rem;
   }
-  @media screen and (min-width: 60em) {
-    // body x-margins are 1rem and container is @phi1 with x-padding of 1rem
-    #CHH .CONSTS();
-    @boxwidth: ((60 - 2*1)*@phi1 - 2*1)/5 * 16px;
+  @media screen and (min-width: 60em) { // @sG
+    // body x-margins are 1rem and container is @mainwidth_sG
+    @body_margin_x: 1;
+    @boxwidth: ((60 - 2*@body_margin_x)*@mainwidth_sG)/5 * 16px;
     width:  @boxwidth;
     height: @boxwidth;
   }
-  @media screen and (min-width: 75em) {
-    // body x-margins are 2rem and container is @phi1 with x-padding of 2rem
-    #CHH .CONSTS();
-    @boxwidth: ((75 - 2*2)*@phi1 - 2*2)/5 * 16px;
+  @media screen and (min-width: 75em) { // @sT
+    // body x-margins are 2rem and container is @mainwidth_sT
+    @body_margin_x: 2;
+    @boxwidth: ((75 - 2*@body_margin_x)*@mainwidth_sT)/5 * 16px;
     width:  @boxwidth;
     height: @boxwidth;
-    padding: 1rem;
+    padding: @body_margin_x/2 * 1rem;
   }
 }
 .c-Square--dev {
   width: 100%;
 }
 
-// .c-Spiral > li {
-//   &::before {
-//     .octicon;
-//     z-index: 10;
-//   }
-//   &:nth-child(1) { .octicon-home; }
-//   &:nth-child(2) { .octicon-briefcase; }
-//   &:nth-child(3) { .octicon-file-code; }
-//   &:nth-child(4) { .octicon-graph; }
-//   &:nth-child(5) { .octicon-mortar-board; }
-//   &:nth-child(6) { .octicon-settings; }
-//   &:nth-child(7) { .octicon-jersey; }
-//   &:nth-child(8) { .octicon-law; }
-//    .octicon-beaker;
-// }
+@media screen and (min-width: 30em) { // @sK
+  .c-Spiral--folio > li {
+    &:nth-child(1) { // web
+      #XMETER .flex-order(0);
+    }
+    &:nth-child(2) { // math
+      #XMETER .flex-order(-1);
+    }
+    &:nth-child(3) { // music
+      #XMETER .flex-order(0);
+    }
+    &:nth-child(4) { // edu
+      #XMETER .flex-order(0);
+    }
+    &:nth-child(5) { // swim
+      #XMETER .flex-order(-2);
+    }
+  }
+  .c-Spiral--bio > li {
+    &:nth-child(1) { // about
+      #XMETER .flex-order(0);
+    }
+    &:nth-child(2) { // resume
+      #XMETER .flex-order(-1);
+    }
+    &:nth-child(3) { // copyright
+      #XMETER .flex-order(0);
+    }
+  }
+}
 
 
 // .c-Square__Text {
