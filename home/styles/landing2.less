@@ -33,7 +33,7 @@ main {
 //   color: inherit;
 // }
 
-.c-Spiral {
+.c-LandingLinkList {
   #XMETER .flex-justify-content(space-around);
   text-align: center;
   & > li {
@@ -45,49 +45,9 @@ main {
     }
   }
 }
-.c-Square {
-  display: block;
-  line-height: inherit;
-  border: 1px solid black;
-  width: 100%;
-  height: auto;
-  @media screen and (min-width: 30em) { // @sK
-    // body x-margins are 0.5rem
-    @body_margin_x: 0.5;
-    @boxwidth: ((30 - 2*@body_margin_x)*@mainwidth_sK)/5 * 16px;
-    width:  @boxwidth;
-    height: @boxwidth;
-  }
-  @media screen and (min-width: 45em) { // @sM
-    // body x-margins are 1rem and container is @mainwidth_sM
-    @body_margin_x: 1;
-    @boxwidth: ((45 - 2*@body_margin_x)*@mainwidth_sM)/5 * 16px;
-    width:  @boxwidth;
-    height: @boxwidth;
-    padding: @body_margin_x/2 * 1rem;
-  }
-  @media screen and (min-width: 60em) { // @sG
-    // body x-margins are 1rem and container is @mainwidth_sG
-    @body_margin_x: 1;
-    @boxwidth: ((60 - 2*@body_margin_x)*@mainwidth_sG)/5 * 16px;
-    width:  @boxwidth;
-    height: @boxwidth;
-  }
-  @media screen and (min-width: 75em) { // @sT
-    // body x-margins are 2rem and container is @mainwidth_sT
-    @body_margin_x: 2;
-    @boxwidth: ((75 - 2*@body_margin_x)*@mainwidth_sT)/5 * 16px;
-    width:  @boxwidth;
-    height: @boxwidth;
-    padding: @body_margin_x/2 * 1rem;
-  }
-}
-.c-Square--dev {
-  width: 100%;
-}
 
 @media screen and (min-width: 30em) { // @sK
-  .c-Spiral--folio > li {
+  .c-LandingLinkList--folio > li {
     &:nth-child(1) { // web
       #XMETER .flex-order(0);
     }
@@ -104,7 +64,7 @@ main {
       #XMETER .flex-order(-2);
     }
   }
-  .c-Spiral--bio > li {
+  .c-LandingLinkList--bio > li {
     &:nth-child(1) { // about
       #XMETER .flex-order(0);
     }
@@ -117,17 +77,70 @@ main {
   }
 }
 
+.c-LandingLink {
+  display: block;
+  line-height: inherit;
+  border: 1px solid black;
+  width: 100%;
+  height: auto;
+  &:hover {
+    text-decoration: none;
+  }
+  @media screen and (min-width: 30em) { // @sK
+    // body x-margins are 0.5rem
+    @body_margin_x: 0.5;
+    @boxwidth: ((30 - 2*@body_margin_x)*@mainwidth_sK)/5;
+    width:  @boxwidth * 16px;
+    height: @boxwidth * 16px;
+    font-size: (@boxwidth/2 * 1rem);
+  }
+  @media screen and (min-width: 45em) { // @sM
+    // body x-margins are 1rem and container is @mainwidth_sM
+    @body_margin_x: 1;
+    @boxwidth: ((45 - 2*@body_margin_x)*@mainwidth_sM)/5;
+    width:  @boxwidth * 16px;
+    height: @boxwidth * 16px;
+    padding: @body_margin_x/2 * 1rem;
+    font-size: (@boxwidth/2 * 1rem);
+  }
+  @media screen and (min-width: 60em) { // @sG
+    // body x-margins are 1rem and container is @mainwidth_sG
+    @body_margin_x: 1;
+    @boxwidth: ((60 - 2*@body_margin_x)*@mainwidth_sG)/5;
+    width:  @boxwidth * 16px;
+    height: @boxwidth * 16px;
+    font-size: (@boxwidth/2 * 1rem);
+  }
+  @media screen and (min-width: 75em) { // @sT
+    // body x-margins are 2rem and container is @mainwidth_sT
+    @body_margin_x: 2;
+    @boxwidth: ((75 - 2*@body_margin_x)*@mainwidth_sT)/5;
+    width:  @boxwidth * 16px;
+    height: @boxwidth * 16px;
+    padding: @body_margin_x/2 * 1rem;
+    font-size: (@boxwidth/2 * 1rem);
+  }
+}
+.c-LandingLink--dev {
+  width: 100%;
+}
 
-// .c-Square__Text {
-//   // color: transparent;
-//   &::before {
-//
-//     font-size: inherit;
-//     line-height: inherit;
-//     // color: black;
-//   }
-// }
+.c-LandingLink__Text {
+  display: none;
+}
 
-// .c-Square__Text {
-//   display: none;
-// }
+.c-LandingLink__Icon {
+  &::before {
+    .octicon;
+    font-size: inherit;
+  }
+}
+.c-LandingLink__Icon--web       { .octicon-file-code; }
+.c-LandingLink__Icon--math      { .octicon-graph; }
+.c-LandingLink__Icon--music     { .octicon-settings; }
+.c-LandingLink__Icon--edu       { .octicon-mortar-board; }
+.c-LandingLink__Icon--swim      { .octicon-jersey; }
+.c-LandingLink__Icon--about     { .octicon-home; }
+.c-LandingLink__Icon--resume    { .octicon-briefcase; }
+.c-LandingLink__Icon--copyright { .octicon-law; }
+.c-LandingLink__Icon--dev       { .octicon-beaker; }
