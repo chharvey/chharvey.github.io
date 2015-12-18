@@ -7,10 +7,6 @@
     landing2.less
 \*################################*/
 
-@mainwidth_sK: 1;
-@mainwidth_sM: 4/5;
-@mainwidth_sG: 3/4;
-@mainwidth_sT: 2/3;
 
 body {
   background-color: @lunar_base3;
@@ -19,25 +15,13 @@ body {
 
 main {
   margin: auto;
-  @media screen and (min-width: 30em) { // @sK
-    width: @mainwidth_sK * 100%;
-  }
-  @media screen and (min-width: 45em) { // @sM
-    width: @mainwidth_sM * 100%;
-  }
-  @media screen and (min-width: 60em) { // @sG
-    width: @mainwidth_sG * 100%;
-  }
-  @media screen and (min-width: 75em) { // @sT
-    width: @mainwidth_sT * 100%;
-  }
 }
 
 h1 {
   color: @lunar_base02;
 }
 
-.c-LandingLinkList {
+.o-LandingLinkList {
   #XMETER .flex-justify-content(space-around);
   text-align: center;
   & > li {
@@ -50,19 +34,16 @@ h1 {
 }
 
 @media screen and (min-width: 30em) { // @sK
-  // .c-LandingLinkList__Item--web       { #XMETER .flex-order(0); }
-  .c-LandingLinkList__Item--math      { #XMETER .flex-order(-1); }
-  // .c-LandingLinkList__Item--music     { #XMETER .flex-order(0); }
-  // .c-LandingLinkList__Item--edu       { #XMETER .flex-order(0); }
-  .c-LandingLinkList__Item--swim      { #XMETER .flex-order(-2); }
-  // .c-LandingLinkList__Item--about     { #XMETER .flex-order(0); }
-  .c-LandingLinkList__Item--resume    { #XMETER .flex-order(-1); }
-  // .c-LandingLinkList__Item--copyright { #XMETER .flex-order(0); }
-  .c-LandingLinkList__Item--dev {
-    &,
-    & > .c-LandingLink {
-      width: 100%;
-    }
+  // .o-LandingLinkList__Item--web       { #XMETER .flex-order(0); }
+  .o-LandingLinkList__Item--math      { #XMETER .flex-order(-1); }
+  // .o-LandingLinkList__Item--music     { #XMETER .flex-order(0); }
+  // .o-LandingLinkList__Item--edu       { #XMETER .flex-order(0); }
+  .o-LandingLinkList__Item--swim      { #XMETER .flex-order(-2); }
+  // .o-LandingLinkList__Item--about     { #XMETER .flex-order(0); }
+  .o-LandingLinkList__Item--resume    { #XMETER .flex-order(-1); }
+  // .o-LandingLinkList__Item--copyright { #XMETER .flex-order(0); }
+  .o-LandingLinkList__Item--dev {
+    width: 100%;
   }
 }
 
@@ -70,6 +51,7 @@ h1 {
   display: block;
   line-height: inherit;
   width: 100%;
+  height: 100%;
   #CHH .VARS();
   padding: @chh_vru/2 0;
   border-radius: 0.25rem;
@@ -128,7 +110,6 @@ h1 {
   }
 }
 
-
 .c-LandingLink__Text {
   display: block;
   @media screen and (min-width: 45em) {
@@ -138,69 +119,105 @@ h1 {
 
 
 @media screen and (min-width: 30em) { // @sK
-  // body x-margins are 0.5rem
+  // body x-margins are 0.5rem and container is 100%
   @body_margin_x: 0.5;
-  @boxwidth: ((30 - 2*@body_margin_x)*@mainwidth_sK)/5;
+  @mainwidth: 1;
+  @containerwidth: (30 - 2*@body_margin_x)*@mainwidth;
+  @boxheight: @containerwidth/5;
+  main {
+    width: @mainwidth * 100%;
+  }
+  .o-LandingLinkList__Item {
+    height: @boxheight * 16px;
+    .o-LandingLinkList--folio > & { width:  @containerwidth/5 * 16px; }
+    .o-LandingLinkList--bio   > & { width:  @containerwidth/3 * 16px; }
+    .o-LandingLinkList--dev   > & { width:  @containerwidth/1 * 16px; }
+  }
   .c-LandingLink {
-    width:  @boxwidth * 16px;
-    height: @boxwidth * 16px;
     padding: @body_margin_x/2 * 1rem;
   }
   .c-LandingLink__Icon {
-    font-size: (@boxwidth/2 * 1rem);
+    font-size: (@boxheight/2 * 1rem);
   }
   .c-LandingLink__Text {
-    font-size: (@boxwidth/4 * 1rem);
-    padding-top: (@boxwidth/8 * 1rem);
+    font-size: (@boxheight/4 * 1rem);
+    padding-top: (@boxheight/8 * 1rem);
   }
 }
 @media screen and (min-width: 45em) { // @sM
-  // body x-margins are 1rem and container is @mainwidth_sM
+  // body x-margins are 1rem and container is 80%
   @body_margin_x: 1;
-  @boxwidth: ((45 - 2*@body_margin_x)*@mainwidth_sM)/5;
+  @mainwidth: 4/5;
+  @containerwidth: (45 - 2*@body_margin_x)*@mainwidth;
+  @boxheight: @containerwidth/5;
+  main {
+    width: @mainwidth * 100%;
+  }
+  .o-LandingLinkList__Item {
+    height: @boxheight * 16px;
+    .o-LandingLinkList--folio > & { width:  @containerwidth/5 * 16px; }
+    .o-LandingLinkList--bio   > & { width:  @containerwidth/3 * 16px; }
+    .o-LandingLinkList--dev   > & { width:  @containerwidth/1 * 16px; }
+  }
   .c-LandingLink {
-    width:  @boxwidth * 16px;
-    height: @boxwidth * 16px;
     padding: @body_margin_x/2 * 1rem;
   }
   .c-LandingLink__Icon {
-    font-size: (@boxwidth/2 * 1rem);
+    font-size: (@boxheight/2 * 1rem);
   }
   .c-LandingLink__Text {
-    font-size: (@boxwidth/4 * 1rem);
-    padding-top: (@boxwidth/8 * 1rem);
+    font-size: (@boxheight/4 * 1rem);
+    padding-top: (@boxheight/8 * 1rem);
   }
 }
 @media screen and (min-width: 60em) { // @sG
-  // body x-margins are 1rem and container is @mainwidth_sG
+  // body x-margins are 1rem and container is 75%
   @body_margin_x: 1;
-  @boxwidth: ((60 - 2*@body_margin_x)*@mainwidth_sG)/5;
+  @mainwidth: 3/4;
+  @containerwidth: (60 - 2*@body_margin_x)*@mainwidth;
+  @boxheight: @containerwidth/5;
+  main {
+    width: @mainwidth * 100%;
+  }
+  .o-LandingLinkList__Item {
+    height: @boxheight * 16px;
+    .o-LandingLinkList--folio > & { width:  @containerwidth/5 * 16px; }
+    .o-LandingLinkList--bio   > & { width:  @containerwidth/3 * 16px; }
+    .o-LandingLinkList--dev   > & { width:  @containerwidth/1 * 16px; }
+  }
   .c-LandingLink {
-    width:  @boxwidth * 16px;
-    height: @boxwidth * 16px;
   }
   .c-LandingLink__Icon {
-    font-size: (@boxwidth/2 * 1rem);
+    font-size: (@boxheight/2 * 1rem);
   }
   .c-LandingLink__Text {
-    font-size: (@boxwidth/4 * 1rem);
-    padding-top: (@boxwidth/8 * 1rem);
+    font-size: (@boxheight/4 * 1rem);
+    padding-top: (@boxheight/8 * 1rem);
   }
 }
 @media screen and (min-width: 75em) { // @sT
-  // body x-margins are 2rem and container is @mainwidth_sT
+  // body x-margins are 2rem and container is 66.666%
   @body_margin_x: 2;
-  @boxwidth: ((75 - 2*@body_margin_x)*@mainwidth_sT)/5;
+  @mainwidth: 2/3;
+  @containerwidth: (75 - 2*@body_margin_x)*@mainwidth;
+  @boxheight: @containerwidth/5;
+  main {
+    width: @mainwidth * 100%;
+  }
+  .o-LandingLinkList__Item {
+    height: @boxheight * 16px;
+    .o-LandingLinkList--folio > & { width:  @containerwidth/5 * 16px; }
+    .o-LandingLinkList--bio   > & { width:  @containerwidth/3 * 16px; }
+    .o-LandingLinkList--dev   > & { width:  @containerwidth/1 * 16px; }
+  }
   .c-LandingLink {
-    width:  @boxwidth * 16px;
-    height: @boxwidth * 16px;
     padding: @body_margin_x/2 * 1rem;
   }
   .c-LandingLink__Icon {
-    font-size: (@boxwidth/2 * 1rem);
+    font-size: (@boxheight/2 * 1rem);
   }
   .c-LandingLink__Text {
-    font-size: (@boxwidth/4 * 1rem);
-    padding-top: (@boxwidth/8 * 1rem);
+    font-size: (@boxheight/4 * 1rem);
+    padding-top: (@boxheight/8 * 1rem);
   }
 }
