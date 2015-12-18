@@ -1,0 +1,164 @@
+
+/*################################*\
+    landing.less
+\*################################*/
+@import (reference) url('../node_modules/xmeter/src/__tool.fallback.transition.less');
+@import (reference) url('../node_modules/xmeter/src/__tool.fallback.rotate.less');
+@import (reference) url('../node_modules/lux-nox/lux-nox.less');
+@import (reference) url('../styles/src/__settings.less');
+
+.THIS() { // FIXME allow for 'global' (this file only) vars
+  #CHH .VARS();
+  @trans_square: @chh_ani_long;
+}
+
+nav {
+  position: relative; // so devlink can be 100%
+}
+h1 { // reset project default
+  padding: 0;
+  margin: 0;
+  font-variant: normal;
+  font-weight: 400;
+  color: inherit;
+}
+
+.c-Spiral {
+  position: relative;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  @media print {
+    // mobile device styles:
+    width: 100%;
+    position: static;
+  }
+}
+
+.c-Square {
+  @color_crumb_up_bg: lighten(@chh_color_link_up, @golden2); // #c3daff
+  @color_crumb_dn_bg: lighten(@chh_color_link_dn, @golden2); // #ffe8c3
+  .THIS();
+  #XMETER .transition(background-color,opacity; @trans_square);
+  display: block;
+  box-sizing: content-box; // so padding can be added to remove gaps
+  height: 3em; // will be changed proportionally in JS
+  padding: 1px;
+  background-color: @color_crumb_up_bg;
+  overflow: hidden;
+  opacity: 1 !important; // override a:not([href]) in xmeter
+  color: transparent;
+  &:hover {
+    background-color: @color_crumb_dn_bg;
+    text-decoration: none; // override a:hover in core
+  }
+  @media print {
+    // mobile device styles:
+    position: static;
+    height: 4em;
+    background-image: none;
+    color: @chh_color_link_up;
+  }
+}
+.c-Square--dev {
+  width: 100%;
+  &:not(:hover) {
+    opacity: 0 !important; // override !important above... see what I did there?
+  }
+}
+.c-Square__Text {
+  .THIS();
+  #XMETER .transition(box-shadow,text-shadow,color,background-color; @trans_square);
+  display: block;
+  position: relative;
+  top: 0.5em; // will be changed proportionally in JS
+  font-weight: 700;
+  font-family: @chh_font_family_heading;
+  line-height: 1;
+  text-align: center;
+  border-radius: 0; // will be changed proportionally in JS
+  text-shadow: 2px 2px 10px;
+  .c-Square:hover > & {
+    @bgcolor: fadeout(@chh_color_body_bg, 60%);
+    box-shadow: 0px 0px 20px 20px @bgcolor;
+    background-color: @bgcolor;
+  }
+  .c-Square--dev > & {
+    font-family: 'Courier',@chh_font_family_code;
+  }
+}
+
+.js-square--right::before,
+.js-square--top::before,
+.js-square--left::before,
+.js-square--bottom::before {
+  .THIS();
+  #XMETER .transition(transform; @trans_square);
+  content: '';
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-image: url('circle.svg');
+  background-size: 200%;
+}
+
+.js-square--right::before  {background-position: 100%   0%;}
+.js-square--top::before    {background-position:   0%   0%;}
+.js-square--left::before   {background-position:   0% 100%;}
+.js-square--bottom::before {background-position: 100% 100%;}
+
+.js-square--funnel::before  {#XMETER .rotate(90deg);}
+
+.js-bubbles {
+  circle {
+    stroke-width: 2px;
+  }
+  text {
+    #CHH .VARS();
+    text-anchor: middle;
+    font-family: @chh_font_family_heading;
+  }
+  &.dark {
+    background-color: @solar_base03;
+    circle {
+      stroke: @solar_base1;
+    }
+    text {
+      fill: @solar_base2;
+    }
+  }
+  &.lite {
+    background-color: @solar_base3;
+    circle {
+      stroke: @solar_base01;
+    }
+    text {
+      fill: @solar_base02;
+    }
+  }
+}
+.js-main-links {
+  text {
+    font-size: 30px;
+  }
+}
+.js-side-links {
+  text {
+    font-size: 20px;
+  }
+}
+circle {
+  .js-mth & { fill: @solar_orange; }
+  .js-web & { fill: @solar_green; }
+  .js-edu & { fill: @solar_magenta; }
+  .js-mus & { fill: @solar_yellow; }
+  .js-swm & { fill: @solar_blue; }
+  .js-abt & { fill: @solar_cyan; }
+  .js-res & { fill: @solar_violet; }
+  .js-cpr & { fill: @solar_red; }
+}
+.center circle {
+  fill: transparent;
+  stroke-width: 1px;
+  stroke-dasharray: 1,4;
+}
