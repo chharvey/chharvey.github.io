@@ -2,6 +2,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>Limit Definitions Quiz Answers</title>
+    meta(name="viewport" content="width=device-width, initial-scale=1")
 <link rel="stylesheet" href="images/limstyles.css"/>
 </head>
 <body>
