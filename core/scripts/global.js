@@ -153,8 +153,8 @@ function tableSpacing() {
   * Inline uses parentheses and block uses brackets.
   */
 function mathJax() {
-  $('.M:not(.M--B)').prepend('\\(').append('\\)')
-  $('.M.M--B').prepend('\\[').append('\\]')
+  $('.js-mt').prepend('\\(').append('\\)')
+  $('.js-mb').prepend('\\[').append('\\]')
 }
 $(document).ready(function () {
   // resizeFolioHeading()
