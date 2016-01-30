@@ -2,11 +2,12 @@
   * The entire project.
   */
 project = {
-  px_per_rem : 16,
-  line_height : 1.5,
+  px_per_rem: 16
+, line_height: 1.5
+, vru: function () { return this.px_per_rem * this.line_height }
 }
 
-project.vru = project.px_per_rem * project.line_height
+// project.vru = project.px_per_rem * project.line_height
 
 /**
   * Resizes the `.c-FolioTitle` headings on home site to keep them horizontally contained.
@@ -40,10 +41,10 @@ function resizeFolioHeading() {
   */
 function pullquoteLines() {
   $('.c-Pullquote').each(function () {
-    var vrus = $(this).height() / project.vru
+    var vrus = $(this).height() / project.vru()
     $(this).css('margin-top','') // removes any inline style
-    if (vrus % 1 !== 0) {
-      $(this).css('margin-top', parseFloat($(this).css('margin-top')) - (vrus % 1) * project.vru)
+    if (vrus !== parseInt(vrus)) {
+      $(this).css('margin-top', parseFloat($(this).css('margin-top')) - 0.5*project.vru())
     }
   })
 }
@@ -153,8 +154,8 @@ function tableSpacing() {
   * Inline uses parentheses and block uses brackets.
   */
 function mathJax() {
-  $('.M:not(.M--B)').prepend('\\(').append('\\)')
-  $('.M.M--B').prepend('\\[').append('\\]')
+  $('.js-mt').prepend('\\(').append('\\)')
+  $('.js-mb').prepend('\\[').append('\\]')
 }
 $(document).ready(function () {
   // resizeFolioHeading()

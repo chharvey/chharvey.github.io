@@ -1,0 +1,203 @@
+doctype html
+html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
+  head
+    title Class Util &in; Chris Harvey&rsquo;s Library
+    meta(charset="utf-8")
+    meta(name="author" content="Christopher H. Harvey")
+    link(rel="stylesheet" href="../../../styles/chharvey.css")
+    link(rel="stylesheet" href="jslib.css")
+  body
+    main.c-Document(data-status="draft")
+      header
+        h1 Class #[code Util]
+        p.c-Lede A utility class for commonly used constants and functions. Non-instantiable.
+      section
+        h2 Fields
+        section
+          h3 Static Constants
+          dl.FuncTabl
+            dt#PHI: code Util.PHI
+            dd: span.js-mb \frac{1 + \sqrt{5}}{2} \approx 1.618034
+            dt#PSI: code Util.PSI
+            dd: span.js-mb \frac{1 - \sqrt{5}}{2} \approx -0.618034
+            dt#PHI_INV: code Util.PHI_INV
+            dd: span.js-mb \frac{-1 + \sqrt{5}}{2} \approx 0.618034
+            dt#TAU: code Util.TAU
+            dd: span.js-mb 2\pi \approx 6.283185
+      section
+        h2 Methods
+        section
+          h3 Static Methods
+          section
+            h4 Basic Number Theory and Probability
+            dl.FuncTabl
+              dt#bound: code Util.bound(#[var x], #[var a], #[var b])
+              dd: dl.FuncDescMap
+                dt Description
+                dd Returns the number closest to #[span.js-mt x] within the closed interval #[span.js-mt [a, b]].
+                dt Param #[var x]
+                dd required number; the number to be tested
+                dt Param #[var a]
+                dd required number; the minimum of the interval
+                dt Param #[var b]
+                dd required number #[span.js-mt a \lt b]; the maximum of the interval
+              dt#average: code Util.average(#[var a], #[var b], #[var w])
+              dd: dl.FuncDescMap
+                dt Description
+                dd
+                  | Averages two numbers, with a weight favoring the first number. Examples:
+                  ul
+                    li: code Util.average(10, 20, 0.0) === 20
+                    li: code Util.average(10, 20, 0.3) === 17
+                    li: code Util.average(10, 20)      === 15
+                    li: code Util.average(10, 20, 0.7) === 13
+                    li: code Util.average(10, 20, 1.0) === 10
+                dt Param #[var a]
+                dd required number; the first number (the weighted number)
+                dt Param #[var b]
+                dd required number; the second number
+                dt Param #[var w]
+                dd optional number #[span.js-mt 0 \le w \le 1] defaults to 0.5; the weight favoring #[span.js-mt a]
+              dt#isPrime: code Util.isPrime(#[var n])
+              dd: dl.FuncDescMap
+                dt Description
+                dd Determines whether #[span.js-mt n] is prime.
+                dt Param #[var n]
+                dd required integer #[span.js-mt n \gt 0]; the integer to be tested
+              dt#factors: code Util.factors(#[var n])
+              dd: dl.FuncDescMap
+                dt Description
+                dd Returns all the integer factors of #[span.js-mt n].
+                dt Param #[var n]
+                dd required integer #[span.js-mt n \gt 0]; the integer to be factored
+              dt#factorize: code Util.factorize(#[var n])
+              dd: dl.FuncDescMap
+                dt Description
+                dd Returns the #[a prime factorization] of #[span.js-mt n] in an array.
+                dt Param #[var n]
+                dd required integer #[span.js-mt n \gt 0]; the integer to be factorized
+              dt#gcf: code Util.gcf(#[var a], #[var b])
+              dd: dl.FuncDescMap
+                dt Description
+                dd Computes the #[a greatest common factor] of #[span.js-mt a] and #[span.js-mt b].
+                dt Param #[var a]
+                dd required integer #[span.js-mt a \gt 0]; the first integer
+                dt Param #[var b]
+                dd required integer #[span.js-mt b \gt 0]; the second integer
+              dt#lcm: code Util.lcm(#[var a], #[var b])
+              dd: dl.FuncDescMap
+                dt Description
+                dd Computes the #[a least common multiple] of #[span.js-mt a] and #[span.js-mt b].
+                dt Param #[var a]
+                dd required integer #[span.js-mt a \gt 0]; the first integer
+                dt Param #[var b]
+                dd required integer #[span.js-mt b \gt 0]; the second integer
+              dt#factorial: code Util.factorial(#[var n], #[var recursive])
+              dd: dl.FuncDescMap
+                dt Description
+                dd Computes the #[a factorial] of #[span.js-mt n].
+                dt Param #[var n]
+                dd required integer #[span.js-mt n \gt 0]; the integer of which to compute the factorial
+                dt Param #[var recursive]
+                dd optional Boolean defaults to #[code false]; whether to use the recursive form of this function
+              dt#doubleFactorial: code Util.doubleFactorial(#[var n], #[var recursive])
+              dd: dl.FuncDescMap
+                dt Description
+                dd Computes the #[a double-factorial] of #[span.js-mt n].
+                dt Param #[var n]
+                dd required integer #[span.js-mt n \gt 0]; the integer of which to compute the double-factorial
+                dt Param #[var recursive]
+                dd optional Boolean defaults to #[code false]; whether to use the recursive form of this function
+              dt#triangular: code Util.triangular(#[var n], #[var recursive])
+              dd: dl.FuncDescMap
+                dt Description
+                dd Computes the #[a triangular] of #[span.js-mt n].
+                dt Param #[var n]
+                dd required integer #[span.js-mt n \gt 0]; the integer of which to compute the triangular
+                dt Param #[var recursive]
+                dd optional Boolean defaults to #[code false]; whether to use the recursive form of this function
+              dt#fibonacci: code Util.fibonacci(#[var n], #[var recursive])
+              dd: dl.FuncDescMap
+                dt Description
+                dd Returns the #[span.js-mt n\text{th}] term of the #[a smallest Fibonacci sequence].
+                dt Param #[var n]
+                dd required integer #[span.js-mt n \ge 0]; the index of the returned term in the Fibonacci sequence
+                dt Param #[var recursive]
+                dd optional Boolean defaults to #[code false]; whether to use the recursive form of this function
+              dt#permute: code Util.permute(#[var n], #[var r])
+              dd: dl.FuncDescMap
+                dt Description
+                dd Calculates the number of #[a permutations] of #[span.js-mt n] objects taken #[span.js-mt r] at a time.
+                dt Param #[var n]
+                dd required integer #[span.js-mt n \ge 1]; the number of total objects
+                dt Param #[var r]
+                dd required integer #[span.js-mt 0 \lt r \le n]; the number of objects taken at a time
+              dt#combine: code Util.combine(#[var n], #[var r])
+              dd: dl.FuncDescMap
+                dt Description
+                dd Calculates the number of #[a combinations] of #[var n] objects taken #[var r] at a time.
+                dt Param #[var n]
+                dd required integer #[span.js-mt n \ge 1]; the number of total objects
+                dt Param #[var r]
+                dd required integer #[span.js-mt 0 \lt r \le n]; the number of objects taken at a time
+          section
+            h4 Random Number Generators
+            dl.FuncTabl
+              dt#rand: code Util.rand()
+              dd: dl.FuncDescMap
+                dt Description
+                dd Returns #[code Math.random()]
+                dd Returns a uniformly-distributed random number within the half-open interval #[span.js-mt [0, 1)].
+              dt#randTo: code Util.randTo(#[var x])
+              dd: dl.FuncDescMap
+                dt Description
+                dd Returns a uniformly-distributed random number within the half-open interval #[span.js-mt [0, x)].
+                dt Param #[var x]
+                dd required number #[span.js-mt x \gt 0]; the least upper bound
+              dt#randToInt: code Util.randToInt(#[var n])
+              dd: dl.FuncDescMap
+                dt Description
+                dd Returns a uniformly-distributed random integer within the closed interval #[span.js-mt [0, n-1]].
+                dt Param #[var n]
+                dd required integer #[span.js-mt n \gt 0]; the least upper bound
+              dt#randBetween: code Util.randBetween(#[var a], #[var b])
+              dd: dl.FuncDescMap
+                dt Description
+                dd Returns a uniformly-distributed random number within the half-open interval #[span.js-mt [a, b)].
+                dt Param #[var a]
+                dd required number; the minimum of the interval
+                dt Param #[var b]
+                dd required number #[span.js-mt b \gt a]; the least upper bound
+              dt#randBoolean: code Util.randBoolean(#[var p])
+              dd: dl.FuncDescMap
+                dt Description
+                dd Returns a Boolean value with the probability #[span.js-mt p] of being #[code true].
+                dt Param #[var p]
+                dd optional number #[span.js-mt 0 \le p \le 1] defaults to 0.5; the probability that this method will return #[code true]
+          section
+            h4 JavaScript Utility Functions
+            dl.FuncTabl
+              dt#extend: code Util.extend(#[var child], #[var parent])
+              dd: dl.FuncDescMap
+                dt Description
+                dd
+                  | Extends a subclass from a superclass. Call this method immediately after the
+                  |  child class&rsquo;s constructor.
+                  pre.
+                    #[span.c__Kwd function] #[span.c__Cmd Person(#[span.c__Arg name])] { <small>// constructor for class `Person`</small>
+                      ...
+                    }
+                    #[span.c__Kwd function] #[span.c__Cmd Student(#[span.c__Arg name, major])] { <small>// constructor for class `Student`</small>
+                      #[span.c__Cls Person].#[span.c__Cmd call(#[span.c__Arg #[span.c__Opr this], name, major])]; <small>// calls the parent constructor</small>
+                      ...
+                    }
+                    #[span.c__Cls Util].#[span.c__Cmd extend(#[span.c__Arg #[span.c__Cls Student], #[span.c__Cls Person]])]; <small>// extends `Student` from `Person`</small>
+                dt Param #[var child]
+                dd required object; the subclass
+                dt Param #[var parent]
+                dd required object; the superclass
+    script(src="http://code.jquery.com/jquery-2.0.3.min.js")
+    script(src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML,http://chharvey.github.io/chhlib/mathjax-localconfig.js")
+    script(src="../../scripts/Util.js")
+    script(src="../../scripts/Length.js")
+    script(src="../../scripts/global.js")

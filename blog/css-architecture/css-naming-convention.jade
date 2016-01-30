@@ -1,6 +1,7 @@
 doctype html
 html(lang="en")
   head
+    meta(name="viewport" content="width=device-width, initial-scale=1")
   body
     p(style="position:fixed;font-weight:bold;font-size:1.5rem;color:red;") WARNING: THIS DRAFT IS INCOMPLETE AND POSSIBLY EVEN INCORRECT. DO NOT CITE OR REFERENCE IT. IT WILL BE MERGED INTO ANOTHER DOCUMENT AND RELEASED AT A LATER TIME.
     main
@@ -49,36 +50,32 @@ html(lang="en")
           li `.res_skilldetail__job`
         section
           h1 Descendant Exceptions
-          p There are some cases in which using the child selector `.parent > .child` is okay. These cases involve intrinsic ownership: elements that belong to other elements by HTML standards, or by subcomponents. If an Object `.Wheel` belongs to (is a child of) the Object `.Car`, it would be okay to have the selector `.Car > .Wheel {}`.
+          p There are some cases in which using the child selector `.parent &gt; .child` is okay. These cases involve intrinsic ownership: elements that belong to other elements by HTML standards, or by subcomponents. If an Object `.Wheel` belongs to (is a child of) the Object `.Car`, it would be okay to have the selector `.Car &gt; .Wheel {}`.
           section
             h1 Lists
             p The following CSS is *very* efficient and not very specific at all. This is normally very good coding:
             pre.
-              <style>
-              .nav {...}
-              .nav__link {...}
-              </style>
-              <ol class="nav">
-              <li class="nav__link"><a>link 1</a></li>
-              <li class="nav__link"><a>link 2</a></li>
-              </ol>
+              style.
+                .nav {...}
+                .nav__link {...}
+              ol.nav
+                li.nav__link: a link 1
+                li.nav__link: a link 2
             p While this is usually best practice, the issue here is that each list item requires the class `.nav__link`, and that every time an item gets added to the list, the class has to be added again. While this may be efficient CSS, this is very *inefficient* HTML and it's not very DRY. For instance, if the list item classname were to change, we would have to go back and change all the classes on each list item in the HTML.
             p In this case it is better to view the list as one component, with the list items as subcomponents of that component. Here we are using a class selector to target the `ol`, but we are permitted to use an element selector to target the `li`s inside. Yes, the selector `.nav &gt; li` is more specific than `.nav__link`, but that is a small price to pay for [more efficient HTML].
             pre.
-              <style>
-              .nav {...}
-              nav > li {...}
-              </style>
-              <ol class="nav">
-                <li><a>link 1</a></li>
-                <li><a>link 2</a></li>
-              </ol>
+              style.
+                .nav {...}
+                nav &gt; li {...}
+              ol.nav
+                li: a link 1
+                li: a link 2
           section
             h1 Tables
             p I'm not going to give any examples here, but selectors describing any `thead`, `tbody`, `tfoot`, `tr`, `th`, or `td` Elements, etc. inside any `table` Elements are acceptable exceptions to the &ldquo;no descendant selectors&rdquo; rule.
           section
             h1 Miscellaneous Groupings
             ul
-              li `.H > .H__Sub` a subheading Object within a Heading Object
+              li `.H &gt; .H__Sub` a subheading Object within a Heading Object
               li `.Fn a` a link inside a footnote superscript
               li `blockquote cite` a citation inside a block quote

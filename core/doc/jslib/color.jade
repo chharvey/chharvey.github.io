@@ -1,0 +1,147 @@
+doctype html
+html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
+  head
+    title Class Color &in; Chris Harvey&rsquo;s Library
+    meta(charset="utf-8")
+    meta(name="author" content="Christopher H. Harvey")
+    link(rel="stylesheet" href="../../../styles/chharvey.css")
+    link(rel="stylesheet" href="jslib.css")
+  body
+    main.c-Document(data-status="draft")
+      header
+        h1 Class #[code Color]
+        p.c-Lede.
+          A 256-bit color that can be displayed in a pixel, given three components
+          (red-green-blue). If the components are not given, they each default to 0 (black).
+      section
+        h2 Constructor
+        dl.FuncTabl
+          dt#Color: code new Color(#[var r], #[var g], #[var b])
+          dd: dl.FuncDescMap
+            dt Param #[var r]
+            dd optional integer #[span.js-mt 0 \le r \le 255] defaults to 0; the red component of this color
+            dt Param #[var g]
+            dd optional integer #[span.js-mt 0 \le r \le 255] defaults to 0; the green component of this color
+            dt Param #[var b]
+            dd optional integer #[span.js-mt 0 \le r \le 255] defaults to 0; the blue component of this color
+      section
+        h2 Fields
+        section
+          h3 Instance Variables
+          dl.FuncTabl
+            dt#red: code this.red
+            dd the red component of this color. immutable
+            dt#green: code this.green
+            dd the green component of this color. immutable
+            dt#blue: code this.blue
+            dd the blue component of this color. immutable
+            dt#hsv_hue: code this.hsv_hue
+            dd the HSV-space hue of this color, or what #[i color] this color is
+            dt#hsv_sat: code this.hsv_sat
+            dd the HSV-space saturation, or #[i vividness], of this color
+            dt#hsv_lum: code this.hsv_val
+            dd the HSV-space value, or #[i brightness], of this color
+            dt#hsl_hue: code this.hsl_hue
+            dd the HSL-space hue of this color (identical to the HSV-space hue)
+            dt#hsl_sat: code this.hsl_sat
+            dd the HSL-space saturation of this color, or the #[i amount of color] this color has
+            dt#hsl_lum: code this.hsl_lum
+            dd the HSL-space luminosity of this color, or how #[i white] or #[i black] this color is
+      section
+        h2 Methods
+        section
+          h3 Instance Methods
+          dl.FuncTabl
+            dt#complement: code this.complement()
+            dd: dl.FuncDescMap
+              dt Description
+              dd.
+                Returns a new color that is the complement of this color. The complement
+                of a color is the difference between that color and white. The differences are computed
+                for each component in the RGB-space.
+            dt#invert: code this.invert()
+            dd: dl.FuncDescMap
+              dt Description
+              dd.
+                Returns a new color that is the inverse of this color. The inverse of a
+                color is that color with a hue rotation of 180 degrees.
+            dt#brighten(data-status="draft"): code this.brighten(#[var p])
+            dd(data-status="draft"): dl.FuncDescMap
+              dt Description
+              dd Returns a new color that is a brighter version of this color in the HSL-space.
+              dt Param #[var p]
+              dd
+                | required number #[span.js-mt -1 \le p \le 1]; the percentage
+                |  by which to lighten this color
+                ul.Ulist
+                  li #[span.js-mt p= 1] will return white
+                  li #[span.js-mt p=-1] will return black
+                  li #[span.js-mt p= 0] will return an identical copy of this color
+            dt#darken(data-status="draft"): code this.darken(#[var p])
+            dd(data-status="draft"): dl.FuncDescMap
+              dt Description
+              dd Returns a new color that is a darker version of this color in the HSL-space.
+              dt Param #[var p]
+              dd
+                | required number #[span.js-mt -1 \le p \le 1]; the percentage
+                |  by which to darken this color
+                ul.Ulist
+                  li #[span.js-mt p= 1] will return black
+                  li #[span.js-mt p=-1] will return white
+                  li #[span.js-mt p= 0] will return an identical copy of this color
+            dt#toString: code this.toString(#[var space])
+            dd: dl.FuncDescMap
+              dt Description
+              dd Returns a string representation of this color.
+              dt Param #[var space]
+              dd
+                | optional string defaults to #[code &apos;rgb&apos;];
+                |  the space in which this color exists
+                ul.Ulist
+                  li #[code space === 'rgb'] will return #[code &apos;rgb(#[var this.red    ], #[var this.green  ], #[var this.blue   ])&apos;]
+                  li #[code space === 'hsv'] will return #[code &apos;hsv(#[var this.hsv_hue], #[var this.hsv_sat], #[var this.hsv_val])&apos;]
+                  li #[code space === 'hsl'] will return #[code &apos;hsl(#[var this.hsl_hue], #[var this.hsl_sat], #[var this.hsl_lum])&apos;]
+        section
+          h3 Static Methods
+          dl.FuncTabl
+            dt#newColorHSV: code Color.newColorHSV(#[var h], #[var s], #[var v])
+            dd: dl.FuncDescMap
+                dt Description
+                dd Returns a new Color object with a given hue, saturation, and value in HSV-space.
+                dt Param #[var h]
+                dd required integer #[span.js-mt 0 \le h \le 359]; the hue in HSV-space
+                dt Param #[var s]
+                dd required number #[span.js-mt 0 \le s \le 1]; the saturation in HSV-space
+                dt Param #[var v]
+                dd required number #[span.js-mt 0 \le v \le 1]; the value (brightness) in HSV-space
+            dt#newColorHSL: code Color.newColorHSL(#[var h], #[var s], #[var l])
+            dd: dl.FuncDescMap
+                dt Description
+                dd Returns a new Color object with a given hue, saturation, and luminosity in HSL-space.
+                dt Param #[var h]
+                dd required integer #[span.js-mt 0 \le h \le 359]; the hue in HSL-space
+                dt Param #[var s]
+                dd required number #[span.js-mt 0 \le s \le 1]; the saturation in HSL-space
+                dt Param #[var l]
+                dd required number #[span.js-mt 0 \le l \le 1]; the luminosity in HSL-space
+            dt#mix: code Color.mix(#[var color1], #[var color2], #[var w])
+            dd: dl.FuncDescMap
+                dt Description
+                dd Mixes two colors, with a weight favoring the first color.
+                dt Param #[var color1]
+                dd required #[code Color] object
+                dt Param #[var color2]
+                dd required #[code Color] object
+                dt Param #[var w]
+                dd
+                  | optional number #[span.js-mt 0 \le w \le 1] defaults to 0.5;
+                  |  the weight favoring the first color
+                  ul.Ulist
+                    li #[span.js-mt w=1] will return #[var color1]
+                    li #[span.js-mt w=0] will return #[var color2]
+                    li #[span.js-mt w=0.5] will return a perfectly even mix
+    script(src="http://code.jquery.com/jquery-2.0.3.min.js")
+    script(src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML,http://chharvey.github.io/chhlib/mathjax-localconfig.js")
+    script(src="../../scripts/Util.js")
+    script(src="../../scripts/Color.js")
+    script(src="../../scripts/global.js")
