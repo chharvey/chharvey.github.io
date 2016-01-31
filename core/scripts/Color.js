@@ -100,7 +100,7 @@ Color.prototype.darken = function darken(p) {
  * Returns a string representation of this color.
  * If `space === 'hsv'`, returns `hsv(h, s, v)`
  * If `space === 'hsl'`, returns `hsl(h, s, l)`
- * If `space === 'hex'`, returns `#RRGGBB`
+ * If `space === 'hex'`, returns `#rrggbb`
  * If `space === 'rgb'`, or if no param is given, returns `rgb(r, g, b)`
  * @param `space` optional ('rgb'): a string representing the space in which this color exists
  * @return        a string representing this color.
@@ -109,7 +109,7 @@ Color.prototype.toString = function toString(space) {
   function toHex(n) {
     n = +n || 0
     n = Util.bound(n, 0, 255)
-    return '0123456789ABCDEF'.charAt((n - n % 16) / 16) + '0123456789ABCDEF'.charAt(n % 16)
+    return '0123456789abcdef'.charAt((n - n % 16) / 16) + '0123456789abcdef'.charAt(n % 16)
   }
   if (space === 'hex') return '#' + toHex(this.red) + toHex(this.green) + toHex(this.blue)
   if (space === 'hsv') return 'hsv(' + this.hsv_hue + ', ' + this.hsv_sat + ', ' + this.hsv_val + ')'
@@ -122,9 +122,31 @@ Color.prototype.toString = function toString(space) {
   * where `r`, `g`, and `b` are decimal RGB components (in base 10, out of 255).
   * @param `rgb_string` a string of the form `rgb(r,g,b)` or `rgb(r, g, b)`
   */
-Color.newColorRGBstring = function newColorRGBstring(rgb_string) {
+Color.newColorRGBString = function newColorRGBString(rgb_string) {
   var splitted = rgb_string.slice(4, -1).split(',')
   return new Color(+splitted[0], +splitted[1], +splitted[2])
+}
+
+/**
+  * Returns a new Color object, given a string of the form `#rrggbb`,
+  * where `rr`, `gg`, and `bb` are hexadecimal RGB components (in base 16, out of ff, lowercase).
+  * The `#` must be included.
+  * @param `hex_string` a string of the form `#rrggbb` (lowercase)
+  */
+Color.newColorHexString = function newColorHexString(hex_string) {
+  var r_hex = hex_string.slice(1,3)
+    , g_hex = hex_string.slice(3,5)
+    , b_hex = hex_string.slice(5,7)
+  function toDec(x) {
+    var tens = 0
+      , ones = 0
+    for (var i = 0; i < 16; i++) {
+      if ('0123456789abcdef'.charAt(i) === x.slice(0,1)) tens = i*16
+      if ('0123456789abcdef'.charAt(i) === x.slice(1,2)) ones = i
+    }
+    return tens + ones
+  }
+  return new Color(toDec(r_hex), toDec(g_hex), toDec(b_hex))
 }
 
 /**
@@ -193,6 +215,23 @@ Color.newColorHSL = function newColorHSL(hue, sat, lum) {
 }
 
 /**
+ * Checks the type of an argument, and converts it to a color.
+ */
+Color.typeCheck = function typeCheck(param) {
+  if (param.red || param.green || param.blue) return param
+  if (typeof param === 'string') {
+    if (param.slice(0,1) === '#')    return Color.newColorHexString(param)
+    if (param.slice(0,4) === 'rgb(') return Color.newColorRGBString(param)
+    return new Color()
+  }
+  if (typeof param === 'number') {
+    var graytone = Util.bound(param, 0, 255)
+    return new Color(+graytone, +graytone, +graytone)
+  }
+  return new Color()
+}
+
+/**
  * Mixes (averages) two colors, with a given weight favoring the first color.
  * If `w == 1.0`, this method will return `color1`. `w == 0.0`, will return `color2`.
  * `w == 0.5` (default if omitted) will result in a perfectly even mix.
@@ -207,4 +246,26 @@ Color.mix = function mix(color1, color2, w) {
     , g = Math.round(Util.average(color1.green, color2.green, w))
     , b = Math.round(Util.average(color1.blue,  color2.blue,  w))
   return new Color(r, g, b)
+}
+
+/**
+ * Returns the *contrast ratio* between two colors.
+ * More info can be found at
+ * https://www.w3.org/TR/WCAG/#contrast-ratiodef
+ * @param `color1` required Color object; the first color
+ * @param `color2` required Color object; the second color
+ * @return         the contrast ratio of the two given colors
+ */
+Color.contrastRatio = function contrastRatio(color1, color2) {
+  function relLum(color) {
+    function coef(p) {
+      return (p <= 0.03928) ? p/12.92 : Math.pow((p+0.055)/1.055,2.4)
+    }
+    return 0.2126*coef(color.red  /255)
+         + 0.7152*coef(color.green/255)
+         + 0.0722*coef(color.blue /255)
+  }
+  var lum1 = relLum(color1)
+    , lum2 = relLum(color2)
+  return (Math.max(lum1, lum2) + 0.05) / (Math.min(lum1, lum2) + 0.05)
 }
