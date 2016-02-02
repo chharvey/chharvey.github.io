@@ -28,7 +28,7 @@ function Color(red, grn, blu) {
    * The brightness of this color. A lower value means the color is closer to black, a higher
    * value means the color is more true to its hue.
    * The HSV-space value ("brightness") of this color is equivalent to the ratio of the
-   * brightest RGB-component's value to 255, as a percentage.
+   * brightest RGB-component’s value to 255, as a percentage.
    */
   self.hsv_val = (function () {
     return Math.max(self.red, self.green, self.blue) / 255
@@ -58,7 +58,7 @@ function Color(red, grn, blu) {
 /**
  * Returns a new color that is the complement of this color.
  * The complement of a color is the difference between that color and white (#fff).
- * @return a new Color object that corresponds to this color's complement
+ * @return a new Color object that corresponds to this color’s complement
  */
 Color.prototype.complement = function complement() {
   return new Color(255 - this.red, 255 - this.green, 255 - this.blue)
@@ -67,7 +67,7 @@ Color.prototype.complement = function complement() {
 /**
  * Returns a new color that is the inverse of this color.
  * The inverse of a color is that color with a hue rotation of 180 degrees.
- * @return a new Color object that corresponds to this color's inverse
+ * @return a new Color object that corresponds to this color’s inverse
  */
 Color.prototype.invert = function invert() {
   var newhue = (this.hsv_hue + 180) % 360
@@ -128,11 +128,11 @@ Color.newColorRGBString = function newColorRGBString(rgb_string) {
 }
 
 /**
-  * Returns a new Color object, given a string of the form `#rrggbb`,
-  * where `rr`, `gg`, and `bb` are hexadecimal RGB components (in base 16, out of ff, lowercase).
-  * The `#` must be included.
-  * @param `hex_string` a string of the form `#rrggbb` (lowercase)
-  */
+ * Returns a new Color object, given a string of the form `#rrggbb`,
+ * where `rr`, `gg`, and `bb` are hexadecimal RGB components (in base 16, out of ff, lowercase).
+ * The `#` must be included.
+ * @param `hex_string` a string of the form `#rrggbb` (lowercase)
+ */
 Color.newColorHexString = function newColorHexString(hex_string) {
   var r_hex = hex_string.slice(1,3)
     , g_hex = hex_string.slice(3,5)
