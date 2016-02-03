@@ -4,8 +4,8 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
     title CSS Architecture
     meta(charset="utf-8")
     meta(name="author" content="Christopher H. Harvey")
-    meta(name="description" content="A brief summary on how to organize your CSS.")
-    meta(name="keywords" content="css, code organization")
+    meta(name="description" content="Write good CSS.")
+    meta(name="keywords" content="css, code organization, code architecture, class")
     meta(name="viewport" content="width=device-width, initial-scale=1")
     link(rel="stylesheet" href="../../styles/chharvey.css")
   body.o-GoldenContainer
@@ -22,42 +22,41 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
           dd(itemprop="description") Suggests how to organize your CSS.
           dt Keywords
           dd(itemprop="keywords") #[abbr(title="Cascading StyleSheets") CSS]
-          dd(itemprop="keywords") code organization
-          dd(itemprop="keywords") code architecture
+          dd(itemprop="keywords") #[abbr(title="HyperText Markup Languge") HTML]
+          dd(itemprop="keywords") code organization, architecture
           dt Version History
           dd.update
             time(datetime="2015-03-27") Mar 27, 2015
           dd.update
             time(datetime="2015-04-09 17:54") Apr 8, 2015 #[span.tod 5:54 PM]
+          dd.update(itemprop="dateModified")
+            time(datetime="2015-04-13 14:30") Apr 13, 2015 #[span.tod 2:30 PM]
           dd.update
             time(datetime="2015-10-03 12:13") Oct 3, 2015 #[span.tod 12:13 PM]
           dd.update(itemprop="dateModified")
-            time(datetime="2016-02-03 16:50") Feb 3, 2016 #[span.tod 4:50 PM]
+            time(datetime="2016-02-03 17:47") Feb 3, 2016 #[span.tod 5:47 PM]
             small.o-Textbox.c-Label.c-Label--dang(class="!ml:1") Latest
       section
         h2 Introduction
-        section
-          h3 About this Document
-          p.
-            This document is a compilation of what I have learned about writing
-            good, scalable, maintainable, powerful, efficient
-            #[abbr.c-Acro(title="Cascading Stylesheets") CSS] code.
-          p.
-            First we start off from a narrow approach, looking at the CSS language itself,
-            and then we work our way larger, discussing the ways it interacts with itself and
-            with HTML.
-          //- p Define properties, selectors, and stylesheets in order of increasing specificity.
-          p.o-Box.o-Box--island.c-Alert.c-Alert--info.
-            #[strong.c-Alert__Title Note:]
-            This is not a coding style guide. How you format your code is up to your or your
-            organization&rsquo;s style guide. This document looks at code from a higher level
-            point of view.
+        p.c-Lede.c-Lede--dropcap.
+          This document is a compilation of what I have learned about writing
+          good, scalable, maintainable, powerful, efficient
+          #[abbr.c-Acro(title="Cascading Stylesheets") CSS] code.
+        p.c-Lede.
+          First we start off from a narrow approach, looking at the CSS language itself,
+          and then we work our way larger, discussing the ways it interacts with itself and
+          with HTML.
+        //- p Define properties, selectors, and stylesheets in order of increasing specificity.
+        p.c-Lede.
+          Note that this is not a coding style guide. How you format your code is up to your or your
+          organization&rsquo;s style guide. Here we look at code from a higher level
+          point of view.
       section
         h2 Property Order
         p.
           A CSS ruleset contains one or more property-value pairs. Within this ruleset,
           properties should be grouped by function, and these groups should be
-          ordered in decreasing structure definition.
+          ordered in #[strong decreasing structure definition].
         p.
           There are two reasons for this. First, code hand-typed in this manner is
           much easier to communicate, maintain, and visualize. For example, you&rsquo;d like
@@ -67,7 +66,7 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
           There is another reason to group properties by function, as well.
           CSS classes can be split into designated responsibilities, that is, authors may use
           separate classes for layout vs. structure vs. text properties. This makes the CSS
-          more modular and reusable, and we will see how that is done in a moment.
+          more modular and reusable, and we will see how that is done in the next section.
         figure
           figcaption.c-Caption.c-Caption--before.
             This inverted pyramid illustrates how CSS properties are related.
@@ -87,7 +86,7 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
           The middle level contains typographical structure: font, text alignment and spacing,
           etc. Anything that describes the composition of text goes here.
         p.
-          #[strong Box/Text Cosmetics.]
+          #[strong Box &amp; Text Cosmetics.]
           The next two levels set box and text cosmetic properties, such as borders, shadows,
           background, decoration, and colors. We work from outer to inner, defining the cosmetics
           of the container before its contents.
@@ -96,11 +95,10 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
           The level at the vertex is for miscellaneous properties including cursor and transition.
           These properties don&rsquo;t belong in any particular category.
         p.
-          The outline below lists the most common CSS properties in the suggested order based on the
+          The outline below lists the most common CSS properties in the order suggested by the
           visualization above. #[strong Note this is not a complete list of all CSS properties.]
           If a property is not listed, use your best judgement for its place.
         figure
-          figcaption.c-Caption Use this outline as a guide to ordering/grouping CSS properties.
           ol(class="a-ff-accent a-fzb-milli")
             li Layout:
               ol
@@ -152,6 +150,59 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
                 li cursor                              #[small.o-Textbox.c-Label.c-Label--skss inherited]
                 li transition
       section
+        header
+          h2 Classes of Classes
+          p.
+            In the last section, we talked about CSS properties, a relatively lower level aspect
+            of CSS architecture. You might have noticed however that I&rsquo;ve already hinted at
+            something slightly more involved, and that is it can be good practice to literally
+            group related properties, not within a css selector, but into multiple different selectors.
+          p.
+            Here we look at the many, #[em many] uses of the HTML #[code class] attribute,
+            group them into categories, and talk about the different types of CSS classes
+            we can create by the properties they contain.
+          p.
+            But first, a theoretical rant.
+        section
+          h3 Semantics Trumps Style
+          p.
+            When it comes down to efficient HTML
+            versus efficient CSS, HTML wins. The reason? Semantics trumps style.
+            This happens on two fronts. First simply for the sake of principle. The most
+            important data is the actual content being presented. This trumps any data on
+            #[em how] it is being presented. If you have to sacrifice one for the other,
+            content trumps presentation.
+          p.
+            The second front on which semantics trumps style is seen from a more practical
+            point of view. For example, every design change should, at
+            least mostly, be taken care of in the CSS.
+            You&rsquo;ve got a problem when you find yourself having to adjust a massive
+            number of classes to implement a design change (ahem, looking at you, Atomic CSS).
+            It should be the other way around: when the design changes, you should
+            be&mdash;mostly&mdash;adjusting your CSS. It is the CSS that should conform to
+            how HTML is written, even if it means sacrificing a little bit of efficiency.
+          p.
+            And this can be seen on the user end. Again, which is worse, HTML bloat
+            or CSS bloat? Every time the user loads a new page, all that markup is downloaded,
+            every time, whereas hopefully your stylesheet will have been downloaded only once
+            and then cached.
+        section
+          h3 Classitis
+          p.
+            Now we get to the real meat of the discussion. Classitis.
+          p.
+            No, I&rsquo;m not talking about an overuse of classes&mdash;I don&rsquo;t
+            believe you can ever use too many classes in HTML. #[b Classitis] in my
+            opinion refers to the fact that we are using HTML classes for #[em everything],
+            and this becomes overwhelming when it comes to architecting and maintaining CSS.
+            We need to seriously analyze the different ways in which we are using classes,
+            separate and organize them into #[i classifications] to clearly identify each use,
+            and maybe provide some alternative methods and/or conventions for implementing
+            semantics and style.
+          //- p.
+            I even go insofar as to suggest ammendments to the CSS specification. After all,
+            #[a we are using a very old technology to achieve very new things].
+      section
         h2 Stylesheet Order
         p.
           The previous section discussed organizing CSS at a lower level: organizing properties
@@ -190,7 +241,7 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
             li objects (structural patterns, layout, containers, etc.)
             li components (specific pieces of UI with look-and-feel)
             li utilities (trumps, hacks, states, anomalies, special cases, #[code !important], etc.)
-          img(src="images/css-pyramid-sheets.svg" alt="An inverted pyramid illustrates how CSS stylesheets should be implemented.")
+          img(src="../images/css-pyramid-sheets.svg" alt="An inverted pyramid illustrates how CSS stylesheets should be implemented.")
           section
             h4 Settings
             p.
