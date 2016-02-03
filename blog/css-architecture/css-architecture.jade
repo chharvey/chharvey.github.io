@@ -7,105 +7,150 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
     meta(name="description" content="A brief summary on how to organize your CSS.")
     meta(name="keywords" content="css, code organization")
     meta(name="viewport" content="width=device-width, initial-scale=1")
-    link(rel="stylesheet" href="../styles/chharvey.css")
+    link(rel="stylesheet" href="../../styles/chharvey.css")
   body.o-GoldenContainer
     p(style="position:fixed;font-weight:bold;font-size:1.5rem;color:red;") WARNING: THIS DRAFT IS INCOMPLETE AND POSSIBLY EVEN INCORRECT. DO NOT CITE OR REFERENCE IT. IT WILL BE MERGED INTO ANOTHER DOCUMENT AND RELEASED AT A LATER TIME.
     main.o-GoldenContainer__Content.c-Document.c-Document--draft(data-status="draft" itemscope="" itemtype="https://schema.org/Article")
       header
         h1(itemprop="name headline") CSS Architecture
-        p.o-GoldenContainer__Sidebar.o-GoldenContainer__Sidebar--minor.o-Box.o-Box--Island.c-Alert.c-Alert--Dang.
+        p.o-GoldenContainer__Content__SideMinor.o-Box.o-Box--island.c-Alert.c-Alert--dang.
           This document is a work in progress.
         dl.c-Document__Meta
           dt Author
           dd(itemprop="author") Christopher H. Harvey
           dt Description
-          dd(itemprop="description") A brief summary on how to organize your CSS.
+          dd(itemprop="description") Suggests how to organize your CSS.
           dt Keywords
           dd(itemprop="keywords") #[abbr(title="Cascading StyleSheets") CSS]
           dd(itemprop="keywords") code organization
+          dd(itemprop="keywords") code architecture
           dt Version History
           dd.update
             time(datetime="2015-03-27") Mar 27, 2015
           dd.update
             time(datetime="2015-04-09 17:54") Apr 8, 2015 #[span.tod 5:54 PM]
-          dd.update(itemprop="dateModified")
+          dd.update
             time(datetime="2015-10-03 12:13") Oct 3, 2015 #[span.tod 12:13 PM]
+          dd.update(itemprop="dateModified")
+            time(datetime="2016-02-03 16:50") Feb 3, 2016 #[span.tod 4:50 PM]
             small.o-Textbox.c-Label.c-Label--dang(class="!ml:1") Latest
-      p.c-Lede.
-        Define properties, selectors, and stylesheets in order of increasing specificity.
-        Based off of #[a(rel="external" href="http://itcss.io/") Harry Roberts&rsquo;s Theory of ITCSS].
+      section
+        h2 Introduction
+        section
+          h3 About this Document
+          p.
+            This document is a compilation of what I have learned about writing
+            good, scalable, maintainable, powerful, efficient
+            #[abbr.c-Acro(title="Cascading Stylesheets") CSS] code.
+          p.
+            First we start off from a narrow approach, looking at the CSS language itself,
+            and then we work our way larger, discussing the ways it interacts with itself and
+            with HTML.
+          //- p Define properties, selectors, and stylesheets in order of increasing specificity.
+          p.o-Box.o-Box--island.c-Alert.c-Alert--info.
+            #[strong.c-Alert__Title Note:]
+            This is not a coding style guide. How you format your code is up to your or your
+            organization&rsquo;s style guide. This document looks at code from a higher level
+            point of view.
       section
         h2 Property Order
         p.
-          CSS properties should be grouped by order of decreasing structure definition.
-          The inverted pyramid below illustrates how CSS properties are related.
-        img(src="images/css-pyramid-props.svg" alt="An inverted pyramid illustrates how CSS properties are related. The top contains layout and structure, the middle contains typography, and the bottom contains cosmetics.")
+          A CSS ruleset contains one or more property-value pairs. Within this ruleset,
+          properties should be grouped by function, and these groups should be
+          ordered in decreasing structure definition.
         p.
-          The top base of the pyramid contains properties that set up foundation and layout,
-          such as display and position. The middle contains typographical structure, like font and text alignment.
-          Then we finish with low-level cosmetic properties,
-          such as color, at the vertex on the bottom.
+          There are two reasons for this. First, code hand-typed in this manner is
+          much easier to communicate, maintain, and visualize. For example, you&rsquo;d like
+          to know what a class looks like just by its code, not having to test it in the browser.
+          Having an arbitrary order (such as alphabetical) makes it harder to visualize it.
         p.
-          Define properties within a CSS block or ruleset in the order shown
-          from top to bottom in the pyramid. This pyramid can be used to serve another purpose, however:
+          There is another reason to group properties by function, as well.
           CSS classes can be split into designated responsibilities, that is, authors may use
-          separate classes for structural vs. textual vs. cosmetic properties. This makes the CSS
-          more modular and reusable.
-        p Use this outline as a guide to ordering/grouping CSS properties.
-        p.o-Box.o-Box--island.c-Alert.c-Alert--cshn
-          strong.c-Alert__Title Note:
-          | This is not a complete list of all CSS properties.
-          | If a property is not listed, use your best guess for where to place it.
-        ol
-          li Layout:
-            ol
-              li display
-              li position, top, left, bottom, right
-              li float, clear
-              li z-index
-              li vertical-align
-              li flex-direction, flex-wrap, justify-content, align-content, align-items, flex, order
-          li Box Structure:
-            ol
-              li box-sizing
-              li width, height
-              li padding, margin
-              li transformations
-          li Text Structure:
-            ol
-              li font[-style|-variant|-weight|-size|-family]? #[small.o-Textbox.c-Label.c-Label--skss inherited]
-              li line-height                                  #[small.o-Textbox.c-Label.c-Label--skss inherited]
-              li letter-spacing                               #[small.o-Textbox.c-Label.c-Label--skss inherited]
-              li word-spacing                                 #[small.o-Textbox.c-Label.c-Label--skss inherited]
-              li text-align                                   #[small.o-Textbox.c-Label.c-Label--skss inherited]
-              li text-indent                                  #[small.o-Textbox.c-Label.c-Label--skss inherited]
-              li white-space                                  #[small.o-Textbox.c-Label.c-Label--skss inherited]
-              li overflow-wrap (word-wrap)                    #[small.o-Textbox.c-Label.c-Label--skss inherited]
-              li column[-count|-width|s]
-              li page-break-[before|after]
-          li Box Cosmetics:
-            ol
-              li border[-width|-style|-color|-radius]?
-              li outline
-              li box-shadow
-              li background[-image|-position|-size|-repeat|-attachment|-origin|-clip|-color]
-              li overflow
-              li opacity
-              li visibility                          #[small.o-Textbox.c-Label.c-Label--skss inherited]
-          li Text Cosmetics:
-            ol
-              li text-rendering                      #[small.o-Textbox.c-Label.c-Label--skss inherited]
-              li text-transform                      #[small.o-Textbox.c-Label.c-Label--skss inherited]
-              li text-decoration
-              li text-shadow                         #[small.o-Textbox.c-Label.c-Label--skss inherited]
-              li text-overflow
-              li list-style[-type|-position|-image]? #[small.o-Textbox.c-Label.c-Label--skss inherited]
-              li quotes
-              li color                               #[small.o-Textbox.c-Label.c-Label--skss inherited]
-          li Other:
-            ol
-              li cursor                              #[small.o-Textbox.c-Label.c-Label--skss inherited]
-              li transition
+          separate classes for layout vs. structure vs. text properties. This makes the CSS
+          more modular and reusable, and we will see how that is done in a moment.
+        figure
+          figcaption.c-Caption.c-Caption--before.
+            This inverted pyramid illustrates how CSS properties are related.
+            From top to bottom, structural definition is exchanged for cosmetic styling.
+          img(style="box-shadow: none;" src="../images/css-pyramid-props.svg" alt="An inverted pyramid illustrates how CSS properties are related. The top contains layout and structure, the middle contains typography, and the bottom contains cosmetics.")
+        p.
+          #[strong Layout.]
+          The top base of the pyramid contains properties that set up foundation and layout,
+          such as display and position. These properties most define the element&rsquo;s
+          relationship with others on the page.
+        p.
+          #[strong Box Structure.]
+          The next level is similar, but with more of an inner focus, setting up box structure
+          like width, padding, and margin. Transformations are also included in this level.
+        p.
+          #[strong Text Structure.]
+          The middle level contains typographical structure: font, text alignment and spacing,
+          etc. Anything that describes the composition of text goes here.
+        p.
+          #[strong Box/Text Cosmetics.]
+          The next two levels set box and text cosmetic properties, such as borders, shadows,
+          background, decoration, and colors. We work from outer to inner, defining the cosmetics
+          of the container before its contents.
+        p.
+          #[strong Other.]
+          The level at the vertex is for miscellaneous properties including cursor and transition.
+          These properties don&rsquo;t belong in any particular category.
+        p.
+          The outline below lists the most common CSS properties in the suggested order based on the
+          visualization above. #[strong Note this is not a complete list of all CSS properties.]
+          If a property is not listed, use your best judgement for its place.
+        figure
+          figcaption.c-Caption Use this outline as a guide to ordering/grouping CSS properties.
+          ol(class="a-ff-accent a-fzb-milli")
+            li Layout:
+              ol
+                li display
+                li position, top, left, bottom, right
+                li float, clear
+                li z-index
+                li vertical-align
+                li flex-direction, flex-wrap, justify-content, align-content, align-items, flex, order
+            li Box Structure:
+              ol
+                li box-sizing
+                li width, height
+                li padding, margin
+                li transformations
+            li Text Structure:
+              ol
+                li font[-style|-variant|-weight|-size|-family]? #[small.o-Textbox.c-Label.c-Label--skss inherited]
+                li line-height                                  #[small.o-Textbox.c-Label.c-Label--skss inherited]
+                li letter-spacing                               #[small.o-Textbox.c-Label.c-Label--skss inherited]
+                li word-spacing                                 #[small.o-Textbox.c-Label.c-Label--skss inherited]
+                li text-align                                   #[small.o-Textbox.c-Label.c-Label--skss inherited]
+                li text-indent                                  #[small.o-Textbox.c-Label.c-Label--skss inherited]
+                li white-space                                  #[small.o-Textbox.c-Label.c-Label--skss inherited]
+                li overflow-wrap (word-wrap)                    #[small.o-Textbox.c-Label.c-Label--skss inherited]
+                li column[-count|-width|s]
+                li page-break-[before|after]
+            li Box Cosmetics:
+              ol
+                li border[-width|-style|-color|-radius]?
+                li outline
+                li box-shadow
+                li background[-image|-position|-size|-repeat|-attachment|-origin|-clip|-color]?
+                li overflow
+                li opacity
+                li visibility                          #[small.o-Textbox.c-Label.c-Label--skss inherited]
+            li Text Cosmetics:
+              ol
+                li text-rendering                      #[small.o-Textbox.c-Label.c-Label--skss inherited]
+                li text-transform                      #[small.o-Textbox.c-Label.c-Label--skss inherited]
+                li text-decoration
+                li text-shadow                         #[small.o-Textbox.c-Label.c-Label--skss inherited]
+                li text-overflow
+                li list-style[-type|-position|-image]? #[small.o-Textbox.c-Label.c-Label--skss inherited]
+                li quotes
+                li color                               #[small.o-Textbox.c-Label.c-Label--skss inherited]
+            li Other:
+              ol
+                li cursor                              #[small.o-Textbox.c-Label.c-Label--skss inherited]
+                li transition
       section
         h2 Stylesheet Order
         p.
@@ -241,3 +286,6 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
           section
             h4 Utilities
             p.
+      footer
+        h1 References
+        p Based off of #[a(rel="external" href="http://itcss.io/") Harry Roberts&rsquo;s Theory of ITCSS].
