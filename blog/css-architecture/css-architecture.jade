@@ -56,8 +56,8 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
           Note that this is not a coding style guide. How you format your code is up to your or your
           organization&rsquo;s style guide. Here we look at code from a higher level
           point of view.
-      section
-        h2 Property Order
+      section#grouping-css-properties
+        h2 Grouping CSS Properties
         p.
           A CSS ruleset contains one or more property-value pairs. Within this ruleset,
           properties should be grouped by function, and these groups should be
@@ -173,7 +173,7 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
               ol
                 li cursor                              #[small.o-Textbox.c-Label.c-Label--skss inherited]
                 li transition
-      aside.o-GoldenContainer__Content__SideMajor.c-Document__Draft
+      aside.o-GoldenContainer__Content__SideMajor.c-Document__Draft#semantics-trumps-style
         h2 Semantics Trumps Style
         p.
           When it comes down to efficient HTML
@@ -199,8 +199,8 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
           or CSS bloat? Every time the user loads a new page, all that markup is downloaded,
           every time, whereas hopefully your stylesheet will have been downloaded only once
           and then cached.
-      section
-        h2 Classes of Classes
+      section#classes-of-classes
+        h2 #[i Classes] of Classes
         p.
           In the last section, we talked about CSS properties, a relatively lower level aspect
           of CSS architecture. You might have noticed however that I&rsquo;ve already hinted at
@@ -210,8 +210,15 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
           Here we look at the many, #[em many] uses of the HTML #[code class] attribute,
           categorize them, and talk about the different types of CSS classes
           we can create based on the properties they contain.
+        p.
+          For the sake of simplicity, we will not be discussing the actual naming
+          of CSS classes in this section, so I will refrain from using them.
+          Instead, I will use variables like #[code: var classname].
         section
-          h3 Classitis
+          h3(class="!fs:i !fv:i !fw:i")
+            b class&middot;i&middot;tis
+            |  (kl&aelig;s-a&#x026a;&apos;t&#x0258;s) 
+            abbr(class="!fs:t" title="noun") n.
           p.
             No, I&rsquo;m not talking about an overuse of classes&mdash;I don&rsquo;t
             believe you can ever use too many classes in HTML. #[b Classitis] in my
@@ -224,6 +231,39 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
           //- p.
             I even go insofar as to suggest ammendments to the CSS specification. After all,
             #[a we are using a very old technology to achieve very new things].
+          p But first, some background information.
+        section.c-Document__Draft
+          h3 Background
+          p.
+            #[strong The original intent of HTML classes.]
+            The HTML #[code class] attribute was #[a originally] meant to group
+            semantically similar elements together. For example, all elements that
+            represent warnings on a page could all have #[code [class="warning"]].
+            A side effect of semantically similar elements belonging to one class
+            is that they can all be styled the same way with the CSS #[code .warning] class.
+            Well, it seems now we have blown this way out of proportion.
+          p.
+            With the development of #[a Object-Oriented CSS], we have learned to take advantage of
+            classes and use them for many different reasons. This can be a good thing or a bad thing.
+            On one hand, authors are successfully implementing best practices: separating concerns,
+            abstracting reusable components, maximizing performance,
+            #[i(lang="la"): abbr(title="et cetera") etc.] On the other hand,
+            such a diverse use of one specific feature of HTML has grown so large it has become an epidemic.
+          p.
+            Now, instead of using CSS classes to merely group similar elements together, we are using them
+            to define patterns of style repeated throughout a page or site,
+            and then making elements #[i instantiate] them, if you will.
+            While syntactically, there really is no change, there&rsquo;s something fundamentally,
+            subtly, different going on here. Instead of saying,
+            #[q these two Elements are similar in meaning; I should give them the same class so that they appear the same],
+            we&rsquo;re now saying,
+            #[q I want these two Elements to appear the same (for whatever reason); I should give them the same class].
+            It&rsquo;s almost backwards!
+          p.
+            I&rsquo;m not here to tell you not to use classes. In fact I think classes are the perfect
+            mechanism for this. But as you read this article I do hope you become more aware of the
+            different types of classes you are using, and you are able to make smart decisions about
+            when you should or should not be using them.
       section
         h2 Stylesheet Order
         p.
