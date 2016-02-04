@@ -5,7 +5,7 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
     meta(charset="utf-8")
     meta(name="author" content="Christopher H. Harvey")
     meta(name="description" content="Write good CSS.")
-    meta(name="keywords" content="css, code organization, code architecture, class")
+    meta(name="keywords" content="css, code organization, code architecture")
     meta(name="viewport" content="width=device-width, initial-scale=1")
     link(rel="stylesheet" href="../../styles/chharvey.css")
   body.o-GoldenContainer
@@ -19,7 +19,10 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
           dt Author
           dd(itemprop="author") Christopher H. Harvey
           dt Description
-          dd(itemprop="description") Suggests how to organize your CSS.
+          dd(itemprop="description").
+            A discussion on writing and organizing
+            good, scalable, maintainable, powerful, efficient
+            #[abbr.c-Acro(title="Cascading Stylesheets") CSS] code.
           dt Keywords
           dd(itemprop="keywords") #[abbr(title="Cascading StyleSheets") CSS]
           dd(itemprop="keywords") #[abbr(title="HyperText Markup Languge") HTML]
@@ -29,12 +32,14 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
             time(datetime="2015-03-27") Mar 27, 2015
           dd.update
             time(datetime="2015-04-09 17:54") Apr 8, 2015 #[span.tod 5:54 PM]
-          dd.update(itemprop="dateModified")
+          dd.update
             time(datetime="2015-04-13 14:30") Apr 13, 2015 #[span.tod 2:30 PM]
           dd.update
             time(datetime="2015-10-03 12:13") Oct 3, 2015 #[span.tod 12:13 PM]
-          dd.update(itemprop="dateModified")
+          dd.update
             time(datetime="2016-02-03 17:47") Feb 3, 2016 #[span.tod 5:47 PM]
+          dd.update(itemprop="dateModified")
+            time(datetime="2016-02-03 23:14") Feb 3, 2016 #[span.tod 11:14 PM]
             small.o-Textbox.c-Label.c-Label--dang(class="!ml:1") Latest
       section
         h2 Introduction
@@ -72,32 +77,41 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
             This inverted pyramid illustrates how CSS properties are related.
             From top to bottom, structural definition is exchanged for cosmetic styling.
           img(style="box-shadow: none;" src="../images/css-pyramid-props.svg" alt="An inverted pyramid illustrates how CSS properties are related. The top contains layout and structure, the middle contains typography, and the bottom contains cosmetics.")
-        p.
-          #[strong Layout.]
-          The top base of the pyramid contains properties that set up foundation and layout,
-          such as display and position. These properties most define the element&rsquo;s
-          relationship with others on the page.
-        p.
-          #[strong Box Structure.]
-          The next level is similar, but with more of an inner focus, setting up box structure
-          like width, padding, and margin. Transformations are also included in this level.
-        p.
-          #[strong Text Structure.]
-          The middle level contains typographical structure: font, text alignment and spacing,
-          etc. Anything that describes the composition of text goes here.
-        p.
-          #[strong Box &amp; Text Cosmetics.]
-          The next two levels set box and text cosmetic properties, such as borders, shadows,
-          background, decoration, and colors. We work from outer to inner, defining the cosmetics
-          of the container before its contents.
-        p.
-          #[strong Other.]
-          The level at the vertex is for miscellaneous properties including cursor and transition.
-          These properties don&rsquo;t belong in any particular category.
+        section
+          h3 Layout
+          p.
+            The top base of the pyramid contains properties that set up foundation and layout,
+            such as display and position. These properties most define the element&rsquo;s
+            relationship with others on the page.
+        section
+          h3 Box Structure
+          p.
+            The next level is similar, but with more of an inner focus, setting up box structure
+            like width, padding, and margin. Transformations are also included in this level.
+        section
+          h3 Text Structure
+          p.
+            The middle level contains typographical structure: font, text alignment and spacing,
+            etc. Anything that describes the composition of text goes here.
+        section
+          h3 Box &amp; Text Cosmetics
+          p.
+            The next two levels set box and text cosmetic properties, such as borders, shadows,
+            background, decoration, and colors. We work from outer to inner, defining the cosmetics
+            of the container before its contents.
+        section
+          h3 Other
+          p.
+            The level at the vertex is for miscellaneous properties including cursor and transition.
+            These properties don&rsquo;t belong in any particular category.
         p.
           The outline below lists the most common CSS properties in the order suggested by the
           visualization above. #[strong Note this is not a complete list of all CSS properties.]
           If a property is not listed, use your best judgement for its place.
+        p.
+          Also keep in mind that this order applies to properties #[em within a ruleset].
+          We&rsquo;ll talk later about ordering rulesets within a stylesheet&mdash;and
+          then later, ordering stylesheets themselves.
         figure
           ol(class="a-ff-accent a-fzb-milli")
             li Layout:
@@ -156,11 +170,11 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
             In the last section, we talked about CSS properties, a relatively lower level aspect
             of CSS architecture. You might have noticed however that I&rsquo;ve already hinted at
             something slightly more involved, and that is it can be good practice to literally
-            group related properties, not within a css selector, but into multiple different selectors.
+            group related properties, not within a css selector, but into separate selectors.
           p.
             Here we look at the many, #[em many] uses of the HTML #[code class] attribute,
-            group them into categories, and talk about the different types of CSS classes
-            we can create by the properties they contain.
+            categorize them, and talk about the different types of CSS classes
+            we can create based on the properties they contain.
           p.
             But first, a theoretical rant.
         section
@@ -172,17 +186,20 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
             important data is the actual content being presented. This trumps any data on
             #[em how] it is being presented. If you have to sacrifice one for the other,
             content trumps presentation.
+            While that seems fine as a theoretical argument, there is also evidence to back it up.
           p.
             The second front on which semantics trumps style is seen from a more practical
             point of view. For example, every design change should, at
             least mostly, be taken care of in the CSS.
             You&rsquo;ve got a problem when you find yourself having to adjust a massive
-            number of classes to implement a design change (ahem, looking at you, Atomic CSS).
+            number of #[code class] attributes to implement a design change (ahem, looking at you, Atomic CSS).
+            Or wrapping content with unsemantic #[code div] elements just to make it look right.
             It should be the other way around: when the design changes, you should
             be&mdash;mostly&mdash;adjusting your CSS. It is the CSS that should conform to
             how HTML is written, even if it means sacrificing a little bit of efficiency.
           p.
-            And this can be seen on the user end. Again, which is worse, HTML bloat
+            One of the arguments against this is, #[q well, the bloat&rsquo;s gotta be somewhere.]
+            But the trade-off can be seen on the user end. Which is worse, HTML bloat
             or CSS bloat? Every time the user loads a new page, all that markup is downloaded,
             every time, whereas hopefully your stylesheet will have been downloaded only once
             and then cached.
