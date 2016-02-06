@@ -10,7 +10,7 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
     link(rel="stylesheet" href="../../styles/chharvey.css")
   body.o-GoldenContainer
     p(style="position:fixed;font-weight:bold;font-size:1.5rem;color:red;") WARNING: THIS DRAFT IS INCOMPLETE AND POSSIBLY EVEN INCORRECT. DO NOT CITE OR REFERENCE IT. IT WILL BE MERGED INTO ANOTHER DOCUMENT AND RELEASED AT A LATER TIME.
-    main.o-GoldenContainer__Content.c-Document.c-Document--draft(data-status="draft" itemscope="" itemtype="https://schema.org/Article")
+    main.o-GoldenContainer__Content.c-Document(data-status="draft" itemscope="" itemtype="https://schema.org/Article")
       header
         h1(itemprop="name headline") CSS Architecture
         p.o-GoldenContainer__Content__SideMinor.o-Box.o-Box--island.c-Alert.c-Alert--dang.
@@ -43,7 +43,7 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
           dd.update
             time(datetime="2016-02-03 23:14" itemprop="dateModified") Feb 3, 2016 #[span.tod 11:14 PM]
             small.o-Textbox.c-Label.c-Label--dang(class="!ml:1") Latest
-      section
+      section.c-Document__Draft
         h2 Introduction
         p.c-Lede.c-Lede--dropcap.
           This document is a compilation of what I have learned about writing
@@ -55,10 +55,10 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
           with HTML.
         //- p Define properties, selectors, and stylesheets in order of increasing specificity.
         p.c-Lede.
-          Note that this is not a coding style guide. How you format your code is up to your or your
-          organization&rsquo;s style guide. Here we look at code from a higher level
+          Note that this is not a coding style guide. How you format your code is up to you
+          or a style guide you&rsquo;re using. Here we look at code from a higher level
           point of view.
-      section#grouping-css-properties
+      section#grouping-css-properties.c-Document__Complete
         h2 Grouping CSS Properties
         p.
           A CSS ruleset contains one or more property-value pairs. Within this ruleset,
@@ -201,7 +201,7 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
           or CSS bloat? Every time the user loads a new page, all that markup is downloaded,
           every time, whereas hopefully your stylesheet will have been downloaded only once
           and then cached.
-      section
+      section.c-Document__Complete
         h2(class="!fs:i !fv:i !fw:i")
           b(class="!fw:9") class&middot;i&middot;tis
           |  (kl&aelig;s-a&#x026a;&apos;t&#x0258;s) 
@@ -226,10 +226,6 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
           any CSS class, they have a given set of properties and thus aren&rsquo;t differentiated
           by browsers. However, seeing as they are actually used for different purposes, we must make
           the distinction clear to provide a starting point for the cure of classitis.
-        p.
-          For the sake of simplicity, we will not be discussing the actual naming
-          of CSS classes in this section, so I will refrain from using them.
-          Instead, I will use variables like #[code: var classname].
         p But first, some background information.
         section.c-Document__Draft
           h3 Background
@@ -263,13 +259,17 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
             mechanism for this. But as you read this article I do hope you become more aware of the
             different types of classes you are using, and you are able to make smart decisions about
             when you should or should not be using them.
-        section.c-Document__Draft
+        section
           h3 #[i Classes] of Classes
           p.
             In the last section, we talked about CSS properties, a relatively lower level aspect
             of CSS architecture. You might have noticed however that I&rsquo;ve already hinted at
             something slightly more involved, and that is it can be good practice to literally
             group related properties, not within a CSS selector, but into separate selectors.
+          p.
+            For the sake of simplicity, we will not be discussing the actual naming
+            of CSS classes in this section, so I will refrain from using them and
+            instead keep the discussion in the abstract.
           p The following subsections name and categorize classes by the properties in their defining rulesets.
           section
             h4 Objects
@@ -347,7 +347,7 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
           section
             h4 Helpers
             p: strong.
-              #[dfn#theme Helpers] are somewhat explicit classes used for enhancing default styles.
+              #[dfn#helper Helpers] are somewhat explicit classes used for enhancing default styles.
             p.
               When an element already #[i instantiates] Objects and Components (has their classes),
               but you need a little bit more, a Helper class is the solution.
@@ -363,7 +363,7 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
           section
             h4 Atoms
             p: strong.
-              #[dfn#theme Atoms] are very specific classes used for creating anomalies
+              #[dfn#atom Atoms] are very specific classes used for creating anomalies
               or fixing broken styles.
             p.
               To be honest, I stole the name #[i atom] from #[a Atomic CSS] and
@@ -373,14 +373,14 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
             p.
               However, classes I call #[i Atoms] are hardly that:
               these classes are #[em not] to be used as building blocks, rather, they are used as
-              #[a trumps, in Harry Roberts words]. That is, these classes are end-all-be-all rules
+              #[a trumps, in Harry Roberts&rsquo; words]. That is, these classes are end-all-be-all rules
               that always win, no matter what. Instead of living at the foundation of your codebase,
               they&rsquo;re right there at the very tippy top.
             p: small.
-              Kind of like that card in the card game #[cite Cards Against Humanity],
-              you know the one I&rsquo;m talking about, people call it
-              #[i(title="The Biggest, Blackest, Dick") the trump card].
-              Whenever you play it you basically automatically win. But I&rsquo;d prefer not to
+              Kind of like that card in the card game
+              #[cite Cards Against Humanity]&mdash;#[span(title="The Biggest, Blackest, Dick") you know the one I&rsquo;m talking about]&mdash;people
+              call it #[i the trump card] because
+              whenever you play it you basically automatically win. But I&rsquo;d prefer not to
               call these classes #[i trumps] due to a certain republican presidential candidate.
             p.
               Anyway, an Atom does one job and it does it very well. Each atom typically has
@@ -388,6 +388,18 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
               Add an Atom class to an element when you need a quick fix, override, or when you
               simply need to style it differently for no logical reason at all.
               Like Helpers, there can be Atoms for any property in the CSS property triangle.
+          section
+            h4 Non-CSS Classes
+            p.
+              Last but not least, we have all the classes used in markup that you
+              don&rsquo;t write in your CSS codebase. They
+              are automated by scripting languages (either server-side or client-side),
+              are made for the purpose of query selecting, or
+              come prepackaged in some other system, such as #[a microformats].
+              Classes from imported stylesheets don&rsquo;t count in this category;
+              they&rsquo;re still part of your codebase, even if you didn&rsquo;t write them.
+              I&rsquo;m talking about, for example, classes generated by #[a MathJax], and
+              #[i Javascript hooks] (classes you created for JS to grab).
       section
         h2 Stylesheet Order
         p.
