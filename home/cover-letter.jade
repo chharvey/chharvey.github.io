@@ -11,48 +11,17 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
     meta(name="viewport" content="width=device-width, initial-scale=1")
     link(rel="icon" href="../core/images/favicon.ico")
     link(rel="stylesheet" href="../styles/chharvey.css")
-    style.
-      @media print {
-        body {
-          font-size: 0.75rem;
-        }
-        main {
-          margin-left:  0.5in;
-          margin-right: 0.5in;
-        }
-        h1 {
-          height: 0;
-        }
-      }
-      h1 {
-        color: transparent;
-      }
-      form, label {
-        margin-bottom: 1.5rem;
-      }
-      label {
-        display: block;
-      }
-      .o-ListBare {
-        padding-left: 0;
-        list-style-type: none;
-      }
-  body.o-GoldenContainer
-    main.o-GoldenContainer__Content.c-Document
-      h1(style="color: transparent;") Cover Letter
-      form#company-info
-        label Company Name
-          input#company-name(type="text" placeholder="Acme, Inc.")
-        label Company Location
-          input#company-location(type="text" placeholder="Washington, DC")
-        button#submit(type="button") replace variables
+  body.o-GoldenContainer(class="a-fz-milli@p")
+    main.o-GoldenContainer__Content.c-Document.-w-672px-p.-mx-a-p
+      h1(style="visibility: hidden;") Cover Letter
+      - var company = { name: 'Acme, Inc.', location: 'Washington, DC' }
       p Hello,
       p.
         I am Chris Harvey, applying for a front-end web developer
         position at
-        #[output(form="company-info" for="company-name"): var company]
+        #{company.name}
         in the
-        #[output(form="company-info" for="company-location"): var city]
+        #{company.location}
         area.
       p.
         My experience with HTML and CSS is primarily self-taught, but I am a fast
@@ -96,30 +65,28 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
       //-   My resume can also be found online at #[a(href="#{urls.resume}") #{urls.resume}].
       p.
         I think I have a lot to offer and can become a great asset to the
-        #[output(form="company-info" for="company-name"): var company]
+        #{company.name}
         team.
-      footer(itemscope="" itemtype="http://schema.org/Person")
+      footer
         p Sincerely,
-        address(itemprop="address" itemscope="" itemtype="http://schema.org/PostalAddress")
-          ol.o-ListBare
-            li(itemprop="name")
-              span(itemprop="givenName") Christopher&nbsp;
-              abbr(title="Hewitt") H.&nbsp;
-              span(itemprop="familyName") Harvey
-            li(itemprop="streetAddress") 11156 Byrd Drive
-            li
-              span(itemprop="addressLocality") Fairfax,&nbsp;
-              span(itemprop="addressRegion") VA&nbsp;
-              span(itemprop="postalCode") 22030
-              span(itemscope="" itemtype="http://schema.org/GeoCoordinates")
-                meta(itemprop="latitude" content="38.864158")
-                meta(itemprop="longitude" content="-77.2888239")
-            li(itemprop="telephone")
-              a(rel="author" href="tel:+17035072467") (703) 507-2467
-            li(itemprop="email")
-              a(rel="author" href="mailto:chrisharvey2pi@gmail.com") chrisharvey2pi@gmail.com
-            li(itemprop="url")
-              a(rel="author" href="https://chharvey.github.io/") https://chharvey.github.io/
+        address(itemscope="" itemtype="http://schema.org/Person"): p
+          span(itemprop="name")
+            span(itemprop="givenName") Christopher&nbsp;
+            abbr(title="Hewitt") H.&nbsp;
+            span(itemprop="familyName") Harvey
+          br
+          span(itemprop="address" itemscope="" itemtype="http://schema.org/PostalAddress")
+            span(itemprop="streetAddress") 11156 Byrd Drive
+            br
+            span(itemprop="addressLocality") Fairfax, 
+            abbr(title="Virginia" itemprop="addressRegion") VA 
+            span(itemprop="postalCode") 22030
+          br
+          a(rel="author" href="tel:+17035072467" itemprop="telephone") (703) 507-2467
+          br
+          a(rel="author" href="mailto:chrisharvey2pi@gmail.com" itemprop="email") chrisharvey2pi@gmail.com
+          br
+          a(rel="author" href="https://chharvey.github.io/" itemprop="url") chharvey.github.io
     nav.Bc(hidden="")
       ol.Anc
         li
@@ -133,9 +100,3 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
     script(src="../bower_components/jquery/dist/jquery.js")
     script(src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML,https://chharvey.github.io/chhlib/mathjax-localconfig.js")
     script(src="../core/scripts/global.js")
-    script.
-      $('#submit').click(function () {
-        $('form').hide()
-        $('output[for="company-name"]').val($('#company-name').val())
-        $('output[for="company-location"]').val($('#company-location').val())
-      })
