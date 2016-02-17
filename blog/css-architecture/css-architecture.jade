@@ -34,8 +34,9 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
           dd.update: time(datetime="2015-08-20 19:06") Aug 20, 2015 #[span.tod 7:06 PM]
           dd.update: time(datetime="2015-10-03 12:13") Oct 3, 2015 #[span.tod 12:13 PM]
           dd.update: time(datetime="2016-02-03 17:47") Feb 3, 2016 #[span.tod 5:47 PM]
+          dd.update: time(datetime="2016-02-03 23:14") Feb 3, 2016 #[span.tod 11:14 PM]
           dd.update
-            time(datetime="2016-02-03 23:14" itemprop="dateModified") Feb 3, 2016 #[span.tod 11:14 PM]
+            time(datetime="2016-02-17 15:30" itemprop="dateModified") Feb 17, 2016 #[span.tod 3:30 PM]
             small.o-Textbox.c-Label.c-Label--dang.-ml-1 Latest
       section.c-Document__Draft
         h2 Introduction
@@ -127,7 +128,7 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
                 li float, clear
                 li z-index
                 li vertical-align
-                li flex-direction, flex-wrap, justify-content, align-content, align-items, flex, order
+                li flex-direction, flex-wrap, justify-content, align-content, align-items, align-self, order
             li Box Structure:
               ol
                 li box-sizing
@@ -196,9 +197,9 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
           every time, whereas hopefully your stylesheet will have been downloaded only once
           and then cached.
       section.c-Document__Complete
-        h2.-fs-i.-fv-i.-fw-i
+        h2.-fs-i.-fv-i.-fw-i.-sp-nw
           b.-fw-9 class&middot;i&middot;tis
-          |  (kl&aelig;s-a&#x026a;&apos;t&#x0258;s) 
+          | &nbsp;(kl&aelig;s-a&#x026a;&apos;t&#x0258;s)&nbsp;
           abbr.-fs-t(title="noun") n.
         p.
           No, I&rsquo;m not talking about an overuse of classes&mdash;I don&rsquo;t
@@ -216,43 +217,81 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
           I even go insofar as to suggest ammendments to the CSS specification. After all,
           #[a we are using a very old technology to achieve very new things].
         p.
-          All the types of classes we discuss here are syntactically indistinguishable: like
+          #[strong Note:]
+          All the types of classes we discuss here are #[em syntactically] indistinguishable: like
           any CSS class, they have a given set of properties and thus aren&rsquo;t differentiated
-          by browsers. However, seeing as they are actually used for different purposes, we must make
-          the distinction clear to provide a starting point for the cure of classitis.
-        p But first, some background information.
+          by browsers. However, semantically (and I use that word with caution), we humans
+          can and should make a distinction clear because they are actually used for different purposes,
+          and ergo, have different meanings.
         section.c-Document__Draft
-          h3 Background
+          h3 Why Do We Use Classes?
+          p
+            | Think back to the original intent of HTML classes.
+            |  The HTML #[code class] attribute was first defined by the 
+            span(itemscope="" itemtype="http://schema.org/TechArticle" itemref="md-Organization-W3C")
+              span(id="md-Organization-W3C" itemprop="author" itemscope="" itemtype="http://schema.org/Organization")
+                abbr(title="World Wide Web Consortium" itemprop="name") W3C
+              |  in its 
+              a(href="https://www.w3.org/TR/html401/struct/global.html#h-7.5.2" itemprop="url")
+                cite(itemprop="name") HTML 4.01 Specification
+              |  in 
+              time(itemprop="datePublished") 1999
+            | , and it wasn&rsquo;t even supported on all elements back then.
+            |  Nevertheless, the spec provides an example in which semantically similar elements
+            |  are tagged with the same class. For example, each element representing a warning has
+            |  the token #[code warning] in its #[code [class]] attribute.
+            |  The reason for this was that you could use the CSS class #[code .warning] to style
+            |  any element marked up in such a manner. This saved you the hassle of repetitevely using
+            |  formatting tags like #[code &lt;font&gt;] and #[code &lt;b&gt;] each time you came across
+            |  a warning message.
           p.
-            #[strong The original intent of HTML classes.]
-            The HTML #[code class] attribute was #[a originally] meant to group
-            semantically similar elements together. For example, all elements that
-            represent warnings on a page could all have #[code [class="warning"]].
-            A side effect of semantically similar elements belonging to one class
-            is that they can all be styled the same way with the CSS #[code .warning] class.
-            Well, it seems now we have blown this way out of proportion.
+            Fast foward to this millenium. Authors learned to take advantage this mechanism
+            and successfully implement best practices: separating concerns, abstracting reusable
+            components, maximizing performance, #[i(lang="la"): abbr(title="et cetera") etc.]
+            The only problem is, there wasn&rsquo;t&mdash;and still isn&rsquo;t really&mdash;a general
+            consensus on how and when to use classes. We were just slapping on a class when
+            we wanted elements to share a set of styles. When we needed to add more styles or fix broken
+            styles, we just added more classes (or #[a did something else much worse]).
+            This leads to very unwieldy CSS code.
+          p
+            | Enter 
+            span(itemscope="" itemtype="http://schema.org/CreativeWork")
+              span(itemprop="author" itemscope="" itemtype="http://scheam.org/Person")
+                span(itemprop="name") Nicole Sullivan
+                |  and her brainchild 
+              a(itemprop="url")
+                cite(itemprop="name") Object-Oriented CSS
+            | , the concept of abstracting styles into smaller, reusable
+            |  classes. In a way, these CSS classes become like little Legos&trade; with which
+            |  you can build bigger components.
+            |  Instead of using CSS classes to merely group similar elements together, we learned to
+            |  use them to define patterns repeated throughout a page or site, and then applied them
+            |  to the proper elements.
           p.
-            With the development of #[a Object-Oriented CSS], we have learned to take advantage of
-            classes and use them for many different reasons. This can be a good thing or a bad thing.
-            On one hand, authors are successfully implementing best practices: separating concerns,
-            abstracting reusable components, maximizing performance,
-            #[i(lang="la"): abbr(title="et cetera") etc.] On the other hand,
-            such a diverse use of one specific feature of HTML has grown so large it has become an epidemic.
-          p.
-            Now, instead of using CSS classes to merely group similar elements together, we are using them
-            to define patterns of style repeated throughout a page or site,
-            and then making elements #[i instantiate] them, if you will.
             While syntactically, there really is no change, there&rsquo;s something fundamentally,
-            subtly, different going on here. Instead of saying,
-            #[q these two elements are similar in meaning; I should give them the same class so that they appear the same],
-            we&rsquo;re now saying,
-            #[q I want these two elements to appear the same (for whatever reason); I should give them the same class].
-            It&rsquo;s almost backwards!
-          p.
-            I&rsquo;m not here to tell you not to use classes. In fact I think classes are the perfect
-            mechanism for this. But as you read this article I do hope you become more aware of the
-            different types of classes you are using, and you are able to make smart decisions about
-            when you should or should not be using them.
+            subtly, different going on here. Before, we were saying,
+          blockquote.c-Pullquote: ol
+            li These two elements are similar in meaning
+            li I should give them the same class
+            li Now they will appear the same
+          p but instead, we&rsquo;re now saying,
+          blockquote.c-Pullquote: ol
+            li I want these two elements to appear the same#[br](for whatever reason)
+            li I should give them the same class
+            li Now they&rsquo;ll look like they mean the same thing
+          p It&rsquo;s backwards!
+          p
+            | Next, 
+            span(itemscope="" itemtype="http://schema.org/CreativeWork")
+              span(itemprop="author" itemscope="" itemtype="http://scheam.org/Person")
+                span(itemprop="name") Harry Roberts
+              |  and his famous 
+              a(itemprop="url")
+                cite: abbr(title="Inverted Triangle CSS" itemprop="name") ITCSS
+              |  paradigm
+            |  takes this idea a step further, expanding on the minor, but not-so-minor,
+            |  parenthetical remark above,
+            i for whatever reason.
         section
           h3 #[i Classes] of Classes
           p.
@@ -261,10 +300,13 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
             something slightly more involved, and that is it can be good practice to literally
             group related properties, not within a CSS selector, but into separate selectors.
           p.
+            The following subsections name and categorize classes by the properties in
+            their defining rulesets. As it turns out, categorizing classes in this manner
+            actually defines different uses for each!
+          p.
             For the sake of simplicity, we will not be discussing the actual naming
             of CSS classes in this section, so I will refrain from using them and
             instead keep the discussion in the abstract.
-          p The following subsections name and categorize classes by the properties in their defining rulesets.
           section
             h4 Objects
             p: strong.
@@ -276,6 +318,7 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
               Examples include the Media Object, the Nav Abstraction, and the Island Object.
               These classes do not affect look-and-feel, only visual structure. Think back to
               the #[b Layout] and #[b Box Structure] levels of the inverted CSS property triangle above.
+              Object-Oriented CSS is where it all started.
           section
             h4 Components
             p: strong.
@@ -284,28 +327,30 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
             p.
               In contrast to Objects, Components are heavily dependent on content, cosmetics,
               and function. They are recognizable pieces of user-interaction that have a particular
-              look-and-feel. Buttons, breadcrumb lists, labels, and tags are all good examples.
-              Components have properties belonging in the smallest 4 layers of the
+              look-and-feel. Buttons, navigation bars, and labels are all good examples.
+              Components have properties belonging in the smallest four layers of the
               inverted CSS property triangle.
             p.
               To build a fully-functional visual element on a page, you must combine
               Objects and Components. Using just a Component class is not sufficient, because
               you will get the skin without the structure.
             aside
-              p.
+              p: small.
                 In most cases, the cosmetics of a Component laregly contribute to its function.
                 As frequent as Components come, they are unusual in that
                 their semantics are derived from their presentation,
                 that is, the look-and-feel of a Component may determine its meaning in terms of usability.
                 For example, a #[code span] might not look like anything with CSS turned off,
-                but with the right class and CSS turned on it might clearly represent a label attached
-                to a heading or link.
+                but with the right class and CSS turned on it might clearly represent
+                an icon attached to a link.
               p: small.
                 As a consequence, authors should be careful with Components because users with
                 a visual interface might have an advantage over users with, say, an audio interface.
                 Therefore authors should continue to support
-                #[a HTML5 Microdata] and #[a ARIA roles]
-                to accommodate the latter.
+                SEO and accessibility best practices. Read up on
+                #[a(href="https://developers.google.com/schemas/formats/microdata") HTML5 Microdata] and
+                #[a(href="https://www.w3.org/WAI/intro/aria.php") ARIA roles]
+                for more information.
             div.c-Document__Informative
               p.
                 I have not decided yet whether to make these next sections formal. This is just an idea:
@@ -332,18 +377,29 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
               Theme classes are very tricky. A Theme applied to an element might not only affect
               the element itself, but will also probably affect its descendants. This gets complicated
               because the said descendant&rsquo;s style becomes dependent on its location.
-              Move the element, or change the Theme, then the element will look different.
+              Move the element, or change its ancestor&rsquo;s Theme, then the element will look different.
               (This could be a good or a bad thing.)
               We must be careful not to let the element&rsquo;s style depend heavily on the
               Theme classes of its ancestors. Thus we should limit the styles in a Theme class
               to those belonging in the #[b Box Cosmetics] and #[b Text Cosmetics] levels
               of the inverted triangle. Most themes only affect font family, color, and the like.
+            p.c-Document__Draft.
+              Themes can also be used to #[i tag] elements belonging in some type of category,
+              but that aren&rsquo;t grouped in the same section. For example, in your groceries list,
+              you may have your groceries grouped by aisle, but you may want to highlight the
+              organic items. Since the items are already grouped by aisle, it wouldn&rsquo;t
+              make sense to create a new category called #[i Organic]
+              (unless all the organic items were in the same aisle). Instead, you could add
+              a class to each of the oragnic items. In this way, the Theme class acts like a tag
+              (which is fitting since they both start with the same letter).
+              Another example is the class mentioned in the #[a Background] section above, which
+              is used to group all elements on a page that represent warnings.
           section
             h4 Helpers
             p: strong.
               #[dfn#helper Helpers] are somewhat explicit classes used for enhancing default styles.
             p.
-              When an element already #[i instantiates] Objects and Components (has their classes),
+              When an element already has Object and Component classes,
               but you need a little bit more, a Helper class is the solution.
               Helpers tack on a very small combination of extra styles to achieve a specific look.
               The clearfix is an excellent example. Even though it affects structure, it doesn&rsquo;t
