@@ -441,77 +441,77 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
             }
           }
         mixin description(color)
-          - color = color.bg_class.slice(5)
-          if (color === 'aperturewhite')
+          - var color_key = color.bg_class.slice(5)
+          if (color_key === 'aperturewhite')
             p.
               The purity of Aperture Science in all its glory. This dazzling
               brilliance of bluish light seen on the portalable panels coated with
               Conversion Gel makes the background emit an eerie glow, like the full moon.
-          else if (color === 'apertureblack')
+          else if (color_key === 'apertureblack')
             p.
               The polar opposite of Aperture White. Representing the true dark nature
               of the Enrichment Center, this is the color of the panels that inhibit
               portals. A hint of orange is infinitesimally noticeable. What better way to
               complement the background color than the color of normal text?
-          else if (color === 'lakesuperior')
+          else if (color_key === 'lakesuperior')
             p.
               This Great Lake borders #[a Ontonagon, MI], the location of the
               Aperture Science Enrichment Center. A perfect fit for superior headings on
               a page.
-          else if (color === 'facilityabyss')
+          else if (color_key === 'facilityabyss')
             p.
               This color can be seen in the endless depths of the subterranean
               testing facility. This color is for #[i minor] headings of a page.
-          else if (color === 'atlas')
+          else if (color_key === 'atlas')
             p.
               Short and stout, Atlas is one of the two robots used for testing.
               Untouched hyperlinks are dedicated to his digital iris.
-          else if (color === 'pbody')
+          else if (color_key === 'pbody')
             p.
               Tall and wiry, P-body is one of the two robots used for testing.
               Hovered hyperlinks are dedicated to his (or her?) digital iris.
-          else if (color === 'cavescaves')
+          else if (color_key === 'cavescaves')
             p.
               Cave&rsquo;s underground salt mines were the ideal venue for early
               test chambers.
-          else if (color === 'asbestos')
+          else if (color_key === 'asbestos')
             p.
               The forgotten underground test chambers are ridden with this harmful
               substance. Or so Mr.&nbsp;Johnson says.
-          else if (color === 'repulsion')
+          else if (color_key === 'repulsion')
             p.
               Good news, you&rsquo;re not part of the control group; you get the gel.
               Bad news, it does #[em not] like the human skeleton. Turns out you might
               just break every bone in your legs anyway.
-          else if (color === 'propulsion')
+          else if (color_key === 'propulsion')
             p #[i Forwarding] the cause of science.
-          else if (color === 'deploying')
+          else if (color_key === 'deploying')
             p.
               The one word you never want to hear without a portal gun. Just as the
               iris of a Sentry Turret, this color is briefly seen, providing a subtle accent
               on the site.
-          else if (color === 'hereye')
+          else if (color_key === 'hereye')
             p.
               This color alone will scare the
               prokaryotic-microorganism-infested-fecal-matter out of you. See where you can
               find it. You monster.
-          else if (color === 'neurotoxin')
+          else if (color_key === 'neurotoxin')
             p.
               Long ago an #[i accident] resulted in the unleashing of
               this deadly vapor and the murdering of the entire human staff of
               Aperture Laboratories. Some say it could happen again, but this time on the
               test subjects&hellip;
-          else if (color === 'bridges')
+          else if (color_key === 'bridges')
             p.
               Hard Light Bridges are literally massless, yet they can sustain
               infinite weight, as Chell can attest to.
-          else if (color === 'companion')
+          else if (color_key === 'companion')
             p.
               Believed to be sentient by some and alive by others, the
               Weighted Companion Cube has been said to provide advice and display emotions
               such as brevity, care, and love. It is even believed to hum opera when near
               a friend. A perfect color for helpful elements on a Web page.
-          else if (color === 'vilify')
+          else if (color_key === 'vilify')
             p: q.-fs-t(cite="https://www.youtube.com/watch?v=G-Vg2YS-sFE").
               You&rsquo;ve
               got sucker&rsquo;s luck. Have you given up? Does it feel
@@ -528,6 +528,61 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
               ul
                 each el in color.uses
                   li= el
+        -
+          var trans = {
+            shadelight : {
+              name        : 'Shade Light'
+            , code_dfn    : 'fadeout(@apertureblack, 80%)'
+            , code_hexa   : 'rgba(#0d0800, 0.2)'
+            , bg_class    : 'a-bc-shadelight'
+            , box_color   : scheme.aperturewhite
+            }
+          , tintlight : {
+              name        : 'Tint Light'
+            , code_dfn    : 'fadeout(@aperturewhite, 80%)'
+            , code_hexa   : 'rgba(#f2f7ff, 0.2)'
+            , bg_class    : 'a-bc-tintlight'
+            , box_color   : scheme.apertureblack
+            , is_dark     : true
+            }
+          , shadeheavy : {
+              name        : 'Shade Heavy'
+            , code_dfn    : 'fadeout(@apertureblack, 20%)'
+            , code_hexa   : 'rgba(#0d0800, 0.8)'
+            , bg_class    : 'a-bc-shadeheavy'
+            , box_color   : scheme.aperturewhite
+            }
+          , tintheavy : {
+              name        : 'Tint Heavy'
+            , code_dfn    : 'fadeout(@aperturewhite, 20%)'
+            , code_hexa   : 'rgba(#f2f7ff, 0.8)'
+            , bg_class    : 'a-bc-tintheavy'
+            , box_color   : scheme.apertureblack
+            , is_dark     : true
+            }
+          }
+        mixin colorBoxTrans(color, n)
+          section.o-Box.-w-1o2(class=[color.box_color.bg_class, (color.is_dark) ? 'h-darkbg' : ''])
+            h4.ColorTitle Overlapping #{color.name}
+            form
+              label
+                | background color:
+                input.js-rowbc-swatch(type="color" value=color.box_color.code_hex)
+              input.js-reset-swatch(type="reset")
+            p
+              | each:
+              br
+              code.ColorCode
+                | .#{color.bg_class}
+                br
+                | #{color.code_dfn} == #{color.code_hexa}
+            | Zero
+            - var numbers = ['One','Two','Three','Four','Five','Six','Seven','Eight','Nine']
+            mixin transbox(i)
+              if i < n
+                div.o-Box(class=color.bg_class)= numbers[i]
+                  +transbox(i+1)
+            +transbox(0)
         section.o-FlexContainer
           h3.-w-1o1 Main Portal Colors
           +colorBox(scheme.aperturewhite)
@@ -554,84 +609,10 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
           h3.-w-1o1 Grays and Shadows
           +colorBox(scheme.graylite)
           +colorBox(scheme.graydark)
-          section.o-Box.-w-1o2.a-bc-aperturewhite
-            h4.ColorTitle Overlapping Shade Light
-            form
-              label background color: 
-                input.js-rowbc-swatch(type="color" value="#f2f7ff")
-              input.js-reset-swatch(type="reset")
-            p
-              | each:
-              br
-              code.ColorCode
-                | .a-bc-shadelight
-                br
-                | fadeout(@apertureblack, 80%) == rgba(#0d0800, 0.2)
-            | Zero
-            div.o-Box.a-bc-shadelight One
-              div.o-Box.a-bc-shadelight Two
-                div.o-Box.a-bc-shadelight Three
-                  div.o-Box.a-bc-shadelight Four
-                    div.o-Box.a-bc-shadelight Five
-                      div.o-Box.a-bc-shadelight Six
-                        div.o-Box.a-bc-shadelight Seven
-          section.o-Box.-w-1o2.a-bc-apertureblack.h-darkbg
-            h4.ColorTitle Overlapping Tint Light
-            form
-              label background color: 
-                input.js-rowbc-swatch(type="color" value="#0d0800")
-              input.js-reset-swatch(type="reset")
-            p
-              | each:
-              br
-              code.ColorCode
-                | .a-bc-tintlight
-                br
-                | fadeout(@aperturewhite, 80%) == rgba(#f2f7ff, 0.2)
-            | Zero
-            div.o-Box.a-bc-tintlight One
-              div.o-Box.a-bc-tintlight Two
-                div.o-Box.a-bc-tintlight Three
-                  div.o-Box.a-bc-tintlight Four
-                    div.o-Box.a-bc-tintlight Five
-                      div.o-Box.a-bc-tintlight Six
-                        div.o-Box.a-bc-tintlight Seven
-          section.o-Box.-w-1o2.a-bc-aperturewhite
-            h4.ColorTitle Overlapping Shade Heavy
-            form
-              label background color: 
-                input.js-rowbc-swatch(type="color" value="#f2f7ff")
-              input.js-reset-swatch(type="reset")
-            p
-              | each:
-              br
-              code.ColorCode
-                | .a-bc-shadeheavy
-                br
-                | fadeout(@apertureblack, 20%) == rgba(#0d0800, 0.8)
-            | Zero
-            div.o-Box.a-bc-shadeheavy One
-              div.o-Box.a-bc-shadeheavy Two
-                div.o-Box.a-bc-shadeheavy Three
-                  div.o-Box.a-bc-shadeheavy Four
-          section.o-Box.-w-1o2.a-bc-apertureblack.h-darkbg
-            h4.ColorTitle Overlapping Tint Heavy
-            form
-              label background color: 
-                input.js-rowbc-swatch(type="color" value="#0d0800")
-              input.js-reset-swatch(type="reset")
-            p
-              | each:
-              br
-              code.ColorCode
-                | .a-bc-tintheavy
-                br
-                | fadeout(@aperturewhite, 20%) == rgba(#f2f7ff, 0.8)
-            | Zero
-            div.o-Box.a-bc-tintheavy One
-              div.o-Box.a-bc-tintheavy Two
-                div.o-Box.a-bc-tintheavy Three
-                  div.o-Box.a-bc-tintheavy Four
+          +colorBoxTrans(trans.shadelight, 7)
+          +colorBoxTrans(trans.tintlight,  7)
+          +colorBoxTrans(trans.shadeheavy, 4)
+          +colorBoxTrans(trans.tintheavy,  4)
         aside.o-Box.o-Box--dialog(style="margin-bottom: 1.5rem; border: 1px solid #9acc7a; background: rgba(0, 0, 0, 0.05); box-shadow: inset 0 0 0.5rem 0rem rgba(0,0,0,0.2);")
           h3.-ta-c Overlapping Opacity
           p.c-Subhead Calculating the Perceived Alpha Value
