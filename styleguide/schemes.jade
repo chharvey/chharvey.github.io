@@ -301,217 +301,259 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
             Vestibulum sapien justo, commodo a eros in, rhoncus interdum nisl.
             Etiam a porta lectus. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
       section
-        h2 Portal Color Scheme
+        h2 Color Scheme
         footer.
-          This color scheme is based on the
+          Based on the
           #[a(rel="external" href="http://www.thinkwithportals.com/"): cite Portal] video game series.
-        section.o-FlexContainer
-          h3.-w-1o1 Main Portal Colors
-          section.o-Box.-w-1o2.a-bc-aperturewhite
-            h4.ColorTitle Aperture White
-            p
-              code.ColorCode .a-bc-aperturewhite
-              br
-              code.ColorCode hsv(217,   5%, 100%) == #f2f7ff
+        -
+          var scheme = {
+            aperturewhite : {
+              name        : 'Aperture White'
+            , code_dfn    : 'hsv(217,   5%, 100%)'
+            , code_hex    : '#f2f7ff'
+            , bg_class    : 'a-bc-aperturewhite'
+            , uses        : [ 'body background' ]
+            }
+          , apertureblack : {
+              name        : 'Aperture Black'
+            , code_dfn    : 'hsv( 37, 100%,   5%)'
+            , code_hex    : '#0d0800'
+            , bg_class    : 'a-bc-apertureblack'
+            , is_dark     : true
+            , uses        : [ 'body text' ]
+            }
+          , lakesuperior : {
+              name        : 'Lake Superior'
+            , code_dfn    : 'hsv(247, 100%,  60%)'
+            , code_hex    : '#120099'
+            , bg_class    : 'a-bc-lakesuperior'
+            , is_dark     : true
+            , uses        : [ 'major heading text' , 'ledes and drop caps' ]
+            }
+          , facilityabyss : {
+              name        : 'Facility Abyss'
+            , code_dfn    : 'hsv(187,  40%,  40%)'
+            , code_hex    : '#3d6166'
+            , bg_class    : 'a-bc-facilityabyss'
+            , is_dark     : true
+            , uses        : [ 'minor heading text' ]
+            }
+          , atlas : {
+              name        : 'Atlas'
+            , code_dfn    : 'hsv(217, 100%, 100%)'
+            , code_hex    : '#0062ff'
+            , bg_class    : 'a-bc-atlas'
+            , is_dark     : true
+            , uses        : [ 'link text' ]
+            }
+          , pbody : {
+              name        : 'P-Body'
+            , code_dfn    : 'hsv( 37, 100%, 100%)'
+            , code_hex    : '#ff9d00'
+            , bg_class    : 'a-bc-pbody'
+            , uses        : [ 'hover link text' ]
+            }
+          , cavescaves : {
+              name        : 'Cave’s Caves'
+            , code_dfn    : 'hsv( 28,  66.6%,  50%)'
+            , code_hex    : '#80522b'
+            , bg_class    : 'a-bc-cavescaves'
+            , is_dark     : true
+            }
+          , asbestos : {
+              name        : 'Asbestos'
+            , code_dfn    : 'hsv( 46, 100.0%,  75%)'
+            , code_hex    : '#bf9300'
+            , bg_class    : 'a-bc-asbestos'
+            }
+          , repulsion : {
+              name        : 'Repulsion Gel'
+            , code_dfn    : 'hsv(202,  80.0%, 100%)'
+            , code_hex    : '#33b4ff'
+            , bg_class    : 'a-bc-repulsion'
+            , uses        : [ 'code/kbd/samp on print' ]
+            }
+          , propulsion : {
+              name        : 'Propulsion Gel'
+            , code_dfn    : 'hsv( 22,  80.0%, 100%)'
+            , code_hex    : '#ff7e33'
+            , bg_class    : 'a-bc-propulsion'
+            , uses        : [ 'subheading text' ]
+            }
+          , deploying : {
+              name        : 'Deploying'
+            , code_dfn    : 'hsv(  7,  80%, 100%)'
+            , code_hex    : '#ff4b33'
+            , bg_class    : 'a-bc-deploying'
+            , is_dark     : true
+            , uses        : [ 'Danger components' ]
+            }
+          , hereye : {
+              name        : 'HER Eye'
+            , code_dfn    : 'hsv( 52,  80%, 100%)'
+            , code_hex    : '#ffe433'
+            , bg_class    : 'a-bc-hereye'
+            , uses        : [ 'Caution components' ]
+            }
+          , neurotoxin : {
+              name        : 'Neurotoxin'
+            , code_dfn    : 'hsv( 97,  40%,  80%)'
+            , code_hex    : '#9acc7a'
+            , bg_class    : 'a-bc-neurotoxin'
+            , uses        : [ 'Success components' ]
+            }
+          , bridges : {
+              name        : 'Bridges of Light'
+            , code_dfn    : 'hsv(202,  40%, 100%)'
+            , code_hex    : '#99daff'
+            , bg_class    : 'a-bc-bridges'
+            , uses        : [ 'Info components' ]
+            }
+          , companion : {
+              name        : 'Heart of a Companion'
+            , code_dfn    : 'hsv(337,  40%, 100%)'
+            , code_hex    : '#ff99c0'
+            , bg_class    : 'a-bc-companion'
+            , uses        : [ 'Help components' ]
+            }
+          , vilify : {
+              name        : 'Vilify'
+            , code_dfn    : 'hsv(277, 100%, 100%)'
+            , code_hex    : '#9d00ff'
+            , bg_class    : 'a-bc-vilify'
+            , is_dark     : true
+            , uses        : [ 'alert links' ]
+            }
+          , graylite : {
+              name        : 'Aperture Gray Lite'
+            , code_dfn    : 'mix(mix(@aperturewhite, @apertureblack, 80%), @pbody, 95%)'
+            , code_hex    : '#c7c5c2'
+            , bg_class    : 'a-bc-graylite'
+            , uses        : [ 'light component default' ]
+            }
+          , graydark : {
+              name        : 'Aperture Gray Dark'
+            , code_dfn    : 'mix(mix(@apertureblack, @aperturewhite, 80%), @atlas, 95%)'
+            , code_hex    : '#383a3d'
+            , bg_class    : 'a-bc-graydark'
+            , is_dark     : true
+            , uses        : [ 'dark component default' ]
+            }
+          }
+        mixin description(color)
+          - color = color.bg_class.slice(5)
+          if (color === 'aperturewhite')
             p.
               The purity of Aperture Science in all its glory. This dazzling
               brilliance of bluish light seen on the portalable panels coated with
               Conversion Gel makes the background emit an eerie glow, like the full moon.
-            ul
-              li body background
-          section.o-Box.-w-1o2.a-bc-apertureblack.h-darkbg
-            h4.ColorTitle Aperture Black
-            p
-              code.ColorCode .a-bc-apertureblack
-              br
-              code.ColorCode hsv( 37, 100%,   5%) == #0d0800
+          else if (color === 'apertureblack')
             p.
               The polar opposite of Aperture White. Representing the true dark nature
               of the Enrichment Center, this is the color of the panels that inhibit
               portals. A hint of orange is infinitesimally noticeable. What better way to
               complement the background color than the color of normal text?
-            ul
-              li body text
-          section.o-Box.-w-1o2.a-bc-lakesuperior.h-darkbg
-            h4.ColorTitle Lake Superior
-            p
-              code.ColorCode .a-bc-lakesuperior
-              br
-              code.ColorCode hsv(247, 100%,  60%) == #120099
+          else if (color === 'lakesuperior')
             p.
               This Great Lake borders #[a Ontonagon, MI], the location of the
               Aperture Science Enrichment Center. A perfect fit for superior headings on
               a page.
-            ul
-              li major heading text
-              li ledes and drop caps
-          section.o-Box.-w-1o2.a-bc-facilityabyss.h-darkbg
-            h4.ColorTitle Facility Abyss
-            p
-              code.ColorCode .a-bc-facilityabyss
-              br
-              code.ColorCode hsv(187,  40%,  40%) == #3d6166
+          else if (color === 'facilityabyss')
             p.
               This color can be seen in the endless depths of the subterranean
               testing facility. This color is for #[i minor] headings of a page.
-            ul
-              li minor heading text
-          section.o-Box.-w-1o2.a-bc-atlas.h-darkbg
-            h4.ColorTitle Atlas
-            p
-              code.ColorCode .a-bc-atlas
-              br
-              code.ColorCode hsv(217, 100%, 100%) == #0062ff
+          else if (color === 'atlas')
             p.
               Short and stout, Atlas is one of the two robots used for testing.
               Untouched hyperlinks are dedicated to his digital iris.
-            ul
-              li link text
-          section.o-Box.-w-1o2.a-bc-pbody
-            h4.ColorTitle P-Body
-            p
-              code.ColorCode .a-bc-pbody
-              br
-              code.ColorCode hsv( 37, 100%, 100%) == #ff9d00
+          else if (color === 'pbody')
             p.
               Tall and wiry, P-body is one of the two robots used for testing.
               Hovered hyperlinks are dedicated to his (or her?) digital iris.
-            ul
-              li hover link text
-        section.o-FlexContainer
-          h3.-w-1o1 More Portal Colors
-          section.o-Box.-w-1o2.a-bc-cavescaves.h-darkbg
-            h4.ColorTitle Cave&rsquo;s Caves
-            p
-              code.ColorCode .a-bc-cavescaves
-              br
-              code.ColorCode hsv( 28,  66.6%,  50%) == #80522b
+          else if (color === 'cavescaves')
             p.
               Cave&rsquo;s underground salt mines were the ideal venue for early
               test chambers.
-          section.o-Box.-w-1o2.a-bc-asbestos
-            h4.ColorTitle Asbestos
-            p
-              code.ColorCode .a-bc-asbestos
-              br
-              code.ColorCode hsv( 46, 100.0%,  75%) == #bf9300
+          else if (color === 'asbestos')
             p.
               The forgotten underground test chambers are ridden with this harmful
               substance. Or so Mr.&nbsp;Johnson says.
-          section.o-Box.-w-1o2.a-bc-repulsion
-            h4.ColorTitle Repulsion Gel
-            p
-              code.ColorCode .a-bc-repulsion
-              br
-              code.ColorCode hsv(202,  80.0%, 100%) == #33b4ff
+          else if (color === 'repulsion')
             p.
               Good news, you&rsquo;re not part of the control group; you get the gel.
               Bad news, it does #[em not] like the human skeleton. Turns out you might
               just break every bone in your legs anyway.
-            ul
-              li code/kbd/samp on print
-          section.o-Box.-w-1o2.a-bc-propulsion
-            h4.ColorTitle Propulsion Gel
-            p
-              code.ColorCode .a-bc-propulsion
-              br
-              code.ColorCode hsv( 22,  80.0%, 100%) == #ff7e33
+          else if (color === 'propulsion')
             p #[i Forwarding] the cause of science.
-            ul
-              li subheading text
-        section.o-FlexContainer
-          h3.-w-1o1 UI Component Colors
-          section.o-Box.-w-1o2.a-bc-deploying.h-darkbg
-            h4.ColorTitle Deploying
-            p
-              code.ColorCode .a-bc-deploying
-              br
-              code.ColorCode hsv(  7,  80%, 100%) == #ff4b33
+          else if (color === 'deploying')
             p.
               The one word you never want to hear without a portal gun. Just as the
               iris of a Sentry Turret, this color is briefly seen, providing a subtle accent
               on the site.
-            ul
-              li Danger components
-          section.o-Box.-w-1o2.a-bc-hereye
-            h4.ColorTitle HER Eye
-            p
-              code.ColorCode .a-bc-hereye
-              br
-              code.ColorCode hsv( 52,  80%, 100%) == #ffe433
+          else if (color === 'hereye')
             p.
               This color alone will scare the
               prokaryotic-microorganism-infested-fecal-matter out of you. See where you can
               find it. You monster.
-            ul
-              li Caution components
-          section.o-Box.-w-1o2.a-bc-neurotoxin
-            h4.ColorTitle Neurotoxin
-            p
-              code.ColorCode .a-bc-neurotoxin
-              br
-              code.ColorCode hsv( 97,  40%,  80%) == #9acc7a
+          else if (color === 'neurotoxin')
             p.
               Long ago an #[i accident] resulted in the unleashing of
               this deadly vapor and the murdering of the entire human staff of
               Aperture Laboratories. Some say it could happen again, but this time on the
               test subjects&hellip;
-            ul
-              li Success components
-          section.o-Box.-w-1o2.a-bc-bridges
-            h4.ColorTitle Bridges of Light
-            p
-              code.ColorCode .a-bc-bridges
-              br
-              code.ColorCode hsv(202,  40%, 100%) == #99daff
+          else if (color === 'bridges')
             p.
               Hard Light Bridges are literally massless, yet they can sustain
               infinite weight, as Chell can attest to.
-            ul
-              li Info components
-          section.o-Box.-w-1o2.a-bc-companion
-            h4.ColorTitle Heart of a Companion
-            p
-              code.ColorCode .a-bc-companion
-              br
-              code.ColorCode hsv(337,  40%, 100%) == #ff99c0
+          else if (color === 'companion')
             p.
               Believed to be sentient by some and alive by others, the
               Weighted Companion Cube has been said to provide advice and display emotions
               such as brevity, care, and love. It is even believed to hum opera when near
               a friend. A perfect color for helpful elements on a Web page.
-            ul
-              li Help components
-          section.o-Box.-w-1o2.a-bc-vilify.h-darkbg
-            h4.ColorTitle Vilify
-            p
-              code.ColorCode .a-bc-vilify
-              br
-              code.ColorCode hsv(277, 100%, 100%) == #9d00ff
+          else if (color === 'vilify')
             p: q.-fs-t(cite="https://www.youtube.com/watch?v=G-Vg2YS-sFE").
               You&rsquo;ve
               got sucker&rsquo;s luck. Have you given up? Does it feel
               like a trial? Does it trouble your mind the way you trouble mine?
-            ul
-              li alert links
+        mixin colorBox(color)
+          section.o-Box.-w-1o2(class=[color.bg_class, (color.is_dark) ? 'h-darkbg' : ''])
+            h4.ColorTitle= color.name
+            p: code.ColorCode
+              | .#{color.bg_class}
+              br
+              | #{color.code_dfn} == #{color.code_hex}
+            +description(color)
+            if (color.uses && color.uses[0])
+              ul
+                each el in color.uses
+                  li= el
+        section.o-FlexContainer
+          h3.-w-1o1 Main Portal Colors
+          +colorBox(scheme.aperturewhite)
+          +colorBox(scheme.apertureblack)
+          +colorBox(scheme.lakesuperior)
+          +colorBox(scheme.facilityabyss)
+          +colorBox(scheme.atlas)
+          +colorBox(scheme.pbody)
+        section.o-FlexContainer
+          h3.-w-1o1 More Portal Colors
+          +colorBox(scheme.cavescaves)
+          +colorBox(scheme.asbestos)
+          +colorBox(scheme.repulsion)
+          +colorBox(scheme.propulsion)
+        section.o-FlexContainer
+          h3.-w-1o1 UI Component Colors
+          +colorBox(scheme.deploying)
+          +colorBox(scheme.hereye)
+          +colorBox(scheme.neurotoxin)
+          +colorBox(scheme.bridges)
+          +colorBox(scheme.companion)
+          +colorBox(scheme.vilify)
         section.o-FlexContainer
           h3.-w-1o1 Grays and Shadows
-          section.o-Box.-w-1o2.a-bc-graylite
-            h4.ColorTitle Aperture Gray Lite
-            p
-              code.ColorCode .a-bc-graylite
-              br
-              code.ColorCode mix(mix(@aperturewhite, @apertureblack, 80%), @pbody, 95%) == #c7c5c2
-            ul
-              li light component default
-          section.o-Box.-w-1o2.a-bc-graydark.h-darkbg
-            h4.ColorTitle Aperture Gray Dark
-            p
-              code.ColorCode .a-bc-graydark
-              br
-              code.ColorCode mix(mix(@apertureblack, @aperturewhite, 80%), @atlas, 95%) == #383a3d
-            ul
-              li dark component default
+          +colorBox(scheme.graylite)
+          +colorBox(scheme.graydark)
           section.o-Box.-w-1o2.a-bc-aperturewhite
             h4.ColorTitle Overlapping Shade Light
             form
@@ -521,9 +563,10 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
             p
               | each:
               br
-              code.ColorCode .a-bc-shadelight
-              br
-              code.ColorCode fadeout(@apertureblack, 80%) == rgba(#0d0800, 0.2)
+              code.ColorCode
+                | .a-bc-shadelight
+                br
+                | fadeout(@apertureblack, 80%) == rgba(#0d0800, 0.2)
             | Zero
             div.o-Box.a-bc-shadelight One
               div.o-Box.a-bc-shadelight Two
@@ -541,9 +584,10 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
             p
               | each:
               br
-              code.ColorCode .a-bc-tintlight
-              br
-              code.ColorCode fadeout(@aperturewhite, 80%) == rgba(#f2f7ff, 0.2)
+              code.ColorCode
+                | .a-bc-tintlight
+                br
+                | fadeout(@aperturewhite, 80%) == rgba(#f2f7ff, 0.2)
             | Zero
             div.o-Box.a-bc-tintlight One
               div.o-Box.a-bc-tintlight Two
@@ -561,9 +605,10 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
             p
               | each:
               br
-              code.ColorCode .a-bc-shadeheavy
-              br
-              code.ColorCode fadeout(@apertureblack, 20%) == rgba(#0d0800, 0.8)
+              code.ColorCode
+                | .a-bc-shadeheavy
+                br
+                | fadeout(@apertureblack, 20%) == rgba(#0d0800, 0.8)
             | Zero
             div.o-Box.a-bc-shadeheavy One
               div.o-Box.a-bc-shadeheavy Two
@@ -578,9 +623,10 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
             p
               | each:
               br
-              code.ColorCode .a-bc-tintheavy
-              br
-              code.ColorCode fadeout(@aperturewhite, 20%) == rgba(#f2f7ff, 0.8)
+              code.ColorCode
+                | .a-bc-tintheavy
+                br
+                | fadeout(@aperturewhite, 20%) == rgba(#f2f7ff, 0.8)
             | Zero
             div.o-Box.a-bc-tintheavy One
               div.o-Box.a-bc-tintheavy Two
