@@ -54,8 +54,13 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
             , sample: 'The quick brown fox jumps over the lazy dog.'
             }
           }
-        mixin fontBox(typeface)
+        mixin fontBox(typeface, footer)
           section.o-FlexContainer
+            mixin description()
+              p Sample description.
+            mixin footer()
+              footer Sample footer.
+            block
             h3.-w-1o1= typeface.name
             div.a-w-p1
               p
@@ -64,7 +69,7 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
                   br
                   | Similar: 
                   b= typeface.similar
-              block
+              +description()
             div.a-w-p2
               figure.c-FontSamp(class=typeface.class)
                 div.c-FontSamp__Letter Aa
@@ -80,53 +85,63 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
                   input(type="range" name="fw" min="100" max="900" step="100" value="400")
                   input(type="text" value="400 (normal)" disabled="")
                 input.-d-bk(type="reset")
+            if footer
+              +footer()
         h2 Typeface Scheme
         +fontBox(font_scheme.base)
-          p.
-            Used for the main body copy, Avenir Next
-            is a sans-serif type with little to no thick/thin transition.
-            Being a sans-serif, its #[i italic] is actually an oblique, which just slants the glyphs.
+          mixin description()
+            p.
+              Used for the main body copy, Avenir Next
+              is a sans-serif type with little to no thick/thin transition.
+              Being a sans-serif, its #[i italic] is actually an oblique, which just slants the glyphs.
         +fontBox(font_scheme.heading)
-          p.
-            Optima is used only for headings of body copy
-            (not table headings, #[i(lang="la"): abbr(title="et cetera") etc.]).
-            It is a sans-serif polyweight type with a moderate thick/thin transition.
-            Because of this, it goes well with both monoweight types and serif types, which
-            makes it perfect for headings.
-        +fontBox(font_scheme.prose)
-          p.
-            Baskerville is used for text in formal documents and articles.
-            It is a serif oldstyle type, which is easy on the eyes and can be read at extensive length.
-            Like the #[i heading] font family, it, too, has a moderate thick/thin transition, but has diagonal stress and
-            serifs, and true italics, which means it uses a whole new set of glyphs.
-            #[sup: a.Rf#rf-baskerville(rel="this" href="#fn-baskerville") 1]
-          footer.-w-1o1
-            ul.c-ListFootnotes
-              li.
-                #[sup: a.Fn#fn-baskerville(rel="this" href="#rf-baskerville") 1]
-                #[b Baskerville], though considered an #[b oldstyle] type, actually has
-                a straight, vertical stress, which is typically a feature of #[b modern] types.
-                However #[b Palatino] and #[b Cochin] indeed have diagonal stresses.
+          mixin description()
+            p.
+              Optima is used only for headings of body copy
+              (not table headings, #[i(lang="la"): abbr(title="et cetera") etc.]).
+              It is a sans-serif polyweight type with a moderate thick/thin transition.
+              Because of this, it goes well with both monoweight types and serif types, which
+              makes it perfect for headings.
+        +fontBox(font_scheme.prose, true)
+          mixin description()
+            p.
+              Baskerville is used for text in formal documents and articles.
+              It is a serif oldstyle type, which is easy on the eyes and can be read at extensive length.
+              Like the #[i heading] font family, it, too, has a moderate thick/thin transition, but has diagonal stress and
+              serifs, and true italics, which means it uses a whole new set of glyphs.
+              #[sup: a.Rf#rf-baskerville(rel="this" href="#fn-baskerville") 1]
+          mixin footer()
+            footer.-w-1o1
+              ul.c-ListFootnotes
+                li.
+                  #[sup: a.Fn#fn-baskerville(rel="this" href="#rf-baskerville") 1]
+                  #[b Baskerville], though considered an #[b oldstyle] type, actually has
+                  a straight, vertical stress, which is typically a feature of #[b modern] types.
+                  However #[b Palatino] and #[b Cochin] indeed have diagonal stresses.
         +fontBox(font_scheme.accent)
-          p.
-            Helvetica Neue is used for typographical and #[abbr(title="user interface") UI]
-            components such as ledes, pull quotes, captions, alerts, labels, buttons, and keys.
-            Like #[b Avenir], it is a monoweight sans-serif, yet slightly heavier.
+          mixin description()
+            p.
+              Helvetica Neue is used for typographical and #[abbr(title="user interface") UI]
+              components such as ledes, pull quotes, captions, alerts, labels, buttons, and keys.
+              Like #[b Avenir], it is a monoweight sans-serif, yet slightly heavier.
         +fontBox(font_scheme.code)
-          p.
-            Menlo is a monospace type used for sample code on the site. Personally, I dislike
-            monospace fonts with serifs, so I chose a sans-serif.
+          mixin description()
+            p.
+              Menlo is a monospace type used for sample code on the site. Personally, I dislike
+              monospace fonts with serifs, so I chose a sans-serif.
         +fontBox(font_scheme.math)
-          p.
-            Didot is a serif modern type use for mathematical spans and spans in foreign
-            languages. It has a radical thick/thin transition, vertical stress, and
-            straight horizontal serifs. With a cold yet elegant look, this font family makes
-            long spans of text hard to read, but that&rsquo;s okay because this font is
-            used only for short expressions.
+          mixin description()
+            p.
+              Didot is a serif modern type use for mathematical spans and spans in foreign
+              languages. It has a radical thick/thin transition, vertical stress, and
+              straight horizontal serifs. With a cold yet elegant look, this font family makes
+              long spans of text hard to read, but that&rsquo;s okay because this font is
+              used only for short expressions.
         +fontBox(font_scheme.script)
-          p.
-            Zapfino is used for very fancy elements such as drop-caps and subheadings.
-            Use this font family sparingly.
+          mixin description()
+            p.
+              Zapfino is used for very fancy elements such as drop-caps and subheadings.
+              Use this font family sparingly.
       section#font-sizes
         h2 Font Sizes
         p.
@@ -410,12 +425,15 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
           }
         mixin colorBox(color)
           section.o-Box.-w-1o2(class=[color.bg_class, (color.is_dark) ? 'h-darkbg' : ''])
+            mixin description()
+              p Sample description.
+            block
             h4.ColorTitle= color.name
             p: code.ColorCode
               | .#{color.bg_class}
               br
               | #{color.code_dfn} == #{color.code_hex}
-            block
+            +description()
             if (color.uses && color.uses[0])
               ul
                 each el in color.uses
@@ -449,83 +467,99 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
         section.o-FlexContainer
           h3.-w-1o1 Main Portal Colors
           +colorBox(color_scheme.aperturewhite)
-            p.
-              The purity of Aperture Science in all its glory. This dazzling
-              brilliance of bluish light seen on the portalable panels coated with
-              Conversion Gel makes the background emit an eerie glow, like the full moon.
+            mixin description()
+              p.
+                The purity of Aperture Science in all its glory. This dazzling
+                brilliance of bluish light seen on the portalable panels coated with
+                Conversion Gel makes the background emit an eerie glow, like the full moon.
           +colorBox(color_scheme.apertureblack)
-            p.
-              The polar opposite of Aperture White. Representing the true dark nature
-              of the Enrichment Center, this is the color of the panels that inhibit
-              portals. A hint of orange is infinitesimally noticeable. What better way to
-              complement the background color than the color of normal text?
+            mixin description()
+              p.
+                The polar opposite of Aperture White. Representing the true dark nature
+                of the Enrichment Center, this is the color of the panels that inhibit
+                portals. A hint of orange is infinitesimally noticeable. What better way to
+                complement the background color than the color of normal text?
           +colorBox(color_scheme.lakesuperior)
-            p.
-              This Great Lake borders #[a Ontonagon, MI], the location of the
-              Aperture Science Enrichment Center. A perfect fit for superior headings on
-              a page.
+            mixin description()
+              p.
+                This Great Lake borders #[a Ontonagon, MI], the location of the
+                Aperture Science Enrichment Center. A perfect fit for superior headings on
+                a page.
           +colorBox(color_scheme.facilityabyss)
-            p.
-              This color can be seen in the endless depths of the subterranean
-              testing facility. This color is for #[i minor] headings of a page.
+            mixin description()
+              p.
+                This color can be seen in the endless depths of the subterranean
+                testing facility. This color is for #[i minor] headings of a page.
           +colorBox(color_scheme.atlas)
-            p.
-              Short and stout, Atlas is one of the two robots used for testing.
-              Untouched hyperlinks are dedicated to his digital iris.
+            mixin description()
+              p.
+                Short and stout, Atlas is one of the two robots used for testing.
+                Untouched hyperlinks are dedicated to his digital iris.
           +colorBox(color_scheme.pbody)
-            p.
-              Tall and wiry, P-body is one of the two robots used for testing.
-              Hovered hyperlinks are dedicated to his (or her?) digital iris.
+            mixin description()
+              p.
+                Tall and wiry, P-body is one of the two robots used for testing.
+                Hovered hyperlinks are dedicated to his (or her?) digital iris.
         section.o-FlexContainer
           h3.-w-1o1 More Portal Colors
           +colorBox(color_scheme.cavescaves)
-            p.
-              Cave&rsquo;s underground salt mines were the ideal venue for early
-              test chambers.
+            mixin description()
+              p.
+                Cave&rsquo;s underground salt mines were the ideal venue for early
+                test chambers.
           +colorBox(color_scheme.asbestos)
-            p.
-              The forgotten underground test chambers are ridden with this harmful
-              substance. Or so Mr.&nbsp;Johnson says.
+            mixin description()
+              p.
+                The forgotten underground test chambers are ridden with this harmful
+                substance. Or so Mr.&nbsp;Johnson says.
           +colorBox(color_scheme.repulsion)
-            p.
-              Good news, you&rsquo;re not part of the control group; you get the gel.
-              Bad news, it does #[em not] like the human skeleton. Turns out you might
-              just break every bone in your legs anyway.
+            mixin description()
+              p.
+                Good news, you&rsquo;re not part of the control group; you get the gel.
+                Bad news, it does #[em not] like the human skeleton. Turns out you might
+                just break every bone in your legs anyway.
           +colorBox(color_scheme.propulsion)
-            p #[i Forwarding] the cause of science.
+            mixin description()
+              p #[i Forwarding] the cause of science.
         section.o-FlexContainer
           h3.-w-1o1 UI Component Colors
           +colorBox(color_scheme.deploying)
-            p.
-              The one word you never want to hear without a portal gun. Just as the
-              iris of a Sentry Turret, this color is briefly seen, providing a subtle accent
-              on the site.
+            mixin description()
+              p.
+                The one word you never want to hear without a portal gun. Just as the
+                iris of a Sentry Turret, this color is briefly seen, providing a subtle accent
+                on the site.
           +colorBox(color_scheme.hereye)
-            p.
-              This color alone will scare the
-              prokaryotic-microorganism-infested-fecal-matter out of you. See where you can
-              find it. You monster.
+            mixin description()
+              p.
+                This color alone will scare the
+                prokaryotic-microorganism-infested-fecal-matter out of you. See where you can
+                find it. You monster.
           +colorBox(color_scheme.neurotoxin)
-            p.
-              Long ago an #[i accident] resulted in the unleashing of
-              this deadly vapor and the murdering of the entire human staff of
-              Aperture Laboratories. Some say it could happen again, but this time on the
-              test subjects&hellip;
+            mixin description()
+              p.
+                Long ago an #[i accident] resulted in the unleashing of
+                this deadly vapor and the murdering of the entire human staff of
+                Aperture Laboratories. Some say it could happen again, but this time on the
+                test subjects&hellip;
           +colorBox(color_scheme.bridges)
-            p.
-              Hard Light Bridges are literally massless, yet they can sustain
-              infinite weight, as Chell can attest to.
+            mixin description()
+              p.
+                Hard Light Bridges are literally massless, yet they can sustain
+                infinite weight, as Chell can attest to.
           +colorBox(color_scheme.companion)
-            p.
-              Believed to be sentient by some and alive by others, the
-              Weighted Companion Cube has been said to provide advice and display emotions
-              such as brevity, care, and love. It is even believed to hum opera when near
-              a friend. A perfect color for helpful elements on a Web page.
+            mixin description()
+              p.
+                Believed to be sentient by some and alive by others, the
+                Weighted Companion Cube has been said to provide advice and display emotions
+                such as brevity, care, and love. It is even believed to hum opera when near
+                a friend. A perfect color for helpful elements on a Web page.
           +colorBox(color_scheme.vilify)
-            p: q.-fs-t(cite="https://www.youtube.com/watch?v=G-Vg2YS-sFE").
-              You&rsquo;ve
-              got sucker&rsquo;s luck. Have you given up? Does it feel
-              like a trial? Does it trouble your mind the way you trouble mine?
+            mixin description()
+              p: q.-fs-t(cite="https://www.youtube.com/watch?v=G-Vg2YS-sFE").
+                You&rsquo;ve
+                got sucker&rsquo;s luck. Have you given up? Does it feel
+                like a trial? Does it trouble your mind the way you trouble mine?
         section.o-FlexContainer
           h3.-w-1o1 Grays and Shadows
           +colorBox(color_scheme.graylite)
