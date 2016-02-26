@@ -9,83 +9,97 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
   body.o-GoldenContainer.-bc-w.-bi-n.-c-b
     main.o-GoldenContainer__Content
       h1 Site-Wide Schemes
-      section#fonts
+      section#typeface-scheme
+        -
+          var font_scheme = {
+            base : {
+              name : 'Avenir Next'
+            , class : 'a-ff-base'
+            , sample: 'The quick brown fox jumps over the lazy dog.'
+            , similar: [ 'Helvetica Neue' ]
+            }
+          , heading : {
+              name : 'Optima'
+            , class : 'a-ff-heading'
+            , sample: 'Oh, sphinx of black quartz, judge my vow.'
+            , similar: [ 'Seravek' , 'Tahoma' ]
+            }
+          , prose : {
+              name : 'Baskerville'
+            , class : 'a-ff-prose'
+            , sample: 'The five boxing wizards jump quickly.'
+            , similar: [ 'Palatino' , 'Cochin' ]
+            }
+          , accent : {
+              name : 'Helvetica Neue'
+            , class : 'a-ff-accent'
+            , sample: 'Heavy boxes perform quick waltzes and jigs.'
+            , similar: [ 'Helvetica' ]
+            }
+          , code : {
+              name : 'Menlo'
+            , class : 'a-ff-code'
+            , sample: 'The quick brown fox jumps over the lazy dog.'
+            , similar: [ 'Monaco' , 'Andale Mono' ]
+            }
+          , math : {
+              name : 'Didot'
+            , class : 'a-ff-math'
+            , sample: 'Sixty zippers were quickly picked from the woven jute bag.'
+            , similar: [ 'Bodoni 72' , 'Times' ]
+            }
+          , script : {
+              name : 'Zapfino'
+            , class : 'a-ff-script'
+            , sample: 'The quick brown fox jumps over the lazy dog.'
+            }
+          }
+        mixin fontBox(typeface)
+          section.o-FlexContainer
+            h3.-w-1o1= typeface.name
+            div.a-w-p1
+              p
+                code .#{typeface.class}
+                if (typeface.similar && typeface.similar[0])
+                  br
+                  | Similar: 
+                  b= typeface.similar
+              block
+            div.a-w-p2
+              figure.c-FontSamp(class=typeface.class)
+                div.c-FontSamp__Letter Aa
+                p.c-FontSamp__Sentence= typeface.sample
+              form.c-FontForm
+                label.-d-bk
+                  input(type="checkbox" name="fs" value="italic")
+                  |  italic
+                label.-d-bk
+                  input(type="checkbox" name="fv" value="small-caps")
+                  |  small-caps
+                label.-d-bk
+                  input(type="range" name="fw" min="100" max="900" step="100" value="400")
+                  input.-w-96px(type="text" value="400 (normal)" disabled="")
+                input.-d-bk(type="reset")
         h2 Typeface Scheme
-        section.o-FlexContainer#ff-base
-          h3.-w-1o1 Avenir Next
-          p.c-FontDescr.
+        +fontBox(font_scheme.base)
+          p.
             Used for the main body copy, Avenir Next
             is a sans-serif type with little to no thick/thin transition.
             Being a sans-serif, its #[i italic] is actually an oblique, which just slants the glyphs.
-            #[br]
-            Similar: #[b Helvetica Neue]
-            #[br]
-            #[code .a-ff-base]
-          figure.c-FontSamp.a-ff-base
-            div.c-FontSamp__Letter Aa
-            p.c-FontSamp__Sentence The quick brown fox jumps over the lazy dog.
-          form.c-FontForm
-            label
-              input(type="checkbox" name="fs" value="italic")
-              |  italic
-            label
-              input(type="checkbox" name="fv" value="small-caps")
-              |  small-caps
-            label
-              input(type="range" name="fw" min="100" max="900" step="100" value="400")
-              input(type="text" value="400 (normal)" disabled="" style="width:100px;")
-            input(type="reset")
-        section.o-FlexContainer#ff-heading
-          h3.-w-1o1 Optima
-          p.c-FontDescr.
+        +fontBox(font_scheme.heading)
+          p.
             Optima is used only for headings of body copy
             (not table headings, #[i(lang="la"): abbr(title="et cetera") etc.]).
             It is a sans-serif polyweight type with a moderate thick/thin transition.
             Because of this, it goes well with both monoweight types and serif types, which
             makes it perfect for headings.
-            #[br]
-            Similar: #[b Seravek], #[b Tahoma].
-            #[br]
-            #[code .a-ff-heading]
-          figure.c-FontSamp.a-ff-heading
-            div.c-FontSamp__Letter Aa
-            p.c-FontSamp__Sentence Oh, sphinx of black quartz, judge my vow.
-          form.c-FontForm
-            label
-              input(type="checkbox" name="fs" value="italic")
-              |  italic
-            label
-              input(type="checkbox" name="fv" value="small-caps")
-              |  small-caps
-            label
-              input(type="range" name="fw" min="100" max="900" step="100" value="400")
-              input(type="text" value="400 (normal)" disabled="" style="width:100px;")
-            input(type="reset")
-        section.o-FlexContainer#ff-prose
-          h3.-w-1o1 Baskerville
-          p.c-FontDescr.
+        +fontBox(font_scheme.prose)
+          p.
             Baskerville is used for text in formal documents and articles.
             It is a serif oldstyle type, which is easy on the eyes and can be read at extensive length.
             Like the #[i heading] font family, it, too, has a moderate thick/thin transition, but has diagonal stress and
             serifs, and true italics, which means it uses a whole new set of glyphs.
-            #[br]
-            Similar: #[b Palatino], #[b Cochin]#[sup: a.Rf#rf-baskerville(rel="this" href="#fn-baskerville") 1]
-            #[br]
-            #[code .a-ff-prose]
-          figure.c-FontSamp.a-ff-prose
-            div.c-FontSamp__Letter Aa
-            p.c-FontSamp__Sentence The five boxing wizards jump quickly.
-          form.c-FontForm
-            label
-              input(type="checkbox" name="fs" value="italic")
-              |  italic
-            label
-              input(type="checkbox" name="fv" value="small-caps")
-              |  small-caps
-            label
-              input(type="range" name="fw" min="100" max="900" step="100" value="400")
-              input(type="text" value="400 (normal)" disabled="" style="width:100px;")
-            input(type="reset")
+            #[sup: a.Rf#rf-baskerville(rel="this" href="#fn-baskerville") 1]
           footer.-w-1o1
             ul.c-ListFootnotes
               li.
@@ -93,101 +107,27 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
                 #[b Baskerville], though considered an #[b oldstyle] type, actually has
                 a straight, vertical stress, which is typically a feature of #[b modern] types.
                 However #[b Palatino] and #[b Cochin] indeed have diagonal stresses.
-        section.o-FlexContainer#ff-accent
-          h3.-w-1o1 Helvetica Neue
-          p.c-FontDescr.
+        +fontBox(font_scheme.accent)
+          p.
             Helvetica Neue is used for typographical and #[abbr(title="user interface") UI]
             components such as ledes, pull quotes, captions, alerts, labels, buttons, and keys.
             Like #[b Avenir], it is a monoweight sans-serif, yet slightly heavier.
-            #[br]
-            Similar: #[b Helvetica]
-            #[br]
-            #[code .a-ff-accent]
-          figure.c-FontSamp.a-ff-accent
-            div.c-FontSamp__Letter Aa
-            p.c-FontSamp__Sentence Heavy boxes perform quick waltzes and jigs.
-          form.c-FontForm
-            label
-              input(type="checkbox" name="fs" value="italic")
-              |  italic
-            label
-              input(type="checkbox" name="fv" value="small-caps")
-              |  small-caps
-            label
-              input(type="range" name="fw" min="100" max="900" step="100" value="400")
-              input(type="text" value="400 (normal)" disabled="" style="width:100px;")
-            input(type="reset")
-        section.o-FlexContainer#ff-code
-          h3.-w-1o1 Menlo
-          p.c-FontDescr.
+        +fontBox(font_scheme.code)
+          p.
             Menlo is a monospace type used for sample code on the site. Personally, I dislike
             monospace fonts with serifs, so I chose a sans-serif.
-            #[br]
-            Similar: #[b Monaco], #[b Andale Mono]
-            #[br]
-            #[code .a-ff-code]
-          figure.c-FontSamp.a-ff-code
-            div.c-FontSamp__Letter Aa
-            p.c-FontSamp__Sentence The quick brown fox jumps over the lazy dog.
-          form.c-FontForm
-            label
-              input(type="checkbox" name="fs" value="italic")
-              |  italic
-            label
-              input(type="checkbox" name="fv" value="small-caps")
-              |  small-caps
-            label
-              input(type="range" name="fw" min="100" max="900" step="100" value="400")
-              input(type="text" value="400 (normal)" disabled="" style="width:100px;")
-            input(type="reset")
-        section.o-FlexContainer#ff-math
-          h3.-w-1o1 Didot
-          p.c-FontDescr.
+        +fontBox(font_scheme.math)
+          p.
             Didot is a serif modern type use for mathematical spans and spans in foreign
             languages. It has a radical thick/thin transition, vertical stress, and
             straight horizontal serifs. With a cold yet elegant look, this font family makes
             long spans of text hard to read, but that&rsquo;s okay because this font is
             used only for short expressions.
-            #[br]
-            Similar: #[b Bodoni 72], #[b Times]
-            #[br]
-            #[code .a-ff-math]
-          figure.c-FontSamp.a-ff-math
-            div.c-FontSamp__Letter Aa
-            p.c-FontSamp__Sentence Sixty zippers were quickly picked from the woven jute bag.
-          form.c-FontForm
-            label
-              input(type="checkbox" name="fs" value="italic")
-              |  italic
-            label
-              input(type="checkbox" name="fv" value="small-caps")
-              |  small-caps
-            label
-              input(type="range" name="fw" min="100" max="900" step="100" value="400")
-              input(type="text" value="400 (normal)" disabled="" style="width:100px;")
-            input(type="reset")
-        section.o-FlexContainer#ff-script
-          h3.-w-1o1 Zapfino
-          p.c-FontDescr.
+        +fontBox(font_scheme.script)
+          p.
             Zapfino is used for very fancy elements such as drop-caps and subheadings.
             Use this font family sparingly.
-            #[br]
-            #[code .a-ff-script]
-          figure.c-FontSamp.a-ff-script
-            div.c-FontSamp__Letter Aa
-            p.c-FontSamp__Sentence The quick brown fox jumps over the lazy dog.
-          form.c-FontForm
-            label
-              input(type="checkbox" name="fs" value="italic")
-              |  italic
-            label
-              input(type="checkbox" name="fv" value="small-caps")
-              |  small-caps
-            label
-              input(type="range" name="fw" min="100" max="900" step="100" value="400")
-              input(type="text" value="400 (normal)" disabled="" style="width:100px;")
-            input(type="reset")
-      section
+      section#font-sizes
         h2 Font Sizes
         p.
           The first list shows atoms prefixed #[code fz-], which change only font size,
@@ -651,22 +591,6 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
     script(src="../core/scripts/util.js")
     script(src="../core/scripts/color.js")
     script.
-      $('.js-rowbc-swatch').change(function () {
-        var orig = $(this).attr('value')
-          , value = $(this).val() || orig
-        function swatchChange(self, newvalue) {
-          $(self).parents('.o-Box').each(function () {
-            $(this).attr('style', 'background-color: ' + newvalue + ' !important')
-          })
-        }
-        swatchChange($(this), value)
-        $(this).siblings('.js-reset-swatch').click(function () {
-          swatchChange($(this), orig)
-        })
-      })
-      function fontdemo(self) {
-        return $(self).closest('.o-FlexContainer').find('.c-FontSamp')
-      }
       $('input[name="fs"]').change(function () {
         fontdemo(this).css('font-style', (this.checked) ? $(this).val() : '')
       })
@@ -683,7 +607,19 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
       $('.c-FontForm input[type="reset"]').click(function () {
         fontdemo(this).css('font-style', '').css('font-variant','').css('font-weight', '')
       })
-      //- $('#ff-script .c-FontSamp, #ff-script .c-FontSamp *').each(function () {
-      //-   var old_lh = parseInt($(this).css('line-height')) / parseInt($(this).css('font-size'))
-      //-   $(this).css('line-height', 2 * old_lh)
-      //- })
+      $('.js-rowbc-swatch').change(function () {
+        var orig = $(this).attr('value')
+          , value = $(this).val() || orig
+        function swatchChange(self, newvalue) {
+          $(self).parents('.o-Box').each(function () {
+            $(this).attr('style', 'background-color: ' + newvalue + ' !important')
+          })
+        }
+        swatchChange($(this), value)
+        $(this).siblings('.js-reset-swatch').click(function () {
+          swatchChange($(this), orig)
+        })
+      })
+      function fontdemo(self) {
+        return $(self).closest('.o-FlexContainer').find('.c-FontSamp')
+      }
