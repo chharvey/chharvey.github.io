@@ -1,14 +1,9 @@
-doctype html
-html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
-  head
-    title Site Schemes &in; Site Design
-    meta(charset="utf-8")
-    meta(name="viewport" content="width=device-width, initial-scale=1")
-    link(rel="stylesheet" href="../styles/chharvey.css")
-    link(rel="stylesheet" href="styles/styleguide.css")
-  body.o-GoldenContainer.-bc-w.-bi-n.-c-b
-    main.o-GoldenContainer__Content
-      h1 Site-Wide Schemes
+extends layout.tpl.jade
+
+block append vars
+  - var main_heading = 'Site-Wide Schemes'
+
+block append main
       section#typeface-scheme
         -
           var font_scheme = {
@@ -172,7 +167,7 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
             li.a-fz-normal .a-fz-normal                (1.00)
             li.a-fz-milli  .a-fz-milli , .a-fz-dodrans (0.75)
             li.a-fz-micro  .a-fz-micro , .a-fz-semi    (0.50)
-        ul.-sp-nw
+        ul
           li .a-fzb-peta  , .a-fzb-hex     (6.00/0.25)
           li .a-fzb-tera  , .a-fzb-tet     (4.00/0.375)
           li .a-fzb-giga  , .a-fzb-tri     (3.00/0.50)
@@ -614,23 +609,11 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
                 This is true even if the function itself is increasing.
                 It would only be called exponential #[em growth] if the base were more than 1,
                 again, whether the function were increasing or decreasing.
-    nav.Bc
-      ol.Anc
-        li: a.Crumb(rel="top   " href="../index.html   ") Home
-        li: a.Crumb(rel="parent" href="../home/web.html") Web
-      ul.Sib
-        li: a.Crumb(rel="sibling" href="base.html     ") Base Typography
-        li: a.Crumb(rel="sibling" href="objects.html  ") Objects
-        li: a.Crumb(rel="sibling" href="comp-typo.html") Typo Components
-        li: a.Crumb(rel="sibling" href="comp-ui.html  ") UI Components
-        li: a.Crumb(rel="this   " href="schemes.html  ") Site Schemes
-      ul.Child
-    script(src="../bower_components/jquery/dist/jquery.js")
-    script(src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML,https://chharvey.github.io/chhlib/mathjax-localconfig.js")
-    script(src="../core/scripts/global.js")
+block append body
     script(src="../core/scripts/util.js")
     script(src="../core/scripts/color.js")
     script.
+      $('body').addClass('-bc-w -bi-n -c-b')
       $('input[name="fs"]').change(function () {
         fontdemo(this).css('font-style', (this.checked) ? $(this).val() : '')
       })
