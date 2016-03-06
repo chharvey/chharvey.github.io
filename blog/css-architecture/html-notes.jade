@@ -15,6 +15,10 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
       a.Rf(id='rf-'+id href='#fn-'+id)= refs.indexOf(id)+1
     mixin footnote(id)
       a.Fn(id='fn-'+id href='#rf-'+id)= refs.indexOf(id)+1
+    mixin tag(text, id)
+      small.o-Textbox.c-Label.c-Label--info
+        = text
+        sup: +reference(id)
     main.o-GoldenContainer__Content.c-Document(data-status="draft" itemscope="" itemtype="https://schema.org/Article")
       header
         h1(itemprop="name headline") Notes on HTML Elements
@@ -39,30 +43,30 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
         p May be used where Flow Content is expected.
         ul
           li #[code html]
-          li #[code body]    #[small.o-Textbox.c-Label.c-Label--info Sectioning Root    #[sup: +reference('body-sectioning-root')]]
-          li #[code section] #[small.o-Textbox.c-Label.c-Label--info Sectioning Content #[sup: +reference('section-sectioning-content')]]
-          li #[code article] #[small.o-Textbox.c-Label.c-Label--info Sectioning Content #[sup: +reference('article-sectioning-content')]]
-          li #[code aside]   #[small.o-Textbox.c-Label.c-Label--info Sectioning Content #[sup: +reference('aside-sectioning-content')]]
-          li #[code nav]     #[small.o-Textbox.c-Label.c-Label--info Sectioning Content #[sup: +reference('nav-sectioning-content')]]
+          li #[code body]    #[+tag('Sectioning Root','body-sectioning-root')]
+          li #[code section] #[+tag('Sectioning Content','section-sectioning-content')]
+          li #[code article] #[+tag('Sectioning Content','article-sectioning-content')]
+          li #[code aside]   #[+tag('Sectioning Content','aside-sectioning-content')]
+          li #[code nav]     #[+tag('Sectioning Content','nav-sectioning-content')]
           li #[code main]
           li #[code header]
           li #[code footer]
-          li #[code h1]&ndash;#[code h6] #[small.o-Textbox.c-Label.c-Label--info Phrasing Content Model #[sup: +reference('hn-phrasing-content-model')]]
+          li #[code h1]&ndash;#[code h6] #[+tag('Phrasing Content Model','hn-phrasing-content-model')]
           li #[code address] #[sup: +reference('address')]
       section
         h2 Grouping Content
         p May be used where Flow Content is expected.
         ul
-          li #[code hr] #[small.o-Textbox.c-Label.c-Label--info Nothing Content Model #[sup: +reference('hr-nothing-content-model')]]
+          li #[code hr] #[+tag('Nothing Content Model','hr-nothing-content-model')]
           li #[code div]
         section
           h3 Paragraph-Like Content
           ul
-            li #[code p] #[small.o-Textbox.c-Label.c-Label--info Phrasing Content Model #[sup: +reference('p-phrasing-content-model')]]
-            li #[code figure] #[small.o-Textbox.c-Label.c-Label--info Sectioning Root #[sup: +reference('figure-sectioning-root')]]
+            li #[code p] #[+tag('Phrasing Content Model','p-phrasing-content-model')]
+            li #[code figure] #[+tag('Sectioning Root','figure-sectioning-root')]
             li #[code figcaption]
-            li #[code blockquote] #[small.o-Textbox.c-Label.c-Label--info Sectioning Root #[sup: +reference('blockquote-sectioning-root')]]
-            li #[code pre] #[small.o-Textbox.c-Label.c-Label--info Phrasing Content Model #[sup: +reference('pre-phrasing-content-model')]]
+            li #[code blockquote] #[+tag('Sectioning Root','blockquote-sectioning-root')]
+            li #[code pre] #[+tag('Phrasing Content Model','pre-phrasing-content-model')]
         section
           h3 Lists
           ul
@@ -78,23 +82,23 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
             li #[code table]
             li #[code caption]
             li #[code colgroup]
-            li #[code col] #[small.o-Textbox.c-Label.c-Label--info Nothing Content Model #[sup: +reference('col-nothing-content-model')]]
+            li #[code col] #[+tag('Nothing Content Model','col-nothing-content-model')]
             li #[code tbody]
             li #[code thead]
             li #[code tfoot]
             li #[code tr]
             li #[code th] #[sup: +reference('th')]
-            li #[code td] #[small.o-Textbox.c-Label.c-Label--info Sectioning Root #[sup: +reference('td-sectioning-root')]]
+            li #[code td] #[+tag('Sectioning Root','td-sectioning-root')]
       section
         h2 Text-Level Semantics
         p.
           May be used where Phrasing Content is expected.
           All elements in this section have the Phrasing Content Model unless otherwise specified.
         ul
-          li #[code a] &amp; #[code a[href]] #[small.o-Textbox.c-Label.c-Label--info Transparent Content Model #[sup: +reference('a-transparent-content-model')]]
+          li #[code a] &amp; #[code a[href]] #[+tag('Transparent Content Model','a-transparent-content-model')]
           li #[code span]
-          li #[code br] #[small.o-Textbox.c-Label.c-Label--info Nothing Content Model #[sup: +reference('br-nothing-content-model')]]
-          li #[code wbr] #[small.o-Textbox.c-Label.c-Label--info Nothing Content Model #[sup: +reference('wbr-nothing-content-model')]]
+          li #[code br] #[+tag('Nothing Content Model','br-nothing-content-model')]
+          li #[code wbr] #[+tag('Nothing Content Model','wbr-nothing-content-model')]
         section
           h3 Stressed Text
           ul
@@ -104,12 +108,12 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
             li #[code mark] &mdash; relevance in a certain context
             li #[code u] &mdash; annotations
             li #[code small] &mdash; side comments
-            li #[code s] &mdash; inaccurate text #[small.o-Textbox.c-Label.c-Label--info Transparent Content Model #[sup: +reference('s-transparent-content-model')]]
+            li #[code s] &mdash; inaccurate text #[+tag('Transparent Content Model','s-transparent-content-model')]
         section
           h3 Documentation and Edits
           ul
-            li #[code ins] #[small.o-Textbox.c-Label.c-Label--info Transparent Content Model #[sup: +reference('ins-transparent-content-model')]]
-            li #[code del] #[small.o-Textbox.c-Label.c-Label--info Transparent Content Model #[sup: +reference('del-transparent-content-model')]]
+            li #[code ins] #[+tag('Transparent Content Model','ins-transparent-content-model')]
+            li #[code del] #[+tag('Transparent Content Model','del-transparent-content-model')]
             li #[code dfn]
             li #[code b] &mdash; keyword
             li #[code var]
@@ -129,11 +133,11 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
       section
         h2 Embedded Content
         ul
-          li #[code img] #[small.o-Textbox.c-Label.c-Label--info Nothing Content Model #[sup: +reference('img-nothing-content-model')]]
+          li #[code img] #[+tag('Nothing Content Model','img-nothing-content-model')]
       section
         h2 Forms
         ul
-          li #[code input] #[small.o-Textbox.c-Label.c-Label--info Nothing Content Model #[sup: +reference('input-nothing-content-model')]]
+          li #[code input] #[+tag('Nothing Content Model','input-nothing-content-model')]
       section
         h2 Interactive Content
       footer
