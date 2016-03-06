@@ -9,6 +9,16 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
     meta(name="viewport" content="width=device-width, initial-scale=1")
     link(rel="stylesheet" href="../../styles/chharvey.css")
   body.o-GoldenContainer
+    - var refs = []
+    mixin reference(id)
+      - refs.push(id)
+      a.Rf(id='rf-'+id href='#fn-'+id)= refs.indexOf(id)+1
+    mixin footnote(id)
+      a.Fn(id='fn-'+id href='#rf-'+id)= refs.indexOf(id)+1
+    mixin tag(text, id)
+      small.o-Textbox.c-Label.c-Label--info
+        = text
+        sup: +reference(id)
     main.o-GoldenContainer__Content.c-Document(data-status="draft" itemscope="" itemtype="https://schema.org/Article")
       header
         h1(itemprop="name headline") Notes on HTML Elements
@@ -25,70 +35,71 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
           dt Version History
           dd.update: time(datetime="2015-03-03 15:01") Mar 3, 2015 #[span.tod  3:01 PM]
           dd.update: time(datetime="2015-03-08 14:57") Mar 8, 2015 #[span.tod  2:57 PM]
+          dd.update: time(datetime="2016-02-14 01:15") Feb 14, 2016 #[span.tod  1:15 AM]
           dd.update
-            time(datetime="2016-02-14 01:15" itemprop="dateModified") Feb 14, 2015 #[span.tod  1:15 AM]
+            time(datetime="2016-03-06 15:41" itemprop="dateModified") Mar  6, 2016 #[span.tod  3:42 PM]
             span.o-Textbox.c-Label.c-Label--dang.-ml-1 Latest
       section
         h2 Sections
         p May be used where Flow Content is expected.
         ul
           li #[code html]
-          li #[code body]    #[small.o-Textbox.c-Label.c-Label--info Sectioning Root    #[sup: a.Rf(rel="this" href="#fn-body")#rf-body 1]]
-          li #[code section] #[small.o-Textbox.c-Label.c-Label--info Sectioning Content #[sup: a.Rf(rel="this" href="#fn-section")#rf-section 2]]
-          li #[code article] #[small.o-Textbox.c-Label.c-Label--info Sectioning Content #[sup: a.Rf(rel="this" href="#fn-article")#rf-article 3]]
-          li #[code aside]   #[small.o-Textbox.c-Label.c-Label--info Sectioning Content #[sup: a.Rf(rel="this" href="#fn-aside")#rf-aside 4]]
-          li #[code nav]     #[small.o-Textbox.c-Label.c-Label--info Sectioning Content #[sup: a.Rf(rel="this" href="#fn-nav")#rf-nav 5]]
+          li #[code body]    #[+tag('Sectioning Root','body-sectioning-root')]
+          li #[code section] #[+tag('Sectioning Content','section-sectioning-content')]
+          li #[code article] #[+tag('Sectioning Content','article-sectioning-content')]
+          li #[code aside]   #[+tag('Sectioning Content','aside-sectioning-content')]
+          li #[code nav]     #[+tag('Sectioning Content','nav-sectioning-content')]
           li #[code main]
-          li #[code header]
-          li #[code footer]
-          li #[code h1]&ndash;#[code h6] #[small.o-Textbox.c-Label.c-Label--info Phrasing Content Model #[sup: a.Rf(rel="this" href="#fn-hn")#rf-hn 19]]
-          li #[code address] #[sup: a.Rf(rel="this" href="#fn-address")#rf-address 22]
+          li #[code header] #[sup: +reference('header')]
+          li #[code footer] #[sup: +reference('footer')]
+          li #[code h1]&ndash;#[code h6] #[+tag('Phrasing Content Model','hn-phrasing-content-model')]
+          li #[code address] #[sup: +reference('address')]
       section
         h2 Grouping Content
         p May be used where Flow Content is expected.
         ul
-          li #[code hr] #[small.o-Textbox.c-Label.c-Label--info Empty Content Model #[sup: a.Rf(rel="this" href="#fn-hr")#rf-hr 6]]
+          li #[code hr] #[+tag('Nothing Content Model','hr-nothing-content-model')]
           li #[code div]
         section
           h3 Paragraph-Like Content
           ul
-            li #[code p] #[small.o-Textbox.c-Label.c-Label--info Phrasing Content Model #[sup: a.Rf(rel="this" href="#fn-p")#rf-p 20]]
-            li #[code figure] #[small.o-Textbox.c-Label.c-Label--info Sectioning Root #[sup: a.Rf(rel="this" href="#fn-figure")#rf-figure 7]]
+            li #[code p] #[+tag('Phrasing Content Model','p-phrasing-content-model')]
+            li #[code pre] #[+tag('Phrasing Content Model','pre-phrasing-content-model')]
+            li #[code figure] #[+tag('Sectioning Root','figure-sectioning-root')]
             li #[code figcaption]
-            li #[code blockquote] #[small.o-Textbox.c-Label.c-Label--info Sectioning Root #[sup: a.Rf(rel="this" href="#fn-blockquote")#rf-blockquote 8]]
-            li #[code pre] #[small.o-Textbox.c-Label.c-Label--info Phrasing Content Model #[sup: a.Rf(rel="this" href="#fn-pre")#rf-pre 21]]
+            li #[code blockquote] #[+tag('Sectioning Root','blockquote-sectioning-root')]
         section
           h3 Lists
           ul
             li #[code ol]
             li #[code ul]
-            li #[code li] #[sup: a.Rf(rel="this" href="#fn-li")#rf-li 9]
+            li #[code li] #[sup: +reference('li')]
             li #[code dl]
-            li #[code dt] #[sup: a.Rf(rel="this" href="#fn-dt")#rf-dt 23]
-            li #[code dd] #[sup: a.Rf(rel="this" href="#fn-dd")#rf-dd 10]
+            li #[code dt] #[sup: +reference('dt')]
+            li #[code dd] #[sup: +reference('dd')]
         section
           h3 Tables
           ul
             li #[code table]
             li #[code caption]
             li #[code colgroup]
-            li #[code col] #[small.o-Textbox.c-Label.c-Label--info Empty Content Model #[sup: a.Rf(rel="this" href="#fn-col")#rf-col 11]]
+            li #[code col] #[+tag('Nothing Content Model','col-nothing-content-model')]
             li #[code tbody]
             li #[code thead]
             li #[code tfoot]
             li #[code tr]
-            li #[code th] #[sup: a.Rf(rel="this" href="#fn-th")#rf-th 24]
-            li #[code td] #[small.o-Textbox.c-Label.c-Label--info Sectioning Root #[sup: a.Rf(rel="this" href="#fn-td")#rf-td 12]]
+            li #[code th] #[sup: +reference('th')]
+            li #[code td] #[+tag('Sectioning Root','td-sectioning-root')]
       section
         h2 Text-Level Semantics
         p.
           May be used where Phrasing Content is expected.
           All elements in this section have the Phrasing Content Model unless otherwise specified.
         ul
-          li #[code a] &amp; #[code a[href]] #[small.o-Textbox.c-Label.c-Label--info Transparent Content Model #[sup: a.Rf(rel="this" href="#fn-a")#rf-a 15]]
+          li #[code a] &amp; #[code a[href]] #[+tag('Transparent Content Model','a-transparent-content-model')]
           li #[code span]
-          li #[code br] #[small.o-Textbox.c-Label.c-Label--info Empty Content Model #[sup: a.Rf(rel="this" href="#fn-br")#rf-br 13]]
-          li #[code wbr] #[small.o-Textbox.c-Label.c-Label--info Empty Content Model #[sup: a.Rf(rel="this" href="#fn-wbr")#rf-wbr 14]]
+          li #[code br] #[+tag('Nothing Content Model','br-nothing-content-model')]
+          li #[code wbr] #[+tag('Nothing Content Model','wbr-nothing-content-model')]
         section
           h3 Stressed Text
           ul
@@ -98,14 +109,15 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
             li #[code mark] &mdash; relevance in a certain context
             li #[code u] &mdash; annotations
             li #[code small] &mdash; side comments
-            li #[code s] &mdash; inaccurate text #[small.o-Textbox.c-Label.c-Label--info Transparent Content Model #[sup: a.Rf(rel="this" href="#fn-s")#rf-s 16]]
+            li #[code s] &mdash; inaccurate text #[+tag('Transparent Content Model','s-transparent-content-model')]
         section
           h3 Documentation and Edits
           ul
-            li #[code ins] #[small.o-Textbox.c-Label.c-Label--info Transparent Content Model #[sup: a.Rf(rel="this" href="#fn-ins")#rf-ins 17]]
-            li #[code del] #[small.o-Textbox.c-Label.c-Label--info Transparent Content Model #[sup: a.Rf(rel="this" href="#fn-del")#rf-del 18]]
+            li #[code ins] #[+tag('Transparent Content Model','ins-transparent-content-model')]
+            li #[code del] #[+tag('Transparent Content Model','del-transparent-content-model')]
             li #[code dfn]
             li #[code b] &mdash; keyword
+            li #[code abbr]
             li #[code var]
             li #[code q]
             li #[code cite]
@@ -114,7 +126,6 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
         section
           h3 Machine-Readable Data
           ul
-            li #[code abbr]
             li #[code data]
             li #[code time]
             li #[code code]
@@ -123,63 +134,98 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
       section
         h2 Embedded Content
         ul
-          li #[code img]
+          li #[code img] #[+tag('Nothing Content Model','img-nothing-content-model')]
       section
-        h2 Forms
+        h2 Form Content
+        ul
+          li #[code fieldset] #[+tag('Sectioning Root','fieldset-sectioning-root')]
+          li #[code legend] #[+tag('Phrasing Content Model','legend-phrasing-content-model')]
+          li #[code input] #[+tag('Nothing Content Model','input-nothing-content-model')]
+          li #[code label] #[+tag('Phrasing Content Model','label-phrasing-content-model')] #[sup: +reference('label')]
       section
         h2 Interactive Content
+        ul
+          li #[code details] #[+tag('Sectioning Root','details-sectioning-root')]
+          li #[code summary] #[+tag('Phrasing Content Model','summary-phrasing-content-model')] #[sup: +reference('summary')]
+          li #[code dialog] #[+tag('Sectioning Root','dialog-sectioning-root')]
       footer
         ul.c-ListFootnotes
           li
             sup
-              a.Fn(rel="this" href="#rf-a")#fn-a 15
-              a.Fn(rel="this" href="#rf-s")#fn-s 16
-              a.Fn(rel="this" href="#rf-ins")#fn-ins 17
-              a.Fn(rel="this" href="#rf-del")#fn-del 18
-            | An element with a #[dfn Transparent Content Model] may contain only content types
-            |  matching the Content Model of the said element&rsquo;s parent.
+              +footnote('body-sectioning-root')
+              +footnote('figure-sectioning-root')
+              +footnote('blockquote-sectioning-root')
+              +footnote('td-sectioning-root')
+              +footnote('fieldset-sectioning-root')
+              +footnote('details-sectioning-root')
+              +footnote('dialog-sectioning-root')
+            | #[dfn Sectioning Roots] have their own outlines, but they are encapsulated,
+            |  hidden from the Document Outline (#[abbr.c-Acro#document-outline(title="document outline") DO]).
           li
             sup
-              a.Fn(rel="this" href="#rf-hn")#fn-hn 19
-              a.Fn(rel="this" href="#rf-p")#fn-p 20
-              a.Fn(rel="this" href="#rf-pre")#fn-pre 21
-            | An element with a #[dfn Phrasing Content Model] may contain only phrasing content children.
+              +footnote('section-sectioning-content')
+              +footnote('article-sectioning-content')
+              +footnote('aside-sectioning-content')
+              +footnote('nav-sectioning-content')
+            | Each #[dfn#sectioning-content Sectioning Content] adds a section to the #[span.c-Acro DO].
           li
             sup
-              a.Fn(rel="this" href="#rf-hr")#fn-hr 6
-              a.Fn(rel="this" href="#rf-col")#fn-col 11
-              a.Fn(rel="this" href="#rf-br")#fn-br 13
-              a.Fn(rel="this" href="#rf-wbr")#fn-wbr 14
-            | An element with an #[dfn Empty Content Model] may contain no children.
+              +footnote('hr-nothing-content-model')
+              +footnote('col-nothing-content-model')
+              +footnote('br-nothing-content-model')
+              +footnote('wbr-nothing-content-model')
+              +footnote('img-nothing-content-model')
+              +footnote('input-nothing-content-model')
+            | An element with an #[dfn#nothing-content-model Nothing Content Model] may contain no children. 
+            small.
+              Most elements with a Nothing Content Model are also #[dfn#void-element void elements], which
+              have a start tag but no end tag.
           li
             sup
-              a.Fn(rel="this" href="#rf-section")#fn-section 2
-              a.Fn(rel="this" href="#rf-article")#fn-article 3
-              a.Fn(rel="this" href="#rf-aside")#fn-aside 4
-              a.Fn(rel="this" href="#rf-nav")#fn-nav 5
-            | #[dfn Sectioning Content] adds to the Document Outline (#[abbr.c-Acro(title="document outline") DO]).
+              +footnote('a-transparent-content-model')
+              +footnote('s-transparent-content-model')
+              +footnote('ins-transparent-content-model')
+              +footnote('del-transparent-content-model')
+            | An element with a #[dfn#transparent-content-model Transparent Content Model] may contain only content types
+            |  matching the Content Model of that element&rsquo;s parent.
           li
             sup
-              a.Fn(rel="this" href="#rf-body")#fn-body 1
-              a.Fn(rel="this" href="#rf-figure")#fn-figure 7
-              a.Fn(rel="this" href="#rf-blockquote")#fn-blockquote 8
-              a.Fn(rel="this" href="#rf-td")#fn-td 12
-            | #[dfn Sectioning Roots] have outlines, but they are encapsulated,
-            |  hidden from the #[abbr.c-Acro(title="document outline") DO].
+              +footnote('hn-phrasing-content-model')
+              +footnote('p-phrasing-content-model')
+              +footnote('pre-phrasing-content-model')
+              +footnote('legend-phrasing-content-model')
+              +footnote('summary-phrasing-content-model')
+            | An element with a #[dfn#phrasing-content-model Phrasing Content Model] may contain only Phrasing Content children. 
+            small All text-level elements have the Phrasing Content Model unless otherwise specified.
           li
             sup
-              a.Fn(rel="this" href="#rf-li")#fn-li 9
-              a.Fn(rel="this" href="#rf-dd")#fn-dd 10
+              +footnote('header')
+              +footnote('footer')
+            | The #[code header] and #[code footer] elements may not contain any
+            |  #[code header] or #[code footer] descendants.
+          li
+            sup
+              +footnote('li')
+              +footnote('dd')
             | The #[code li] and #[code dd] Elements seem like they should be Sectioning Roots
             |  but they are not! Do not contain sectioning content inside these Elements
             |  unless you want to change the #[abbr.c-Acro(title="document outline") DO]!
           li
             sup
-              a.Fn(rel="this" href="#rf-address")#fn-address 22
-              a.Fn(rel="this" href="#rf-dt")#fn-dt 23
-              a.Fn(rel="this" href="#rf-th")#fn-th 24
-            | The #[code address], #[code dt], and #[code th] elements may contain flow content except
-            |  sectioning content, heading content, headers, and footers.
+              +footnote('address')
+              +footnote('dt')
+              +footnote('th')
+            | The #[code address], #[code dt], and #[code th] elements may contain any Flow Content except
+            |  Sectioning Content, Heading Content, #[code header]s, and #[code footer]s.
+          li
+            sup
+              +footnote('label')
+            | The #[code label] element may contain any Flow Content except
+            |  descendant #[code label] elements.
+          li
+            sup
+              +footnote('summary')
+            | The #[code summary] element may contain either Phrasing Content, or exactly 1 Heading Element (#[code h1]&ndash;#[code h6])
     script(src="../bower_components/jquery/dist/jquery.js")
     script(src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML,https://chharvey.github.io/chhlib/mathjax-localconfig.js")
     script(src="../core/scripts/global.js")
