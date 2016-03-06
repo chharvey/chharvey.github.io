@@ -135,11 +135,18 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
         ul
           li #[code img] #[+tag('Nothing Content Model','img-nothing-content-model')]
       section
-        h2 Forms
+        h2 Form Content
         ul
+          li #[code fieldset] #[+tag('Sectioning Root','fieldset-sectioning-root')]
+          li #[code legend] #[+tag('Phrasing Content Model','legend-phrasing-content-model')]
           li #[code input] #[+tag('Nothing Content Model','input-nothing-content-model')]
+          li #[code label] #[+tag('Phrasing Content Model','label-phrasing-content-model')] #[sup: +reference('label')]
       section
         h2 Interactive Content
+        ul
+          li #[code details] #[+tag('Sectioning Root','details-sectioning-root')]
+          li #[code summary] #[+tag('Phrasing Content Model','summary-phrasing-content-model')] #[sup: +reference('summary')]
+          li #[code dialog] #[+tag('Sectioning Root','dialog-sectioning-root')]
       footer
         ul.c-ListFootnotes
           li
@@ -148,6 +155,9 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
               +footnote('figure-sectioning-root')
               +footnote('blockquote-sectioning-root')
               +footnote('td-sectioning-root')
+              +footnote('fieldset-sectioning-root')
+              +footnote('details-sectioning-root')
+              +footnote('dialog-sectioning-root')
             | #[dfn Sectioning Roots] have their own outlines, but they are encapsulated,
             |  hidden from the Document Outline (#[abbr.c-Acro#document-outline(title="document outline") DO]).
           li
@@ -182,6 +192,8 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
               +footnote('hn-phrasing-content-model')
               +footnote('p-phrasing-content-model')
               +footnote('pre-phrasing-content-model')
+              +footnote('legend-phrasing-content-model')
+              +footnote('summary-phrasing-content-model')
             | An element with a #[dfn#phrasing-content-model Phrasing Content Model] may contain only Phrasing Content children. 
             small All text-level elements have the Phrasing Content Model unless otherwise specified.
           li
@@ -196,8 +208,17 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
               +footnote('address')
               +footnote('dt')
               +footnote('th')
-            | The #[code address], #[code dt], and #[code th] elements may contain Flow Content except
+            | The #[code address], #[code dt], and #[code th] elements may contain any Flow Content except
             |  Sectioning Content, Heading Content, #[code header]s, and #[code footer]s.
+          li
+            sup
+              +footnote('label')
+            | The #[code label] element may contain any Flow Content except
+            |  descendant #[code label] elements.
+          li
+            sup
+              +footnote('summary')
+            | The #[code summary] element may contain either Phrasing Content, or exactly 1 Heading Element (#[code h1]&ndash;#[code h6])
     script(src="../bower_components/jquery/dist/jquery.js")
     script(src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML,https://chharvey.github.io/chhlib/mathjax-localconfig.js")
     script(src="../core/scripts/global.js")
