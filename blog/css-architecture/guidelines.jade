@@ -1,0 +1,48 @@
+doctype html
+html(lang="en")
+  head
+  body
+    p(style="position:fixed;font-weight:bold;font-size:1.5rem;color:red;") WARNING: THIS DRAFT IS INCOMPLETE AND POSSIBLY EVEN INCORRECT. DO NOT CITE OR REFERENCE IT. IT WILL BE MERGED INTO ANOTHER DOCUMENT AND RELEASED AT A LATER TIME.
+    main
+      header
+        h1 Generic Principles of CSS Architecture
+      section
+        h1 Designers need a prototype; developers need a styleguide.
+        p.
+          A prototype is not a styleguide. A prototype is a #[q #[i(lang="la") lorum ipsum]] sample
+          site, which is great for other developers and stakeholders to get a feel for the site,
+          but not all we as developers need. We need a styleguide to isolate each component and
+          narrow down our requirements. A styleguide also helps group similar components together so
+          we can strip down the #[i similar but not identical] elements. A styleguide is like a
+          #[i kitchen sink]. It looks nothing like a sample page but it has everything the sample
+          page needs.
+        section
+          h1 Further Readings
+          ul
+            li #[a(href="http://www.smashingmagazine.com/2008/05/improving-code-readability-with-css-styleguides/") Improving code readability with CSS styleguides.] (Smashing Magazine)
+            li #[a(href="https://css-tricks.com/css-style-guides/") CSS style guides.] (CSS-Tricks)
+        section
+          h1 Sample Styleguides
+          ul
+            li #[a(href="http://hugeinc.github.io/styleguide/") Huge, Inc.]
+            li #[a(href="http://getbootstrap.com/css/") Bootstrap]
+      section
+        h1 Stylesheet order really does matter.
+        p.
+          While it may sometimes seem logical to write your CSS to match the DOM, it actually
+          hinders long-term development. Your stylesheet should be an #[a(href="") inverted triangle],
+          starting with very generic and far-reaching selectors, moving to very explicit, localized
+          selectors, and finally ending with trumps and hacks. This makes development much more
+          maintainable in the long run for many reasons:
+        ol
+          li.
+            Specificity is kept as low as possible and is much easier to override later on.
+            Throughout the stylesheet, specificity increases, never (hardly ever) decreases.
+          li.
+            You are grouping similar components together, not components that just so happen to
+            live next to each other in the DOM.
+          li.
+            Any future additions to the CSS has a predictable place, and future removals are easier to find.
+        p.
+            Why does this matter? Reusability. You can reuse a #[code .main-link] anytime you want.
+            You can&rsquo;t necessarily put a #[code header &gt; nav#menu ul li a] anywhere on the page.

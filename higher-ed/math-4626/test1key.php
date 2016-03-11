@@ -2,12 +2,13 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>Limits Test Answers</title>
+    meta(name="viewport" content="width=device-width, initial-scale=1")
 <link rel="stylesheet" href="images/limstyles.css"/>
 </head>
 
 <body>
 <h1>Limits Test Answers</h1>
-<h6 style="text-align: center;"><a href="intro.html">Site Map</a></h6>
+<h6 class="-ta-c"><a href="intro.html">Site Map</a></h6>
 <?php
 $yourscore = 0;
 $totalscore=0;

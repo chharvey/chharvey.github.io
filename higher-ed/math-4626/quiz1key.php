@@ -2,11 +2,12 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>Limit Definitions Quiz Answers</title>
+    meta(name="viewport" content="width=device-width, initial-scale=1")
 <link rel="stylesheet" href="images/limstyles.css"/>
 </head>
 <body>
 <h1>Limit Definitions Quiz Answers</h1>
-<h6 style="text-align: center;"><a href="intro.html">Site Map</a></h6>
+<h6 class="-ta-c"><a href="intro.html">Site Map</a></h6>
 <?php
 $yourscore = 0;
 $totalscore = 0;
@@ -271,13 +272,13 @@ echo'
                 }
           }
       }
-echo'        
+echo'
     </li>';
 
 
 $a4 = $_POST['num4'];
 
-echo'    
+echo'
     <li>True or False:<br>
         A limit that does not exist is an infinite limit.<br>';
         if($a4==Tru)
@@ -296,7 +297,7 @@ echo'
             echo'You did not choose an answer. (incorrect)';
             $totalscore++;
         }
-echo'        
+echo'
     </li>
 </ol>';
 
@@ -317,7 +318,7 @@ else
 echo'</h3>';
 ?>
 
-<h2 style="text-align: center;"><a href="intro.html">Site Map</a></h2>
+<h2 class="-ta-c"><a href="intro.html">Site Map</a></h2>
 
 </body>
 </html>
