@@ -3,24 +3,40 @@ extends layout.tpl.jade
 block append vars
   - titles.push('Objects')
 
+block append main__header
+  p.o-Box.c-Alert.c-Alert--help.
+    #[strong.c-Alert__Title Note:]
+    Backgrounds have been added to all Objects on this page to show structure.
+  nav#table-contents
+    h2 Table of Contents
+    ol
+      li: a(href="#box-object") The Box Object
+      li: a(href="#textbox-object") The Textbox Object
+      li: a(href="#bare-list") The Bare List
+      li: a(href="#inline-list") The Inline List
+      li: a(href="#flex-container-object") The Flex Container Object
+      li
+        a(href="#golden-container") The Golden Container
+        ol
+          li: a(href="#flipped-golden-container") The Flipped Golden Container
+
 block append main
-  section#o-Box
-    h2 The #[code .o-Box] Object
-    p.o-Box.c-Alert.c-Alert--help.
-      #[strong.c-Alert__Title Note:]
-      On all types of boxes in this section,
-      backgrounds have been added to show structure.
+  section#box-object
+    h2 The Box Object
+    p.
+      Use the Box object for stand-alone, highlighted blocks or models.
+      They are useful for things like alerts or pop-ups.
     figure
       ul.o-ListBare
-        li.o-Box             Box
-        li.o-Box.o-Box--micr Microbox
-        li.o-Box.o-Box--mill Millibox
-        li.o-Box.o-Box--norm Normal-sized Box (same as Box)
-        li.o-Box.o-Box--kilo Kilobox
-        li.o-Box.o-Box--mega Megabox
-        li.o-Box.o-Box--giga Gigabox
-        li.o-Box.o-Box--tera Terabox
-        li.o-Box.o-Box--peta Petabox
+        li.a-bc-shadelight.o-Box             Box
+        li.a-bc-shadelight.o-Box.o-Box--micr Microbox
+        li.a-bc-shadelight.o-Box.o-Box--mill Millibox
+        li.a-bc-shadelight.o-Box.o-Box--norm Normal-sized Box (same as Box)
+        li.a-bc-shadelight.o-Box.o-Box--kilo Kilobox
+        li.a-bc-shadelight.o-Box.o-Box--mega Megabox
+        li.a-bc-shadelight.o-Box.o-Box--giga Gigabox
+        li.a-bc-shadelight.o-Box.o-Box--tera Terabox
+        li.a-bc-shadelight.o-Box.o-Box--peta Petabox
       pre.
         &lt;div class="#[u o-Box]"&gt;Box&lt;/div&gt;
         &lt;div class="#[u o-Box]  #[u o-Box--micr]"&gt;Microbox&lt;/div&gt;
@@ -41,14 +57,65 @@ block append main
         li.h-demo.h-p-giga .h-p-giga
         li.h-demo.h-p-tera .h-p-tera
         li.h-demo.h-p-peta .h-p-peta
-  section#o-FlexContainer
-    h2 The #[code .o-FlexContainer] Object
+  section#textbox-object
+    h2 The Textbox Object
+    p.
+      The Textbox Object is similar to the Box object except that it is used for inline text only,
+      such as labels or badges.
+      It is usually instantiated by a #[code small] element, but that depends on context.
+    figure
+      p
+        | The following is a Textbox: 
+        span.a-bc-shadelight.o-Textbox here I am!
+        |  Textboxes are inline text only.
+      h3 Example h3 #[small.a-bc-shadelight.o-Textbox Textbox]
+      pre.
+        &lt;p&gt;... Textbox: &lt;small class="#[u o-Textbox]"&gt;here I am!&lt;/small&gt; ... &lt;/p&gt;
+        &lt;h3&gt;Example h3 &lt;small class="#[u o-Textbox]"&gt;Textbox&lt;/small&gt;&lt;/h3&gt;
+  section#bare-list
+    h2 The Bare List
+    p.
+      Use the Bare List object to remove the usual padding and list item markers accompanied by
+      (un)ordered lists. The result is a list of items, each on its own line.
+      Combine this class with other classes to create a variety of styles.
+    figure
+      ul.o-ListBare
+        li.a-bc-shadelight Burns &amp; McDonnell Engineering
+        li.a-bc-shadelight DIS-TRAN Steel, LLC
+        li.a-bc-shadelight EDM International
+        li.a-bc-shadelight Electrical Consultants, Inc.
+        li.a-bc-shadelight Fabrimet Inc.
+        li.a-bc-shadelight Falcon Steel Company
+      pre.
+        &lt;ul class="#[u o-ListBare]"&gt;
+          &lt;li&gt;Burns &amp; McDonnell Engineering&lt;/li&gt;
+          &lt;li&gt;DIS-TRAN Steel, LLC&lt;/li&gt;
+          ...
+        &lt;/ul&gt;
+  section#inline-list
+    h2 The Inline List
+    p.o-Box.c-Alert.c-Alert--help.
+      #[strong.c-Alert__Title Note:]
+      On all lists below, outlines have been added to each line item to show structure.
+    p.
+      Inline list Objects are semantically no different from normal Lists.
+      Stylistically, though, they are displayed inline and have inline line items. Essentially,
+      they can be used for listing words, spans, labels, badges, and other inline content.
+      Wrap this Object in a block if necessary.
+    p Every item in the list should be a #[code .o-ListInline__Item] Object.
+    figure
+      ol.o-ListInline
+        li.o-ListInline__Item.h-demo .o-ListInline &gt; .o-ListInline__Item
+        li.o-ListInline__Item.h-demo .o-ListInline &gt; .o-ListInline__Item
+        li.o-ListInline__Item.h-demo .o-ListInline &gt; .o-ListInline__Item
+  section#flex-container
+    h2 The Flex Container
     .o-FlexContainer
       p.
         You are reading inside a FlexContainer right now.
         See my article #[a(href="../blog/layout.html") The FlexContainer Object].
-  section#o-GoldenContainer
-    h2 The #[code .o-GoldenContainer] Object
+  section#golden-container
+    h2 The Golden Container
     p.
       See my article #[a(href="../blog/griddemo.html") griddemo.html] for docs on
       the GoldenContainer object.
@@ -107,103 +174,63 @@ block append main
             This is a .o- GoldenContainer __Content __SideMinor.
             Even though it is a child of __Content, it appears like material
             in a __Sidebar--minor.
-  section#o-GoldenContainerFlip
-    h2 The #[code .o-GoldenContainerFlip] Object
-    p The following is a #[code .o-GoldenContainerFlip] Object, containing 3 children:
-    ul
-      li a #[code .o-GoldenContainerFlip__Content] Object
-      li a #[code .o-GoldenContainerFlip__Sidebar.o-GoldenContainerFlip__Sidebar--major] Object
-      li a #[code .o-GoldenContainerFlip__Sidebar.o-GoldenContainerFlip__Sidebar--minor] Object
-    figure
-      .o-GoldenContainerFlip.h-demo(style="margin-bottom:18rem;")
-        .o-GoldenContainerFlip__Content.h-demo.
-          #[h1.normh1 Content]
-          Suspendisse ut auctor enim.
-          Aliquam viverra enim vitae ante aliquet venenatis.
-          Sed vel nibh sit amet sapien fermentum mattis nec non arcu.
-          Praesent dapibus velit quis lectus tempus, ut ullamcorper nibh facilisis.
-          Aenean tincidunt ante risus, semper malesuada libero consectetur id.
-          Praesent vel ligula ut enim porttitor porta. Aenean eu ullamcorper mi.
-          Integer blandit est quam, eget mattis urna scelerisque quis.
-          Maecenas sapien sapien, ornare nec lobortis eget, tincidunt sed ligula.
-          Maecenas risus nibh, volutpat sed euismod non, semper eget neque.
-          Integer varius egestas risus, volutpat sagittis turpis convallis eget.
-          Vivamus pulvinar ligula eget mi tincidunt, eget faucibus justo laoreet.
-          In sapien lacus, egestas faucibus laoreet eu, tempor sit amet lorem.
-          Sed luctus congue tortor a scelerisque.
-        .o-GoldenContainerFlip__Sidebar.o-GoldenContainerFlip__Sidebar--major.h-demo(style="color: #1560AB;").
-          #[h1.normh1 Major Sidebar]
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          Aliquam sagittis suscipit nunc, a cursus libero euismod at.
-          Nulla placerat neque massa, quis interdum leo efficitur vel.
-          Donec feugiat varius arcu non volutpat.
-          Mauris eget mauris ut mauris auctor mattis id vel justo.
-          Nulla dictum arcu nec suscipit mollis.
-          Maecenas a iaculis nisl, ut pretium est. Nulla facilisi.
-        .o-GoldenContainerFlip__Sidebar.o-GoldenContainerFlip__Sidebar--minor.h-demo(style="color: #902929;").
-          #[h1.normh1 Minor Sidebar]
-          Donec finibus ut lectus finibus pellentesque.
-          Nulla euismod feugiat nulla nec posuere.
-          Sed ac est id sem sagittis rhoncus eu ac neque.
-          Aliquam eu metus sagittis, porta turpis id, scelerisque magna.
-      .o-GoldenContainerFlip.h-demo(style="margin-bottom:18rem;")
-        .o-GoldenContainerFlip__Content.h-demo
-          h1.normh1 Content
-          p.
-            Sometimes you may have objects #[em inside] the Content that you wish to make
-            appear as a sidebar or as if it weren&rsquo;t in the Content.
-          .o-GoldenContainerFlip__Content__Page.
-            This is a .o- GoldenContainerFlip __Content __Page.
-            Even though it is a child of __Content, it appears like material
-            elsewhere on the page (not in __Content).
-          .o-GoldenContainerFlip__Content__SideMajor.
-            This is a .o- GoldenContainerFlip __Content __SideMajor.
-            Even though it is a child of __Content, it appears like material
-            in a __Sidebar--major.
-          .o-GoldenContainerFlip__Content__SideMinor.
-            This is a .o- GoldenContainerFlip __Content __SideMinor.
-            Even though it is a child of __Content, it appears like material
-            in a __Sidebar--minor.
-  section#o-Textbox
-    h2 The #[code .o-Textbox] Object
-    p.
-      The following is an #[code .o-Textbox]:
-      #[span.o-Textbox.h-demo here I am!]
-      Textboxes are inline text only.
-    figure
-      h3 Example h3 #[small.o-Textbox.h-demo .o-Textbox]
-  section#o-ListBare
-    h2 The #[code .o-ListBare] Object
-    p.o-Box.c-Alert.c-Alert--help.
-      #[strong.c-Alert__Title Note:]
-      On all lists below, outlines have been added to each line item to show structure.
-    p.
-      Bare list Objects are semantically no different from normal Lists,
-      except that they are displayed without any padding or list styles.
-      Use this Object for any list of non-textual elements, for example,
-      a list of links in a navigation menu.
-    p Every item in the list should be a #[code .o-ListBare__Item] Object.
-    figure
-      ul.o-ListBare
-        li.o-ListBare__Item.h-demo .o-ListBare &gt; .o-ListBare__Item
-        li.o-ListBare__Item.h-demo .o-ListBare &gt; .o-ListBare__Item
-        li.o-ListBare__Item.h-demo .o-ListBare &gt; .o-ListBare__Item
-  section#o-ListInline
-    h2 The #[code .o-ListInline] Object
-    p.o-Box.c-Alert.c-Alert--help.
-      #[strong.c-Alert__Title Note:]
-      On all lists below, outlines have been added to each line item to show structure.
-    p.
-      Inline list Objects are semantically no different from normal Lists.
-      Stylistically, though, they are displayed inline and have inline line items. Essentially,
-      they can be used for listing words, spans, labels, badges, and other inline content.
-      Wrap this Object in a block if necessary.
-    p Every item in the list should be a #[code .o-ListInline__Item] Object.
-    figure
-      ol.o-ListInline
-        li.o-ListInline__Item.h-demo .o-ListInline &gt; .o-ListInline__Item
-        li.o-ListInline__Item.h-demo .o-ListInline &gt; .o-ListInline__Item
-        li.o-ListInline__Item.h-demo .o-ListInline &gt; .o-ListInline__Item
+    section#flipped-golden-container
+      h3 The Flipped Golden Container
+      p The following is a #[code .o-GoldenContainerFlip] Object, containing 3 children:
+      ul
+        li a #[code .o-GoldenContainerFlip__Content] Object
+        li a #[code .o-GoldenContainerFlip__Sidebar.o-GoldenContainerFlip__Sidebar--major] Object
+        li a #[code .o-GoldenContainerFlip__Sidebar.o-GoldenContainerFlip__Sidebar--minor] Object
+      figure
+        .o-GoldenContainerFlip.h-demo(style="margin-bottom:18rem;")
+          .o-GoldenContainerFlip__Content.h-demo.
+            #[h1.normh1 Content]
+            Suspendisse ut auctor enim.
+            Aliquam viverra enim vitae ante aliquet venenatis.
+            Sed vel nibh sit amet sapien fermentum mattis nec non arcu.
+            Praesent dapibus velit quis lectus tempus, ut ullamcorper nibh facilisis.
+            Aenean tincidunt ante risus, semper malesuada libero consectetur id.
+            Praesent vel ligula ut enim porttitor porta. Aenean eu ullamcorper mi.
+            Integer blandit est quam, eget mattis urna scelerisque quis.
+            Maecenas sapien sapien, ornare nec lobortis eget, tincidunt sed ligula.
+            Maecenas risus nibh, volutpat sed euismod non, semper eget neque.
+            Integer varius egestas risus, volutpat sagittis turpis convallis eget.
+            Vivamus pulvinar ligula eget mi tincidunt, eget faucibus justo laoreet.
+            In sapien lacus, egestas faucibus laoreet eu, tempor sit amet lorem.
+            Sed luctus congue tortor a scelerisque.
+          .o-GoldenContainerFlip__Sidebar.o-GoldenContainerFlip__Sidebar--major.h-demo(style="color: #1560AB;").
+            #[h1.normh1 Major Sidebar]
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Aliquam sagittis suscipit nunc, a cursus libero euismod at.
+            Nulla placerat neque massa, quis interdum leo efficitur vel.
+            Donec feugiat varius arcu non volutpat.
+            Mauris eget mauris ut mauris auctor mattis id vel justo.
+            Nulla dictum arcu nec suscipit mollis.
+            Maecenas a iaculis nisl, ut pretium est. Nulla facilisi.
+          .o-GoldenContainerFlip__Sidebar.o-GoldenContainerFlip__Sidebar--minor.h-demo(style="color: #902929;").
+            #[h1.normh1 Minor Sidebar]
+            Donec finibus ut lectus finibus pellentesque.
+            Nulla euismod feugiat nulla nec posuere.
+            Sed ac est id sem sagittis rhoncus eu ac neque.
+            Aliquam eu metus sagittis, porta turpis id, scelerisque magna.
+        .o-GoldenContainerFlip.h-demo(style="margin-bottom:18rem;")
+          .o-GoldenContainerFlip__Content.h-demo
+            h1.normh1 Content
+            p.
+              Sometimes you may have objects #[em inside] the Content that you wish to make
+              appear as a sidebar or as if it weren&rsquo;t in the Content.
+            .o-GoldenContainerFlip__Content__Page.
+              This is a .o- GoldenContainerFlip __Content __Page.
+              Even though it is a child of __Content, it appears like material
+              elsewhere on the page (not in __Content).
+            .o-GoldenContainerFlip__Content__SideMajor.
+              This is a .o- GoldenContainerFlip __Content __SideMajor.
+              Even though it is a child of __Content, it appears like material
+              in a __Sidebar--major.
+            .o-GoldenContainerFlip__Content__SideMinor.
+              This is a .o- GoldenContainerFlip __Content __SideMinor.
+              Even though it is a child of __Content, it appears like material
+              in a __Sidebar--minor.
   section#h-After
     h2 The #[code .h-After#[span.-va-st &lowast;]] Helpers
     p.
