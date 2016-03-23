@@ -3,78 +3,133 @@ extends layout.tpl.jade
 block append vars
   - titles.push('Typographical Components')
 
-block append main
+block append main__header
   p These are components of a typographical, static nature.
-  section#c-Subhead
-    h2 The #[code .c-Subhead] Component
+  nav#table-contents
+    h2 Table of Contents
+    ol
+      li: a(href="#table-contents") Table of Contents
+      li: a(href="#subhead-component") The Subhead Component
+      li: a(href="#folio-title-component") The Folio Title Component
+      li: a(href="#lede-drop-cap-components") The Lede and Drop Cap Components
+      li: a(href="#caption-component") The Caption Component
+      li: a(href="#pull-quote-component") The Pull Quote Component
+      li: a(href="#action-list-component") The Action List Component
+      li: a(href="#footnotes-list-component") The Footnotes List Component
+      li: a(href="#components-for-tables") Components for Tables
+      li
+        a(href="#document-component") The Document Component
+        ol: li: a(href="#document-meta") Document Meta
+      li
+        a(href="#text-level-components") Text-Level Components
+        ol
+          li: a(href="#acronyms") Acronyms
+          li: a(href="#camo-links") Camo Links
+      li: a(href="#breadcrumbs") Breadcrumbs
+
+block append main
+  section#subhead-component
+    h2 The Subhead Component
     p.
       Put a #[code .c-Subhead] sibling adjacent to a heading to create
       a subheading for a page. This can be thought of as a
       #[i tagline] or #[i subtitle] for the top-level heading.
     figure
-      h1 This is a Page Title
-      p.c-Subhead This is a subtitle.
-  section#c-FolioTitle
-    h2 The #[code .c-FolioTitle] Component
+      h1: span.-fw-9(style="font-size: 1.5em;") Work&nbsp;Hard
+      p.c-Subhead there are no shortcuts
+      pre.
+        &lt;h1&gt;Work Hard&lt;/h1&gt;
+        &lt;p class="#[u c-Subhead]"&gt;there are no shortcuts&lt;/p&gt;
+  section#folio-title-component
+    h2 The Folio Title Component
     p.
       On special pages, the top-level header may be a #[code .c-FolioTitle]. To add a little spice,
       use #[code .c-FolioTitle__Cap] on capital letters. The size will make them stand out.
     figure
-      h1.c-FolioTitle #[span.c-FolioTitle__Cap T]his is a #[span.c-FolioTitle__Cap s]pecial page title.
-  section#c-Lede
-    h2 The #[code .c-Lede] Component
+      h1.c-FolioTitle Detox&nbsp;your&nbsp;Body
+      h1.c-FolioTitle #[span.c-FolioTitle__Cap D]etox&nbsp;your&nbsp;#[span.c-FolioTitle__Cap B]ody
+      pre.
+        &lt;h1 class="#[u c-FolioTitle]"&gt;Detox your Body&lt;/h1&gt;
+        &lt;h1 class="#[u c-FolioTitle]"&gt;
+          &lt;span class="#[u c-FolioTitle__Cap]"&gt;D&lt;/span&gt;etox
+          your
+          &lt;span class="#[u c-FolioTitle__Cap]"&gt;B&lt;/span&gt;ody
+        &lt;/h1&gt;
+  section#lede-drop-cap-components
+    h2 The Lede and Drop&nbsp;Cap Components
     figure
       p.c-Lede.
-        A #[code .c-Lede] represents a #[i lede] paragraph (also
-        referred to as a #[i standfirst] in the #[abbr.c-Acro(title="United Kingdom") UK]).
-        The rest of the paragraph is text.
-        The rest of the paragraph is text.
-        The rest of the paragraph is text.
-        The rest of the paragraph is text.
-        The rest of the paragraph is text.
+        A #[i lede] paragraph (also referred to as a #[i standfirst] in the
+        #[abbr.c-Acro(title="United Kingdom") UK]) serves as the introduction
+        of an article or blog post. Use #[code .c-Lede] to achieve this style.
+        It stands out from the article text in many ways. First, it uses a sans-serif
+        typeface, as opposed to the normal serif typeface of the article. Second, it
+        uses the main heading color. Lastly, it may use an optional dropcap.
       p.c-Lede.c-Lede--dropcap.
         Dropped capitals (#[i drop caps]) can be used for pure aesthetics
-        in the first (and usually, only) lede paragraph. This is a #[code .c-Lede.c-Lede--dropcap].
-        Notice how the drop cap font complements the lede paragraph font.
-        The rest of the paragraph is text.
-        The rest of the paragraph is text.
-        The rest of the paragraph is text.
-        The rest of the paragraph is text.
-        The rest of the paragraph is text.
+        in the lede paragraph. Add subclass #[code .c-Lede--dropcap] to the entire paragraph;
+        it automatically styles the #[code ::first-letter].
+        Notice how the drop cap typeface complements the lede paragraph typeface.
       p.
         #[span.c-Dropcap You can also]
         manually use #[code .c-Dropcap] on
         the first few characters of an element to provide the drop cap effect.
         It need not be related to the Lede Component.
-        The rest of the paragraph is text.
-        The rest of the paragraph is text.
-        The rest of the paragraph is text.
-        The rest of the paragraph is text.
-        The rest of the paragraph is text.
-  section#c-Caption
-    h2 The #[code .c-Caption] Component
+      pre.
+        &lt;p class="#[u c-Lede]"&gt;A lede paragraph ...&lt;/p&gt;
+        &lt;p class="#[u c-Lede]  #[u c-Lede--dropcap]"&gt;Dropped capitals ...&lt;/p&gt;
+        &lt;p&gt;&lt;span class="#[u c-Dropcap]"&gt;You can also&lt;/span&gt; manually ...&lt;/p&gt;
+  section#caption-component
+    h2 The Caption Component
+    p.
+      The Caption Component may be used on a table caption, a figure caption,
+      a details summary element, a fieldset legend element,
+      or simply just a paragraph describing an arbitrary element.
+    p.
+      Subclasses #[code .c-Caption--before] and #[code .c-Caption--after] add a separating border.
+      They&rsquo;re really only good for when the figure contains text (as opposed to a table or image)
+      and the caption text needs to be separated.
+      The subcomponent #[code .c-Caption__Title] serves as a label.
     figure
-      p.c-Caption.
-        This is a #[code .c-Caption]. It may be a table caption, a figure caption,
-        or simply just a paragraph following an arbitrary element.
+      figure
+        img(style="display: block; width: 50%; min-height: 48px; margin: auto;" src="" alt="wedding invitation — concord")
+        figcaption.c-Caption
+          strong.c-Caption__Title Figure 1.
+          | Lots of folks play it safe with their wedding invitations by using the principle of concord.
+      pre.
+        &lt;figure&gt;
+          &lt;img alt="wedding invitation — concord"/&gt;
+          &lt;figcaption class="#[u c-Caption]"&gt;
+            &lt;strong class="#[u c-Caption__Title]"&gt;Figure 1.&lt;/strong&gt;
+            Lots of folks ...
+          &lt;/figcaption&gt;
+        &lt;/figure&gt;
       figure
         figcaption.c-Caption.c-Caption--before
-          strong.c-Caption__Title Figure 1.
-          | Use #[code .c-Caption.c-Caption--before] for a caption that precedes an element.
-        | Use #[code .c-Caption__Title] for the title of the figure or table.
-        |  The rest of the figure text.
-        |  The rest of the figure text.
-        |  The rest of the figure text.
-        |  The rest of the figure text.
-      figure
-        | Use #[code .c-Caption__Title] for the title of the figure or table.
-        |  The rest of the figure text.
-        |  The rest of the figure text.
-        |  The rest of the figure text.
-        |  The rest of the figure text.
-        figcaption.c-Caption.c-Caption--after
           strong.c-Caption__Title Figure 2.
-          | Use #[code .c-Caption.c-Caption--after] for a caption that follows an element.
+          | The image below shows how similar (but not the same) elements create conflict.
+        img(style="display: block; width: 50%; min-height: 48px; margin: auto;" src="" alt="wedding invitation — conflict")
+      pre.
+        &lt;figure&gt;
+          &lt;figcaption class="#[u c-Caption]  #[u c-Caption--before]"&gt;
+            &lt;strong class="c-Caption__Title"&gt;Figure 2.&lt;/strong&gt;
+            The image below ...
+          &lt;/figcaption&gt;
+          &lt;img alt="wedding invitation — conflict"/&gt;
+        &lt;/figure&gt;
+      figure
+        img(style="display: block; width: 50%; min-height: 48px; margin: auto;" src="" alt="wedding invitation — contrast")
+        figcaption.c-Caption.c-Caption--after
+          strong.c-Caption__Title Figure 3.
+          | This invitation uses very different elements to create a healthy contrast.
+      pre.
+        &lt;figure&gt;
+          &lt;img alt="wedding invitation — contrast"/&gt;
+          &lt;figcaption class="#[u c-Caption]  #[u c-Caption--after]"&gt;
+            &lt;strong class="c-Caption__Title"&gt;Figure 3.&lt;/strong&gt;
+            This invitation ...
+          &lt;/figcaption&gt;
+        &lt;/figure&gt;
   section.c-Document__Draft.a-bc-aperturewhite
     h2 crossgrid-lined
     p.o-Box.c-Alert.c-Alert--cshn.
@@ -93,56 +148,79 @@ block append main
         This is the rest of the text.
         This is the rest of the text.
         This is the rest of the text.
-  section#c-Pullquote
-    h2 The #[code .c-Pullquote] Component
+  section#pull-quote-component
+    h2 The Pull&nbsp;Quote Component
     p.
-      A #[code .c-Pullquote] tends to have a stronger effect than generic #[code blockquote] elements.
-      Use it when the original source is less than 40 words and contains no paragraph breaks.
-      Do not include child #[code p] Elements. To cite the source, add a child
-      #[code .c-Pullquote__Src] Component.
+      A pull quote has a stronger effect than unstyled text, even if it does belong
+      in a #[code blockquote] element.
+      To cite the source, add a child #[code .c-Pullquote__Src] Component.
+    p.
+      Use this Component when the original source text is less than 40 words and contains
+      no paragraph breaks. Do not include child #[code p] elements.
+      If the original source is long enough and/or has paragraph breaks, you shouldn&rsquo;t be
+      using this large component.
     figure
       blockquote.c-Pullquote(cite="http://www.imdb.com/title/tt1648163/quotes").
         Look at you, soaring through the air like an eagle&hellip; piloting a blimp.
         #[cite.c-Pullquote__Src: abbr(title="Genetic Lifeform and Disk Operating System") GLaDOS]
-  section#c-ListAction
-    h2 The #[code .c-ListAction] Component
-    p.
-      The following is a #[code .c-ListAction]. Action lists are used
-      specifically for short, one-line, textual hyperlinks.
+      pre.
+        &lt;blockquote class="#[u c-Pullquote]" cite="..."&gt;
+          Look at you, soaring through the air ...
+          &lt;cite class="#[u c-Pullquote__Src]"&gt;GLaDOS&lt;/cite&gt;
+        &lt;/blockquote&gt;
+  section#action-list-component
+    h2 The Action&nbsp;List Component
+    p Action lists are used specifically for short, one-line, textual hyperlinks.
     figure
       ul.c-ListAction
-        li.c-ListAction__Item                             .c-ListAction &gt; .c-ListAction__Item
-        li.c-ListAction__Item: a                          .c-ListAction &gt; .c-ListAction__Item &gt; a
-        li.c-ListAction__Item: a(href="")                 .c-ListAction &gt; .c-ListAction__Item &gt; a[href]
-        li.c-ListAction__Item: a(rel="external")          .c-ListAction &gt; .c-ListAction__Item &gt; a[rel=&quot;external&quot;]
-        li.c-ListAction__Item: a(href="" rel="external")  .c-ListAction &gt; .c-ListAction__Item &gt; a[href][rel=&quot;external&quot;]
-  section#c-ListFootnotes
-    h2 The #[code .c-ListFootnotes] Component
+        li.c-ListAction__Item a normal action list item
+        li.c-ListAction__Item: a an anchored action list item
+        li.c-ListAction__Item: a(href="") a linked action list item
+      pre.
+        &lt;ul class="#[u c-ListAction]"&gt;
+          &lt;li class="#[u c-ListAction__Item]"&gt; normal &lt;/li&gt;
+          &lt;li class="#[u c-ListAction__Item]"&gt;&lt;a&gt; anchored &lt;/a&gt;&lt;/li&gt;
+          &lt;li class="#[u c-ListAction__Item]"&gt;&lt;a href=""&gt; linked &lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+  section#footnotes-list-component
+    h2 The Footnotes&nbsp;List Component
     p.
-      In the #[code footer] of a document or section, insert a #[code .c-ListFootnotes]
-      for a Footnotes List Component.
+      If you have footnotes
+      in the #[code footer] of a document or section, use a Footnotes List Component.
       Read
       #[a(rel="external" href="https://github.com/chharvey/chharvey.github.io/wiki/Footnotes") my technical report on footnotes]
       for more information.
     figure
       p.
         Conversion gel is made with moon rocks.#[sup: a.Rf#rf-rocks(rel="this" href="#fn-rocks") 1]
-        Some panels are made with conversion gel.#[sup: a.Rf#rf-panels(rel="this" href="#fn-panels") 2]
+        Some panels are coated with conversion gel.#[sup: a.Rf#rf-panels(rel="this" href="#fn-panels") 2]
       footer
         ul.c-ListFootnotes
           li.
             #[sup: a.Fn#fn-rocks(rel="this" href="#rf-rocks") 1]
             #[sup: a.Fn#fn-panels(rel="this" href="#rf-panels") 2]
             Don&rsquo;t breathe in moon rocks; they will give you lung cancer.
-            This footnote contains a lot of text that goes on and on forever and ever until at some
-            point it reaches the next line.
+            However this may be unavoidable, given the amount of conversion gel on these panels.
           li.
             #[sup: a.Fn(href="#") 3]
-            Another empty footnote. A footnote may include a citation, work cited, or simply a
+            An empty footnote. A footnote may include a citation, work cited, or simply a
             parenthetical remark.
-  section#c-Table.a-bc-aperturewhite
-    h2 The #[code .c-Table#[span.-va-st &lowast;]] Family of Components
-    p Use the following Components for extra styles on #[code table] and #[code dl] Elements.
+      pre.
+        ... moon rocks.&lt;sup&gt;&lt;a&gt;1&lt;/a&gt;&lt;/sup&gt;
+        ... conversion gel.&lt;sup&gt;&lt;a&gt;2&lt;/a&gt;&lt;/sup&gt;
+        &lt;footer&gt;
+          &lt;ul class="#[u c-ListFootnotes]"&gt;
+            &lt;li&gt;
+              &lt;sup&gt;&lt;a&gt;1&lt;/a&gt;&lt;/sup&gt;
+              &lt;sup&gt;&lt;a&gt;2&lt;/a&gt;&lt;/sup&gt;
+              Don&rsquo;t breathe in moon rocks ...
+            &lt;/li&gt;
+            &lt;li&gt;&lt;sup&gt;&lt;a&gt;3&lt;/a&gt;&lt;/sup&gt;An empty footnote ...&lt;/li&gt;
+          &lt;/ul&gt;
+        &lt;/footer&gt;
+  section.a-bc-aperturewhite#components-for-tables
+    h2 Components for Tables
+    p Use the following classes for extra styles on #[code table] and #[code dl] elements.
     form
       fieldset(style="margin-bottom:1.5rem;")
         dl.o-GridFlex.-mb-0
@@ -220,42 +298,37 @@ block append main
         dd.o-Box.a-w-p3  .a-w-p3  (&asymp; 23.607%)
         dt.o-Box.a-w-p4c .a-w-p4c (&asymp; 85.410%)
         dd.o-Box.a-w-p4  .a-w-p4  (&asymp; 14.590%)
-  section#c-Document
-    h2 The #[code .c-Document] Component
+  section#document-component
+    h2 The Document Component
     p.
-      A #[code .c-Document] may take the form of a #[code body &gt; main] or
-      #[code body &gt;&gt; article]. The said document should have a #[b status] and be marked up
+      Use #[code .c-Document] to mark up a document such as an article or blog post.
+      A #[dfn#dfn-document document] may take the form of a #[code body &gt; main] or
+      #[code body #[abbr(title="descendant") &gt;&gt;] article].
+      It should have a #[b status] and be marked up
       with metadata. Read
       #[a(rel="external" href="https://github.com/chharvey/chharvey.github.io/wiki/Document-Status") my technical report on document status]
       for more information.
+      Any element inside a #[code .c-Document] may be marked with subcomponent classes indicating their status.
     p.
-      Any Element inside a #[code .c-Document] may be marked with classes indicating their status.
-      Notice we are separating semantics with presentation: the #[code [data-status]] attribute
-      is unrelated to an element&rsquo;s class.
-    figure
-      article.c-Document This is a #[code .c-Document].
-        p.c-Document__Draft(data-status="draft")       This is a #[code .c-Document &gt;&gt; p.c-Document__Draft   ]. It may be used on an Element with a status of #[b draft   ] inside a document.
-        p.c-Document__Complete(data-status="complete") This is a #[code .c-Document &gt;&gt; p.c-Document__Complete]. It may be used on an Element with a status of #[b complete] inside a document.
-        p.c-Document__Released(data-status="released") This is a #[code .c-Document &gt;&gt; p.c-Document__Released]. It may be used on an Element with a status of #[b released] inside a document.
-        p.
-          This is another paragraph in the document.
-          #[span.c-Document__Draft(data-status="draft")       This is a #[code .c-Document &gt;&gt; span.c-Document__Draft   ]. It may be used on an Element with a status of #[b draft   ]] inside a document.
-          #[span.c-Document__Complete(data-status="complete") This is a #[code .c-Document &gt;&gt; span.c-Document__Complete]. It may be used on an Element with a status of #[b complete]] inside a document.
-          #[span.c-Document__Released(data-status="released") This is a #[code .c-Document &gt;&gt; span.c-Document__Released]. It may be used on an Element with a status of #[b released]] inside a document.
-    p.
-      A Document is normative by default, but may also have informative (non-essential) Elements.
+      A Document is normative by default, but may also have informative (non-essential) elements,
+      which typically have the boolean #[code [data-informative]] attribute.
     figure
       article.c-Document
-        p.c-Document__Informative(data-informative="").
-          This is a
-          #[code .c-Document &gt;&gt; p.c-Document__Informative].
-          It may be used on an Element with the #[code [data-informative]] attribute.
-        p.
-          This is another paragraph in the document.
-          #[span.c-Document__Informative(data-informative="") This is a #[code .c-Document &gt;&gt; span.c-Document__Informative].]
-          It may be used on an Element with the #[code [data-informative]] attribute.
-    section#c-Document__Meta
-      h3 The #[code .c-Document__Meta] Subcomponent
+        p Lorem ipsum dolor sit amet.
+        p.c-Document__Draft Suspendisse ut auctor enim.
+        p.c-Document__Complete Pellentesque habitant morbi tristique senectus.
+        p.c-Document__Released Aenean consectetur suscipit urna.
+        p.c-Document__Informative Donec finibus ut lectus finibus pellentesque.
+      pre.
+        &lt;article class="#[u c-Document]"&gt;
+          &lt;p&gt;Lorem ipsum dolor sit amet.&lt;/p&gt;
+          &lt;p class="#[u c-Document__Draft]"&gt;Suspendisse ut auctor enim.&lt;/p&gt;
+          &lt;p class="#[u c-Document__Complete]"&gt;Pellentesque habitant morbi tristique senectus.&lt;/p&gt;
+          &lt;p class="#[u c-Document__Released]"&gt;Aenean consectetur suscipit urna.&lt;/p&gt;
+          &lt;p class="#[u c-Document__Informative]"&gt;Donec finibus ut lectus finibus pellentesque.&lt;/p&gt;
+        &lt;/article&gt;
+    section#document-meta(style="opacity: 0.3;")
+      h3 Document Meta
       p #[code .c-Document__Meta] marks up meta-information about a document.
       p.
         Read
@@ -284,22 +357,44 @@ block append main
         dd.update
           time(datetime="2014-05-08 14:53") May 8, 2013 #[span.tod 2:53 PM]
           span.o-Textbox.c-Label.c-Label--dang.-ml-1 Latest
-  section#text-level
+  section#text-level-components
     h2 Text-Level Components
-    section#c-Acro
-      h3 The #[code .c-Acro] Component
-      p Use #[span.c-Acro ACROnym] for a generic acronym.
+    section#acronyms
+      h3 Acronyms
       p.
-        Use #[span.c-Acro #[span.c-Acro__First A]CROnym] for
-        an acronym that begins a paragraph, sentence, or list item.
-    section#c-Camo
-      h3 The #[code .c-Camo] Component
+        When an #[code abbr] element contains an acronym, with all caps,
+        use class #[code .c-Acro] for a friendlier style.
+        It lessens the harshness of sequential capital letters.
+      figure
+        p.
+          The National Aeronautics and Space Administration, more commonly known as
+          #[abbr.c-Acro(title="National Aeronautics and Space Administration") NASA],
+          advocates a mission to Mars.
+        pre.
+          &lt;p&gt;... known as &lt;abbr class="#[u c-Acro]" title="National Aeronautics and Space Administration"&gt;NASA&lt;/abbr&gt;, advocates ...&lt;/p&gt;
       p.
-        A #[code .c-Camo] is a #[a.c-Camo(href="") camouflaged hyperlink].
-        Even though it&rsquo;s a link, it looks like normal text (until hover).
-        It even works on #[a.c-Camo a:not([href]) links].
-        Best used for printing.
-  section#breadcrumbs
+        Use #[code .c-Acro__First] on the first letter of an #[code .c-Acro] that begins a paragraph,
+        sentence, or list item. It simply reverts the font size.
+      figure
+        p.
+          #[abbr.c-Acro(title="National Aeronautics and Space Administration") #[span.c-Acro__First N]ASA]
+          strongly advocates a mission to Mars.
+        pre.
+          &lt;p&gt;&lt;abbr class="#[u c-Acro]" title="National Aeronautics and Space Administration"&gt;&lt;span class="#[u c-Acro__First]"&gt;N&lt;/span&gt;ASA&lt;/abbr&gt; strongly ...&lt;/p&gt;
+    section#camo-links
+      h3 Camo Links
+      figure
+        p.
+          A #[code .c-Camo] is a #[a.c-Camo(href="") camouflaged hyperlink].
+          Even though it&rsquo;s a link, it looks like normal text (until&nbsp;hover).
+          It even works on #[a.c-Camo anchors without hrefs].
+          Best used for printing.
+        pre.
+          &lt;p&gt;
+            ... is a &lt;a class="#[u c-Camo]" href=""&gt;camouflaged hyperlink&lt;/a&gt;. ...
+            ... works on &lt;a class="#[u c-Camo]"&gt;anchors without hrefs&lt;/a&gt;. ...
+          &lt;/p&gt;
+  section#breadcrumbs(style="opacity: 0.3;")
     h2 Breadcrumbs
     p.
       Read
