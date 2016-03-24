@@ -36,8 +36,9 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
           dd.update: time(datetime="2015-03-03 15:01") Mar 3, 2015 #[span.tod  3:01 PM]
           dd.update: time(datetime="2015-03-08 14:57") Mar 8, 2015 #[span.tod  2:57 PM]
           dd.update: time(datetime="2016-02-14 01:15") Feb 14, 2016 #[span.tod  1:15 AM]
+          dd.update: time(datetime="2016-03-06 15:41") Mar  6, 2016 #[span.tod  3:42 PM]
           dd.update
-            time(datetime="2016-03-06 15:41" itemprop="dateModified") Mar  6, 2016 #[span.tod  3:42 PM]
+            time(datetime="2016-03-24 13:38" itemprop="dateModified") Mar 24, 2016 #[span.tod  1:38 PM]
             span.o-Textbox.c-Label.c-Label--dang.-ml-1 Latest
         nav#table-contents
           h2 Table of Contents
@@ -53,6 +54,7 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
             li
               a(href="#text-level-semantics") Text-Level Semantics
               ol
+                li: a(href="#links-misc") Links &amp; #[abbr(title="miscelaneous") Misc.]
                 li: a(href="#stressed-text") Stressed Text
                 li: a(href="#documentation-edits") Documentation and Edits
                 li: a(href="#machine-readable-data") Machine-Readable Data
@@ -67,11 +69,30 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
           li #[code body]    #[+tag('Sectioning Root','body-sectioning-root')]
           li #[code section] #[+tag('Sectioning Content','section-sectioning-content')]
           li #[code article] #[+tag('Sectioning Content','article-sectioning-content')]
-          li #[code aside]   #[+tag('Sectioning Content','aside-sectioning-content')]
+          li: section.c-Document__Draft
+            h3 #[code aside]
+            p: +tag('Sectioning Content','aside-sectioning-content')
+            p Two guidelines for using #[code aside]:
+            ul
+              li.
+                The normal flow of the document must not be disturbed if the aside were removed,
+                so the reader should be able to completely skip it without missing a beat.
+              li.
+                The aside itself must make sense isolated and out of context, so reading the aside
+                all by itself should make sense.
           li #[code nav]     #[+tag('Sectioning Content','nav-sectioning-content')]
           li #[code main]
-          li #[code header] #[sup: +reference('header')]
-          li #[code footer] #[sup: +reference('footer')]
+          li: section.c-Document__Draft
+            h3 #[code header] &amp; #[code footer]
+            p.
+              The #[code header] element should contain introductory content, data about
+              #[em the section itself], such as headings, a table of contents, a list of authors/editors,
+              time written/published/updated, and related tags.
+            p.
+              The #[code footer] element should contain secondary information, data about
+              #[em the content in the section], such as copyright information, contact information,
+              related links or references, and footnotes.
+            footer: p: small Neither element may contain any #[code header] or #[code footer] descendants.
           li #[code h1]&ndash;#[code h6] #[+tag('Phrasing Content Model','hn-phrasing-content-model')]
           li #[code address] #[sup: +reference('address')]
       section#grouping-content
@@ -85,7 +106,18 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
           ul
             li #[code p] #[+tag('Phrasing Content Model','p-phrasing-content-model')]
             li #[code pre] #[+tag('Phrasing Content Model','pre-phrasing-content-model')]
-            li #[code figure] #[+tag('Sectioning Root','figure-sectioning-root')]
+            li: section.c-Document__Draft
+              h4 #[code figure]
+              p: +tag('Sectioning Root','figure-sectioning-root')
+              p.
+                A figure is similar to an aside in that it follows the first rule of the aside,
+                but it is dissimilar in that it disobeys the second rule.
+                More precisely,
+                a figure may be removed from its surrounding prose and inserted into, for example,
+                an appendix; however it must not be separated from its associated content.
+                If taken out of context, the figure would not be useful or make sense;
+                It could not be used as stand-alone content.
+                This is where #[code figure] and #[code aside] differ.
             li #[code figcaption]
             li #[code blockquote] #[+tag('Sectioning Root','blockquote-sectioning-root')]
         section#lists
@@ -115,34 +147,216 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
         p.
           May be used where Phrasing Content is expected.
           All elements in this section have the Phrasing Content Model unless otherwise specified.
-        ul
-          li #[code a] &amp; #[code a[href]] #[+tag('Transparent Content Model','a-transparent-content-model')]
-          li #[code span]
-          li #[code br] #[+tag('Nothing Content Model','br-nothing-content-model')]
-          li #[code wbr] #[+tag('Nothing Content Model','wbr-nothing-content-model')]
+        section#links-misc
+          h3 Links &amp; #[abbr(title="miscelaneous") Misc.]
+          ul
+            li: section.c-Document__Draft
+              h4 #[code a] &amp; #[code a[href]]
+              p: +tag('Transparent Content Model','a-transparent-content-model')
+              p.
+                When adding a link to #[em one] element, nest the #[code &lt;a&gt;] tag immediately
+                #[em inside] the element to be linked.
+              pre.
+                #[small &lt;!-- &lt;a&gt;&lt;strong&gt;#[strong this is incorrect]&lt;/strong&gt;&lt;/a&gt; --&gt;]
+                &lt;strong&gt;&lt;a&gt;#[strong this is correct]&lt;/a&gt;&lt;/strong&gt;
+                &lt;strong&gt;&lt;a&gt;do this especially if there is&lt;/a&gt; more, non-linked content
+                  inside the element&lt;/strong&gt;
+              p.
+                When adding a link to a large block of content,
+                #[i(lang="la"): abbr(title="exempli gratia") e.g.],
+                a #[code section] element, wrap the #[code a] tag around all the content inside the
+                element, rather than around the element itself or within each child of the element.
+              pre.
+                &lt;section itemscope="" itemtype="http://schema.org/Organization"&gt;
+                  #[u &lt;a href="//widgetsgalore.com" itemprop="url"&gt;]
+                    &lt;h1 itemprop="name"&gt;Widgets Galore, Inc.&lt;/h1&gt;
+                    &lt;img src="//widgetsgalore.com/logo" itemprop="image"/&gt;
+                    &lt;p itemprop="description"&gt;Our company provides &hellip; &lt;/p&gt;
+                  #[u &lt;&#x002f;a&gt;]
+                &lt;/section&gt;
+              p This helps in two ways:
+              ul
+                li.
+                  Microdata, if present, is structured correctly. If the #[code section] is an
+                  itemscope that has a #[code url] itemprop, the #[code: abbr(title="a[itemprop=\"url\"]") a?url]
+                  is nested inside.
+                li.
+                  You don&rsquo;t need to add duplicte #[code a] elements with duplicate attributes
+                  inside each child of the #[code section].
+              p: strong There might be some exceptions to this rule, but none of them make a strong case.
+              ul
+                li
+                  p when a new element with microdata needs to be nested inside a pre-existing link
+                  pre.
+                    &lt;a href="//widgetsgalore.com" itemprop="url"&gt;
+                      &lt;span itemprop="name"&gt;Widgets Galore, Inc.&lt;/span&gt;
+                    &lt;/a&gt;
+                  p Although, the following markup is equivalent, so this exception doesn&rsquo;t really count.
+                  pre.
+                    &lt;span itemprop="name"&gt;
+                      &lt;a href="//widgetsgalore.com" itemprop="url"&gt;Widgets Galore, Inc.&lt;/a&gt;
+                    &lt;/span&gt;
+                li
+                  p.
+                    when the link contains a lot of text but only some of it needs to be marked up
+                    with phrasing content
+                  pre.
+                    &lt;a&gt;Click this link &lt;em&gt;but only if&lt;/em&gt; you are brave enough!&lt;/a&gt;
+                  p.
+                    But then again you could argue that the rule doesn&rsquo;t apply here either since you
+                    aren&rsquo;t adding a link to #[em just one] element; there are also text nodes
+                    to be included in the link.
+            li #[code span]
+            li #[code br] #[+tag('Nothing Content Model','br-nothing-content-model')]
+            li #[code wbr] #[+tag('Nothing Content Model','wbr-nothing-content-model')]
         section#stressed-text
           h3 Stressed Text
           ul
-            li #[code em] &mdash; emphasis
-            li #[code strong] &mdash; importance
-            li #[code i] &mdash; alternate voice/mood
-            li #[code mark] &mdash; relevance in a certain context
-            li #[code u] &mdash; annotations
-            li #[code small] &mdash; side comments
-            li #[code s] &mdash; inaccurate text #[+tag('Transparent Content Model','s-transparent-content-model')]
+            li: section.c-Document__Draft
+              h4 #[code em]
+              p.
+                Emphasized text represents words or phrases that are stressed, as if the tone of voice would be
+                affected. More importantly,
+                #[strong the placement of stress should affect the meaning of the passage].
+                If the emphasis were to be removed or relocated, the passage&rsquo;s meaning should change.
+                The following examples illustrate how the placement of the #[code em] element
+                changes the meaning of the statement.
+              pre.
+                Are you #[u &lt;em&gt;really&lt;&#x002f;em&gt;] going to buy these jeans?
+                    (or are you just thinking about it?)
+                Are you really going to buy #[u &lt;em&gt;these&lt;&#x002f;em&gt;] jeans?
+                    (or wouldn’t you like those jeans better?)
+                Are you really going to #[u &lt;em&gt;buy&lt;&#x002f;em&gt;] these jeans?
+                    (or are you going to steal them?)
+                Are #[u &lt;em&gt;you&lt;&#x002f;em&gt;] really going to buy these jeans?
+                    (or am I going to have to buy them for you?)
+            li: section.c-Document__Draft
+              h4 #[code strong]
+              p.
+                Strong text has a level of importance. Important text does not necessarily affect tone of voice
+                (although it may), but rather upsets the normal prose by causing the reader to examine the text
+                more carefully. The placement of importance should not affect the meaning of the passage.
+            li: section.c-Document__Draft
+              h4 #[code i]
+              p.
+                A phrase interpreted in an alternate voice or mood, without carrying extra emphasis,
+                such as scare quotes and mentions.
+                Or a phrase in a foreign language, such as the taxonomic classification (in Latin) of an organism.
+                (If a foreign language, be sure to add the #[code [lang]] attribute.)
+            li: section.c-Document__Draft
+              h4 #[code mark]
+              p.
+                A span of text that is relevant in some context. It is advisable to use the
+                #[code [class]] attribute
+                to indicate the context in which the span is relevant.
+            li: section.c-Document__Draft
+              h4 #[code u]
+              p.
+                A span of text to which the reader&rsquo;s attention should be brought for purposes of illustration.
+                This span is typically in a figure or example.
+            li: section.c-Document__Draft
+              h4 #[code small]
+              p.
+                The #[code small] element represents a side comment, fine print, disclaimer,
+                or caveat of some kind...
+            li: section.c-Document__Draft
+              h4 #[code s]
+              p: +tag('Transparent Content Model','s-transparent-content-model')
+              p.
+                Text that is shown to be no longer relevant or accurate.
         section#documentation-edits
           h3 Documentation and Edits
           ul
-            li #[code ins] #[+tag('Transparent Content Model','ins-transparent-content-model')]
-            li #[code del] #[+tag('Transparent Content Model','del-transparent-content-model')]
-            li #[code dfn]
-            li #[code b] &mdash; keyword
-            li #[code abbr]
-            li #[code var]
-            li #[code q]
-            li #[code cite]
-            li #[code sup]
-            li #[code sub]
+            li: section.c-Document__Draft
+              h4 #[code ins] &amp; #[code del]
+              p: +tag('Transparent Content Model','ins-transparent-content-model')
+              p.
+                These elements explicitly indicate changes in a
+                document: content that has been inserted into or deleted from the document.
+            li: section.c-Document__Draft
+              h4 #[code dfn]
+              p.
+                A vocabulary term.
+                Every #[code dfn] should have an #[code [id]] attribute, thus there must only be one #[code dfn] per page that
+                contains a given term in question. Furthermore, hyperlinks can point to the defining instance
+                of the term.
+            li: section.c-Document__Draft
+              h4 #[code b]
+              p.
+                A keyword, technical or specific term, or key phrase.
+                A #[code b] element is any generic keyword or term, whose definition is not present.
+                If the term is being defined, use the #[code dfn] element.
+            li: section.c-Document__Draft
+              h4 #[code abbr]
+              p.
+                An abbreviation or acronym.
+                The #[code [id]] and #[code [title]] attributes should be present,
+                and #[code [title]] should contain the expanded term.
+              p.
+                Use this element to only mark up the first instance of the abbreviation on the page.
+                If the same exact abbreviation appears elsewhere, there is no need to
+                mark it up with #[code abbr].
+            li: section.c-Document__Draft
+              h4 #[code var]
+              p.
+                A placeholder for some textual element.
+                It could be a placeholder or a filename, or a value,
+                #[i(lang="la"): abbr(title="et cetera") etc.]
+              p.
+                This does #[em not] represent a variable in a coding language
+                or a mathematical variable. The following HTML would be incorrect, since
+                the content inside the #[code var] elements is not placeholder text; it is actual content.
+              pre.
+                #[small &lt;!-- these examples are incorrect! --&gt;]
+                &lt;code&gt;String &lt;var&gt;$welcome&lt;/var&gt; = 'Hello world!'&lt;/code&gt;
+                &lt;p&gt;0 = &lt;var&gt;x&lt;/var&gt;&lt;sup&gt;2&lt;/sup&gt; - &lt;var&gt;x&lt;/var&gt; - 1&lt;/p&gt;
+              p: small.
+                It would instead be better to mark up code/mathematical variables with
+                a #[code span] (perhaps with a class) for syntax coloring.
+              p.
+                Rather, the #[code var] element represents a placeholder for when the content is unknown.
+                The following example is correct:
+              pre.
+                &lt;p&gt;Use this git commmand to see diff:
+                &lt;kbd&gt;$ git diff #[u &lt;var&gt;filepath&lt;&#x002f;var&gt;]&lt;/kbd&gt;
+                where #[u &lt;var&gt;filepath&lt;&#x002f;var&gt;] is the path or name of the file
+                you want to see the diff for.&lt;/p&gt;
+            li: section.c-Document__Draft
+              h4 #[code q]
+              p.
+                An inline quotation: a span of text that is taken directly from another source
+                (real or fictional).
+            li: section.c-Document__Draft
+              h4 #[code cite]
+              p.
+                References a creative work, some part of a work
+                (for example, the name or title of a heading, section, figure,
+                table (or column in a table) in the work),
+                or the creator of a work.
+                This element may also represent a proper noun traditionally italicized,
+                #[i(lang="la"): abbr(title="exempli gratia") e.g.], a periodical name or ship name.
+                Usually, the content in a #[code cite] element will be capitalized.
+            li: section.c-Document__Draft
+              h4 #[code sup] &amp; #[code sub]
+              p.
+                Use the #[code sup] and #[code sub] elements for when their presence
+                is semantically required, not just when it looks good there.
+                #[i(lang="la"): abbr(title="exampli gratia") E.g.], don&rsquo;t use superscripts
+                for the abbreviation of ordinals. There are three reasons for this:
+                1st,
+                #[q superscripted ordinals are tiny and hard to read]
+                #[cite (Matthew&nbsp;Butterick,&nbsp;#[time 2014])],
+                and 2nd, you should really be spelling out these ordinal numbers in the first place.
+                But third, and most importantly,
+                the semantics would remain the same even if the superscript were removed.
+                Use super/subscripts only when changing them to normal text would
+                drastically affect their meaning. For example,
+                #[i(style="quotes:none;") 1#[span(style="font-size:smaller;vertical-align:super;") st]] means the
+                same thing as #[i(style="quotes:none;") 1st];
+                however, this does not hold
+                in math: #[u f(x) = a#[sub 0]x#[sup 2] + a#[sub 1]x + a#[sub 2]],
+                in chemical formulae: #[u dihydgogen oxide, or H#[sub 2]O, is commonly known as water], and
+                in French abbreviations: #[u #[abbr(title="Mademoiselle") M#[sup lle]] Juliette].
         section#machine-readable-data
           h3 Machine-Readable Data
           ul
@@ -160,7 +374,13 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
         ul
           li #[code fieldset] #[+tag('Sectioning Root','fieldset-sectioning-root')]
           li #[code legend] #[+tag('Phrasing Content Model','legend-phrasing-content-model')]
-          li #[code input] #[+tag('Nothing Content Model','input-nothing-content-model')]
+          li: section.c-Document__Draft
+            h3 #[code input]
+            p: +tag('Nothing Content Model','input-nothing-content-model')
+            p.
+              Radio buttons with the same #[code [name]] attribute value are in the same
+              #[b radio button group]&mdash;only one radio button in a radio button group
+              may be selected.
           li #[code label] #[+tag('Phrasing Content Model','label-phrasing-content-model')] #[sup: +reference('label')]
       section#interactive-content
         h2 Interactive Content
@@ -217,12 +437,6 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
               +footnote('summary-phrasing-content-model')
             | An element with a #[dfn#phrasing-content-model Phrasing Content Model] may contain only Phrasing Content children. 
             small All text-level elements have the Phrasing Content Model unless otherwise specified.
-          li
-            sup
-              +footnote('header')
-              +footnote('footer')
-            | The #[code header] and #[code footer] elements may not contain any
-            |  #[code header] or #[code footer] descendants.
           li
             sup
               +footnote('li')
