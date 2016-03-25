@@ -1,0 +1,321 @@
+extends layout.tpl.jade
+
+block append vars
+  - titles.push('Objects')
+
+block append main__header
+  p.o-Box.c-Alert.c-Alert--help.
+    #[strong.c-Alert__Title Note:]
+    Backgrounds have been added to all Objects on this page to show structure.
+  nav#table-contents
+    h2 Table of Contents
+    ol
+      li: a(href="#table-contents") Table of Contents
+      li: a(href="#block-object") The Block Object
+      li: a(href="#inline-object") The Inline Object
+      li: a(href="#box-object") The Box Object
+      li: a(href="#textbox-object") The Textbox Object
+      li: a(href="#bare-list") The Bare List
+      li: a(href="#flex-grid") The Flex Grid
+      li
+        a(href="#golden-container") The Golden Container
+        ol
+          li: a(href="#flipped-golden-container") The Flipped Golden Container
+
+block append main
+  section#block-object
+    h2 The Block Object
+    figure.sg-c-Fig
+      div.
+        A simple block object. Use this class to display an element as a
+        #[span.o-Block block element,]
+        with an inherited line-height to maintain vertical rhythm.
+      pre.sg-c-Code.sg-c-Code--block.
+        ... to display an element as a &lt;span class="#[u o-Block]"&gt;block element,&lt;/span&gt; with ...
+  section#inline-object
+    h2 The Inline Object
+    p.
+      A simple inline object. Use this class to display an element as an
+      inline element,
+      with zero line-height to maintain vertical rhythm.
+    p.
+      This class is useful for creating inline lists, that is,
+      lists whose items are each displayed one right after another, inline.
+    figure
+      ul
+        li.o-Inline Burns &amp; McDonnell Engineering
+        li.o-Inline DIS-TRAN Steel, LLC
+        li.o-Inline EDM International
+        li.o-Inline Electrical Consultants, Inc.
+        li.o-Inline Fabrimet Inc.
+        li.o-Inline Falcon Steel Company
+      pre.sg-c-Code.sg-c-Code--block.
+        &lt;ul&gt;
+          &lt;li class="#[u o-Inline]"&gt;Burns &amp; McDonnell Engineering&lt;/li&gt;
+          &lt;li class="#[u o-Inline]"&gt;DIS-TRAN Steel, LLC&lt;/li&gt;
+        &lt;/ul&gt;
+  section#box-object
+    h2 The Box Object
+    p.
+      Use the Box object for stand-alone, highlighted blocks or models.
+      They are useful for things like alerts or pop-ups.
+      Add class #[code .o-Block] if necessary.
+    figure
+      ul.o-ListBare
+        li.a-bc-shadelight.o-Box             Box
+        li.a-bc-shadelight.o-Box.o-Box--micr Microbox
+        li.a-bc-shadelight.o-Box.o-Box--mill Millibox
+        li.a-bc-shadelight.o-Box.o-Box--norm Normal-sized Box (same as Box)
+        li.a-bc-shadelight.o-Box.o-Box--kilo Kilobox
+        li.a-bc-shadelight.o-Box.o-Box--mega Megabox
+        li.a-bc-shadelight.o-Box.o-Box--giga Gigabox
+        li.a-bc-shadelight.o-Box.o-Box--tera Terabox
+        li.a-bc-shadelight.o-Box.o-Box--peta Petabox
+      pre.
+        &lt;div class="#[u o-Box]"&gt;Box&lt;/div&gt;
+        &lt;div class="#[u o-Box]  #[u o-Box--micr]"&gt;Microbox&lt;/div&gt;
+        &lt;div class="#[u o-Box]  #[u o-Box--mill]"&gt;Millibox&lt;/div&gt;
+        &lt;div class="#[u o-Box]  #[u o-Box--norm]"&gt;Normal-sized Box&lt;/div&gt;
+        &lt;div class="#[u o-Box]  #[u o-Box--kilo]"&gt;Kilobox&lt;/div&gt;
+        &lt;div class="#[u o-Box]  #[u o-Box--mega]"&gt;Megabox&lt;/div&gt;
+        &lt;div class="#[u o-Box]  #[u o-Box--giga]"&gt;Gigabox&lt;/div&gt;
+        &lt;div class="#[u o-Box]  #[u o-Box--tera]"&gt;Terabox&lt;/div&gt;
+        &lt;div class="#[u o-Box]  #[u o-Box--peta]"&gt;Petabox&lt;/div&gt;
+    //- figure
+      ul.o-ListBare
+        li.h-demo.h-p-micr(style="margin-top: -0.375rem; margin-bottom:1.5rem") .h-p-micr
+        li.h-demo.h-p-mill(style="margin-top: -0.75rem;") .h-p-mill
+        li.h-demo.h-p-norm .h-p-norm
+        li.h-demo.h-p-kilo .h-p-kilo
+        li.h-demo.h-p-mega .h-p-mega
+        li.h-demo.h-p-giga .h-p-giga
+        li.h-demo.h-p-tera .h-p-tera
+        li.h-demo.h-p-peta .h-p-peta
+  section#textbox-object
+    h2 The Textbox Object
+    p.
+      The Textbox Object is similar to the Box object except that it is used for
+      #[em inline text only],
+      such as labels or badges.
+      It is usually instantiated by a #[code small] element, but that depends on context.
+      Add class #[code .o-Inline] if necessary.
+    figure
+      h1 Example h1 #[small.o-Textbox.a-bc-shadelight Textbox]
+      h2 Example h2 #[small.o-Textbox.a-bc-shadelight Textbox]
+      h3 Example h3 #[small.o-Textbox.a-bc-shadelight Textbox]
+      h4 Example h4 #[small.o-Textbox.a-bc-shadelight Textbox]
+      h5 Example h5 #[small.o-Textbox.a-bc-shadelight Textbox]
+      h6 Example h6 #[small.o-Textbox.a-bc-shadelight Textbox]
+      p Example paragraph #[small.o-Textbox.a-bc-shadelight Textbox]
+      pre.
+        &lt;h1&gt;Example h1 &lt;small class="#[u o-Textbox]"&gt;Textbox&lt;/small&gt;&lt;/h1&gt;
+  section#bare-list
+    h2 The Bare List
+    p.
+      Use the Bare List object to remove the usual padding and list item markers accompanied by
+      (un)ordered lists. The result is a list of items, each on its own line.
+      Combine this class with other classes to create a variety of styles.
+    figure
+      ul.o-ListBare
+        li.a-bc-shadelight Burns &amp; McDonnell Engineering
+        li.a-bc-shadelight DIS-TRAN Steel, LLC
+        li.a-bc-shadelight EDM International
+        li.a-bc-shadelight Electrical Consultants, Inc.
+        li.a-bc-shadelight Fabrimet Inc.
+        li.a-bc-shadelight Falcon Steel Company
+      pre.
+        &lt;ul class="#[u o-ListBare]"&gt;
+          &lt;li&gt;Burns &amp; McDonnell Engineering&lt;/li&gt;
+          &lt;li&gt;DIS-TRAN Steel, LLC&lt;/li&gt;
+        &lt;/ul&gt;
+  section#flex-grid
+    h2 The Flex Grid
+    p.
+      A Flex Grid is simply a list of items arranged like blocks in a grid.
+      It has the structure of a list in that all items share the same container
+      (unlike tables where items are in different rows), while at the same time
+      appearing like a table with rows and columns.
+    p.
+      The Flex Grid can be flexible and responsive, adjusting the number of
+      columns based on screen size.
+      By default, each item has full width.
+      To achieve a grid-like appearance, set the widths of each item as necessary.
+    p.
+      The container must have the #[code.sg-c-Code .o-GridFlex] class
+      (and, if necessary, class #[code .o-ListBare] to remove normal list styles).
+      Each item must have the #[code.sg-c-Code .o-GridFlex__Item] class
+      (and, if necessary, class #[code .o-Block]).
+    p.
+      See my article #[a(href="../blog/layout.html") The GridFlex Object].
+    figure.sg-c-Fig
+      ul.o-ListBare.o-GridFlex
+        li.o-GridFlex__Item.a-bc-shadelight Burns &amp; McDonnell Engineering
+        li.o-GridFlex__Item.a-bc-shadelight DIS-TRAN Steel, LLC
+        li.o-GridFlex__Item.a-bc-shadelight EDM International
+        li.o-GridFlex__Item.a-bc-shadelight Electrical Consultants, Inc.
+        li.o-GridFlex__Item.a-bc-shadelight Fabrimet Inc.
+        li.o-GridFlex__Item.a-bc-shadelight Falcon Steel Company
+        li.o-GridFlex__Item.a-bc-shadelight Sabre-FWT
+        li.o-GridFlex__Item.a-bc-shadelight HDR
+        li.o-GridFlex__Item.a-bc-shadelight Mitas Energy
+        li.o-GridFlex__Item.a-bc-shadelight Power Consulting Associates, LLC
+        li.o-GridFlex__Item.a-bc-shadelight Power Line Systems, Inc.
+        li.o-GridFlex__Item.a-bc-shadelight Quanta Services
+        li.o-GridFlex__Item.a-bc-shadelight ReliaPOLE Inspection Services
+        li.o-GridFlex__Item.a-bc-shadelight Sabre-FWT
+        li.o-GridFlex__Item.a-bc-shadelight SAE Towers
+        li.o-GridFlex__Item.a-bc-shadelight TAPP Steel Poles
+        li.o-GridFlex__Item.a-bc-shadelight Trinity Meyer Utility Structures
+        li.o-GridFlex__Item.a-bc-shadelight TRC Engineers
+        li.o-GridFlex__Item.a-bc-shadelight Underground Devices
+        li.o-GridFlex__Item.a-bc-shadelight Valmont Newmark
+      pre.sg-c-Code.sg-c-Code--block.
+        &lt;ul class="o-ListBare  #[u o-GridFlex]"&gt;
+          &lt;li class="#[u o-GridFlex__Item]"&gt;Burns &amp; McDonnell Engineering&lt;/li&gt;
+          &lt;li class="#[u o-GridFlex__Item]"&gt;DIS-TRAN Steel, LLC&lt;/li&gt;
+        &lt;/ul&gt;
+  section#golden-container
+    h2 The Golden Container
+    p.
+      See my article #[a(href="../blog/griddemo.html") griddemo.html] for docs on
+      the GoldenContainer object.
+    p The following is a #[code .o-GoldenContainer] Object, containing 3 children:
+    ol
+      li a #[code .o-GoldenContainer__Content] Object
+      li a #[code .o-GoldenContainer__Sidebar.o-GoldenContainer__Sidebar--major] Object
+      li a #[code .o-GoldenContainer__Sidebar.o-GoldenContainer__Sidebar--minor] Object
+    figure
+      .o-GoldenContainer.h-demo(style="margin-bottom:18rem;")
+        .o-GoldenContainer__Content.h-demo.
+          #[h1.normh1 Content]
+          Suspendisse ut auctor enim.
+          Aliquam viverra enim vitae ante aliquet venenatis.
+          Sed vel nibh sit amet sapien fermentum mattis nec non arcu.
+          Praesent dapibus velit quis lectus tempus, ut ullamcorper nibh facilisis.
+          Aenean tincidunt ante risus, semper malesuada libero consectetur id.
+          Praesent vel ligula ut enim porttitor porta. Aenean eu ullamcorper mi.
+          Integer blandit est quam, eget mattis urna scelerisque quis.
+          Maecenas sapien sapien, ornare nec lobortis eget, tincidunt sed ligula.
+          Maecenas risus nibh, volutpat sed euismod non, semper eget neque.
+          Integer varius egestas risus, volutpat sagittis turpis convallis eget.
+          Vivamus pulvinar ligula eget mi tincidunt, eget faucibus justo laoreet.
+          In sapien lacus, egestas faucibus laoreet eu, tempor sit amet lorem.
+          Sed luctus congue tortor a scelerisque.
+        .o-GoldenContainer__Sidebar.o-GoldenContainer__Sidebar--major.h-demo(style="color: #1560AB;").
+          #[h1.normh1 Major Sidebar]
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          Aliquam sagittis suscipit nunc, a cursus libero euismod at.
+          Nulla placerat neque massa, quis interdum leo efficitur vel.
+          Donec feugiat varius arcu non volutpat.
+          Mauris eget mauris ut mauris auctor mattis id vel justo.
+          Nulla dictum arcu nec suscipit mollis.
+          Maecenas a iaculis nisl, ut pretium est. Nulla facilisi.
+        .o-GoldenContainer__Sidebar.o-GoldenContainer__Sidebar--minor.h-demo(style="color: #902929;").
+          #[h1.normh1 Minor Sidebar]
+          Donec finibus ut lectus finibus pellentesque.
+          Nulla euismod feugiat nulla nec posuere.
+          Sed ac est id sem sagittis rhoncus eu ac neque.
+          Aliquam eu metus sagittis, porta turpis id, scelerisque magna.
+    p.
+      Sometimes you may have objects #[em inside] the Content that you wish to make
+      appear as a sidebar or as if it weren&rsquo;t in the Content.
+    p.
+      The following #[code .o-GoldenContainer] Object contains only a
+      #[code .o-GoldenContainer__Content] Object, which contains 3 children:
+    ol
+      li a #[code .o-GoldenContainer__Content__Page] Object
+      li a #[code .o-GoldenContainer__Content__SideMajor] Object
+      li a #[code .o-GoldenContainer__Content__SideMinor] Object
+    p.
+      Even though these are children of #[code .o-GoldenContainer__Content], they appear
+      as if they are outside (for example, inside a #[code __Sidebar--major] or
+      #[code __Sidebar--minor]).
+    figure
+      .o-GoldenContainer.h-demo(style="margin-bottom:18rem;")
+        .o-GoldenContainer__Content.h-demo
+          h1.normh1 Content
+          | Suspendisse ut auctor enim.
+          | Aliquam viverra enim vitae ante aliquet venenatis.
+          .o-GoldenContainer__Content__Page.
+            #[h1.normh1 Page]
+            Sed vel nibh sit amet sapien fermentum mattis nec non arcu.
+            Praesent dapibus velit quis lectus tempus, ut ullamcorper nibh facilisis.
+            Aenean tincidunt ante risus, semper malesuada libero consectetur id.
+          .o-GoldenContainer__Content__SideMajor(style="color: #1560AB;").
+            #[h1.normh1 Major Side]
+            Praesent vel ligula ut enim porttitor porta. Aenean eu ullamcorper mi.
+            Integer blandit est quam, eget mattis urna scelerisque quis.
+          .o-GoldenContainer__Content__SideMinor(style="color: #902929;").
+            #[h1.normh1 Minor Side]
+            Maecenas sapien sapien, ornare nec lobortis eget, tincidunt sed ligula.
+    section#flipped-golden-container
+      h3 The Flipped Golden Container
+      p The following is a #[code .o-GoldenContainerFlip] Object, containing 3 children:
+      ul
+        li a #[code .o-GoldenContainerFlip__Content] Object
+        li a #[code .o-GoldenContainerFlip__Sidebar.o-GoldenContainerFlip__Sidebar--major] Object
+        li a #[code .o-GoldenContainerFlip__Sidebar.o-GoldenContainerFlip__Sidebar--minor] Object
+      figure
+        .o-GoldenContainerFlip.h-demo(style="margin-bottom:18rem;")
+          .o-GoldenContainerFlip__Content.h-demo.
+            #[h1.normh1 Content]
+            Suspendisse ut auctor enim.
+            Aliquam viverra enim vitae ante aliquet venenatis.
+            Sed vel nibh sit amet sapien fermentum mattis nec non arcu.
+            Praesent dapibus velit quis lectus tempus, ut ullamcorper nibh facilisis.
+            Aenean tincidunt ante risus, semper malesuada libero consectetur id.
+            Praesent vel ligula ut enim porttitor porta. Aenean eu ullamcorper mi.
+            Integer blandit est quam, eget mattis urna scelerisque quis.
+            Maecenas sapien sapien, ornare nec lobortis eget, tincidunt sed ligula.
+            Maecenas risus nibh, volutpat sed euismod non, semper eget neque.
+            Integer varius egestas risus, volutpat sagittis turpis convallis eget.
+            Vivamus pulvinar ligula eget mi tincidunt, eget faucibus justo laoreet.
+            In sapien lacus, egestas faucibus laoreet eu, tempor sit amet lorem.
+            Sed luctus congue tortor a scelerisque.
+          .o-GoldenContainerFlip__Sidebar.o-GoldenContainerFlip__Sidebar--major.h-demo(style="color: #1560AB;").
+            #[h1.normh1 Major Sidebar]
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Aliquam sagittis suscipit nunc, a cursus libero euismod at.
+            Nulla placerat neque massa, quis interdum leo efficitur vel.
+            Donec feugiat varius arcu non volutpat.
+            Mauris eget mauris ut mauris auctor mattis id vel justo.
+            Nulla dictum arcu nec suscipit mollis.
+            Maecenas a iaculis nisl, ut pretium est. Nulla facilisi.
+          .o-GoldenContainerFlip__Sidebar.o-GoldenContainerFlip__Sidebar--minor.h-demo(style="color: #902929;").
+            #[h1.normh1 Minor Sidebar]
+            Donec finibus ut lectus finibus pellentesque.
+            Nulla euismod feugiat nulla nec posuere.
+            Sed ac est id sem sagittis rhoncus eu ac neque.
+            Aliquam eu metus sagittis, porta turpis id, scelerisque magna.
+      p.
+        Sometimes you may have objects #[em inside] the Content that you wish to make
+        appear as a sidebar or as if it weren&rsquo;t in the Content.
+      p.
+        The following #[code .o-GoldenContainerFlip] Object contains only a
+        #[code .o-GoldenContainerFlip__Content] Object, which contains 3 children:
+      ol
+        li a #[code .o-GoldenContainerFlip__Content__Page] Object
+        li a #[code .o-GoldenContainerFlip__Content__SideMajor] Object
+        li a #[code .o-GoldenContainerFlip__Content__SideMinor] Object
+      p.
+        Even though these are children of #[code .o-GoldenContainerFlip__Content], they appear
+        as if they are outside (for example, inside a #[code __Sidebar--major] or
+        #[code __Sidebar--minor]).
+      figure
+        .o-GoldenContainerFlip.h-demo(style="margin-bottom:18rem;")
+          .o-GoldenContainerFlip__Content.h-demo
+            h1.normh1 Content
+            | Suspendisse ut auctor enim.
+            | Aliquam viverra enim vitae ante aliquet venenatis.
+            .o-GoldenContainerFlip__Content__Page.
+              #[h1.normh1 Page]
+              Sed vel nibh sit amet sapien fermentum mattis nec non arcu.
+              Praesent dapibus velit quis lectus tempus, ut ullamcorper nibh facilisis.
+              Aenean tincidunt ante risus, semper malesuada libero consectetur id.
+            .o-GoldenContainerFlip__Content__SideMajor(style="color: #1560AB;").
+              #[h1.normh1 Major Side]
+              Praesent vel ligula ut enim porttitor porta. Aenean eu ullamcorper mi.
+              Integer blandit est quam, eget mattis urna scelerisque quis.
+            .o-GoldenContainerFlip__Content__SideMinor(style="color: #902929;").
+              #[h1.normh1 Minor Side]
+              Maecenas sapien sapien, ornare nec lobortis eget, tincidunt sed ligula.

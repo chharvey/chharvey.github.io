@@ -1,7 +1,7 @@
 extends layout.tpl.jade
 
 block append vars
-  - var heading = 'Site-Wide Schemes'
+  - titles.push('Site-Wide Schemes')
 
 block append main
   section#typeface-scheme
@@ -50,7 +50,7 @@ block append main
         }
       }
     mixin fontBox(typeface, footer)
-      section.o-FlexContainer
+      section.o-GridFlex
         mixin description()
           p Sample description.
         mixin footer()
@@ -159,23 +159,23 @@ block append main
       the second set is good for when you need to know the absolute size.
     figure
       ul.o-ListBare.-sp-nw.-of-a
-        li.a-fz-peta   .a-fz-peta  , .a-fz-hex     (6.00)
-        li.a-fz-tera   .a-fz-tera  , .a-fz-tet     (4.00)
-        li.a-fz-giga   .a-fz-giga  , .a-fz-tri     (3.00)
-        li.a-fz-mega   .a-fz-mega  , .a-fz-di      (2.00)
-        li.a-fz-kilo   .a-fz-kilo  , .a-fz-sesqui  (1.50)
-        li.a-fz-normal .a-fz-normal                (1.00)
-        li.a-fz-milli  .a-fz-milli , .a-fz-dodrans (0.75)
-        li.a-fz-micro  .a-fz-micro , .a-fz-semi    (0.50)
+        li.a-fz-peta .a-fz-peta, .a-fz-hex     (6.00)
+        li.a-fz-tera .a-fz-tera, .a-fz-tet     (4.00)
+        li.a-fz-giga .a-fz-giga, .a-fz-tri     (3.00)
+        li.a-fz-mega .a-fz-mega, .a-fz-di      (2.00)
+        li.a-fz-kilo .a-fz-kilo, .a-fz-sesqui  (1.50)
+        li.a-fz-norm .a-fz-norm                (1.00)
+        li.a-fz-mill .a-fz-mill, .a-fz-dodrans (0.75)
+        li.a-fz-micr .a-fz-micr, .a-fz-semi    (0.50)
     ul
-      li .a-fzb-peta  , .a-fzb-hex     (6.00/0.25)
-      li .a-fzb-tera  , .a-fzb-tet     (4.00/0.375)
-      li .a-fzb-giga  , .a-fzb-tri     (3.00/0.50)
-      li .a-fzb-mega  , .a-fzb-di      (2.00/0.75)
-      li .a-fzb-kilo  , .a-fzb-sesqui  (1.50/1.00)
-      li .a-fzb-normal                 (1.00/1.50)
-      li .a-fzb-milli , .a-fzb-dodrans (0.75/2.00)
-      li .a-fzb-micro , .a-fzb-semi    (0.50/3.00)
+      li .a-fzb-peta, .a-fzb-hex     (6.00/0.25)
+      li .a-fzb-tera, .a-fzb-tet     (4.00/0.375)
+      li .a-fzb-giga, .a-fzb-tri     (3.00/0.50)
+      li .a-fzb-mega, .a-fzb-di      (2.00/0.75)
+      li .a-fzb-kilo, .a-fzb-sesqui  (1.50/1.00)
+      li .a-fzb-norm                 (1.00/1.50)
+      li .a-fzb-mill, .a-fzb-dodrans (0.75/2.00)
+      li .a-fzb-micr, .a-fzb-semi    (0.50/3.00)
   section#color-scheme
     -
       var color_scheme = {
@@ -345,7 +345,7 @@ block append main
         }
       }
     mixin colorBox(color)
-      section.o-Box.-w-1o2(class=[color.bg_class, (color.is_dark) ? 'h-darkbg' : ''])
+      section.o-GridFlex__Item.o-Box.-w-1o2(class=[color.bg_class, (color.is_dark) ? 'h-darkbg' : ''] style="border-radius:0;")
         mixin description()
           p Sample description.
         block
@@ -360,7 +360,7 @@ block append main
             each el in color.uses
               li= el
     mixin colorBoxTrans(color, n)
-      section.o-Box.-w-1o2(class=[color.box_color.bg_class, (color.is_dark) ? 'h-darkbg' : ''])
+      section.o-GridFlex__Item.o-Box.-w-1o2(class=[color.box_color.bg_class, (color.is_dark) ? 'h-darkbg' : ''] style="border-radius:0;")
         - var numbers = ['One','Two','Three','Four','Five','Six','Seven','Eight','Nine']
         mixin transbox(i)
           if i < n
@@ -385,8 +385,8 @@ block append main
     footer: p.
       Based on the
       #[a(rel="external" href="http://www.thinkwithportals.com/"): cite Portal] video game series.
-    section.o-FlexContainer
-      h3.-w-1o1 Main Portal Colors
+    section.o-GridFlex
+      h3.o-GridFlex__Item Main Portal Colors
       +colorBox(color_scheme.aperturewhite)
         mixin description()
           p.
@@ -421,8 +421,8 @@ block append main
           p.
             Tall and wiry, P-body is one of the two robots used for testing.
             Hovered hyperlinks are dedicated to his (or her?) digital iris.
-    section.o-FlexContainer
-      h3.-w-1o1 More Portal Colors
+    section.o-GridFlex
+      h3.o-GridFlex__Item More Portal Colors
       +colorBox(color_scheme.cavescaves)
         mixin description()
           p.
@@ -442,8 +442,8 @@ block append main
       +colorBox(color_scheme.propulsion)
         mixin description()
           p #[i Forwarding] the cause of science.
-    section.o-FlexContainer
-      h3.-w-1o1 UI Component Colors
+    section.o-GridFlex
+      h3.o-GridFlex__Item UI Component Colors
       +colorBox(color_scheme.deploying)
         mixin description()
           p.
@@ -481,19 +481,20 @@ block append main
             You&rsquo;ve
             got sucker&rsquo;s luck. Have you given up? Does it feel
             like a trial? Does it trouble your mind the way you trouble mine?
-    section.o-FlexContainer
-      h3.-w-1o1 Grays and Shadows
+    section.o-GridFlex
+      h3.o-GridFlex__Item Grays and Shadows
       +colorBox(color_scheme.graylite)
       +colorBox(color_scheme.graydark)
       +colorBoxTrans(trans.shadelight, 7)
       +colorBoxTrans(trans.tintlight,  7)
       +colorBoxTrans(trans.shadeheavy, 4)
       +colorBoxTrans(trans.tintheavy,  4)
-    aside.o-Box.o-Box--dialog(style={
+    aside.o-Box(style={
       'margin-bottom': '1.5rem'
-    , border: '1px solid #9acc7a'
+    , 'border': '1px solid #9acc7a'
     , 'margin-top': '-2px'
-    , background: 'rgba(0, 0, 0, 0.05)'
+    , 'border-radius': '1rem'
+    , 'background': 'rgba(0, 0, 0, 0.05)'
     , 'box-shadow': 'inset 0 0 0.5rem 0rem rgba(0,0,0,0.2)'
     })
       h3.-ta-c Overlapping Opacity
@@ -570,5 +571,5 @@ block append body
       })
     })
     function fontdemo(self) {
-      return $(self).closest('.o-FlexContainer').find('.c-FontSamp')
+      return $(self).closest('.o-GridFlex').find('.c-FontSamp')
     }

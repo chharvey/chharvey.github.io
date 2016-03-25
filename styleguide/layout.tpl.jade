@@ -1,9 +1,11 @@
 doctype html
 html(lang="en")
+  - function title(arr) { return arr.reduceRight(function (a, b) { return a + ' | ' + b }) }
+  - function mainH1(arr) { return arr.reduce(function (a, b) { return a + ' — ' + b }) }
+  - var titles = ['Site Design']
   block vars
-    - var heading = ''
   head
-    title #{heading} | Site Design
+    title= title(titles)
     meta(charset="utf-8")
     meta(name="viewport" content="width=device-width, initial-scale=1")
     link(rel="stylesheet" href="../styles/chharvey.css")
@@ -12,17 +14,20 @@ html(lang="en")
     block body
       main.o-GoldenContainer__Content
         block main
-          h1= heading
+          header
+            block main__header
+              h1= titles[titles.length-1]
       nav.Bc
         ol.Anc
-          li: a.Crumb(href="../index.html   ") Home
+          li: a.Crumb(href="../index.html") Home
           li: a.Crumb(href="../home/web.html") Web
         ul.Sib
-          li: a.Crumb(href="base.html     ") Base Typography
-          li: a.Crumb(href="objects.html  ") Objects
+          li: a.Crumb(href="base.html") Base Typography
+          li: a.Crumb(href="obj.html") Objects
           li: a.Crumb(href="comp-typo.html") Typo Components
-          li: a.Crumb(href="comp-ui.html  ") UI Components
-          li: a.Crumb(href="schemes.html  ") Site Schemes
+          li: a.Crumb(href="comp-ui.html") UI Components
+          li: a.Crumb(href="helpers.html") Helpers
+          li: a.Crumb(href="schemes.html") Site Schemes
         ul.Child
       script(src="../bower_components/jquery/dist/jquery.js")
       script(src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML,https://chharvey.github.io/chhlib/mathjax-localconfig.js")
