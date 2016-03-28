@@ -346,7 +346,9 @@ block append main
         }
       }
     mixin colorBox(color)
-      section.o-GridFlex__Item.o-Box.-w-1o2(class=[color.bg_class, (color.is_dark) ? 'h-darkbg' : ''] style="border-radius:0;")
+      section.o-GridFlex__Item.o-Box.-w-1o2.js-colorbox(class=[color.bg_class, (color.is_dark) ? 'h-darkbg' : ''] style={
+        'border-radius': '0',
+      })
         mixin description()
           p Sample description.
         block
@@ -361,11 +363,14 @@ block append main
             each el in color.uses
               li= el
     mixin colorBoxTrans(color, n)
-      section.o-GridFlex__Item.o-Box.-w-1o2(class=[color.box_color.bg_class, (color.is_dark) ? 'h-darkbg' : ''] style="border-radius:0;")
+      section.o-GridFlex__Item.o-Box.-w-1o2.js-colorbox(class=[(color.is_dark) ? 'h-darkbg' : ''] style={
+        'border-radius': '0',
+        'background-color': color.box_color.code_hex
+      })
         - var numbers = ['One','Two','Three','Four','Five','Six','Seven','Eight','Nine']
         mixin transbox(i)
           if i < n
-            div.o-Box(class=color.bg_class)= numbers[i]
+            div.o-Box.o-Box--mill(class=color.bg_class)= numbers[i]
               +transbox(i+1)
         h4.ColorTitle Overlapping #{color.name}
         form
@@ -541,6 +546,9 @@ block append body
   script(src="../core/scripts/util.js")
   script(src="../core/scripts/color.js")
   script.
+    function fontdemo(self) {
+      return $(self).closest('.o-GridFlex').find('.c-FontSamp')
+    }
     $('body').addClass('-bc-w -bi-n -c-b')
     $('input[name="fs"]').change(function () {
       fontdemo(this).css('font-style', (this.checked) ? $(this).val() : '')
@@ -562,15 +570,12 @@ block append body
       var orig = $(this).attr('value')
         , value = $(this).val() || orig
       function swatchChange(self, newvalue) {
-        $(self).parents('.o-Box').each(function () {
-          $(this).attr('style', 'background-color: ' + newvalue + ' !important')
+        $(self).parents('.js-colorbox').each(function () {
+          $(this).css('background-color', newvalue)
         })
       }
       swatchChange($(this), value)
-      $(this).siblings('.js-reset-swatch').click(function () {
+      $(this).parents('form').find('.js-reset-swatch').click(function () {
         swatchChange($(this), orig)
       })
     })
-    function fontdemo(self) {
-      return $(self).closest('.o-GridFlex').find('.c-FontSamp')
-    }
