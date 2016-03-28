@@ -363,14 +363,17 @@ block append main
             each el in color.uses
               li= el
     mixin colorBoxTrans(color, n)
-      section.o-GridFlex__Item.o-Box.-w-1o2.js-colorbox(class=[(color.is_dark) ? 'h-darkbg' : ''] style={
+      section.o-GridFlex__Item.o-Box.-w-1o2.js-colorbox(class=['js-'+color.bg_class, (color.is_dark) ? 'h-darkbg' : ''] style={
         'border-radius': '0',
         'background-color': color.box_color.code_hex
       })
         - var numbers = ['One','Two','Three','Four','Five','Six','Seven','Eight','Nine']
         mixin transbox(i)
           if i < n
-            div.o-Box.o-Box--mill(class=color.bg_class)= numbers[i]
+            div.o-Box.o-Box--mill(class=color.bg_class)
+              p.-mb-0
+                = numbers[i]
+                span.js-mix
               +transbox(i+1)
         h4.ColorTitle Overlapping #{color.name}
         form
@@ -385,7 +388,7 @@ block append main
             | .#{color.bg_class}
             br
             | #{color.code_dfn} == #{color.code_hexa}
-        | Zero
+        p.-mb-0 Zero
         +transbox(0)
     h2 Color Scheme
     footer: p.
@@ -546,10 +549,11 @@ block append body
   script(src="../core/scripts/util.js")
   script(src="../core/scripts/color.js")
   script.
+    $('body').addClass('-bc-w -bi-n -c-b') // only in js because can’t change template
+  script.
     function fontdemo(self) {
       return $(self).closest('.o-GridFlex').find('.c-FontSamp')
     }
-    $('body').addClass('-bc-w -bi-n -c-b')
     $('input[name="fs"]').change(function () {
       fontdemo(this).css('font-style', (this.checked) ? $(this).val() : '')
     })
@@ -574,8 +578,8 @@ block append body
           $(this).css('background-color', newvalue)
         })
       }
-      swatchChange($(this), value)
+      swatchChange(this, value)
       $(this).parents('form').find('.js-reset-swatch').click(function () {
-        swatchChange($(this), orig)
+        swatchChange(this, orig)
       })
     })
