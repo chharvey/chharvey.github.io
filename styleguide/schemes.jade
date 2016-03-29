@@ -361,7 +361,7 @@ block append main
           ul
             each el in color.uses
               li= el
-    mixin colorBoxTrans(color, n)
+    mixin colorBoxTrans(color, n, transbox_specs)
       section.o-GridFlex__Item.o-Box.-w-1o2.js-colorbox(class=['js-'+color.bg_class, (color.is_dark) ? 'h-darkbg' : ''] style={
         'border-radius': '0',
         'background-color': color.box_color.code_hex
@@ -371,11 +371,12 @@ block append main
           p.-mb-0
             = text
             code.ColorCode.-ml-h.js-mix(data-overlap-number=number)
-        mixin transbox(i)
+        mixin transbox(i, specs)
+          - specs = specs || {}
           if i < n
-            div.o-Box.o-Box--mill(class=color.bg_class)
+            div.o-Box.o-Box--mill(class=[color.bg_class].concat(specs.classes) style=specs.style)
               +translabel(numbers[i], i+1)
-              +transbox(i+1)
+              +transbox(i+1, specs)
         h4.ColorTitle Overlapping #{color.name}
         form
           label
@@ -387,7 +388,7 @@ block append main
           .#{color.bg_class}
           #{color.code_dfn} == #{color.code_hexa}
         +translabel('Zero', 0)
-        +transbox(0)
+        +transbox(0, transbox_specs)
     h2 Color Scheme
     footer: p.
       Based on the
@@ -494,8 +495,8 @@ block append main
       +colorBox(color_scheme.graydark)
       +colorBoxTrans(trans.shadelight, 7)
       +colorBoxTrans(trans.tintlight,  7)
-      +colorBoxTrans(trans.shadeheavy, 4)
-      +colorBoxTrans(trans.tintheavy,  4)
+      +colorBoxTrans(trans.shadeheavy, 4, { classes: ['h-darkbg'] })
+      +colorBoxTrans(trans.tintheavy,  4, { classes: ['-c-b'] })
     aside.o-Box(style={
       'margin-bottom': '1.5rem'
     , 'border': '1px solid #9acc7a'
