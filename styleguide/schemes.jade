@@ -366,14 +366,16 @@ block append main
       section.o-GridFlex__Item.o-Box.-w-1o2.js-colorbox(class=['js-'+color.bg_class, (color.is_dark) ? 'h-darkbg' : ''] style={
         'border-radius': '0',
         'background-color': color.box_color.code_hex
-      })
+      } data-overlap-color=color.code_hexa.slice(5,12) data-overlap-alpha=color.code_hexa.slice(-4,-1))
         - var numbers = ['One','Two','Three','Four','Five','Six','Seven','Eight','Nine']
+        mixin translabel(text, number)
+          p.-mb-0
+            = text
+            code.ColorCode.-d-il.-lh-0.-ml-h.js-mix(data-overlap-number=number)
         mixin transbox(i)
           if i < n
             div.o-Box.o-Box--mill(class=color.bg_class)
-              p.-mb-0
-                = numbers[i]
-                span.js-mix
+              +translabel(numbers[i], i+1)
               +transbox(i+1)
         h4.ColorTitle Overlapping #{color.name}
         form
@@ -388,7 +390,7 @@ block append main
             | .#{color.bg_class}
             br
             | #{color.code_dfn} == #{color.code_hexa}
-        p.-mb-0 Zero
+        +translabel('Zero', 0)
         +transbox(0)
     h2 Color Scheme
     footer: p.
@@ -570,16 +572,28 @@ block append body
     $('.c-FontForm input[type="reset"]').click(function () {
       fontdemo(this).css('font-style', '').css('font-variant','').css('font-weight', '')
     })
-    $('.js-rowbc-swatch').change(function () {
-      var orig = $(this).attr('value')
-        , value = $(this).val() || orig
-      function swatchChange(self, newvalue) {
-        $(self).parents('.js-colorbox').each(function () {
-          $(this).css('background-color', newvalue)
-        })
+  script.
+    function showMix(hexvalue) {
+      return function () {
+        var bg_color = hexvalue || $(this).parents('.js-colorbox').find('.js-rowbc-swatch').attr('value') || '#000000'
+        bg_color = Color.newColorHexString(bg_color)
+        var overlap = {
+          color   : $(this).parents('.js-colorbox').attr('data-overlap-color') || '#000000'
+        , opacity : $(this).parents('.js-colorbox').attr('data-overlap-alpha') || 0
+        , number  : $(this).attr('data-overlap-number')                        || 0
+        }
+        var mix = bg_color.mix(Color.newColorHexString(overlap.color), 1 - Math.pow(1-overlap.opacity, overlap.number))
+        $(this).html(mix.toString('hex'))
       }
-      swatchChange(this, value)
-      $(this).parents('form').find('.js-reset-swatch').click(function () {
-        swatchChange(this, orig)
-      })
+    }
+    $('.js-mix').each(showMix())
+    $('.js-rowbc-swatch').change(function () {
+      var value = $(this).val()
+      $(this).parents('.js-colorbox').css('background-color', value)
+      $(this).parents('.js-colorbox').find('.js-mix').each(showMix(value))
+    })
+    $('.js-reset-swatch').click(function () {
+      var orig = $(this).parents('form').find('.js-rowbc-swatch').attr('value')
+      $(this).parents('.js-colorbox').css('background-color', orig)
+      $(this).parents('.js-colorbox').find('.js-mix').each(showMix(orig))
     })
