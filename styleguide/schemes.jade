@@ -353,10 +353,9 @@ block append main
           p Sample description.
         block
         h4.ColorTitle= color.name
-        p: code.ColorCode
-          | .#{color.bg_class}
-          br
-          | #{color.code_dfn} == #{color.code_hex}
+        pre.ColorCode.
+          .#{color.bg_class}
+          #{color.code_dfn} == #{color.code_hex}
         +description()
         if (color.uses && color.uses[0])
           ul
@@ -371,7 +370,7 @@ block append main
         mixin translabel(text, number)
           p.-mb-0
             = text
-            code.ColorCode.-d-il.-lh-0.-ml-h.js-mix(data-overlap-number=number)
+            code.ColorCode.-ml-h.js-mix(data-overlap-number=number)
         mixin transbox(i)
           if i < n
             div.o-Box.o-Box--mill(class=color.bg_class)
@@ -383,13 +382,10 @@ block append main
             | background color:
             input.js-rowbc-swatch(type="color" value=color.box_color.code_hex)
           input.js-reset-swatch(type="reset")
-        p
-          | each:
-          br
-          code.ColorCode
-            | .#{color.bg_class}
-            br
-            | #{color.code_dfn} == #{color.code_hexa}
+        pre.ColorCode.
+          #[strong.-c-i each:]
+          .#{color.bg_class}
+          #{color.code_dfn} == #{color.code_hexa}
         +translabel('Zero', 0)
         +transbox(0)
     h2 Color Scheme
@@ -578,11 +574,11 @@ block append body
         var bg_color = hexvalue || $(this).parents('.js-colorbox').find('.js-rowbc-swatch').attr('value') || '#000000'
         bg_color = Color.newColorHexString(bg_color)
         var overlap = {
-          color   : $(this).parents('.js-colorbox').attr('data-overlap-color') || '#000000'
-        , opacity : $(this).parents('.js-colorbox').attr('data-overlap-alpha') || 0
-        , number  : $(this).attr('data-overlap-number')                        || 0
+          color : $(this).parents('.js-colorbox').attr('data-overlap-color') || '#000000'
+        , alpha : $(this).parents('.js-colorbox').attr('data-overlap-alpha') || 0
+        , number: $(this).attr('data-overlap-number')                        || 0
         }
-        var mix = bg_color.mix(Color.newColorHexString(overlap.color), 1 - Math.pow(1-overlap.opacity, overlap.number))
+        var mix = bg_color.mix(Color.newColorHexString(overlap.color), 1 - Math.pow(1-overlap.alpha, overlap.number))
         $(this).html(mix.toString('hex'))
       }
     }
