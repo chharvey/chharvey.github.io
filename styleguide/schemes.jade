@@ -350,43 +350,45 @@ block append main
         'border-radius': '0',
       })
         mixin description()
-          p Sample description.
+          // p Sample description.
         block
         h4.ColorTitle= color.name
-        p: code.ColorCode
-          | .#{color.bg_class}
-          br
-          | #{color.code_dfn} == #{color.code_hex}
+        pre.ColorCode.
+          .#{color.bg_class}
+          #{color.code_dfn} == #{color.code_hex}
         +description()
         if (color.uses && color.uses[0])
           ul
             each el in color.uses
               li= el
-    mixin colorBoxTrans(color, n)
-      section.o-GridFlex__Item.o-Box.-w-1o2.js-colorbox(class=[(color.is_dark) ? 'h-darkbg' : ''] style={
+    mixin colorBoxTrans(color, n, transbox_specs)
+      section.o-GridFlex__Item.o-Box.-w-1o2.js-colorbox(class=['js-'+color.bg_class, (color.is_dark) ? 'h-darkbg' : ''] style={
         'border-radius': '0',
         'background-color': color.box_color.code_hex
-      })
+      } data-overlap-color=color.code_hexa.slice(5,12) data-overlap-alpha=color.code_hexa.slice(-4,-1))
         - var numbers = ['One','Two','Three','Four','Five','Six','Seven','Eight','Nine']
-        mixin transbox(i)
+        mixin translabel(text, number)
+          p.-mb-0
+            = text
+            code.ColorCode.-ml-h.js-mix(data-overlap-number=number)
+        mixin transbox(i, specs)
+          - specs = specs || {}
           if i < n
-            div.o-Box.o-Box--mill(class=color.bg_class)= numbers[i]
-              +transbox(i+1)
+            div.o-Box.o-Box--mill(class=[color.bg_class].concat(specs.classes) style=specs.style)
+              +translabel(numbers[i], i+1)
+              +transbox(i+1, specs)
         h4.ColorTitle Overlapping #{color.name}
         form
           label
             | background color:
             input.js-rowbc-swatch(type="color" value=color.box_color.code_hex)
           input.js-reset-swatch(type="reset")
-        p
-          | each:
-          br
-          code.ColorCode
-            | .#{color.bg_class}
-            br
-            | #{color.code_dfn} == #{color.code_hexa}
-        | Zero
-        +transbox(0)
+        pre.ColorCode.
+          #[strong.-c-i each:]
+          .#{color.bg_class}
+          #{color.code_dfn} == #{color.code_hexa}
+        +translabel('Zero', 0)
+        +transbox(0, transbox_specs)
     h2 Color Scheme
     footer: p.
       Based on the
@@ -427,8 +429,6 @@ block append main
           p.
             Tall and wiry, P-body is one of the two robots used for testing.
             Hovered hyperlinks are dedicated to his (or her?) digital iris.
-    section.o-GridFlex
-      h3.o-GridFlex__Item More Portal Colors
       +colorBox(color_scheme.cavescaves)
         mixin description()
           p.
@@ -450,6 +450,8 @@ block append main
           p #[i Forwarding] the cause of science.
     section.o-GridFlex
       h3.o-GridFlex__Item UI Component Colors
+      +colorBox(color_scheme.graylite)
+      +colorBox(color_scheme.graydark)
       +colorBox(color_scheme.deploying)
         mixin description()
           p.
@@ -488,13 +490,11 @@ block append main
             got sucker&rsquo;s luck. Have you given up? Does it feel
             like a trial? Does it trouble your mind the way you trouble mine?
     section.o-GridFlex
-      h3.o-GridFlex__Item Grays and Shadows
-      +colorBox(color_scheme.graylite)
-      +colorBox(color_scheme.graydark)
+      h3.o-GridFlex__Item Shades &amp; Tints
       +colorBoxTrans(trans.shadelight, 7)
       +colorBoxTrans(trans.tintlight,  7)
-      +colorBoxTrans(trans.shadeheavy, 4)
-      +colorBoxTrans(trans.tintheavy,  4)
+      +colorBoxTrans(trans.shadeheavy, 4, { classes: ['h-darkbg'] })
+      +colorBoxTrans(trans.tintheavy,  4, { classes: ['-c-b'] })
     aside.o-Box(style={
       'margin-bottom': '1.5rem'
     , 'border': '1px solid #9acc7a'
@@ -546,10 +546,11 @@ block append body
   script(src="../core/scripts/util.js")
   script(src="../core/scripts/color.js")
   script.
+    $('body').addClass('-bc-w -bi-n -c-b') // only in js because can’t change template
+  script.
     function fontdemo(self) {
       return $(self).closest('.o-GridFlex').find('.c-FontSamp')
     }
-    $('body').addClass('-bc-w -bi-n -c-b')
     $('input[name="fs"]').change(function () {
       fontdemo(this).css('font-style', (this.checked) ? $(this).val() : '')
     })
@@ -566,16 +567,28 @@ block append body
     $('.c-FontForm input[type="reset"]').click(function () {
       fontdemo(this).css('font-style', '').css('font-variant','').css('font-weight', '')
     })
-    $('.js-rowbc-swatch').change(function () {
-      var orig = $(this).attr('value')
-        , value = $(this).val() || orig
-      function swatchChange(self, newvalue) {
-        $(self).parents('.js-colorbox').each(function () {
-          $(this).css('background-color', newvalue)
-        })
+  script.
+    function showMix(hexvalue) {
+      return function () {
+        var bg_color = hexvalue || $(this).parents('.js-colorbox').find('.js-rowbc-swatch').attr('value') || '#000000'
+        bg_color = Color.newColorHexString(bg_color)
+        var overlap = {
+          color : $(this).parents('.js-colorbox').attr('data-overlap-color') || '#000000'
+        , alpha : $(this).parents('.js-colorbox').attr('data-overlap-alpha') || 0
+        , number: $(this).attr('data-overlap-number')                        || 0
+        }
+        var mix = bg_color.mix(Color.newColorHexString(overlap.color), 1 - Math.pow(1-overlap.alpha, overlap.number))
+        $(this).html(mix.toString('hex'))
       }
-      swatchChange($(this), value)
-      $(this).parents('form').find('.js-reset-swatch').click(function () {
-        swatchChange($(this), orig)
-      })
+    }
+    $('.js-mix').each(showMix())
+    $('.js-rowbc-swatch').change(function () {
+      var value = $(this).val()
+      $(this).parents('.js-colorbox').css('background-color', value)
+      $(this).parents('.js-colorbox').find('.js-mix').each(showMix(value))
+    })
+    $('.js-reset-swatch').click(function () {
+      var orig = $(this).parents('form').find('.js-rowbc-swatch').attr('value')
+      $(this).parents('.js-colorbox').css('background-color', orig)
+      $(this).parents('.js-colorbox').find('.js-mix').each(showMix(orig))
     })
