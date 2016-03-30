@@ -5,52 +5,9 @@ block append vars
 
 block append main
   include ../core/include/_snippets.jade
+  include include/_schemes.jade
   section#typeface-scheme
-    -
-      var font_scheme = {
-        base : {
-          name : 'Avenir Next'
-        , class : 'a-ff-base'
-        , sample: 'The quick brown fox jumps over the lazy dog.'
-        , similar: [ 'Helvetica Neue' ]
-        }
-      , heading : {
-          name : 'Optima'
-        , class : 'a-ff-heading'
-        , sample: 'Oh, sphinx of black quartz, judge my vow.'
-        , similar: [ 'Seravek' , 'Tahoma' ]
-        }
-      , prose : {
-          name : 'Baskerville'
-        , class : 'a-ff-prose'
-        , sample: 'The five boxing wizards jump quickly.'
-        , similar: [ 'Palatino' , 'Cochin' ]
-        }
-      , accent : {
-          name : 'Helvetica Neue'
-        , class : 'a-ff-accent'
-        , sample: 'Heavy boxes perform quick waltzes and jigs.'
-        , similar: [ 'Helvetica' ]
-        }
-      , code : {
-          name : 'Menlo'
-        , class : 'a-ff-code'
-        , sample: 'The quick brown fox jumps over the lazy dog.'
-        , similar: [ 'Monaco' , 'Andale Mono' ]
-        }
-      , math : {
-          name : 'Didot'
-        , class : 'a-ff-math'
-        , sample: 'Sixty zippers were quickly picked from the woven jute bag.'
-        , similar: [ 'Bodoni 72' , 'Times' ]
-        }
-      , script : {
-          name : 'Zapfino'
-        , class : 'a-ff-script'
-        , sample: 'The quick brown fox jumps over the lazy dog.'
-        }
-      }
-    mixin fontBox(typeface, footer)
+    mixin fontBox(typeface, has_footer)
       section.o-GridFlex
         mixin description()
           p Sample description.
@@ -81,7 +38,7 @@ block append main
               input(type="range" name="fw" min="100" max="900" step="100" value="400")
               input(type="text" value="400 (normal)" disabled="")
             input.-d-bk(type="reset")
-        if footer
+        if has_footer
           +footer()
     h2 Typeface Scheme
     +fontBox(font_scheme.base)
@@ -178,173 +135,6 @@ block append main
       li .a-fzb-mill, .a-fzb-dodrans (0.75/2.00)
       li .a-fzb-micr, .a-fzb-semi    (0.50/3.00)
   section#color-scheme
-    -
-      var color_scheme = {
-        aperturewhite : {
-          name        : 'Aperture White'
-        , code_dfn    : 'hsv(217,   5%, 100%)'
-        , code_hex    : '#f2f7ff'
-        , bg_class    : 'a-bc-aperturewhite'
-        , uses        : [ 'body background' ]
-        }
-      , apertureblack : {
-          name        : 'Aperture Black'
-        , code_dfn    : 'hsv( 37, 100%,   5%)'
-        , code_hex    : '#0d0800'
-        , bg_class    : 'a-bc-apertureblack'
-        , is_dark     : true
-        , uses        : [ 'body text' ]
-        }
-      , lakesuperior : {
-          name        : 'Lake Superior'
-        , code_dfn    : 'hsv(247, 100%,  60%)'
-        , code_hex    : '#120099'
-        , bg_class    : 'a-bc-lakesuperior'
-        , is_dark     : true
-        , uses        : [ 'major heading text' , 'ledes and drop caps' ]
-        }
-      , facilityabyss : {
-          name        : 'Facility Abyss'
-        , code_dfn    : 'hsv(187,  40%,  40%)'
-        , code_hex    : '#3d6166'
-        , bg_class    : 'a-bc-facilityabyss'
-        , is_dark     : true
-        , uses        : [ 'minor heading text' ]
-        }
-      , atlas : {
-          name        : 'Atlas'
-        , code_dfn    : 'hsv(217, 100%, 100%)'
-        , code_hex    : '#0062ff'
-        , bg_class    : 'a-bc-atlas'
-        , is_dark     : true
-        , uses        : [ 'link text' ]
-        }
-      , pbody : {
-          name        : 'P-Body'
-        , code_dfn    : 'hsv( 37, 100%, 100%)'
-        , code_hex    : '#ff9d00'
-        , bg_class    : 'a-bc-pbody'
-        , uses        : [ 'hover link text' ]
-        }
-      , cavescaves : {
-          name        : 'Cave’s Caves'
-        , code_dfn    : 'hsv( 28,  66.6%,  50%)'
-        , code_hex    : '#80522b'
-        , bg_class    : 'a-bc-cavescaves'
-        , is_dark     : true
-        }
-      , asbestos : {
-          name        : 'Asbestos'
-        , code_dfn    : 'hsv( 46, 100.0%,  75%)'
-        , code_hex    : '#bf9300'
-        , bg_class    : 'a-bc-asbestos'
-        }
-      , repulsion : {
-          name        : 'Repulsion Gel'
-        , code_dfn    : 'hsv(202,  80.0%, 100%)'
-        , code_hex    : '#33b4ff'
-        , bg_class    : 'a-bc-repulsion'
-        , uses        : [ 'code/kbd/samp on print' ]
-        }
-      , propulsion : {
-          name        : 'Propulsion Gel'
-        , code_dfn    : 'hsv( 22,  80.0%, 100%)'
-        , code_hex    : '#ff7e33'
-        , bg_class    : 'a-bc-propulsion'
-        , uses        : [ 'subheading text' ]
-        }
-      , deploying : {
-          name        : 'Deploying'
-        , code_dfn    : 'hsv(  7,  80%, 100%)'
-        , code_hex    : '#ff4b33'
-        , bg_class    : 'a-bc-deploying'
-        , is_dark     : true
-        , uses        : [ 'Danger components' ]
-        }
-      , hereye : {
-          name        : 'HER Eye'
-        , code_dfn    : 'hsv( 52,  80%, 100%)'
-        , code_hex    : '#ffe433'
-        , bg_class    : 'a-bc-hereye'
-        , uses        : [ 'Caution components' ]
-        }
-      , neurotoxin : {
-          name        : 'Neurotoxin'
-        , code_dfn    : 'hsv( 97,  40%,  80%)'
-        , code_hex    : '#9acc7a'
-        , bg_class    : 'a-bc-neurotoxin'
-        , uses        : [ 'Success components' ]
-        }
-      , bridges : {
-          name        : 'Bridges of Light'
-        , code_dfn    : 'hsv(202,  40%, 100%)'
-        , code_hex    : '#99daff'
-        , bg_class    : 'a-bc-bridges'
-        , uses        : [ 'Info components' ]
-        }
-      , companion : {
-          name        : 'Heart of a Companion'
-        , code_dfn    : 'hsv(337,  40%, 100%)'
-        , code_hex    : '#ff99c0'
-        , bg_class    : 'a-bc-companion'
-        , uses        : [ 'Help components' ]
-        }
-      , vilify : {
-          name        : 'Vilify'
-        , code_dfn    : 'hsv(277, 100%, 100%)'
-        , code_hex    : '#9d00ff'
-        , bg_class    : 'a-bc-vilify'
-        , is_dark     : true
-        , uses        : [ 'alert links' ]
-        }
-      , graylite : {
-          name        : 'Aperture Gray Lite'
-        , code_dfn    : 'mix(mix(@aperturewhite, @apertureblack, 80%), @pbody, 95%)'
-        , code_hex    : '#c7c5c2'
-        , bg_class    : 'a-bc-graylite'
-        , uses        : [ 'light component default' ]
-        }
-      , graydark : {
-          name        : 'Aperture Gray Dark'
-        , code_dfn    : 'mix(mix(@apertureblack, @aperturewhite, 80%), @atlas, 95%)'
-        , code_hex    : '#383a3d'
-        , bg_class    : 'a-bc-graydark'
-        , is_dark     : true
-        , uses        : [ 'dark component default' ]
-        }
-      }
-      var trans = {
-        shadelight : {
-          name        : 'Shade Light'
-        , code_dfn    : 'fadeout(@apertureblack, 80%)'
-        , code_hexa   : 'rgba(#0d0800, 0.2)'
-        , bg_class    : 'a-bc-shadelight'
-        , box_color   : color_scheme.aperturewhite
-        }
-      , tintlight : {
-          name        : 'Tint Light'
-        , code_dfn    : 'fadeout(@aperturewhite, 80%)'
-        , code_hexa   : 'rgba(#f2f7ff, 0.2)'
-        , bg_class    : 'a-bc-tintlight'
-        , box_color   : color_scheme.apertureblack
-        , is_dark     : true
-        }
-      , shadeheavy : {
-          name        : 'Shade Heavy'
-        , code_dfn    : 'fadeout(@apertureblack, 20%)'
-        , code_hexa   : 'rgba(#0d0800, 0.8)'
-        , bg_class    : 'a-bc-shadeheavy'
-        , box_color   : color_scheme.aperturewhite
-        }
-      , tintheavy : {
-          name        : 'Tint Heavy'
-        , code_dfn    : 'fadeout(@aperturewhite, 20%)'
-        , code_hexa   : 'rgba(#f2f7ff, 0.8)'
-        , bg_class    : 'a-bc-tintheavy'
-        , box_color   : color_scheme.apertureblack
-        , is_dark     : true
-        }
-      }
     mixin colorBox(color)
       section.o-GridFlex__Item.o-Box.-w-1o2.js-colorbox(class=[color.bg_class, (color.is_dark) ? 'h-darkbg' : ''] style={
         'border-radius': '0',
@@ -544,50 +334,4 @@ block append main
 block append body
   script(src="../core/scripts/util.js")
   script(src="../core/scripts/color.js")
-  script.
-    $('body').addClass('-bc-w -bi-n -c-b') // only in js because can’t change template
-  script.
-    function fontdemo(self) {
-      return $(self).closest('.o-GridFlex').find('.c-FontSamp')
-    }
-    $('input[name="fs"]').change(function () {
-      fontdemo(this).css('font-style', (this.checked) ? $(this).val() : '')
-    })
-    $('input[name="fv"]').change(function () {
-      fontdemo(this).css('font-variant', (this.checked) ? $(this).val() : '')
-    })
-    $('input[name="fw"]').on('input change', function () {
-      var val = $(this).val() // a string
-      fontdemo(this).css('font-weight', val)
-      var norm = (+val == 400) ? ' (normal)' : ''
-      var bold = (+val == 700) ? ' (bold)' : ''
-      $(this).siblings('input[type="text"]').val(val + norm + bold)
-    })
-    $('.c-FontForm input[type="reset"]').click(function () {
-      fontdemo(this).css('font-style', '').css('font-variant','').css('font-weight', '')
-    })
-  script.
-    function showMix(hexvalue) {
-      return function () {
-        var bg_color = hexvalue || $(this).parents('.js-colorbox').find('.js-rowbc-swatch').attr('value') || '#000000'
-        bg_color = Color.newColorHexString(bg_color)
-        var overlap = {
-          color : $(this).parents('.js-colorbox').attr('data-overlap-color') || '#000000'
-        , alpha : $(this).parents('.js-colorbox').attr('data-overlap-alpha') || 0
-        , number: $(this).attr('data-overlap-number')                        || 0
-        }
-        var mix = bg_color.mix(Color.newColorHexString(overlap.color), 1 - Math.pow(1-overlap.alpha, overlap.number))
-        $(this).html(mix.toString('hex'))
-      }
-    }
-    $('.js-mix').each(showMix())
-    $('.js-rowbc-swatch').change(function () {
-      var value = $(this).val()
-      $(this).parents('.js-colorbox').css('background-color', value)
-      $(this).parents('.js-colorbox').find('.js-mix').each(showMix(value))
-    })
-    $('.js-reset-swatch').click(function () {
-      var orig = $(this).parents('form').find('.js-rowbc-swatch').attr('value')
-      $(this).parents('.js-colorbox').css('background-color', orig)
-      $(this).parents('.js-colorbox').find('.js-mix').each(showMix(orig))
-    })
+  script(src="scripts/schemes.js")
