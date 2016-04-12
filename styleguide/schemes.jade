@@ -110,11 +110,12 @@ block append main
           ul
             each el in color.uses
               li= el
-    mixin colorBoxTrans(color, n, transbox_specs)
-      section.o-GridFlex__Item.o-Box.-w-1o2.js-colorbox(class=['js-'+color.bg_class, (color.is_dark) ? 'h-darkbg' : ''] style={
+    mixin colorBoxTrans(color, n, section_specs, transbox_specs)
+      - section_specs = section_specs || {}
+      section.o-GridFlex__Item.o-Box.-w-1o2.js-colorbox(class=['data-'+color.bg_class, (color.is_dark) ? 'h-darkbg' : ''] style={
         'border-radius': '0',
         'background-color': color.box_color.code_hex
-      } data-overlap-color=color.code_hexa.slice(5,12) data-overlap-alpha=color.code_hexa.slice(-4,-1))
+      } data-overlap-color=color.code_hexa.slice(5,12) data-overlap-alpha=color.code_hexa.slice(-4,-1))&attributes(section_specs)
         - var numbers = ['One','Two','Three','Four','Five','Six','Seven','Eight','Nine']
         mixin translabel(text, number)
           p.c-TransLabel
@@ -123,7 +124,7 @@ block append main
         mixin transbox(i, specs)
           - specs = specs || {}
           if i < n
-            div.o-Box.o-Box--mill(class=[color.bg_class].concat(specs.classes) style=specs.style)
+            div.o-Box.o-Box--mill(class=[color.bg_class])&attributes(specs)
               +translabel(numbers[i], i+1)
               +transbox(i+1, specs)
         h4.ColorTitle Overlapping #{color.name}
@@ -242,9 +243,9 @@ block append main
     section.o-GridFlex
       h3.o-GridFlex__Item Shades &amp; Tints
       +colorBoxTrans(trans.shadelight, 7)
-      +colorBoxTrans(trans.tintlight,  7)
-      +colorBoxTrans(trans.shadeheavy, 4, { classes: ['h-darkbg'] })
-      +colorBoxTrans(trans.tintheavy,  4, { classes: ['-c-b'] })
+      +colorBoxTrans(trans.tintlight,  7, { class: 'h-darkbg' })
+      +colorBoxTrans(trans.shadeheavy, 4, {},                    { class: 'h-darkbg' })
+      +colorBoxTrans(trans.tintheavy,  4, { class: 'h-darkbg' }, { class: '-c-b' })
     aside.o-Box.o-Box--kilo-sG.o-Box--mega-sT(style={
       'margin-bottom': '1.5rem'
     , 'border': '1px solid #9acc7a'
