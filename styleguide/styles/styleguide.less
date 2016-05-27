@@ -1,3 +1,4 @@
+@import (reference) url('../../node_modules/xmeter/src/__tool.module.borders.less');
 @import (reference) url('../../node_modules/xmeter/src/__tool.module.fontsize.less');
 @import (reference) url('../../node_modules/xmeter/src/__tool.module.delims.less');
 @import (reference) url('../../styles/src/__settings.less');
@@ -62,12 +63,9 @@ body {
   .parens();
 }
 .ColorCode {
-  display: block;
   padding: 0;
-  border: 0;
-  line-height: inherit;
+  .border-vert(all);
   background: transparent;
-  overflow: auto;
   color: inherit;
 }
 //++++ #end OBJECTS ++++//
@@ -84,6 +82,9 @@ body {
   font-size: inherit;
   line-height: inherit;
   color: #000;
+}
+.c-TransLabel {
+  margin-bottom: (0.5 * @g-vru); // accounts for parent `.o-Box--mill` vertical rhythm
 }
 //++++ #end COMPONENTS ++++//
 
@@ -111,5 +112,10 @@ body {
   transition-duration: 250ms;
   transition-timing-function: ease;
   transition-delay: 0ms;
+}
+[data-overlap-color] > pre.ColorCode::before {
+  content:'each:';
+  display: block;
+  font-weight:bold;
 }
 //++++ #end OVERRIDES ++++//
