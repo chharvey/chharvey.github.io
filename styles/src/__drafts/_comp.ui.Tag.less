@@ -2,7 +2,6 @@
 /*################################*\
     _comp.ui.Tag.less
 \*################################*/
-@import (reference) url('../../../node_modules/xmeter/src/__tool.fallback.gradient.less');
 
 
 // A Tag looks like a physical "tag".
@@ -32,7 +31,13 @@
   }
 }
 .c-Tag-mx(@color) {
-  .gradient(to right, @color, darken(@color, 15%););
+  background-color: @color; // fallback
+  background-image: -webkit-gradient(linear, left top, right top, from(@color), to(darken(@color, 15%)));
+  background-image: -webkit-linear-gradient(    left, @color, darken(@color, 15%));
+  background-image:    -moz-linear-gradient(    left, @color, darken(@color, 15%));
+  background-image:     -ms-linear-gradient(    left, @color, darken(@color, 15%));
+  background-image:      -o-linear-gradient(    left, @color, darken(@color, 15%));
+  background-image:         linear-gradient(to right, @color, darken(@color, 15%));
   &::before {
     border-right-color: @color;
   }
