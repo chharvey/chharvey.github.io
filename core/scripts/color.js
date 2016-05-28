@@ -277,7 +277,7 @@ Color.typeCheck = function typeCheck(param) {
  * Mixes (averages) two colors, with a given weight favoring the first color.
  * If `w == 1.0`, this method will return `color1`. `w == 0.0`, will return `color2`.
  * `w == 0.5` (default if omitted) will result in a perfectly even mix.
- * TODO NOTE this function is deprecated. Use `Color.prototype.mix()` instead.
+ * CHANGED this function is deprecated. Use `Color.prototype.mix()` instead.
  * @param `color1` required Color object; the first color
  * @param `color2` required Color object; the second color
  * @param `w`      optional number between 0.0 and 1.0, defaults to 0.5; the weight favoring the first color
