@@ -215,7 +215,7 @@ Color.newColorHSV = function newColorHSV(hue, sat, val) {
     // achromatic (gray)
     red = grn = blu = val
   } else {
-    (function () {
+    ;(function () {
       var h = hue / 60 // sector 0 to 5
         , i = Math.floor(h)
         , f = h - i // factorial part of h
