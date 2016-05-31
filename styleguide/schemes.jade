@@ -16,10 +16,13 @@ block append main
         block
         h3.-w-1o1= typeface.name
         div.a-w-p1
-          p
-            if (typeface.similar && typeface.similar[0])
+          if (typeface.similar && typeface.similar[0])
+            p
               | Similar: 
-              b= typeface.similar
+              //- b= typeface.similar.join(', ')
+              each name,index in typeface.similar
+                b= name
+                = ((index < typeface.similar.length-1) ? ', ' : '')
           +description()
         div.a-w-p2
           figure.c-FontSamp(class=typeface.class)
