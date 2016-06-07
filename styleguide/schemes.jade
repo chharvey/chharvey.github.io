@@ -16,10 +16,13 @@ block append main
         block
         h3.-w-1o1= typeface.name
         div.a-w-p1
-          p
-            if (typeface.similar && typeface.similar[0])
+          if (typeface.similar && typeface.similar[0])
+            p
               | Similar: 
-              b= typeface.similar
+              //- b= typeface.similar.join(', ')
+              each name,index in typeface.similar
+                b= name
+                = ((index < typeface.similar.length-1) ? ', ' : '')
           +description()
         div.a-w-p2
           figure.c-FontSamp(class=typeface.class)
@@ -236,11 +239,11 @@ block append main
             got sucker&rsquo;s luck. Have you given up? Does it feel
             like a trial? Does it trouble your mind the way you trouble mine?
     section.o-GridFlex
-      h3.o-GridFlex__Item Shades &amp; Tints
-      +colorBoxTrans(trans.shadelight, 7)
+      h3.o-GridFlex__Item Tints &amp; Shades
       +colorBoxTrans(trans.tintlight,  7, { class: 'h-darkbg' })
-      +colorBoxTrans(trans.shadeheavy, 4, {},                    { class: 'h-darkbg' })
+      +colorBoxTrans(trans.shadelight, 7)
       +colorBoxTrans(trans.tintheavy,  4, { class: 'h-darkbg' }, { class: '-c-b' })
+      +colorBoxTrans(trans.shadeheavy, 4, {},                    { class: 'h-darkbg' })
     aside.o-Box.o-Box--kilo-sG.o-Box--mega-sT(style={
       'margin-bottom': '1.5rem'
     , 'border': '1px solid #9acc7a'
