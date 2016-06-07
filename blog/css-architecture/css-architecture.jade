@@ -4,108 +4,627 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
     title CSS Architecture
     meta(charset="utf-8")
     meta(name="author" content="Christopher H. Harvey")
-    meta(name="description" content="A brief summary on how to organize your CSS.")
-    meta(name="keywords" content="css, code organization")
+    meta(name="description" content="Write good CSS.")
+    meta(name="keywords" content="css, code organization, code architecture")
     meta(name="viewport" content="width=device-width, initial-scale=1")
-    link(rel="stylesheet" href="../styles/chharvey.css")
+    link(rel="stylesheet" href="../../styles/chharvey.css")
   body.o-GoldenContainer
-    p(style="position:fixed;font-weight:bold;font-size:1.5rem;color:red;") WARNING: THIS DRAFT IS INCOMPLETE AND POSSIBLY EVEN INCORRECT. DO NOT CITE OR REFERENCE IT. IT WILL BE MERGED INTO ANOTHER DOCUMENT AND RELEASED AT A LATER TIME.
-    main.o-GoldenContainer__Content.c-Document.c-Document--draft(data-status="draft" itemscope="" itemtype="https://schema.org/Article")
+    include ../..//core/include/_snippets.jade
+    include include/_draft-disclaimer.jade
+    main.o-GoldenContainer__Content.c-Document(data-status="draft" itemscope="" itemtype="http://schema.org/Article")
       header
         h1(itemprop="name headline") CSS Architecture
-        p.o-GoldenContainer__Sidebar.o-GoldenContainer__Sidebar--minor.o-Box.o-Box--Island.c-Alert.c-Alert--Dang.
+        p.o-GoldenContainer__Content__SideMinor.o-Box.o-Box--island.c-Alert.c-Alert--dang.
           This document is a work in progress.
         dl.c-Document__Meta
           dt Author
           dd(itemprop="author") Christopher H. Harvey
           dt Description
-          dd(itemprop="description") A brief summary on how to organize your CSS.
+          dd(itemprop="description").
+            A discussion on writing and organizing
+            good, scalable, maintainable, powerful, efficient
+            #[abbr.c-Acro(title="Cascading Stylesheets") CSS] code.
           dt Keywords
-          dd(itemprop="keywords") #[abbr(title="Cascading StyleSheets") CSS]
-          dd(itemprop="keywords") code organization
+          dd(itemprop="keywords"): abbr(title="Cascading StyleSheets") CSS
+          dd(itemprop="keywords"): abbr(title="HyperText Markup Languge") HTML
+          dd(itemprop="keywords") code organization, architecture
           dt Version History
+          dd.update: time(datetime="2015-03-27") Mar 27, 2015
+          dd.update: time(datetime="2015-04-09 17:54") Apr 8, 2015 #[span.tod 5:54 PM]
+          dd.update: time(datetime="2015-04-13 14:30") Apr 13, 2015 #[span.tod 2:30 PM]
+          dd.update: time(datetime="2015-08-20 19:06") Aug 20, 2015 #[span.tod 7:06 PM]
+          dd.update: time(datetime="2015-10-03 12:13") Oct 3, 2015 #[span.tod 12:13 PM]
+          dd.update: time(datetime="2016-02-03 17:47") Feb 3, 2016 #[span.tod 5:47 PM]
+          dd.update: time(datetime="2016-02-03 23:14") Feb 3, 2016 #[span.tod 11:14 PM]
           dd.update
-            time(datetime="2015-03-27") Mar 27, 2015
-          dd.update
-            time(datetime="2015-04-09 17:54") Apr 8, 2015 #[span.tod 5:54 PM]
-          dd.update(itemprop="dateModified")
-            time(datetime="2015-10-03 12:13") Oct 3, 2015 #[span.tod 12:13 PM]
-            small.o-Textbox.c-Label.c-Label--dang(class="!ml:1") Latest
-      p.c-Lede.
-        Define properties, selectors, and stylesheets in order of increasing specificity.
-        Based off of #[a(rel="external" href="http://itcss.io/") Harry Roberts&rsquo;s Theory of ITCSS].
-      section
-        h2 Property Order
+            time(datetime="2016-02-17 15:30" itemprop="dateModified") Feb 17, 2016 #[span.tod 3:30 PM]
+            small.o-Textbox.c-Label.c-Label--dang.-ml-1 Latest
+      section.c-Document__Draft
+        h2 Introduction
+        p.c-Lede.c-Lede--dropcap.
+          This document is a compilation of what I have learned about writing
+          good, scalable, maintainable, powerful, efficient
+          #[abbr.c-Acro(title="Cascading Stylesheets") CSS] code.
+        p.c-Lede.
+          First we start off from a narrow approach, looking at the CSS language itself,
+          and then we work our way larger, discussing the ways it interacts with itself and
+          with HTML.
+        //- p Define properties, selectors, and stylesheets in order of increasing specificity.
+        p.c-Lede.
+          Note that this is not a coding style guide. How you format your code is up to you
+          or a style guide you&rsquo;re using. Here we look at code from a higher level
+          point of view.
+      section#grouping-css-properties.c-Document__Complete
+        h2 Grouping CSS Properties
         p.
-          CSS properties should be grouped by order of decreasing structure definition.
-          The inverted pyramid below illustrates how CSS properties are related.
-        img(src="images/css-pyramid-props.svg" alt="An inverted pyramid illustrates how CSS properties are related. The top contains layout and structure, the middle contains typography, and the bottom contains cosmetics.")
+          A CSS ruleset contains one or more property-value pairs. Within this ruleset,
+          properties should be grouped by function, and these groups should be
+          ordered in #[strong decreasing structure definition].
         p.
-          The top base of the pyramid contains properties that set up foundation and layout,
-          such as display and position. The middle contains typographical structure, like font and text alignment.
-          Then we finish with low-level cosmetic properties,
-          such as color, at the vertex on the bottom.
+          There are two reasons for this. First, code hand-typed in this manner is
+          much easier to communicate, maintain, and visualize. For example, you&rsquo;d like
+          to know what a class looks like just by its code, not having to test it in the browser.
+          Having an arbitrary order (such as alphabetical) makes it harder to visualize it.
+        p: small.
+          One of the arguments for alphabetical ordering is that it makes maintenance
+          easier. That would be true, if selectors normally had a ton of rules
+          in their rulesets. But we&rsquo;ll see later on that this is rarely,
+          if ever, the case. If you keep your rulesets to a minimum of, say,
+          five rules, then alphabetical ordering is basically useless.
         p.
-          Define properties within a CSS block or ruleset in the order shown
-          from top to bottom in the pyramid. This pyramid can be used to serve another purpose, however:
+          There is another reason to group properties by function, as well.
           CSS classes can be split into designated responsibilities, that is, authors may use
-          separate classes for structural vs. textual vs. cosmetic properties. This makes the CSS
-          more modular and reusable.
-        p Use this outline as a guide to ordering/grouping CSS properties.
-        p.o-Box.o-Box--island.c-Alert.c-Alert--cshn
-          strong.c-Alert__Title Note:
-          | This is not a complete list of all CSS properties.
-          | If a property is not listed, use your best guess for where to place it.
+          separate classes for layout #[+vs()]
+          structure #[+vs()] text properties.
+          This makes the CSS
+          more modular and reusable, and we will see how that is done in the next section.
+        p.
+          Also keep in mind that this order applies to properties #[em within a ruleset].
+          We&rsquo;ll talk later about ordering rulesets within a stylesheet&mdash;and
+          then later, ordering stylesheets themselves.
+        figure
+          img(style="box-shadow: none;" src="../images/css-pyramid-props.svg" alt="An inverted triangle illustrates how CSS properties are related.")
+          figcaption.c-Caption.c-Caption--after.
+            This inverted triangle illustrates how CSS properties are related.
+            From top to bottom, structural definition is exchanged for cosmetic styling.
         ol
-          li Layout:
-            ol
-              li display
-              li position, top, left, bottom, right
-              li float, clear
-              li z-index
-              li vertical-align
-              li flex-direction, flex-wrap, justify-content, align-content, align-items, flex, order
-          li Box Structure:
-            ol
-              li box-sizing
-              li width, height
-              li padding, margin
-              li transformations
-          li Text Structure:
-            ol
-              li font[-style|-variant|-weight|-size|-family]? #[small.o-Textbox.c-Label.c-Label--skss inherited]
-              li line-height                                  #[small.o-Textbox.c-Label.c-Label--skss inherited]
-              li letter-spacing                               #[small.o-Textbox.c-Label.c-Label--skss inherited]
-              li word-spacing                                 #[small.o-Textbox.c-Label.c-Label--skss inherited]
-              li text-align                                   #[small.o-Textbox.c-Label.c-Label--skss inherited]
-              li text-indent                                  #[small.o-Textbox.c-Label.c-Label--skss inherited]
-              li white-space                                  #[small.o-Textbox.c-Label.c-Label--skss inherited]
-              li overflow-wrap (word-wrap)                    #[small.o-Textbox.c-Label.c-Label--skss inherited]
-              li column[-count|-width|s]
-              li page-break-[before|after]
-          li Box Cosmetics:
-            ol
-              li border[-width|-style|-color|-radius]?
-              li outline
-              li box-shadow
-              li background[-image|-position|-size|-repeat|-attachment|-origin|-clip|-color]
-              li overflow
-              li opacity
-              li visibility                          #[small.o-Textbox.c-Label.c-Label--skss inherited]
-          li Text Cosmetics:
-            ol
-              li text-rendering                      #[small.o-Textbox.c-Label.c-Label--skss inherited]
-              li text-transform                      #[small.o-Textbox.c-Label.c-Label--skss inherited]
-              li text-decoration
-              li text-shadow                         #[small.o-Textbox.c-Label.c-Label--skss inherited]
-              li text-overflow
-              li list-style[-type|-position|-image]? #[small.o-Textbox.c-Label.c-Label--skss inherited]
-              li quotes
-              li color                               #[small.o-Textbox.c-Label.c-Label--skss inherited]
-          li Other:
-            ol
-              li cursor                              #[small.o-Textbox.c-Label.c-Label--skss inherited]
-              li transition
+          li: p.
+            #[strong Layout.]
+            The top base of the triangle contains properties that set up foundation and layout,
+            such as display and position. These properties most define the element&rsquo;s
+            relationship with others on the page.
+          li: p.
+            #[strong Box Structure.]
+            The next level is similar, but with more of an inner focus, setting up box structure
+            like width, padding, and margin. Transformations are also included in this level.
+          li: p.
+            #[strong Text Structure.]
+            The middle level contains typographical structure: font, text alignment and spacing,
+            #[+etc()] Anything that describes the composition of text goes here.
+          li: p.
+            #[strong Box Cosmetics.]
+            This level sets the look-and-feel of the box model of elements.
+            These properties only change the cosmetics, not the structure of the box.
+            The styles of the box are set before the styles of the text inside.
+          li: p.
+            #[strong Text Cosmetics.]
+            This level sets the decorative style of the text, again, unrelated
+            to its structure.
+            Notice how we work from outer to inner, styling the
+            cosmetics of the container before its contents.
+          li: p.
+            #[strong Other.]
+            The last level, at the vertex, is for miscellaneous properties.
+            These properties don&rsquo;t belong in any particular category.
+        figure
+          figcaption.c-Caption.c-Caption--before.
+            An outline listing the most common CSS properties in each category.
+            #[strong This is not a complete list of all CSS properties.]
+            If a property is not listed, use your best judgement for its place.
+          ol.a-ff-accent.a-fzb-milli
+            li Layout:
+              ol
+                li display
+                li position, top, left, bottom, right
+                li float, clear
+                li z-index
+                li vertical-align
+                li flex-direction, flex-wrap, justify-content, align-content, align-items, align-self, order
+            li Box Structure:
+              ol
+                li box-sizing
+                li width, height
+                li padding, margin
+                li transformations
+            li Text Structure:
+              ol
+                li font[-style|-variant|-weight|-size|-family]? #[small.o-Textbox.c-Label.c-Label--skss inherited]
+                li line-height                                  #[small.o-Textbox.c-Label.c-Label--skss inherited]
+                li letter-spacing                               #[small.o-Textbox.c-Label.c-Label--skss inherited]
+                li word-spacing                                 #[small.o-Textbox.c-Label.c-Label--skss inherited]
+                li text-align                                   #[small.o-Textbox.c-Label.c-Label--skss inherited]
+                li text-indent                                  #[small.o-Textbox.c-Label.c-Label--skss inherited]
+                li white-space                                  #[small.o-Textbox.c-Label.c-Label--skss inherited]
+                li overflow-wrap (word-wrap)                    #[small.o-Textbox.c-Label.c-Label--skss inherited]
+                li column[-count|-width|s]
+                li page-break-[before|after]
+            li Box Cosmetics:
+              ol
+                li border[-width|-style|-color|-radius]?
+                li outline
+                li box-shadow
+                li background[-image|-position|-size|-repeat|-attachment|-origin|-clip|-color]?
+                li overflow
+                li opacity
+                li visibility                          #[small.o-Textbox.c-Label.c-Label--skss inherited]
+            li Text Cosmetics:
+              ol
+                li text-rendering                      #[small.o-Textbox.c-Label.c-Label--skss inherited]
+                li text-transform                      #[small.o-Textbox.c-Label.c-Label--skss inherited]
+                li text-decoration
+                li text-shadow                         #[small.o-Textbox.c-Label.c-Label--skss inherited]
+                li text-overflow
+                li list-style[-type|-position|-image]? #[small.o-Textbox.c-Label.c-Label--skss inherited]
+                li quotes
+                li color                               #[small.o-Textbox.c-Label.c-Label--skss inherited]
+            li Other:
+              ol
+                li cursor                              #[small.o-Textbox.c-Label.c-Label--skss inherited]
+                li transition
+      aside.o-GoldenContainer__Content__SideMajor.c-Document__Draft#semantics-trumps-style
+        h2 Semantics Trumps Style
+        p.
+          When it comes down to efficient HTML
+          versus efficient CSS, HTML wins. The reason? Semantics trumps style.
+          This happens on two fronts. First simply for the sake of principle. The most
+          important data is the actual content being presented. This trumps any data on
+          #[em how] it is being presented. If you have to sacrifice one for the other,
+          content trumps presentation.
+          While that seems fine as a theoretical argument, there is also evidence to back it up.
+        p.
+          The second front on which semantics trumps style is seen from a more practical
+          point of view. For example, every design change should, at
+          least mostly, be taken care of in the CSS.
+          You&rsquo;ve got a problem when you find yourself having to adjust a massive
+          number of #[code class] attributes to implement a design change (ahem, looking at you, Atomic CSS).
+          Or wrapping content with unsemantic #[code div] elements just to make it look right.
+          It should be the other way around: when the design changes, you should
+          be&mdash;mostly&mdash;adjusting your CSS. It is the CSS that should conform to
+          how HTML is written, even if it means sacrificing a little bit of efficiency.
+        p.
+          One of the arguments against this is, #[q well, the bloat&rsquo;s gotta be somewhere.]
+          But the trade-off can be seen on the user end. Which is worse, HTML bloat
+          or CSS bloat? Every time the user loads a new page, all that markup is downloaded,
+          every time, whereas hopefully your stylesheet will have been downloaded only once
+          and then cached.
+      section.c-Document__Complete
+        h2.-fs-i.-fv-i.-fw-i.-sp-nw
+          b.-fw-9 class&middot;i&middot;tis
+          | &nbsp;(kl&aelig;s-a&#x026a;&apos;t&#x0258;s)&nbsp;
+          abbr.-fs-t(title="noun") n.
+        p.
+          No, I&rsquo;m not talking about an overuse of classes&mdash;I don&rsquo;t
+          believe you can ever use too many classes in HTML. #[b Classitis] in my
+          opinion refers to the fact that we are using HTML classes for #[em everything],
+          and this becomes overwhelming when it comes to architecting and maintaining CSS.
+        p.
+          We need to seriously analyze the many, #[em many] different ways that we use
+          the HTML #[code class] attribute,
+          separate and categorize them into #[i classifications] to clearly identify each use,
+          and talk about the different types of CSS classes we can create based on each use.
+        //- p.
+          Maybe we can provide some alternative methods and/or conventions for implementing
+          semantics and style.
+          I even go insofar as to suggest ammendments to the CSS specification. After all,
+          #[a we are using a very old technology to achieve very new things].
+        p.
+          #[strong Note:]
+          All the types of classes we discuss here are #[em syntactically] indistinguishable: like
+          any CSS class, they have a given set of properties and thus aren&rsquo;t differentiated
+          by browsers. However, semantically (and I use that word with caution), we humans
+          can and should make a distinction clear because they are actually used for different purposes,
+          and ergo, have different meanings.
+        section.c-Document__Draft
+          h3 Why Do We Use Classes?
+          p
+            | Think back to the original intent of HTML classes.
+            |  The HTML #[code class] attribute was first defined by the 
+            span(itemscope="" itemtype="http://schema.org/TechArticle" itemref="md-Organization-W3C")
+              span(id="md-Organization-W3C" itemprop="author" itemscope="" itemtype="http://schema.org/Organization")
+                abbr(title="World Wide Web Consortium" itemprop="name") W3C
+              |  in its 
+              a(href="https://www.w3.org/TR/html401/struct/global.html#h-7.5.2" itemprop="url")
+                cite(itemprop="name") HTML 4.01 Specification
+              |  in 
+              time(itemprop="datePublished") 1999
+            | , and it wasn&rsquo;t even supported on all elements back then.
+            |  Nevertheless, the spec provides an example in which semantically similar elements
+            |  are tagged with the same class. For example, each element representing a warning has
+            |  the token #[code warning] in its #[code [class]] attribute.
+            |  The reason for this was that you could use the CSS class #[code .warning] to style
+            |  any element marked up in such a manner. This saved you the hassle of repetitevely using
+            |  formatting tags like #[code &lt;font&gt;] and #[code &lt;b&gt;] each time you came across
+            |  a warning message.
+          p.
+            Fast foward to this millenium. Authors learned to take advantage this mechanism
+            and successfully implement best practices: separating concerns, abstracting reusable
+            components, maximizing performance, #[+etc()]
+            The only problem is, there wasn&rsquo;t&mdash;and still isn&rsquo;t really&mdash;a general
+            consensus on how and when to use classes. We were just slapping on a class when
+            we wanted elements to share a set of styles. When we needed to add more styles or fix broken
+            styles, we just added more classes (or #[a did something else much worse]).
+            This leads to very unwieldy CSS code.
+          p
+            | Enter 
+            span(itemscope="" itemtype="http://schema.org/CreativeWork")
+              span(itemprop="author" itemscope="" itemtype="http://scheam.org/Person")
+                span(itemprop="name") Nicole Sullivan
+                |  and her brainchild 
+              a(itemprop="url")
+                cite(itemprop="name") Object-Oriented CSS
+            | , the concept of abstracting styles into smaller, reusable
+            |  classes. In a way, these CSS classes become like little Legos&trade; with which
+            |  you can build bigger components.
+            |  Instead of using CSS classes to merely group similar elements together, we learned to
+            |  use them to define patterns repeated throughout a page or site, and then applied them
+            |  to the proper elements.
+          p.
+            While syntactically, there really is no change, there&rsquo;s something fundamentally,
+            subtly, different going on here. Before, we were saying,
+          blockquote.c-Pullquote: ol
+            li These two elements are similar in meaning
+            li I should give them the same class
+            li Now they will appear the same
+          p but instead, we&rsquo;re now saying,
+          blockquote.c-Pullquote: ol
+            li I want these two elements to appear the same#[br](for whatever reason)
+            li I should give them the same class
+            li Now they&rsquo;ll look like they mean the same thing
+          p It&rsquo;s backwards!
+          p
+            | Next, 
+            span(itemscope="" itemtype="http://schema.org/CreativeWork")
+              span(itemprop="author" itemscope="" itemtype="http://scheam.org/Person")
+                span(itemprop="name") Harry Roberts
+              |  and his famous 
+              a(itemprop="url")
+                cite: abbr(title="Inverted Triangle CSS" itemprop="name") ITCSS
+              |  paradigm
+            |  takes this idea a step further, expanding on the minor, but not-so-minor,
+            |  parenthetical remark above,
+            i for whatever reason.
+        section
+          h3 #[i Classes] of Classes
+          p.
+            In the last section, we talked about CSS properties, a relatively lower level aspect
+            of CSS architecture. You might have noticed however that I&rsquo;ve already hinted at
+            something slightly more involved, and that is it can be good practice to literally
+            group related properties, not within a CSS selector, but into separate selectors.
+          p.
+            The following subsections name and categorize classes by the properties in
+            their defining rulesets. As it turns out, categorizing classes in this manner
+            actually defines different uses for each!
+          p.
+            For the sake of simplicity, we will not be discussing the actual naming
+            of CSS classes in this section, so I will refrain from using them and
+            instead keep the discussion in the abstract.
+          section
+            h4 Objects
+            p: strong.
+              #[dfn#object Objects] are classes used for creating patterns of structure
+              that can be reused many times for many different purposes.
+            p.
+              Objects are free from content, cosmetics, and function. They provide
+              page layout/grid systems, or common structural patterns for elements.
+              Examples include the Media Object, the Nav Abstraction, and the Island Object.
+              These classes do not affect look-and-feel, only visual structure. Think back to
+              the #[b Layout] and #[b Box Structure] levels of the inverted CSS property triangle above.
+              Object-Oriented CSS is where it all started.
+          section
+            h4 Components
+            p: strong.
+              #[dfn#component Components] are classes used for creating patterns of look-and-feel
+              that are each only used for one functional purpose.
+            p.
+              In contrast to Objects, Components are heavily dependent on content, cosmetics,
+              and function. They are recognizable pieces of user-interaction that have a particular
+              look-and-feel. Buttons, navigation bars, and labels are all good examples.
+              Components have properties belonging in the smallest four layers of the
+              inverted CSS property triangle.
+            p.
+              To build a fully-functional visual element on a page, you must combine
+              Objects and Components. Using just a Component class is not sufficient, because
+              you will get the skin without the structure.
+            aside
+              p: small.
+                In most cases, the cosmetics of a Component laregly contribute to its function.
+                As frequent as Components come, they are unusual in that
+                their semantics are derived from their presentation,
+                that is, the look-and-feel of a Component may determine its meaning in terms of usability.
+                For example, a #[code span] might not look like anything with CSS turned off,
+                but with the right class and CSS turned on it might clearly represent
+                an icon attached to a link.
+              p: small.
+                As a consequence, authors should be careful with Components because users with
+                a visual interface might have an advantage over users with, say, an audio interface.
+                Therefore authors should continue to support
+                SEO and accessibility best practices. Read up on
+                #[a(href="https://developers.google.com/schemas/formats/microdata") HTML5 Microdata] and
+                #[a(href="https://www.w3.org/WAI/intro/aria.php") ARIA roles]
+                for more information.
+            div.c-Document__Informative
+              p.
+                I have not decided yet whether to make these next sections formal. This is just an idea:
+                There are two types of Components: Typographical, and UI (User-Interactive).
+              section
+                h5 Typographical Components
+                p.
+                  Typographical Components are static and textual. There is no user interaction or
+                  functionality. Examples include special headings, lede paragraphs, callout boxes,
+                  and inline-level elements such as dates, places, and acronyms.
+              section
+                h5 UI Components
+                p.
+                  UI Components are the dynamic bells-and-whistles
+                  that make a webpage pop. These are things that users are likely to interact
+                  with, such as alerts, labels, navigation, and buttons.
+                  Not all of these must be interactive, though: some UI Components can
+                  just sit there and look pretty, like an icon or badge.
+          section
+            h4 Themes
+            p: strong.
+              #[dfn#theme Themes] are classes that provide context.
+            p.
+              Theme classes are very tricky. A Theme applied to an element might not only affect
+              the element itself, but will also probably affect its descendants. This gets complicated
+              because the said descendant&rsquo;s style becomes dependent on its location.
+              Move the element, or change its ancestor&rsquo;s Theme, then the element will look different.
+              (This could be a good or a bad thing.)
+              We must be careful not to let the element&rsquo;s style depend heavily on the
+              Theme classes of its ancestors. Thus we should limit the styles in a Theme class
+              to those belonging in the #[b Box Cosmetics] and #[b Text Cosmetics] levels
+              of the inverted triangle. Most themes only affect font family, color, and the like.
+            p.c-Document__Draft.
+              Themes can also be used to #[i tag] elements belonging in some type of category,
+              but that aren&rsquo;t grouped in the same section. For example, in your groceries list,
+              you may have your groceries grouped by aisle, but you may want to highlight the
+              organic items. Since the items are already grouped by aisle, it wouldn&rsquo;t
+              make sense to create a new category called #[i Organic]
+              (unless all the organic items were in the same aisle). Instead, you could add
+              a class to each of the oragnic items. In this way, the Theme class acts like a tag
+              (which is fitting since they both start with the same letter).
+              Another example is the class mentioned in the #[a Background] section above, which
+              is used to group all elements on a page that represent warnings.
+          section
+            h4 Helpers
+            p: strong.
+              #[dfn#helper Helpers] are somewhat explicit classes used for enhancing default styles.
+            p.
+              When an element already has Object and Component classes,
+              but you need a little bit more, a Helper class is the solution.
+              Helpers tack on a very small combination of extra styles to achieve a specific look.
+              The clearfix is an excellent example. Even though it affects structure, it doesn&rsquo;t
+              count as an Object because it&rsquo;s not really a #[i thing], it&rsquo;s more of a tool.
+              #[small (which is a thing, I know. shut up.)]
+            p.
+              Helper classes should be rare enough that they don&rsquo;t become full-fledged site-wide
+              reusable patterns, yet they should be common enough to save you the frustration of
+              copying those inline styles. Properties in Helper classes can range anywhere in the
+              CSS property triangle, from #[b Layout] to structural styles to cosmetic styles.
+          section
+            h4 Atoms
+            p: strong.
+              #[dfn#atom Atoms] are very specific classes used for creating anomalies
+              or fixing broken styles.
+            p.
+              To be honest, I stole the name #[i atom] from #[a Atomic CSS] and
+              #[a Atomic Design by Brad Frost]. These ideas use the word #[i atom] in the sense
+              that it is a small (actually #[em the] smallest) block from which larger items can be built.
+              Given the nature of these classes, which I&rsquo;ll talk about later, the name stuck.
+            p.
+              However, classes I call #[i Atoms] are hardly that:
+              these classes are #[em not] to be used as building blocks, rather, they are used as
+              #[a trumps, in Harry Roberts&rsquo; words]. That is, these classes are end-all-be-all rules
+              that always win, no matter what. Instead of living at the foundation of your codebase,
+              they&rsquo;re right there at the very tippy top.
+            p: small.
+              Kind of like that card in the card game
+              #[cite Cards Against Humanity]&mdash;#[span(title="The Biggest, Blackest, Dick") you know the one I&rsquo;m talking about]&mdash;people
+              call it #[i the trump card] because
+              whenever you play it you basically automatically win. But I&rsquo;d prefer not to
+              call these classes #[i trumps] due to a certain republican presidential candidate.
+            p.
+              Anyway, an Atom does one job and it does it very well. Each atom typically has
+              one style in its ruleset, which is usually accompanied by #[code !important].
+              Add an Atom class to an element when you need a quick fix, override, or when you
+              simply need to style it differently for no logical reason at all.
+              Like Helpers, there can be Atoms for any property in the CSS property triangle.
+          section
+            h4 Hacks and More
+            p.
+              Last but not least, this section describes two types of classes:
+              Hacks and other non-CSS classes.
+              Hacks are classes that doesn&rsquo;t belong in your codebase in the long run.
+              They address bugs that can&rsquo;t immediately be fixed with Atoms or inline styles
+              because of specificity issues or other reasons.
+              These bugs probably have more elegant solutions, but you might not have time to
+              find them right away.
+              Hacks are likely to be more than just class selectors: they may be
+              #[i compound selectors] (qualified selectors) or
+              #[i complex selectors] (child/descendant/sibling selctors) as well.
+              Hacks are okay as long as they don&rsquo;t remain permanently in your codebase.
+            p.
+              We also have other other non-CSS classes, which are classes used in markup that you
+              don&rsquo;t write in your CSS codebase. They
+              are automated by scripting languages (either server-side or client-side),
+              are made for the purpose of query selecting, or
+              come prepackaged in some other system, such as #[a microformats].
+              Classes from imported stylesheets don&rsquo;t count in this category;
+              they&rsquo;re still part of your codebase, even if you didn&rsquo;t write them.
+              Rather, I&rsquo;m talking about, for example, classes generated by #[a MathJax], and
+              #[i Javascript hooks] (classes you created for JS to grab).
+      section.c-Document__Draft
+        h2 Object Oriented CSS
+        section
+          h3 Subclasses and Subcomponents
+          p.
+            As in an OO programming language, a subclasses extends a class by specifying parameters
+            that were previously open, or overriding previously-defined parameters. A subclass of an
+            Object (or Component) is a special case of that Object (or Component): it&rsquo;s the same
+            thing but maybe just with a few small changes. Defining a subclass on an Object is
+            beneficial to defining a whole new Object because it saves you from repeating code.
+      section.c-Document__Draft
+        h2 Naming and Using Classes
+        p.
+          Now that we&rsquo;ve talked about the different ways classes in CSS can be defined,
+          it&rsquo;s time to get into the details of how to name them when you&rsquo;re
+          making them, and how to implement them in HTML.
+        p.
+          Inspired by the #[a #[abbr(title="Block, Element, Modifier") BEM] methodology], I have
+          come up with a robust system on naming each of the classes discussed above.
+        p CSS classname syntax is shown below, with a so-called css class definition syntax.
+        pre.
+          .‹prefix›-‹ClassName›[__‹ChildClassName›]*[--‹subClassName›]?
+
+          where:
+          ‹prefix› == [o|c|a|t|_|js|php|svg]
+          ‹ClassName› == ‹ChildClassName› == [[A-Z][a-z]*]+
+          ‹subClassName›  == [a-z]+[[A-Z][a-z]*]*
+        article
+          h3 Naming Objects and Components
+          section
+            h4 Presentational Classnames
+            h4 Classnames that describe their definitions
+            p.
+              Because of the rigid static nature of these classes, the classnames are
+              allowed to be descriptive, that is, they describe their contents.
+              The atom #[code .mt1 {margin-top: 1rem !important;}] is a good example. Its name
+              reflects its style definition, which is okay because we aren't expecting either to change.
+              If however we did change it from `1rem` to `2rem` then `.mt1` would be a silly name for
+              the class, wouldnt it?
+            p.
+              These classnames describe the properties that define the class. Examples include
+              `.big` and `.margin-top-24`. Read about *Atomic CSS*
+              for more examples. It shouldn't be very hard to guess how these classes are defined.
+          section
+            h4 Classnames that describe their general appearance
+            p.
+              While truly presentational classes describe the properties in their definitions, there
+              is a bit of a step up in types of presentational classes. Classes that describe their
+              *general* appearance are still presentational, but are not so specifically named that
+              their properties are locked.
+            p.
+              Take `.grid-50-left` for example. The name of the class indicates the look of the
+              component, namely, that it should be 50% wide and moved to the left, but it does not
+              explicitly say *how* it achieves this look. It may use floats, a table-like layout,
+              flex boxes, or grid layouts. The implementation of its appearance may be changed, so
+              long as its appearance stays the same. Another example would be `.list-inline`.
+            pre.
+              ### Discussion: Type 1 and Type 2
+
+              There are some cases in which having presentational classes available in CSS is helpful.
+              In short, they provide abstraction. Type 1 and Type 2 classes can be used as a mechanism
+              for site-wide consistency, and can save developers the hassle of having to repeat the
+              same lines of code over and over again. For example, redefining the same top margin on
+              multiple elements is not only tedious but also error prone. The developer has to remember
+              the number of pixels, code is repeated, and upkeep is expensive. These classes provide
+              an easy and scalable solution. Another case of this is using a grid system. A class such
+              as `.grid-50-left` is *very* presentational but necessary for DRY code.
+
+              Though presentational classes are useful to CSS developers, Type 1 and Type 2 should
+              *not* be accessible to the HTML. There are a number of reasons why:
+
+              - HTML describes content, not presentation. Technically, classes are in the HTML.
+              It is an HTML attribute, and thus adding a value to the `class` attribute of an element
+              should have *some* semantic meaning (even if only for humans). The classname `.boldred`
+              for example does not add any semantic value to the HTML. An ideal alternative would be
+                to use `.warning` (or something similar) and then have the `.warning` class use the
+                properties defined in `.boldred` in some way. More on that later. `.warning` would
+                go in the [Type 3 category](#type-3).
+              - **The Theoretical Redesign Future.** If you wanted to change the properties of the
+              `.boldred` class, say, make it italic instead of bold, now you have to deal with an
+              awkward classname, or you have to change the classname from `class="boldred"` to
+              `class="italicred"` everywhere in the HTML. Sure, a search-and-replace tool would be
+              useful, but you shouldn't have to put yourself through all that trouble. On the other
+              hand, you are free to change `font-weight: bold;` to `font-style: italic;` in the
+              definition of `.warning` easily without dealing with a classname that doesn't match
+              its definition.
+
+              The point is not to say that `.boldred` *shouldn't* be a classname. It very well can be!
+              In fact, if a lot of elements use the properties of this class, you *should* make
+              `.boldred` a class, so you can use it as a tool to abstract a repeating pattern. The
+              point *is*, however, to say that this class should *not* be available to HTML elements.
+              [Continue reading for a discussion on how to do this.]
+
+              Type 2 classes are *a bit* of a step up from Type 1 because their definitions are a
+              little more maleable, but still, they shouldn't be available in the HTML because they
+              are presentational. In HTML, you should use semantic classnames.
+          section
+            h4 Functional class names
+            h4 Classnames that describe their function
+            p.
+              &ldquo;Semantic&rdquo; classnames aren't really semantic (they don't actually *convey*
+              meaning to the HTML or UAs (user agents)). Rather, they are *named* semantically
+              because they describe the meaning of the component and/or its contents. Examples
+              include `.pacingtable`, `.answer`, `.optional`, `.menu`, and `.success`.
+            p.
+              These are good classes to use in HTML because they mark up elements with data describing
+              what they mean. For example, take the element `p.success`. There are two semantic
+              things going on here: first, the `p` tag describes what the eachlement *is*, but
+              second, the `class="success"` attribute describes what the element *means*: it's some
+              sort of indication of success, such as the completion of an upload. Of course, only the
+              first of these is actually meaningful to a UA, but that is not to say that the classname
+              doesn't add any semantic value for the benefit of human developers. The bottom line,
+              semantic classnames *should* be accessible to the HTML.
+          section
+            h4 Classes used to add semantic value to the HTML
+            p.
+              A common use of classes to extend HTML would be to create elements that aren't present
+              in the HTML standard. Based on an author's field, the HTML specification may or may not
+              have an adequate sampling of types of elements for the author's work. For example, why
+              is there not an `abstract` element? I suppose the solution would be to use
+              `p class="abstract"`. This is an example of using a classname to "extend" the `p`
+              element: it is a type of paragraph, namely an article abstract.
+            p.
+              The biggest use of Type 4 classes I can think of would be
+              [Microformats](http://microformats.org/). However this is basically an industry
+              standard, albeit easily extendable, and individual developers can't use their own
+              custom classes for this. As stated at the top of this page, classes are really meant to
+              add styles and that's about it. They should not indicate semantics to user agents
+              in my opinion. To add semantic value, I would recommend using another method such as the
+              custom `data-*` HTML attribute, [Microdata](http://schema.org/)
+              (`itemscope` and `itemprop`), and/or [ARIA roles].
+        article
+          h3 A discussion on Atoms
+          p.
+            Now you might be wondering what the advantage of Atoms are over inline styles.
+            First, they&rsquo;re less specific. Even with #[code !important], they&rsquo;re
+            easier to override than an inline style. (But I&rsquo;m not sure why you would ever
+            want to override an Atom in the first place when you could simply remove it.)
+          pre.
+            Furthermore, I do *not* recommend using *only* bangs in your markup, as dictated by
+            Atomic CSS. This can be very confusing and can actually hinder development.
+            You should
+            use classes with styles that correspond to actual objects and components.
+            Use bangs only as exceptions, not the norm.
+          p.
+            Atomic CSS is a very radical ideology that basically says your entire codebase should
+            consist of nothing but atoms, and then you would use only those atoms in HTML
+            to style a site. I won't go into much detail but I will say that without a templating
+            system this will hinder development a lot. Personally, I don't see a difference between
+            defining templates to have certain classes versus defining classes to have certain
+            properties. It's just one more step to add to workflow.
+            defining a template so that a "button" component will have classes
+            background-gradient-blue  on-hover-background-lighten  border-outset
+            on-click-border-inset  border-rounded-corners-10
+            This results in very bloated markup, with site components needing tons of classes.
+          pre.
+            &lt;a class="background-gradient-blue  on-hover-background-lighten  border-outset
+                      on-click-border-inset  border-rounded-corners-10  etc  etc  etc"&gt;press me&lt;/a&gt;
+          h5 Further Readings
+          ul
+            li https://www.lucidchart.com/techblog/2014/01/31/atomic-css-tool-set/
+            li http://www.smashingmagazine.com/2013/10/21/challenging-css-best-practices-atomic-approach/
       section
         h2 Stylesheet Order
         p.
@@ -142,10 +661,10 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
             li global project settings (#[code @import]s, frameworks, site-wide number and color constants)
             li helper tools (math functions, mixins for vendor-specific css, fallbacks)
             li unclassed base elements
-            li objects (structural patterns, layout, containers, etc.)
+            li objects (structural patterns, layout, containers, #[+etc()])
             li components (specific pieces of UI with look-and-feel)
-            li utilities (trumps, hacks, states, anomalies, special cases, #[code !important], etc.)
-          img(src="images/css-pyramid-sheets.svg" alt="An inverted pyramid illustrates how CSS stylesheets should be implemented.")
+            li utilities (trumps, hacks, states, anomalies, special cases, #[code !important], #[+etc()])
+          img(src="../images/css-pyramid-sheets.svg" alt="An inverted triangle illustrates how CSS stylesheets should be implemented.")
           section
             h4 Settings
             p.
@@ -153,7 +672,7 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
               you want accessible throughout the entire project. Since it&rsquo;s imported first,
               every subsequent stylesheet has access to it.
             p.
-              This stylesheet is where you #[code @import] any other frameworks (normalize, resets, etc.).
+              This stylesheet is where you #[code @import] any other frameworks (normalize, resets, #[+etc()]).
               Imports should be at the top.
             p.
               After imports, include global site-wide constants such as main font size, line-height,
@@ -189,19 +708,19 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
                 combine multiple properties to achieve an effect, except that these properties
                 aren&rsquo;t all variations of the same thing. They are actually different
                 properties that when combined take care of one task. One example is the
-                #[code .font-size-block()] tool.
+                #[code .font-size-el()] tool.
               pre.
-                .font-size-block(@ratio) {
-                  font-size: (@ratio * 1rem);
-                  line-height: (@project_line_height / @ratio);
-                  // @project_line_height is a global variable defined in the Settings sheet
+                .font-size-el(@ratio) {
+                  font-size: (@ratio * 1em);
+                  line-height: (@line_height_parent / @ratio);
+                  // @line_height_parent is the line height of the parent
                 }
               p.
                 This mixin sets the font size of a block and adjusts its line height such that
                 the total height of the block will be an integer multiple of the project line height.
                 This is a common Tool used to maintain vertical rhythm.
               p.
-                Other similar examples include a module that adds a bottom border to an Element but
+                Other similar examples include a module that adds a bottom border to an element but
                 removes an equivalent amount of bottom margin, or a brand font module that requires
                 #[code font-weight: bold;] every time a certain font family is set.
               p.
@@ -211,14 +730,14 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
                 but do not describe whole Objects or Components. More examples include a type of border
                 used as a particular theme, or a particular amount of padding on a box.
               p.
-                Again, modules should not be accessible to HTML Elements. They should be mixins that
+                Again, modules should not be accessible to HTML elements. They should be mixins that
                 you include in your Less selectors. If a certain Object needs to use a module (or any Tool),
                 include it in that Object&rsquo;s class definition.
           section
             h4 Base
             p.
               The Base stylesheet is the first stylesheet with real selectors. This is what shows up
-              first in the compiled output CSS. All its selectors are unclassed HTML Elements.
+              first in the compiled output CSS. All its selectors are unclassed HTML elements.
               Think of it as a tailored normalize stylesheet for your project typography. If your
               project Settings sheet imports other frameworks, this stylesheet will build on top of
               those frameworks. This stylesheet is very broad and general, because it comes early
@@ -230,14 +749,17 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
             aside
               p.
                 Objects and Components are actual CSS classes that can be applied to
-                HTML Elements. In OOP-speak, Objects and Components are classes that Elements can
-                #[i instantiate]. Tools, on the other hand, should not be accessible to HTML Elements,
+                HTML elements. In OOP-speak, Objects and Components are classes that elements can
+                #[i instantiate]. Tools, on the other hand, should not be accessible to HTML elements,
                 only to CSS classes. Tools are more analogous to interfaces instead of classes.
-                Elements cannot instantiate interfaces but classes can implement them.
+                elements cannot instantiate interfaces but classes can implement them.
               p.
-                An Object or a Component itself may not be one semantic Element; it may be a grouping
-                of semantic Elements. For example it may contain an image, heading,
+                An Object or a Component itself may not be one semantic element; it may be a grouping
+                of semantic elements. For example it may contain an image, heading,
                 and paragraph. The Object/Component as a whole though is simply a #[code div].
           section
             h4 Utilities
             p.
+      footer
+        h1 References
+        p Based off of #[a(rel="external" href="http://itcss.io/") Harry Roberts&rsquo;s Theory of ITCSS].

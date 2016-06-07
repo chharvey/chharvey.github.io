@@ -3,7 +3,7 @@ html(lang="en")
   head
     meta(name="viewport" content="width=device-width, initial-scale=1")
   body
-    p(style="position:fixed;font-weight:bold;font-size:1.5rem;color:red;") WARNING: THIS DRAFT IS INCOMPLETE AND POSSIBLY EVEN INCORRECT. DO NOT CITE OR REFERENCE IT. IT WILL BE MERGED INTO ANOTHER DOCUMENT AND RELEASED AT A LATER TIME.
+    include include/_draft-disclaimer.jade
     main
       header
         h1 Object-Orienting Your CSS
@@ -16,8 +16,8 @@ html(lang="en")
           dd(itemprop="keywords") #[abbr(title="Cascading StyleSheets") CSS]
           dd(itemprop="keywords") code organization
           dt Version History
-          dd.update(itemprop="dateModified")
-            time(datetime="2015-08-20 19:06") Aug 20, 2015 #[span.tod 7:06 PM]
+          dd.update
+            time(datetime="2015-08-20 19:06" itemprop="dateModified") Aug 20, 2015 #[span.tod 7:06 PM]
             span.o-Textbox.c-Label.c-Label--Dang Latest
       section
         h1 A Brief Introduction
@@ -42,7 +42,7 @@ html(lang="en")
           section
             h1 Mixins (Includes)
             p The first solution is to use a mixin. A mixin in its general definition allows the developer to reuse lines of code without having to write them over and over again. It's basically a glorified copy-and-paste. Mixins are available in CSS pre-processors such as Less and Sass, and using a mixin instead of a class will hide the mixin block from the CSS output. That means the name can't be used in HTML, which is good.
-            p Although mixins make life easier for the developer, the problem is that the compiled CSS is still not DRY. The properties are still being written over and over again (this time by the compiler instead of the developer), which creates bloat in the CSS properties. This means a lot of work for the browser, a lot of bytes to download, etc. Imagine having a mixin with 10 properties. If hundreds of other classes are using this mixin, you've got those 10 lines of code repeated hundreds of times.
+            p Although mixins make life easier for the developer, the problem is that the compiled CSS is still not DRY. The properties are still being written over and over again (this time by the compiler instead of the developer), which creates bloat in the CSS properties. This means a lot of work for the browser, a lot of bytes to download, #[+etc()] Imagine having a mixin with 10 properties. If hundreds of other classes are using this mixin, you've got those 10 lines of code repeated hundreds of times.
             p Aside from reducing repeated code, another benefit of mixins is that they can be used with parameters to abstract a ruleset. Mixins are good with parameters, but if you have a mixin with zero parameters, there might be a better solution.
           section
             h1 Extends

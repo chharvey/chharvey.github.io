@@ -9,26 +9,6 @@ project = {
 
 // project.vru = project.px_per_rem * project.line_height
 
-/**
-  * Resizes the `.c-FolioTitle` headings on home site to keep them horizontally contained.
-  */
-/*
- * CHANGED: no longer needed as .c-FolioTitle is now responsive
-function resizeFolioHeading() {
-  $('.c-FolioTitle').each(function () {
-    var self = this
-    this.width_in_rem = $(this).parent().width() / project.px_per_rem
-    this.font_size_in_rem = (1/16) * this.width_in_rem // HACK // magic number alert! why (1/16) ???
-    this.line_height = 3 * project.line_height / this.font_size_in_rem // HACK // magic number alert!
-
-    $(this).css('font-size', function () {
-      return self.font_size_in_rem + 'rem'
-    }).css('line-height', function () {
-      return self.line_height
-    });
-  });
-}
- */
 
 /**
   * Compensates for changes of pullquote line height.
@@ -48,27 +28,6 @@ function pullquoteLines() {
     }
   })
 }
-
-/**
-  * Adjusts the height of the `dt`s and `dd`s inside a `dl` such that
-  * the each pair of terms and descriptions share the same height.
-  * NOTE: this assumes each term-description group contains exactly one `dt` and one `dd`.
-  * CHANGED: 2015-04-15: no longer needed as Flexbox now automates height of boxes
-  */
-// function mapHeights() {
-//   $('.dl--Horiz').each(function () {
-//     $(this).children('dt').each(function () {
-//       var height1 = parseInt($(this).css('height'))
-//         , height2 = parseInt($(this).next().css('height'))
-//       $(this).next().css('height', Math.max(height1, height2) + 'px')
-//     });
-//     $(this).children('dd').each(function () {
-//       var height1 = parseInt($(this).prev().css('height'))
-//         , height2 = parseInt($(this).css('height'))
-//       $(this).prev().css('height', Math.max(height1, height2) + 'px')
-//     });
-//   });
-// }
 
 /**
   * Adjusts the bottom spacing of a `.Table`.
@@ -130,7 +89,7 @@ function pullquoteLines() {
 function tableSpacing() {
 
   // fixes vertical spacing for normal, unclassed table elements. this is due to the fact that
-  // each cell (th or td) has a vertical padding of `(0.25 * @chh_vru)`
+  // each cell (th or td) has a vertical padding of `(0.25 * @g-vru)`
   // (that is, `0.25 * project.line_height` in javascript), which totals to be 0.5.
   // thus if there are an odd number of rows in the table, the margin needs to be offset by
   // 0.5.

@@ -1,3 +1,4 @@
+@import (reference) url('../../node_modules/xmeter/src/__tool.module.borders.less');
 @import (reference) url('../../node_modules/xmeter/src/__tool.module.fontsize.less');
 @import (reference) url('../../node_modules/xmeter/src/__tool.module.delims.less');
 @import (reference) url('../../styles/src/__settings.less');
@@ -20,18 +21,16 @@ body {
   background-image: url('../../core/images/crossgrid-lined.svg');
   background-size: 1px 24px;
   background-repeat: repeat;
-  background-position: left bottom;
+  background-position: left top;
 }
-[data-bool="0"] {
-  // color: #f2f7ff;
-  #CHH .CONSTS();
-  background-color: fadeout(@chh_color_portal_repulsion, 20%);
-}
-[data-bool="1"] {
-  // color: #0d0800;
-  #CHH .CONSTS();
-  background-color: fadeout(@chh_color_portal_propulsion, 20%);
-}
+// [data-bool="0"] {
+//   // color: #f2f7ff;
+//   background-color: fadeout(@g-color_portal_repulsion, 20%);
+// }
+// [data-bool="1"] {
+//   // color: #0d0800;
+//   background-color: fadeout(@g-color_portal_propulsion, 20%);
+// }
 //++++ #end BASE ++++//
 
 
@@ -41,48 +40,31 @@ body {
 .o-Cell {
   padding: 0.375rem 0.5rem;
 }
-.c-FontDescr {
-  #CHH .CONSTS();
-  width: @golden1;
-}
-.c-FontSamp {
-  #CHH .CONSTS();
-  width: @golden2;
-}
 .c-FontSamp__Letter {
-  #CHH .VARS();
-  #XMETER .font-size-block(@chh_font_size_peta; @chh_line_height; 4);
+  .font-size-el(@g-font_size_peta; 4);
   text-rendering: geometricPrecision;
 }
 .c-FontSamp__Sentence {
-  #CHH .VARS();
-  #XMETER .font-size-block(0.875; @chh_line_height);
+  .font-size-el(0.875);
 }
 .c-FontForm {
-  #CHH .CONSTS();
-  width: @golden2;
-  margin-left: @golden1;
-  margin-bottom: 1.5rem;
-}
-.c-FontForm > * {
-  display: block;
+  margin-bottom: @g-vru;
 }
 .ColorTitle {
   font-style: inherit;
   font-weight: 600;
   font-family: inherit;
-  #CHH .VARS();
-  #XMETER .font-size-block(@chh_font_size_kilo; @chh_line_height);
+  .font-size-el(@g-font_size_kilo);
   color: inherit;
 }
 .ColorRelation {
   font-style: italic;
   opacity: 0.5;
-  #XMETER .parens();
+  .parens();
 }
 .ColorCode {
   padding: 0;
-  border: 0;
+  .border-vert(all);
   background: transparent;
   color: inherit;
 }
@@ -101,6 +83,9 @@ body {
   line-height: inherit;
   color: #000;
 }
+.c-TransLabel {
+  margin-bottom: (0.5 * @g-vru); // accounts for parent `.o-Box--mill` vertical rhythm
+}
 //++++ #end COMPONENTS ++++//
 
 
@@ -109,23 +94,28 @@ body {
 \*++++++++++++++++++++++++++++++++*/
 // Some background colors are dark, so a light translucent foreground color has been added.
 .h-darkbg {
-  #CHH .CONSTS();
-  color: @chh_color_portal_tintheavy;
+  color: @g-color_portal_tintheavy;
 }
-#headings p[lang="la"] {
-  font-style: italic;
-  #CHH .VARS();
-  font-family: @chh_font_family_prose;
-  text-align: justify;
-}
-#o-Box .o-Box {
-  #CHH .VARS();
-  margin-bottom: @chh_vru;
+#box-object figure {
+  .o-Box {
+    margin-bottom: @g-vru;
+  }
+  .o-Box--micr {
+    margin-top: -(2*@g-vru/8);
+  }
+  .o-Box--mill {
+    margin-top: -(2*@g-vru/4);
+  }
 }
 #syntax-example, #syntax-example * {
   transition-property: border-color, color, background-color;
   transition-duration: 250ms;
   transition-timing-function: ease;
   transition-delay: 0ms;
+}
+[data-overlap-color] > pre.ColorCode::before {
+  content:'each:';
+  display: block;
+  font-weight:bold;
 }
 //++++ #end OVERRIDES ++++//

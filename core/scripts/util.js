@@ -24,20 +24,25 @@ Util.LETTER_ENCODINGS = {
 
 
 /**
-  * Returns the number closest to the given parameter within the closed interval [lower, upper].
-  * If the parameter is in the interval, the method returns the number. If the parameter is outside,
-  * the method returns the closest bound (either upper or lower).
-  * This method is NON-DESTRUCTIVE: it does not change the value of the given parameter.
-  * @param `x` the number to be tested
-  * @param `lower` the lower bound, inclusive
-  * @param `upper` the upper bound, inclusive. Must be >= `lower`.
-  * @return        the closest number to `x` within the interval [lower, upper]
+  * Returns the number closest to the argument within the closed interval [‹lower›, ‹upper›],
+  * where ‹lower› is the minimum, and ‹upper› is the maximum, of the last two parameters.
+  * If the argument is in the interval, the method returns the number. If the argument is outside,
+  * the method returns the closest bound (either ‹lower› or ‹upper›).
+  * This method is NON-DESTRUCTIVE: it does not change the value of the given argument.
+  * @param `x`      the argument to be tested
+  * @param `first`  one of the bounds, inclusive
+  * @param `second` the other bound, inclusive
+  * @return         the closest number to `x` within
+  *                 the closed interval [first, second], or [second, first]
   */
-Util.bound = function bound(x, lower, upper) {
+Util.bound = function bound(x, first, second) {
+  var lower = Math.min(first, second)
+    , upper = Math.max(first, second)
   if      (x < lower) return lower
   else if (x > upper) return upper
   else                return x
-  // return Math.max(lower, Math.min(x, upper)) or Math.min(upper, Math.max(x, lower))
+  // return Math.max(lower, Math.min(x, upper))
+  // return Math.min(upper, Math.max(x, lower))
 }
 
 /**
