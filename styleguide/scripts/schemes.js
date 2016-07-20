@@ -1,5 +1,5 @@
 function fontdemo(self) {
-  return $(self).closest('.o-GridFlex').find('.c-FontSamp')
+  return $(self).closest('.o-Grid').find('.c-FontSamp')
 }
 $('input[name="fs"]').change(function () {
   fontdemo(this).css('font-style', (this.checked) ? $(this).val() : '')
