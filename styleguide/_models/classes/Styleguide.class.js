@@ -1,4 +1,3 @@
--
   var Page = (function () {
     //- CONSTRUCTOR
     /**
@@ -167,8 +166,19 @@
 
     return Page
   })()
-  var Styleguide = (function () {
+
+  module.exports = (function () {
+    // CONSTRUCTOR
+
     function Styleguide() {}
+
+    // METHODS
+
+    // STATIC MEMBERS
+    /**
+     * The style guide site for this project.
+     * @type {Page}
+     */
     Styleguide.PAGES = (function () {
       return new Page({ name: 'Chris Harvey – Site Design', url: '/styleguide/' })
         .title('Portfolio Style Guide')

@@ -2,4 +2,5 @@
 
 module.exports = {
   basedir: './'
+, Styleguide: require('./classes/Styleguide.class.js')
 }
