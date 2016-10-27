@@ -8,20 +8,23 @@ block append main
   include includes/_schemes.js.jade
   section#typeface-scheme
     mixin fontBox(typeface, has_footer)
-      section.o-GridFlex
+      section.o-Grid
         mixin description()
           p Sample description.
         mixin footer()
           footer Sample footer.
         block
-        h3.-w-1o1= typeface.name
-        div.a-w-p1
-          p
-            if (typeface.similar && typeface.similar[0])
+        h3.o-Grid__Item.-w-1o1= typeface.name
+        div.o-Grid__Item.a-w-p1
+          if (typeface.similar && typeface.similar[0])
+            p
               | Similar: 
-              b= typeface.similar
+              //- b= typeface.similar.join(', ')
+              each name,index in typeface.similar
+                b= name
+                = ((index < typeface.similar.length-1) ? ', ' : '')
           +description()
-        div.a-w-p2
+        div.o-Grid__Item.a-w-p2
           figure.c-FontSamp(class=typeface.class)
             div.c-FontSamp__Letter Aa
             p.c-FontSamp__Sentence= typeface.sample
@@ -62,7 +65,7 @@ block append main
           serifs, and true italics, which means it uses a whole new set of glyphs.
           #[sup: a.Rf#rf-baskerville(rel="this" href="#fn-baskerville") 1]
       mixin footer()
-        footer.-w-1o1
+        footer.o-Grid__Item.-w-1o1
           ul.c-ListFootnotes
             li.
               #[sup: a.Fn#fn-baskerville(rel="this" href="#rf-baskerville") 1]
@@ -95,7 +98,7 @@ block append main
           Use this font family sparingly.
   section#color-scheme
     mixin colorBox(color)
-      section.o-GridFlex__Item.o-Box.-w-1o2.js-colorbox(class=[color.bg_class, (color.is_dark) ? 'h-darkbg' : ''] style={
+      section.o-Grid__Item.o-Box.-w-1o2.js-colorbox(class=[color.bg_class, (color.is_dark) ? 'h-darkbg' : ''] style={
         'border-radius': '0',
       })
         mixin description()
@@ -110,7 +113,7 @@ block append main
               li= el
     mixin colorBoxTrans(color, n, section_specs, transbox_specs)
       - section_specs = section_specs || {}
-      section.o-GridFlex__Item.o-Box.-w-1o2.js-colorbox(class=['data-'+color.bg_class, (color.is_dark) ? 'h-darkbg' : ''] style={
+      section.o-Grid__Item.o-Box.-w-1o2.js-colorbox(class=['data-'+color.bg_class, (color.is_dark) ? 'h-darkbg' : ''] style={
         'border-radius': '0',
         'background-color': color.box_color.code_hex
       } data-overlap-color=color.code_hexa.slice(5,12) data-overlap-alpha=color.code_hexa.slice(-4,-1))&attributes(section_specs)
@@ -139,8 +142,8 @@ block append main
     footer: p.
       Based on the
       #[a(rel="external" href="http://www.thinkwithportals.com/"): cite Portal] video game series.
-    section.o-GridFlex
-      h3.o-GridFlex__Item Main Portal Colors
+    section.o-Grid
+      h3.o-Grid__Item Main Portal Colors
       +colorBox(color_scheme.aperturewhite)
         mixin description()
           p.
@@ -194,8 +197,8 @@ block append main
       +colorBox(color_scheme.propulsion)
         mixin description()
           p #[i Forwarding] the cause of science.
-    section.o-GridFlex
-      h3.o-GridFlex__Item UI Component Colors
+    section.o-Grid
+      h3.o-Grid__Item UI Component Colors
       +colorBox(color_scheme.graylite)
       +colorBox(color_scheme.graydark)
       +colorBox(color_scheme.deploying)
@@ -235,12 +238,12 @@ block append main
             You&rsquo;ve
             got sucker&rsquo;s luck. Have you given up? Does it feel
             like a trial? Does it trouble your mind the way you trouble mine?
-    section.o-GridFlex
-      h3.o-GridFlex__Item Shades &amp; Tints
-      +colorBoxTrans(trans.shadelight, 7)
+    section.o-Grid
+      h3.o-Grid__Item Tints &amp; Shades
       +colorBoxTrans(trans.tintlight,  7, { class: 'h-darkbg' })
-      +colorBoxTrans(trans.shadeheavy, 4, {},                    { class: 'h-darkbg' })
+      +colorBoxTrans(trans.shadelight, 7)
       +colorBoxTrans(trans.tintheavy,  4, { class: 'h-darkbg' }, { class: '-c-b' })
+      +colorBoxTrans(trans.shadeheavy, 4, {},                    { class: 'h-darkbg' })
     aside.o-Box.o-Box--kilo-sG.o-Box--mega-sT(style={
       'margin-bottom': '1.5rem'
     , 'border': '1px solid #9acc7a'

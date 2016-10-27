@@ -1,21 +1,20 @@
-doctype html
-html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
-  head
-    title About &in; Chris Harvey
-    meta(charset="utf-8")
-    meta(name="author" content="Christopher H. Harvey")
-    meta(name="description" content="About Chris Harvey of Fairfax, VA.")
-    meta(name="viewport" content="width=device-width, initial-scale=1")
-    link(rel="stylesheet" href="../styles/chharvey.css")
-    link(rel="stylesheet" href="styles/home.css")
-  body.o-GoldenContainer
-    main.o-GoldenContainer__Content
-      h1.c-FolioTitle #[span.c-FolioTitle__Cap A]bout #[span.c-FolioTitle__Cap M]e
+extends home.tpl.jade
+
+block vars
+  - var title = 'About'
+
+block metas
+  meta(name="description" content="About Chris Harvey of Fairfax, VA.")
+
+block heading
+  | #[span.c-FolioTitle__Cap A]bout #[span.c-FolioTitle__Cap M]e
+
+block append main
       mixin highSchool()
-        span(itemscope="" itemtype="http://schema.org/HighSchool")
+        mixin highSchoolName()
           a(rel="external" href="http://www.fcps.edu/FairfaxHS/" itemprop="url")
             span(itemprop="name") Fairfax High School
-          |  in 
+        mixin highSchoolPlace()
           span(itemprop="location" itemscope="" itemtype="http://schema.org/Place")
             span(itemprop="name")
               span(itemprop="address" itemscope="" itemtype="http://schema.org/PostalAddress")
@@ -24,6 +23,7 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
               span(itemprop="geo" itemscope="" itemtype="http://schema.org/GeoCoordinates")
                 meta(itemprop="latitude" content="38.864158")
                 meta(itemprop="longitude" content="-77.2888239")
+        span(itemscope="" itemtype="http://schema.org/HighSchool") #[+highSchoolName()] in #[+highSchoolPlace()]
       mixin college()
         span(itemscope="" itemtype="http://schema.org/CollegeOrUniversity")
           a(rel="external" href="http://www.vt.edu/" itemprop="url")
@@ -68,16 +68,16 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
       section#contact
         h2 Contact
         address
-          ul.o-ListBare.o-GridFlex.-xj-sa
-            li: a.c-IconButton.c-IconButton--home.c-IconButton--home--mapss(rel="author external"                                                             title="Find Me") Find Me
-            li: a.c-IconButton.c-IconButton--home.c-IconButton--home--phone(rel="author"          href="tel:+17035072467"                                     title="Call Me") Call Me
-            li: a.c-IconButton.c-IconButton--home.c-IconButton--home--email(rel="author"          href="mailto:chrisharvey2pi@gmail.com"                      title="Mail Me") Mail Me
-            li: a.c-IconButton.c-IconButton--home.c-IconButton--home--linkd(rel="author external" href="https://www.linkedin.com/pub/chris-harvey/96/6a5/8a7" title="Hire Me") Hire Me
-            li: a.c-IconButton.c-IconButton--home.c-IconButton--home--stack(rel="author external" href="http://stackoverflow.com/cv/chharvey"                 title="Upvote Me") Upvote Me
-            li: a.c-IconButton.c-IconButton--home.c-IconButton--home--githb(rel="author external" href="https://github.com/chharvey"                          title="Fork Me") Fork Me
-            li: a.c-IconButton.c-IconButton--home.c-IconButton--home--npmjs(rel="author external" href="https://www.npmjs.com/~chharvey"                      title="npm install Me") npm install Me
-            li: a.c-IconButton.c-IconButton--home.c-IconButton--home--googl(rel="author external" href="https://google.com/+chrisharvey2pi"                   title="+1 Me") +1 Me
-            li: a.c-IconButton.c-IconButton--home.c-IconButton--home--twitr(rel="author external" href="https://www.twitter.com/"                             title="Follow Me") Follow Me
+          ul.o-List.o-Flex.-xj-sa
+            li.o-List__Item.o-Flex__Item: a.c-IconButton.c-IconButton--home.c-IconButton--home--mapss(rel="author external"                                                             title="Find Me") Find Me
+            li.o-List__Item.o-Flex__Item: a.c-IconButton.c-IconButton--home.c-IconButton--home--phone(rel="author"          href="tel:+17035072467"                                     title="Call Me") Call Me
+            li.o-List__Item.o-Flex__Item: a.c-IconButton.c-IconButton--home.c-IconButton--home--email(rel="author"          href="mailto:chrisharvey2pi@gmail.com"                      title="Mail Me") Mail Me
+            li.o-List__Item.o-Flex__Item: a.c-IconButton.c-IconButton--home.c-IconButton--home--linkd(rel="author external" href="https://www.linkedin.com/pub/chris-harvey/96/6a5/8a7" title="Hire Me") Hire Me
+            li.o-List__Item.o-Flex__Item: a.c-IconButton.c-IconButton--home.c-IconButton--home--stack(rel="author external" href="http://stackoverflow.com/cv/chharvey"                 title="Upvote Me") Upvote Me
+            li.o-List__Item.o-Flex__Item: a.c-IconButton.c-IconButton--home.c-IconButton--home--githb(rel="author external" href="https://github.com/chharvey"                          title="Fork Me") Fork Me
+            li.o-List__Item.o-Flex__Item: a.c-IconButton.c-IconButton--home.c-IconButton--home--npmjs(rel="author external" href="https://www.npmjs.com/~chharvey"                      title="npm install Me") npm install Me
+            li.o-List__Item.o-Flex__Item: a.c-IconButton.c-IconButton--home.c-IconButton--home--googl(rel="author external" href="https://google.com/+chrisharvey2pi"                   title="+1 Me") +1 Me
+            li.o-List__Item.o-Flex__Item: a.c-IconButton.c-IconButton--home.c-IconButton--home--twitr(rel="author external" href="https://www.twitter.com/"                             title="Follow Me") Follow Me
         footer: small.
           Images above courtesy of iconarchive.com, cirrusinsight.com, nuget.org,
           dopelists.com, idiap.github.io, gplusinfo.com, cloudinary.com, and paymentmagnates.com.
@@ -119,17 +119,3 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
             by McGraw-Hill Education.
           li All photos, logos, banners, and other images that are not mine have been given credit.
           li Read my full #[a(href="copyright.html") copyright policy].
-    nav.Bc
-      ol.Anc
-        li: a.Crumb(rel="top parent" href="../index.html") Home
-        li
-          a.Crumb(rel="this" href="#") About Me
-          ul.Sib
-            li: a.Crumb(rel="sibling" href="math.html") Mathematics
-            li: a.Crumb(rel="sibling" href="edu.html") Education
-            li: a.Crumb(rel="sibling" href="music.html") Music
-            li: a.Crumb(rel="sibling" href="swim.html") Swimming
-            li: a.Crumb(rel="sibling" href="web.html") Web
-    script(src="../bower_components/jquery/dist/jquery.js")
-    script(src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML,https://chharvey.github.io/chhlib/mathjax-localconfig.js")
-    script(src="../core/scripts/global.js")
