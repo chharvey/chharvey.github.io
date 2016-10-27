@@ -219,7 +219,7 @@ module.exports = (function () {
    * Set of translucent colors, shades and tints, used on the site.
    * @type {Object}
    */
-  Styleguide.TRANS = {
+  Styleguide.TRANS_SCHEME = {
     tintlight : {
       name      : 'Tint Light'
     , code_dfn  : 'fadeout(@aperturewhite, 80%)'
