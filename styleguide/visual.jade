@@ -1,11 +1,10 @@
-extends styleguide.tpl.jade
+extends _styleguide.tpl.jade
 
 block append vars
-  - titles.push('Site-Wide Schemes')
+  - var page = Styleguide.PAGES.find('visual.html')
 
 block append main
   include ../core/include/_snippets.jade
-  include includes/_schemes.js.jade
   section#typeface-scheme
     mixin fontBox(typeface, has_footer)
       section.o-Grid
@@ -42,13 +41,13 @@ block append main
         if has_footer
           +footer()
     h2 Typeface Scheme
-    +fontBox(font_scheme.base)
+    +fontBox(Styleguide.FONT_SCHEME.base)
       mixin description()
         p.
           Used for the main body copy, Avenir Next
           is a sans-serif type with little to no thick/thin transition.
           Being a sans-serif, its #[i italic] is actually an oblique, which just slants the glyphs.
-    +fontBox(font_scheme.heading)
+    +fontBox(Styleguide.FONT_SCHEME.heading)
       mixin description()
         p.
           Optima is used only for headings of body copy
@@ -56,7 +55,7 @@ block append main
           It is a sans-serif polyweight type with a moderate thick/thin transition.
           Because of this, it goes well with both monoweight types and serif types, which
           makes it perfect for headings.
-    +fontBox(font_scheme.prose, true)
+    +fontBox(Styleguide.FONT_SCHEME.prose, true)
       mixin description()
         p.
           Baskerville is used for text in formal documents and articles.
@@ -72,18 +71,18 @@ block append main
               #[b Baskerville], though considered an #[b oldstyle] type, actually has
               a straight, vertical stress, which is typically a feature of #[b modern] types.
               However #[b Palatino] and #[b Cochin] indeed have diagonal stresses.
-    +fontBox(font_scheme.accent)
+    +fontBox(Styleguide.FONT_SCHEME.accent)
       mixin description()
         p.
           Helvetica Neue is used for typographical and #[abbr(title="user interface") UI]
           components such as ledes, pull quotes, captions, alerts, labels, buttons, and keys.
           Like #[b Avenir], it is a monoweight sans-serif, yet slightly heavier.
-    +fontBox(font_scheme.code)
+    +fontBox(Styleguide.FONT_SCHEME.code)
       mixin description()
         p.
           Menlo is a monospace type used for sample code on the site. Personally, I dislike
           monospace fonts with serifs, so I chose a sans-serif.
-    +fontBox(font_scheme.math)
+    +fontBox(Styleguide.FONT_SCHEME.math)
       mixin description()
         p.
           Didot is a serif modern type use for mathematical spans and spans in foreign
@@ -91,7 +90,7 @@ block append main
           straight horizontal serifs. With a cold yet elegant look, this font family makes
           long spans of text hard to read, but that&rsquo;s okay because this font is
           used only for short expressions.
-    +fontBox(font_scheme.script)
+    +fontBox(Styleguide.FONT_SCHEME.script)
       mixin description()
         p.
           Zapfino is used for very fancy elements such as drop-caps and subheadings.
@@ -144,95 +143,95 @@ block append main
       #[a(rel="external" href="http://www.thinkwithportals.com/"): cite Portal] video game series.
     section.o-Grid
       h3.o-Grid__Item Main Portal Colors
-      +colorBox(color_scheme.aperturewhite)
+      +colorBox(Styleguide.COLOR_SCHEME.aperturewhite)
         mixin description()
           p.
             The purity of Aperture Science in all its glory. This dazzling
             brilliance of bluish light seen on the portalable panels coated with
             Conversion Gel makes the background emit an eerie glow, like the full moon.
-      +colorBox(color_scheme.apertureblack)
+      +colorBox(Styleguide.COLOR_SCHEME.apertureblack)
         mixin description()
           p.
             The polar opposite of Aperture White. Representing the true dark nature
             of the Enrichment Center, this is the color of the panels that inhibit
             portals. A hint of orange is infinitesimally noticeable. What better way to
             complement the background color than the color of normal text?
-      +colorBox(color_scheme.lakesuperior)
+      +colorBox(Styleguide.COLOR_SCHEME.lakesuperior)
         mixin description()
           p.
             This Great Lake borders #[a Ontonagon, MI], the location of the
             Aperture Science Enrichment Center. A perfect fit for superior headings on
             a page.
-      +colorBox(color_scheme.facilityabyss)
+      +colorBox(Styleguide.COLOR_SCHEME.facilityabyss)
         mixin description()
           p.
             This color can be seen in the endless depths of the subterranean
             testing facility. This color is for #[i minor] headings of a page.
-      +colorBox(color_scheme.atlas)
+      +colorBox(Styleguide.COLOR_SCHEME.atlas)
         mixin description()
           p.
             Short and stout, Atlas is one of the two robots used for testing.
             Untouched hyperlinks are dedicated to his digital iris.
-      +colorBox(color_scheme.pbody)
+      +colorBox(Styleguide.COLOR_SCHEME.pbody)
         mixin description()
           p.
             Tall and wiry, P-body is one of the two robots used for testing.
             Hovered hyperlinks are dedicated to his (or her?) digital iris.
-      +colorBox(color_scheme.cavescaves)
+      +colorBox(Styleguide.COLOR_SCHEME.cavescaves)
         mixin description()
           p.
             Cave&rsquo;s underground salt mines were the ideal venue for early
             test chambers.
-      +colorBox(color_scheme.asbestos)
+      +colorBox(Styleguide.COLOR_SCHEME.asbestos)
         mixin description()
           p.
             The forgotten underground test chambers are ridden with this harmful
             substance. Or so Mr.&nbsp;Johnson says.
-      +colorBox(color_scheme.repulsion)
+      +colorBox(Styleguide.COLOR_SCHEME.repulsion)
         mixin description()
           p.
             Good news, you&rsquo;re not part of the control group; you get the gel.
             Bad news, it does #[em not] like the human skeleton. Turns out you might
             just break every bone in your legs anyway.
-      +colorBox(color_scheme.propulsion)
+      +colorBox(Styleguide.COLOR_SCHEME.propulsion)
         mixin description()
           p #[i Forwarding] the cause of science.
     section.o-Grid
       h3.o-Grid__Item UI Component Colors
-      +colorBox(color_scheme.graylite)
-      +colorBox(color_scheme.graydark)
-      +colorBox(color_scheme.deploying)
+      +colorBox(Styleguide.COLOR_SCHEME.graylite)
+      +colorBox(Styleguide.COLOR_SCHEME.graydark)
+      +colorBox(Styleguide.COLOR_SCHEME.deploying)
         mixin description()
           p.
             The one word you never want to hear without a portal gun. Just as the
             iris of a Sentry Turret, this color is briefly seen, providing a subtle accent
             on the site.
-      +colorBox(color_scheme.hereye)
+      +colorBox(Styleguide.COLOR_SCHEME.hereye)
         mixin description()
           p.
             This color alone will scare the
             prokaryotic-microorganism-infested-fecal-matter out of you. See where you can
             find it. You monster.
-      +colorBox(color_scheme.neurotoxin)
+      +colorBox(Styleguide.COLOR_SCHEME.neurotoxin)
         mixin description()
           p.
             Long ago an #[i accident] resulted in the unleashing of
             this deadly vapor and the murdering of the entire human staff of
             Aperture Laboratories. Some say it could happen again, but this time on the
             test subjects&hellip;
-      +colorBox(color_scheme.bridges)
+      +colorBox(Styleguide.COLOR_SCHEME.bridges)
         mixin description()
           p.
             Hard Light Bridges are literally massless, yet they can sustain
             infinite weight, as Chell can attest to.
-      +colorBox(color_scheme.companion)
+      +colorBox(Styleguide.COLOR_SCHEME.companion)
         mixin description()
           p.
             Believed to be sentient by some and alive by others, the
             Weighted Companion Cube has been said to provide advice and display emotions
             such as brevity, care, and love. It is even believed to hum opera when near
             a friend. A perfect color for helpful elements on a Web page.
-      +colorBox(color_scheme.vilify)
+      +colorBox(Styleguide.COLOR_SCHEME.vilify)
         mixin description()
           p: q.-fs-t(cite="https://www.youtube.com/watch?v=G-Vg2YS-sFE").
             You&rsquo;ve
@@ -240,10 +239,10 @@ block append main
             like a trial? Does it trouble your mind the way you trouble mine?
     section.o-Grid
       h3.o-Grid__Item Tints &amp; Shades
-      +colorBoxTrans(trans.tintlight,  7, { class: 'h-darkbg' })
-      +colorBoxTrans(trans.shadelight, 7)
-      +colorBoxTrans(trans.tintheavy,  4, { class: 'h-darkbg' }, { class: '-c-b' })
-      +colorBoxTrans(trans.shadeheavy, 4, {},                    { class: 'h-darkbg' })
+      +colorBoxTrans(Styleguide.TRANS_SCHEME.tintlight,  7, { class: 'h-darkbg' })
+      +colorBoxTrans(Styleguide.TRANS_SCHEME.shadelight, 7)
+      +colorBoxTrans(Styleguide.TRANS_SCHEME.tintheavy,  4, { class: 'h-darkbg' }, { class: '-c-b' })
+      +colorBoxTrans(Styleguide.TRANS_SCHEME.shadeheavy, 4, {},                    { class: 'h-darkbg' })
     aside.o-Box.o-Box--kilo-sG.o-Box--mega-sT(style={
       'margin-bottom': '1.5rem'
     , 'border': '1px solid #9acc7a'
@@ -290,7 +289,7 @@ block append main
           This is true even if the function itself is increasing.
           It would only be called exponential #[em growth] if the base were more than 1,
           again, whether the function were increasing or decreasing.
-block append body
+block append scripts
   script(src="https://cdn.rawgit.com/chharvey/csscolor/master/index.js")
   script(src="../core/scripts/util.js")
   script(src="scripts/schemes.js")

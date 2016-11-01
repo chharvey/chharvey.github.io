@@ -1,0 +1,28 @@
+doctype html
+html(lang="en")
+  block vars
+  head
+    title= page.name() + ' | Site Design'
+    meta(charset="utf-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    block styles
+      link(rel="stylesheet" href="../styles/chharvey.css")
+      link(rel="stylesheet" href="styles/styleguide.css")
+  body.o-GoldenContainer
+    main.o-GoldenContainer__Content
+      block main
+        header
+          block mainHeader
+            h1= page.name()
+    footer: nav.Bc
+      ol.Anc
+        li: a.Crumb(href="../index.html") Home
+        li: a.Crumb(href="../home/web.html") Web
+      ul.Sib
+        each item in Styleguide.PAGES.findAll()
+          li: a.Crumb(href=item.url())= item.name()
+      ul.Child
+    block scripts
+      script(src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous")
+      script(src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML,https://chharvey.github.io/chhlib/mathjax-localconfig.js")
+      script(src="../core/scripts/global.js")
