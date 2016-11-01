@@ -1,5 +1,40 @@
--
-  var font_scheme = {
+var Page = require('sitepage').Page
+
+/**
+ * A set of static members used for the site style guide.
+ * Similar to a utility class.
+ * @type {Styleguide}
+ */
+module.exports = (function () {
+  // CONSTRUCTOR
+  function Styleguide() {}
+
+  // METHODS
+
+  // STATIC MEMBERS
+  /**
+   * The style guide site for this project.
+   * @type {Page}
+   */
+  Styleguide.PAGES = (function () {
+    return new Page({ name: 'Chris Harvey – Site Design', url: '/styleguide/' })
+      .title('Portfolio Style Guide')
+      .add(new Page({ name: 'Mathematical Background', url: 'phi.html'}))
+      .add(new Page({ name: 'Coding Style'           , url: 'code.html' }))
+      .add(new Page({ name: 'Site Schemes'           , url: 'visual.html' }))
+      .add(new Page({ name: 'Base Typography'        , url: 'base.html' }))
+      .add(new Page({ name: 'Objects'                , url: 'obj.html' }))
+      .add(new Page({ name: 'Typo Components'        , url: 'comp-typo.html' }))
+      .add(new Page({ name: 'UI Components'          , url: 'comp-ui.html' }))
+      .add(new Page({ name: 'Helpers'                , url: 'help.html' }))
+      .add(new Page({ name: 'Atoms'                  , url: 'atom.html' }))
+  })()
+
+  /**
+   * Set of fonts used on the site.
+   * @type {Object}
+   */
+  Styleguide.FONT_SCHEME = {
     base : {
       name    : 'Avenir Next'
     , class   : 'a-ff-base'
@@ -42,7 +77,12 @@
     , sample  : 'The quick brown fox jumps over the lazy dog.'
     }
   }
-  var color_scheme = {
+
+  /**
+   * Set of colors used on the site.
+   * @type {Object}
+   */
+  Styleguide.COLOR_SCHEME = {
     aperturewhite : {
       name        : 'Aperture White'
     , code_dfn    : 'hsv(217,   5%, 100%)'
@@ -174,33 +214,41 @@
     , uses     : [ 'dark component default' ]
     }
   }
-  var trans = {
+
+  /**
+   * Set of translucent colors, shades and tints, used on the site.
+   * @type {Object}
+   */
+  Styleguide.TRANS_SCHEME = {
     tintlight : {
       name      : 'Tint Light'
     , code_dfn  : 'fadeout(@aperturewhite, 80%)'
     , code_hexa : 'rgba(#f2f7ff, 0.2)'
     , bg_class  : 'a-bc-tintlight'
-    , box_color : color_scheme.apertureblack
+    , box_color : Styleguide.COLOR_SCHEME.apertureblack
     }
   , shadelight : {
       name      : 'Shade Light'
     , code_dfn  : 'fadeout(@apertureblack, 80%)'
     , code_hexa : 'rgba(#0d0800, 0.2)'
     , bg_class  : 'a-bc-shadelight'
-    , box_color : color_scheme.aperturewhite
+    , box_color : Styleguide.COLOR_SCHEME.aperturewhite
     }
   , tintheavy : {
       name      : 'Tint Heavy'
     , code_dfn  : 'fadeout(@aperturewhite, 20%)'
     , code_hexa : 'rgba(#f2f7ff, 0.8)'
     , bg_class  : 'a-bc-tintheavy'
-    , box_color : color_scheme.apertureblack
+    , box_color : Styleguide.COLOR_SCHEME.apertureblack
     }
   , shadeheavy : {
       name      : 'Shade Heavy'
     , code_dfn  : 'fadeout(@apertureblack, 20%)'
     , code_hexa : 'rgba(#0d0800, 0.8)'
     , bg_class  : 'a-bc-shadeheavy'
-    , box_color : color_scheme.aperturewhite
+    , box_color : Styleguide.COLOR_SCHEME.aperturewhite
     }
   }
+
+  return Styleguide
+})()
