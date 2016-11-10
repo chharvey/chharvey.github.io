@@ -122,20 +122,44 @@ module.exports = [
   ] }
 , { group: 'Accents & Punctuation', points: [
     {
-      name   : 'cirumflex accent'
-    , unicode: '005e'
-    , mac    : 'shift 6'
+      name   : 'acute accent'
+    , unicode: '00b4'
+    , mac    : 'option e'
+    , comment: 'letter modifier'
     }
   , {
       name   : 'grave accent'
     , unicode: '0060'
     , mac    : '`'
-    , comment: '<kbd>option `</kbd> if over a glyph'
+    , comment: '<kbd>option `</kbd> letter modifier'
     }
   , {
-      name   : 'acute accent'
-    , unicode: '00b4'
-    , mac    : 'option e'
+      name   : 'cirumflex accent'
+    , unicode: '005e'
+    , mac    : 'shift 6'
+    }
+  , {
+      name   : '???'
+    , unicode: ''
+    , mac    : 'option i'
+    , comment: 'letter modifier'
+    }
+  , {
+      name   : 'diaeresis'
+    , unicode: '00a8'
+    , mac    : 'option u'
+    , comment: 'letter modifier'
+    }
+  , {
+      name   : 'tilde'
+    , unicode: '007e'
+    , mac    : 'shift `'
+    }
+  , {
+      name   : '???'
+    , unicode: ''
+    , mac    : 'option n'
+    , comment: 'letter modifier'
     }
   , {
       name   : 'solidus'
