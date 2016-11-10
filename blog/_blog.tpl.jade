@@ -1,0 +1,22 @@
+doctype html
+html(lang="en")
+  //- include _models/Page.class.jade
+  block vars
+    - var page = new Page()
+    - var artstatus = ['draft','complete','released'][0]
+  head
+    title= page.title() + ' | Chris Harvey'
+    meta(charset="utf-8")
+    meta(name="author" content="Christopher H. Harvey")
+    meta(name="description" content=page.description())
+    meta(name="keywords" content=page.keywords().join())
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    block styles
+      link(rel="stylesheet" href="https://cdn.rawgit.com/chharvey/still-alive/v1.0.0/still-alive.css")
+  body.o-GoldenContainer
+    main.o-GoldenContainer__Content.c-Document(data-status=artstatus itemscope="" itemtype="http://schema.org/Article")
+      block main
+        header
+          block mainHeader
+            h1(itemprop="name headline")= page.name()
+    block scripts
