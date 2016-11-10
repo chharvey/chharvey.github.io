@@ -36,21 +36,22 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
             th.o-Box(scope="col") Macintosh
             th.o-Box(scope="col" style="width:200px;") Comments
         each group in entities
-          tbody
-            tr: th.o-Box(scope="rowgroup" colspan="7")= group.group
-            each entity in group.points
-              tr
-                th(id='U+'+entity.unicode scope="row")= entity.name
-                td
-                  unless entity.is_annotated
-                    != '&#x' + entity.unicode + ';'
-                  else
-                    u!= '&#x' + entity.unicode + ';'
-                td= entity.unicode
-                td= entity.html
-                td= entity.latex
-                td= entity.mac
-                td!= entity.comment
+          unless group.group === 'template'
+            tbody
+              tr: th.o-Box(scope="rowgroup" colspan="7")= group.group
+              each entity in group.points
+                tr
+                  th(id='U+'+entity.unicode scope="row")= entity.name
+                  td
+                    unless entity.is_annotated
+                      != '&#x' + entity.unicode + ';'
+                    else
+                      u!= '&#x' + entity.unicode + ';'
+                  td= entity.unicode
+                  td= entity.html
+                  td= entity.latex
+                  td= entity.mac
+                  td!= entity.comment
         //- tbody#letter-like
          tr: th.o-Box(scope="rowgroup" colspan="7") Letter-Like Symbols
           tr
