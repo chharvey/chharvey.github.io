@@ -120,8 +120,24 @@ module.exports = [
     , comment: 'guillemet'
     }
   ] }
-, { group: 'Slashes', points: [
+, { group: 'Accents & Punctuation', points: [
     {
+      name   : 'cirumflex accent'
+    , unicode: '005e'
+    , mac    : 'shift 6'
+    }
+  , {
+      name   : 'grave accent'
+    , unicode: '0060'
+    , mac    : '`'
+    , comment: '<kbd>option `</kbd> if over a glyph'
+    }
+  , {
+      name   : 'acute accent'
+    , unicode: '00b4'
+    , mac    : 'option e'
+    }
+  , {
       name   : 'solidus'
     , unicode: '002f'
     , mac    : '/'
@@ -140,24 +156,6 @@ module.exports = [
   , {
       name   : 'division slash'
     , unicode: '2215'
-    }
-  ] }
-, { group: 'Accents', points: [
-    {
-      name   : 'cirumflex accent'
-    , unicode: '005e'
-    , mac    : 'shift 6'
-    }
-  , {
-      name   : 'grave accent'
-    , unicode: '0060'
-    , mac    : '`'
-    , comment: '<kbd>option `</kbd> if over a glyph'
-    }
-  , {
-      name   : 'acute accent'
-    , unicode: '00b4'
-    , mac    : 'option e'
     }
   ] }
 , { group: 'Miscellaneous Text Symbols', points: [
