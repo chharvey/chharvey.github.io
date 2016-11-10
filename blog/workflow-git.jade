@@ -1,13 +1,14 @@
-doctype html
-html(lang="en")
-  head
-    title Workflow with Git
-    meta(charset="utf-8")
-    meta(name="author" content="Christopher H. Harvey")
-    meta(name="description" content="My workflow with git.")
-    meta(name="keywords" content="git, workflow, semantic versioning, versioning, branching")
-    meta(name="viewport" content="width=device-width, initial-scale=1")
-    link(rel="stylesheet" href="https://cdn.rawgit.com/chharvey/still-alive/v1.0.0/still-alive.css")
+extends _blog.tpl.jade
+
+block vars
+  -
+    var page = new Page({ name: 'Workflow with Git', url: '/blog/workflow-git.html' })
+      .title('Workflow with Git')
+      .description('My workflow with git.')
+      .keywords(['git', 'workflow', 'semantic versioning', 'versioning', 'branching'])
+    var artstatus = 'draft'
+
+block append styles
     style.
       var {
         quotes: none;
@@ -15,11 +16,8 @@ html(lang="en")
       code {
         font-variant: normal;
       }
-  body.o-GoldenContainer
-    include ../core/include/_snippets.jade
-    main.o-GoldenContainer__Content.c-Document(data-status="draft" itemscope="" itemtype="http://schema.org/Article")
-      header
-        h1(itemprop="name headline") Workflow with Git
+
+block append mainHeader
         p.o-GoldenContainer__Content__SideMinor.o-Box.c-Alert.c-Alert--dang.
           This document is a work in progress.
         dl.c-Document__Meta
@@ -42,6 +40,11 @@ html(lang="en")
           #[a(href="https://git-scm.com/" rel="external") Git].
           First I think a little background information is necessary, and that is information
           on semantic versioning, the principle of numbering your versions semantically.
+
+block append main
+    include ../core/include/_snippets.jade
+    //- REVIEW indentation
+    div
       section
         h2 Semantic Versioning
         p.

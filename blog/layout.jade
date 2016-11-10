@@ -1,18 +1,14 @@
-doctype html
-html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
-  head
-    title Flexbox
-    meta(charset="utf-8")
-    meta(name="author" content="Christopher H. Harvey")
-    meta(name="description" content="Using Flexbox to lay out Elements on a page.")
-    meta(name="keywords" content="Flexbox, layout, CSS, Less")
-    meta(name="viewport" content="width=device-width, initial-scale=1")
-    link(rel="stylesheet" href="https://cdn.rawgit.com/chharvey/still-alive/v1.0.0/still-alive.css")
-  body.o-GoldenContainer
-    include ../core/include/_snippets.jade
-    main.o-GoldenContainer__Content.c-Document(data-status="draft" itemscope="" itemtype="http://schema.org/Article")
-      header
-        h1(itemprop="name headline") Flexbox
+extends _blog.tpl.jade
+
+block vars
+  -
+    var page = new Page({ name: 'Flexbox', url: '/blog/classical-music.html' })
+      .title('Flexbox')
+      .description('Using Flexbox to lay out Elements on a page.')
+      .keywords(['Flexbox', 'layout', 'CSS', 'Less'])
+    var artstatus = 'draft'
+
+block append mainHeader
         p.o-GoldenContainer__Content__SideMinor.o-Box.c-Alert.c-Alert--dang.
           This document is a work in progress.
         dl.c-Document__Meta
@@ -36,6 +32,11 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
           dd.update
             time(datetime="2015-04-08 09:39" itemprop="dateModified") Apr  8, 2015 #[span.tod  9:39 AM]
             span.o-Textbox.c-Label.c-Label--dang.-ml-1 Latest
+
+block append main
+    include ../core/include/_snippets.jade
+    //- REVIEW indentation
+    div
       p.c-Lede.c-Lede--dropcap.
         Laying out a page is easier than it may seem. Everything on the page belongs in blocks, and
         each block has a size and position. That&rsquo;s all there is to it. There are many methods,
@@ -476,5 +477,7 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
             div.h-demo.-w-1o6 flex-item 1!
             div.h-demo.-w-2o6 flex-item 2!
             div.h-demo.-w-2o6 flex-item 3!
+
+block append scripts
     script(src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous")
     script(src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML,https://chharvey.github.io/chhlib/mathjax-localconfig.js")
