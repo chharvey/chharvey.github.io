@@ -65,8 +65,8 @@ module.exports = [
     , html   : '&rang;'
     , comment: 'see U+003e for HTML delimiter'
     }
-    ] }
-  , { group: 'Quotation Marks', points: [
+  ] }
+, { group: 'Quotation Marks', points: [
     {
       name   : 'left single quotation mark'
     , unicode: '2018'
@@ -120,7 +120,91 @@ module.exports = [
     , comment: 'guillemet'
     }
   ] }
-, { group: 'Accents & Punctuation', points: [
+, { group: 'Spaces', points: [
+    {
+      name   : 'space'
+    , unicode: '0020'
+    , mac    : 'spacebar'
+    , comment: 'character not shown (not parsed in HTML)'
+    , is_annotated: true
+    }
+  , {
+      name   : 'no-break space'
+    , unicode: '00a0'
+    , html   : '&nbsp;'
+    , mac    : 'option spacebar'
+    , comment: 'character annotated to show width'
+    , is_annotated: true
+    }
+  , {
+      name   : 'en space'
+    , unicode: '2002'
+    , html   : '&ensp;'
+    , comment: 'character annotated to show width'
+    , is_annotated: true
+    }
+  , {
+      name   : 'em space'
+    , unicode: '2003'
+    , html   : '&emsp;'
+    , comment: 'character annotated to show width'
+    , is_annotated: true
+    }
+  , {
+      name   : 'figure space'
+    , unicode: '2007'
+    , comment: 'numerical space. character annotated to show width'
+    , is_annotated: true
+    }
+  ] }
+, { group: 'Dashes', points: [
+    {
+      name   : 'hyphen-minus'
+    , unicode: '002d'
+    , html   : '&hyphen;'
+    , mac    : '-'
+    }
+  , {
+      name   : 'en dash'
+    , unicode: '2013'
+    , html   : '&ndash;'
+    , mac    : 'option -'
+    }
+  , {
+      name   : 'em dash'
+    , unicode: '2014'
+    , html   : '&mdash;'
+    , mac    : 'option shift -'
+    }
+  , {
+      name   : 'soft hyphen'
+    , unicode: '00ad'
+    , html   : '&shy;'
+    }
+  ] }
+, { group: 'Slashes', points: [
+    {
+      name   : 'solidus'
+    , unicode: '002f'
+    , mac    : '/'
+    }
+  , {
+      name   : 'reverse solidus'
+    , unicode: '005c'
+    , mac    : '\\'
+    }
+  , {
+      name   : 'fraction slash'
+    , unicode: '2044'
+    , html   : '&frasl;'
+    , mac    : 'option shift 1'
+    }
+  , {
+      name   : 'division slash'
+    , unicode: '2215'
+    }
+  ] }
+, { group: 'Accents & Other Punctuation', points: [
     {
       name   : 'acute accent'
     , unicode: '00b4'
@@ -162,71 +246,20 @@ module.exports = [
     , comment: 'letter modifier'
     }
   , {
-      name   : 'solidus'
-    , unicode: '002f'
-    , mac    : '/'
+      name   : 'inverted exclamation mark'
+    , unicode: '00a1'
+    , html   : '&iexcl;'
+    , mac    : 'option 1'
     }
   , {
-      name   : 'reverse solidus'
-    , unicode: '005c'
-    , mac    : '\\'
-    }
-  , {
-      name   : 'fraction slash'
-    , unicode: '2044'
-    , html   : '&frasl;'
-    , mac    : 'option shift 1'
-    }
-  , {
-      name   : 'division slash'
-    , unicode: '2215'
+      name   : 'inverted question mark'
+    , unicode: '00bf'
+    , html   : '&iquest;'
+    , mac    : 'option shift /'
     }
   ] }
 , { group: 'Miscellaneous Text Symbols', points: [
     {
-      name   : 'space'
-    , unicode: '0020'
-    , mac    : 'spacebar'
-    , comment: 'character not shown (not parsed in HTML)'
-    , is_annotated: true
-    }
-  , {
-      name   : 'no-break space'
-    , unicode: '00a0'
-    , html   : '&nbsp;'
-    , mac    : 'option spacebar'
-    , comment: 'character annotated to show width'
-    , is_annotated: true
-    }
-  , {
-      name   : 'en space'
-    , unicode: '2002'
-    , html   : '&ensp;'
-    , mac    : 'option spacebar'
-    , comment: 'character annotated to show width'
-    , is_annotated: true
-    }
-  , {
-      name   : 'em space'
-    , unicode: '2003'
-    , html   : '&emsp;'
-    , mac    : 'option spacebar'
-    , comment: 'character annotated to show width'
-    , is_annotated: true
-    }
-  , {
-      name   : 'en dash'
-    , unicode: '2013'
-    , html   : '&ndash;'
-    , mac    : 'option -'
-    }
-  , {
-      name   : 'em dash'
-    , unicode: '2014'
-    , html   : '&mdash;'
-    , mac    : 'option shift -'
-    }
-  , {
       name   : 'modifier letter apostrophe'
     , unicode: '02bc'
     , comment: 'it has been suggested this replace U+2019 for contraction apostrophes'
@@ -242,6 +275,12 @@ module.exports = [
     , html   : '&amp;'
     , latex  : '\\And'
     , mac    : 'shift 7'
+    }
+  , {
+      name   : 'vertical line'
+    , unicode: '007c'
+    , mac    : 'shift \\'
+    , comment: 'pipe / bar'
     }
   , {
       name   : 'horizontal ellipsis'
