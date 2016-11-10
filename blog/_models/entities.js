@@ -901,6 +901,26 @@ module.exports = [
     , comment: 'Weierstrass p'
     }
   ] }
+, { group: 'Foreign Letters', points: [
+    {
+      name   : 'Latin capital letter AE'
+    , unicode: '00c6'
+    , html   : '&AElig;'
+    , mac    : 'option shift \''
+    }
+  , {
+      name   : 'Latin small letter AE'
+    , unicode: '00e6'
+    , html   : '&aelig;'
+    , mac    : 'option \''
+    }
+  , {
+      name   : 'Latin small letter N with tilde'
+    , unicode: '00f1'
+    , html   : '&ntilde;'
+    , mac    : 'option n n'
+    }
+] }
 , { group: 'Greek Letters', points: [
     {
       name   : 'Greek capital letter Alpha'
