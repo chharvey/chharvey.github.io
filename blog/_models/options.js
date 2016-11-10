@@ -3,4 +3,5 @@
 module.exports = {
   basedir : './'
 , Page    : require('sitepage').Page
+, entities  : require('./entities.js')
 }
