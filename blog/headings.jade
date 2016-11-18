@@ -1,13 +1,14 @@
-doctype html
-html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
-  head
-    title The Semantics and Style of Nested Headings in Webkit
-    meta(charset="utf-8")
-    meta(name="author" content="Christopher H. Harvey")
-    meta(name="description" content="The semantics and style of nested heading elements in Webkit.")
-    meta(name="keywords" content="semantic, heading, Document Outline")
-    meta(name="viewport" content="width=device-width, initial-scale=1")
-    link(rel="stylesheet" href="../styles/chharvey.css")
+extends _blog.tpl.jade
+
+block vars
+  -
+    var page = new Page({ name: 'The Semantics and Style of Nested Headings in Webkit', url: '/blog/headings.html' })
+      .title('The Semantics and Style of Nested Headings in Webkit')
+      .description('The semantics and style of nested heading elements in Webkit.')
+      .keywords(['semantic', 'heading', 'Document Outline'])
+    var artstatus = 'released'
+
+block append styles
     style.
       body { font-family: sans-serif; }
       .lvl h1,
@@ -45,10 +46,8 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
       .lvl-1-1-1 { background-color: #cff; }
       .lvl-1-1-2 { background-color: #cef; }
       .lvl-1-1-3 { background-color: #cdf; }
-  body.o-GoldenContainer
-    main.o-GoldenContainer__Content.c-Document(data-status="released" itemscope="" itemtype="http://schema.org/Article")
-      header
-        h1(itemprop="name headline") The Semantics and Style of Nested Headings in Webkit
+
+block append mainHeader
         p.c-Subhead What kind of heading is it?
         p.o-GoldenContainer__Content__SideMinor.o-Box.c-Alert.c-Alert--skss.
           This document is ready for implemen&shy;tation.
@@ -69,6 +68,8 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
             time(datetime="2014-09-07 22:45" itemprop="datePublished dateModified") Sep  7, 2014 #[span.tod 10:45 PM]
             span.o-Textbox.c-Label.c-Label--skss.-ml-1 Released
             span.o-Textbox.c-Label.c-Label--dang.-ml-1 Latest
+
+block append main
       div.lvl.lvl-1(style="border: 1px solid #000;")
         p: code.lang-html &lt;body&gt;
         h1 #[span.explicit BODY] heading
@@ -167,9 +168,8 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
           However, all other headings, #[code h2]&ndash;#[code h6], have constant
           styles. That is, an #[code h2], no matter want it #[strong means]
           (semantically, based on explicit/implicit sectioning), will always appear as an #[code h2].
-    script(src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous")
-    script(src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML,https://chharvey.github.io/chhlib/mathjax-localconfig.js")
-    script(src="../core/scripts/global.js")
+
+block append scripts
     script.
       $(document).ready(function() {
         $('.explicit').attr('title', 'explicit section');

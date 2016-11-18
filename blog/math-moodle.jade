@@ -1,13 +1,14 @@
-doctype html
-html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
-  head
-    title Typsetting Math in Moodle
-    meta(charset="utf-8")
-    meta(name="author" content="Christopher H. Harvey")
-    meta(name="description" content="A tutorial for inputting mathematical expressions into the Moodle system.")
-    meta(name="keywords" content="math expressions, math equations")
-    meta(name="viewport" content="width=device-width, initial-scale=1")
-    link(rel="stylesheet" href="../styles/chharvey.css")
+extends _blog.tpl.jade
+
+block vars
+  -
+    var page = new Page({ name: 'Typesetting Math in Moodle', url: '/blog/math-moodle.html' })
+      .title('Typsetting Math in Moodle')
+      .description('A tutorial for inputting mathematical expressions into the Moodle system.')
+      .keywords(['math expressions', 'math equations'])
+    var artstatus = 'released'
+
+block append styles
     style.
       .c-HeadWithSub {
         text-align: center;
@@ -23,11 +24,8 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
         margin-top: -1px;
         border-bottom-style: solid;
       }
-  body.o-GoldenContainer
-    include ../core/include/_snippets.jade
-    main.o-GoldenContainer__Content.c-Document(data-status="released" itemscope="" itemtype="http://schema.org/Article")
-      header
-        h1(itemprop="name headline") Typesetting Math in Moodle
+
+block append mainHeader
         p.o-GoldenContainer__Content__SideMinor.o-Box.c-Alert.c-Alert--skss.
           This document is ready for implemen&shy;tation.
         dl.c-Document__Meta
@@ -77,6 +75,11 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
         //        a(href="#conclusion") Conclusion
         //        ol
         //          li:a(href="#more-info") More Information
+
+block append main
+    include ../core/include/_snippets.jade
+    //- REVIEW indentation
+    div
       p.c-Lede.c-Lede--dropcap.
         You may already know how to use #[b MathType] (or #[b Equation Editor]) to put
         equations in Moodle. But if you don&rsquo;t have those programs installed on your personal computer,
@@ -397,6 +400,3 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
             is a language, originally developed by Leslie Lamport, used to typeset and mark up documents.
             It is a very common (perhaps the most common) system used by authors of professional math
             journals.
-    script(src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous")
-    script(src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML,https://chharvey.github.io/chhlib/mathjax-localconfig.js")
-    script(src="../core/scripts/global.js")
