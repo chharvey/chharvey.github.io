@@ -38,8 +38,9 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
           dd.update: time(datetime="2015-03-08 14:57") Mar 8, 2015 #[span.tod  2:57 PM]
           dd.update: time(datetime="2016-02-14 01:15") Feb 14, 2016 #[span.tod  1:15 AM]
           dd.update: time(datetime="2016-03-06 15:41") Mar  6, 2016 #[span.tod  3:42 PM]
+          dd.update: time(datetime="2016-03-24 13:38") Mar 24, 2016 #[span.tod  1:38 PM]
           dd.update
-            time(datetime="2016-03-24 13:38" itemprop="dateModified") Mar 24, 2016 #[span.tod  1:38 PM]
+            time(datetime="2016-12-05 12:28" itemprop="dateModified") Dec  5, 2016 #[span.tod 12:28 PM]
             span.o-Textbox.c-Label.c-Label--dang.-ml-1 Latest
         nav#table-contents
           h2 Table of Contents
@@ -93,9 +94,28 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
               The #[code footer] element should contain secondary information, data about
               #[em the content in the section], such as copyright information, contact information,
               related links or references, and footnotes.
-            footer: p: small Neither element may contain any #[code header] or #[code footer] descendants.
-          li #[code h1]&ndash;#[code h6] #[+tag('Phrasing Content Model','hn-phrasing-content-model')]
+          li.
+            #[code h1]&ndash;#[code h6]
+            #[+tag('Phrasing Content Model','hn-phrasing-content-model')]
+            #[+tag('Heading Content','hn-heading-content')]
           li #[code address] #[sup: +reference('address')]
+        footer.c-Document__Draft
+          p There are certain rules regarding the allowed nesting of certain sectioning elements:
+          ul
+            li.
+              The #[code main] element #[em may not] be a descendant of any #[b Sectioning Content]
+              elements.#[sup: +reference('main-caveat')]
+              The #[code main] element also #[em may not] be a descendant of any
+              #[code header] or #[code footer] element.
+            li.
+              Any #[code header] or #[code footer] element (in addition to prohibiting any
+              #[code main] element descendants) #[em may not] contain any other
+              #[code header] or #[code footer] elements, #[em unless] those said elements are
+              descendants of a Sectioning Content element, which, in turn, is a descendant of
+              the original #[code header] or #[code footer].
+            li.
+              The #[code address] element #[em may not] contain #[b Sectioning Content],
+              #[b Heading Content], #[code header]s, or #[code footer]s.
       section#grouping-content
         h2 Grouping Content
         p May be used where Flow Content is expected.
@@ -462,6 +482,10 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
             | Each #[dfn#sectioning-content Sectioning Content] adds a section to the #[span.c-Acro DO].
           li
             sup
+              +footnote('hn-heading-content')
+            | #[dfn#heading-content Heading Content] provides a title for a #[b Sectioning Content] in the #[span.c-Acro DO].
+          li
+            sup
               +footnote('hr-nothing-content-model')
               +footnote('col-nothing-content-model')
               +footnote('br-nothing-content-model')
@@ -511,5 +535,12 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
             sup
               +footnote('summary')
             | The #[code summary] element may contain either Phrasing Content, or exactly 1 Heading Element (#[code h1]&ndash;#[code h6])
+          li
+            sup
+              +footnote('main-caveat')
+            | There is one exception: the #[code main] element may be a descendant of #[code section],
+            |  however I prefer to restrict this use anyway. In fact, I adhere to the belief that
+            |  there should be exactly 1 #[code main] element per document, and that it should be
+            |  a direct child of #[code body].
     script(src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous")
     script(src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML,https://chharvey.github.io/chhlib/mathjax-localconfig.js")
