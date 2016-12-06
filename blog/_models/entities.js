@@ -156,13 +156,28 @@ module.exports = [
     , comment: 'numerical space. character annotated to show width'
     , is_annotated: true
     }
+  , {
+      name   : 'zero width space'
+    , unicode: '200b'
+    , comment: 'character not shown (has no width)'
+    , is_annotated: true
+    }
   ] }
 , { group: 'Dashes', points: [
     {
       name   : 'hyphen-minus'
     , unicode: '002d'
-    , html   : '&hyphen;'
     , mac    : '-'
+    , comment: 'commonly used in place of U+2010'
+    }
+  , {
+      name   : 'hyphen'
+    , unicode: '2010'
+    , html   : '&hyphen;'
+    }
+  , {
+      name   : 'figure dash'
+    , unicode: '2012'
     }
   , {
       name   : 'en dash'
@@ -180,6 +195,7 @@ module.exports = [
       name   : 'soft hyphen'
     , unicode: '00ad'
     , html   : '&shy;'
+    , is_annotated: true
     }
   ] }
 , { group: 'Slashes', points: [
