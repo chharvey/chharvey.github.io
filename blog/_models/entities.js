@@ -891,7 +891,7 @@ module.exports = [
       name   : 'up tack'
     , unicode: '22a5'
     , html   : '&perp;'
-    , latex  : '\bot'
+    , latex  : '\\bot'
     , comment: 'contradiction; see U+27c2 for perpendicular'
     }
   , {
