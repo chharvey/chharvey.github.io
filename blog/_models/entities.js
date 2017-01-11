@@ -224,8 +224,13 @@ module.exports = [
     {
       name   : 'acute accent'
     , unicode: '00b4'
+    , html   : '&acute;'
     , mac    : 'option e'
     , comment: 'letter modifier'
+    }
+  , {
+      name   : 'modifier letter acute accent'
+    , unicode: '02ca'
     }
   , {
       name   : 'grave accent'
@@ -234,21 +239,19 @@ module.exports = [
     , comment: '<kbd>option `</kbd> letter modifier'
     }
   , {
+      name   : 'modifier letter grave accent'
+    , unicode: '02cb'
+    }
+  , {
       name   : 'cirumflex accent'
     , unicode: '005e'
     , mac    : 'shift 6'
     }
   , {
-      name   : '???'
-    , unicode: ''
+      name   : 'modifier letter circumflex accent'
+    , unicode: '02c6'
+    , html   : '&circ;'
     , mac    : 'option i'
-    , comment: 'letter modifier'
-    }
-  , {
-      name   : 'diaeresis'
-    , unicode: '00a8'
-    , mac    : 'option u'
-    , comment: 'letter modifier'
     }
   , {
       name   : 'tilde'
@@ -256,9 +259,17 @@ module.exports = [
     , mac    : 'shift `'
     }
   , {
-      name   : '???'
-    , unicode: ''
+      name   : 'small tilde'
+    , unicode: '02dc'
+    , html   : '&tilde;'
     , mac    : 'option n'
+    , comment: 'letter modifier'
+    }
+  , {
+      name   : 'diaeresis'
+    , unicode: '00a8'
+    , html   : '&uml;'
+    , mac    : 'option u'
     , comment: 'letter modifier'
     }
   , {
