@@ -919,6 +919,11 @@ module.exports = [
     , comment: 'punctuation (not relation)'
     }
   , {
+      name   : 'end of proof'
+    , unicode: '220e'
+    , comment: 'q.e.d., “tombstone”'
+    }
+  , {
       name   : 'empty set'
     , unicode: '2205'
     , html   : '&empty;'
