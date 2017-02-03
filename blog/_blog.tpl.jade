@@ -24,19 +24,19 @@ html(lang="en")
           block status
             //- -
               var statuspairing = {
-                'draft'    : { sfx: 'dang', text: 'This document is a work in progress.'}
-              , 'complete' : { sfx: 'cshn', text: 'This document is in the final stages of completion.'}
-              , 'released' : { sfx: 'skss', text: 'This document is ready for implemen&shy;tation.'}
+                BlogPost.STATUS.DRAFT    : { sfx: 'dang', text: 'This document is a work in progress.'}
+              , BlogPost.STATUS.COMPLETE : { sfx: 'cshn', text: 'This document is in the final stages of comple\u00adtion.'}
+              , BlogPost.STATUS.RELEASED : { sfx: 'skss', text: 'This document is ready for implemen\u00adtation.'} // U=00ad &shy; soft hyphen
               }
-            //- p.o-GoldenContainer__Content__SideMinor.o-Box.c-Alert(class=`c-Alert--${statuspairing[artstatus].sfx}`)
-              = statuspairing[artstatus].text
-            if (artstatus === 'draft')
+            //- p.o-GoldenContainer__Content__SideMinor.o-Box.c-Alert(class=`c-Alert--${statuspairing[page.status()].sfx}`)
+              = statuspairing[page.status()].text
+            if (page.status() === BlogPost.STATUS.DRAFT)
               p.o-GoldenContainer__Content__SideMinor.o-Box.c-Alert.c-Alert--dang.
                 This document is a work in progress.
-            else if (artstatus === 'complete')
+            else if (page.status() === BlogPost.STATUS.COMPLETE)
               p.o-GoldenContainer__Content__SideMinor.o-Box.c-Alert.c-Alert--cshn.
-                This document is in the final stages of completion.
-            else if (artstatus === 'released')
+                This document is in the final stages of comple&shy;tion.
+            else if (page.status() === BlogPost.STATUS.RELEASED)
               p.o-GoldenContainer__Content__SideMinor.o-Box.c-Alert.c-Alert--skss.
                 This document is ready for implemen&shy;tation.
           block docmeta
