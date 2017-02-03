@@ -12,10 +12,10 @@ html(lang="en")
         li(class=classes.itemclasses)
           a(class=classes.linkclasses href=item.url())= item.name()
           if item.findAll().length && depth > 0
-            +doctoc({pages: item.findAll(), classes: (classes.sub || {}), depth: depth-1}, true)
+            +homemap({pages: item.findAll(), classes: (classes.sub || {}), depth: depth-1}, true)
   block vars
   head
-    title!= page.title() || page.name() + ' &in; ' + Home.HOME.name()
+    title!= page.title() || (page.name() + ' &in; ' + Home.HOME.name())
     meta(charset="utf-8")
     meta(name="author" content="Christopher H. Harvey")
     meta(name="description" content=(page.description() || Home.HOME.description()))
@@ -29,14 +29,16 @@ html(lang="en")
   body.o-GoldenContainer
     a.h-Hidden(href="#main") skip to main content
     block body
-      header
+      header._masthead
         block header
+          h1.h-Hidden= Home.HOME.name()
           nav.Bc#sitemap
             h1.h-Hidden Sitemap
             ol.Anc
               li: a.Crumb(href="../index.html") Home
             +homemap({
               pages: Home.HOME.findAll().slice(1)
+            , depth: 0
             , classes: {
                 listclasses: 'Sib'
               , itemclasses: ''
