@@ -9,8 +9,10 @@ module.exports = (function () {
    * The set of main pages on this site.
    * @type {Page}
    */
-  Home.HOME = new Page({ name: 'Site', url: '/home/' })
-    .title('Chris Harvey’s Home Page')
+  Home.HOME = new Page({ name: 'Chris Harvey', url: '/home/' })
+    .title('Chris Harvey')
+    .description('Home page of Christopher H. Harvey of Fairfax, VA.')
+    .add(new Page({ name: 'Home', url: '/index.html' }))
     .add(new Page({ name: 'About Me', url: 'about.html' })
       .description('About Chris Harvey of Fairfax, VA.')
       .add(new Page({ name: 'Copyright', url: 'copyright.html' }))
