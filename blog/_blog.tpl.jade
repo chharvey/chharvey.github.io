@@ -2,7 +2,6 @@ doctype html
 html(lang="en")
   include ../core/include/_snippets.jade
   block vars
-    - var artstatus = ['draft','complete','released'][0]
   head
     title!= page.title() || (page.name() + ' &in; ' + Home.BLOG.name())
     meta(charset="utf-8")
@@ -16,7 +15,7 @@ html(lang="en")
       link(rel="stylesheet" href="https://cdn.rawgit.com/chharvey/still-alive/stage-v1.2.0/still-alive.css")
   body.o-GoldenContainer
     a.h-Hidden(href="#main") skip to main content
-    main.o-GoldenContainer__Content.c-Document(data-status=artstatus itemscope="" itemtype="http://schema.org/Article")
+    main.o-GoldenContainer__Content.c-Document(itemscope="" itemtype="http://schema.org/Article")
       block main
         header
           h1(itemprop="name headline")= page.name()
@@ -29,11 +28,11 @@ html(lang="en")
               , BlogPost.STATUS.RELEASED: { sfx: 'skss', text: 'This document is ready for implemen\u00adtation.' }
               }
             -
-              var statusmap = {} // U=00ad &shy; soft hyphen
+              var statusmap = {} // U+00ad &shy; soft hyphen
               statusmap[BlogPost.STATUS.DRAFT   ] = { sfx: 'dang', text: 'This document is a work in progress.' }
               statusmap[BlogPost.STATUS.COMPLETE] = { sfx: 'cshn', text: 'This document is in the final stages of comple\u00adtion.' }
               statusmap[BlogPost.STATUS.RELEASED] = { sfx: 'skss', text: 'This document is ready for implemen\u00adtation.' }
-            p.o-GoldenContainer__Content__SideMinor.o-Box.c-Alert(class=`c-Alert--${statusmap[page.status()].sfx}`)
+            p.o-GoldenContainer__Content__SideMinor.o-Box.c-Alert(class=`c-Alert--${statusmap[page.status()].sfx}` itemprop="creativeWorkStatus" itemscope="" itemtype=page.status())
               = statusmap[page.status()].text
           block docmeta
     block scripts

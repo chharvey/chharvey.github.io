@@ -38,9 +38,9 @@ module.exports = (function () {
    * @enum {string}
    */
   BlogPost.STATUS = {
-    DRAFT   : 'draft'
-  , COMPLETE: 'complete'
-  , RELEASED: 'released'
+    DRAFT   : 'Draft'
+  , COMPLETE: 'Complete'
+  , RELEASED: 'Released'
   }
 
   return BlogPost
