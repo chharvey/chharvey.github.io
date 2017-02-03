@@ -19,8 +19,27 @@ html(lang="en")
     main.o-GoldenContainer__Content.c-Document(data-status=artstatus itemscope="" itemtype="http://schema.org/Article")
       block main
         header
-          block mainHeader
-            h1(itemprop="name headline")= page.name()
+          h1(itemprop="name headline")= page.name()
+          block subhead
+          block status
+            //- -
+              var statuspairing = {
+                'draft'    : { sfx: 'dang', text: 'This document is a work in progress.'}
+              , 'complete' : { sfx: 'cshn', text: 'This document is in the final stages of completion.'}
+              , 'released' : { sfx: 'skss', text: 'This document is ready for implemen&shy;tation.'}
+              }
+            //- p.o-GoldenContainer__Content__SideMinor.o-Box.c-Alert(class=`c-Alert--${statuspairing[artstatus].sfx}`)
+              = statuspairing[artstatus].text
+            if (artstatus === 'draft')
+              p.o-GoldenContainer__Content__SideMinor.o-Box.c-Alert.c-Alert--dang.
+                This document is a work in progress.
+            else if (artstatus === 'complete')
+              p.o-GoldenContainer__Content__SideMinor.o-Box.c-Alert.c-Alert--cshn.
+                This document is in the final stages of completion.
+            else if (artstatus === 'released')
+              p.o-GoldenContainer__Content__SideMinor.o-Box.c-Alert.c-Alert--skss.
+                This document is ready for implemen&shy;tation.
+          block docmeta
     block scripts
       script(src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous")
       //- script(src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML,https://chharvey.github.io/chhlib/mathjax-localconfig.js")
