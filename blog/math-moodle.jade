@@ -2,10 +2,7 @@ extends _blog.tpl.jade
 
 block vars
   -
-    var page = new Page({ name: 'Typesetting Math in Moodle', url: '/blog/math-moodle.html' })
-      .title('Typsetting Math in Moodle')
-      .description('A tutorial for inputting mathematical expressions into the Moodle system.')
-      .keywords(['math expressions', 'math equations'])
+    var page = Home.BLOG.find('math-moodle.html')
     var artstatus = 'released'
 
 block append styles
@@ -77,8 +74,6 @@ block append mainHeader
         //          li:a(href="#more-info") More Information
 
 block append main
-    include ../core/include/_snippets.jade
-    //- REVIEW indentation
     div
       p.c-Lede.c-Lede--dropcap.
         You may already know how to use #[b MathType] (or #[b Equation Editor]) to put
@@ -400,3 +395,6 @@ block append main
             is a language, originally developed by Leslie Lamport, used to typeset and mark up documents.
             It is a very common (perhaps the most common) system used by authors of professional math
             journals.
+
+block append scripts
+  script(src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML,https://chharvey.github.io/chhlib/mathjax-localconfig.js")

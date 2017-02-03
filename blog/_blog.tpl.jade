@@ -1,18 +1,21 @@
 doctype html
 html(lang="en")
+  include ../core/include/_snippets.jade
   block vars
-    - var page = new Page()
     - var artstatus = ['draft','complete','released'][0]
   head
-    title= page.title() + ' | Chris Harvey'
+    title!= page.title() || (page.name() + ' &in; ' + Home.BLOG.name())
     meta(charset="utf-8")
     meta(name="author" content="Christopher H. Harvey")
     meta(name="description" content=page.description())
     meta(name="keywords" content=page.keywords().join())
     meta(name="viewport" content="width=device-width, initial-scale=1")
     block styles
-      link(rel="stylesheet" href="https://cdn.rawgit.com/chharvey/still-alive/v1.0.0/still-alive.css")
+      link(rel="stylesheet" href="https://cdn.rawgit.com/chharvey/xmeter/stage-v5.4.0/xmeter.min.css")
+      link(rel="stylesheet" href="https://cdn.rawgit.com/chharvey/bangs/v0.9.1/bangs.min.css")
+      link(rel="stylesheet" href="https://cdn.rawgit.com/chharvey/still-alive/stage-v1.2.0/still-alive.css")
   body.o-GoldenContainer
+    a.h-Hidden(href="#main") skip to main content
     main.o-GoldenContainer__Content.c-Document(data-status=artstatus itemscope="" itemtype="http://schema.org/Article")
       block main
         header
@@ -20,4 +23,4 @@ html(lang="en")
             h1(itemprop="name headline")= page.name()
     block scripts
       script(src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous")
-      script(src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML,https://chharvey.github.io/chhlib/mathjax-localconfig.js")
+      //- script(src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML,https://chharvey.github.io/chhlib/mathjax-localconfig.js")
