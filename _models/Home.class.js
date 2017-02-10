@@ -57,10 +57,37 @@ module.exports = (function () {
     .add(new BlogPost('Typesetting Math in Moodle', 'math-moodle.html')
       .description('A tutorial for inputting mathematical expressions into the Moodle system.')
       .keywords(['math expressions', 'math equations'])
+        //  nav.
+        //    h2 Table of Contents
+        //    ol.TOC
+        //      li:a(href="#intro") Introduction: Your First Equation by Hand
+        //      li:a(href="#modes") Equation Modes
+        //      li
+        //        a(href="#placement") Placement of Symbols
+        //        ol
+        //          li:a(href="#supsub") Superscripts and Subscripts
+        //          li:a(href="#frac") Fraction Bars
+        //          li:a(href="#sqrt") Square Roots
+        //          li
+        //            a(href="#delimeters") Parentheses and other Delimiters
+        //            ol
+        //              li:a(href="#parens") Parentheses
+        //              li:a(href="#brackets") Absolute Value, Square Brackets
+        //              li:a(href="#braces") Curly Braces
+        //      li
+        //        a(href="#special-chars") Special Characters
+        //        ol
+        //          li:a(href="#vars") Values and Variables
+        //          li:a(href="#operations") Binary Operations
+        //          li:a(href="#relations") Binary Relations
+        //      li:a(href="#more-oper") More Operators
+        //      li
+        //        a(href="#conclusion") Conclusion
+        //        ol
+        //          li:a(href="#more-info") More Information
     )
     .add(new BlogPost('Page Relationships', 'page-relationships.html')
       .description('description pending...')
-      .keywords(['HTML'])
     )
     .add(new BlogPost('Punctuation', 'semantic-punctuation.html')
       .description('A brief overview of traditional convention regarding punctuation & typography.')
