@@ -1,0 +1,8 @@
+mixin statusAlert(blogpost)
+  -
+    var statusmap = {} // U+00ad &shy; soft hyphen
+    statusmap[BlogPost.STATUS.DRAFT   ] = { sfx: 'dang', text: 'This document is a work in progress.' }
+    statusmap[BlogPost.STATUS.COMPLETE] = { sfx: 'cshn', text: 'This document is in the final stages of comple\u00adtion.' }
+    statusmap[BlogPost.STATUS.RELEASED] = { sfx: 'skss', text: 'This document is ready for implemen\u00adtation.' }
+  p.o-GoldenContainer__Content__SideMinor.o-Box.c-Alert(class=`c-Alert--${statusmap[blogpost.status()].sfx}` itemprop="creativeWorkStatus" itemscope="" itemtype=blogpost.status())
+    = statusmap[blogpost.status()].text
