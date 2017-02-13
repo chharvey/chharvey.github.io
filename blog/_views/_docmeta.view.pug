@@ -15,4 +15,22 @@ mixin docmeta(blogpost)
     each word in blogpost.keywords()
       dd(itemprop="keywords")= word
     dt Version History
+    each revision,index in blogpost.getTimestampsAll()
+      dd.update
+        -
+          var itemprop_val = (function () {
+            var str = ''
+            if (revision.is_complete)                           str += 'dateCreated '
+            if (revision.is_released)                           str += 'datePublished'
+            if (index === blogpost.getTimestampsAll().length-1) str += ' dateModified'
+            return str
+          })()
+        time(datetime=revision.datetime)&attributes((itemprop_val) ? {itemprop: itemprop_val} : {})
+          | MMM DD, YYYY #[span.tod HH:MM]
+        if (revision.is_complete)
+          span.o-Textbox.c-Label.c-Label--cshn.-ml-1 Completed
+        if (revision.is_released)
+          span.o-Textbox.c-Label.c-Label--skss.-ml-1 Released
+        if (index === blogpost.getTimestampsAll().length-1)
+          span.o-Textbox.c-Label.c-Label--dang.-ml-1 Latest
     block
