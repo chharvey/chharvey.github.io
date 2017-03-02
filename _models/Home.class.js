@@ -1,5 +1,5 @@
 var Page = require('sitepage').Page
-var BlogPost = require('../blog/_models/BlogPost.class.js')
+var BlogPost = require('still-alive').BlogPost
 
 /**
  * Model for the entire site
