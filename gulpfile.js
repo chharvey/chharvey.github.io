@@ -14,11 +14,11 @@ gulp.task('pug:resume', function () {
 })
 
 gulp.task('lessc:resume', function () {
-  return gulp.src('resume/styles/resume.less')
+  return gulp.src('resume/css/src/resume.less')
     .pipe(less())
     .pipe(autoprefixer({
       grid: true,
       cascade: false,
     }))
-    .pipe(gulp.dest('./resume/styles/'))
+    .pipe(gulp.dest('./resume/css/'))
 })
