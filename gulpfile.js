@@ -13,6 +13,8 @@ gulp.task('pug:resume', function () {
     .pipe(gulp.dest('./resume/'))
 })
 
+gulp.task('pug:all', ['pug:resume'])
+
 gulp.task('lessc:resume', function () {
   return gulp.src('resume/css/src/resume.less')
     .pipe(less())
@@ -22,3 +24,9 @@ gulp.task('lessc:resume', function () {
     }))
     .pipe(gulp.dest('./resume/css/'))
 })
+
+gulp.task('lessc:all', ['lessc:resume'])
+
+gulp.task('build:resume', ['pug:resume', 'lessc:resume'])
+
+gulp.task('build', ['pug:all', 'lessc:all'])
