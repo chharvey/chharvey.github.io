@@ -8,6 +8,7 @@ gulp.task('pug:resume', function () {
     .pipe(pug({
       basedir: './',
       locals: {
+        Skill: require('./resume/_models/Skill.class.js'),
       },
     }))
     .pipe(gulp.dest('./resume/'))

@@ -68,53 +68,39 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
         h2.o-GoldenContainer__Content__SideMajor.o-Skill__Title.c-H2 Technical Experience
         section.o-Grid-s.o-Org.-mb-1vru#lang-sys
           h3.o-Grid__Item-s.c-H3 Languages &amp; Systems
-          mixin lang(n, ddclasses)
-            - var levels = ['novice','beginner','competent','proficient','expert']
-            dt.o-Grid__Item-s.o-ListLangs__Text
-              block
-            dd.o-Grid__Item-s.o-ListLangs__Viz(class=ddclasses title=levels[n-1] itemscope="" itemtype="http://schema.org/Rating")
-              meta(itemprop="worstRating" content="0")
-              meta(itemprop="bestRating" content=levels.length)
-              meta(itemprop="ratingValue" content=n)
-              svg.c-LangViz(viewbox="0 0 15 4")
-                g(transform="translate(2,2)")
-                  - for (var i = 0; i < levels.length; i++)
-                    circle.c-LangViz__Marker(cx=3*i  cy="0" r="1" class={'c-LangViz__Marker--pos' : (i+1 <= n)})
-          dl.o-Grid__Item-s.o-Grid-s.o-ListLangs
-            +lang(5,'h-AfterComma-p') #[a.c-Camo(rel="external" href="https://nodejs.org/") node.js]/#[a.c-Camo(rel="external" href="https://www.npmjs.com/") npm]
-            +lang(5,'h-AfterComma-p') #[span.c-Acro HTML]/#[a.c-Camo(rel="external" href="https://pugjs.org") Pug]
-            +lang(4,'h-AfterComma-p') Microdata,#[a.c-Camo(href="https://schema.org/") Schema.org]
-            +lang(3,'h-AfterComma-p') #[abbr.c-Acro(title="Web Accessibility Initiative—Accessible Rich Internet Applications") WAI-ARIA]
-            +lang(5,'h-AfterComma-p') #[span.c-Acro CSS]/#[a.c-Camo(rel="external" href="http://lesscss.org") Less]
-            +lang(3,'h-AfterComma-p'): span.c-Acro SVG
-          dl.o-Grid__Item-s.o-Grid-s.o-ListLangs
-            +lang(4,'h-AfterComma-p'): a.c-Camo(rel="external" href="http://jquery.com/") jQuery
-            +lang(3,'h-AfterComma-p') #[span.c-Acro XML]/#[abbr.c-Acro(title="XML Schema Definition") XSD]
-            +lang(2,'h-AfterComma-p') Java
-            +lang(4,'h-AfterComma-p'): a.c-Camo(rel="external" href="http://www.latex-project.org/") \(\LaTeX\)
-            +lang(1,'h-AfterComma-p'): a.c-Camo(rel="external" href="http://d3js.org/") #[abbr(title="Data-Driven Documents") D3].js
-            +lang(5): a.c-Camo(rel="external" href="http://git-scm.com/") Git
-          dl.o-Grid__Item-s.o-Grid-s.o-ListLangs.-d-n
-            +lang(1): abbr.c-Acro(title="XML Stylesheet Language: Transformation") XSLT
-            +lang(2): abbr.c-Acro(title="PHP: Hypertext Preprocessor") PHP
+          -
+            let my_skills1 = [
+              new Skill(Skill.Level.EXPERT    , '<a class="c-Camo" rel="external" href="https://nodejs.org/">node.js</a>/<a class="c-Camo" rel="external" href="https://www.npmjs.com/">npm</a>'),
+              new Skill(Skill.Level.EXPERT    , '<span class="c-Acro">HTML</span>/<a class="c-Camo" rel="external" href="https://pugjs.org">Pug</a>'),
+              new Skill(Skill.Level.PROFICIENT, 'Microdata,<a class="c-Camo" rel="external" href="https://schema.org/">Schema.org</a>'),
+              new Skill(Skill.Level.COMPETENT , '<abbr class="c-Acro" title="Web Accessibility Initiative—Accessible Rich Internet Applications">WAI-ARIA</abbr>'),
+              new Skill(Skill.Level.EXPERT    , '<span class="c-Acro">CSS</span>/<a class="c-Camo" rel="external" href="http://lesscss.org">Less</a>'),
+              new Skill(Skill.Level.COMPETENT , '<span class="c-Acro">SVG</span>'),
+            ]
+            let my_skills2 = [
+              new Skill(Skill.Level.PROFICIENT, '<a class="c-Camo"rel="external" href="http://jquery.com/">jQuery</a>'),
+              new Skill(Skill.Level.COMPETENT , '<span class="c-Acro">XML</span>/<abbr class="c-Acro" title="XML Schema Definition">XSD</abbr>'),
+              new Skill(Skill.Level.BEGINNER  , 'Java'),
+              new Skill(Skill.Level.PROFICIENT, '<a class="c-Camo"rel="external" href="http://www.latex-project.org/">\\(\\LaTeX\\)</a>'),
+              new Skill(Skill.Level.NOVICE    , '<a class="c-Camo"rel="external" href="http://d3js.org/"><abbr title="Data-Driven Documents">D3</abbr>.js</a>'),
+              new Skill(Skill.Level.EXPERT    , '<a class="c-Camo"rel="external" href="http://git-scm.com/">Git</a>'),
+            ]
+            let my_skills3 = [
+              new Skill(Skill.Level.NOVICE  , '<abbr class="c-Acro" title="XML Stylesheet Language: Transformation">XSLT</abbr>'),
+              new Skill(Skill.Level.BEGINNER, '<abbr class="c-Acro" title="PHP: Hypertext Preprocessor">PHP</abbr>'),
+            ]
+          dl.o-Grid__Item-s.o-Grid-s.o-ListLangs!=      my_skills1.map((sk) => sk.render('c-LangViz__Marker--pos')).join('')
+          dl.o-Grid__Item-s.o-Grid-s.o-ListLangs!=      my_skills2.map((sk) => sk.render('c-LangViz__Marker--pos')).join('')
+          dl.o-Grid__Item-s.o-Grid-s.o-ListLangs.-d-n!= my_skills3.map((sk) => sk.render('c-LangViz__Marker--pos')).join('')
         section.o-Grid-s.o-Org.-mb-1vru#skills
           h3.o-Grid__Item-s.c-H3 Technical Skills
-          mixin skill(n, ddclasses)
-            - var levels = ['novice','beginner','competent','proficient','expert']
-            dt.o-Grid__Item-s.o-ListLangs__Text.-x-1o2
-              block
-            dd.o-Grid__Item-s.o-ListLangs__Viz.-x-1o2(class=ddclasses title=levels[n-1] itemscope="" itemtype="http://schema.org/Rating")
-              meta(itemprop="worstRating" content="0")
-              meta(itemprop="bestRating" content=levels.length)
-              meta(itemprop="ratingValue" content=n)
-              svg.c-LangViz(viewbox="0 0 15 4")
-                g(transform="translate(2,2)")
-                  - for (var i = 0; i < levels.length; i++)
-                    circle.c-LangViz__Marker(cx=3*i  cy="0" r="1" class={'c-LangViz__Marker--pos2' : (i+1 <= n)})
-          dl.o-Grid__Item-s.o-Grid-s.o-ListLangs.-x-1o1
-            +skill(5,'h-AfterComma-p') technical writing &amp; style guides
-            +skill(3,'h-AfterComma-p') color theory
-            +skill(4) typography
+          -
+            let my_skills4 = [
+              new Skill(Skill.Level.EXPERT    , 'technical writing &amp; style guides'),
+              new Skill(Skill.Level.COMPETENT , 'color theory'),
+              new Skill(Skill.Level.PROFICIENT, 'typography'),
+            ]
+          dl.o-Grid__Item-s.o-Grid-s.o-ListLangs.-x-1o1!= my_skills4.map((sk) => sk.render('c-LangViz__Marker--pos2', {dt: '-x-1o2', dd: '-x-1o2'})).join('')
         section.o-Org.-d-n#apps
           h3.c-H3 Software Applications
           ul.o-Org__Detail
