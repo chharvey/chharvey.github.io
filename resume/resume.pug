@@ -27,6 +27,15 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
       }
   body.o-GoldenContainer
     main.o-GoldenContainer__Content(itemscope="" itemtype="http://schema.org/Person")
+      mixin experience(title, id, data)
+        section.o-GoldenContainer__Content__LeftBar.o-Skill(id=id)
+          h2.o-GoldenContainer__Content__SideMajor.o-Skill__Title.c-H2!= title
+          != data.map((el) => el.html()).join('')
+      mixin achievement(title, id, data)
+        section.o-GoldenContainer__Content__LeftBar.o-Skill(id=id)
+          h2.o-GoldenContainer__Content__SideMajor.o-Skill__Title.c-H2!= title
+          dl.o-ListAchv
+            != data.map((el) => el.html()).join('')
       header.o-HeaderRes
         h1.o-HeaderRes__Name.c-H1(itemprop="name")
           span(itemprop="givenName") Christopher
@@ -68,24 +77,20 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
         h2.o-GoldenContainer__Content__SideMajor.o-Skill__Title.c-H2 Technical Experience
         section.o-Grid-s.o-Org.-mb-1vru#lang-sys
           h3.o-Grid__Item-s.c-H3 Languages &amp; Systems
-          dl.o-Grid__Item-s.o-Grid-s.o-ListLangs!=      Resume.SKILLS.lang_sys1.map((el) => el.render('c-LangViz__Marker--pos')).join('')
-          dl.o-Grid__Item-s.o-Grid-s.o-ListLangs!=      Resume.SKILLS.lang_sys2.map((el) => el.render('c-LangViz__Marker--pos')).join('')
-          dl.o-Grid__Item-s.o-Grid-s.o-ListLangs.-d-n!= Resume.SKILLS.lang_sys3.map((el) => el.render('c-LangViz__Marker--pos')).join('')
+          dl.o-Grid__Item-s.o-Grid-s.o-ListLangs!=      Resume.SKILLS.lang_sys1.map((el) => el.html()).join('')
+          dl.o-Grid__Item-s.o-Grid-s.o-ListLangs!=      Resume.SKILLS.lang_sys2.map((el) => el.html()).join('')
+          dl.o-Grid__Item-s.o-Grid-s.o-ListLangs.-d-n!= Resume.SKILLS.lang_sys3.map((el) => el.html()).join('')
         section.o-Grid-s.o-Org.-mb-1vru#skills
           h3.o-Grid__Item-s.c-H3 Technical Skills
-          dl.o-Grid__Item-s.o-Grid-s.o-ListLangs.-x-1o1!= Resume.SKILLS.technical.map((el) => el.render('c-LangViz__Marker--pos2', {dt: '-x-1o2', dd: '-x-1o2'})).join('')
+          dl.o-Grid__Item-s.o-Grid-s.o-ListLangs.-x-1o1!= Resume.SKILLS.technical.map((el) => el.html({positive:'c-LangViz__Marker--pos2', classes:{dt:'-x-1o2',dd:'-x-1o2'}})).join('')
         section.o-Org.-d-n#apps
           h3.c-H3 Software Applications
           ul.o-Org__Detail
             each item in Resume.APPS
               li!= item
         != Resume.POSITIONS.technical.map((el) => el.html()).join('')
-      section.o-GoldenContainer__Content__LeftBar.o-Skill#teach-exp
-        h2.o-GoldenContainer__Content__SideMajor.o-Skill__Title.c-H2 Teaching Experience
-        != Resume.POSITIONS.teaching.map((el) => el.html()).join('')
-      section.o-GoldenContainer__Content__LeftBar.o-Skill#work-exp
-        h2.o-GoldenContainer__Content__SideMajor.o-Skill__Title.c-H2 Other Work Experience
-        != Resume.POSITIONS.other.map((el) => el.html()).join('')
+      +experience('Teaching Experience', 'teach-exp', Resume.POSITIONS.teaching)
+      +experience('Other Work Experience', 'work-exp', Resume.POSITIONS.other)
       section.o-GoldenContainer__Content__LeftBar.o-Skill#edu
         h2.o-GoldenContainer__Content__SideMajor.o-Skill__Title.c-H2 Education
         section.o-Org.o-Org--inst#VT
@@ -94,18 +99,9 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
               span(itemprop="name") Virginia Polytechnic Institute and State University
           dl.o-ListAchv
             != Resume.DEGREES.map((el) => el.html()).join('')
-      section.o-GoldenContainer__Content__LeftBar.o-Skill#prof-dev
-        h2.o-GoldenContainer__Content__SideMajor.o-Skill__Title.c-H2 Profes&shy;sional Dev&shy;elopment
-        dl.o-ListAchv
-          != Resume.PRODEVS.map((el) => el.html()).join('')
-      section.o-GoldenContainer__Content__LeftBar.o-Skill#awards
-        h2.o-GoldenContainer__Content__SideMajor.o-Skill__Title.c-H2 Awards &amp; Member&shy;ships
-        dl.o-ListAchv
-          != Resume.AWARDS.map((el) => el.html()).join('')
-      section.o-GoldenContainer__Content__LeftBar.o-Skill.-d-n-p#athletic
-        h2.o-GoldenContainer__Content__SideMajor.o-Skill__Title.c-H2 Team Athletic Experience
-        dl.o-ListAchv
-          != Resume.TEAMS.map((el) => el.html()).join('')
+      +achievement('Profes&shy;sional Dev&shy;elopment', 'prof-dev', Resume.PRODEVS)
+      +achievement('Awards &amp; Member&shy;ships', 'awards', Resume.AWARDS)
+      +achievement('Team Athletic Experience', 'athletic', Resume.TEAMS)
       footer.o-FooterRes.-d-n-p: p.
         This r&eacute;sum&eacute; is 100% hand-written, by me! Check out the
         #[a(rel="external" href="https://github.com/chharvey/chharvey.github.io/blob/master/resume/resume.jade") source code]

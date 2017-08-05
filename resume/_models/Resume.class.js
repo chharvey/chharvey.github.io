@@ -6,29 +6,29 @@ var ProDev   = require('./ProDev.class.js')
 
 const SKILLS = {
   lang_sys1: [
-    new Skill(Skill.Level.EXPERT    , '<a class="c-Camo" rel="external" href="https://nodejs.org/">node.js</a>/<a class="c-Camo" rel="external" href="https://www.npmjs.com/">npm</a>'),
-    new Skill(Skill.Level.EXPERT    , '<span class="c-Acro">HTML</span>/<a class="c-Camo" rel="external" href="https://pugjs.org">Pug</a>'),
-    new Skill(Skill.Level.PROFICIENT, 'Microdata,<a class="c-Camo" rel="external" href="https://schema.org/">Schema.org</a>'),
-    new Skill(Skill.Level.COMPETENT , '<abbr class="c-Acro" title="Web Accessibility Initiative—Accessible Rich Internet Applications">WAI-ARIA</abbr>'),
-    new Skill(Skill.Level.EXPERT    , '<span class="c-Acro">CSS</span>/<a class="c-Camo" rel="external" href="http://lesscss.org">Less</a>'),
-    new Skill(Skill.Level.COMPETENT , '<span class="c-Acro">SVG</span>'),
+    new Skill(5, '<a class="c-Camo" rel="external" href="https://nodejs.org/">node.js</a>/<a class="c-Camo" rel="external" href="https://www.npmjs.com/">npm</a>'),
+    new Skill(5, '<span class="c-Acro">HTML</span>/<a class="c-Camo" rel="external" href="https://pugjs.org">Pug</a>'),
+    new Skill(4, 'Microdata,<a class="c-Camo" rel="external" href="https://schema.org/">Schema.org</a>'),
+    new Skill(3, '<abbr class="c-Acro" title="Web Accessibility Initiative—Accessible Rich Internet Applications">WAI-ARIA</abbr>'),
+    new Skill(5, '<span class="c-Acro">CSS</span>/<a class="c-Camo" rel="external" href="http://lesscss.org">Less</a>'),
+    new Skill(3, '<span class="c-Acro">SVG</span>'),
   ],
   lang_sys2: [
-    new Skill(Skill.Level.PROFICIENT, '<a class="c-Camo"rel="external" href="http://jquery.com/">jQuery</a>'),
-    new Skill(Skill.Level.COMPETENT , '<span class="c-Acro">XML</span>/<abbr class="c-Acro" title="XML Schema Definition">XSD</abbr>'),
-    new Skill(Skill.Level.BEGINNER  , 'Java'),
-    new Skill(Skill.Level.PROFICIENT, '<a class="c-Camo"rel="external" href="http://www.latex-project.org/">\\(\\LaTeX\\)</a>'),
-    new Skill(Skill.Level.NOVICE    , '<a class="c-Camo"rel="external" href="http://d3js.org/"><abbr title="Data-Driven Documents">D3</abbr>.js</a>'),
-    new Skill(Skill.Level.EXPERT    , '<a class="c-Camo"rel="external" href="http://git-scm.com/">Git</a>'),
+    new Skill(4, '<a class="c-Camo"rel="external" href="http://jquery.com/">jQuery</a>'),
+    new Skill(3, '<span class="c-Acro">XML</span>/<abbr class="c-Acro" title="XML Schema Definition">XSD</abbr>'),
+    new Skill(2, 'Java'),
+    new Skill(4, '<a class="c-Camo"rel="external" href="http://www.latex-project.org/">\\(\\LaTeX\\)</a>'),
+    new Skill(1, '<a class="c-Camo"rel="external" href="http://d3js.org/"><abbr title="Data-Driven Documents">D3</abbr>.js</a>'),
+    new Skill(5, '<a class="c-Camo"rel="external" href="http://git-scm.com/">Git</a>'),
   ],
   lang_sys3: [
-    new Skill(Skill.Level.NOVICE  , '<abbr class="c-Acro" title="XML Stylesheet Language: Transformation">XSLT</abbr>'),
-    new Skill(Skill.Level.BEGINNER, '<abbr class="c-Acro" title="PHP: Hypertext Preprocessor">PHP</abbr>'),
+    new Skill(1, '<abbr class="c-Acro" title="XML Stylesheet Language: Transformation">XSLT</abbr>'),
+    new Skill(2, '<abbr class="c-Acro" title="PHP: Hypertext Preprocessor">PHP</abbr>'),
   ],
   technical: [
-    new Skill(Skill.Level.EXPERT    , 'technical writing &amp; style guides'),
-    new Skill(Skill.Level.COMPETENT , 'color theory'),
-    new Skill(Skill.Level.PROFICIENT, 'typography'),
+    new Skill(5, 'technical writing &amp; style guides'),
+    new Skill(3, 'color theory'),
+    new Skill(4, 'typography'),
   ],
 }
 
