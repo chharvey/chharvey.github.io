@@ -1,5 +1,5 @@
 var Util = require('./Util.class.js')
-// var Element = require('./Element.class.js')
+var Element = require('./Element.class.js')
 
 /**
  * A working position I’ve held at an organization tht I’ve worked for.
@@ -55,64 +55,45 @@ module.exports = class Position {
    * @return {string} HTML string
    */
   html() {
-    function sameDay(date1, date2) {
-      return (date1.getFullYear() === date2.getFullYear())
-        &&   (date1.getUTCMonth() === date2.getUTCMonth())
-        &&   (date1.getUTCDate() === date2.getUTCDate())
-    }
     function renderDate(date) {
-      return `<time datetime="${date.toISOString()}">${
-        (sameDay(date, new Date())) ? 'present'
-      : `${Util.MONTH_NAMES[date.getUTCMonth()].slice(0,3)} ${date.getFullYear()}`
-      }</time>`
+      function sameDay(date1, date2) {
+        return (date1.getFullYear() === date2.getFullYear())
+          &&   (date1.getUTCMonth() === date2.getUTCMonth())
+          &&   (date1.getUTCDate()  === date2.getUTCDate())
+      }
+      return new Element('time')
+        .attr('datetime', date.toISOString())
+        .addContent((sameDay(date, new Date())) ? 'present' : `${Util.MONTH_NAMES[date.getUTCMonth()].slice(0,3)} ${date.getFullYear()}`)
+        .render()
     }
-    return `
-      <section id="${this._id}" class="o-Org"${(this._is_current) ? ' itemprop="worksFor"' : ''} itemscope="" itemtype="${this._org_type}">
-        <header class="o-Org__Header">
-          <div class="o-Org__Header__Titles">
-            <h3 class="o-Org__Header__Titles__JobTitle c-H3" itemprop="jobTitle">${this._name}</h3>
-            <p class="o-Org__Header__Titles__Name c-H4">
-              <a class="c-Camo" rel="external" href="${this._org_url}" itemprop="url">
-                <span itemprop="name">${this._org_name}</span>
-              </a>
-            </p>
-          </div>
-          <div class="o-Org__Header__Spacetime">
-            <p class="o-Org__Header__Spacetime__Dates">${renderDate(this._date_start)}&ndash;${renderDate(this._date_end)}</p>
-            <p class="o-Org__Header__Spacetime__Place" itemprop="location" itemscope="" itemtype="http://schema.org/Place">${this._location.html()}</p>
-          </div>
-        </header>
-        <ul class="o-Org__Detail">${this._descriptions.map((obj) => `<li${(obj.is_hidden) ? ' class="-d-n"' : ''}>${obj.html}</li>`).join('')}</ul>
-      </section>
-    `
-    // let result = new Element('section').id(this._id).class('o-Org')
-    //   .attr('itemscope','').attr('itemtype',this._org_type)
-    //   .addElements([
-    //     new Element('header').class('o-Org__Header').addElements([
-    //       new Element('div').class('o-Org__Header__Titles').addElements([
-    //         new Element('h3').class('o-Org__Header__Titles__JobTitle c-H3').attr('itemprop','jobTitle').addContent(this._name),
-    //         new Element('p').class('o-Org__Header__Titles__Name c-H4').addElements([
-    //           new Element('a').class('c-Camo').attr('rel','external').attr('href',this._org_url).attr('itemprop','url').addElements([
-    //             new Element('span').attr('itemprop','name').addContent(this._org_name),
-    //           ]),
-    //         ]),
-    //       ]),
-    //       new Element('div').class('o-Org__Header__Spacetime').addElements([
-    //         new Element('p').class('o-Org__Header__Spacetime__Dates').addContent(`${renderDate(this._date_start)}&ndash;${renderDate(this._date_end)}`),
-    //         new Element('p').class('o-Org__Header__Spacetime__Place')
-    //           .attr('itemprop',"location").attr('itemscope',"").attr('itemtype',"http://schema.org/Place")
-    //           .addContent(this._location.html()),
-    //       ]),
-    //     ]),
-    //     new Element('ul').class('o-Org__Detail').addElements(
-    //       this._descriptions.map((obj) => new Element('li')
-    //         .addClass((obj.is_hidden) ? '-d-n' : '')
-    //         .addContent(obj.html)
-    //       )
-    //     ),
-    //   ])
-    // if (this._is_current) result.attr('itemprop','worksFor')
-    // return result.render()
+    let result = new Element('section').id(this._id).class('o-Org')
+      .attr('itemscope','').attr('itemtype',this._org_type)
+      .addElements([
+        new Element('header').class('o-Org__Header').addElements([
+          new Element('div').class('o-Org__Header__Titles').addElements([
+            new Element('h3').class('o-Org__Header__Titles__JobTitle c-H3').attr('itemprop','jobTitle').addContent(this._name),
+            new Element('p').class('o-Org__Header__Titles__Name c-H4').addElements([
+              new Element('a').class('c-Camo').attr('rel','external').attr('href',this._org_url).attr('itemprop','url').addElements([
+                new Element('span').attr('itemprop','name').addContent(this._org_name),
+              ]),
+            ]),
+          ]),
+          new Element('div').class('o-Org__Header__Spacetime').addElements([
+            new Element('p').class('o-Org__Header__Spacetime__Dates').addContent(`${renderDate(this._date_start)}&ndash;${renderDate(this._date_end)}`),
+            new Element('p').class('o-Org__Header__Spacetime__Place')
+              .attr('itemprop',"location").attr('itemscope',"").attr('itemtype',"http://schema.org/Place")
+              .addContent(this._location.html()),
+          ]),
+        ]),
+        new Element('ul').class('o-Org__Detail').addElements(
+          this._descriptions.map((obj) => new Element('li')
+            .addClass((obj.is_hidden) ? '-d-n' : '')
+            .addContent(obj.html)
+          )
+        ),
+      ])
+    if (this._is_current) result.attr('itemprop','worksFor')
+    return result.render()
   }
 
   static get City() { return City }
@@ -144,27 +125,18 @@ class City {
    * @return {string} HTML string
    */
   html() {
-    return `
-      <span itemprop="address" itemscope="" itemtype="http://schema.org/PostalAddress">
-        <span itemprop="addressLocality">${this._locality}</span>,
-        <abbr itemprop="addressRegion" title="${Util.STATE_DATA.find((obj) => obj.code===this._region).name}">${this._region}</abbr>
-      </span>
-      <span itemprop="geo" itemscope="" itemtype="http://schema.org/GeoCoordinates">
-        <meta itemprop="latitude"  content="${this._latitude}"/>
-        <meta itemprop="longitude" content="${this._longitude}"/>
-      </span>
-    `
-    // return [
-    //   new Element('span').attr('itemprop','address').attr('itemscope','').attr('itemtype','http://schema.org/PostalAddress').addElements([
-    //     new Element('span').attr('itemprop','addressLocality').addContent(this._locality),
-    //     new Element('abbr').attr('itemprop','addressRegion')
-    //       .attr('title',Util.STATE_DATA.find((obj) => obj.code===this._region).name)
-    //       .addContent(this._region),
-    //   ]),
-    //   new Element('span').attr('itemprop','geo').attr('itemscope','').attr('itemtype','http://schema.org/GeoCoordinates').addElements([
-    //     new Element('meta',true).attr('itemprop','latitude' ).attr('content',this._latitude),
-    //     new Element('meta',true).attr('itemprop','longitude').attr('content',this._longitude),
-    //   ]),
-    // ].map((el) => el.render()).join('')
+    return [
+      new Element('span').attr('itemprop','address').attr('itemscope','').attr('itemtype','http://schema.org/PostalAddress').addContent(
+        new Element('span').attr('itemprop','addressLocality').addContent(this._locality).render()
+      + ', '
+      + new Element('abbr').attr('itemprop','addressRegion')
+          .attr('title',Util.STATE_DATA.find((obj) => obj.code===this._region).name)
+          .addContent(this._region).render()
+      ),
+      new Element('span').attr('itemprop','geo').attr('itemscope','').attr('itemtype','http://schema.org/GeoCoordinates').addElements([
+        new Element('meta',true).attr('itemprop','latitude' ).attr('content',this._latitude),
+        new Element('meta',true).attr('itemprop','longitude').attr('content',this._longitude),
+      ]),
+    ].map((el) => el.render()).join('')
   }
 }

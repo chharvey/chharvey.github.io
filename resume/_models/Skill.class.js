@@ -1,4 +1,4 @@
-// var Element = require('./Element.class.js')
+var Element = require('./Element.class.js')
 
 /**
  * Skill listed in the Technical Experience section.
@@ -25,43 +25,43 @@ module.exports = class Skill {
     let n = Skill.LEVELS.indexOf(this._level)+1
     let dt_class = (classes) ? classes.dt : ''
     let dd_class = (classes) ? classes.dd : ''
-    return `
-      <dt class="o-Grid__Item-s o-ListLangs__Text ${dt_class}">${this._text}</dt>
-      <dd class="o-Grid__Item-s o-ListLangs__Viz ${dd_class}" title="${this._level}" itemscope="" itemtype="http://schema.org/Rating">
-        <meta itemprop="worstRating" content="0"/>
-        <meta itemprop="bestRating" content="${Skill.LEVELS.length}"/>
-        <meta itemprop="ratingValue" content="${n}"/>
-        <svg class="c-LangViz" viewbox="0 0 15 4">
-          <g transform="translate(2,2)">
-            ${Skill.LEVELS.map(function (lvl, index) {
-              return `<circle class="c-LangViz__Marker${(index+1 <= n) ? ` ${positive}` : ''}" cx=${3*index} cy="0" r="1"/>`
-            }).join('')}
-          </g>
-        </svg>
-      </dd>
-    `
-    // return [
-    //   new Element('dt').class('o-Grid__Item-s o-ListLangs__Text')
-    //     .addClass(dt_class || '')
-    //     .addContent(this._text),
-    //   new Element('dd').class('o-Grid__Item-s o-ListLangs__Viz')
-    //     .addClass(dd_class || '')
-    //     .attr('title',this._level).attr('itemscope','').attr('itemtype','http://schema.org/Rating')
-    //     .addElements([
-    //       new Element('meta',true).attr('itemprop','worstRating').attr('content',0),
-    //       new Element('meta',true).attr('itemprop','bestRating' ).attr('content',`${Skill.LEVELS.length}`),
-    //       new Element('meta',true).attr('itemprop','ratingValue').attr('content',`${n}`),
-    //       new Element('svg').class('c-LangViz').attr('viewbox','0 0 15 4').addElements([
-    //         new Element('g').attr('transform','translate(2,2)').addElements(
-    //           Skill.LEVELS.map(function (lvl, index) {
-    //             return new Element('circle',true).class(`c-LangViz__Marker`)
-    //               .addClass((index+1 <= n) ? positive : '')
-    //               .attr('cx',3*index).attr('cy',0).attr('r',1)
-    //           })
-    //         ),
-    //       ]),
-    //     ]),
-    // ].map((el) => el.render()).join('')
+    // return `
+    //   <dt class="o-Grid__Item-s o-ListLangs__Text ${dt_class}">${this._text}</dt>
+    //   <dd class="o-Grid__Item-s o-ListLangs__Viz ${dd_class}" title="${this._level}" itemscope="" itemtype="http://schema.org/Rating">
+    //     <meta itemprop="worstRating" content="0"/>
+    //     <meta itemprop="bestRating" content="${Skill.LEVELS.length}"/>
+    //     <meta itemprop="ratingValue" content="${n}"/>
+    //     <svg class="c-LangViz" viewbox="0 0 15 4">
+    //       <g transform="translate(2,2)">
+    //         ${Skill.LEVELS.map(function (lvl, index) {
+    //           return `<circle class="c-LangViz__Marker${(index+1 <= n) ? ` ${positive}` : ''}" cx=${3*index} cy="0" r="1"/>`
+    //         }).join('')}
+    //       </g>
+    //     </svg>
+    //   </dd>
+    // `
+    return [
+      new Element('dt').class('o-Grid__Item-s o-ListLangs__Text')
+        .addClass(dt_class || '')
+        .addContent(this._text),
+      new Element('dd').class('o-Grid__Item-s o-ListLangs__Viz')
+        .addClass(dd_class || '')
+        .attr('title',this._level).attr('itemscope','').attr('itemtype','http://schema.org/Rating')
+        .addElements([
+          new Element('meta',true).attr('itemprop','worstRating').attr('content',0),
+          new Element('meta',true).attr('itemprop','bestRating' ).attr('content',`${Skill.LEVELS.length}`),
+          new Element('meta',true).attr('itemprop','ratingValue').attr('content',`${n}`),
+          new Element('svg').class('c-LangViz').attr('viewbox','0 0 15 4').addElements([
+            new Element('g').attr('transform','translate(2,2)').addElements(
+              Skill.LEVELS.map(function (lvl, index) {
+                return new Element('circle',true).class(`c-LangViz__Marker`)
+                  .addClass((index+1 <= n) ? positive : '')
+                  .attr('cx',3*index).attr('cy',0).attr('r',1)
+              })
+            ),
+          ]),
+        ]),
+    ].map((el) => el.render()).join('')
   }
 
   /**
