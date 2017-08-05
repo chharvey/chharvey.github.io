@@ -10,6 +10,7 @@ gulp.task('pug:resume', function () {
       locals: {
         Skill: require('./resume/_models/Skill.class.js'),
         Position: require('./resume/_models/Position.class.js'),
+        Award: require('./resume/_models/Award.class.js'),
         Degree: require('./resume/_models/Degree.class.js'),
       },
     }))
