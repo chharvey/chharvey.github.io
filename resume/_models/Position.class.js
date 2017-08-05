@@ -13,7 +13,7 @@ module.exports = class Position {
    * @param {{start:Date, end:Date}} $dates the dates the the position was held
    * @param {Date} $dates.start the start date
    * @param {Date} $dates.end the end date; use `new Date()` for present date
-   * @param {Position.City} $location location of the organization
+   * @param {City} $location location of the organization
    * @param {{name:string, url:string, itemtype:string}} $org details of the organization
    * @param {string} $org.name the name of the organization; may be HTML
    * @param {string} $org.url the url of the organization’s homepage
@@ -96,50 +96,5 @@ module.exports = class Position {
       ])
     if (this._is_current) result.attr('itemprop','worksFor')
     return result.render()
-  }
-
-  static get City() { return City }
-}
-
-
-/**
- * A class encoding information about a city or town’s location.
- * @module
- */
-class City {
-  /**
-   * Construct a new City object.
-   * @param  {string} locality the city/town name
-   * @param  {string} region the state/province postal code (e.g. 'NY', 'CA')
-   * @param  {{lat:number, lon:number}} geo the geo-coordinates
-   * @param  {number} geo.lat the latitude, in decimal degrees
-   * @param  {number} geo.lon the longitude, in decimal degrees
-   */
-  constructor(locality, region, geo) {
-    this._locality  = locality
-    this._region    = region
-    this._latitude  = geo.lat
-    this._longitude = geo.lon
-  }
-
-  /**
-   * Render a city in HTML.
-   * @return {string} HTML string
-   */
-  html() {
-    return [
-      new Element('span').attr('itemprop','address').attr('itemscope','').attr('itemtype','http://schema.org/PostalAddress')
-        .addElements([new Element('span').attr('itemprop','addressLocality').addContent(this._locality)])
-        .addContent(', ')
-        .addElements([
-          new Element('abbr').attr('itemprop','addressRegion')
-            .attr('title',Util.STATE_DATA.find((obj) => obj.code===this._region).name)
-            .addContent(this._region),
-        ]),
-      new Element('span').attr('itemprop','geo').attr('itemscope','').attr('itemtype','http://schema.org/GeoCoordinates').addElements([
-        new Element('meta',true).attr('itemprop','latitude' ).attr('content',this._latitude),
-        new Element('meta',true).attr('itemprop','longitude').attr('content',this._longitude),
-      ]),
-    ].map((el) => el.render()).join('')
   }
 }

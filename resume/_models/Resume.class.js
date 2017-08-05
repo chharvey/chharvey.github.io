@@ -1,3 +1,4 @@
+var City     = require('./City.class.js')
 var Skill    = require('./Skill.class.js')
 var Position = require('./Position.class.js')
 var Degree   = require('./Degree.class.js')
@@ -36,7 +37,7 @@ const POSITIONS = {
   technical: [
     new Position('asce', 'Web Developer',
       { start: new Date('2015-07'), end: new Date() },
-      new Position.City('Reston', 'VA', { lat: 38.9555819, lon: -77.3490615 }),
+      new City('Reston', 'VA', { lat: 38.9555819, lon: -77.3490615 }),
       { name: 'American Society of Civil Engineers', url: 'http://www.asce.org/', itemtype: 'http://schema.org/NGO' },
       true
     )
@@ -47,7 +48,7 @@ const POSITIONS = {
       .addDescription(`Equip inclusive design patterns, accessible technical standards.`),
     new Position('osmosis', 'Front-end Developer',
       { start: new Date('2014-10'), end: new Date('2015-03') },
-      new Position.City('Charlottesville', 'VA', { lat: 38.035974, lon: -78.500286 }),
+      new City('Charlottesville', 'VA', { lat: 38.035974, lon: -78.500286 }),
       { name: 'Knowledge Diffusion, <abbr title="Incorporated">Inc.</abbr>', url: 'http://www.osmosis.org/', itemtype: 'http://schema.org/LocalBusiness' }
     )
       .addDescription(`Implemented a feature that presented students their usage analytics using D3.js.`)
@@ -58,7 +59,7 @@ const POSITIONS = {
         grant proposal for extending <cite>Osmosis</cite> to an undergraduate biology platform.`),
     new Position('VTSC-web', 'Webmaster',
       { start: new Date('2009-08'), end: new Date('2011-05') },
-      new Position.City('Blacksburg', 'VA', { lat: 37.22667, lon: -80.42157 }),
+      new City('Blacksburg', 'VA', { lat: 37.22667, lon: -80.42157 }),
       { name: 'Virginia Tech <span itemprop="sport">Swim</span> Club', url: 'http://www.swim.org.vt.edu/', itemtype: 'http://schema.org/SportsTeam' }
     )
       .addDescription(`Authored, administered, updated club&rsquo;s site in <span class="c-Acro">PHP</span>.`)
@@ -67,14 +68,14 @@ const POSITIONS = {
   teaching: [
     new Position('WMMS', 'Teacher, Math 7',
       { start: new Date('2013-08'), end: new Date('2014-06') },
-      new Position.City('Stanardsville', 'VA', { lat: 38.294019, lon: -78.443066 }),
+      new City('Stanardsville', 'VA', { lat: 38.294019, lon: -78.443066 }),
       { name: 'William Monroe Middle School', url: 'http://greenecounty.va.schoolwebpages.com/education/school/school.php?sectionid=6&linkid=nav-menu-container-1-32138', itemtype: 'http://schema.org/MiddleSchool' }
     )
       .addDescription(`Organized learning objectives from the <abbr class="c-Acro" title="Virginia Standards of Learning">VA SOLs</abbr> into subject-area-based curriculum.`)
       .addDescription(`Identified similarities/differences between state standards and <a class="c-Camo" rel="external" href="http://www.corestandards.org/">Common Core</a> standards.`),
     new Position('CHS', 'Teacher, Algebra II and Algebra II Honors',
       { start: new Date('2012-08'), end: new Date('2013-06') },
-      new Position.City('Charlottesville', 'VA', { lat: 38.052427, lon: -78.476109 }),
+      new City('Charlottesville', 'VA', { lat: 38.052427, lon: -78.476109 }),
       { name: 'Charlottesville High School', url: 'http://ccs.k12.va.us/schools/chs/index.aspx', itemtype: 'http://schema.org/HighSchool' }
     )
       .addDescription(`Differentiated academic/honors pacing guides, curriculum, instruction.`)
@@ -89,7 +90,7 @@ const POSITIONS = {
       `),
     new Position('PHHS', 'Student Teaching, Geometry and Algebra II',
       { start: new Date('2012-02'), end: new Date('2012-04') },
-      new Position.City('Roanoke', 'VA', { lat: 37.2559901, lon: -79.9836085 }),
+      new City('Roanoke', 'VA', { lat: 37.2559901, lon: -79.9836085 }),
       { name: 'Patrick Henry High School', url: 'http://ph.rcps.info/', itemtype: 'http://schema.org/HighSchool' }
     )
       .addDescription(`Cooperating Teacher: <span itemscope="" itemtype="http://schema.org/Person"><span itemprop="name">Ben Bazak</span></span>.`, true)
@@ -101,7 +102,7 @@ const POSITIONS = {
         </a> standards.`),
     new Position('AMS', 'Internship, Math 7 and Pre-Algebra',
       { start: new Date('2011-09'), end: new Date('2011-12') },
-      new Position.City('Riner', 'VA', { lat: 37.061729, lon: -80.442635 }),
+      new City('Riner', 'VA', { lat: 37.061729, lon: -80.442635 }),
       { name: 'Auburn Middle School', url: 'http://www.mcps.org/AMS/', itemtype: 'http://schema.org/MiddleSchool' }
     )
       .addDescription(`Cooperating Teacher: <span itemscope="" itemtype="http://schema.org/Person"><span itemprop="name">Eric Altizer</span></span>.`, true)
@@ -111,7 +112,7 @@ const POSITIONS = {
       .addDescription(`Attended after-school programs, clubs, parent-teacher conferences, team meetings.`, true),
     new Position('SJMS', '<abbr class="c-Acro" title="English Language Learner"><span class="c-Acro__First">E</span>LL</abbr> Teaching Project',
       { start: new Date('2011-10'), end: new Date('2011-11') },
-      new Position.City('Roanoke', 'VA', { lat: 37.265693, lon: -79.926149 }),
+      new City('Roanoke', 'VA', { lat: 37.265693, lon: -79.926149 }),
       { name: 'Stonewall Jackson Middle School', url: 'http://jackson.sjms.rcps.info/', itemtype: 'http://schema.org/MiddleSchool' }
     )
       .addDescription(`Supervisor:
@@ -134,7 +135,7 @@ const POSITIONS = {
       .addDescription(`Worked with colleagues to construct and peer-teach a lesson using manipulatives.`),
     new Position('BHS', 'Early Field Experience, Geometry and Algebra II',
       { start: new Date('2011-02'), end: new Date('2011-04') },
-      new Position.City('Blacksburg', 'VA', { lat: 37.210454, lon: -80.460639 }),
+      new City('Blacksburg', 'VA', { lat: 37.210454, lon: -80.460639 }),
       { name: 'Blacksburg High School', url: 'http://www.mcps.org/bhs/', itemtype: 'http://schema.org/HighSchool' }
     )
       .addDescription(`Cooperating Teacher: <span itemscope="" itemtype="http://schema.org/Person"><span itemprop="name">Bill Noble</span></span>.`, true)
@@ -144,7 +145,7 @@ const POSITIONS = {
         <abbr class="c-Acro" title="National Council of Teachers of Mathematics">NCTM</abbr> principles.`),
     new Position('VTME', 'Mathematics Tutor',
       { start: new Date('2010-08'), end: new Date('2011-12') },
-      new Position.City('Blacksburg', 'VA', { lat: 37.2337, lon: -80.4342 }),
+      new City('Blacksburg', 'VA', { lat: 37.2337, lon: -80.4342 }),
       { name: 'Virginia Tech Math Emporium', url: 'https://www.emporium.vt.edu/', itemtype: 'http://schema.org/EducationalOrganization' }
     )
       .addDescription(`Assisted students in first- and second-year collegiate mathematics courses.`)
@@ -154,7 +155,7 @@ const POSITIONS = {
   other: [
     new Position('LE', 'Head <span itemprop="sport">Swim</span> Coach',
       { start: new Date('2010-05'), end: new Date('2011-08') },
-      new Position.City('Vienna', 'VA', { lat: 38.8989018, lon: -77.2951528 }),
+      new City('Vienna', 'VA', { lat: 38.8989018, lon: -77.2951528 }),
       { name: 'Lakevale Estates', url: 'http://www.lakevale.org/lakevale-dolphins/', itemtype: 'http://schema.org/SportsTeam' }
     )
       .addDescription(`Instructed children ages 4&ndash;18 in water training basics, stroke technique, drill, sprint, endurance training.`)
@@ -164,7 +165,7 @@ const POSITIONS = {
       .addDescription(`4-1 record (<time>2010</time>); 5-0 record, Division Champions (<time>2011</time>)`, true),
     new Position('VTSC-treas', 'Treasurer',
       { start: new Date('2009-08'), end: new Date('2011-05') },
-      new Position.City('Blacksburg', 'VA', { lat: 37.22667, lon: -80.42157 }),
+      new City('Blacksburg', 'VA', { lat: 37.22667, lon: -80.42157 }),
       { name: 'Virginia Tech <span itemprop="sport">Swim</span> Club', url: 'http://www.swim.org.vt.edu/', itemtype: 'http://schema.org/SportsTeam' }
     )
       .addDescription(`Validated organization&rsquo;s identity with the <abbr class="c-Acro" title="Internal Revenue Service">IRS</abbr>.`)
@@ -173,13 +174,13 @@ const POSITIONS = {
       .addDescription(`Created projections and summaries of club&rsquo;s financial activity.`),
     new Position('VA', 'Assistant Swim Coach',
       { start: new Date('2006-05'), end: new Date('2009-08') },
-      new Position.City('Fairfax', 'VA', { lat: 38.846711, lon: -77.330665 }),
+      new City('Fairfax', 'VA', { lat: 38.846711, lon: -77.330665 }),
       { name: 'Villa Aquatic <span itemprop="sport">Swim and Dive</span>', url: 'http://villaaquatic.com/', itemtype: 'http://schema.org/SportsTeam' }
     )
       .addDescription(`Head Coach: <span itemscope="" itemtype="http://schema.org/Person"><span itemprop="name">Matt Salerno</span></span>.`, true),
     new Position('beanco-manager', 'Assistant Manager',
       { start: new Date('2006-05'), end: new Date('2009-08') },
-      new Position.City('Fairfax', 'VA', { lat: 38.846711, lon: -77.330665 }),
+      new City('Fairfax', 'VA', { lat: 38.846711, lon: -77.330665 }),
       { name: 'Beanco Aquatics', url: '', itemtype: 'http://schema.org/LocalBusiness' }
     )
       .addDescription(`Head Manager: <span itemscope="" itemtype="http://schema.org/Person"><span itemprop="name">Kevin Adams</span></span>.`, true)
@@ -188,7 +189,7 @@ const POSITIONS = {
       .addDescription(`Administered pool operations; safety, first-aid, response, cleanliness, chemicals, other equipment.`),
     new Position('beanco-lifeguard', 'Lifeguard',
       { start: new Date('2003-05'), end: new Date('2009-08') },
-      new Position.City('Fairfax', 'VA', { lat: 38.846711, lon: -77.330665 }),
+      new City('Fairfax', 'VA', { lat: 38.846711, lon: -77.330665 }),
       { name: 'Beanco Aquatics', url: '', itemtype: 'http://schema.org/LocalBusiness' }
     )
       .addDescription(`Tended to customers&rsquo; and patrons&rsquo; needs in a timely manner.`)
@@ -212,7 +213,7 @@ const PRODEVS = [
     </span>`),
   new ProDev(
     { start: new Date('2014-03-14'), end: new Date('2014-03-15') },
-    new Position.City('Harrisonburg', 'VA', { lat: 38.4393105, lon: -78.8711824 }),
+    new City('Harrisonburg', 'VA', { lat: 38.4393105, lon: -78.8711824 }),
     10,
     `<span itemprop="organizer" itemscope="" itemtype="http://schema.org/EducationalOrganization">
       <abbr class="c-Acro" title="Virginia Council of Teachers of Mathematics" itemprop="name">
@@ -223,7 +224,7 @@ const PRODEVS = [
   ),
   new ProDev(
     { start: new Date('2013-03-08'), end: new Date('2013-03-09') },
-    new Position.City('Virginia Beach', 'VA', { lat: 36.7674971, lon: -76.0476647 }),
+    new City('Virginia Beach', 'VA', { lat: 36.7674971, lon: -76.0476647 }),
     10,
     `<span itemprop="organizer" itemscope="" itemtype="http://schema.org/EducationalOrganization">
       <abbr class="c-Acro" title="Virginia Council of Teachers of Mathematics" itemprop="name">
@@ -234,7 +235,7 @@ const PRODEVS = [
   ),
   new ProDev(
     { start: new Date('2012-03-09'), end: new Date('2012-03-10') },
-    new Position.City('Roanoke', 'VA', { lat: 37.2743219, lon: -79.9575425 }),
+    new City('Roanoke', 'VA', { lat: 37.2743219, lon: -79.9575425 }),
     10,
     `<span itemprop="organizer" itemscope="" itemtype="http://schema.org/EducationalOrganization">
       <abbr class="c-Acro" title="Virginia Council of Teachers of Mathematics" itemprop="name">
@@ -245,7 +246,7 @@ const PRODEVS = [
   ),
   new ProDev(
     { start: new Date('2011-03-11'), end: new Date('2011-03-12') },
-    new Position.City('Richmond', 'VA', { lat: 37.5246609, lon: -77.4932615 }),
+    new City('Richmond', 'VA', { lat: 37.5246609, lon: -77.4932615 }),
     10,
     `<span itemprop="organizer" itemscope="" itemtype="http://schema.org/EducationalOrganization">
       <abbr class="c-Acro" title="Virginia Council of Teachers of Mathematics" itemprop="name">
