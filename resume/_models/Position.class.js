@@ -55,7 +55,7 @@ module.exports = class Position {
    * @return {string} HTML string
    */
   html() {
-    function renderDate(date) {
+    function createTime(date) {
       function sameDay(date1, date2) {
         return (date1.getFullYear() === date2.getFullYear())
           &&   (date1.getUTCMonth() === date2.getUTCMonth())
@@ -64,7 +64,6 @@ module.exports = class Position {
       return new Element('time')
         .attr('datetime', date.toISOString())
         .addContent((sameDay(date, new Date())) ? 'present' : `${Util.MONTH_NAMES[date.getUTCMonth()].slice(0,3)} ${date.getFullYear()}`)
-        .render()
     }
     let result = new Element('section').id(this._id).class('o-Org')
       .attr('itemscope','').attr('itemtype',this._org_type)
@@ -79,7 +78,10 @@ module.exports = class Position {
             ]),
           ]),
           new Element('div').class('o-Org__Header__Spacetime').addElements([
-            new Element('p').class('o-Org__Header__Spacetime__Dates').addContent(`${renderDate(this._date_start)}&ndash;${renderDate(this._date_end)}`),
+            new Element('p').class('o-Org__Header__Spacetime__Dates')
+              .addElements([createTime(this._date_start)])
+              .addContent(`&ndash;`)
+              .addElements([createTime(this._date_end)]),
             new Element('p').class('o-Org__Header__Spacetime__Place')
               .attr('itemprop',"location").attr('itemscope',"").attr('itemtype',"http://schema.org/Place")
               .addContent(this._location.html()),
@@ -126,13 +128,14 @@ class City {
    */
   html() {
     return [
-      new Element('span').attr('itemprop','address').attr('itemscope','').attr('itemtype','http://schema.org/PostalAddress').addContent(
-        new Element('span').attr('itemprop','addressLocality').addContent(this._locality).render()
-      + ', '
-      + new Element('abbr').attr('itemprop','addressRegion')
-          .attr('title',Util.STATE_DATA.find((obj) => obj.code===this._region).name)
-          .addContent(this._region).render()
-      ),
+      new Element('span').attr('itemprop','address').attr('itemscope','').attr('itemtype','http://schema.org/PostalAddress')
+        .addElements([new Element('span').attr('itemprop','addressLocality').addContent(this._locality)])
+        .addContent(', ')
+        .addElements([
+          new Element('abbr').attr('itemprop','addressRegion')
+            .attr('title',Util.STATE_DATA.find((obj) => obj.code===this._region).name)
+            .addContent(this._region),
+        ]),
       new Element('span').attr('itemprop','geo').attr('itemscope','').attr('itemtype','http://schema.org/GeoCoordinates').addElements([
         new Element('meta',true).attr('itemprop','latitude' ).attr('content',this._latitude),
         new Element('meta',true).attr('itemprop','longitude').attr('content',this._longitude),
