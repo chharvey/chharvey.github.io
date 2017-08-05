@@ -255,12 +255,12 @@ const PRODEVS = [
     </span>`,
     'http://schema.org/EducationEvent'
   ),
-  new Award(`<time datetime="2011-08-12" itemprop="startDate endDate">12 Oct, 2011</time>`,
+  new Award(`<time datetime="2011-08-12" itemprop="startDate endDate">12 Oct 2011</time>`,
     `<span itemscope="" itemtype="http://schema.org/Event">
       <span itemprop="name">Secondary Mathematics Instruction in an Inclusive Classroom</span>
       <time datetime="PT3H" itemprop="duration">(3 hr)</time>
     </span>`),
-  new Award(`<time datetime="2009-03-28" itemprop="startDate endDate">28 Mar, 2009</time>`,
+  new Award(`<time datetime="2009-03-28" itemprop="startDate endDate">28 Mar 2009</time>`,
     `<span itemscope="" itemtype="http://schema.org/Event">
       <span itemprop="name">Preservice Teacher Education with TI-Nspire Technology</span>
       <time datetime="PT9H" itemprop="duration">(9 hr)</time>
@@ -272,7 +272,7 @@ const AWARDS = [
     `Virginia Postgraduate Professional Licence, Secondary Mathematics`),
   new Award(`<time datetime="2011-08"><abbr title="Fall">Fa</abbr> 2011</time>&ndash;<time datetime="2012-05"><abbr title="Spring">Sp</abbr> 2012</time>`,
     `Robert Noyce Scholarship`),
-  new Award(`<time datetime="2010-11-13">13 Nov, 2010</time>`,
+  new Award(`<time datetime="2010-11-13">13 Nov 2010</time>`,
     `Educational Testing Service Recognition of Excellence`),
   new Award(`<time>2007</time>&ndash;<time>2011</time>`,
     `<span itemscope="" itemtype="http://schema.org/EducationalOrganization"><span itemprop="name">National Society of Collegiate Scholars</span></span>`),

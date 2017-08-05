@@ -55,15 +55,16 @@ module.exports = class Position {
    * @return {string} HTML string
    */
   html() {
-    function createTime(date) {
-      function sameDay(date1, date2) {
-        return (date1.getFullYear() === date2.getFullYear())
-          &&   (date1.getUTCMonth() === date2.getUTCMonth())
-          &&   (date1.getUTCDate()  === date2.getUTCDate())
-      }
-      return new Element('time')
-        .attr('datetime', date.toISOString())
-        .addContent((sameDay(date, new Date())) ? 'present' : `${Util.MONTH_NAMES[date.getUTCMonth()].slice(0,3)} ${date.getFullYear()}`)
+    /**
+     * Return whether two dates occur on the same day.
+     * @param  {Date} date1 the first date
+     * @param  {Date} date2 the second date
+     * @return {boolean} `true` iff both dates have the same year, same month, *and* same day (date of the month)
+     */
+    function sameDay(date1, date2) {
+      return (date1.getFullYear() === date2.getFullYear())
+        &&   (date1.getUTCMonth() === date2.getUTCMonth())
+        &&   (date1.getUTCDate()  === date2.getUTCDate())
     }
     let result = new Element('section').id(this._id).class('o-Org')
       .attr('itemscope','').attr('itemtype',this._org_type)
@@ -79,9 +80,17 @@ module.exports = class Position {
           ]),
           new Element('div').class('o-Org__Header__Spacetime').addElements([
             new Element('p').class('o-Org__Header__Spacetime__Dates')
-              .addElements([createTime(this._date_start)])
+              .addElements([
+                new Element('time')
+                  .attr('datetime', this._date_start.toISOString())
+                  .addContent(Util.Date.FORMATS['F Y'](this._date_start)),
+              ])
               .addContent(`&ndash;`)
-              .addElements([createTime(this._date_end)]),
+              .addElements([
+                new Element('time')
+                  .attr('datetime', this._date_end.toISOString())
+                  .addContent((sameDay(this._date_end, new Date())) ? 'present' : Util.Date.FORMATS['F Y'](this._date_end)),
+              ]),
             new Element('p').class('o-Org__Header__Spacetime__Place')
               .attr('itemprop',"location").attr('itemscope',"").attr('itemtype',"http://schema.org/Place")
               .addContent(this._location.html()),

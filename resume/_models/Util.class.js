@@ -1,11 +1,4 @@
-
-/**
- * Utility class.
- * @module
- */
-module.exports = class Util {
-  /** @private */ constructor() {}
-
+const DTE = class {
   /**
    * List of full month names in English.
    * @type {Array<string>}
@@ -26,6 +19,50 @@ module.exports = class Util {
       'December',
     ]
   }
+
+  /**
+   * List of full day names in English.
+   * @type {Array<string>}
+   */
+  static get DAY_NAMES() {
+    return [
+      'Sundary',
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday',
+    ]
+  }
+
+  /**
+   * Shortcut formatting functions.
+   * @type {Object<function(Date):string>}
+   */
+  static get FORMATS() {
+    return {
+      'F'  : (date) => `${DTE.MONTH_NAMES[date.getUTCMonth()].slice(0,3)}`,
+      'F Y': (date) => `${DTE.MONTH_NAMES[date.getUTCMonth()].slice(0,3)} ${date.getFullYear()}`,
+    }
+  }
+}
+
+
+
+/**
+ * Utility class.
+ * @module
+ */
+module.exports = class Util {
+  /** @private */ constructor() {}
+
+  /**
+   * Additional static members for the Date class.
+   * @namespace
+   */
+  static get Date() { return DTE }
+
 
   /**
    * NOTE: Type Definition

@@ -31,10 +31,6 @@ module.exports = class ProDev {
    * @return {string} HTML string
    */
   html() {
-    const FORMATS = {
-      'F'   : (date) => `${Util.MONTH_NAMES[date.getUTCMonth()].slice(0,3)}`,
-      'F, Y': (date) => `${Util.MONTH_NAMES[date.getUTCMonth()].slice(0,3)}, ${date.getFullYear()}`,
-    }
     return [
       new Element('dt').class('o-ListAchv__Award')
         .attr('itemprop','award').attr('itemscope','').attr('itemtype',this._itemtype)
@@ -51,17 +47,16 @@ module.exports = class ProDev {
         let time_start = new Element('time').attr('datetime',self._date_start.toISOString()).attr('itemprop','startDate')
           .addContent(self._date_start.getUTCDate())
         if (
-          self._date_start.getUTCMonth() !== self._date_end.getUTCMonth()
-          ||
-          self._date_start.getFullYear() !== self._date_end.getFullYear()
+           self._date_start.getUTCMonth() !== self._date_end.getUTCMonth()
+        || self._date_start.getFullYear() !== self._date_end.getFullYear()
         ) {
-          time_start.addContent(` ${FORMATS['F'](self._date_start)}`)
+          time_start.addContent(` ${Util.Date.FORMATS['F'](self._date_start)}`)
         }
         if (self._date_start.getFullYear() !== self._date_end.getFullYear()) {
           time_start.addContent(`, ${self._date_start.getFullYear()}`)
         }
         let time_end = new Element('time').attr('datetime',self._date_end.toISOString()).attr('itemprop','endDate')
-          .addContent(`${self._date_end.getUTCDate()} ${FORMATS['F, Y'](self._date_end)}`)
+          .addContent(`${self._date_end.getUTCDate()} ${Util.Date.FORMATS['F Y'](self._date_end)}`)
         return new Element('dd').class('o-ListAchv__Date')
           .addElements([time_start])
           .addContent(`&ndash;`)
