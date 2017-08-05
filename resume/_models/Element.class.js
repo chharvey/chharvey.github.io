@@ -147,7 +147,7 @@ module.exports = class Element {
    * @param {Array<Element>} elems array of Element objects to add
    */
   addElements(elems) {
-    return this.addContent(elems.map((el) => el.render()).join(''))
+    return this.addContent(elems.map((elem) => elem.render()).join(''))
   }
 
   /**

@@ -13,6 +13,7 @@ gulp.task('pug:resume', function () {
         Award: require('./resume/_models/Award.class.js'),
         Degree: require('./resume/_models/Degree.class.js'),
         ProDev: require('./resume/_models/ProDev.class.js'),
+        Resume: require('./resume/_models/Resume.class.js'),
       },
     }))
     .pipe(gulp.dest('./resume/'))
