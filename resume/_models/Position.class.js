@@ -66,7 +66,7 @@ module.exports = class Position {
         &&   (date1.getUTCMonth() === date2.getUTCMonth())
         &&   (date1.getUTCDate()  === date2.getUTCDate())
     }
-    let result = new Element('section').id(this._id).class('o-Org')
+    let result = new Element('section').id(this._id).class('o-Grid__Item o-Grid__Item--maincol o-Org')
       .attr('itemscope','').attr('itemtype',this._org_type)
       .addElements([
         new Element('header').class('o-Org__Header').addElements([

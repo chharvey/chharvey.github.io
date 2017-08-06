@@ -26,18 +26,19 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
         font-size: inherit; /* reset */
         background: transparent; /* reset */
       }
-  body.o-GoldenContainer
-    main.o-GoldenContainer__Content(itemscope="" itemtype="http://schema.org/Person")
+  body
+    main.o-Grid(itemscope="" itemtype="http://schema.org/Person")
       mixin experience(title, id, data)
-        section.o-GoldenContainer__Content__LeftBar.o-Skill(id=id)
-          h2.o-GoldenContainer__Content__SideMajor.o-Skill__Title.c-H2!= title
+        section.o-Grid__Item.o-Grid__Item--exp.o-Skill(id=id)
+          h2.o-Grid__Item.o-Skill__Title.c-H2!= title
+          block
           != data.map((el) => el.html()).join('')
       mixin achievement(title, id, data)
-        section.o-GoldenContainer__Content__LeftBar.o-Skill(id=id)
-          h2.o-GoldenContainer__Content__SideMajor.o-Skill__Title.c-H2!= title
-          dl.o-ListAchv
+        section.o-Grid__Item.o-Grid__Item--exp.o-Skill(id=id)
+          h2.o-Grid__Item.o-Skill__Title.c-H2!= title
+          dl.o-Grid__Item.o-Grid__Item--maincol.o-ListAchv
             != data.map((el) => el.html()).join('')
-      header.o-HeaderRes
+      header.o-Grid__Item--maincol.o-HeaderRes
         h1.o-HeaderRes__Name.c-H1(itemprop="name")
           span(itemprop="givenName") Christopher
           = ' '
@@ -69,32 +70,30 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
               a(rel="author" href="https://chharvey.github.io/" itemprop="url")
                 span.o-ListContact__Item__Icon.octicon.octicon-home
                 | chharvey.github.io
-      section.o-GoldenContainer__Content__LeftBar.o-Skill#objective
-        h2.o-GoldenContainer__Content__SideMajor.o-Skill__Title.c-H2 Objective
-        p.o-Objective#obj1(itemprop="seeks") To obtain an entry-level position as a front-end web developer.
+      section.o-Grid__Item.o-Grid__Item--exp.o-Skill#objective
+        h2.o-Grid__Item.o-Skill__Title.c-H2 Objective
+        p.o-Grid__Item--maincol.o-Objective#obj1(itemprop="seeks") To obtain an entry-level position as a front-end web developer.
         //- p.o-Objective#obj2 To obtain an entry-level position in the Intelligence Community that would utilize my mathematical and technological skills.
         //- input.o-Objective#obj3(type="text" value="Type a custom objective here. Reload to reset.")
-      section.o-GoldenContainer__Content__LeftBar.o-Skill#tech-exp
-        h2.o-GoldenContainer__Content__SideMajor.o-Skill__Title.c-H2 Technical Experience
-        section.o-Grid-s.o-Org.-mb-1vru#lang-sys
+      +experience('Technical Experience', 'tech-exp', Resume.POSITIONS.technical)
+        section.o-Grid__Item.o-Grid__Item--maincol.o-Org.o-Grid-s.-mb-1vru#lang-sys
           h3.o-Grid__Item-s.c-H3 Languages &amp; Systems
           dl.o-Grid__Item-s.o-Grid-s.o-ListLangs!=      Resume.SKILLS.lang_sys1.map((el) => el.html()).join('')
           dl.o-Grid__Item-s.o-Grid-s.o-ListLangs!=      Resume.SKILLS.lang_sys2.map((el) => el.html()).join('')
           dl.o-Grid__Item-s.o-Grid-s.o-ListLangs.-d-n!= Resume.SKILLS.lang_sys3.map((el) => el.html()).join('')
-        section.o-Grid-s.o-Org.-mb-1vru#skills
+        section.o-Grid__Item.o-Grid__Item--maincol.o-Org.o-Grid-s.-mb-1vru#skills
           h3.o-Grid__Item-s.c-H3 Technical Skills
           dl.o-Grid__Item-s.o-Grid-s.o-ListLangs.-x-1o1!= Resume.SKILLS.technical.map((el) => el.html({positive:'c-LangViz__Marker--pos2', classes:{dt:'-x-1o2',dd:'-x-1o2'}})).join('')
-        section.o-Org.-d-n#apps
+        section.o-Grid__Item.o-Grid__Item--maincol.o-Org.-d-n#apps
           h3.c-H3 Software Applications
           ul.o-Org__Detail
             each item in Resume.APPS
               li!= item
-        != Resume.POSITIONS.technical.map((el) => el.html()).join('')
       +experience('Teaching Experience', 'teach-exp', Resume.POSITIONS.teaching)
       +experience('Other Work Experience', 'work-exp', Resume.POSITIONS.other)
-      section.o-GoldenContainer__Content__LeftBar.o-Skill#edu
-        h2.o-GoldenContainer__Content__SideMajor.o-Skill__Title.c-H2 Education
-        section.o-Org.o-Org--inst#VT
+      section.o-Grid__Item.o-Grid__Item--exp.o-Skill#edu
+        h2.o-Grid__Item.o-Skill__Title.c-H2 Education
+        section.o-Grid__Item.o-Grid__Item--maincol.o-Org.o-Org--inst#VT
           h3.o-Org--inst__Name.c-H4(itemprop="alumniOf" itemscope="" itemtype="http://schema.org/CollegeOrUniversity")
             a.c-Camo(rel="external" href="https://www.vt.edu/" itemprop="url")
               span(itemprop="name") Virginia Polytechnic Institute and State University
@@ -103,7 +102,7 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
       +achievement('Profes&shy;sional Dev&shy;elopment', 'prof-dev', Resume.PRODEVS)
       +achievement('Awards &amp; Member&shy;ships', 'awards', Resume.AWARDS)
       +achievement('Team Athletic Experience', 'athletic', Resume.TEAMS)
-      footer.o-FooterRes.-d-n-p: p.
+      footer.o-Grid__Item.o-Grid__Item--maincol.o-FooterRes.-d-n-p: p.
         This r&eacute;sum&eacute; is 100% hand-written, by me! Check out the
         #[a(rel="external" href="https://github.com/chharvey/chharvey.github.io/blob/master/resume/resume.jade") source code]
         at GitHub.
