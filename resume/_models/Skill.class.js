@@ -19,19 +19,14 @@ module.exports = class Skill {
    * Render a skill in HTML.
    * @param  {Object=} options options for rendering this skill
    * @param  {string=} options.positive classname to add when the marker indicator is positive
-   * @param  {Object<string>=} options.classes classnames for other shit
    * @return {string} HTML string
    */
   html(options = {}) {
-    let dt_class = (options.classes) ? options.classes.dt : ''
-    let dd_class = (options.classes) ? options.classes.dd : ''
     let positive = options.positive || 'c-LangViz__Marker--pos'
     return [
-      new Element('dt').class('o-Grid__Item-s o-ListLangs__Text')
-        .addClass(dt_class)
+      new Element('dt').class('o-ListLangs__Text')
         .addContent(this._text),
-      new Element('dd').class('o-Grid__Item-s o-ListLangs__Viz')
-        .addClass(dd_class)
+      new Element('dd').class('o-ListLangs__Viz h-Clearfix')
         .attr('title',Skill.LEVELS[this._level-1]).attr('itemscope','').attr('itemtype','http://schema.org/Rating')
         .addElements([
           new Element('meta',true).attr('itemprop','worstRating').attr('content',0),
