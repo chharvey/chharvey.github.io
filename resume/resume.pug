@@ -28,17 +28,17 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
       }
   body
     main.o-Grid(itemscope="" itemtype="http://schema.org/Person")
-      mixin experience(title, id, data)
-        section.o-Grid__Item.o-Grid__Item--exp(id=id)
+      mixin experience(title, data)
+        section.o-Grid__Item.o-Grid__Item--exp&attributes(attributes)
           h2.o-Grid__Item.c-H2!= title
           block
           != data.map((el) => el.html()).join('')
-      mixin achievement(title, id, data)
-        section.o-Grid__Item.o-Grid__Item--exp(id=id)
+      mixin achievement(title, data, classes)
+        section.o-Grid__Item.o-Grid__Item--exp&attributes(attributes)
           h2.o-Grid__Item.c-H2!= title
-          dl.o-Grid__Item.o-Grid__Item--maincol.o-ListAchv
+          dl.o-Grid__Item.o-Grid__Item--maincol.o-ListAchv(class=classes)
             != data.map((el) => el.html()).join('')
-      header.o-Grid__Item--maincol.o-HeaderRes
+      header.o-Grid__Item--maincol.h-Hr
         h1.c-H1(itemprop="name")
           span(itemprop="givenName") Christopher
           = ' '
@@ -75,7 +75,7 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
         p.o-Grid__Item--maincol.o-Objective#obj1(itemprop="seeks") To obtain an entry-level position as a front-end web developer.
         //- p.o-Objective#obj2 To obtain an entry-level position in the Intelligence Community that would utilize my mathematical and technological skills.
         //- input.o-Objective#obj3(type="text" value="Type a custom objective here. Reload to reset.")
-      +experience('Technical Experience', 'tech-exp', Resume.POSITIONS.technical)
+      +experience('Technical Experience', Resume.POSITIONS.technical)#tech-exp
         section.o-Grid__Item.o-Grid__Item--maincol.o-Org.o-Grid-s.-mb-1vru#lang-sys
           h3.o-Grid__Item-s.c-H3 Languages &amp; Systems
           dl.o-Grid__Item-s.o-Grid-s.o-ListLangs!=      Resume.SKILLS.lang_sys1.map((el) => el.html()).join('')
@@ -89,8 +89,8 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
           ul.o-Org__Detail
             each item in Resume.APPS
               li!= item
-      +experience('Teaching Experience', 'teach-exp', Resume.POSITIONS.teaching)
-      +experience('Other Work Experience', 'work-exp', Resume.POSITIONS.other)
+      +experience('Teaching Experience', Resume.POSITIONS.teaching)#teach-exp
+      +experience('Other Work Experience', Resume.POSITIONS.other)#work-exp
       section.o-Grid__Item.o-Grid__Item--exp#edu
         h2.o-Grid__Item.c-H2 Education
         section.o-Grid__Item.o-Grid__Item--maincol.o-Org.o-Org--inst#VT
@@ -99,10 +99,10 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
               span(itemprop="name") Virginia Polytechnic Institute and State University
           dl.o-ListAchv
             != Resume.DEGREES.map((el) => el.html()).join('')
-      +achievement('Profes&shy;sional Dev&shy;elopment', 'prof-dev', Resume.PRODEVS)
-      +achievement('Awards &amp; Member&shy;ships', 'awards', Resume.AWARDS)
-      +achievement('Team Athletic Experience', 'athletic', Resume.TEAMS)
-      footer.o-Grid__Item.o-Grid__Item--maincol.o-FooterRes.-d-n-p: p.
+      +achievement('Profes&shy;sional Dev&shy;elopment', Resume.PRODEVS)#prof-dev
+      +achievement('Awards &amp; Member&shy;ships', Resume.AWARDS)#awards
+      +achievement('Team Athletic Experience', Resume.TEAMS, 'h-Hr')#athletic
+      footer.o-Grid__Item.o-Grid__Item--maincol.-d-n-p.-fz-el-mill: p.
         This r&eacute;sum&eacute; is 100% hand-written, by me! Check out the
         #[a(rel="external" href="https://github.com/chharvey/chharvey.github.io/blob/master/resume/resume.jade") source code]
         at GitHub.
