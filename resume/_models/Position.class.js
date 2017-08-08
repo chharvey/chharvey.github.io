@@ -66,20 +66,17 @@ module.exports = class Position {
         &&   (date1.getUTCMonth() === date2.getUTCMonth())
         &&   (date1.getUTCDate()  === date2.getUTCDate())
     }
-    let result = new Element('section').id(this._id).class('o-Org')
+    let result = new Element('section').id(this._id).class('o-Grid__Item o-Grid__Item--maincol c-Position')
       .attr('itemscope','').attr('itemtype',this._org_type)
       .addElements([
-        new Element('header').class('o-Org__Header').addElements([
-          new Element('div').class('o-Org__Header__Titles').addElements([
-            new Element('h3').class('o-Org__Header__Titles__JobTitle c-H3').attr('itemprop','jobTitle').addContent(this._name),
-            new Element('p').class('o-Org__Header__Titles__Name c-H4').addElements([
+        new Element('header').class('c-Position__Head').addElements([
+            new Element('h3').class('c-Position__Name h-Inline-sG -pr-1-sG').attr('itemprop','jobTitle').addContent(this._name),
+            new Element('p').class('c-Position__Org h-Inline-sG h-Clearfix-sG').addElements([
               new Element('a').class('c-Camo').attr('rel','external').attr('href',this._org_url).attr('itemprop','url').addElements([
                 new Element('span').attr('itemprop','name').addContent(this._org_name),
               ]),
             ]),
-          ]),
-          new Element('div').class('o-Org__Header__Spacetime').addElements([
-            new Element('p').class('o-Org__Header__Spacetime__Dates')
+            new Element('p').class('h-Inline -pr-h')
               .addElements([
                 new Element('time')
                   .attr('datetime', this._date_start.toISOString())
@@ -91,12 +88,11 @@ module.exports = class Position {
                   .attr('datetime', this._date_end.toISOString())
                   .addContent((sameDay(this._date_end, new Date())) ? 'present' : Util.Date.FORMATS['F Y'](this._date_end)),
               ]),
-            new Element('p').class('o-Org__Header__Spacetime__Place')
+            new Element('p').class('h-Inline')
               .attr('itemprop',"location").attr('itemscope',"").attr('itemtype',"http://schema.org/Place")
-              .addContent(this._location.html()),
-          ]),
+              .addContent(`(${this._location.html()})`),
         ]),
-        new Element('ul').class('o-Org__Detail').addElements(
+        new Element('ul').class('c-Position__Body').addElements(
           this._descriptions.map((obj) => new Element('li')
             .addClass((obj.is_hidden) ? '-d-n' : '')
             .addContent(obj.html)

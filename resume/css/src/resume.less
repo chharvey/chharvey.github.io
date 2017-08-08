@@ -7,15 +7,16 @@
 /*================================*\
     resume.less
 \*================================*/
-@import (reference) url('../../../node_modules/xmeter/src/__fallback.flexbox.less');
-@import (reference) url('../../../node_modules/xmeter/src/__fallback.transition.less');
+// vertical rhythm TODO remove when all updated
+@g-vru: 1.5rem;
+@g-line-height: 1.5;
+@import (reference) url('../../../node_modules/xmeter/src/__settings.less');
+@import (reference) url('../../../node_modules/xmeter/src/__tool.transitions.less');
 @import (reference) url('../../../node_modules/xmeter/src/__tool.fontsize.less');
-@import (reference) url('../../../node_modules/xmeter/src/__tool.fontsize.less');
-@import (reference) url('../../../node_modules/xmeter/src/__tool.fontsize.less');
+@import (reference) url('../../../node_modules/xmeter/src/__tool.borders.less');
 @import (reference) url('../../../node_modules/xmeter/src/__tool.delims.less');
-@import (reference) url('../../../node_modules/xmeter/src/__tool.delims.less');
-@import (reference) url('../../../node_modules/still-alive/styles/__settings.less');
-@import (reference) url('../../../node_modules/still-alive/styles/__tool.module.hr.less');
+@import (reference) url('../../../node_modules/still-alive/src/__settings.less');
+@import (reference) url('../../../node_modules/still-alive/src/__tool.module.hr.less');
 @import (reference) url('../../../node_modules/octicons/octicons/octicons.less');
 @import (reference) url('__settings.less');
 
@@ -24,11 +25,9 @@
  * ////////////////    CONTENTS    ////////////////
  * MAIN
  * base..........................unclassed Elements and reset styles
+ * dev...........................fixes for imported stylesheets
  *
  * OBJECTS
- * Header........................name and contact info
- * Footer........................footer
- * Skill.........................top-level section of resume
  * Org...........................organization section of resume
  * ListAchv......................list of achievements such as awards or memberships
  * Objective.....................a paragraph in a Skill that describes an objective
@@ -41,10 +40,8 @@
  */
 
 @import url('_base.less');
+@import url('_dev.less');
 
-@import url('_obj.HeaderRes.less');
-@import url('_obj.FooterRes.less');
-@import url('_obj.Skill.less');
 @import url('_obj.Org.less');
 @import url('_obj.ListAchv.less');
 @import url('_obj.Objective.less');
@@ -53,5 +50,15 @@
 @import url('_comp.typo.H.less');
 @import url('_comp.typo.ListContact.less');
 @import url('_comp.ui.LangViz.less');
+
+// a horizontal rule helper
+.h-Hr {
+  padding-bottom: calc(~'0.5 * var(--vru)');
+  margin-bottom: calc(~'0.5 * var(--vru)');
+  box-shadow: 0 1px 0 0 var(--color-hr, @g-color_h_minor);
+}
+main > header {
+  --color-hr: @g-color_h_major;
+}
 
 @import url('_overrides.less');

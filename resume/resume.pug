@@ -8,8 +8,9 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
     meta(name="viewport" content="width=device-width, initial-scale=1")
     link(rel="icon" href="../core/images/favicon.ico")
     link(rel="stylesheet" href="../bower_components/octicons/octicons/octicons.css")
-    //- link(rel="stylesheet" href="https://cdn.rawgit.com/chharvey/xmeter/v5.3.0/xmeter.min.css") TODO: uncomment once Xmeter is out of still-alive.less
-    link(rel="stylesheet" href="https://cdn.rawgit.com/chharvey/still-alive/v1.0.0/still-alive.css")
+    link(rel="stylesheet" href="https://cdn.rawgit.com/chharvey/xmeter/beta-v6/xmeter.css")
+    link(rel="stylesheet" href="https://cdn.rawgit.com/chharvey/bangs/v0.14.1/bangs.min.css")
+    link(rel="stylesheet" href="https://cdn.rawgit.com/chharvey/still-alive/v1.3.0/still-alive.css")
     link(rel="stylesheet" href="css/resume.css")
     style.
       @media print {
@@ -25,19 +26,20 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
         font-size: inherit; /* reset */
         background: transparent; /* reset */
       }
-  body.o-GoldenContainer
-    main.o-GoldenContainer__Content(itemscope="" itemtype="http://schema.org/Person")
-      mixin experience(title, id, data)
-        section.o-GoldenContainer__Content__LeftBar.o-Skill(id=id)
-          h2.o-GoldenContainer__Content__SideMajor.o-Skill__Title.c-H2!= title
+  body
+    main.o-Grid(itemscope="" itemtype="http://schema.org/Person")
+      mixin experience(title, data)
+        section.o-Grid__Item.o-Grid__Item--exp&attributes(attributes)
+          h2.o-Grid__Item.c-H2!= title
+          block
           != data.map((el) => el.html()).join('')
-      mixin achievement(title, id, data)
-        section.o-GoldenContainer__Content__LeftBar.o-Skill(id=id)
-          h2.o-GoldenContainer__Content__SideMajor.o-Skill__Title.c-H2!= title
-          dl.o-ListAchv
+      mixin achievement(title, data, classes)
+        section.o-Grid__Item.o-Grid__Item--exp&attributes(attributes)
+          h2.o-Grid__Item.c-H2!= title
+          dl.o-Grid__Item.o-Grid__Item--maincol.o-ListAchv(class=classes)
             != data.map((el) => el.html()).join('')
-      header.o-HeaderRes
-        h1.o-HeaderRes__Name.c-H1(itemprop="name")
+      header.o-Grid__Item--maincol.h-Hr
+        h1.c-H1(itemprop="name")
           span(itemprop="givenName") Christopher
           = ' '
           abbr(title="Hewitt" itemprop="additionalName") H.
@@ -68,41 +70,43 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
               a(rel="author" href="https://chharvey.github.io/" itemprop="url")
                 span.o-ListContact__Item__Icon.octicon.octicon-home
                 | chharvey.github.io
-      section.o-GoldenContainer__Content__LeftBar.o-Skill#objective
-        h2.o-GoldenContainer__Content__SideMajor.o-Skill__Title.c-H2 Objective
-        p.o-Objective#obj1(itemprop="seeks") To obtain an entry-level position as a front-end web developer.
+      section.o-Grid__Item.o-Grid__Item--exp#objective
+        h2.o-Grid__Item.c-H2 Objective
+        p.o-Grid__Item--maincol.o-Objective#obj1(itemprop="seeks") To obtain an entry-level position as a front-end web developer.
         //- p.o-Objective#obj2 To obtain an entry-level position in the Intelligence Community that would utilize my mathematical and technological skills.
         //- input.o-Objective#obj3(type="text" value="Type a custom objective here. Reload to reset.")
-      section.o-GoldenContainer__Content__LeftBar.o-Skill#tech-exp
-        h2.o-GoldenContainer__Content__SideMajor.o-Skill__Title.c-H2 Technical Experience
-        section.o-Grid-s.o-Org.-mb-1vru#lang-sys
-          h3.o-Grid__Item-s.c-H3 Languages &amp; Systems
-          dl.o-Grid__Item-s.o-Grid-s.o-ListLangs!=      Resume.SKILLS.lang_sys1.map((el) => el.html()).join('')
-          dl.o-Grid__Item-s.o-Grid-s.o-ListLangs!=      Resume.SKILLS.lang_sys2.map((el) => el.html()).join('')
-          dl.o-Grid__Item-s.o-Grid-s.o-ListLangs.-d-n!= Resume.SKILLS.lang_sys3.map((el) => el.html()).join('')
-        section.o-Grid-s.o-Org.-mb-1vru#skills
-          h3.o-Grid__Item-s.c-H3 Technical Skills
-          dl.o-Grid__Item-s.o-Grid-s.o-ListLangs.-x-1o1!= Resume.SKILLS.technical.map((el) => el.html({positive:'c-LangViz__Marker--pos2', classes:{dt:'-x-1o2',dd:'-x-1o2'}})).join('')
-        section.o-Org.-d-n#apps
-          h3.c-H3 Software Applications
-          ul.o-Org__Detail
-            each item in Resume.APPS
-              li!= item
-        != Resume.POSITIONS.technical.map((el) => el.html()).join('')
-      +experience('Teaching Experience', 'teach-exp', Resume.POSITIONS.teaching)
-      +experience('Other Work Experience', 'work-exp', Resume.POSITIONS.other)
-      section.o-GoldenContainer__Content__LeftBar.o-Skill#edu
-        h2.o-GoldenContainer__Content__SideMajor.o-Skill__Title.c-H2 Education
-        section.o-Org.o-Org--inst#VT
-          h3.o-Org--inst__Name.c-H4(itemprop="alumniOf" itemscope="" itemtype="http://schema.org/CollegeOrUniversity")
+      section.o-Grid__Item.o-Grid__Item--exp#skills
+        h2.o-Grid__Item.c-H2 Skills
+        div.o-Grid__Item.o-Grid__Item--maincol.o-Grid.o-ListLangsContainer
+          mixin skillCategory(title, data)
+            section.o-Grid__Item.c-Position&attributes(attributes)
+              h3.c-Position__Name= title
+              dl.o-ListLangs!= data.map((el) => el.html()).join('')
+          +skillCategory('Content', Resume.SKILLS.content)#skills-content
+          +skillCategory('Design', Resume.SKILLS.design)#skills-design
+          +skillCategory('Programming', Resume.SKILLS.programming)#skills-programming
+          +skillCategory('Data', Resume.SKILLS.data)#skills-data
+        section.o-Grid__Item.o-Grid__Item--maincol.c-Position#skills-tech
+          h3.c-Position__Name Technical Skills
+          dl.o-ListLangs!= Resume.SKILLS.technical.map((el) => el.html()).join('')
+        section.o-Grid__Item.o-Grid__Item--maincol.c-Position.-d-n#skills-apps
+          h3.c-Position__Name Software Applications
+          dl.o-ListLangs!= Resume.SKILLS.apps.map((el) => el.html()).join('')
+      +experience('Technical Experience', Resume.POSITIONS.technical)#tech-exp
+      +experience('Teaching Experience', Resume.POSITIONS.teaching)#teach-exp
+      +experience('Other Work Experience', Resume.POSITIONS.other)#work-exp
+      section.o-Grid__Item.o-Grid__Item--exp#edu
+        h2.o-Grid__Item.c-H2 Education
+        section.o-Grid__Item.o-Grid__Item--maincol.c-Position.-d-x.-xd-c#VT
+          h3.c-Position__Org.-mb-1(itemprop="alumniOf" itemscope="" itemtype="http://schema.org/CollegeOrUniversity")
             a.c-Camo(rel="external" href="https://www.vt.edu/" itemprop="url")
               span(itemprop="name") Virginia Polytechnic Institute and State University
-          dl.o-ListAchv
+          dl.o-ListAchv.-mb-z.-xo-_1
             != Resume.DEGREES.map((el) => el.html()).join('')
-      +achievement('Profes&shy;sional Dev&shy;elopment', 'prof-dev', Resume.PRODEVS)
-      +achievement('Awards &amp; Member&shy;ships', 'awards', Resume.AWARDS)
-      +achievement('Team Athletic Experience', 'athletic', Resume.TEAMS)
-      footer.o-FooterRes.-d-n-p: p.
+      +achievement('Profes&shy;sional Dev&shy;elopment', Resume.PRODEVS)#prof-dev
+      +achievement('Awards &amp; Member&shy;ships', Resume.AWARDS)#awards
+      +achievement('Team Athletic Experience', Resume.TEAMS, 'h-Hr')#athletic
+      footer.o-Grid__Item.o-Grid__Item--maincol.-d-n-p.-fz-el-mill: p.
         This r&eacute;sum&eacute; is 100% hand-written, by me! Check out the
         #[a(rel="external" href="https://github.com/chharvey/chharvey.github.io/blob/master/resume/resume.jade") source code]
         at GitHub.

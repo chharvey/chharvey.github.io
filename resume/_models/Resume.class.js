@@ -6,30 +6,42 @@ var Award    = require('./Award.class.js')
 var ProDev   = require('./ProDev.class.js')
 
 const SKILLS = {
-  lang_sys1: [
-    new Skill(5, '<a class="c-Camo" rel="external" href="https://nodejs.org/">node.js</a>/<a class="c-Camo" rel="external" href="https://www.npmjs.com/">npm</a>'),
+  content: [
     new Skill(5, '<span class="c-Acro">HTML</span>/<a class="c-Camo" rel="external" href="https://pugjs.org">Pug</a>'),
     new Skill(4, 'Microdata,<a class="c-Camo" rel="external" href="https://schema.org/">Schema.org</a>'),
     new Skill(3, '<abbr class="c-Acro" title="Web Accessibility Initiative—Accessible Rich Internet Applications">WAI-ARIA</abbr>'),
+  ],
+  design: [
     new Skill(5, '<span class="c-Acro">CSS</span>/<a class="c-Camo" rel="external" href="http://lesscss.org">Less</a>'),
     new Skill(3, '<span class="c-Acro">SVG</span>'),
-  ],
-  lang_sys2: [
     new Skill(4, '<a class="c-Camo"rel="external" href="http://jquery.com/">jQuery</a>'),
-    new Skill(3, '<span class="c-Acro">XML</span>/<abbr class="c-Acro" title="XML Schema Definition">XSD</abbr>'),
-    new Skill(2, 'Java'),
-    new Skill(4, '<a class="c-Camo"rel="external" href="http://www.latex-project.org/">\\(\\LaTeX\\)</a>'),
     new Skill(1, '<a class="c-Camo"rel="external" href="http://d3js.org/"><abbr title="Data-Driven Documents">D3</abbr>.js</a>'),
+  ],
+  programming: [
+    new Skill(5, '<a class="c-Camo" rel="external" href="https://nodejs.org/">node.js</a>/<a class="c-Camo" rel="external" href="https://www.npmjs.com/">npm</a>'),
+    // new Skill(4, 'ES6'),
+    new Skill(2, 'Java'),
     new Skill(5, '<a class="c-Camo"rel="external" href="http://git-scm.com/">Git</a>'),
   ],
-  lang_sys3: [
-    new Skill(1, '<abbr class="c-Acro" title="XML Stylesheet Language: Transformation">XSLT</abbr>'),
-    new Skill(2, '<abbr class="c-Acro" title="PHP: Hypertext Preprocessor">PHP</abbr>'),
+  data: [
+    new Skill(3, '<span class="c-Acro">XML</span>/<abbr class="c-Acro" title="XML Schema Definition">XSD</abbr>'),
+    // json schema (3)
+    new Skill(4, '<a class="c-Camo"rel="external" href="http://www.latex-project.org/">\\(\\LaTeX\\)</a>'),
+    // new Skill(1, '<abbr class="c-Acro" title="XML Stylesheet Language: Transformation">XSLT</abbr>'),
+    // new Skill(2, '<abbr class="c-Acro" title="PHP: Hypertext Preprocessor">PHP</abbr>'),
   ],
   technical: [
     new Skill(5, 'technical writing &amp; style guides'),
     new Skill(3, 'color theory'),
     new Skill(4, 'typography'),
+  ],
+  apps: [
+    new Skill(4, 'Key Curriculum Press <cite>Geometer&rsquo;s Sketchpad</cite>'),
+    new Skill(2, 'Key Curriculum Press <cite>TinkerPlots</cite>'),
+    new Skill(1, '<cite>Calculator-Based Ranger 2</cite>; <cite>TI-Navigator</cite>'),
+    new Skill(3, 'SMART Technologies'),
+    new Skill(1, '<cite>Logic Studio 9</cite>'),
+    new Skill(1, 'Sonic Studio <cite>Soundblade</cite>'),
   ],
 }
 
@@ -344,21 +356,6 @@ module.exports = class Resume {
    * @type {Object<Array<Skill>>}
    */
   static get SKILLS() { return SKILLS }
-
-  /**
-   * List of software applications.
-   * @type {Array<string>}
-   */
-  static get APPS() {
-    return [
-      `Key Curriculum Press <cite>Geometer&rsquo;s Sketchpad</cite>`,
-      `Key Curriculum Press <cite>TinkerPlots</cite>`,
-      `<cite>Calculator-Based Ranger 2</cite>; <cite>TI-Navigator</cite>`,
-      `SMART Technologies`,
-      `<cite>Logic Studio 9</cite>`,
-      `Sonic Studio <cite>Soundblade</cite>`,
-    ]
-  }
 
   /**
    * List of positions, grouped by category.
