@@ -70,8 +70,8 @@ module.exports = class Position {
       .attr('itemscope','').attr('itemtype',this._org_type)
       .addElements([
         new Element('header').class('c-Position__Head').addElements([
-            new Element('h3').class('c-Position__Name h-Inline').attr('itemprop','jobTitle').addContent(this._name),
-            new Element('p').class('c-Position__Org h-Inline h-Clearfix').addElements([
+            new Element('h3').class('c-Position__Name h-Inline-sG -pr-1-sG').attr('itemprop','jobTitle').addContent(this._name),
+            new Element('p').class('c-Position__Org h-Inline-sG h-Clearfix-sG').addElements([
               new Element('a').class('c-Camo').attr('rel','external').attr('href',this._org_url).attr('itemprop','url').addElements([
                 new Element('span').attr('itemprop','name').addContent(this._org_name),
               ]),
