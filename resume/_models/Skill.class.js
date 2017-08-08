@@ -24,9 +24,9 @@ module.exports = class Skill {
   html(options = {}) {
     let positive = options.positive || 'c-LangViz__Marker--pos'
     return [
-      new Element('dt').class('o-ListLangs__Text')
+      new Element('dt').class('o-ListLangs__Text h-Inline')
         .addContent(this._text),
-      new Element('dd').class('o-ListLangs__Viz h-Clearfix')
+      new Element('dd').class('o-ListLangs__Viz h-Inline h-Clearfix')
         .attr('title',Skill.LEVELS[this._level-1]).attr('itemscope','').attr('itemtype','http://schema.org/Rating')
         .addElements([
           new Element('meta',true).attr('itemprop','worstRating').attr('content',0),

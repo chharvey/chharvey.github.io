@@ -6,19 +6,27 @@ var Award    = require('./Award.class.js')
 var ProDev   = require('./ProDev.class.js')
 
 const SKILLS = {
-  lang_sys: [
-    new Skill(5, '<a class="c-Camo" rel="external" href="https://nodejs.org/">node.js</a>/<a class="c-Camo" rel="external" href="https://www.npmjs.com/">npm</a>'),
+  content: [
     new Skill(5, '<span class="c-Acro">HTML</span>/<a class="c-Camo" rel="external" href="https://pugjs.org">Pug</a>'),
     new Skill(4, 'Microdata,<a class="c-Camo" rel="external" href="https://schema.org/">Schema.org</a>'),
     new Skill(3, '<abbr class="c-Acro" title="Web Accessibility Initiative—Accessible Rich Internet Applications">WAI-ARIA</abbr>'),
+  ],
+  design: [
     new Skill(5, '<span class="c-Acro">CSS</span>/<a class="c-Camo" rel="external" href="http://lesscss.org">Less</a>'),
     new Skill(3, '<span class="c-Acro">SVG</span>'),
     new Skill(4, '<a class="c-Camo"rel="external" href="http://jquery.com/">jQuery</a>'),
-    new Skill(3, '<span class="c-Acro">XML</span>/<abbr class="c-Acro" title="XML Schema Definition">XSD</abbr>'),
-    new Skill(2, 'Java'),
-    new Skill(4, '<a class="c-Camo"rel="external" href="http://www.latex-project.org/">\\(\\LaTeX\\)</a>'),
     new Skill(1, '<a class="c-Camo"rel="external" href="http://d3js.org/"><abbr title="Data-Driven Documents">D3</abbr>.js</a>'),
+  ],
+  programming: [
+    new Skill(5, '<a class="c-Camo" rel="external" href="https://nodejs.org/">node.js</a>/<a class="c-Camo" rel="external" href="https://www.npmjs.com/">npm</a>'),
+    // new Skill(4, 'ES6'),
+    new Skill(2, 'Java'),
     new Skill(5, '<a class="c-Camo"rel="external" href="http://git-scm.com/">Git</a>'),
+  ],
+  data: [
+    new Skill(3, '<span class="c-Acro">XML</span>/<abbr class="c-Acro" title="XML Schema Definition">XSD</abbr>'),
+    // json schema (3)
+    new Skill(4, '<a class="c-Camo"rel="external" href="http://www.latex-project.org/">\\(\\LaTeX\\)</a>'),
     // new Skill(1, '<abbr class="c-Acro" title="XML Stylesheet Language: Transformation">XSLT</abbr>'),
     // new Skill(2, '<abbr class="c-Acro" title="PHP: Hypertext Preprocessor">PHP</abbr>'),
   ],
