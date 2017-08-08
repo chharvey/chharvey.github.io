@@ -21,9 +21,9 @@ module.exports = class Skill {
    */
   html() {
     return [
-      new Element('dt').class('o-ListLangs__Text h-Inline')
+      new Element('dt').class('o-ListLangs__Text')
         .addContent(this._text),
-      new Element('dd').class('o-ListLangs__Viz h-Inline h-Clearfix')
+      new Element('dd').class('o-ListLangs__Viz')
         .attr('title',Skill.LEVELS[this._level-1]).attr('itemscope','').attr('itemtype','http://schema.org/Rating')
         .addElements([
           new Element('meta',true).attr('itemprop','worstRating').attr('content',0),

@@ -12,22 +12,24 @@
 // ^author
 // : Chris Harvey
 // ^updated
-// : 2017-08-06
+// : 2017-08-08
 .o-ListLangs {
-  // columns: 2;
-  // column-gap: 2rem;
-  // column-rule: 1px solid fadeout(@g-color_h_minor, 75%);
-  & > * {
-    vertical-align: middle;
-  }
+  display: grid;
+  grid-template-columns: calc(15/4 ~'* var(--vru)') auto;
+  grid-column-gap: 1rem;
+  & > *:nth-child(1)  { order: 0; }
+  & > *:nth-child(2)  { order: -1; }
+  & > *:nth-child(3)  { order: 1; }
+  & > *:nth-child(4)  { order: 0; }
+  & > *:nth-child(5)  { order: 2; }
+  & > *:nth-child(6)  { order: 1; }
+  & > *:nth-child(7)  { order: 3; }
+  & > *:nth-child(8)  { order: 2; }
+  & > *:nth-child(9)  { order: 4; }
+  & > *:nth-child(10) { order: 3; }
+  & > *:nth-child(odd)  { order: calc(~'(n - 1) / 2'); }
+  & > *:nth-child(even) { order: calc(~'(n - 4) / 2'); }
 }
-// alternate style
-// .o-ListLangs {
-//   display: grid;
-//   grid-template-columns: repeat(auto-fit, minmax(calc(2*15/4 ~'* var(--vru)'),auto) minmax(calc(15/4 ~'* var(--vru)'),auto));
-//   grid-column-gap: 2rem;
-//   justify-content: space-between;
-// }
 
 .o-ListLangs__Text,
 .o-ListLangs__Viz {
@@ -36,15 +38,12 @@
 }
 .o-ListLangs__Viz {
   & > svg {
-    // display: block;
-    display: inline;
-    vertical-align: middle;
+    display: block;
     height: var(--vru);
     @media print {
       display: none;
     }
   }
-  text-align:right;
 }
 
 
