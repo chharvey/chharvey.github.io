@@ -30,10 +30,10 @@ module.exports = class Degree {
               new Element('meta',true).attr('itemprop','worstRating').attr('content',0),
               new Element('span').attr('itemprop','ratingValue').addContent(this._gpa),
             ])
-            .addContent('/')
+            .addContent(`/`)
             .addElements([
-              new Element('span').attr('itemprop','bestRating').addContent('4.0 '),
-              new Element('abbr').class('c-Acro').attr('title','Grade Point Average').attr('itemprop','name').addContent('GPA'),
+              new Element('span').attr('itemprop','bestRating').addContent(`4.0 `),
+              new Element('abbr').class('c-Acro').attr('title','Grade Point Average').attr('itemprop','name').addContent(`GPA`),
             ]),
         ]),
       new Element('dd').class('o-ListAchv__Date').addElements([
