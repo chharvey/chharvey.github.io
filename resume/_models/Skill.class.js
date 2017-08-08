@@ -17,12 +17,9 @@ module.exports = class Skill {
 
   /**
    * Render a skill in HTML.
-   * @param  {Object=} options options for rendering this skill
-   * @param  {string=} options.positive classname to add when the marker indicator is positive
    * @return {string} HTML string
    */
-  html(options = {}) {
-    let positive = options.positive || 'c-LangViz__Marker--pos'
+  html() {
     return [
       new Element('dt').class('o-ListLangs__Text h-Inline')
         .addContent(this._text),
@@ -36,7 +33,7 @@ module.exports = class Skill {
             new Element('g').attr('transform','translate(2,2)').addElements(
               Skill.LEVELS.map(function (lvl, index) {
                 return new Element('circle',true).class('c-LangViz__Marker')
-                  .addClass((index <= this._level-1) ? positive : '')
+                  .addClass((index <= this._level-1) ? 'c-LangViz__Marker--pos' : '')
                   .attr('cx',3*index).attr('cy',0).attr('r',1)
               }, this)
             ),
