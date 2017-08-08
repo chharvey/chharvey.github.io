@@ -35,6 +35,14 @@ const SKILLS = {
     new Skill(3, 'color theory'),
     new Skill(4, 'typography'),
   ],
+  apps: [
+    new Skill(4, 'Key Curriculum Press <cite>Geometer&rsquo;s Sketchpad</cite>'),
+    new Skill(2, 'Key Curriculum Press <cite>TinkerPlots</cite>'),
+    new Skill(1, '<cite>Calculator-Based Ranger 2</cite>; <cite>TI-Navigator</cite>'),
+    new Skill(3, 'SMART Technologies'),
+    new Skill(1, '<cite>Logic Studio 9</cite>'),
+    new Skill(1, 'Sonic Studio <cite>Soundblade</cite>'),
+  ],
 }
 
 const POSITIONS = {
@@ -348,21 +356,6 @@ module.exports = class Resume {
    * @type {Object<Array<Skill>>}
    */
   static get SKILLS() { return SKILLS }
-
-  /**
-   * List of software applications.
-   * @type {Array<string>}
-   */
-  static get APPS() {
-    return [
-      `Key Curriculum Press <cite>Geometer&rsquo;s Sketchpad</cite>`,
-      `Key Curriculum Press <cite>TinkerPlots</cite>`,
-      `<cite>Calculator-Based Ranger 2</cite>; <cite>TI-Navigator</cite>`,
-      `SMART Technologies`,
-      `<cite>Logic Studio 9</cite>`,
-      `Sonic Studio <cite>Soundblade</cite>`,
-    ]
-  }
 
   /**
    * List of positions, grouped by category.

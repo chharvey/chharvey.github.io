@@ -7,7 +7,7 @@ var Element = require('./Element.class.js')
 module.exports = class Skill {
   /**
    * Construct a new Skill object.
-   * @param  {number} level proficiency with this skill; must be `0`–`Skill.LEVELS.length`
+   * @param  {number} level proficiency with this skill; must be `1`–`Skill.LEVELS.length`
    * @param  {string} text custom HTML string defining this skill
    */
   constructor(level, text) {
