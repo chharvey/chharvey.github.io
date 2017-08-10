@@ -32,11 +32,11 @@ module.exports = class Skill {
           new Element('meta',true).attr('itemprop','worstRating').attr('content',0),
           new Element('meta',true).attr('itemprop','bestRating' ).attr('content',Skill.LEVELS.length),
           new Element('meta',true).attr('itemprop','ratingValue').attr('content',this._level),
-          new Element('svg').class('c-LangViz').attr('viewbox','0 0 14 4').addElements([
+          new Element('svg').class('c-SkillViz').attr('viewbox','0 0 14 4').addElements([
             new Element('g').attr('transform','translate(1,2)').addElements(
               Skill.LEVELS.map(function (lvl, index) {
-                return new Element('circle',true).class('c-LangViz__Marker')
-                  .addClass((index <= this._level-1) ? 'c-LangViz__Marker--pos' : '')
+                return new Element('circle',true).class('c-SkillViz__Marker')
+                  .addClass((index <= this._level-1) ? 'c-SkillViz__Marker--pos' : '')
                   .attr('cx',3*index).attr('cy',0).attr('r',1)
               }, this)
             ),
