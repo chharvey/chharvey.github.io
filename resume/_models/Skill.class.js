@@ -21,9 +21,9 @@ module.exports = class Skill {
    */
   html() {
     return [
-      new Element('dt').class('o-ListLangs__Text')
+      new Element('dt').class('o-Grid__Item')
         .addContent(this._text),
-      new Element('dd').class('o-ListLangs__Viz')
+      new Element('dd').class('o-Grid__Item')
         .attr('aria-label',Skill.LEVELS[this._level-1])
         .attr('title'     ,Skill.LEVELS[this._level-1]) // fallback for aria-label
         .attr('itemscope','').attr('itemtype','http://schema.org/Rating')
