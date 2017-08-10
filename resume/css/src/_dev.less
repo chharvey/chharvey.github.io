@@ -45,37 +45,6 @@
 }
 
 
-// line separator visualization
-// HACK because grid does not support grid-column-rule,
-// we are adding a middle column that is 1px wide.
-@supports (background: linear-gradient(to bottom, red, blue)) {
-  .o-Grid__Item--exp {
-    @media screen and (min-width: 45em) {
-      grid-template-columns: (@phi2 * 1fr) 1px (@phi1 * 1fr);
-      grid-column-gap: calc(~'0.5 * var(--grid-column-gap)');
-      position: relative;
-      &::after {
-        content: '';
-        display: block;
-        position: absolute;
-        top: 0; bottom: 0;
-        width: 1px;
-        grid-column: ~'2 / 3';
-        background: linear-gradient(to bottom, fadeout(@g-color_h_minor, 75%), transparent);
-      }
-    }
-    @media screen and (min-width: 60em) {
-      grid-template-columns: (@phi3 * 2fr) 1px (@phi1 * 2fr);
-    }
-  }
-  .o-Grid__Item--maincol {
-    @media screen and (min-width: 45em) {
-      &:not(header):not(footer) {
-        grid-column: ~'3 / 4';
-      }
-    }
-  }
-}
 
 
 
