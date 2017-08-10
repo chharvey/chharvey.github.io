@@ -5,27 +5,12 @@
 
 
 ///////////////////////////////////////////////////////////////////////////////
-// overriding still-alive.css
+// xmeter overrides & extensions
 ///////////////////////////////////////////////////////////////////////////////
 
 
-
-body {
-  --grid-column-gap: 1rem;
-  @media screen and (min-width: 75em) {
-    --grid-column-gap: 2rem;
-  }
-}
-body {
-  // desktop-first design (introducing margins as we go)
-  @media screen and (max-width: 59.999em) {
-    margin-right: 0.5rem;
-  }
-  @media screen and (max-width: 44.999em) {
-    margin-left: 0.5rem;
-  }
-}
-main.o-Grid {
+// grid for entire resume page layout
+.o-Grid--resume {
   @media screen and (min-width: 45em) {
     grid-template-columns: (@phi2 * 1fr) (@phi1 * 1fr);
     grid-column-gap: var(--grid-column-gap);
@@ -35,7 +20,7 @@ main.o-Grid {
   }
 }
 
-// copied from `main` (subgrid not supported yet)
+// copied from `.o-Grid--resume` (subgrid not supported yet)
 .o-Grid__Item--exp {
   @media screen and (min-width: 45em) {
     display: grid;
@@ -91,3 +76,45 @@ main.o-Grid {
     }
   }
 }
+
+
+
+// grid for laying out skill groups
+.o-Grid--skillGroups {
+  @media screen and (min-width: 30rem) {
+    grid-template-columns: repeat(2, auto);
+    grid-template-rows   : repeat(2, auto);
+    grid-column-gap      : 2rem;
+  }
+}
+// List of languages/systems.
+//
+// __Text - A textual component of the language/system
+// __Viz  - A visual component of the language/system
+//
+// ^author
+// : Chris Harvey
+// ^updated
+// : 2017-08-08
+.o-Grid--skill {
+  grid-template-columns: calc(14/4 ~'* var(--vru)') auto;
+  grid-column-gap: 1rem;
+  & > *:nth-child(1)  { order: 0; }
+  & > *:nth-child(2)  { order: -1; }
+  & > *:nth-child(3)  { order: 1; }
+  & > *:nth-child(4)  { order: 0; }
+  & > *:nth-child(5)  { order: 2; }
+  & > *:nth-child(6)  { order: 1; }
+  & > *:nth-child(7)  { order: 3; }
+  & > *:nth-child(8)  { order: 2; }
+  & > *:nth-child(9)  { order: 4; }
+  & > *:nth-child(10) { order: 3; }
+  & > *:nth-child(odd)  { order: calc(~'(n - 1) / 2'); }
+  & > *:nth-child(even) { order: calc(~'(n - 4) / 2'); }
+}
+
+
+
+///////////////////////////////////////////////////////////////////////////////
+// still-alive overrides & extensions
+///////////////////////////////////////////////////////////////////////////////
