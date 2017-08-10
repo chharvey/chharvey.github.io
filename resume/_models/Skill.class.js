@@ -36,7 +36,7 @@ module.exports = class Skill {
             new Element('g').attr('transform','translate(1,2)').addElements(
               Skill.LEVELS.map(function (lvl, index) {
                 return new Element('circle',true).class('c-SkillViz__Marker')
-                  .addClass((index <= this._level-1) ? 'c-SkillViz__Marker--pos' : '')
+                  .addClass((index <= this._level-1) ? 'c-SkillViz__Marker--true' : '')
                   .attr('cx',3*index).attr('cy',0).attr('r',1)
               }, this)
             ),
