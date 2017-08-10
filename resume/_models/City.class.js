@@ -29,7 +29,7 @@ module.exports = class City {
     return [
       new Element('span').attr('itemprop','address').attr('itemscope','').attr('itemtype','http://schema.org/PostalAddress')
         .addElements([new Element('span').attr('itemprop','addressLocality').addContent(this._locality)])
-        .addContent(', ')
+        .addContent(`, `)
         .addElements([
           new Element('abbr').attr('itemprop','addressRegion')
             .attr('title',Util.STATE_DATA.find((obj) => obj.code===this._region).name)
