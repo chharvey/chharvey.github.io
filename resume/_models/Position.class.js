@@ -76,7 +76,7 @@ module.exports = class Position {
                 new Element('span').attr('itemprop','name').addContent(this._org_name),
               ]),
             ]),
-            new Element('p').class('h-Inline -pr-h')
+            new Element('p').class('c-Position__Dates h-Inline')
               .addElements([
                 new Element('time')
                   .attr('datetime', this._date_start.toISOString())
@@ -88,7 +88,7 @@ module.exports = class Position {
                   .attr('datetime', this._date_end.toISOString())
                   .addContent((sameDay(this._date_end, new Date())) ? 'present' : Util.Date.FORMATS['F Y'](this._date_end)),
               ]),
-            new Element('p').class('h-Inline')
+            new Element('p').class('c-Position__Place h-Inline')
               .attr('itemprop',"location").attr('itemscope',"").attr('itemtype',"http://schema.org/Place")
               .addContent(`(${this._location.html()})`),
         ]),
