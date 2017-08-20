@@ -67,6 +67,18 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
         //- input#obj3(type="text" value="Type a custom objective here. Reload to reset.")
       section.o-Grid__Item.o-Grid__Item--exp#skills
         h2.o-Grid__Item.c-ExpHn Skills
+        -
+          let skills_all = [].concat(...[
+            Resume.SKILLS.content,
+            Resume.SKILLS.design,
+            Resume.SKILLS.programming,
+            Resume.SKILLS.data,
+            Resume.SKILLS.technical,
+            // Resume.SKILLS.apps,
+          ])
+        ul.o-List.c-SkillsList
+          each skill in skills_all
+            li.o-List__Item.h-Inline!= skill._text
         div.o-Grid__Item.o-Grid__Item--maincol.o-Grid.o-Grid--skillGroups
           mixin skillCategory(title, data)
             section.o-Grid__Item.c-Position&attributes(attributes)
@@ -76,12 +88,8 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
           +skillCategory('Design', Resume.SKILLS.design)#skills-design
           +skillCategory('Programming', Resume.SKILLS.programming)#skills-programming
           +skillCategory('Data', Resume.SKILLS.data)#skills-data
-        section.o-Grid__Item.o-Grid__Item--maincol.c-Position#skills-tech
-          h3.c-Position__Name Technical Skills
-          dl.o-Grid.o-Grid--skill!= Resume.SKILLS.technical.map((el) => el.html()).join('')
-        section.o-Grid__Item.o-Grid__Item--maincol.c-Position.-d-n#skills-apps
-          h3.c-Position__Name Software Applications
-          dl.o-Grid.o-Grid--skill!= Resume.SKILLS.apps.map((el) => el.html()).join('')
+          +skillCategory('Technical Skills', Resume.SKILLS.technical)#skills-tech
+          +skillCategory('Software Applications', Resume.SKILLS.apps).-d-n#skills-apps
       +experience('Technical Experience', Resume.POSITIONS.technical)#tech-exp
       +experience('Teaching Experience', Resume.POSITIONS.teaching)#teach-exp
       +experience('Other Work Experience', Resume.POSITIONS.other)#work-exp
