@@ -53,7 +53,6 @@ const POSITIONS = {
       org     : { name: 'American Society of Civil Engineers', url: 'http://www.asce.org/', itemtype: 'http://schema.org/NGO' },
       dates   : { start: new Date('2015-07'), end: new Date() },
       location: new City('Reston', 'VA', { lat: 38.9555819, lon: -77.3490615 }),
-      is_current: true,
       descriptions: [
         // REVIEW indentation
       { html: `Aid the development of 15+ independent conference sites in <a class="c-Camo" rel="external" href="https://www.drupal.org/">Drupal</a>.` },

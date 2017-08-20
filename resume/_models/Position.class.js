@@ -21,7 +21,6 @@ module.exports = class Position {
    * @param {City} $info.location location of the organization
    * @param {Array<{html:string, hide:boolean}>} $info.descriptions the list of descriptions for the job position;
    *                                             each with a string of text and a flag for whether to hide
-   * @param {boolean} $info.is_current `true` if I currently work here
    */
   constructor(id, $info) {
     this._id = id
@@ -35,8 +34,6 @@ module.exports = class Position {
     this._org_name = $info.org.name
     this._org_type = $info.org.itemtype
     this._org_url  = $info.org.url
-
-    this._is_current = $info.is_current
 
     this._descriptions = $info.descriptions
   }
@@ -93,7 +90,7 @@ module.exports = class Position {
           )
         ),
       ])
-    if (this._is_current) result.attr('itemprop','worksFor')
+    if (sameDay(this._date_end, new Date())) result.attr('itemprop','worksFor')
     return result.html()
   }
 }
