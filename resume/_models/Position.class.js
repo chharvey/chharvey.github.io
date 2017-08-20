@@ -39,13 +39,13 @@ module.exports = class Position {
   }
 
   /**
-   * Add a description to this position.
-   * @param  {string} desc the description to add
-   * @param  {boolean} is_hidden `true` if hidden
+   * Add some descriptions to this position.
+   * Each description should contain html and a flag for hidden.
+   * @param  {Array<{html:string, hide:boolean}>} descs the list of descriptions to add
    * @return {Position} `this`
    */
-  addDescription(desc, is_hidden = false) {
-    this._descriptions.push({ html: desc, 'is_hidden': is_hidden })
+  descriptions(descs) {
+    this._descriptions = this._descriptions.concat(descs)
     return this
   }
 
@@ -94,7 +94,7 @@ module.exports = class Position {
         ]),
         new Element('ul').class('c-Position__Body').addElements(
           this._descriptions.map((obj) => new Element('li')
-            .addClass((obj.is_hidden) ? '-d-n' : '')
+            .class((obj.hide) ? '-d-n' : '')
             .addContent(obj.html)
           )
         ),
