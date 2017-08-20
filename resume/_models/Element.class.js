@@ -113,7 +113,7 @@ module.exports = class Element {
    * @return {Element} `this`
    */
   attrObj(attr_obj) {
-    for (let i in obj) { this.attr(i, obj[i]) }
+    for (let i in attr_obj) { this.attr(i, attr_obj[i]) }
     return this
   }
 

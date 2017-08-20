@@ -227,7 +227,7 @@ const PRODEVS = [
           .addContent(`CTM`)
       ])
       .addContent(` Conference, annually statewide (<time datetime="PT40H">10 hr each</time>)`)
-      .render()
+      .html()
   ),
   new ProDev(
     { start: new Date('2014-03-14'), end: new Date('2014-03-15') },
@@ -242,7 +242,7 @@ const PRODEVS = [
           .addContent(`CTM`)
       ])
       .addContent(` Conference`)
-      .render(),
+      .html(),
     'http://schema.org/EducationEvent'
   ),
   new ProDev(
@@ -258,7 +258,7 @@ const PRODEVS = [
           .addContent(`CTM`)
       ])
       .addContent(` Conference`)
-      .render(),
+      .html(),
     'http://schema.org/EducationEvent'
   ),
   new ProDev(
@@ -274,7 +274,7 @@ const PRODEVS = [
           .addContent(`CTM`)
       ])
       .addContent(` Conference`)
-      .render(),
+      .html(),
     'http://schema.org/EducationEvent'
   ),
   new ProDev(
@@ -290,7 +290,7 @@ const PRODEVS = [
           .addContent(`CTM`)
       ])
       .addContent(` Conference`)
-      .render(),
+      .html(),
     'http://schema.org/EducationEvent'
   ),
   new Award(`<time datetime="2011-08-12" itemprop="startDate endDate">12 Oct 2011</time>`,
@@ -300,7 +300,7 @@ const PRODEVS = [
         new Element('span').attr('itemprop','name').addContent(`Secondary Mathematics Instruction in an Inclusive Classroom`),
         new Element('time').attr('datetime','PT3H').attr('itemprop','duration').addContent(` (3 hr)`),
       ])
-      .render()
+      .html()
   ),
   new Award(`<time datetime="2009-03-28" itemprop="startDate endDate">28 Mar 2009</time>`,
     new Element('span')
@@ -309,7 +309,7 @@ const PRODEVS = [
         new Element('span').attr('itemprop','name').addContent(`Preservice Teacher Education with TI-Nspire Technology`),
         new Element('time').attr('datetime','PT9H').attr('itemprop','duration').addContent(` (9 hr)`),
       ])
-      .render()
+      .html()
   ),
 ]
 
@@ -335,7 +335,7 @@ const AWARDS = [
         new Award(`<time>2005</time>&ndash;<time>2006</time>`,`Trombone I &amp; Field Captain`),
         new Award(`<time>2003</time>&ndash;<time>2004</time>`,`Trombone II`),
       ].map((el) => el.html()).join(''))
-      .render()
+      .html()
   ),
 ]
 
@@ -353,7 +353,7 @@ const TEAMS = [
               .addElements([ new Element('span').attr('itemprop','sport').addContent(`Swim`) ])
               .addContent(` Club`)
           ])
-      ]).render()
+      ]).html()
   ),
   new Award(`<time>2003</time>&ndash;<time>2006</time>`,
     new Element('div').attr('style','display:inline;')
@@ -386,7 +386,7 @@ const TEAMS = [
             new Award(`<time>2004</time>, <time>2006</time>`,`VA State qualifier for 200 Free Relay`),
           ].map((item) => item.html()).join('')),
       ])
-      .render()
+      .html()
   ),
   new Award(`<time>1994</time>&ndash;<time>2006</time>`,
     new Element('div').attr('style','display:inline;')
@@ -419,7 +419,7 @@ const TEAMS = [
             new Award(`<time>2000</time>, <time>2002</time>`,`All-Star competitor in 50 Free`),
           ].map((item) => item.html()).join('')),
       ])
-      .render()
+      .html()
   ),
 ]
 

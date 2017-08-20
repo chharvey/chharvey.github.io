@@ -100,6 +100,6 @@ module.exports = class Position {
         ),
       ])
     if (this._is_current) result.attr('itemprop','worksFor')
-    return result.render()
+    return result.html()
   }
 }

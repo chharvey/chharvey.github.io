@@ -39,6 +39,6 @@ module.exports = class City {
         new Element('meta',true).attr('itemprop','latitude' ).attr('content',this._latitude),
         new Element('meta',true).attr('itemprop','longitude').attr('content',this._longitude),
       ]),
-    ].map((el) => el.render()).join('')
+    ].map((el) => el.html()).join('')
   }
 }

@@ -45,7 +45,7 @@ module.exports = class Skill {
             ),
           ]),
         ]),
-    ].map((el) => el.render()).join('')
+    ].map((el) => el.html()).join('')
   }
 
   /**

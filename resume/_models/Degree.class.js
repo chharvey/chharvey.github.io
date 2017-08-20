@@ -43,7 +43,7 @@ module.exports = class Degree {
           (!(this._year > 0)) ? new Element('small').addContent(`in progress`) : new Element('time').addContent(this._year)
         ])
         .addContent(`)`),
-    ].map((el) => el.render()).join('')
+    ].map((el) => el.html()).join('')
   }
 
 }
