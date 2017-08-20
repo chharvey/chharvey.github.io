@@ -26,24 +26,30 @@ module.exports = class City {
    * @return {string} HTML string
    */
   html() {
-    return [
-      new Element('span')
-        .attrObj({ itemprop:'address', itemscope:'', itemtype:'http://schema.org/PostalAddress' })
-        .attr('data-class','City.Address')
-        .addElements([new Element('span').attr('itemprop','addressLocality').addContent(this._locality)])
-        .addContent(`, `)
-        .addElements([
-          new Element('abbr').attr('itemprop','addressRegion')
-            .attr('title',Util.STATE_DATA.find((obj) => obj.code===this._region).name)
-            .addContent(this._region),
-        ]),
-      new Element('span')
-        .attrObj({ itemprop:'geo', itemscope:'', itemtype:'http://schema.org/GeoCoordinates' })
-        .attr('data-class','City.Geo')
+    return new Element('span')
+      .attrObj({
+        itemprop : 'location',
+        itemscope: '',
+        itemtype : 'http://schema.org/Place',
+        'data-class': 'City',
+      })
       .addElements([
-        new Element('meta',true).attr('itemprop','latitude' ).attr('content',this._latitude),
-        new Element('meta',true).attr('itemprop','longitude').attr('content',this._longitude),
-      ]),
-    ].map((el) => el.html()).join('')
+        new Element('span')
+          .attrObj({ itemprop:'address', itemscope:'', itemtype:'http://schema.org/PostalAddress' })
+          .addElements([new Element('span').attr('itemprop','addressLocality').addContent(this._locality)])
+          .addContent(`, `)
+          .addElements([
+            new Element('abbr').attr('itemprop','addressRegion')
+              .attr('title',Util.STATE_DATA.find((obj) => obj.code===this._region).name)
+              .addContent(this._region),
+          ]),
+        new Element('span')
+          .attrObj({ itemprop:'geo', itemscope:'', itemtype:'http://schema.org/GeoCoordinates' })
+          .addElements([
+            new Element('meta',true).attr('itemprop','latitude' ).attr('content',this._latitude),
+            new Element('meta',true).attr('itemprop','longitude').attr('content',this._longitude),
+          ]),
+      ])
+      .html()
   }
 }
