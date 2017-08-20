@@ -33,13 +33,14 @@ module.exports = class ProDev {
   html() {
     return [
       new Element('dt').class('o-ListAchv__Award h-Inline')
-        .attr('itemprop','award').attr('itemscope','').attr('itemtype',this._itemtype)
+        .attrObj({ itemprop:'award', itemscope:'', itemtype:this._itemtype })
         .addElements([
           new Element('span').attr('itemprop','name').addContent(this._name),
         ])
         .addContent(`, `)
         .addElements([
-          new Element('span').attr('itemprop','location').attr('itemscope','').attr('itemtype','http://schema.org/Place')
+          new Element('span')
+            .attrObj({ itemprop:'location', itemscope:'', itemtype:'http://schema.org/Place' })
             .addContent(this._location.html()),
           new Element('time').attr('datetime',`PT${this._hours}H`).attr('itemprop','duration').addContent(` (${this._hours} hr)`),
         ]),

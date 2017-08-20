@@ -72,7 +72,7 @@ module.exports = class Position {
         new Element('header').class('c-Position__Head').addElements([
             new Element('h3').class('c-Position__Name h-Inline-sG -pr-1-sG').attr('itemprop','jobTitle').addContent(this._name),
             new Element('p').class('c-Position__Org h-Inline-sG h-Clearfix-sG').addElements([
-              new Element('a').class('c-Camo').attr('rel','external').attr('href',this._org_url).attr('itemprop','url').addElements([
+              new Element('a').class('c-Camo').attrObj({ rel:'external', href:this._org_url, itemprop:'url' }).addElements([
                 new Element('span').attr('itemprop','name').addContent(this._org_name),
               ]),
             ]),
@@ -89,7 +89,7 @@ module.exports = class Position {
                   .addContent((sameDay(this._date_end, new Date())) ? 'present' : Util.Date.FORMATS['F Y'](this._date_end)),
               ]),
             new Element('p').class('c-Position__Place h-Inline')
-              .attr('itemprop',"location").attr('itemscope',"").attr('itemtype',"http://schema.org/Place")
+              .attrStr('itemprop="location"', 'itemscope=""', 'itemtype="http://schema.org/Place"')
               .addContent(`(${this._location.html()})`),
         ]),
         new Element('ul').class('c-Position__Body').addElements(
