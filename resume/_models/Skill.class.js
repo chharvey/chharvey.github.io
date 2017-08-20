@@ -22,8 +22,10 @@ module.exports = class Skill {
   html() {
     return [
       new Element('dt').class('o-Grid__Item')
+        .attr('data-class','Skill.Text')
         .addContent(this._text),
       new Element('dd').class('o-Grid__Item')
+        .attr('data-class','Skill.Level')
         .attrObj({
           'aria-label': Skill.LEVELS[this._level-1],
           title       : Skill.LEVELS[this._level-1], // fallback for aria-label

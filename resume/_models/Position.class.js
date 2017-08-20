@@ -68,6 +68,7 @@ module.exports = class Position {
     }
     let result = new Element('section').id(this._id).class('o-Grid__Item o-Grid__Item--maincol c-Position')
       .attr('itemscope','').attr('itemtype',this._org_type)
+      .attr('data-class','Position')
       .addElements([
         new Element('header').class('c-Position__Head').addElements([
             new Element('h3').class('c-Position__Name h-Inline-sG -pr-1-sG').attr('itemprop','jobTitle').addContent(this._name),
@@ -89,7 +90,7 @@ module.exports = class Position {
                   .addContent((sameDay(this._date_end, new Date())) ? 'present' : Util.Date.FORMATS['F Y'](this._date_end)),
               ]),
             new Element('p').class('c-Position__Place h-Inline')
-              .attrStr('itemprop="location"', 'itemscope=""', 'itemtype="http://schema.org/Place"')
+              .attrObj({ itemprop:'location', itemscope:'', itemtype:'http://schema.org/Place' })
               .addContent(`(${this._location.html()})`),
         ]),
         new Element('ul').class('c-Position__Body').addElements(

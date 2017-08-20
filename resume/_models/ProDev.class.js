@@ -33,6 +33,7 @@ module.exports = class ProDev {
   html() {
     return [
       new Element('dt').class('o-ListAchv__Award h-Inline')
+        .attr('data-class','ProDev.Text')
         .attrObj({ itemprop:'award', itemscope:'', itemtype:this._itemtype })
         .addElements([
           new Element('span').attr('itemprop','name').addContent(this._name),
@@ -59,6 +60,7 @@ module.exports = class ProDev {
         let time_end = new Element('time').attr('datetime',self._date_end.toISOString()).attr('itemprop','endDate')
           .addContent(`${self._date_end.getUTCDate()} ${Util.Date.FORMATS['F Y'](self._date_end)}`)
         return new Element('dd').class('o-ListAchv__Date h-Inline h-Clearfix')
+          .attr('data-class','ProDev.Level')
           .addContent(`(${time_start.html()}&ndash;${time_end.html()})`)
       })(this)
     ].map((el) => el.html()).join('')

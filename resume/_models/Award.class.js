@@ -21,8 +21,8 @@ module.exports = class Award {
    */
   html() {
     return [
-      new Element('dt').class('o-ListAchv__Award h-Inline').attr('itemprop','award').addContent(this._text),
-      new Element('dd').class('o-ListAchv__Date h-Inline h-Clearfix').addContent(`(${this._dates})`),
+      new Element('dt').class('o-ListAchv__Award h-Inline').attr('data-class','Award.Text').attr('itemprop','award').addContent(this._text),
+      new Element('dd').class('o-ListAchv__Date h-Inline h-Clearfix').attr('data-class','Award.Level').addContent(`(${this._dates})`),
     ].map((el) => el.html()).join('')
   }
 

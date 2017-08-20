@@ -24,6 +24,7 @@ module.exports = class Degree {
   html() {
     return [
       new Element('dt').class('o-ListAchv__Award h-Inline').attr('itemprop','award')
+        .attr('data-class','Degree.Text')
         .addContent(`${this._field}, `)
         .addElements([
           new Element('span').attr('itemscope','').attr('itemtype','http://schema.org/Rating')
@@ -38,6 +39,7 @@ module.exports = class Degree {
             ]),
         ]),
       new Element('dd').class('o-ListAchv__Date h-Inline h-Clearfix')
+        .attr('data-class','Degree.Level')
         .addContent(`(`)
         .addElements([
           (!(this._year > 0)) ? new Element('small').addContent(`in progress`) : new Element('time').addContent(this._year)

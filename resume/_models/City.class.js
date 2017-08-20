@@ -27,7 +27,9 @@ module.exports = class City {
    */
   html() {
     return [
-      new Element('span').attr('itemprop','address').attr('itemscope','').attr('itemtype','http://schema.org/PostalAddress')
+      new Element('span')
+        .attrObj({ itemprop:'address', itemscope:'', itemtype:'http://schema.org/PostalAddress' })
+        .attr('data-class','City.Address')
         .addElements([new Element('span').attr('itemprop','addressLocality').addContent(this._locality)])
         .addContent(`, `)
         .addElements([
@@ -35,7 +37,10 @@ module.exports = class City {
             .attr('title',Util.STATE_DATA.find((obj) => obj.code===this._region).name)
             .addContent(this._region),
         ]),
-      new Element('span').attr('itemprop','geo').attr('itemscope','').attr('itemtype','http://schema.org/GeoCoordinates').addElements([
+      new Element('span')
+        .attrObj({ itemprop:'geo', itemscope:'', itemtype:'http://schema.org/GeoCoordinates' })
+        .attr('data-class','City.Geo')
+      .addElements([
         new Element('meta',true).attr('itemprop','latitude' ).attr('content',this._latitude),
         new Element('meta',true).attr('itemprop','longitude').attr('content',this._longitude),
       ]),
