@@ -19,6 +19,8 @@ module.exports = class Position {
    * @param {Date} $info.dates.start the start date
    * @param {Date} $info.dates.end the end date; use `new Date()` for present date
    * @param {City} $info.location location of the organization
+   * @param {Array<{html:string, hide:boolean}>} $info.descriptions the list of descriptions for the job position;
+   *                                             each with a string of text and a flag for whether to hide
    * @param {boolean} $info.is_current `true` if I currently work here
    */
   constructor(id, $info) {
@@ -36,20 +38,8 @@ module.exports = class Position {
 
     this._is_current = $info.is_current
 
-    this._descriptions = []
+    this._descriptions = $info.descriptions
   }
-
-  /**
-   * Add some descriptions to this position.
-   * Each description should contain html and a flag for hidden.
-   * @param  {Array<{html:string, hide:boolean}>} descs the list of descriptions to add
-   * @return {Position} `this`
-   */
-  descriptions(descs) {
-    this._descriptions = this._descriptions.concat(descs)
-    return this
-  }
-
 
   /**
    * Render an organization in HTML.

@@ -54,35 +54,39 @@ const POSITIONS = {
       dates   : { start: new Date('2015-07'), end: new Date() },
       location: new City('Reston', 'VA', { lat: 38.9555819, lon: -77.3490615 }),
       is_current: true,
-    }).descriptions([
+      descriptions: [
+        // REVIEW indentation
       { html: `Aid the development of 15+ independent conference sites in <a class="c-Camo" rel="external" href="https://www.drupal.org/">Drupal</a>.` },
       { html: `Revamp site-wide <span class="c-Acro">CSS</span> codebase, create and implement new style guide.` },
       { html: `Address cross-browser, cross-platform compatible <span class="c-Acro">CSS</span>.` },
       { html: `Enforce mobile-first layout practices, design decisions.` },
       { html: `Equip inclusive design patterns, accessible technical standards.` },
-    ]),
+      ],
+    }),
     new Position('osmosis', {
       title   : 'Front-end Developer',
       org     : { name: 'Knowledge Diffusion, <abbr title="Incorporated">Inc.</abbr>', url: 'http://www.osmosis.org/', itemtype: 'http://schema.org/LocalBusiness' },
       dates   : { start: new Date('2014-10'), end: new Date('2015-03') },
       location: new City('Charlottesville', 'VA', { lat: 38.035974, lon: -78.500286 }),
-    }).descriptions([
+      descriptions: [
       { html: `Implemented a feature that presented students their usage analytics using D3.js.` },
       { html: `Automated construction of a dynamic, interactive graphical user interface with <span class="c-Acro">SVG</span> and Less.` },
       { html: `Generated an interactive visualization for an Item Response Theory function and its parameters.` },
       { html: `Corresponded with team members and endorsers on an,
         <a class="c-Camo" rel="external" href="https://www.sbir.gov/"><abbr class="c-Acro" title="Small Business Innovation Research">SBIR</abbr></a>
         grant proposal for extending <cite>Osmosis</cite> to an undergraduate biology platform.` },
-    ]),
+      ],
+    }),
     new Position('VTSC-web', {
       title   : 'Webmaster',
       org     : { name: 'Virginia Tech <span itemprop="sport">Swim</span> Club', url: 'http://www.swim.org.vt.edu/', itemtype: 'http://schema.org/SportsTeam' },
       dates   : { start: new Date('2009-08'), end: new Date('2011-05') },
       location: new City('Blacksburg', 'VA', { lat: 37.22667, lon: -80.42157 }),
-    }).descriptions([
+      descriptions: [
       { html: `Authored, administered, updated club&rsquo;s site in <span class="c-Acro">PHP</span>.` },
       { html: `Created, sent surveys and election polls to members.` },
-    ]),
+      ],
+    }),
   ],
   teaching: [
     new Position('WMMS', {
@@ -90,16 +94,17 @@ const POSITIONS = {
       org     : { name: 'William Monroe Middle School', url: 'http://greenecounty.va.schoolwebpages.com/education/school/school.php?sectionid=6&linkid=nav-menu-container-1-32138', itemtype: 'http://schema.org/MiddleSchool' },
       dates   : { start: new Date('2013-08'), end: new Date('2014-06') },
       location: new City('Stanardsville', 'VA', { lat: 38.294019, lon: -78.443066 }),
-    }).descriptions([
+      descriptions: [
       { html: `Organized learning objectives from the <abbr class="c-Acro" title="Virginia Standards of Learning">VA SOLs</abbr> into subject-area-based curriculum.` },
       { html: `Identified similarities/differences between state standards and <a class="c-Camo" rel="external" href="http://www.corestandards.org/">Common Core</a> standards.` },
-    ]),
+      ],
+    }),
     new Position('CHS', {
       title   : 'Teacher, Algebra II and Algebra II Honors',
       org     : { name: 'Charlottesville High School', url: 'http://ccs.k12.va.us/schools/chs/index.aspx', itemtype: 'http://schema.org/HighSchool' },
       dates   : { start: new Date('2012-08'), end: new Date('2013-06') },
       location: new City('Charlottesville', 'VA', { lat: 38.052427, lon: -78.476109 }),
-    }).descriptions([
+      descriptions: [
       { html: `Differentiated academic/honors pacing guides, curriculum, instruction.` },
       { html: `Assistant coached
         <span itemscope="" itemtype="http://schema.org/SportsTeam">
@@ -109,13 +114,14 @@ const POSITIONS = {
             <span itemprop="name">Ron Price</span>
           </span>
         </span>.` },
-    ]),
+      ],
+    }),
     new Position('PHHS', {
       title   : 'Student Teaching, Geometry and Algebra II',
       org     : { name: 'Patrick Henry High School', url: 'http://ph.rcps.info/', itemtype: 'http://schema.org/HighSchool' },
       dates   : { start: new Date('2012-02'), end: new Date('2012-04') },
       location: new City('Roanoke', 'VA', { lat: 37.2559901, lon: -79.9836085 }),
-    }).descriptions([
+      descriptions: [
       { html: `Cooperating Teacher: <span itemscope="" itemtype="http://schema.org/Person"><span itemprop="name">Ben Bazak</span></span>.`, hide: true },
       { html: `Constructed, delivered own lesson plans, assessment tools.`, hide: true },
       { html: `Periodically video recorded myself teaching lessons for self-evaluation.` },
@@ -123,25 +129,27 @@ const POSITIONS = {
         <a class="c-Camo" rel="external" href="http://www.ccsso.org/Resources/Programs/Interstate_Teacher_Assessment_Consortium_(InTASC).html">
           <abbr class="c-Acro" title="Interstate Teacher Assessment and Support Consortium">InTASC</abbr>
         </a> standards.` },
-    ]),
+      ],
+    }),
     new Position('AMS', {
       title   : 'Internship, Math 7 and Pre-Algebra',
       org     : { name: 'Auburn Middle School', url: 'http://www.mcps.org/AMS/', itemtype: 'http://schema.org/MiddleSchool' },
       dates   : { start: new Date('2011-09'), end: new Date('2011-12') },
       location: new City('Riner', 'VA', { lat: 37.061729, lon: -80.442635 }),
-    }).descriptions([
+      descriptions: [
       { html: `Cooperating Teacher: <span itemscope="" itemtype="http://schema.org/Person"><span itemprop="name">Eric Altizer</span></span>.`, hide: true },
       { html: `Assisted cooperating teacher with grading, attendance, classroom management.` },
       { html: `Mirror-taught lessons, modified/constructed and taught lesson plans for entire class periods.`, hide: true },
       { html: `Conducted intensive student interview to assess understanding of a specific topic.` },
       { html: `Attended after-school programs, clubs, parent-teacher conferences, team meetings.`, hide: true },
-    ]),
+      ],
+    }),
     new Position('SJMS', {
       title   : '<abbr class="c-Acro" title="English Language Learner"><span class="c-Acro__First">E</span>LL</abbr> Teaching Project',
       org     : { name: 'Stonewall Jackson Middle School', url: 'http://jackson.sjms.rcps.info/', itemtype: 'http://schema.org/MiddleSchool' },
       dates   : { start: new Date('2011-10'), end: new Date('2011-11') },
       location: new City('Roanoke', 'VA', { lat: 37.265693, lon: -79.926149 }),
-    }).descriptions([
+      descriptions: [
       { html: `Supervisor:
         <span itemscope="" itemtype="http://schema.org/Person">
           <span itemprop="name">Betti Kreye</span>,
@@ -160,29 +168,32 @@ const POSITIONS = {
         <abbr class="c-Acro" title="English Language Learners">ELLs</abbr>, based on both sets
         of standards.`, hide: true },
       { html: `Worked with colleagues to construct and peer-teach a lesson using manipulatives.` },
-    ]),
+      ],
+    }),
     new Position('BHS', {
       title   : 'Early Field Experience, Geometry and Algebra II',
       org     : { name: 'Blacksburg High School', url: 'http://www.mcps.org/bhs/', itemtype: 'http://schema.org/HighSchool' },
       dates   : { start: new Date('2011-02'), end: new Date('2011-04') },
       location: new City('Blacksburg', 'VA', { lat: 37.210454, lon: -80.460639 }),
-    }).descriptions([
+      descriptions: [
       { html: `Cooperating Teacher: <span itemscope="" itemtype="http://schema.org/Person"><span itemprop="name">Bill Noble</span></span>.`, hide: true },
       { html: `Assisted cooperating teacher with a variety of classroom duties.` },
       { html: `Tutored students in small groups, one-on-one.` },
       { html: `Conducted classroom observations, compared findings with professional research on the 6
         <abbr class="c-Acro" title="National Council of Teachers of Mathematics">NCTM</abbr> principles.` },
-    ]),
+      ],
+    }),
     new Position('VTME', {
       title   : 'Mathematics Tutor',
       org     : { name: 'Virginia Tech Math Emporium', url: 'https://www.emporium.vt.edu/', itemtype: 'http://schema.org/EducationalOrganization' },
       dates   : { start: new Date('2010-08'), end: new Date('2011-12') },
       location: new City('Blacksburg', 'VA', { lat: 37.2337, lon: -80.4342 }),
-    }).descriptions([
+      descriptions: [
       { html: `Assisted students in first- and second-year collegiate mathematics courses.` },
       { html: `Helped with practice quizzes, homework problems.`, hide: true },
       { html: `Reviewed lessons, clarified content material.`, hide: true },
-    ]),
+      ],
+    }),
   ],
   other: [
     new Position('LE', {
@@ -190,52 +201,57 @@ const POSITIONS = {
       org     : { name: 'Lakevale Estates', url: 'http://www.lakevale.org/lakevale-dolphins/', itemtype: 'http://schema.org/SportsTeam' },
       dates   : { start: new Date('2010-05'), end: new Date('2011-08') },
       location: new City('Vienna', 'VA', { lat: 38.8989018, lon: -77.2951528 }),
-    }).descriptions([
+      descriptions: [
       { html: `Instructed children ages 4&ndash;18 in water training basics, stroke technique, drill, sprint, endurance training.` },
       { html: `Coached swim meets, help organize, attend team activities, fundraisers.` },
       { html: `Constructed swimmer lineups for dual, individual, relay meets.` },
       { html: `Created positive learning environment for all swimmers.`, hide: true },
       { html: `4-1 record (<time>2010</time>); 5-0 record, Division Champions (<time>2011</time>)`, hide: true },
-    ]),
+      ],
+    }),
     new Position('VTSC-treas', {
       title   : 'Treasurer',
       org     : { name: 'Virginia Tech <span itemprop="sport">Swim</span> Club', url: 'http://www.swim.org.vt.edu/', itemtype: 'http://schema.org/SportsTeam' },
       dates   : { start: new Date('2009-08'), end: new Date('2011-05') },
       location: new City('Blacksburg', 'VA', { lat: 37.22667, lon: -80.42157 }),
-    }).descriptions([
+      descriptions: [
       { html: `Validated organization&rsquo;s identity with the <abbr class="c-Acro" title="Internal Revenue Service">IRS</abbr>.` },
       { html: `Set up and administered bank account.` },
       { html: `Managed club&rsquo;s income and expense funds.` },
       { html: `Created projections and summaries of club&rsquo;s financial activity.` },
-    ]),
+      ],
+    }),
     new Position('VA', {
       title   : 'Assistant Swim Coach',
       org     : { name: 'Villa Aquatic <span itemprop="sport">Swim and Dive</span>', url: 'http://villaaquatic.com/', itemtype: 'http://schema.org/SportsTeam' },
       dates   : { start: new Date('2006-05'), end: new Date('2009-08') },
       location: new City('Fairfax', 'VA', { lat: 38.846711, lon: -77.330665 }),
-    }).descriptions([
+      descriptions: [
       { html: `Head Coach: <span itemscope="" itemtype="http://schema.org/Person"><span itemprop="name">Matt Salerno</span></span>.`, hide: true },
-    ]),
+      ],
+    }),
     new Position('beanco-manager', {
       title   : 'Assistant Manager',
       org     : { name: 'Beanco Aquatics', url: '', itemtype: 'http://schema.org/LocalBusiness' },
       dates   : { start: new Date('2006-05'), end: new Date('2009-08') },
       location: new City('Fairfax', 'VA', { lat: 38.846711, lon: -77.330665 }),
-    }).descriptions([
+      descriptions: [
       { html: `Head Manager: <span itemscope="" itemtype="http://schema.org/Person"><span itemprop="name">Kevin Adams</span></span>.`, hide: true },
       { html: `Supervised other assistant managers and lifeguards.`, hide: true },
       { html: `Designed scheduling systems and employee procedures.` },
       { html: `Administered pool operations; safety, first-aid, response, cleanliness, chemicals, other equipment.` },
-    ]),
+      ],
+    }),
     new Position('beanco-lifeguard', {
       title   : 'Lifeguard',
       org     : { name: 'Beanco Aquatics', url: '', itemtype: 'http://schema.org/LocalBusiness' },
       dates   : { start: new Date('2003-05'), end: new Date('2009-08') },
       location: new City('Fairfax', 'VA', { lat: 38.846711, lon: -77.330665 }),
-    }).descriptions([
+      descriptions: [
       { html: `Tended to customers&rsquo; and patrons&rsquo; needs in a timely manner.` },
       { html: `Obtained certification in <abbr class="c-Acro" title="cardiopulmonary resuscitation">CPR</abbr>, first aid, lifeguarding, pool operations.` },
-    ]),
+      ],
+    }),
   ],
 }
 
