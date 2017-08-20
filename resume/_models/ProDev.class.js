@@ -32,7 +32,7 @@ module.exports = class ProDev {
    */
   html() {
     return [
-      new Element('dt').class('o-ListAchv__Award h-Inline -mr-h')
+      new Element('dt').class('o-ListAchv__Award h-Inline')
         .attr('itemprop','award').attr('itemscope','').attr('itemtype',this._itemtype)
         .addElements([
           new Element('span').attr('itemprop','name').addContent(this._name),

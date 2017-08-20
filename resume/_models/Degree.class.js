@@ -23,7 +23,7 @@ module.exports = class Degree {
    */
   html() {
     return [
-      new Element('dt').class('o-ListAchv__Award h-Inline -mr-h').attr('itemprop','award')
+      new Element('dt').class('o-ListAchv__Award h-Inline').attr('itemprop','award')
         .addContent(`${this._field}, `)
         .addElements([
           new Element('span').attr('itemscope','').attr('itemtype','http://schema.org/Rating')
