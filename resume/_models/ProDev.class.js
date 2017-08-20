@@ -38,11 +38,8 @@ module.exports = class ProDev {
         .addElements([
           new Element('span').attr('itemprop','name').addContent(this._name),
         ])
-        .addContent(`, `)
+        .addContent(`, ${this._location.html()}`)
         .addElements([
-          new Element('span')
-            .attrObj({ itemprop:'location', itemscope:'', itemtype:'http://schema.org/Place' })
-            .addContent(this._location.html()),
           new Element('time').attr('datetime',`PT${this._hours}H`).attr('itemprop','duration').addContent(` (${this._hours} hr)`),
         ]),
       (function (self) {

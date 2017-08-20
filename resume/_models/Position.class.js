@@ -90,7 +90,6 @@ module.exports = class Position {
                   .addContent((sameDay(this._date_end, new Date())) ? 'present' : Util.Date.FORMATS['F Y'](this._date_end)),
               ]),
             new Element('p').class('c-Position__Place h-Inline')
-              .attrObj({ itemprop:'location', itemscope:'', itemtype:'http://schema.org/Place' })
               .addContent(`(${this._location.html()})`),
         ]),
         new Element('ul').class('c-Position__Body').addElements(
