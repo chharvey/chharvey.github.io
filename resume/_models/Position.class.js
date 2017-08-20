@@ -9,31 +9,32 @@ module.exports = class Position {
   /**
    * Construct a new Position object.
    * @param {string} id the id of this job position
-   * @param {string} name the official position name
-   * @param {{start:Date, end:Date}} $dates the dates the the position was held
-   * @param {Date} $dates.start the start date
-   * @param {Date} $dates.end the end date; use `new Date()` for present date
-   * @param {City} $location location of the organization
-   * @param {{name:string, url:string, itemtype:string}} $org details of the organization
-   * @param {string} $org.name the name of the organization; may be HTML
-   * @param {string} $org.url the url of the organization’s homepage
-   * @param {string} $org.itemtype the value used for the organization’s `itemtype` attribute
-   * @param {boolean} is_current `true` if I currently work here
+   * @param {Object} $info all the data
+   * @param {string} $info.title the official position name
+   * @param {{name:string, url:string, itemtype:string}} $info.org details of the organization
+   * @param {string} $info.org.name the name of the organization; may be HTML
+   * @param {string} $info.org.url the url of the organization’s homepage
+   * @param {string} $info.org.itemtype the value used for the organization’s `itemtype` attribute
+   * @param {{start:Date, end:Date}} $info.dates the dates the the position was held
+   * @param {Date} $info.dates.start the start date
+   * @param {Date} $info.dates.end the end date; use `new Date()` for present date
+   * @param {City} $info.location location of the organization
+   * @param {boolean} $info.is_current `true` if I currently work here
    */
-  constructor(id, name, $dates, $location, $org, is_current) {
+  constructor(id, $info) {
     this._id = id
-    this._name = name
+    this._name = $info.title
 
-    this._date_start = $dates.start
-    this._date_end   = $dates.end
+    this._date_start = $info.dates.start
+    this._date_end   = $info.dates.end
 
-    this._location = $location
+    this._location = $info.location
 
-    this._org_name = $org.name
-    this._org_type = $org.itemtype
-    this._org_url  = $org.url
+    this._org_name = $info.org.name
+    this._org_type = $info.org.itemtype
+    this._org_url  = $info.org.url
 
-    this._is_current = is_current
+    this._is_current = $info.is_current
 
     this._descriptions = []
   }
@@ -67,8 +68,11 @@ module.exports = class Position {
         &&   (date1.getUTCDate()  === date2.getUTCDate())
     }
     let result = new Element('section').id(this._id).class('o-Grid__Item o-Grid__Item--maincol c-Position')
-      .attr('itemscope','').attr('itemtype',this._org_type)
-      .attr('data-class','Position')
+      .attrObj({
+        'data-class': 'Position',
+        itemscope   : '',
+        itemtype    : this._org_type,
+      })
       .addElements([
         new Element('header').class('c-Position__Head').addElements([
             new Element('h3').class('c-Position__Name h-Inline-sG -pr-1-sG').attr('itemprop','jobTitle').addContent(this._name),
