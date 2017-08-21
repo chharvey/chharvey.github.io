@@ -19,8 +19,7 @@ module.exports = class Position {
    * @param {Date} $info.dates.start the start date
    * @param {Date} $info.dates.end the end date; use `new Date()` for present date
    * @param {City} $info.location location of the organization
-   * @param {Array<{html:string, hide:boolean}>} $info.descriptions the list of descriptions for the job position;
-   *                                             each with a string of text and a flag for whether to hide
+   * @param {Array<string>} $info.descriptions the list of descriptions for the job position
    */
   constructor(id, $info) {
     this._id = id
@@ -84,9 +83,7 @@ module.exports = class Position {
               .addContent(`(${this._location.html()})`),
         ]),
         new Element('ul').class('c-Position__Body').addElements(
-          this._descriptions.map((obj) => new Element('li')
-            .addContent(obj.html)
-          )
+          this._descriptions.map((desc) => new Element('li').addContent(desc))
         ),
       ])
     if (sameDay(this._date_end, new Date())) result.attr('itemprop','worksFor')
