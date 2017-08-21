@@ -85,7 +85,6 @@ module.exports = class Position {
         ]),
         new Element('ul').class('c-Position__Body').addElements(
           this._descriptions.map((obj) => new Element('li')
-            .class((obj.hide) ? '-d-n' : '')
             .addContent(obj.html)
           )
         ),

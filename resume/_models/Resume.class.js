@@ -121,8 +121,8 @@ const POSITIONS = {
       dates   : { start: new Date('2012-02'), end: new Date('2012-04') },
       location: new City('Roanoke', 'VA', { lat: 37.2559901, lon: -79.9836085 }),
       descriptions: [
-      { html: `Cooperating Teacher: <span itemscope="" itemtype="http://schema.org/Person"><span itemprop="name">Ben Bazak</span></span>.`, hide: true },
-      { html: `Constructed, delivered own lesson plans, assessment tools.`, hide: true },
+      // { html: `Cooperating Teacher: <span itemscope="" itemtype="http://schema.org/Person"><span itemprop="name">Ben Bazak</span></span>.`, hide: true },
+      // { html: `Constructed, delivered own lesson plans, assessment tools.`, hide: true },
       { html: `Periodically video recorded myself teaching lessons for self-evaluation.` },
       { html: `Synthesized cumulative electronic portfolio featuring evidence of the 10
         <a class="c-Camo" rel="external" href="http://www.ccsso.org/Resources/Programs/Interstate_Teacher_Assessment_Consortium_(InTASC).html">
@@ -136,11 +136,11 @@ const POSITIONS = {
       dates   : { start: new Date('2011-09'), end: new Date('2011-12') },
       location: new City('Riner', 'VA', { lat: 37.061729, lon: -80.442635 }),
       descriptions: [
-      { html: `Cooperating Teacher: <span itemscope="" itemtype="http://schema.org/Person"><span itemprop="name">Eric Altizer</span></span>.`, hide: true },
+      // { html: `Cooperating Teacher: <span itemscope="" itemtype="http://schema.org/Person"><span itemprop="name">Eric Altizer</span></span>.`, hide: true },
       { html: `Assisted cooperating teacher with grading, attendance, classroom management.` },
-      { html: `Mirror-taught lessons, modified/constructed and taught lesson plans for entire class periods.`, hide: true },
+      // { html: `Mirror-taught lessons, modified/constructed and taught lesson plans for entire class periods.`, hide: true },
       { html: `Conducted intensive student interview to assess understanding of a specific topic.` },
-      { html: `Attended after-school programs, clubs, parent-teacher conferences, team meetings.`, hide: true },
+      // { html: `Attended after-school programs, clubs, parent-teacher conferences, team meetings.`, hide: true },
       ],
     }),
     new Position('SJMS', {
@@ -149,23 +149,23 @@ const POSITIONS = {
       dates   : { start: new Date('2011-10'), end: new Date('2011-11') },
       location: new City('Roanoke', 'VA', { lat: 37.265693, lon: -79.926149 }),
       descriptions: [
-      { html: `Supervisor:
-        <span itemscope="" itemtype="http://schema.org/Person">
-          <span itemprop="name">Betti Kreye</span>,
-          <span itemprop="affiliation" itemscope="" itemtype="http://schema.org/EducationalOrganization">
-            <span itemprop="name">Virginia Tech</span>
-          </span>
-        </span>.`, hide: true },
+      // { html: `Supervisor:
+      //   <span itemscope="" itemtype="http://schema.org/Person">
+      //     <span itemprop="name">Betti Kreye</span>,
+      //     <span itemprop="affiliation" itemscope="" itemtype="http://schema.org/EducationalOrganization">
+      //       <span itemprop="name">Virginia Tech</span>
+      //     </span>
+      //   </span>.`, hide: true },
       { html: `Diagnosed, analyzed gaps between Math
         <abbr class="c-Acro" title="Virginia Standards of Learning">VA SOLs</abbr> and
         <abbr class="c-Acro" title="World-Class Instructional Design and Assessment">WIDA</abbr>
         Can Do Standards.` },
-      { html: `Conducted observations in math classes,
-        <abbr class="c-Acro" title="English Language Learner">ELL</abbr> classes following observation
-        protocol.`, hide: true },
-      { html: `Designed lesson plans that provide access to content concepts for
-        <abbr class="c-Acro" title="English Language Learners">ELLs</abbr>, based on both sets
-        of standards.`, hide: true },
+      // { html: `Conducted observations in math classes,
+      //   <abbr class="c-Acro" title="English Language Learner">ELL</abbr> classes following observation
+      //   protocol.`, hide: true },
+      // { html: `Designed lesson plans that provide access to content concepts for
+      //   <abbr class="c-Acro" title="English Language Learners">ELLs</abbr>, based on both sets
+      //   of standards.`, hide: true },
       { html: `Worked with colleagues to construct and peer-teach a lesson using manipulatives.` },
       ],
     }),
@@ -175,7 +175,7 @@ const POSITIONS = {
       dates   : { start: new Date('2011-02'), end: new Date('2011-04') },
       location: new City('Blacksburg', 'VA', { lat: 37.210454, lon: -80.460639 }),
       descriptions: [
-      { html: `Cooperating Teacher: <span itemscope="" itemtype="http://schema.org/Person"><span itemprop="name">Bill Noble</span></span>.`, hide: true },
+      // { html: `Cooperating Teacher: <span itemscope="" itemtype="http://schema.org/Person"><span itemprop="name">Bill Noble</span></span>.`, hide: true },
       { html: `Assisted cooperating teacher with a variety of classroom duties.` },
       { html: `Tutored students in small groups, one-on-one.` },
       { html: `Conducted classroom observations, compared findings with professional research on the 6
@@ -189,8 +189,8 @@ const POSITIONS = {
       location: new City('Blacksburg', 'VA', { lat: 37.2337, lon: -80.4342 }),
       descriptions: [
       { html: `Assisted students in first- and second-year collegiate mathematics courses.` },
-      { html: `Helped with practice quizzes, homework problems.`, hide: true },
-      { html: `Reviewed lessons, clarified content material.`, hide: true },
+      // { html: `Helped with practice quizzes, homework problems.`, hide: true },
+      // { html: `Reviewed lessons, clarified content material.`, hide: true },
       ],
     }),
   ],
@@ -204,8 +204,8 @@ const POSITIONS = {
       { html: `Instructed children ages 4&ndash;18 in water training basics, stroke technique, drill, sprint, endurance training.` },
       { html: `Coached swim meets, help organize, attend team activities, fundraisers.` },
       { html: `Constructed swimmer lineups for dual, individual, relay meets.` },
-      { html: `Created positive learning environment for all swimmers.`, hide: true },
-      { html: `4-1 record (<time>2010</time>); 5-0 record, Division Champions (<time>2011</time>)`, hide: true },
+      // { html: `Created positive learning environment for all swimmers.`, hide: true },
+      // { html: `4-1 record (<time>2010</time>); 5-0 record, Division Champions (<time>2011</time>)`, hide: true },
       ],
     }),
     new Position('VTSC-treas', {
@@ -226,7 +226,7 @@ const POSITIONS = {
       dates   : { start: new Date('2006-05'), end: new Date('2009-08') },
       location: new City('Fairfax', 'VA', { lat: 38.846711, lon: -77.330665 }),
       descriptions: [
-      { html: `Head Coach: <span itemscope="" itemtype="http://schema.org/Person"><span itemprop="name">Matt Salerno</span></span>.`, hide: true },
+      // { html: `Head Coach: <span itemscope="" itemtype="http://schema.org/Person"><span itemprop="name">Matt Salerno</span></span>.`, hide: true },
       ],
     }),
     new Position('beanco-manager', {
@@ -235,8 +235,8 @@ const POSITIONS = {
       dates   : { start: new Date('2006-05'), end: new Date('2009-08') },
       location: new City('Fairfax', 'VA', { lat: 38.846711, lon: -77.330665 }),
       descriptions: [
-      { html: `Head Manager: <span itemscope="" itemtype="http://schema.org/Person"><span itemprop="name">Kevin Adams</span></span>.`, hide: true },
-      { html: `Supervised other assistant managers and lifeguards.`, hide: true },
+      // { html: `Head Manager: <span itemscope="" itemtype="http://schema.org/Person"><span itemprop="name">Kevin Adams</span></span>.`, hide: true },
+      // { html: `Supervised other assistant managers and lifeguards.`, hide: true },
       { html: `Designed scheduling systems and employee procedures.` },
       { html: `Administered pool operations; safety, first-aid, response, cleanliness, chemicals, other equipment.` },
       ],
@@ -374,7 +374,7 @@ const AWARDS = [
     `<span itemscope="" itemtype="http://schema.org/EducationalOrganization"><span itemprop="name">National Honor Society</span></span>`),
   new Award(`<time>2003</time>&ndash;<time>2006</time>`,
     `Fairfax High School Marching, Symphonic, Jazz Bands`
-    + new Element('dl').class('o-ListAchv -d-n')
+    + new Element('dl').class('o-ListAchv')
       .addContent([
         new Award(`<time>2005</time>&ndash;<time>2006</time>`,`Trombone I &amp; Field Captain`),
         new Award(`<time>2003</time>&ndash;<time>2004</time>`,`Trombone II`),
@@ -424,7 +424,7 @@ const TEAMS = [
                   .addContent(`VHSL`)
               ])
           ]),
-        new Element('dl').class('o-ListAchv -d-n')
+        new Element('dl').class('o-ListAchv')
           .addContent([
             new Award(`<time>2003</time>&ndash;<time>2006</time>`,`Four-year letter achiever`),
             new Award(`<time>2004</time>, <time>2006</time>`,`VA State qualifier for 200 Free Relay`),
@@ -457,7 +457,7 @@ const TEAMS = [
                   .addContent(`NVSL`)
               ])
           ]),
-        new Element('dl').class('o-ListAchv -d-n')
+        new Element('dl').class('o-ListAchv')
           .addContent([
             new Award(`<time>2005</time>`,`Team record breaker in 200 Free Relay`),
             new Award(`<time>2000</time>, <time>2002</time>`,`All-Star competitor in 50 Free`),
