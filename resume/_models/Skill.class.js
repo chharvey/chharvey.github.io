@@ -22,11 +22,16 @@ module.exports = class Skill {
   html() {
     return [
       new Element('dt').class('o-Grid__Item')
+        .attr('data-class','Skill.Text')
         .addContent(this._text),
       new Element('dd').class('o-Grid__Item')
-        .attr('aria-label',Skill.LEVELS[this._level-1])
-        .attr('title'     ,Skill.LEVELS[this._level-1]) // fallback for aria-label
-        .attr('itemscope','').attr('itemtype','http://schema.org/Rating')
+        .attr('data-class','Skill.Level')
+        .attrObj({
+          'aria-label': Skill.LEVELS[this._level-1],
+          title       : Skill.LEVELS[this._level-1], // fallback for aria-label
+          itemscope   : '',
+          itemtype    : 'http://schema.org/Rating',
+        })
         .addElements([
           new Element('span').class('h-Hidden').addContent(Skill.LEVELS[this._level-1]), // when css is disabled, colors are not shown
           new Element('meta',true).attr('itemprop','worstRating').attr('content',0),
@@ -42,7 +47,7 @@ module.exports = class Skill {
             ),
           ]),
         ]),
-    ].map((el) => el.render()).join('')
+    ].map((el) => el.html()).join('')
   }
 
   /**

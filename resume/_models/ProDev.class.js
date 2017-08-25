@@ -32,15 +32,14 @@ module.exports = class ProDev {
    */
   html() {
     return [
-      new Element('dt').class('o-ListAchv__Award h-Inline -mr-h')
-        .attr('itemprop','award').attr('itemscope','').attr('itemtype',this._itemtype)
+      new Element('dt').class('o-ListAchv__Award h-Inline')
+        .attr('data-class','ProDev.Text')
+        .attrObj({ itemprop:'award', itemscope:'', itemtype:this._itemtype })
         .addElements([
           new Element('span').attr('itemprop','name').addContent(this._name),
         ])
-        .addContent(`, `)
+        .addContent(`, ${this._location.html()}`)
         .addElements([
-          new Element('span').attr('itemprop','location').attr('itemscope','').attr('itemtype','http://schema.org/Place')
-            .addContent(this._location.html()),
           new Element('time').attr('datetime',`PT${this._hours}H`).attr('itemprop','duration').addContent(` (${this._hours} hr)`),
         ]),
       (function (self) {
@@ -58,13 +57,10 @@ module.exports = class ProDev {
         let time_end = new Element('time').attr('datetime',self._date_end.toISOString()).attr('itemprop','endDate')
           .addContent(`${self._date_end.getUTCDate()} ${Util.Date.FORMATS['F Y'](self._date_end)}`)
         return new Element('dd').class('o-ListAchv__Date h-Inline h-Clearfix')
-          .addContent(`(`)
-          .addElements([time_start])
-          .addContent(`&ndash;`)
-          .addElements([time_end])
-          .addContent(`)`)
+          .attr('data-class','ProDev.Level')
+          .addContent(`(${time_start.html()}&ndash;${time_end.html()})`)
       })(this)
-    ].map((el) => el.render()).join('')
+    ].map((el) => el.html()).join('')
   }
 
 }

@@ -51,7 +51,7 @@ module.exports = class Element {
    * @private
    * @return {string} string containing key-value pairs
    */
-  _attrs() {
+  _attributeString() {
     let out = ''
     for (let i in this._attributes) {
       if (this._attributes[i]!==undefined) out += ` ${i}="${this._attributes[i]}"`
@@ -92,6 +92,51 @@ module.exports = class Element {
   }
 
   /**
+   * Set/remove multiple attributes at once, providing an attributes object.
+   *
+   * The argument must be an object who has string or null values. No values may be `undefined`.
+   * The values of the argument act just like the `value` parameter in {@link Element#attr()}.
+   * For example:
+   *
+   * `my_element.attrObj({ itemprop:'name' })` sets the attribute `[itemprop="name"]` on this element.
+   * If the `[itemprop]` attribute already exists, it will be overriden to the value `"name"`.
+   *
+   * `my_element.attrObj({ itemprop:null })` removes the `[itemprop]` attribute altogether.
+   *
+   * Example:
+   * ```
+   * my_elem.attr('itemprop','name').attr('itemscope','').attr('itemtype':'Person') // old
+   * my_elem.attrObj({ itemprop:'name', itemscope:'', itemtype:'Person' })          // new
+   * ```
+   *
+   * @param  {Object<?string>} attr_obj the attributes object given
+   * @return {Element} `this`
+   */
+  attrObj(attr_obj) {
+    for (let i in attr_obj) { this.attr(i, attr_obj[i]) }
+    return this
+  }
+
+  /**
+   * Add (or modify) one or more attributes, given strings.
+   * Strings must take the form `'attribute="attr value"'`.
+   * Multiple arguments may be provided.
+   * This method does not remove attributes.
+   *
+   * Example:
+   * ```
+   * my_elem.attr('itemprop','name').attr('itemscope','').attr('itemtype':'Person') // old
+   * my_elem.attrStr('itemprop="name"', 'itemscope=""', 'itemtype="Person"')        // new
+   * ```
+   * @param  {string} attr_str a string of the format `'attribute="attr value"'`
+   * @return {Element} `this`
+   */
+  attrStr(...attr_str) {
+    attr_str.forEach((str) => this.attr(str.split('=')[0], str.split('=')[1].slice(1,-1)))
+    return this
+  }
+
+  /**
    * Shortcut method for setting/getting the `id` attribute of this element.
    * @param  {?string=} id_str the value to set for the `id` attribute, or `null` to remove it
    * @return {(Element|string)} `this` if setting the id, else the value of the id
@@ -111,6 +156,7 @@ module.exports = class Element {
 
   /**
    * Append to this element’s `class` attribute.
+   * When adding classes, use this method instead of {@link Element#class()|Element#class(...)}
    * @param  {string} class_str the classname(s) to add, space-separated
    * @return {Element} `this`
    */
@@ -131,6 +177,74 @@ module.exports = class Element {
   }
 
   /**
+   * Shortcut method for setting/getting the `style` attribute of this element.
+   * @param  {?string=} style_str the value to set for the `style` attriubte (as valid CSS), or `null` to remove it
+   * @return {(Element|string)} `this` if setting the style, else the value of the style
+   */
+  style(style_str) {
+    return this.attr('style', style_str)
+  }
+
+  /**
+   * Shortcut method for setting/getting the `style` attribute of this element,
+   * where the I/O of this method is an *Object* instead of a string.
+   * @param  {?Object<string>=} style_obj the properties to set for the `style` attribute, or `null` to remove it
+   * @return {(Element|Object<string>)} `this` if setting the style, else the value of the style as an object
+   */
+  styleObj(style_obj) {
+    if (style_obj !== undefined) {
+      if (style_obj !== null) {
+        let css_string = ''
+        for (let i in style_obj) {
+          css_string += `${i}:${style_obj[i]};`
+        }
+        return this.attr('style', css_string)
+      } else return this.attr('style', null)
+    } else {
+      let css_object = {}
+      ;(this.attr('style') || '').split(';').map((rule) => rule.split(':')).forEach(function (rule_arr) {
+        // rule_arr[0] == css property
+        // rule_arr[1] == css value
+        if (rule_arr[0] && rule_arr[1]) css_object[rule_arr[0]] = rule_arr[1]
+      })
+      return css_object
+    }
+  }
+
+  /**
+   * Append to this element’s `style` attribute.
+   * @param {string} style_str the style(s) to add, as valid CSS
+   * @return {Element} `this`
+   */
+  addStyle(style_str) {
+    return this.style(`${this.style() || ''}; ${style_str}`)
+  }
+
+  /**
+   * Append to this element’s `style` attribute, using an object as an argument.
+   * @param {Object<string>} style_obj the style(s) to add, as an object
+   * @return {Element} `this`
+   */
+  addStyleObj(style_obj) {
+    return this.addStyle(new Element('html').styleObj(style_obj).style())
+    // alternate implementation:
+    Object.assign(this.styleObj(), style_obj)
+    return this
+    // even another implementation, if you prefer a "pure" (nondestructive) function:
+    return this.styleObj(Object.assign({}, this.styleObj(), style_obj))
+  }
+
+  /**
+   * Remove a single CSS rule from this element’s `style` attribute.
+   * @param  {string} cssprop single CSS property name
+   * @return {Element} `this`
+   */
+  removeStyleProp(cssprop) {
+    delete this.styleObj()[cssprop]
+    return this
+  }
+
+  /**
    * Add content to this element.
    * **May not be called on elements that are void!**
    * @param {string} contents the contents to add
@@ -147,15 +261,15 @@ module.exports = class Element {
    * @param {Array<Element>} elems array of Element objects to add
    */
   addElements(elems) {
-    return this.addContent(elems.map((elem) => elem.render()).join(''))
+    return this.addContent(elems.map((el) => el.html()).join(''))
   }
 
   /**
-   * Render this element as a string.
+   * Render this element as an HTML string.
    * @return {string} an HTML string representing this element
    */
-  render() {
-    if (this.isVoid) return `<${this.name}${this._attrs()}/>`
-    return `<${this.name}${this._attrs()}>${this.contents}</${this.name}>`
+  html() {
+    if (this.isVoid) return `<${this.name}${this._attributeString()}/>`
+    return `<${this.name}${this._attributeString()}>${this.contents}</${this.name}>`
   }
 }
