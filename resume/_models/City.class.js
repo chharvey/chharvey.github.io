@@ -1,5 +1,5 @@
-var Util = require('./Util.class.js')
-var Element = require('./Element.class.js')
+var Element = require('helpers-js').Element
+var UtilLocation = require('./UtilLocation.class.js')
 
 /**
  * A class encoding information about a city or town’s location.
@@ -40,7 +40,7 @@ module.exports = class City {
           .addContent(`, `)
           .addElements([
             new Element('abbr').attr('itemprop','addressRegion')
-              .attr('title',Util.STATE_DATA.find((obj) => obj.code===this._region).name)
+              .attr('title',UtilLocation.STATE_DATA.find((obj) => obj.code===this._region).name)
               .addContent(this._region),
           ]),
         new Element('span')

@@ -1,4 +1,4 @@
-var Element  = require('./Element.class.js')
+var Element  = require('helpers-js').Element
 var City     = require('./City.class.js')
 var Skill    = require('./Skill.class.js')
 var Position = require('./Position.class.js')

@@ -1,5 +1,5 @@
-var Util = require('./Util.class.js')
-var Element = require('./Element.class.js')
+var Util = require('helpers-js').Util
+var Element = require('helpers-js').Element
 
 /**
  * A working position I’ve held at an organization tht I’ve worked for.
@@ -71,13 +71,13 @@ module.exports = class Position {
               .addElements([
                 new Element('time')
                   .attr('datetime', this._date_start.toISOString())
-                  .addContent(Util.Date.FORMATS['F Y'](this._date_start)),
+                  .addContent(Util.Date.FORMATS['M Y'](this._date_start)),
               ])
               .addContent(`&ndash;`)
               .addElements([
                 new Element('time')
                   .attr('datetime', this._date_end.toISOString())
-                  .addContent((sameDay(this._date_end, new Date())) ? 'present' : Util.Date.FORMATS['F Y'](this._date_end)),
+                  .addContent((sameDay(this._date_end, new Date())) ? 'present' : Util.Date.FORMATS['M Y'](this._date_end)),
               ]),
             new Element('p').class('c-Position__Place h-Inline')
               .addContent(`(${this._location.html()})`),

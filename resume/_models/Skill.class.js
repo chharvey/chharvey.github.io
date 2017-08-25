@@ -1,4 +1,4 @@
-var Element = require('./Element.class.js')
+var Element = require('helpers-js').Element
 
 /**
  * Skill listed in the Technical Experience section.

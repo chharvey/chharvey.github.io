@@ -1,5 +1,5 @@
-var Util = require('./Util.class.js')
-var Element = require('./Element.class.js')
+var Util = require('helpers-js').Util
+var Element = require('helpers-js').Element
 
 /**
  * Professional development hours.
@@ -49,13 +49,13 @@ module.exports = class ProDev {
            self._date_start.getUTCMonth() !== self._date_end.getUTCMonth()
         || self._date_start.getFullYear() !== self._date_end.getFullYear()
         ) {
-          time_start.addContent(` ${Util.Date.FORMATS['F'](self._date_start)}`)
+          time_start.addContent(` ${Util.Date.FORMATS['M'](self._date_start)}`)
         }
         if (self._date_start.getFullYear() !== self._date_end.getFullYear()) {
           time_start.addContent(`, ${self._date_start.getFullYear()}`)
         }
         let time_end = new Element('time').attr('datetime',self._date_end.toISOString()).attr('itemprop','endDate')
-          .addContent(`${self._date_end.getUTCDate()} ${Util.Date.FORMATS['F Y'](self._date_end)}`)
+          .addContent(`${self._date_end.getUTCDate()} ${Util.Date.FORMATS['M Y'](self._date_end)}`)
         return new Element('dd').class('o-ListAchv__Date h-Inline h-Clearfix')
           .attr('data-class','ProDev.Level')
           .addContent(`(${time_start.html()}&ndash;${time_end.html()})`)

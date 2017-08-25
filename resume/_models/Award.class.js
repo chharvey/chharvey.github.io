@@ -1,4 +1,4 @@
-var Element = require('./Element.class.js')
+var Element = require('helpers-js').Element
 
 /**
  * An award I’ve earned.
