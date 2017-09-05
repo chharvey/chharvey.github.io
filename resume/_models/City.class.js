@@ -27,15 +27,15 @@ module.exports = class City {
    */
   html() {
     return new Element('span')
-      .attrObj({
+      .attr({
+        'data-class': 'City',
         itemprop : 'location',
         itemscope: '',
         itemtype : 'http://schema.org/Place',
-        'data-class': 'City',
       })
       .addElements([
         new Element('span')
-          .attrObj({ itemprop:'address', itemscope:'', itemtype:'http://schema.org/PostalAddress' })
+          .attr({ itemprop:'address', itemscope:'', itemtype:'http://schema.org/PostalAddress' })
           .addElements([new Element('span').attr('itemprop','addressLocality').addContent(this._locality)])
           .addContent(`, `)
           .addElements([
@@ -44,10 +44,12 @@ module.exports = class City {
               .addContent(this._region),
           ]),
         new Element('span')
-          .attrObj({ itemprop:'geo', itemscope:'', itemtype:'http://schema.org/GeoCoordinates' })
+          .attr({ itemprop:'geo', itemscope:'', itemtype:'http://schema.org/GeoCoordinates' })
           .addElements([
-            new Element('meta',true).attr('itemprop','latitude' ).attr('content',this._latitude),
-            new Element('meta',true).attr('itemprop','longitude').attr('content',this._longitude),
+            // new Element('meta').attr('itemprop','latitude' ).attr('content',this._latitude),
+            // new Element('meta').attr('itemprop','longitude').attr('content',this._longitude),
+            new Element('meta').attr('itemprop','latitude' ).attr('content',`${this._latitude}`),
+            new Element('meta').attr('itemprop','longitude').attr('content',`${this._longitude}`),
           ]),
       ])
       .html()

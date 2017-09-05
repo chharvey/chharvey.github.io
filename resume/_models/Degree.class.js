@@ -22,15 +22,18 @@ module.exports = class Degree {
    * @return {string} HTML string
    */
   html() {
-    return [
-      new Element('dt').class('o-ListAchv__Award h-Inline').attr('itemprop','award')
+    return Element.concat(
+      new Element('dt').class('o-ListAchv__Award h-Inline')
         .attr('data-class','Degree.Text')
+        .attr('itemprop','award')
         .addContent(`${this._field}, `)
         .addElements([
           new Element('span').attr('itemscope','').attr('itemtype','http://schema.org/Rating')
             .addElements([
-              new Element('meta',true).attr('itemprop','worstRating').attr('content',0),
-              new Element('span').attr('itemprop','ratingValue').addContent(this._gpa),
+              // new Element('meta').attr('itemprop','worstRating').attr('content',0),
+              // new Element('span').attr('itemprop','ratingValue').addContent(this._gpa),
+              new Element('meta').attr('itemprop','worstRating').attr('content','0'),
+              new Element('span').attr('itemprop','ratingValue').addContent(`${this._gpa}`),
             ])
             .addContent(`/`)
             .addElements([
@@ -44,8 +47,7 @@ module.exports = class Degree {
         .addElements([
           (!(this._year > 0)) ? new Element('small').addContent(`in progress`) : new Element('time').addContent(this._year)
         ])
-        .addContent(`)`),
-    ].map((el) => el.html()).join('')
+        .addContent(`)`)
+    )
   }
-
 }

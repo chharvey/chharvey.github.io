@@ -31,10 +31,10 @@ module.exports = class ProDev {
    * @return {string} HTML string
    */
   html() {
-    return [
+    return Element.concat(
       new Element('dt').class('o-ListAchv__Award h-Inline')
         .attr('data-class','ProDev.Text')
-        .attrObj({ itemprop:'award', itemscope:'', itemtype:this._itemtype })
+        .attr({ itemprop:'award', itemscope:'', itemtype:this._itemtype })
         .addElements([
           new Element('span').attr('itemprop','name').addContent(this._name),
         ])
@@ -42,25 +42,25 @@ module.exports = class ProDev {
         .addElements([
           new Element('time').attr('datetime',`PT${this._hours}H`).attr('itemprop','duration').addContent(` (${this._hours} hr)`),
         ]),
-      (function (self) {
-        let time_start = new Element('time').attr('datetime',self._date_start.toISOString()).attr('itemprop','startDate')
-          .addContent(self._date_start.getUTCDate())
+      (function () {
+        let time_start = new Element('time').attr('datetime',this._date_start.toISOString()).attr('itemprop','startDate')
+          .addContent(this._date_start.getUTCDate())
         if (
-           self._date_start.getUTCMonth() !== self._date_end.getUTCMonth()
-        || self._date_start.getFullYear() !== self._date_end.getFullYear()
+           this._date_start.getUTCMonth() !== this._date_end.getUTCMonth()
+        || this._date_start.getFullYear() !== this._date_end.getFullYear()
         ) {
-          time_start.addContent(` ${Util.Date.FORMATS['M'](self._date_start)}`)
+          time_start.addContent(` ${Util.Date.format(this._date_start, 'M')}`)
         }
-        if (self._date_start.getFullYear() !== self._date_end.getFullYear()) {
-          time_start.addContent(`, ${self._date_start.getFullYear()}`)
+        if (this._date_start.getFullYear() !== this._date_end.getFullYear()) {
+          time_start.addContent(`, ${this._date_start.getFullYear()}`)
         }
-        let time_end = new Element('time').attr('datetime',self._date_end.toISOString()).attr('itemprop','endDate')
-          .addContent(`${self._date_end.getUTCDate()} ${Util.Date.FORMATS['M Y'](self._date_end)}`)
+        let time_end = new Element('time').attr('datetime',this._date_end.toISOString()).attr('itemprop','endDate')
+          .addContent(`${this._date_end.getUTCDate()} ${Util.Date.format(this._date_end, 'M Y')}`)
         return new Element('dd').class('o-ListAchv__Date h-Inline h-Clearfix')
           .attr('data-class','ProDev.Level')
           .addContent(`(${time_start.html()}&ndash;${time_end.html()})`)
-      })(this)
-    ].map((el) => el.html()).join('')
+      }).call(this)
+    )
   }
 
 }
