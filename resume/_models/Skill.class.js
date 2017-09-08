@@ -16,6 +16,14 @@ module.exports = class Skill {
   }
 
   /**
+   * Return this skill’s text content.
+   * @return {string} this._text
+   */
+  get text() {
+    return this._text.slice()
+  }
+
+  /**
    * Render this skill in HTML.
    * Displays:
    * - `Skill#view()` - default display

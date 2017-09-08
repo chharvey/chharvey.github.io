@@ -69,9 +69,12 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
             Resume.SKILLS.technical,
             // Resume.SKILLS.apps,
           ])
-        ul.o-List.c-SkillsListPrint
-          each skill in skills_all
-            li.o-List__Item.h-Inline!= skill._text
+        -
+          let skill_print_opts = { attributes: {
+            list : { class: 'o-List c-SkillsListPrint' },
+            value: { class: 'o-List__Item h-Inline' },
+          } }
+        != Element.data(skills_all.map((sk) => sk.text), skill_print_opts)
         div.o-Grid__Item.o-Grid__Item--maincol.o-Grid.o-Grid--skillGroups
           mixin skillCategory(title, data)
             section.o-Grid__Item.c-Position&attributes(attributes)
