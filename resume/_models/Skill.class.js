@@ -16,19 +16,22 @@ module.exports = class Skill {
   }
 
   /**
-   * Render a skill in HTML.
-   * @param {Skill.Display=} display one of the output display
-   * @param {*=} args display-specific arguments (see inner jsdoc)
-   * @return {string} HTML string
+   * Render this skill in HTML.
+   * Displays:
+   * - `Skill#view()` - default display
+   * @return {string} HTML output
    */
-  view(display = Skill.Display.DEFAULT, ...rest) {
-    let returned = {
+  get view() {
+    let self = this
       /**
-       * Default display.
-       * @return {string} HTML string
+       * Default display. Takes no arguments.
+       * Return a <dt>–<dd> pair of elements:
+       * <dt> skill name, <dd> visualization of skill level.
+       * Call `Skill#view()` to render this display.
+       * @return {string} HTML output
        */
-      [Skill.Display.DEFAULT]: function () {
-        // REVIEW indentation
+    function returned() {
+      return (function () {
     return Element.concat(
       new Element('dt').class('o-Grid__Item')
         .attr('data-instanceof','Skill.Text')
@@ -61,10 +64,9 @@ module.exports = class Skill {
           ]),
         ])
     )
-      },
-      default: function () { return this.view() },
+      }).call(self)
     }
-    return (returned[display] || returned.default).call(this, ...rest)
+    return returned
   }
 
 
@@ -81,15 +83,5 @@ module.exports = class Skill {
       'proficient',
       'expert',
     ]
-  }
-
-  /**
-   * Enum for display formats.
-   * @enum {string}
-   */
-  static get Display() {
-    return {
-      /** Default display. */ DEFAULT: 'view_default',
-    }
   }
 }

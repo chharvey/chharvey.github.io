@@ -27,19 +27,21 @@ module.exports = class ProDev {
   }
 
   /**
-   * Render a ProDev object in HTML.
-   * @param {ProDev.Display=} display one of the output display
-   * @param {*=} args display-specific arguments (see inner jsdoc)
-   * @return {string} HTML string
+   * Render this ProDev object in HTML.
+   * Displays:
+   * - `ProDev#view()` - default display
+   * @return {string} HTML output
    */
-  view(display = ProDev.Display.DEFAULT, ...rest) {
-    let returned = {
+  get view() {
+    let self = this
       /**
-       * Default display.
-       * @return {string} HTML string
+       * Default display. Takes no arguments.
+       * Return a <dt>–<dd> pair of elements:
+       * <dt> text, <dd> dates.
+       * @return {string} HTML output
        */
-      [ProDev.Display.DEFAULT]: function () {
-        // REVIEW indentation
+    function returned() {
+      return (function () {
     return Element.concat(
       new Element('dt').class('o-ListAchv__Award h-Inline')
         .attr('data-instanceof','ProDev.Text')
@@ -66,24 +68,12 @@ module.exports = class ProDev {
         let time_end = new Element('time').attr('datetime',this._date_end.toISOString()).attr('itemprop','endDate')
           .addContent(`${this._date_end.getUTCDate()} ${Util.Date.format(this._date_end, 'M Y')}`)
         return new Element('dd').class('o-ListAchv__Date h-Inline h-Clearfix')
-          .attr('data-instanceof','ProDev.Level')
+          .attr('data-instanceof','ProDev.Dates')
           .addContent(`(${time_start.html()}&ndash;${time_end.html()})`)
       }).call(this)
     )
-      },
-      default: function () { return this.view() },
+      }).call(self)
     }
-    return (returned[display] || returned.default).call(this, ...rest)
-  }
-
-
-  /**
-   * Enum for display formats.
-   * @enum {string}
-   */
-  static get Display() {
-    return {
-      /** Default display. */ DEFAULT: 'view_default',
-    }
+    return returned
   }
 }

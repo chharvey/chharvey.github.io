@@ -18,19 +18,21 @@ module.exports = class Degree {
   }
 
   /**
-   * Render a degree in HTML.
-   * @param {Degree.Display=} display one of the output display
-   * @param {*=} args display-specific arguments (see inner jsdoc)
-   * @return {string} HTML string
+   * Render this degree in HTML.
+   * Displays:
+   * - `Degree#view()` - default display
+   * @return {string} HTML output
    */
-  view(display = Degree.Display.DEFAULT, ...rest) {
-    let returned = {
+  get view() {
+    let self = this
       /**
-       * Default display.
-       * @return {string} HTML string
+       * Default display. Takes no arguments.
+       * Return a <dt>–<dd> pair of elements:
+       * <dt> degree text, <dd> degree year.
+       * @return {string} HTML output
        */
-      [Degree.Display.DEFAULT]: function () {
-        // REVIEW indentation
+    function returned() {
+      return (function () {
     return Element.concat(
       new Element('dt').class('o-ListAchv__Award h-Inline')
         .attr('data-instanceof','Degree.Text')
@@ -58,20 +60,8 @@ module.exports = class Degree {
         ])
         .addContent(`)`)
     )
-      },
-      default: function () { return this.view() },
+      }).call(self)
     }
-    return (returned[display] || returned.default).call(this, ...rest)
-  }
-
-
-  /**
-   * Enum for display formats.
-   * @enum {string}
-   */
-  static get Display() {
-    return {
-      /** Default display. */ DEFAULT: 'view_default',
-    }
+    return returned
   }
 }

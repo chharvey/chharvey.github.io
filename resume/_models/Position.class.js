@@ -38,19 +38,20 @@ module.exports = class Position {
   }
 
   /**
-   * Render a position in HTML.
-   * @param {Position.Display=} display one of the output display
-   * @param {*=} args display-specific arguments (see inner jsdoc)
-   * @return {string} HTML string
+   * Render this position in HTML.
+   * Displays:
+   * - `Position#view()` - default display
+   * @return {string} HTML output
    */
-  view(display = Position.Display.DEFAULT, ...rest) {
-    let returned = {
+  get view() {
+    let self = this
       /**
-       * Default display.
-       * @return {string} HTML string
+       * Default display. Takes no arguments.
+       * Return a <section> element representing this position.
+       * @return {string} HTML output
        */
-      [Position.Display.DEFAULT]: function () {
-        // REVIEW indentation
+    function returned() {
+      return (function () {
     /**
      * Return whether two dates occur on the same day.
      * @param  {Date} date1 the first date
@@ -97,20 +98,8 @@ module.exports = class Position {
         ),
       ])
       .html()
-      },
-      default: function () { return this.view() },
+      }).call(self)
     }
-    return (returned[display] || returned.default).call(this, ...rest)
-  }
-
-
-  /**
-   * Enum for display formats.
-   * @enum {string}
-   */
-  static get Display() {
-    return {
-      /** Default display. */ DEFAULT: 'view_default',
-    }
+    return returned
   }
 }

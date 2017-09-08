@@ -22,19 +22,20 @@ module.exports = class City {
   }
 
   /**
-   * Render a city in HTML.
-   * @param {City.Display=} display one of the output display
-   * @param {*=} args display-specific arguments (see inner jsdoc)
-   * @return {string} HTML string
+   * Render this city in HTML.
+   * Displays:
+   * - `City#view()` - default display
+   * @return {string} HTML output
    */
-  view(display = City.Display.DEFAULT, ...rest) {
-    let returned = {
+  get view() {
+    let self = this
       /**
-       * Default display.
-       * @return {string} HTML string
+       * Default display. Takes no arguments.
+       * Return a <span> marking up this city with microdata.
+       * @return {string} HTML output
        */
-      [City.Display.DEFAULT]: function () {
-        // REVIEW indentation
+    function returned() {
+      return (function () {
     return new Element('span')
       .attr({
         'data-instanceof': 'City',
@@ -62,20 +63,8 @@ module.exports = class City {
           ]),
       ])
       .html()
-      },
-      default: function () { return this.view() },
+      }).call(self)
     }
-    return (returned[display] || returned.default).call(this, ...rest)
-  }
-
-
-  /**
-   * Enum for display formats.
-   * @enum {string}
-   */
-  static get Display() {
-    return {
-      /** Default display. */ DEFAULT: 'view_default',
-    }
+    return returned
   }
 }
