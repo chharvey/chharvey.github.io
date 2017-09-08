@@ -31,10 +31,10 @@ module.exports = class Skill {
         // REVIEW indentation
     return Element.concat(
       new Element('dt').class('o-Grid__Item')
-        .attr('data-class','Skill.Text')
+        .attr('data-instanceof','Skill.Text')
         .addContent(this._text),
       new Element('dd').class('o-Grid__Item')
-        .attr('data-class','Skill.Level')
+        .attr('data-instanceof','Skill.Level')
         .attr({
           'aria-label': Skill.LEVELS[this._level-1],
           title       : Skill.LEVELS[this._level-1], // fallback for aria-label

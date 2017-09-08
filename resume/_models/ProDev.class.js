@@ -42,7 +42,7 @@ module.exports = class ProDev {
         // REVIEW indentation
     return Element.concat(
       new Element('dt').class('o-ListAchv__Award h-Inline')
-        .attr('data-class','ProDev.Text')
+        .attr('data-instanceof','ProDev.Text')
         .attr({ itemprop:'award', itemscope:'', itemtype:this._itemtype })
         .addElements([
           new Element('span').attr('itemprop','name').addContent(this._name),
@@ -66,7 +66,7 @@ module.exports = class ProDev {
         let time_end = new Element('time').attr('datetime',this._date_end.toISOString()).attr('itemprop','endDate')
           .addContent(`${this._date_end.getUTCDate()} ${Util.Date.format(this._date_end, 'M Y')}`)
         return new Element('dd').class('o-ListAchv__Date h-Inline h-Clearfix')
-          .attr('data-class','ProDev.Level')
+          .attr('data-instanceof','ProDev.Level')
           .addContent(`(${time_start.html()}&ndash;${time_end.html()})`)
       }).call(this)
     )

@@ -64,9 +64,9 @@ module.exports = class Position {
     }
     return new Element('section').id(this._id).class('o-Grid__Item o-Grid__Item--maincol c-Position')
       .attr({
-        'data-class': 'Position',
-        itemscope   : '',
-        itemtype    : this._org_type,
+        'data-instanceof': 'Position',
+        itemscope: '',
+        itemtype : this._org_type,
       })
       .attr((sameDay(this._date_end, new Date())) ? {itemprop:'worksFor'} : {})
       .addElements([

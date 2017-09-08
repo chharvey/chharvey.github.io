@@ -37,7 +37,7 @@ module.exports = class City {
         // REVIEW indentation
     return new Element('span')
       .attr({
-        'data-class': 'City',
+        'data-instanceof': 'City',
         itemprop : 'location',
         itemscope: '',
         itemtype : 'http://schema.org/Place',

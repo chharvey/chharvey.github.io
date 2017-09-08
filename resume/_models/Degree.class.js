@@ -33,7 +33,7 @@ module.exports = class Degree {
         // REVIEW indentation
     return Element.concat(
       new Element('dt').class('o-ListAchv__Award h-Inline')
-        .attr('data-class','Degree.Text')
+        .attr('data-instanceof','Degree.Text')
         .attr('itemprop','award')
         .addContent(`${this._field}, `)
         .addElements([
@@ -51,7 +51,7 @@ module.exports = class Degree {
             ]),
         ]),
       new Element('dd').class('o-ListAchv__Date h-Inline h-Clearfix')
-        .attr('data-class','Degree.Level')
+        .attr('data-instanceof','Degree.Year')
         .addContent(`(`)
         .addElements([
           (!(this._year > 0)) ? new Element('small').addContent(`in progress`) : new Element('time').addContent(this._year)
