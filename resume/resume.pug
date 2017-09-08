@@ -47,19 +47,20 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
           span(itemprop="familyName") Harvey
         section
           h2.h-Hidden Contact
-          address: ul.o-List.o-Flex-sK.c-Contact
-            li.o-List__Item.o-Flex__Item-sK.c-Contact__Item
-              a.c-Contact__Link.h-Block(href="tel:+17035072467" itemprop="telephone")
-                div.c-Contact__Icon.octicon.octicon-device-mobile(role="none")
-                div (703) 507-2467
-            li.o-List__Item.o-Flex__Item-sK.c-Contact__Item
-              a.c-Contact__Link.h-Block(rel="author" href="mailto:chrisharvey2pi@gmail.com" itemprop="email")
-                div.c-Contact__Icon.octicon.octicon-mail(role="none")
-                div chrisharvey2pi@gmail.com
-            li.o-List__Item.o-Flex__Item-sK.c-Contact__Item
-              a.c-Contact__Link.h-Block(rel="author" href="https://chharvey.github.io/" itemprop="url")
-                div.c-Contact__Icon.octicon.octicon-home(role="none")
-                div chharvey.github.io
+          -
+            let contact_list = new Element('ul').class('o-List o-Flex-sK c-Contact')
+              .addElements(Resume.CONTACT_DATA.map((item) =>
+                new Element('li').class('o-List__Item o-Flex__Item-sK c-Contact__Item').addElements([
+                  new Element('a').class('c-Contact__Link h-Block')
+                    .attr('href', item.url)
+                    .attr('itemprop', item.itemprop || null)
+                    .addElements([
+                      new Element('div').class('c-Contact__Icon octicon').addClass(item.octicon).attr('role','none'),
+                      new Element('div').addContent(item.content),
+                    ])
+                ])
+              ))
+          address!= contact_list.html()
       section.o-Grid__Item.o-Grid__Item--exp#objective
         h2.o-Grid__Item.c-ExpHn Objective
         p.o-Grid__Item--maincol#obj1(itemprop="seeks") To obtain an entry-level position as a front-end web developer.

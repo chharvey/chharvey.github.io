@@ -478,6 +478,52 @@ module.exports = class Resume {
   /** @private */ constructor() {}
 
   /**
+   * Contact data for this resume.
+   * ```json
+   * {
+   *   "$schema": "http://json-schema.org/draft-06/schema#",
+   *   "title": "Resume.CONTACT_DATA",
+   *   "description": "Contact data for this resume.",
+   *   "type": "array",
+   *   "items": {
+   *     "type": "object",
+   *     "required": ["url", "octicon", "content"],
+   *     "additionalProperties": false,
+   *     "properties": {
+   *       "url"     : { "type": "string", "description": "url of the link" },
+   *       "octicon" : { "type": "string", "description": "octicon CSS class of the icon" },
+   *       "itemprop": { "type": "string", "description": "(optional) itemprop Microdata of the contact point" },
+   *       "content" : { "type": "string", "description": "text content of the link" }
+   *     }
+   *   }
+   * }
+   * ```
+   * @type {Array<Object<string>>}
+   */
+  static get CONTACT_DATA() {
+    return [
+      {
+        url     : 'tel:+17035072467',
+        octicon : 'octicon-device-mobile',
+        itemprop: 'telephone',
+        content : `(703) 507-2467`,
+      },
+      {
+        url     : 'mailto:chrisharvey2pi@gmail.com',
+        octicon : 'octicon-mail',
+        itemprop: 'email',
+        content : `chrisharvey2pi@gmail.com`,
+      },
+      {
+        url     : 'https://chharvey.github.io/',
+        octicon : 'octicon-home',
+        itemprop: 'url',
+        content : `chharvey.github.io`,
+      },
+    ]
+  }
+
+  /**
    * List of skills, grouped by category.
    * @type {Object<Array<Skill>>}
    */

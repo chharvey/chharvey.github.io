@@ -68,7 +68,7 @@ module.exports = class Position {
         itemscope: '',
         itemtype : this._org_type,
       })
-      .attr((sameDay(this._date_end, new Date())) ? {itemprop:'worksFor'} : {})
+      .attr('itemprop', (sameDay(this._date_end, new Date())) ? 'worksFor' : null)
       .addElements([
         new Element('header').class('c-Position__Head').addElements([
             new Element('h3').class('c-Position__Name h-Inline-sG -pr-1-sG').attr('itemprop','jobTitle').addContent(this._name),
