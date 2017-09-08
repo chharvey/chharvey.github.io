@@ -19,9 +19,18 @@ module.exports = class Degree {
 
   /**
    * Render a degree in HTML.
+   * @param {Degree.Display=} display one of the output display
+   * @param {*=} args display-specific arguments (see inner jsdoc)
    * @return {string} HTML string
    */
-  html() {
+  view(display = Degree.Display.DEFAULT, ...rest) {
+    let returned = {
+      /**
+       * Default display.
+       * @return {string} HTML string
+       */
+      [Degree.Display.DEFAULT]: function () {
+        // REVIEW indentation
     return Element.concat(
       new Element('dt').class('o-ListAchv__Award h-Inline')
         .attr('data-class','Degree.Text')
@@ -49,5 +58,20 @@ module.exports = class Degree {
         ])
         .addContent(`)`)
     )
+      },
+      default: function () { return this.view() },
+    }
+    return (returned[display] || returned.default).call(this, ...rest)
+  }
+
+
+  /**
+   * Enum for display formats.
+   * @enum {string}
+   */
+  static get Display() {
+    return {
+      /** Default display. */ DEFAULT: 'view_default',
+    }
   }
 }

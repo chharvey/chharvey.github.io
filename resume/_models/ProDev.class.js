@@ -28,9 +28,18 @@ module.exports = class ProDev {
 
   /**
    * Render a ProDev object in HTML.
+   * @param {ProDev.Display=} display one of the output display
+   * @param {*=} args display-specific arguments (see inner jsdoc)
    * @return {string} HTML string
    */
-  html() {
+  view(display = ProDev.Display.DEFAULT, ...rest) {
+    let returned = {
+      /**
+       * Default display.
+       * @return {string} HTML string
+       */
+      [ProDev.Display.DEFAULT]: function () {
+        // REVIEW indentation
     return Element.concat(
       new Element('dt').class('o-ListAchv__Award h-Inline')
         .attr('data-class','ProDev.Text')
@@ -38,7 +47,7 @@ module.exports = class ProDev {
         .addElements([
           new Element('span').attr('itemprop','name').addContent(this._name),
         ])
-        .addContent(`, ${this._location.html()}`)
+        .addContent(`, ${this._location.view()}`)
         .addElements([
           new Element('time').attr('datetime',`PT${this._hours}H`).attr('itemprop','duration').addContent(` (${this._hours} hr)`),
         ]),
@@ -61,6 +70,20 @@ module.exports = class ProDev {
           .addContent(`(${time_start.html()}&ndash;${time_end.html()})`)
       }).call(this)
     )
+      },
+      default: function () { return this.view() },
+    }
+    return (returned[display] || returned.default).call(this, ...rest)
   }
 
+
+  /**
+   * Enum for display formats.
+   * @enum {string}
+   */
+  static get Display() {
+    return {
+      /** Default display. */ DEFAULT: 'view_default',
+    }
+  }
 }

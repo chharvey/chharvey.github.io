@@ -17,13 +17,36 @@ module.exports = class Award {
 
   /**
    * Render an award in HTML.
+   * @param {Award.Display=} display one of the output display
+   * @param {*=} args display-specific arguments (see inner jsdoc)
    * @return {string} HTML string
    */
-  html() {
+  view(display = Award.Display.DEFAULT, ...rest) {
+    let returned = {
+      /**
+       * Default display.
+       * @return {string} HTML string
+       */
+      [Award.Display.DEFAULT]: function () {
+        // REVIEW indentation
     return Element.concat(
       new Element('dt').class('o-ListAchv__Award h-Inline').attr('data-class','Award.Text').attr('itemprop','award').addContent(this._text),
       new Element('dd').class('o-ListAchv__Date h-Inline h-Clearfix').attr('data-class','Award.Level').addContent(`(${this._dates})`)
     )
+      },
+      default: function () { return this.view() },
+    }
+    return (returned[display] || returned.default).call(this, ...rest)
   }
 
+
+  /**
+   * Enum for display formats.
+   * @enum {string}
+   */
+  static get Display() {
+    return {
+      /** Default display. */ DEFAULT: 'view_default',
+    }
+  }
 }

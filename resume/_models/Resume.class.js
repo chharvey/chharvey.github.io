@@ -377,7 +377,7 @@ const AWARDS = [
       .addContent([
         new Award(`<time>2005</time>&ndash;<time>2006</time>`,`Trombone I &amp; Field Captain`),
         new Award(`<time>2003</time>&ndash;<time>2004</time>`,`Trombone II`),
-      ].map((el) => el.html()).join(''))
+      ].map((item) => item.view()).join(''))
       .html()
   ),
 ]
@@ -427,7 +427,7 @@ const TEAMS = [
           .addContent([
             new Award(`<time>2003</time>&ndash;<time>2006</time>`,`Four-year letter achiever`),
             new Award(`<time>2004</time>, <time>2006</time>`,`VA State qualifier for 200 Free Relay`),
-          ].map((item) => item.html()).join('')),
+          ].map((item) => item.view()).join('')),
       ])
       .html()
   ),
@@ -460,7 +460,7 @@ const TEAMS = [
           .addContent([
             new Award(`<time>2005</time>`,`Team record breaker in 200 Free Relay`),
             new Award(`<time>2000</time>, <time>2002</time>`,`All-Star competitor in 50 Free`),
-          ].map((item) => item.html()).join('')),
+          ].map((item) => item.view()).join('')),
       ])
       .html()
   ),

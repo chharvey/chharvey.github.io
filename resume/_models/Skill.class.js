@@ -17,9 +17,18 @@ module.exports = class Skill {
 
   /**
    * Render a skill in HTML.
+   * @param {Skill.Display=} display one of the output display
+   * @param {*=} args display-specific arguments (see inner jsdoc)
    * @return {string} HTML string
    */
-  html() {
+  view(display = Skill.Display.DEFAULT, ...rest) {
+    let returned = {
+      /**
+       * Default display.
+       * @return {string} HTML string
+       */
+      [Skill.Display.DEFAULT]: function () {
+        // REVIEW indentation
     return Element.concat(
       new Element('dt').class('o-Grid__Item')
         .attr('data-class','Skill.Text')
@@ -52,7 +61,13 @@ module.exports = class Skill {
           ]),
         ])
     )
+      },
+      default: function () { return this.view() },
+    }
+    return (returned[display] || returned.default).call(this, ...rest)
   }
+
+
 
   /**
    * An array possible skill levels in increasing order.
@@ -66,5 +81,15 @@ module.exports = class Skill {
       'proficient',
       'expert',
     ]
+  }
+
+  /**
+   * Enum for display formats.
+   * @enum {string}
+   */
+  static get Display() {
+    return {
+      /** Default display. */ DEFAULT: 'view_default',
+    }
   }
 }

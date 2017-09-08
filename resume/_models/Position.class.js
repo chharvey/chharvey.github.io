@@ -38,10 +38,19 @@ module.exports = class Position {
   }
 
   /**
-   * Render an organization in HTML.
+   * Render a position in HTML.
+   * @param {Position.Display=} display one of the output display
+   * @param {*=} args display-specific arguments (see inner jsdoc)
    * @return {string} HTML string
    */
-  html() {
+  view(display = Position.Display.DEFAULT, ...rest) {
+    let returned = {
+      /**
+       * Default display.
+       * @return {string} HTML string
+       */
+      [Position.Display.DEFAULT]: function () {
+        // REVIEW indentation
     /**
      * Return whether two dates occur on the same day.
      * @param  {Date} date1 the first date
@@ -53,12 +62,13 @@ module.exports = class Position {
         &&   (date1.getUTCMonth() === date2.getUTCMonth())
         &&   (date1.getUTCDate()  === date2.getUTCDate())
     }
-    let returned = new Element('section').id(this._id).class('o-Grid__Item o-Grid__Item--maincol c-Position')
+    return new Element('section').id(this._id).class('o-Grid__Item o-Grid__Item--maincol c-Position')
       .attr({
         'data-class': 'Position',
         itemscope   : '',
         itemtype    : this._org_type,
       })
+      .attr((sameDay(this._date_end, new Date())) ? {itemprop:'worksFor'} : {})
       .addElements([
         new Element('header').class('c-Position__Head').addElements([
             new Element('h3').class('c-Position__Name h-Inline-sG -pr-1-sG').attr('itemprop','jobTitle').addContent(this._name),
@@ -80,13 +90,27 @@ module.exports = class Position {
                   .addContent((sameDay(this._date_end, new Date())) ? 'present' : Util.Date.format(this._date_end, 'M Y')),
               ]),
             new Element('p').class('c-Position__Place h-Inline')
-              .addContent(`(${this._location.html()})`),
+              .addContent(`(${this._location.view()})`),
         ]),
         new Element('ul').class('c-Position__Body').addElements(
           this._descriptions.map((desc) => new Element('li').addContent(desc))
         ),
       ])
-    if (sameDay(this._date_end, new Date())) returned.attr('itemprop','worksFor')
-    return returned.html()
+      .html()
+      },
+      default: function () { return this.view() },
+    }
+    return (returned[display] || returned.default).call(this, ...rest)
+  }
+
+
+  /**
+   * Enum for display formats.
+   * @enum {string}
+   */
+  static get Display() {
+    return {
+      /** Default display. */ DEFAULT: 'view_default',
+    }
   }
 }

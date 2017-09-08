@@ -23,9 +23,18 @@ module.exports = class City {
 
   /**
    * Render a city in HTML.
+   * @param {City.Display=} display one of the output display
+   * @param {*=} args display-specific arguments (see inner jsdoc)
    * @return {string} HTML string
    */
-  html() {
+  view(display = City.Display.DEFAULT, ...rest) {
+    let returned = {
+      /**
+       * Default display.
+       * @return {string} HTML string
+       */
+      [City.Display.DEFAULT]: function () {
+        // REVIEW indentation
     return new Element('span')
       .attr({
         'data-class': 'City',
@@ -53,5 +62,20 @@ module.exports = class City {
           ]),
       ])
       .html()
+      },
+      default: function () { return this.view() },
+    }
+    return (returned[display] || returned.default).call(this, ...rest)
+  }
+
+
+  /**
+   * Enum for display formats.
+   * @enum {string}
+   */
+  static get Display() {
+    return {
+      /** Default display. */ DEFAULT: 'view_default',
+    }
   }
 }
