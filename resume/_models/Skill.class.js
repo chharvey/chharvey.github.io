@@ -47,13 +47,11 @@ module.exports = class Skill {
       new Element('dd').class('o-Grid__Item')
         .attr('data-instanceof','Skill.Level')
         .attr({
-          'aria-label': Skill.LEVELS[this._level-1],
-          title       : Skill.LEVELS[this._level-1], // fallback for aria-label
           itemscope   : '',
           itemtype    : 'http://schema.org/Rating',
         })
         .addElements([
-          new Element('span').class('h-Hidden').addContent(Skill.LEVELS[this._level-1]), // when css is disabled, colors are not shown
+          new Element('span').class('o-Textbox c-Label c-Label--skss h-Hidden').addContent(Skill.LEVELS[this._level-1]), // TODO create a component; see _hack.less
           // new Element('meta').attr('itemprop','worstRating').attr('content',0),
           // new Element('meta').attr('itemprop','bestRating' ).attr('content',Skill.LEVELS.length),
           // new Element('meta').attr('itemprop','ratingValue').attr('content',this._level),
