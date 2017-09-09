@@ -1,5 +1,5 @@
-var Util = require('./Util.class.js')
-var Element = require('./Element.class.js')
+var Util = require('helpers-js').Util
+var Element = require('helpers-js').Element
 
 /**
  * A working position I’ve held at an organization tht I’ve worked for.
@@ -38,10 +38,20 @@ module.exports = class Position {
   }
 
   /**
-   * Render an organization in HTML.
-   * @return {string} HTML string
+   * Render this position in HTML.
+   * Displays:
+   * - `Position#view()` - default display
+   * @return {string} HTML output
    */
-  html() {
+  get view() {
+    let self = this
+      /**
+       * Default display. Takes no arguments.
+       * Return a <section> element representing this position.
+       * @return {string} HTML output
+       */
+    function returned() {
+      return (function () {
     /**
      * Return whether two dates occur on the same day.
      * @param  {Date} date1 the first date
@@ -53,17 +63,18 @@ module.exports = class Position {
         &&   (date1.getUTCMonth() === date2.getUTCMonth())
         &&   (date1.getUTCDate()  === date2.getUTCDate())
     }
-    let result = new Element('section').id(this._id).class('o-Grid__Item o-Grid__Item--maincol c-Position')
-      .attrObj({
-        'data-class': 'Position',
-        itemscope   : '',
-        itemtype    : this._org_type,
+    return new Element('section').id(this._id).class('o-Grid__Item o-Grid__Item--maincol c-Position')
+      .attr({
+        'data-instanceof': 'Position',
+        itemscope: '',
+        itemtype : this._org_type,
       })
+      .attr('itemprop', (sameDay(this._date_end, new Date())) ? 'worksFor' : null)
       .addElements([
         new Element('header').class('c-Position__Head').addElements([
             new Element('h3').class('c-Position__Name h-Inline-sG -pr-1-sG').attr('itemprop','jobTitle').addContent(this._name),
             new Element('p').class('c-Position__Org h-Inline-sG h-Clearfix-sG').addElements([
-              new Element('a').class('c-Camo').attrObj({ rel:'external', href:this._org_url, itemprop:'url' }).addElements([
+              new Element('a').class('c-Camo').attr({ rel:'external', href:this._org_url, itemprop:'url' }).addElements([
                 new Element('span').attr('itemprop','name').addContent(this._org_name),
               ]),
             ]),
@@ -71,22 +82,24 @@ module.exports = class Position {
               .addElements([
                 new Element('time')
                   .attr('datetime', this._date_start.toISOString())
-                  .addContent(Util.Date.FORMATS['F Y'](this._date_start)),
+                  .addContent(Util.Date.format(this._date_start, 'M Y')),
               ])
               .addContent(`&ndash;`)
               .addElements([
                 new Element('time')
                   .attr('datetime', this._date_end.toISOString())
-                  .addContent((sameDay(this._date_end, new Date())) ? 'present' : Util.Date.FORMATS['F Y'](this._date_end)),
+                  .addContent((sameDay(this._date_end, new Date())) ? 'present' : Util.Date.format(this._date_end, 'M Y')),
               ]),
             new Element('p').class('c-Position__Place h-Inline')
-              .addContent(`(${this._location.html()})`),
+              .addContent(`(${this._location.view()})`),
         ]),
         new Element('ul').class('c-Position__Body').addElements(
           this._descriptions.map((desc) => new Element('li').addContent(desc))
         ),
       ])
-    if (sameDay(this._date_end, new Date())) result.attr('itemprop','worksFor')
-    return result.html()
+      .html()
+      }).call(self)
+    }
+    return returned
   }
 }

@@ -1,4 +1,4 @@
-var Element = require('./Element.class.js')
+var Element = require('helpers-js').Element
 
 /**
  * An degree I’ve earned from a university.
@@ -18,19 +18,33 @@ module.exports = class Degree {
   }
 
   /**
-   * Render a degree in HTML.
-   * @return {string} HTML string
+   * Render this degree in HTML.
+   * Displays:
+   * - `Degree#view()` - default display
+   * @return {string} HTML output
    */
-  html() {
-    return [
-      new Element('dt').class('o-ListAchv__Award h-Inline').attr('itemprop','award')
-        .attr('data-class','Degree.Text')
+  get view() {
+    let self = this
+      /**
+       * Default display. Takes no arguments.
+       * Return a <dt>–<dd> pair of elements:
+       * <dt> degree text, <dd> degree year.
+       * @return {string} HTML output
+       */
+    function returned() {
+      return (function () {
+    return Element.concat(
+      new Element('dt').class('o-ListAchv__Award h-Inline')
+        .attr('data-instanceof','Degree.Text')
+        .attr('itemprop','award')
         .addContent(`${this._field}, `)
         .addElements([
           new Element('span').attr('itemscope','').attr('itemtype','http://schema.org/Rating')
             .addElements([
-              new Element('meta',true).attr('itemprop','worstRating').attr('content',0),
-              new Element('span').attr('itemprop','ratingValue').addContent(this._gpa),
+              // new Element('meta').attr('itemprop','worstRating').attr('content',0),
+              // new Element('span').attr('itemprop','ratingValue').addContent(this._gpa),
+              new Element('meta').attr('itemprop','worstRating').attr('content','0'),
+              new Element('span').attr('itemprop','ratingValue').addContent(`${this._gpa}`),
             ])
             .addContent(`/`)
             .addElements([
@@ -39,13 +53,15 @@ module.exports = class Degree {
             ]),
         ]),
       new Element('dd').class('o-ListAchv__Date h-Inline h-Clearfix')
-        .attr('data-class','Degree.Level')
+        .attr('data-instanceof','Degree.Year')
         .addContent(`(`)
         .addElements([
           (!(this._year > 0)) ? new Element('small').addContent(`in progress`) : new Element('time').addContent(this._year)
         ])
-        .addContent(`)`),
-    ].map((el) => el.html()).join('')
+        .addContent(`)`)
+    )
+      }).call(self)
+    }
+    return returned
   }
-
 }

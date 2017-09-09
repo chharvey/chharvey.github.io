@@ -1,68 +1,8 @@
-const DTE = class {
-  /**
-   * List of full month names in English.
-   * @type {Array<string>}
-   */
-  static get MONTH_NAMES() {
-    return [
-      'January',
-      'February',
-      'March',
-      'April',
-      'May',
-      'June',
-      'July',
-      'August',
-      'September',
-      'October',
-      'November',
-      'December',
-    ]
-  }
-
-  /**
-   * List of full day names in English.
-   * @type {Array<string>}
-   */
-  static get DAY_NAMES() {
-    return [
-      'Sundary',
-      'Monday',
-      'Tuesday',
-      'Wednesday',
-      'Thursday',
-      'Friday',
-      'Saturday',
-    ]
-  }
-
-  /**
-   * Shortcut formatting functions.
-   * @type {Object<function(Date):string>}
-   */
-  static get FORMATS() {
-    return {
-      'F'  : (date) => `${DTE.MONTH_NAMES[date.getUTCMonth()].slice(0,3)}`,
-      'F Y': (date) => `${DTE.MONTH_NAMES[date.getUTCMonth()].slice(0,3)} ${date.getFullYear()}`,
-    }
-  }
-}
-
-
-
 /**
- * Utility class.
  * @module
  */
-module.exports = class Util {
+module.exports = class Util extends require('helpers-js').Util {
   /** @private */ constructor() {}
-
-  /**
-   * Additional static members for the Date class.
-   * @namespace
-   */
-  static get Date() { return DTE }
-
 
   /**
    * NOTE: Type Definition
@@ -71,7 +11,7 @@ module.exports = class Util {
    * @property {string} name    - the name of the state
    * @property {number} pop     - population in people
    * @property {number} area    - area in square km
-   * @property {Util.Region} region - region of US
+   * @property {UtilLocation.Region} region - region of US
    */
 
   /**

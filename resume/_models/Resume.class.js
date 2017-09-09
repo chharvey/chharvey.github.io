@@ -1,4 +1,4 @@
-var Element  = require('./Element.class.js')
+var Element  = require('helpers-js').Element
 var City     = require('./City.class.js')
 var Skill    = require('./Skill.class.js')
 var Position = require('./Position.class.js')
@@ -377,7 +377,7 @@ const AWARDS = [
       .addContent([
         new Award(`<time>2005</time>&ndash;<time>2006</time>`,`Trombone I &amp; Field Captain`),
         new Award(`<time>2003</time>&ndash;<time>2004</time>`,`Trombone II`),
-      ].map((el) => el.html()).join(''))
+      ].map((item) => item.view()).join(''))
       .html()
   ),
 ]
@@ -427,7 +427,7 @@ const TEAMS = [
           .addContent([
             new Award(`<time>2003</time>&ndash;<time>2006</time>`,`Four-year letter achiever`),
             new Award(`<time>2004</time>, <time>2006</time>`,`VA State qualifier for 200 Free Relay`),
-          ].map((item) => item.html()).join('')),
+          ].map((item) => item.view()).join('')),
       ])
       .html()
   ),
@@ -460,7 +460,7 @@ const TEAMS = [
           .addContent([
             new Award(`<time>2005</time>`,`Team record breaker in 200 Free Relay`),
             new Award(`<time>2000</time>, <time>2002</time>`,`All-Star competitor in 50 Free`),
-          ].map((item) => item.html()).join('')),
+          ].map((item) => item.view()).join('')),
       ])
       .html()
   ),
@@ -476,6 +476,52 @@ const TEAMS = [
  */
 module.exports = class Resume {
   /** @private */ constructor() {}
+
+  /**
+   * Contact data for this resume.
+   * ```json
+   * {
+   *   "$schema": "http://json-schema.org/draft-06/schema#",
+   *   "title": "Resume.CONTACT_DATA",
+   *   "description": "Contact data for this resume.",
+   *   "type": "array",
+   *   "items": {
+   *     "type": "object",
+   *     "required": ["url", "octicon", "content"],
+   *     "additionalProperties": false,
+   *     "properties": {
+   *       "url"     : { "type": "string", "description": "url of the link" },
+   *       "octicon" : { "type": "string", "description": "octicon CSS class of the icon" },
+   *       "itemprop": { "type": "string", "description": "(optional) itemprop Microdata of the contact point" },
+   *       "content" : { "type": "string", "description": "text content of the link" }
+   *     }
+   *   }
+   * }
+   * ```
+   * @type {Array<Object<string>>}
+   */
+  static get CONTACT_DATA() {
+    return [
+      {
+        url     : 'tel:+17035072467',
+        octicon : 'octicon-device-mobile',
+        itemprop: 'telephone',
+        content : `(703) 507-2467`,
+      },
+      {
+        url     : 'mailto:chrisharvey2pi@gmail.com',
+        octicon : 'octicon-mail',
+        itemprop: 'email',
+        content : `chrisharvey2pi@gmail.com`,
+      },
+      {
+        url     : 'https://chharvey.github.io/',
+        octicon : 'octicon-home',
+        itemprop: 'url',
+        content : `chharvey.github.io`,
+      },
+    ]
+  }
 
   /**
    * List of skills, grouped by category.
@@ -512,4 +558,30 @@ module.exports = class Resume {
    * @type {Array<Award>}
    */
   static get TEAMS() { return TEAMS }
+
+  /**
+   * Render any data in HTML.
+   * Displays:
+   * - `Util.view(data).contactItem()` - display a contact link
+   * @param  {*} data any data to render
+   * @return {string} HTML output
+   */
+  static view(data) {
+    function returned(data) { throw new Error('Please select a display: Resume.view[display]') }
+    /**
+     * Return a link displaying a contact item,
+     * as a `.c-Contact > .c-Conact__Link` subcomponent.
+     * @return {string} HTML output
+     */
+    returned.contactItem = function () {
+      return new Element('a').class('c-Contact__Link h-Block')
+        .attr('href', data.url)
+        .attr('itemprop', data.itemprop || null)
+        .addElements([
+          new Element('div').class('c-Contact__Icon octicon').addClass(data.octicon).attr('role','none'),
+          new Element('div').addContent(data.content),
+        ]).html()
+    }
+    return returned
+  }
 }

@@ -1,5 +1,5 @@
+var Element = require('helpers-js').Element
 var Util = require('./Util.class.js')
-var Element = require('./Element.class.js')
 
 /**
  * A class encoding information about a city or town’s location.
@@ -22,20 +22,30 @@ module.exports = class City {
   }
 
   /**
-   * Render a city in HTML.
-   * @return {string} HTML string
+   * Render this city in HTML.
+   * Displays:
+   * - `City#view()` - default display
+   * @return {string} HTML output
    */
-  html() {
+  get view() {
+    let self = this
+      /**
+       * Default display. Takes no arguments.
+       * Return a <span> marking up this city with microdata.
+       * @return {string} HTML output
+       */
+    function returned() {
+      return (function () {
     return new Element('span')
-      .attrObj({
+      .attr({
+        'data-instanceof': 'City',
         itemprop : 'location',
         itemscope: '',
         itemtype : 'http://schema.org/Place',
-        'data-class': 'City',
       })
       .addElements([
         new Element('span')
-          .attrObj({ itemprop:'address', itemscope:'', itemtype:'http://schema.org/PostalAddress' })
+          .attr({ itemprop:'address', itemscope:'', itemtype:'http://schema.org/PostalAddress' })
           .addElements([new Element('span').attr('itemprop','addressLocality').addContent(this._locality)])
           .addContent(`, `)
           .addElements([
@@ -44,12 +54,17 @@ module.exports = class City {
               .addContent(this._region),
           ]),
         new Element('span')
-          .attrObj({ itemprop:'geo', itemscope:'', itemtype:'http://schema.org/GeoCoordinates' })
+          .attr({ itemprop:'geo', itemscope:'', itemtype:'http://schema.org/GeoCoordinates' })
           .addElements([
-            new Element('meta',true).attr('itemprop','latitude' ).attr('content',this._latitude),
-            new Element('meta',true).attr('itemprop','longitude').attr('content',this._longitude),
+            // new Element('meta').attr('itemprop','latitude' ).attr('content',this._latitude),
+            // new Element('meta').attr('itemprop','longitude').attr('content',this._longitude),
+            new Element('meta').attr('itemprop','latitude' ).attr('content',`${this._latitude}`),
+            new Element('meta').attr('itemprop','longitude').attr('content',`${this._longitude}`),
           ]),
       ])
       .html()
+      }).call(self)
+    }
+    return returned
   }
 }

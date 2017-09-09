@@ -1,4 +1,4 @@
-var Element = require('./Element.class.js')
+var Element = require('helpers-js').Element
 
 /**
  * An award I’ve earned.
@@ -16,14 +16,27 @@ module.exports = class Award {
   }
 
   /**
-   * Render an award in HTML.
-   * @return {string} HTML string
+   * Render this award in HTML.
+   * Displays:
+   * - `Award#view()` - default display
+   * @return {string} HTML output
    */
-  html() {
-    return [
-      new Element('dt').class('o-ListAchv__Award h-Inline').attr('data-class','Award.Text').attr('itemprop','award').addContent(this._text),
-      new Element('dd').class('o-ListAchv__Date h-Inline h-Clearfix').attr('data-class','Award.Level').addContent(`(${this._dates})`),
-    ].map((el) => el.html()).join('')
+  get view() {
+    let self = this
+      /**
+       * Default display. Takes no arguments.
+       * Return a <dt>–<dd> pair of elements:
+       * <dt> award text, <dd> award dates.
+       * @return {string} HTML output
+       */
+    function returned() {
+      return (function () {
+    return Element.concat(
+      new Element('dt').class('o-ListAchv__Award h-Inline').attr('data-instanceof','Award.Text').attr('itemprop','award').addContent(this._text),
+      new Element('dd').class('o-ListAchv__Date h-Inline h-Clearfix').attr('data-instanceof','Award.Dates').addContent(`(${this._dates})`)
+    )
+      }).call(self)
+    }
+    return returned
   }
-
 }
