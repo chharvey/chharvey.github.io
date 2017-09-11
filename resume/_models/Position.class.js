@@ -52,52 +52,52 @@ module.exports = class Position {
        */
     function returned() {
       return (function () {
-    /**
-     * Return whether two dates occur on the same day.
-     * @param  {Date} date1 the first date
-     * @param  {Date} date2 the second date
-     * @return {boolean} `true` iff both dates have the same year, same month, *and* same day (date of the month)
-     */
-    function sameDay(date1, date2) {
-      return (date1.getFullYear() === date2.getFullYear())
-        &&   (date1.getUTCMonth() === date2.getUTCMonth())
-        &&   (date1.getUTCDate()  === date2.getUTCDate())
-    }
-    return new Element('section').id(this._id).class('o-Grid__Item o-Grid__Item--maincol c-Position')
-      .attr({
-        'data-instanceof': 'Position',
-        itemscope: '',
-        itemtype : this._org_type,
-      })
-      .attr('itemprop', (sameDay(this._date_end, new Date())) ? 'worksFor' : null)
-      .addElements([
-        new Element('header').class('c-Position__Head').addElements([
-            new Element('h3').class('c-Position__Name h-Inline-sG -pr-1-sG').attr('itemprop','jobTitle').addContent(this._name),
-            new Element('p').class('c-Position__Org h-Inline-sG h-Clearfix-sG').addElements([
-              new Element('a').class('c-Camo').attr({ rel:'external', href:this._org_url, itemprop:'url' }).addElements([
-                new Element('span').attr('itemprop','name').addContent(this._org_name),
-              ]),
+        /**
+         * Return whether two dates occur on the same day.
+         * @param  {Date} date1 the first date
+         * @param  {Date} date2 the second date
+         * @return {boolean} `true` iff both dates have the same year, same month, *and* same day (date of the month)
+         */
+        function sameDay(date1, date2) {
+          return (date1.getFullYear() === date2.getFullYear())
+            &&   (date1.getUTCMonth() === date2.getUTCMonth())
+            &&   (date1.getUTCDate()  === date2.getUTCDate())
+        }
+        return new Element('section').id(this._id).class('o-Grid__Item o-Grid__Item--maincol c-Position')
+          .attr({
+            'data-instanceof': 'Position',
+            itemscope: '',
+            itemtype : this._org_type,
+          })
+          .attr('itemprop', (sameDay(this._date_end, new Date())) ? 'worksFor' : null)
+          .addElements([
+            new Element('header').class('c-Position__Head').addElements([
+                new Element('h3').class('c-Position__Name h-Inline-sG -pr-1-sG').attr('itemprop','jobTitle').addContent(this._name),
+                new Element('p').class('c-Position__Org h-Inline-sG h-Clearfix-sG').addElements([
+                  new Element('a').class('c-Camo').attr({ rel:'external', href:this._org_url, itemprop:'url' }).addElements([
+                    new Element('span').attr('itemprop','name').addContent(this._org_name),
+                  ]),
+                ]),
+                new Element('p').class('c-Position__Dates h-Inline')
+                  .addElements([
+                    new Element('time')
+                      .attr('datetime', this._date_start.toISOString())
+                      .addContent(Util.Date.format(this._date_start, 'M Y')),
+                  ])
+                  .addContent(`&ndash;`)
+                  .addElements([
+                    new Element('time')
+                      .attr('datetime', this._date_end.toISOString())
+                      .addContent((sameDay(this._date_end, new Date())) ? 'present' : Util.Date.format(this._date_end, 'M Y')),
+                  ]),
+                new Element('p').class('c-Position__Place h-Inline')
+                  .addContent(`(${this._location.view()})`),
             ]),
-            new Element('p').class('c-Position__Dates h-Inline')
-              .addElements([
-                new Element('time')
-                  .attr('datetime', this._date_start.toISOString())
-                  .addContent(Util.Date.format(this._date_start, 'M Y')),
-              ])
-              .addContent(`&ndash;`)
-              .addElements([
-                new Element('time')
-                  .attr('datetime', this._date_end.toISOString())
-                  .addContent((sameDay(this._date_end, new Date())) ? 'present' : Util.Date.format(this._date_end, 'M Y')),
-              ]),
-            new Element('p').class('c-Position__Place h-Inline')
-              .addContent(`(${this._location.view()})`),
-        ]),
-        new Element('ul').class('c-Position__Body').addElements(
-          this._descriptions.map((desc) => new Element('li').addContent(desc))
-        ),
-      ])
-      .html()
+            new Element('ul').class('c-Position__Body').addElements(
+              this._descriptions.map((desc) => new Element('li').addContent(desc))
+            ),
+          ])
+          .html()
       }).call(self)
     }
     return returned
