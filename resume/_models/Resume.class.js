@@ -8,41 +8,41 @@ var ProDev   = require('./ProDev.class.js')
 
 const SKILLS = {
   content: [
-    new Skill(5, '<span class="c-Acro">HTML</span>/<a class="c-Camo" rel="external" href="https://pugjs.org">Pug</a>'),
-    new Skill(4, 'Microdata,<a class="c-Camo" rel="external" href="https://schema.org/">Schema.org</a>'),
-    new Skill(3, '<abbr class="c-Acro" title="Web Accessibility Initiative—Accessible Rich Internet Applications">WAI-ARIA</abbr>'),
+    new Skill(5, `<span class="c-Acro">HTML</span>/<cite>Pug</cite>`),
+    new Skill(4, `Microdata, Schema.org`),
+    new Skill(3, `<span class="c-Acro">WAI-ARIA</span>`),
+    new Skill(2, `<cite aria-label="LaTeX">\\(\\LaTeX\\)</cite>`),
   ],
   design: [
-    new Skill(5, '<span class="c-Acro">CSS</span>/<a class="c-Camo" rel="external" href="http://lesscss.org">Less</a>'),
-    new Skill(3, '<span class="c-Acro">SVG</span>'),
-    new Skill(4, '<a class="c-Camo"rel="external" href="http://jquery.com/">jQuery</a>'),
-    new Skill(1, '<a class="c-Camo"rel="external" href="http://d3js.org/"><abbr title="Data-Driven Documents">D3</abbr>.js</a>'),
+    new Skill(5, `<span class="c-Acro">CSS</span>/Less`),
+    new Skill(3, `<span class="c-Acro">SVG</span>`),
+    new Skill(4, `<cite>jQuery</cite>`),
+    new Skill(1, `<cite>D3.js</cite>`),
   ],
   programming: [
-    new Skill(5, '<a class="c-Camo" rel="external" href="https://nodejs.org/">node.js</a>/<a class="c-Camo" rel="external" href="https://www.npmjs.com/">npm</a>'),
-    // new Skill(4, 'ES6'),
-    new Skill(2, 'Java'),
-    new Skill(5, '<a class="c-Camo"rel="external" href="http://git-scm.com/">Git</a>'),
+    new Skill(5, `node.js/npm`),
+    new Skill(4, `ES6`),
+    new Skill(2, `Java`),
+    new Skill(5, `Git`),
   ],
   data: [
-    new Skill(3, '<span class="c-Acro">XML</span>/<abbr class="c-Acro" title="XML Schema Definition">XSD</abbr>'),
-    // json schema (3)
-    new Skill(4, '<a class="c-Camo"rel="external" href="http://www.latex-project.org/">\\(\\LaTeX\\)</a>'),
-    // new Skill(1, '<abbr class="c-Acro" title="XML Stylesheet Language: Transformation">XSLT</abbr>'),
-    // new Skill(2, '<abbr class="c-Acro" title="PHP: Hypertext Preprocessor">PHP</abbr>'),
+    new Skill(3, `<span class="c-Acro">XML</span>/<span class="c-Acro">XSD</span>`),
+    new Skill(3, `<span class="c-Acro">JSON</span> schema`),
+    new Skill(1, `<span class="c-Acro">XSLT</span>`),
+    new Skill(2, `<span class="c-Acro">PHP</span>`),
   ],
   technical: [
-    new Skill(5, 'technical writing &amp; style guides'),
-    new Skill(3, 'color theory'),
-    new Skill(4, 'typography'),
+    new Skill(5, `technical writing &amp; style guides`),
+    new Skill(3, `color theory`),
+    new Skill(4, `web typography`),
   ],
   apps: [
-    new Skill(4, 'Key Curriculum Press <cite>Geometer&rsquo;s Sketchpad</cite>'),
-    new Skill(2, 'Key Curriculum Press <cite>TinkerPlots</cite>'),
-    new Skill(1, '<cite>Calculator-Based Ranger 2</cite>; <cite>TI-Navigator</cite>'),
-    new Skill(3, 'SMART Technologies'),
-    new Skill(1, '<cite>Logic Studio 9</cite>'),
-    new Skill(1, 'Sonic Studio <cite>Soundblade</cite>'),
+    new Skill(4, `Key Curriculum Press <cite>Geometer&rsquo;s Sketchpad</cite>`),
+    new Skill(2, `Key Curriculum Press <cite>TinkerPlots</cite>`),
+    new Skill(1, `<cite>Calculator-Based Ranger 2</cite>; <cite>TI-Navigator</cite>`),
+    new Skill(3, `SMART Technologies`),
+    new Skill(1, `<cite>Logic Studio 9</cite>`),
+    new Skill(1, `Sonic Studio <cite>Soundblade</cite>`),
   ],
 }
 
@@ -260,100 +260,77 @@ const DEGREES = [
 ]
 
 const PRODEVS = [
-  new Award(`<time>2011</time>&ndash;<time>2014</time>`,
-    new Element('span')
-      .attr('itemscope','').attr('itemtype','http://schema.org/EducationalOrganization')
-      .addElements([
-        new Element('abbr').class('c-Acro')
-          .attr('title','Virginia Council of Teachers of Mathematics').attr('itemprop','name')
-          .addElements([ new Element('span').class('c-Acro__First').addContent(`V`) ])
-          .addContent(`CTM`)
-      ])
-      .addContent(` Conference, annually statewide (<time datetime="PT40H">10 hr each</time>)`)
-      .html()
-  ),
+  new Award(`<time>2011</time>&ndash;<time>2014</time>`, `
+    <span itemscope="" itemtype="http://schema.org/EducationalOrganization">
+      <abbr class="c-Acro" title="Virginia Council of Teachers of Mathematics" itemprop="name">
+        <span class="c-Acro__First">V</span>CTM
+      </abbr> Conference, annually statewide (<time datetime="PT40H">10 hr each</time>)
+    </span>
+  `),
   new ProDev(
     { start: new Date('2014-03-14'), end: new Date('2014-03-15') },
     new City('Harrisonburg', 'VA', { lat: 38.4393105, lon: -78.8711824 }),
     10,
-    new Element('span')
-      .attr('itemprop','organizer').attr('itemscope','').attr('itemtype','http://schema.org/EducationalOrganization')
-      .addElements([
-        new Element('abbr').class('c-Acro')
-          .attr('title','Virginia Council of Teachers of Mathematics').attr('itemprop','name')
-          .addElements([ new Element('span').class('c-Acro__First').addContent(`V`) ])
-          .addContent(`CTM`)
-      ])
-      .addContent(` Conference`)
-      .html(),
+    `
+      <span itemprop="organizer" itemscope="" itemtype="http://schema.org/EducationalOrganization">
+        <abbr class="c-Acro" title="Virginia Council of Teachers of Mathematics" itemprop="name">
+          <span class="c-Acro__First">V</span>CTM
+        </abbr> Conference
+      </span>
+    `,
     'http://schema.org/EducationEvent'
   ),
   new ProDev(
     { start: new Date('2013-03-08'), end: new Date('2013-03-09') },
     new City('Virginia Beach', 'VA', { lat: 36.7674971, lon: -76.0476647 }),
     10,
-    new Element('span')
-      .attr('itemprop','organizer').attr('itemscope','').attr('itemtype','http://schema.org/EducationalOrganization')
-      .addElements([
-        new Element('abbr').class('c-Acro')
-          .attr('title','Virginia Council of Teachers of Mathematics').attr('itemprop','name')
-          .addElements([ new Element('span').class('c-Acro__First').addContent(`V`) ])
-          .addContent(`CTM`)
-      ])
-      .addContent(` Conference`)
-      .html(),
+    `
+      <span itemprop="organizer" itemscope="" itemtype="http://schema.org/EducationalOrganization">
+        <abbr class="c-Acro" title="Virginia Council of Teachers of Mathematics" itemprop="name">
+          <span class="c-Acro__First">V</span>CTM
+        </abbr> Conference
+      </span>
+    `,
     'http://schema.org/EducationEvent'
   ),
   new ProDev(
     { start: new Date('2012-03-09'), end: new Date('2012-03-10') },
     new City('Roanoke', 'VA', { lat: 37.2743219, lon: -79.9575425 }),
     10,
-    new Element('span')
-      .attr('itemprop','organizer').attr('itemscope','').attr('itemtype','http://schema.org/EducationalOrganization')
-      .addElements([
-        new Element('abbr').class('c-Acro')
-          .attr('title','Virginia Council of Teachers of Mathematics').attr('itemprop','name')
-          .addElements([ new Element('span').class('c-Acro__First').addContent(`V`) ])
-          .addContent(`CTM`)
-      ])
-      .addContent(` Conference`)
-      .html(),
+    `
+      <span itemprop="organizer" itemscope="" itemtype="http://schema.org/EducationalOrganization">
+        <abbr class="c-Acro" title="Virginia Council of Teachers of Mathematics" itemprop="name">
+          <span class="c-Acro__First">V</span>CTM
+        </abbr> Conference
+      </span>
+    `,
     'http://schema.org/EducationEvent'
   ),
   new ProDev(
     { start: new Date('2011-03-11'), end: new Date('2011-03-12') },
     new City('Richmond', 'VA', { lat: 37.5246609, lon: -77.4932615 }),
     10,
-    new Element('span')
-      .attr('itemprop','organizer').attr('itemscope','').attr('itemtype','http://schema.org/EducationalOrganization')
-      .addElements([
-        new Element('abbr').class('c-Acro')
-          .attr('title','Virginia Council of Teachers of Mathematics').attr('itemprop',"name")
-          .addElements([ new Element('span').class('c-Acro__First').addContent(`V`) ])
-          .addContent(`CTM`)
-      ])
-      .addContent(` Conference`)
-      .html(),
+    `
+      <span itemprop="organizer" itemscope="" itemtype="http://schema.org/EducationalOrganization">
+        <abbr class="c-Acro" title="Virginia Council of Teachers of Mathematics" itemprop="name">
+          <span class="c-Acro__First">V</span>CTM
+        </abbr> Conference
+      </span>
+    `,
     'http://schema.org/EducationEvent'
   ),
-  new Award(`<time datetime="2011-08-12" itemprop="startDate endDate">12 Oct 2011</time>`,
-    new Element('span')
-      .attr('itemscope','').attr('itemtype','http://schema.org/Event')
-      .addElements([
-        new Element('span').attr('itemprop','name').addContent(`Secondary Mathematics Instruction in an Inclusive Classroom`),
-        new Element('time').attr('datetime','PT3H').attr('itemprop','duration').addContent(` (3 hr)`),
-      ])
-      .html()
-  ),
-  new Award(`<time datetime="2009-03-28" itemprop="startDate endDate">28 Mar 2009</time>`,
-    new Element('span')
-      .attr('itemscope','').attr('itemtype','http://schema.org/Event')
-      .addElements([
-        new Element('span').attr('itemprop','name').addContent(`Preservice Teacher Education with TI-Nspire Technology`),
-        new Element('time').attr('datetime','PT9H').attr('itemprop','duration').addContent(` (9 hr)`),
-      ])
-      .html()
-  ),
+  new Award(`<time datetime="2011-08-12" itemprop="startDate endDate">12 Oct 2011</time>`, `
+    <span itemscope="" itemtype="http://schema.org/Event">
+      <span itemprop="name">Secondary Mathematics Instruction in an Inclusive Classroom</span>
+      (<time datetime="PT3H" itemprop="duration">3 hr</time>)
+    </span>
+  `),
+  new Award(`<time datetime="2009-03-28" itemprop="startDate endDate">28 Mar 2009</time>`, `
+    <span itemscope="" itemtype="http://schema.org/Event">
+      <span itemprop="name">Preservice Teacher Education with TI-Nspire Technology</span>
+      (<time datetime="PT9H" itemprop="duration">9 hr</time>)
+    </span>
+  `),
 ]
 
 const AWARDS = [
@@ -371,99 +348,55 @@ const AWARDS = [
     `Dean&rsquo;s List`),
   new Award(`<time>2006</time>`,
     `<span itemscope="" itemtype="http://schema.org/EducationalOrganization"><span itemprop="name">National Honor Society</span></span>`),
-  new Award(`<time>2003</time>&ndash;<time>2006</time>`,
-    `Fairfax High School Marching, Symphonic, Jazz Bands`
-    + new Element('dl').class('o-ListAchv')
-      .addContent([
-        new Award(`<time>2005</time>&ndash;<time>2006</time>`,`Trombone I &amp; Field Captain`),
-        new Award(`<time>2003</time>&ndash;<time>2004</time>`,`Trombone II`),
-      ].map((item) => item.view()).join(''))
-      .html()
-  ),
+  new Award(`<time>2003</time>&ndash;<time>2006</time>`, `
+    Fairfax High School Marching, Symphonic, Jazz Bands
+    <dl class="o-ListAchv">
+      ${new Award(`<time>2005</time>&ndash;<time>2006</time>`,`Trombone I &amp; Field Captain`).view()}
+      ${new Award(`<time>2003</time>&ndash;<time>2004</time>`,`Trombone II`).view()}
+    </dl>
+  `),
 ]
 
 const TEAMS = [
-  new Award(`<time>2007</time>&ndash;<time>2012</time>`,
-    new Element('span')
-      .attr('itemscope','').attr('itemtype','http://schema.org/SportsTeam')
-      .addElements([
-        new Element('a').class('c-Camo')
-          .attr('rel','external').attr('href','http://www.swim.org.vt.edu/').attr('itemprop','url')
-          // .attrObj({ rel:'external', href:'http://www.swim.org.vt.edu/', itemprop:'url' })
-          .addElements([
-            new Element('span').attr('itemprop','name')
-              .addContent(`Virginia Tech `)
-              .addElements([ new Element('span').attr('itemprop','sport').addContent(`Swim`) ])
-              .addContent(` Club`)
-          ])
-      ]).html()
-  ),
-  new Award(`<time>2003</time>&ndash;<time>2006</time>`,
-    new Element('div').attr('style','display:inline;')
-      .attr('itemscope','').attr('itemtype','http://schema.org/SportsTeam')
-      .addElements([
-        new Element('a').class('c-Camo')
-          .attr('rel','external').attr('href','http://www.fairfaxhighsports.org/index.cfm?action=main.team&ID=2329').attr('itemprop','url')
-          .addElements([
-            new Element('span').attr('itemprop','name')
-              .addContent(`Fairfax High School Varsity `)
-              .addElements([ new Element('span').attr('itemprop','sport').addContent(`Swim and Dive`) ])
-          ])
-      ])
-      .addContent(`, `)
-      .addElements([
-        new Element('span')
-          .attr('itemscope','').attr('itemtype','http://schema.org/EducationalOrganization')
-          .addElements([
-            new Element('a').class('c-Camo')
-              .attr('rel','external').attr('href','http://www.vhsl.org/').attr('itemprop','url')
-              .addElements([
-                new Element('abbr').class('c-Acro')
-                  .attr('title','Virginia High School League').attr('itemprop','name')
-                  .addContent(`VHSL`)
-              ])
-          ]),
-        new Element('dl').class('o-ListAchv')
-          .addContent([
-            new Award(`<time>2003</time>&ndash;<time>2006</time>`,`Four-year letter achiever`),
-            new Award(`<time>2004</time>, <time>2006</time>`,`VA State qualifier for 200 Free Relay`),
-          ].map((item) => item.view()).join('')),
-      ])
-      .html()
-  ),
-  new Award(`<time>1994</time>&ndash;<time>2006</time>`,
-    new Element('div').attr('style','display:inline;')
-      .attr('itemscope','').attr('itemtype','http://schema.org/SportsTeam')
-      .addElements([
-        new Element('a').class('c-Camo')
-          .attr('rel','external').attr('href','http://villaaquatic.com/').attr('itemprop','url')
-          .addElements([
-            new Element('span').attr('itemprop','name')
-              .addContent(`Villa Aquatic `)
-              .addElements([ new Element('span').attr('itemprop','sport').addContent(`Swim and Dive`) ])
-          ])
-      ])
-      .addContent(`, `)
-      .addElements([
-        new Element('span')
-          .attr('itemscope','').attr('itemtype','http://schema.org/Organization')
-          .addElements([
-            new Element('a').class('c-Camo')
-              .attr('rel','external').attr('href','http://nvsl.nvblu.com/').attr('itemprop','url')
-              .addElements([
-                new Element('abbr').class('c-Acro')
-                  .attr('title','Northern Virginia Swim League').attr('itemprop','name')
-                  .addContent(`NVSL`)
-              ])
-          ]),
-        new Element('dl').class('o-ListAchv')
-          .addContent([
-            new Award(`<time>2005</time>`,`Team record breaker in 200 Free Relay`),
-            new Award(`<time>2000</time>, <time>2002</time>`,`All-Star competitor in 50 Free`),
-          ].map((item) => item.view()).join('')),
-      ])
-      .html()
-  ),
+  new Award(`<time>2007</time>&ndash;<time>2012</time>`, `
+    <span itemscope="" itemtype="http://schema.org/SportsTeam">
+      <a class="c-Camo" rel="external" href="http://www.swim.org.vt.edu/" itemprop="url">
+        <span itemprop="name">Virginia Tech <span itemprop="sport">Swim</span> Club</span>
+      </a>
+    </span>
+  `),
+  new Award(`<time>2003</time>&ndash;<time>2006</time>`, `
+    <div class="h-Inline" itemscope="" itemtype="http://schema.org/SportsTeam">
+      <a class="c-Camo" rel="external" href="http://www.fairfaxhighsports.org/index.cfm?action=main.team&ID=2329" itemprop="url">
+        <span itemprop="name">Fairfax High School Varsity <span itemprop="sport">Swim and Dive</span></span>
+      </a>,
+      <span itemscope="" itemtype="http://schema.org/EducationalOrganization">
+        <a class="c-Camo" rel="external" href="http://www.vhsl.org/" itemprop="url">
+          <abbr class="c-Acro" title="Virginia High School League" itemprop="name">VHSL</abbr>
+        </a>
+      </span>
+      <dl class="o-ListAchv">
+        ${new Award(`<time>2003</time>&ndash;<time>2006</time>`,`Four-year letter achiever`).view()}
+        ${new Award(`<time>2004</time>, <time>2006</time>`,`VA State qualifier for 200 Free Relay`).view()}
+      </dl>
+    </div>
+  `),
+  new Award(`<time>1994</time>&ndash;<time>2006</time>`, `
+    <div class="h-Inline" itemscope="" itemtype="http://schema.org/SportsTeam">
+      <a class="c-Camo" rel="external" href="http://www.villaaquatic.com/" itemprop="url">
+        <span itemprop="name">Villa Aquatic <span itemprop="sport">Swim and Dive</span></span>
+      </a>,
+      <span itemscope="" itemtype="http://schema.org/Organization">
+        <a class="c-Camo" rel="external" href="http://nvsl.nvblu.com/" itemprop="url">
+          <abbr class="c-Acro" title="Northern Virginia Swim League" itemprop="name">NVSL</abbr>
+        </a>
+      </span>
+      <dl class="o-ListAchv">
+        ${new Award(`<time>2005</time>`,`Team record breaker in 200 Free Relay`).view()}
+        ${new Award(`<time>2000</time>, <time>2002</time>`,`All-Star competitor in 50 Free`).view()}
+      </dl>
+    </div>
+  `),
 ]
 
 /**
