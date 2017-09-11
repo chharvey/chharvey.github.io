@@ -33,33 +33,31 @@ module.exports = class Degree {
        */
     function returned() {
       return (function () {
-    return Element.concat(
-      new Element('dt').class('o-ListAchv__Award h-Inline')
-        .attr('data-instanceof','Degree.Text')
-        .attr('itemprop','award')
-        .addContent(`${this._field}, `)
-        .addElements([
-          new Element('span').attr('itemscope','').attr('itemtype','http://schema.org/Rating')
+        return Element.concat(
+          new Element('dt').class('o-ListAchv__Award h-Inline')
+            .attr('data-instanceof','Degree.Text')
+            .attr('itemprop','award')
+            .addContent(`${this._field}, `)
             .addElements([
-              // new Element('meta').attr('itemprop','worstRating').attr('content',0),
-              // new Element('span').attr('itemprop','ratingValue').addContent(this._gpa),
-              new Element('meta').attr('itemprop','worstRating').attr('content','0'),
-              new Element('span').attr('itemprop','ratingValue').addContent(`${this._gpa}`),
-            ])
-            .addContent(`/`)
-            .addElements([
-              new Element('span').attr('itemprop','bestRating').addContent(`4.0 `),
-              new Element('abbr').class('c-Acro').attr('title','Grade Point Average').attr('itemprop','name').addContent(`GPA`),
+              new Element('span').attr('itemscope','').attr('itemtype','http://schema.org/Rating')
+                .addElements([
+                  new Element('meta').attr('itemprop','worstRating').attr('content',0),
+                  new Element('span').attr('itemprop','ratingValue').addContent(this._gpa),
+                ])
+                .addContent(`/`)
+                .addElements([
+                  new Element('span').attr('itemprop','bestRating').addContent(`4.0 `),
+                  new Element('abbr').class('c-Acro').attr('title','Grade Point Average').attr('itemprop','name').addContent(`GPA`),
+                ]),
             ]),
-        ]),
-      new Element('dd').class('o-ListAchv__Date h-Inline h-Clearfix')
-        .attr('data-instanceof','Degree.Year')
-        .addContent(`(`)
-        .addElements([
-          (!(this._year > 0)) ? new Element('small').addContent(`in progress`) : new Element('time').addContent(this._year)
-        ])
-        .addContent(`)`)
-    )
+          new Element('dd').class('o-ListAchv__Date h-Inline h-Clearfix')
+            .attr('data-instanceof','Degree.Year')
+            .addContent(`(`)
+            .addElements([
+              (!(this._year > 0)) ? new Element('small').addContent(`in progress`) : new Element('time').addContent(this._year)
+            ])
+            .addContent(`)`)
+        )
       }).call(self)
     }
     return returned

@@ -36,33 +36,31 @@ module.exports = class City {
        */
     function returned() {
       return (function () {
-    return new Element('span')
-      .attr({
-        'data-instanceof': 'City',
-        itemprop : 'location',
-        itemscope: '',
-        itemtype : 'http://schema.org/Place',
-      })
-      .addElements([
-        new Element('span')
-          .attr({ itemprop:'address', itemscope:'', itemtype:'http://schema.org/PostalAddress' })
-          .addElements([new Element('span').attr('itemprop','addressLocality').addContent(this._locality)])
-          .addContent(`, `)
+        return new Element('span')
+          .attr({
+            'data-instanceof': 'City',
+            itemprop : 'location',
+            itemscope: '',
+            itemtype : 'http://schema.org/Place',
+          })
           .addElements([
-            new Element('abbr').attr('itemprop','addressRegion')
-              .attr('title',Util.STATE_DATA.find((obj) => obj.code===this._region).name)
-              .addContent(this._region),
-          ]),
-        new Element('span')
-          .attr({ itemprop:'geo', itemscope:'', itemtype:'http://schema.org/GeoCoordinates' })
-          .addElements([
-            // new Element('meta').attr('itemprop','latitude' ).attr('content',this._latitude),
-            // new Element('meta').attr('itemprop','longitude').attr('content',this._longitude),
-            new Element('meta').attr('itemprop','latitude' ).attr('content',`${this._latitude}`),
-            new Element('meta').attr('itemprop','longitude').attr('content',`${this._longitude}`),
-          ]),
-      ])
-      .html()
+            new Element('span')
+              .attr({ itemprop:'address', itemscope:'', itemtype:'http://schema.org/PostalAddress' })
+              .addElements([new Element('span').attr('itemprop','addressLocality').addContent(this._locality)])
+              .addContent(`, `)
+              .addElements([
+                new Element('abbr').attr('itemprop','addressRegion')
+                  .attr('title',Util.STATE_DATA.find((obj) => obj.code===this._region).name)
+                  .addContent(this._region),
+              ]),
+            new Element('span')
+              .attr({ itemprop:'geo', itemscope:'', itemtype:'http://schema.org/GeoCoordinates' })
+              .addElements([
+                new Element('meta').attr('itemprop','latitude' ).attr('content',this._latitude),
+                new Element('meta').attr('itemprop','longitude').attr('content',this._longitude),
+              ]),
+          ])
+          .html()
       }).call(self)
     }
     return returned

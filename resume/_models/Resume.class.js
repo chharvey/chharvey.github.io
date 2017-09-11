@@ -70,7 +70,7 @@ const POSITIONS = {
         `Implemented a feature that presented students their usage analytics using D3.js.`,
         `Automated construction of a dynamic, interactive graphical user interface with <span class="c-Acro">SVG</span> and Less.`,
         `Generated an interactive visualization for an Item Response Theory function and its parameters.`,
-        `Corresponded with team members and endorsers on an,
+        `Corresponded with team members and endorsers on an
           <a class="c-Camo" rel="external" href="https://www.sbir.gov/"><abbr class="c-Acro" title="Small Business Innovation Research">SBIR</abbr></a>
           grant proposal for extending <cite>Osmosis</cite> to an undergraduate biology platform.`,
       ],
