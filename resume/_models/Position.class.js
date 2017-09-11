@@ -93,10 +93,8 @@ module.exports = class Position {
                 new Element('p').class('c-Position__Place h-Inline')
                   .addContent(`(${this._location.view()})`),
             ]),
-            new Element('ul').class('c-Position__Body').addElements(
-              this._descriptions.map((desc) => new Element('li').addContent(desc))
-            ),
           ])
+          .addContent(Element.data(this._descriptions, { attributes: { list: { class: 'c-Position__Body' } } }))
           .html()
       }).call(self)
     }
