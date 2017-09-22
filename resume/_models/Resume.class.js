@@ -1,4 +1,4 @@
-var Element  = require('helpers-js').Element
+const Element  = require('extrajs-element')
 var City     = require('./City.class.js')
 var Skill    = require('./Skill.class.js')
 var Position = require('./Position.class.js')
@@ -495,7 +495,7 @@ module.exports = class Resume {
   /**
    * Render any data in HTML.
    * Displays:
-   * - `Util.view(data).contactItem()` - display a contact link
+   * - `Resume.view(data).contactItem()` - display a contact link
    * @param  {*} data any data to render
    * @return {string} HTML output
    */

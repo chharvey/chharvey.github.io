@@ -1,7 +1,7 @@
 /**
  * @module
  */
-module.exports = class Util extends require('helpers-js').Util {
+module.exports = class Util {
   /** @private */ constructor() {}
 
   /**

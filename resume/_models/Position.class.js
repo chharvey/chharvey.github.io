@@ -1,5 +1,5 @@
-var Util = require('helpers-js').Util
-var Element = require('helpers-js').Element
+const xjs = require('extrajs').Util
+const Element = require('extrajs-element')
 
 /**
  * A working position I’ve held at an organization tht I’ve worked for.
@@ -52,24 +52,13 @@ module.exports = class Position {
        */
     function returned() {
       return (function () {
-        /**
-         * Return whether two dates occur on the same day.
-         * @param  {Date} date1 the first date
-         * @param  {Date} date2 the second date
-         * @return {boolean} `true` iff both dates have the same year, same month, *and* same day (date of the month)
-         */
-        function sameDay(date1, date2) {
-          return (date1.getFullYear() === date2.getFullYear())
-            &&   (date1.getUTCMonth() === date2.getUTCMonth())
-            &&   (date1.getUTCDate()  === date2.getUTCDate())
-        }
         return new Element('section').id(this._id).class('o-Grid__Item o-Grid__Item--maincol c-Position')
           .attr({
             'data-instanceof': 'Position',
             itemscope: '',
             itemtype : this._org_type,
           })
-          .attr('itemprop', (sameDay(this._date_end, new Date())) ? 'worksFor' : null)
+          .attr('itemprop', (xjs.Date.sameDate(this._date_end, new Date())) ? 'worksFor' : null)
           .addElements([
             new Element('header').class('c-Position__Head').addElements([
                 new Element('h3').class('c-Position__Name h-Inline-sG -pr-1-sG').attr('itemprop','jobTitle').addContent(this._name),
@@ -82,13 +71,13 @@ module.exports = class Position {
                   .addElements([
                     new Element('time')
                       .attr('datetime', this._date_start.toISOString())
-                      .addContent(Util.Date.format(this._date_start, 'M Y')),
+                      .addContent(xjs.Date.format(this._date_start, 'M Y')),
                   ])
                   .addContent(`&ndash;`)
                   .addElements([
                     new Element('time')
                       .attr('datetime', this._date_end.toISOString())
-                      .addContent((sameDay(this._date_end, new Date())) ? 'present' : Util.Date.format(this._date_end, 'M Y')),
+                      .addContent((xjs.Date.sameDate(this._date_end, new Date())) ? 'present' : xjs.Date.format(this._date_end, 'M Y')),
                   ]),
                 new Element('p').class('c-Position__Place h-Inline')
                   .addContent(`(${this._location.view()})`),
