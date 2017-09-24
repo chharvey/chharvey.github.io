@@ -1,4 +1,4 @@
-const Element  = require('extrajs-element')
+const Element = require('extrajs-element')
 
 /**
  * An award I’ve earned.

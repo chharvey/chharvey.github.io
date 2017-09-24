@@ -1,10 +1,10 @@
 const Element  = require('extrajs-element')
-var City     = require('./City.class.js')
-var Skill    = require('./Skill.class.js')
-var Position = require('./Position.class.js')
-var Degree   = require('./Degree.class.js')
-var Award    = require('./Award.class.js')
-var ProDev   = require('./ProDev.class.js')
+const City     = require('./City.class.js')
+const Skill    = require('./Skill.class.js')
+const Position = require('./Position.class.js')
+const Degree   = require('./Degree.class.js')
+const Award    = require('./Award.class.js')
+const ProDev   = require('./ProDev.class.js')
 
 const SKILLS = {
   content: [

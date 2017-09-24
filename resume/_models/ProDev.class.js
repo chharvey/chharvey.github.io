@@ -1,5 +1,5 @@
-const xjs = require('extrajs').Util
-const Element  = require('extrajs-element')
+const xjs     = require('extrajs')
+const Element = require('extrajs-element')
 
 /**
  * Professional development hours.

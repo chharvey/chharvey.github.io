@@ -1,4 +1,4 @@
-const xjs = require('extrajs').Util
+const xjs     = require('extrajs')
 const Element = require('extrajs-element')
 
 /**
