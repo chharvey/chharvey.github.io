@@ -1,4 +1,4 @@
-var Element = require('helpers-js').Element
+const Element = require('extrajs-element')
 
 /**
  * An degree I’ve earned from a university.

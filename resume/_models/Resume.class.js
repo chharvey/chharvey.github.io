@@ -1,10 +1,10 @@
-var Element  = require('helpers-js').Element
-var City     = require('./City.class.js')
-var Skill    = require('./Skill.class.js')
-var Position = require('./Position.class.js')
-var Degree   = require('./Degree.class.js')
-var Award    = require('./Award.class.js')
-var ProDev   = require('./ProDev.class.js')
+const Element  = require('extrajs-element')
+const City     = require('./City.class.js')
+const Skill    = require('./Skill.class.js')
+const Position = require('./Position.class.js')
+const Degree   = require('./Degree.class.js')
+const Award    = require('./Award.class.js')
+const ProDev   = require('./ProDev.class.js')
 
 const SKILLS = {
   content: [
@@ -495,7 +495,7 @@ module.exports = class Resume {
   /**
    * Render any data in HTML.
    * Displays:
-   * - `Util.view(data).contactItem()` - display a contact link
+   * - `Resume.view(data).contactItem()` - display a contact link
    * @param  {*} data any data to render
    * @return {string} HTML output
    */

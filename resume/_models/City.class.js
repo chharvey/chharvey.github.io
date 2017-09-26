@@ -1,5 +1,5 @@
-var Element = require('helpers-js').Element
-var Util = require('./Util.class.js')
+const Element = require('extrajs-element')
+const Util    = require('./Util.class.js')
 
 /**
  * A class encoding information about a city or town’s location.
