@@ -8,31 +8,32 @@ const ProDev   = require('./ProDev.class.js')
 
 const SKILLS = {
   content: [
-    new Skill(5, `<span class="c-Acro">HTML</span>/<cite>Pug</cite>`),
-    new Skill(4, `Microdata, Schema.org`),
-    new Skill(3, `<span class="c-Acro">WAI-ARIA</span>`),
+    new Skill(5, `<span class="c-Acro">HTML</span>`),
+    new Skill(4, `Microdata &amp; Schema.org`),
+    new Skill(3, `<span class="c-Acro">WAI-ARIA</span> &amp; <span class="c-Acro">WCAG</span>`),
     new Skill(2, `<cite aria-label="LaTeX">\\(\\LaTeX\\)</cite>`),
   ],
-  design: [
-    new Skill(5, `<span class="c-Acro">CSS</span>/Less`),
+  ui: [
+    new Skill(5, `<span class="c-Acro">CSS</span>`),
     new Skill(3, `<span class="c-Acro">SVG</span>`),
     new Skill(4, `<cite>jQuery</cite>`),
     new Skill(1, `<cite>D3.js</cite>`),
   ],
   programming: [
-    new Skill(5, `node.js/npm`),
+    new Skill(5, `node.js &amp; npm`),
     new Skill(4, `ES6`),
     new Skill(2, `Java`),
     new Skill(5, `Git`),
   ],
   data: [
-    new Skill(3, `<span class="c-Acro">XML</span>/<span class="c-Acro">XSD</span>`),
+    new Skill(3, `<span class="c-Acro">XML</span> &amp; <span class="c-Acro">XSD</span>`),
     new Skill(3, `<span class="c-Acro">JSON</span> schema`),
     new Skill(1, `<span class="c-Acro">XSLT</span>`),
     new Skill(2, `<span class="c-Acro">PHP</span>`),
   ],
-  technical: [
+  general: [
     new Skill(5, `technical writing &amp; style guides`),
+    new Skill(5, `modular code architecture`),
     new Skill(3, `color theory`),
     new Skill(4, `web typography`),
   ],
@@ -54,7 +55,7 @@ const POSITIONS = {
       dates   : { start: new Date('2015-07'), end: new Date() },
       location: new City('Reston', 'VA', { lat: 38.9555819, lon: -77.3490615 }),
       descriptions: [
-        `Aid the development of 15+ independent conference sites in <a class="c-Camo" rel="external" href="https://www.drupal.org/">Drupal</a>.`,
+        `Develop a <cite>Drupal</cite> framework, building & maintaining 19+ independent conference sites.`,
         `Revamp site-wide <span class="c-Acro">CSS</span> codebase, create and implement new style guide.`,
         `Address cross-browser, cross-platform compatible <span class="c-Acro">CSS</span>.`,
         `Enforce mobile-first layout practices, design decisions.`,
@@ -67,7 +68,7 @@ const POSITIONS = {
       dates   : { start: new Date('2014-10'), end: new Date('2015-03') },
       location: new City('Charlottesville', 'VA', { lat: 38.035974, lon: -78.500286 }),
       descriptions: [
-        `Implemented a feature that presented students their usage analytics using D3.js.`,
+        `Implemented a feature that presented students their usage analytics using <cite>D3.js</cite>.`,
         `Automated construction of a dynamic, interactive graphical user interface with <span class="c-Acro">SVG</span> and Less.`,
         `Generated an interactive visualization for an Item Response Theory function and its parameters.`,
         `Corresponded with team members and endorsers on an
