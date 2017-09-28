@@ -1,6 +1,7 @@
 const Ajv      = require('ajv')
 const Element  = require('extrajs-element')
 const City     = require('./City.class.js')
+const ContactPoint = require('../class/ContactPoint.class.js')
 const Skill    = require('./Skill.class.js')
 const Position = require('./Position.class.js')
 const Degree   = require('./Degree.class.js')
@@ -395,7 +396,9 @@ module.exports = class Resume {
    * Contact data for this resume.
    * @type {Array<Object<string>>}
    */
-  static get CONTACT_DATA() { return Resume.DATA.contact }
+  static get CONTACT_DATA() {
+    return Resume.DATA.contact.map((d) => new ContactPoint(d.url, d.octicon, d.content, d.itemprop))
+  }
 
   /**
    * List of skills, grouped by category.
@@ -444,26 +447,11 @@ module.exports = class Resume {
   /**
    * Render any data in HTML.
    * Displays:
-   * - `Resume.view(data).contactItem()` - display a contact link
    * @param  {*} data any data to render
    * @return {string} HTML output
    */
   static view(data) {
     function returned(data) { throw new Error('Please select a display: Resume.view[display]') }
-    /**
-     * Return a link displaying a contact item,
-     * as a `.c-Contact > .c-Conact__Link` subcomponent.
-     * @return {string} HTML output
-     */
-    returned.contactItem = function () {
-      return new Element('a').class('c-Contact__Link h-Block')
-        .attr('href', data.url)
-        .attr('itemprop', data.itemprop || null)
-        .addElements([
-          new Element('div').class('c-Contact__Icon octicon').addClass(data.octicon).attr('role','none'),
-          new Element('div').addContent(data.content),
-        ]).html()
-    }
     return returned
   }
 }

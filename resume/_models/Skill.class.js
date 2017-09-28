@@ -75,7 +75,7 @@ module.exports = class Skill {
 
   /**
    * An array possible skill levels in increasing order.
-   * @type {Array<string}>}
+   * @type {Array<string>}
    */
   static get LEVELS() {
     return [
