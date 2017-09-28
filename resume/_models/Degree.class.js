@@ -54,7 +54,7 @@ module.exports = class Degree {
             .attr('data-instanceof','Degree.Year')
             .addContent(`(`)
             .addElements([
-              (!(this._year > 0)) ? new Element('small').addContent(`in progress`) : new Element('time').addContent(this._year)
+              (this._year > 0) ? new Element('time').addContent(this._year) : new Element('small').addContent(`in progress`)
             ])
             .addContent(`)`)
         )

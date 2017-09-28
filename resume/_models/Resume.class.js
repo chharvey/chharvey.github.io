@@ -234,12 +234,6 @@ const POSITIONS = {
   ],
 }
 
-const DEGREES = [
-  new Degree(2012, 3.950, `<abbr title="Master of Arts in Education">M.A. Ed.</abbr> Curriculum and Instruction`),
-  new Degree(2011, 3.539, `<abbr title="Bachelor of Science">B.S.</abbr> Mathematics, Education Option, <i lang="la">Cum Laude</i>`),
-  new Degree(NaN , 3.248, `<abbr title="Bachelor of Arts">B.A.</abbr> Music, Technology Option, Piano Specialty`),
-]
-
 const PRODEVS = [
   new Award(`<time>2011</time>&ndash;<time>2014</time>`, `
     <span itemscope="" itemtype="http://schema.org/EducationalOrganization">
@@ -410,9 +404,7 @@ module.exports = class Resume {
   static get SKILLS() {
     let returned = {}
     for (let i in Resume.DATA.skills) {
-      returned[i] = Resume.DATA.skills[i].map((d) =>
-        new Skill(d.level, d.text)
-      )
+      returned[i] = Resume.DATA.skills[i].map((d) => new Skill(d.level, d.text))
     }
     return returned
   }
@@ -427,7 +419,9 @@ module.exports = class Resume {
    * List of degrees.
    * @type {Array<Degree>}
    */
-  static get DEGREES() { return DEGREES }
+  static get DEGREES() {
+    return Resume.DATA.degrees.map((d) => new Degree(d.year, d.gpa, d.field))
+  }
 
   /**
    * List of professional development hours.

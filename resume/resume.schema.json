@@ -9,7 +9,7 @@
   "additionalProperties": false,
   "properties": {
     "contact": {
-      "description": "List of contact points.",
+      "description": "Contact data for this resume.",
       "type": "array",
       "items": {
         "type": "object",
@@ -24,7 +24,7 @@
       }
     },
     "skills": {
-      "description": "List of simple skills.",
+      "description": "List of skills, grouped by category.",
       "type": "object",
       "additionalProperties": {
         "type": "array",
@@ -33,14 +33,27 @@
           "required": ["level", "text"],
           "additionalProperties": false,
           "properties": {
-            "level": { "type": "number", "minimum": 1, "maximum": 5, "description": "proficiency with this skill; must be `1`–`Skill.LEVELS.length`" },
+            "level": { "type": "integer", "minimum": 1, "maximum": 5, "description": "proficiency with this skill; must be `1`–`Skill.LEVELS.length`" },
             "text" : { "type": "string", "description": "custom HTML string defining this skill" }
           }
         }
       }
     },
     "positions": {},
-    "degrees": {},
+    "degrees": {
+      "description": "List of degrees.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["gpa", "field"],
+        "additionalProperties": false,
+        "properties": {
+          "year" : { "type": "integer", "description": "year the degree was earned. if not yet earned, a negative integer" },
+          "gpa"  : { "type": "number", "minimum": 0, "maximum": 4, "description": "grade-point-average" },
+          "field": { "type": "string", "description": "type and field of the degree" }
+        }
+      }
+    },
     "prodevs": {},
     "awards": {},
     "teams": {}
