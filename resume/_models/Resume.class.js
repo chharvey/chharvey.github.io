@@ -27,47 +27,6 @@ const DATA = (function validateData(data) {
   return data
 })(require('../resume.json'))
 
-const SKILLS = {
-  content: [
-    new Skill(5, `<span class="c-Acro">HTML</span>`),
-    new Skill(4, `Microdata &amp; Schema.org`),
-    new Skill(3, `<span class="c-Acro">WAI-ARIA</span> &amp; <span class="c-Acro">WCAG</span>`),
-    new Skill(2, `<cite aria-label="LaTeX">\\(\\LaTeX\\)</cite>`),
-  ],
-  ui: [
-    new Skill(5, `<span class="c-Acro">CSS</span>`),
-    new Skill(3, `<span class="c-Acro">SVG</span>`),
-    new Skill(4, `<cite>jQuery</cite>`),
-    new Skill(1, `<cite>D3.js</cite>`),
-  ],
-  programming: [
-    new Skill(5, `node.js &amp; npm`),
-    new Skill(4, `ES6`),
-    new Skill(2, `Java`),
-    new Skill(5, `Git`),
-  ],
-  data: [
-    new Skill(3, `<span class="c-Acro">XML</span> &amp; <span class="c-Acro">XSD</span>`),
-    new Skill(3, `<span class="c-Acro">JSON</span> schema`),
-    new Skill(1, `<span class="c-Acro">XSLT</span>`),
-    new Skill(2, `<span class="c-Acro">PHP</span>`),
-  ],
-  general: [
-    new Skill(5, `technical writing &amp; style guides`),
-    new Skill(5, `modular code architecture`),
-    new Skill(3, `color theory`),
-    new Skill(4, `web typography`),
-  ],
-  apps: [
-    new Skill(4, `Key Curriculum Press <cite>Geometer&rsquo;s Sketchpad</cite>`),
-    new Skill(2, `Key Curriculum Press <cite>TinkerPlots</cite>`),
-    new Skill(1, `<cite>Calculator-Based Ranger 2</cite>; <cite>TI-Navigator</cite>`),
-    new Skill(3, `SMART Technologies`),
-    new Skill(1, `<cite>Logic Studio 9</cite>`),
-    new Skill(1, `Sonic Studio <cite>Soundblade</cite>`),
-  ],
-}
-
 const POSITIONS = {
   technical: [
     new Position('asce', {
@@ -448,7 +407,15 @@ module.exports = class Resume {
    * List of skills, grouped by category.
    * @type {Object<Array<Skill>>}
    */
-  static get SKILLS() { return SKILLS }
+  static get SKILLS() {
+    let returned = {}
+    for (let i in Resume.DATA.skills) {
+      returned[i] = Resume.DATA.skills[i].map((d) =>
+        new Skill(d.level, d.text)
+      )
+    }
+    return returned
+  }
 
   /**
    * List of positions, grouped by category.
