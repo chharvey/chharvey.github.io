@@ -1,3 +1,4 @@
+const Ajv      = require('ajv')
 const Element  = require('extrajs-element')
 const City     = require('./City.class.js')
 const Skill    = require('./Skill.class.js')
@@ -5,6 +6,26 @@ const Position = require('./Position.class.js')
 const Degree   = require('./Degree.class.js')
 const Award    = require('./Award.class.js')
 const ProDev   = require('./ProDev.class.js')
+
+const DATA = (function validateData(data) {
+  ;(function () {
+    let ajv = new Ajv()
+    let is_schema_valid = ajv.validateSchema(require('../resume.schema.json'))
+    if (!is_schema_valid) {
+      console.error(ajv.errors)
+      throw new Error('Schema is not a valid schema!')
+    }
+  })()
+  ;(function () {
+    let ajv = new Ajv()
+    let is_data_valid = ajv.validate(require('../resume.schema.json'), data)
+    if (!is_data_valid) {
+      console.error(ajv.errors)
+      throw new Error('Data does not valiate against schema!')
+    }
+  })()
+  return data
+})(require('../resume.json'))
 
 const SKILLS = {
   content: [
@@ -410,6 +431,12 @@ const TEAMS = [
  */
 module.exports = class Resume {
   /** @private */ constructor() {}
+
+  /**
+   * This project’s data, compiled from raw JSON.
+   * @type {Object}
+   */
+  static get DATA() { return DATA }
 
   /**
    * Contact data for this resume.
