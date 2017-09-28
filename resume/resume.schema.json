@@ -81,6 +81,38 @@
         }
       }
     },
-    "teams": {}
+    "teams": {
+      "type": "array",
+      "description": "List of athletic team memberships.",
+      "items": {
+        "type": "object",
+        "required": ["dates", "text"],
+        "additionalProperties": false,
+        "properties": {
+          "dates": {
+            "type": "string",
+            "description": "date(s) relevant to the award"
+          },
+          "text": {
+            "type": "array",
+            "description": "custom HTML string defining this award",
+            "items": { "type": "string" }
+          },
+          "sub_awards": {
+            "type": "array",
+            "description": "any sub-awards within this award",
+            "items": {
+              "type": "object",
+              "required": ["dates", "text"],
+              "additionalProperties": false,
+              "properties": {
+                "dates": { "type": "string", "description": "date(s) relevant to the award" },
+                "text" : { "type": "string", "description": "custom HTML string defining this award" }
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }

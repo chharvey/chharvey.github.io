@@ -308,48 +308,6 @@ const PRODEVS = [
   `),
 ]
 
-const TEAMS = [
-  new Award(`<time>2007</time>&ndash;<time>2012</time>`, `
-    <span itemscope="" itemtype="http://schema.org/SportsTeam">
-      <a class="c-Camo" rel="external" href="http://www.swim.org.vt.edu/" itemprop="url">
-        <span itemprop="name">Virginia Tech <span itemprop="sport">Swim</span> Club</span>
-      </a>
-    </span>
-  `),
-  new Award(`<time>2003</time>&ndash;<time>2006</time>`, `
-    <div class="h-Inline" itemscope="" itemtype="http://schema.org/SportsTeam">
-      <a class="c-Camo" rel="external" href="http://www.fairfaxhighsports.org/index.cfm?action=main.team&ID=2329" itemprop="url">
-        <span itemprop="name">Fairfax High School Varsity <span itemprop="sport">Swim and Dive</span></span>
-      </a>,
-      <span itemscope="" itemtype="http://schema.org/EducationalOrganization">
-        <a class="c-Camo" rel="external" href="http://www.vhsl.org/" itemprop="url">
-          <abbr class="c-Acro" title="Virginia High School League" itemprop="name">VHSL</abbr>
-        </a>
-      </span>
-      <dl class="o-ListAchv">
-        ${new Award(`<time>2003</time>&ndash;<time>2006</time>`,`Four-year letter achiever`).view()}
-        ${new Award(`<time>2004</time>, <time>2006</time>`,`VA State qualifier for 200 Free Relay`).view()}
-      </dl>
-    </div>
-  `),
-  new Award(`<time>1994</time>&ndash;<time>2006</time>`, `
-    <div class="h-Inline" itemscope="" itemtype="http://schema.org/SportsTeam">
-      <a class="c-Camo" rel="external" href="http://www.villaaquatic.com/" itemprop="url">
-        <span itemprop="name">Villa Aquatic <span itemprop="sport">Swim and Dive</span></span>
-      </a>,
-      <span itemscope="" itemtype="http://schema.org/Organization">
-        <a class="c-Camo" rel="external" href="http://nvsl.nvblu.com/" itemprop="url">
-          <abbr class="c-Acro" title="Northern Virginia Swim League" itemprop="name">NVSL</abbr>
-        </a>
-      </span>
-      <dl class="o-ListAchv">
-        ${new Award(`<time>2005</time>`,`Team record breaker in 200 Free Relay`).view()}
-        ${new Award(`<time>2000</time>, <time>2002</time>`,`All-Star competitor in 50 Free`).view()}
-      </dl>
-    </div>
-  `),
-]
-
 /**
  * Static class for résumé content.
  * NOTE: since es6 classes cannot have static fields, I have used `static get` methods,
@@ -433,7 +391,25 @@ module.exports = class Resume {
    * List of athletic team memberships.
    * @type {Array<Award>}
    */
-  static get TEAMS() { return TEAMS }
+  static get TEAMS() {
+    /**
+     * Return markup for any sub-awards in this award.
+     * TODO: move this model into Award.class
+     * @private
+     * @param   {{sub_awards:Array<{dates:string, text:string}>}} datum the data point to parse
+     * @returns {string} a <dl.o-ListAchv> element if the datum has any sub-awards; else the empty string
+     */
+    function subs(datum) {
+      return (datum.sub_awards) ?
+        new Element('dl').class('o-ListAchv')
+          .addContent(datum.sub_awards.map((d) =>
+            new Award(d.dates, d.text).view()
+          ).join(''))
+          .html()
+        : ''
+    }
+    return Resume.DATA.teams.map((d) => new Award(d.dates, d.text.join('') + subs(d)))
+  }
 
   /**
    * Render any data in HTML.
