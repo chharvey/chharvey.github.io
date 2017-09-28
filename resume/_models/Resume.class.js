@@ -308,30 +308,6 @@ const PRODEVS = [
   `),
 ]
 
-const AWARDS = [
-  new Award(`valid <time>2012</time>&ndash;<time>2017</time>`,
-    `Virginia Postgraduate Professional Licence, Secondary Mathematics`),
-  new Award(`<time datetime="2011-08"><abbr title="Fall">Fa</abbr> 2011</time>&ndash;<time datetime="2012-05"><abbr title="Spring">Sp</abbr> 2012</time>`,
-    `Robert Noyce Scholarship`),
-  new Award(`<time datetime="2010-11-13">13 Nov 2010</time>`,
-    `Educational Testing Service Recognition of Excellence`),
-  new Award(`<time>2007</time>&ndash;<time>2011</time>`,
-    `<span itemscope="" itemtype="http://schema.org/EducationalOrganization"><span itemprop="name">National Society of Collegiate Scholars</span></span>`),
-  new Award(`<time>2007</time>&ndash;<time>2009</time>`,
-    `<span itemscope="" itemtype="http://schema.org/Organization"><span itemprop="name">Virginia Tech Marching Virginians</span></span>, Trombone II`),
-  new Award(`<time datetime="2006-11"><abbr title="Fall">Fa</abbr> 2006</time>, <time datetime="2007-11"><abbr title="Fall">Fa</abbr> 2007</time>, <time datetime="2008-05"><abbr title="Spring">Sp</abbr> 2008</time>`,
-    `Dean&rsquo;s List`),
-  new Award(`<time>2006</time>`,
-    `<span itemscope="" itemtype="http://schema.org/EducationalOrganization"><span itemprop="name">National Honor Society</span></span>`),
-  new Award(`<time>2003</time>&ndash;<time>2006</time>`, `
-    Fairfax High School Marching, Symphonic, Jazz Bands
-    <dl class="o-ListAchv">
-      ${new Award(`<time>2005</time>&ndash;<time>2006</time>`,`Trombone I &amp; Field Captain`).view()}
-      ${new Award(`<time>2003</time>&ndash;<time>2004</time>`,`Trombone II`).view()}
-    </dl>
-  `),
-]
-
 const TEAMS = [
   new Award(`<time>2007</time>&ndash;<time>2012</time>`, `
     <span itemscope="" itemtype="http://schema.org/SportsTeam">
@@ -433,7 +409,25 @@ module.exports = class Resume {
    * List of other awards & memberships.
    * @type {Array<Award>}
    */
-  static get AWARDS() { return AWARDS }
+  static get AWARDS() {
+    /**
+     * Return markup for any sub-awards in this award.
+     * TODO: move this model into Award.class
+     * @private
+     * @param   {{sub_awards:Array<{dates:string, text:string}>}} datum the data point to parse
+     * @returns {string} a <dl.o-ListAchv> element if the datum has any sub-awards; else the empty string
+     */
+    function subs(datum) {
+      return (datum.sub_awards) ?
+        new Element('dl').class('o-ListAchv')
+          .addContent(datum.sub_awards.map((d) =>
+            new Award(d.dates, d.text).view()
+          ).join(''))
+          .html()
+        : ''
+    }
+    return Resume.DATA.awards.map((d) => new Award(d.dates, d.text + subs(d)))
+  }
 
   /**
    * List of athletic team memberships.

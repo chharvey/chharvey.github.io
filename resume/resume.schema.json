@@ -2,15 +2,15 @@
   "$schema": "http://json-schema.org/schema#",
   "$id": "http://chharvey.github.io/resume/resume.schema.json",
   "title": "Resume",
+  "type": "object",
   "description": "Resume of Christopher H. Harvey of Fairfax, VA.",
   "definitions": {},
-  "type": "object",
   "required": ["contact"],
   "additionalProperties": false,
   "properties": {
     "contact": {
-      "description": "Contact data for this resume.",
       "type": "array",
+      "description": "Contact data for this resume.",
       "items": {
         "type": "object",
         "required": ["url", "octicon", "content"],
@@ -18,14 +18,14 @@
         "properties": {
           "url"     : { "type": "string", "description": "url of the link" },
           "octicon" : { "type": "string", "description": "octicon CSS class of the icon" },
-          "itemprop": { "type": "string", "description": "(optional) itemprop Microdata of the contact point" },
+          "itemprop": { "type": "string", "description": "itemprop Microdata of the contact point" },
           "content" : { "type": "string", "description": "text content of the link" }
         }
       }
     },
     "skills": {
-      "description": "List of skills, grouped by category.",
       "type": "object",
+      "description": "List of skills, grouped by category.",
       "additionalProperties": {
         "type": "array",
         "items": {
@@ -41,8 +41,8 @@
     },
     "positions": {},
     "degrees": {
-      "description": "List of degrees.",
       "type": "array",
+      "description": "List of degrees.",
       "items": {
         "type": "object",
         "required": ["gpa", "field"],
@@ -55,7 +55,32 @@
       }
     },
     "prodevs": {},
-    "awards": {},
+    "awards": {
+      "type": "array",
+      "description": "List of other awards & memberships.",
+      "items": {
+        "type": "object",
+        "required": ["dates", "text"],
+        "additionalProperties": false,
+        "properties": {
+          "dates"     : { "type": "string", "description": "date(s) relevant to the award" },
+          "text"      : { "type": "string", "description": "custom HTML string defining this award" },
+          "sub_awards": {
+            "type": "array",
+            "description": "any sub-awards within this award",
+            "items": {
+              "type": "object",
+              "required": ["dates", "text"],
+              "additionalProperties": false,
+              "properties": {
+                "dates": { "type": "string", "description": "date(s) relevant to the award" },
+                "text" : { "type": "string", "description": "custom HTML string defining this award" }
+              }
+            }
+          }
+        }
+      }
+    },
     "teams": {}
   }
 }
