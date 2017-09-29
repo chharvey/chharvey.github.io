@@ -39,7 +39,57 @@
         }
       }
     },
-    "positions": {},
+    "positions": {
+      "type": "object",
+      "description": "List of positions, grouped by category.",
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "id",
+            "title",
+            "orgname",
+            "url",
+            "start",
+            "city",
+            "state",
+            "geo",
+            "descriptions"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "id"      : { "type": "string", "description": "the id of this job position" },
+            "title"   : { "type": "string", "description": "the official position name" },
+            "orgname" : { "type": "string", "description": "the name of the organization; may be HTML" },
+            "url"     : { "type": "string", "description": "the url of the organization’s homepage" },
+            "itemtype": { "type": "string", "description": "the value of the organization’s `itemtype` attribute" },
+            "start"   : { "type": "string", "description": "the start date in ISO format" },
+            "end"     : { "type": "string", "description": "the end date in ISO format (leave undefined if present)" },
+            "city"    : { "type": "string", "description": "the city/town/locality name" },
+            "state"   : { "type": "string", "description": "the state/province/region postal code (e.g. 'NY', 'CA')" },
+            "geo": {
+              "type": "array",
+              "description": "the geo-coordinates",
+              "items": [
+                { "type": "number", "description": "the latitude value of the location" },
+                { "type": "number", "description": "the longitude value of the location" }
+              ]
+            },
+            "descriptions": {
+              "type": "array",
+              "description": "the list of descriptions for the job position",
+              "items": {
+                "type": ["string", "array"],
+                "description": "a single description item, or an array of strings to be joined to form such an item",
+                "items": { "type": "string" }
+              }
+            },
+            "descriptions_hidden": { "$ref": "#/properties/positions/additionalProperties/items/properties/descriptions" }
+          }
+        }
+      }
+    },
     "degrees": {
       "type": "array",
       "description": "List of degrees.",

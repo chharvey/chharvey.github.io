@@ -14,7 +14,7 @@ module.exports = class Position {
    * @param {{name:string, url:string, itemtype:string}} $info.org details of the organization
    * @param {string} $info.org.name the name of the organization; may be HTML
    * @param {string} $info.org.url the url of the organization’s homepage
-   * @param {string} $info.org.itemtype the value used for the organization’s `itemtype` attribute
+   * @param {string} $info.org.itemtype the value of the organization’s `itemtype` attribute
    * @param {{start:Date, end:Date}} $info.dates the dates the the position was held
    * @param {Date} $info.dates.start the start date
    * @param {Date} $info.dates.end the end date; use `new Date()` for present date
@@ -25,14 +25,14 @@ module.exports = class Position {
     this._id = id
     this._name = $info.title
 
+    this._org_name = $info.org.name
+    this._org_type = $info.org.itemtype
+    this._org_url  = $info.org.url
+
     this._date_start = $info.dates.start
     this._date_end   = $info.dates.end
 
     this._location = $info.location
-
-    this._org_name = $info.org.name
-    this._org_type = $info.org.itemtype
-    this._org_url  = $info.org.url
 
     this._descriptions = $info.descriptions
   }
