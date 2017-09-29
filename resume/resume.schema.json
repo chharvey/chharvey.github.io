@@ -65,10 +65,10 @@
             "url"     : { "type": "string", "description": "the url of the organization’s homepage" },
             "itemtype": { "type": "string", "description": "the value of the organization’s `itemtype` attribute" },
             "start"   : { "type": "string", "description": "the start date in ISO format" },
-            "end"     : { "type": "string", "description": "the end date in ISO format (leave undefined if present)" },
+            "end"     : { "type": "string", "description": "the end date in ISO format (leave undefined if there is no end date)" },
             "city"    : { "type": "string", "description": "the city/town/locality name" },
             "state"   : { "type": "string", "description": "the state/province/region postal code (e.g. 'NY', 'CA')" },
-            "geo": {
+            "geo"     : {
               "type": "array",
               "description": "the geo-coordinates",
               "items": [
@@ -104,7 +104,62 @@
         }
       }
     },
-    "prodevs": {},
+    "prodevs": {
+      "type": "array",
+      "description": "List of professional development hours.",
+      "items": {
+        "anyOf": [
+          {
+            "type": "object",
+            "title": "ProDev",
+            "required": [
+              "prodev",
+              "pdh",
+              "start",
+              "end",
+              "city",
+              "state",
+              "geo",
+              "coursename"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "prodev"  : { "type": "boolean", "description": "this item is an instance of ProDev", "const": true },
+              "pdh"     : { "type": "number", "description": "the number of professional development hours" },
+              "itemtype": { "type": "string", "description": "the value of the event’s `itemtype` attribute" },
+              "start"   : { "type": "string", "description": "the start date in ISO format" },
+              "end"     : { "type": "string", "description": "the end date in ISO format" },
+              "city"    : { "type": "string", "description": "the city/town/locality name" },
+              "state"   : { "type": "string", "description": "the state/province/region postal code (e.g. 'NY', 'CA')" },
+              "geo"     : {
+                "type": "array",
+                "description": "the geo-coordinates",
+                "items": [
+                  { "type": "number", "description": "the latitude value of the location" },
+                  { "type": "number", "description": "the longitude value of the location" }
+                ]
+              },
+              "coursename": {
+                "type": ["string", "array"],
+                "description": "the title of the course or event",
+                "items": { "type": "string" }
+              }
+            }
+          },
+          {
+            "type": "object",
+            "title": "Award",
+            "required": ["dates", "text"],
+            "additionalProperties": false,
+            "properties": {
+              "prodev": { "type": "boolean", "description": "this item is not an instance of ProDev", "const": false },
+              "dates" : { "type": "string", "description": "date(s) relevant to the award" },
+              "text"  : { "type": ["string", "array"], "description": "custom HTML string defining the award", "items": { "type": "string" } }
+            }
+          }
+        ]
+      }
+    },
     "awards": {
       "type": "array",
       "description": "List of other awards & memberships.",
@@ -114,7 +169,7 @@
         "additionalProperties": false,
         "properties": {
           "dates"     : { "type": "string", "description": "date(s) relevant to the award" },
-          "text"      : { "type": "string", "description": "custom HTML string defining this award" },
+          "text"      : { "type": "string", "description": "custom HTML string defining the award" },
           "sub_awards": {
             "type": "array",
             "description": "any sub-awards within this award",

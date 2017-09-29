@@ -1,4 +1,5 @@
 const Ajv      = require('ajv')
+const xjs      = require('extrajs')
 const Element  = require('extrajs-element')
 const City     = require('./City.class.js')
 const Skill    = require('./Skill.class.js')
@@ -26,91 +27,6 @@ const DATA = (function validateData(data) {
   })()
   return data
 })(require('../resume.json'))
-
-const PRODEVS = [
-  new ProDev(
-    { start: new Date('2016-07-25'), end: new Date('2016-07-26') },
-    new City('Alexandria', 'VA', { lat: 38.832972, lon: -77.1196307 }),
-    12,
-    `
-      <span itemprop="organizer" itemscope="" itemtype="http://schema.org/Organization">
-        <span itemprop="name">An Event Apart</span>
-      </span>
-    `,
-    'http://schema.org/Event'
-  ),
-  new Award(`<time>2011</time>&ndash;<time>2014</time>`, `
-    <span itemscope="" itemtype="http://schema.org/EducationalOrganization">
-      <abbr class="c-Acro" title="Virginia Council of Teachers of Mathematics" itemprop="name">
-        <span class="c-Acro__First">V</span>CTM
-      </abbr> Conference, annually statewide (<time datetime="PT40H">10 hr each</time>)
-    </span>
-  `),
-  new ProDev(
-    { start: new Date('2014-03-14'), end: new Date('2014-03-15') },
-    new City('Harrisonburg', 'VA', { lat: 38.4393105, lon: -78.8711824 }),
-    10,
-    `
-      <span itemprop="organizer" itemscope="" itemtype="http://schema.org/EducationalOrganization">
-        <abbr class="c-Acro" title="Virginia Council of Teachers of Mathematics" itemprop="name">
-          <span class="c-Acro__First">V</span>CTM
-        </abbr> Conference
-      </span>
-    `,
-    'http://schema.org/EducationEvent'
-  ),
-  new ProDev(
-    { start: new Date('2013-03-08'), end: new Date('2013-03-09') },
-    new City('Virginia Beach', 'VA', { lat: 36.7674971, lon: -76.0476647 }),
-    10,
-    `
-      <span itemprop="organizer" itemscope="" itemtype="http://schema.org/EducationalOrganization">
-        <abbr class="c-Acro" title="Virginia Council of Teachers of Mathematics" itemprop="name">
-          <span class="c-Acro__First">V</span>CTM
-        </abbr> Conference
-      </span>
-    `,
-    'http://schema.org/EducationEvent'
-  ),
-  new ProDev(
-    { start: new Date('2012-03-09'), end: new Date('2012-03-10') },
-    new City('Roanoke', 'VA', { lat: 37.2743219, lon: -79.9575425 }),
-    10,
-    `
-      <span itemprop="organizer" itemscope="" itemtype="http://schema.org/EducationalOrganization">
-        <abbr class="c-Acro" title="Virginia Council of Teachers of Mathematics" itemprop="name">
-          <span class="c-Acro__First">V</span>CTM
-        </abbr> Conference
-      </span>
-    `,
-    'http://schema.org/EducationEvent'
-  ),
-  new ProDev(
-    { start: new Date('2011-03-11'), end: new Date('2011-03-12') },
-    new City('Richmond', 'VA', { lat: 37.5246609, lon: -77.4932615 }),
-    10,
-    `
-      <span itemprop="organizer" itemscope="" itemtype="http://schema.org/EducationalOrganization">
-        <abbr class="c-Acro" title="Virginia Council of Teachers of Mathematics" itemprop="name">
-          <span class="c-Acro__First">V</span>CTM
-        </abbr> Conference
-      </span>
-    `,
-    'http://schema.org/EducationEvent'
-  ),
-  new Award(`<time datetime="2011-08-12" itemprop="startDate endDate">12 Oct 2011</time>`, `
-    <span itemscope="" itemtype="http://schema.org/Event">
-      <span itemprop="name">Secondary Mathematics Instruction in an Inclusive Classroom</span>
-      (<time datetime="PT3H" itemprop="duration">3 hr</time>)
-    </span>
-  `),
-  new Award(`<time datetime="2009-03-28" itemprop="startDate endDate">28 Mar 2009</time>`, `
-    <span itemscope="" itemtype="http://schema.org/Event">
-      <span itemprop="name">Preservice Teacher Education with TI-Nspire Technology</span>
-      (<time datetime="PT9H" itemprop="duration">9 hr</time>)
-    </span>
-  `),
-]
 
 /**
  * Static class for résumé content.
@@ -172,8 +88,7 @@ module.exports = class Resume {
             { lat: d.geo[0], lon: d.geo[1] }
           ),
           descriptions: d.descriptions.map((t) =>
-            // (xjs.Object.typeOf(t) === 'array') ? t.join('') : t
-            (typeof t === 'string') ? t : t.join('')
+            (xjs.Object.typeOf(t) === 'array') ? t.join('') : t
           )
         })
       )
@@ -191,9 +106,22 @@ module.exports = class Resume {
 
   /**
    * List of professional development hours.
-   * @type {Array<Award>}
+   * @type {Array<(ProDev|Award)>}
    */
-  static get PRODEVS() { return PRODEVS }
+  static get PRODEVS() {
+    return Resume.DATA.prodevs.map((d) =>
+      (d.prodev) ? new ProDev(
+        { start: new Date(d.start), end  : new Date(d.end) },
+        new City(d.city, d.state, { lat: d.geo[0], lon: d.geo[1] }),
+        d.pdh,
+        (xjs.Object.typeOf(d.coursename) === 'array') ? d.coursename.join('') : d.coursename,
+        d.itemtype
+      ) : new Award(
+        d.dates,
+        (xjs.Object.typeOf(d.text) === 'array') ? d.text.join('') : d.text
+      )
+    )
+  }
 
   /**
    * List of other awards & memberships.
