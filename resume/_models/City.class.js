@@ -10,15 +10,15 @@ module.exports = class City {
    * Construct a new City object.
    * @param  {string} locality the city/town name
    * @param  {string} region the state/province postal code (e.g. 'NY', 'CA')
-   * @param  {{lat:number, lon:number}} geo the geo-coordinates
-   * @param  {number} geo.lat the latitude, in decimal degrees
-   * @param  {number} geo.lon the longitude, in decimal degrees
+   * @param  {{lat:number, lon:number}} $geo the geo-coordinates
+   * @param  {number} $geo.lat the latitude, in decimal degrees
+   * @param  {number} $geo.lon the longitude, in decimal degrees
    */
-  constructor(locality, region, geo) {
+  constructor(locality, region, $geo) {
     this._locality  = locality
     this._region    = region
-    this._latitude  = geo.lat
-    this._longitude = geo.lon
+    this._latitude  = $geo.lat
+    this._longitude = $geo.lon
   }
 
   /**

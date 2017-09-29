@@ -12,17 +12,17 @@ module.exports = class ProDev {
    * @param {Date} $dates.start the start date
    * @param {Date} $dates.end the end date
    * @param {City}  $location location of the course
-   * @param {number} hours number of hours
+   * @param {number} pdh the number of professional development hours
    * @param {string} name  title of the course
    * @param {string=} itemtype the value used for the event’s `itemtype` attribute
    */
-  constructor($dates, $location, hours, name, itemtype = 'http://schema.org/Event') {
+  constructor($dates, $location, pdh, name, itemtype = 'http://schema.org/Event') {
     this._date_start = $dates.start
     this._date_end   = $dates.end
 
     this._location = $location
     this._itemtype = itemtype
-    this._hours = hours
+    this._pdh = pdh
     this._name = name
   }
 
@@ -51,7 +51,7 @@ module.exports = class ProDev {
             ])
             .addContent(`, ${this._location.view()}`)
             .addElements([
-              new Element('time').attr('datetime',`PT${this._hours}H`).attr('itemprop','duration').addContent(` (${this._hours} hr)`),
+              new Element('time').attr('datetime',`PT${this._pdh}H`).attr('itemprop','duration').addContent(` (${this._pdh} hr)`),
             ]),
           (function () {
             let time_start = new Element('time').attr('datetime',this._date_start.toISOString()).attr('itemprop','startDate')
