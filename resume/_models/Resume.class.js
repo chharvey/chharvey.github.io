@@ -55,7 +55,7 @@ const POSITIONS = {
       dates   : { start: new Date('2015-07'), end: new Date() },
       location: new City('Reston', 'VA', { lat: 38.9555819, lon: -77.3490615 }),
       descriptions: [
-        `Develop a <cite>Drupal</cite> framework, building & maintaining 19+ independent conference sites.`,
+        `Develop a <cite>Drupal</cite> framework, building & maintaining 25+ independent conference sites.`,
         `Revamp site-wide <span class="c-Acro">CSS</span> codebase, create and implement new style guide.`,
         `Address cross-browser, cross-platform compatible <span class="c-Acro">CSS</span>.`,
         `Enforce mobile-first layout practices, design decisions.`,
@@ -261,6 +261,17 @@ const DEGREES = [
 ]
 
 const PRODEVS = [
+  new ProDev(
+    { start: new Date('2016-07-25'), end: new Date('2016-07-26') },
+    new City('Alexandria', 'VA', { lat: 38.832972, lon: -77.1196307 }),
+    12,
+    `
+      <span itemprop="organizer" itemscope="" itemtype="http://schema.org/Organization">
+        <span itemprop="name">An Event Apart</span>
+      </span>
+    `,
+    'http://schema.org/Event'
+  ),
   new Award(`<time>2011</time>&ndash;<time>2014</time>`, `
     <span itemscope="" itemtype="http://schema.org/EducationalOrganization">
       <abbr class="c-Acro" title="Virginia Council of Teachers of Mathematics" itemprop="name">
