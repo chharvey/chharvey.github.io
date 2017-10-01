@@ -1,4 +1,4 @@
-const Element = require('extrajs-element')
+const Element = require('extrajs-dom').Element
 const Util    = require('./Util.class.js')
 
 /**

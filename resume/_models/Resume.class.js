@@ -1,6 +1,6 @@
 const Ajv      = require('ajv')
 const xjs      = require('extrajs')
-const Element  = require('extrajs-element')
+const Element  = require('extrajs-dom').Element
 const City     = require('./City.class.js')
 const ContactPoint = require('../class/ContactPoint.class.js')
 const Skill    = require('./Skill.class.js')
