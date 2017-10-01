@@ -122,7 +122,7 @@ class Resume {
         d.itemtype
       ) : new Award(
         d.dates,
-        (xjs.Object.typeOf(d.text) === 'array') ? d.text.join('') : d.text
+        (xjs.Object.typeOf(d.content) === 'array') ? d.content.join('') : d.content
       )
     )
   }
@@ -143,12 +143,15 @@ class Resume {
       return (datum.sub_awards) ?
         new Element('dl').class('o-ListAchv')
           .addContent(datum.sub_awards.map((d) =>
-            new Award(d.dates, d.text).view()
+            new Award(
+              d.dates,
+              (xjs.Object.typeOf(d.content) === 'array') ? d.content.join('') : d.content
+            ).view()
           ).join(''))
           .html()
         : ''
     }
-    return Resume.DATA.awards.map((d) => new Award(d.dates, d.text + subs(d)))
+    return Resume.DATA.awards.map((d) => new Award(d.dates, ((xjs.Object.typeOf(d.content) === 'array') ? d.content.join('') : d.content) + subs(d)))
   }
 
   /**
@@ -167,12 +170,15 @@ class Resume {
       return (datum.sub_awards) ?
         new Element('dl').class('o-ListAchv')
           .addContent(datum.sub_awards.map((d) =>
-            new Award(d.dates, d.text).view()
+            new Award(
+              d.dates,
+              (xjs.Object.typeOf(d.content) === 'array') ? d.content.join('') : d.content
+            ).view()
           ).join(''))
           .html()
         : ''
     }
-    return Resume.DATA.teams.map((d) => new Award(d.dates, d.text.join('') + subs(d)))
+    return Resume.DATA.teams.map((d) => new Award(d.dates, ((xjs.Object.typeOf(d.content) === 'array') ? d.content.join('') : d.content) + subs(d)))
   }
 }
 

@@ -4,7 +4,12 @@
   "title": "Resume",
   "type": "object",
   "description": "Resume of Christopher H. Harvey of Fairfax, VA.",
-  "definitions": {},
+  "definitions": {
+    "Content": {
+      "type" : ["string", "array"],
+      "items": { "type": "string" }
+    }
+  },
   "required": ["contact"],
   "additionalProperties": false,
   "properties": {
@@ -34,7 +39,7 @@
           "additionalProperties": false,
           "properties": {
             "level": { "type": "integer", "minimum": 1, "maximum": 5, "description": "proficiency with this skill; must be `1`–`Skill.LEVELS.length`" },
-            "text" : { "type": "string", "description": "custom HTML string defining this skill" }
+            "text" : { "type": "string", "description": "custom HTML defining this skill" }
           }
         }
       }
@@ -80,9 +85,10 @@
               "type": "array",
               "description": "the list of descriptions for the job position",
               "items": {
-                "type": ["string", "array"],
-                "description": "a single description item, or an array of strings to be joined to form such an item",
-                "items": { "type": "string" }
+                "allOf": [
+                  { "$ref": "#/definitions/Content" },
+                  { "description": "custom HTML defining a single description item" }
+                ]
               }
             },
             "descriptions_hidden": { "$ref": "#/properties/positions/additionalProperties/items/properties/descriptions" }
@@ -140,21 +146,27 @@
                 ]
               },
               "coursename": {
-                "type": ["string", "array"],
-                "description": "the title of the course or event",
-                "items": { "type": "string" }
+                "allOf": [
+                  { "$ref": "#/definitions/Content" },
+                  { "description": "the title of the course or event" }
+                ]
               }
             }
           },
           {
             "type": "object",
             "title": "Award",
-            "required": ["dates", "text"],
+            "required": ["prodev", "dates", "content"],
             "additionalProperties": false,
             "properties": {
-              "prodev": { "type": "boolean", "description": "this item is not an instance of ProDev", "const": false },
-              "dates" : { "type": "string", "description": "date(s) relevant to the award" },
-              "text"  : { "type": ["string", "array"], "description": "custom HTML string defining the award", "items": { "type": "string" } }
+              "prodev" : { "type": "boolean", "description": "this item is not an instance of ProDev", "const": false },
+              "dates"  : { "type": "string" , "description": "date(s) relevant to the award" },
+              "content": {
+                "allOf": [
+                  { "$ref": "#/definitions/Content" },
+                  { "description": "custom HTML defining the award" }
+                ]
+              }
             }
           }
         ]
@@ -165,21 +177,31 @@
       "description": "List of other awards & memberships.",
       "items": {
         "type": "object",
-        "required": ["dates", "text"],
+        "required": ["dates", "content"],
         "additionalProperties": false,
         "properties": {
-          "dates"     : { "type": "string", "description": "date(s) relevant to the award" },
-          "text"      : { "type": "string", "description": "custom HTML string defining the award" },
+          "dates"  : { "type": "string", "description": "date(s) relevant to the award" },
+          "content": {
+            "allOf": [
+              { "$ref": "#/definitions/Content" },
+              { "description": "custom HTML defining the award" }
+            ]
+          },
           "sub_awards": {
             "type": "array",
             "description": "any sub-awards within this award",
             "items": {
               "type": "object",
-              "required": ["dates", "text"],
+              "required": ["dates", "content"],
               "additionalProperties": false,
               "properties": {
-                "dates": { "type": "string", "description": "date(s) relevant to the award" },
-                "text" : { "type": "string", "description": "custom HTML string defining this award" }
+                "dates"  : { "type": "string", "description": "date(s) relevant to the award" },
+                "content": {
+                  "allOf": [
+                    { "$ref": "#/definitions/Content" },
+                    { "description": "custom HTML defining the award" }
+                  ]
+                }
               }
             }
           }
@@ -191,28 +213,31 @@
       "description": "List of athletic team memberships.",
       "items": {
         "type": "object",
-        "required": ["dates", "text"],
+        "required": ["dates", "content"],
         "additionalProperties": false,
         "properties": {
-          "dates": {
-            "type": "string",
-            "description": "date(s) relevant to the award"
-          },
-          "text": {
-            "type": "array",
-            "description": "custom HTML string defining this award",
-            "items": { "type": "string" }
+          "dates"  : { "type": "string", "description": "date(s) relevant to the award" },
+          "content": {
+            "allOf": [
+              { "$ref": "#/definitions/Content" },
+              { "description": "custom HTML defining the award" }
+            ]
           },
           "sub_awards": {
             "type": "array",
             "description": "any sub-awards within this award",
             "items": {
               "type": "object",
-              "required": ["dates", "text"],
+              "required": ["dates", "content"],
               "additionalProperties": false,
               "properties": {
-                "dates": { "type": "string", "description": "date(s) relevant to the award" },
-                "text" : { "type": "string", "description": "custom HTML string defining this award" }
+                "dates"  : { "type": "string", "description": "date(s) relevant to the award" },
+                "content": {
+                  "allOf": [
+                    { "$ref": "#/definitions/Content" },
+                    { "description": "custom HTML defining the award" }
+                  ]
+                }
               }
             }
           }
