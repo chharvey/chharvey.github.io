@@ -1,13 +1,14 @@
 const Ajv      = require('ajv')
 const xjs      = require('extrajs')
 const Element  = require('extrajs-dom').Element
-const City     = require('./City.class.js')
-const ContactPoint = require('../class/ContactPoint.class.js')
-const Skill    = require('./Skill.class.js')
-const Position = require('./Position.class.js')
-const Degree   = require('./Degree.class.js')
-const Award    = require('./Award.class.js')
-const ProDev   = require('./ProDev.class.js')
+
+const Award        = require('./Award.class.js')
+const City         = require('./City.class.js')
+const ContactPoint = require('./ContactPoint.class.js')
+const Degree       = require('./Degree.class.js')
+const Position     = require('./Position.class.js')
+const ProDev       = require('./ProDev.class.js')
+const Skill        = require('./Skill.class.js')
 
 const DATA = (function validateData(data) {
   ;(function () {

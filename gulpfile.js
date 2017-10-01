@@ -9,7 +9,7 @@ gulp.task('pug:resume', function () {
       basedir: './',
       locals: {
         Element: require('extrajs-dom').Element,
-        Resume: require('./resume/_models/Resume.class.js'),
+        Resume: require('./resume/class/Resume.class.js'),
       },
     }))
     .pipe(gulp.dest('./resume/'))
