@@ -19,24 +19,32 @@ module.exports = class Award {
    * Render this award in HTML.
    * Displays:
    * - `Award#view()` - default display
-   * @return {string} HTML output
+   * @returns {Award.View} a function returning HTML output
    */
   get view() {
     let self = this
+    /**
+     * @extends Function
+     */
+    Award.View = class extends Function {
       /**
        * Default display. Takes no arguments.
        * Return a <dt>–<dd> pair of elements:
        * <dt> award text, <dd> award dates.
-       * @return {string} HTML output
+       * Call `Award#view()` to render this display.
+       * @returns {string} HTML output
        */
-    function returned() {
-      return (function () {
+      constructor() {
+        function returned() {
+          // REVIEW INDENTATION
         return Element.concat(
           new Element('dt').class('o-ListAchv__Award h-Inline').attr('data-instanceof','Award.Text').attr('itemprop','award').addContent(this._text),
           new Element('dd').class('o-ListAchv__Date h-Inline h-Clearfix').attr('data-instanceof','Award.Dates').addContent(`(${this._dates})`)
         )
-      }).call(self)
+        }
+        super(`return '${returned.call(self)}'`)
+      }
     }
-    return returned
+    return new Award.View()
   }
 }

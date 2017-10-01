@@ -30,18 +30,24 @@ module.exports = class ProDev {
    * Render this ProDev object in HTML.
    * Displays:
    * - `ProDev#view()` - default display
-   * @return {string} HTML output
+   * @returns {ProDev.View} a function returning HTML output
    */
   get view() {
     let self = this
+    /**
+     * @extends Function
+     */
+    ProDev.View = class extends Function {
       /**
        * Default display. Takes no arguments.
        * Return a <dt>–<dd> pair of elements:
        * <dt> text, <dd> dates.
-       * @return {string} HTML output
+       * Call `ProDev#view()` to render this display.
+       * @returns {string} HTML output
        */
-    function returned() {
-      return (function () {
+      constructor() {
+        function returned() {
+          // REVIEW INDENTATION
         return Element.concat(
           new Element('dt').class('o-ListAchv__Award h-Inline')
             .attr('data-instanceof','ProDev.Text')
@@ -72,8 +78,10 @@ module.exports = class ProDev {
               .addContent(`(${time_start.html()}&ndash;${time_end.html()})`)
           }).call(this)
         )
-      }).call(self)
+        }
+        super(`return '${returned.call(self)}'`)
+      }
     }
-    return returned
+    return new ProDev.View()
   }
 }

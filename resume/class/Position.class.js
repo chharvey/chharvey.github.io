@@ -41,17 +41,23 @@ module.exports = class Position {
    * Render this position in HTML.
    * Displays:
    * - `Position#view()` - default display
-   * @return {string} HTML output
+   * @returns {Position.View} a function returning HTML output
    */
   get view() {
     let self = this
+    /**
+     * @extends Function
+     */
+    Position.View = class extends Function {
       /**
        * Default display. Takes no arguments.
        * Return a <section> element representing this position.
-       * @return {string} HTML output
+       * Call `Position#view()` to render this display.
+       * @returns {string} HTML output
        */
-    function returned() {
-      return (function () {
+      constructor() {
+        function returned() {
+          // REVIEW INDENTATION
         return new Element('section').id(this._id).class('o-Grid__Item o-Grid__Item--maincol c-Position')
           .attr({
             'data-instanceof': 'Position',
@@ -85,8 +91,10 @@ module.exports = class Position {
           ])
           .addContent(Element.data(this._descriptions, { attributes: { list: { class: 'c-Position__Body' } } }))
           .html()
-      }).call(self)
+        }
+        super(`return '${returned.call(self)}'`)
+      }
     }
-    return returned
+    return new Position.View()
   }
 }

@@ -174,15 +174,4 @@ module.exports = class Resume {
     }
     return Resume.DATA.teams.map((d) => new Award(d.dates, d.text.join('') + subs(d)))
   }
-
-  /**
-   * Render any data in HTML.
-   * Displays:
-   * @param  {*} data any data to render
-   * @return {string} HTML output
-   */
-  static view(data) {
-    function returned(data) { throw new Error('Please select a display: Resume.view[display]') }
-    return returned
-  }
 }

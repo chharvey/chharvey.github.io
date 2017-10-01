@@ -23,19 +23,23 @@ module.exports = class ContactPoint {
    * Render this contact point in HTML.
    * Displays:
    * - `ContactPoint#view()` - default display
-   * @returns {function(?):string} a function returning HTML output
+   * @returns {ContactPoint.View} a function returning HTML output
    */
   get view() {
     let self = this
+    /**
+     * @extends Function
+     */
+    ContactPoint.View = class extends Function {
       /**
        * Default display. Takes no arguments.
        * Return a <a.c-Contact__Link> subcomponent displaying a contact item.
        * Call `ContactPoint#view()` to render this display.
-       * @memberof ContactPoint.view
-       * @return {string} HTML output
+       * @returns {string} HTML output
        */
-    function returned() {
-      return (function () {
+      constructor() {
+        function returned() {
+          // REVIEW INDENTATION
         return new Element('a').class('c-Contact__Link h-Block')
           .attr('href', this._url)
           .attr('itemprop', this._itemprop || null)
@@ -43,8 +47,10 @@ module.exports = class ContactPoint {
             new Element('div').class('c-Contact__Icon octicon').addClass(this._octicon).attr('role','none'),
             new Element('div').addContent(this._content),
           ]).html()
-      }).call(self)
+        }
+        super(`return '${returned.call(self)}'`)
+      }
     }
-    return returned
+    return new ContactPoint.View()
   }
 }

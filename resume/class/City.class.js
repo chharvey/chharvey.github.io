@@ -25,17 +25,23 @@ module.exports = class City {
    * Render this city in HTML.
    * Displays:
    * - `City#view()` - default display
-   * @return {string} HTML output
+   * @returns {City.View} a function returning HTML output
    */
   get view() {
     let self = this
+    /**
+     * @extends Function
+     */
+    City.View = class extends Function {
       /**
        * Default display. Takes no arguments.
        * Return a <span> marking up this city with microdata.
-       * @return {string} HTML output
+       * Call `City#view()` to render this display.
+       * @returns {string} HTML output
        */
-    function returned() {
-      return (function () {
+      constructor() {
+        function returned() {
+          // REVIEW INDENTATION
         return new Element('span')
           .attr({
             'data-instanceof': 'City',
@@ -61,8 +67,10 @@ module.exports = class City {
               ]),
           ])
           .html()
-      }).call(self)
+        }
+        super(`return '${returned.call(self)}'`)
+      }
     }
-    return returned
+    return new City.View()
   }
 }

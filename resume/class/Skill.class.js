@@ -27,19 +27,24 @@ module.exports = class Skill {
    * Render this skill in HTML.
    * Displays:
    * - `Skill#view()` - default display
-   * @return {string} HTML output
+   * @returns {Skill.View} a function returning HTML output
    */
   get view() {
     let self = this
+    /**
+     * @extends Function
+     */
+    Skill.View = class extends Function {
       /**
        * Default display. Takes no arguments.
        * Return a <dt>–<dd> pair of elements:
        * <dt> skill name, <dd> visualization of skill level.
        * Call `Skill#view()` to render this display.
-       * @return {string} HTML output
+       * @returns {string} HTML output
        */
-    function returned() {
-      return (function () {
+      constructor() {
+        function returned() {
+          // REVIEW INDENTATION
         return Element.concat(
           new Element('dt').class('o-Grid__Item')
             .attr('data-instanceof','Skill.Text')
@@ -66,9 +71,11 @@ module.exports = class Skill {
               ]),
             ])
         )
-      }).call(self)
+        }
+        super(`return '${returned.call(self)}'`)
+      }
     }
-    return returned
+    return new Skill.View()
   }
 
 
