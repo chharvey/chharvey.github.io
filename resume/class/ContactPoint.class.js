@@ -2,11 +2,11 @@ const Element = require('extrajs-dom').Element
 
 /**
  * Piece of contact information in resume.
- * @module
+ * @class
  */
-module.exports = class ContactPoint {
+class ContactPoint {
   /**
-   * Construct a new ContactPoint object.
+   * @summary Construct a new ContactPoint object.
    * @param  {string} url url of the link
    * @param  {string} octicon octicon CSS class of the icon
    * @param  {string} content text content of the link
@@ -20,8 +20,8 @@ module.exports = class ContactPoint {
   }
 
   /**
-   * Render this contact point in HTML.
-   * Displays:
+   * @summary Render this contact point in HTML.
+   * @description Displays:
    * - `ContactPoint#view()` - default display
    * @returns {ContactPoint.View} a function returning HTML output
    */
@@ -34,7 +34,7 @@ module.exports = class ContactPoint {
       /**
        * Default display. Takes no arguments.
        * Return a <a.c-Contact__Link> subcomponent displaying a contact item.
-       * Call `ContactPoint#view()` to render this display.
+       * @summary Call `ContactPoint#view()` to render this display.
        * @returns {string} HTML output
        */
       constructor() {
@@ -54,3 +54,5 @@ module.exports = class ContactPoint {
     return new ContactPoint.View()
   }
 }
+
+module.exports = ContactPoint

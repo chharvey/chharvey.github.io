@@ -2,11 +2,11 @@ const Element = require('extrajs-dom').Element
 
 /**
  * An degree I’ve earned from a university.
- * @module
+ * @class
  */
-module.exports = class Degree {
+class Degree {
   /**
-   * Construct a new Degree object.
+   * @summary Construct a new Degree object.
    * @param {number} year year the degree was earned
    * @param {number} gpa grade-point-average
    * @param {string} field type and field of the degree
@@ -18,8 +18,8 @@ module.exports = class Degree {
   }
 
   /**
-   * Render this degree in HTML.
-   * Displays:
+   * @summary Render this degree in HTML.
+   * @description Displays:
    * - `Degree#view()` - default display
    * @returns {Degree.View} a function returning HTML output
    */
@@ -33,7 +33,7 @@ module.exports = class Degree {
        * Default display. Takes no arguments.
        * Return a <dt>–<dd> pair of elements:
        * <dt> degree text, <dd> degree year.
-       * Call `Degree#view()` to render this display.
+       * @summary Call `Degree#view()` to render this display.
        * @returns {string} HTML output
        */
       constructor() {
@@ -71,3 +71,5 @@ module.exports = class Degree {
     return new Degree.View()
   }
 }
+
+module.exports = Degree

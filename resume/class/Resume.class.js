@@ -36,10 +36,10 @@ const DATA = (function validateData(data) {
  * returning constants that have been declared outside the class.
  * This speeds up runtime as the objects above don’t have to be constructed each and every time
  * the static methods below are called.
- * @module
+ * @class
  */
-module.exports = class Resume {
-  /** @private */ constructor() {}
+class Resume {
+  constructor() {}
 
   /**
    * This project’s data, compiled from raw JSON.
@@ -175,3 +175,5 @@ module.exports = class Resume {
     return Resume.DATA.teams.map((d) => new Award(d.dates, d.text.join('') + subs(d)))
   }
 }
+
+module.exports = Resume

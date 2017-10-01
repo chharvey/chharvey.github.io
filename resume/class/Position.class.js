@@ -3,11 +3,11 @@ const Element = require('extrajs-dom').Element
 
 /**
  * A working position I’ve held at an organization tht I’ve worked for.
- * @module
+ * @class
  */
-module.exports = class Position {
+class Position {
   /**
-   * Construct a new Position object.
+   * @summary Construct a new Position object.
    * @param {string} id the id of this job position
    * @param {Object} $info all the data
    * @param {string} $info.title the official position name
@@ -38,8 +38,8 @@ module.exports = class Position {
   }
 
   /**
-   * Render this position in HTML.
-   * Displays:
+   * @summary Render this position in HTML.
+   * @description Displays:
    * - `Position#view()` - default display
    * @returns {Position.View} a function returning HTML output
    */
@@ -52,7 +52,7 @@ module.exports = class Position {
       /**
        * Default display. Takes no arguments.
        * Return a <section> element representing this position.
-       * Call `Position#view()` to render this display.
+       * @summary Call `Position#view()` to render this display.
        * @returns {string} HTML output
        */
       constructor() {
@@ -98,3 +98,5 @@ module.exports = class Position {
     return new Position.View()
   }
 }
+
+module.exports = Position

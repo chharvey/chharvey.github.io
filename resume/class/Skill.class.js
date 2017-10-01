@@ -2,11 +2,11 @@ const Element = require('extrajs-dom').Element
 
 /**
  * Skill listed in the Technical Experience section.
- * @module
+ * @class
  */
-module.exports = class Skill {
+class Skill {
   /**
-   * Construct a new Skill object.
+   * @summary Construct a new Skill object.
    * @param  {number} level proficiency with this skill; must be `1`–`Skill.LEVELS.length`
    * @param  {string} text custom HTML string defining this skill
    */
@@ -16,7 +16,7 @@ module.exports = class Skill {
   }
 
   /**
-   * Return this skill’s text content.
+   * @summary Return this skill’s text content.
    * @return {string} this._text
    */
   get text() {
@@ -24,8 +24,8 @@ module.exports = class Skill {
   }
 
   /**
-   * Render this skill in HTML.
-   * Displays:
+   * @summary Render this skill in HTML.
+   * @description Displays:
    * - `Skill#view()` - default display
    * @returns {Skill.View} a function returning HTML output
    */
@@ -39,7 +39,7 @@ module.exports = class Skill {
        * Default display. Takes no arguments.
        * Return a <dt>–<dd> pair of elements:
        * <dt> skill name, <dd> visualization of skill level.
-       * Call `Skill#view()` to render this display.
+       * @summary Call `Skill#view()` to render this display.
        * @returns {string} HTML output
        */
       constructor() {
@@ -94,3 +94,5 @@ module.exports = class Skill {
     ]
   }
 }
+
+module.exports = Skill

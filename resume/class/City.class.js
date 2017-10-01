@@ -3,11 +3,11 @@ const Util   = require('../_models/Util.class.js')
 
 /**
  * A class encoding information about a city or town’s location.
- * @module
+ * @class
  */
-module.exports = class City {
+class City {
   /**
-   * Construct a new City object.
+   * @summary Construct a new City object.
    * @param  {string} locality the city/town name
    * @param  {string} region the state/province postal code (e.g. 'NY', 'CA')
    * @param  {{lat:number, lon:number}} $geo the geo-coordinates
@@ -22,8 +22,8 @@ module.exports = class City {
   }
 
   /**
-   * Render this city in HTML.
-   * Displays:
+   * @summary Render this city in HTML.
+   * @description Displays:
    * - `City#view()` - default display
    * @returns {City.View} a function returning HTML output
    */
@@ -36,7 +36,7 @@ module.exports = class City {
       /**
        * Default display. Takes no arguments.
        * Return a <span> marking up this city with microdata.
-       * Call `City#view()` to render this display.
+       * @summary Call `City#view()` to render this display.
        * @returns {string} HTML output
        */
       constructor() {
@@ -74,3 +74,5 @@ module.exports = class City {
     return new City.View()
   }
 }
+
+module.exports = City

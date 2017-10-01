@@ -3,11 +3,11 @@ const Element = require('extrajs-dom').Element
 
 /**
  * Professional development hours.
- * @module
+ * @class
  */
-module.exports = class ProDev {
+class ProDev {
   /**
-   * Construct a new ProDev object.
+   * @summary Construct a new ProDev object.
    * @param {{start:Date, end:Date}} $dates the dates the the position was held
    * @param {Date} $dates.start the start date
    * @param {Date} $dates.end the end date
@@ -27,8 +27,8 @@ module.exports = class ProDev {
   }
 
   /**
-   * Render this ProDev object in HTML.
-   * Displays:
+   * @summary Render this ProDev object in HTML.
+   * @description Displays:
    * - `ProDev#view()` - default display
    * @returns {ProDev.View} a function returning HTML output
    */
@@ -42,7 +42,7 @@ module.exports = class ProDev {
        * Default display. Takes no arguments.
        * Return a <dt>–<dd> pair of elements:
        * <dt> text, <dd> dates.
-       * Call `ProDev#view()` to render this display.
+       * @summary Call `ProDev#view()` to render this display.
        * @returns {string} HTML output
        */
       constructor() {
@@ -85,3 +85,5 @@ module.exports = class ProDev {
     return new ProDev.View()
   }
 }
+
+module.exports = ProDev

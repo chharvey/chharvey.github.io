@@ -2,11 +2,11 @@ const Element = require('extrajs-dom').Element
 
 /**
  * An award I’ve earned.
- * @module
+ * @class
  */
-module.exports = class Award {
+class Award {
   /**
-   * Construct a new Award object.
+   * @summary Construct a new Award object.
    * @param {string} dates date(s) relevant to the award
    * @param {string} text  custom HTML string defining this award
    */
@@ -16,8 +16,8 @@ module.exports = class Award {
   }
 
   /**
-   * Render this award in HTML.
-   * Displays:
+   * @summary Render this award in HTML.
+   * @description Displays:
    * - `Award#view()` - default display
    * @returns {Award.View} a function returning HTML output
    */
@@ -31,7 +31,7 @@ module.exports = class Award {
        * Default display. Takes no arguments.
        * Return a <dt>–<dd> pair of elements:
        * <dt> award text, <dd> award dates.
-       * Call `Award#view()` to render this display.
+       * @summary Call `Award#view()` to render this display.
        * @returns {string} HTML output
        */
       constructor() {
@@ -48,3 +48,5 @@ module.exports = class Award {
     return new Award.View()
   }
 }
+
+module.exports = Award
