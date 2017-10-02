@@ -1,13 +1,13 @@
 const xjs     = require('extrajs')
-const Element = require('extrajs-element')
+const Element = require('extrajs-dom').Element
 
 /**
  * A working position I’ve held at an organization tht I’ve worked for.
- * @module
+ * @class
  */
-module.exports = class Position {
+class Position {
   /**
-   * Construct a new Position object.
+   * @summary Construct a new Position object.
    * @param {string} id the id of this job position
    * @param {Object} $info all the data
    * @param {string} $info.title the official position name
@@ -38,20 +38,26 @@ module.exports = class Position {
   }
 
   /**
-   * Render this position in HTML.
-   * Displays:
+   * @summary Render this position in HTML.
+   * @description Displays:
    * - `Position#view()` - default display
-   * @return {string} HTML output
+   * @returns {Position.View} a function returning HTML output
    */
   get view() {
     let self = this
+    /**
+     * @extends Function
+     */
+    Position.View = class extends Function {
       /**
        * Default display. Takes no arguments.
        * Return a <section> element representing this position.
-       * @return {string} HTML output
+       * @summary Call `Position#view()` to render this display.
+       * @returns {string} HTML output
        */
-    function returned() {
-      return (function () {
+      constructor() {
+        function returned() {
+          // REVIEW INDENTATION
         return new Element('section').id(this._id).class('o-Grid__Item o-Grid__Item--maincol c-Position')
           .attr({
             'data-instanceof': 'Position',
@@ -85,8 +91,12 @@ module.exports = class Position {
           ])
           .addContent(Element.data(this._descriptions, { attributes: { list: { class: 'c-Position__Body' } } }))
           .html()
-      }).call(self)
+        }
+        super(`return '${returned.call(self)}'`)
+      }
     }
-    return returned
+    return new Position.View()
   }
 }
+
+module.exports = Position

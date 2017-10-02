@@ -1,15 +1,15 @@
-var gulp = require('gulp')
-var pug = require('gulp-pug')
-var less = require('gulp-less')
-var autoprefixer = require('gulp-autoprefixer')
+const gulp         = require('gulp')
+const pug          = require('gulp-pug')
+const less         = require('gulp-less')
+const autoprefixer = require('gulp-autoprefixer')
 
 gulp.task('pug:resume', function () {
   return gulp.src('resume/resume.pug')
     .pipe(pug({
       basedir: './',
       locals: {
-        Element: require('extrajs-element'),
-        Resume: require('./resume/_models/Resume.class.js'),
+        Element: require('extrajs-dom').Element,
+        resume: new (require('./resume/class/Resume.class.js'))(require('./resume/resume.json')),
       },
     }))
     .pipe(gulp.dest('./resume/'))

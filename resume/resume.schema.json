@@ -4,7 +4,28 @@
   "title": "Resume",
   "type": "object",
   "description": "Resume of Christopher H. Harvey of Fairfax, VA.",
-  "definitions": {},
+  "definitions": {
+    "Content": {
+      "type" : ["string", "array"],
+      "items": { "type": "string" }
+    },
+    "Award": {
+      "type": "object",
+      "required": ["dates", "content"],
+      "properties": {
+        "dates"  : { "type": "string" , "description": "date(s) relevant to the award" },
+        "content": {
+          "$ref": "#/definitions/Content",
+          "description": "custom HTML defining the award"
+        },
+        "sub_awards": {
+          "type": "array",
+          "description": "any sub-awards within this award",
+          "items": { "$ref": "#/definitions/Award" }
+        }
+      }
+    }
+  },
   "required": ["contact"],
   "additionalProperties": false,
   "properties": {
@@ -34,7 +55,7 @@
           "additionalProperties": false,
           "properties": {
             "level": { "type": "integer", "minimum": 1, "maximum": 5, "description": "proficiency with this skill; must be `1`–`Skill.LEVELS.length`" },
-            "text" : { "type": "string", "description": "custom HTML string defining this skill" }
+            "text" : { "type": "string", "description": "custom HTML defining this skill" }
           }
         }
       }
@@ -79,11 +100,7 @@
             "descriptions": {
               "type": "array",
               "description": "the list of descriptions for the job position",
-              "items": {
-                "type": ["string", "array"],
-                "description": "a single description item, or an array of strings to be joined to form such an item",
-                "items": { "type": "string" }
-              }
+              "items": { "$ref": "#/definitions/Content", "description": "custom HTML defining a single description item" }
             },
             "descriptions_hidden": { "$ref": "#/properties/positions/additionalProperties/items/properties/descriptions" }
           }
@@ -108,12 +125,11 @@
       "type": "array",
       "description": "List of professional development hours.",
       "items": {
-        "anyOf": [
+        "oneOf": [
           {
             "type": "object",
             "title": "ProDev",
             "required": [
-              "prodev",
               "pdh",
               "start",
               "end",
@@ -124,7 +140,6 @@
             ],
             "additionalProperties": false,
             "properties": {
-              "prodev"  : { "type": "boolean", "description": "this item is an instance of ProDev", "const": true },
               "pdh"     : { "type": "number", "description": "the number of professional development hours" },
               "itemtype": { "type": "string", "description": "the value of the event’s `itemtype` attribute" },
               "start"   : { "type": "string", "description": "the start date in ISO format" },
@@ -139,85 +154,22 @@
                   { "type": "number", "description": "the longitude value of the location" }
                 ]
               },
-              "coursename": {
-                "type": ["string", "array"],
-                "description": "the title of the course or event",
-                "items": { "type": "string" }
-              }
+              "coursename": { "$ref": "#/definitions/Content", "description": "the title of the course or event" }
             }
           },
-          {
-            "type": "object",
-            "title": "Award",
-            "required": ["dates", "text"],
-            "additionalProperties": false,
-            "properties": {
-              "prodev": { "type": "boolean", "description": "this item is not an instance of ProDev", "const": false },
-              "dates" : { "type": "string", "description": "date(s) relevant to the award" },
-              "text"  : { "type": ["string", "array"], "description": "custom HTML string defining the award", "items": { "type": "string" } }
-            }
-          }
+          { "title": "Award", "$ref": "#/definitions/Award" }
         ]
       }
     },
     "awards": {
       "type": "array",
       "description": "List of other awards & memberships.",
-      "items": {
-        "type": "object",
-        "required": ["dates", "text"],
-        "additionalProperties": false,
-        "properties": {
-          "dates"     : { "type": "string", "description": "date(s) relevant to the award" },
-          "text"      : { "type": "string", "description": "custom HTML string defining the award" },
-          "sub_awards": {
-            "type": "array",
-            "description": "any sub-awards within this award",
-            "items": {
-              "type": "object",
-              "required": ["dates", "text"],
-              "additionalProperties": false,
-              "properties": {
-                "dates": { "type": "string", "description": "date(s) relevant to the award" },
-                "text" : { "type": "string", "description": "custom HTML string defining this award" }
-              }
-            }
-          }
-        }
-      }
+      "items": { "$ref": "#/definitions/Award" }
     },
     "teams": {
       "type": "array",
       "description": "List of athletic team memberships.",
-      "items": {
-        "type": "object",
-        "required": ["dates", "text"],
-        "additionalProperties": false,
-        "properties": {
-          "dates": {
-            "type": "string",
-            "description": "date(s) relevant to the award"
-          },
-          "text": {
-            "type": "array",
-            "description": "custom HTML string defining this award",
-            "items": { "type": "string" }
-          },
-          "sub_awards": {
-            "type": "array",
-            "description": "any sub-awards within this award",
-            "items": {
-              "type": "object",
-              "required": ["dates", "text"],
-              "additionalProperties": false,
-              "properties": {
-                "dates": { "type": "string", "description": "date(s) relevant to the award" },
-                "text" : { "type": "string", "description": "custom HTML string defining this award" }
-              }
-            }
-          }
-        }
-      }
+      "items": { "$ref": "#/definitions/Award" }
     }
   }
 }

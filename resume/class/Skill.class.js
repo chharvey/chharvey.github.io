@@ -1,12 +1,12 @@
-const Element = require('extrajs-element')
+const Element = require('extrajs-dom').Element
 
 /**
  * Skill listed in the Technical Experience section.
- * @module
+ * @class
  */
-module.exports = class Skill {
+class Skill {
   /**
-   * Construct a new Skill object.
+   * @summary Construct a new Skill object.
    * @param  {number} level proficiency with this skill; must be `1`–`Skill.LEVELS.length`
    * @param  {string} text custom HTML string defining this skill
    */
@@ -16,7 +16,7 @@ module.exports = class Skill {
   }
 
   /**
-   * Return this skill’s text content.
+   * @summary Return this skill’s text content.
    * @return {string} this._text
    */
   get text() {
@@ -24,22 +24,27 @@ module.exports = class Skill {
   }
 
   /**
-   * Render this skill in HTML.
-   * Displays:
+   * @summary Render this skill in HTML.
+   * @description Displays:
    * - `Skill#view()` - default display
-   * @return {string} HTML output
+   * @returns {Skill.View} a function returning HTML output
    */
   get view() {
     let self = this
+    /**
+     * @extends Function
+     */
+    Skill.View = class extends Function {
       /**
        * Default display. Takes no arguments.
        * Return a <dt>–<dd> pair of elements:
        * <dt> skill name, <dd> visualization of skill level.
-       * Call `Skill#view()` to render this display.
-       * @return {string} HTML output
+       * @summary Call `Skill#view()` to render this display.
+       * @returns {string} HTML output
        */
-    function returned() {
-      return (function () {
+      constructor() {
+        function returned() {
+          // REVIEW INDENTATION
         return Element.concat(
           new Element('dt').class('o-Grid__Item')
             .attr('data-instanceof','Skill.Text')
@@ -66,16 +71,18 @@ module.exports = class Skill {
               ]),
             ])
         )
-      }).call(self)
+        }
+        super(`return '${returned.call(self)}'`)
+      }
     }
-    return returned
+    return new Skill.View()
   }
 
 
 
   /**
    * An array possible skill levels in increasing order.
-   * @type {Array<string}>}
+   * @type {Array<string>}
    */
   static get LEVELS() {
     return [
@@ -87,3 +94,5 @@ module.exports = class Skill {
     ]
   }
 }
+
+module.exports = Skill

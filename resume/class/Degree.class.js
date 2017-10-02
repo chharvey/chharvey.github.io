@@ -1,12 +1,12 @@
-const Element = require('extrajs-element')
+const Element = require('extrajs-dom').Element
 
 /**
  * An degree I’ve earned from a university.
- * @module
+ * @class
  */
-module.exports = class Degree {
+class Degree {
   /**
-   * Construct a new Degree object.
+   * @summary Construct a new Degree object.
    * @param {number} year year the degree was earned
    * @param {number} gpa grade-point-average
    * @param {string} field type and field of the degree
@@ -18,21 +18,27 @@ module.exports = class Degree {
   }
 
   /**
-   * Render this degree in HTML.
-   * Displays:
+   * @summary Render this degree in HTML.
+   * @description Displays:
    * - `Degree#view()` - default display
-   * @return {string} HTML output
+   * @returns {Degree.View} a function returning HTML output
    */
   get view() {
     let self = this
+    /**
+     * @extends Function
+     */
+    Degree.View = class extends Function {
       /**
        * Default display. Takes no arguments.
        * Return a <dt>–<dd> pair of elements:
        * <dt> degree text, <dd> degree year.
-       * @return {string} HTML output
+       * @summary Call `Degree#view()` to render this display.
+       * @returns {string} HTML output
        */
-    function returned() {
-      return (function () {
+      constructor() {
+        function returned() {
+          // REVIEW INDENTATION
         return Element.concat(
           new Element('dt').class('o-ListAchv__Award h-Inline')
             .attr('data-instanceof','Degree.Text')
@@ -58,8 +64,12 @@ module.exports = class Degree {
             ])
             .addContent(`)`)
         )
-      }).call(self)
+        }
+        super(`return '${returned.call(self)}'`)
+      }
     }
-    return returned
+    return new Degree.View()
   }
 }
+
+module.exports = Degree

@@ -1,13 +1,13 @@
-const Element = require('extrajs-element')
-const Util    = require('./Util.class.js')
+const Element = require('extrajs-dom').Element
+const Util   = require('../_models/Util.class.js')
 
 /**
  * A class encoding information about a city or town’s location.
- * @module
+ * @class
  */
-module.exports = class City {
+class City {
   /**
-   * Construct a new City object.
+   * @summary Construct a new City object.
    * @param  {string} locality the city/town name
    * @param  {string} region the state/province postal code (e.g. 'NY', 'CA')
    * @param  {{lat:number, lon:number}} $geo the geo-coordinates
@@ -22,20 +22,26 @@ module.exports = class City {
   }
 
   /**
-   * Render this city in HTML.
-   * Displays:
+   * @summary Render this city in HTML.
+   * @description Displays:
    * - `City#view()` - default display
-   * @return {string} HTML output
+   * @returns {City.View} a function returning HTML output
    */
   get view() {
     let self = this
+    /**
+     * @extends Function
+     */
+    City.View = class extends Function {
       /**
        * Default display. Takes no arguments.
        * Return a <span> marking up this city with microdata.
-       * @return {string} HTML output
+       * @summary Call `City#view()` to render this display.
+       * @returns {string} HTML output
        */
-    function returned() {
-      return (function () {
+      constructor() {
+        function returned() {
+          // REVIEW INDENTATION
         return new Element('span')
           .attr({
             'data-instanceof': 'City',
@@ -61,8 +67,12 @@ module.exports = class City {
               ]),
           ])
           .html()
-      }).call(self)
+        }
+        super(`return '${returned.call(self)}'`)
+      }
     }
-    return returned
+    return new City.View()
   }
 }
+
+module.exports = City
