@@ -8,6 +8,24 @@
     "Content": {
       "type" : ["string", "array"],
       "items": { "type": "string" }
+    },
+    "Award": {
+      "type": "object",
+      "required": ["dates", "content"],
+      "properties": {
+        "dates"  : { "type": "string" , "description": "date(s) relevant to the award" },
+        "content": {
+          "allOf": [
+            { "$ref": "#/definitions/Content" },
+            { "description": "custom HTML defining the award" }
+          ]
+        },
+        "sub_awards": {
+          "type": "array",
+          "description": "any sub-awards within this award",
+          "items": { "allOf": [{ "$ref": "#/definitions/Award" }] }
+        }
+      }
     }
   },
   "required": ["contact"],
@@ -154,20 +172,16 @@
             }
           },
           {
-            "type": "object",
             "title": "Award",
-            "required": ["prodev", "dates", "content"],
-            "additionalProperties": false,
-            "properties": {
-              "prodev" : { "type": "boolean", "description": "this item is not an instance of ProDev", "const": false },
-              "dates"  : { "type": "string" , "description": "date(s) relevant to the award" },
-              "content": {
-                "allOf": [
-                  { "$ref": "#/definitions/Content" },
-                  { "description": "custom HTML defining the award" }
-                ]
+            "allOf": [
+              { "$ref": "#/definitions/Award" },
+              {
+                "required": ["prodev"],
+                "properties": {
+                  "prodev" : { "type": "boolean", "description": "this item is not an instance of ProDev", "const": false }
+                }
               }
-            }
+            ]
           }
         ]
       }
@@ -175,74 +189,12 @@
     "awards": {
       "type": "array",
       "description": "List of other awards & memberships.",
-      "items": {
-        "type": "object",
-        "required": ["dates", "content"],
-        "additionalProperties": false,
-        "properties": {
-          "dates"  : { "type": "string", "description": "date(s) relevant to the award" },
-          "content": {
-            "allOf": [
-              { "$ref": "#/definitions/Content" },
-              { "description": "custom HTML defining the award" }
-            ]
-          },
-          "sub_awards": {
-            "type": "array",
-            "description": "any sub-awards within this award",
-            "items": {
-              "type": "object",
-              "required": ["dates", "content"],
-              "additionalProperties": false,
-              "properties": {
-                "dates"  : { "type": "string", "description": "date(s) relevant to the award" },
-                "content": {
-                  "allOf": [
-                    { "$ref": "#/definitions/Content" },
-                    { "description": "custom HTML defining the award" }
-                  ]
-                }
-              }
-            }
-          }
-        }
-      }
+      "items": { "$ref": "#/definitions/Award" }
     },
     "teams": {
       "type": "array",
       "description": "List of athletic team memberships.",
-      "items": {
-        "type": "object",
-        "required": ["dates", "content"],
-        "additionalProperties": false,
-        "properties": {
-          "dates"  : { "type": "string", "description": "date(s) relevant to the award" },
-          "content": {
-            "allOf": [
-              { "$ref": "#/definitions/Content" },
-              { "description": "custom HTML defining the award" }
-            ]
-          },
-          "sub_awards": {
-            "type": "array",
-            "description": "any sub-awards within this award",
-            "items": {
-              "type": "object",
-              "required": ["dates", "content"],
-              "additionalProperties": false,
-              "properties": {
-                "dates"  : { "type": "string", "description": "date(s) relevant to the award" },
-                "content": {
-                  "allOf": [
-                    { "$ref": "#/definitions/Content" },
-                    { "description": "custom HTML defining the award" }
-                  ]
-                }
-              }
-            }
-          }
-        }
-      }
+      "items": { "$ref": "#/definitions/Award" }
     }
   }
 }
