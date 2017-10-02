@@ -10,7 +10,17 @@ const Position     = require('./Position.class.js')
 const ProDev       = require('./ProDev.class.js')
 const Skill        = require('./Skill.class.js')
 
-const DATA = (function validateData(data) {
+/**
+ * A résumé generated with given content data.
+ * @class
+ */
+class Resume {
+  /**
+   * @summary Construct a new Resume object.
+   * @param   {Object} jsondata a JSON object that validates against `../resume.schema.json`
+   */
+  constructor(jsondata) {
+    // REVIEW indentation
   ;(function () {
     let ajv = new Ajv()
     let is_schema_valid = ajv.validateSchema(require('../resume.schema.json'))
@@ -21,25 +31,20 @@ const DATA = (function validateData(data) {
   })()
   ;(function () {
     let ajv = new Ajv()
-    let is_data_valid = ajv.validate(require('../resume.schema.json'), data)
+    let is_data_valid = ajv.validate(require('../resume.schema.json'), jsondata)
     if (!is_data_valid) {
       console.error(ajv.errors)
       throw new Error('Data does not valiate against schema!')
     }
   })()
-  return data
-})(require('../resume.json'))
-
-/**
- * Static class for résumé content.
- * NOTE: since es6 classes cannot have static fields, I have used `static get` methods,
- * returning constants that have been declared outside the class.
- * This speeds up runtime as the objects above don’t have to be constructed each and every time
- * the static methods below are called.
- * @class
- */
-class Resume {
-  constructor() {}
+    /**
+     * Raw JSON data for this resume.
+     * @private
+     * @final
+     * @type {Object}
+     */
+    this._DATA = jsondata
+  }
 
   /**
    * Generate content from strings.
@@ -52,39 +57,33 @@ class Resume {
   }
 
   /**
-   * This project’s data, compiled from raw JSON.
-   * @type {Object}
-   */
-  static get DATA() { return DATA }
-
-  /**
-   * Contact data for this resume.
+   * @summary Contact data for this resume.
    * @type {Array<Object<string>>}
    */
-  static get CONTACT_DATA() {
-    return Resume.DATA.contact.map((d) => new ContactPoint(d.url, d.octicon, d.content, d.itemprop))
+  get contactData() {
+    return this._DATA.contact.map((d) => new ContactPoint(d.url, d.octicon, d.content, d.itemprop))
   }
 
   /**
-   * List of skills, grouped by category.
+   * @summary List of skills, grouped by category.
    * @type {Object<Array<Skill>>}
    */
-  static get SKILLS() {
+  get skills() {
     let returned = {}
-    for (let i in Resume.DATA.skills) {
-      returned[i] = Resume.DATA.skills[i].map((d) => new Skill(d.level, d.text))
+    for (let i in this._DATA.skills) {
+      returned[i] = this._DATA.skills[i].map((d) => new Skill(d.level, d.text))
     }
     return returned
   }
 
   /**
-   * List of positions, grouped by category.
+   * @summary List of positions, grouped by category.
    * @type {Object<Array<Position>>}
    */
-  static get POSITIONS() {
+  get positions() {
     let returned = {}
-    for (let i in Resume.DATA.positions) {
-      returned[i] = Resume.DATA.positions[i].map((d) =>
+    for (let i in this._DATA.positions) {
+      returned[i] = this._DATA.positions[i].map((d) =>
         new Position(d.id, {
           title: d.title,
           org  : {
@@ -109,19 +108,19 @@ class Resume {
   }
 
   /**
-   * List of degrees.
+   * @summary List of degrees.
    * @type {Array<Degree>}
    */
-  static get DEGREES() {
-    return Resume.DATA.degrees.map((d) => new Degree(d.year, d.gpa, d.field))
+  get degrees() {
+    return this._DATA.degrees.map((d) => new Degree(d.year, d.gpa, d.field))
   }
 
   /**
-   * List of professional development hours.
+   * @summary List of professional development hours.
    * @type {Array<(ProDev|Award)>}
    */
-  static get PRODEVS() {
-    return Resume.DATA.prodevs.map((d) =>
+  get proDevs() {
+    return this._DATA.prodevs.map((d) =>
       (d.pdh) ? new ProDev(
         { start: new Date(d.start), end  : new Date(d.end) },
         new City(d.city, d.state, { lat: d.geo[0], lon: d.geo[1] }),
@@ -133,10 +132,10 @@ class Resume {
   }
 
   /**
-   * List of other awards & memberships.
+   * @summary List of other awards & memberships.
    * @type {Array<Award>}
    */
-  static get AWARDS() {
+  get awards() {
     /**
      * Return markup for any sub-awards in this award.
      * TODO: move this model into Award.class
@@ -153,14 +152,14 @@ class Resume {
           .html()
         : ''
     }
-    return Resume.DATA.awards.map((d) => new Award(d.dates, Resume._content(d.content) + subs(d)))
+    return this._DATA.awards.map((d) => new Award(d.dates, Resume._content(d.content) + subs(d)))
   }
 
   /**
-   * List of athletic team memberships.
+   * @summary List of athletic team memberships.
    * @type {Array<Award>}
    */
-  static get TEAMS() {
+  get teams() {
     /**
      * Return markup for any sub-awards in this award.
      * TODO: move this model into Award.class
@@ -177,7 +176,7 @@ class Resume {
           .html()
         : ''
     }
-    return Resume.DATA.teams.map((d) => new Award(d.dates, Resume._content(d.content) + subs(d)))
+    return this._DATA.teams.map((d) => new Award(d.dates, Resume._content(d.content) + subs(d)))
   }
 }
 
