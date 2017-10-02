@@ -15,15 +15,13 @@
       "properties": {
         "dates"  : { "type": "string" , "description": "date(s) relevant to the award" },
         "content": {
-          "allOf": [
-            { "$ref": "#/definitions/Content" },
-            { "description": "custom HTML defining the award" }
-          ]
+          "$ref": "#/definitions/Content",
+          "description": "custom HTML defining the award"
         },
         "sub_awards": {
           "type": "array",
           "description": "any sub-awards within this award",
-          "items": { "allOf": [{ "$ref": "#/definitions/Award" }] }
+          "items": { "$ref": "#/definitions/Award" }
         }
       }
     }
@@ -102,12 +100,7 @@
             "descriptions": {
               "type": "array",
               "description": "the list of descriptions for the job position",
-              "items": {
-                "allOf": [
-                  { "$ref": "#/definitions/Content" },
-                  { "description": "custom HTML defining a single description item" }
-                ]
-              }
+              "items": { "$ref": "#/definitions/Content", "description": "custom HTML defining a single description item" }
             },
             "descriptions_hidden": { "$ref": "#/properties/positions/additionalProperties/items/properties/descriptions" }
           }
@@ -132,12 +125,11 @@
       "type": "array",
       "description": "List of professional development hours.",
       "items": {
-        "anyOf": [
+        "oneOf": [
           {
             "type": "object",
             "title": "ProDev",
             "required": [
-              "prodev",
               "pdh",
               "start",
               "end",
@@ -148,7 +140,6 @@
             ],
             "additionalProperties": false,
             "properties": {
-              "prodev"  : { "type": "boolean", "description": "this item is an instance of ProDev", "const": true },
               "pdh"     : { "type": "number", "description": "the number of professional development hours" },
               "itemtype": { "type": "string", "description": "the value of the event’s `itemtype` attribute" },
               "start"   : { "type": "string", "description": "the start date in ISO format" },
@@ -163,26 +154,10 @@
                   { "type": "number", "description": "the longitude value of the location" }
                 ]
               },
-              "coursename": {
-                "allOf": [
-                  { "$ref": "#/definitions/Content" },
-                  { "description": "the title of the course or event" }
-                ]
-              }
+              "coursename": { "$ref": "#/definitions/Content", "description": "the title of the course or event" }
             }
           },
-          {
-            "title": "Award",
-            "allOf": [
-              { "$ref": "#/definitions/Award" },
-              {
-                "required": ["prodev"],
-                "properties": {
-                  "prodev" : { "type": "boolean", "description": "this item is not an instance of ProDev", "const": false }
-                }
-              }
-            ]
-          }
+          { "title": "Award", "$ref": "#/definitions/Award" }
         ]
       }
     },

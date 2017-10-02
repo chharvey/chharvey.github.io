@@ -114,7 +114,7 @@ class Resume {
    */
   static get PRODEVS() {
     return Resume.DATA.prodevs.map((d) =>
-      (d.prodev) ? new ProDev(
+      (d.pdh) ? new ProDev(
         { start: new Date(d.start), end  : new Date(d.end) },
         new City(d.city, d.state, { lat: d.geo[0], lon: d.geo[1] }),
         d.pdh,
