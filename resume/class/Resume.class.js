@@ -42,6 +42,16 @@ class Resume {
   constructor() {}
 
   /**
+   * Generate content from strings.
+   * @private
+   * @param   {(string|Array<string>)} x a string, or array of strings
+   * @returns {string} the string, or the joined array
+   */
+  static _content(x) {
+    return (xjs.Object.typeOf(x) === 'array') ? x.join('') : x
+  }
+
+  /**
    * This project’s data, compiled from raw JSON.
    * @type {Object}
    */
@@ -91,9 +101,7 @@ class Resume {
             d.state,
             { lat: d.geo[0], lon: d.geo[1] }
           ),
-          descriptions: d.descriptions.map((t) =>
-            (xjs.Object.typeOf(t) === 'array') ? t.join('') : t
-          )
+          descriptions: d.descriptions.map(Resume._content)
         })
       )
     }
@@ -118,12 +126,9 @@ class Resume {
         { start: new Date(d.start), end  : new Date(d.end) },
         new City(d.city, d.state, { lat: d.geo[0], lon: d.geo[1] }),
         d.pdh,
-        (xjs.Object.typeOf(d.coursename) === 'array') ? d.coursename.join('') : d.coursename,
+        Resume._content(d.coursename),
         d.itemtype
-      ) : new Award(
-        d.dates,
-        (xjs.Object.typeOf(d.content) === 'array') ? d.content.join('') : d.content
-      )
+      ) : new Award(d.dates, Resume._content(d.content))
     )
   }
 
@@ -142,16 +147,13 @@ class Resume {
     function subs(datum) {
       return (datum.sub_awards) ?
         new Element('dl').class('o-ListAchv')
-          .addContent(datum.sub_awards.map((d) =>
-            new Award(
-              d.dates,
-              (xjs.Object.typeOf(d.content) === 'array') ? d.content.join('') : d.content
-            ).view()
+          .addContent(datum.sub_awards.map((s) =>
+            new Award(s.dates, Resume._content(s.content)).view()
           ).join(''))
           .html()
         : ''
     }
-    return Resume.DATA.awards.map((d) => new Award(d.dates, ((xjs.Object.typeOf(d.content) === 'array') ? d.content.join('') : d.content) + subs(d)))
+    return Resume.DATA.awards.map((d) => new Award(d.dates, Resume._content(d.content) + subs(d)))
   }
 
   /**
@@ -169,16 +171,13 @@ class Resume {
     function subs(datum) {
       return (datum.sub_awards) ?
         new Element('dl').class('o-ListAchv')
-          .addContent(datum.sub_awards.map((d) =>
-            new Award(
-              d.dates,
-              (xjs.Object.typeOf(d.content) === 'array') ? d.content.join('') : d.content
-            ).view()
+          .addContent(datum.sub_awards.map((s) =>
+            new Award(s.dates, Resume._content(s.content)).view()
           ).join(''))
           .html()
         : ''
     }
-    return Resume.DATA.teams.map((d) => new Award(d.dates, ((xjs.Object.typeOf(d.content) === 'array') ? d.content.join('') : d.content) + subs(d)))
+    return Resume.DATA.teams.map((d) => new Award(d.dates, Resume._content(d.content) + subs(d)))
   }
 }
 
