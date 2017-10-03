@@ -43,7 +43,7 @@ class ContactPoint {
         return new Element('a').class('c-Contact__Link h-Block')
           .attr('href', this._url)
           .attr('itemprop', this._itemprop || null)
-          .addElements([
+          .addContent([
             new Element('div').class('c-Contact__Icon octicon').addClass(this._octicon).attr('role','none'),
             new Element('div').addContent(this._content),
           ]).html()

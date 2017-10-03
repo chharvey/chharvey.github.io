@@ -52,11 +52,9 @@ class ProDev {
           new Element('dt').class('o-ListAchv__Award h-Inline')
             .attr('data-instanceof','ProDev.Text')
             .attr({ itemprop:'award', itemscope:'', itemtype:this._itemtype })
-            .addElements([
+            .addContent([
               new Element('span').attr('itemprop','name').addContent(this._name),
-            ])
-            .addContent(`, ${this._location.view()}`)
-            .addElements([
+              `, ${this._location.view()}`,
               new Element('time').attr('datetime',`PT${this._pdh}H`).attr('itemprop','duration').addContent(` (${this._pdh} hr)`),
             ]),
           (function () {

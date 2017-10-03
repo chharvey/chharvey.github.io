@@ -55,13 +55,13 @@ class Skill {
               itemscope   : '',
               itemtype    : 'http://schema.org/Rating',
             })
-            .addElements([
+            .addContent([
               new Element('span').class('o-Textbox c-Label c-Label--skss h-Hidden').addContent(Skill.LEVELS[this._level-1]), // TODO create a component; see _hack.less
               new Element('meta').attr('itemprop','worstRating').attr('content',0),
               new Element('meta').attr('itemprop','bestRating' ).attr('content',Skill.LEVELS.length),
               new Element('meta').attr('itemprop','ratingValue').attr('content',this._level),
-              new Element('svg').class('c-SkillViz').attr('viewbox','0 0 14 4').addElements([
-                new Element('g').attr('transform','translate(1,2)').addElements(
+              new Element('svg').class('c-SkillViz').attr('viewbox','0 0 14 4').addContent([
+                new Element('g').attr('transform','translate(1,2)').addContent(
                   Skill.LEVELS.map(function (lvl, index) {
                     return new Element('circle',true).class('c-SkillViz__Marker')
                       .addClass((index <= this._level-1) ? 'c-SkillViz__Marker--true' : '')

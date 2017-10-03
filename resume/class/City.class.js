@@ -49,19 +49,19 @@ class City {
             itemscope: '',
             itemtype : 'http://schema.org/Place',
           })
-          .addElements([
+          .addContent([
             new Element('span')
               .attr({ itemprop:'address', itemscope:'', itemtype:'http://schema.org/PostalAddress' })
-              .addElements([new Element('span').attr('itemprop','addressLocality').addContent(this._locality)])
-              .addContent(`, `)
-              .addElements([
+              .addContent([
+                new Element('span').attr('itemprop','addressLocality').addContent(this._locality),
+                `, `,
                 new Element('abbr').attr('itemprop','addressRegion')
                   .attr('title',Util.STATE_DATA.find((obj) => obj.code===this._region).name)
                   .addContent(this._region),
               ]),
             new Element('span')
               .attr({ itemprop:'geo', itemscope:'', itemtype:'http://schema.org/GeoCoordinates' })
-              .addElements([
+              .addContent([
                 new Element('meta').attr('itemprop','latitude' ).attr('content',this._latitude),
                 new Element('meta').attr('itemprop','longitude').attr('content',this._longitude),
               ]),

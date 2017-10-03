@@ -65,22 +65,20 @@ class Position {
             itemtype : this._org_type,
           })
           .attr('itemprop', (xjs.Date.sameDate(this._date_end, new Date())) ? 'worksFor' : null)
-          .addElements([
-            new Element('header').class('c-Position__Head').addElements([
+          .addContent([
+            new Element('header').class('c-Position__Head').addContent([
                 new Element('h3').class('c-Position__Name h-Inline-sG -pr-1-sG').attr('itemprop','jobTitle').addContent(this._name),
-                new Element('p').class('c-Position__Org h-Inline-sG h-Clearfix-sG').addElements([
-                  new Element('a').class('c-Camo').attr({ rel:'external', href:this._org_url, itemprop:'url' }).addElements([
+                new Element('p').class('c-Position__Org h-Inline-sG h-Clearfix-sG').addContent([
+                  new Element('a').class('c-Camo').attr({ rel:'external', href:this._org_url, itemprop:'url' }).addContent([
                     new Element('span').attr('itemprop','name').addContent(this._org_name),
                   ]),
                 ]),
                 new Element('p').class('c-Position__Dates h-Inline')
-                  .addElements([
+                  .addContent([
                     new Element('time')
                       .attr('datetime', this._date_start.toISOString())
                       .addContent(xjs.Date.format(this._date_start, 'M Y')),
-                  ])
-                  .addContent(`&ndash;`)
-                  .addElements([
+                    `&ndash;`,
                     new Element('time')
                       .attr('datetime', this._date_end.toISOString())
                       .addContent((xjs.Date.sameDate(this._date_end, new Date())) ? 'present' : xjs.Date.format(this._date_end, 'M Y')),
@@ -88,8 +86,8 @@ class Position {
                 new Element('p').class('c-Position__Place h-Inline')
                   .addContent(`(${this._location.view()})`),
             ]),
+            Element.data(this._descriptions, { attributes: { list: { class: 'c-Position__Body' } } }),
           ])
-          .addContent(Element.data(this._descriptions, { attributes: { list: { class: 'c-Position__Body' } } }))
           .html()
         }
         super(`return '${returned.call(self)}'`)
