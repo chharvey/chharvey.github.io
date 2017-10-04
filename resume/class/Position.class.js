@@ -1,5 +1,6 @@
 const xjs     = require('extrajs')
 const Element = require('extrajs-dom').Element
+const View = require('./_View.class.js')
 
 /**
  * A working position I’ve held at an organization tht I’ve worked for.
@@ -38,26 +39,27 @@ class Position {
   }
 
   /**
-   * @summary Render this position in HTML.
-   * @description Displays:
-   * - `Position#view()` - default display
-   * @returns {Position.View} a function returning HTML output
+   * @summary Render this award in HTML.
+   * @see Position.VIEW
+   * @type {View}
    */
   get view() {
-    let self = this
     /**
-     * @extends Function
+     * @summary This view object is a set of functions returning HTML output.
+     * @description Available displays:
+     * - `Position#view()` - default display
+     * @namespace Position.VIEW
+     * @type {View}
      */
-    Position.View = class extends Function {
-      /**
-       * Default display. Takes no arguments.
-       * Return a <section> element representing this position.
-       * @summary Call `Position#view()` to render this display.
-       * @returns {string} HTML output
-       */
-      constructor() {
-        function returned() {
-          // REVIEW INDENTATION
+    /**
+     * Default display. Takes no arguments.
+     * Return a <section> element representing this position.
+     * @summary Call `Position#view()` to render this display.
+     * @function Position.VIEW.default
+     * @returns {string} HTML output
+     */
+    return new View(function () {
+      // REVIEW INDENTATION
         return new Element('section').id(this._id).class('o-Grid__Item o-Grid__Item--maincol c-Position')
           .attr({
             'data-instanceof': 'Position',
@@ -89,11 +91,7 @@ class Position {
             Element.data(this._descriptions, { attributes: { list: { class: 'c-Position__Body' } } }),
           ])
           .html()
-        }
-        super(`return '${returned.call(self)}'`)
-      }
-    }
-    return new Position.View()
+    }, this)
   }
 }
 

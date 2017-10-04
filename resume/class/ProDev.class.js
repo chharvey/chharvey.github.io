@@ -1,5 +1,6 @@
 const xjs     = require('extrajs')
 const Element = require('extrajs-dom').Element
+const View = require('./_View.class.js')
 
 /**
  * Professional development hours.
@@ -27,28 +28,29 @@ class ProDev {
   }
 
   /**
-   * @summary Render this ProDev object in HTML.
-   * @description Displays:
-   * - `ProDev#view()` - default display
-   * @returns {ProDev.View} a function returning HTML output
+   * @summary Render this award in HTML.
+   * @see ProDev.VIEW
+   * @type {View}
    */
   get view() {
-    let self = this
     /**
-     * @extends Function
+     * @summary This view object is a set of functions returning HTML output.
+     * @description Available displays:
+     * - `ProDev#view()` - default display
+     * @namespace ProDev.VIEW
+     * @type {View}
      */
-    ProDev.View = class extends Function {
-      /**
-       * Default display. Takes no arguments.
-       * Return a <dt>–<dd> pair of elements:
-       * <dt> text, <dd> dates.
-       * @summary Call `ProDev#view()` to render this display.
-       * @returns {string} HTML output
-       */
-      constructor() {
-        function returned() {
-          // REVIEW INDENTATION
-        return Element.concat(
+    /**
+     * Default display. Takes no arguments.
+     * Return a <dt>–<dd> pair of elements:
+     * <dt> text, <dd> dates.
+     * @summary Call `ProDev#view()` to render this display.
+     * @function ProDev.VIEW.default
+     * @returns {string} HTML output
+     */
+    return new View(function () {
+      return Element.concat([
+        // REVIEW INDENTATION
           new Element('dt').class('o-ListAchv__Award h-Inline')
             .attr('data-instanceof','ProDev.Text')
             .attr({ itemprop:'award', itemscope:'', itemtype:this._itemtype })
@@ -74,13 +76,9 @@ class ProDev {
             return new Element('dd').class('o-ListAchv__Date h-Inline h-Clearfix')
               .attr('data-instanceof','ProDev.Dates')
               .addContent(`(${time_start.html()}&ndash;${time_end.html()})`)
-          }).call(this)
-        )
-        }
-        super(`return '${returned.call(self)}'`)
-      }
-    }
-    return new ProDev.View()
+          }).call(this),
+      ])
+    }, this)
   }
 }
 

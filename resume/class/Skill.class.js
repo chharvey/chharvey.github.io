@@ -1,4 +1,5 @@
 const Element = require('extrajs-dom').Element
+const View = require('./_View.class.js')
 
 /**
  * Skill listed in the Technical Experience section.
@@ -24,28 +25,29 @@ class Skill {
   }
 
   /**
-   * @summary Render this skill in HTML.
-   * @description Displays:
-   * - `Skill#view()` - default display
-   * @returns {Skill.View} a function returning HTML output
+   * @summary Render this award in HTML.
+   * @see Skill.VIEW
+   * @type {View}
    */
   get view() {
-    let self = this
     /**
-     * @extends Function
+     * @summary This view object is a set of functions returning HTML output.
+     * @description Available displays:
+     * - `Skill#view()` - default display
+     * @namespace Skill.VIEW
+     * @type {View}
      */
-    Skill.View = class extends Function {
-      /**
-       * Default display. Takes no arguments.
-       * Return a <dt>–<dd> pair of elements:
-       * <dt> skill name, <dd> visualization of skill level.
-       * @summary Call `Skill#view()` to render this display.
-       * @returns {string} HTML output
-       */
-      constructor() {
-        function returned() {
-          // REVIEW INDENTATION
-        return Element.concat(
+    /**
+     * Default display. Takes no arguments.
+     * Return a <dt>–<dd> pair of elements:
+     * <dt> skill name, <dd> visualization of skill level.
+     * @summary Call `Skill#view()` to render this display.
+     * @function Skill.VIEW.default
+     * @returns {string} HTML output
+     */
+    return new View(function () {
+      return Element.concat([
+        // REVIEW INDENTATION
           new Element('dt').class('o-Grid__Item')
             .attr('data-instanceof','Skill.Text')
             .addContent(this._text),
@@ -69,13 +71,9 @@ class Skill {
                   }, this)
                 ),
               ]),
-            ])
-        )
-        }
-        super(`return '${returned.call(self)}'`)
-      }
-    }
-    return new Skill.View()
+            ]),
+      ])
+    }, this)
   }
 
 

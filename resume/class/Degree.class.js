@@ -1,4 +1,5 @@
 const Element = require('extrajs-dom').Element
+const View = require('./_View.class.js')
 
 /**
  * An degree I’ve earned from a university.
@@ -18,26 +19,28 @@ class Degree {
   }
 
   /**
-   * @summary Render this degree in HTML.
-   * @description Displays:
-   * - `Degree#view()` - default display
-   * @returns {Degree.View} a function returning HTML output
+   * @summary Render this award in HTML.
+   * @see Degree.VIEW
+   * @type {View}
    */
   get view() {
-    let self = this
     /**
-     * @extends Function
+     * @summary This view object is a set of functions returning HTML output.
+     * @description Available displays:
+     * - `Degree#view()` - default display
+     * @namespace Degree.VIEW
+     * @type {View}
      */
-    Degree.View = class extends Function {
-      /**
-       * Default display. Takes no arguments.
-       * Return a <dt>–<dd> pair of elements:
-       * <dt> degree text, <dd> degree year.
-       * @summary Call `Degree#view()` to render this display.
-       * @returns {string} HTML output
-       */
-      constructor() {
-        function returned() {
+    /**
+     * Default display. Takes no arguments.
+     * Return a <dt>–<dd> pair of elements:
+     * <dt> degree text, <dd> degree year.
+     * @summary Call `Degree#view()` to render this display.
+     * @function Degree.VIEW.default
+     * @returns {string} HTML output
+     */
+    return new View(function () {
+      // REVIEW INDENTATION
           return Element.concat([
             new Element('dt').class('o-ListAchv__Award h-Inline')
               .attr('data-instanceof','Degree.Text')
@@ -63,11 +66,7 @@ class Degree {
                 `)`,
               ]),
           ])
-        }
-        super(`return '${returned.call(self)}'`)
-      }
-    }
-    return new Degree.View()
+    }, this)
   }
 }
 

@@ -1,4 +1,5 @@
 const Element = require('extrajs-dom').Element
+const View = require('./_View.class.js')
 
 /**
  * An award I’ve earned.
@@ -17,35 +18,32 @@ class Award {
 
   /**
    * @summary Render this award in HTML.
-   * @description Displays:
-   * - `Award#view()` - default display
-   * @returns {Award.View} a function returning HTML output
+   * @see Award.VIEW
+   * @type {View}
    */
   get view() {
-    let self = this
     /**
-     * @extends Function
+     * @summary This view object is a set of functions returning HTML output.
+     * @description Available displays:
+     * - `Award#view()` - default display
+     * @namespace Award.VIEW
+     * @type {View}
      */
-    Award.View = class extends Function {
-      /**
-       * Default display. Takes no arguments.
-       * Return a <dt>–<dd> pair of elements:
-       * <dt> award text, <dd> award dates.
-       * @summary Call `Award#view()` to render this display.
-       * @returns {string} HTML output
-       */
-      constructor() {
-        function returned() {
-          // REVIEW INDENTATION
+    /**
+     * Default display. Takes no arguments.
+     * Return a <dt>–<dd> pair of elements:
+     * <dt> award text, <dd> award dates.
+     * @summary Call `Award#view()` to render this display.
+     * @function Award.VIEW.default
+     * @returns {string} HTML output
+     */
+    return new View(function () {
+      // REVIEW INDENTATION
         return Element.concat(
           new Element('dt').class('o-ListAchv__Award h-Inline').attr('data-instanceof','Award.Text').attr('itemprop','award').addContent(this._text),
           new Element('dd').class('o-ListAchv__Date h-Inline h-Clearfix').attr('data-instanceof','Award.Dates').addContent(`(${this._dates})`)
         )
-        }
-        super(`return '${returned.call(self)}'`)
-      }
-    }
-    return new Award.View()
+    }, this)
   }
 }
 

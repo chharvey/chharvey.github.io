@@ -1,5 +1,6 @@
 const Element = require('extrajs-dom').Element
 const Util   = require('../_models/Util.class.js')
+const View = require('./_View.class.js')
 
 /**
  * A class encoding information about a city or town’s location.
@@ -22,26 +23,26 @@ class City {
   }
 
   /**
-   * @summary Render this city in HTML.
-   * @description Displays:
-   * - `City#view()` - default display
-   * @returns {City.View} a function returning HTML output
+   * @summary Render this award in HTML.
+   * @see City.VIEW
+   * @type {View}
    */
   get view() {
-    let self = this
     /**
-     * @extends Function
+     * @summary This view object is a set of functions returning HTML output.
+     * @description Available displays:
+     * - `City#view()` - default display
+     * @namespace City.VIEW
+     * @type {View}
      */
-    City.View = class extends Function {
-      /**
-       * Default display. Takes no arguments.
-       * Return a <span> marking up this city with microdata.
-       * @summary Call `City#view()` to render this display.
-       * @returns {string} HTML output
-       */
-      constructor() {
-        function returned() {
-          // REVIEW INDENTATION
+    /**
+     * Default display. Takes no arguments.
+     * Return a <span> marking up this city with microdata.
+     * @summary Call `City#view()` to render this display.
+     * @function City.VIEW.default
+     * @returns {string} HTML output
+     */
+    return new View(function () {
         return new Element('span')
           .attr({
             'data-instanceof': 'City',
@@ -67,11 +68,7 @@ class City {
               ]),
           ])
           .html()
-        }
-        super(`return '${returned.call(self)}'`)
-      }
-    }
-    return new City.View()
+    }, this)
   }
 }
 
