@@ -1,6 +1,6 @@
 const xjs     = require('extrajs')
 const Element = require('extrajs-dom').Element
-const View = require('./_View.class.js')
+const View = require('extrajs-view')
 
 /**
  * Professional development hours.

@@ -1,5 +1,5 @@
 const Element = require('extrajs-dom').Element
-const View = require('./_View.class.js')
+const View = require('extrajs-view')
 
 /**
  * Piece of contact information in resume.

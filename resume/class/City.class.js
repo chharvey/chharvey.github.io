@@ -1,6 +1,6 @@
 const Element = require('extrajs-dom').Element
+const View = require('extrajs-view')
 const Util   = require('../_models/Util.class.js')
-const View = require('./_View.class.js')
 
 /**
  * A class encoding information about a city or town’s location.

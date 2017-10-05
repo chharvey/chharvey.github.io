@@ -1,5 +1,5 @@
 const Element = require('extrajs-dom').Element
-const View = require('./_View.class.js')
+const View = require('extrajs-view')
 
 /**
  * Skill listed in the Technical Experience section.
