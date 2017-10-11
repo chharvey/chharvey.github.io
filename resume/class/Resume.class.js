@@ -121,13 +121,13 @@ class Resume {
    */
   get proDevs() {
     return this._DATA.prodevs.map((d) =>
-      (d.pdh) ? new ProDev(
+      new ProDev(
         { start: new Date(d.start), end  : new Date(d.end) },
         new City(d.city, d.state, { lat: d.geo[0], lon: d.geo[1] }),
         d.pdh,
         Resume._content(d.coursename),
         d.itemtype
-      ) : new Award(d.dates, Resume._content(d.content))
+      )
     )
   }
 
