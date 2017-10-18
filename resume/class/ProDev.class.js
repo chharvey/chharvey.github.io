@@ -50,33 +50,38 @@ class ProDev {
      */
     return new View(function () {
       return Element.concat([
-        // REVIEW INDENTATION
-          new Element('dt').class('o-ListAchv__Award h-Inline')
-            .attr('data-instanceof','ProDev.Text')
-            .attr({ itemprop:'award', itemscope:'', itemtype:this._itemtype })
-            .addContent([
-              new Element('span').attr('itemprop','name').addContent(this._name),
-              `, ${this._location.view()}`,
-              new Element('time').attr('datetime',`PT${this._pdh}H`).attr('itemprop','duration').addContent(` (${this._pdh} hr)`),
-            ]),
-          (function () {
-            let time_start = new Element('time').attr('datetime',this._date_start.toISOString()).attr('itemprop','startDate')
-              .addContent(this._date_start.getUTCDate())
-            if (
-               this._date_start.getUTCMonth() !== this._date_end.getUTCMonth()
-            || this._date_start.getFullYear() !== this._date_end.getFullYear()
-            ) {
-              time_start.addContent(` ${xjs.Date.format(this._date_start, 'M')}`)
+        new Element('dt').class('o-ListAchv__Award h-Inline')
+          .attr('data-instanceof','ProDev.Text')
+          .attr({ itemprop:'award', itemscope:'', itemtype:this._itemtype })
+          .addContent([
+            new Element('span').attr('itemprop','name').addContent(this._name),
+            `, ${this._location.view()} (`,
+            new Element('time').attr('datetime',`PT${this._pdh}H`).attr('itemprop','duration').addContent(`${this._pdh} hr`),
+            `)`
+          ]),
+        new Element('dd').class('o-ListAchv__Date h-Inline h-Clearfix')
+          .attr('data-instanceof','ProDev.Dates')
+          .addContent((function () {
+            if (xjs.Date.sameDate(this._date_start, this._date_end)) {
+              return `(${new Element('time').attr({ datetime:this._date_end.toISOString(), itemprop:'startDate endDate' })
+                .addContent(xjs.Date.format(this._date_end, 'j M Y')).html()})`
             }
-            if (this._date_start.getFullYear() !== this._date_end.getFullYear()) {
-              time_start.addContent(`, ${this._date_start.getFullYear()}`)
-            }
-            let time_end = new Element('time').attr('datetime',this._date_end.toISOString()).attr('itemprop','endDate')
-              .addContent(`${this._date_end.getUTCDate()} ${xjs.Date.format(this._date_end, 'M Y')}`)
-            return new Element('dd').class('o-ListAchv__Date h-Inline h-Clearfix')
-              .attr('data-instanceof','ProDev.Dates')
-              .addContent(`(${time_start.html()}&ndash;${time_end.html()})`)
-          }).call(this),
+            let same_UTC_date  = this._date_start.getUTCDate()  === this._date_end.getUTCDate()
+            let same_UTC_month = this._date_start.getUTCMonth() === this._date_end.getUTCMonth()
+            let same_UTC_year  = this._date_start.getFullYear() === this._date_end.getFullYear()
+            return [
+              `(`,
+              new Element('time').attr({ datetime:this._date_start.toISOString(), itemprop:'startDate' }).addContent([
+                this._date_start.getUTCDate(),
+                (same_UTC_month && same_UTC_year) ? '' : ` ${xjs.Date.format(this._date_start, 'M')}`,
+                (same_UTC_year) ? '' : ` ${this._date_start.getFullYear()}`
+              ]),
+              '&ndash;',
+              new Element('time').attr({ datetime:this._date_end.toISOString(), itemprop:'endDate' })
+                .addContent(xjs.Date.format(this._date_end, 'j M Y')),
+              `)`,
+            ]
+          }).call(this)),
       ])
     }, this)
   }
