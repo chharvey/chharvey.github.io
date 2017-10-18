@@ -1,6 +1,6 @@
-const Element = require('extrajs-dom').Element
-const View = require('extrajs-view')
-const Util   = require('../_models/Util.class.js')
+const Element    = require('extrajs-dom').Element
+const View       = require('extrajs-view')
+const STATE_DATA = require('extrajs-geo')
 
 /**
  * A class encoding information about a city or town’s location.
@@ -57,7 +57,7 @@ class City {
                 new Element('span').attr('itemprop','addressLocality').addContent(this._locality),
                 `, `,
                 new Element('abbr').attr('itemprop','addressRegion')
-                  .attr('title',Util.STATE_DATA.find((obj) => obj.code===this._region).name)
+                  .attr('title', STATE_DATA.find((obj) => obj.code===this._region).name)
                   .addContent(this._region),
               ]),
             new Element('span')
