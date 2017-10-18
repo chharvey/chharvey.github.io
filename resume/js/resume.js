@@ -6,7 +6,7 @@ let vctm_summary = {
   "content": [
     "<span itemscope=\"\" itemtype=\"http://schema.org/EducationalOrganization\">",
       "<abbr class=\"c-Acro\" title=\"Virginia Council of Teachers of Mathematics\" itemprop=\"name\"><span class=\"c-Acro__First\">V</span>CTM</abbr>",
-      " Conference, annually statewide (<time datetime=\"PT40H\">10 hr each</time>)",
+      " Conferences, annually statewide (<time datetime=\"PT40H\">10 hr each</time>)",
     "</span>"
   ]
 }
