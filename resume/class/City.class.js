@@ -1,6 +1,9 @@
 const Element    = require('extrajs-dom').Element
 const View       = require('extrajs-view')
 const STATE_DATA = require('extrajs-geo')
+STATE_DATA.push(...[
+  { "code": "DC", "name": "District of Columbia" },
+])
 
 /**
  * A class encoding information about a city or town’s location.
@@ -43,6 +46,7 @@ class City {
      * @returns {string} HTML output
      */
     return new View(function () {
+      // REVIEW INDENTATION
         return new Element('span')
           .attr({
             'data-instanceof': 'City',
