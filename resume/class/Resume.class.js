@@ -57,6 +57,12 @@ class Resume {
   }
 
   /**
+   * @summary About the applicant.
+   * @type {string}
+   */
+  get about() { return this._DATA.about }
+
+  /**
    * @summary Contact data for this resume.
    * @type {Array<Object<string>>}
    */

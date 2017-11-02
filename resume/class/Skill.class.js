@@ -54,11 +54,11 @@ class Skill {
           new Element('dd').class('o-Grid__Item')
             .attr('data-instanceof','Skill.Level')
             .attr({
-              itemscope   : '',
-              itemtype    : 'http://schema.org/Rating',
+              itemscope: '',
+              itemtype : 'http://schema.org/Rating',
             })
             .addContent([
-              new Element('span').class('o-Textbox c-Label c-Label--skss h-Hidden').addContent(Skill.LEVELS[this._level-1]), // TODO create a component; see _hack.less
+              new Element('small').class('o-Textbox c-Label c-Label--skss c-Label--skill h-Hidden').addContent(Skill.LEVELS[this._level-1]),
               new Element('meta').attr('itemprop','worstRating').attr('content',0),
               new Element('meta').attr('itemprop','bestRating' ).attr('content',Skill.LEVELS.length),
               new Element('meta').attr('itemprop','ratingValue').attr('content',this._level),

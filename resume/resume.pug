@@ -12,20 +12,6 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
     link(rel="stylesheet" href="https://cdn.rawgit.com/chharvey/bangs/v0.15.0/bangs.css")
     link(rel="stylesheet" href="https://cdn.rawgit.com/chharvey/still-alive/v1.4.0/css/still-alive.css")
     link(rel="stylesheet" href="css/resume.css")
-    style.
-      @media print {
-        #obj2 {
-          margin-top: -3rem;
-        }
-      }
-      #obj2,
-      #obj3 {display: none;}
-      #obj3 {
-        width: 100%;
-        border: 0; /* reset */
-        font-size: inherit; /* reset */
-        background: transparent; /* reset */
-      }
   body
     main.o-Grid.o-Grid--resume(itemscope="" itemtype="http://schema.org/Person")
       mixin experience(title, data)
@@ -53,11 +39,9 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
               value: { class: 'o-List__Item o-Flex__Item-sK c-Contact__Item' },
             } }
           address!= Element.data(resume.contactData.map((item) => item.view()), contact_opts)
-      section.o-Grid__Item.o-Grid__Item--exp#objective
-        h2.o-Grid__Item.c-ExpHn Objective
-        p.o-Grid__Item--maincol#obj1(itemprop="seeks") To obtain an entry-level position as a front-end web developer.
-        //- p#obj2 To obtain an entry-level position in the Intelligence Community that would utilize my mathematical and technological skills.
-        //- input#obj3(type="text" value="Type a custom objective here. Reload to reset.")
+      section.o-Grid__Item.o-Grid__Item--exp#about
+        h2.o-Grid__Item.c-ExpHn.h-Hidden About
+        p.o-Grid__Item--maincol(itemprop="description")= resume.about
       section.o-Grid__Item.o-Grid__Item--exp#skills
         h2.o-Grid__Item.c-ExpHn Skills
         -
@@ -69,12 +53,10 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
             resume.skills.general,
             // resume.skills.apps,
           ])
-        -
-          let skill_print_opts = { attributes: {
-            list : { class: 'o-List c-SkillsListPrint' },
-            value: { class: 'o-List__Item h-Inline' },
-          } }
-        != Element.data(skills_all.map((sk) => sk.text), skill_print_opts)
+          let skills_print = new Element('ul').class('o-List o-List--print').addContent(skills_all.map((sk) =>
+            new Element('li').class('o-List__Item h-Inline').addContent(sk.text)
+          ))
+        != skills_print.html()
         div.o-Grid__Item.o-Grid__Item--maincol.o-Grid.o-Grid--skillGroups
           mixin skillCategory(title, data)
             section.o-Grid__Item.c-Position&attributes(attributes)
@@ -91,11 +73,11 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
       +experience('Other Work Experience', resume.positions.other)#work-exp
       section.o-Grid__Item.o-Grid__Item--exp#edu
         h2.o-Grid__Item.c-ExpHn Education
-        section.o-Grid__Item.o-Grid__Item--maincol.c-Position.-d-x.-xd-c#VT
-          h3.c-Position__Org.-xo-1.-mb-1.-fv-u(itemprop="alumniOf" itemscope="" itemtype="http://schema.org/CollegeOrUniversity")
+        section.o-Grid__Item.o-Grid__Item--maincol.c-Institution#VT
+          h3.c-Institution__Name(itemprop="alumniOf" itemscope="" itemtype="http://schema.org/CollegeOrUniversity")
             a.c-Camo(rel="external" href="https://www.vt.edu/" itemprop="url")
               span(itemprop="name") Virginia Polytechnic Institute and State University
-          dl.o-ListAchv.-mb-z
+          dl.o-ListAchv.c-Institution__List
             != resume.degrees.map((item) => item.view()).join('')
       +achievement('Profes&shy;sional Dev&shy;elopment', resume.proDevs)#prof-dev
       +achievement('Awards &amp; Member&shy;ships'     , resume.awards)#awards
