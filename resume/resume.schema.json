@@ -1,0 +1,170 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "$id": "http://chharvey.github.io/resume/resume.schema.json",
+  "title": "Resume",
+  "type": "object",
+  "description": "Resume of Christopher H. Harvey of Fairfax, VA.",
+  "definitions": {
+    "Content": {
+      "type" : ["string", "array"],
+      "items": { "type": "string" }
+    },
+    "Award": {
+      "type": "object",
+      "required": ["dates", "content"],
+      "properties": {
+        "dates"  : { "type": "string" , "description": "date(s) relevant to the award" },
+        "content": {
+          "$ref": "#/definitions/Content",
+          "description": "custom HTML defining the award"
+        },
+        "sub_awards": {
+          "type": "array",
+          "description": "any sub-awards within this award",
+          "items": { "$ref": "#/definitions/Award" }
+        }
+      }
+    }
+  },
+  "required": ["contact"],
+  "additionalProperties": false,
+  "properties": {
+    "about": { "type": "string", "description": "Short blurb about the applicant." },
+    "contact": {
+      "type": "array",
+      "description": "Contact data for this resume.",
+      "items": {
+        "type": "object",
+        "required": ["url", "octicon", "content"],
+        "additionalProperties": false,
+        "properties": {
+          "url"     : { "type": "string", "description": "url of the link" },
+          "octicon" : { "type": "string", "description": "octicon CSS class of the icon" },
+          "itemprop": { "type": "string", "description": "itemprop Microdata of the contact point" },
+          "content" : { "type": "string", "description": "text content of the link" }
+        }
+      }
+    },
+    "skills": {
+      "type": "object",
+      "description": "List of skills, grouped by category.",
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": ["level", "text"],
+          "additionalProperties": false,
+          "properties": {
+            "level": { "type": "integer", "minimum": 1, "maximum": 5, "description": "proficiency with this skill; must be `1`–`Skill.LEVELS.length`" },
+            "text" : { "type": "string", "description": "custom HTML defining this skill" }
+          }
+        }
+      }
+    },
+    "positions": {
+      "type": "object",
+      "description": "List of positions, grouped by category.",
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "id",
+            "title",
+            "orgname",
+            "url",
+            "start",
+            "city",
+            "state",
+            "geo",
+            "descriptions"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "id"      : { "type": "string", "description": "the id of this job position" },
+            "title"   : { "type": "string", "description": "the official position name" },
+            "orgname" : { "type": "string", "description": "the name of the organization; may be HTML" },
+            "url"     : { "type": "string", "description": "the url of the organization’s homepage" },
+            "itemtype": { "type": "string", "description": "the value of the organization’s `itemtype` attribute" },
+            "start"   : { "type": "string", "description": "the start date in ISO format" },
+            "end"     : { "type": "string", "description": "the end date in ISO format (leave undefined if there is no end date)" },
+            "city"    : { "type": "string", "description": "the city/town/locality name" },
+            "state"   : { "type": "string", "description": "the state/province/region postal code (e.g. 'NY', 'CA')" },
+            "geo"     : {
+              "type": "array",
+              "description": "the geo-coordinates",
+              "items": [
+                { "type": "number", "description": "the latitude value of the location" },
+                { "type": "number", "description": "the longitude value of the location" }
+              ]
+            },
+            "descriptions": {
+              "type": "array",
+              "description": "the list of descriptions for the job position",
+              "items": { "$ref": "#/definitions/Content", "description": "custom HTML defining a single description item" }
+            },
+            "descriptions_hidden": { "$ref": "#/properties/positions/additionalProperties/items/properties/descriptions" }
+          }
+        }
+      }
+    },
+    "degrees": {
+      "type": "array",
+      "description": "List of degrees.",
+      "items": {
+        "type": "object",
+        "required": ["gpa", "field"],
+        "additionalProperties": false,
+        "properties": {
+          "year" : { "type": "integer", "description": "year the degree was earned. if not yet earned, a negative integer" },
+          "gpa"  : { "type": "number", "minimum": 0, "maximum": 4, "description": "grade-point-average" },
+          "field": { "type": "string", "description": "type and field of the degree" }
+        }
+      }
+    },
+    "prodevs": {
+      "type": "array",
+      "description": "List of professional development hours.",
+      "items": {
+            "type": "object",
+            "required": [
+              "pdh",
+              "start",
+              "end",
+              "city",
+              "state",
+              "geo",
+              "coursename"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "pdh"     : { "type": "number", "description": "the number of professional development hours" },
+              "itemtype": { "type": "string", "description": "the value of the event’s `itemtype` attribute" },
+              "start"   : { "type": "string", "description": "the start date in ISO format" },
+              "end"     : { "type": "string", "description": "the end date in ISO format" },
+              "city"    : { "type": "string", "description": "the city/town/locality name" },
+              "state"   : { "type": "string", "description": "the state/province/region postal code (e.g. 'NY', 'CA')" },
+              "geo"     : {
+                "type": "array",
+                "description": "the geo-coordinates",
+                "items": [
+                  { "type": "number", "description": "the latitude value of the location" },
+                  { "type": "number", "description": "the longitude value of the location" }
+                ]
+              },
+              "coursename": { "$ref": "#/definitions/Content", "description": "the title of the course or event" }
+            }
+          }
+    },
+    "awards": {
+      "type": "array",
+      "description": "List of other awards & memberships.",
+      "items": { "$ref": "#/definitions/Award" }
+    },
+    "teams": {
+      "type": "array",
+      "description": "List of athletic team memberships.",
+      "items": { "$ref": "#/definitions/Award" }
+    }
+  }
+}
