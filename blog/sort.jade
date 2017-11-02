@@ -1,33 +1,14 @@
 extends _blog.tpl.jade
 
-block vars
-  -
-    var page = new Page({ name: 'Comparison Sorting Algorithms', url: '/blog/sort.html' })
-      .title('Sorting Algorithms')
-      .description('A comparison of the most popular comparison sorting algorithms used in computer science.')
-      .keywords(['computer science', 'sorting', 'algorithm'])
-    var artstatus = 'draft'
+block append vars
+  - var page = Home.BLOG.find('sort.html').status(BlogPost.STATUS.DRAFT)
 
-block append mainHeader
-        p.o-GoldenContainer__Content__SideMinor.o-Box.c-Alert.c-Alert--dang.
-          This document is a work in progress.
-        dl.c-Document__Meta
-          dt Author
-          dd(itemprop="author") Christopher H. Harvey
-          dt Description
-          dd(itemprop="description") A comparison of the most popular comparison sorting algorithms used in computer science.
-          dt Keywords
-          dd(itemprop="keywords") computer science
-          dd(itemprop="keywords") sorting
-          dd(itemprop="keywords") algorithm
-          dt Version History
+block docmeta
           dd.update
             time(datetime="2014-10-16 21:14" itemprop="dateModified") Oct 16, 2014 #[span.tod 9:14 PM]
             span.o-Textbox.c-Label.c-Label--dang.-ml-1 Latest
 
 block append main
-    include ../core/include/_snippets.jade
-    //- REVIEW indentation
     div
       p.c-Lede This article describes and makes comparisons among the Comparison Sorting Algorithms.
       p.
