@@ -3,8 +3,8 @@ const pug          = require('gulp-pug')
 const less         = require('gulp-less')
 const autoprefixer = require('gulp-autoprefixer')
 
-gulp.task('pug:home', function () {
-  gulp.src('./index.jade')
+gulp.task('pug:landing', function () {
+  return gulp.src('./index.jade')
     .pipe(pug({
       basedir: './',
       locals: {
@@ -12,6 +12,9 @@ gulp.task('pug:home', function () {
       },
     }))
     .pipe(gulp.dest('./'))
+})
+
+gulp.task('pug:home', function () {
   return gulp.src('./home/{about,copyright,cover-letter,math,edu,music,swim,web}.jade')
     .pipe(pug({
       basedir: './',
@@ -20,6 +23,18 @@ gulp.task('pug:home', function () {
       },
     }))
     .pipe(gulp.dest('./home/'))
+})
+
+gulp.task('pug:resume', function () {
+  return gulp.src('resume/resume.pug')
+    .pipe(pug({
+      basedir: './',
+      locals: {
+        Element: require('extrajs-dom').Element,
+        resume: new (require('./resume/class/Resume.class.js'))(require('./resume/resume.json')),
+      },
+    }))
+    .pipe(gulp.dest('./resume/'))
 })
 
 gulp.task('pug:blog', function () {
@@ -36,19 +51,7 @@ gulp.task('pug:blog', function () {
     .pipe(gulp.dest('./blog/'))
 })
 
-gulp.task('pug:resume', function () {
-  return gulp.src('resume/resume.pug')
-    .pipe(pug({
-      basedir: './',
-      locals: {
-        Element: require('extrajs-dom').Element,
-        resume: new (require('./resume/class/Resume.class.js'))(require('./resume/resume.json')),
-      },
-    }))
-    .pipe(gulp.dest('./resume/'))
-})
-
-gulp.task('pug:all', ['pug:home','pug:blog','pug:resume'])
+gulp.task('pug:all', ['pug:landing','pug:home','pug:resume','pug:blog'])
 
 gulp.task('lessc:landing', function () {
   return gulp.src('./home/styles/landing.less')
@@ -80,10 +83,15 @@ gulp.task('lessc:resume', function () {
     .pipe(gulp.dest('./resume/css/'))
 })
 
-gulp.task('lessc:all', ['lessc:landing','lessc:home','lessc:resume'])
+gulp.task('lessc:blog', function () {
+})
 
-gulp.task('build:home', ['pug:home','lessc:landing','lessc:home'])
-gulp.task('build:blog', ['pug:blog'])
-gulp.task('build:resume', ['pug:resume', 'lessc:resume'])
+gulp.task('lessc:all', ['lessc:landing','lessc:home','lessc:resume','lessc:blog'])
 
+gulp.task('build:landing', ['pug:landing','lessc:landing'])
+gulp.task('build:home'   , ['pug:home'   ,'lessc:home'   ])
+gulp.task('build:resume' , ['pug:resume' ,'lessc:resume' ])
+gulp.task('build:blog'   , ['pug:blog'   ,'lessc:blog'   ])
+
+gulp.task('build:all', ['build:landing','build:home','build:resume','build:blog'])
 gulp.task('build', ['pug:all', 'lessc:all'])
