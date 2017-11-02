@@ -1,25 +1,9 @@
 extends _blog.tpl.jade
 
-block vars
-  -
-    var page = new Page({ name: 'Punctuation', url: '/blog/semantic-punctuation.html' })
-      .title('Punctuation ∈ Typography')
-      .description('A brief overview of traditional convention regarding punctuation.')
-      .keywords(['HTML', 'English', 'language', 'punctuation'])
-    var artstatus = 'draft'
+block append vars
+  - var page = Home.BLOG.find('semantic-punctuation.html').status(BlogPost.STATUS.DRAFT)
 
-block append mainHeader
-        p.o-GoldenContainer__Content__SideMinor.o-Box.c-Alert.c-Alert--dang.
-          This document is a work in progress.
-        dl.c-Document__Meta
-          dt Author
-          dd(itemprop="author") Christopher H. Harvey
-          dt Description
-          dd(itemprop="description") A brief overview of traditional convention regarding punctuation.
-          dt Keywords
-          dd(itemprop="keywords") HTML
-          dd(itemprop="keywords") punctuation
-          dt Version History
+block docmeta
           dd.update: time(datetime="2014-06-20 11:44") Jun  6, 2014 #[span.tod 11:44 AM]
           dd.update: time(datetime="2014-10-17 10:58") Oct 17, 2014 #[span.tod 10:58 AM]
           dd.update: time(datetime="2014-10-23 20:38") Oct 23, 2014 #[span.tod  8:38 PM]
@@ -36,8 +20,6 @@ block append mainHeader
             span.o-Textbox.c-Label.c-Label--dang.-ml-1 Latest
 
 block append main
-    include ../core/include/_snippets.jade
-    //- REVIEW indentation
     div
       p.c-Lede.c-Lede--dropcap.
         This document provides suggested use for punctuation symbols when writing for

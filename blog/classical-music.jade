@@ -1,12 +1,7 @@
 extends _blog.tpl.jade
 
-block vars
-  -
-    var page = new Page({ name: 'Classical Music Cataloging System', url: '/blog/classical-music.html' })
-      .title('Classical Music Catalog')
-      .description('A proposed cataloging system for classical music in iTunes.')
-      .keywords(['music', 'classical music'])
-    var artstatus = 'released'
+block append vars
+  - var page = Home.BLOG.find('classical-music.html').status(BlogPost.STATUS.RELEASED)
 
 block append styles
     style.
@@ -15,19 +10,10 @@ block append styles
         text-align: center;
       }
 
-block append mainHeader
+block subhead
         p.c-Subhead A Proposed Cataloging System for Historical Art Music
-        p.o-GoldenContainer__Content__SideMinor.o-Box.c-Alert.c-Alert--skss.
-          This document is ready for implemen&shy;tation.
-        dl.c-Document__Meta
-          dt Author
-          dd(itemprop="author") Christopher H. Harvey
-          dt Description
-          dd(itemprop="description") A proposed cataloging system for classical music in iTunes.
-          dt Keywords
-          dd(itemprop="keywords") music
-          dd(itemprop="keywords") classical music
-          dt Version History
+
+block docmeta
           dd.update
             time(itemprop="dateCreated") 2009
             span.o-Textbox.c-Label.c-Label--cshn.-ml-1 Completed

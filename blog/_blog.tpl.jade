@@ -1,10 +1,9 @@
 doctype html
 html(lang="en")
+  include ../core/include/_snippets.jade
   block vars
-    - var page = new Page()
-    - var artstatus = ['draft','complete','released'][0]
   head
-    title= page.title() + ' | Chris Harvey'
+    title!= page.title() || (page.name() + ' &in; ' + Home.BLOG.name())
     meta(charset="utf-8")
     meta(name="author" content="Christopher H. Harvey")
     meta(name="description" content=page.description())
@@ -15,11 +14,16 @@ html(lang="en")
       link(rel="stylesheet" href="https://cdn.rawgit.com/chharvey/bangs/v0.10.0/bangs.min.css")
       link(rel="stylesheet" href="https://cdn.rawgit.com/chharvey/still-alive/v1.2.0/still-alive.min.css")
   body.o-GoldenContainer
-    main.o-GoldenContainer__Content.c-Document(data-status=artstatus itemscope="" itemtype="http://schema.org/Article")
+    a.h-Hidden(href="#main") skip to main content
+    main.o-GoldenContainer__Content.c-Document(itemscope="" itemtype="http://schema.org/Article")
       block main
         header
-          block mainHeader
-            h1(itemprop="name headline")= page.name()
+          include /node_modules/still-alive/_views/_BlogPost.view.pug
+          h1(itemprop="name headline")= page.name()
+          block subhead
+          +statusAlert(page)
+          +docmeta(page)
+            block docmeta
     block scripts
       script(src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous")
-      script(src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML,https://chharvey.github.io/chhlib/mathjax-localconfig.js")
+      //- script(src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML,https://chharvey.github.io/chhlib/mathjax-localconfig.js")
