@@ -1,5 +1,5 @@
-var Page = require('sitepage').Page
-var BlogPost = require('still-alive').BlogPost
+const Page     = require('sitepage').Page
+const BlogPost = require('still-alive').BlogPost
 
 /**
  * Model for the entire site

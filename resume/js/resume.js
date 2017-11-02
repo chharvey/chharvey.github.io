@@ -1,4 +1,4 @@
-const xjs = require('extrajs')
+const xjs   = require('extrajs')
 const Award = require('../class/Award.class.js')
 
 let vctm_summary = {
