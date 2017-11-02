@@ -60,6 +60,16 @@ gulp.task('lessc:landing', function () {
     .pipe(gulp.dest('./home/styles/'))
 })
 
+gulp.task('lessc:home', function () {
+  return gulp.src('./home/styles/home.less')
+    .pipe(less())
+    .pipe(autoprefixer({
+      grid: true,
+      cascade: false,
+    }))
+    .pipe(gulp.dest('./home/styles/'))
+})
+
 gulp.task('lessc:resume', function () {
   return gulp.src('resume/css/src/resume.less')
     .pipe(less())
@@ -70,9 +80,9 @@ gulp.task('lessc:resume', function () {
     .pipe(gulp.dest('./resume/css/'))
 })
 
-gulp.task('lessc:all', ['lessc:landing','lessc:resume'])
+gulp.task('lessc:all', ['lessc:landing','lessc:home','lessc:resume'])
 
-gulp.task('build:home', ['pug:home','lessc:landing'])
+gulp.task('build:home', ['pug:home','lessc:landing','lessc:home'])
 gulp.task('build:blog', ['pug:blog'])
 gulp.task('build:resume', ['pug:resume', 'lessc:resume'])
 
