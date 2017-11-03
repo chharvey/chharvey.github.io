@@ -1,13 +1,9 @@
-doctype html
-html(lang="en")
-  head
-    title Workflow with Git
-    meta(charset="utf-8")
-    meta(name="author" content="Christopher H. Harvey")
-    meta(name="description" content="My workflow with git.")
-    meta(name="keywords" content="git, workflow, semantic versioning, versioning, branching")
-    meta(name="viewport" content="width=device-width, initial-scale=1")
-    link(rel="stylesheet" href="../styles/chharvey.css")
+extends _blog.tpl.jade
+
+block append vars
+  - var page = Home.BLOG.find('workflow-git.html').status(BlogPost.Status.DRAFT)
+
+block append styles
     style.
       var {
         quotes: none;
@@ -15,33 +11,18 @@ html(lang="en")
       code {
         font-variant: normal;
       }
-  body.o-GoldenContainer
-    include ../core/include/_snippets.jade
-    main.o-GoldenContainer__Content.c-Document(data-status="draft" itemscope="" itemtype="http://schema.org/Article")
-      header
-        h1(itemprop="name headline") Workflow with Git
-        p.o-GoldenContainer__Content__SideMinor.o-Box.c-Alert.c-Alert--dang.
-          This document is a work in progress.
-        dl.c-Document__Meta
-          dt Author
-          dd(itemprop="author") Christopher H. Harvey
-          dt Description
-          dd(itemprop="description") My workflow with git.
-          dt Keywords
-          dd(itemprop="keywords") git
-          dd(itemprop="keywords") workflow
-          dd(itemprop="keywords") semantic versioning
-          dd(itemprop="keywords") versioning
-          dd(itemprop="keywords") branching
-          dt Version History
+
+block docmeta
           dd.update
             time(datetime="" itemprop="dateModified") #[span.tod]
             span.o-Textbox.c-Label.c-Label--dang.-ml-1 Latest
-        p.
-          This is my attempt to briefly describe my workflow on a project using
-          #[a(href="https://git-scm.com/" rel="external") Git].
-          First I think a little background information is necessary, and that is information
-          on semantic versioning, the principle of numbering your versions semantically.
+
+block append main
+      p.
+        This is my attempt to briefly describe my workflow on a project using
+        #[a(href="https://git-scm.com/" rel="external") Git].
+        First I think a little background information is necessary, and that is information
+        on semantic versioning, the principle of numbering your versions semantically.
       section
         h2 Semantic Versioning
         p.

@@ -1,0 +1,86 @@
+
+/*################################*\
+    resume  |  _c-Contact.less
+\*################################*/
+
+
+// The contact list in the resume header.
+// Each item represents a piece of information (address, email, etc.)
+//
+// Subcomponents:
+// `__Item` - Each contact info piece
+//
+// ^author
+// : Chris Harvey
+// ^updated
+// : 2017-08-10
+.c-Contact {
+  margin-bottom: 0;
+  @media screen {
+  font-family: @g-fontfamily-base;
+  text-align: center;
+  }
+  @media not all and (min-width: 30em) {
+    .font-size-mod(@g-font-size-kilo);
+  }
+  @media screen and (min-width: 30em) {
+    & > .o-Flex__Item-sK:not(:last-child) {
+      margin-right: 0.5rem; // CHANGED `cross-gap` not supported yet
+    }
+  }
+}
+
+.c-Contact__Item,
+.c-Contact__Link,
+.c-Contact__Link > div:not(.c-Contact__Icon) {
+  @media print {
+    display: inline;
+    line-height: 0;
+  }
+}
+
+.c-Contact__Item {
+  @media print {
+    &:not(:last-child)::after {
+      content: '\00a0\25aa\00a0'; // 'black small square' ▪
+    }
+  }
+}
+
+.c-Contact__Link {
+}
+
+// This is a glyph icon inside `.o-ListContact__Item`
+// It builds off the GitHub `.octicon` class, so include it in markup.
+// NOTE: we are going to sacrifice vertical rhythm here, due to the
+// inline-block nature of octicons.
+//
+// ```html
+// ul.o-ListContact
+//   li.o-ListContact__Item
+//     span.o-ListContact__Item__Icon.octicon
+// ```
+//
+// Extends:
+// `.octicon` (see node_modules/octicons)
+//
+// ^author
+// : Chris Harvey
+// ^updated
+// : 2017-08-09
+.c-Contact__Icon {
+  @fontsizeratio: @g-font-size-kilo;
+  width:  calc(@fontsizeratio~' * var(--vru)');
+  height: calc(@fontsizeratio~' * var(--vru)');
+  .font-size-el(@fontsizeratio);
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  opacity: 0.8;
+  &::before {
+    position: relative;
+    top: 0.25rem;
+  }
+  @media not all and (min-width: 30em), print {
+    display: none;
+  }
+}
