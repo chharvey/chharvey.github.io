@@ -1,0 +1,55 @@
+doctype html
+html(lang="en")
+  include ../core/include/_snippets.jade
+  mixin homemap(args, inner)
+    //- NOTE parameter validation
+    -
+      var pages   = args.pages   || []
+      var classes = args.classes || {}
+      var depth   = +args.depth  || 0
+    ol(class=classes.listclasses)&attributes(inner ? {} : { role: 'directory' })
+      each item in pages
+        li(class=classes.itemclasses)
+          a(class=classes.linkclasses href=item.url())= item.name()
+          if item.findAll().length && depth > 0
+            +homemap({pages: item.findAll(), classes: (classes.sub || {}), depth: depth-1}, true)
+  block vars
+  head
+    title!= page.title() || (page.name() + ' &in; ' + Home.HOME.name())
+    meta(charset="utf-8")
+    meta(name="author" content="Christopher H. Harvey")
+    meta(name="description" content=(page.description() || Home.HOME.description()))
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    block metas
+    block styles
+      link(rel="stylesheet" href="https://cdn.rawgit.com/chharvey/xmeter/v6.1.1/css/xmeter.css")
+      link(rel="stylesheet" href="https://cdn.rawgit.com/chharvey/bangs/v0.15.0/bangs.css")
+      link(rel="stylesheet" href="https://cdn.rawgit.com/chharvey/still-alive/v1.4.0/css/still-alive.css")
+      link(rel="stylesheet" href="css/home.css")
+  body.o-GoldenContainer
+    a.h-Hidden(href="#main") skip to main content
+    block body
+      header._masthead
+        block header
+          h1.h-Hidden= Home.HOME.name()
+          nav.Bc#sitemap
+            h1.h-Hidden Sitemap
+            ol.Anc
+              li: a.Crumb(href="../index.html") Home
+            +homemap({
+              pages: Home.HOME.findAll().slice(1)
+            , depth: 0
+            , classes: {
+                listclasses: 'Sib'
+              , itemclasses: ''
+              , linkclasses: 'Crumb'
+              }
+            })
+      main.o-GoldenContainer__Content#main
+        block main
+          header
+            block mainHeader
+              h1.c-FolioTitle= page.name()
+      block scripts
+        script(src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous")
+        //- script(src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML,https://chharvey.github.io/chhlib/mathjax-localconfig.js")

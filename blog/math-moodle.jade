@@ -1,12 +1,12 @@
 extends _blog.tpl.jade
 
-block vars
+block append vars
+  - var page = Home.BLOG.find('math-moodle.html').status(BlogPost.Status.RELEASED)
   -
-    var page = new Page({ name: 'Typesetting Math in Moodle', url: '/blog/math-moodle.html' })
-      .title('Typsetting Math in Moodle')
-      .description('A tutorial for inputting mathematical expressions into the Moodle system.')
-      .keywords(['math expressions', 'math equations'])
-    var artstatus = 'released'
+    page.addTimestamp(new Date('2013-02-18'), [BlogPost.Status.COMPLETE])
+    page.addTimestamp(new Date('2013-08-25 21:56'))
+    page.addTimestamp(new Date('2014-10-22 12:42'), [BlogPost.Status.RELEASED])
+    page.addTimestamp(new Date('2014-11-23 22:39'))
 
 block append styles
     style.
@@ -25,18 +25,7 @@ block append styles
         border-bottom-style: solid;
       }
 
-block append mainHeader
-        p.o-GoldenContainer__Content__SideMinor.o-Box.c-Alert.c-Alert--skss.
-          This document is ready for implemen&shy;tation.
-        dl.c-Document__Meta
-          dt Author
-          dd(itemprop="author") Christopher H. Harvey
-          dt Description
-          dd(itemprop="description") A tutorial for inputting mathematical expressions into the Moodle system.
-          dt Keywords
-          dd(itemprop="keywords") math expressions
-          dd(itemprop="keywords") math equations
-          dt Version History
+block docmeta
           dd.update
             time(datetime="2013-02-18" itemprop="dateCreated") Feb 18, 2013
             span.o-Textbox.c-Label.c-Label--cshn.-ml-1 Completed
@@ -47,38 +36,8 @@ block append mainHeader
           dd.update
             time(datetime="2014-11-23 22:39" itemprop="dateModified") Nov 23, 2014 #[span.tod 10:39 PM]
             span.o-Textbox.c-Label.c-Label--dang.-ml-1 Latest
-        //  nav.
-        //    h2 Table of Contents
-        //    ol.TOC
-        //      li:a(href="#intro") Introduction: Your First Equation by Hand
-        //      li:a(href="#modes") Equation Modes
-        //      li
-        //        a(href="#placement") Placement of Symbols
-        //        ol
-        //          li:a(href="#supsub") Superscripts and Subscripts
-        //          li:a(href="#frac") Fraction Bars
-        //          li:a(href="#sqrt") Square Roots
-        //          li
-        //            a(href="#delimeters") Parentheses and other Delimiters
-        //            ol
-        //              li:a(href="#parens") Parentheses
-        //              li:a(href="#brackets") Absolute Value, Square Brackets
-        //              li:a(href="#braces") Curly Braces
-        //      li
-        //        a(href="#special-chars") Special Characters
-        //        ol
-        //          li:a(href="#vars") Values and Variables
-        //          li:a(href="#operations") Binary Operations
-        //          li:a(href="#relations") Binary Relations
-        //      li:a(href="#more-oper") More Operators
-        //      li
-        //        a(href="#conclusion") Conclusion
-        //        ol
-        //          li:a(href="#more-info") More Information
 
 block append main
-    include ../core/include/_snippets.jade
-    //- REVIEW indentation
     div
       p.c-Lede.c-Lede--dropcap.
         You may already know how to use #[b MathType] (or #[b Equation Editor]) to put
@@ -400,3 +359,6 @@ block append main
             is a language, originally developed by Leslie Lamport, used to typeset and mark up documents.
             It is a very common (perhaps the most common) system used by authors of professional math
             journals.
+
+block append scripts
+  script(src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML,https://chharvey.github.io/chhlib/mathjax-localconfig.js")

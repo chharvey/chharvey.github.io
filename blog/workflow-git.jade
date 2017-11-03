@@ -1,12 +1,7 @@
 extends _blog.tpl.jade
 
-block vars
-  -
-    var page = new Page({ name: 'Workflow with Git', url: '/blog/workflow-git.html' })
-      .title('Workflow with Git')
-      .description('My workflow with git.')
-      .keywords(['git', 'workflow', 'semantic versioning', 'versioning', 'branching'])
-    var artstatus = 'draft'
+block append vars
+  - var page = Home.BLOG.find('workflow-git.html').status(BlogPost.Status.DRAFT)
 
 block append styles
     style.
@@ -17,34 +12,17 @@ block append styles
         font-variant: normal;
       }
 
-block append mainHeader
-        p.o-GoldenContainer__Content__SideMinor.o-Box.c-Alert.c-Alert--dang.
-          This document is a work in progress.
-        dl.c-Document__Meta
-          dt Author
-          dd(itemprop="author") Christopher H. Harvey
-          dt Description
-          dd(itemprop="description") My workflow with git.
-          dt Keywords
-          dd(itemprop="keywords") git
-          dd(itemprop="keywords") workflow
-          dd(itemprop="keywords") semantic versioning
-          dd(itemprop="keywords") versioning
-          dd(itemprop="keywords") branching
-          dt Version History
+block docmeta
           dd.update
             time(datetime="" itemprop="dateModified") #[span.tod]
             span.o-Textbox.c-Label.c-Label--dang.-ml-1 Latest
-        p.
-          This is my attempt to briefly describe my workflow on a project using
-          #[a(href="https://git-scm.com/" rel="external") Git].
-          First I think a little background information is necessary, and that is information
-          on semantic versioning, the principle of numbering your versions semantically.
 
 block append main
-    include ../core/include/_snippets.jade
-    //- REVIEW indentation
-    div
+      p.
+        This is my attempt to briefly describe my workflow on a project using
+        #[a(href="https://git-scm.com/" rel="external") Git].
+        First I think a little background information is necessary, and that is information
+        on semantic versioning, the principle of numbering your versions semantically.
       section
         h2 Semantic Versioning
         p.

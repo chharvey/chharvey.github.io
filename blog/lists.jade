@@ -1,34 +1,14 @@
 extends _blog.tpl.jade
 
-block vars
-  -
-    var page = new Page({ name: 'Lists', url: '/blog/classical-music.html' })
-      .title('Lists')
-      .description('My thoughts on lists.')
-      .keywords(['lists', 'ordered', 'unordered', 'association'])
-    var artstatus = 'draft'
+block append vars
+  - var page = Home.BLOG.find('lists.html').status(BlogPost.Status.DRAFT)
 
-block append mainHeader
-        p.o-GoldenContainer__Content__SideMinor.o-Box.c-Alert.c-Alert--dang.
-          This document is a work in progress.
-        dl.c-Document__Meta
-          dt Author
-          dd(itemprop="author") Christopher H. Harvey
-          dt Description
-          dd(itemprop="description") My thoughts on lists.
-          dt Keywords
-          dd(itemprop="keywords") lists
-          dd(itemprop="keywords") ordered
-          dd(itemprop="keywords") unordered
-          dd(itemprop="keywords") association
-          dt Version History
+block docmeta
           dd.update
             time(datetime="2015-03-14 21:26" itemprop="dateModified") Mar 14, 2015 #[span.tod 9:26 PM]
             span.o-Textbox.c-Label.c-Label--dang.-ml-1 Latest
 
 block append main
-    include ../core/include/_snippets.jade
-    //- REVIEW indentation
     div
       section
         h2 Vocabulary

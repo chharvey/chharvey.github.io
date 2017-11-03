@@ -1,0 +1,89 @@
+
+/*################################*\
+    resume  |  _dev.less
+\*################################*/
+
+
+///////////////////////////////////////////////////////////////////////////////
+// xmeter overrides & extensions
+///////////////////////////////////////////////////////////////////////////////
+
+
+// grid for entire resume page layout
+.o-Grid--resume {
+  @media screen and (min-width: 45em) {
+    grid-template-columns: (@phi2 * 1fr) (@phi1 * 1fr);
+    grid-column-gap: var(--grid-column-gap);
+  }
+  @media screen and (min-width: 60em) {
+    grid-template-columns: (@phi3 * 1fr) (@phi1 * 1fr) (@phi4 * 1fr);
+  }
+}
+
+// copied from `.o-Grid--resume` (subgrid not supported yet)
+.o-Grid__Item--exp {
+  @media screen and (min-width: 45em) {
+    display: grid;
+    grid-template-columns: (@phi2 * 1fr) (@phi1 * 1fr);
+    grid-column-gap: var(--grid-column-gap);
+  }
+  @media screen and (min-width: 60em) {
+    grid-template-columns: (@phi3 * 2fr) (@phi1 * 2fr);
+  }
+}
+.o-Grid__Item--exp {
+  // display: subgrid; // TODO uncomment this, and delete selector above when `subgrid` is supported
+  @media screen and (min-width: 45em) {
+    grid-column: ~'1 / 3';
+  }
+}
+
+.o-Grid__Item--maincol {
+  @media screen and (min-width: 45em) {
+    grid-column: ~'2 / 3';
+  }
+}
+
+
+
+
+
+// grid for laying out skill groups
+.o-Grid--skillGroups {
+  @media screen and (min-width: 30rem) {
+    grid-template-columns: repeat(2, auto);
+    grid-column-gap      : 2rem;
+  }
+}
+// List of languages/systems.
+//
+// __Text - A textual component of the language/system
+// __Viz  - A visual component of the language/system
+//
+// ^author
+// : Chris Harvey
+// ^updated
+// : 2017-08-08
+.o-Grid--skill {
+  grid-template-columns: calc(14/4 ~'* var(--vru)') auto;
+  grid-column-gap: 1rem;
+  // FIXME this is not ideal.
+  & > *:nth-child(1)  { order: 0; }
+  & > *:nth-child(2)  { order: -1; }
+  & > *:nth-child(3)  { order: 1; }
+  & > *:nth-child(4)  { order: 0; }
+  & > *:nth-child(5)  { order: 2; }
+  & > *:nth-child(6)  { order: 1; }
+  & > *:nth-child(7)  { order: 3; }
+  & > *:nth-child(8)  { order: 2; }
+  & > *:nth-child(9)  { order: 4; }
+  & > *:nth-child(10) { order: 3; }
+  & > *:nth-child(odd)  { order: calc(~'(n - 1) / 2'); }
+  & > *:nth-child(even) { order: calc(~'(n - 4) / 2'); }
+}
+
+
+
+///////////////////////////////////////////////////////////////////////////////
+// still-alive overrides & extensions
+///////////////////////////////////////////////////////////////////////////////
