@@ -54,23 +54,23 @@ gulp.task('pug:blog', function () {
 gulp.task('pug:all', ['pug:landing','pug:home','pug:resume','pug:blog'])
 
 gulp.task('lessc:landing', function () {
-  return gulp.src('./home/styles/landing.less')
+  return gulp.src('./home/css/src/landing.less')
     .pipe(less())
     .pipe(autoprefixer({
       grid: true,
       cascade: false,
     }))
-    .pipe(gulp.dest('./home/styles/'))
+    .pipe(gulp.dest('./home/css/'))
 })
 
 gulp.task('lessc:home', function () {
-  return gulp.src('./home/styles/home.less')
+  return gulp.src('./home/css/src/home.less')
     .pipe(less())
     .pipe(autoprefixer({
       grid: true,
       cascade: false,
     }))
-    .pipe(gulp.dest('./home/styles/'))
+    .pipe(gulp.dest('./home/css/'))
 })
 
 gulp.task('lessc:resume', function () {
