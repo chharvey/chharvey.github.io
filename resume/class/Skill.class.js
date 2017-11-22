@@ -18,6 +18,12 @@ class Skill {
   }
 
   /**
+   * @summary This skill’s level
+   * @type {number}
+   */
+  get level() { return this._level }
+
+  /**
    * @summary Return this skill’s text content.
    * @return {string} this._text
    */
@@ -59,22 +65,27 @@ class Skill {
               itemtype : 'http://schema.org/Rating',
             })
             .addContent([
-              new HTMLElement('small').class('o-Textbox c-Label c-Label--skss c-Label--skill h-Hidden').addContent(Skill.LEVELS[this._level-1]),
+              new HTMLElement('small').class('o-Textbox c-Label c-Label--skss c-Label--skill h-Hidden')
+                .addContent(Skill.LEVELS[this._level-1]),
               new HTMLElement('meta').attr('itemprop','worstRating').attr('content',0),
               new HTMLElement('meta').attr('itemprop','bestRating' ).attr('content',Skill.LEVELS.length),
               new HTMLElement('meta').attr('itemprop','ratingValue').attr('content',this._level),
               new Element('svg',false).class('c-SkillViz').attr('viewbox','0 0 14 4').addContent([
                 new Element('g',false).attr('transform','translate(1,2)').addContent(
-                  Skill.LEVELS.map(function (lvl, index) {
-                    return new Element('circle',true).class('c-SkillViz__Marker')
+                  Skill.LEVELS.map((leveltext, index) =>
+                    new Element('circle',true).class('c-SkillViz__Marker')
                       .addClass((index <= this._level-1) ? 'c-SkillViz__Marker--true' : '')
-                      .attr('cx',3*index).attr('cy',0).attr('r',1)
-                  }, this)
+                      .attr({ cx: 3*index, cy: 0, r: 1 })
+                  )
                 ),
               ]),
             ]),
       ])
     }, this)
+      .addDisplay(function xSkill() {
+        // return `<x-skill level="${this._level}">${this._text}</x-skill>`
+        return new Element('x-skill',false).attr('level',this._level).addContent(this._text).html()
+      })
   }
 
 

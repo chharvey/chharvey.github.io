@@ -1,6 +1,8 @@
 const xjs   = require('extrajs')
 const Award = require('../class/Award.class.js')
 
+window.customElements.define('x-skill', require('./XSkill.class.js'))
+
 let vctm_summary = {
   "dates"  : "<time>2011</time>&ndash;<time>2014</time>",
   "content": [

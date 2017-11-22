@@ -12,6 +12,7 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
     link(rel="stylesheet" href="https://cdn.rawgit.com/chharvey/bangs/v0.15.0/bangs.css")
     link(rel="stylesheet" href="https://cdn.rawgit.com/chharvey/still-alive/v1.4.0/css/still-alive.css")
     link(rel="stylesheet" href="css/resume.css")
+    link(rel="import" href="./tpl/x-skill.tpl.html")
   body
     main.o-Grid.o-Grid--resume(itemscope="" itemtype="http://schema.org/Person")
       mixin experience(title, data)
@@ -61,7 +62,7 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
           mixin skillCategory(title, data)
             section.o-Grid__Item.c-Position&attributes(attributes)
               h3.c-Position__Name= title
-              dl.o-Grid.o-Grid--skill!= data.map((item) => item.view()).join('')
+              dl.o-Grid.o-Grid--skill!= data.map((item) => item.view.xSkill()).join('')
           +skillCategory('Content'              , resume.skills.content)#skills-content
           +skillCategory('UI'                   , resume.skills.ui)#skills-ui
           +skillCategory('Programming'          , resume.skills.programming)#skills-programming
@@ -93,12 +94,6 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
     script(src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous")
     script(src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML,https://chharvey.github.io/chhlib/mathjax-localconfig.js")
     script(src="./js/resume.b.js")
-    //- script.
-      $('#obj1').click(function () {
-        $(this).hide();
-        $('#obj2').show();
-      });
-      $('#obj2').click(function () {
-        $(this).hide();
-        $('#obj3').show();
-      });
+    //- script(type="module").
+      import { XSkill } from './js/XSkill.class.js'
+      window.customElements.define('x-skill', XSkill)
