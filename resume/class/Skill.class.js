@@ -1,4 +1,5 @@
 const Element = require('extrajs-dom').Element
+const HTMLElement = require('extrajs-dom').HTMLElement
 const View = require('extrajs-view')
 
 /**
@@ -48,22 +49,22 @@ class Skill {
     return new View(function () {
       return Element.concat([
         // REVIEW INDENTATION
-          new Element('dt').class('o-Grid__Item')
+          new HTMLElement('dt').class('o-Grid__Item')
             .attr('data-instanceof','Skill.Text')
             .addContent(this._text),
-          new Element('dd').class('o-Grid__Item')
+          new HTMLElement('dd').class('o-Grid__Item')
             .attr('data-instanceof','Skill.Level')
             .attr({
               itemscope: '',
               itemtype : 'http://schema.org/Rating',
             })
             .addContent([
-              new Element('small').class('o-Textbox c-Label c-Label--skss c-Label--skill h-Hidden').addContent(Skill.LEVELS[this._level-1]),
-              new Element('meta').attr('itemprop','worstRating').attr('content',0),
-              new Element('meta').attr('itemprop','bestRating' ).attr('content',Skill.LEVELS.length),
-              new Element('meta').attr('itemprop','ratingValue').attr('content',this._level),
-              new Element('svg').class('c-SkillViz').attr('viewbox','0 0 14 4').addContent([
-                new Element('g').attr('transform','translate(1,2)').addContent(
+              new HTMLElement('small').class('o-Textbox c-Label c-Label--skss c-Label--skill h-Hidden').addContent(Skill.LEVELS[this._level-1]),
+              new HTMLElement('meta').attr('itemprop','worstRating').attr('content',0),
+              new HTMLElement('meta').attr('itemprop','bestRating' ).attr('content',Skill.LEVELS.length),
+              new HTMLElement('meta').attr('itemprop','ratingValue').attr('content',this._level),
+              new Element('svg',false).class('c-SkillViz').attr('viewbox','0 0 14 4').addContent([
+                new Element('g',false).attr('transform','translate(1,2)').addContent(
                   Skill.LEVELS.map(function (lvl, index) {
                     return new Element('circle',true).class('c-SkillViz__Marker')
                       .addClass((index <= this._level-1) ? 'c-SkillViz__Marker--true' : '')

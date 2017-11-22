@@ -1,4 +1,5 @@
 const Element    = require('extrajs-dom').Element
+const HTMLElement    = require('extrajs-dom').HTMLElement
 const View       = require('extrajs-view')
 const STATE_DATA = require('extrajs-geo')
 STATE_DATA.push(...[
@@ -47,7 +48,7 @@ class City {
      */
     return new View(function () {
       // REVIEW INDENTATION
-        return new Element('span')
+        return new HTMLElement('span')
           .attr({
             'data-instanceof': 'City',
             itemprop : 'location',
@@ -55,20 +56,20 @@ class City {
             itemtype : 'http://schema.org/Place',
           })
           .addContent([
-            new Element('span')
+            new HTMLElement('span')
               .attr({ itemprop:'address', itemscope:'', itemtype:'http://schema.org/PostalAddress' })
               .addContent([
-                new Element('span').attr('itemprop','addressLocality').addContent(this._locality),
+                new HTMLElement('span').attr('itemprop','addressLocality').addContent(this._locality),
                 `, `,
-                new Element('abbr').attr('itemprop','addressRegion')
+                new HTMLElement('abbr').attr('itemprop','addressRegion')
                   .attr('title', STATE_DATA.find((obj) => obj.code===this._region).name)
                   .addContent(this._region),
               ]),
-            new Element('span')
+            new HTMLElement('span')
               .attr({ itemprop:'geo', itemscope:'', itemtype:'http://schema.org/GeoCoordinates' })
               .addContent([
-                new Element('meta').attr('itemprop','latitude' ).attr('content',this._latitude),
-                new Element('meta').attr('itemprop','longitude').attr('content',this._longitude),
+                new HTMLElement('meta').attr('itemprop','latitude' ).attr('content',this._latitude),
+                new HTMLElement('meta').attr('itemprop','longitude').attr('content',this._longitude),
               ]),
           ])
           .html()

@@ -1,4 +1,5 @@
 const Element = require('extrajs-dom').Element
+const HTMLElement = require('extrajs-dom').HTMLElement
 const View = require('extrajs-view')
 
 /**
@@ -42,12 +43,12 @@ class ContactPoint {
      */
     return new View(function () {
       // REVIEW INDENTATION
-        return new Element('a').class('c-Contact__Link h-Block')
+        return new HTMLElement('a').class('c-Contact__Link h-Block')
           .attr('href', this._url)
           .attr('itemprop', this._itemprop || null)
           .addContent([
-            new Element('div').class('c-Contact__Icon octicon').addClass(this._octicon).attr('role','none'),
-            new Element('div').addContent(this._content),
+            new HTMLElement('div').class('c-Contact__Icon octicon').addClass(this._octicon).attr('role','none'),
+            new HTMLElement('div').addContent(this._content),
           ]).html()
     }, this)
   }

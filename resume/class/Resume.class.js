@@ -1,6 +1,7 @@
 const Ajv      = require('ajv')
 const xjs      = require('extrajs')
 const Element  = require('extrajs-dom').Element
+const HTMLDListElement  = require('extrajs-dom').HTMLDListElement
 
 const Award        = require('./Award.class.js')
 const City         = require('./City.class.js')
@@ -151,7 +152,7 @@ class Resume {
      */
     function subs(datum) {
       return (datum.sub_awards) ?
-        new Element('dl').class('o-ListAchv')
+        new HTMLDListElement().class('o-ListAchv')
           .addContent(datum.sub_awards.map((s) =>
             new Award(s.dates, Resume._content(s.content)).view()
           ).join(''))
@@ -175,7 +176,7 @@ class Resume {
      */
     function subs(datum) {
       return (datum.sub_awards) ?
-        new Element('dl').class('o-ListAchv')
+        new HTMLDListElement().class('o-ListAchv')
           .addContent(datum.sub_awards.map((s) =>
             new Award(s.dates, Resume._content(s.content)).view()
           ).join(''))

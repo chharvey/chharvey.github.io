@@ -1,5 +1,6 @@
 const xjs     = require('extrajs')
 const Element = require('extrajs-dom').Element
+const HTMLElement = require('extrajs-dom').HTMLElement
 const View = require('extrajs-view')
 
 /**
@@ -50,20 +51,20 @@ class ProDev {
      */
     return new View(function () {
       return Element.concat([
-        new Element('dt').class('o-ListAchv__Award h-Inline')
+        new HTMLElement('dt').class('o-ListAchv__Award h-Inline')
           .attr('data-instanceof','ProDev.Text')
           .attr({ itemprop:'award', itemscope:'', itemtype:this._itemtype })
           .addContent([
-            new Element('span').attr('itemprop','name').addContent(this._name),
+            new HTMLElement('span').attr('itemprop','name').addContent(this._name),
             `, ${this._location.view()} (`,
-            new Element('time').attr('datetime',`PT${this._pdh}H`).attr('itemprop','duration').addContent(`${this._pdh} hr`),
+            new HTMLElement('time').attr('datetime',`PT${this._pdh}H`).attr('itemprop','duration').addContent(`${this._pdh} hr`),
             `)`
           ]),
-        new Element('dd').class('o-ListAchv__Date h-Inline h-Clearfix')
+        new HTMLElement('dd').class('o-ListAchv__Date h-Inline h-Clearfix')
           .attr('data-instanceof','ProDev.Dates')
           .addContent((function () {
             if (xjs.Date.sameDate(this._date_start, this._date_end)) {
-              return `(${new Element('time').attr({ datetime:this._date_end.toISOString(), itemprop:'startDate endDate' })
+              return `(${new HTMLElement('time').attr({ datetime:this._date_end.toISOString(), itemprop:'startDate endDate' })
                 .addContent(xjs.Date.format(this._date_end, 'j M Y')).html()})`
             }
             let same_UTC_date  = this._date_start.getUTCDate()  === this._date_end.getUTCDate()
@@ -71,13 +72,13 @@ class ProDev {
             let same_UTC_year  = this._date_start.getFullYear() === this._date_end.getFullYear()
             return [
               `(`,
-              new Element('time').attr({ datetime:this._date_start.toISOString(), itemprop:'startDate' }).addContent([
+              new HTMLElement('time').attr({ datetime:this._date_start.toISOString(), itemprop:'startDate' }).addContent([
                 this._date_start.getUTCDate(),
                 (same_UTC_month && same_UTC_year) ? '' : ` ${xjs.Date.format(this._date_start, 'M')}`,
                 (same_UTC_year) ? '' : ` ${this._date_start.getFullYear()}`
               ]),
               '&ndash;',
-              new Element('time').attr({ datetime:this._date_end.toISOString(), itemprop:'endDate' })
+              new HTMLElement('time').attr({ datetime:this._date_end.toISOString(), itemprop:'endDate' })
                 .addContent(xjs.Date.format(this._date_end, 'j M Y')),
               `)`,
             ]

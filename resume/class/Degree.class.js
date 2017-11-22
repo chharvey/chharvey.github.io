@@ -1,4 +1,5 @@
 const Element = require('extrajs-dom').Element
+const HTMLElement = require('extrajs-dom').HTMLElement
 const View = require('extrajs-view')
 
 /**
@@ -42,27 +43,27 @@ class Degree {
     return new View(function () {
       // REVIEW INDENTATION
           return Element.concat([
-            new Element('dt').class('o-ListAchv__Award h-Inline')
+            new HTMLElement('dt').class('o-ListAchv__Award h-Inline')
               .attr('data-instanceof','Degree.Text')
               .attr('itemprop','award')
               .addContent([
                 `${this._field}, `,
-                new Element('span').attr({ itemscope:'', itemtype:'http://schema.org/Rating' })
+                new HTMLElement('span').attr({ itemscope:'', itemtype:'http://schema.org/Rating' })
                   .addContent([
-                    new Element('meta').attr('itemprop','worstRating').attr('content',0),
-                    new Element('span').attr('itemprop','ratingValue').addContent(this._gpa),
+                    new HTMLElement('meta').attr('itemprop','worstRating').attr('content',0),
+                    new HTMLElement('span').attr('itemprop','ratingValue').addContent(this._gpa),
                     `/`,
-                    new Element('span').attr('itemprop','bestRating').addContent(`4.0 `),
-                    new Element('abbr').class('c-Acro').attr('title','Grade Point Average').attr('itemprop','name').addContent(`GPA`),
+                    new HTMLElement('span').attr('itemprop','bestRating').addContent(`4.0 `),
+                    new HTMLElement('abbr').class('c-Acro').attr('title','Grade Point Average').attr('itemprop','name').addContent(`GPA`),
                   ]),
               ]),
-            new Element('dd').class('o-ListAchv__Date h-Inline h-Clearfix')
+            new HTMLElement('dd').class('o-ListAchv__Date h-Inline h-Clearfix')
               .attr('data-instanceof','Degree.Year')
               .addContent([
                 `(`,
                 (this._year > 0) ?
-                  new Element('time').addContent(this._year)
-                : new Element('small').addContent(`in progress`),
+                  new HTMLElement('time').addContent(this._year)
+                : new HTMLElement('small').addContent(`in progress`),
                 `)`,
               ]),
           ])

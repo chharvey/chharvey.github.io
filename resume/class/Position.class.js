@@ -1,5 +1,6 @@
 const xjs     = require('extrajs')
 const Element = require('extrajs-dom').Element
+const HTMLElement = require('extrajs-dom').HTMLElement
 const View = require('extrajs-view')
 
 /**
@@ -60,7 +61,7 @@ class Position {
      */
     return new View(function () {
       // REVIEW INDENTATION
-        return new Element('section').id(this._id).class('o-Grid__Item o-Grid__Item--maincol c-Position')
+        return new HTMLElement('section').id(this._id).class('o-Grid__Item o-Grid__Item--maincol c-Position')
           .attr({
             'data-instanceof': 'Position',
             itemscope: '',
@@ -68,24 +69,24 @@ class Position {
           })
           .attr('itemprop', (xjs.Date.sameDate(this._date_end, new Date())) ? 'worksFor' : null)
           .addContent([
-            new Element('header').class('c-Position__Head').addContent([
-                new Element('h3').class('c-Position__Name h-Inline-sG -pr-1-sG').attr('itemprop','jobTitle').addContent(this._name),
-                new Element('p').class('c-Position__Org h-Inline-sG h-Clearfix-sG').addContent([
-                  new Element('a').class('c-Camo').attr({ rel:'external', href:this._org_url, itemprop:'url' }).addContent([
-                    new Element('span').attr('itemprop','name').addContent(this._org_name),
+            new HTMLElement('header').class('c-Position__Head').addContent([
+                new HTMLElement('h3').class('c-Position__Name h-Inline-sG -pr-1-sG').attr('itemprop','jobTitle').addContent(this._name),
+                new HTMLElement('p').class('c-Position__Org h-Inline-sG h-Clearfix-sG').addContent([
+                  new HTMLElement('a').class('c-Camo').attr({ rel:'external', href:this._org_url, itemprop:'url' }).addContent([
+                    new HTMLElement('span').attr('itemprop','name').addContent(this._org_name),
                   ]),
                 ]),
-                new Element('p').class('c-Position__Dates h-Inline')
+                new HTMLElement('p').class('c-Position__Dates h-Inline')
                   .addContent([
-                    new Element('time')
+                    new HTMLElement('time')
                       .attr('datetime', this._date_start.toISOString())
                       .addContent(xjs.Date.format(this._date_start, 'M Y')),
                     `&ndash;`,
-                    new Element('time')
+                    new HTMLElement('time')
                       .attr('datetime', this._date_end.toISOString())
                       .addContent((xjs.Date.sameDate(this._date_end, new Date())) ? 'present' : xjs.Date.format(this._date_end, 'M Y')),
                   ]),
-                new Element('p').class('c-Position__Place h-Inline')
+                new HTMLElement('p').class('c-Position__Place h-Inline')
                   .addContent(`(${this._location.view()})`),
             ]),
             Element.data(this._descriptions, { attributes: { list: { class: 'c-Position__Body' } } }),
