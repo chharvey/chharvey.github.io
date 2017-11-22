@@ -34,11 +34,11 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
         section
           h2.h-Hidden Contact
           -
-            let contact_opts = { attributes: {
-              list : { class: 'o-List o-Flex-sK c-Contact' },
-              value: { class: 'o-List__Item o-Flex__Item-sK c-Contact__Item' },
-            } }
-          address!= Element.data(resume.contactData.map((item) => item.view()), contact_opts)
+            let contact = new HTMLUListElement().class('o-List o-Flex-sK c-Contact')
+              .addContent(resume.contactData.map((item) =>
+                new HTMLLIElement().class('o-List__Item o-Flex__Item-sK c-Contact__Item').addContent(item.view())
+              ))
+          address!= contact.html()
       section.o-Grid__Item.o-Grid__Item--exp#about
         h2.o-Grid__Item.c-ExpHn.h-Hidden About
         p.o-Grid__Item--maincol(itemprop="description")= resume.about

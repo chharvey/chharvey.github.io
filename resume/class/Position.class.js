@@ -1,6 +1,8 @@
 const xjs     = require('extrajs')
 const Element = require('extrajs-dom').Element
 const HTMLElement = require('extrajs-dom').HTMLElement
+const HTMLUListElement = require('extrajs-dom').HTMLUListElement
+const HTMLLIElement = require('extrajs-dom').HTMLLIElement
 const View = require('extrajs-view')
 
 /**
@@ -89,7 +91,9 @@ class Position {
                 new HTMLElement('p').class('c-Position__Place h-Inline')
                   .addContent(`(${this._location.view()})`),
             ]),
-            Element.data(this._descriptions, { attributes: { list: { class: 'c-Position__Body' } } }),
+            new HTMLUListElement().class('c-Position__Body').addContent(
+              this._descriptions.map((item) => new HTMLLIElement().addContent(item))
+            ),
           ])
           .html()
     }, this)
