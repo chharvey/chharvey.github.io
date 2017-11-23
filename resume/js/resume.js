@@ -1,6 +1,7 @@
 const xjs   = require('extrajs')
 const Award = require('../class/Award.class.js')
 
+window.customElements.define('x-contactlink', require('./XContactLink.class.js'))
 window.customElements.define('x-skill', require('./XSkill.class.js'))
 
 let vctm_summary = {

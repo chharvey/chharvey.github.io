@@ -17,8 +17,8 @@ class ContactPoint {
   constructor(url, octicon, content, itemprop = '') {
     this._url      = url
     this._octicon  = octicon
-    this._content  = content
     this._itemprop = itemprop
+    this._content  = content
   }
 
   /**
@@ -47,10 +47,18 @@ class ContactPoint {
           .attr('href', this._url)
           .attr('itemprop', this._itemprop || null)
           .addContent([
-            new HTMLElement('div').class('c-Contact__Icon octicon').addClass(this._octicon).attr('role','none'),
+            new HTMLElement('div').class('c-Contact__Icon octicon').addClass(`octicon-${this._octicon}`).attr('role','none'),
             new HTMLElement('div').addContent(this._content),
           ]).html()
     }, this)
+      .addDisplay(function xContactLink() {
+        // return `<x-contactlink url="${this._url}" icon="${this._octicon}" prop="${this._itemprop}">${this._content}</x-contactlink>`
+        return new Element('x-contactlink',false).attr({
+          url : this._url,
+          icon: this._octicon,
+          prop: this._itemprop,
+        }).addContent(this._content).html()
+      })
   }
 }
 
