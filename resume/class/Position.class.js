@@ -73,10 +73,8 @@ class Position {
           .addContent([
             new HTMLElement('header').class('c-Position__Head').addContent([
                 new HTMLElement('h3').class('c-Position__Name h-Inline-sG -pr-1-sG').attr('itemprop','jobTitle').addContent(this._name),
-                new HTMLElement('p').class('c-Position__Org h-Inline-sG h-Clearfix-sG').addContent([
-                  new HTMLElement('a').class('c-Camo').attr({ rel:'external', href:this._org_url, itemprop:'url' }).addContent([
-                    new HTMLElement('span').attr('itemprop','name').addContent(this._org_name),
-                  ]),
+                new HTMLElement('p').class('c-Position__Org h-Inline-sG h-Clearfix-sG').attr('itemprop','name').addContent([
+                  new HTMLElement('a').class('c-Camo').attr({ rel:'external', href:this._org_url, itemprop:'url' }).addContent(this._org_name),
                 ]),
                 new HTMLElement('p').class('c-Position__Dates h-Inline')
                   .addContent([
@@ -97,6 +95,25 @@ class Position {
           ])
           .html()
     }, this)
+      .addDisplay(function xPosition() {
+        return new Element('x-position',false).attr({
+          id      : this._id,
+          url     : this._org_url,
+          type    : this._org_type,
+          start   : this._date_start.toISOString(),
+          end     : this._date_end.toISOString(),
+          city    : this._location._locality, // FIXME private variable! make and use a getter
+          state   : this._location._region, // FIXME private variable! make and use a getter
+          lat     : this._location._latitude, // FIXME private variable! make and use a getter
+          lon     : this._location._longitude, // FIXME private variable! make and use a getter
+        }).addContent([
+          new HTMLElement('name').addContent(this._name),
+          new HTMLElement('org').addContent(this._org_name),
+          new HTMLUListElement().addContent(
+            this._descriptions.map((item) => new HTMLLIElement().addContent(item))
+          ),
+        ]).html()
+      })
   }
 }
 

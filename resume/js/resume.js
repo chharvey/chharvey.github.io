@@ -3,6 +3,7 @@ const Award = require('../class/Award.class.js')
 
 window.customElements.define('x-contactlink', require('./XContactLink.class.js'))
 window.customElements.define('x-skill', require('./XSkill.class.js'))
+window.customElements.define('x-position', require('./XPosition.class.js'))
 
 let vctm_summary = {
   "dates"  : "<time>2011</time>&ndash;<time>2014</time>",
