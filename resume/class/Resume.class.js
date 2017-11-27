@@ -144,22 +144,17 @@ class Resume {
    */
   get awards() {
     /**
-     * Return markup for any sub-awards in this award.
-     * TODO: move this model into Award.class
+     * Convert sub-awards into an array.
      * @private
-     * @param   {{sub_awards:Array<{dates:string, text:string}>}} datum the data point to parse
-     * @returns {string} a <dl.o-ListAchv> element if the datum has any sub-awards; else the empty string
+     * @param   {{sub_awards:Array<{dates:string, content:string}>}} datum the data point to parse
+     * @returns {?Array<Award>} an array of sub-awards
      */
     function subs(datum) {
       return (datum.sub_awards) ?
-        new HTMLDListElement().class('o-ListAchv')
-          .addContent(datum.sub_awards.map((s) =>
-            new Award(s.dates, Resume._content(s.content)).view()
-          ).join(''))
-          .html()
-        : ''
+        datum.sub_awards.map((s) => new Award(s.dates, Resume._content(s.content)))
+        : null
     }
-    return this._DATA.awards.map((d) => new Award(d.dates, Resume._content(d.content) + subs(d)))
+    return this._DATA.awards.map((d) => new Award(d.dates, Resume._content(d.content), subs(d)))
   }
 
   /**
@@ -168,22 +163,17 @@ class Resume {
    */
   get teams() {
     /**
-     * Return markup for any sub-awards in this award.
-     * TODO: move this model into Award.class
+     * Convert sub-awards into an array.
      * @private
-     * @param   {{sub_awards:Array<{dates:string, text:string}>}} datum the data point to parse
-     * @returns {string} a <dl.o-ListAchv> element if the datum has any sub-awards; else the empty string
+     * @param   {{sub_awards:Array<{dates:string, content:string}>}} datum the data point to parse
+     * @returns {?Array<Award>} an array of sub-awards
      */
     function subs(datum) {
       return (datum.sub_awards) ?
-        new HTMLDListElement().class('o-ListAchv')
-          .addContent(datum.sub_awards.map((s) =>
-            new Award(s.dates, Resume._content(s.content)).view()
-          ).join(''))
-          .html()
-        : ''
+        datum.sub_awards.map((s) => new Award(s.dates, Resume._content(s.content)))
+        : null
     }
-    return this._DATA.teams.map((d) => new Award(d.dates, Resume._content(d.content) + subs(d)))
+    return this._DATA.teams.map((d) => new Award(d.dates, Resume._content(d.content), subs(d)))
   }
 }
 
