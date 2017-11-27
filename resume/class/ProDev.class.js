@@ -58,14 +58,18 @@ class ProDev {
             new HTMLElement('span').attr('itemprop','name').addContent(this._name),
             `, ${this._location.view()} (`,
             new HTMLElement('time').attr('datetime',`PT${this._pdh}H`).attr('itemprop','duration').addContent(`${this._pdh} hr`),
-            `)`
+            `)`,
           ]),
         new HTMLElement('dd').class('o-ListAchv__Date h-Inline h-Clearfix')
           .attr('data-instanceof','ProDev.Dates')
           .addContent((function () {
             if (xjs.Date.sameDate(this._date_start, this._date_end)) {
-              return `(${new HTMLElement('time').attr({ datetime:this._date_end.toISOString(), itemprop:'startDate endDate' })
-                .addContent(xjs.Date.format(this._date_end, 'j M Y')).html()})`
+              return [
+              `(`,
+              new HTMLElement('time').attr({ datetime:this._date_end.toISOString(), itemprop:'startDate endDate' })
+                .addContent(xjs.Date.format(this._date_end, 'j M Y')),
+              `)`,
+              ]
             }
             let same_UTC_date  = this._date_start.getUTCDate()  === this._date_end.getUTCDate()
             let same_UTC_month = this._date_start.getUTCMonth() === this._date_end.getUTCMonth()
@@ -75,7 +79,7 @@ class ProDev {
               new HTMLElement('time').attr({ datetime:this._date_start.toISOString(), itemprop:'startDate' }).addContent([
                 this._date_start.getUTCDate(),
                 (same_UTC_month && same_UTC_year) ? '' : ` ${xjs.Date.format(this._date_start, 'M')}`,
-                (same_UTC_year) ? '' : ` ${this._date_start.getFullYear()}`
+                (same_UTC_year) ? '' : ` ${this._date_start.getFullYear()}`,
               ]),
               '&ndash;',
               new HTMLElement('time').attr({ datetime:this._date_end.toISOString(), itemprop:'endDate' })
@@ -85,6 +89,18 @@ class ProDev {
           }).call(this)),
       ])
     }, this)
+      .addDisplay(function xProDev() {
+        return new Element('x-prodev',false).attr({
+          type : this._itemtype,
+          start: this._date_start.toISOString(),
+          end  : this._date_end.toISOString(),
+          city : this._location._locality, // FIXME private variable! make and use a getter
+          state: this._location._region, // FIXME private variable! make and use a getter
+          lat  : this._location._latitude, // FIXME private variable! make and use a getter
+          lon  : this._location._longitude, // FIXME private variable! make and use a getter
+          pdh  : this._pdh
+        }).addContent(new HTMLElement('name').addContent(this._name)).html()
+      })
   }
 }
 

@@ -6,6 +6,7 @@ window.customElements.define('x-skill', require('./XSkill.class.js'))
 window.customElements.define('x-position', require('./XPosition.class.js'))
 window.customElements.define('x-city', require('./XCity.class.js'))
 window.customElements.define('x-award', require('./XAward.class.js'))
+window.customElements.define('x-prodev', require('./XProDev.class.js'))
 
 let vctm_summary = {
   "dates"  : "<time>2011</time>&ndash;<time>2014</time>",

@@ -17,6 +17,7 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
     link(rel="import" href="./tpl/x-position.tpl.html")
     link(rel="import" href="./tpl/x-city.tpl.html")
     link(rel="import" href="./tpl/x-award.tpl.html")
+    link(rel="import" href="./tpl/x-prodev.tpl.html")
   body
     main.o-Grid.o-Grid--resume(itemscope="" itemtype="http://schema.org/Person")
       mixin experience(title, data)
@@ -24,11 +25,11 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
           h2.o-Grid__Item.c-ExpHn!= title
           block
           != data.map((item) => item.view.xPosition()).join('')
-      mixin achievement(title, data, classes)
+      mixin proDevs(title, data, classes)
         section.o-Grid__Item.o-Grid__Item--exp&attributes(attributes)
           h2.o-Grid__Item.c-ExpHn!= title
           dl.o-Grid__Item.o-Grid__Item--maincol.o-ListAchv(class=classes)
-            != data.map((item) => item.view()).join('')
+            != data.map((item) => item.view.xProDev()).join('')
       mixin awards(title, data, classes)
         section.o-Grid__Item.o-Grid__Item--exp&attributes(attributes)
           h2.o-Grid__Item.c-ExpHn!= title
@@ -89,7 +90,7 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
               span(itemprop="name") Virginia Polytechnic Institute and State University
           dl.o-ListAchv.c-Institution__List
             != resume.degrees.map((item) => item.view()).join('')
-      +achievement('Profes&shy;sional Dev&shy;elopment', resume.proDevs)#prof-dev
+      +proDevs('Profes&shy;sional Dev&shy;elopment', resume.proDevs)#prof-dev
       +awards('Awards &amp; Member&shy;ships', resume.awards)#awards
       +awards('Team Athletic Experience'     , resume.teams, 'h-Hr')#athletic
       footer.o-Grid__Item.o-Grid__Item--maincol.-fz-el-mill: p.

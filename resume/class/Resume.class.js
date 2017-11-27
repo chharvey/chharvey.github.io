@@ -124,7 +124,7 @@ class Resume {
 
   /**
    * @summary List of professional development hours.
-   * @type {Array<(ProDev|Award)>}
+   * @type {Array<ProDev>}
    */
   get proDevs() {
     return this._DATA.prodevs.map((d) =>
