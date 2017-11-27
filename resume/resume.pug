@@ -16,6 +16,7 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
     link(rel="import" href="./tpl/x-skill.tpl.html")
     link(rel="import" href="./tpl/x-position.tpl.html")
     link(rel="import" href="./tpl/x-city.tpl.html")
+    link(rel="import" href="./tpl/x-award.tpl.html")
   body
     main.o-Grid.o-Grid--resume(itemscope="" itemtype="http://schema.org/Person")
       mixin experience(title, data)
@@ -28,6 +29,11 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
           h2.o-Grid__Item.c-ExpHn!= title
           dl.o-Grid__Item.o-Grid__Item--maincol.o-ListAchv(class=classes)
             != data.map((item) => item.view()).join('')
+      mixin awards(title, data, classes)
+        section.o-Grid__Item.o-Grid__Item--exp&attributes(attributes)
+          h2.o-Grid__Item.c-ExpHn!= title
+          dl.o-Grid__Item.o-Grid__Item--maincol.o-ListAchv(class=classes)
+            != data.map((item) => item.view.xAward()).join('')
       header.o-Grid__Item--maincol.h-Hr
         h1.c-ResHn(itemprop="name")
           span(itemprop="givenName") Christopher
@@ -84,8 +90,8 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
           dl.o-ListAchv.c-Institution__List
             != resume.degrees.map((item) => item.view()).join('')
       +achievement('Profes&shy;sional Dev&shy;elopment', resume.proDevs)#prof-dev
-      +achievement('Awards &amp; Member&shy;ships'     , resume.awards)#awards
-      +achievement('Team Athletic Experience'          , resume.teams, 'h-Hr')#athletic
+      +awards('Awards &amp; Member&shy;ships', resume.awards)#awards
+      +awards('Team Athletic Experience'     , resume.teams, 'h-Hr')#athletic
       footer.o-Grid__Item.o-Grid__Item--maincol.-fz-el-mill: p.
         This r&eacute;sum&eacute; is 100% hand-written, by me! Check out the
         #[a(rel="external" href="https://github.com/chharvey/chharvey.github.io/blob/master/resume/resume.jade") source code]

@@ -45,6 +45,12 @@ class Award {
           new HTMLElement('dd').class('o-ListAchv__Date h-Inline h-Clearfix').attr('data-instanceof','Award.Dates').addContent(`(${this._dates})`)
         )
     }, this)
+      .addDisplay(function xAward() {
+        return new HTMLElement('x-award').addContent([
+          new HTMLElement('dates').addContent(this._dates),
+          new HTMLElement('text' ).addContent(this._text),
+        ]).html()
+      })
   }
 }
 
