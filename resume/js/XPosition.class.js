@@ -28,8 +28,17 @@ class XPosition extends HTMLElement {
     frag.querySelector('.c-Position__Dates > time:nth-child(1)').textContent = xjs.Date.format(this._date_start, 'M Y')
     frag.querySelector('.c-Position__Dates > time:nth-child(2)').datetime    = this._date_end.toISOString()
     frag.querySelector('.c-Position__Dates > time:nth-child(2)').textContent = xjs.Date.format(this._date_end, 'M Y')
-    frag.querySelector('.c-Position__Dates > time:nth-child(3)').datetime = this._date_end.toISOString()
-    frag.querySelector('.c-Position__Place').innerHTML = `(${[this._locality, this._region].join(', ')})`
+    frag.querySelector('.c-Position__Dates > time:nth-child(3)').datetime    = this._date_end.toISOString()
+    ;(function (place) {
+      while (place.childNodes.length) { place.firstChild.remove() }
+      // place.childNodes.forEach(function (c) { c.remove() })
+      let city = document.createElement('x-city')
+      city.setAttribute('locality' , this._locality)
+      city.setAttribute('region'   , this._region)
+      city.setAttribute('latitude' , this._latitude)
+      city.setAttribute('longitude', this._longitude)
+      place.append(new Text('('), city, new Text(')'))
+    }).call(this, frag.querySelector('.c-Position__Place'))
     frag.querySelector('.c-Position__Body').innerHTML = this._descriptions
     if (xjs.Date.sameDate(this._date_end, new Date())) {
       frag.querySelector('.c-Position').setAttribute('itemprop', 'worksFor')

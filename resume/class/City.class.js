@@ -74,6 +74,14 @@ class City {
           ])
           .html()
     }, this)
+      .addDisplay(function xCity() {
+        return new Element('x-city').attr({
+          locality : this._locality,
+          region   : this._region,
+          latitude : this._latitude,
+          longitude: this._longitude,
+        })
+      })
   }
 }
 
