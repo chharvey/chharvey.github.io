@@ -46,6 +46,7 @@ class XPosition extends HTMLElement {
       frag.querySelector('.c-Position').removeAttribute('itemprop')
       frag.querySelectorAll('.c-Position__Dates > time')[2].remove()
     }
+
     while (this.childNodes.length) { this.firstChild.remove() } // NB: `NodeList#forEach()` does not work quite as well as `Array#forEach()`
     this.appendChild(frag)
   }

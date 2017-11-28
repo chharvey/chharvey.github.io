@@ -28,7 +28,7 @@ class XProDev extends HTMLElement {
     frag.querySelector('[itemprop="startDate endDate"]').dateTime    = this._date_end.toISOString()
     frag.querySelector('[itemprop="startDate endDate"]').textContent = xjs.Date.format(this._date_end, 'j M Y')
     ;(function (dates) {
-      let same_UTC_date  = this._date_start.getUTCDate()  === this._date_end.getUTCDate()
+      let same_UTC_date  = this._date_start.getUTCDate () === this._date_end.getUTCDate ()
       let same_UTC_month = this._date_start.getUTCMonth() === this._date_end.getUTCMonth()
       let same_UTC_year  = this._date_start.getFullYear() === this._date_end.getFullYear()
       dates.querySelector('[itemprop="startDate"]').dateTime    = this._date_start.toISOString()
@@ -45,6 +45,7 @@ class XProDev extends HTMLElement {
     } else {
       frag.querySelectorAll('.o-ListAchv__Date')[0].remove()
     }
+
     this.parentNode.appendChild(frag)
     this.remove()
   }

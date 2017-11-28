@@ -10,6 +10,7 @@ class XCity extends HTMLElement {
     this._region    = this.getAttribute('region')
     this._latitude  = this.getAttribute('latitude')
     this._longitude = this.getAttribute('longitude')
+
     let frag = XCity.TEMPLATE.content.cloneNode(true)
     frag.querySelector('[itemprop="addressLocality"]').textContent = this._locality
     frag.querySelector('[itemprop="addressRegion"]'  ).textContent = this._region
@@ -21,6 +22,7 @@ class XCity extends HTMLElement {
       console.error(`No data found for ${this._region}.`)
       frag.querySelector('[itemprop="addressRegion"]').removeAttribute('title')
     }
+
     this.appendChild(frag)
   }
   static get TEMPLATE() {

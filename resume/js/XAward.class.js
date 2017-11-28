@@ -3,6 +3,7 @@ class XAward extends HTMLElement {
     super()
     this._dates = this.querySelector('dates').innerHTML
     this._text  = this.querySelector('text' ).innerHTML
+
     let frag = XAward.TEMPLATE.content.cloneNode(true)
     frag.querySelector('.o-ListAchv__Award').innerHTML = this._text
     ;(function (dates) {
@@ -11,6 +12,7 @@ class XAward extends HTMLElement {
       dates.prepend('(')
       dates.append(')')
     }).call(this, frag.children[1]) // FIXME `.querySelector('.o-ListAchv__Date')` might select sub-awards
+
     this.parentNode.appendChild(frag)
     this.remove()
   }
