@@ -10,9 +10,9 @@ class XDegree extends HTMLElement {
     frag.querySelector('[itemprop="ratingValue"]').textContent = this._gpa
     frag.querySelector('[itemprop="timeEarned"]' ).textContent = this._year
     if (this._year > 0) {
-      frag.querySelectorAll('.o-ListAchv__Date')[1].remove()
+      frag.querySelector('.o-ListAchv__Date > small').remove()
     } else {
-      frag.querySelectorAll('.o-ListAchv__Date')[0].remove()
+      frag.querySelector('[itemprop="timeEarned"]').remove()
     }
 
     this.parentNode.appendChild(frag)
