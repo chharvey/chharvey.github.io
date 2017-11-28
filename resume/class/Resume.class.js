@@ -3,17 +3,22 @@ const xjs      = require('extrajs')
 const Element  = require('extrajs-dom').Element
 const HTMLDListElement  = require('extrajs-dom').HTMLDListElement
 
-const Award        = require('./Award.class.js')
-const City         = require('./City.class.js')
-const ContactPoint = require('./ContactPoint.class.js')
-const Degree       = require('./Degree.class.js')
-const Position     = require('./Position.class.js')
-const ProDev       = require('./ProDev.class.js')
-const Skill        = require('./Skill.class.js')
+const STATE_DATA = require('extrajs-geo')
+STATE_DATA.push(...[
+  { "code": "DC", "name": "District of Columbia" },
+])
+
+const GeoCoordinates = require('./GeoCoordinates.class.js')
+const City           = require('./City.class.js')
+const ContactPoint   = require('./ContactPoint.class.js')
+const Skill          = require('./Skill.class.js')
+const Position       = require('./Position.class.js')
+const Award          = require('./Award.class.js')
+const ProDev         = require('./ProDev.class.js')
+const Degree         = require('./Degree.class.js')
 
 /**
  * A résumé generated with given content data.
- * @class
  */
 class Resume {
   /**
@@ -114,9 +119,8 @@ class Resume {
             end  : (d.end) ? new Date(d.end) : new Date(),
           },
           location: new City(
-            d.city,
-            d.state,
-            { lat: d.geo[0], lon: d.geo[1] }
+            { locality: d.city, region: (STATE_DATA.find((obj) => obj.code===d.state).name), }, // TODO make region the full name
+            new GeoCoordinates({ latitude: d.geo[0], longitude: d.geo[1] })
           ),
           descriptions: d.descriptions.map(Resume._content)
         })
@@ -141,7 +145,10 @@ class Resume {
     return this._DATA.prodevs.map((d) =>
       new ProDev(
         { start: new Date(d.start), end  : new Date(d.end) },
-        new City(d.city, d.state, { lat: d.geo[0], lon: d.geo[1] }),
+        new City(
+          { locality: d.city, region: (STATE_DATA.find((obj) => obj.code===d.state).name), }, // TODO make region the full name
+          new GeoCoordinates({ latitude: d.geo[0], longitude: d.geo[1] })
+        ),
         d.pdh,
         Resume._content(d.coursename),
         d.itemtype
