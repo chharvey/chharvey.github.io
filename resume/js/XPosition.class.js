@@ -13,10 +13,7 @@ class XPosition extends HTMLElement {
     this._date_start = new Date(this.getAttribute('start'))
     this._date_end   = new Date(this.getAttribute('end'))
 
-    this._locality  = this.getAttribute('city')
-    this._region    = this.getAttribute('state')
-    this._latitude  = this.getAttribute('lat')
-    this._longitude = this.getAttribute('lon')
+    this._location  = this.querySelector('x-city')
 
     this._descriptions = this.querySelector('ul').innerHTML
 
@@ -30,10 +27,7 @@ class XPosition extends HTMLElement {
     frag.querySelectorAll('.c-Position__Dates > time')[1].dateTime    = this._date_end.toISOString()
     frag.querySelectorAll('.c-Position__Dates > time')[1].textContent = xjs.Date.format(this._date_end, 'M Y')
     frag.querySelectorAll('.c-Position__Dates > time')[2].dateTime    = this._date_end.toISOString()
-    frag.querySelector('x-city').setAttribute('locality' , this._locality)
-    frag.querySelector('x-city').setAttribute('region'   , this._region)
-    frag.querySelector('x-city').setAttribute('latitude' , this._latitude)
-    frag.querySelector('x-city').setAttribute('longitude', this._longitude)
+    frag.querySelector('.c-Position__Place').replaceChild(this._location, frag.querySelector('x-city'))
     frag.querySelector('.c-Position__Body').innerHTML = this._descriptions
     if (xjs.Date.sameDate(this._date_end, new Date())) {
       frag.querySelector('.c-Position').setAttribute('itemprop', 'worksFor')
