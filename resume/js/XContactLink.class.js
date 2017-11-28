@@ -1,3 +1,5 @@
+const Resume = require('../class/Resume.class.js')
+
 class XContactLink extends HTMLElement {
   constructor() {
     super()
@@ -5,6 +7,7 @@ class XContactLink extends HTMLElement {
     this._octicon  = this.getAttribute('icon')
     this._itemprop = this.getAttribute('prop')
     this._content  = this.innerHTML
+
     let frag = XContactLink.TEMPLATE.content.cloneNode(true)
     frag.querySelector('.c-Contact__Link').href = this._url
     if (this._itemprop) {
@@ -13,8 +16,9 @@ class XContactLink extends HTMLElement {
       frag.querySelector('.c-Contact__Link').removeAttribute('itemprop')
     }
     frag.querySelector('.c-Contact__Icon').className = frag.querySelector('.c-Contact__Icon').className.replace('{{ this._octicon }}', this._octicon)
-    frag.querySelector('a > *:last-child').innerHTML = this._content
-    while (this.childNodes.length) { this.firstChild.remove() }
+    frag.querySelector('.c-Contact__Text').innerHTML = this._content
+
+    Resume.removeAllChildNodes(this)
     this.appendChild(frag)
   }
   static get TEMPLATE() {

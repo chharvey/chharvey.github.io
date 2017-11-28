@@ -80,7 +80,7 @@ class City {
           region   : this._region,
           latitude : this._latitude,
           longitude: this._longitude,
-        })
+        }).html()
       })
   }
 }

@@ -58,6 +58,17 @@ class Resume {
   }
 
   /**
+   * Remove all child nodes from a node, and return the modified node.
+   * @param   {Node} $node the node from which to remove all child nodes
+   * @returns {Node} the given node, emptied
+   */
+  static removeAllChildNodes($node) {
+    // $node.childNodes.forEach(function (c) { c.remove() } ) // NB: `NodeList#forEach()` does not work quite as well as `Array#forEach()`
+    while ($node.hasChildNodes()) { $node.firstChild.remove() }
+    return $node
+  }
+
+  /**
    * @summary About the applicant.
    * @type {string}
    */
@@ -124,7 +135,7 @@ class Resume {
 
   /**
    * @summary List of professional development hours.
-   * @type {Array<(ProDev|Award)>}
+   * @type {Array<ProDev>}
    */
   get proDevs() {
     return this._DATA.prodevs.map((d) =>
