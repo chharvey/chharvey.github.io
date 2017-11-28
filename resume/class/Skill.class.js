@@ -83,8 +83,7 @@ class Skill {
       ])
     }, this)
       .addDisplay(function xSkill() {
-        // return `<x-skill level="${this._level}">${this._text}</x-skill>`
-        return new Element('x-skill',false).attr('level',this._level).addContent(this._text).html()
+        return new HTMLElement('x-skill').attr('level',this._level).addContent(this._text).html()
       })
   }
 

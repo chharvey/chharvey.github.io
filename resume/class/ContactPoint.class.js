@@ -52,8 +52,7 @@ class ContactPoint {
           ]).html()
     }, this)
       .addDisplay(function xContactLink() {
-        // return `<x-contactlink url="${this._url}" icon="${this._octicon}" prop="${this._itemprop}">${this._content}</x-contactlink>`
-        return new Element('x-contactlink',false).attr({
+        return new HTMLElement('x-contactlink').attr({
           url : this._url,
           icon: this._octicon,
           prop: this._itemprop,

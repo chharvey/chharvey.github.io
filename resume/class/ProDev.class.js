@@ -90,7 +90,7 @@ class ProDev {
       ])
     }, this)
       .addDisplay(function xProDev() {
-        return new Element('x-prodev',false).attr({
+        return new HTMLElement('x-prodev').attr({
           type : this._itemtype,
           start: this._date_start.toISOString(),
           end  : this._date_end.toISOString(),

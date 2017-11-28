@@ -96,7 +96,7 @@ class Position {
           .html()
     }, this)
       .addDisplay(function xPosition() {
-        return new Element('x-position',false).attr({
+        return new HTMLElement('x-position').attr({
           id      : this._id,
           url     : this._org_url,
           type    : this._org_type,
