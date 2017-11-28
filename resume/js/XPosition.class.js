@@ -25,20 +25,15 @@ class XPosition extends HTMLElement {
     frag.querySelector('[itemprop="jobTitle"]').innerHTML = this._name
     frag.querySelector('[itemprop="url"]').href           = this._org_url
     frag.querySelector('[itemprop="url"]').innerHTML      = this._org_name
-    frag.querySelectorAll('.c-Position__Dates > time')[0].datetime    = this._date_start.toISOString()
+    frag.querySelectorAll('.c-Position__Dates > time')[0].dateTime    = this._date_start.toISOString()
     frag.querySelectorAll('.c-Position__Dates > time')[0].textContent = xjs.Date.format(this._date_start, 'M Y')
-    frag.querySelectorAll('.c-Position__Dates > time')[1].datetime    = this._date_end.toISOString()
+    frag.querySelectorAll('.c-Position__Dates > time')[1].dateTime    = this._date_end.toISOString()
     frag.querySelectorAll('.c-Position__Dates > time')[1].textContent = xjs.Date.format(this._date_end, 'M Y')
-    frag.querySelectorAll('.c-Position__Dates > time')[2].datetime    = this._date_end.toISOString()
-    ;(function (place) {
-      Resume.removeAllChildNodes(place)
-      let city = document.createElement('x-city')
-      city.setAttribute('locality' , this._locality)
-      city.setAttribute('region'   , this._region)
-      city.setAttribute('latitude' , this._latitude)
-      city.setAttribute('longitude', this._longitude)
-      place.append(new Text('('), city, new Text(')'))
-    }).call(this, frag.querySelector('.c-Position__Place'))
+    frag.querySelectorAll('.c-Position__Dates > time')[2].dateTime    = this._date_end.toISOString()
+    frag.querySelector('x-city').setAttribute('locality' , this._locality)
+    frag.querySelector('x-city').setAttribute('region'   , this._region)
+    frag.querySelector('x-city').setAttribute('latitude' , this._latitude)
+    frag.querySelector('x-city').setAttribute('longitude', this._longitude)
     frag.querySelector('.c-Position__Body').innerHTML = this._descriptions
     if (xjs.Date.sameDate(this._date_end, new Date())) {
       frag.querySelector('.c-Position').setAttribute('itemprop', 'worksFor')
