@@ -13,8 +13,8 @@ class XContactLink extends HTMLElement {
       frag.querySelector('.c-Contact__Link').removeAttribute('itemprop')
     }
     frag.querySelector('.c-Contact__Icon').className = frag.querySelector('.c-Contact__Icon').className.replace('{{ this._octicon }}', this._octicon)
-    frag.querySelector('a > *:last-child').innerHTML = this._content
-    while (this.childNodes.length) { this.firstChild.remove() }
+    frag.querySelector('.c-Contact__Text').innerHTML = this._content
+    while (this.childNodes.length) { this.firstChild.remove() } // NB: `NodeList#forEach()` does not work quite as well as `Array#forEach()`
     this.appendChild(frag)
   }
   static get TEMPLATE() {

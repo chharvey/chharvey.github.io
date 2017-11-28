@@ -21,17 +21,16 @@ class XPosition extends HTMLElement {
 
     let frag = XPosition.TEMPLATE.content.cloneNode(true)
     frag.querySelector('.c-Position').setAttribute('itemtype', this._org_type)
-    frag.querySelector('.c-Position__Name').innerHTML = this._name
-    frag.querySelector('.c-Position__Org > a').href = this._org_url
-    frag.querySelector('.c-Position__Org > a').innerHTML = this._org_name
-    frag.querySelector('.c-Position__Dates > time:nth-child(1)').datetime    = this._date_start.toISOString()
-    frag.querySelector('.c-Position__Dates > time:nth-child(1)').textContent = xjs.Date.format(this._date_start, 'M Y')
-    frag.querySelector('.c-Position__Dates > time:nth-child(2)').datetime    = this._date_end.toISOString()
-    frag.querySelector('.c-Position__Dates > time:nth-child(2)').textContent = xjs.Date.format(this._date_end, 'M Y')
-    frag.querySelector('.c-Position__Dates > time:nth-child(3)').datetime    = this._date_end.toISOString()
+    frag.querySelector('[itemprop="jobTitle"]').innerHTML = this._name
+    frag.querySelector('[itemprop="url"]').href           = this._org_url
+    frag.querySelector('[itemprop="url"]').innerHTML      = this._org_name
+    frag.querySelectorAll('.c-Position__Dates > time')[0].datetime    = this._date_start.toISOString()
+    frag.querySelectorAll('.c-Position__Dates > time')[0].textContent = xjs.Date.format(this._date_start, 'M Y')
+    frag.querySelectorAll('.c-Position__Dates > time')[1].datetime    = this._date_end.toISOString()
+    frag.querySelectorAll('.c-Position__Dates > time')[1].textContent = xjs.Date.format(this._date_end, 'M Y')
+    frag.querySelectorAll('.c-Position__Dates > time')[2].datetime    = this._date_end.toISOString()
     ;(function (place) {
-      while (place.childNodes.length) { place.firstChild.remove() }
-      // place.childNodes.forEach(function (c) { c.remove() })
+      while (place.childNodes.length) { place.firstChild.remove() } // NB: `NodeList#forEach()` does not work quite as well as `Array#forEach()`
       let city = document.createElement('x-city')
       city.setAttribute('locality' , this._locality)
       city.setAttribute('region'   , this._region)
@@ -42,12 +41,12 @@ class XPosition extends HTMLElement {
     frag.querySelector('.c-Position__Body').innerHTML = this._descriptions
     if (xjs.Date.sameDate(this._date_end, new Date())) {
       frag.querySelector('.c-Position').setAttribute('itemprop', 'worksFor')
-      frag.querySelector('.c-Position__Dates > time:nth-child(2)').remove()
+      frag.querySelectorAll('.c-Position__Dates > time')[1].remove()
     } else {
       frag.querySelector('.c-Position').removeAttribute('itemprop')
-      frag.querySelector('.c-Position__Dates > time:nth-child(3)').remove()
+      frag.querySelectorAll('.c-Position__Dates > time')[2].remove()
     }
-    while (this.childNodes.length) { this.firstChild.remove() }
+    while (this.childNodes.length) { this.firstChild.remove() } // NB: `NodeList#forEach()` does not work quite as well as `Array#forEach()`
     this.appendChild(frag)
   }
   static get TEMPLATE() {

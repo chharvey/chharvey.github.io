@@ -6,9 +6,9 @@ class XDegree extends HTMLElement {
     this._gpa  = this.getAttribute('gpa')
 
     let frag = XDegree.TEMPLATE.content.cloneNode(true)
-    frag.querySelector('.o-ListAchv__Award > span').innerHTML = this._field
+    frag.querySelector('[itemprop="name"]').innerHTML          = this._field
     frag.querySelector('[itemprop="ratingValue"]').textContent = this._gpa
-    frag.querySelector('time').textContent = this._year
+    frag.querySelector('[itemprop="timeEarned"]').textContent  = this._year
     if (this._year > 0) {
       frag.querySelectorAll('.o-ListAchv__Date')[1].remove()
     } else {
