@@ -1,4 +1,5 @@
 const xjs = require('extrajs')
+const Resume = require('../class/Resume.class.js')
 
 class XPosition extends HTMLElement {
   constructor() {
@@ -30,7 +31,7 @@ class XPosition extends HTMLElement {
     frag.querySelectorAll('.c-Position__Dates > time')[1].textContent = xjs.Date.format(this._date_end, 'M Y')
     frag.querySelectorAll('.c-Position__Dates > time')[2].datetime    = this._date_end.toISOString()
     ;(function (place) {
-      while (place.childNodes.length) { place.firstChild.remove() } // NB: `NodeList#forEach()` does not work quite as well as `Array#forEach()`
+      Resume.removeAllChildNodes(place)
       let city = document.createElement('x-city')
       city.setAttribute('locality' , this._locality)
       city.setAttribute('region'   , this._region)
@@ -47,7 +48,7 @@ class XPosition extends HTMLElement {
       frag.querySelectorAll('.c-Position__Dates > time')[2].remove()
     }
 
-    while (this.childNodes.length) { this.firstChild.remove() } // NB: `NodeList#forEach()` does not work quite as well as `Array#forEach()`
+    Resume.removeAllChildNodes(this)
     this.appendChild(frag)
   }
   static get TEMPLATE() {
