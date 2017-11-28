@@ -11,18 +11,12 @@ class XProDev extends HTMLElement {
     this._date_start = new Date(this.getAttribute('start'))
     this._date_end   = new Date(this.getAttribute('end'))
 
-    this._locality  = this.getAttribute('city')
-    this._region    = this.getAttribute('state')
-    this._latitude  = this.getAttribute('lat')
-    this._longitude = this.getAttribute('lon')
+    this._location = this.querySelector('x-city')
 
     let frag = XProDev.TEMPLATE.content.cloneNode(true)
     frag.querySelector('.o-ListAchv__Award').setAttribute('itemtype', this._itemtype)
     frag.querySelector('[itemprop="name"]').innerHTML = this._name
-    frag.querySelector('x-city').setAttribute('locality' , this._locality)
-    frag.querySelector('x-city').setAttribute('region'   , this._region)
-    frag.querySelector('x-city').setAttribute('latitude' , this._latitude)
-    frag.querySelector('x-city').setAttribute('longitude', this._longitude)
+    frag.querySelector('.o-ListAchv__Award').replaceChild(this._location, frag.querySelector('x-city'))
     frag.querySelector('.o-ListAchv__Award > time').dateTime    = `PT${this._pdh}H`
     frag.querySelector('.o-ListAchv__Award > time').textContent = `${this._pdh} hr`
     frag.querySelector('[itemprop="startDate endDate"]').dateTime    = this._date_end.toISOString()

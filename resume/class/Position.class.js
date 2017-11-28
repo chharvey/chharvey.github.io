@@ -102,13 +102,10 @@ class Position {
           type    : this._org_type,
           start   : this._date_start.toISOString(),
           end     : this._date_end.toISOString(),
-          city    : this._location._locality, // FIXME private variable! make and use a getter
-          state   : this._location._region, // FIXME private variable! make and use a getter
-          lat     : this._location._latitude, // FIXME private variable! make and use a getter
-          lon     : this._location._longitude, // FIXME private variable! make and use a getter
         }).addContent([
           new HTMLElement('name').addContent(this._name),
           new HTMLElement('org').addContent(this._org_name),
+          this._location.view.xCity(),
           new HTMLUListElement().addContent(
             this._descriptions.map((item) => new HTMLLIElement().addContent(item))
           ),
