@@ -47,13 +47,15 @@ class Degree {
               .attr('data-instanceof','Degree.Text')
               .attr('itemprop','award')
               .addContent([
-                `${this._field}, `,
+                new HTMLElement('span').addContent(this._field),
+                `, `,
                 new HTMLElement('span').attr({ itemscope:'', itemtype:'http://schema.org/Rating' })
                   .addContent([
                     new HTMLElement('meta').attr('itemprop','worstRating').attr('content',0),
                     new HTMLElement('span').attr('itemprop','ratingValue').addContent(this._gpa),
                     `/`,
-                    new HTMLElement('span').attr('itemprop','bestRating').addContent(`4.0 `),
+                    new HTMLElement('span').attr('itemprop','bestRating').addContent(`4.0`),
+                    ` `,
                     new HTMLElement('abbr').class('c-Acro').attr('title','Grade Point Average').attr('itemprop','name').addContent(`GPA`),
                   ]),
               ]),
@@ -68,6 +70,12 @@ class Degree {
               ]),
           ])
     }, this)
+      .addDisplay(function xDegree() {
+        return new HTMLElement('x-degree')
+          .attr({ year: this._year, gpa: this._gpa })
+          .addContent(new HTMLElement('field').addContent(this._field))
+          .html()
+      })
   }
 }
 
