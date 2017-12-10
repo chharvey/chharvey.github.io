@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Tablist Mock Specification</title>
+    <meta charset="utf-8">
+    <meta name="description" content="A mock specification of a new proposed 'tablist' element.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.rawgit.com/chharvey/xmeter/v6.2.0-beta.2/css/xmeter.css">
+    <style>
+      html {
+        font-size: 112.5%;
+      }
+      body {
+        margin-bottom: 50vh;
+        background-color: #fe03;
+      }
+      main {
+        margin: 0 auto;
+        padding: 0 1rem;
+      }
+      p {
+        font-family: serif;
+      }
+      blockquote {
+        margin-left: 3rem;
+      }
+      dt {
+        font-weight: bold;
+      }
+      dd {
+        padding-left: 4rem;
+      }
+      [role="alert"] {
+        font-style: italic;
+      }
+      a {
+        text-decoration-line: underline;
+      }
+      a[rel~="external"] {
+        text-decoration-style: double;
+      }
+      dfn:target {
+        background-color: #fc9e3b80;
+        padding: 0 1ch;
+      }
+      .-d-n { display: none; }
+    </style>
+  </head>
+  <body class="h-Ruledd">
+    <a class="-d-n" href="#main">skip to main content</a>
+    <main class="h-Measure" id="main">
+      <header>
+        <h1>New Element Proposals: <code>tablist</code>, <code>tab</code>, and <code>tabpanel</code></h1>
+        <nav>
+          <h1>Contents</h1>
+          <ol>
+            <li><a href="#sect-intro">Introduction</a></li>
+            <li><a href="#sect-specs">Specifications</a>
+              <ol>
+                <li><a href="#elementdef-tablist">The <code>tablist</code> element</a></li>
+                <li><a href="#elementdef-tab">The <code>tab</code> element</a></li>
+                <li><a href="#elementdef-tabpanel">The <code>tabpanel</code> element</a></li>
+              </ol>
+            </li>
+            <li><a href="#sect-ui">Suggested User Interaction</a></li>
+            <li><a href="#sect-style">Suggested Presentation</a></li>
+            <li><a href="#sect-demo">Demonstration</a></li>
+            <li><a href="#sect-resources">Resources</a></li>
+          </ol>
+        </nav>
+      </header>
+      <section id="sect-intro">
+        <h1>Introduction</h1>
+        <blockquote cite="https://wiki.whatwg.org/wiki/Rationale#details_element">
+          <p class="h-Measure--narrow">“The <code>details</code> element is needed to provide an accessible way of reflecting a common application widget in HTML-based applications without requiring authors to use extensive scripting, ARIA, and platform-specific CSS to get the same effect.”</p>
+          <footer>&mdash; <a href="https://wiki.whatwg.org/wiki/Rationale#details_element" rel="external"><cite>Rationale</cite></a>, WHATWG Wiki</footer>
+        </blockquote>
+        <p>The same could be said about a tab list.</p>
+        <p>In <a href="#sect-demo">this demo</a>, I have used <b>Web Components</b> technology to define custom elements <code>custom-tablist</code>, <code>custom-tab</code>, and <code>custom-tabpanel</code>.
+          The elements are given a set of semantics (ARIA attributes), behaviors (event listeners), and styles (CSS).
+          If HTML authors currently want to use such a widget, they must define these features each and every time.
+          The obvious disadvantage is that authors will not likely be consistent in implementation due to the uncountably many ways to do so.
+          Furthermore, author implementation will vary with browser support: as of <time>2017-12-01</time>, only <cite>Google Chrome</cite> supports Web Components.</p>
+        <p>I have drafted specifications for proposed <code>tablist</code>, <code>tab</code>, and <code>tabpanel</code> elements below.
+          If such elments made their way into the HTML Standard and were implemented by browsers,
+          authors could simply write the HTML elements and expect them to behave as specified.
+          (Just like <code>&lt;details&gt;</code>.)</p>
+      </section>
+      <section id="sect-specs">
+        <header>
+          <h1>Specifications</h1>
+          <p role="alert"><strong>Warning:</strong>
+            This is not a real specification.
+            Draft requesting review by <abbr title="Web Hypertext Application Technology Working Group">WHATWG</abbr>.</p>
+        </header>
+        <section id="elementdef-tablist">
+          <h2>The <code>tablist</code> element</h2>
+          <dl>
+            <dt>Categories:</dt>
+              <dd>
+                <ul>
+                  <li>Flow Content</li>
+                  <li>Sectioning Root</li>
+                  <li>If the element’s children include at least one tab-panel pair: Interactive Content</li>
+                  <li>If the element’s children include at least one tab-panel pair: Palpable Content</li>
+                </ul>
+              </dd>
+            <dt>Contexts in which this element can be used:</dt>
+              <dd>Where Flow Content is expected.</dd>
+            <dt>Content Model:</dt>
+              <dd>Zero or more implicit pairs, each consisting of
+                exactly one <a href="#elementdef-tab"><code>tab</code></a> element followed by
+                exactly one <a href="#elementdef-tabpanel"><code>tabpanel</code></a> element,
+                optionally intermixed with script-supporting elements.</dd>
+            <dt>Tag omission in text/html:</dt>
+              <dd>Neither tag is omissible.</dd>
+            <dt>Content Attributes:</dt>
+              <dd>Global attributes</dd>
+            <dt>Allowed ARIA role attribute values:</dt>
+              <dd><code>tablist</code></dd>
+            <dt>Allowed ARIA state and property attributes:</dt>
+              <dd>Global <code>aria-*</code> attributes</dd>
+              <dd>Any <code>aria-*</code> attributes applicable to the allowed roles</dd>
+            <dt>DOM Interface:</dt>
+              <dd>
+                <pre>interface CustomTablist : HTMLElement {};</pre>
+              </dd>
+          </dl>
+          <p>A <dfn id="d-concept-tablist"><code>tablist</code></dfn> element represents a tab list:
+            a list of tab-panel pairs, wherein all tabs and at most one panel are exposed to the user.
+            When the user selects a tab, its corresponding panel becomes exposed and all other panels become hidden.</p>
+          <p><strong>Note:</strong>
+            An empty <code>tablist</code> element is valid; in this case no tabs or panels are exposed.</p>
+          <p>User agents must add the <code>tablist</code> element’s focusable children to the <b>tab sequence</b> of a page, in a manner defined by the algorithm below:</p>
+          <ol id="graf-tabsequence">
+            <li>Let the page’s tab sequence be identified by <var>P</var>.</li>
+            <li>Remove all focusable descendants of the <code>tablist</code> from <var>P</var>.</li>
+            <li>Create a new empty tab sequence <var>T</var>.</li>
+            <li>For each tab-panel pair in the <code>tablist</code>,
+              perform the following subroutine:
+              <ol>
+                <li>Add the <a href="#elementdef-tab"><code>tab</code></a> element to <var>T</var>.</li>
+                <li>If the tab’s corresponding <a href="#elementdef-tabpanel"><code>tabpanel</code></a> element is <a href="#d-tabpanel-dfn-expanded">expanded</a>,
+                  add all focusable elements within the panel to <var>T</var> in the standard order. Otherwise, do nothing.</li>
+              </ol>
+            </li>
+            <li>Inject <var>T</var> into <var>P</var>, between
+              the last focusable element preceding the <code>tablist</code> and
+              the first focusable element following the <code>tablist</code>.</li>
+          </ol>
+          <p>This algorithm must be re-run each time a new <a href="#elementdef-tab"><code>tab</code></a> element is <a href="#d-tab-dfn-selected">selected</a>.</p>
+        </section>
+        <section id="elementdef-tab">
+          <h2>The <code>tab</code> element</h2>
+          <dl>
+            <dt>Categories:</dt>
+              <dd>None</dd>
+            <dt>Contexts in which this element can be used:</dt>
+              <dd>As a child of a <a href="#elementdef-tablist"><code>tablist</code></a> element:
+                directly before a <a href="#elementdef-tabpanel"><code>tabpanel</code></a> element.</dd>
+            <dt>Content Model:</dt>
+              <dd>Either Phrasing Content, or exactly one element of Heading Content.</dd>
+            <dt>Tag omission in text/html:</dt>
+              <dd>A <code>tab</code> element’s end tag can be omitted
+                if the element is immediately followed by a <a href="#elementdef-tabpanel"><code>tabpanel</code></a> element.</dd>
+            <dt>Content Attributes:</dt>
+              <dd>Global attributes</dd>
+            <dt>Allowed ARIA role attribute values:</dt>
+              <dd><code>tab</code></dd>
+              <dd><code>button</code></dd>
+            <dt>Allowed ARIA state and property attributes:</dt>
+              <dd>Global <code>aria-*</code> attributes</dd>
+              <dd>Any <code>aria-*</code> attributes applicable to the allowed roles</dd>
+            <dt>DOM Interface:</dt>
+              <dd>
+                <pre>interface CustomTab : HTMLElement {};</pre>
+              </dd>
+          </dl>
+          <p>A <dfn id="d-concept-tab"><code>tab</code></dfn> element represents a tab in a <a href="#d-concept-tablist">tab list</a>.
+            The <dfn id="d-tab-dfn-correspondingpanel">corresponding <a href="#d-concept-tabpanel">panel</a></dfn>
+            of a <code>tab</code> element is the adjacent <a href="#elementdef-tabpanel"><code>tabpanel</code></a> sibling that follows it.
+            The tab labels its corresponding panel.</p>
+          <p>All tabs in a tab list must always be exposed to the user.</p>
+          <p>When a tab is <dfn id="d-tab-dfn-selected">selected</dfn>, its corresponding panel
+            must be <a href="#d-tabpanel-dfn-expanded">expanded</a>, and when a tab is not selected,
+            its corresponding panel must be <a href="#d-tabpanel-dfn-collapsed">collapsed</a>.
+            The user agent should allow the user to select a tab. No more than one tab may be selected at a time.</p>
+        </section>
+        <section id="elementdef-tabpanel">
+          <h2>The <code>tabpanel</code> element</h2>
+          <dl>
+            <dt>Categories:</dt>
+              <dd>None</dd>
+            <dt>Contexts in which this element can be used:</dt>
+              <dd>As a child of a <a href="#elementdef-tablist"><code>tablist</code></a> element:
+                directly after a <a href="#elementdef-tab"><code>tab</code></a> element.</dd>
+            <dt>Content Model:</dt>
+              <dd>Flow Content</dd>
+            <dt>Tag omission in text/html:</dt>
+              <dd>A <code>tabpanel</code> element’s end tag can be omitted
+                if the element is immediately followed by a <a href="#elementdef-tab"><code>tab</code></a> element, or
+                if there is no more content in the parent element.</dd>
+            <dt>Content Attributes:</dt>
+              <dd>Global attributes</dd>
+              <dd><a href="#d-tabpanel-attr-open"><code>open</code></a> - Whether the panel is exposed</dd>
+            <dt>Allowed ARIA role attribute values:</dt>
+              <dd><code>tabpanel</code></dd>
+              <dd>Any role that supports <code>aria-expanded</code></dd>
+            <dt>Allowed ARIA state and property attributes:</dt>
+              <dd>Global <code>aria-*</code> attributes</dd>
+              <dd>Any <code>aria-*</code> attributes applicable to the allowed roles</dd>
+            <dt>DOM Interface:</dt>
+              <dd>
+                <pre>
+  interface CustomTabpanel : HTMLElement {
+    attribute boolean <a href="#d-tabpanel-idl-open">open</a>;
+  };</pre>
+              </dd>
+          </dl>
+          <p>A <dfn id="d-concept-tabpanel"><code>tabpanel</code></dfn> element represents a panel in a <a href="#d-concept-tablist">tab list</a>.
+            The <dfn id="d-tabpanel-dfn-correspondingtab">corresponding <a href="#d-concept-tab">tab</a></dfn>
+            of a <code>panel</code> element is the adjacent <a href="#elementdef-tab"><code>tab</code></a> sibling that precedes it.
+            The panel is labeled by its corresponding tab.</p>
+          <p>No more than one panel in a tablist should be exposed to the user.</p>
+          <p>The <dfn id="d-tabpanel-attr-open"><code>open</code></dfn> content attribute is a boolean attribute
+            whose presence indicates whether or not the content of the panel is to be exposed to the user.
+            A panel is called <dfn id="d-tabpanel-dfn-expanded">expanded</dfn> when its <code>open</code> attribute is present,
+            and <dfn id="d-tabpanel-dfn-collapsed">collapsed</dfn> otherwise.</p>
+          <p>When the element is created,
+            if the <a href="#d-tabpanel-attr-open"><code>open</code></a> attribute is absent, the information should be hidden;
+            if the attribute is present, that information should be shown.
+            Subsequently, if the attribute is removed, then the information should be hidden;
+            if the attribute is added, the information should be shown.</p>
+          <p>The user agent should allow the user to request that the panel’s contents be shown or hidden.
+            To honor a request for the contents to be shown,
+            the user agent must set the <a href="#d-tabpanel-attr-open"><code>open</code></a> attribute on the element to the empty string.
+            To honor a request for the information to be hidden,
+            the user agent must remove the <code>open</code> attribute from the element.</p>
+          <p>A <a href="#elementdef-tablist"><code>tablist</code></a> element must have
+            no more than one child <code>tabpanel</code> element with its <a href="#d-tabpanel-attr-open"><code>open</code></a> attribute set.
+            If no child <code>tabpanel</code> elements have the <code>open</code> attribute present,
+            the user agent should set that attribute on the first <code>tabpanel</code> element child,
+            with the empty string as its value.
+            Any time the user agent sets the <code>open</code> attribute on a <code>tabpanel</code> child of <code>tablist</code>,
+            it must remove the <code>open</code> attribute from all other sibling <code>tabpanel</code> elements.</p>
+          <p>The <dfn id="d-tabpanel-idl-open"><code>open</code></dfn> <em>IDL</em> attribute
+            must reflect the <a href="#d-tabpanel-attr-open"><code>open</code></a> <em>content</em> attribute.</p>
+        </section>
+      </section>
+      <section id="sect-ui">
+        <header>
+          <h1>Suggested User Interaction</h1>
+          <p><i><a href="#sect-ui-summary">Skip to summary.</a></i></p>
+          <p>As stated above,
+            the user agent should allow the user to request that a panel’s contents be shown or hidden, and
+            it should show at most one panel in a tab list at all times.
+            This section describes possible implementations of these axioms.</p>
+        </header>
+        <p>At any time, the user may select a tab by <b>clicking</b> or <b>tapping</b> it.</p>
+        <p>The <code>tabindex</code> attribute of all <a href="#elementdef-tab"><code>tab</code></a> elements should be set to <code>0</code>,
+          so that keyboard users can access them.
+          The <kbd>Tab</kbd> key may move the focus to these elements in the standard tab sequence order, and
+          <kbd>Shift + Tab</kbd> may move the focus in reverse order.</p>
+        <p>When a <a href="#d-tab-dfn-selected">selected</a> tab has focus,
+          subsequent keystrokes of the <kbd>Tab</kbd> key should move the focus to within the expanded panel,
+          to any focusable elements such as any links or form controls.
+          When the focus has reached the end of the panel,
+          it should then proceed to the next tab in the <a href="#d-concept-tablist">tab list</a>,
+          or if there is none, out of the tab list.</p>
+        <p>When an <a href="#d-tab-dfn-selected">unselected</a> tab has focus,
+          its corresponding panel is not exposed to the user.
+          Thus the <kbd>Tab</kbd> key should move the focus <em>not</em> to any elements within the collapsed panel,
+          but rather to subsequent tabs in the tab list,
+          or if there are none, out of the tab list.</p>
+        <p>When any tab (selected or not) has focus,
+          the user may press the <kbd>Space</kbd> key (the spacebar) to <a href="#d-tab-dfn-selected">select</a> it.
+          <small>The spacebar is probably a better choice than <kbd>Enter</kbd>,
+            as the latter typically activates links and leads the user away from the page.
+            To activate a focused tab, it is best to use the same key that activates form controls.</small></p>
+        <p>When any tab (selected or not) has focus,
+          the user may press any arrow keys (<kbd>Up</kbd>, <kbd>Down</kbd>, <kbd>Left</kbd>, <kbd>Right</kbd>) to select another tab and give it focus.
+          When <kbd>Down</kbd> or <kbd>Right</kbd> is pressed, the <em>next</em> tab in the tab list should be selected and receive focus, and
+          when <kbd>Up</kbd> or <kbd>Left</kbd> is pressed, the <em>previous</em> tab should be selected and receive focus.
+          These keybindings allow for both vertical and horizontal <a href="#sect-style">layouts of tabs</a>.
+          If the user reaches the end or the beginning of the list of tabs,
+          the selection should wrap around to the other side of the list.</p>
+        <p><strong>Note:</strong>
+          The user agent should set directional key bindings based on writing mode and direction,
+          and whether or not the tab list is <a href="#sect-style">styled</a> accordingly.
+          For example, in a <b>right-to-left</b> direction (<code>dir="rtl"</code>),
+          the user agent should switch the behavior of the <kbd>Left</kbd> and <kbd>Right</kbd> keys,
+          but only if the tabs were also displayed from right to left.
+          If, however, the <code>dir="rtl"</code> attribute were specified, but the tabs were still displayed from left to right,
+          the directional keys should retain their original functionality.</p>
+        <p>Lastly, the user agent should allow the user to use the <kbd>Home</kbd> and <kbd>End</kbd> keys to move the focus to the first tab and last tab, respectively, and select it.</p>
+        <figure id="sect-ui-summary">
+          <table>
+            <caption>This table summarizes the effects of keyboard keys on a <a href="#elementdef-tab"><code>tab</code></a> element with focus.</caption>
+            <thead>
+              <tr>
+                <th>Key</th>
+                <th>Function</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th><kbd>Tab</kbd></th>
+                <td>Respects the tab sequence of the page. See <b><a href="#graf-tabsequence"><code>tablist</code> tab sequence</a></b> for details.
+                  When the <kbd>tab</kbd> key brings focus to a <a href="#elementdef-tab"><code>tab</code></a> element, it does not necessarily select it.</td>
+              </tr>
+              <tr>
+                <th><kbd>Space</kbd></th>
+                <td>Selects the tab.</td>
+              </tr>
+              <tr>
+                <th><kbd>Down</kbd> / <kbd>Right</kbd></th>
+                <td>
+                  <ul>
+                    <li>If the tab is not the last tab: Moves focus to the next tab and selects it.</li>
+                    <li>If the tab is the last tab: Moves focus to the first tab and selects it.</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <th><kbd>Up</kbd> / <kbd>Left</kbd></th>
+                <td>
+                  <ul>
+                    <li>If the tab is not the first tab: Moves focus to the previous tab and selects it.</li>
+                    <li>If the tab is the first tab, moves focus to the last tab and selects it.</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <th><kbd>Home</kbd></th>
+                <td>Moves focus to the first tab and selects it.</td>
+              </tr>
+              <tr>
+                <th><kbd>End</kbd></th>
+                <td>Moves focus to the last tab and selects it.</td>
+              </tr>
+            </tbody>
+          </table>
+        </figure>
+      </section>
+      <section id="sect-style">
+        <header>
+          <h1>Suggested Presentation</h1>
+          <p>This section provides suggestions for default styling of the <a href="#elementdef-tablist"><code>tablist</code></a> element and its children.</p>
+        </header>
+        <p>The <a href="#d-tab-dfn-selected">selected</a> tab in a tab list
+          should be styled differently from unselected tabs in the same tab list.
+          This meets
+          <a href="https://www.w3.org/TR/WCAG20/#navigation-mechanisms-location" rel="external">Level
+            AAA of <cite>§2.4.8 (Location) of WCAG 2.0</cite></a>:
+          <q cite="https://www.w3.org/TR/WCAG20/#navigation-mechanisms-location">Information about
+            the user’s location within a set of Web pages is available.</q></p>
+        <p>Within a <a href="#elementdef-tablist"><code>tablist</code></a> element,
+          user agents should display all the <a href="#elementdef-tab"><code>tab</code></a> children together in a single track,
+          with the expanded <a href="#elementdef-tabpanel"><code>tabpanel</code></a> element on a separate track.
+          Three popular layouts are described below, but user agents are not limited to these.</p>
+        <dl>
+          <dt>Horizontal Tabs</dt>
+          <dd><p>Tabs may be laid out in a single row.
+            If this is the case, tabs should be laid out
+            in the <b>inline direction</b> (from left to right, or, if the text direction is <code>rtl</code>, right to left instead).
+            The expanded panel may appear either below or above the tab row, and
+            the tab widths could be evenly divided into the panel width.</p></dd>
+          <dt>Vertical Tabs</dt>
+          <dd><p>Tabs may be laid out in a single column,
+            preferrably in the <b>block direction</b> (top to bottom in most writing modes).
+            The expanded panel may appear either to the left or to the right of the tab column, and
+            the panel height could be set to the total height of the tab column.</p></dd>
+          <dt>Mobile Devices</dt>
+          <dd><p>Small screens might not have enough real estate to be able to display one track of tabs with another track for the panel.
+            Therefore, it is advantageous to lay out the tabs and panel together into one track, similarly to an accordion component
+            <small>(the difference being that in an accordion it is possible to expand more than one panel at a time)</small>.
+            Rather than grouping the tabs separately from the panel,
+            the user agent or CSS author could display the expanded panel directly after its corresponding tab.</p></dd>
+        </dl>
+      </section>
+      <section id="sect-demo">
+        <h1>Demonstration</h1>
+        <figure>
+          <figcaption>A demonstration and sample implementation of the elements specified above.</figcaption>
+          <p data-height="368" data-theme-id="dark" data-slug-hash="bYyMqN" data-default-tab="result" data-user="chharvey" data-embed-version="2" data-pen-title="Proposal: tablist element" data-preview="true" class="codepen">See the Pen
+            <a href="https://codepen.io/chharvey/pen/bYyMqN/">Proposal: tablist element</a> by Chris Harvey (<a href="https://codepen.io/chharvey">@chharvey</a>) on <a href="https://codepen.io">CodePen</a>.</p>
+          <script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
+        </figure>
+      </section>
+      <footer id="sect-resources">
+        <h1>Resources</h1>
+        <ul>
+          <li><a href="https://www.w3.org/TR/wai-aria-1.1/#tablist"><cite>WAI-ARIA 1.1 | tablist (role)</cite></a></li>
+          <li><a href="https://www.w3.org/TR/wai-aria-practices-1.1/examples/tabs/tabs-1/tabs.html"><cite>Example of Tabs with Automatic Activation</cite></a></li>
+        </ul>
+      </footer>
+    </main>
+    <a href="#top">jump to top</a>
+  </body>
+</html>
