@@ -95,7 +95,7 @@ class Resume {
     return this._DATA.skills.map((itemList) => ({
       title: itemList.name,
       id   : itemList.identifier,
-      items: itemList.itemListElement.map((rating) => new Skill(rating.level, rating.text)),
+      items: itemList.itemListElement.map((rating) => new Skill(rating)),
     }))
   }
 

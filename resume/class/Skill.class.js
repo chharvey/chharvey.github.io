@@ -4,17 +4,17 @@ const View = require('extrajs-view')
 
 /**
  * Skill listed in the Technical Experience section.
- * @class
  */
 class Skill {
   /**
    * @summary Construct a new Skill object.
-   * @param  {number} level proficiency with this skill; must be `1`–`Skill.LEVELS.length`
-   * @param  {string} text custom HTML string defining this skill
+   * @param  {!Object} jsondata JSON object of type {@link http://schema.org/Rating}
+   * @param  {number} jsondata.ratingValue proficiency with this skill; must be `1`–`Skill.LEVELS.length`
+   * @param  {string} jsondata.name custom HTML string defining this skill
    */
-  constructor(level, text) {
-    this._level = level
-    this._text  = text
+  constructor(jsondata) {
+    this._level = jsondata.ratingValue
+    this._text  = jsondata.name
   }
 
   /**

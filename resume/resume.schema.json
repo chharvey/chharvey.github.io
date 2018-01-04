@@ -50,19 +50,21 @@
       "description": "List of skills, grouped by category.",
       "items": {
         "type": "object",
-        "title": "ItemList",
         "required": ["name", "identifier", "itemListElement"],
         "properties": {
-          "name": { "type": "string" },
+          "@type": { "title": "ItemList" },
+          "name"           : { "type": "string" },
+          "identifier"     : { "type": "string", "description": "used for the HTML [id] attribute" },
           "itemListElement": {
         "type": "array",
         "items": {
           "type": "object",
-          "required": ["level", "text"],
+          "required": ["ratingValue", "name"],
           "additionalProperties": false,
           "properties": {
-            "level": { "type": "integer", "minimum": 1, "maximum": 5, "description": "proficiency with this skill; must be `1`–`Skill.LEVELS.length`" },
-            "text" : { "type": "string", "description": "custom HTML defining this skill" }
+            "@type": { "title": "Rating" },
+            "name"       : { "type": "string", "description": "custom HTML defining this skill" },
+            "ratingValue": { "type": "integer", "minimum": 1, "maximum": 5, "description": "proficiency with this skill; must be `1`–`Skill.LEVELS.length`" }
           }
         }
           }
