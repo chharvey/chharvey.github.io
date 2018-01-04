@@ -1,3 +1,7 @@
+const fs = require('fs')
+const path = require('path')
+const jsdom = require('jsdom')
+
 const Element = require('extrajs-dom').Element
 const HTMLElement = require('extrajs-dom').HTMLElement
 const View = require('extrajs-view')
@@ -18,14 +22,14 @@ class Skill {
   }
 
   /**
-   * @summary This skill’s level
+   * @summary This skill’s level.
    * @type {number}
    */
   get level() { return this._level }
 
   /**
-   * @summary Return this skill’s text content.
-   * @return {string} this._text
+   * @summary This skill’s text content.
+   * @type {string}
    */
   get text() {
     return this._text.slice()
@@ -53,38 +57,33 @@ class Skill {
      * @returns {string} HTML output
      */
     return new View(function () {
-      return Element.concat([
-        // REVIEW INDENTATION
-          new HTMLElement('dt').class('o-Grid__Item')
-            .attr('data-instanceof','Skill.Text')
-            .addContent(this._text),
-          new HTMLElement('dd').class('o-Grid__Item')
-            .attr('data-instanceof','Skill.Level')
-            .attr({
-              itemscope: '',
-              itemtype : 'http://schema.org/Rating',
-            })
-            .addContent([
-              new HTMLElement('small').class('o-Textbox c-Label c-Label--skss c-Label--skill h-Hidden')
-                .addContent(Skill.LEVELS[this._level-1]),
-              new HTMLElement('meta').attr('itemprop','worstRating').attr('content',0),
-              new HTMLElement('meta').attr('itemprop','bestRating' ).attr('content',Skill.LEVELS.length),
-              new HTMLElement('meta').attr('itemprop','ratingValue').attr('content',this._level),
-              new Element('svg',false).class('c-SkillViz').attr('viewbox','0 0 14 4').addContent([
-                new Element('g',false).attr('transform','translate(1,2)').addContent(
-                  Skill.LEVELS.map((leveltext, index) =>
-                    new Element('circle',true).class('c-SkillViz__Marker')
-                      .addClass((index <= this._level-1) ? 'c-SkillViz__Marker--true' : '')
-                      .attr({ cx: 3*index, cy: 0, r: 1 })
-                  )
-                ),
-              ]),
-            ]),
-      ])
+      const dom = new jsdom.JSDOM(fs.readFileSync(path.join(__dirname, '../tpl/x-skill.tpl.html'), 'utf8'))
+      const document = dom.window.document
+      const template = document.querySelector('template')
+      let frag = template.content.cloneNode(true)
+      frag.querySelector('dt'                      ).innerHTML   = this._text
+      frag.querySelector('.c-Label--skill'         ).textContent = Skill.LEVELS[this._level-1]
+      frag.querySelector('[itemprop="bestRating"]' ).content     = Skill.LEVELS.length
+      frag.querySelector('[itemprop="ratingValue"]').content     = this._level
+
+      // the “template” (prototype) `<circle>` element
+      // NOTE: cannot use <template> in SVG elements
+      let circle = frag.querySelector('circle')
+      Skill.LEVELS.forEach(function (leveltext, index) {
+        let circlefrag = circle.cloneNode(true)
+        // NOTE: these IDL properties are read-only for SVG elements, and return objects
+        // instead of strings. While those objects are mutable, it’s too complicated
+        // to access their settable properties, so it’s easier to call `.setAttribute()`.
+        circlefrag.setAttribute('class', circle.getAttribute('class').replace('{{ truthy }}', (index <= this._level-1) ? 'c-SkillViz__Marker--true' : ''))
+        circlefrag.setAttribute('cx'   , 3 * index)
+        frag.querySelector('g').appendChild(circlefrag)
+      }, this)
+      frag.querySelector('g').removeChild(circle) // remove the “template” (prototype) `<circle>` element
+
+      let div = document.createElement('div')
+      div.append(frag)
+      return div.innerHTML
     }, this)
-      .addDisplay(function xSkill() {
-        return new HTMLElement('x-skill').attr('level',this._level).addContent(this._text).html()
-      })
   }
 
 
