@@ -66,19 +66,9 @@ class Skill {
       frag.querySelector('[itemprop="bestRating"]' ).content     = Skill.LEVELS.length
       frag.querySelector('[itemprop="ratingValue"]').content     = this._level
 
-      // the “template” (prototype) `<circle>` element
-      // NOTE: cannot use <template> in SVG elements
-      let circle = frag.querySelector('circle')
-      Skill.LEVELS.forEach(function (leveltext, index) {
-        let circlefrag = circle.cloneNode(true)
-        // NOTE: these IDL properties are read-only for SVG elements, and return objects
-        // instead of strings. While those objects are mutable, it’s too complicated
-        // to access their settable properties, so it’s easier to call `.setAttribute()`.
-        circlefrag.setAttribute('class', circle.getAttribute('class').replace('{{ truthy }}', (index <= this._level-1) ? 'c-SkillViz__Marker--true' : ''))
-        circlefrag.setAttribute('cx'   , 3 * index)
-        frag.querySelector('g').appendChild(circlefrag)
-      }, this)
-      frag.querySelector('g').removeChild(circle) // remove the “template” (prototype) `<circle>` element
+      let decimal = this._level / Skill.LEVELS.length
+      frag.querySelector('meter').setAttribute('value', decimal) // .value = decimal // https://github.com/tmpvar/jsdom/issues/2100
+      frag.querySelector('meter').querySelector('slot').textContent = 100 * decimal
 
       let div = document.createElement('div')
       div.append(frag)
