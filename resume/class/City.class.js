@@ -8,26 +8,20 @@ STATE_DATA.push(...[
 
 /**
  * A class encoding information about a city or town’s location.
- * @class
  */
 class City {
   /**
    * @summary Construct a new City object.
-   * @param  {string} locality the city/town name
-   * @param  {string} region the state/province postal code (e.g. 'NY', 'CA')
-   * @param  {{lat:number, lon:number}} $geo the geo-coordinates
-   * @param  {number} $geo.lat the latitude, in decimal degrees
-   * @param  {number} $geo.lon the longitude, in decimal degrees
+   * @param  {!Object} $address the names of the address
+   * @param  {GeoCoordinates} $geo the geo-coordinates
    */
-  constructor(locality, region, $geo) {
-    this._locality  = locality
-    this._region    = region
-    this._latitude  = $geo.lat
-    this._longitude = $geo.lon
+  constructor($address, $geo) {
+    this._geo = $geo
+    this._geo.address = $address
   }
 
   /**
-   * @summary Render this award in HTML.
+   * @summary Render this city in HTML.
    * @see City.VIEW
    * @type {View}
    */
@@ -59,27 +53,27 @@ class City {
             new HTMLElement('span')
               .attr({ itemprop:'address', itemscope:'', itemtype:'http://schema.org/PostalAddress' })
               .addContent([
-                new HTMLElement('span').attr('itemprop','addressLocality').addContent(this._locality),
+                new HTMLElement('span').attr('itemprop','addressLocality').addContent(this._geo.locality),
                 `, `,
                 new HTMLElement('abbr').attr('itemprop','addressRegion')
-                  .attr('title', STATE_DATA.find((obj) => obj.code===this._region).name)
-                  .addContent(this._region),
+                  .attr('title', this._geo.region)
+                  .addContent(this._geo.regionAbbr()),
               ]),
             new HTMLElement('span')
               .attr({ itemprop:'geo', itemscope:'', itemtype:'http://schema.org/GeoCoordinates' })
               .addContent([
-                new HTMLElement('meta').attr('itemprop','latitude' ).attr('content',this._latitude),
-                new HTMLElement('meta').attr('itemprop','longitude').attr('content',this._longitude),
+                new HTMLElement('meta').attr('itemprop','latitude' ).attr('content',this._geo.latitude),
+                new HTMLElement('meta').attr('itemprop','longitude').attr('content',this._geo.longitude),
               ]),
           ])
           .html()
     }, this)
       .addDisplay(function xCity() {
-        return new Element('x-city').attr({
-          locality : this._locality,
-          region   : this._region,
-          latitude : this._latitude,
-          longitude: this._longitude,
+        return new HTMLElement('x-city').attr({
+          locality : this._geo.locality,
+          region   : this._geo.regionAbbr(),
+          latitude : this._geo.latitude,
+          longitude: this._geo.longitude,
         }).html()
       })
   }

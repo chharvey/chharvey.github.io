@@ -3,17 +3,22 @@ const xjs      = require('extrajs')
 const Element  = require('extrajs-dom').Element
 const HTMLDListElement  = require('extrajs-dom').HTMLDListElement
 
-const Award        = require('./Award.class.js')
-const City         = require('./City.class.js')
-const ContactPoint = require('./ContactPoint.class.js')
-const Degree       = require('./Degree.class.js')
-const Position     = require('./Position.class.js')
-const ProDev       = require('./ProDev.class.js')
-const Skill        = require('./Skill.class.js')
+const STATE_DATA = require('extrajs-geo')
+STATE_DATA.push(...[
+  { "code": "DC", "name": "District of Columbia" },
+])
+
+const GeoCoordinates = require('./GeoCoordinates.class.js')
+const City           = require('./City.class.js')
+const ContactPoint   = require('./ContactPoint.class.js')
+const Skill          = require('./Skill.class.js')
+const Position       = require('./Position.class.js')
+const Award          = require('./Award.class.js')
+const ProDev         = require('./ProDev.class.js')
+const Degree         = require('./Degree.class.js')
 
 /**
  * A résumé generated with given content data.
- * @class
  */
 class Resume {
   /**
@@ -84,14 +89,14 @@ class Resume {
 
   /**
    * @summary List of skills, grouped by category.
-   * @type {Object<Array<Skill>>}
+   * @type {Array<{title:string: id:string, items:Array<Skill>}>}
    */
   get skills() {
-    let returned = {}
-    for (let i in this._DATA.skills) {
-      returned[i] = this._DATA.skills[i].map((d) => new Skill(d.level, d.text))
-    }
-    return returned
+    return this._DATA.skills.map((itemList) => ({
+      title: itemList.name,
+      id   : itemList.identifier,
+      items: itemList.itemListElement.map((rating) => new Skill(rating)),
+    }))
   }
 
   /**
@@ -114,9 +119,8 @@ class Resume {
             end  : (d.end) ? new Date(d.end) : new Date(),
           },
           location: new City(
-            d.city,
-            d.state,
-            { lat: d.geo[0], lon: d.geo[1] }
+            { locality: d.city, region: (STATE_DATA.find((obj) => obj.code===d.state).name), }, // TODO make region the full name
+            new GeoCoordinates({ latitude: d.geo[0], longitude: d.geo[1] })
           ),
           descriptions: d.descriptions.map(Resume._content)
         })
@@ -141,7 +145,10 @@ class Resume {
     return this._DATA.prodevs.map((d) =>
       new ProDev(
         { start: new Date(d.start), end  : new Date(d.end) },
-        new City(d.city, d.state, { lat: d.geo[0], lon: d.geo[1] }),
+        new City(
+          { locality: d.city, region: (STATE_DATA.find((obj) => obj.code===d.state).name), }, // TODO make region the full name
+          new GeoCoordinates({ latitude: d.geo[0], longitude: d.geo[1] })
+        ),
         d.pdh,
         Resume._content(d.coursename),
         d.itemtype
@@ -155,22 +162,17 @@ class Resume {
    */
   get awards() {
     /**
-     * Return markup for any sub-awards in this award.
-     * TODO: move this model into Award.class
+     * Convert sub-awards into an array.
      * @private
-     * @param   {{sub_awards:Array<{dates:string, text:string}>}} datum the data point to parse
-     * @returns {string} a <dl.o-ListAchv> element if the datum has any sub-awards; else the empty string
+     * @param   {{sub_awards:Array<{dates:string, content:string}>}} datum the data point to parse
+     * @returns {?Array<Award>} an array of sub-awards
      */
     function subs(datum) {
       return (datum.sub_awards) ?
-        new HTMLDListElement().class('o-ListAchv')
-          .addContent(datum.sub_awards.map((s) =>
-            new Award(s.dates, Resume._content(s.content)).view()
-          ).join(''))
-          .html()
-        : ''
+        datum.sub_awards.map((s) => new Award(s.dates, Resume._content(s.content)))
+        : null
     }
-    return this._DATA.awards.map((d) => new Award(d.dates, Resume._content(d.content) + subs(d)))
+    return this._DATA.awards.map((d) => new Award(d.dates, Resume._content(d.content), subs(d)))
   }
 
   /**
@@ -179,22 +181,17 @@ class Resume {
    */
   get teams() {
     /**
-     * Return markup for any sub-awards in this award.
-     * TODO: move this model into Award.class
+     * Convert sub-awards into an array.
      * @private
-     * @param   {{sub_awards:Array<{dates:string, text:string}>}} datum the data point to parse
-     * @returns {string} a <dl.o-ListAchv> element if the datum has any sub-awards; else the empty string
+     * @param   {{sub_awards:Array<{dates:string, content:string}>}} datum the data point to parse
+     * @returns {?Array<Award>} an array of sub-awards
      */
     function subs(datum) {
       return (datum.sub_awards) ?
-        new HTMLDListElement().class('o-ListAchv')
-          .addContent(datum.sub_awards.map((s) =>
-            new Award(s.dates, Resume._content(s.content)).view()
-          ).join(''))
-          .html()
-        : ''
+        datum.sub_awards.map((s) => new Award(s.dates, Resume._content(s.content)))
+        : null
     }
-    return this._DATA.teams.map((d) => new Award(d.dates, Resume._content(d.content) + subs(d)))
+    return this._DATA.teams.map((d) => new Award(d.dates, Resume._content(d.content), subs(d)))
   }
 }
 
