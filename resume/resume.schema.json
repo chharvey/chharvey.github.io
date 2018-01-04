@@ -46,9 +46,15 @@
       }
     },
     "skills": {
-      "type": "object",
+      "type": "array",
       "description": "List of skills, grouped by category.",
-      "additionalProperties": {
+      "items": {
+        "type": "object",
+        "title": "ItemList",
+        "required": ["name", "identifier", "itemListElement"],
+        "properties": {
+          "name": { "type": "string" },
+          "itemListElement": {
         "type": "array",
         "items": {
           "type": "object",
@@ -57,6 +63,8 @@
           "properties": {
             "level": { "type": "integer", "minimum": 1, "maximum": 5, "description": "proficiency with this skill; must be `1`–`Skill.LEVELS.length`" },
             "text" : { "type": "string", "description": "custom HTML defining this skill" }
+          }
+        }
           }
         }
       }

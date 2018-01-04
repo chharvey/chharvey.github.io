@@ -89,14 +89,14 @@ class Resume {
 
   /**
    * @summary List of skills, grouped by category.
-   * @type {Object<Array<Skill>>}
+   * @type {Array<{title:string: id:string, items:Array<Skill>}>}
    */
   get skills() {
-    let returned = {}
-    for (let i in this._DATA.skills) {
-      returned[i] = this._DATA.skills[i].map((d) => new Skill(d.level, d.text))
-    }
-    return returned
+    return this._DATA.skills.map((itemList) => ({
+      title: itemList.name,
+      id   : itemList.identifier,
+      items: itemList.itemListElement.map((rating) => new Skill(rating.level, rating.text)),
+    }))
   }
 
   /**
