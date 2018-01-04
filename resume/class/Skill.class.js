@@ -68,6 +68,7 @@ class Skill {
 
       let decimal = this._level / Skill.LEVELS.length
       frag.querySelector('meter').setAttribute('value', decimal) // .value = decimal // https://github.com/tmpvar/jsdom/issues/2100
+      frag.querySelector('meter').setAttribute('style', frag.querySelector('meter').getAttribute('style').replace('1', decimal)) // .style.setProperty('--fadein', decimal) // https://github.com/tmpvar/jsdom/issues/1895
       frag.querySelector('meter').querySelector('slot').textContent = 100 * decimal
 
       let div = document.createElement('div')
