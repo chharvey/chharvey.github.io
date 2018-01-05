@@ -62,11 +62,9 @@ class Skill {
       const template = document.querySelector('template')
       let frag = template.content.cloneNode(true)
       frag.querySelector('dt'                      ).innerHTML   = this._text
-      frag.querySelector('[itemprop="ratingValue"]').content     = this._level
-
-      frag.querySelector('meter').setAttribute('value', this._level) // .value = this._level // https://github.com/tmpvar/jsdom/issues/2100
-      frag.querySelector('meter').setAttribute('style', frag.querySelector('meter').getAttribute('style').replace('1', this._level)) // .style.setProperty('--fadein', this._level) // https://github.com/tmpvar/jsdom/issues/1895
-      frag.querySelector('meter').querySelector('slot').textContent = 100 * this._level
+      frag.querySelector('[itemprop="ratingValue"]').setAttribute('value', this._level) // .value = this._level // https://github.com/tmpvar/jsdom/issues/2100
+      frag.querySelector('[itemprop="ratingValue"]').setAttribute('style', frag.querySelector('meter').getAttribute('style').replace('1', this._level)) // .style.setProperty('--fadein', this._level) // https://github.com/tmpvar/jsdom/issues/1895
+      frag.querySelector('slot[name="percentage"]' ).textContent = 100 * this._level
 
       let div = document.createElement('div')
       div.append(frag)
