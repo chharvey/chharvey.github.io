@@ -13,11 +13,11 @@ class Skill {
   /**
    * @summary Construct a new Skill object.
    * @param  {!Object} jsondata JSON object of type {@link http://schema.org/Rating}
-   * @param  {number} jsondata.ratingValue proficiency with this skill; must be `1`–`Skill.LEVELS.length`
+   * @param  {number} jsondata.ratingValue proficiency with this skill; scale of `1–5`
    * @param  {string} jsondata.name custom HTML string defining this skill
    */
   constructor(jsondata) {
-    this._level = jsondata.ratingValue
+    this._level = jsondata.ratingValue / 5
     this._text  = jsondata.name
   }
 
@@ -62,34 +62,16 @@ class Skill {
       const template = document.querySelector('template')
       let frag = template.content.cloneNode(true)
       frag.querySelector('dt'                      ).innerHTML   = this._text
-      frag.querySelector('[itemprop="bestRating"]' ).content     = Skill.LEVELS.length
       frag.querySelector('[itemprop="ratingValue"]').content     = this._level
 
-      let decimal = this._level / Skill.LEVELS.length
-      frag.querySelector('meter').setAttribute('value', decimal) // .value = decimal // https://github.com/tmpvar/jsdom/issues/2100
-      frag.querySelector('meter').setAttribute('style', frag.querySelector('meter').getAttribute('style').replace('1', decimal)) // .style.setProperty('--fadein', decimal) // https://github.com/tmpvar/jsdom/issues/1895
-      frag.querySelector('meter').querySelector('slot').textContent = 100 * decimal
+      frag.querySelector('meter').setAttribute('value', this._level) // .value = this._level // https://github.com/tmpvar/jsdom/issues/2100
+      frag.querySelector('meter').setAttribute('style', frag.querySelector('meter').getAttribute('style').replace('1', this._level)) // .style.setProperty('--fadein', this._level) // https://github.com/tmpvar/jsdom/issues/1895
+      frag.querySelector('meter').querySelector('slot').textContent = 100 * this._level
 
       let div = document.createElement('div')
       div.append(frag)
       return div.innerHTML
     }, this)
-  }
-
-
-
-  /**
-   * An array possible skill levels in increasing order.
-   * @type {Array<string>}
-   */
-  static get LEVELS() {
-    return [
-      'beginner',
-      'novice',
-      'competent',
-      'proficient',
-      'expert',
-    ]
   }
 }
 
