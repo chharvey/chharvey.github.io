@@ -62,7 +62,6 @@ class Skill {
       const template = document.querySelector('template')
       let frag = template.content.cloneNode(true)
       frag.querySelector('dt'                      ).innerHTML   = this._text
-      frag.querySelector('.c-Label--skill'         ).textContent = Skill.LEVELS[this._level-1]
       frag.querySelector('[itemprop="bestRating"]' ).content     = Skill.LEVELS.length
       frag.querySelector('[itemprop="ratingValue"]').content     = this._level
 
