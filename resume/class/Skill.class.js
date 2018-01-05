@@ -13,11 +13,11 @@ class Skill {
   /**
    * @summary Construct a new Skill object.
    * @param  {!Object} jsondata JSON object of type {@link http://schema.org/Rating}
-   * @param  {number} jsondata.ratingValue proficiency with this skill; scale of `1–5`
+   * @param  {number} jsondata.ratingValue proficiency with this skill
    * @param  {string} jsondata.name custom HTML string defining this skill
    */
   constructor(jsondata) {
-    this._level = jsondata.ratingValue / 5
+    this._level = jsondata.ratingValue
     this._text  = jsondata.name
   }
 
