@@ -13,7 +13,7 @@ class Skill {
   /**
    * @summary Construct a new Skill object.
    * @param  {!Object} jsondata JSON object of type {@link http://schema.org/Rating}
-   * @param  {number} jsondata.ratingValue proficiency with this skill; must be `1`–`Skill.LEVELS.length`
+   * @param  {number} jsondata.ratingValue proficiency with this skill
    * @param  {string} jsondata.name custom HTML string defining this skill
    */
   constructor(jsondata) {
@@ -62,44 +62,14 @@ class Skill {
       const template = document.querySelector('template')
       let frag = template.content.cloneNode(true)
       frag.querySelector('dt'                      ).innerHTML   = this._text
-      frag.querySelector('.c-Label--skill'         ).textContent = Skill.LEVELS[this._level-1]
-      frag.querySelector('[itemprop="bestRating"]' ).content     = Skill.LEVELS.length
-      frag.querySelector('[itemprop="ratingValue"]').content     = this._level
-
-      // the “template” (prototype) `<circle>` element
-      // NOTE: cannot use <template> in SVG elements
-      let circle = frag.querySelector('circle')
-      Skill.LEVELS.forEach(function (leveltext, index) {
-        let circlefrag = circle.cloneNode(true)
-        // NOTE: these IDL properties are read-only for SVG elements, and return objects
-        // instead of strings. While those objects are mutable, it’s too complicated
-        // to access their settable properties, so it’s easier to call `.setAttribute()`.
-        circlefrag.setAttribute('class', circle.getAttribute('class').replace('{{ truthy }}', (index <= this._level-1) ? 'c-SkillViz__Marker--true' : ''))
-        circlefrag.setAttribute('cx'   , 3 * index)
-        frag.querySelector('g').appendChild(circlefrag)
-      }, this)
-      frag.querySelector('g').removeChild(circle) // remove the “template” (prototype) `<circle>` element
+      frag.querySelector('[itemprop="ratingValue"]').setAttribute('value', this._level) // .value = this._level // https://github.com/tmpvar/jsdom/issues/2100
+      frag.querySelector('[itemprop="ratingValue"]').setAttribute('style', frag.querySelector('meter').getAttribute('style').replace('1', this._level)) // .style.setProperty('--fadein', this._level) // https://github.com/tmpvar/jsdom/issues/1895
+      frag.querySelector('slot[name="percentage"]' ).textContent = 100 * this._level
 
       let div = document.createElement('div')
       div.append(frag)
       return div.innerHTML
     }, this)
-  }
-
-
-
-  /**
-   * An array possible skill levels in increasing order.
-   * @type {Array<string>}
-   */
-  static get LEVELS() {
-    return [
-      'beginner',
-      'novice',
-      'competent',
-      'proficient',
-      'expert',
-    ]
   }
 }
 
