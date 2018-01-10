@@ -13,7 +13,6 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
     link(rel="stylesheet" href="https://cdn.rawgit.com/chharvey/still-alive/v1.4.0/css/still-alive.css")
     link(rel="stylesheet" href="css/resume.css")
     link(rel="import" href="./tpl/x-city.tpl.html")
-    link(rel="import" href="./tpl/x-contactlink.tpl.html")
     link(rel="import" href="./tpl/x-position.tpl.html")
     link(rel="import" href="./tpl/x-award.tpl.html")
     link(rel="import" href="./tpl/x-prodev.tpl.html")
@@ -45,11 +44,11 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
         section
           h2.h-Hidden Contact
           -
-            let contact = new HTMLUListElement().class('o-List o-Flex-sK c-Contact')
-              .addContent(resume.contactData.map((item) =>
-                new HTMLLIElement().class('o-List__Item o-Flex__Item-sK c-Contact__Item').addContent(item.view.xContactLink())
-              ))
-          address!= contact.html()
+            let contact = resume.view.contactInfo({
+              url      : 'chharvey.github.io',
+              telephone: '(703) 507-2467',
+            })
+          address!= contact
       section.o-Grid__Item.o-Grid__Item--exp#about
         h2.o-Grid__Item.c-ExpHn.h-Hidden About
         p.o-Grid__Item--maincol(itemprop="description")= resume.about
