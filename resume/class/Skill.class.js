@@ -2,8 +2,6 @@ const fs = require('fs')
 const path = require('path')
 const jsdom = require('jsdom')
 
-const Element = require('extrajs-dom').Element
-const HTMLElement = require('extrajs-dom').HTMLElement
 const View = require('extrajs-view')
 
 /**

@@ -1,5 +1,7 @@
-const Element = require('extrajs-dom').Element
-const HTMLElement = require('extrajs-dom').HTMLElement
+const fs = require('fs')
+const path = require('path')
+const jsdom = require('jsdom')
+
 const View = require('extrajs-view')
 
 /**
@@ -48,27 +50,36 @@ class ContactPoint {
      * @returns {string} HTML output
      */
     return new View(function () {
-      // REVIEW INDENTATION
-        return new HTMLElement('a').class('c-Contact__Link h-Block')
-          .attr('href', ({
-            url      : this._DATA.url,
-            email    : `mailto:${this._DATA.email}`,
-            telephone: `tel:${this._DATA.telephone}`,
-            default  : null,
-          })[this._DATA.contactType || 'default'])
-          .attr('itemprop', this._DATA.contactType || null)
-          .addContent([
-            new HTMLElement('div').class('c-Contact__Icon octicon').addClass(`octicon-${this._DATA.$octicon}`).attr('aria-hidden',true),
-            new HTMLElement('div').addContent(this._DATA.name || this._DATA.url || this._DATA.email || this._DATA.telephone || null),
-          ]).html()
+      const dom = new jsdom.JSDOM(fs.readFileSync(path.join(__dirname, '../tpl/x-contactlink.tpl.html'), 'utf8'))
+      const document = dom.window.document
+      const template = document.querySelector('template')
+      let frag = template.content.cloneNode(true)
+      let href = ({
+        url      : this._DATA.url,
+        email    : `mailto:${this._DATA.email}`,
+        telephone: `tel:${this._DATA.telephone}`,
+        default  : null,
+      })[this._DATA.contactType || 'default']
+      if (href) {
+        frag.querySelector('.c-Contact__Link').href = href
+      } else {
+        frag.querySelector('.c-Contact__Link').removeAttribute('href')
+      }
+      if (this._DATA.contactType) {
+        frag.querySelector('.c-Contact__Link').setAttribute('itemprop', this._DATA.contactType)
+        frag.querySelector('meta[itemprop="contactType"]').setAttribute('content', this._DATA.contactType)
+      } else {
+        frag.querySelector('.c-Contact__Link').removeAttribute('itemprop')
+        frag.querySelector('meta[itemprop="contactType"]').remove()
+      }
+      frag.querySelector('.c-Contact__Icon').className = frag.querySelector('.c-Contact__Icon').className.replace('{{ this._DATA.$octicon }}', this._DATA.$octicon)
+      frag.querySelector('.c-Contact__Text').textContent = this._DATA.name || this._DATA.url || this._DATA.email || this._DATA.telephone || ''
+      if (!this._DATA.name) frag.querySelector('.c-Contact__Text').removeAttribute('itemprop')
+
+      let div = document.createElement('div')
+      div.append(frag)
+      return div.innerHTML
     }, this)
-      .addDisplay(function xContactLink() {
-        return new HTMLElement('x-contactlink').attr({
-          url : this._DATA.url || null,
-          icon: this._DATA.octicon || null,
-          prop: this._DATA.itemprop || null,
-        }).addContent(this._content).html()
-      })
   }
 }
 
