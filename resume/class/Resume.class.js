@@ -5,8 +5,6 @@ const Ajv      = require('ajv')
 const jsdom = require('jsdom')
 const xjs      = require('extrajs')
 const View = require('extrajs-view')
-const HTMLUListElement  = require('extrajs-dom').HTMLUListElement
-const HTMLLIElement  = require('extrajs-dom').HTMLLIElement
 
 const STATE_DATA = require('extrajs-geo')
 STATE_DATA.push(...[
@@ -240,26 +238,23 @@ class Resume {
           },
         ]
 
-        const dom = new jsdom.JSDOM(fs.readFileSync(path.join(__dirname, '../tpl/x-contactlink.tpl.html'), 'utf8'))
+        const dom = new jsdom.JSDOM(fs.readFileSync(path.join(__dirname, '../tpl/contact-links.tpl.html'), 'utf8'))
         const document = dom.window.document
         const template = document.querySelector('template')
-
-        return new HTMLUListElement().class('o-List o-Grid-sK c-Contact').addContent(display_data.map((item) =>
-          new HTMLLIElement().class('o-List__Item o-Grid__Item-sK c-Contact__Item').addContent((function () {
+        let list = document.querySelector('ul')
+        display_data.forEach(function (d) {
             let frag = template.content.cloneNode(true)
-            if (item.href) {
-              frag.querySelector('.c-Contact__Link').href = item.href
+            if (d.href) {
+              frag.querySelector('.c-Contact__Link').href = d.href
             } else {
               frag.querySelector('.c-Contact__Link').removeAttribute('href')
             }
-            frag.querySelector('.c-Contact__Link').setAttribute('itemprop', item.name)
-            frag.querySelector('.c-Contact__Icon').className = frag.querySelector('.c-Contact__Icon').className.replace('{{ octicon }}', item.icon)
-            frag.querySelector('.c-Contact__Text').textContent = titles && titles[item.name] || this._DATA[item.name]
-            let div = document.createElement('div')
-            div.append(frag)
-            return div.innerHTML
-          }).call(this))
-        )).html()
+            frag.querySelector('.c-Contact__Link').setAttribute('itemprop', d.name)
+            frag.querySelector('.c-Contact__Icon').className = frag.querySelector('.c-Contact__Icon').className.replace('{{ octicon }}', d.icon)
+            frag.querySelector('.c-Contact__Text').textContent = titles && titles[d.name] || this._DATA[d.name]
+            list.append(frag)
+        }, this)
+        return list.outerHTML
       })
   }
 }
