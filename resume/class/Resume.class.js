@@ -81,10 +81,10 @@ class Resume {
 
   /**
    * @summary Contact data for this resume.
-   * @type {Array<Object<string>>}
+   * @type {Array<ContactPoint>}
    */
   get contactData() {
-    return this._DATA.contact.map((d) => new ContactPoint(d.url, d.octicon, d.content, d.itemprop))
+    return (this._DATA.contactPoint || []).map((d) => new ContactPoint(d))
   }
 
   /**

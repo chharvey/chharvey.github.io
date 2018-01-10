@@ -9,16 +9,22 @@ const View = require('extrajs-view')
 class ContactPoint {
   /**
    * @summary Construct a new ContactPoint object.
-   * @param  {string} url url of the link
-   * @param  {string} octicon octicon CSS class of the icon
-   * @param  {string} content text content of the link
-   * @param  {string=} itemprop itemprop Microdata of the contact point
+   * @param  {!Object} jsondata JSON object of type {@link http://schema.org/ContactPoint}
+   * @param  {string} jsondata.$octicon octicon CSS class of the icon
+   * @param  {string=} jsondata.name display text of the link
+   * @param  {string=} jsondata.contactType type of contact point
+   * @param  {string=} jsondata.url url of the link
+   * @param  {string=} jsondata.telephone telephone number
+   * @param  {string=} jsondata.email email address
    */
-  constructor(url, octicon, content, itemprop = '') {
-    this._url      = url
-    this._octicon  = octicon
-    this._itemprop = itemprop
-    this._content  = content
+  constructor(jsondata) {
+    /**
+     * All the data for this object.
+     * @private
+     * @final
+     * @type {!Object}
+     */
+    this._DATA = jsondata
   }
 
   /**
