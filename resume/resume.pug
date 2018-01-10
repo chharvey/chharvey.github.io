@@ -45,9 +45,15 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
         section
           h2.h-Hidden Contact
           -
-            let contact = new HTMLUListElement().class('o-List o-Flex-sK c-Contact')
+            let contact = new HTMLUListElement().class('o-List o-Grid-sK c-Contact')
               .addContent(resume.contactData.map((item) =>
-                new HTMLLIElement().class('o-List__Item o-Flex__Item-sK c-Contact__Item').addContent(item.view.xContactLink())
+                new HTMLLIElement().class('o-List__Item o-Grid__Item-sK c-Contact__Item')
+                  .attr({
+                    itemprop : 'contactPoint',
+                    itemscope: '',
+                    itemtype : 'http://schema.org/ContactPoint',
+                  })
+                  .addContent(item.view())
               ))
           address!= contact.html()
       section.o-Grid__Item.o-Grid__Item--exp#about

@@ -50,18 +50,23 @@ class ContactPoint {
     return new View(function () {
       // REVIEW INDENTATION
         return new HTMLElement('a').class('c-Contact__Link h-Block')
-          .attr('href', this._url)
-          .attr('itemprop', this._itemprop || null)
+          .attr('href', ({
+            url      : this._DATA.url,
+            email    : `mailto:${this._DATA.email}`,
+            telephone: `tel:${this._DATA.telephone}`,
+            default  : null,
+          })[this._DATA.contactType || 'default'])
+          .attr('itemprop', this._DATA.contactType || null)
           .addContent([
-            new HTMLElement('div').class('c-Contact__Icon octicon').addClass(`octicon-${this._octicon}`).attr('role','none'),
-            new HTMLElement('div').addContent(this._content),
+            new HTMLElement('div').class('c-Contact__Icon octicon').addClass(`octicon-${this._DATA.$octicon}`).attr('aria-hidden',true),
+            new HTMLElement('div').addContent(this._DATA.name || this._DATA.url || this._DATA.email || this._DATA.telephone || null),
           ]).html()
     }, this)
       .addDisplay(function xContactLink() {
         return new HTMLElement('x-contactlink').attr({
-          url : this._url,
-          icon: this._octicon,
-          prop: this._itemprop,
+          url : this._DATA.url || null,
+          icon: this._DATA.octicon || null,
+          prop: this._DATA.itemprop || null,
         }).addContent(this._content).html()
       })
   }
