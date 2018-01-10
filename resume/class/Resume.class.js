@@ -1,7 +1,12 @@
+const fs = require('fs')
+const path = require('path')
+
 const Ajv      = require('ajv')
+const jsdom = require('jsdom')
 const xjs      = require('extrajs')
-const Element  = require('extrajs-dom').Element
-const HTMLDListElement  = require('extrajs-dom').HTMLDListElement
+const View = require('extrajs-view')
+const HTMLUListElement  = require('extrajs-dom').HTMLUListElement
+const HTMLLIElement  = require('extrajs-dom').HTMLLIElement
 
 const STATE_DATA = require('extrajs-geo')
 STATE_DATA.push(...[
@@ -10,7 +15,6 @@ STATE_DATA.push(...[
 
 const GeoCoordinates = require('./GeoCoordinates.class.js')
 const City           = require('./City.class.js')
-const ContactPoint   = require('./ContactPoint.class.js')
 const Skill          = require('./Skill.class.js')
 const Position       = require('./Position.class.js')
 const Award          = require('./Award.class.js')
@@ -78,14 +82,6 @@ class Resume {
    * @type {string}
    */
   get about() { return this._DATA.about }
-
-  /**
-   * @summary Contact data for this resume.
-   * @type {Array<ContactPoint>}
-   */
-  get contactData() {
-    return (this._DATA.contactPoint || []).map((d) => new ContactPoint(d))
-  }
 
   /**
    * @summary List of skills, grouped by category.
@@ -192,6 +188,79 @@ class Resume {
         : null
     }
     return this._DATA.teams.map((d) => new Award(d.dates, Resume._content(d.content), subs(d)))
+  }
+
+  /**
+   * @summary Render this resume, or parts of it, in HTML.
+   * @see Resume.VIEW
+   * @type {View}
+   */
+  get view() {
+    /**
+     * @summary This view object is a set of functions returning HTML output.
+     * @description Available displays:
+     * - `Resume#view()` - default display
+     * - `Resume#contactInfo()` - markup for a piece of contact information
+     * @namespace Resume.VIEW
+     * @type {View}
+     */
+    /**
+     * Default display. Takes no arguments.
+     * @summary Call `Resume#view()` to render this display.
+     * @function Resume.VIEW.default
+     * @returns {string} HTML output
+     */
+    return new View(null, this)
+      /**
+       * Return an `<a>` element marking up a piece of contact information.
+       * @summary Call `Resume#view.contactInfo()` to render this display.
+       * @function Resume.VIEW.contactInfo
+       * @param   {{url:string=, email:string=, telephone:string=}=} titles optional alternative titles to display
+       * @param   {string=} titles.url       optional alternative title of the url
+       * @param   {string=} titles.email     optional alternative title of the email
+       * @param   {string=} titles.telephone optional alternative title of the telephone
+       * @returns {string} HTML output
+       */
+      .addDisplay(function contactInfo(titles) {
+        const display_data = [
+          {
+            name: 'telephone',
+            href: (this._DATA.telephone) ? `tel:${this._DATA.telephone}` : '',
+            icon: 'device-mobile',
+          },
+          {
+            name: 'email',
+            href: (this._DATA.email) ? `mailto:${this._DATA.email}` : '',
+            icon: 'mail',
+          },
+          {
+            name: 'url',
+            href: this._DATA.url || '',
+            icon: 'home',
+          },
+        ]
+
+        const dom = new jsdom.JSDOM(fs.readFileSync(path.join(__dirname, '../tpl/x-contactlink.tpl.html'), 'utf8'))
+        const document = dom.window.document
+        const template = document.querySelector('template')
+
+        return new HTMLUListElement().class('o-List o-Grid-sK c-Contact').addContent(display_data.map((item) =>
+          new HTMLLIElement().class('o-List__Item o-Grid__Item-sK c-Contact__Item').addContent((function () {
+            let frag = template.content.cloneNode(true)
+            if (item.href) {
+              frag.querySelector('.c-Contact__Link').href = item.href
+            } else {
+              frag.querySelector('.c-Contact__Link').removeAttribute('href')
+            }
+            frag.querySelector('.c-Contact__Link').setAttribute('itemprop', item.name)
+            frag.querySelector('.c-Contact__Icon').className = frag.querySelector('.c-Contact__Icon').className.replace('{{ octicon }}', item.icon)
+            frag.querySelector('.c-Contact__Text').textContent = titles && titles[item.name] || this._DATA[item.name]
+            let div = document.createElement('div')
+            div.append(frag)
+            return div.innerHTML
+          }).call(this))
+        )).html()
+      })
   }
 }
 
