@@ -86,7 +86,7 @@ class Resume {
    * @type {Array<{title:string: id:string, items:Array<Skill>}>}
    */
   get skills() {
-    return this._DATA.skills.map((itemList) => ({
+    return (this._DATA.skills || []).map((itemList) => ({
       title: itemList.name,
       id   : itemList.identifier,
       items: itemList.itemListElement.map((rating) => new Skill(rating)),
@@ -128,7 +128,7 @@ class Resume {
    * @type {Array<Degree>}
    */
   get degrees() {
-    return this._DATA.degrees.map((d) => new Degree(d.year, d.gpa, d.field))
+    return (this._DATA.degrees || []).map((d) => new Degree(d.year, d.gpa, d.field))
   }
 
   /**
@@ -136,7 +136,7 @@ class Resume {
    * @type {Array<ProDev>}
    */
   get proDevs() {
-    return this._DATA.prodevs.map((d) =>
+    return (this._DATA.prodevs || []).map((d) =>
       new ProDev(
         { start: new Date(d.start), end  : new Date(d.end) },
         new City(
@@ -166,7 +166,7 @@ class Resume {
         datum.sub_awards.map((s) => new Award(s.dates, Resume._content(s.content)))
         : null
     }
-    return this._DATA.awards.map((d) => new Award(d.dates, Resume._content(d.content), subs(d)))
+    return (this._DATA.awards || []).map((d) => new Award(d.dates, Resume._content(d.content), subs(d)))
   }
 
   /**
@@ -185,7 +185,7 @@ class Resume {
         datum.sub_awards.map((s) => new Award(s.dates, Resume._content(s.content)))
         : null
     }
-    return this._DATA.teams.map((d) => new Award(d.dates, Resume._content(d.content), subs(d)))
+    return (this._DATA.teams || []).map((d) => new Award(d.dates, Resume._content(d.content), subs(d)))
   }
 
   /**
