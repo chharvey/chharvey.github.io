@@ -74,6 +74,25 @@ class Resume {
   }
 
   /**
+   * @summary The full name of the applicant, including prefixes and suffixes.
+   * @type {Object<string>}
+   * @property {string} familyName
+   * @property {string} givenName
+   * @property {string} additionalName
+   * @property {string} honorificPrefix
+   * @property {string} honorificSuffix
+   */
+  get fullName() {
+    return {
+     familyName      : this._DATA.familyName      || '',
+     givenName       : this._DATA.givenName       || '',
+     additionalName  : this._DATA.additionalName  || '',
+     honorificPrefix : this._DATA.honorificPrefix || '',
+     honorificSuffix : this._DATA.honorificSuffix || '',
+    }
+  }
+
+  /**
    * @summary About the applicant.
    * @type {string}
    */
@@ -207,6 +226,46 @@ class Resume {
      * @returns {string} HTML output
      */
     return new View(null, this)
+      /**
+       * Return an `<h1>` element marking up the applicant name. Serves as the top-level heading of the resume.
+       * @summary Call `Resume#view.fullName()` to render this display.
+       * @function Resume.VIEW.fullName
+       * @returns {string} HTML output
+       */
+      .addDisplay(function fullName() {
+        const dom = new jsdom.JSDOM(fs.readFileSync(path.join(__dirname, '../tpl/fullname.tpl.html'), 'utf8'))
+        const document = dom.window.document
+        const template = document.querySelector('template')
+        let frag = template.content.cloneNode(true)
+        ;[
+          'familyName',
+          'givenName',
+          'additionalName',
+          'honorificPrefix',
+          'honorificSuffix',
+        ].forEach(function (nameprop) {
+          let el = frag.querySelector(`slot[name="${nameprop}"]`)
+          if (this.fullName[nameprop]) {
+            el.textContent = this.fullName[nameprop]
+          } else el.remove()
+        }, this)
+
+
+        // abbreviate the middle name
+        if (this.fullName.additionalName) {
+          frag.querySelector('slot[name="additionalName"]').textContent = `${this.fullName.additionalName[0]}.`
+          frag.querySelector('abbr[itemprop="additionalName"]').title = this.fullName.additionalName
+        } else {
+          frag.querySelector('abbr[itemprop="additionalName"]').remove()
+        }
+
+        // comma preceding suffix
+        if (!this.fullName.honorificSuffix) {
+          frag.querySelector('[itemprop="familyName"]').classList.remove('h-CommaAfter')
+        }
+
+        return frag.querySelector('h1').outerHTML
+      })
       /**
        * Return an `<a>` element marking up a piece of contact information.
        * @summary Call `Resume#view.contactInfo()` to render this display.
