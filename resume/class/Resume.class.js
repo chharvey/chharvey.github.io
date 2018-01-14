@@ -30,14 +30,8 @@ class Resume {
    * @param   {!Object=} jsondata a JSON object that validates against `../resume.schema.json`
    */
   constructor(jsondata = {}) {
-    let schema;
-    try {
-      schema = JSON.parse(fs.readFileSync(path.join(__dirname, '../resume.schema.json'), 'utf8'))
-    } catch (e) {
-      e.filename = 'resume.schema.json'
-      throw e
-    }
-
+    const requireOther = require('schemaorg-jsd/lib/requireOther.js')
+    let schema = requireOther(path.join(__dirname, '../resume.schema.json'))
     let ajv = new Ajv()
     ajv.addSchema(SCHEMATA)
     let is_data_valid = ajv.validate(schema, jsondata)
@@ -48,7 +42,6 @@ class Resume {
       console.error(e)
       throw e
     }
-
 
     /**
      * Raw JSON data for this resume.
@@ -84,7 +77,7 @@ class Resume {
    * @summary About the applicant.
    * @type {string}
    */
-  get about() { return this._DATA.about }
+  get about() { return this._DATA.description || '' }
 
   /**
    * @summary List of skills, grouped by category.
