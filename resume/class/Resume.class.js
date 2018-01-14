@@ -11,6 +11,8 @@ STATE_DATA.push(...[
   { "code": "DC", "name": "District of Columbia" },
 ])
 
+const { SCHEMATA } = require('schemaorg-jsd')
+
 const GeoCoordinates = require('./GeoCoordinates.class.js')
 const City           = require('./City.class.js')
 const Skill          = require('./Skill.class.js')
@@ -25,26 +27,29 @@ const Degree         = require('./Degree.class.js')
 class Resume {
   /**
    * @summary Construct a new Resume object.
-   * @param   {Object} jsondata a JSON object that validates against `../resume.schema.json`
+   * @param   {!Object=} jsondata a JSON object that validates against `../resume.schema.json`
    */
-  constructor(jsondata) {
-    // REVIEW indentation
-  ;(function () {
-    let ajv = new Ajv()
-    let is_schema_valid = ajv.validateSchema(require('../resume.schema.json'))
-    if (!is_schema_valid) {
-      console.error(ajv.errors)
-      throw new Error('Schema is not a valid schema!')
+  constructor(jsondata = {}) {
+    let schema;
+    try {
+      schema = JSON.parse(fs.readFileSync(path.join(__dirname, '../resume.schema.json'), 'utf8'))
+    } catch (e) {
+      e.filename = 'resume.schema.json'
+      throw e
     }
-  })()
-  ;(function () {
+
     let ajv = new Ajv()
-    let is_data_valid = ajv.validate(require('../resume.schema.json'), jsondata)
+    ajv.addSchema(SCHEMATA)
+    let is_data_valid = ajv.validate(schema, jsondata)
     if (!is_data_valid) {
-      console.error(ajv.errors)
-      throw new Error('Data does not valiate against schema!')
+      let e = new TypeError(ajv.errors[0].message)
+      e.filename = 'resume.json'
+      e.details = ajv.errors[0]
+      console.error(e)
+      throw e
     }
-  })()
+
+
     /**
      * Raw JSON data for this resume.
      * @private
