@@ -112,12 +112,13 @@ class Resume {
 
   /**
    * @summary List of positions, grouped by category.
-   * @type {Object<Array<Position>>}
+   * @type {Array<{title:string: id:string, items:Array<Position>}>}
    */
   get positions() {
-    let returned = {}
-    for (let i in this._DATA.positions) {
-      returned[i] = this._DATA.positions[i].map((d) =>
+    return (this._DATA.positions || []).map((itemList) => ({
+      title: itemList.name,
+      id   : itemList.identifier,
+      items: itemList.itemListElement.map((d) =>
         new Position(d.id, {
           title: d.title,
           org  : {
@@ -136,8 +137,7 @@ class Resume {
           descriptions: d.descriptions.map(Resume._content)
         })
       )
-    }
-    return returned
+    }))
   }
 
   /**

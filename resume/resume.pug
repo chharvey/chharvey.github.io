@@ -22,7 +22,6 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
       mixin experience(title, data)
         section.o-Grid__Item.o-Grid__Item--exp&attributes(attributes)
           h2.o-Grid__Item.c-ExpHn!= title
-          block
           != (data || []).map((item) => item.view.xPosition()).join('')
       mixin proDevs(title, data, classes)
         section.o-Grid__Item.o-Grid__Item--exp&attributes(attributes)
@@ -63,9 +62,8 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
               dl.o-Grid.o-Grid--skill!= data.map((item) => item.view()).join('')
           each group in resume.skills
             +skillCategory(group.title, group.items)(id=group.id)
-      +experience('Technical Experience' , resume.positions.technical)#tech-exp
-      +experience('Teaching Experience'  , resume.positions.teaching)#teach-exp
-      +experience('Other Work Experience', resume.positions.other)#work-exp
+      each group in resume.positions
+        +experience(group.title, group.items)(id=group.id)
       section.o-Grid__Item.o-Grid__Item--exp#edu
         h2.o-Grid__Item.c-ExpHn Education
         section.o-Grid__Item.o-Grid__Item--maincol.c-Institution#VT

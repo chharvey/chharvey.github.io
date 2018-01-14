@@ -95,10 +95,15 @@
       }
     },
     "positions": {
-      "type": "object",
+      "type": "array",
       "description": "List of positions, grouped by category.",
-      "additionalProperties": {
-        "type": "array",
+      "items": {
+        "$allOf": [
+          { "$ref": "#ItemList" },
+          {
+            "required": ["name", "identifier", "itemListElement"],
+            "properties": {
+              "itemListElement": {
         "items": {
           "type": "object",
           "required": [
@@ -139,6 +144,10 @@
             "descriptions_hidden": { "$ref": "#/allOf/1/properties/positions/additionalProperties/items/properties/descriptions" }
           }
         }
+              }
+            }
+          }
+        ]
       }
     },
     "degrees": {
