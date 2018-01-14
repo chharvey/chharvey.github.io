@@ -1,8 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "http://chharvey.github.io/resume/resume.schema.json",
+  "$id": "https://chharvey.github.io/resume/resume.schema.json",
   "title": "Resume",
-  "type": "object",
   "description": "Resume of Christopher H. Harvey of Fairfax, VA.",
   "definitions": {
     "Content": {
@@ -26,12 +25,16 @@
       }
     }
   },
+  "allOf": [
+    { "$ref": "https://chharvey.github.io/schemaorg-jsd/schema/Person.jsd" },
+    {
+  "type": "object",
   "additionalProperties": false,
   "properties": {
-    "about": { "type": "string", "description": "Short blurb about the applicant." },
-    "url"      : { "$comment": "pulled from https://chharvey.github.io/schemaorg-jsd/schema/Person.jsd", "type": "string", "format": "uri" },
-    "email"    : { "$comment": "pulled from https://chharvey.github.io/schemaorg-jsd/schema/Person.jsd", "type": "string" },
-    "telephone": { "$comment": "pulled from https://chharvey.github.io/schemaorg-jsd/schema/Person.jsd", "type": "string" },
+    "description": true,
+    "url"        : true,
+    "email"      : true,
+    "telephone"  : true,
     "skills": {
       "type": "array",
       "description": "List of skills, grouped by category.",
@@ -102,7 +105,7 @@
               "description": "the list of descriptions for the job position",
               "items": { "$ref": "#/definitions/Content", "description": "custom HTML defining a single description item" }
             },
-            "descriptions_hidden": { "$ref": "#/properties/positions/additionalProperties/items/properties/descriptions" }
+            "descriptions_hidden": { "$ref": "#/allOf/1/properties/positions/additionalProperties/items/properties/descriptions" }
           }
         }
       }
@@ -166,4 +169,6 @@
       "items": { "$ref": "#/definitions/Award" }
     }
   }
+    }
+  ]
 }

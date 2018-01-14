@@ -11,6 +11,8 @@ STATE_DATA.push(...[
   { "code": "DC", "name": "District of Columbia" },
 ])
 
+const { SCHEMATA } = require('schemaorg-jsd')
+
 const GeoCoordinates = require('./GeoCoordinates.class.js')
 const City           = require('./City.class.js')
 const Skill          = require('./Skill.class.js')
@@ -25,26 +27,22 @@ const Degree         = require('./Degree.class.js')
 class Resume {
   /**
    * @summary Construct a new Resume object.
-   * @param   {Object} jsondata a JSON object that validates against `../resume.schema.json`
+   * @param   {!Object=} jsondata a JSON object that validates against `../resume.schema.json`
    */
-  constructor(jsondata) {
-    // REVIEW indentation
-  ;(function () {
+  constructor(jsondata = {}) {
+    const requireOther = require('schemaorg-jsd/lib/requireOther.js')
+    let schema = requireOther(path.join(__dirname, '../resume.schema.json'))
     let ajv = new Ajv()
-    let is_schema_valid = ajv.validateSchema(require('../resume.schema.json'))
-    if (!is_schema_valid) {
-      console.error(ajv.errors)
-      throw new Error('Schema is not a valid schema!')
-    }
-  })()
-  ;(function () {
-    let ajv = new Ajv()
-    let is_data_valid = ajv.validate(require('../resume.schema.json'), jsondata)
+    ajv.addSchema(SCHEMATA)
+    let is_data_valid = ajv.validate(schema, jsondata)
     if (!is_data_valid) {
-      console.error(ajv.errors)
-      throw new Error('Data does not valiate against schema!')
+      let e = new TypeError(ajv.errors[0].message)
+      e.filename = 'resume.json'
+      e.details = ajv.errors[0]
+      console.error(e)
+      throw e
     }
-  })()
+
     /**
      * Raw JSON data for this resume.
      * @private
@@ -79,14 +77,14 @@ class Resume {
    * @summary About the applicant.
    * @type {string}
    */
-  get about() { return this._DATA.about }
+  get about() { return this._DATA.description || '' }
 
   /**
    * @summary List of skills, grouped by category.
    * @type {Array<{title:string: id:string, items:Array<Skill>}>}
    */
   get skills() {
-    return this._DATA.skills.map((itemList) => ({
+    return (this._DATA.skills || []).map((itemList) => ({
       title: itemList.name,
       id   : itemList.identifier,
       items: itemList.itemListElement.map((rating) => new Skill(rating)),
@@ -128,7 +126,7 @@ class Resume {
    * @type {Array<Degree>}
    */
   get degrees() {
-    return this._DATA.degrees.map((d) => new Degree(d.year, d.gpa, d.field))
+    return (this._DATA.degrees || []).map((d) => new Degree(d.year, d.gpa, d.field))
   }
 
   /**
@@ -136,7 +134,7 @@ class Resume {
    * @type {Array<ProDev>}
    */
   get proDevs() {
-    return this._DATA.prodevs.map((d) =>
+    return (this._DATA.prodevs || []).map((d) =>
       new ProDev(
         { start: new Date(d.start), end  : new Date(d.end) },
         new City(
@@ -166,7 +164,7 @@ class Resume {
         datum.sub_awards.map((s) => new Award(s.dates, Resume._content(s.content)))
         : null
     }
-    return this._DATA.awards.map((d) => new Award(d.dates, Resume._content(d.content), subs(d)))
+    return (this._DATA.awards || []).map((d) => new Award(d.dates, Resume._content(d.content), subs(d)))
   }
 
   /**
@@ -185,7 +183,7 @@ class Resume {
         datum.sub_awards.map((s) => new Award(s.dates, Resume._content(s.content)))
         : null
     }
-    return this._DATA.teams.map((d) => new Award(d.dates, Resume._content(d.content), subs(d)))
+    return (this._DATA.teams || []).map((d) => new Award(d.dates, Resume._content(d.content), subs(d)))
   }
 
   /**
