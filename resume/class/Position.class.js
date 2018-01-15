@@ -1,8 +1,8 @@
+const fs = require('fs')
+const path = require('path')
+const jsdom = require('jsdom')
+
 const xjs     = require('extrajs')
-const Element = require('extrajs-dom').Element
-const HTMLElement = require('extrajs-dom').HTMLElement
-const HTMLUListElement = require('extrajs-dom').HTMLUListElement
-const HTMLLIElement = require('extrajs-dom').HTMLLIElement
 const View = require('extrajs-view')
 
 const STATE_DATA = require('extrajs-geo')
@@ -31,7 +31,7 @@ class Position {
     this._org_url  = jsondata.hiringOrganization.url || ''
 
     this._date_start = new Date(jsondata.$start)
-    this._date_end   = (jsondata.$end) ? new Date(jsondata.$end) : new Date()
+    this._date_end   = (jsondata.$end) ? new Date(jsondata.$end) : null
 
     this._location = new City(
       { locality: jsondata.jobLocation.address.addressLocality, region: (STATE_DATA.find((obj) => obj.code===jsondata.jobLocation.address.addressRegion).name), }, // TODO make region the full name
@@ -62,55 +62,48 @@ class Position {
      * @returns {string} HTML output
      */
     return new View(function () {
-      // REVIEW INDENTATION
-        return new HTMLElement('section').id(this._id).class('o-Grid__Item o-Grid__Item--maincol c-Position')
-          .attr({
-            'data-instanceof': 'Position',
-            itemscope: '',
-            itemtype : this._org_type,
-          })
-          .attr('itemprop', (xjs.Date.sameDate(this._date_end, new Date())) ? 'worksFor' : null)
-          .addContent([
-            new HTMLElement('header').class('c-Position__Head').addContent([
-                new HTMLElement('h3').class('c-Position__Name h-Inline-sG -pr-1-sG').attr('itemprop','jobTitle').addContent(this._name),
-                new HTMLElement('p').class('c-Position__Org h-Inline-sG h-Clearfix-sG').attr('itemprop','name').addContent([
-                  new HTMLElement('a').class('c-Camo').attr({ rel:'external', href:this._org_url, itemprop:'url' }).addContent(this._org_name),
-                ]),
-                new HTMLElement('p').class('c-Position__Dates h-Inline')
-                  .addContent([
-                    new HTMLElement('time')
-                      .attr('datetime', this._date_start.toISOString())
-                      .addContent(xjs.Date.format(this._date_start, 'M Y')),
-                    `&ndash;`,
-                    new HTMLElement('time')
-                      .attr('datetime', this._date_end.toISOString())
-                      .addContent((xjs.Date.sameDate(this._date_end, new Date())) ? 'present' : xjs.Date.format(this._date_end, 'M Y')),
-                  ]),
-                new HTMLElement('p').class('c-Position__Place h-Inline')
-                  .addContent(`(${this._location.view()})`),
-            ]),
-            new HTMLUListElement().class('c-Position__Body').addContent(
-              this._descriptions.map((item) => new HTMLLIElement().addContent(item))
-            ),
-          ])
-          .html()
+      const dom = new jsdom.JSDOM(fs.readFileSync(path.join(__dirname, '../tpl/x-position.tpl.html'), 'utf8'))
+      const document = dom.window.document
+      const template = document.querySelector('template')
+      let frag = template.content.cloneNode(true)
+      frag.querySelector('.c-Position').setAttribute('itemtype', this._org_type)
+      frag.querySelector('[itemprop="jobTitle"]').innerHTML = this._name
+      frag.querySelector('[itemprop="url"]').href           = this._org_url
+      frag.querySelector('[itemprop="url"]').innerHTML      = this._org_name
+      frag.querySelectorAll('.c-Position__Dates > time')[0].dateTime    = this._date_start.toISOString()
+      frag.querySelectorAll('.c-Position__Dates > time')[0].textContent = xjs.Date.format(this._date_start, 'M Y')
+      frag.querySelector('.c-Position__Place').replaceChild((function () {
+        // this._location.view.xCity()
+        // TEMP
+        let xCity = document.createElement('x-city')
+        xCity.setAttribute('locality' , this._location._geo.locality)
+        xCity.setAttribute('region'   , this._location._geo.regionAbbr())
+        xCity.setAttribute('latitude' , this._location._geo.latitude)
+        xCity.setAttribute('longitude', this._location._geo.longitude)
+        return xCity
+      }).call(this), frag.querySelector('x-city'))
+      frag.querySelector('.c-Position__Body').append(...(function () {
+        let item = frag.querySelector('.c-Position__Body > template').content
+        return this._descriptions.map(function (desc) {
+          let li = item.cloneNode(true).querySelector('li')
+          li.innerHTML = desc
+          return li
+        })
+      }).call(this))
+      frag.querySelector('.c-Position__Body > template').remove()
+
+      if (!this._date_end) {
+        frag.querySelector('.c-Position').setAttribute('itemprop', 'worksFor')
+        frag.querySelectorAll('.c-Position__Dates > time')[2].dateTime    = new Date().toISOString()
+        frag.querySelectorAll('.c-Position__Dates > time')[1].remove()
+      } else {
+        frag.querySelector('.c-Position').removeAttribute('itemprop')
+        frag.querySelectorAll('.c-Position__Dates > time')[1].dateTime    = this._date_end.toISOString()
+        frag.querySelectorAll('.c-Position__Dates > time')[1].textContent = xjs.Date.format(this._date_end, 'M Y')
+        frag.querySelectorAll('.c-Position__Dates > time')[2].remove()
+      }
+      return frag.querySelector('section').outerHTML
     }, this)
-      .addDisplay(function xPosition() {
-        return new HTMLElement('x-position').attr({
-          id      : this._id,
-          url     : this._org_url,
-          type    : this._org_type,
-          start   : this._date_start.toISOString(),
-          end     : this._date_end.toISOString(),
-        }).addContent([
-          new HTMLElement('name').addContent(this._name),
-          new HTMLElement('org').addContent(this._org_name),
-          this._location.view.xCity(),
-          new HTMLUListElement().addContent(
-            this._descriptions.map((item) => new HTMLLIElement().addContent(item))
-          ),
-        ]).html()
-      })
   }
 }
 
