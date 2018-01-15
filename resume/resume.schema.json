@@ -17,6 +17,23 @@
         }
       ]
     },
+    "JobPosting": {
+      "$id": "#JobPosting",
+      "allOf": [
+        { "$ref": "https://chharvey.github.io/schemaorg-jsd/schema/Thing.jsd" },
+        {
+          "properties": {
+            "hiringOrganization": { "$ref": "https://chharvey.github.io/schemaorg-jsd/schema/Organization.jsd" },
+            "jobLocation": { "$ref": "https://chharvey.github.io/schemaorg-jsd/schema/Place.jsd" },
+            "responsibilities": {
+              "type" : ["string", "array"],
+              "items": { "type": "string" }
+            },
+            "title": { "type": "string" }
+          }
+        }
+      ]
+    },
     "ItemList": {
       "$id": "#ItemList",
       "allOf": [
@@ -98,52 +115,24 @@
       "type": "array",
       "description": "List of positions, grouped by category.",
       "items": {
-        "$allOf": [
+        "allOf": [
           { "$ref": "#ItemList" },
           {
             "required": ["name", "identifier", "itemListElement"],
             "properties": {
               "itemListElement": {
-        "items": {
-          "type": "object",
-          "required": [
-            "id",
-            "title",
-            "orgname",
-            "url",
-            "start",
-            "city",
-            "state",
-            "geo",
-            "descriptions"
-          ],
-          "additionalProperties": false,
-          "properties": {
-            "id"      : { "type": "string", "description": "the id of this job position" },
-            "title"   : { "type": "string", "description": "the official position name" },
-            "orgname" : { "type": "string", "description": "the name of the organization; may be HTML" },
-            "url"     : { "type": "string", "description": "the url of the organization’s homepage" },
-            "itemtype": { "type": "string", "description": "the value of the organization’s `itemtype` attribute" },
-            "start"   : { "type": "string", "description": "the start date in ISO format" },
-            "end"     : { "type": "string", "description": "the end date in ISO format (leave undefined if there is no end date)" },
-            "city"    : { "type": "string", "description": "the city/town/locality name" },
-            "state"   : { "type": "string", "description": "the state/province/region postal code (e.g. 'NY', 'CA')" },
-            "geo"     : {
-              "type": "array",
-              "description": "the geo-coordinates",
-              "items": [
-                { "type": "number", "description": "the latitude value of the location" },
-                { "type": "number", "description": "the longitude value of the location" }
-              ]
-            },
-            "descriptions": {
-              "type": "array",
-              "description": "the list of descriptions for the job position",
-              "items": { "$ref": "#/definitions/Content", "description": "custom HTML defining a single description item" }
-            },
-            "descriptions_hidden": { "$ref": "#/allOf/1/properties/positions/additionalProperties/items/properties/descriptions" }
-          }
-        }
+                "items": {
+                  "$allOf": [
+                    { "$ref": "#JobPosting" },
+                    {
+                      "required": ["identifier", "title", "hiringOrganization", "jobLocation", "$start"],
+                      "properties": {
+                        "$start": { "type": "text", "format": "datetime", "description": "the start time of the job position" },
+                        "$end"  : { "type": "text", "format": "datetime", "description": "the end   time of the job position" }
+                      }
+                    }
+                  ]
+                }
               }
             }
           }
