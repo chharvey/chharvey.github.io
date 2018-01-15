@@ -118,25 +118,7 @@ class Resume {
     return (this._DATA.positions || []).map((itemList) => ({
       title: itemList.name,
       id   : itemList.identifier,
-      items: itemList.itemListElement.map((d) =>
-        new Position(d.id, {
-          title: d.title,
-          org  : {
-            name    : d.orgname,
-            url     : d.url,
-            itemtype: d.itemtype,
-          },
-          dates: {
-            start: new Date(d.start),
-            end  : (d.end) ? new Date(d.end) : new Date(),
-          },
-          location: new City(
-            { locality: d.city, region: (STATE_DATA.find((obj) => obj.code===d.state).name), }, // TODO make region the full name
-            new GeoCoordinates({ latitude: d.geo[0], longitude: d.geo[1] })
-          ),
-          descriptions: d.descriptions.map(Resume._content)
-        })
-      )
+      items: itemList.itemListElement.map((jobposting) => new Position(jobposting))
     }))
   }
 

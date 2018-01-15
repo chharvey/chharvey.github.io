@@ -5,6 +5,14 @@ const HTMLUListElement = require('extrajs-dom').HTMLUListElement
 const HTMLLIElement = require('extrajs-dom').HTMLLIElement
 const View = require('extrajs-view')
 
+const STATE_DATA = require('extrajs-geo')
+STATE_DATA.push(...[
+  { "code": "DC", "name": "District of Columbia" },
+])
+
+
+const City           = require('./City.class.js')
+const GeoCoordinates = require('./GeoCoordinates.class.js')
 /**
  * A working position I’ve held at an organization tht I’ve worked for.
  * @class
@@ -12,33 +20,25 @@ const View = require('extrajs-view')
 class Position {
   /**
    * @summary Construct a new Position object.
-   * @param {string} id the id of this job position
-   * @param {Object} $info all the data
-   * @param {string} $info.title the official position name
-   * @param {{name:string, url:string, itemtype:string}} $info.org details of the organization
-   * @param {string} $info.org.name the name of the organization; may be HTML
-   * @param {string} $info.org.url the url of the organization’s homepage
-   * @param {string} $info.org.itemtype the value of the organization’s `itemtype` attribute
-   * @param {{start:Date, end:Date}} $info.dates the dates the the position was held
-   * @param {Date} $info.dates.start the start date
-   * @param {Date} $info.dates.end the end date; use `new Date()` for present date
-   * @param {City} $info.location location of the organization
-   * @param {Array<string>} $info.descriptions the list of descriptions for the job position
+   * @param  {!Object=} jsondata JSON object of type {@link http://schema.org/JobPosting}
    */
-  constructor(id, $info) {
-    this._id = id
-    this._name = $info.title
+  constructor(jsondata) {
+    this._id = jsondata.identifier
+    this._name = jsondata.title
 
-    this._org_name = $info.org.name
-    this._org_type = $info.org.itemtype
-    this._org_url  = $info.org.url
+    this._org_name = jsondata.hiringOrganization.name
+    this._org_type = `http://schema.org/${jsondata.hiringOrganization['@type']}`
+    this._org_url  = jsondata.hiringOrganization.url || ''
 
-    this._date_start = $info.dates.start
-    this._date_end   = $info.dates.end
+    this._date_start = new Date(jsondata.$start)
+    this._date_end   = (jsondata.$end) ? new Date(jsondata.$end) : new Date()
 
-    this._location = $info.location
+    this._location = new City(
+      { locality: jsondata.jobLocation.address.addressLocality, region: (STATE_DATA.find((obj) => obj.code===jsondata.jobLocation.address.addressRegion).name), }, // TODO make region the full name
+      new GeoCoordinates(jsondata.jobLocation.geo)
+    )
 
-    this._descriptions = $info.descriptions
+    this._descriptions = (typeof jsondata.responsibilities === 'string') ? [jsondata.responsibilities] : jsondata.responsibilities || []
   }
 
   /**
