@@ -66,22 +66,14 @@ class Position {
       const document = dom.window.document
       const template = document.querySelector('template')
       let frag = template.content.cloneNode(true)
-      frag.querySelector('.c-Position').setAttribute('itemtype', this._org_type)
-      frag.querySelector('[itemprop="jobTitle"]').innerHTML = this._name
-      frag.querySelector('[itemprop="url"]').href           = this._org_url
-      frag.querySelector('[itemprop="url"]').innerHTML      = this._org_name
+      frag.querySelector('.c-Position'       ).id        = this._id
+      frag.querySelector('[itemprop="title"]').innerHTML = this._name
+      frag.querySelector('[itemprop="hiringOrganization"]').setAttribute('itemtype', this._org_type)
+      frag.querySelector('[itemprop="hiringOrganization"] [itemprop="url"]').href       = this._org_url
+      frag.querySelector('[itemprop="hiringOrganization"] [itemprop="name"]').innerHTML = this._org_name
       frag.querySelectorAll('.c-Position__Dates > time')[0].dateTime    = this._date_start.toISOString()
       frag.querySelectorAll('.c-Position__Dates > time')[0].textContent = xjs.Date.format(this._date_start, 'M Y')
-      frag.querySelector('.c-Position__Place').replaceChild((function () {
-        // this._location.view.xCity()
-        // TEMP
-        let xCity = document.createElement('x-city')
-        xCity.setAttribute('locality' , this._location._geo.locality)
-        xCity.setAttribute('region'   , this._location._geo.regionAbbr())
-        xCity.setAttribute('latitude' , this._location._geo.latitude)
-        xCity.setAttribute('longitude', this._location._geo.longitude)
-        return xCity
-      }).call(this), frag.querySelector('x-city'))
+      frag.querySelector('.c-Position__Place > slot[name="city"]').innerHTML = this._location.view()
       frag.querySelector('.c-Position__Body').append(...(function () {
         let item = frag.querySelector('.c-Position__Body > template').content
         return this._descriptions.map(function (desc) {
@@ -93,7 +85,6 @@ class Position {
       frag.querySelector('.c-Position__Body > template').remove()
 
       if (!this._date_end) {
-        frag.querySelector('.c-Position').setAttribute('itemprop', 'worksFor')
         frag.querySelectorAll('.c-Position__Dates > time')[2].dateTime    = new Date().toISOString()
         frag.querySelectorAll('.c-Position__Dates > time')[1].remove()
       } else {
@@ -102,7 +93,7 @@ class Position {
         frag.querySelectorAll('.c-Position__Dates > time')[1].textContent = xjs.Date.format(this._date_end, 'M Y')
         frag.querySelectorAll('.c-Position__Dates > time')[2].remove()
       }
-      return frag.querySelector('section').outerHTML
+      return frag.querySelector('.c-Position').outerHTML
     }, this)
   }
 }
