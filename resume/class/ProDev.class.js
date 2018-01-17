@@ -1,6 +1,8 @@
+const fs = require('fs')
+const path = require('path')
+const jsdom = require('jsdom')
+
 const xjs     = require('extrajs')
-const Element = require('extrajs-dom').Element
-const HTMLElement = require('extrajs-dom').HTMLElement
 const View = require('extrajs-view')
 
 const City           = require('./City.class.js')
@@ -49,56 +51,39 @@ class ProDev {
      * @returns {string} HTML output
      */
     return new View(function () {
-      return Element.concat([
-        new HTMLElement('dt').class('o-ListAchv__Award h-Inline')
-          .attr('data-instanceof','ProDev.Text')
-          .attr({ itemprop:'award', itemscope:'', itemtype:this._itemtype })
-          .addContent([
-            new HTMLElement('span').attr('itemprop','name').addContent(this._name),
-            `, ${this._location.view()} (`,
-            new HTMLElement('time').attr('datetime',`PT${this._pdh}H`).attr('itemprop','duration').addContent(`${this._pdh} hr`),
-            `)`,
-          ]),
-        new HTMLElement('dd').class('o-ListAchv__Date h-Inline h-Clearfix')
-          .attr('data-instanceof','ProDev.Dates')
-          .addContent((function () {
-            if (xjs.Date.sameDate(this._date_start, this._date_end)) {
-              return [
-              `(`,
-              new HTMLElement('time').attr({ datetime:this._date_end.toISOString(), itemprop:'startDate endDate' })
-                .addContent(xjs.Date.format(this._date_end, 'j M Y')),
-              `)`,
-              ]
-            }
-            let same_UTC_date  = this._date_start.getUTCDate()  === this._date_end.getUTCDate()
-            let same_UTC_month = this._date_start.getUTCMonth() === this._date_end.getUTCMonth()
-            let same_UTC_year  = this._date_start.getFullYear() === this._date_end.getFullYear()
-            return [
-              `(`,
-              new HTMLElement('time').attr({ datetime:this._date_start.toISOString(), itemprop:'startDate' }).addContent([
-                this._date_start.getUTCDate(),
-                (same_UTC_month && same_UTC_year) ? '' : ` ${xjs.Date.format(this._date_start, 'M')}`,
-                (same_UTC_year) ? '' : ` ${this._date_start.getFullYear()}`,
-              ]),
-              '&ndash;',
-              new HTMLElement('time').attr({ datetime:this._date_end.toISOString(), itemprop:'endDate' })
-                .addContent(xjs.Date.format(this._date_end, 'j M Y')),
-              `)`,
-            ]
-          }).call(this)),
-      ])
+      const Resume = require('./Resume.class.js') // TODO remove when Resume no longer depends on this class
+
+      const dom = new jsdom.JSDOM(fs.readFileSync(path.join(__dirname, '../tpl/x-prodev.tpl.html'), 'utf8'))
+      const document = dom.window.document
+      const template = document.querySelector('template')
+      let frag = template.content.cloneNode(true)
+      frag.querySelector('.o-ListAchv__Award').setAttribute('itemtype', this._itemtype)
+      frag.querySelector('[itemprop="name"]').innerHTML = this._name
+      frag.querySelector('slot[name="city"]').innerHTML = this._location.view()
+      frag.querySelector('.o-ListAchv__Award > time').dateTime    = `PT${this._pdh}H`
+      frag.querySelector('.o-ListAchv__Award > time').textContent = `${this._pdh} hr`
+      frag.querySelector('[itemprop="startDate endDate"]').dateTime    = this._date_end.toISOString()
+      frag.querySelector('[itemprop="startDate endDate"]').textContent = xjs.Date.format(this._date_end, 'j M Y')
+      ;(function (dates) {
+        let same_UTC_date  = this._date_start.getUTCDate () === this._date_end.getUTCDate ()
+        let same_UTC_month = this._date_start.getUTCMonth() === this._date_end.getUTCMonth()
+        let same_UTC_year  = this._date_start.getFullYear() === this._date_end.getFullYear()
+        dates.querySelector('[itemprop="startDate"]').dateTime    = this._date_start.toISOString()
+        dates.querySelector('[itemprop="startDate"]').textContent = [
+          this._date_start.getUTCDate(),
+          (same_UTC_month && same_UTC_year) ? '' : ` ${xjs.Date.format(this._date_start, 'M')}`,
+          (same_UTC_year) ? '' : ` ${this._date_start.getFullYear()}`,
+        ].join('')
+        dates.querySelector('[itemprop="endDate"]').dateTime    = this._date_end.toISOString()
+        dates.querySelector('[itemprop="endDate"]').textContent = xjs.Date.format(this._date_end, 'j M Y')
+      }).call(this, frag.querySelectorAll('.o-ListAchv__Date')[1])
+      if (xjs.Date.sameDate(this._date_start, this._date_end)) {
+        frag.querySelectorAll('.o-ListAchv__Date')[1].remove()
+      } else {
+        frag.querySelectorAll('.o-ListAchv__Date')[0].remove()
+      }
+      return Resume.DocumentFragment_innerHTML(Resume.trimInner(frag))
     }, this)
-      .addDisplay(function xProDev() {
-        return new HTMLElement('x-prodev').attr({
-          type : this._itemtype,
-          start: this._date_start.toISOString(),
-          end  : this._date_end.toISOString(),
-          pdh  : this._pdh
-        }).addContent([
-          new HTMLElement('name').addContent(this._name),
-          this._location.view(),
-        ]).html()
-      })
   }
 }
 
