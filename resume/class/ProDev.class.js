@@ -97,7 +97,7 @@ class ProDev {
           pdh  : this._pdh
         }).addContent([
           new HTMLElement('name').addContent(this._name),
-          this._location.view.xCity(),
+          this._location.view(),
         ]).html()
       })
   }

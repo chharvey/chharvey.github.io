@@ -12,7 +12,6 @@ STATE_DATA.push(...[
 
 
 const City           = require('./City.class.js')
-const GeoCoordinates = require('./GeoCoordinates.class.js')
 /**
  * A working position I’ve held at an organization tht I’ve worked for.
  * @class
@@ -33,10 +32,7 @@ class Position {
     this._date_start = new Date(jsondata.$start)
     this._date_end   = (jsondata.$end) ? new Date(jsondata.$end) : null
 
-    this._location = new City(
-      { locality: jsondata.jobLocation.address.addressLocality, region: (STATE_DATA.find((obj) => obj.code===jsondata.jobLocation.address.addressRegion).name), }, // TODO make region the full name
-      new GeoCoordinates(jsondata.jobLocation.geo)
-    )
+    this._location = new City(jsondata.jobLocation)
 
     this._descriptions = (typeof jsondata.responsibilities === 'string') ? [jsondata.responsibilities] : jsondata.responsibilities || []
   }

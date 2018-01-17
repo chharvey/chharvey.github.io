@@ -1,5 +1,4 @@
 
-window.customElements.define('x-city'       , require('./XCity.class.js'))
 window.customElements.define('x-award'      , require('./XAward.class.js'))
 window.customElements.define('x-prodev'     , require('./XProDev.class.js'))
 window.customElements.define('x-degree'     , require('./XDegree.class.js'))
