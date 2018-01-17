@@ -11,6 +11,7 @@ STATE_DATA.push(...[
 ])
 
 
+// const Resume = require('./Resume.class.js') // TODO uncomment when Resume no longer depends on this class
 const City           = require('./City.class.js')
 /**
  * A working position I’ve held at an organization tht I’ve worked for.
@@ -58,6 +59,8 @@ class Position {
      * @returns {string} HTML output
      */
     return new View(function () {
+      const Resume = require('./Resume.class.js') // TODO remove when Resume no longer depends on this class
+
       const dom = new jsdom.JSDOM(fs.readFileSync(path.join(__dirname, '../tpl/x-position.tpl.html'), 'utf8'))
       const document = dom.window.document
       const template = document.querySelector('template')
@@ -89,7 +92,7 @@ class Position {
         frag.querySelectorAll('.c-Position__Dates > time')[1].textContent = xjs.Date.format(this._date_end, 'M Y')
         frag.querySelectorAll('.c-Position__Dates > time')[2].remove()
       }
-      return frag.querySelector('.c-Position').outerHTML
+      return Resume.DocumentFragment_innerHTML(Resume.trimInner(frag))
     }, this)
   }
 }

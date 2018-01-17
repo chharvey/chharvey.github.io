@@ -8,6 +8,8 @@ STATE_DATA.push(...[
   { "code": "DC", "name": "District of Columbia" },
 ])
 
+// const Resume = require('./Resume.class.js') // TODO uncomment when Resume no longer depends on this class
+
 /**
  * A class encoding information about a city or town’s location.
  */
@@ -60,6 +62,8 @@ class City {
      * @returns {string} HTML output
      */
     return new View(function () {
+      const Resume = require('./Resume.class.js') // TODO remove when Resume no longer depends on this class
+
       const dom = new jsdom.JSDOM(fs.readFileSync(path.join(__dirname, '../tpl/x-city.tpl.html'), 'utf8'))
       const document = dom.window.document
       const template = document.querySelector('template')
@@ -70,7 +74,7 @@ class City {
       frag.querySelector('data[itemprop="addressRegion"]').value       = this._address.addressRegion
       frag.querySelector('slot[name="region-code"]'      ).textContent = this._address.addressRegion
       frag.querySelector('slot[name="region-full"]'      ).textContent = ''
-      return frag.firstElementChild.outerHTML
+      return Resume.DocumentFragment_innerHTML(Resume.trimInner(frag))
     }, this)
       /**
        * Return a <span> marking up this city with microdata, using an unabbreviated state name.

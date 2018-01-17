@@ -73,6 +73,41 @@ class Resume {
   }
 
   /**
+   * @summary Remove all inner whitespace text nodes from a node, and return it.
+   * @todo TODO import from extrajs-dom
+   * @param   {Node} node the node from which to remove all whitespace
+   * @returns {Node} the modified node
+   */
+  static trimInner(node) {
+    Array.from(node.childNodes).forEach(function (child) {
+      if (child.nodeType === 3 && child.textContent.trim() === '') { child.remove() }
+      else if (child.nodeType === 1) { Resume.trimInner(child) }
+    })
+    return node
+  }
+  /**
+   * @summary Return the "innerHTML" of a document fragment.
+   * @todo TODO import from extrajs-dom
+   * @param   {DocumentFragment} frag the document fragment to stringify
+   * @returns {string} a concatenation of the `outerHTML` of the fragment’s element children
+   */
+  static DocumentFragment_innerHTML(frag) {
+    return Array.from(frag.childNodes).map(function (node) {
+      // https://developer.mozilla.org/en-US/docs/Web/API/Node/nodeType
+      let mapfn = {
+        1: (el)   => el.outerHTML    , // ELEMENT_NODE
+        2: (node) => null            , // ATTRIBUTE_NODE
+        3: (text) => text.textContent, // TEXT_NODE
+        8: (comm) => null            , // COMMENT_NODE
+        11: (frag) => DocumentFragment.innerHTML(frag), // DOCUMENT_FRAGMENT_NODE
+        default: (node) => null,
+      }
+      return (mapfn[node.nodeType] || mapfn.default)(node)
+    }).join('')
+  }
+
+
+  /**
    * @summary The full name of the applicant, including prefixes and suffixes.
    * @type {Object<string>}
    * @property {string} familyName
@@ -251,7 +286,7 @@ class Resume {
           frag.querySelector('[itemprop="familyName"]').classList.remove('h-CommaAfter')
         }
 
-        return frag.querySelector('h1').outerHTML
+        return Resume.DocumentFragment_innerHTML(Resume.trimInner(frag))
       })
       /**
        * Return an `<a>` element marking up a piece of contact information.
@@ -298,7 +333,7 @@ class Resume {
             frag.querySelector('.c-Contact__Text').textContent = titles && titles[d.name] || this._DATA[d.name]
             list.append(frag)
         }, this)
-        return list.outerHTML
+        return Resume.trimInner(list).outerHTML
       })
   }
 }
