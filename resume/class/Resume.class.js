@@ -118,11 +118,27 @@ class Resume {
    */
   get fullName() {
     return {
+      // REVIEW indentation
      familyName      : this._DATA.familyName      || '',
      givenName       : this._DATA.givenName       || '',
      additionalName  : this._DATA.additionalName  || '',
      honorificPrefix : this._DATA.honorificPrefix || '',
      honorificSuffix : this._DATA.honorificSuffix || '',
+    }
+  }
+
+  /**
+   * @summary Optional alternative titles for contact information.
+   * @type {Object<string>}
+   * @property {string=} url       optional alternative title of the url
+   * @property {string=} email     optional alternative title of the email
+   * @property {string=} telephone optional alternative title of the telephone
+   */
+  get contactTitles() {
+    return {
+      url      : this._DATA.$contactTitles.url       || '',
+      email    : this._DATA.$contactTitles.email     || '',
+      telephone: this._DATA.$contactTitles.telephone || '',
     }
   }
 
@@ -292,13 +308,9 @@ class Resume {
        * Return an `<a>` element marking up a piece of contact information.
        * @summary Call `Resume#view.contactInfo()` to render this display.
        * @function Resume.VIEW.contactInfo
-       * @param   {{url:string=, email:string=, telephone:string=}=} titles optional alternative titles to display
-       * @param   {string=} titles.url       optional alternative title of the url
-       * @param   {string=} titles.email     optional alternative title of the email
-       * @param   {string=} titles.telephone optional alternative title of the telephone
        * @returns {string} HTML output
        */
-      .addDisplay(function contactInfo(titles) {
+      .addDisplay(function contactInfo() {
         const display_data = [
           {
             name: 'telephone',
@@ -320,20 +332,21 @@ class Resume {
         const dom = new jsdom.JSDOM(fs.readFileSync(path.join(__dirname, '../tpl/contact-links.tpl.html'), 'utf8'))
         const document = dom.window.document
         const template = document.querySelector('template')
-        let list = document.querySelector('ul')
+        let frag = template.content.cloneNode(true)
         display_data.forEach(function (d) {
-            let frag = template.content.cloneNode(true)
-            if (d.href) {
-              frag.querySelector('.c-Contact__Link').href = d.href
-            } else {
-              frag.querySelector('.c-Contact__Link').removeAttribute('href')
-            }
-            frag.querySelector('.c-Contact__Link').setAttribute('itemprop', d.name)
-            frag.querySelector('.c-Contact__Icon').className = frag.querySelector('.c-Contact__Icon').className.replace('{{ octicon }}', d.icon)
-            frag.querySelector('.c-Contact__Text').textContent = titles && titles[d.name] || this._DATA[d.name]
-            list.append(frag)
+          let inner = frag.querySelector('ul > template').content.cloneNode(true)
+          if (d.href) {
+            inner.querySelector('.c-Contact__Link').href = d.href
+          } else {
+            inner.querySelector('.c-Contact__Link').removeAttribute('href')
+          }
+          inner.querySelector('.c-Contact__Link').setAttribute('itemprop', d.name)
+          inner.querySelector('.c-Contact__Icon').className = inner.querySelector('.c-Contact__Icon').className.replace('{{ octicon }}', d.icon)
+          inner.querySelector('.c-Contact__Text').textContent = this.contactTitles[d.name] || this._DATA[d.name]
+          frag.querySelector('ul').append(inner)
         }, this)
-        return Resume.trimInner(list).outerHTML
+        frag.querySelector('ul > template').remove()
+        return Resume.DocumentFragment_innerHTML(Resume.trimInner(frag))
       })
   }
 }
