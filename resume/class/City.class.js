@@ -37,6 +37,8 @@ class City {
       throw e
     }
   }
+
+
   /**
    * @summary Render this city in HTML.
    * @see City.VIEW
@@ -58,7 +60,6 @@ class City {
      * @returns {string} HTML output
      */
     return new View(function () {
-      var options = {} // TODO make this a parameter
       const dom = new jsdom.JSDOM(fs.readFileSync(path.join(__dirname, '../tpl/x-city.tpl.html'), 'utf8'))
       const document = dom.window.document
       const template = document.querySelector('template')
@@ -68,8 +69,17 @@ class City {
       frag.querySelector('[itemprop="longitude"]'        ).content     = this._geo.longitude
       frag.querySelector('data[itemprop="addressRegion"]').value       = this._address.addressRegion
       frag.querySelector('slot[name="region-code"]'      ).textContent = this._address.addressRegion
-
-      if (options.expandRegion) {
+      frag.querySelector('slot[name="region-full"]'      ).textContent = ''
+      return frag.firstElementChild.outerHTML
+    }, this)
+      /**
+       * Return a <span> marking up this city with microdata, using an unabbreviated state name.
+       * @summary Call `City#view.full()` to render this display.
+       * @function City.VIEW.full
+       * @returns {string} HTML output
+       */
+      .addDisplay(function full() {
+        const document = new jsdom.JSDOM(this.view()).window.document
         let region_name;
         try {
           region_name = City.regionName(this._address.addressRegion)
@@ -77,23 +87,10 @@ class City {
           console.error(e)
           region_name = ''
         }
-        return region_name
-        frag.querySelector('slot[name="region-full"]').textContent = region_name
-        frag.querySelector('slot[name="region-code"]').remove()
-      } else {
-        frag.querySelector('slot[name="region-full"]').remove()
-      }
-
-      return frag.firstElementChild.outerHTML
-    }, this)
-      // .addDisplay(function xCity() {
-      //   return new HTMLElement('x-city').attr({
-      //     locality : this._address.addressLocality,
-      //     region   : this._address.addressRegion,
-      //     latitude : this._geo.latitude,
-      //     longitude: this._geo.longitude,
-      //   }).html()
-      // })
+        document.querySelector('slot[name="region-full"]').textContent = region_name
+        document.querySelector('slot[name="region-code"]').remove()
+        return document.body.firstElementChild.outerHTML
+      })
   }
 }
 
