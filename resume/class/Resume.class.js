@@ -184,25 +184,7 @@ class Resume {
    * @type {Array<ProDev>}
    */
   get proDevs() {
-    return (this._DATA.prodevs || []).map((d) =>
-      new ProDev({
-        "@type": d.itemtype,
-        "name" : Resume._content(d.coursename),
-        "startDate": d.start,
-        "endDate"  : d.end,
-        "location" : {
-          address: {
-            addressLocality: d.city,
-            addressRegion  : d.state,
-          },
-          geo: {
-            latitude : d.geo[0],
-            longitude: d.geo[1],
-          },
-        },
-        "$pdh": d.pdh
-      })
-    )
+    return (this._DATA.prodevs || []).map((event) => new ProDev(event))
   }
 
   /**

@@ -34,6 +34,19 @@
         }
       ]
     },
+    "Event": {
+      "$id": "#Event",
+      "allOf": [
+        { "$ref": "https://chharvey.github.io/schemaorg-jsd/schema/Thing.jsd" },
+        {
+          "properties": {
+            "startDate": { "type": "string", "anyOf": [ { "format": "date" }, { "format": "time" }, { "format": "date-time" } ] },
+            "endDate"  : { "type": "string", "anyOf": [ { "format": "date" }, { "format": "time" }, { "format": "date-time" } ] },
+            "location" : { "$ref": "https://chharvey.github.io/schemaorg-jsd/schema/Place.jsd" }
+          }
+        }
+      ]
+    },
     "ItemList": {
       "$id": "#ItemList",
       "allOf": [
@@ -167,35 +180,16 @@
       "type": "array",
       "description": "List of professional development hours.",
       "items": {
-            "type": "object",
-            "required": [
-              "pdh",
-              "start",
-              "end",
-              "city",
-              "state",
-              "geo",
-              "coursename"
-            ],
-            "additionalProperties": false,
+        "allOf": [
+          { "$ref": "#Event" },
+          {
+            "required": ["name", "startDate", "endDate", "location", "$pdh"],
             "properties": {
-              "pdh"     : { "type": "number", "description": "the number of professional development hours" },
-              "itemtype": { "type": "string", "description": "the value of the event’s `itemtype` attribute" },
-              "start"   : { "type": "string", "description": "the start date in ISO format" },
-              "end"     : { "type": "string", "description": "the end date in ISO format" },
-              "city"    : { "type": "string", "description": "the city/town/locality name" },
-              "state"   : { "type": "string", "description": "the state/province/region postal code (e.g. 'NY', 'CA')" },
-              "geo"     : {
-                "type": "array",
-                "description": "the geo-coordinates",
-                "items": [
-                  { "type": "number", "description": "the latitude value of the location" },
-                  { "type": "number", "description": "the longitude value of the location" }
-                ]
-              },
-              "coursename": { "$ref": "#/definitions/Content", "description": "the title of the course or event" }
+              "$pdh": { "type": "number", "description": "the number of professional development hours" }
             }
           }
+        ]
+      }
     },
     "awards": {
       "type": "array",

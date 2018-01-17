@@ -20,7 +20,7 @@ class ProDev {
    */
   constructor(jsondata) {
     this._name = jsondata.name
-    this._itemtype = jsondata['@type']
+    this._itemtype = `http://schema.org/${jsondata['@type']}`
     this._date_start = jsondata.startDate ? new Date(jsondata.startDate) : new Date(null)
     this._date_end   = jsondata.endDate   ? new Date(jsondata.endDate  ) : new Date(null)
     this._location = new City(jsondata.location || {})
