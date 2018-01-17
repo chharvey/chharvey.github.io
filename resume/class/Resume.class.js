@@ -138,10 +138,16 @@ class Resume {
     return (this._DATA.prodevs || []).map((d) =>
       new ProDev(
         { start: new Date(d.start), end  : new Date(d.end) },
-        new City(
-          { locality: d.city, region: (STATE_DATA.find((obj) => obj.code===d.state).name), }, // TODO make region the full name
-          new GeoCoordinates({ latitude: d.geo[0], longitude: d.geo[1] })
-        ),
+        new City({
+          address: {
+            addressLocality: d.city,
+            addressRegion  : d.state,
+          },
+          geo: {
+            latitude : d.geo[0],
+            longitude: d.geo[1],
+          },
+        }),
         d.pdh,
         Resume._content(d.coursename),
         d.itemtype

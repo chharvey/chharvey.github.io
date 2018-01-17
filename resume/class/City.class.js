@@ -12,14 +12,29 @@ STATE_DATA.push(...[
 class City {
   /**
    * @summary Construct a new City object.
-   * @param  {!Object} $address the names of the address
-   * @param  {GeoCoordinates} $geo the geo-coordinates
+   * @param  {!Object} jsondata JSON object of type {@link http://schema.org/Place}
+   * @param  {!Object=} jsondata.address JSON object of type {@link http://schema.org/PostalAddress}
+   * @param  {!Object=} jsondata.geo JSON object of type {@link http://schema.org/GeoCoordinates}
    */
-  constructor($address, $geo) {
-    this._geo = $geo
-    this._geo.address = $address
+  constructor(jsondata) {
+    this._geo = jsondata.geo || {}
+    this._address = jsondata.address || {}
   }
 
+  /**
+   * Return the full name of a State given its code.
+   * @param   {string} region the region code
+   * @param   {!Object=} options options for specifying the abbreviation
+   * @returns {string} the full name of the region, specified by the options
+   */
+  static regionName(region, options = {}) {
+    try {
+      return STATE_DATA.find((obj) => obj.code===region).name
+    } catch (e) {
+      console.error(`No data found for ${this.region}.`)
+      throw e
+    }
+  }
   /**
    * @summary Render this city in HTML.
    * @see City.VIEW
@@ -53,11 +68,11 @@ class City {
             new HTMLElement('span')
               .attr({ itemprop:'address', itemscope:'', itemtype:'http://schema.org/PostalAddress' })
               .addContent([
-                new HTMLElement('span').attr('itemprop','addressLocality').addContent(this._geo.locality),
+                new HTMLElement('span').attr('itemprop','addressLocality').addContent(this._address.addressLocality),
                 `, `,
                 new HTMLElement('abbr').attr('itemprop','addressRegion')
-                  .attr('title', this._geo.region)
-                  .addContent(this._geo.regionAbbr()),
+                  .attr('title', City.regionName(this._address.addressRegion))
+                  .addContent(this._address.addressRegion),
               ]),
             new HTMLElement('span')
               .attr({ itemprop:'geo', itemscope:'', itemtype:'http://schema.org/GeoCoordinates' })
@@ -70,8 +85,8 @@ class City {
     }, this)
       .addDisplay(function xCity() {
         return new HTMLElement('x-city').attr({
-          locality : this._geo.locality,
-          region   : this._geo.regionAbbr(),
+          locality : this._address.addressLocality,
+          region   : this._address.addressRegion,
           latitude : this._geo.latitude,
           longitude: this._geo.longitude,
         }).html()

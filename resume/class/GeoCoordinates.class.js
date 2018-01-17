@@ -105,20 +105,6 @@ class GeoCoordinates {
    * @type {?string}
    */
   get postOfficeBoxNumber() { return this._postOfficeBoxNumber || null }
-
-  /**
-   * Return a string abbreviation for the region name.
-   * @param   {!Object} options options for specifying the abbreviation
-   * @returns {string} a shorter name or abbreviation, specified by the options
-   */
-  regionAbbr(options) {
-    try {
-      return STATE_DATA.find((obj) => obj.name===this.region).code
-    } catch (e) {
-      console.error(`No data found for ${this.region}.`)
-      throw e
-    }
-  }
 }
 
 // /**
