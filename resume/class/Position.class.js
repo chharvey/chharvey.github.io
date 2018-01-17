@@ -12,7 +12,6 @@ STATE_DATA.push(...[
 
 
 const City           = require('./City.class.js')
-const GeoCoordinates = require('./GeoCoordinates.class.js')
 /**
  * A working position I’ve held at an organization tht I’ve worked for.
  * @class

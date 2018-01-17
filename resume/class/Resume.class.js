@@ -13,7 +13,6 @@ STATE_DATA.push(...[
 
 const { SCHEMATA } = require('schemaorg-jsd')
 
-const GeoCoordinates = require('./GeoCoordinates.class.js')
 const City           = require('./City.class.js')
 const Skill          = require('./Skill.class.js')
 const Position       = require('./Position.class.js')
