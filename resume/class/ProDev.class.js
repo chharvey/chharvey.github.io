@@ -3,6 +3,8 @@ const Element = require('extrajs-dom').Element
 const HTMLElement = require('extrajs-dom').HTMLElement
 const View = require('extrajs-view')
 
+const City           = require('./City.class.js')
+
 /**
  * Professional development hours.
  * @class
@@ -10,22 +12,19 @@ const View = require('extrajs-view')
 class ProDev {
   /**
    * @summary Construct a new ProDev object.
-   * @param {{start:Date, end:Date}} $dates the dates the the position was held
-   * @param {Date} $dates.start the start date
-   * @param {Date} $dates.end the end date
-   * @param {City}  $location location of the course
-   * @param {number} pdh the number of professional development hours
-   * @param {string} name  title of the course
-   * @param {string=} itemtype the value used for the event’s `itemtype` attribute
+   * @param {!Object} jsondata JSON object of type {@link http://schema.org/Event}
+   * @param {string=} jsondata.startDate The start date and time of the item (in ISO 8601 date format).
+   * @param {string=} jsondata.endDate The end date and time of the item (in ISO 8601 date format).
+   * @param {!Object=} jsondata.location The location of for example where the event is happening, an organization is located, or where an action takes place.
+   * @param {number} jsondata.$pdh the number of professional development hours
    */
-  constructor($dates, $location, pdh, name, itemtype = 'http://schema.org/Event') {
-    this._date_start = $dates.start
-    this._date_end   = $dates.end
-
-    this._location = $location
-    this._itemtype = itemtype
-    this._pdh = pdh
-    this._name = name
+  constructor(jsondata) {
+    this._name = jsondata.name
+    this._itemtype = jsondata['@type']
+    this._date_start = jsondata.startDate ? new Date(jsondata.startDate) : new Date(null)
+    this._date_end   = jsondata.endDate   ? new Date(jsondata.endDate  ) : new Date(null)
+    this._location = new City(jsondata.location || {})
+    this._pdh = jsondata.$pdh || 0
   }
 
   /**

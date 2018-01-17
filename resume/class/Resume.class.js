@@ -13,7 +13,6 @@ STATE_DATA.push(...[
 
 const { SCHEMATA } = require('schemaorg-jsd')
 
-const City           = require('./City.class.js')
 const Skill          = require('./Skill.class.js')
 const Position       = require('./Position.class.js')
 const Award          = require('./Award.class.js')
@@ -186,9 +185,12 @@ class Resume {
    */
   get proDevs() {
     return (this._DATA.prodevs || []).map((d) =>
-      new ProDev(
-        { start: new Date(d.start), end  : new Date(d.end) },
-        new City({
+      new ProDev({
+        "@type": d.itemtype,
+        "name" : Resume._content(d.coursename),
+        "startDate": d.start,
+        "endDate"  : d.end,
+        "location" : {
           address: {
             addressLocality: d.city,
             addressRegion  : d.state,
@@ -197,11 +199,9 @@ class Resume {
             latitude : d.geo[0],
             longitude: d.geo[1],
           },
-        }),
-        d.pdh,
-        Resume._content(d.coursename),
-        d.itemtype
-      )
+        },
+        "$pdh": d.pdh
+      })
     )
   }
 
