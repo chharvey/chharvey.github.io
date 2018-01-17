@@ -1,6 +1,5 @@
 
 window.customElements.define('x-award'      , require('./XAward.class.js'))
-window.customElements.define('x-prodev'     , require('./XProDev.class.js'))
 window.customElements.define('x-degree'     , require('./XDegree.class.js'))
 
 // let vctm_summary = {
