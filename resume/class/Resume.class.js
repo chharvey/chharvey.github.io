@@ -12,12 +12,15 @@ STATE_DATA.push(...[
 ])
 
 const { SCHEMATA } = require('schemaorg-jsd')
+const requireOther = require('schemaorg-jsd/lib/requireOther.js')
 
 const Skill          = require('./Skill.class.js')
 const Position       = require('./Position.class.js')
 const Award          = require('./Award.class.js')
 const ProDev         = require('./ProDev.class.js')
 const Degree         = require('./Degree.class.js')
+
+const RESUME_SCHEMA = requireOther(path.join(__dirname, '../resume.jsd'))
 
 /**
  * A résumé generated with given content data.
@@ -28,11 +31,9 @@ class Resume {
    * @param   {!Object=} jsondata a JSON object that validates against `../resume.schema.json`
    */
   constructor(jsondata = {}) {
-    const requireOther = require('schemaorg-jsd/lib/requireOther.js')
-    let schema = requireOther(path.join(__dirname, '../resume.schema.json'))
     let ajv = new Ajv()
     ajv.addSchema(SCHEMATA)
-    let is_data_valid = ajv.validate(schema, jsondata)
+    let is_data_valid = ajv.validate(RESUME_SCHEMA, jsondata)
     if (!is_data_valid) {
       let e = new TypeError(ajv.errors[0].message)
       e.filename = 'resume.json'
@@ -152,7 +153,7 @@ class Resume {
    * @type {Array<{title:string: id:string, items:Array<Skill>}>}
    */
   get skills() {
-    return (this._DATA.skills || []).map((itemList) => ({
+    return (this._DATA.$skills || []).map((itemList) => ({
       title: itemList.name,
       id   : itemList.identifier,
       items: itemList.itemListElement.map((rating) => new Skill(rating)),
@@ -164,7 +165,7 @@ class Resume {
    * @type {Array<{title:string: id:string, items:Array<Position>}>}
    */
   get positions() {
-    return (this._DATA.positions || []).map((itemList) => ({
+    return (this._DATA.$positions || []).map((itemList) => ({
       title: itemList.name,
       id   : itemList.identifier,
       items: itemList.itemListElement.map((jobposting) => new Position(jobposting))
@@ -176,7 +177,7 @@ class Resume {
    * @type {Array<Degree>}
    */
   get degrees() {
-    return (this._DATA.degrees || []).map((d) => new Degree(d.year, d.gpa, d.field))
+    return (this._DATA.$degrees || []).map((d) => new Degree(d.year, d.gpa, d.field))
   }
 
   /**
@@ -184,7 +185,7 @@ class Resume {
    * @type {Array<ProDev>}
    */
   get proDevs() {
-    return (this._DATA.prodevs || []).map((event) => new ProDev(event))
+    return (this._DATA.$prodevs || []).map((event) => new ProDev(event))
   }
 
   /**
@@ -203,7 +204,7 @@ class Resume {
         datum.sub_awards.map((s) => new Award(s.dates, Resume._content(s.content)))
         : null
     }
-    return (this._DATA.awards || []).map((d) => new Award(d.dates, Resume._content(d.content), subs(d)))
+    return (this._DATA.$awards || []).map((d) => new Award(d.dates, Resume._content(d.content), subs(d)))
   }
 
   /**
@@ -222,7 +223,7 @@ class Resume {
         datum.sub_awards.map((s) => new Award(s.dates, Resume._content(s.content)))
         : null
     }
-    return (this._DATA.teams || []).map((d) => new Award(d.dates, Resume._content(d.content), subs(d)))
+    return (this._DATA.$teams || []).map((d) => new Award(d.dates, Resume._content(d.content), subs(d)))
   }
 
   /**
