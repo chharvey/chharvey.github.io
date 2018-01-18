@@ -1,0 +1,25 @@
+<template>
+  <section class="o-Grid__Item o-Grid__Item--maincol c-Position" id="{{ this._id }}" itemscope="" itemtype="http://schema.org/JobPosting">
+    <header class="c-Position__Head">
+      <h3 class="c-Position__Name h-Inline-sG -pr-1-sG" itemprop="title">{{ this._name }}</h3>
+      <p class="c-Position__Org h-Inline-sG h-Clearfix-sG" itemprop="hiringOrganization" itemscope="" itemtype="{{ this._org_type }}">
+        <a class="c-Camo" rel="external" href="{{ this._org_url }}" itemprop="url"><slot itemprop="name">{{ this._org_name }}</slot></a>
+      </p>
+      <p class="c-Position__Dates h-Inline">
+        <time datetime="{{ this._date_start }}">{{
+          this._date_start.format('M Y')
+        }}</time>&ndash;<time datetime="{{ this._date_end }}">{{
+          this._date_end.format('M Y')
+        }}</time><time datetime="{{ new Date().toISOString() }}">present</time>
+      </p>
+      <p class="c-Position__Place h-Inline" itemprop="jobLocation" itemscope="" itemtype="http://schema.org/Place">
+        (<slot name="city">{{ this._location.view() }}</slot>)
+      </p>
+    </header>
+    <ul class="c-Position__Body">
+      <template>
+        <li itemprop="responsibilities">{{ this._descriptions[i] }}</li>
+      </template>
+    </ul>
+  </section>
+</template>

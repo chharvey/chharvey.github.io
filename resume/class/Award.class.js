@@ -1,5 +1,6 @@
 const Element = require('extrajs-dom').Element
 const HTMLElement = require('extrajs-dom').HTMLElement
+const HTMLDListElement = require('extrajs-dom').HTMLDListElement
 const View = require('extrajs-view')
 
 /**
@@ -11,10 +12,12 @@ class Award {
    * @summary Construct a new Award object.
    * @param {string} dates date(s) relevant to the award
    * @param {string} text  custom HTML string defining this award
+   * @param {?Array<Award>} [subs=null] any sub-awards associated with this award
    */
-  constructor(dates, text) {
+  constructor(dates, text, subs=null) {
     this._dates = dates
     this._text  = text
+    this._subs  = subs
   }
 
   /**
@@ -39,12 +42,21 @@ class Award {
      * @returns {string} HTML output
      */
     return new View(function () {
-      // REVIEW INDENTATION
-        return Element.concat(
-          new HTMLElement('dt').class('o-ListAchv__Award h-Inline').attr('data-instanceof','Award.Text').attr('itemprop','award').addContent(this._text),
-          new HTMLElement('dd').class('o-ListAchv__Date h-Inline h-Clearfix').attr('data-instanceof','Award.Dates').addContent(`(${this._dates})`)
-        )
+      return Element.concat(
+        new HTMLElement('dt').class('o-ListAchv__Award h-Inline').attr('data-instanceof','Award.Text').attr('itemprop','award').addContent([
+          this._text,
+          (this._subs) ? new HTMLDListElement().class('o-ListAchv').addContent(this._subs.map((s) => s.view())) : null,
+        ]),
+        new HTMLElement('dd').class('o-ListAchv__Date h-Inline h-Clearfix').attr('data-instanceof','Award.Dates').addContent(`(${this._dates})`)
+      )
     }, this)
+      .addDisplay(function xAward() {
+        return new HTMLElement('x-award').addContent([
+          new HTMLElement('dates').addContent(this._dates),
+          new HTMLElement('text' ).addContent(this._text),
+          (this._subs) ? new HTMLDListElement().addContent(this._subs.map((s) => s.view.xAward())) : null,
+        ]).html()
+      })
   }
 }
 

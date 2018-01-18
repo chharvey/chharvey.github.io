@@ -1,33 +1,53 @@
-const Element    = require('extrajs-dom').Element
-const HTMLElement    = require('extrajs-dom').HTMLElement
+const fs = require('fs')
+const path = require('path')
+const jsdom = require('jsdom')
+
+const xjs = {
+  Node: require('extrajs-dom').Node,
+  DocumentFragment: require('extrajs-dom').DocumentFragment,
+}
+
 const View       = require('extrajs-view')
 const STATE_DATA = require('extrajs-geo')
 STATE_DATA.push(...[
   { "code": "DC", "name": "District of Columbia" },
 ])
 
+// const Resume = require('./Resume.class.js') // TODO uncomment when Resume no longer depends on this class
+
 /**
  * A class encoding information about a city or town’s location.
- * @class
  */
 class City {
   /**
    * @summary Construct a new City object.
-   * @param  {string} locality the city/town name
-   * @param  {string} region the state/province postal code (e.g. 'NY', 'CA')
-   * @param  {{lat:number, lon:number}} $geo the geo-coordinates
-   * @param  {number} $geo.lat the latitude, in decimal degrees
-   * @param  {number} $geo.lon the longitude, in decimal degrees
+   * @param  {!Object} jsondata JSON object of type {@link http://schema.org/Place}
+   * @param  {!Object=} jsondata.address JSON object of type {@link http://schema.org/PostalAddress}
+   * @param  {!Object=} jsondata.geo JSON object of type {@link http://schema.org/GeoCoordinates}
    */
-  constructor(locality, region, $geo) {
-    this._locality  = locality
-    this._region    = region
-    this._latitude  = $geo.lat
-    this._longitude = $geo.lon
+  constructor(jsondata) {
+    this._geo = jsondata.geo || {}
+    this._address = jsondata.address || {}
   }
 
   /**
-   * @summary Render this award in HTML.
+   * Return the full name of a State given its code.
+   * @param   {string} region the region code
+   * @param   {!Object=} options options for specifying the abbreviation
+   * @returns {string} the full name of the region, specified by the options
+   */
+  static regionName(region, options = {}) {
+    try {
+      return STATE_DATA.find((obj) => obj.code===region).name
+    } catch (e) {
+      e.message = `No data found for ${region}.`
+      throw e
+    }
+  }
+
+
+  /**
+   * @summary Render this city in HTML.
    * @see City.VIEW
    * @type {View}
    */
@@ -47,33 +67,39 @@ class City {
      * @returns {string} HTML output
      */
     return new View(function () {
-      // REVIEW INDENTATION
-        return new HTMLElement('span')
-          .attr({
-            'data-instanceof': 'City',
-            itemprop : 'location',
-            itemscope: '',
-            itemtype : 'http://schema.org/Place',
-          })
-          .addContent([
-            new HTMLElement('span')
-              .attr({ itemprop:'address', itemscope:'', itemtype:'http://schema.org/PostalAddress' })
-              .addContent([
-                new HTMLElement('span').attr('itemprop','addressLocality').addContent(this._locality),
-                `, `,
-                new HTMLElement('abbr').attr('itemprop','addressRegion')
-                  .attr('title', STATE_DATA.find((obj) => obj.code===this._region).name)
-                  .addContent(this._region),
-              ]),
-            new HTMLElement('span')
-              .attr({ itemprop:'geo', itemscope:'', itemtype:'http://schema.org/GeoCoordinates' })
-              .addContent([
-                new HTMLElement('meta').attr('itemprop','latitude' ).attr('content',this._latitude),
-                new HTMLElement('meta').attr('itemprop','longitude').attr('content',this._longitude),
-              ]),
-          ])
-          .html()
+      const Resume = require('./Resume.class.js') // TODO remove when Resume no longer depends on this class
+
+      const dom = new jsdom.JSDOM(fs.readFileSync(path.join(__dirname, '../tpl/x-city.tpl.html'), 'utf8'))
+      const document = dom.window.document
+      const template = document.querySelector('template')
+      let frag = template.content.cloneNode(true)
+      frag.querySelector('[itemprop="addressLocality"]'  ).textContent = this._address.addressLocality
+      frag.querySelector('[itemprop="latitude"]'         ).content     = this._geo.latitude
+      frag.querySelector('[itemprop="longitude"]'        ).content     = this._geo.longitude
+      frag.querySelector('data[itemprop="addressRegion"]').value       = this._address.addressRegion
+      frag.querySelector('slot[name="region-code"]'      ).textContent = this._address.addressRegion
+      frag.querySelector('slot[name="region-full"]'      ).textContent = ''
+      return xjs.DocumentFragment.innerHTML(xjs.Node.trimInner(frag))
     }, this)
+      /**
+       * Return a <span> marking up this city with microdata, using an unabbreviated state name.
+       * @summary Call `City#view.full()` to render this display.
+       * @function City.VIEW.full
+       * @returns {string} HTML output
+       */
+      .addDisplay(function full() {
+        const document = new jsdom.JSDOM(this.view()).window.document
+        let region_name;
+        try {
+          region_name = City.regionName(this._address.addressRegion)
+        } catch (e) {
+          console.error(e)
+          region_name = ''
+        }
+        document.querySelector('slot[name="region-full"]').textContent = region_name
+        document.querySelector('slot[name="region-code"]').remove()
+        return document.body.firstElementChild.outerHTML
+      })
   }
 }
 
