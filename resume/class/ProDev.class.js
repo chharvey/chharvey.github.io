@@ -2,7 +2,11 @@ const fs = require('fs')
 const path = require('path')
 const jsdom = require('jsdom')
 
-const xjs     = require('extrajs')
+const xjs = {
+  Date: require('extrajs').Date,
+  Node: require('extrajs-dom').Node,
+  DocumentFragment: require('extrajs-dom').DocumentFragment,
+}
 const View = require('extrajs-view')
 
 const City           = require('./City.class.js')
@@ -82,7 +86,7 @@ class ProDev {
       } else {
         frag.querySelectorAll('.o-ListAchv__Date')[0].remove()
       }
-      return Resume.DocumentFragment_innerHTML(Resume.trimInner(frag))
+      return xjs.DocumentFragment.innerHTML(xjs.Node.trimInner(frag))
     }, this)
   }
 }

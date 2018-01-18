@@ -2,6 +2,11 @@ const fs = require('fs')
 const path = require('path')
 const jsdom = require('jsdom')
 
+const xjs = {
+  Node: require('extrajs-dom').Node,
+  DocumentFragment: require('extrajs-dom').DocumentFragment,
+}
+
 const View       = require('extrajs-view')
 const STATE_DATA = require('extrajs-geo')
 STATE_DATA.push(...[
@@ -74,7 +79,7 @@ class City {
       frag.querySelector('data[itemprop="addressRegion"]').value       = this._address.addressRegion
       frag.querySelector('slot[name="region-code"]'      ).textContent = this._address.addressRegion
       frag.querySelector('slot[name="region-full"]'      ).textContent = ''
-      return Resume.DocumentFragment_innerHTML(Resume.trimInner(frag))
+      return xjs.DocumentFragment.innerHTML(xjs.Node.trimInner(frag))
     }, this)
       /**
        * Return a <span> marking up this city with microdata, using an unabbreviated state name.

@@ -2,7 +2,11 @@ const fs = require('fs')
 const path = require('path')
 const jsdom = require('jsdom')
 
-const xjs     = require('extrajs')
+const xjs = {
+  Date: require('extrajs').Date,
+  Node: require('extrajs-dom').Node,
+  DocumentFragment: require('extrajs-dom').DocumentFragment,
+}
 const View = require('extrajs-view')
 
 const STATE_DATA = require('extrajs-geo')
@@ -92,7 +96,7 @@ class Position {
         frag.querySelectorAll('.c-Position__Dates > time')[1].textContent = xjs.Date.format(this._date_end, 'M Y')
         frag.querySelectorAll('.c-Position__Dates > time')[2].remove()
       }
-      return Resume.DocumentFragment_innerHTML(Resume.trimInner(frag))
+      return xjs.DocumentFragment.innerHTML(xjs.Node.trimInner(frag))
     }, this)
   }
 }

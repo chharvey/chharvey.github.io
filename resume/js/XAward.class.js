@@ -1,4 +1,6 @@
-const Resume = require('../class/Resume.class.js')
+const xjs = {
+  Node: require('extrajs-dom').Node,
+}
 
 class XAward extends HTMLElement {
   constructor() {
@@ -9,14 +11,14 @@ class XAward extends HTMLElement {
     let frag = XAward.TEMPLATE.content.cloneNode(true)
     frag.querySelector('.o-ListAchv__Award').innerHTML = this._text + frag.querySelector('dt').innerHTML.replace('{{ this._text }}', '')
     ;(function (dates) {
-      Resume.removeAllChildNodes(dates)
+      xjs.Node.empty(dates)
       dates.innerHTML = this._dates
       dates.prepend('(')
       dates.append(')')
     }).call(this, frag.querySelector('.o-ListAchv__Date'))
     ;(function (subs) {
       if (this.querySelector('dl')) {
-        Resume.removeAllChildNodes(subs)
+        xjs.Node.empty(subs)
         subs.append(...this.querySelector('dl').children)
       } else {
         subs.remove()

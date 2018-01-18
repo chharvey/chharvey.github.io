@@ -3,7 +3,11 @@ const path = require('path')
 
 const Ajv      = require('ajv')
 const jsdom = require('jsdom')
-const xjs      = require('extrajs')
+const xjs = {
+  Object: require('extrajs').Object,
+  Node  : require('extrajs-dom').Node,
+  DocumentFragment: require('extrajs-dom').DocumentFragment,
+}
 const View = require('extrajs-view')
 
 const STATE_DATA = require('extrajs-geo')
@@ -59,51 +63,6 @@ class Resume {
    */
   static _content(x) {
     return (xjs.Object.typeOf(x) === 'array') ? x.join('') : x
-  }
-
-  /**
-   * Remove all child nodes from a node, and return the modified node.
-   * @param   {Node} $node the node from which to remove all child nodes
-   * @returns {Node} the given node, emptied
-   */
-  static removeAllChildNodes($node) {
-    // $node.childNodes.forEach(function (c) { c.remove() } ) // NB: `NodeList#forEach()` does not work quite as well as `Array#forEach()`
-    while ($node.hasChildNodes()) { $node.firstChild.remove() }
-    return $node
-  }
-
-  /**
-   * @summary Remove all inner whitespace text nodes from a node, and return it.
-   * @todo TODO import from extrajs-dom
-   * @param   {Node} node the node from which to remove all whitespace
-   * @returns {Node} the modified node
-   */
-  static trimInner(node) {
-    Array.from(node.childNodes).forEach(function (child) {
-      if (child.nodeType === 3 && child.textContent.trim() === '') { child.remove() }
-      else if (child.nodeType === 1) { Resume.trimInner(child) }
-    })
-    return node
-  }
-  /**
-   * @summary Return the "innerHTML" of a document fragment.
-   * @todo TODO import from extrajs-dom
-   * @param   {DocumentFragment} frag the document fragment to stringify
-   * @returns {string} a concatenation of the `outerHTML` of the fragment’s element children
-   */
-  static DocumentFragment_innerHTML(frag) {
-    return Array.from(frag.childNodes).map(function (node) {
-      // https://developer.mozilla.org/en-US/docs/Web/API/Node/nodeType
-      let mapfn = {
-        1: (el)   => el.outerHTML    , // ELEMENT_NODE
-        2: (node) => null            , // ATTRIBUTE_NODE
-        3: (text) => text.textContent, // TEXT_NODE
-        8: (comm) => null            , // COMMENT_NODE
-        11: (frag) => DocumentFragment.innerHTML(frag), // DOCUMENT_FRAGMENT_NODE
-        default: (node) => null,
-      }
-      return (mapfn[node.nodeType] || mapfn.default)(node)
-    }).join('')
   }
 
 
@@ -285,7 +244,7 @@ class Resume {
           frag.querySelector('[itemprop="familyName"]').classList.remove('h-CommaAfter')
         }
 
-        return Resume.DocumentFragment_innerHTML(Resume.trimInner(frag))
+        return xjs.DocumentFragment.innerHTML(xjs.Node.trimInner(frag))
       })
       /**
        * Return an `<a>` element marking up a piece of contact information.
@@ -329,7 +288,7 @@ class Resume {
           frag.querySelector('ul').append(inner)
         }, this)
         frag.querySelector('ul > template').remove()
-        return Resume.DocumentFragment_innerHTML(Resume.trimInner(frag))
+        return xjs.DocumentFragment.innerHTML(xjs.Node.trimInner(frag))
       })
   }
 }

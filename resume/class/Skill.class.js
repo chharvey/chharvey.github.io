@@ -2,6 +2,10 @@ const fs = require('fs')
 const path = require('path')
 const jsdom = require('jsdom')
 
+const xjs = {
+  Node: require('extrajs-dom').Node,
+  DocumentFragment: require('extrajs-dom').DocumentFragment,
+}
 const View = require('extrajs-view')
 
 // const Resume = require('./Resume.class.js') // TODO uncomment when Resume no longer depends on this class
@@ -68,7 +72,7 @@ class Skill {
       frag.querySelector('[itemprop="ratingValue"]').setAttribute('style', frag.querySelector('meter').getAttribute('style').replace('1', this._level)) // .style.setProperty('--fadein', this._level) // https://github.com/tmpvar/jsdom/issues/1895
       frag.querySelector('slot[name="percentage"]' ).textContent = 100 * this._level
 
-      return Resume.DocumentFragment_innerHTML(Resume.trimInner(frag))
+      return xjs.DocumentFragment.innerHTML(xjs.Node.trimInner(frag))
     }, this)
   }
 }
