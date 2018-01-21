@@ -14,9 +14,8 @@ STATE_DATA.push(...[
   { "code": "DC", "name": "District of Columbia" },
 ])
 
-
-// const Resume = require('./Resume.class.js') // TODO uncomment when Resume no longer depends on this class
 const City           = require('./City.class.js')
+
 /**
  * A working position I’ve held at an organization tht I’ve worked for.
  * @class
@@ -63,12 +62,7 @@ class Position {
      * @returns {string} HTML output
      */
     return new View(function () {
-      const Resume = require('./Resume.class.js') // TODO remove when Resume no longer depends on this class
-
-      const dom = new jsdom.JSDOM(fs.readFileSync(path.join(__dirname, '../tpl/x-position.tpl.html'), 'utf8'))
-      const document = dom.window.document
-      const template = document.querySelector('template')
-      let frag = template.content.cloneNode(true)
+      let frag = Position.TEMPLATE.cloneNode(true)
       frag.querySelector('.c-Position'       ).id        = this._id
       frag.querySelector('[itemprop="title"]').innerHTML = this._name
       frag.querySelector('[itemprop="hiringOrganization"]').setAttribute('itemtype', this._org_type)
@@ -100,5 +94,12 @@ class Position {
     }, this)
   }
 }
+
+/**
+ * @summary The template marking up this data type.
+ * @const {DocumentFragment}
+ */
+Position.TEMPLATE = new jsdom.JSDOM(fs.readFileSync(path.join(__dirname, '../tpl/x-position.tpl.html'), 'utf8'))
+  .window.document.querySelector('template').content
 
 module.exports = Position
