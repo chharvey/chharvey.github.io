@@ -1,6 +1,3 @@
-
-window.customElements.define('x-degree'     , require('./XDegree.class.js'))
-
 // let vctm_summary = {
 //   "dates"  : "<time>2011</time>&ndash;<time>2014</time>",
 //   "content": [
