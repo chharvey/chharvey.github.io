@@ -287,7 +287,6 @@ class Resume {
   }
 }
 
-
 /**
  * @summary A set of templates marking up small data types.
  * @const {Object<DocumentFragment>}
