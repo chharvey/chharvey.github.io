@@ -8,8 +8,6 @@ const xjs = {
 }
 const View = require('extrajs-view')
 
-// const Resume = require('./Resume.class.js') // TODO uncomment when Resume no longer depends on this class
-
 /**
  * Skill listed in the Technical Experience section.
  */
@@ -61,12 +59,7 @@ class Skill {
      * @returns {string} HTML output
      */
     return new View(function () {
-      const Resume = require('./Resume.class.js') // TODO remove when Resume no longer depends on this class
-
-      const dom = new jsdom.JSDOM(fs.readFileSync(path.join(__dirname, '../tpl/x-skill.tpl.html'), 'utf8'))
-      const document = dom.window.document
-      const template = document.querySelector('template')
-      let frag = template.content.cloneNode(true)
+      let frag = Skill.TEMPLATE.cloneNode(true)
       frag.querySelector('dt'                      ).innerHTML   = this._text
       frag.querySelector('[itemprop="ratingValue"]').setAttribute('value', this._level) // .value = this._level // https://github.com/tmpvar/jsdom/issues/2100
       frag.querySelector('[itemprop="ratingValue"]').setAttribute('style', frag.querySelector('meter').getAttribute('style').replace('1', this._level)) // .style.setProperty('--fadein', this._level) // https://github.com/tmpvar/jsdom/issues/1895
@@ -76,5 +69,12 @@ class Skill {
     }, this)
   }
 }
+
+/**
+ * @summary The template used to mark up this data type.
+ * @const {DocumentFragment}
+ */
+Skill.TEMPLATE = new jsdom.JSDOM(fs.readFileSync(path.join(__dirname, '../tpl/x-skill.tpl.html'), 'utf8'))
+  .window.document.querySelector('template').content
 
 module.exports = Skill

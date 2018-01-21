@@ -55,12 +55,7 @@ class ProDev {
      * @returns {string} HTML output
      */
     return new View(function () {
-      const Resume = require('./Resume.class.js') // TODO remove when Resume no longer depends on this class
-
-      const dom = new jsdom.JSDOM(fs.readFileSync(path.join(__dirname, '../tpl/x-prodev.tpl.html'), 'utf8'))
-      const document = dom.window.document
-      const template = document.querySelector('template')
-      let frag = template.content.cloneNode(true)
+      let frag = ProDev.TEMPLATE.cloneNode(true)
       frag.querySelector('.o-ListAchv__Award').setAttribute('itemtype', this._itemtype)
       frag.querySelector('[itemprop="name"]').innerHTML = this._name
       frag.querySelector('slot[name="city"]').innerHTML = this._location.view()
@@ -90,5 +85,12 @@ class ProDev {
     }, this)
   }
 }
+
+/**
+ * @summary The template marking up this data type.
+ * @const {DocumentFragment}
+ */
+ProDev.TEMPLATE = new jsdom.JSDOM(fs.readFileSync(path.join(__dirname, '../tpl/x-prodev.tpl.html'), 'utf8'))
+  .window.document.querySelector('template').content
 
 module.exports = ProDev

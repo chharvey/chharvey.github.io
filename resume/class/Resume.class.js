@@ -213,10 +213,7 @@ class Resume {
        * @returns {string} HTML output
        */
       .addDisplay(function fullName() {
-        const dom = new jsdom.JSDOM(fs.readFileSync(path.join(__dirname, '../tpl/fullname.tpl.html'), 'utf8'))
-        const document = dom.window.document
-        const template = document.querySelector('template')
-        let frag = template.content.cloneNode(true)
+        let frag = Resume.NAMED_TEMPLATES.fullName.cloneNode(true)
         ;[
           'familyName',
           'givenName',
@@ -271,10 +268,7 @@ class Resume {
           },
         ]
 
-        const dom = new jsdom.JSDOM(fs.readFileSync(path.join(__dirname, '../tpl/contact-links.tpl.html'), 'utf8'))
-        const document = dom.window.document
-        const template = document.querySelector('template')
-        let frag = template.content.cloneNode(true)
+        let frag = Resume.NAMED_TEMPLATES.contactInfo.cloneNode(true)
         display_data.forEach(function (d) {
           let inner = frag.querySelector('ul > template').content.cloneNode(true)
           if (d.href) {
@@ -291,6 +285,25 @@ class Resume {
         return xjs.DocumentFragment.innerHTML(xjs.Node.trimInner(frag))
       })
   }
+}
+
+/**
+ * @summary A set of templates marking up small data types.
+ * @const {Object<DocumentFragment>}
+ */
+Resume.NAMED_TEMPLATES = {
+  /**
+   * @summary Template for full name.
+   * @const {DocumentFragment}
+   */
+  fullName: new jsdom.JSDOM(fs.readFileSync(path.join(__dirname, '../tpl/fullname.tpl.html'), 'utf8'))
+    .window.document.querySelector('template').content,
+  /**
+   * @summary Template for contact info.
+   * @const {DocumentFragment}
+   */
+  contactInfo: new jsdom.JSDOM(fs.readFileSync(path.join(__dirname, '../tpl/contact-links.tpl.html'), 'utf8'))
+    .window.document.querySelector('template').content,
 }
 
 module.exports = Resume

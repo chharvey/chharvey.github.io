@@ -13,8 +13,6 @@ STATE_DATA.push(...[
   { "code": "DC", "name": "District of Columbia" },
 ])
 
-// const Resume = require('./Resume.class.js') // TODO uncomment when Resume no longer depends on this class
-
 /**
  * A class encoding information about a city or town’s location.
  */
@@ -67,12 +65,7 @@ class City {
      * @returns {string} HTML output
      */
     return new View(function () {
-      const Resume = require('./Resume.class.js') // TODO remove when Resume no longer depends on this class
-
-      const dom = new jsdom.JSDOM(fs.readFileSync(path.join(__dirname, '../tpl/x-city.tpl.html'), 'utf8'))
-      const document = dom.window.document
-      const template = document.querySelector('template')
-      let frag = template.content.cloneNode(true)
+      let frag = City.TEMPLATE.cloneNode(true)
       frag.querySelector('[itemprop="addressLocality"]'  ).textContent = this._address.addressLocality
       frag.querySelector('[itemprop="latitude"]'         ).content     = this._geo.latitude
       frag.querySelector('[itemprop="longitude"]'        ).content     = this._geo.longitude
@@ -102,5 +95,12 @@ class City {
       })
   }
 }
+
+/**
+ * @summary The template marking up this data type.
+ * @const {DocumentFragment}
+ */
+City.TEMPLATE = new jsdom.JSDOM(fs.readFileSync(path.join(__dirname, '../tpl/x-city.tpl.html'), 'utf8'))
+  .window.document.querySelector('template').content
 
 module.exports = City
