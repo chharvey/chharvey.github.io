@@ -1,4 +1,11 @@
-const Element = require('extrajs-dom').Element
+const fs = require('fs')
+const path = require('path')
+const jsdom = require('jsdom')
+
+const xjs = {
+  Node: require('extrajs-dom').Node,
+  DocumentFragment: require('extrajs-dom').DocumentFragment,
+}
 const View = require('extrajs-view')
 
 /**
@@ -40,34 +47,25 @@ class Degree {
      * @returns {string} HTML output
      */
     return new View(function () {
-      // REVIEW INDENTATION
-          return Element.concat([
-            new Element('dt').class('o-ListAchv__Award h-Inline')
-              .attr('data-instanceof','Degree.Text')
-              .attr('itemprop','award')
-              .addContent([
-                `${this._field}, `,
-                new Element('span').attr({ itemscope:'', itemtype:'http://schema.org/Rating' })
-                  .addContent([
-                    new Element('meta').attr('itemprop','worstRating').attr('content',0),
-                    new Element('span').attr('itemprop','ratingValue').addContent(this._gpa),
-                    `/`,
-                    new Element('span').attr('itemprop','bestRating').addContent(`4.0 `),
-                    new Element('abbr').class('c-Acro').attr('title','Grade Point Average').attr('itemprop','name').addContent(`GPA`),
-                  ]),
-              ]),
-            new Element('dd').class('o-ListAchv__Date h-Inline h-Clearfix')
-              .attr('data-instanceof','Degree.Year')
-              .addContent([
-                `(`,
-                (this._year > 0) ?
-                  new Element('time').addContent(this._year)
-                : new Element('small').addContent(`in progress`),
-                `)`,
-              ]),
-          ])
+      let frag = Degree.TEMPLATE.cloneNode(true)
+      frag.querySelector('[itemprop="name"]'       ).innerHTML   = this._field
+      frag.querySelector('[itemprop="ratingValue"]').textContent = this._gpa
+      frag.querySelector('[itemprop="timeEarned"]' ).textContent = this._year
+      if (this._year > 0) {
+        frag.querySelector('.o-ListAchv__Date > small').remove()
+      } else {
+        frag.querySelector('[itemprop="timeEarned"]').remove()
+      }
+      return xjs.DocumentFragment.innerHTML(xjs.Node.trimInner(frag))
     }, this)
   }
 }
+
+/**
+ * @summary The template marking up this data type.
+ * @const {DocumentFragment}
+ */
+Degree.TEMPLATE = new jsdom.JSDOM(fs.readFileSync(path.join(__dirname, '../tpl/x-degree.tpl.html'), 'utf8'))
+  .window.document.querySelector('template').content
 
 module.exports = Degree

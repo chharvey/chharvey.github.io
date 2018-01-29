@@ -1,4 +1,11 @@
-const Element = require('extrajs-dom').Element
+const fs = require('fs')
+const path = require('path')
+const jsdom = require('jsdom')
+
+const xjs = {
+  Node: require('extrajs-dom').Node,
+  DocumentFragment: require('extrajs-dom').DocumentFragment,
+}
 const View = require('extrajs-view')
 
 /**
@@ -10,10 +17,12 @@ class Award {
    * @summary Construct a new Award object.
    * @param {string} dates date(s) relevant to the award
    * @param {string} text  custom HTML string defining this award
+   * @param {?Array<Award>} [subs=null] any sub-awards associated with this award
    */
-  constructor(dates, text) {
+  constructor(dates, text, subs=null) {
     this._dates = dates
     this._text  = text
+    this._subs  = subs
   }
 
   /**
@@ -38,13 +47,25 @@ class Award {
      * @returns {string} HTML output
      */
     return new View(function () {
-      // REVIEW INDENTATION
-        return Element.concat(
-          new Element('dt').class('o-ListAchv__Award h-Inline').attr('data-instanceof','Award.Text').attr('itemprop','award').addContent(this._text),
-          new Element('dd').class('o-ListAchv__Date h-Inline h-Clearfix').attr('data-instanceof','Award.Dates').addContent(`(${this._dates})`)
-        )
+      let frag = Award.TEMPLATE.cloneNode(true)
+      frag.querySelector('slot[name="text"]' ).innerHTML = this._text
+      frag.querySelector('slot[name="dates"]').innerHTML = this._dates
+      ;(function (subs) {
+        if (this._subs) {
+          xjs.Node.empty(subs)
+          subs.append(...this._subs.map((s) => s.view()))
+        } else subs.remove()
+      }).call(this, frag.querySelector('.o-ListAchv__Award > .o-ListAchv'))
+      return xjs.DocumentFragment.innerHTML(xjs.Node.trimInner(frag))
     }, this)
   }
 }
+
+/**
+ * @summary The template marking up this data type.
+ * @const {DocumentFragment}
+ */
+Award.TEMPLATE = new jsdom.JSDOM(fs.readFileSync(path.join(__dirname, '../tpl/x-award.tpl.html'), 'utf8'))
+  .window.document.querySelector('template').content
 
 module.exports = Award

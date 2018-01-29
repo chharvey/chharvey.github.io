@@ -1,0 +1,152 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://chharvey.github.io/resume/resume.jsd",
+  "title": "Resume",
+  "description": "Resume of Christopher H. Harvey of Fairfax, VA.",
+  "definitions": {
+    "Award": {
+      "$id": "#x-Award",
+      "type": "object",
+      "required": ["dates", "content"],
+      "properties": {
+        "dates"  : { "type": "string" , "description": "date(s) relevant to the award" },
+        "content": {
+          "type" : ["string", "array"],
+          "items": { "type": "string" },
+          "description": "custom HTML defining the award"
+        },
+        "sub_awards": {
+          "type": "array",
+          "description": "any sub-awards within this award",
+          "items": { "$ref": "#x-Award" }
+        }
+      }
+    }
+  },
+  "allOf": [
+    { "$ref": "https://chharvey.github.io/schemaorg-jsd/schema/Person.jsd" },
+    {
+      "additionalProperties": false,
+      "properties": {
+        "@context"       : true,
+        "@type"          : true,
+        "@id"            : true,
+        "description"    : true,
+        "url"            : true,
+        "email"          : true,
+        "telephone"      : true,
+        "familyName"     : true,
+        "givenName"      : true,
+        "additionalName" : true,
+        "honorificPrefix": true,
+        "honorificSuffix": true,
+        "$contactTitles": {
+          "type": "object",
+          "description" : "optional alternative titles to display",
+          "additionalProperties": false,
+          "properties": {
+            "url"      : { "type": "string", "description": "optional alternative title of the url" },
+            "email"    : { "type": "string", "description": "optional alternative title of the email" },
+            "telephone": { "type": "string", "description": "optional alternative title of the telephone" }
+          }
+        },
+        "$skills": {
+          "type": "array",
+          "description": "List of skills, grouped by category.",
+          "items": {
+            "allOf": [
+              { "$ref": "https://chharvey.github.io/schemaorg-jsd/schema/ItemList.jsd" },
+              {
+                "required": ["name", "identifier", "itemListElement"],
+                "properties": {
+                  "itemListElement": {
+                    "items": {
+                      "allOf": [
+                        { "$ref": "https://chharvey.github.io/schemaorg-jsd/schema/Rating.jsd" },
+                        {
+                          "required": ["ratingValue", "name"],
+                          "properties": {
+                            "worstRating": { "const": 0 },
+                            "bestRating" : { "const": 1 },
+                            "ratingValue": { "type": "number", "minimum": 0, "maximum": 1, "description": "proficiency with this skill" }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "$positions": {
+          "type": "array",
+          "description": "List of positions, grouped by category.",
+          "items": {
+            "allOf": [
+              { "$ref": "https://chharvey.github.io/schemaorg-jsd/schema/ItemList.jsd" },
+              {
+                "required": ["name", "identifier", "itemListElement"],
+                "properties": {
+                  "itemListElement": {
+                    "items": {
+                      "allOf": [
+                        { "$ref": "https://chharvey.github.io/schemaorg-jsd/schema/JobPosting.jsd" },
+                        {
+                          "required": ["identifier", "title", "hiringOrganization", "jobLocation", "$start"],
+                          "properties": {
+                            "$start": { "type": "string", "description": "the start date of the job position" },
+                            "$end"  : { "type": "string", "description": "the end   date of the job position" }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "$degrees": {
+          "type": "array",
+          "description": "List of degrees.",
+          "items": {
+            "type": "object",
+            "required": ["gpa", "field"],
+            "additionalProperties": false,
+            "properties": {
+              "year" : { "type": "integer", "description": "year the degree was earned. if not yet earned, a negative integer" },
+              "gpa"  : { "type": "number", "minimum": 0, "maximum": 4, "description": "grade-point-average" },
+              "field": { "type": "string", "description": "type and field of the degree" }
+            }
+          }
+        },
+        "$prodevs": {
+          "type": "array",
+          "description": "List of professional development hours.",
+          "items": {
+            "allOf": [
+              { "$ref": "https://chharvey.github.io/schemaorg-jsd/schema/Event.jsd" },
+              {
+                "required": ["name", "startDate", "endDate", "location", "$pdh"],
+                "properties": {
+                  "$pdh": { "type": "number", "description": "the number of professional development hours" }
+                }
+              }
+            ]
+          }
+        },
+        "$awards": {
+          "type": "array",
+          "description": "List of other awards & memberships.",
+          "items": { "$ref": "#x-Award" }
+        },
+        "$teams": {
+          "type": "array",
+          "description": "List of athletic team memberships.",
+          "items": { "$ref": "#x-Award" }
+        }
+      }
+    }
+  ]
+}

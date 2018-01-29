@@ -1,6 +1,15 @@
-const xjs     = require('extrajs')
-const Element = require('extrajs-dom').Element
+const fs = require('fs')
+const path = require('path')
+const jsdom = require('jsdom')
+
+const xjs = {
+  Date: require('extrajs').Date,
+  Node: require('extrajs-dom').Node,
+  DocumentFragment: require('extrajs-dom').DocumentFragment,
+}
 const View = require('extrajs-view')
+
+const City           = require('./City.class.js')
 
 /**
  * Professional development hours.
@@ -9,22 +18,19 @@ const View = require('extrajs-view')
 class ProDev {
   /**
    * @summary Construct a new ProDev object.
-   * @param {{start:Date, end:Date}} $dates the dates the the position was held
-   * @param {Date} $dates.start the start date
-   * @param {Date} $dates.end the end date
-   * @param {City}  $location location of the course
-   * @param {number} pdh the number of professional development hours
-   * @param {string} name  title of the course
-   * @param {string=} itemtype the value used for the event’s `itemtype` attribute
+   * @param {!Object} jsondata JSON object of type {@link http://schema.org/Event}
+   * @param {string=} jsondata.startDate The start date and time of the item (in ISO 8601 date format).
+   * @param {string=} jsondata.endDate The end date and time of the item (in ISO 8601 date format).
+   * @param {!Object=} jsondata.location The location of for example where the event is happening, an organization is located, or where an action takes place.
+   * @param {number} jsondata.$pdh the number of professional development hours
    */
-  constructor($dates, $location, pdh, name, itemtype = 'http://schema.org/Event') {
-    this._date_start = $dates.start
-    this._date_end   = $dates.end
-
-    this._location = $location
-    this._itemtype = itemtype
-    this._pdh = pdh
-    this._name = name
+  constructor(jsondata) {
+    this._name = jsondata.name
+    this._itemtype = `http://schema.org/${jsondata['@type']}`
+    this._date_start = jsondata.startDate ? new Date(jsondata.startDate) : new Date(null)
+    this._date_end   = jsondata.endDate   ? new Date(jsondata.endDate  ) : new Date(null)
+    this._location = new City(jsondata.location || {})
+    this._pdh = jsondata.$pdh || 0
   }
 
   /**
@@ -49,42 +55,42 @@ class ProDev {
      * @returns {string} HTML output
      */
     return new View(function () {
-      return Element.concat([
-        new Element('dt').class('o-ListAchv__Award h-Inline')
-          .attr('data-instanceof','ProDev.Text')
-          .attr({ itemprop:'award', itemscope:'', itemtype:this._itemtype })
-          .addContent([
-            new Element('span').attr('itemprop','name').addContent(this._name),
-            `, ${this._location.view()} (`,
-            new Element('time').attr('datetime',`PT${this._pdh}H`).attr('itemprop','duration').addContent(`${this._pdh} hr`),
-            `)`
-          ]),
-        new Element('dd').class('o-ListAchv__Date h-Inline h-Clearfix')
-          .attr('data-instanceof','ProDev.Dates')
-          .addContent((function () {
-            if (xjs.Date.sameDate(this._date_start, this._date_end)) {
-              return `(${new Element('time').attr({ datetime:this._date_end.toISOString(), itemprop:'startDate endDate' })
-                .addContent(xjs.Date.format(this._date_end, 'j M Y')).html()})`
-            }
-            let same_UTC_date  = this._date_start.getUTCDate()  === this._date_end.getUTCDate()
-            let same_UTC_month = this._date_start.getUTCMonth() === this._date_end.getUTCMonth()
-            let same_UTC_year  = this._date_start.getFullYear() === this._date_end.getFullYear()
-            return [
-              `(`,
-              new Element('time').attr({ datetime:this._date_start.toISOString(), itemprop:'startDate' }).addContent([
-                this._date_start.getUTCDate(),
-                (same_UTC_month && same_UTC_year) ? '' : ` ${xjs.Date.format(this._date_start, 'M')}`,
-                (same_UTC_year) ? '' : ` ${this._date_start.getFullYear()}`
-              ]),
-              '&ndash;',
-              new Element('time').attr({ datetime:this._date_end.toISOString(), itemprop:'endDate' })
-                .addContent(xjs.Date.format(this._date_end, 'j M Y')),
-              `)`,
-            ]
-          }).call(this)),
-      ])
+      let frag = ProDev.TEMPLATE.cloneNode(true)
+      frag.querySelector('.o-ListAchv__Award').setAttribute('itemtype', this._itemtype)
+      frag.querySelector('[itemprop="name"]').innerHTML = this._name
+      frag.querySelector('slot[name="city"]').innerHTML = this._location.view()
+      frag.querySelector('.o-ListAchv__Award > time').dateTime    = `PT${this._pdh}H`
+      frag.querySelector('.o-ListAchv__Award > time').textContent = `${this._pdh} hr`
+      frag.querySelector('[itemprop="startDate endDate"]').dateTime    = this._date_end.toISOString()
+      frag.querySelector('[itemprop="startDate endDate"]').textContent = xjs.Date.format(this._date_end, 'j M Y')
+      ;(function (dates) {
+        let same_UTC_date  = this._date_start.getUTCDate () === this._date_end.getUTCDate ()
+        let same_UTC_month = this._date_start.getUTCMonth() === this._date_end.getUTCMonth()
+        let same_UTC_year  = this._date_start.getFullYear() === this._date_end.getFullYear()
+        dates.querySelector('[itemprop="startDate"]').dateTime    = this._date_start.toISOString()
+        dates.querySelector('[itemprop="startDate"]').textContent = [
+          this._date_start.getUTCDate(),
+          (same_UTC_month && same_UTC_year) ? '' : ` ${xjs.Date.format(this._date_start, 'M')}`,
+          (same_UTC_year) ? '' : ` ${this._date_start.getFullYear()}`,
+        ].join('')
+        dates.querySelector('[itemprop="endDate"]').dateTime    = this._date_end.toISOString()
+        dates.querySelector('[itemprop="endDate"]').textContent = xjs.Date.format(this._date_end, 'j M Y')
+      }).call(this, frag.querySelectorAll('.o-ListAchv__Date')[1])
+      if (xjs.Date.sameDate(this._date_start, this._date_end)) {
+        frag.querySelectorAll('.o-ListAchv__Date')[1].remove()
+      } else {
+        frag.querySelectorAll('.o-ListAchv__Date')[0].remove()
+      }
+      return xjs.DocumentFragment.innerHTML(xjs.Node.trimInner(frag))
     }, this)
   }
 }
+
+/**
+ * @summary The template marking up this data type.
+ * @const {DocumentFragment}
+ */
+ProDev.TEMPLATE = new jsdom.JSDOM(fs.readFileSync(path.join(__dirname, '../tpl/x-prodev.tpl.html'), 'utf8'))
+  .window.document.querySelector('template').content
 
 module.exports = ProDev

@@ -1,6 +1,20 @@
-const xjs     = require('extrajs')
-const Element = require('extrajs-dom').Element
+const fs = require('fs')
+const path = require('path')
+const jsdom = require('jsdom')
+
+const xjs = {
+  Date: require('extrajs').Date,
+  Node: require('extrajs-dom').Node,
+  DocumentFragment: require('extrajs-dom').DocumentFragment,
+}
 const View = require('extrajs-view')
+
+const STATE_DATA = require('extrajs-geo')
+STATE_DATA.push(...[
+  { "code": "DC", "name": "District of Columbia" },
+])
+
+const City           = require('./City.class.js')
 
 /**
  * A working position I’ve held at an organization tht I’ve worked for.
@@ -9,33 +23,22 @@ const View = require('extrajs-view')
 class Position {
   /**
    * @summary Construct a new Position object.
-   * @param {string} id the id of this job position
-   * @param {Object} $info all the data
-   * @param {string} $info.title the official position name
-   * @param {{name:string, url:string, itemtype:string}} $info.org details of the organization
-   * @param {string} $info.org.name the name of the organization; may be HTML
-   * @param {string} $info.org.url the url of the organization’s homepage
-   * @param {string} $info.org.itemtype the value of the organization’s `itemtype` attribute
-   * @param {{start:Date, end:Date}} $info.dates the dates the the position was held
-   * @param {Date} $info.dates.start the start date
-   * @param {Date} $info.dates.end the end date; use `new Date()` for present date
-   * @param {City} $info.location location of the organization
-   * @param {Array<string>} $info.descriptions the list of descriptions for the job position
+   * @param  {!Object=} jsondata JSON object of type {@link http://schema.org/JobPosting}
    */
-  constructor(id, $info) {
-    this._id = id
-    this._name = $info.title
+  constructor(jsondata) {
+    this._id = jsondata.identifier
+    this._name = jsondata.title
 
-    this._org_name = $info.org.name
-    this._org_type = $info.org.itemtype
-    this._org_url  = $info.org.url
+    this._org_name = jsondata.hiringOrganization.name
+    this._org_type = `http://schema.org/${jsondata.hiringOrganization['@type']}`
+    this._org_url  = jsondata.hiringOrganization.url || ''
 
-    this._date_start = $info.dates.start
-    this._date_end   = $info.dates.end
+    this._date_start = new Date(jsondata.$start)
+    this._date_end   = (jsondata.$end) ? new Date(jsondata.$end) : null
 
-    this._location = $info.location
+    this._location = new City(jsondata.jobLocation)
 
-    this._descriptions = $info.descriptions
+    this._descriptions = (typeof jsondata.responsibilities === 'string') ? [jsondata.responsibilities] : jsondata.responsibilities || []
   }
 
   /**
@@ -59,40 +62,44 @@ class Position {
      * @returns {string} HTML output
      */
     return new View(function () {
-      // REVIEW INDENTATION
-        return new Element('section').id(this._id).class('o-Grid__Item o-Grid__Item--maincol c-Position')
-          .attr({
-            'data-instanceof': 'Position',
-            itemscope: '',
-            itemtype : this._org_type,
-          })
-          .attr('itemprop', (xjs.Date.sameDate(this._date_end, new Date())) ? 'worksFor' : null)
-          .addContent([
-            new Element('header').class('c-Position__Head').addContent([
-                new Element('h3').class('c-Position__Name h-Inline-sG -pr-1-sG').attr('itemprop','jobTitle').addContent(this._name),
-                new Element('p').class('c-Position__Org h-Inline-sG h-Clearfix-sG').addContent([
-                  new Element('a').class('c-Camo').attr({ rel:'external', href:this._org_url, itemprop:'url' }).addContent([
-                    new Element('span').attr('itemprop','name').addContent(this._org_name),
-                  ]),
-                ]),
-                new Element('p').class('c-Position__Dates h-Inline')
-                  .addContent([
-                    new Element('time')
-                      .attr('datetime', this._date_start.toISOString())
-                      .addContent(xjs.Date.format(this._date_start, 'M Y')),
-                    `&ndash;`,
-                    new Element('time')
-                      .attr('datetime', this._date_end.toISOString())
-                      .addContent((xjs.Date.sameDate(this._date_end, new Date())) ? 'present' : xjs.Date.format(this._date_end, 'M Y')),
-                  ]),
-                new Element('p').class('c-Position__Place h-Inline')
-                  .addContent(`(${this._location.view()})`),
-            ]),
-            Element.data(this._descriptions, { attributes: { list: { class: 'c-Position__Body' } } }),
-          ])
-          .html()
+      let frag = Position.TEMPLATE.cloneNode(true)
+      frag.querySelector('.c-Position'       ).id        = this._id
+      frag.querySelector('[itemprop="title"]').innerHTML = this._name
+      frag.querySelector('[itemprop="hiringOrganization"]').setAttribute('itemtype', this._org_type)
+      frag.querySelector('[itemprop="hiringOrganization"] [itemprop="url"]').href       = this._org_url
+      frag.querySelector('[itemprop="hiringOrganization"] [itemprop="name"]').innerHTML = this._org_name
+      frag.querySelectorAll('.c-Position__Dates > time')[0].dateTime    = this._date_start.toISOString()
+      frag.querySelectorAll('.c-Position__Dates > time')[0].textContent = xjs.Date.format(this._date_start, 'M Y')
+      frag.querySelector('.c-Position__Place > slot[name="city"]').innerHTML = this._location.view()
+      frag.querySelector('.c-Position__Body').append(...(function () {
+        let item = frag.querySelector('.c-Position__Body > template').content
+        return this._descriptions.map(function (desc) {
+          let li = item.cloneNode(true).querySelector('li')
+          li.innerHTML = desc
+          return li
+        })
+      }).call(this))
+      frag.querySelector('.c-Position__Body > template').remove()
+
+      if (!this._date_end) {
+        frag.querySelectorAll('.c-Position__Dates > time')[2].dateTime    = new Date().toISOString()
+        frag.querySelectorAll('.c-Position__Dates > time')[1].remove()
+      } else {
+        frag.querySelector('.c-Position').removeAttribute('itemprop')
+        frag.querySelectorAll('.c-Position__Dates > time')[1].dateTime    = this._date_end.toISOString()
+        frag.querySelectorAll('.c-Position__Dates > time')[1].textContent = xjs.Date.format(this._date_end, 'M Y')
+        frag.querySelectorAll('.c-Position__Dates > time')[2].remove()
+      }
+      return xjs.DocumentFragment.innerHTML(xjs.Node.trimInner(frag))
     }, this)
   }
 }
+
+/**
+ * @summary The template marking up this data type.
+ * @const {DocumentFragment}
+ */
+Position.TEMPLATE = new jsdom.JSDOM(fs.readFileSync(path.join(__dirname, '../tpl/x-position.tpl.html'), 'utf8'))
+  .window.document.querySelector('template').content
 
 module.exports = Position

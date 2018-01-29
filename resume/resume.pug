@@ -14,63 +14,44 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
     link(rel="stylesheet" href="css/resume.css")
   body
     main.o-Grid.o-Grid--resume(itemscope="" itemtype="http://schema.org/Person")
-      mixin experience(title, data)
+      mixin proDevs(title, data, classes)
         section.o-Grid__Item.o-Grid__Item--exp&attributes(attributes)
           h2.o-Grid__Item.c-ExpHn!= title
-          block
-          != data.map((item) => item.view()).join('')
-      mixin achievement(title, data, classes)
+          dl.o-Grid__Item.o-Grid__Item--maincol.o-ListAchv(class=classes)
+            != data.map((item) => item.view()).join('')
+      mixin awards(title, data, classes)
         section.o-Grid__Item.o-Grid__Item--exp&attributes(attributes)
           h2.o-Grid__Item.c-ExpHn!= title
           dl.o-Grid__Item.o-Grid__Item--maincol.o-ListAchv(class=classes)
             != data.map((item) => item.view()).join('')
       header.o-Grid__Item--maincol.h-Hr
-        h1.c-ResHn(itemprop="name")
-          span(itemprop="givenName") Christopher
-          = ' '
-          abbr(title="Hewitt" itemprop="additionalName") H.
-          = ' '
-          span(itemprop="familyName") Harvey
+        != resume.view.fullName()
         section
           h2.h-Hidden Contact
           -
-            let contact_opts = { attributes: {
-              list : { class: 'o-List o-Flex-sK c-Contact' },
-              value: { class: 'o-List__Item o-Flex__Item-sK c-Contact__Item' },
-            } }
-          address!= Element.data(resume.contactData.map((item) => item.view()), contact_opts)
+            let contact = resume.view.contactInfo()
+          address!= contact
       section.o-Grid__Item.o-Grid__Item--exp#about
         h2.o-Grid__Item.c-ExpHn.h-Hidden About
         p.o-Grid__Item--maincol(itemprop="description")= resume.about
       section.o-Grid__Item.o-Grid__Item--exp#skills
         h2.o-Grid__Item.c-ExpHn Skills
         -
-          let skills_all = [].concat(...[
-            resume.skills.content,
-            resume.skills.ui,
-            resume.skills.programming,
-            resume.skills.data,
-            resume.skills.general,
-            // resume.skills.apps,
-          ])
-          let skills_print = new Element('ul').class('o-List o-List--print').addContent(skills_all.map((sk) =>
-            new Element('li').class('o-List__Item h-Inline').addContent(sk.text)
-          ))
+          let skills_print = new HTMLUListElement().class('o-List o-List--print').addContent((resume.skills || [])
+            .map((group) => group.items)
+            .reduce((a,b) => a.concat(b), [])
+            .map((skill) => new HTMLLIElement().class('o-List__Item h-Inline').addContent(skill.text))
+          )
         != skills_print.html()
         div.o-Grid__Item.o-Grid__Item--maincol.o-Grid.o-Grid--skillGroups
-          mixin skillCategory(title, data)
-            section.o-Grid__Item.c-Position&attributes(attributes)
-              h3.c-Position__Name= title
-              dl.o-Grid.o-Grid--skill!= data.map((item) => item.view()).join('')
-          +skillCategory('Content'              , resume.skills.content)#skills-content
-          +skillCategory('UI'                   , resume.skills.ui)#skills-ui
-          +skillCategory('Programming'          , resume.skills.programming)#skills-programming
-          +skillCategory('Data'                 , resume.skills.data)#skills-data
-          +skillCategory('General'              , resume.skills.general)#skills-general
-          +skillCategory('Software Applications', resume.skills.apps)#skills-apps
-      +experience('Technical Experience' , resume.positions.technical)#tech-exp
-      +experience('Teaching Experience'  , resume.positions.teaching)#teach-exp
-      +experience('Other Work Experience', resume.positions.other)#work-exp
+          each group in resume.skills
+            section.o-Grid__Item.c-Position(id=group.id)
+              h3.c-Position__Name= group.title
+              dl.o-Grid.o-Grid--skill!= group.items.map((item) => item.view()).join('')
+      each group in resume.positions
+        section.o-Grid__Item.o-Grid__Item--exp(id=group.id)
+          h2.o-Grid__Item.c-ExpHn!= group.title
+          != group.items.map((item) => item.view()).join('')
       section.o-Grid__Item.o-Grid__Item--exp#edu
         h2.o-Grid__Item.c-ExpHn Education
         section.o-Grid__Item.o-Grid__Item--maincol.c-Institution#VT
@@ -78,10 +59,10 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
             a.c-Camo(rel="external" href="https://www.vt.edu/" itemprop="url")
               span(itemprop="name") Virginia Polytechnic Institute and State University
           dl.o-ListAchv.c-Institution__List
-            != resume.degrees.map((item) => item.view()).join('')
-      +achievement('Profes&shy;sional Dev&shy;elopment', resume.proDevs)#prof-dev
-      +achievement('Awards &amp; Member&shy;ships'     , resume.awards)#awards
-      +achievement('Team Athletic Experience'          , resume.teams, 'h-Hr')#athletic
+            != (resume.degrees || []).map((item) => item.view()).join('')
+      +proDevs('Profes&shy;sional Dev&shy;elopment', resume.proDevs)#prof-dev
+      +awards('Awards &amp; Member&shy;ships', resume.awards)#awards
+      +awards('Team Athletic Experience'     , resume.teams, 'h-Hr')#athletic
       footer.o-Grid__Item.o-Grid__Item--maincol.-fz-el-mill: p.
         This r&eacute;sum&eacute; is 100% hand-written, by me! Check out the
         #[a(rel="external" href="https://github.com/chharvey/chharvey.github.io/blob/master/resume/resume.jade") source code]
@@ -91,14 +72,9 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
         li: a.Crumb(rel="top parent" href="../index.html") Home
         li: a.Crumb(rel="this"       href="#") Resume
     script(src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous")
-    script(src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML,https://chharvey.github.io/chhlib/mathjax-localconfig.js")
+    script(src="https://cdn.rawgit.com/chharvey/continuum/v0.4.1/site/scripts/mathjax-localconfig.js")
+    script(src="https://cdn.rawgit.com/mathjax/MathJax/2.7.1/MathJax.js?config=default")
     script(src="./js/resume.b.js")
-    //- script.
-      $('#obj1').click(function () {
-        $(this).hide();
-        $('#obj2').show();
-      });
-      $('#obj2').click(function () {
-        $(this).hide();
-        $('#obj3').show();
-      });
+    //- script(type="module").
+      import { XSkill } from './js/XSkill.class.js'
+      window.customElements.define('x-skill', XSkill)
