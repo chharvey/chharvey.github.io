@@ -15,7 +15,6 @@
  * ListAchv......................list of achievements such as awards or memberships
  *
  * COMPONENTS
- * Label--skill..................text label for a skill
  * ResHn.........................heading at top of resume
  * ExpHn.........................heading for each experience section
  * Position......................position at an organization
@@ -135,11 +134,15 @@ cite {
 }
 @media screen and (min-width: 45em) {
   .o-Grid__Item--exp {
+    -ms-grid-column: 1;
+    -ms-grid-column-span: 2;
     grid-column: 1 / 3;
   }
 }
 @media screen and (min-width: 45em) {
   .o-Grid__Item--maincol {
+    -ms-grid-column: 2;
+    -ms-grid-column-span: 1;
     grid-column: 2 / 3;
   }
 }
@@ -368,18 +371,6 @@ cite {
   }
 }
 /*################################*\
-    resume  |  _c-Label--skill.less
-\*################################*/
-.c-Label--skill {
-  line-height: inherit;
-  width: calc(3.5 * var(--vru));
-  font-weight: bold;
-  text-align: center;
-}
-dd:hover .c-Label--skill {
-  left: unset;
-}
-/*################################*\
     resume  |  _c-ResHn.less
 \*################################*/
 .c-ResHn {
@@ -407,6 +398,9 @@ dd:hover .c-Label--skill {
     text-transform: uppercase;
   }
 }
+.h-CommaAfter::after {
+  content: ',';
+}
 /*################################*\
     resume  |  _c-ExpHn.less
 \*################################*/
@@ -422,6 +416,8 @@ dd:hover .c-Label--skill {
 }
 @media screen and (min-width: 45em) {
   .c-ExpHn {
+    -ms-grid-row: 1;
+    -ms-grid-row-span: 98;
     grid-row: 1 / 99;
     position: relative;
     text-align: right;
@@ -576,6 +572,26 @@ dd:hover .c-Label--skill {
 .c-SkillViz__Marker--true {
   fill: #65a23e;
 }
+::-webkit-meter-bar,
+::-webkit-meter-optimum-value,
+::-webkit-meter-suboptimum-value,
+::-webkit-meter-even-less-good-value {
+  background: -webkit-gradient(linear, left top, left bottom, from(var(--med)), color-stop(20%, var(--lite)), color-stop(45%, var(--dark)), color-stop(55%, var(--dark)), to(var(--med)));
+  background: linear-gradient(var(--med), var(--lite) 20%, var(--dark) 45%, var(--dark) 55%, var(--med));
+}
+::-webkit-meter-bar {
+  --med: #e0dedc;
+  --dark: #cfcecb;
+  --lite: #f0efee;
+}
+::-webkit-meter-optimum-value,
+::-webkit-meter-suboptimum-value,
+::-webkit-meter-even-less-good-value {
+  --med: #3d6166;
+  --dark: #304d51;
+  --lite: #4a757b;
+  opacity: var(--fadein, 1);
+}
 /*################################*\
     resume  |  _c-Contact.less
 \*################################*/
@@ -586,6 +602,9 @@ dd:hover .c-Label--skill {
   .c-Contact {
     font-family: 'Avenir Next', 'Avenir', 'Helvetica Neue', 'Helvetica', sans-serif;
     text-align: center;
+    -ms-grid-columns: (auto)[3];
+    grid-template-columns: repeat(3, auto);
+    grid-column-gap: 0.5rem;
   }
 }
 @media not all and (min-width: 30em) {
@@ -594,11 +613,6 @@ dd:hover .c-Label--skill {
   }
   .c-Contact > * {
     --vru: calc(1.5  * var(--line-height) * 1rem);
-  }
-}
-@media screen and (min-width: 30em) {
-  .c-Contact > .o-Flex__Item-sK:not(:last-child) {
-    margin-right: 0.5rem;
   }
 }
 @media print {
