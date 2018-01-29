@@ -1,24 +1,37 @@
-const Element = require('extrajs-dom').Element
+const fs = require('fs')
+const path = require('path')
+const jsdom = require('jsdom')
+
+const xjs = {
+  Node: require('extrajs-dom').Node,
+  DocumentFragment: require('extrajs-dom').DocumentFragment,
+}
 const View = require('extrajs-view')
 
 /**
  * Skill listed in the Technical Experience section.
- * @class
  */
 class Skill {
   /**
    * @summary Construct a new Skill object.
-   * @param  {number} level proficiency with this skill; must be `1`–`Skill.LEVELS.length`
-   * @param  {string} text custom HTML string defining this skill
+   * @param  {!Object} jsondata JSON object of type {@link http://schema.org/Rating}
+   * @param  {number} jsondata.ratingValue proficiency with this skill
+   * @param  {string} jsondata.name custom HTML string defining this skill
    */
-  constructor(level, text) {
-    this._level = level
-    this._text  = text
+  constructor(jsondata) {
+    this._level = jsondata.ratingValue
+    this._text  = jsondata.name
   }
 
   /**
-   * @summary Return this skill’s text content.
-   * @return {string} this._text
+   * @summary This skill’s level.
+   * @type {number}
+   */
+  get level() { return this._level }
+
+  /**
+   * @summary This skill’s text content.
+   * @type {string}
    */
   get text() {
     return this._text.slice()
@@ -46,51 +59,22 @@ class Skill {
      * @returns {string} HTML output
      */
     return new View(function () {
-      return Element.concat([
-        // REVIEW INDENTATION
-          new Element('dt').class('o-Grid__Item')
-            .attr('data-instanceof','Skill.Text')
-            .addContent(this._text),
-          new Element('dd').class('o-Grid__Item')
-            .attr('data-instanceof','Skill.Level')
-            .attr({
-              itemscope: '',
-              itemtype : 'http://schema.org/Rating',
-            })
-            .addContent([
-              new Element('small').class('o-Textbox c-Label c-Label--skss c-Label--skill h-Hidden').addContent(Skill.LEVELS[this._level-1]),
-              new Element('meta').attr('itemprop','worstRating').attr('content',0),
-              new Element('meta').attr('itemprop','bestRating' ).attr('content',Skill.LEVELS.length),
-              new Element('meta').attr('itemprop','ratingValue').attr('content',this._level),
-              new Element('svg').class('c-SkillViz').attr('viewbox','0 0 14 4').addContent([
-                new Element('g').attr('transform','translate(1,2)').addContent(
-                  Skill.LEVELS.map(function (lvl, index) {
-                    return new Element('circle',true).class('c-SkillViz__Marker')
-                      .addClass((index <= this._level-1) ? 'c-SkillViz__Marker--true' : '')
-                      .attr('cx',3*index).attr('cy',0).attr('r',1)
-                  }, this)
-                ),
-              ]),
-            ]),
-      ])
+      let frag = Skill.TEMPLATE.cloneNode(true)
+      frag.querySelector('dt'                      ).innerHTML   = this._text
+      frag.querySelector('[itemprop="ratingValue"]').setAttribute('value', this._level) // .value = this._level // https://github.com/tmpvar/jsdom/issues/2100
+      frag.querySelector('[itemprop="ratingValue"]').setAttribute('style', frag.querySelector('meter').getAttribute('style').replace('1', this._level)) // .style.setProperty('--fadein', this._level) // https://github.com/tmpvar/jsdom/issues/1895
+      frag.querySelector('slot[name="percentage"]' ).textContent = 100 * this._level
+
+      return xjs.DocumentFragment.innerHTML(xjs.Node.trimInner(frag))
     }, this)
   }
-
-
-
-  /**
-   * An array possible skill levels in increasing order.
-   * @type {Array<string>}
-   */
-  static get LEVELS() {
-    return [
-      'beginner',
-      'novice',
-      'competent',
-      'proficient',
-      'expert',
-    ]
-  }
 }
+
+/**
+ * @summary The template used to mark up this data type.
+ * @const {DocumentFragment}
+ */
+Skill.TEMPLATE = new jsdom.JSDOM(fs.readFileSync(path.join(__dirname, '../tpl/x-skill.tpl.html'), 'utf8'))
+  .window.document.querySelector('template').content
 
 module.exports = Skill

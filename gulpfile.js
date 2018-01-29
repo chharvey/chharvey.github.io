@@ -31,6 +31,8 @@ gulp.task('pug:resume', function () {
       basedir: './',
       locals: {
         Element: require('extrajs-dom').Element,
+        HTMLUListElement: require('extrajs-dom').HTMLUListElement,
+        HTMLLIElement: require('extrajs-dom').HTMLLIElement,
         resume: new (require('./resume/class/Resume.class.js'))(require('./resume/resume.json')),
       },
     }))
