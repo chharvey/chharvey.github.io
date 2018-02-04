@@ -1,7 +1,11 @@
+const fs = require('fs')
+
 const gulp         = require('gulp')
 const pug          = require('gulp-pug')
 const less         = require('gulp-less')
 const autoprefixer = require('gulp-autoprefixer')
+
+const Resume = require('./resume/class/Resume.class.js')
 
 gulp.task('pug:landing', function () {
   return gulp.src('./index.jade')
@@ -25,7 +29,9 @@ gulp.task('pug:home', function () {
     .pipe(gulp.dest('./home/'))
 })
 
-gulp.task('pug:resume', function () {
+gulp.task('pug:resume', function (callback) {
+  let contents = new Resume(require('./resume/resume.json')).view.compile()
+  return fs.writeFile('./resume/resume.html', contents, 'utf8', callback) // send callback here to maintain async dependency
   return gulp.src('resume/resume.pug')
     .pipe(pug({
       basedir: './',
@@ -35,7 +41,7 @@ gulp.task('pug:resume', function () {
           HTMLUListElement: require('extrajs-dom').HTMLUListElement,
           HTMLLIElement: require('extrajs-dom').HTMLLIElement,
         },
-        resume: new (require('./resume/class/Resume.class.js'))(require('./resume/resume.json')),
+        resume: new Resume(require('./resume/resume.json')),
         jsdom: require('jsdom'),
       },
     }))

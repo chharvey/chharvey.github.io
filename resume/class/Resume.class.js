@@ -284,6 +284,16 @@ class Resume {
         frag.querySelector('ul > template').remove()
         return new xjs.DocumentFragment(frag).innerHTML()
       })
+      /**
+       * @summary Compile HTML markup from the master template file.
+       * @description This method takes an entire HTML template file and compiles the static output.
+       * @returns {string} compiled HTML output
+       */
+      .addDisplay(function compile() {
+        const dom = new jsdom.JSDOM(fs.readFileSync(path.join(__dirname, '../tpl/resume.tpl.html'), 'utf8'))
+        const document = dom.window.document
+        return dom.serialize()
+      })
   }
 }
 

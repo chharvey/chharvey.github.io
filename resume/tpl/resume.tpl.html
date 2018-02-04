@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>resume</title>
+  <meta charset="utf-8"/>
+  <meta name="author" content="Christopher H. Harvey"/>
+  <meta name="description" content="Resume of Christopher H. Harvey of Fairfax, VA."/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <link rel="icon" href="../core/images/favicon.ico"/>
+  <link rel="stylesheet" href="../bower_components/octicons/octicons/octicons.css"/>
+  <link rel="stylesheet" href="https://cdn.rawgit.com/chharvey/xmeter/v6.1.1/css/xmeter.css"/>
+  <link rel="stylesheet" href="https://cdn.rawgit.com/chharvey/bangs/v0.15.0/bangs.css"/>
+  <link rel="stylesheet" href="https://cdn.rawgit.com/chharvey/still-alive/v1.4.0/css/still-alive.css"/>
+  <link rel="stylesheet" href="css/resume.css"/>
+</head>
+<body>
+  <main class="o-Grid o-Grid--resume" itemscope="" itemtype="http://schema.org/Person">
+    <header class="o-Grid__Item--maincol h-Hr">
+      {{ resume.view.fullName() }}
+      <section>
+        <h2 class="h-Hidden">Contact</h2>
+        <address>{{ resume.view.contactInfo() }}</address>
+      </section>
+    </header>
+    <section class="o-Grid__Item o-Grid__Item--exp" id="about">
+      <h2 class="o-Grid__Item c-ExpHn h-Hidden">About</h2>
+      <p class="o-Grid__Item--maincol" itemprop="description">{{ resume.about }}</p>
+    </section>
+    <section class="o-Grid__Item o-Grid__Item--exp" id="skills">
+      <h2 class="o-Grid__Item c-ExpHn">Skills</h2>
+      {{
+        -
+          const dom = new jsdom.JSDOM()
+          let list = dom.window.document.createElement('ul')
+          let item = dom.window.document.createElement('li')
+          let skills_print = new xjs.HTMLUListElement(list).class('o-List o-List--print').append(...(resume.skills || [])
+            .map((group) => group.items)
+            .reduce((a,b) => a.concat(b), [])
+            .map((skill) => new xjs.HTMLLIElement(item.cloneNode(true)).class('o-List__Item h-Inline').append(skill.text))
+          )
+        != skills_print.outerHTML()
+      }}
+      <div class="o-Grid__Item o-Grid__Item--maincol o-Grid o-Grid--skillGroups">
+        <template data-each="group in resume.skills">
+          <section clas="o-Grid__Item c-Position" id="{{ group.id }}">
+            <h3 class="c-Position__Name">{{ group.title }}</h3>
+            <dl class="o-Grid.o-Grid--skill">{{ group.items.map((item) => item.view()).join('') }}</dl>
+          </section>
+        </template>
+      </div>
+    </section>
+    <template data-each="group in resume.positions">
+      <section class="o-Grid__Item o-Grid__Item--exp" id="{{ group.id }}">
+        <h2 class="o-Grid__Item c-ExpHn">{{ group.title }}</h2>
+        {{ group.items.map((item) => item.view()).join('') }}
+      </section>
+    </template>
+    <section class="o-Grid__Item o-Grid__Item--exp" id="edu">
+      <h2 class="o-Grid__Item c-ExpHn">Education</h2>
+      <section class="o-Grid__Item o-Grid__Item--maincol c-Institution" id="VT">
+        <h3 class="c-Institution__Name" itemprop="alumniOf" itemscope="" itemtype="http://schema.org/CollegeOrUniversity">
+          <a class="c-Camo" rel="external" href="https://www.vt.edu/" itemprop="url">
+            <span itemprop="name">Virginia Polytechnic Institute and State University</span>
+          </a>
+        </h3>
+        <dl class="o-ListAchv c-Institution__List">{{ (resume.degrees || []).map((item) => item.view()).join('') }}</dl>
+      </section>
+    </section>
+    <template id="proDevs" data-params="title, data, classes">
+      <section class="o-Grid__Item o-Grid__Item--exp" id="{{ id }}">
+        <h2 class="o-Grid__Item c-ExpHn">{{ title }}</h2>
+        <dl class="o-Grid__Item o-Grid__Item--maincol o-ListAchv {{ classes }}">{{ data.map((item) => item.view()).join('') }}</dl>
+      </section>
+    </template>
+    {{ +proDevs('Profes&shy;sional Dev&shy;elopment', resume.proDevs)#prof-dev }}
+    {{ +awards('Awards &amp; Member&shy;ships', resume.awards)#awards }}
+    <template id="awards" data-params="title, data, classes">
+      <section class="o-Grid__Item o-Grid__Item--exp" id="{{ id }}">
+        <h2 class="o-Grid__Item c-ExpHn">{{ title }}</h2>
+        <dl class="o-Grid__Item o-Grid__Item--maincol o-ListAchv {{ classes }}">{{ data.map((item) => item.view()).join('') }}</dl>
+      </section>
+    </template>
+    {{ +awards('Team Athletic Experience'     , resume.teams, 'h-Hr')#athletic }}
+    <footer class="o-Grid__Item.o-Grid__Item--maincol.-fz-el-mill">
+      <p>This r&eacute;sum&eacute; is 100% hand-written, by me! Check out the
+        <a rel="external" href="https://github.com/chharvey/chharvey.github.io/blob/master/resume/resume.jade">source code</a>
+        on GitHub.</p>
+    </footer>
+  </main>
+  <!-- <nav class="Bc">
+    <ol class="Anc">
+      <li><a class="Crumb" rel="top parent" href="../index.html">Home</a></li>
+      <li><a class="Crumb" rel="this"       href="#"            >Resume</a></li>
+    </ol>
+  </nav> -->
+  <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML,https://chharvey.github.io/chhlib/mathjax-localconfig.js"></script>
+  <script src="./js/resume.b.js"></script>
+</body>
+</html>
