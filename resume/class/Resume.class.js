@@ -213,7 +213,11 @@ class Resume {
        * @returns {string} HTML output
        */
       .addDisplay(function fullName() {
-        let frag = Resume.NAMED_TEMPLATES.fullName.cloneNode(true)
+        const {document} = Resume.TEMPLATE.window
+        let container = document.querySelector('main header h1')
+        let template  = container.querySelector('template').content
+        let frag      = template.cloneNode(true)
+
         ;[
           'familyName',
           'givenName',
@@ -226,7 +230,6 @@ class Resume {
             el.textContent = this.fullName[nameprop]
           } else el.remove()
         }, this)
-
 
         // abbreviate the middle name
         if (this.fullName.additionalName) {
@@ -241,7 +244,9 @@ class Resume {
           frag.querySelector('[itemprop="familyName"]').classList.remove('h-CommaAfter')
         }
 
-        return new xjs.DocumentFragment(frag).innerHTML()
+        container.append(frag)
+
+        return container.innerHTML
       })
       /**
        * Return an `<a>` element marking up a piece of contact information.
@@ -250,7 +255,11 @@ class Resume {
        * @returns {string} HTML output
        */
       .addDisplay(function contactInfo() {
-        const display_data = [
+        const {document} = Resume.TEMPLATE.window
+        let container = document.querySelector('main header address .c-Contact')
+        let template  = container.querySelector('template').content
+
+        ;[
           {
             name: 'telephone',
             href: (this._DATA.telephone) ? `tel:${this._DATA.telephone}` : '',
@@ -266,23 +275,20 @@ class Resume {
             href: this._DATA.url || '',
             icon: 'home',
           },
-        ]
-
-        let frag = Resume.NAMED_TEMPLATES.contactInfo.cloneNode(true)
-        display_data.forEach(function (d) {
-          let inner = frag.querySelector('ul > template').content.cloneNode(true)
+        ].forEach(function (d) {
+          let frag = template.cloneNode(true)
           if (d.href) {
-            inner.querySelector('.c-Contact__Link').href = d.href
+            frag.querySelector('.c-Contact__Link').href = d.href
           } else {
-            inner.querySelector('.c-Contact__Link').removeAttribute('href')
+            frag.querySelector('.c-Contact__Link').removeAttribute('href')
           }
-          inner.querySelector('.c-Contact__Link').setAttribute('itemprop', d.name)
-          inner.querySelector('.c-Contact__Icon').className = inner.querySelector('.c-Contact__Icon').className.replace('{{ octicon }}', d.icon)
-          inner.querySelector('.c-Contact__Text').textContent = this.contactTitles[d.name] || this._DATA[d.name]
-          frag.querySelector('ul').append(inner)
+          frag.querySelector('.c-Contact__Link').setAttribute('itemprop', d.name)
+          frag.querySelector('.c-Contact__Icon').className = frag.querySelector('.c-Contact__Icon').className.replace('{{ octicon }}', d.icon)
+          frag.querySelector('.c-Contact__Text').textContent = this.contactTitles[d.name] || this._DATA[d.name]
+          container.append(frag)
         }, this)
-        frag.querySelector('ul > template').remove()
-        return new xjs.DocumentFragment(frag).innerHTML()
+
+        return container.innerHTML
       })
       /**
        * @summary Compile HTML markup from the master template file.
@@ -290,30 +296,29 @@ class Resume {
        * @returns {string} compiled HTML output
        */
       .addDisplay(function compile() {
-        const dom = new jsdom.JSDOM(fs.readFileSync(path.join(__dirname, '../tpl/resume.tpl.html'), 'utf8'))
-        const document = dom.window.document
+        const dom = Resume.TEMPLATE
+        const {document} = dom.window
+
+        document.querySelector('main header h1').innerHTML = this.view.fullName()
+        document.querySelector('main header address .c-Contact').innerHTML = this.view.contactInfo()
+        document.querySelector('#about [itemprop="description"]').innerHTML = this.about
+
         return dom.serialize()
       })
   }
 }
 
 /**
+ * @summary The template for this theme.
+ * @type {JSDOM}
+ */
+Resume.TEMPLATE = new jsdom.JSDOM(fs.readFileSync(path.join(__dirname, '../tpl/resume.tpl.html'), 'utf8'))
+
+/**
  * @summary A set of templates marking up small data types.
  * @const {Object<DocumentFragment>}
  */
 Resume.NAMED_TEMPLATES = {
-  /**
-   * @summary Template for full name.
-   * @const {DocumentFragment}
-   */
-  fullName: new jsdom.JSDOM(fs.readFileSync(path.join(__dirname, '../tpl/fullname.tpl.html'), 'utf8'))
-    .window.document.querySelector('template').content,
-  /**
-   * @summary Template for contact info.
-   * @const {DocumentFragment}
-   */
-  contactInfo: new jsdom.JSDOM(fs.readFileSync(path.join(__dirname, '../tpl/contact-links.tpl.html'), 'utf8'))
-    .window.document.querySelector('template').content,
 }
 
 module.exports = Resume

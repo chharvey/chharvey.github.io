@@ -16,15 +16,36 @@
 <body>
   <main class="o-Grid o-Grid--resume" itemscope="" itemtype="http://schema.org/Person">
     <header class="o-Grid__Item--maincol h-Hr">
-      {{ resume.view.fullName() }}
+      <h1 class="c-ResHn" itemprop="name">
+        <template>
+          <slot name="honorificPrefix" itemprop="honorificPrefix">{{ this.honorificPrefix }}</slot>
+          <slot name="givenName" itemprop="givenName">{{ this.givenName }}</slot>
+          <abbr title="{{ fullName.additionalName }}" itemprop="additionalName">
+            <slot name="additionalName">{{ this.additionalName.slice(0,1) + '.' }}</slot>
+          </abbr>
+          <slot class="h-CommaAfter" name="familyName" itemprop="familyName">{{ this.familyName }}</slot>
+          <slot name="honorificSuffix" itemprop="honorificSuffix"> {{ this.honorificSuffix }}</slot>
+        </template>
+      </h1>
       <section>
         <h2 class="h-Hidden">Contact</h2>
-        <address>{{ resume.view.contactInfo() }}</address>
+        <address>
+          <ul class="o-List o-Grid-sK c-Contact">
+            <template>
+              <li class="o-List__Item o-Grid__Item-sK c-Contact__Item">
+                <a class="c-Contact__Link h-Block" href="{{ href }}" itemprop="{{ itemprop }}">
+                  <div class="c-Contact__Icon octicon octicon-{{ octicon }}" aria-hidden="true"></div>
+                  <div class="c-Contact__Text">{{ title }}</div>
+                </a>
+              </li>
+            </template>
+          </ul>
+        </address>
       </section>
     </header>
     <section class="o-Grid__Item o-Grid__Item--exp" id="about">
       <h2 class="o-Grid__Item c-ExpHn h-Hidden">About</h2>
-      <p class="o-Grid__Item--maincol" itemprop="description">{{ resume.about }}</p>
+      <p class="o-Grid__Item--maincol" itemprop="description">{{ about }}</p>
     </section>
     <section class="o-Grid__Item o-Grid__Item--exp" id="skills">
       <h2 class="o-Grid__Item c-ExpHn">Skills</h2>
@@ -81,7 +102,7 @@
       </section>
     </template>
     {{ +awards('Team Athletic Experience'     , resume.teams, 'h-Hr')#athletic }}
-    <footer class="o-Grid__Item.o-Grid__Item--maincol.-fz-el-mill">
+    <footer class="o-Grid__Item o-Grid__Item--maincol -fz-el-mill">
       <p>This r&eacute;sum&eacute; is 100% hand-written, by me! Check out the
         <a rel="external" href="https://github.com/chharvey/chharvey.github.io/blob/master/resume/resume.jade">source code</a>
         on GitHub.</p>
