@@ -30,10 +30,13 @@ gulp.task('pug:resume', function () {
     .pipe(pug({
       basedir: './',
       locals: {
-        Element: require('extrajs-dom').Element,
-        HTMLUListElement: require('extrajs-dom').HTMLUListElement,
-        HTMLLIElement: require('extrajs-dom').HTMLLIElement,
+        xjs: {
+          Element: require('extrajs-dom').Element,
+          HTMLUListElement: require('extrajs-dom').HTMLUListElement,
+          HTMLLIElement: require('extrajs-dom').HTMLLIElement,
+        },
         resume: new (require('./resume/class/Resume.class.js'))(require('./resume/resume.json')),
+        jsdom: require('jsdom'),
       },
     }))
     .pipe(gulp.dest('./resume/'))

@@ -81,7 +81,7 @@ class ProDev {
       } else {
         frag.querySelectorAll('.o-ListAchv__Date')[0].remove()
       }
-      return xjs.DocumentFragment.innerHTML(xjs.Node.trimInner(frag))
+      return new xjs.DocumentFragment(frag).innerHTML()
     }, this)
   }
 }

@@ -65,7 +65,7 @@ class Skill {
       frag.querySelector('[itemprop="ratingValue"]').setAttribute('style', frag.querySelector('meter').getAttribute('style').replace('1', this._level)) // .style.setProperty('--fadein', this._level) // https://github.com/tmpvar/jsdom/issues/1895
       frag.querySelector('slot[name="percentage"]' ).textContent = 100 * this._level
 
-      return xjs.DocumentFragment.innerHTML(xjs.Node.trimInner(frag))
+      return new xjs.DocumentFragment(frag).innerHTML()
     }, this)
   }
 }

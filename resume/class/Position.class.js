@@ -90,7 +90,7 @@ class Position {
         frag.querySelectorAll('.c-Position__Dates > time')[1].textContent = xjs.Date.format(this._date_end, 'M Y')
         frag.querySelectorAll('.c-Position__Dates > time')[2].remove()
       }
-      return xjs.DocumentFragment.innerHTML(xjs.Node.trimInner(frag))
+      return new xjs.DocumentFragment(frag).innerHTML()
     }, this)
   }
 }

@@ -72,7 +72,7 @@ class City {
       frag.querySelector('data[itemprop="addressRegion"]').value       = this._address.addressRegion
       frag.querySelector('slot[name="region-code"]'      ).textContent = this._address.addressRegion
       frag.querySelector('slot[name="region-full"]'      ).textContent = ''
-      return xjs.DocumentFragment.innerHTML(xjs.Node.trimInner(frag))
+      return new xjs.DocumentFragment(frag).trimInner().innerHTML()
     }, this)
       /**
        * Return a <span> marking up this city with microdata, using an unabbreviated state name.

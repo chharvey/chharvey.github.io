@@ -241,7 +241,7 @@ class Resume {
           frag.querySelector('[itemprop="familyName"]').classList.remove('h-CommaAfter')
         }
 
-        return xjs.DocumentFragment.innerHTML(xjs.Node.trimInner(frag))
+        return new xjs.DocumentFragment(frag).innerHTML()
       })
       /**
        * Return an `<a>` element marking up a piece of contact information.
@@ -282,7 +282,7 @@ class Resume {
           frag.querySelector('ul').append(inner)
         }, this)
         frag.querySelector('ul > template').remove()
-        return xjs.DocumentFragment.innerHTML(xjs.Node.trimInner(frag))
+        return new xjs.DocumentFragment(frag).innerHTML()
       })
   }
 }
