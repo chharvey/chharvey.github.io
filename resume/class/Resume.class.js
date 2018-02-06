@@ -5,10 +5,8 @@ const Ajv      = require('ajv')
 const jsdom = require('jsdom')
 const xjs = {
   Object: require('extrajs').Object,
-  Node  : require('extrajs-dom').Node,
-  DocumentFragment: require('extrajs-dom').DocumentFragment,
+  ...require('extrajs-dom'),
 }
-const View = require('extrajs-view')
 
 const STATE_DATA = require('extrajs-geo')
 STATE_DATA.push(...[
@@ -65,21 +63,6 @@ class Resume {
     return (xjs.Object.typeOf(x) === 'array') ? x.join('') : x
   }
 
-
-  /**
-   * @summary Optional alternative titles for contact information.
-   * @type {Object<string>}
-   * @property {string=} url       optional alternative title of the url
-   * @property {string=} email     optional alternative title of the email
-   * @property {string=} telephone optional alternative title of the telephone
-   */
-  get contactTitles() {
-    return {
-      url      : this._DATA.$contactTitles.url       || '',
-      email    : this._DATA.$contactTitles.email     || '',
-      telephone: this._DATA.$contactTitles.telephone || '',
-    }
-  }
 
   /**
    * @summary About the applicant.
@@ -166,71 +149,6 @@ class Resume {
   }
 
   /**
-   * @summary Render this resume, or parts of it, in HTML.
-   * @see Resume.VIEW
-   * @type {View}
-   */
-  get view() {
-    /**
-     * @summary This view object is a set of functions returning HTML output.
-     * @description Available displays:
-     * - `Resume#view()` - default display
-     * - `Resume#contactInfo()` - markup for a piece of contact information
-     * @namespace Resume.VIEW
-     * @type {View}
-     */
-    /**
-     * Default display. Takes no arguments.
-     * @summary Call `Resume#view()` to render this display.
-     * @function Resume.VIEW.default
-     * @returns {string} HTML output
-     */
-    return new View(null, this)
-      /**
-       * Return an `<a>` element marking up a piece of contact information.
-       * @summary Call `Resume#view.contactInfo()` to render this display.
-       * @function Resume.VIEW.contactInfo
-       * @returns {string} HTML output
-       */
-      .addDisplay(function contactInfo() {
-        const {document} = Resume.TEMPLATE.window
-        let container = document.querySelector('main header address .c-Contact')
-        let template  = container.querySelector('template').content
-
-        ;[
-          {
-            name: 'telephone',
-            href: (this._DATA.telephone) ? `tel:${this._DATA.telephone}` : '',
-            icon: 'device-mobile',
-          },
-          {
-            name: 'email',
-            href: (this._DATA.email) ? `mailto:${this._DATA.email}` : '',
-            icon: 'mail',
-          },
-          {
-            name: 'url',
-            href: this._DATA.url || '',
-            icon: 'home',
-          },
-        ].forEach(function (d) {
-          let frag = template.cloneNode(true)
-          if (d.href) {
-            frag.querySelector('.c-Contact__Link').href = d.href
-          } else {
-            frag.querySelector('.c-Contact__Link').removeAttribute('href')
-          }
-          frag.querySelector('.c-Contact__Link').setAttribute('itemprop', d.name)
-          frag.querySelector('.c-Contact__Icon').className = frag.querySelector('.c-Contact__Icon').className.replace('{{ octicon }}', d.icon)
-          frag.querySelector('.c-Contact__Text').textContent = this.contactTitles[d.name] || this._DATA[d.name]
-          container.append(frag)
-        }, this)
-
-        return container.innerHTML
-      })
-  }
-
-  /**
    * Compile the entire document.
    * @returns {string} the compiled DOM output
    */
@@ -239,8 +157,9 @@ class Resume {
     const {document} = dom.window
 
 
-    document.querySelector('main header h1').append((function (frag, data) {
-      // REVIEW indentation
+    ;(function () {
+      let container = document.querySelector('main header h1')
+      container.append((function (frag, data) {
         ;[
           'familyName',
           'givenName',
@@ -268,13 +187,46 @@ class Resume {
         }
 
         return frag
-    })(document.querySelector('main header h1 template').content.cloneNode(true), {
+      })(container.querySelector('template').content.cloneNode(true), {
+        // REVIEW indentation
       familyName      : this._DATA.familyName      || '',
       givenName       : this._DATA.givenName       || '',
       additionalName  : this._DATA.additionalName  || '',
       honorificPrefix : this._DATA.honorificPrefix || '',
       honorificSuffix : this._DATA.honorificSuffix || '',
-    }))
+      }))
+    }).call(this)
+
+
+    ;(function () {
+      let container = document.querySelector('main header address ul.c-Contact')
+      container.append(...[
+        {
+          name: 'telephone',
+          href: (this._DATA.telephone) ? `tel:${this._DATA.telephone}` : '',
+          icon: 'device-mobile',
+          text: this._DATA.$contactTitles.telephone || this._DATA.telephone,
+        },
+        {
+          name: 'email',
+          href: (this._DATA.email) ? `mailto:${this._DATA.email}` : '',
+          icon: 'mail',
+          text: this._DATA.$contactTitles.email || this._DATA.email,
+        },
+        {
+          name: 'url',
+          href: this._DATA.url || '',
+          icon: 'home',
+          text: this._DATA.$contactTitles.url || this._DATA.url,
+        },
+      ].map((d) => (function (frag, data) {
+        new xjs.HTMLAnchorElement(frag.querySelector('.c-Contact__Link')).href(data.href || null )
+        frag.querySelector('.c-Contact__Link').setAttribute('itemprop', data.name)
+        frag.querySelector('.c-Contact__Icon').className = frag.querySelector('.c-Contact__Icon').className.replace('{{ octicon }}', data.icon)
+        frag.querySelector('.c-Contact__Text').textContent = data.text
+        return frag
+      })(container.querySelector('template').content.cloneNode(true), d)))
+    }).call(this)
 
 
     return dom.serialize()
