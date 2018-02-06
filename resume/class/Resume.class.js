@@ -65,12 +65,6 @@ class Resume {
 
 
   /**
-   * @summary About the applicant.
-   * @type {string}
-   */
-  get about() { return this._DATA.description || '' }
-
-  /**
    * @summary List of skills, grouped by category.
    * @type {Array<{title:string: id:string, items:Array<Skill>}>}
    */
@@ -157,6 +151,10 @@ class Resume {
     const {document} = dom.window
 
 
+    // ++++ USER-INPUT DATA ++++ //
+
+
+    // ++++ DATA WITH NO PATTERNS ++++ //
     ;(function () {
       let container = document.querySelector('main header h1')
       container.append((function (frag, data) {
@@ -197,7 +195,6 @@ class Resume {
       }))
     }).call(this)
 
-
     ;(function () {
       let container = document.querySelector('main header address ul.c-Contact')
       container.append(...[
@@ -227,6 +224,8 @@ class Resume {
         return frag
       })(container.querySelector('template').content.cloneNode(true), d)))
     }).call(this)
+
+    document.querySelector('#about slot[name="about"]').textContent = this._DATA.description || ''
 
 
     return dom.serialize()
