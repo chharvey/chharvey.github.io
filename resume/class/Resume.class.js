@@ -67,26 +67,6 @@ class Resume {
 
 
   /**
-   * @summary The full name of the applicant, including prefixes and suffixes.
-   * @type {Object<string>}
-   * @property {string} familyName
-   * @property {string} givenName
-   * @property {string} additionalName
-   * @property {string} honorificPrefix
-   * @property {string} honorificSuffix
-   */
-  get fullName() {
-    return {
-      // REVIEW indentation
-     familyName      : this._DATA.familyName      || '',
-     givenName       : this._DATA.givenName       || '',
-     additionalName  : this._DATA.additionalName  || '',
-     honorificPrefix : this._DATA.honorificPrefix || '',
-     honorificSuffix : this._DATA.honorificSuffix || '',
-    }
-  }
-
-  /**
    * @summary Optional alternative titles for contact information.
    * @type {Object<string>}
    * @property {string=} url       optional alternative title of the url
@@ -207,48 +187,6 @@ class Resume {
      */
     return new View(null, this)
       /**
-       * Return an `<h1>` element marking up the applicant name. Serves as the top-level heading of the resume.
-       * @summary Call `Resume#view.fullName()` to render this display.
-       * @function Resume.VIEW.fullName
-       * @returns {string} HTML output
-       */
-      .addDisplay(function fullName() {
-        const {document} = Resume.TEMPLATE.window
-        let container = document.querySelector('main header h1')
-        let template  = container.querySelector('template').content
-        let frag      = template.cloneNode(true)
-
-        ;[
-          'familyName',
-          'givenName',
-          'additionalName',
-          'honorificPrefix',
-          'honorificSuffix',
-        ].forEach(function (nameprop) {
-          let el = frag.querySelector(`slot[name="${nameprop}"]`)
-          if (this.fullName[nameprop]) {
-            el.textContent = this.fullName[nameprop]
-          } else el.remove()
-        }, this)
-
-        // abbreviate the middle name
-        if (this.fullName.additionalName) {
-          frag.querySelector('slot[name="additionalName"]').textContent = `${this.fullName.additionalName[0]}.`
-          frag.querySelector('abbr[itemprop="additionalName"]').title = this.fullName.additionalName
-        } else {
-          frag.querySelector('abbr[itemprop="additionalName"]').remove()
-        }
-
-        // comma preceding suffix
-        if (!this.fullName.honorificSuffix) {
-          frag.querySelector('[itemprop="familyName"]').classList.remove('h-CommaAfter')
-        }
-
-        container.append(frag)
-
-        return container.innerHTML
-      })
-      /**
        * Return an `<a>` element marking up a piece of contact information.
        * @summary Call `Resume#view.contactInfo()` to render this display.
        * @function Resume.VIEW.contactInfo
@@ -290,29 +228,58 @@ class Resume {
 
         return container.innerHTML
       })
-      /**
-       * @summary Compile HTML markup from the master template file.
-       * @description This method takes an entire HTML template file and compiles the static output.
-       * @returns {string} compiled HTML output
-       */
-      .addDisplay(function compile() {
-        const dom = Resume.TEMPLATE
-        const {document} = dom.window
+  }
 
-        document.querySelector('main header h1').innerHTML = this.view.fullName()
-        document.querySelector('main header address .c-Contact').innerHTML = this.view.contactInfo()
-        document.querySelector('#about [itemprop="description"]').innerHTML = this.about
+  /**
+   * Compile the entire document.
+   * @returns {string} the compiled DOM output
+   */
+  compile() {
+    const dom = new jsdom.JSDOM(fs.readFileSync(path.join(__dirname, '../tpl/resume.tpl.html'), 'utf8'))
+    const {document} = dom.window
 
-        return dom.serialize()
-      })
+
+    document.querySelector('main header h1').append((function (frag, data) {
+      // REVIEW indentation
+        ;[
+          'familyName',
+          'givenName',
+          'additionalName',
+          'honorificPrefix',
+          'honorificSuffix',
+        ].forEach(function (nameprop) {
+          let el = frag.querySelector(`slot[name="${nameprop}"]`)
+          if (data[nameprop]) {
+            el.textContent = data[nameprop]
+          } else el.remove()
+        })
+
+        // abbreviate the middle name
+        if (data.additionalName) {
+          frag.querySelector('slot[name="additionalName"]').textContent = `${data.additionalName[0]}.`
+          frag.querySelector('abbr[itemprop="additionalName"]').title = data.additionalName
+        } else {
+          frag.querySelector('abbr[itemprop="additionalName"]').remove()
+        }
+
+        // comma preceding suffix
+        if (!data.honorificSuffix) {
+          frag.querySelector('[itemprop="familyName"]').classList.remove('h-CommaAfter')
+        }
+
+        return frag
+    })(document.querySelector('main header h1 template').content.cloneNode(true), {
+      familyName      : this._DATA.familyName      || '',
+      givenName       : this._DATA.givenName       || '',
+      additionalName  : this._DATA.additionalName  || '',
+      honorificPrefix : this._DATA.honorificPrefix || '',
+      honorificSuffix : this._DATA.honorificSuffix || '',
+    }))
+
+
+    return dom.serialize()
   }
 }
-
-/**
- * @summary The template for this theme.
- * @type {JSDOM}
- */
-Resume.TEMPLATE = new jsdom.JSDOM(fs.readFileSync(path.join(__dirname, '../tpl/resume.tpl.html'), 'utf8'))
 
 /**
  * @summary A set of templates marking up small data types.

@@ -30,7 +30,7 @@ gulp.task('pug:home', function () {
 })
 
 gulp.task('pug:resume', function (callback) {
-  let contents = new Resume(require('./resume/resume.json')).view.compile()
+  let contents = new Resume(require('./resume/resume.json')).compile()
   return fs.writeFile('./resume/resume.html', contents, 'utf8', callback) // send callback here to maintain async dependency
   return gulp.src('resume/resume.pug')
     .pipe(pug({
