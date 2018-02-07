@@ -1,4 +1,5 @@
 const xjs = require('extrajs')
+const Component = require('../class/Component.class.js')
 const City = require('../class/City.class.js')
 
 /**
@@ -23,15 +24,11 @@ function xPosition(frag, data) {
 
   ;(function () {
     let container = frag.querySelector('.c-Position__Body')
-    // container.append(...descriptions.map((text) =>
-    //   new Component(container.querySelector('template').content, function (f, d) {
-    //     f.querySelector('li').innerHTML = d
-    //   }).render(text))
-    // )
-    container.append(...descriptions.map((text) => (function (f, d) {
-      f.querySelector('li').innerHTML = d
-      return f
-    })(container.querySelector('template').content.cloneNode(true), text)))
+    container.append(...descriptions.map((text) =>
+      new Component(container.querySelector('template').content, function (f, d) {
+        f.querySelector('li').innerHTML = d
+      }).render(text))
+    )
   })()
 
   if (!date_end) {

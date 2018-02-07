@@ -16,6 +16,7 @@ STATE_DATA.push(...[
 const { SCHEMATA } = require('schemaorg-jsd')
 const requireOther = require('schemaorg-jsd/lib/requireOther.js')
 
+const Component = require('../class/Component.class.js')
 const Award          = require('./Award.class.js')
 const ProDev         = require('./ProDev.class.js')
 const Degree         = require('./Degree.class.js')
@@ -131,7 +132,7 @@ class Resume {
     // ++++ DATA WITH NO PATTERNS ++++ //
     ;(function () {
       let container = document.querySelector('main header h1')
-      container.append((function (frag, data) {
+      let component = new Component(container.querySelector('template').content, function (frag, data) {
         ;[
           'familyName',
           'givenName',
@@ -157,21 +158,27 @@ class Resume {
         if (!data.honorificSuffix) {
           frag.querySelector('[itemprop="familyName"]').classList.remove('h-CommaAfter')
         }
-
-        return frag
-      })(container.querySelector('template').content.cloneNode(true), {
+      })
+      let data = {
         // REVIEW indentation
       familyName      : this._DATA.familyName      || '',
       givenName       : this._DATA.givenName       || '',
       additionalName  : this._DATA.additionalName  || '',
       honorificPrefix : this._DATA.honorificPrefix || '',
       honorificSuffix : this._DATA.honorificSuffix || '',
-      }))
+      }
+      container.append(component.render(data))
     }).call(this)
 
     ;(function () {
       let container = document.querySelector('main header address ul.c-Contact')
-      container.append(...[
+      let component = new Component(container.querySelector('template').content, function (frag, data) {
+        new xjs.HTMLAnchorElement(frag.querySelector('.c-Contact__Link')).href(data.href || null)
+        frag.querySelector('.c-Contact__Link').setAttribute('itemprop', data.name)
+        frag.querySelector('.c-Contact__Icon').className = frag.querySelector('.c-Contact__Icon').className.replace('{{ octicon }}', data.icon)
+        frag.querySelector('.c-Contact__Text').textContent = data.text
+      })
+      let dataset = [
         {
           name: 'telephone',
           href: (this._DATA.telephone) ? `tel:${this._DATA.telephone}` : '',
@@ -190,57 +197,46 @@ class Resume {
           icon: 'home',
           text: this._DATA.$contactTitles.url || this._DATA.url,
         },
-      ].map((datum) => (function (frag, data) {
-        new xjs.HTMLAnchorElement(frag.querySelector('.c-Contact__Link')).href(data.href || null )
-        frag.querySelector('.c-Contact__Link').setAttribute('itemprop', data.name)
-        frag.querySelector('.c-Contact__Icon').className = frag.querySelector('.c-Contact__Icon').className.replace('{{ octicon }}', data.icon)
-        frag.querySelector('.c-Contact__Text').textContent = data.text
-        return frag
-      })(container.querySelector('template').content.cloneNode(true), datum)))
+      ]
+      container.append(...dataset.map(component.render, component))
     }).call(this)
 
     document.querySelector('#about slot[name="about"]').textContent = this._DATA.description || ''
 
     ;(function () {
       let container = document.querySelector('.o-Grid--skillGroups')
-      let component = Resume.COMPONENT.xSkill
-      container.append(...(this._DATA.$skills || []).map((datum) => (function (frag, data) {
+      container.append(...(this._DATA.$skills || []).map((datum) => new Component(container.querySelector('template').content, function (frag, data) {
         frag.querySelector('.o-List__Item'    ).id          = `${data.identifier}-item` // TODO fix this after fixing hidden-ness
         frag.querySelector('.c-Position'      ).id          = data.identifier
         frag.querySelector('.c-Position__Name').textContent = data.name
         new xjs.HTMLDListElement(frag.querySelector('.o-Grid--skill')).empty().node.append(...data.itemListElement.map((item) =>
-          component.renderer(component.template.cloneNode(true), item)
+          Resume.COMPONENT.xSkill.render(item)
         ))
-        return frag
-      })(container.querySelector('template').content.cloneNode(true), datum)))
+      }).render(datum)))
     }).call(this)
     ;(function () {
       let container = document.querySelector('#skills .o-List--print')
       container.append(
         ...Array.from(document.querySelector('.o-Grid--skillGroups').querySelectorAll('dt.o-Grid__Item'))
-          .map((dt) => (function (frag, data) {
+          .map((dt) => new Component(container.querySelector('template').content, function (frag, data) {
             frag.querySelector('li').innerHTML = data.innerHTML
-            return frag
-          })(container.querySelector('template').content.cloneNode(true), dt))
+          }).render(dt))
       )
     })()
 
     ;(function () {
       let templateEl = document.querySelector('template#experience')
-      let component = Resume.COMPONENT.xPosition
-      templateEl.after(...(this._DATA.$positions || []).map((datum) => (function (frag, data) {
+      templateEl.after(...(this._DATA.$positions || []).map((datum) => new Component(templateEl.content, function (frag, data) {
         frag.querySelector('.o-Grid__Item--exp').id = data.identifier
         frag.querySelector('.c-ExpHn').textContent = data.name
         ;(function () {
           let container = frag.querySelector('ul.o-List')
-          container.append(...data.itemListElement.map((item) => (function (f, d) {
+          container.append(...data.itemListElement.map((item) => new Component(container.querySelector('template').content, function (f, d) {
             new xjs.HTMLLIElement(f.querySelector('li')).empty().node
-              .append(component.renderer(component.template.cloneNode(true), item))
-            return f
-          })(container.querySelector('template').content.cloneNode(true), item)))
+              .append(Resume.COMPONENT.xPosition.render(item))
+          }).render(item)))
         })()
-        return frag
-      })(templateEl.content.cloneNode(true), datum)))
+      }).render(datum)))
     }).call(this)
 
 
@@ -262,14 +258,8 @@ class Resume {
  * @const {!Object<Component>}
  */
 Resume.COMPONENT = {
-  xSkill: {
-    template: jsdom.JSDOM.fragment(fs.readFileSync(path.join(__dirname, '../tpl/x-skill.tpl.html'), 'utf8')).querySelector('template').content,
-    renderer: require('../tpl/x-skill.tpl.js'),
-  },
-  xPosition: {
-    template: jsdom.JSDOM.fragment(fs.readFileSync(path.join(__dirname, '../tpl/x-position.tpl.html'), 'utf8')).querySelector('template').content,
-    renderer: require('../tpl/x-position.tpl.js'),
-  },
+  xSkill   : new Component(jsdom.JSDOM.fragment(fs.readFileSync(path.join(__dirname, '../tpl/x-skill.tpl.html'   ), 'utf8')).querySelector('template').content, require('../tpl/x-skill.tpl.js'   )),
+  xPosition: new Component(jsdom.JSDOM.fragment(fs.readFileSync(path.join(__dirname, '../tpl/x-position.tpl.html'), 'utf8')).querySelector('template').content, require('../tpl/x-position.tpl.js')),
 }
 
 module.exports = Resume
