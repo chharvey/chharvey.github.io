@@ -16,7 +16,6 @@ STATE_DATA.push(...[
 const { SCHEMATA } = require('schemaorg-jsd')
 const requireOther = require('schemaorg-jsd/lib/requireOther.js')
 
-const Position       = require('./Position.class.js')
 const Award          = require('./Award.class.js')
 const ProDev         = require('./ProDev.class.js')
 const Degree         = require('./Degree.class.js')
@@ -62,18 +61,6 @@ class Resume {
     return (xjs.Object.typeOf(x) === 'array') ? x.join('') : x
   }
 
-
-  /**
-   * @summary List of positions, grouped by category.
-   * @type {Array<{title:string: id:string, items:Array<Position>}>}
-   */
-  get positions() {
-    return (this._DATA.$positions || []).map((itemList) => ({
-      title: itemList.name,
-      id   : itemList.identifier,
-      items: itemList.itemListElement.map((jobposting) => new Position(jobposting))
-    }))
-  }
 
   /**
    * @summary List of degrees.
@@ -214,7 +201,6 @@ class Resume {
 
     document.querySelector('#about slot[name="about"]').textContent = this._DATA.description || ''
 
-
     ;(function () {
       let container = document.querySelector('.o-Grid--skillGroups')
       let component = Resume.COMPONENT.xSkill
@@ -239,6 +225,24 @@ class Resume {
       )
     })()
 
+    ;(function () {
+      let templateEl = document.querySelector('template#experience')
+      let component = Resume.COMPONENT.xPosition
+      templateEl.after(...(this._DATA.$positions || []).map((datum) => (function (frag, data) {
+        frag.querySelector('.o-Grid__Item--exp').id = data.identifier
+        frag.querySelector('.c-ExpHn').textContent = data.name
+        ;(function () {
+          let container = frag.querySelector('ul.o-List')
+          container.append(...data.itemListElement.map((item) => (function (f, d) {
+            new xjs.HTMLLIElement(f.querySelector('li')).empty().node
+              .append(component.renderer(component.template.cloneNode(true), item))
+            return f
+          })(container.querySelector('template').content.cloneNode(true), item)))
+        })()
+        return frag
+      })(templateEl.content.cloneNode(true), datum)))
+    }).call(this)
+
 
     return dom.serialize()
   }
@@ -261,7 +265,11 @@ Resume.COMPONENT = {
   xSkill: {
     template: jsdom.JSDOM.fragment(fs.readFileSync(path.join(__dirname, '../tpl/x-skill.tpl.html'), 'utf8')).querySelector('template').content,
     renderer: require('../tpl/x-skill.tpl.js'),
-  }
+  },
+  xPosition: {
+    template: jsdom.JSDOM.fragment(fs.readFileSync(path.join(__dirname, '../tpl/x-position.tpl.html'), 'utf8')).querySelector('template').content,
+    renderer: require('../tpl/x-position.tpl.js'),
+  },
 }
 
 module.exports = Resume
