@@ -49,26 +49,21 @@
     </section>
     <section class="o-Grid__Item o-Grid__Item--exp" id="skills">
       <h2 class="o-Grid__Item c-ExpHn">Skills</h2>
-      {{
-        -
-          const dom = new jsdom.JSDOM()
-          let list = dom.window.document.createElement('ul')
-          let item = dom.window.document.createElement('li')
-          let skills_print = new xjs.HTMLUListElement(list).class('o-List o-List--print').append(...(resume.skills || [])
-            .map((group) => group.items)
-            .reduce((a,b) => a.concat(b), [])
-            .map((skill) => new xjs.HTMLLIElement(item.cloneNode(true)).class('o-List__Item h-Inline').append(skill.text))
-          )
-        != skills_print.outerHTML()
-      }}
-      <div class="o-Grid__Item o-Grid__Item--maincol o-Grid o-Grid--skillGroups">
-        <template data-each="group in resume.skills">
-          <section clas="o-Grid__Item c-Position" id="{{ group.id }}">
-            <h3 class="c-Position__Name">{{ group.title }}</h3>
-            <dl class="o-Grid.o-Grid--skill">{{ group.items.map((item) => item.view()).join('') }}</dl>
-          </section>
+      <ul class="o-List o-List--print">
+        <template>
+          <li class="o-List__Item h-Inline">{{ Rating#name }}</li>
         </template>
-      </div>
+      </ul>
+      <ul class="o-Grid__Item o-Grid__Item--maincol o-List o-Grid o-Grid--skillGroups">
+        <template>
+          <li class="o-List__Item o-Grid__Item" id="{{ ItemList#identifier }}-item">
+            <section class="c-Position" id="{{ ItemList#identifier }}">
+              <h3 class="c-Position__Name">{{ ItemList#name }}</h3>
+              <dl class="o-Grid o-Grid--skill">{{ ItemList#itemListElement }}</dl>
+            </section>
+          </li>
+        </template>
+      </ul>
     </section>
     <template data-each="group in resume.positions">
       <section class="o-Grid__Item o-Grid__Item--exp" id="{{ group.id }}">

@@ -16,7 +16,6 @@ STATE_DATA.push(...[
 const { SCHEMATA } = require('schemaorg-jsd')
 const requireOther = require('schemaorg-jsd/lib/requireOther.js')
 
-const Skill          = require('./Skill.class.js')
 const Position       = require('./Position.class.js')
 const Award          = require('./Award.class.js')
 const ProDev         = require('./ProDev.class.js')
@@ -63,18 +62,6 @@ class Resume {
     return (xjs.Object.typeOf(x) === 'array') ? x.join('') : x
   }
 
-
-  /**
-   * @summary List of skills, grouped by category.
-   * @type {Array<{title:string: id:string, items:Array<Skill>}>}
-   */
-  get skills() {
-    return (this._DATA.$skills || []).map((itemList) => ({
-      title: itemList.name,
-      id   : itemList.identifier,
-      items: itemList.itemListElement.map((rating) => new Skill(rating)),
-    }))
-  }
 
   /**
    * @summary List of positions, grouped by category.
@@ -216,16 +203,41 @@ class Resume {
           icon: 'home',
           text: this._DATA.$contactTitles.url || this._DATA.url,
         },
-      ].map((d) => (function (frag, data) {
+      ].map((datum) => (function (frag, data) {
         new xjs.HTMLAnchorElement(frag.querySelector('.c-Contact__Link')).href(data.href || null )
         frag.querySelector('.c-Contact__Link').setAttribute('itemprop', data.name)
         frag.querySelector('.c-Contact__Icon').className = frag.querySelector('.c-Contact__Icon').className.replace('{{ octicon }}', data.icon)
         frag.querySelector('.c-Contact__Text').textContent = data.text
         return frag
-      })(container.querySelector('template').content.cloneNode(true), d)))
+      })(container.querySelector('template').content.cloneNode(true), datum)))
     }).call(this)
 
     document.querySelector('#about slot[name="about"]').textContent = this._DATA.description || ''
+
+
+    ;(function () {
+      let container = document.querySelector('.o-Grid--skillGroups')
+      let component = Resume.COMPONENT.xSkill
+      container.append(...(this._DATA.$skills || []).map((datum) => (function (frag, data) {
+        frag.querySelector('.o-List__Item'    ).id          = `${data.identifier}-item` // TODO fix this after fixing hidden-ness
+        frag.querySelector('.c-Position'      ).id          = data.identifier
+        frag.querySelector('.c-Position__Name').textContent = data.name
+        new xjs.HTMLDListElement(frag.querySelector('.o-Grid--skill')).empty().node.append(...data.itemListElement.map((item) =>
+          component.renderer(component.template.cloneNode(true), item)
+        ))
+        return frag
+      })(container.querySelector('template').content.cloneNode(true), datum)))
+    }).call(this)
+    ;(function () {
+      let container = document.querySelector('#skills .o-List--print')
+      container.append(
+        ...Array.from(document.querySelector('.o-Grid--skillGroups').querySelectorAll('dt.o-Grid__Item'))
+          .map((dt) => (function (frag, data) {
+            frag.querySelector('li').innerHTML = data.innerHTML
+            return frag
+          })(container.querySelector('template').content.cloneNode(true), dt))
+      )
+    })()
 
 
     return dom.serialize()
@@ -233,10 +245,23 @@ class Resume {
 }
 
 /**
- * @summary A set of templates marking up small data types.
- * @const {Object<DocumentFragment>}
+ * @summary A Component is a pair consisting of a template in HTML and a rendering functon in JS.
+ * @description The rendering function fills in the template with data.
+ * The rendering function is specific to the template, so they should be locked in pair together.
+ * @typedef {!Object} Component
+ * @property {DocumentFragment} template the document fragment containing the template; could be an `HTMLTemplateElement#content` object
+ * @property {function(DocumentFragment, *):DocumentFragment} renderer modifies the template by filling it in with data, then returns it
  */
-Resume.NAMED_TEMPLATES = {
+
+/**
+ * @summary A set of component builders.
+ * @const {!Object<Component>}
+ */
+Resume.COMPONENT = {
+  xSkill: {
+    template: jsdom.JSDOM.fragment(fs.readFileSync(path.join(__dirname, '../tpl/x-skill.tpl.html'), 'utf8')).querySelector('template').content,
+    renderer: require('../tpl/x-skill.tpl.js'),
+  }
 }
 
 module.exports = Resume
