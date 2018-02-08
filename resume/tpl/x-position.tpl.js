@@ -1,6 +1,9 @@
-const xjs = require('extrajs')
+const xjs = {
+  Date: require('extrajs').Date,
+  HTMLElement: require('extrajs-dom').HTMLElement,
+  DocumentFragment: require('extrajs-dom').DocumentFragment,
+}
 const Component = require('../class/Component.class.js')
-const City = require('../class/City.class.js')
 
 /**
  * @summary Position display.
@@ -9,6 +12,7 @@ const City = require('../class/City.class.js')
  * @returns {DocumentFragment} modified fragment
  */
 function xPosition(frag, data) {
+  const Resume = require('../class/Resume.class.js')
   let date_start = new Date(data.$start)
   let date_end   = (data.$end) ? new Date(data.$end) : null
   let descriptions = (typeof data.responsibilities === 'string') ? [data.responsibilities] : data.responsibilities || []
@@ -20,7 +24,8 @@ function xPosition(frag, data) {
   frag.querySelector('[itemprop="hiringOrganization"] [itemprop="name"]').innerHTML = data.hiringOrganization.name
   frag.querySelectorAll('.c-Position__Dates > time')[0].dateTime    = date_start.toISOString()
   frag.querySelectorAll('.c-Position__Dates > time')[0].textContent = xjs.Date.format(date_start, 'M Y')
-  frag.querySelector('.c-Position__Place > slot[name="city"]').innerHTML = new City(data.jobLocation).view() // TODO replace with x-city.tpl
+  new xjs.HTMLElement(frag.querySelector('.c-Position__Place > slot[name="city"]')).empty().node
+    .append(new xjs.DocumentFragment(Resume.COMPONENT.xCity.render(data.jobLocation)).trimInner().node)
 
   ;(function () {
     let container = frag.querySelector('.c-Position__Body')
@@ -39,7 +44,6 @@ function xPosition(frag, data) {
     frag.querySelectorAll('.c-Position__Dates > time')[1].textContent = xjs.Date.format(date_end, 'M Y')
     frag.querySelectorAll('.c-Position__Dates > time')[2].remove()
   }
-  return frag
 }
 
 module.exports = xPosition
