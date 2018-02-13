@@ -2,7 +2,6 @@
  * @summary Skill display.
  * @param   {DocumentFragment} frag the template conent with which to render
  * @param   {sdo.Rating} data the data to fill the template
- * @returns {DocumentFragment} modified fragment
  */
 function xSkill(frag, data) {
   frag.querySelector('dt'                      ).innerHTML   = data.name

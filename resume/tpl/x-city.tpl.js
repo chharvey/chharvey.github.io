@@ -8,7 +8,6 @@ STATE_DATA.push(...[
  * @param   {DocumentFragment} frag the template conent with which to render
  * @param   {sdo.Place} data the data to fill the template
  * @param   {boolean=} data.$full `true` to display the full (non-abbreviated) region name
- * @returns {DocumentFragment} modified fragment
  */
 function xCity(frag, data) {
   frag.querySelector('[itemprop="addressLocality"]'  ).textContent = data.address.addressLocality

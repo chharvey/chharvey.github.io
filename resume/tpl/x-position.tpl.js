@@ -2,14 +2,13 @@ const xjs = {
   Date: require('extrajs').Date,
   HTMLElement: require('extrajs-dom').HTMLElement,
   DocumentFragment: require('extrajs-dom').DocumentFragment,
+  HTMLTemplateElement: require('extrajs-dom').HTMLTemplateElement,
 }
-const Component = require('../class/Component.class.js')
 
 /**
  * @summary Position display.
  * @param   {DocumentFragment} frag the template conent with which to render
  * @param   {sdo.JobPosting} data the data to fill the template
- * @returns {DocumentFragment} modified fragment
  */
 function xPosition(frag, data) {
   const Resume = require('../class/Resume.class.js')
@@ -25,12 +24,12 @@ function xPosition(frag, data) {
   frag.querySelectorAll('.c-Position__Dates > time')[0].dateTime    = date_start.toISOString()
   frag.querySelectorAll('.c-Position__Dates > time')[0].textContent = xjs.Date.format(date_start, 'M Y')
   new xjs.HTMLElement(frag.querySelector('.c-Position__Place > slot[name="city"]')).empty().node
-    .append(new xjs.DocumentFragment(Resume.COMPONENT.xCity.render(data.jobLocation)).trimInner().node)
+    .append(new xjs.DocumentFragment(Resume.TEMPLATES.xCity.render(data.jobLocation)).trimInner().node)
 
   ;(function () {
     let container = frag.querySelector('.c-Position__Body')
     container.append(...descriptions.map((text) =>
-      new Component(container.querySelector('template').content, function (f, d) {
+      new xjs.HTMLTemplateElement(container.querySelector('template')).setRenderer(function (f, d) {
         f.querySelector('li').innerHTML = d
       }).render(text))
     )
