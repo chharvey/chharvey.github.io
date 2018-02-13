@@ -11,7 +11,6 @@ const xjs = {
 const { SCHEMATA } = require('schemaorg-jsd')
 const requireOther = require('schemaorg-jsd/lib/requireOther.js')
 
-const Component = require('../class/Component.class.js')
 const Award          = require('./Award.class.js')
 const ProDev         = require('./ProDev.class.js')
 const Degree         = require('./Degree.class.js')
@@ -127,7 +126,7 @@ class Resume {
     // ++++ DATA WITH NO PATTERNS ++++ //
     ;(function () {
       let container = document.querySelector('main header h1')
-      let component = new Component(container.querySelector('template').content, function (frag, data) {
+      let component = new xjs.HTMLTemplateElement(container.querySelector('template')).setRenderer(function (frag, data) {
         ;[
           'familyName',
           'givenName',
@@ -167,7 +166,7 @@ class Resume {
 
     ;(function () {
       let container = document.querySelector('main header address ul.c-Contact')
-      let component = new Component(container.querySelector('template').content, function (frag, data) {
+      let component = new xjs.HTMLTemplateElement(container.querySelector('template')).setRenderer(function (frag, data) {
         new xjs.HTMLAnchorElement(frag.querySelector('.c-Contact__Link')).href(data.href || null)
         frag.querySelector('.c-Contact__Link').setAttribute('itemprop', data.name)
         frag.querySelector('.c-Contact__Icon').className = frag.querySelector('.c-Contact__Icon').className.replace('{{ octicon }}', data.icon)
@@ -193,19 +192,19 @@ class Resume {
           text: this._DATA.$contactTitles.url || this._DATA.url,
         },
       ]
-      container.append(...dataset.map(component.render, component))
+      container.append(...dataset.map(component.render, component)) // a.k.a. `(data) => component.render(data)`
     }).call(this)
 
     document.querySelector('#about slot[name="about"]').textContent = this._DATA.description || ''
 
     ;(function () {
       let container = document.querySelector('.o-Grid--skillGroups')
-      container.append(...(this._DATA.$skills || []).map((datum) => new Component(container.querySelector('template').content, function (frag, data) {
+      container.append(...(this._DATA.$skills || []).map((datum) => new xjs.HTMLTemplateElement(container.querySelector('template')).setRenderer(function (frag, data) {
         frag.querySelector('.o-List__Item'    ).id          = `${data.identifier}-item` // TODO fix this after fixing hidden-ness
         frag.querySelector('.c-Position'      ).id          = data.identifier
         frag.querySelector('.c-Position__Name').textContent = data.name
         new xjs.HTMLDListElement(frag.querySelector('.o-Grid--skill')).empty().node.append(...data.itemListElement.map((item) =>
-          Resume.COMPONENT.xSkill.render(item)
+          Resume.TEMPLATES.xSkill.render(item)
         ))
       }).render(datum)))
     }).call(this)
@@ -213,7 +212,7 @@ class Resume {
       let container = document.querySelector('#skills .o-List--print')
       container.append(
         ...Array.from(document.querySelector('.o-Grid--skillGroups').querySelectorAll('dt.o-Grid__Item'))
-          .map((dt) => new Component(container.querySelector('template').content, function (frag, data) {
+          .map((dt) => new xjs.HTMLTemplateElement(container.querySelector('template')).setRenderer(function (frag, data) {
             frag.querySelector('li').innerHTML = data.innerHTML
           }).render(dt))
       )
@@ -221,14 +220,14 @@ class Resume {
 
     ;(function () {
       let templateEl = document.querySelector('template#experience')
-      templateEl.after(...(this._DATA.$positions || []).map((datum) => new Component(templateEl.content, function (frag, data) {
+      templateEl.after(...(this._DATA.$positions || []).map((datum) => new xjs.HTMLTemplateElement(templateEl).setRenderer(function (frag, data) {
         frag.querySelector('.o-Grid__Item--exp').id = data.identifier
         frag.querySelector('.c-ExpHn').textContent = data.name
         ;(function () {
           let container = frag.querySelector('ul.o-List')
-          container.append(...data.itemListElement.map((item) => new Component(container.querySelector('template').content, function (f, d) {
+          container.append(...data.itemListElement.map((item) => new xjs.HTMLTemplateElement(container.querySelector('template')).setRenderer(function (f, d) {
             new xjs.HTMLLIElement(f.querySelector('li')).empty().node
-              .append(Resume.COMPONENT.xPosition.render(item))
+              .append(Resume.TEMPLATES.xPosition.render(item))
           }).render(item)))
         })()
       }).render(datum)))
@@ -240,22 +239,13 @@ class Resume {
 }
 
 /**
- * @summary A Component is a pair consisting of a template in HTML and a rendering functon in JS.
- * @description The rendering function fills in the template with data.
- * The rendering function is specific to the template, so they should be locked in pair together.
- * @typedef {!Object} Component
- * @property {DocumentFragment} template the document fragment containing the template; could be an `HTMLTemplateElement#content` object
- * @property {function(DocumentFragment, *):DocumentFragment} renderer modifies the template by filling it in with data, then returns it
- */
-
-/**
  * @summary A set of component builders.
- * @const {!Object<Component>}
+ * @namespace
  */
-Resume.COMPONENT = {
-  xSkill   : new Component(jsdom.JSDOM.fragment(fs.readFileSync(path.join(__dirname, '../tpl/x-skill.tpl.html'   ), 'utf8')).querySelector('template').content, require('../tpl/x-skill.tpl.js'   )),
-  xPosition: new Component(jsdom.JSDOM.fragment(fs.readFileSync(path.join(__dirname, '../tpl/x-position.tpl.html'), 'utf8')).querySelector('template').content, require('../tpl/x-position.tpl.js')),
-  xCity    : new Component(jsdom.JSDOM.fragment(fs.readFileSync(path.join(__dirname, '../tpl/x-city.tpl.html'    ), 'utf8')).querySelector('template').content, require('../tpl/x-city.tpl.js'    )),
+Resume.TEMPLATES = {
+  xSkill   : new xjs.HTMLTemplateElement(xjs.HTMLTemplateElement.readTemplateFileSync(path.join(__dirname, '../tpl/x-skill.tpl.html'   ))).setRenderer(require('../tpl/x-skill.tpl.js'   )),
+  xPosition: new xjs.HTMLTemplateElement(xjs.HTMLTemplateElement.readTemplateFileSync(path.join(__dirname, '../tpl/x-position.tpl.html'))).setRenderer(require('../tpl/x-position.tpl.js')),
+  xCity    : new xjs.HTMLTemplateElement(xjs.HTMLTemplateElement.readTemplateFileSync(path.join(__dirname, '../tpl/x-city.tpl.html'    ))).setRenderer(require('../tpl/x-city.tpl.js'    )),
 }
 
 module.exports = Resume
