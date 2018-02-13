@@ -8,11 +8,6 @@ const xjs = {
   ...require('extrajs-dom'),
 }
 
-const STATE_DATA = require('extrajs-geo')
-STATE_DATA.push(...[
-  { "code": "DC", "name": "District of Columbia" },
-])
-
 const { SCHEMATA } = require('schemaorg-jsd')
 const requireOther = require('schemaorg-jsd/lib/requireOther.js')
 
@@ -260,6 +255,7 @@ class Resume {
 Resume.COMPONENT = {
   xSkill   : new Component(jsdom.JSDOM.fragment(fs.readFileSync(path.join(__dirname, '../tpl/x-skill.tpl.html'   ), 'utf8')).querySelector('template').content, require('../tpl/x-skill.tpl.js'   )),
   xPosition: new Component(jsdom.JSDOM.fragment(fs.readFileSync(path.join(__dirname, '../tpl/x-position.tpl.html'), 'utf8')).querySelector('template').content, require('../tpl/x-position.tpl.js')),
+  xCity    : new Component(jsdom.JSDOM.fragment(fs.readFileSync(path.join(__dirname, '../tpl/x-city.tpl.html'    ), 'utf8')).querySelector('template').content, require('../tpl/x-city.tpl.js'    )),
 }
 
 module.exports = Resume

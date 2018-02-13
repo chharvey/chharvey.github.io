@@ -9,7 +9,6 @@ const xjs = {
 }
 const View = require('extrajs-view')
 
-const City           = require('./City.class.js')
 
 /**
  * Professional development hours.
@@ -25,11 +24,12 @@ class ProDev {
    * @param {number} jsondata.$pdh the number of professional development hours
    */
   constructor(jsondata) {
+    const Resume = require('../class/Resume.class.js')
     this._name = jsondata.name
     this._itemtype = `http://schema.org/${jsondata['@type']}`
     this._date_start = jsondata.startDate ? new Date(jsondata.startDate) : new Date(null)
     this._date_end   = jsondata.endDate   ? new Date(jsondata.endDate  ) : new Date(null)
-    this._location = new City(jsondata.location || {})
+    this._location = new xjs.DocumentFragment(Resume.COMPONENT.xCity.render(jsondata.location || {})).innerHTML()
     this._pdh = jsondata.$pdh || 0
   }
 
@@ -58,7 +58,7 @@ class ProDev {
       let frag = ProDev.TEMPLATE.cloneNode(true)
       frag.querySelector('.o-ListAchv__Award').setAttribute('itemtype', this._itemtype)
       frag.querySelector('[itemprop="name"]').innerHTML = this._name
-      frag.querySelector('slot[name="city"]').innerHTML = this._location.view()
+      frag.querySelector('slot[name="city"]').innerHTML = this._location
       frag.querySelector('.o-ListAchv__Award > time').dateTime    = `PT${this._pdh}H`
       frag.querySelector('.o-ListAchv__Award > time').textContent = `${this._pdh} hr`
       frag.querySelector('[itemprop="startDate endDate"]').dateTime    = this._date_end.toISOString()
