@@ -9,20 +9,15 @@ const xjs = {
 const View = require('extrajs-view')
 
 /**
- * An degree I’ve earned from a university.
  * @class
  */
 class Degree {
   /**
    * @summary Construct a new Degree object.
-   * @param {number} year year the degree was earned
-   * @param {number} gpa grade-point-average
-   * @param {string} field type and field of the degree
+   * @param {!Object} jsondata
    */
-  constructor(year, gpa, field) {
-    this._year  = year
-    this._gpa   = gpa
-    this._field = field
+  constructor(jsondata) {
+    this._DATA = jsondata
   }
 
   /**
@@ -47,25 +42,10 @@ class Degree {
      * @returns {string} HTML output
      */
     return new View(function () {
-      let frag = Degree.TEMPLATE.cloneNode(true)
-      frag.querySelector('[itemprop="name"]'       ).innerHTML   = this._field
-      frag.querySelector('[itemprop="ratingValue"]').textContent = this._gpa
-      frag.querySelector('[itemprop="timeEarned"]' ).textContent = this._year
-      if (this._year > 0) {
-        frag.querySelector('.o-ListAchv__Date > small').remove()
-      } else {
-        frag.querySelector('[itemprop="timeEarned"]').remove()
-      }
-      return new xjs.DocumentFragment(frag).innerHTML()
+      const {xDegree} = require('./Resume.class.js').TEMPLATES
+      return new xjs.DocumentFragment(xDegree.render(this._DATA)).innerHTML()
     }, this)
   }
 }
-
-/**
- * @summary The template marking up this data type.
- * @const {DocumentFragment}
- */
-Degree.TEMPLATE = new jsdom.JSDOM(fs.readFileSync(path.join(__dirname, '../tpl/x-degree.tpl.html'), 'utf8'))
-  .window.document.querySelector('template').content
 
 module.exports = Degree

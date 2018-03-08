@@ -62,7 +62,7 @@ class Resume {
    * @type {Array<Degree>}
    */
   get degrees() {
-    return (this._DATA.$degrees || []).map((d) => new Degree(d.year, d.gpa, d.field))
+    return (this._DATA.$degrees || []).map((d) => new Degree(d))
   }
 
   /**
@@ -327,6 +327,17 @@ Resume.TEMPLATES = {
    * @type {xjs.HTMLTemplateElement}
    */
   xAward: require('../tpl/x-award.tpl.js'),
+  /**
+   * @summary A degree earned from a college or university.
+   * @example
+   * const {xDegree} = require('./Resume.class.js').TEMPLATES
+   * document.querySelector('dl').append(
+   *   xDegree.render({year, gpa, field})
+   * )
+   * @see xDegree_renderer
+   * @type {xjs.HTMLTemplateElement}
+   */
+  xDegree: require('../tpl/x-degree.tpl.js'),
   /**
    * @summary Markup representing a city, town, or municipality.
    * @example
