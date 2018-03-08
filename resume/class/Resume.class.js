@@ -191,6 +191,7 @@ class Resume {
       })
 
     document.querySelector('#about slot[name="about"]').textContent = this._DATA.description || ''
+    document.querySelector('#edu .o-ListAchv').innerHTML = (this.degrees || []).map((item) => item.view()).join('')
 
       new xjs.HTMLUListElement(document.querySelector('.o-Grid--skillGroups')).populate(this._DATA.$skills || [], function (frag, data) {
         frag.querySelector('.o-List__Item'    ).id          = `${data.identifier}-item` // TODO fix this after fixing hidden-ness
@@ -213,7 +214,49 @@ class Resume {
             new xjs.HTMLLIElement(f.querySelector('li')).empty().append(Resume.TEMPLATES.xPosition.render(d))
           })
       })
-      templateEl.after(...(this._DATA.$positions || []).map(xPositionGroup.render, xPositionGroup)) // i.e. `(datum) => xPositionGroup.render(datum)`
+      templateEl.after(
+        new xjs.DocumentFragment(document.createDocumentFragment())
+          .append(...(this._DATA.$positions || []).map(xPositionGroup.render, xPositionGroup)) // i.e. `(group) => xPositionGroup.render(group)`
+          .node
+      )
+    }).call(this)
+
+    ;(function () {
+      let templateEl = document.querySelector('template#achievements')
+      const xAchivementGroup = new xjs.HTMLTemplateElement(templateEl).setRenderer(function (frag, data) {
+        frag.querySelector('.o-Grid__Item--exp').id = data.id
+        frag.querySelector('.c-ExpHn').textContent = data.title
+        new xjs.HTMLDListElement(frag.querySelector('.o-ListAchv')).empty()
+          .replaceClassString('{{ classes }}', data.classes || '')
+          .innerHTML( // .append(
+            data.list.map((item) => item.view()).join('') // ...data.list.map(data.xComponent.render, data.xComponent) // i.e. `(item) => data.xComponent.render(item)`
+          )
+      })
+      templateEl.after(
+        new xjs.DocumentFragment(document.createDocumentFragment())
+          .append(...[
+            {
+              title  : 'Profes­sional Dev­elopment', // NOTE invisible soft hyphens here! // `Profes&shy;sional Dev&shy;elopment`
+              id     : 'prof-dev',
+              list   : this.proDevs || [], // this._DATA.$prodevs || [],
+              // xComponent: Resume.TEMPLATES.xProdev,
+            },
+            {
+              title  : 'Awards & Member­ships', // NOTE `Awards &amp; Member&shy;ships`
+              id     : 'awards',
+              list   : this.awards, // this._DATA.$awards || [],
+              // xComponent: Resume.TEMPLATES.xAward,
+            },
+            {
+              title  : 'Team Athletic Experience',
+              id     : 'athletic',
+              classes: 'h-Hr',
+              list   : this.teams, // this._DATA.$teams  || [],
+              // xComponent: Resume.TEMPLATES.xAward,
+            }
+          ].map(xAchivementGroup.render, xAchivementGroup)) // i.e. `(group) => xAchivementGroup.render(group)`
+          .node
+      )
     }).call(this)
 
 

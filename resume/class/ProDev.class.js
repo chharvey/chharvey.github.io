@@ -4,8 +4,7 @@ const jsdom = require('jsdom')
 
 const xjs = {
   Date: require('extrajs').Date,
-  Node: require('extrajs-dom').Node,
-  DocumentFragment: require('extrajs-dom').DocumentFragment,
+  ...require('extrajs-dom'),
 }
 const View = require('extrajs-view')
 
@@ -29,7 +28,7 @@ class ProDev {
     this._itemtype = `http://schema.org/${jsondata['@type']}`
     this._date_start = jsondata.startDate ? new Date(jsondata.startDate) : new Date(null)
     this._date_end   = jsondata.endDate   ? new Date(jsondata.endDate  ) : new Date(null)
-    this._location = new xjs.DocumentFragment(Resume.COMPONENT.xCity.render(jsondata.location || {})).innerHTML()
+    this._location = new xjs.DocumentFragment(Resume.TEMPLATES.xCity.render(jsondata.location || {})).innerHTML()
     this._pdh = jsondata.$pdh || 0
   }
 
