@@ -15,7 +15,7 @@ const xjs = {
  */
 function xAward_renderer(frag, data) {
   /**
-   * Generate content from strings.
+   * @summary Generate content from strings.
    * @private
    * @param   {(string|Array<string>)} x a string, or array of strings
    * @returns {string} the string, or the joined array
@@ -23,8 +23,7 @@ function xAward_renderer(frag, data) {
   function _content(x) { // TODO don’t use arrays for line breaks
     return (xjs.Object.typeOf(x) === 'array') ? x.join('') : x
   }
-  data.text = _content(data.content) // TODO rename "content" to "text"
-  frag.querySelector('slot[name="text"]' ).innerHTML = data.text
+  frag.querySelector('slot[name="text"]' ).innerHTML = _content(data.text)
   frag.querySelector('slot[name="dates"]').innerHTML = data.dates
 
   let subs = frag.querySelector('.o-ListAchv__Award > .o-ListAchv')
