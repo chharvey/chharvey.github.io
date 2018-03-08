@@ -11,8 +11,6 @@ const xjs = {
 const { SCHEMATA } = require('schemaorg-jsd')
 const requireOther = require('schemaorg-jsd/lib/requireOther.js')
 
-const Degree         = require('./Degree.class.js')
-
 const RESUME_SCHEMA = requireOther(path.join(__dirname, '../resume.jsd'))
 
 /**
@@ -46,13 +44,6 @@ class Resume {
 
 
 
-  /**
-   * @summary List of degrees.
-   * @type {Array<Degree>}
-   */
-  get degrees() {
-    return (this._DATA.$degrees || []).map((d) => new Degree(d))
-  }
 
 
   /**
@@ -135,7 +126,11 @@ class Resume {
       })
 
     document.querySelector('#about slot[name="about"]').textContent = this._DATA.description || ''
-    document.querySelector('#edu .o-ListAchv').innerHTML = (this.degrees || []).map((item) => item.view()).join('')
+    new xjs.HTMLDListElement(document.querySelector('#edu .o-ListAchv')).empty().append(
+      new xjs.DocumentFragment(document.createDocumentFragment()).append(
+        ...(this._DATA.$degrees || []).map(Resume.TEMPLATES.xDegree.render, Resume.TEMPLATES.xDegree) // i.e. `(item) => Resume.TEMPLATES.xDegree.render(item)`
+      )
+    )
 
       new xjs.HTMLUListElement(document.querySelector('.o-Grid--skillGroups')).populate(this._DATA.$skills || [], function (frag, data) {
         frag.querySelector('.o-List__Item'    ).id          = `${data.identifier}-item` // TODO fix this after fixing hidden-ness
