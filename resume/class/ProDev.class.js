@@ -61,24 +61,27 @@ class ProDev {
       frag.querySelector('slot[name="city"]').innerHTML = this._location
       frag.querySelector('.o-ListAchv__Award > time').dateTime    = `PT${this._pdh}H`
       frag.querySelector('.o-ListAchv__Award > time').textContent = `${this._pdh} hr`
-      frag.querySelector('[itemprop="startDate endDate"]').dateTime    = this._date_end.toISOString()
-      frag.querySelector('[itemprop="startDate endDate"]').textContent = xjs.Date.format(this._date_end, 'j M Y')
-      ;(function (dates) {
+      if (xjs.Date.sameDate(this._date_start, this._date_end)) {
+        new xjs.HTMLTimeElement(frag.querySelector('[itemprop="startDate endDate"]'))
+          .dateTime(this._date_end.toISOString())
+          .textContent(xjs.Date.format(this._date_end, 'j M Y'))
+        frag.querySelectorAll('.o-ListAchv__Date')[1].remove()
+      } else {
         let same_UTC_date  = this._date_start.getUTCDate () === this._date_end.getUTCDate ()
         let same_UTC_month = this._date_start.getUTCMonth() === this._date_end.getUTCMonth()
         let same_UTC_year  = this._date_start.getFullYear() === this._date_end.getFullYear()
-        dates.querySelector('[itemprop="startDate"]').dateTime    = this._date_start.toISOString()
-        dates.querySelector('[itemprop="startDate"]').textContent = [
+        let dates = frag.querySelectorAll('.o-ListAchv__Date')[1]
+        new xjs.HTMLTimeElement(dates.querySelector('[itemprop="startDate"]'))
+          .dateTime(this._date_start.toISOString())
+          .textContent([
           this._date_start.getUTCDate(),
           (same_UTC_month && same_UTC_year) ? '' : ` ${xjs.Date.format(this._date_start, 'M')}`,
           (same_UTC_year) ? '' : ` ${this._date_start.getFullYear()}`,
-        ].join('')
-        dates.querySelector('[itemprop="endDate"]').dateTime    = this._date_end.toISOString()
-        dates.querySelector('[itemprop="endDate"]').textContent = xjs.Date.format(this._date_end, 'j M Y')
-      }).call(this, frag.querySelectorAll('.o-ListAchv__Date')[1])
-      if (xjs.Date.sameDate(this._date_start, this._date_end)) {
-        frag.querySelectorAll('.o-ListAchv__Date')[1].remove()
-      } else {
+          ].join(''))
+        new xjs.HTMLTimeElement(dates.querySelector('[itemprop="endDate"]'))
+          .dateTime(this._date_end.toISOString())
+          .textContent(xjs.Date.format(this._date_end, 'j M Y'))
+        new xjs.HTMLElement(dates).trimInner()
         frag.querySelectorAll('.o-ListAchv__Date')[0].remove()
       }
       return new xjs.DocumentFragment(frag).innerHTML()

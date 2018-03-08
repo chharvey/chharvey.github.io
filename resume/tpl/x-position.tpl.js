@@ -30,14 +30,15 @@ function xPosition_renderer(frag, data) {
     f.querySelector('li').innerHTML = d
   })
 
-  if (!date_end) {
-    frag.querySelectorAll('.c-Position__Dates > time')[2].dateTime    = new Date().toISOString()
-    frag.querySelectorAll('.c-Position__Dates > time')[1].remove()
-  } else {
+  if (date_end) {
     frag.querySelectorAll('.c-Position__Dates > time')[1].dateTime    = date_end.toISOString()
     frag.querySelectorAll('.c-Position__Dates > time')[1].textContent = xjs.Date.format(date_end, 'M Y')
     frag.querySelectorAll('.c-Position__Dates > time')[2].remove()
+  } else {
+    frag.querySelectorAll('.c-Position__Dates > time')[2].dateTime    = new Date().toISOString()
+    frag.querySelectorAll('.c-Position__Dates > time')[1].remove()
   }
+  new xjs.HTMLElement(frag.querySelector('.c-Position__Dates')).trimInner()
 }
 
 module.exports = xjs.HTMLTemplateElement

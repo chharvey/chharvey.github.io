@@ -21,17 +21,17 @@ function xCity_renderer(frag, data) {
   frag.querySelector('[itemprop="longitude"]'        ).content     = data.geo.longitude
   frag.querySelector('data[itemprop="addressRegion"]').value       = data.address.addressRegion
   frag.querySelector('slot[name="region-code"]'      ).textContent = data.address.addressRegion
-  frag.querySelector('slot[name="region-full"]'      ).textContent = ''
   if (data.$full) {
-    let region_name;
+    let region_name = ''
     try {
       region_name = regionName(data.address.addressRegion)
     } catch (e) {
       console.error(e)
-      region_name = ''
     }
     frag.querySelector('slot[name="region-full"]').textContent = region_name
     frag.querySelector('slot[name="region-code"]').remove()
+  } else {
+    frag.querySelector('slot[name="region-full"]').remove()
   }
 }
 
