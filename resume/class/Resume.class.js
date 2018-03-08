@@ -82,14 +82,21 @@ class Resume {
      * Convert sub-awards into an array.
      * @private
      * @param   {{sub_awards:Array<{dates:string, content:string}>}} datum the data point to parse
-     * @returns {?Array<Award>} an array of sub-awards
+     * @returns {Array<Award>=} an array of sub-awards
      */
     function subs(datum) {
-      return (datum.sub_awards) ?
-        datum.sub_awards.map((s) => new Award(s.dates, Resume._content(s.content)))
-        : null
+      if (datum.sub_awards) {
+        return datum.sub_awards.map((s) => new Award({
+          dates: s.dates,
+          text: Resume._content(s.content), // TODO rename "content" to "text"
+        }))
+      }
     }
-    return (this._DATA.$awards || []).map((d) => new Award(d.dates, Resume._content(d.content), subs(d)))
+    return (this._DATA.$awards || []).map((d) => new Award({
+      dates: d.dates,
+      text: Resume._content(d.content), // TODO rename "content" to "text"
+      sub_awards: subs(d),
+    }))
   }
 
   /**
@@ -101,14 +108,21 @@ class Resume {
      * Convert sub-awards into an array.
      * @private
      * @param   {{sub_awards:Array<{dates:string, content:string}>}} datum the data point to parse
-     * @returns {?Array<Award>} an array of sub-awards
+     * @returns {Array<Award>=} an array of sub-awards
      */
     function subs(datum) {
-      return (datum.sub_awards) ?
-        datum.sub_awards.map((s) => new Award(s.dates, Resume._content(s.content)))
-        : null
+      if (datum.sub_awards) {
+        return datum.sub_awards.map((s) => new Award({
+          dates: s.dates,
+          text: Resume._content(s.content), // TODO rename "content" to "text"
+        }))
+      }
     }
-    return (this._DATA.$teams || []).map((d) => new Award(d.dates, Resume._content(d.content), subs(d)))
+    return (this._DATA.$teams || []).map((d) => new Award({
+      dates: d.dates,
+      text: Resume._content(d.content), // TODO rename "content" to "text"
+      sub_awards: subs(d),
+    }))
   }
 
   /**
@@ -302,6 +316,17 @@ Resume.TEMPLATES = {
    * @type {xjs.HTMLTemplateElement}
    */
   xProdev: require('../tpl/x-prodev.tpl.js'),
+  /**
+   * @summary An award earned.
+   * @example
+   * const {xAward} = require('./Resume.class.js').TEMPLATES
+   * document.querySelector('dl').append(
+   *   xProdev.render({dates, text})
+   * )
+   * @see xAward_renderer
+   * @type {xjs.HTMLTemplateElement}
+   */
+  xAward: require('../tpl/x-award.tpl.js'),
   /**
    * @summary Markup representing a city, town, or municipality.
    * @example
