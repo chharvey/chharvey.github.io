@@ -11,8 +11,6 @@ const xjs = {
 const { SCHEMATA } = require('schemaorg-jsd')
 const requireOther = require('schemaorg-jsd/lib/requireOther.js')
 
-const Award          = require('./Award.class.js')
-const ProDev         = require('./ProDev.class.js')
 const Degree         = require('./Degree.class.js')
 
 const RESUME_SCHEMA = requireOther(path.join(__dirname, '../resume.jsd'))
@@ -46,15 +44,6 @@ class Resume {
     this._DATA = jsondata
   }
 
-  /**
-   * Generate content from strings.
-   * @private
-   * @param   {(string|Array<string>)} x a string, or array of strings
-   * @returns {string} the string, or the joined array
-   */
-  static _content(x) {
-    return (xjs.Object.typeOf(x) === 'array') ? x.join('') : x
-  }
 
 
   /**
@@ -65,65 +54,6 @@ class Resume {
     return (this._DATA.$degrees || []).map((d) => new Degree(d))
   }
 
-  /**
-   * @summary List of professional development hours.
-   * @type {Array<ProDev>}
-   */
-  get proDevs() {
-    return (this._DATA.$prodevs || []).map((event) => new ProDev(event))
-  }
-
-  /**
-   * @summary List of other awards & memberships.
-   * @type {Array<Award>}
-   */
-  get awards() {
-    /**
-     * Convert sub-awards into an array.
-     * @private
-     * @param   {{sub_awards:Array<{dates:string, content:string}>}} datum the data point to parse
-     * @returns {Array<Award>=} an array of sub-awards
-     */
-    function subs(datum) {
-      if (datum.sub_awards) {
-        return datum.sub_awards.map((s) => new Award({
-          dates: s.dates,
-          text: Resume._content(s.content), // TODO rename "content" to "text"
-        }))
-      }
-    }
-    return (this._DATA.$awards || []).map((d) => new Award({
-      dates: d.dates,
-      text: Resume._content(d.content), // TODO rename "content" to "text"
-      sub_awards: subs(d),
-    }))
-  }
-
-  /**
-   * @summary List of athletic team memberships.
-   * @type {Array<Award>}
-   */
-  get teams() {
-    /**
-     * Convert sub-awards into an array.
-     * @private
-     * @param   {{sub_awards:Array<{dates:string, content:string}>}} datum the data point to parse
-     * @returns {Array<Award>=} an array of sub-awards
-     */
-    function subs(datum) {
-      if (datum.sub_awards) {
-        return datum.sub_awards.map((s) => new Award({
-          dates: s.dates,
-          text: Resume._content(s.content), // TODO rename "content" to "text"
-        }))
-      }
-    }
-    return (this._DATA.$teams || []).map((d) => new Award({
-      dates: d.dates,
-      text: Resume._content(d.content), // TODO rename "content" to "text"
-      sub_awards: subs(d),
-    }))
-  }
 
   /**
    * Compile the entire document.
@@ -242,8 +172,8 @@ class Resume {
         frag.querySelector('.c-ExpHn').textContent = data.title
         new xjs.HTMLDListElement(frag.querySelector('.o-ListAchv')).empty()
           .replaceClassString('{{ classes }}', data.classes || '')
-          .innerHTML( // .append(
-            data.list.map((item) => item.view()).join('') // ...data.list.map(data.xComponent.render, data.xComponent) // i.e. `(item) => data.xComponent.render(item)`
+          .append(
+            ...data.list.map(data.xComponent.render, data.xComponent) // i.e. `(item) => data.xComponent.render(item)`
           )
       })
       templateEl.after(
@@ -252,21 +182,21 @@ class Resume {
             {
               title  : 'Profes­sional Dev­elopment', // NOTE invisible soft hyphens here! // `Profes&shy;sional Dev&shy;elopment`
               id     : 'prof-dev',
-              list   : this.proDevs || [], // this._DATA.$prodevs || [],
-              // xComponent: Resume.TEMPLATES.xProdev,
+              list   : this._DATA.$prodevs || [],
+              xComponent: Resume.TEMPLATES.xProdev,
             },
             {
               title  : 'Awards & Member­ships', // NOTE `Awards &amp; Member&shy;ships`
               id     : 'awards',
-              list   : this.awards, // this._DATA.$awards || [],
-              // xComponent: Resume.TEMPLATES.xAward,
+              list   : this._DATA.$awards || [],
+              xComponent: Resume.TEMPLATES.xAward,
             },
             {
               title  : 'Team Athletic Experience',
               id     : 'athletic',
               classes: 'h-Hr',
-              list   : this.teams, // this._DATA.$teams  || [],
-              // xComponent: Resume.TEMPLATES.xAward,
+              list   : this._DATA.$teams  || [],
+              xComponent: Resume.TEMPLATES.xAward,
             }
           ].map(xAchivementGroup.render, xAchivementGroup)) // i.e. `(group) => xAchivementGroup.render(group)`
           .node
