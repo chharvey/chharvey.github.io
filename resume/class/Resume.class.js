@@ -11,10 +11,6 @@ const xjs = {
 const { SCHEMATA } = require('schemaorg-jsd')
 const requireOther = require('schemaorg-jsd/lib/requireOther.js')
 
-const Award          = require('./Award.class.js')
-const ProDev         = require('./ProDev.class.js')
-const Degree         = require('./Degree.class.js')
-
 const RESUME_SCHEMA = requireOther(path.join(__dirname, '../resume.jsd'))
 
 /**
@@ -46,70 +42,9 @@ class Resume {
     this._DATA = jsondata
   }
 
-  /**
-   * Generate content from strings.
-   * @private
-   * @param   {(string|Array<string>)} x a string, or array of strings
-   * @returns {string} the string, or the joined array
-   */
-  static _content(x) {
-    return (xjs.Object.typeOf(x) === 'array') ? x.join('') : x
-  }
 
 
-  /**
-   * @summary List of degrees.
-   * @type {Array<Degree>}
-   */
-  get degrees() {
-    return (this._DATA.$degrees || []).map((d) => new Degree(d.year, d.gpa, d.field))
-  }
 
-  /**
-   * @summary List of professional development hours.
-   * @type {Array<ProDev>}
-   */
-  get proDevs() {
-    return (this._DATA.$prodevs || []).map((event) => new ProDev(event))
-  }
-
-  /**
-   * @summary List of other awards & memberships.
-   * @type {Array<Award>}
-   */
-  get awards() {
-    /**
-     * Convert sub-awards into an array.
-     * @private
-     * @param   {{sub_awards:Array<{dates:string, content:string}>}} datum the data point to parse
-     * @returns {?Array<Award>} an array of sub-awards
-     */
-    function subs(datum) {
-      return (datum.sub_awards) ?
-        datum.sub_awards.map((s) => new Award(s.dates, Resume._content(s.content)))
-        : null
-    }
-    return (this._DATA.$awards || []).map((d) => new Award(d.dates, Resume._content(d.content), subs(d)))
-  }
-
-  /**
-   * @summary List of athletic team memberships.
-   * @type {Array<Award>}
-   */
-  get teams() {
-    /**
-     * Convert sub-awards into an array.
-     * @private
-     * @param   {{sub_awards:Array<{dates:string, content:string}>}} datum the data point to parse
-     * @returns {?Array<Award>} an array of sub-awards
-     */
-    function subs(datum) {
-      return (datum.sub_awards) ?
-        datum.sub_awards.map((s) => new Award(s.dates, Resume._content(s.content)))
-        : null
-    }
-    return (this._DATA.$teams || []).map((d) => new Award(d.dates, Resume._content(d.content), subs(d)))
-  }
 
   /**
    * Compile the entire document.
@@ -191,6 +126,11 @@ class Resume {
       })
 
     document.querySelector('#about slot[name="about"]').textContent = this._DATA.description || ''
+    new xjs.HTMLDListElement(document.querySelector('#edu .o-ListAchv')).empty().append(
+      new xjs.DocumentFragment(document.createDocumentFragment()).append(
+        ...(this._DATA.$degrees || []).map(Resume.TEMPLATES.xDegree.render, Resume.TEMPLATES.xDegree) // i.e. `(item) => Resume.TEMPLATES.xDegree.render(item)`
+      )
+    )
 
       new xjs.HTMLUListElement(document.querySelector('.o-Grid--skillGroups')).populate(this._DATA.$skills || [], function (frag, data) {
         frag.querySelector('.o-List__Item'    ).id          = `${data.identifier}-item` // TODO fix this after fixing hidden-ness
@@ -213,7 +153,49 @@ class Resume {
             new xjs.HTMLLIElement(f.querySelector('li')).empty().append(Resume.TEMPLATES.xPosition.render(d))
           })
       })
-      templateEl.after(...(this._DATA.$positions || []).map(xPositionGroup.render, xPositionGroup)) // i.e. `(datum) => xPositionGroup.render(datum)`
+      templateEl.after(
+        new xjs.DocumentFragment(document.createDocumentFragment())
+          .append(...(this._DATA.$positions || []).map(xPositionGroup.render, xPositionGroup)) // i.e. `(group) => xPositionGroup.render(group)`
+          .node
+      )
+    }).call(this)
+
+    ;(function () {
+      let templateEl = document.querySelector('template#achievements')
+      const xAchivementGroup = new xjs.HTMLTemplateElement(templateEl).setRenderer(function (frag, data) {
+        frag.querySelector('.o-Grid__Item--exp').id = data.id
+        frag.querySelector('.c-ExpHn').textContent = data.title
+        new xjs.HTMLDListElement(frag.querySelector('.o-ListAchv')).empty()
+          .replaceClassString('{{ classes }}', data.classes || '')
+          .append(
+            ...data.list.map(data.xComponent.render, data.xComponent) // i.e. `(item) => data.xComponent.render(item)`
+          )
+      })
+      templateEl.after(
+        new xjs.DocumentFragment(document.createDocumentFragment())
+          .append(...[
+            {
+              title  : 'Profes­sional Dev­elopment', // NOTE invisible soft hyphens here! // `Profes&shy;sional Dev&shy;elopment`
+              id     : 'prof-dev',
+              list   : this._DATA.$prodevs || [],
+              xComponent: Resume.TEMPLATES.xProdev,
+            },
+            {
+              title  : 'Awards & Member­ships', // NOTE `Awards &amp; Member&shy;ships`
+              id     : 'awards',
+              list   : this._DATA.$awards || [],
+              xComponent: Resume.TEMPLATES.xAward,
+            },
+            {
+              title  : 'Team Athletic Experience',
+              id     : 'athletic',
+              classes: 'h-Hr',
+              list   : this._DATA.$teams  || [],
+              xComponent: Resume.TEMPLATES.xAward,
+            }
+          ].map(xAchivementGroup.render, xAchivementGroup)) // i.e. `(group) => xAchivementGroup.render(group)`
+          .node
+      )
     }).call(this)
 
 
@@ -248,6 +230,39 @@ Resume.TEMPLATES = {
    * @type {xjs.HTMLTemplateElement}
    */
   xPosition: require('../tpl/x-position.tpl.js'),
+  /**
+   * @summary Professional development hours.
+   * @example
+   * const {xProdev} = require('./Resume.class.js').TEMPLATES
+   * document.querySelector('dl').append(
+   *   xProdev.render({ "@type": "Event" })
+   * )
+   * @see xProdev_renderer
+   * @type {xjs.HTMLTemplateElement}
+   */
+  xProdev: require('../tpl/x-prodev.tpl.js'),
+  /**
+   * @summary An award earned.
+   * @example
+   * const {xAward} = require('./Resume.class.js').TEMPLATES
+   * document.querySelector('dl').append(
+   *   xProdev.render({dates, text})
+   * )
+   * @see xAward_renderer
+   * @type {xjs.HTMLTemplateElement}
+   */
+  xAward: require('../tpl/x-award.tpl.js'),
+  /**
+   * @summary A degree earned from a college or university.
+   * @example
+   * const {xDegree} = require('./Resume.class.js').TEMPLATES
+   * document.querySelector('dl').append(
+   *   xDegree.render({year, gpa, field})
+   * )
+   * @see xDegree_renderer
+   * @type {xjs.HTMLTemplateElement}
+   */
+  xDegree: require('../tpl/x-degree.tpl.js'),
   /**
    * @summary Markup representing a city, town, or municipality.
    * @example
