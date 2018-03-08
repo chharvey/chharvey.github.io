@@ -1,8 +1,6 @@
 const xjs = {
   Date: require('extrajs').Date,
-  HTMLElement: require('extrajs-dom').HTMLElement,
-  DocumentFragment: require('extrajs-dom').DocumentFragment,
-  HTMLTemplateElement: require('extrajs-dom').HTMLTemplateElement,
+  ...require('extrajs-dom'),
 }
 
 /**
@@ -26,14 +24,9 @@ function xPosition(frag, data) {
   new xjs.HTMLElement(frag.querySelector('.c-Position__Place > slot[name="city"]')).empty().node
     .append(new xjs.DocumentFragment(Resume.TEMPLATES.xCity.render(data.jobLocation)).trimInner().node)
 
-  ;(function () {
-    let container = frag.querySelector('.c-Position__Body')
-    container.append(...descriptions.map((text) =>
-      new xjs.HTMLTemplateElement(container.querySelector('template')).setRenderer(function (f, d) {
-        f.querySelector('li').innerHTML = d
-      }).render(text))
-    )
-  })()
+  new xjs.HTMLUListElement(frag.querySelector('.c-Position__Body')).populate(descriptions, function (f, d) {
+    f.querySelector('li').innerHTML = d
+  })
 
   if (!date_end) {
     frag.querySelectorAll('.c-Position__Dates > time')[2].dateTime    = new Date().toISOString()

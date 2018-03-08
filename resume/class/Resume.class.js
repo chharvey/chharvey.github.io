@@ -126,7 +126,7 @@ class Resume {
     // ++++ DATA WITH NO PATTERNS ++++ //
     ;(function () {
       let container = document.querySelector('main header h1')
-      let component = new xjs.HTMLTemplateElement(container.querySelector('template')).setRenderer(function (frag, data) {
+      let xName = new xjs.HTMLTemplateElement(container.querySelector('template')).setRenderer(function (frag, data) {
         ;[
           'familyName',
           'givenName',
@@ -161,18 +161,10 @@ class Resume {
       honorificPrefix : this._DATA.honorificPrefix || '',
       honorificSuffix : this._DATA.honorificSuffix || '',
       }
-      container.append(component.render(data))
+      container.append(xName.render(data))
     }).call(this)
 
-    ;(function () {
-      let container = document.querySelector('main header address ul.c-Contact')
-      let component = new xjs.HTMLTemplateElement(container.querySelector('template')).setRenderer(function (frag, data) {
-        new xjs.HTMLAnchorElement(frag.querySelector('.c-Contact__Link')).href(data.href || null)
-        frag.querySelector('.c-Contact__Link').setAttribute('itemprop', data.name)
-        frag.querySelector('.c-Contact__Icon').className = frag.querySelector('.c-Contact__Icon').className.replace('{{ octicon }}', data.icon)
-        frag.querySelector('.c-Contact__Text').textContent = data.text
-      })
-      let dataset = [
+      new xjs.HTMLUListElement(document.querySelector('main header address ul.c-Contact')).populate([
         {
           name: 'telephone',
           href: (this._DATA.telephone) ? `tel:${this._DATA.telephone}` : '',
@@ -191,46 +183,37 @@ class Resume {
           icon: 'home',
           text: this._DATA.$contactTitles.url || this._DATA.url,
         },
-      ]
-      container.append(...dataset.map(component.render, component)) // a.k.a. `(data) => component.render(data)`
-    }).call(this)
+      ], function (frag, data) {
+        new xjs.HTMLAnchorElement(frag.querySelector('.c-Contact__Link')).href(data.href || null)
+        frag.querySelector('.c-Contact__Link').setAttribute('itemprop', data.name)
+        frag.querySelector('.c-Contact__Icon').className = frag.querySelector('.c-Contact__Icon').className.replace('{{ octicon }}', data.icon)
+        frag.querySelector('.c-Contact__Text').textContent = data.text
+      })
 
     document.querySelector('#about slot[name="about"]').textContent = this._DATA.description || ''
 
-    ;(function () {
-      let container = document.querySelector('.o-Grid--skillGroups')
-      container.append(...(this._DATA.$skills || []).map((datum) => new xjs.HTMLTemplateElement(container.querySelector('template')).setRenderer(function (frag, data) {
+      new xjs.HTMLUListElement(document.querySelector('.o-Grid--skillGroups')).populate(this._DATA.$skills || [], function (frag, data) {
         frag.querySelector('.o-List__Item'    ).id          = `${data.identifier}-item` // TODO fix this after fixing hidden-ness
         frag.querySelector('.c-Position'      ).id          = data.identifier
         frag.querySelector('.c-Position__Name').textContent = data.name
-        new xjs.HTMLDListElement(frag.querySelector('.o-Grid--skill')).empty().node.append(...data.itemListElement.map((item) =>
-          Resume.TEMPLATES.xSkill.render(item)
-        ))
-      }).render(datum)))
-    }).call(this)
-    ;(function () {
-      let container = document.querySelector('#skills .o-List--print')
-      container.append(
-        ...Array.from(document.querySelector('.o-Grid--skillGroups').querySelectorAll('dt.o-Grid__Item'))
-          .map((dt) => new xjs.HTMLTemplateElement(container.querySelector('template')).setRenderer(function (frag, data) {
-            frag.querySelector('li').innerHTML = data.innerHTML
-          }).render(dt))
-      )
-    })()
+        new xjs.HTMLDListElement(frag.querySelector('.o-Grid--skill')).empty().append(
+          ...data.itemListElement.map(Resume.TEMPLATES.xSkill.render, Resume.TEMPLATES.xSkill) // i.e. `(item) => Resume.TEMPLATES.xSkill.render(item)`
+        )
+      })
+      new xjs.HTMLUListElement(document.querySelector('#skills .o-List--print')).populate(Array.from(document.querySelector('.o-Grid--skillGroups').querySelectorAll('dt.o-Grid__Item')), function (frag, data) {
+        frag.querySelector('li').innerHTML = data.innerHTML
+      })
 
     ;(function () {
       let templateEl = document.querySelector('template#experience')
-      templateEl.after(...(this._DATA.$positions || []).map((datum) => new xjs.HTMLTemplateElement(templateEl).setRenderer(function (frag, data) {
+      const xPositionGroup = new xjs.HTMLTemplateElement(templateEl).setRenderer(function (frag, data) {
         frag.querySelector('.o-Grid__Item--exp').id = data.identifier
         frag.querySelector('.c-ExpHn').textContent = data.name
-        ;(function () {
-          let container = frag.querySelector('ul.o-List')
-          container.append(...data.itemListElement.map((item) => new xjs.HTMLTemplateElement(container.querySelector('template')).setRenderer(function (f, d) {
-            new xjs.HTMLLIElement(f.querySelector('li')).empty().node
-              .append(Resume.TEMPLATES.xPosition.render(item))
-          }).render(item)))
-        })()
-      }).render(datum)))
+          new xjs.HTMLUListElement(frag.querySelector('ul.o-List')).populate(data.itemListElement, function (f, d) {
+            new xjs.HTMLLIElement(f.querySelector('li')).empty().append(Resume.TEMPLATES.xPosition.render(d))
+          })
+      })
+      templateEl.after(...(this._DATA.$positions || []).map(xPositionGroup.render, xPositionGroup)) // i.e. `(datum) => xPositionGroup.render(datum)`
     }).call(this)
 
 
@@ -243,9 +226,9 @@ class Resume {
  * @namespace
  */
 Resume.TEMPLATES = {
-  xSkill   : new xjs.HTMLTemplateElement(xjs.HTMLTemplateElement.readTemplateFileSync(path.join(__dirname, '../tpl/x-skill.tpl.html'   ))).setRenderer(require('../tpl/x-skill.tpl.js'   )),
-  xPosition: new xjs.HTMLTemplateElement(xjs.HTMLTemplateElement.readTemplateFileSync(path.join(__dirname, '../tpl/x-position.tpl.html'))).setRenderer(require('../tpl/x-position.tpl.js')),
-  xCity    : new xjs.HTMLTemplateElement(xjs.HTMLTemplateElement.readTemplateFileSync(path.join(__dirname, '../tpl/x-city.tpl.html'    ))).setRenderer(require('../tpl/x-city.tpl.js'    )),
+  xSkill   : xjs.HTMLTemplateElement.fromFileSync(path.join(__dirname, '../tpl/x-skill.tpl.html'   )).setRenderer(require('../tpl/x-skill.tpl.js'   )),
+  xPosition: xjs.HTMLTemplateElement.fromFileSync(path.join(__dirname, '../tpl/x-position.tpl.html')).setRenderer(require('../tpl/x-position.tpl.js')),
+  xCity    : xjs.HTMLTemplateElement.fromFileSync(path.join(__dirname, '../tpl/x-city.tpl.html'    )).setRenderer(require('../tpl/x-city.tpl.js'    )),
 }
 
 module.exports = Resume
