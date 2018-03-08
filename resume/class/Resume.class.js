@@ -62,6 +62,7 @@ class Resume {
     ;(function () {
       let container = document.querySelector('main header h1')
       let xName = new xjs.HTMLTemplateElement(container.querySelector('template')).setRenderer(function (frag, data) {
+        // TODO move this and identical component in Neo to `require('aria-patterns')`
         ;[
           'familyName',
           'givenName',
@@ -77,15 +78,15 @@ class Resume {
 
         // abbreviate the middle name
         if (data.additionalName) {
-          frag.querySelector('slot[name="additionalName"]').textContent = `${data.additionalName[0]}.`
-          frag.querySelector('abbr[itemprop="additionalName"]').title = data.additionalName
+          frag.querySelector('slot[name="additionalName"]'    ).textContent = `${data.additionalName[0]}.`
+          frag.querySelector('abbr[itemprop="additionalName"]').title       = data.additionalName
         } else {
           frag.querySelector('abbr[itemprop="additionalName"]').remove()
         }
 
         // comma preceding suffix
         if (!data.honorificSuffix) {
-          frag.querySelector('[itemprop="familyName"]').classList.remove('h-CommaAfter')
+          frag.querySelector('slot[name="comma"]').remove()
         }
       })
       let data = {
