@@ -226,9 +226,39 @@ class Resume {
  * @namespace
  */
 Resume.TEMPLATES = {
-  xSkill   : xjs.HTMLTemplateElement.fromFileSync(path.join(__dirname, '../tpl/x-skill.tpl.html'   )).setRenderer(require('../tpl/x-skill.tpl.js'   )),
-  xPosition: xjs.HTMLTemplateElement.fromFileSync(path.join(__dirname, '../tpl/x-position.tpl.html')).setRenderer(require('../tpl/x-position.tpl.js')),
-  xCity    : xjs.HTMLTemplateElement.fromFileSync(path.join(__dirname, '../tpl/x-city.tpl.html'    )).setRenderer(require('../tpl/x-city.tpl.js'    )),
+  /**
+   * @summary A low-level skill with a subjective proficiency level.
+   * @example
+   * const {xSkill} = require('./Resume.class.js').TEMPLATES
+   * document.querySelector('dl').append(
+   *   xSkill.render({ "@type": "Rating" })
+   * )
+   * @see xSkill_renderer
+   * @type {xjs.HTMLTemplateElement}
+   */
+  xSkill: require('../tpl/x-skill.tpl.js'),
+  /**
+   * @summary A working position while employed at an organization.
+   * @example
+   * const {xPosition} = require('./Resume.class.js').TEMPLATES
+   * document.querySelector('li').append(
+   *   xSkill.render({ "@type": "JobPosting" })
+   * )
+   * @see xPosition_renderer
+   * @type {xjs.HTMLTemplateElement}
+   */
+  xPosition: require('../tpl/x-position.tpl.js'),
+  /**
+   * @summary Markup representing a city, town, or municipality.
+   * @example
+   * const {xCity} = require('./Resume.class.js').TEMPLATES
+   * document.querySelector('span').append(
+   *   xCity.render({ "@type": "Place" })
+   * )
+   * @see xCity_renderer
+   * @type {xjs.HTMLTemplateElement}
+   */
+  xCity: require('../tpl/x-city.tpl.js'),
 }
 
 module.exports = Resume
