@@ -56,7 +56,7 @@ class Degree {
       } else {
         frag.querySelector('[itemprop="timeEarned"]').remove()
       }
-      return xjs.DocumentFragment.innerHTML(xjs.Node.trimInner(frag))
+      return new xjs.DocumentFragment(frag).innerHTML()
     }, this)
   }
 }

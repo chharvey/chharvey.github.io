@@ -52,11 +52,10 @@ class Award {
       frag.querySelector('slot[name="dates"]').innerHTML = this._dates
       ;(function (subs) {
         if (this._subs) {
-          xjs.Node.empty(subs)
-          subs.append(...this._subs.map((s) => s.view()))
+          subs.innerHTML = this._subs.map((s) => s.view()).join('')
         } else subs.remove()
       }).call(this, frag.querySelector('.o-ListAchv__Award > .o-ListAchv'))
-      return xjs.DocumentFragment.innerHTML(xjs.Node.trimInner(frag))
+      return new xjs.DocumentFragment(frag).innerHTML()
     }, this)
   }
 }

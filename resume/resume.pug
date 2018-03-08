@@ -37,12 +37,15 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
       section.o-Grid__Item.o-Grid__Item--exp#skills
         h2.o-Grid__Item.c-ExpHn Skills
         -
-          let skills_print = new HTMLUListElement().class('o-List o-List--print').addContent((resume.skills || [])
+          const dom = new jsdom.JSDOM()
+          let list = dom.window.document.createElement('ul')
+          let item = dom.window.document.createElement('li')
+          let skills_print = new xjs.HTMLUListElement(list).class('o-List o-List--print').append(...(resume.skills || [])
             .map((group) => group.items)
             .reduce((a,b) => a.concat(b), [])
-            .map((skill) => new HTMLLIElement().class('o-List__Item h-Inline').addContent(skill.text))
+            .map((skill) => new xjs.HTMLLIElement(item.cloneNode(true)).class('o-List__Item h-Inline').append(skill.text))
           )
-        != skills_print.html()
+        != skills_print.outerHTML()
         div.o-Grid__Item.o-Grid__Item--maincol.o-Grid.o-Grid--skillGroups
           each group in resume.skills
             section.o-Grid__Item.c-Position(id=group.id)
