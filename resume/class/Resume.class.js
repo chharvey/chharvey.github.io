@@ -292,6 +292,17 @@ Resume.TEMPLATES = {
    */
   xPosition: require('../tpl/x-position.tpl.js'),
   /**
+   * @summary Professional development hours.
+   * @example
+   * const {xProdev} = require('./Resume.class.js').TEMPLATES
+   * document.querySelector('dl').append(
+   *   xProdev.render({ "@type": "Event" })
+   * )
+   * @see xProdev_renderer
+   * @type {xjs.HTMLTemplateElement}
+   */
+  xProdev: require('../tpl/x-prodev.tpl.js'),
+  /**
    * @summary Markup representing a city, town, or municipality.
    * @example
    * const {xCity} = require('./Resume.class.js').TEMPLATES

@@ -1,16 +1,10 @@
-const fs = require('fs')
-const path = require('path')
-const jsdom = require('jsdom')
-
 const xjs = {
-  Date: require('extrajs').Date,
   ...require('extrajs-dom'),
 }
 const View = require('extrajs-view')
 
 
 /**
- * Professional development hours.
  * @class
  */
 class ProDev {
@@ -23,13 +17,7 @@ class ProDev {
    * @param {number} jsondata.$pdh the number of professional development hours
    */
   constructor(jsondata) {
-    const Resume = require('../class/Resume.class.js')
-    this._name = jsondata.name
-    this._itemtype = `http://schema.org/${jsondata['@type']}`
-    this._date_start = jsondata.startDate ? new Date(jsondata.startDate) : new Date(null)
-    this._date_end   = jsondata.endDate   ? new Date(jsondata.endDate  ) : new Date(null)
-    this._location = new xjs.DocumentFragment(Resume.TEMPLATES.xCity.render(jsondata.location || {})).innerHTML()
-    this._pdh = jsondata.$pdh || 0
+    this._DATA = jsondata
   }
 
   /**
@@ -54,45 +42,10 @@ class ProDev {
      * @returns {string} HTML output
      */
     return new View(function () {
-      let frag = ProDev.TEMPLATE.cloneNode(true)
-      frag.querySelector('.o-ListAchv__Award').setAttribute('itemtype', this._itemtype)
-      frag.querySelector('[itemprop="name"]').innerHTML = this._name
-      frag.querySelector('slot[name="city"]').innerHTML = this._location
-      frag.querySelector('.o-ListAchv__Award > time').dateTime    = `PT${this._pdh}H`
-      frag.querySelector('.o-ListAchv__Award > time').textContent = `${this._pdh} hr`
-      if (xjs.Date.sameDate(this._date_start, this._date_end)) {
-        new xjs.HTMLTimeElement(frag.querySelector('[itemprop="startDate endDate"]'))
-          .dateTime(this._date_end.toISOString())
-          .textContent(xjs.Date.format(this._date_end, 'j M Y'))
-        frag.querySelectorAll('.o-ListAchv__Date')[1].remove()
-      } else {
-        let same_UTC_date  = this._date_start.getUTCDate () === this._date_end.getUTCDate ()
-        let same_UTC_month = this._date_start.getUTCMonth() === this._date_end.getUTCMonth()
-        let same_UTC_year  = this._date_start.getFullYear() === this._date_end.getFullYear()
-        let dates = frag.querySelectorAll('.o-ListAchv__Date')[1]
-        new xjs.HTMLTimeElement(dates.querySelector('[itemprop="startDate"]'))
-          .dateTime(this._date_start.toISOString())
-          .textContent([
-          this._date_start.getUTCDate(),
-          (same_UTC_month && same_UTC_year) ? '' : ` ${xjs.Date.format(this._date_start, 'M')}`,
-          (same_UTC_year) ? '' : ` ${this._date_start.getFullYear()}`,
-          ].join(''))
-        new xjs.HTMLTimeElement(dates.querySelector('[itemprop="endDate"]'))
-          .dateTime(this._date_end.toISOString())
-          .textContent(xjs.Date.format(this._date_end, 'j M Y'))
-        new xjs.HTMLElement(dates).trimInner()
-        frag.querySelectorAll('.o-ListAchv__Date')[0].remove()
-      }
-      return new xjs.DocumentFragment(frag).innerHTML()
+      const {xProdev} = require('./Resume.class.js').TEMPLATES
+      return new xjs.DocumentFragment(xProdev.render(this._DATA)).innerHTML()
     }, this)
   }
 }
-
-/**
- * @summary The template marking up this data type.
- * @const {DocumentFragment}
- */
-ProDev.TEMPLATE = new jsdom.JSDOM(fs.readFileSync(path.join(__dirname, '../tpl/x-prodev.tpl.html'), 'utf8'))
-  .window.document.querySelector('template').content
 
 module.exports = ProDev
