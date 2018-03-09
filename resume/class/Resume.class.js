@@ -7,6 +7,7 @@ const xjs = {
   Object: require('extrajs').Object,
   ...require('extrajs-dom'),
 }
+const ARIAPatterns = require('aria-patterns')
 
 const { SCHEMATA } = require('schemaorg-jsd')
 const requireOther = require('schemaorg-jsd/lib/requireOther.js')
@@ -59,46 +60,16 @@ class Resume {
 
 
     // ++++ DATA WITH NO PATTERNS ++++ //
-    ;(function () {
-      let container = document.querySelector('main header h1')
-      let xName = new xjs.HTMLTemplateElement(container.querySelector('template')).setRenderer(function (frag, data) {
-        // TODO move this and identical component in Neo to `require('aria-patterns')`
-        ;[
-          'familyName',
-          'givenName',
-          'additionalName',
-          'honorificPrefix',
-          'honorificSuffix',
-        ].forEach(function (nameprop) {
-          let el = frag.querySelector(`slot[name="${nameprop}"]`)
-          if (data[nameprop]) {
-            el.textContent = data[nameprop]
-          } else el.remove()
-        })
-
-        // abbreviate the middle name
-        if (data.additionalName) {
-          frag.querySelector('slot[name="additionalName"]'    ).textContent = `${data.additionalName[0]}.`
-          frag.querySelector('abbr[itemprop="additionalName"]').title       = data.additionalName
-        } else {
-          frag.querySelector('abbr[itemprop="additionalName"]').remove()
-        }
-
-        // comma preceding suffix
-        if (!data.honorificSuffix) {
-          frag.querySelector('slot[name="comma"]').remove()
-        }
-      })
-      let data = {
+    new xjs.HTMLElement(document.querySelector('main header [itemprop="name"]')).empty().append(
+      ARIAPatterns.xPersonFullname.render({
         // REVIEW indentation
       familyName      : this._DATA.familyName      || '',
       givenName       : this._DATA.givenName       || '',
       additionalName  : this._DATA.additionalName  || '',
       honorificPrefix : this._DATA.honorificPrefix || '',
       honorificSuffix : this._DATA.honorificSuffix || '',
-      }
-      container.append(xName.render(data))
-    }).call(this)
+      })
+    )
 
       new xjs.HTMLUListElement(document.querySelector('main header address ul.c-Contact')).populate([
         {
