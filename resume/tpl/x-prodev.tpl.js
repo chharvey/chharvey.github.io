@@ -23,29 +23,28 @@ function xProdev_renderer(frag, data) {
     .append(xCity.render(data.location || { "@type": "Place" }))
   frag.querySelector('.o-ListAchv__Award > time').dateTime    = `PT${pdh}H`
   frag.querySelector('.o-ListAchv__Award > time').textContent = `${pdh} hr`
-  if (xjs.Date.sameDate(date_start, date_end)) {
-    new xjs.HTMLTimeElement(frag.querySelector('[itemprop="startDate endDate"]'))
-      .dateTime(date_end.toISOString())
+
+  frag.querySelectorAll('[itemprop~="endDate"]').forEach(function (time) {
+    new xjs.HTMLTimeElement(time)
+      .dateTime(date_end)
       .textContent(xjs.Date.format(date_end, 'j M Y'))
+  })
+  if (xjs.Date.sameDate(date_start, date_end)) {
     frag.querySelectorAll('.o-ListAchv__Date')[1].remove()
   } else {
     let same_UTC_date  = date_start.getUTCDate () === date_end.getUTCDate ()
     let same_UTC_month = date_start.getUTCMonth() === date_end.getUTCMonth()
     let same_UTC_year  = date_start.getFullYear() === date_end.getFullYear()
-    let dates = frag.querySelectorAll('.o-ListAchv__Date')[1]
-    new xjs.HTMLTimeElement(dates.querySelector('[itemprop="startDate"]'))
-      .dateTime(date_start.toISOString())
+    new xjs.HTMLTimeElement(frag.querySelector('[itemprop="startDate"]'))
+      .dateTime(date_start)
       .textContent([
         date_start.getUTCDate(),
         (same_UTC_month && same_UTC_year) ? '' : ` ${xjs.Date.format(date_start, 'M')}`,
         (same_UTC_year) ? '' : ` ${date_start.getFullYear()}`,
       ].join(''))
-    new xjs.HTMLTimeElement(dates.querySelector('[itemprop="endDate"]'))
-      .dateTime(date_end.toISOString())
-      .textContent(xjs.Date.format(date_end, 'j M Y'))
-    new xjs.HTMLElement(dates).trimInner()
     frag.querySelectorAll('.o-ListAchv__Date')[0].remove()
   }
+  new xjs.HTMLElement(frag.querySelector('.o-ListAchv__Date')).trimInner()
 }
 
 module.exports = xjs.HTMLTemplateElement

@@ -21,8 +21,20 @@ function xPosition_renderer(frag, data) {
   frag.querySelector('[itemprop="hiringOrganization"]').setAttribute('itemtype', `http://schema.org/${data.hiringOrganization['@type']}`)
   frag.querySelector('[itemprop="hiringOrganization"] [itemprop="url"]').href       = data.hiringOrganization.url || ''
   frag.querySelector('[itemprop="hiringOrganization"] [itemprop="name"]').innerHTML = data.hiringOrganization.name
-  frag.querySelectorAll('.c-Position__Dates > time')[0].dateTime    = date_start.toISOString()
-  frag.querySelectorAll('.c-Position__Dates > time')[0].textContent = xjs.Date.format(date_start, 'M Y')
+
+  new xjs.HTMLTimeElement(frag.querySelectorAll('.c-Position__Dates > time')[0])
+    .dateTime(date_start)
+    .textContent(xjs.Date.format(date_start, 'M Y'))
+  if (date_end) {
+    new xjs.HTMLTimeElement(frag.querySelectorAll('.c-Position__Dates > time')[1])
+      .dateTime(date_end)
+      .textContent(xjs.Date.format(date_end, 'M Y'))
+    frag.querySelectorAll('.c-Position__Dates > time')[2].remove()
+  } else {
+    frag.querySelectorAll('.c-Position__Dates > time')[2].dateTime = new Date().toISOString()
+    frag.querySelectorAll('.c-Position__Dates > time')[1].remove()
+  }
+
   new xjs.HTMLElement(frag.querySelector('.c-Position__Place > slot[name="city"]')).empty()
     .append(new xjs.DocumentFragment(xCity.render(data.jobLocation)).trimInner())
 
@@ -30,14 +42,6 @@ function xPosition_renderer(frag, data) {
     f.querySelector('li').innerHTML = d
   })
 
-  if (date_end) {
-    frag.querySelectorAll('.c-Position__Dates > time')[1].dateTime    = date_end.toISOString()
-    frag.querySelectorAll('.c-Position__Dates > time')[1].textContent = xjs.Date.format(date_end, 'M Y')
-    frag.querySelectorAll('.c-Position__Dates > time')[2].remove()
-  } else {
-    frag.querySelectorAll('.c-Position__Dates > time')[2].dateTime    = new Date().toISOString()
-    frag.querySelectorAll('.c-Position__Dates > time')[1].remove()
-  }
   new xjs.HTMLElement(frag.querySelector('.c-Position__Dates')).trimInner()
 }
 
