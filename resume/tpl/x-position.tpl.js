@@ -23,8 +23,9 @@ function xPosition_renderer(frag, data) {
   frag.querySelector('[itemprop="hiringOrganization"] [itemprop="name"]').innerHTML = data.hiringOrganization.name
   frag.querySelectorAll('.c-Position__Dates > time')[0].dateTime    = date_start.toISOString()
   frag.querySelectorAll('.c-Position__Dates > time')[0].textContent = xjs.Date.format(date_start, 'M Y')
+
   new xjs.HTMLElement(frag.querySelector('.c-Position__Place > slot[name="city"]')).empty()
-    .append(new xjs.DocumentFragment(xCity.render(data.jobLocation)).trimInner())
+    .append(new xjs.DocumentFragment(xCity.render({ ...data.jobLocation, $itemprop: 'jobLocation' })).trimInner())
 
   new xjs.HTMLUListElement(frag.querySelector('.c-Position__Body')).populate(descriptions, function (f, d) {
     f.querySelector('li').innerHTML = d

@@ -20,7 +20,7 @@ function xProdev_renderer(frag, data) {
   frag.querySelector('.o-ListAchv__Award').setAttribute('itemtype', `http://schema.org/${data['@type']}`)
   frag.querySelector('[itemprop="name"]').innerHTML = data.name
   new xjs.HTMLElement(frag.querySelector('slot[name="city"]')).empty()
-    .append(xCity.render(data.location || { "@type": "Place" }))
+    .append(xCity.render({ ...data.location, $itemprop: 'location' }))
   frag.querySelector('.o-ListAchv__Award > time').dateTime    = `PT${pdh}H`
   frag.querySelector('.o-ListAchv__Award > time').textContent = `${pdh} hr`
   if (xjs.Date.sameDate(date_start, date_end)) {
