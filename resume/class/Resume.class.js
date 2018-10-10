@@ -14,6 +14,8 @@ const requireOther = require('schemaorg-jsd/lib/requireOther.js')
 
 const RESUME_SCHEMA = requireOther(path.join(__dirname, '../resume.jsd'))
 
+const xResume = require('../tpl/resume.tpl.js')
+
 /**
  * A résumé generated with given content data.
  */
@@ -43,165 +45,12 @@ class Resume {
     this._DATA = jsondata
   }
 
-
-
-
-
   /**
    * Compile the entire document.
    * @returns {string} the compiled DOM output
    */
   compile() {
-    const dom = new jsdom.JSDOM(fs.readFileSync(path.join(__dirname, '../tpl/resume.tpl.html'), 'utf8'))
-    const {document} = dom.window
-
-
-    // ++++ USER-INPUT DATA ++++ //
-
-
-    // ++++ DATA WITH NO PATTERNS ++++ //
-    ;(() => {
-      let container = document.querySelector('main header h1')
-      let xName = new Processor(container.querySelector('template'), function (frag, data, opts) {
-        // TODO use aria-patterns name
-        ;[
-          'familyName',
-          'givenName',
-          'additionalName',
-          'honorificPrefix',
-          'honorificSuffix',
-        ].forEach((nameprop) => {
-          let el = frag.querySelector(`slot[name="${nameprop}"]`)
-          if (data[nameprop]) {
-            el.textContent = data[nameprop]
-          } else el.remove()
-        })
-
-        // abbreviate the middle name
-        if (data.additionalName) {
-          frag.querySelector('slot[name="additionalName"]').textContent = `${data.additionalName[0]}.`
-          frag.querySelector('abbr[itemprop="additionalName"]').title = data.additionalName
-        } else {
-          frag.querySelector('abbr[itemprop="additionalName"]').remove()
-        }
-
-        // comma preceding suffix
-        if (!data.honorificSuffix) {
-          frag.querySelector('[itemprop="familyName"]').classList.remove('h-CommaAfter')
-        }
-      })
-      let data = {
-        // REVIEW indentation
-      familyName      : this._DATA.familyName      || '',
-      givenName       : this._DATA.givenName       || '',
-      additionalName  : this._DATA.additionalName  || '',
-      honorificPrefix : this._DATA.honorificPrefix || '',
-      honorificSuffix : this._DATA.honorificSuffix || '',
-      }
-      container.append(xName.process(data))
-    })()
-
-      new xjs.HTMLUListElement(document.querySelector('main header address ul.c-Contact')).populate(function (frag, data, opts) {
-				new xjs.HTMLAnchorElement(frag.querySelector('.c-Contact__Link')).href(data.href || null)
-				frag.querySelector('.c-Contact__Link').setAttribute('itemprop', data.name)
-				frag.querySelector('.c-Contact__Icon').className = frag.querySelector('.c-Contact__Icon').className.replace('{{ octicon }}', data.icon)
-				frag.querySelector('.c-Contact__Text').textContent = data.text
-      }, [
-        {
-          name: 'telephone',
-          href: (this._DATA.telephone) ? `tel:${this._DATA.telephone}` : '',
-          icon: 'device-mobile',
-          text: this._DATA.$contactTitles.telephone || this._DATA.telephone,
-        },
-        {
-          name: 'email',
-          href: (this._DATA.email) ? `mailto:${this._DATA.email}` : '',
-          icon: 'mail',
-          text: this._DATA.$contactTitles.email || this._DATA.email,
-        },
-        {
-          name: 'url',
-          href: this._DATA.url || '',
-          icon: 'home',
-          text: this._DATA.$contactTitles.url || this._DATA.url,
-        },
-      ])
-
-    document.querySelector('#about slot[name="about"]').textContent = this._DATA.description || ''
-    new xjs.HTMLDListElement(document.querySelector('#edu .o-ListAchv')).empty().append(
-      new xjs.DocumentFragment(document.createDocumentFragment()).append(
-        ...(this._DATA.$degrees || []).map((item) => Resume.TEMPLATES.xDegree.process(item))
-      )
-    )
-
-      new xjs.HTMLUListElement(document.querySelector('.o-Grid--skillGroups')).populate(function (frag, data, opts) {
-        frag.querySelector('.o-List__Item'    ).id          = `${data.identifier}-item` // TODO fix this after fixing hidden-ness
-        frag.querySelector('.c-Position'      ).id          = data.identifier
-        frag.querySelector('.c-Position__Name').textContent = data.name
-        new xjs.HTMLDListElement(frag.querySelector('.o-Grid--skill')).empty().append(
-          ...data.itemListElement.map((item) => Resume.TEMPLATES.xSkill.process(item))
-        )
-      }, this._DATA.$skills || [])
-      new xjs.HTMLUListElement(document.querySelector('#skills .o-List--print')).populate(function (frag, data) {
-        frag.querySelector('li').innerHTML = data.innerHTML
-      }, [...document.querySelector('.o-Grid--skillGroups').querySelectorAll('dt.o-Grid__Item')])
-
-    ;(() => {
-      let templateEl = document.querySelector('template#experience')
-      const xPositionGroup = new Processor(templateEl, function (frag, data, opts) {
-        frag.querySelector('.o-Grid__Item--exp').id = data.identifier
-        frag.querySelector('.c-ExpHn').textContent = data.name
-				new xjs.HTMLUListElement(frag.querySelector('ul.o-List')).populate(function (f, d, o) {
-					new xjs.HTMLLIElement(f.querySelector('li')).empty().append(Resume.TEMPLATES.xPosition.process(d))
-				}, data.itemListElement)
-      })
-      templateEl.after(
-        new xjs.DocumentFragment(document.createDocumentFragment())
-          .append(...(this._DATA.$positions || []).map((group) => xPositionGroup.process(group)))
-          .node
-      )
-    })()
-
-    ;(() => {
-      let templateEl = document.querySelector('template#achievements')
-      const xAchivementGroup = new Processor(templateEl, function (frag, data, opts) {
-        frag.querySelector('.o-Grid__Item--exp').id = data.id
-        frag.querySelector('.c-ExpHn').textContent = data.title
-        new xjs.HTMLDListElement(frag.querySelector('.o-ListAchv')).empty()
-          .replaceClassString('{{ classes }}', data.classes || '')
-          .append(
-            ...data.list.map((item) => data.xComponent.process(item))
-          )
-      })
-      templateEl.after(
-        new xjs.DocumentFragment(document.createDocumentFragment())
-          .append(...[
-            {
-              title  : 'Profes­sional Dev­elopment', // NOTE invisible soft hyphens here! // `Profes&shy;sional Dev&shy;elopment`
-              id     : 'prof-dev',
-              list   : this._DATA.$prodevs || [],
-              xComponent: Resume.TEMPLATES.xProdev,
-            },
-            {
-              title  : 'Awards & Member­ships', // NOTE `Awards &amp; Member&shy;ships`
-              id     : 'awards',
-              list   : this._DATA.$awards || [],
-              xComponent: Resume.TEMPLATES.xAward,
-            },
-            {
-              title  : 'Team Athletic Experience',
-              id     : 'athletic',
-              classes: 'h-Hr',
-              list   : this._DATA.$teams  || [],
-              xComponent: Resume.TEMPLATES.xAward,
-            }
-          ].map((group) => xAchivementGroup.process(group)))
-          .node
-      )
-    })()
-
-
-    return dom.serialize()
+    return new xjs.Document(xResume.process(this._DATA)).innerHTML()
   }
 }
 
