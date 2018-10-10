@@ -4,8 +4,9 @@ const xjs = {
   Date: require('extrajs').Date,
   ...require('extrajs-dom'),
 }
-
 const {Processor} = require('template-processor')
+
+const xCity = require('./x-city.tpl.js')
 
 
 const template = xjs.HTMLTemplateElement
@@ -18,7 +19,6 @@ const template = xjs.HTMLTemplateElement
  * @param   {sdo.JobPosting} data the data to fill the template
  */
 function instructions(frag, data) {
-  const {xCity} = require('../class/Resume.class.js').TEMPLATES
   let date_start = new Date(data.$start)
   let date_end   = (data.$end) ? new Date(data.$end) : null
   let descriptions = (typeof data.responsibilities === 'string') ? [data.responsibilities] : data.responsibilities || []

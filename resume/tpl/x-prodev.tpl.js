@@ -4,8 +4,9 @@ const xjs = {
   Date: require('extrajs').Date,
   ...require('extrajs-dom'),
 }
-
 const {Processor} = require('template-processor')
+
+const xCity = require('./x-city.tpl.js')
 
 
 const template = xjs.HTMLTemplateElement
@@ -19,7 +20,6 @@ const template = xjs.HTMLTemplateElement
  * @param   {number} data.$pdh the number of professional development hours
  */
 function instructions(frag, data) {
-  const {xCity} = require('../class/Resume.class.js').TEMPLATES
   let date_start = new Date(data.startDate)
   let date_end   = new Date(data.endDate  )
   let pdh = data.$pdh || 0
