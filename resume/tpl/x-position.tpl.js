@@ -5,12 +5,19 @@ const xjs = {
   ...require('extrajs-dom'),
 }
 
+const {Processor} = require('template-processor')
+
+
+const template = xjs.HTMLTemplateElement
+	.fromFileSync(path.join(__dirname, './x-position.tpl.html')) // NB relative to dist
+	.node
+
 /**
  * @summary xPosition renderer.
  * @param   {DocumentFragment} frag the template conent with which to render
  * @param   {sdo.JobPosting} data the data to fill the template
  */
-function xPosition_renderer(frag, data) {
+function instructions(frag, data) {
   const {xCity} = require('../class/Resume.class.js').TEMPLATES
   let date_start = new Date(data.$start)
   let date_end   = (data.$end) ? new Date(data.$end) : null
@@ -36,15 +43,13 @@ function xPosition_renderer(frag, data) {
   }
 
   new xjs.HTMLElement(frag.querySelector('.c-Position__Place > slot[name="city"]')).empty()
-    .append(new xjs.DocumentFragment(xCity.render(data.jobLocation)).trimInner())
+    .append(new xjs.DocumentFragment(xCity.process(data.jobLocation)).trimInner())
 
-  new xjs.HTMLUListElement(frag.querySelector('.c-Position__Body')).populate(descriptions, function (f, d) {
+  new xjs.HTMLUListElement(frag.querySelector('.c-Position__Body')).populate(function (f, d, o) {
     f.querySelector('li').innerHTML = d
-  })
+  }, descriptions)
 
   new xjs.HTMLElement(frag.querySelector('.c-Position__Dates')).trimInner()
 }
 
-module.exports = xjs.HTMLTemplateElement
-  .fromFileSync(path.join(__dirname, './x-position.tpl.html'))
-  .setRenderer(xPosition_renderer)
+module.exports = new Processor(template, instructions)

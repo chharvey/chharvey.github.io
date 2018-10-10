@@ -1,4 +1,5 @@
 const fs = require('fs')
+const util = require('util')
 
 const gulp         = require('gulp')
 const pug          = require('gulp-pug')
@@ -29,9 +30,9 @@ gulp.task('pug:home', function () {
     .pipe(gulp.dest('./home/'))
 })
 
-gulp.task('pug:resume', function (callback) {
+gulp.task('pug:resume', async function () {
   let contents = new Resume(require('./resume/resume.json')).compile()
-  return fs.writeFile('./resume/resume.html', contents, 'utf8', callback) // send callback here to maintain async dependency
+  return util.promisify(fs.writeFile)('./resume/resume.html', contents, 'utf8')
   return gulp.src('resume/resume.pug')
     .pipe(pug({
       basedir: './',
