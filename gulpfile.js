@@ -1,9 +1,13 @@
 const fs = require('fs')
+const path = require('path')
+const util = require('util')
 
 const gulp         = require('gulp')
 const pug          = require('gulp-pug')
 const less         = require('gulp-less')
 const autoprefixer = require('gulp-autoprefixer')
+
+const xjs = require('extrajs-dom')
 
 const Resume = require('./resume/class/Resume.class.js')
 
@@ -29,9 +33,9 @@ gulp.task('pug:home', function () {
     .pipe(gulp.dest('./home/'))
 })
 
-gulp.task('pug:resume', function (callback) {
-  let contents = new Resume(require('./resume/resume.json')).compile()
-  return fs.writeFile('./resume/resume.html', contents, 'utf8', callback) // send callback here to maintain async dependency
+gulp.task('pug:resume', async function () {
+	let contents = new xjs.Document(await require('./resume/src/page/resume.page.js')).innerHTML()
+	return util.promisify(fs.writeFile)(path.resolve(__dirname, './resume/resume.html'), contents, 'utf8')
   return gulp.src('resume/resume.pug')
     .pipe(pug({
       basedir: './',

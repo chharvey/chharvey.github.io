@@ -4,6 +4,13 @@ const xjs = {
   ...require('extrajs-dom'),
 }
 
+const {Processor} = require('template-processor')
+
+
+const template = xjs.HTMLTemplateElement
+	.fromFileSync(path.join(__dirname, './x-degree.tpl.html')) // NB relative to dist
+	.node
+
 /**
  * @summary xDegree renderer.
  * @param {DocumentFragment} frag the template conent with which to render
@@ -12,7 +19,7 @@ const xjs = {
  * @param {number}  data.gpa grade-point-average
  * @param {string}  data.field type and field of the degree
  */
-function xDegree_renderer(frag, data) {
+function instructions(frag, data) {
   frag.querySelector('[itemprop="name"]'       ).innerHTML   = data.field
   frag.querySelector('[itemprop="ratingValue"]').textContent = data.gpa
   if (data.year > 0) {
@@ -23,6 +30,4 @@ function xDegree_renderer(frag, data) {
   }
 }
 
-module.exports = xjs.HTMLTemplateElement
-  .fromFileSync(path.join(__dirname, './x-degree.tpl.html'))
-  .setRenderer(xDegree_renderer)
+module.exports = new Processor(template, instructions)

@@ -4,6 +4,14 @@ const xjs = {
   Date: require('extrajs').Date,
   ...require('extrajs-dom'),
 }
+const {Processor} = require('template-processor')
+
+const xCity = require('./x-city.tpl.js')
+
+
+const template = xjs.HTMLTemplateElement
+	.fromFileSync(path.join(__dirname, './x-prodev.tpl.html')) // NB relative to dist
+	.node
 
 /**
  * @summary xProdev renderer.
@@ -11,8 +19,7 @@ const xjs = {
  * @param   {sdo.Event} data the data to fill the template
  * @param   {number} data.$pdh the number of professional development hours
  */
-function xProdev_renderer(frag, data) {
-  const {xCity} = require('../class/Resume.class.js').TEMPLATES
+function instructions(frag, data) {
   let date_start = new Date(data.startDate)
   let date_end   = new Date(data.endDate  )
   let pdh = data.$pdh || 0
@@ -20,7 +27,7 @@ function xProdev_renderer(frag, data) {
   frag.querySelector('.o-ListAchv__Award').setAttribute('itemtype', `http://schema.org/${data['@type']}`)
   frag.querySelector('[itemprop="name"]').innerHTML = data.name
   new xjs.HTMLElement(frag.querySelector('slot[name="city"]')).empty()
-    .append(xCity.render(data.location || { "@type": "Place" }))
+    .append(xCity.process(data.location || { "@type": "Place" }))
   frag.querySelector('.o-ListAchv__Award > time').dateTime    = `PT${pdh}H`
   frag.querySelector('.o-ListAchv__Award > time').textContent = `${pdh} hr`
 
@@ -47,6 +54,4 @@ function xProdev_renderer(frag, data) {
   new xjs.HTMLElement(frag.querySelector('.o-ListAchv__Date')).trimInner()
 }
 
-module.exports = xjs.HTMLTemplateElement
-  .fromFileSync(path.join(__dirname, './x-prodev.tpl.html'))
-  .setRenderer(xProdev_renderer)
+module.exports = new Processor(template, instructions)

@@ -9,13 +9,20 @@ STATE_DATA.push(...[
   { "code": "DC", "name": "District of Columbia" },
 ])
 
+const {Processor} = require('template-processor')
+
+
+const template = xjs.HTMLTemplateElement
+	.fromFileSync(path.join(__dirname, './x-city.tpl.html')) // NB relative to dist
+	.node
+
 /**
  * @summary xCity renderer.
  * @param   {DocumentFragment} frag the template conent with which to render
  * @param   {sdo.Place} data the data to fill the template
  * @param   {boolean=} data.$full `true` to display the full (non-abbreviated) region name
  */
-function xCity_renderer(frag, data) {
+function instructions(frag, data) {
   frag.querySelector('[itemprop="addressLocality"]'  ).textContent = data.address.addressLocality
   frag.querySelector('[itemprop="latitude"]'         ).content     = data.geo.latitude
   frag.querySelector('[itemprop="longitude"]'        ).content     = data.geo.longitude
@@ -51,6 +58,4 @@ function regionName(region, options = {}) {
   }
 }
 
-module.exports = xjs.HTMLTemplateElement
-  .fromFileSync(path.join(__dirname, './x-city.tpl.html'))
-  .setRenderer(xCity_renderer)
+module.exports = new Processor(template, instructions)

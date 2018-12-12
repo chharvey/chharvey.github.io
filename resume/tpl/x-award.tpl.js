@@ -5,6 +5,13 @@ const xjs = {
   ...require('extrajs-dom'),
 }
 
+const {Processor} = require('template-processor')
+
+
+const template = xjs.HTMLTemplateElement
+	.fromFileSync(path.join(__dirname, './x-award.tpl.html')) // NB relative to dist
+	.node
+
 /**
  * @summary xAward renderer.
  * @param {DocumentFragment} frag the template conent with which to render
@@ -13,7 +20,7 @@ const xjs = {
  * @param {string} data.text  custom HTML string defining this award
  * @param {Array<{dates:string, text:string}>=} sub_awards any sub-awards associated with this award
  */
-function xAward_renderer(frag, data) {
+function instructions(frag, data) {
   /**
    * Generate content from strings.
    * @private
@@ -29,10 +36,10 @@ function xAward_renderer(frag, data) {
 
   let subs = frag.querySelector('.o-ListAchv__Award > .o-ListAchv')
   if (data.sub_awards) {
-    subs.append(...data.sub_awards.map((s) => require(__filename).render(s)))
+    subs.append(...data.sub_awards.map((s) => xAward.process(s)))
   } else subs.remove()
 }
 
-module.exports = xjs.HTMLTemplateElement
-  .fromFileSync(path.join(__dirname, './x-award.tpl.html'))
-  .setRenderer(xAward_renderer)
+const xAward = new Processor(template, instructions)
+
+module.exports = xAward
