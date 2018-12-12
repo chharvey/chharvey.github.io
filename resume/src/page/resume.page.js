@@ -45,46 +45,16 @@ const data = (function (jsondata) {
 })(require('../../resume.json'))
 
 async function instructions(document/*: Document*/, jsondata/*: ResumePerson*/, opts/*: object*/)/*: Promise<void>*/ {
-    ;(() => {
-      let container = document.querySelector('main header h1')
-      let xName = new Processor(container.querySelector('template'), function (frag, data, opts) {
-        // TODO use aria-patterns name
-        ;[
-          'familyName',
-          'givenName',
-          'additionalName',
-          'honorificPrefix',
-          'honorificSuffix',
-        ].forEach((nameprop) => {
-          let el = frag.querySelector(`slot[name="${nameprop}"]`)
-          if (data[nameprop]) {
-            el.textContent = data[nameprop]
-          } else el.remove()
-        })
-
-        // abbreviate the middle name
-        if (data.additionalName) {
-          frag.querySelector('slot[name="additionalName"]').textContent = `${data.additionalName[0]}.`
-          frag.querySelector('abbr[itemprop="additionalName"]').title = data.additionalName
-        } else {
-          frag.querySelector('abbr[itemprop="additionalName"]').remove()
-        }
-
-        // comma preceding suffix
-        if (!data.honorificSuffix) {
-          frag.querySelector('[itemprop="familyName"]').classList.remove('h-CommaAfter')
-        }
-      })
-      let data = {
+    new xjs.HTMLElement(document.querySelector('main header [itemprop="name"]')).empty().append(
+      xPersonFullname.process({
         // REVIEW indentation
       familyName      : jsondata.familyName      || '',
       givenName       : jsondata.givenName       || '',
       additionalName  : jsondata.additionalName  || '',
       honorificPrefix : jsondata.honorificPrefix || '',
       honorificSuffix : jsondata.honorificSuffix || '',
-      }
-      container.append(xName.process(data))
-    })()
+      })
+    )
 
       new xjs.HTMLUListElement(document.querySelector('main header address ul.c-Contact')).populate(function (frag, data, opts) {
 				new xjs.HTMLAnchorElement(frag.querySelector('.c-Contact__Link')).href(data.href || null)

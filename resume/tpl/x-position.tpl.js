@@ -30,7 +30,7 @@ function instructions(frag, data) {
   frag.querySelector('[itemprop="hiringOrganization"] [itemprop="name"]').innerHTML = data.hiringOrganization.name
 
   new xjs.HTMLTimeElement(frag.querySelectorAll('.c-Position__Dates > time')[0])
-    .dateTime(date_start)
+    .dateTime(date_start.toISOString())
     .textContent(xjs.Date.format(date_start, 'M Y'))
   if (date_end) {
     new xjs.HTMLTimeElement(frag.querySelectorAll('.c-Position__Dates > time')[1])
@@ -43,9 +43,9 @@ function instructions(frag, data) {
   }
 
   new xjs.HTMLElement(frag.querySelector('.c-Position__Place > slot[name="city"]')).empty()
-    .append(new xjs.DocumentFragment(xCity.process(data.jobLocation)).trimInner())
+    .append(new xjs.DocumentFragment(xCity.process({ ...data.jobLocation, $itemprop: 'jobLocation' })).trimInner())
 
-  new xjs.HTMLUListElement(frag.querySelector('.c-Position__Body')).populate(function (f, d, o) {
+  new xjs.HTMLUListElement(frag.querySelector('.c-Position__Body')).populate(function (f, d) {
     f.querySelector('li').innerHTML = d
   }, descriptions)
 
