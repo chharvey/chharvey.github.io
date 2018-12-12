@@ -1,6 +1,7 @@
 const path = require('path')
 
 const Ajv = require('ajv')
+const {xPersonFullname} = require('aria-patterns')
 const xjs = require('extrajs-dom')
 const { SCHEMATA } = require('schemaorg-jsd')
 const requireOther = require('schemaorg-jsd/lib/requireOther.js')
