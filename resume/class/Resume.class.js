@@ -1,18 +1,10 @@
-const fs = require('fs')
 const path = require('path')
 
 const Ajv      = require('ajv')
-const jsdom = require('jsdom')
-const xjs = {
-  Object: require('extrajs').Object,
-  ...require('extrajs-dom'),
-}
-const {Processor} = require('template-processor')
 const { SCHEMATA } = require('schemaorg-jsd')
 const requireOther = require('schemaorg-jsd/lib/requireOther.js')
 
 const RESUME_SCHEMA = requireOther(path.join(__dirname, '../resume.jsd'))
-const xResume = require('../tpl/resume.tpl.js')
 
 
 /**
@@ -42,14 +34,6 @@ class Resume {
      * @type {Object}
      */
     this._DATA = jsondata
-  }
-
-  /**
-   * Compile the entire document.
-   * @returns {string} the compiled DOM output
-   */
-  compile() {
-    return new xjs.Document(xResume.process(this._DATA)).innerHTML()
   }
 }
 

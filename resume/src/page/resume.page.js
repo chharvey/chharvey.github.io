@@ -3,17 +3,31 @@ const path = require('path')
 const xjs = require('extrajs-dom')
 const {Processor} = require('template-processor')
 
-const xAward    = require('../tpl/x-award.tpl.js')
-const xCity     = require('../tpl/x-city.tpl.js')
-const xDegree   = require('../tpl/x-degree.tpl.js')
-const xPosition = require('../tpl/x-position.tpl.js')
-const xProdev   = require('../tpl/x-prodev.tpl.js')
-const xSkill    = require('../tpl/x-skill.tpl.js')
+const xAward    = require('../../tpl/x-award.tpl.js')
+const xDegree   = require('../../tpl/x-degree.tpl.js')
+const xPosition = require('../../tpl/x-position.tpl.js')
+const xProdev   = require('../../tpl/x-prodev.tpl.js')
+const xSkill    = require('../../tpl/x-skill.tpl.js')
+
+/**
+ * @todo    TODO put in template-processor
+ * @param   {Document} doc [description]
+ * @param   {ProcessingFunction_Document<V, W>} instructions [description]
+ * @param   {V} data [description]
+ * @param   {W} options [description]
+ * @param   {unknown} this_arg [description]
+ * @returns {Promise<Document>} [description]
+ */
+async function Processor_processAsync_Document(doc, instructions, data, options = {}, this_arg = null) {
+	await instructions.call(this_arg, doc, data, options)
+	return doc
+}
 
 
-const xResume = {
-	document: xjs.Document.fromFileSync(path.join(__dirname, './resume.tpl.html')).importLinks(__dirname).node,
-	instructions: function (document, jsondata, options) {
+const doc/*: Document*/ = xjs.Document.fromFileSync(path.join(__dirname, '../../tpl/resume.tpl.html')).importLinks(__dirname).node
+const data = require('../../resume.json') // TODO: validate using Ajv
+
+async function instructions(document/*: Document*/, jsondata/*: ResumePerson*/, opts/*: object*/)/*: Promise<void>*/ {
     ;(() => {
       let container = document.querySelector('main header h1')
       let xName = new Processor(container.querySelector('template'), function (frag, data, opts) {
@@ -153,12 +167,19 @@ const xResume = {
           .node
       )
     })()
-	},
-	process(data, options = {}, this_arg = null) {
-		let doc = this.document
-		this.instructions.call(this_arg, doc, data, options)
-		return doc
-	}
 }
+module.exports = Processor_processAsync_Document(doc, instructions, data)
 
-module.exports = xResume
+
+// const xResume = {
+// 	document: ,
+// 	instructions: function (document, jsondata, options) {
+// 	},
+// 	process(data, options = {}, this_arg = null) {
+// 		let doc = this.document
+// 		this.instructions.call(this_arg, doc, data, options)
+// 		return doc
+// 	}
+// }
+//
+// module.exports = xResume
