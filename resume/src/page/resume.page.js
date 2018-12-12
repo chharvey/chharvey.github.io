@@ -1,6 +1,9 @@
 const path = require('path')
 
+const Ajv = require('ajv')
 const xjs = require('extrajs-dom')
+const { SCHEMATA } = require('schemaorg-jsd')
+const requireOther = require('schemaorg-jsd/lib/requireOther.js')
 const {Processor} = require('template-processor')
 
 const xAward    = require('../../tpl/x-award.tpl.js')
@@ -8,6 +11,8 @@ const xDegree   = require('../../tpl/x-degree.tpl.js')
 const xPosition = require('../../tpl/x-position.tpl.js')
 const xProdev   = require('../../tpl/x-prodev.tpl.js')
 const xSkill    = require('../../tpl/x-skill.tpl.js')
+
+const RESUME_SCHEMA = requireOther(path.join(__dirname, '../../resume.jsd'))
 
 /**
  * @todo    TODO put in template-processor
@@ -25,7 +30,19 @@ async function Processor_processAsync_Document(doc, instructions, data, options 
 
 
 const doc/*: Document*/ = xjs.Document.fromFileSync(path.join(__dirname, '../../tpl/resume.tpl.html')).importLinks(__dirname).node
-const data = require('../../resume.json') // TODO: validate using Ajv
+const data = (function (jsondata) {
+	let ajv = new Ajv()
+	ajv.addSchema(SCHEMATA)
+	let is_data_valid = ajv.validate(RESUME_SCHEMA, jsondata)
+	if (!is_data_valid) {
+		let e = new TypeError(ajv.errors[0].message)
+		e.filename = 'resume.json'
+		e.details = ajv.errors[0]
+		console.error(e)
+		throw e
+	}
+	return jsondata
+})(require('../../resume.json'))
 
 async function instructions(document/*: Document*/, jsondata/*: ResumePerson*/, opts/*: object*/)/*: Promise<void>*/ {
     ;(() => {
@@ -169,17 +186,3 @@ async function instructions(document/*: Document*/, jsondata/*: ResumePerson*/, 
     })()
 }
 module.exports = Processor_processAsync_Document(doc, instructions, data)
-
-
-// const xResume = {
-// 	document: ,
-// 	instructions: function (document, jsondata, options) {
-// 	},
-// 	process(data, options = {}, this_arg = null) {
-// 		let doc = this.document
-// 		this.instructions.call(this_arg, doc, data, options)
-// 		return doc
-// 	}
-// }
-//
-// module.exports = xResume
