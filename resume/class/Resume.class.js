@@ -7,7 +7,7 @@ const xjs = {
   Object: require('extrajs').Object,
   ...require('extrajs-dom'),
 }
-const ARIAPatterns = require('aria-patterns')
+const {xPersonFullname} = require('aria-patterns')
 
 const { SCHEMATA } = require('schemaorg-jsd')
 const requireOther = require('schemaorg-jsd/lib/requireOther.js')
@@ -61,7 +61,7 @@ class Resume {
 
     // ++++ DATA WITH NO PATTERNS ++++ //
     new xjs.HTMLElement(document.querySelector('main header [itemprop="name"]')).empty().append(
-      ARIAPatterns.xPersonFullname.render({
+      xPersonFullname.process({
         // REVIEW indentation
       familyName      : this._DATA.familyName      || '',
       givenName       : this._DATA.givenName       || '',

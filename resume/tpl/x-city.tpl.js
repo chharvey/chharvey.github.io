@@ -9,7 +9,7 @@ STATE_DATA.push(...[
   { "code": "DC", "name": "District of Columbia" },
 ])
 
-const xAddress = require('aria-patterns/tpl/x-address.tpl.js')
+const {xAddress} = require('aria-patterns')
 
 
 /**
@@ -23,7 +23,7 @@ function xCity_renderer(frag, data) {
   new xjs.HTMLElement(frag.querySelector('[itemtype="http://schema.org/City"]'))
     .attr('itemprop', data.$itemprop || null)
   new xjs.HTMLElement(frag.querySelector('slot[name="address"]')).empty()
-    .append(xAddress.render({ ...data.address, $itemprop: 'address', $regionName: true }))
+    .append(xAddress.process(data.address, { regionName: true, $itemprop: 'address' }))
   frag.querySelector('[itemprop="latitude"]'         ).content     = data.geo.latitude
   frag.querySelector('[itemprop="longitude"]'        ).content     = data.geo.longitude
 }
