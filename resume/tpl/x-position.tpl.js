@@ -26,8 +26,9 @@ function instructions(frag, data) {
   frag.querySelector('.c-Position'       ).id        = data.identifier
   frag.querySelector('[itemprop="title"]').innerHTML = data.title
   frag.querySelector('[itemprop="hiringOrganization"]').setAttribute('itemtype', `http://schema.org/${data.hiringOrganization['@type']}`)
-  frag.querySelector('[itemprop="hiringOrganization"] [itemprop="url"]').href       = data.hiringOrganization.url || ''
   frag.querySelector('[itemprop="hiringOrganization"] [itemprop="name"]').innerHTML = data.hiringOrganization.name
+	new xjs.HTMLAnchorElement(frag.querySelector('[itemprop="hiringOrganization"] [itemprop="url"]')/* as HTMLAnchorElement*/)
+		.href(data.hiringOrganization.url || null)
 
   new xjs.HTMLTimeElement(frag.querySelectorAll('.c-Position__Dates > time')[0])
     .dateTime(date_start.toISOString())
