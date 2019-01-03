@@ -8,6 +8,8 @@ const less         = require('gulp-less')
 const autoprefixer = require('gulp-autoprefixer')
 
 const xjs = require('extrajs-dom')
+const resume = require('resume')
+const xAward = require('resume/dist/tpl/x-award.tpl.js').default
 
 const Resume = require('./resume/class/Resume.class.js')
 
@@ -34,7 +36,30 @@ gulp.task('pug:home', function () {
 })
 
 gulp.task('pug:resume', async function () {
-	let contents = new xjs.Document(await require('./resume/src/page/resume.page.js')).innerHTML()
+	const DATA = require('./resume/resume.json')
+	const OPTS = {
+		scripts: [
+			`<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML,https://chharvey.github.io/chhlib/mathjax-localconfig.js"></script>`,
+		],
+		basedir: '../node_modules/resume/',
+	}
+	let xdocument = new xjs.Document(await resume(DATA, OPTS))
+
+	let first_award = xdocument.node.querySelector('#prof-dev > dl > dd:nth-of-type(1)')
+	// let first_award = xdocument.querySelector('#prof-dev > dl > dd:nth-of-type(1)') // TODO extrajs-dom^5.1
+	if (first_award !== null) {
+		// first_award.after(xAward.process({ // TODO extrajs-dom^5.1
+		new xjs.Element(first_award).after(xAward.process({
+			dates: '<time>2011</time>&ndash;<time>2014</time>',
+			text : `
+				<span itemscope="" itemtype="http://schema.org/EducationalOrganization">
+					<abbr class="c-Acro" title="Virginia Council of Teachers of Mathematics" itemprop="name"><span class="c-Acro__First">V</span>CTM</abbr>
+					Conferences, annually statewide (<time datetime="PT40H">10 hr each</time>)
+				</span>
+			`,
+		}))
+	}
+	let contents = xdocument.innerHTML()
 	return util.promisify(fs.writeFile)(path.resolve(__dirname, './resume/resume.html'), contents, 'utf8')
   return gulp.src('resume/resume.pug')
     .pipe(pug({
