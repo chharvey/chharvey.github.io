@@ -10,6 +10,7 @@ const autoprefixer = require('gulp-autoprefixer')
 const xjs = require('extrajs-dom')
 const resume = require('resume')
 const xAward = require('resume/dist/tpl/x-award.tpl.js').default
+const { requireOther } = require('schemaorg-jsd/lib/requireOther.js')
 
 
 gulp.task('pug:landing', function () {
@@ -35,7 +36,7 @@ gulp.task('pug:home', function () {
 })
 
 gulp.task('pug:resume', async function () {
-	const DATA = require('./resume/resume.json')
+	const DATA = requireOther('./resume/resume.jsonld')
 	const OPTS = {
 		scripts: [
 			`<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML,https://chharvey.github.io/chhlib/mathjax-localconfig.js"></script>`,
