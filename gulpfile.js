@@ -11,7 +11,6 @@ const xjs = require('extrajs-dom')
 const resume = require('resume')
 const xAward = require('resume/dist/tpl/x-award.tpl.js').default
 
-const Resume = require('./resume/class/Resume.class.js')
 
 gulp.task('pug:landing', function () {
   return gulp.src('./index.jade')
@@ -61,20 +60,6 @@ gulp.task('pug:resume', async function () {
 	}
 	let contents = xdocument.innerHTML()
 	return util.promisify(fs.writeFile)(path.resolve(__dirname, './resume/resume.html'), contents, 'utf8')
-  return gulp.src('resume/resume.pug')
-    .pipe(pug({
-      basedir: './',
-      locals: {
-        xjs: {
-          Element: require('extrajs-dom').Element,
-          HTMLUListElement: require('extrajs-dom').HTMLUListElement,
-          HTMLLIElement: require('extrajs-dom').HTMLLIElement,
-        },
-        resume: new Resume(require('./resume/resume.json')),
-        jsdom: require('jsdom'),
-      },
-    }))
-    .pipe(gulp.dest('./resume/'))
 })
 
 gulp.task('pug:blog', function () {
@@ -113,24 +98,14 @@ gulp.task('lessc:home', function () {
     .pipe(gulp.dest('./home/css/'))
 })
 
-gulp.task('lessc:resume', function () {
-  return gulp.src('resume/css/src/resume.less')
-    .pipe(less())
-    .pipe(autoprefixer({
-      grid: true,
-      cascade: false,
-    }))
-    .pipe(gulp.dest('./resume/css/'))
-})
-
 gulp.task('lessc:blog', function () {
 })
 
-gulp.task('lessc:all', ['lessc:landing','lessc:home','lessc:resume','lessc:blog'])
+gulp.task('lessc:all', ['lessc:landing','lessc:home','lessc:blog'])
 
 gulp.task('build:landing', ['pug:landing','lessc:landing'])
 gulp.task('build:home'   , ['pug:home'   ,'lessc:home'   ])
-gulp.task('build:resume' , ['pug:resume' ,'lessc:resume' ])
+gulp.task('build:resume' , ['pug:resume'  ])
 gulp.task('build:blog'   , ['pug:blog'   ,'lessc:blog'   ])
 
 gulp.task('build:all', ['build:landing','build:home','build:resume','build:blog'])
