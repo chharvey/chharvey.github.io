@@ -1,7 +1,17 @@
+const fs = require('fs')
+const path = require('path')
+const util = require('util')
+
 const gulp         = require('gulp')
 const pug          = require('gulp-pug')
 const less         = require('gulp-less')
 const autoprefixer = require('gulp-autoprefixer')
+
+const xjs = require('extrajs-dom')
+const resume = require('resume')
+const xAward = require('resume/dist/tpl/x-award.tpl.js').default
+const { requireOther } = require('schemaorg-jsd/lib/requireOther.js')
+
 
 gulp.task('pug:landing', function () {
   return gulp.src('./index.jade')
@@ -25,18 +35,32 @@ gulp.task('pug:home', function () {
     .pipe(gulp.dest('./home/'))
 })
 
-gulp.task('pug:resume', function () {
-  return gulp.src('resume/resume.pug')
-    .pipe(pug({
-      basedir: './',
-      locals: {
-        Element: require('extrajs-dom').Element,
-        HTMLUListElement: require('extrajs-dom').HTMLUListElement,
-        HTMLLIElement: require('extrajs-dom').HTMLLIElement,
-        resume: new (require('./resume/class/Resume.class.js'))(require('./resume/resume.json')),
-      },
-    }))
-    .pipe(gulp.dest('./resume/'))
+gulp.task('pug:resume', async function () {
+	const DATA = requireOther('./resume/resume.jsonld')
+	const OPTS = {
+		scripts: [
+			`<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML,https://chharvey.github.io/chhlib/mathjax-localconfig.js"></script>`,
+		],
+		basedir: '../node_modules/resume/',
+	}
+	let xdocument = new xjs.Document(await resume(DATA, OPTS))
+
+	let first_award = xdocument.node.querySelector('#prof-dev > dl > dd:nth-of-type(1)')
+	// let first_award = xdocument.querySelector('#prof-dev > dl > dd:nth-of-type(1)') // TODO extrajs-dom^5.1
+	if (first_award !== null) {
+		// first_award.after(xAward.process({ // TODO extrajs-dom^5.1
+		new xjs.Element(first_award).after(xAward.process({
+			dates: '<time>2011</time>&ndash;<time>2014</time>',
+			text : `
+				<span itemscope="" itemtype="http://schema.org/EducationalOrganization">
+					<abbr class="c-Acro" title="Virginia Council of Teachers of Mathematics" itemprop="name"><span class="c-Acro__First">V</span>CTM</abbr>
+					Conferences, annually statewide (<time datetime="PT40H">10 hr each</time>)
+				</span>
+			`,
+		}))
+	}
+	let contents = xdocument.innerHTML()
+	return util.promisify(fs.writeFile)(path.resolve(__dirname, './resume/resume.html'), contents, 'utf8')
 })
 
 gulp.task('pug:blog', function () {
@@ -75,24 +99,14 @@ gulp.task('lessc:home', function () {
     .pipe(gulp.dest('./home/css/'))
 })
 
-gulp.task('lessc:resume', function () {
-  return gulp.src('resume/css/src/resume.less')
-    .pipe(less())
-    .pipe(autoprefixer({
-      grid: true,
-      cascade: false,
-    }))
-    .pipe(gulp.dest('./resume/css/'))
-})
-
 gulp.task('lessc:blog', function () {
 })
 
-gulp.task('lessc:all', ['lessc:landing','lessc:home','lessc:resume','lessc:blog'])
+gulp.task('lessc:all', ['lessc:landing','lessc:home','lessc:blog'])
 
 gulp.task('build:landing', ['pug:landing','lessc:landing'])
 gulp.task('build:home'   , ['pug:home'   ,'lessc:home'   ])
-gulp.task('build:resume' , ['pug:resume' ,'lessc:resume' ])
+gulp.task('build:resume' , ['pug:resume'  ])
 gulp.task('build:blog'   , ['pug:blog'   ,'lessc:blog'   ])
 
 gulp.task('build:all', ['build:landing','build:home','build:resume','build:blog'])
