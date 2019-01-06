@@ -7,10 +7,10 @@ const pug          = require('gulp-pug')
 const less         = require('gulp-less')
 const autoprefixer = require('gulp-autoprefixer')
 
+const { requireJSON } = require('@chharvey/requirejson')
 const xjs = require('extrajs-dom')
 const resume = require('resume')
 const xAward = require('resume/dist/tpl/x-award.tpl.js').default
-const { requireOther } = require('schemaorg-jsd/lib/requireOther.js')
 
 
 gulp.task('pug:landing', function () {
@@ -36,14 +36,14 @@ gulp.task('pug:home', function () {
 })
 
 gulp.task('pug:resume', async function () {
-	const DATA = requireOther('./resume/resume.jsonld')
+	const DATA = requireJSON('./resume/resume.jsonld')
 	const OPTS = {
 		scripts: [
 			`<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML,https://chharvey.github.io/chhlib/mathjax-localconfig.js"></script>`,
 		],
 		basedir: '../node_modules/resume/',
 	}
-	let xdocument = new xjs.Document(await resume(DATA, OPTS))
+	let xdocument = new xjs.Document(await resume(await DATA, OPTS))
 
 	let first_award = xdocument.node.querySelector('#prof-dev > dl > dd:nth-of-type(1)')
 	// let first_award = xdocument.querySelector('#prof-dev > dl > dd:nth-of-type(1)') // TODO extrajs-dom^5.1
